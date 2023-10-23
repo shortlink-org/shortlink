@@ -2,6 +2,4 @@ package query
 
 import "errors"
 
-var (
-	ErrNotFound = errors.New("not found links")
-)
+var ErrNotFound = errors.New("not found links")

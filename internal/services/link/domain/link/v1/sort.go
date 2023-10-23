@@ -1,13 +1,13 @@
 package v1
 
 func (l *Links) Len() int {
-	return len(l.Link)
+	return len(l.GetLink())
 }
 
 func (l *Links) Less(i, j int) bool {
-	return l.Link[i].CreatedAt.AsTime().Before(l.Link[j].CreatedAt.AsTime())
+	return l.GetLink()[i].GetCreatedAt().AsTime().Before(l.GetLink()[j].GetCreatedAt().AsTime())
 }
 
 func (l *Links) Swap(i, j int) {
-	l.Link[i], l.Link[j] = l.Link[j], l.Link[i]
+	l.Link[i], l.Link[j] = l.GetLink()[j], l.GetLink()[i]
 }

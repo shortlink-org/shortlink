@@ -12,7 +12,7 @@ import (
 )
 
 const (
-	// contextCookieKey is the key used to store the cookie in the context.
+	// ContextCookieKey is the key used to store the cookie in the context.
 	contextCookieKey = "cookie"
 )
 

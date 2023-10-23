@@ -13,7 +13,7 @@ type Config struct {
 }
 
 // Store implementation of db interface
-type Store struct { // nolint:decorder
+type Store struct { //nolint:decorder
 	client *leveldb.DB
 	config Config
 }

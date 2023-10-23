@@ -11,41 +11,41 @@ import (
 )
 
 func (f *file) CreateIndex(query *v1.Query) error {
-	t := f.database.Tables[query.TableName]
+	t := f.database.GetTables()[query.GetTableName()]
 
-	if t.Index == nil {
+	if t.GetIndex() == nil {
 		t.Index = make(map[string]*v2.Index)
 	}
 
 	// check
-	for i := range query.Indexs {
-		if t.Index[query.Indexs[i].Name] != nil {
-			return fmt.Errorf("at CREATE INDEX: exist index %s", query.Indexs[i].Name)
+	for i := range query.GetIndexs() {
+		if t.GetIndex()[query.GetIndexs()[i].GetName()] != nil {
+			return fmt.Errorf("at CREATE INDEX: exist index %s", query.GetIndexs()[i].GetName())
 		}
 	}
 
 	// create
-	for i := range query.Indexs {
+	for i := range query.GetIndexs() {
 		// create index
-		t.Index[query.Indexs[i].Name] = &v2.Index{
-			Name:   query.Indexs[i].Name,
-			Type:   query.Indexs[i].Type,
-			Fields: query.Indexs[i].Fields,
+		t.Index[query.GetIndexs()[i].GetName()] = &v2.Index{
+			Name:   query.GetIndexs()[i].GetName(),
+			Type:   query.GetIndexs()[i].GetType(),
+			Fields: query.GetIndexs()[i].GetFields(),
 		}
 
 		// get all values
 		// TODO: use pattern iterator
-		cmd, err := parser.New(fmt.Sprintf("SELECT %s from %s", strings.Join(query.Indexs[i].Fields, ","), query.TableName))
+		cmd, err := parser.New(fmt.Sprintf("SELECT %s from %s", strings.Join(query.GetIndexs()[i].GetFields(), ","), query.GetTableName()))
 		if err != nil {
 			return err
 		}
-		rows, err := f.Select(cmd.Query)
-		if err != nil { // nolint:staticcheck
+		rows, err := f.Select(cmd.GetQuery())
+		if err != nil { //nolint:staticcheck
 			// NOTE: ignore empty table
 		}
 
 		// build index
-		tree, err := index.New(t.Index[query.Indexs[i].Name], rows)
+		tree, err := index.New(t.GetIndex()[query.GetIndexs()[i].GetName()], rows)
 		if err != nil {
 			return err
 		}
@@ -57,7 +57,7 @@ func (f *file) CreateIndex(query *v1.Query) error {
 		}
 
 		// save date
-		openFile, err := f.createFile(fmt.Sprintf("%s_%s_%s.index.json", f.database.Name, query.TableName, query.Indexs[i].Name))
+		openFile, err := f.createFile(fmt.Sprintf("%s_%s_%s.index.json", f.database.GetName(), query.GetTableName(), query.GetIndexs()[i].GetName()))
 		if err != nil {
 			return err
 		}

@@ -14,7 +14,7 @@ type Subscriber[T any] interface {
 	Notify(ctx context.Context, event uint32, payload T) Response[T]
 }
 
-type Notify[T any] struct { // nolint:decorder
+type Notify[T any] struct { //nolint:decorder
 	mu            sync.RWMutex
 	subscriberMap map[uint32][]Subscriber[T]
 }
@@ -25,7 +25,7 @@ type Response[T any] struct {
 	Name    string
 }
 
-type Callback struct { // nolint:decorder
+type Callback struct { //nolint:decorder
 	CB             chan<- any
 	ResponseFilter string
 }

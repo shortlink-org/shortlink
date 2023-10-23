@@ -10,7 +10,7 @@ import (
 )
 
 func (l *Link) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
-	resp, err := l.service.Get(ctx, in.Hash)
+	resp, err := l.service.Get(ctx, in.GetHash())
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}

@@ -15,7 +15,7 @@ import (
 )
 
 func (l *Link) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
-	resp, err := l.service.Get(ctx, in.Hash)
+	resp, err := l.service.Get(ctx, in.GetHash())
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}
@@ -40,8 +40,8 @@ func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error)
 	// Parse args
 	filter := queryStore.Filter{}
 
-	if in.Filter != "" {
-		errJsonUnmarshal := json.Unmarshal([]byte(in.Filter), &filter)
+	if in.GetFilter() != "" {
+		errJsonUnmarshal := json.Unmarshal([]byte(in.GetFilter()), &filter)
 		if errJsonUnmarshal != nil {
 			return nil, errors.New("error parse payload as string")
 		}
@@ -58,11 +58,11 @@ func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error)
 }
 
 func (l *Link) Add(ctx context.Context, in *AddRequest) (*AddResponse, error) {
-	if in.Link == nil {
+	if in.GetLink() == nil {
 		return nil, fmt.Errorf("Create a new link: empty payload")
 	}
 
-	resp, err := l.service.Add(ctx, in.Link)
+	resp, err := l.service.Add(ctx, in.GetLink())
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}
@@ -73,7 +73,7 @@ func (l *Link) Add(ctx context.Context, in *AddRequest) (*AddResponse, error) {
 }
 
 func (l *Link) Update(ctx context.Context, in *UpdateRequest) (*UpdateResponse, error) {
-	resp, err := l.service.Update(ctx, in.Link)
+	resp, err := l.service.Update(ctx, in.GetLink())
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}
@@ -84,7 +84,7 @@ func (l *Link) Update(ctx context.Context, in *UpdateRequest) (*UpdateResponse, 
 }
 
 func (l *Link) Delete(ctx context.Context, in *DeleteRequest) (*emptypb.Empty, error) {
-	_, err := l.service.Delete(ctx, in.Hash)
+	_, err := l.service.Delete(ctx, in.GetHash())
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}

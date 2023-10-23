@@ -60,7 +60,7 @@ func (b *Bot) Use(ctx context.Context) {
 				continue
 			}
 
-			b.log.InfoWithContext(msg.Context, "Get new LINK", field.Fields{"url": myLink.Url})
+			b.log.InfoWithContext(msg.Context, "Get new LINK", field.Fields{"url": myLink.GetUrl()})
 			notify.Publish(msg.Context, events.METHOD_NEW_LINK, myLink, nil)
 		}
 	})
@@ -84,7 +84,7 @@ func (b *Bot) Notify(ctx context.Context, event uint32, payload any) notify.Resp
 }
 
 func (b *Bot) send(ctx context.Context, in *link.Link) {
-	payload := fmt.Sprintf("LINK: %s", in.Url)
+	payload := fmt.Sprintf("LINK: %s", in.GetUrl())
 
 	notify.Publish(ctx, events.METHOD_SEND_NEW_LINK, payload, nil)
 }

@@ -35,7 +35,7 @@ func (r *Redis) Close() error {
 	return nil
 }
 
-func (r *Redis) Publish(ctx context.Context, target string, routingKey []byte, payload []byte) error {
+func (r *Redis) Publish(ctx context.Context, target string, routingKey, payload []byte) error {
 	// TODO implement me
 	panic("implement me")
 }

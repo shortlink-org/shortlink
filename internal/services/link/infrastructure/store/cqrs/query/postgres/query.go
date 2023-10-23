@@ -58,7 +58,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 		}
 	}
 
-	if response.Hash == "" {
+	if response.GetHash() == "" {
 		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
@@ -101,7 +101,7 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v12.LinksView,
 		result.CreatedAt = &timestamppb.Timestamp{Seconds: int64(created_ad.Time.Unix()), Nanos: int32(created_ad.Time.Nanosecond())}
 		result.UpdatedAt = &timestamppb.Timestamp{Seconds: int64(updated_at.Time.Unix()), Nanos: int32(updated_at.Time.Nanosecond())}
 
-		response.Links = append(response.Links, &result)
+		response.Links = append(response.GetLinks(), &result)
 	}
 
 	return response, nil

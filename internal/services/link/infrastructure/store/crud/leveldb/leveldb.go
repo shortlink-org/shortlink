@@ -38,7 +38,7 @@ func (l *Store) Add(_ context.Context, source *v1.Link) (*v1.Link, error) {
 		return nil, err
 	}
 
-	err = l.client.Put([]byte(source.Hash), payload, nil)
+	err = l.client.Put([]byte(source.GetHash()), payload, nil)
 	if err != nil {
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func (l *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 		return nil, err
 	}
 
-	if response.Url == "" {
+	if response.GetUrl() == "" {
 		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
@@ -84,7 +84,7 @@ func (l *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
 			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 		}
 
-		links.Link = append(links.Link, &response)
+		links.Link = append(links.GetLink(), &response)
 	}
 
 	iterator.Release()

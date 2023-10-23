@@ -9,7 +9,7 @@ import (
 )
 
 func (s *Sitemap) Parse(ctx context.Context, in *ParseRequest) (*emptypb.Empty, error) {
-	err := s.service.Parse(ctx, in.Url)
+	err := s.service.Parse(ctx, in.GetUrl())
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}

@@ -3,9 +3,8 @@ package payment
 import (
 	"net/http"
 
-	"github.com/segmentio/encoding/json"
-
 	"github.com/go-chi/chi/v5"
+	"github.com/segmentio/encoding/json"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
@@ -14,7 +13,7 @@ import (
 )
 
 type PaymentAPI struct {
-	jsonpb protojson.MarshalOptions // nolint:structcheck
+	jsonpb protojson.MarshalOptions //nolint:structcheck
 
 	paymentService *payment_application.PaymentService
 }
@@ -46,7 +45,7 @@ func (api *PaymentAPI) open(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
@@ -54,7 +53,7 @@ func (api *PaymentAPI) open(w http.ResponseWriter, r *http.Request) {
 	newPayment, err := api.paymentService.Add(r.Context(), &request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
@@ -62,13 +61,13 @@ func (api *PaymentAPI) open(w http.ResponseWriter, r *http.Request) {
 	res, err := api.jsonpb.Marshal(newPayment)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	_, _ = w.Write(res) // nolint:errcheck
+	_, _ = w.Write(res) //nolint:errcheck
 }
 
 // get payment by identity
@@ -81,7 +80,7 @@ func (api *PaymentAPI) get(w http.ResponseWriter, r *http.Request) {
 	aggregateId := chi.URLParam(r, "id")
 	if aggregateId == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "need set payment of identity"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "need set payment of identity"}`)) //nolint:errcheck
 
 		return
 	}
@@ -89,7 +88,7 @@ func (api *PaymentAPI) get(w http.ResponseWriter, r *http.Request) {
 	getPayment, err := api.paymentService.Get(r.Context(), aggregateId)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
@@ -97,13 +96,13 @@ func (api *PaymentAPI) get(w http.ResponseWriter, r *http.Request) {
 	res, err := api.jsonpb.Marshal(getPayment)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(res) // nolint:errcheck
+	_, _ = w.Write(res) //nolint:errcheck
 }
 
 // list - get all payments of users
@@ -114,7 +113,7 @@ func (api *PaymentAPI) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) // nolint:errcheck
+	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck
 }
 
 // close a payment
@@ -127,7 +126,7 @@ func (api *PaymentAPI) close(w http.ResponseWriter, r *http.Request) {
 	aggregateId := chi.URLParam(r, "id")
 	if aggregateId == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "need set payment of identity"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "need set payment of identity"}`)) //nolint:errcheck
 
 		return
 	}
@@ -135,11 +134,11 @@ func (api *PaymentAPI) close(w http.ResponseWriter, r *http.Request) {
 	err := api.paymentService.Close(r.Context(), aggregateId)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) // nolint:errcheck
+	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck
 }

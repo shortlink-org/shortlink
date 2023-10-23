@@ -52,11 +52,11 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 
 	// Create a batch job ----------------------------------------------------------------------------------------------
 	if s.config.mode == options.MODE_BATCH_WRITE {
-		cb := func(args []*batch.Item) any { // nolint:errcheck
+		cb := func(args []*batch.Item) any { //nolint:errcheck
 			sources := make([]*domain.Link, len(args))
 
 			for key := range args {
-				sources[key] = args[key].Item.(*domain.Link) // nolint:errcheck
+				sources[key] = args[key].Item.(*domain.Link) //nolint:errcheck
 			}
 
 			dataList, errBatchWrite := s.batchWrite(ctx, sources)
@@ -69,7 +69,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 				return errBatchWrite
 			}
 
-			for key, item := range dataList.Link {
+			for key, item := range dataList.GetLink() {
 				args[key].CallbackChannel <- item
 			}
 
@@ -113,7 +113,7 @@ func (p *Store) Get(ctx context.Context, id string) (*domain.Link, error) {
 		}
 	}
 
-	if response.Hash == "" {
+	if response.GetHash() == "" {
 		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
 
@@ -166,7 +166,7 @@ func (p *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, 
 		result.CreatedAt = &timestamppb.Timestamp{Seconds: created_ad.Time.Unix(), Nanos: int32(created_ad.Time.Nanosecond())}
 		result.UpdatedAt = &timestamppb.Timestamp{Seconds: updated_at.Time.Unix(), Nanos: int32(updated_at.Time.Nanosecond())}
 
-		response.Link = append(response.Link, &result)
+		response.Link = append(response.GetLink(), &result)
 	}
 
 	return response, nil
@@ -237,7 +237,7 @@ func (p *Store) singleWrite(ctx context.Context, source *domain.Link) (*domain.L
 	// query builder
 	links := psql.Insert("link.links").
 		Columns("url", "hash", "describe", "json").
-		Values(source.Url, source.Hash, source.Describe, string(dataJson))
+		Values(source.GetUrl(), source.GetHash(), source.GetDescribe(), string(dataJson))
 
 	q, args, err := links.ToSql()
 	if err != nil {
@@ -251,7 +251,7 @@ func (p *Store) singleWrite(ctx context.Context, source *domain.Link) (*domain.L
 		return source, nil
 	}
 	if errScan.Error() != "" {
-		return nil, &domain.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
+		return nil, &domain.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.GetUrl())}
 	}
 
 	return source, nil
@@ -276,7 +276,7 @@ func (p *Store) batchWrite(ctx context.Context, sources []*domain.Link) (*domain
 			return nil, err
 		}
 
-		links = links.Values(source.Url, source.Hash, source.Describe, dataJson)
+		links = links.Values(source.GetUrl(), source.GetHash(), source.GetDescribe(), dataJson)
 	}
 
 	q, args, err := links.ToSql()
@@ -299,7 +299,7 @@ func (p *Store) batchWrite(ctx context.Context, sources []*domain.Link) (*domain
 		Link: []*domain.Link{},
 	}
 
-	response.Link = append(response.Link, sources...)
+	response.Link = append(response.GetLink(), sources...)
 
 	return response, nil
 }

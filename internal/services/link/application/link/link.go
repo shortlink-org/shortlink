@@ -256,7 +256,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 					Relationship: &permission.Relationship{
 						Resource: &permission.ObjectReference{
 							ObjectType: "link",
-							ObjectId:   in.Hash,
+							ObjectId:   in.GetHash(),
 						},
 						Relation: "writer",
 						Subject: &permission.SubjectReference{
@@ -276,7 +276,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 
 			return nil
 		}).Reject(func(ctx context.Context) error {
-		err := s.store.Delete(ctx, in.Hash)
+		err := s.store.Delete(ctx, in.GetHash())
 		if err != nil {
 			return err
 		}
@@ -291,7 +291,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 		Needs(SAGA_STEP_ADD_PERMISSION).
 		Then(func(ctx context.Context) error {
 			_, err := s.MetadataClient.Set(ctx, &metadata_rpc.MetadataServiceSetRequest{
-				Url: in.Url,
+				Url: in.GetUrl(),
 			})
 			if err != nil {
 				return err

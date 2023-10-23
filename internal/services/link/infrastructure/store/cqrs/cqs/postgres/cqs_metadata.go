@@ -14,10 +14,10 @@ import (
 func (s *Store) MetadataUpdate(ctx context.Context, in *v1.Meta) (*v1.Meta, error) {
 	// query builder
 	metadata := psql.Update("link.link_view").
-		Set("image_url", in.ImageUrl).
-		Set("meta_description", in.Description).
-		Set("meta_keywords", in.Keywords).
-		Where(squirrel.Eq{"url": in.Id})
+		Set("image_url", in.GetImageUrl()).
+		Set("meta_description", in.GetDescription()).
+		Set("meta_keywords", in.GetKeywords()).
+		Where(squirrel.Eq{"url": in.GetId()})
 
 	q, args, err := metadata.ToSql()
 	if err != nil {

@@ -40,7 +40,7 @@ func New(ctx context.Context) (*Store, error) {
 			}
 
 			for key := range args {
-				source := args[key].Item.(*v1.Link) // nolint:errcheck
+				source := args[key].Item.(*v1.Link) //nolint:errcheck
 				data, errSingleWrite := s.singleWrite(ctx, source)
 				if errSingleWrite != nil {
 					return errSingleWrite
@@ -91,7 +91,7 @@ func (ram *Store) List(_ context.Context, filter *query.Filter) (*v1.Links, erro
 
 		// Apply Filter
 		if isFilterSuccess(link, filter) {
-			links.Link = append(links.Link, link)
+			links.Link = append(links.GetLink(), link)
 		}
 
 		return true
@@ -146,7 +146,7 @@ func (ram *Store) singleWrite(_ context.Context, source *v1.Link) (*v1.Link, err
 		return nil, err
 	}
 
-	ram.links.Store(source.Hash, source)
+	ram.links.Store(source.GetHash(), source)
 
 	return source, nil
 }

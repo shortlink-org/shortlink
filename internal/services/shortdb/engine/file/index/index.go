@@ -13,7 +13,7 @@ import (
 func New(in *index.Index, rows []*page.Row) (Index[any], error) {
 	var tree Index[any]
 
-	switch in.Type {
+	switch in.GetType() {
 	case v2.Type_TYPE_BINARY_SEARCH:
 		tree = binary_tree.New(func(a, b any) int {
 			switch x, y := reflect.TypeOf(a), reflect.TypeOf(b); true {

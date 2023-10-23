@@ -23,7 +23,7 @@ func (s *SyncMap) Get(key any) any {
 	return s.m[key]
 }
 
-func (s *SyncMap) Set(key any, value any) {
+func (s *SyncMap) Set(key, value any) {
 	s.mu.Lock()
 	defer s.mu.Unlock()
 

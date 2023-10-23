@@ -4,12 +4,13 @@ import (
 	"context"
 
 	"github.com/nats-io/nats.go"
+
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
 
 type Config struct{}
 
-type NATS struct { // nolint:decorder
+type NATS struct { //nolint:decorder
 	*Config
 	client *nats.Conn
 }
@@ -32,7 +33,7 @@ func (mq *NATS) Close() error {
 	return nil
 }
 
-func (mq *NATS) Publish(ctx context.Context, target string, routingKey []byte, payload []byte) error {
+func (mq *NATS) Publish(ctx context.Context, target string, routingKey, payload []byte) error {
 	err := mq.client.Publish(string(routingKey), payload)
 	return err
 }
@@ -47,7 +48,7 @@ func (mq *NATS) Subscribe(ctx context.Context, target string, message query.Resp
 		return err
 	}
 
-	ch := make(chan *nats.Msg, 64) // nolint:gomnd
+	ch := make(chan *nats.Msg, 64) //nolint:gomnd
 	_, err = mq.client.ChanSubscribe(string(message.Key), ch)
 
 	if err != nil {

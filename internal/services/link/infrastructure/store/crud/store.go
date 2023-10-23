@@ -27,7 +27,7 @@ import (
 )
 
 // New return implementation of db
-func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*Store, error) { // nolint:gocognit
+func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*Store, error) { //nolint:gocognit
 	s := &Store{
 		log:   log,
 		cache: cache,
@@ -111,7 +111,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 		Ctx:   ctx,
 		Key:   fmt.Sprintf(`link:%s`, id),
 		Value: &response,
-		TTL:   5 * time.Minute, // nolint:gomnd
+		TTL:   5 * time.Minute, //nolint:gomnd
 	})
 	if err != nil {
 		s.log.ErrorWithContext(ctx, err.Error())
@@ -124,7 +124,7 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, erro
 	if filter.Pagination == nil {
 		filter.Pagination = &query.Pagination{
 			Page:  0,
-			Limit: 10, // nolint:gomnd
+			Limit: 10, //nolint:gomnd
 		}
 	}
 
@@ -154,9 +154,9 @@ func (s *Store) Update(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	// update cache
 	err = s.cache.Set(&cache.Item{
 		Ctx:   ctx,
-		Key:   fmt.Sprintf(`link:%s`, in.Hash),
+		Key:   fmt.Sprintf(`link:%s`, in.GetHash()),
 		Value: &response,
-		TTL:   5 * time.Minute, // nolint:gomnd
+		TTL:   5 * time.Minute, //nolint:gomnd
 	})
 	if err != nil {
 		s.log.ErrorWithContext(ctx, err.Error())

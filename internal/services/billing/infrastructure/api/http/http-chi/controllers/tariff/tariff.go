@@ -3,9 +3,8 @@ package tariff
 import (
 	"net/http"
 
-	"github.com/segmentio/encoding/json"
-
 	"github.com/go-chi/chi/v5"
+	"github.com/segmentio/encoding/json"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
@@ -46,7 +45,7 @@ func (api *TariffAPI) add(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
@@ -54,7 +53,7 @@ func (api *TariffAPI) add(w http.ResponseWriter, r *http.Request) {
 	newTariff, err := api.tariffService.Add(r.Context(), &request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
@@ -62,13 +61,13 @@ func (api *TariffAPI) add(w http.ResponseWriter, r *http.Request) {
 	res, err := api.jsonpb.Marshal(newTariff)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	_, _ = w.Write(res) // nolint:errcheck
+	_, _ = w.Write(res) //nolint:errcheck
 }
 
 // Get ...
@@ -79,7 +78,7 @@ func (api *TariffAPI) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) // nolint:errcheck
+	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck
 }
 
 // List ...
@@ -92,7 +91,7 @@ func (api *TariffAPI) list(w http.ResponseWriter, r *http.Request) {
 	tariffs, err := api.tariffService.List(r.Context(), nil)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
@@ -100,13 +99,13 @@ func (api *TariffAPI) list(w http.ResponseWriter, r *http.Request) {
 	res, err := api.jsonpb.Marshal(tariffs)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(res) // nolint:errcheck
+	_, _ = w.Write(res) //nolint:errcheck
 }
 
 // Delete ...
@@ -117,5 +116,5 @@ func (api *TariffAPI) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) // nolint:errcheck
+	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck
 }

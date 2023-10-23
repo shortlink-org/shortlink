@@ -18,7 +18,7 @@ type Config struct {
 	URI           []string
 }
 
-type Kafka struct { // nolint:decorder
+type Kafka struct { //nolint:decorder
 	*Config
 	client   sarama.Client
 	producer sarama.SyncProducer
@@ -81,7 +81,7 @@ func (mq *Kafka) Close() error {
 	return err
 }
 
-func (k *Kafka) Publish(ctx context.Context, target string, routingKey []byte, payload []byte) error {
+func (k *Kafka) Publish(ctx context.Context, target string, routingKey, payload []byte) error {
 	_, _, err := k.producer.SendMessage(&sarama.ProducerMessage{
 		Topic:     target,
 		Key:       sarama.StringEncoder(routingKey),

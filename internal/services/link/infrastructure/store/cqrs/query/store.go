@@ -54,7 +54,7 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v12.LinksView,
 	if filter.Pagination == nil {
 		filter.Pagination = &query.Pagination{
 			Page:  0,
-			Limit: 10, // nolint:gomnd
+			Limit: 10, //nolint:gomnd
 		}
 	}
 

@@ -44,6 +44,7 @@ func StreamClientInterceptor(logger logger.Logger) grpc.StreamClientInterceptor 
 		streamer grpc.Streamer,
 		opts ...grpc.CallOption,
 	) (grpc.ClientStream, error) {
+
 		clientStream, err := streamer(ctx, desc, cc, method, opts...)
 		fields := field.Fields{
 			"grpc.service": path.Dir(method)[1:],

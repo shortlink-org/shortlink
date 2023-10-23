@@ -12,10 +12,8 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 )
 
-var (
-	//go:embed permissions/*
-	permissions embed.FS
-)
+//go:embed permissions/*
+var permissions embed.FS
 
 func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, monitoring *monitoring.Monitoring) (*authzed.Client, error) {
 	permission, err := auth.New(log, tracer, monitoring)

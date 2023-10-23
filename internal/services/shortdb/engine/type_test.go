@@ -29,7 +29,7 @@ func BenchmarkEngine(b *testing.B) {
 			qCreateTable, errParserNew := parser.New("create table users (id integer, name string, active bool)")
 			require.NoError(b, errParserNew)
 
-			_, err = store.Exec(qCreateTable.Query)
+			_, err = store.Exec(qCreateTable.GetQuery())
 			require.NoError(b, err)
 		}
 	})
@@ -39,7 +39,7 @@ func BenchmarkEngine(b *testing.B) {
 			qInsertUsers, errParserNew := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
 			require.NoError(b, errParserNew)
 
-			errInsert := store.Insert(qInsertUsers.Query)
+			errInsert := store.Insert(qInsertUsers.GetQuery())
 			require.NoError(b, errInsert)
 		}
 
@@ -53,7 +53,7 @@ func BenchmarkEngine(b *testing.B) {
 			qInsertUsers, err := parser.New("select id, name, active from users limit 5")
 			require.NoError(b, err)
 
-			resp, err := store.Select(qInsertUsers.Query)
+			resp, err := store.Select(qInsertUsers.GetQuery())
 			require.NoError(b, err)
 			assert.Equal(b, 5, len(resp))
 		}
@@ -64,7 +64,7 @@ func BenchmarkEngine(b *testing.B) {
 			qSelectUsers, err := parser.New("select id, name, active from users where id='99' limit 2")
 			require.NoError(b, err)
 
-			_, err = store.Select(qSelectUsers.Query)
+			_, err = store.Select(qSelectUsers.GetQuery())
 			require.NoError(b, err)
 		}
 	})
@@ -74,7 +74,7 @@ func BenchmarkEngine(b *testing.B) {
 			qSelectUsers, err := parser.New("select id, name, active from users")
 			require.NoError(b, err)
 
-			_, err = store.Select(qSelectUsers.Query)
+			_, err = store.Select(qSelectUsers.GetQuery())
 			require.NoError(b, err)
 		}
 	})
@@ -84,7 +84,7 @@ func BenchmarkEngine(b *testing.B) {
 			qCreateIndex, err := parser.New("CREATE INDEX userId ON users USING BTREE (id);")
 			require.NoError(b, err)
 
-			err = store.CreateIndex(qCreateIndex.Query)
+			err = store.CreateIndex(qCreateIndex.GetQuery())
 			require.NoError(b, err)
 		}
 	})

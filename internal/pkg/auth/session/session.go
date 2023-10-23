@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	// contextSessionKey is the key used to store the session in the context.
+	// ContextSessionKey is the key used to store the session in the context.
 	contextSessionKey = "session"
 )
 

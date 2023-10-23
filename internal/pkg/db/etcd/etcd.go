@@ -29,7 +29,7 @@ func (s *Store) Init(ctx context.Context) error {
 	var err error
 	s.client, err = clientv3.New(clientv3.Config{
 		Endpoints:   s.config.URI,
-		DialTimeout: 5 * time.Second, // nolint:gomnd
+		DialTimeout: 5 * time.Second, //nolint:gomnd
 	})
 	if err != nil {
 		return err

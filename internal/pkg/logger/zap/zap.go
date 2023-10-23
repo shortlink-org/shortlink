@@ -8,7 +8,6 @@ import (
 	"go.uber.org/zap/zapcore"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
-
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 

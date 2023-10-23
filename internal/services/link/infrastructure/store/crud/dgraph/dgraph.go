@@ -4,10 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/segmentio/encoding/json"
-
 	"github.com/dgraph-io/dgo/v2"
 	"github.com/dgraph-io/dgo/v2/protos/api"
+	"github.com/segmentio/encoding/json"
 	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
@@ -155,7 +154,7 @@ func (s *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error) {
 		Link: []*v1.Link{},
 	}
 	for _, response := range responses.Link {
-		links.Link = append(links.Link, &v1.Link{
+		links.Link = append(links.GetLink(), &v1.Link{
 			Url:      response.Url,
 			Hash:     response.Hash,
 			Describe: response.Describe,
@@ -180,7 +179,7 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	}()
 
 	item := DGraphLink{
-		Uid:   fmt.Sprintf(`_:%s`, source.Hash),
+		Uid:   fmt.Sprintf(`_:%s`, source.GetHash()),
 		Link:  source,
 		DType: []string{"Link"},
 	}
@@ -202,7 +201,7 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	}
 	_, err = txn.Mutate(ctx, mu)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
+		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.GetUrl())}
 	}
 
 	return source, nil

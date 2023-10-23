@@ -16,7 +16,7 @@ type AggregateHandler interface {
 
 // Uncommitted return the events to be saved
 func (b *BaseAggregate) Uncommitted() []*Event {
-	return b.Changes
+	return b.GetChanges()
 }
 
 // ClearUncommited the events
@@ -41,8 +41,8 @@ func (b *BaseAggregate) ApplyChangeHelper(aggregate AggregateHandler, event *Eve
 	}
 
 	if commit {
-		event.Version = b.Version
-		b.Changes = append(b.Changes, event)
+		event.Version = b.GetVersion()
+		b.Changes = append(b.GetChanges(), event)
 	}
 
 	return nil

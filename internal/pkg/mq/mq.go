@@ -6,13 +6,15 @@ package mq
 import (
 	"context"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 	"github.com/spf13/viper"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/kafka"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/nats"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/rabbit"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/redis"
 )
@@ -68,7 +70,7 @@ func (mq *DataBus) UnSubscribe(target string) error {
 }
 
 // Publish - publish to a topic
-func (mq *DataBus) Publish(ctx context.Context, target string, key []byte, payload []byte) error {
+func (mq *DataBus) Publish(ctx context.Context, target string, key, payload []byte) error {
 	mq.log.Info("publish to topic", field.Fields{
 		"topic": target,
 	})

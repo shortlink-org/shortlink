@@ -26,7 +26,7 @@ func (s *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) er
 
 	entities := psql.Insert("billing.aggregates").
 		Columns("id", "type", "version").
-		Values(event.AggregateId, event.AggregateType, event.Version)
+		Values(event.GetAggregateId(), event.GetAggregateType(), event.GetVersion())
 
 	q, args, err := entities.ToSql()
 	if err != nil {
@@ -54,11 +54,11 @@ func (s *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event)
 	defer span.End()
 
 	entities := psql.Update("billing.aggregates").
-		Set("version", event.Version).
+		Set("version", event.GetVersion()).
 		Set("updated_at", time.Now()).
 		Where(squirrel.Eq{
-			"version": event.Version - 1,
-			"id":      event.AggregateId,
+			"version": event.GetVersion() - 1,
+			"id":      event.GetAggregateId(),
 		})
 
 	q, args, err := entities.ToSql()

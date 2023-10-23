@@ -9,8 +9,9 @@ import (
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
-	http_client "github.com/shortlink-org/shortlink/internal/pkg/http/client"
 
+
+	http_client "github.com/shortlink-org/shortlink/internal/pkg/http/client"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	v1 "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 	meta_store "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/store"
@@ -44,7 +45,7 @@ func (r *Service) Set(ctx context.Context, url string) (*v1.Meta, error) {
 	defer cancel()
 
 	// Request the HTML page.
-	req, err := http.NewRequestWithContext(newCtx, http.MethodGet, url, nil)
+	req, err := http.NewRequestWithContext(newCtx, http.MethodGet, url, http.NoBody)
 	if err != nil {
 		return nil, err
 	}

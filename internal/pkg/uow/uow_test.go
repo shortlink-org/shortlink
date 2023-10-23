@@ -6,7 +6,7 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/uow/mocks"
+	uow "github.com/shortlink-org/shortlink/internal/pkg/uow/mocks"
 )
 
 //go:generate mockery

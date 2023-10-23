@@ -25,7 +25,7 @@ func New(ctx context.Context) (*cache.Cache, error) {
 
 	s := cache.New(&cache.Options{
 		Redis:      adapter,
-		LocalCache: cache.NewTinyLFU(1000, 5*time.Minute), // nolint:gomnd
+		LocalCache: cache.NewTinyLFU(1000, 5*time.Minute), //nolint:gomnd
 	})
 
 	return s, nil

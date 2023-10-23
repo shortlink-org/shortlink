@@ -66,7 +66,7 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, erro
 			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 		}
 
-		links.Link = append(links.Link, &response)
+		links.Link = append(links.GetLink(), &response)
 	}
 
 	return links, nil
@@ -80,9 +80,9 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	}
 
 	val, err := protojson.Marshal(source)
-	err = s.client.Do(ctx, s.client.B().Set().Key(source.Hash).Value(rueidis.BinaryString(val)).Build()).Error()
+	err = s.client.Do(ctx, s.client.B().Set().Key(source.GetHash()).Value(rueidis.BinaryString(val)).Build()).Error()
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
+		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.GetUrl())}
 	}
 
 	return source, nil
@@ -96,7 +96,6 @@ func (s *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 // Delete ...
 func (s *Store) Delete(ctx context.Context, id string) error {
 	err := s.client.Do(ctx, s.client.B().Del().Key(id).Build()).Error()
-
 	if err != nil {
 		return &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Failed save link: %s", id)}
 	}

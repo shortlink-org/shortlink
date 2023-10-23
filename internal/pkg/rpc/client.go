@@ -14,12 +14,11 @@ import (
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/credentials/insecure"
 
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	grpc_logger "github.com/shortlink-org/shortlink/internal/pkg/rpc/middleware/logger"
 	session_interceptor "github.com/shortlink-org/shortlink/internal/pkg/rpc/middleware/session"
-
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
 type client struct {

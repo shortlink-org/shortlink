@@ -8,8 +8,9 @@ import (
 	"net/http"
 
 	"github.com/gogo/protobuf/proto"
-	http_client "github.com/shortlink-org/shortlink/internal/pkg/http/client"
 
+
+	http_client "github.com/shortlink-org/shortlink/internal/pkg/http/client"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
@@ -36,7 +37,7 @@ func New(logger logger.Logger, mq *mq.DataBus) (*Service, error) {
 
 func (s *Service) Parse(ctx context.Context, url string) error {
 	// Request the HTML page.
-	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, nil)
+	req, err := http.NewRequestWithContext(ctx, http.MethodGet, url, http.NoBody)
 	if err != nil {
 		return err
 	}
@@ -65,8 +66,8 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 	}
 
 	// send to link_rpc.add
-	for key := range payload.Url {
-		data, errMarshal := proto.Marshal(&link.Link{Url: payload.Url[key].Loc})
+	for key := range payload.GetUrl() {
+		data, errMarshal := proto.Marshal(&link.Link{Url: payload.GetUrl()[key].GetLoc()})
 		if errMarshal != nil {
 			return errMarshal
 		}

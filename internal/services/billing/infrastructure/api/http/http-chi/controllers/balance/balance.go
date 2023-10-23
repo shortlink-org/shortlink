@@ -3,9 +3,8 @@ package balance
 import (
 	"net/http"
 
-	"github.com/segmentio/encoding/json"
-
 	"github.com/go-chi/chi/v5"
+	"github.com/segmentio/encoding/json"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
@@ -14,7 +13,7 @@ import (
 )
 
 type BalanceAPI struct {
-	jsonpb protojson.MarshalOptions // nolint:structcheck
+	jsonpb protojson.MarshalOptions //nolint:structcheck
 
 	paymentService *payment_application.PaymentService
 }
@@ -43,7 +42,7 @@ func (api *BalanceAPI) update(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
@@ -51,7 +50,7 @@ func (api *BalanceAPI) update(w http.ResponseWriter, r *http.Request) {
 	updatePayment, err := api.paymentService.UpdateBalance(r.Context(), &request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
@@ -59,11 +58,11 @@ func (api *BalanceAPI) update(w http.ResponseWriter, r *http.Request) {
 	res, err := api.jsonpb.Marshal(updatePayment)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(res) // nolint:errcheck
+	_, _ = w.Write(res) //nolint:errcheck
 }

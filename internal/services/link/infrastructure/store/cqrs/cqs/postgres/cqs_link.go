@@ -21,7 +21,7 @@ func (s *Store) LinkAdd(ctx context.Context, source *v1.Link) (*v1.Link, error) 
 	// query builder
 	links := psql.Insert("link.link_view").
 		Columns("url", "hash", "describe").
-		Values(source.Url, source.Hash, source.Describe)
+		Values(source.GetUrl(), source.GetHash(), source.GetDescribe())
 
 	q, args, err := links.ToSql()
 	if err != nil {
@@ -35,7 +35,7 @@ func (s *Store) LinkAdd(ctx context.Context, source *v1.Link) (*v1.Link, error) 
 		return source, nil
 	}
 	if errScan.Error() != "" {
-		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
+		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.GetUrl())}
 	}
 
 	return source, nil
@@ -45,10 +45,10 @@ func (s *Store) LinkAdd(ctx context.Context, source *v1.Link) (*v1.Link, error) 
 func (s *Store) LinkUpdate(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	// query builder
 	links := psql.Update("link.link_view").
-		Set("url", source.Url).
-		Set("hash", source.Hash).
-		Set("describe", source.Describe).
-		Where(squirrel.Eq{"hash": source.Hash})
+		Set("url", source.GetUrl()).
+		Set("hash", source.GetHash()).
+		Set("describe", source.GetDescribe()).
+		Where(squirrel.Eq{"hash": source.GetHash()})
 
 	q, args, err := links.ToSql()
 	if err != nil {
@@ -62,7 +62,7 @@ func (s *Store) LinkUpdate(ctx context.Context, source *v1.Link) (*v1.Link, erro
 		return source, nil
 	}
 	if errScan.Error() != "" {
-		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
+		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.GetUrl())}
 	}
 
 	return source, nil

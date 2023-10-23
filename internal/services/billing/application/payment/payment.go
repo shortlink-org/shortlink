@@ -45,15 +45,15 @@ func New(logger logger.Logger, paymentRepository event_store.EventStore) (*Payme
 
 func (p *PaymentService) Handle(ctx context.Context, aggregate *Payment, command *eventsourcing.BaseCommand) error {
 	// Check update or create
-	if command.Version != 0 { // nolint:nestif
-		snapshot, events, errLoad := p.paymentRepository.Load(ctx, command.AggregateId)
+	if command.GetVersion() != 0 { //nolint:nestif
+		snapshot, events, errLoad := p.paymentRepository.Load(ctx, command.GetAggregateId())
 		if errLoad != nil {
 			return errLoad
 		}
 
-		if snapshot.Payload != "" {
-			aggregate.Version = snapshot.AggregateVersion
-			err := protojson.Unmarshal([]byte(snapshot.Payload), aggregate.Payment)
+		if snapshot.GetPayload() != "" {
+			aggregate.Version = snapshot.GetAggregateVersion()
+			err := protojson.Unmarshal([]byte(snapshot.GetPayload()), aggregate.Payment)
 			if err != nil {
 				return err
 			}
@@ -88,7 +88,7 @@ func (p *PaymentService) Handle(ctx context.Context, aggregate *Payment, command
 // PublishEvents - send message about a new events
 func (p *PaymentService) PublishEvents(ctx context.Context, events []*eventsourcing.Event) error {
 	for key := range events {
-		go notify.Publish(ctx, EventList[events[key].Type], events[key].GetPayload(), nil)
+		go notify.Publish(ctx, EventList[events[key].GetType()], events[key].GetPayload(), nil)
 	}
 
 	return nil
@@ -105,8 +105,8 @@ func (p *PaymentService) Get(ctx context.Context, aggregateId string) (*billing.
 		return nil, err
 	}
 
-	if snapshot.Payload != "" {
-		err = protojson.Unmarshal([]byte(snapshot.Payload), aggregate.Payment)
+	if snapshot.GetPayload() != "" {
+		err = protojson.Unmarshal([]byte(snapshot.GetPayload()), aggregate.Payment)
 		if err != nil {
 			return nil, err
 		}
@@ -178,7 +178,7 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 			}
 
 			// safe identity
-			in.Id = command.AggregateId
+			in.Id = command.GetAggregateId()
 
 			return nil
 		}).
@@ -194,10 +194,10 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 	_, errs = sagaAddPayment.AddStep(SAGA_STEP_PAYMENT_APPROVE).
 		Needs(SAGA_STEP_PAYMENT_CREATE).
 		Then(func(ctx context.Context) error {
-			return p.Approve(ctx, in.Id)
+			return p.Approve(ctx, in.GetId())
 		}).
 		Reject(func(ctx context.Context) error {
-			err := p.Reject(ctx, in.Id)
+			err := p.Reject(ctx, in.GetId())
 			return err
 		}).
 		Build()
@@ -210,7 +210,7 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 		Needs(SAGA_STEP_PAYMENT_APPROVE).
 		Then(func(ctx context.Context) error {
 			var err error
-			in, err = p.Get(ctx, in.Id)
+			in, err = p.Get(ctx, in.GetId())
 			if err != nil {
 				return err
 			}
@@ -346,7 +346,7 @@ func (p *PaymentService) asyncUpdateSnapshot() {
 	}
 
 	for key := range aggregates {
-		payment, err := p.Get(ctx, aggregates[key].Id)
+		payment, err := p.Get(ctx, aggregates[key].GetId())
 		if err != nil {
 			p.logger.ErrorWithContext(ctx, err.Error())
 			return
@@ -359,9 +359,9 @@ func (p *PaymentService) asyncUpdateSnapshot() {
 		}
 
 		snapshot := &eventsourcing.Snapshot{
-			AggregateId:      aggregates[key].Id,
-			AggregateType:    aggregates[key].Type,
-			AggregateVersion: aggregates[key].Version,
+			AggregateId:      aggregates[key].GetId(),
+			AggregateType:    aggregates[key].GetType(),
+			AggregateVersion: aggregates[key].GetVersion(),
 			Payload:          string(payload),
 		}
 

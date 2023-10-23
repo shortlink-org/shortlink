@@ -46,7 +46,7 @@ func CommandPaymentCreate(ctx context.Context, in *billing.Payment) (*eventsourc
 func CommandPaymentUpdateBalance(ctx context.Context, in *billing.Payment) (*eventsourcing.BaseCommand, error) {
 	// start tracing
 	_, span := otel.Tracer("command").Start(ctx, "UpdateBalance")
-	span.SetAttributes(attribute.String("aggregate id", in.Id))
+	span.SetAttributes(attribute.String("aggregate id", in.GetId()))
 	span.SetAttributes(attribute.String("command type", billing.Command_COMMAND_BALANCE_UPDATE.String()))
 	defer span.End()
 
@@ -62,7 +62,7 @@ func CommandPaymentUpdateBalance(ctx context.Context, in *billing.Payment) (*eve
 
 	return &eventsourcing.BaseCommand{
 		Type:          billing.Command_COMMAND_BALANCE_UPDATE.String(),
-		AggregateId:   in.Id,
+		AggregateId:   in.GetId(),
 		AggregateType: "Payment",
 		Version:       1,
 		Payload:       string(payload),
@@ -74,7 +74,7 @@ func CommandPaymentClose(ctx context.Context, in *billing.Payment) (*eventsourci
 
 	// start tracing
 	_, span := otel.Tracer("command").Start(ctx, "PaymentClose")
-	span.SetAttributes(attribute.String("aggregate id", in.Id))
+	span.SetAttributes(attribute.String("aggregate id", in.GetId()))
 	span.SetAttributes(attribute.String("command type", billing.Command_COMMAND_PAYMENT_CLOSE.String()))
 	defer span.End()
 
@@ -90,7 +90,7 @@ func CommandPaymentClose(ctx context.Context, in *billing.Payment) (*eventsourci
 
 	return &eventsourcing.BaseCommand{
 		Type:          billing.Command_COMMAND_PAYMENT_CLOSE.String(),
-		AggregateId:   in.Id,
+		AggregateId:   in.GetId(),
 		AggregateType: "Payment",
 		Version:       1,
 		Payload:       string(payload),
@@ -102,7 +102,7 @@ func CommandPaymentApprove(ctx context.Context, in *billing.Payment) (*eventsour
 
 	// start tracing
 	_, span := otel.Tracer("command").Start(ctx, "PaymentApprove")
-	span.SetAttributes(attribute.String("aggregate id", in.Id))
+	span.SetAttributes(attribute.String("aggregate id", in.GetId()))
 	span.SetAttributes(attribute.String("command type", billing.Command_COMMAND_PAYMENT_APPROVE.String()))
 	defer span.End()
 
@@ -118,7 +118,7 @@ func CommandPaymentApprove(ctx context.Context, in *billing.Payment) (*eventsour
 
 	return &eventsourcing.BaseCommand{
 		Type:          billing.Command_COMMAND_PAYMENT_APPROVE.String(),
-		AggregateId:   in.Id,
+		AggregateId:   in.GetId(),
 		AggregateType: "Payment",
 		Version:       1,
 		Payload:       string(payload),
@@ -130,7 +130,7 @@ func CommandPaymentReject(ctx context.Context, in *billing.Payment) (*eventsourc
 
 	// start tracing
 	_, span := otel.Tracer("command").Start(ctx, "PaymentReject")
-	span.SetAttributes(attribute.String("aggregate id", in.Id))
+	span.SetAttributes(attribute.String("aggregate id", in.GetId()))
 	span.SetAttributes(attribute.String("command type", billing.Command_COMMAND_PAYMENT_REJECT.String()))
 	defer span.End()
 
@@ -146,7 +146,7 @@ func CommandPaymentReject(ctx context.Context, in *billing.Payment) (*eventsourc
 
 	return &eventsourcing.BaseCommand{
 		Type:          billing.Command_COMMAND_PAYMENT_REJECT.String(),
-		AggregateId:   in.Id,
+		AggregateId:   in.GetId(),
 		AggregateType: "Payment",
 		Version:       1,
 		Payload:       string(payload),

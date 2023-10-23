@@ -36,9 +36,9 @@ func (a *Account) List(ctx context.Context, filter any) ([]*v1.Account, error) {
 }
 
 func (a *Account) Add(ctx context.Context, in *v1.Account) (*v1.Account, error) {
-	id := uuid.MustParse(in.Id)
-	userId := uuid.MustParse(in.UserId)
-	tariffId := uuid.MustParse(in.TariffId)
+	id := uuid.MustParse(in.GetId())
+	userId := uuid.MustParse(in.GetUserId())
+	tariffId := uuid.MustParse(in.GetTariffId())
 
 	// query builder
 	account := psql.Insert("billing.account").

@@ -14,8 +14,8 @@ func New(table *table.Table, isEnd bool) (*Cursor, error) {
 	}
 
 	if isEnd {
-		cursor.RowId = table.Stats.RowsCount
-		cursor.PageId = table.Stats.PageCount
+		cursor.RowId = table.GetStats().GetRowsCount()
+		cursor.PageId = table.GetStats().GetPageCount()
 	}
 
 	return cursor, nil
@@ -25,11 +25,11 @@ func (c *Cursor) Advance() {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 
-	if c.RowId > 0 && c.RowId%c.Table.Option.PageSize == 0 {
-		c.PageId = int32(c.RowId / c.Table.Option.PageSize)
+	if c.RowId > 0 && c.RowId%c.Table.GetOption().GetPageSize() == 0 {
+		c.PageId = int32(c.RowId / c.Table.GetOption().GetPageSize())
 	}
 
-	if (c.Table.Stats.RowsCount - 1) == c.RowId {
+	if (c.Table.GetStats().GetRowsCount() - 1) == c.RowId {
 		c.EndOfTable = true
 	} else {
 		c.RowId += 1
@@ -40,20 +40,20 @@ func (c *Cursor) Value() (*page.Row, error) {
 	c.mu.RLock()
 	defer c.mu.RUnlock()
 
-	if c.Table.Pages == nil {
+	if c.Table.GetPages() == nil {
 		return nil, ErrorGetPage
 	}
 
-	p := c.Table.Pages[c.PageId]
-	if len(p.Rows) == 0 {
-		p.Rows = make([]*page.Row, c.Table.Option.PageSize)
+	p := c.Table.GetPages()[c.PageId]
+	if len(p.GetRows()) == 0 {
+		p.Rows = make([]*page.Row, c.Table.GetOption().GetPageSize())
 	}
 
-	rowNum := int(c.RowId) % len(p.Rows)
+	rowNum := int(c.RowId) % len(p.GetRows())
 
-	if p.Rows[rowNum] == nil {
+	if p.GetRows()[rowNum] == nil {
 		p.Rows[rowNum] = &page.Row{}
 	}
 
-	return p.Rows[rowNum], nil
+	return p.GetRows()[rowNum], nil
 }

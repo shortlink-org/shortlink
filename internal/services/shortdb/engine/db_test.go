@@ -5,10 +5,11 @@ import (
 	"os"
 	"testing"
 
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/file"
-	parser "github.com/shortlink-org/shortlink/internal/services/shortdb/parser/v1"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/file"
+	parser "github.com/shortlink-org/shortlink/internal/services/shortdb/parser/v1"
 )
 
 func TestMain(m *testing.M) {
@@ -33,7 +34,7 @@ func TestDatabase(t *testing.T) {
 		qCreateTable, errParser := parser.New("create table users (id integer, name string, active bool)")
 		require.NoError(t, errParser)
 
-		_, errExec := store.Exec(qCreateTable.Query)
+		_, errExec := store.Exec(qCreateTable.GetQuery())
 		require.NoError(t, errExec)
 
 		// save data
@@ -45,13 +46,13 @@ func TestDatabase(t *testing.T) {
 		qInsertUsers, errParser := parser.New("insert into users ('id', 'name', 'active') VALUES ('1', 'Ivan', 'false')")
 		require.NoError(t, errParser)
 
-		errParser = store.Insert(qInsertUsers.Query)
+		errParser = store.Insert(qInsertUsers.GetQuery())
 		require.NoError(t, errParser)
 
-		errParser = store.Insert(qInsertUsers.Query)
+		errParser = store.Insert(qInsertUsers.GetQuery())
 		require.NoError(t, errParser)
 
-		errParser = store.Insert(qInsertUsers.Query)
+		errParser = store.Insert(qInsertUsers.GetQuery())
 		require.NoError(t, errParser)
 
 		// save data
@@ -64,7 +65,7 @@ func TestDatabase(t *testing.T) {
 			qInsertUsers, errParserNew := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
 			require.NoError(t, errParserNew)
 
-			errInsert := store.Insert(qInsertUsers.Query)
+			errInsert := store.Insert(qInsertUsers.GetQuery())
 			require.NoError(t, errInsert)
 		}
 
@@ -78,7 +79,7 @@ func TestDatabase(t *testing.T) {
 			qInsertUsers, errParserNew := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
 			require.NoError(t, errParserNew)
 
-			errInsert := store.Insert(qInsertUsers.Query)
+			errInsert := store.Insert(qInsertUsers.GetQuery())
 			require.NoError(t, errInsert)
 		}
 
@@ -92,7 +93,7 @@ func TestDatabase(t *testing.T) {
 			qInsertUsers, errParserNew := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
 			require.NoError(t, errParserNew)
 
-			errInsert := store.Insert(qInsertUsers.Query)
+			errInsert := store.Insert(qInsertUsers.GetQuery())
 			require.NoError(t, errInsert)
 		}
 
@@ -105,7 +106,7 @@ func TestDatabase(t *testing.T) {
 		qSelectUsers, err := parser.New("select id, name, active from users limit 300")
 		require.NoError(t, err)
 
-		resp, err := store.Select(qSelectUsers.Query)
+		resp, err := store.Select(qSelectUsers.GetQuery())
 		require.NoError(t, err)
 		assert.Equal(t, 300, len(resp))
 	})
@@ -114,7 +115,7 @@ func TestDatabase(t *testing.T) {
 		qSelectUsers, err := parser.New("select id, name, active from users where id='99' limit 2")
 		require.NoError(t, err)
 
-		resp, err := store.Select(qSelectUsers.Query)
+		resp, err := store.Select(qSelectUsers.GetQuery())
 		require.NoError(t, err)
 		assert.Equal(t, 2, len(resp))
 	})
@@ -123,7 +124,7 @@ func TestDatabase(t *testing.T) {
 		qSelectUsers, err := parser.New("select id, name, active from users")
 		require.NoError(t, err)
 
-		resp, err := store.Select(qSelectUsers.Query)
+		resp, err := store.Select(qSelectUsers.GetQuery())
 		require.NoError(t, err)
 		assert.Equal(t, 1383, len(resp))
 	})
@@ -132,7 +133,7 @@ func TestDatabase(t *testing.T) {
 		qCreateIndex, err := parser.New("CREATE INDEX userId ON users USING BINARY (id);")
 		require.NoError(t, err)
 
-		err = store.CreateIndex(qCreateIndex.Query)
+		err = store.CreateIndex(qCreateIndex.GetQuery())
 		require.NoError(t, err)
 	})
 }

@@ -13,22 +13,21 @@ import (
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
-	"github.com/shortlink-org/shortlink/internal/di/pkg/permission"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq"
-
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	ctx "github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/flags"
-	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
+	logger_di "github.com/shortlink-org/shortlink/internal/di/pkg/logger"
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
-	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
+	traicing_di "github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/cache"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/i18n"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 )
@@ -103,6 +102,7 @@ func NewFullService(
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {
+
 	return &Service{
 		// Common
 		Ctx:  ctx,

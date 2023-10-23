@@ -4,12 +4,11 @@ import (
 	"net/http"
 	"time"
 
+	"github.com/go-chi/chi/v5/middleware"
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
-
-	"github.com/go-chi/chi/v5/middleware"
 )
 
 type chilogger struct {

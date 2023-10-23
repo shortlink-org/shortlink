@@ -22,7 +22,7 @@ type repl struct {
 
 func New(s *session.Session) (*repl, error) {
 	// set engine
-	store, err := engine.New("file", file.SetName(s.CurrentDatabase), file.SetPath("/tmp/shortdb_repl"))
+	store, err := engine.New("file", file.SetName(s.GetCurrentDatabase()), file.SetPath("/tmp/shortdb_repl"))
 	if err != nil {
 		return nil, err
 	}
@@ -33,7 +33,7 @@ func New(s *session.Session) (*repl, error) {
 	}, nil
 }
 
-func (r *repl) Run() { // nolint:gocyclo,gocognit
+func (r *repl) Run() { //nolint:gocyclo,gocognit
 	// load history
 	if err := r.init(); err != nil {
 		pterm.FgRed.Println(err)
@@ -45,7 +45,7 @@ func (r *repl) Run() { // nolint:gocyclo,gocognit
 	for {
 		t := prompt.Input("> ", completer,
 			prompt.OptionTitle("shortdb"),
-			prompt.OptionHistory(r.session.History),
+			prompt.OptionHistory(r.session.GetHistory()),
 			prompt.OptionPrefixTextColor(prompt.Yellow),
 			prompt.OptionPreviewSuggestionTextColor(prompt.Blue),
 			prompt.OptionSelectedSuggestionBGColor(prompt.LightGray),
@@ -58,13 +58,13 @@ func (r *repl) Run() { // nolint:gocyclo,gocognit
 
 		// if this next line
 		if t[len(t)-1] == ';' || t[0] == '.' {
-			t = fmt.Sprintf("%s %s", r.session.Raw, t)
+			t = fmt.Sprintf("%s %s", r.session.GetRaw(), t)
 			r.session.Raw = ""
 			r.session.Exec = true
 
 			// set in history
 			t = strings.TrimSpace(t)
-			r.session.History = append(r.session.History, t)
+			r.session.History = append(r.session.GetHistory(), t)
 		} else {
 			r.session.Raw += fmt.Sprintf("%s ", t)
 			r.session.Exec = false
@@ -103,7 +103,7 @@ func (r *repl) Run() { // nolint:gocyclo,gocognit
 			}
 		default: // if this not command then this SQL-expression
 			// if this multiline then skip
-			if !r.session.Exec {
+			if !r.session.GetExec() {
 				continue
 			}
 
@@ -114,7 +114,7 @@ func (r *repl) Run() { // nolint:gocyclo,gocognit
 			}
 
 			// exec query
-			response, err := r.engine.Exec(p.Query)
+			response, err := r.engine.Exec(p.GetQuery())
 			if err != nil && err.Error() != "" {
 				pterm.FgRed.Println(err)
 				continue

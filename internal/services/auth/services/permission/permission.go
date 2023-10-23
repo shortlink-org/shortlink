@@ -14,10 +14,8 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 )
 
-var (
-	//go:embed permissions/*
-	permissions embed.FS
-)
+//go:embed permissions/*
+var permissions embed.FS
 
 type Service struct {
 	client *authzed.Client
@@ -75,7 +73,6 @@ func GetPermissions(fsys fs.FS) ([]*pb.WriteSchemaRequest, error) {
 
 		return nil
 	})
-
 	if err != nil {
 		return nil, fmt.Errorf("failed to walk directory: %w", err)
 	}

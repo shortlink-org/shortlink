@@ -7,7 +7,7 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.21.0"
 )
 
-func NewResource(ctx context.Context, serviceName string, serviceVersion string) (*resource.Resource, error) {
+func NewResource(ctx context.Context, serviceName, serviceVersion string) (*resource.Resource, error) {
 	defaultResource, err := resource.New(ctx,
 		resource.WithFromEnv(),
 		resource.WithProcess(),

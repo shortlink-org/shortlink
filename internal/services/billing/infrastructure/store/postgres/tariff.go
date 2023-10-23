@@ -77,7 +77,7 @@ func (t *Tariff) List(ctx context.Context, filter any) (*v1.Tariffs, error) {
 			return nil, &v12.NotFoundError{Link: &v12.Link{}, Err: query.ErrNotFound}
 		}
 
-		response.List = append(response.List, &result)
+		response.List = append(response.GetList(), &result)
 	}
 
 	return &response, nil
@@ -87,7 +87,7 @@ func (t *Tariff) Add(ctx context.Context, in *v1.Tariff) (*v1.Tariff, error) {
 	// query builder
 	tariff := psql.Insert("billing.tariff").
 		Columns("id", "name", "payload").
-		Values(in.Id, in.Name, in.Payload)
+		Values(in.GetId(), in.GetName(), in.GetPayload())
 
 	q, args, err := tariff.ToSql()
 	if err != nil {
@@ -109,9 +109,9 @@ func (t *Tariff) Add(ctx context.Context, in *v1.Tariff) (*v1.Tariff, error) {
 func (t *Tariff) Update(ctx context.Context, in *v1.Tariff) (*v1.Tariff, error) {
 	// query builder
 	tariff := psql.Update("billing.tariff").
-		Set("name", in.Name).
-		Set("payload", in.Payload).
-		Where(squirrel.Eq{"id": in.Id})
+		Set("name", in.GetName()).
+		Set("payload", in.GetPayload()).
+		Where(squirrel.Eq{"id": in.GetId()})
 
 	q, args, err := tariff.ToSql()
 	if err != nil {

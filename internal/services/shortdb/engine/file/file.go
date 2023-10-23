@@ -10,9 +10,8 @@ import (
 	"google.golang.org/protobuf/proto"
 
 	database "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/database/v1"
-	table "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/table/v1"
-
 	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
+	table "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/table/v1"
 	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/options"
 	"github.com/shortlink-org/shortlink/internal/services/shortdb/io_uring"
 )
@@ -59,7 +58,7 @@ func New(opts ...options.Option) (*file, error) {
 }
 
 func (f *file) Exec(query *v1.Query) (any, error) {
-	switch query.Type {
+	switch query.GetType() {
 	case v1.Type_TYPE_UNSPECIFIED:
 		return nil, fmt.Errorf("exec: incorret type")
 	case v1.Type_TYPE_SELECT:
@@ -73,11 +72,11 @@ func (f *file) Exec(query *v1.Query) (any, error) {
 	case v1.Type_TYPE_CREATE_TABLE:
 		return nil, f.CreateTable(query)
 	case v1.Type_TYPE_DROP_TABLE:
-		return nil, f.DropTable(query.TableName)
+		return nil, f.DropTable(query.GetTableName())
 	case v1.Type_TYPE_CREATE_INDEX:
 		return nil, f.CreateIndex(query)
 	case v1.Type_TYPE_DELETE_INDEX:
-		return nil, f.DropIndex(query.TableName)
+		return nil, f.DropIndex(query.GetTableName())
 	}
 
 	return nil, nil
@@ -94,7 +93,7 @@ func (f *file) init() error {
 	}
 
 	// create file if not exist
-	fileOpenFile, err := f.createFile(fmt.Sprintf("%s.db", f.database.Name))
+	fileOpenFile, err := f.createFile(fmt.Sprintf("%s.db", f.database.GetName()))
 	if err != nil {
 		return err
 	}
@@ -146,7 +145,7 @@ func (f *file) Close() error {
 	defer f.mu.Unlock()
 
 	// create database if not exist
-	databaseFile, err := f.createFile(fmt.Sprintf("%s.db", f.database.Name))
+	databaseFile, err := f.createFile(fmt.Sprintf("%s.db", f.database.GetName()))
 	if err != nil {
 		return err
 	}
@@ -170,8 +169,8 @@ func (f *file) Close() error {
 	var wg conc.WaitGroup
 
 	// save last page
-	for tableName := range f.database.Tables {
-		err = f.savePage(tableName, f.database.Tables[tableName].Stats.PageCount)
+	for tableName := range f.database.GetTables() {
+		err = f.savePage(tableName, f.database.GetTables()[tableName].GetStats().GetPageCount())
 		if err != nil {
 			return err
 		}
@@ -189,7 +188,7 @@ func (f *file) Close() error {
 	}
 
 	// save database
-	err = io_uring.WriteFile(databaseFile.Name(), payload, 0o644, func(n int) { // nolint:gomnd
+	err = io_uring.WriteFile(databaseFile.Name(), payload, 0o644, func(n int) { //nolint:gomnd
 		wg.Go(func() {})
 		// handle n
 	})
@@ -210,7 +209,7 @@ func (f *file) createFile(name string) (*os.File, error) {
 }
 
 func (f *file) writeFile(name string, payload []byte) error {
-	err := os.WriteFile(name, payload, 0o600) // nolint:gomnd
+	err := os.WriteFile(name, payload, 0o600) //nolint:gomnd
 	if err != nil {
 		return err
 	}

@@ -9,8 +9,8 @@ import (
 
 func New(query *v1.Query) *Table {
 	return &Table{
-		Name:   query.TableName,
-		Fields: query.TableFields,
+		Name:   query.GetTableName(),
+		Fields: query.GetTableFields(),
 		Stats: &TableStats{
 			RowsCount: 0,
 			PageCount: -1,

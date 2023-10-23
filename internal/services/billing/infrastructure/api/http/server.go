@@ -49,7 +49,7 @@ func (s *Server) Use(
 	tariffService *tariff_application.TariffService,
 ) (*Server, error) {
 	// API port
-	viper.SetDefault("API_PORT", 7070) // nolint:gomnd
+	viper.SetDefault("API_PORT", 7070) //nolint:gomnd
 	// Request Timeout (seconds)
 	viper.SetDefault("API_TIMEOUT", "60s")
 

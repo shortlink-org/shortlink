@@ -3,8 +3,9 @@ package tests
 import (
 	"testing"
 
-	parser "github.com/shortlink-org/shortlink/internal/services/shortdb/parser/v1"
 	"github.com/stretchr/testify/require"
+
+	parser "github.com/shortlink-org/shortlink/internal/services/shortdb/parser/v1"
 )
 
 func BenchmarkParser(b *testing.B) {

@@ -21,5 +21,5 @@ func New(logger logger.Logger) (*Service, error) {
 }
 
 func (s *Service) Log(ctx context.Context, link *v1.Link) {
-	s.logger.InfoWithContext(ctx, fmt.Sprintf("GET URL: %s", link.Url))
+	s.logger.InfoWithContext(ctx, fmt.Sprintf("GET URL: %s", link.GetUrl()))
 }

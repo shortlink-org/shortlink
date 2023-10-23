@@ -15,13 +15,13 @@ type MQ interface {
 	io.Closer // Closer is the interface that wraps the basic Close method.
 
 	// Pub/Sub a pattern
-	Publish(ctx context.Context, target string, routingKey []byte, payload []byte) error
+	Publish(ctx context.Context, target string, routingKey, payload []byte) error
 	Subscribe(ctx context.Context, target string, message query.Response) error
 	UnSubscribe(target string) error
 }
 
 // DataBus abstract type
-type DataBus struct { // nolint:decorder
+type DataBus struct { //nolint:decorder
 	log    logger.Logger
 	mq     MQ
 	typeMQ string

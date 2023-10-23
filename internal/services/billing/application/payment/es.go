@@ -15,42 +15,42 @@ import (
 
 // ApplyChange to payment
 func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
-	switch t := event.Type; {
+	switch t := event.GetType(); {
 	case t == billing.Event_EVENT_PAYMENT_CREATED.String():
 		var payload billing.EventPaymentCreated
-		err := protojson.Unmarshal([]byte(event.Payload), &payload)
+		err := protojson.Unmarshal([]byte(event.GetPayload()), &payload)
 		if err != nil {
 			return err
 		}
 
-		p.Payment.Id = payload.Id
-		p.Name = payload.Name
-		p.Status = payload.Status
-		p.UserId = payload.UserId
+		p.Payment.Id = payload.GetId()
+		p.Name = payload.GetName()
+		p.Status = payload.GetStatus()
+		p.UserId = payload.GetUserId()
 	case t == billing.Event_EVENT_PAYMENT_APPROVED.String():
 		var payload billing.EventPaymentApproved
-		err := protojson.Unmarshal([]byte(event.Payload), &payload)
+		err := protojson.Unmarshal([]byte(event.GetPayload()), &payload)
 		if err != nil {
 			return err
 		}
 
-		p.Status = payload.Status
+		p.Status = payload.GetStatus()
 	case t == billing.Event_EVENT_PAYMENT_CLOSED.String():
 		var payload billing.EventPaymentClosed
-		err := protojson.Unmarshal([]byte(event.Payload), &payload)
+		err := protojson.Unmarshal([]byte(event.GetPayload()), &payload)
 		if err != nil {
 			return err
 		}
 
-		p.Status = payload.Status
+		p.Status = payload.GetStatus()
 	case t == billing.Event_EVENT_PAYMENT_REJECTED.String():
 		var payload billing.EventPaymentRejected
-		err := protojson.Unmarshal([]byte(event.Payload), &payload)
+		err := protojson.Unmarshal([]byte(event.GetPayload()), &payload)
 		if err != nil {
 			return err
 		}
 
-		p.Status = payload.Status
+		p.Status = payload.GetStatus()
 	case t == billing.Event_EVENT_BALANCE_UPDATED.String():
 		// validate payment
 		if p.Status != billing.StatusPayment_STATUS_PAYMENT_APPROVE {
@@ -58,14 +58,14 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 		}
 
 		var payload billing.EventBalanceUpdated
-		err := protojson.Unmarshal([]byte(event.Payload), &payload)
+		err := protojson.Unmarshal([]byte(event.GetPayload()), &payload)
 		if err != nil {
 			return err
 		}
 
-		p.Amount += payload.Amount
+		p.Amount += payload.GetAmount()
 	default:
-		return fmt.Errorf("Not found event with type: %s", event.Type)
+		return fmt.Errorf("Not found event with type: %s", event.GetType())
 	}
 
 	return nil
@@ -74,39 +74,39 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 // HandleCommand create events and validate based on such command
 func (p *Payment) HandleCommand(ctx context.Context, command *eventsourcing.BaseCommand) error {
 	event := &eventsourcing.Event{
-		AggregateId:   p.Payment.Id,
+		AggregateId:   p.Payment.GetId(),
 		AggregateType: "Payment",
 	}
 
 	// start tracing
 	_, span := otel.Tracer("event sourcing").Start(ctx, "HandleCommand")
-	span.SetAttributes(attribute.String("aggregate_id", p.Payment.Id))
+	span.SetAttributes(attribute.String("aggregate_id", p.Payment.GetId()))
 	defer span.End()
 
 	switch t := command.GetType(); {
 	case t == billing.Command_COMMAND_PAYMENT_CREATE.String():
-		event.AggregateId = command.AggregateId
-		event.Payload = command.Payload
+		event.AggregateId = command.GetAggregateId()
+		event.Payload = command.GetPayload()
 		event.Type = billing.Event_EVENT_PAYMENT_CREATED.String()
 
 		span.SetAttributes(attribute.String("event_type", billing.Event_EVENT_PAYMENT_CREATED.String()))
 	case t == billing.Command_COMMAND_PAYMENT_APPROVE.String():
-		event.Payload = command.Payload
+		event.Payload = command.GetPayload()
 		event.Type = billing.Event_EVENT_PAYMENT_APPROVED.String()
 
 		span.SetAttributes(attribute.String("event_type", billing.Event_EVENT_PAYMENT_APPROVED.String()))
 	case t == billing.Command_COMMAND_PAYMENT_CLOSE.String():
-		event.Payload = command.Payload
+		event.Payload = command.GetPayload()
 		event.Type = billing.Event_EVENT_PAYMENT_CLOSED.String()
 
 		span.SetAttributes(attribute.String("event_type", billing.Event_EVENT_PAYMENT_CLOSED.String()))
 	case t == billing.Command_COMMAND_PAYMENT_REJECT.String():
-		event.Payload = command.Payload
+		event.Payload = command.GetPayload()
 		event.Type = billing.Event_EVENT_PAYMENT_REJECTED.String()
 
 		span.SetAttributes(attribute.String("event_type", billing.Event_EVENT_PAYMENT_REJECTED.String()))
 	case t == billing.Command_COMMAND_BALANCE_UPDATE.String():
-		event.Payload = command.Payload
+		event.Payload = command.GetPayload()
 		event.Type = billing.Event_EVENT_BALANCE_UPDATED.String()
 
 		span.SetAttributes(attribute.String("event_type", billing.Event_EVENT_BALANCE_UPDATED.String()))

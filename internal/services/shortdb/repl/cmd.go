@@ -49,7 +49,7 @@ Connected to a transient in-memory database.
 Use ".open DATABASENAME" to reopen on a persistent database.
 
 current database: %s
-`, r.session.CurrentDatabase)
+`, r.session.GetCurrentDatabase())
 }
 
 func (r *repl) save() error {
@@ -72,8 +72,8 @@ func (r *repl) close() error {
 	}()
 
 	// Save last 100 record
-	if len(r.session.History) > HISTORY_LIMIT {
-		r.session.History = r.session.History[HISTORY_LIMIT:]
+	if len(r.session.GetHistory()) > HISTORY_LIMIT {
+		r.session.History = r.session.GetHistory()[HISTORY_LIMIT:]
 	}
 
 	payload, err := proto.Marshal(r.session)
@@ -91,7 +91,7 @@ func (r *repl) close() error {
 
 func (r *repl) open(t string) error {
 	s := strings.Split(t, " ")
-	if len(s) != 2 { // nolint:gomnd
+	if len(s) != 2 { //nolint:gomnd
 		return fmt.Errorf("")
 	}
 

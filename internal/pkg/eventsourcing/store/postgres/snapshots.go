@@ -31,7 +31,7 @@ func (s *Store) GetAggregateWithoutSnapshot(ctx context.Context) ([]*eventsourci
 		return nil, err
 	}
 
-	var aggregates []*eventsourcing.BaseAggregate // nolint:prealloc
+	var aggregates []*eventsourcing.BaseAggregate //nolint:prealloc
 
 	for rows.Next() {
 		var (
@@ -62,13 +62,13 @@ func (s *Store) SaveSnapshot(ctx context.Context, snapshot *eventsourcing.Snapsh
 
 	// start tracing
 	_, span := otel.Tracer("snapshot").Start(ctx, "SaveSnapshot")
-	span.SetAttributes(attribute.String("aggregate id", snapshot.AggregateId))
+	span.SetAttributes(attribute.String("aggregate id", snapshot.GetAggregateId()))
 	defer span.End()
 
 	query := psql.Insert("billing.snapshots").
 		Columns("aggregate_id", "aggregate_type", "aggregate_version", "payload").
-		Values(snapshot.AggregateId, snapshot.AggregateType, snapshot.AggregateVersion, snapshot.Payload).
-		Suffix("ON CONFLICT (aggregate_id) DO UPDATE SET aggregate_version = ?, payload = ?, updated_at = ?", snapshot.AggregateVersion, snapshot.Payload, time.Now())
+		Values(snapshot.GetAggregateId(), snapshot.GetAggregateType(), snapshot.GetAggregateVersion(), snapshot.GetPayload()).
+		Suffix("ON CONFLICT (aggregate_id) DO UPDATE SET aggregate_version = ?, payload = ?, updated_at = ?", snapshot.GetAggregateVersion(), snapshot.GetPayload(), time.Now())
 
 	q, args, err := query.ToSql()
 	if err != nil {

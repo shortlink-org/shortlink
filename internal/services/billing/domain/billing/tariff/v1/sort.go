@@ -1,13 +1,13 @@
 package v1
 
 func (t *Tariffs) Len() int {
-	return len(t.List)
+	return len(t.GetList())
 }
 
 func (t *Tariffs) Less(i, j int) bool {
-	return t.List[i].Name < t.List[j].Name
+	return t.GetList()[i].GetName() < t.GetList()[j].GetName()
 }
 
 func (t *Tariffs) Swap(i, j int) {
-	t.List[i], t.List[j] = t.List[j], t.List[i]
+	t.List[i], t.List[j] = t.GetList()[j], t.GetList()[i]
 }

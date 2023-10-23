@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/go-redis/cache/v9"
+
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	v12 "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"

@@ -60,7 +60,7 @@ func (b *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 		return nil, err
 	}
 
-	if response.Url == "" {
+	if response.GetUrl() == "" {
 		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
@@ -115,7 +115,7 @@ func (b *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
 			return nil, err
 		}
 
-		response.Link = append(response.Link, l)
+		response.Link = append(response.GetLink(), l)
 	}
 
 	return response, nil
@@ -134,7 +134,7 @@ func (b *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	}
 
 	err = b.client.Update(func(txn *badger.Txn) error {
-		return txn.Set([]byte(source.Hash), payload)
+		return txn.Set([]byte(source.GetHash()), payload)
 	})
 	if err != nil {
 		return nil, err

@@ -3,12 +3,11 @@ package dgraph
 import (
 	"context"
 
-	"github.com/spf13/viper"
-	"google.golang.org/grpc/credentials/insecure"
-
 	"github.com/dgraph-io/dgo/v2"
 	"github.com/dgraph-io/dgo/v2/protos/api"
+	"github.com/spf13/viper"
 	"google.golang.org/grpc"
+	"google.golang.org/grpc/credentials/insecure"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
@@ -22,7 +21,7 @@ type DGraphLink struct {
 }
 
 // DGraphLinkResponse ...
-type DGraphLinkResponse struct { // nolint:decorder
+type DGraphLinkResponse struct { //nolint:decorder
 	Link []struct {
 		*v1.Link
 		Uid string `json:"uid,omitempty"`
@@ -30,7 +29,7 @@ type DGraphLinkResponse struct { // nolint:decorder
 }
 
 // Config ...
-type Config struct { // nolint:decorder
+type Config struct { //nolint:decorder
 	URL string
 }
 

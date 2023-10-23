@@ -16,7 +16,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/http/handler"
 	additionalMiddleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware"
-	"github.com/shortlink-org/shortlink/internal/pkg/http/server"
+	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	account_application "github.com/shortlink-org/shortlink/internal/services/billing/application/account"
 	order_application "github.com/shortlink-org/shortlink/internal/services/billing/application/order"
@@ -43,7 +43,6 @@ func (api *API) Run(
 	paymentService *payment_application.PaymentService,
 	tariffService *tariff_application.TariffService,
 ) error {
-
 	api.ctx = ctx
 	api.jsonpb = protojson.MarshalOptions{
 		UseProtoNames: true,
@@ -60,7 +59,7 @@ func (api *API) Run(
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
 		AllowCredentials: true,
-		MaxAge:           300, // nolint:gomnd
+		MaxAge:           300, //nolint:gomnd
 		// Debug:            true,
 	})
 

@@ -19,12 +19,12 @@ type Events interface {
 func (s *Store) addEvent(ctx context.Context, event *eventsourcing.Event) error {
 	// start tracing
 	_, span := otel.Tracer("aggregate").Start(ctx, "addEvent")
-	span.SetAttributes(attribute.String("event_id", event.Id))
+	span.SetAttributes(attribute.String("event_id", event.GetId()))
 	defer span.End()
 
 	entities := psql.Insert("billing.events").
 		Columns("aggregate_id", "aggregate_type", "type", "payload", "version").
-		Values(event.AggregateId, event.AggregateType, event.Type, event.Payload, event.Version)
+		Values(event.GetAggregateId(), event.GetAggregateType(), event.GetType(), event.GetPayload(), event.GetVersion())
 
 	q, args, err := entities.ToSql()
 	if err != nil {

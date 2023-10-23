@@ -10,12 +10,10 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
 
-	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
-	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
-
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
 type Event struct {
@@ -56,7 +54,7 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload any) notify.Re
 
 func (e *Event) add(ctx context.Context, payload any) notify.Response[any] {
 	// TODO: send []byte
-	msg := payload.(*metadata.Meta) // nolint:errcheck
+	msg := payload.(*metadata.Meta) //nolint:errcheck
 	data, err := proto.Marshal(msg)
 	if err != nil {
 		return notify.Response[any]{

@@ -7,9 +7,9 @@ import (
 	"net/http"
 
 	"github.com/segmentio/encoding/json"
-	http_client "github.com/shortlink-org/shortlink/internal/pkg/http/client"
 	"github.com/spf13/viper"
 
+	http_client "github.com/shortlink-org/shortlink/internal/pkg/http/client"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/notify/domain/events"

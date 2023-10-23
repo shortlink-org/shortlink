@@ -56,7 +56,7 @@ func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	if err != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
 	}
-	defer stmt.Close() // nolint:errcheck
+	defer stmt.Close() //nolint:errcheck
 
 	var response v1.Link
 	err = stmt.QueryRowContext(ctx, args...).Scan(&response.Url, &response.Hash, &response.Describe)
@@ -81,7 +81,7 @@ func (lite *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error)
 	if err != nil || rows.Err() != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 	}
-	defer rows.Close() // nolint:errcheck
+	defer rows.Close() //nolint:errcheck
 
 	response := &v1.Links{
 		Link: []*v1.Link{},
@@ -94,7 +94,7 @@ func (lite *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error)
 			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 		}
 
-		response.Link = append(response.Link, &result)
+		response.Link = append(response.GetLink(), &result)
 	}
 
 	return response, nil
@@ -110,7 +110,7 @@ func (lite *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	// query builder
 	links := squirrel.Insert("links").
 		Columns("url", "hash", "describe").
-		Values(source.Url, source.Hash, source.Describe)
+		Values(source.GetUrl(), source.GetHash(), source.GetDescribe())
 
 	query, args, err := links.ToSql()
 	if err != nil {
@@ -119,7 +119,7 @@ func (lite *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 
 	_, err = lite.client.ExecContext(ctx, query, args...)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.Url)}
+		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.GetUrl())}
 	}
 
 	return source, nil
