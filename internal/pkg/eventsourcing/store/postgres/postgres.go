@@ -131,6 +131,7 @@ func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Sn
 	}
 
 	var events []*eventsourcing.Event // nolint:prealloc
+
 	for rows.Next() {
 		event := eventsourcing.Event{
 			AggregateId: aggregateID,

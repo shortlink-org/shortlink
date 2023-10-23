@@ -38,6 +38,7 @@ func (s *Store) Init(ctx context.Context) error {
 	if s.metrics != nil {
 		options = append(options, otelsql.WithMeterProvider(s.metrics))
 	}
+
 	if s.tracer != nil {
 		options = append(options, otelsql.WithTracerProvider(s.tracer))
 	}
