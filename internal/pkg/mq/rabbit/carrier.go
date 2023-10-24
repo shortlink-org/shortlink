@@ -8,11 +8,12 @@ func (c amqpHeadersCarrier) Get(key string) string {
 		return ""
 	}
 
+	//nolint:revive // no critical issue
 	return val.(string)
 }
 
 func (c amqpHeadersCarrier) Keys() []string {
-	var keys []string
+	keys := make([]string, 0, len(c))
 
 	for k := range c {
 		keys = append(keys, k)
@@ -28,6 +29,7 @@ func (c amqpHeadersCarrier) ForeachKey(handler func(key, val string) error) erro
 		if !ok {
 			continue
 		}
+
 		if err := handler(k, v); err != nil {
 			return err
 		}

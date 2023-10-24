@@ -76,14 +76,14 @@ func getConfig(tracer *Tracer) (*Config, error) {
 	}
 
 	// Instrument the pgxpool config with OpenTelemetry.
-	options := []otelpgx.Option{
+	params := []otelpgx.Option{
 		otelpgx.WithIncludeQueryParameters(),
 	}
 	if tracer.TracerProvider != nil {
-		options = append(options, otelpgx.WithTracerProvider(tracer))
+		params = append(params, otelpgx.WithTracerProvider(tracer))
 	}
 
-	cnfPool.ConnConfig.Tracer = otelpgx.NewTracer(options...)
+	cnfPool.ConnConfig.Tracer = otelpgx.NewTracer(params...)
 
 	return &Config{
 		config: cnfPool,

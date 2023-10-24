@@ -6,13 +6,13 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/saga/dag"
 )
 
-type SagaBuilder struct {
+type Builder struct {
 	*Saga
 
 	errorList []error
 }
 
-func New(name string, setters ...Option) *SagaBuilder {
+func New(name string, setters ...Option) *Builder {
 	newSaga := &Saga{
 		name:  name,
 		dag:   dag.New(),
@@ -23,16 +23,16 @@ func New(name string, setters ...Option) *SagaBuilder {
 		setter(&newSaga.Options)
 	}
 
-	return &SagaBuilder{
+	return &Builder{
 		Saga: newSaga,
 	}
 }
 
-func (s *SagaBuilder) WithContext(ctx context.Context) *SagaBuilder {
+func (s *Builder) WithContext(ctx context.Context) *Builder {
 	s.ctx = ctx
 	return s
 }
 
-func (s *SagaBuilder) Build() (*Saga, []error) {
+func (s *Builder) Build() (*Saga, []error) {
 	return s.Saga, s.errorList
 }

@@ -11,7 +11,15 @@ import (
 
 // SessionUnaryInterceptor - set user-id to gRPC metadata for each request
 func SessionUnaryInterceptor() grpc.UnaryClientInterceptor {
-	return func(ctx context.Context, method string, req, resp interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) (err error) {
+	return func(
+		ctx context.Context,
+		method string,
+		req any,
+		resp any,
+		cc *grpc.ClientConn,
+		invoker grpc.UnaryInvoker,
+		opts ...grpc.CallOption,
+	) (err error) {
 		sess := session.GetSession(ctx)
 
 		ctx = metadata.AppendToOutgoingContext(ctx, "user-id", sess.GetId())
@@ -22,7 +30,14 @@ func SessionUnaryInterceptor() grpc.UnaryClientInterceptor {
 
 // SessionStreamInterceptor - set user-id to gRPC metadata for each request
 func SessionStreamInterceptor() grpc.StreamClientInterceptor {
-	return func(ctx context.Context, desc *grpc.StreamDesc, cc *grpc.ClientConn, method string, streamer grpc.Streamer, opts ...grpc.CallOption) (grpc.ClientStream, error) {
+	return func(
+		ctx context.Context,
+		desc *grpc.StreamDesc,
+		cc *grpc.ClientConn,
+		method string,
+		streamer grpc.Streamer,
+		opts ...grpc.CallOption,
+	) (grpc.ClientStream, error) {
 		sess := session.GetSession(ctx)
 
 		ctx = metadata.AppendToOutgoingContext(ctx, "user-id", sess.GetId())

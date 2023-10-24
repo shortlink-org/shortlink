@@ -275,7 +275,7 @@ func NewTariffApplication(logger2 logger.Logger, store2 *billing_store.BillingSt
 func NewBillingAPIServer(ctx2 context.Context, logger2 logger.Logger,
 
 	tracer trace.TracerProvider,
-	rpcServer *rpc.RPCServer, db2 *db.Store,
+	rpcServer *rpc.Server, db2 *db.Store,
 
 	accountService *account_application.AccountService,
 	orderService *order_application.OrderService,

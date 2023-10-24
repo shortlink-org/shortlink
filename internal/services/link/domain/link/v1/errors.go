@@ -14,7 +14,7 @@ func (e *NotFoundError) Error() string {
 	return fmt.Sprintf("Not found link: %s", e.Link.GetHash())
 }
 
-type NotUniqError struct { //nolint:decorder
+type NotUniqError struct {
 	Link *Link
 	Err  error
 }

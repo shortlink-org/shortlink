@@ -176,7 +176,7 @@ func NewSitemapApplication(logger logger.Logger, mq *v1.DataBus) (*sitemap.Servi
 	return sitemapService, nil
 }
 
-func NewLinkCQRSRPCServer(runRPCServer *rpc.RPCServer, application *link_cqrs.Service, log logger.Logger) (*cqrs.Link, error) {
+func NewLinkCQRSRPCServer(runRPCServer *rpc.Server, application *link_cqrs.Service, log logger.Logger) (*cqrs.Link, error) {
 	linkRPCServer, err := cqrs.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err
@@ -185,7 +185,7 @@ func NewLinkCQRSRPCServer(runRPCServer *rpc.RPCServer, application *link_cqrs.Se
 	return linkRPCServer, nil
 }
 
-func NewLinkRPCServer(runRPCServer *rpc.RPCServer, application *link.Service, log logger.Logger) (*link_rpc.Link, error) {
+func NewLinkRPCServer(runRPCServer *rpc.Server, application *link.Service, log logger.Logger) (*link_rpc.Link, error) {
 	linkRPCServer, err := link_rpc.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err
@@ -194,7 +194,7 @@ func NewLinkRPCServer(runRPCServer *rpc.RPCServer, application *link.Service, lo
 	return linkRPCServer, nil
 }
 
-func NewSitemapRPCServer(runRPCServer *rpc.RPCServer, application *sitemap.Service, log logger.Logger) (*sitemap_rpc.Sitemap, error) {
+func NewSitemapRPCServer(runRPCServer *rpc.Server, application *sitemap.Service, log logger.Logger) (*sitemap_rpc.Sitemap, error) {
 	sitemapRPCServer, err := sitemap_rpc.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err
@@ -203,7 +203,7 @@ func NewSitemapRPCServer(runRPCServer *rpc.RPCServer, application *sitemap.Servi
 	return sitemapRPCServer, nil
 }
 
-func NewRunRPCServer(runRPCServer *rpc.RPCServer, cqrsLinkRPC *cqrs.Link, linkRPC *link_rpc.Link) (*run.Response, error) {
+func NewRunRPCServer(runRPCServer *rpc.Server, cqrsLinkRPC *cqrs.Link, linkRPC *link_rpc.Link) (*run.Response, error) {
 	return run.Run(runRPCServer)
 }
 

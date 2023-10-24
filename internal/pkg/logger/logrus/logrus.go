@@ -8,12 +8,12 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
-type LogrusLogger struct {
+type Logger struct {
 	logger *logrus.Logger
 }
 
-func New(config config.Configuration) (*LogrusLogger, error) {
-	log := &LogrusLogger{
+func New(cfg config.Configuration) (*Logger, error) {
+	log := &Logger{
 		logger: logrus.New(),
 	}
 
@@ -22,7 +22,7 @@ func New(config config.Configuration) (*LogrusLogger, error) {
 	// it to use a custom JSONFormatter. See the logrus docs for how to
 	// configure the backend at github.com/sirupsen/logrus
 	log.logger.Formatter = &logrus.JSONFormatter{
-		TimestampFormat: config.TimeFormat,
+		TimestampFormat: cfg.TimeFormat,
 		FieldMap: logrus.FieldMap{
 			logrus.FieldKeyTime:  "timestamp",
 			logrus.FieldKeyLevel: "level",
@@ -41,25 +41,25 @@ func New(config config.Configuration) (*LogrusLogger, error) {
 	)))
 
 	log.logger.SetReportCaller(false) // TODO: https://github.com/sirupsen/logrus/pull/973
-	log.logger.SetOutput(config.Writer)
-	log.setLogLevel(config.Level)
+	log.logger.SetOutput(cfg.Writer)
+	log.setLogLevel(cfg.Level)
 
 	return log, nil
 }
 
-func (log *LogrusLogger) Close() error {
+func (log *Logger) Close() error {
 	return nil
 }
 
-func (log *LogrusLogger) Get() any {
+func (log *Logger) Get() any {
 	return log.logger
 }
 
-func (log *LogrusLogger) converter(fields ...field.Fields) *logrus.Entry {
+func (log *Logger) converter(fields ...field.Fields) *logrus.Entry {
 	logrusFields := logrus.Fields{}
 
-	for _, field := range fields {
-		for k, v := range field {
+	for _, items := range fields {
+		for k, v := range items {
 			logrusFields[k] = v
 		}
 	}
@@ -69,7 +69,7 @@ func (log *LogrusLogger) converter(fields ...field.Fields) *logrus.Entry {
 	return entryLog
 }
 
-func (log *LogrusLogger) setLogLevel(logLevel int) {
+func (log *Logger) setLogLevel(logLevel int) {
 	switch logLevel {
 	case config.FATAL_LEVEL:
 		log.logger.SetLevel(logrus.FatalLevel)

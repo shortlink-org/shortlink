@@ -13,7 +13,7 @@ import (
 )
 
 // UnaryClientInterceptor returns a new unary client interceptor that optionally logs the execution of external gRPC calls.
-func UnaryClientInterceptor(logger logger.Logger) grpc.UnaryClientInterceptor {
+func UnaryClientInterceptor(log logger.Logger) grpc.UnaryClientInterceptor {
 	return func(ctx context.Context, method string, req, reply any, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
 		startTime := time.Now()
 		err := invoker(ctx, method, req, reply, cc, opts...)
@@ -27,7 +27,7 @@ func UnaryClientInterceptor(logger logger.Logger) grpc.UnaryClientInterceptor {
 		}
 
 		if err != nil {
-			printLog(ctx, logger, err, fields)
+			printLog(ctx, log, err, fields)
 		}
 
 		return err
@@ -35,7 +35,7 @@ func UnaryClientInterceptor(logger logger.Logger) grpc.UnaryClientInterceptor {
 }
 
 // StreamClientInterceptor returns a new streaming client interceptor that optionally logs the execution of external gRPC calls.
-func StreamClientInterceptor(logger logger.Logger) grpc.StreamClientInterceptor {
+func StreamClientInterceptor(log logger.Logger) grpc.StreamClientInterceptor {
 	return func(
 		ctx context.Context,
 		desc *grpc.StreamDesc,
@@ -44,7 +44,6 @@ func StreamClientInterceptor(logger logger.Logger) grpc.StreamClientInterceptor 
 		streamer grpc.Streamer,
 		opts ...grpc.CallOption,
 	) (grpc.ClientStream, error) {
-
 		clientStream, err := streamer(ctx, desc, cc, method, opts...)
 		fields := field.Fields{
 			"grpc.service": path.Dir(method)[1:],
@@ -53,7 +52,7 @@ func StreamClientInterceptor(logger logger.Logger) grpc.StreamClientInterceptor 
 		}
 
 		if err != nil {
-			printLog(ctx, logger, err, fields)
+			printLog(ctx, log, err, fields)
 		}
 
 		return clientStream, err

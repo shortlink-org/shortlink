@@ -5,14 +5,19 @@ import (
 	"fmt"
 	"net"
 	"net/http"
-	"time"
 
+	"github.com/spf13/viper"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"go.opentelemetry.io/otel/trace"
 )
 
 func New(ctx context.Context, h http.Handler, config Config, tracer trace.TracerProvider) *http.Server {
-	handler := http.TimeoutHandler(h, config.Timeout, fmt.Sprintf(`{"error": "%s"}`, TimeoutMessage))
+	viper.SetDefault("HTTP_SERVER_READ_TIMEOUT", "5s")        // the maximum duration for reading the entire request, including the body
+	viper.SetDefault("HTTP_SERVER_WRITE_TIMEOUT", "5s")       // the maximum duration before timing out writes of the response
+	viper.SetDefault("HTTP_SERVER_IDLE_TIMEOUT", "30s")       // the maximum amount of time to wait for the next request when keep-alive is enabled
+	viper.SetDefault("HTTP_SERVER_READ_HEADER_TIMEOUT", "2s") // the amount of time allowed to read request headers
+
+	handler := http.TimeoutHandler(h, config.Timeout, fmt.Sprintf(`{"error": %q}`, TimeoutMessage))
 
 	server := &http.Server{
 		Addr:    fmt.Sprintf(":%d", config.Port),
@@ -21,12 +26,10 @@ func New(ctx context.Context, h http.Handler, config Config, tracer trace.Tracer
 			return ctx
 		},
 
-		ReadTimeout:  5 * time.Second,                // the maximum duration for reading the entire request, including the body
-		WriteTimeout: config.Timeout + 5*time.Second, // the maximum duration before timing out writes of the response
-		// the maximum amount of time to wait for the next request when keep-alive is enabled
-		IdleTimeout: 30 * time.Second, //nolint:gomnd
-		// the amount of time allowed to read request headers
-		ReadHeaderTimeout: 2 * time.Second, //nolint:gomnd
+		ReadTimeout:       viper.GetDuration("HTTP_SERVER_READ_TIMEOUT"),
+		WriteTimeout:      config.Timeout + viper.GetDuration("HTTP_SERVER_WRITE_TIMEOUT"),
+		IdleTimeout:       viper.GetDuration("HTTP_SERVER_IDLE_TIMEOUT"),
+		ReadHeaderTimeout: viper.GetDuration("HTTP_SERVER_READ_HEADER_TIMEOUT"),
 	}
 
 	if tracer != nil {

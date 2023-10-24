@@ -15,7 +15,7 @@ const (
 )
 
 // Logger is our contract for the logger
-type Logger interface { //nolint:decorder
+type Logger interface {
 	Fatal(msg string, fields ...field.Fields)
 	FatalWithContext(ctx context.Context, msg string, fields ...field.Fields)
 

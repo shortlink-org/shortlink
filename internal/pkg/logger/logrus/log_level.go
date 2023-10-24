@@ -12,11 +12,11 @@ import (
 
 // Fatal ===============================================================================================================
 
-func (log *LogrusLogger) Fatal(msg string, fields ...field.Fields) {
+func (log *Logger) Fatal(msg string, fields ...field.Fields) {
 	log.converter(fields...).Fatal(msg)
 }
 
-func (log *LogrusLogger) FatalWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+func (log *Logger) FatalWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
 		log.logger.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
@@ -27,11 +27,11 @@ func (log *LogrusLogger) FatalWithContext(ctx context.Context, msg string, field
 
 // Error ===============================================================================================================
 
-func (log *LogrusLogger) Error(msg string, fields ...field.Fields) {
+func (log *Logger) Error(msg string, fields ...field.Fields) {
 	log.converter(fields...).Error(msg)
 }
 
-func (log *LogrusLogger) ErrorWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+func (log *Logger) ErrorWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	tags := []attribute.KeyValue{{
 		Key:   "error",
 		Value: attribute.BoolValue(true),
@@ -39,6 +39,7 @@ func (log *LogrusLogger) ErrorWithContext(ctx context.Context, msg string, field
 
 	fields, err := tracer.NewTraceFromContext(ctx, msg, tags, fields...)
 	if err != nil {
+		//nolint:revive // TODO: fix this
 		log.logger.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
@@ -47,13 +48,14 @@ func (log *LogrusLogger) ErrorWithContext(ctx context.Context, msg string, field
 
 // Warn ================================================================================================================
 
-func (log *LogrusLogger) Warn(msg string, fields ...field.Fields) {
+func (log *Logger) Warn(msg string, fields ...field.Fields) {
 	log.converter(fields...).Warn(msg)
 }
 
-func (log *LogrusLogger) WarnWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+func (log *Logger) WarnWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
+		//nolint:revive // TODO: fix this
 		log.logger.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
@@ -62,13 +64,14 @@ func (log *LogrusLogger) WarnWithContext(ctx context.Context, msg string, fields
 
 // Info ================================================================================================================
 
-func (log *LogrusLogger) Info(msg string, fields ...field.Fields) {
+func (log *Logger) Info(msg string, fields ...field.Fields) {
 	log.converter(fields...).Info(msg)
 }
 
-func (log *LogrusLogger) InfoWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+func (log *Logger) InfoWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
+		//nolint:revive // TODO: fix this
 		log.logger.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
@@ -77,13 +80,14 @@ func (log *LogrusLogger) InfoWithContext(ctx context.Context, msg string, fields
 
 // Debug ===============================================================================================================
 
-func (log *LogrusLogger) Debug(msg string, fields ...field.Fields) {
+func (log *Logger) Debug(msg string, fields ...field.Fields) {
 	log.converter(fields...).Debug(msg)
 }
 
-func (log *LogrusLogger) DebugWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+func (log *Logger) DebugWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
+		//nolint:revive // TODO: fix this
 		log.logger.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 

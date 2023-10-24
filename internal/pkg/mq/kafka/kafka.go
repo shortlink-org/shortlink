@@ -18,7 +18,7 @@ type Config struct {
 	URI           []string
 }
 
-type Kafka struct { //nolint:decorder
+type Kafka struct {
 	*Config
 	client   sarama.Client
 	producer sarama.SyncProducer
@@ -58,7 +58,7 @@ func (mq *Kafka) Init(ctx context.Context) error {
 		}
 
 		return fmt.Errorf("kafka connection error")
-	}, 5*time.Second)
+	}, 5*time.Second) //nolint:gomnd // 5s
 
 	return nil
 }
@@ -81,8 +81,8 @@ func (mq *Kafka) Close() error {
 	return err
 }
 
-func (k *Kafka) Publish(ctx context.Context, target string, routingKey, payload []byte) error {
-	_, _, err := k.producer.SendMessage(&sarama.ProducerMessage{
+func (mq *Kafka) Publish(_ context.Context, target string, routingKey, payload []byte) error {
+	_, _, err := mq.producer.SendMessage(&sarama.ProducerMessage{
 		Topic:     target,
 		Key:       sarama.StringEncoder(routingKey),
 		Value:     sarama.ByteEncoder(payload),
@@ -111,7 +111,7 @@ func (mq *Kafka) Subscribe(ctx context.Context, target string, message query.Res
 	return nil
 }
 
-func (mq *Kafka) UnSubscribe(target string) error {
+func (mq *Kafka) UnSubscribe(_ string) error {
 	panic("implement me!")
 }
 
@@ -121,7 +121,7 @@ func (mq *Kafka) setConfig() (*sarama.Config, error) {
 	viper.SetDefault("MQ_KAFKA_URI", "localhost:9092")                                                         // Kafka URI
 	viper.SetDefault("MQ_KAFKA_CONSUMER_GROUP", viper.GetString("SERVICE_NAME"))                               // Kafka consumer group
 	viper.SetDefault("MQ_KAFKA_CONSUMER_GROUP_PARTITION_ASSIGNMENT_STRATEGY", sarama.RangeBalanceStrategyName) // Consumer group partition assignment strategy (range, roundrobin, sticky)
-	viper.SetDefault("MQ_KAFKA_CONSUMER_GROUP_OFFSET", sarama.OffsetNewest)                                    // Kafka consumer consume initial offset from oldest
+	viper.SetDefault("MQ_KAFKA_CONSUMER_GROUP_OFFSET", sarama.OffsetNewest)                                    // Kafka consumer consumes initial offset from oldest
 
 	mq.Config = &Config{
 		URI: []string{
@@ -134,7 +134,8 @@ func (mq *Kafka) setConfig() (*sarama.Config, error) {
 	config := sarama.NewConfig()
 	config.ClientID = viper.GetString("SERVICE_NAME")
 
-	switch viper.GetString("MQ_KAFKA_CONSUMER_GROUP_PARTITION_ASSIGNMENT_STRATEGY") {
+	strategy := viper.GetString("MQ_KAFKA_CONSUMER_GROUP_PARTITION_ASSIGNMENT_STRATEGY")
+	switch strategy {
 	case sarama.StickyBalanceStrategyName:
 		config.Consumer.Group.Rebalance.GroupStrategies = []sarama.BalanceStrategy{sarama.NewBalanceStrategySticky()}
 	case sarama.RoundRobinBalanceStrategyName:
@@ -142,7 +143,7 @@ func (mq *Kafka) setConfig() (*sarama.Config, error) {
 	case sarama.RangeBalanceStrategyName:
 		config.Consumer.Group.Rebalance.GroupStrategies = []sarama.BalanceStrategy{sarama.NewBalanceStrategyRange()}
 	default:
-		return nil, fmt.Errorf("Unrecognized consumer group partition assignor: %s", viper.GetString("MQ_KAFKA_CONSUMER_GROUP_PARTITION_ASSIGNMENT_STRATEGY"))
+		return nil, fmt.Errorf("unrecognized consumer group partition assignor: %s", strategy)
 	}
 
 	config.Consumer.Offsets.Initial = viper.GetInt64("MQ_KAFKA_CONSUMER_GROUP_OFFSET")

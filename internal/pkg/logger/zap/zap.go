@@ -11,13 +11,13 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
-type ZapLogger struct {
+type Logger struct {
 	Logger *otelzap.Logger
 }
 
-func New(config config.Configuration) (*ZapLogger, error) {
-	log := &ZapLogger{}
-	logLevel := log.setLogLevel(config.Level)
+func New(cfg config.Configuration) (*Logger, error) {
+	log := &Logger{}
+	logLevel := log.setLogLevel(cfg.Level)
 
 	// To keep the example deterministic, disable timestamps in the output.
 	encoderCfg := zapcore.EncoderConfig{
@@ -29,7 +29,7 @@ func New(config config.Configuration) (*ZapLogger, error) {
 		StacktraceKey:  "stacktrace",
 		LineEnding:     zapcore.DefaultLineEnding,
 		EncodeLevel:    zapcore.LowercaseLevelEncoder,
-		EncodeTime:     zapcore.TimeEncoder(log.timeEncoder(config.TimeFormat)),
+		EncodeTime:     zapcore.TimeEncoder(log.timeEncoder(cfg.TimeFormat)),
 		EncodeDuration: zapcore.SecondsDurationEncoder,
 		EncodeCaller:   zapcore.ShortCallerEncoder,
 	}
@@ -37,27 +37,27 @@ func New(config config.Configuration) (*ZapLogger, error) {
 	// Wrap zap logger to extend Zap with API that accepts a context.Context.
 	log.Logger = otelzap.New(zap.New(zapcore.NewCore(
 		zapcore.NewJSONEncoder(encoderCfg),
-		zapcore.Lock(zapcore.AddSync(config.Writer)),
+		zapcore.Lock(zapcore.AddSync(cfg.Writer)),
 		logLevel,
 	), zap.AddCaller(), zap.AddCallerSkip(1)))
 
 	return log, nil
 }
 
-func (log *ZapLogger) Close() error {
+func (log *Logger) Close() error {
 	err := log.Logger.Sync()
 	return err
 }
 
-func (log *ZapLogger) Get() any {
+func (log *Logger) Get() any {
 	return log.Logger
 }
 
-func (log *ZapLogger) converter(fields ...field.Fields) []zap.Field {
+func (log *Logger) converter(fields ...field.Fields) []zap.Field {
 	var zapFields []zap.Field
 
-	for _, field := range fields {
-		for k, v := range field {
+	for _, items := range fields {
+		for k, v := range items {
 			zapFields = append(zapFields, zap.Any(k, v))
 		}
 	}
@@ -65,7 +65,7 @@ func (log *ZapLogger) converter(fields ...field.Fields) []zap.Field {
 	return zapFields
 }
 
-func (log *ZapLogger) setLogLevel(logLevel int) zap.AtomicLevel {
+func (log *Logger) setLogLevel(logLevel int) zap.AtomicLevel {
 	atom := zap.NewAtomicLevel()
 
 	switch logLevel {
@@ -86,7 +86,7 @@ func (log *ZapLogger) setLogLevel(logLevel int) zap.AtomicLevel {
 	return atom
 }
 
-func (log *ZapLogger) timeEncoder(format string) func(time.Time, zapcore.PrimitiveArrayEncoder) {
+func (log *Logger) timeEncoder(format string) func(time.Time, zapcore.PrimitiveArrayEncoder) {
 	return func(t time.Time, enc zapcore.PrimitiveArrayEncoder) {
 		enc.AppendString(t.Format(format))
 	}

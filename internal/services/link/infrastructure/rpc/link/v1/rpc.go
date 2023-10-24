@@ -19,7 +19,7 @@ type Link struct {
 	service *link_application.Service
 }
 
-func New(runRPCServer *rpc.RPCServer, application *link_application.Service, log logger.Logger) (*Link, error) {
+func New(runRPCServer *rpc.Server, application *link_application.Service, log logger.Logger) (*Link, error) {
 	server := &Link{
 		// Create Service Application
 		service: application,

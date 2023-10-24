@@ -18,7 +18,7 @@ type Metadata struct {
 	log     logger.Logger
 }
 
-func New(runRPCServer *rpc.RPCServer, application *metadata.Service, log logger.Logger) (*Metadata, error) {
+func New(runRPCServer *rpc.Server, application *metadata.Service, log logger.Logger) (*Metadata, error) {
 	server := &Metadata{
 		service: application,
 		log:     log,

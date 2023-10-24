@@ -57,13 +57,16 @@ func (s *Store) GetAggregateWithoutSnapshot(ctx context.Context) ([]*eventsourci
 	return aggregates, nil
 }
 
+// SaveSnapshot - save snapshot
 func (s *Store) SaveSnapshot(ctx context.Context, snapshot *eventsourcing.Snapshot) error {
 	// TODO: use worker pool
+	//nolint:wsl // TODO: fix this
 
 	// start tracing
 	_, span := otel.Tracer("snapshot").Start(ctx, "SaveSnapshot")
-	span.SetAttributes(attribute.String("aggregate id", snapshot.GetAggregateId()))
 	defer span.End()
+
+	span.SetAttributes(attribute.String("aggregate id", snapshot.GetAggregateId()))
 
 	query := psql.Insert("billing.snapshots").
 		Columns("aggregate_id", "aggregate_type", "aggregate_version", "payload").

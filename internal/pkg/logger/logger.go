@@ -12,20 +12,20 @@ import (
 )
 
 // NewLogger - return new an instance of logger
-func NewLogger(loggerInstance int, config config.Configuration) (Logger, error) {
+func NewLogger(loggerInstance int, cfg config.Configuration) (Logger, error) {
 	var log Logger
 
 	// Check config and set default values if needed
-	err := config.Validate()
+	err := cfg.Validate()
 	if err != nil {
 		return nil, err
 	}
 
 	switch loggerInstance {
 	case Zap:
-		log, err = zap.New(config)
+		log, err = zap.New(cfg)
 	case Logrus:
-		log, err = logrus.New(config)
+		log, err = logrus.New(cfg)
 	default:
 		return nil, errors.New("invalid logger instance")
 	}

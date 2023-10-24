@@ -5,9 +5,9 @@ package traicing
 
 import (
 	"context"
-	"time"
 
 	otelpyroscope "github.com/pyroscope-io/otel-profiling-go"
+	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
 	"go.opentelemetry.io/otel/propagation"
@@ -70,14 +70,18 @@ func Init(ctx context.Context, cnf Config, log logger.Logger) (*trace.TracerProv
 }
 
 func newTraceProvider(ctx context.Context, res *resource.Resource, uri string) (*trace.TracerProvider, error) {
+	viper.SetDefault("TRACING_INITIAL_INTERVAL", "5s")
+	viper.SetDefault("TRACING_MAX_INTERVAL", "30s")
+	viper.SetDefault("TRACING_MAX_ELAPSED_TIME", "1m")
+
 	traceExporter, err := otlptracegrpc.New(ctx,
 		otlptracegrpc.WithInsecure(),
 		otlptracegrpc.WithEndpoint(uri),
 		otlptracegrpc.WithRetry(otlptracegrpc.RetryConfig{
 			Enabled:         true,
-			InitialInterval: 5 * time.Second,
-			MaxInterval:     30 * time.Second,
-			MaxElapsedTime:  time.Minute,
+			InitialInterval: viper.GetDuration("TRACING_INITIAL_INTERVAL"),
+			MaxInterval:     viper.GetDuration("TRACING_MAX_INTERVAL"),
+			MaxElapsedTime:  viper.GetDuration("TRACING_MAX_ELAPSED_TIME"),
 		}),
 	)
 	if err != nil {
@@ -85,7 +89,7 @@ func newTraceProvider(ctx context.Context, res *resource.Resource, uri string) (
 	}
 
 	traceProvider := trace.NewTracerProvider(
-		trace.WithBatcher(traceExporter, trace.WithBatchTimeout(5*time.Second)),
+		trace.WithBatcher(traceExporter, trace.WithBatchTimeout(viper.GetDuration("TRACING_INITIAL_INTERVAL"))),
 		trace.WithResource(res),
 	)
 

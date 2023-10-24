@@ -229,7 +229,7 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_4.MetadataServiceCl
 
 func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 logger.Logger,
 
-	rpcServer *rpc.RPCServer,
+	rpcServer *rpc.Server,
 	tracer trace.TracerProvider, monitoring2 *monitoring.Monitoring,
 
 	link_rpc v1.LinkServiceClient,

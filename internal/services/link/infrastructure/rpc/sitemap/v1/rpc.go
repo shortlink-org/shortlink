@@ -17,7 +17,7 @@ type Sitemap struct {
 	log     logger.Logger
 }
 
-func New(runRPCServer *rpc.RPCServer, application *sitemap_application.Service, log logger.Logger) (*Sitemap, error) {
+func New(runRPCServer *rpc.Server, application *sitemap_application.Service, log logger.Logger) (*Sitemap, error) {
 	server := &Sitemap{
 		// Create Service Application
 		service: application,

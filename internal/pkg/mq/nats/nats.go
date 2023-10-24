@@ -10,7 +10,7 @@ import (
 
 type Config struct{}
 
-type NATS struct { //nolint:decorder
+type NATS struct {
 	*Config
 	client *nats.Conn
 }
@@ -19,7 +19,7 @@ func New() *NATS {
 	return &NATS{}
 }
 
-func (mq *NATS) Init(ctx context.Context) error {
+func (mq *NATS) Init(_ context.Context) error {
 	var err error
 
 	// Connect to a server
@@ -33,12 +33,12 @@ func (mq *NATS) Close() error {
 	return nil
 }
 
-func (mq *NATS) Publish(ctx context.Context, target string, routingKey, payload []byte) error {
+func (mq *NATS) Publish(_ context.Context, _ string, routingKey, payload []byte) error {
 	err := mq.client.Publish(string(routingKey), payload)
 	return err
 }
 
-func (mq *NATS) Subscribe(ctx context.Context, target string, message query.Response) error {
+func (mq *NATS) Subscribe(_ context.Context, _ string, message query.Response) error {
 	_, err := mq.client.Subscribe(string(message.Key), func(m *nats.Msg) {
 		message.Chan <- query.ResponseMessage{
 			Body: m.Data,
@@ -48,7 +48,7 @@ func (mq *NATS) Subscribe(ctx context.Context, target string, message query.Resp
 		return err
 	}
 
-	ch := make(chan *nats.Msg, 64) //nolint:gomnd
+	ch := make(chan *nats.Msg, 64) //nolint:gomnd,revive // TODO: move to config
 	_, err = mq.client.ChanSubscribe(string(message.Key), ch)
 
 	if err != nil {
@@ -63,6 +63,6 @@ func (mq *NATS) Subscribe(ctx context.Context, target string, message query.Resp
 	}
 }
 
-func (mq *NATS) UnSubscribe(target string) error {
+func (mq *NATS) UnSubscribe(_ string) error {
 	panic("implement me!")
 }

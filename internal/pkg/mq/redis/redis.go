@@ -2,6 +2,7 @@ package redis
 
 import (
 	"context"
+	"errors"
 
 	"github.com/redis/rueidis"
 
@@ -18,6 +19,7 @@ func New() *Redis {
 }
 
 func (r *Redis) Init(ctx context.Context) error {
+	var ok bool
 	store := &redis.Store{}
 
 	err := store.Init(ctx)
@@ -25,7 +27,10 @@ func (r *Redis) Init(ctx context.Context) error {
 		return err
 	}
 
-	r.client = store.GetConn().(rueidis.Client)
+	r.client, ok = store.GetConn().(rueidis.Client)
+	if !ok {
+		return errors.New("can't convert redis connection to rueidis.Client")
+	}
 
 	return nil
 }
@@ -35,17 +40,17 @@ func (r *Redis) Close() error {
 	return nil
 }
 
-func (r *Redis) Publish(ctx context.Context, target string, routingKey, payload []byte) error {
+func (r *Redis) Publish(_ context.Context, _ string, _, _ []byte) error {
 	// TODO implement me
 	panic("implement me")
 }
 
-func (r *Redis) Subscribe(ctx context.Context, target string, message query.Response) error {
+func (r *Redis) Subscribe(_ context.Context, _ string, _ query.Response) error {
 	// TODO implement me
 	panic("implement me")
 }
 
-func (r *Redis) UnSubscribe(target string) error {
+func (r *Redis) UnSubscribe(_ string) error {
 	// TODO implement me
 	panic("implement me")
 }

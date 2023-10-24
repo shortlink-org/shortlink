@@ -13,7 +13,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
 
-func (mq *RabbitMQ) Subscribe(ctx context.Context, target string, message query.Response) error {
+func (mq *MQ) Subscribe(ctx context.Context, target string, message query.Response) error {
 	queueName := fmt.Sprintf("%s-%s", target, viper.GetString("SERVICE_NAME"))
 
 	q, err := mq.ch.QueueDeclare(
@@ -67,7 +67,7 @@ func (mq *RabbitMQ) Subscribe(ctx context.Context, target string, message query.
 	return g.Wait()
 }
 
-func (mq *RabbitMQ) UnSubscribe(target string) error {
+func (mq *MQ) UnSubscribe(target string) error {
 	mq.mu.Lock()
 	defer mq.mu.Unlock()
 

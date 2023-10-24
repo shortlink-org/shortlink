@@ -12,12 +12,12 @@ import (
 
 // Fatal ===============================================================================================================
 
-func (log *ZapLogger) Fatal(msg string, fields ...field.Fields) {
+func (log *Logger) Fatal(msg string, fields ...field.Fields) {
 	zapFields := log.converter(fields...)
 	log.Logger.Fatal(msg, zapFields...)
 }
 
-func (log *ZapLogger) FatalWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+func (log *Logger) FatalWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
 		log.Logger.Ctx(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
@@ -29,14 +29,15 @@ func (log *ZapLogger) FatalWithContext(ctx context.Context, msg string, fields .
 
 // Warn ================================================================================================================
 
-func (log *ZapLogger) Warn(msg string, fields ...field.Fields) {
+func (log *Logger) Warn(msg string, fields ...field.Fields) {
 	zapFields := log.converter(fields...)
 	log.Logger.Warn(msg, zapFields...)
 }
 
-func (log *ZapLogger) WarnWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+func (log *Logger) WarnWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
+		//nolint:revive // TODO: fix
 		log.Logger.Ctx(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
@@ -46,12 +47,12 @@ func (log *ZapLogger) WarnWithContext(ctx context.Context, msg string, fields ..
 
 // Error ===============================================================================================================
 
-func (log *ZapLogger) Error(msg string, fields ...field.Fields) {
+func (log *Logger) Error(msg string, fields ...field.Fields) {
 	zapFields := log.converter(fields...)
 	log.Logger.Error(msg, zapFields...)
 }
 
-func (log *ZapLogger) ErrorWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+func (log *Logger) ErrorWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	tags := []attribute.KeyValue{{
 		Key:   "error",
 		Value: attribute.BoolValue(true),
@@ -59,6 +60,7 @@ func (log *ZapLogger) ErrorWithContext(ctx context.Context, msg string, fields .
 
 	fields, err := tracer.NewTraceFromContext(ctx, msg, tags, fields...)
 	if err != nil {
+		//nolint:revive // TODO: fix
 		log.Logger.Ctx(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
@@ -68,14 +70,15 @@ func (log *ZapLogger) ErrorWithContext(ctx context.Context, msg string, fields .
 
 // Info ================================================================================================================
 
-func (log *ZapLogger) Info(msg string, fields ...field.Fields) {
+func (log *Logger) Info(msg string, fields ...field.Fields) {
 	zapFields := log.converter(fields...)
 	log.Logger.Info(msg, zapFields...)
 }
 
-func (log *ZapLogger) InfoWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+func (log *Logger) InfoWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
+		//nolint:revive // TODO: fix
 		log.Logger.Ctx(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
@@ -85,14 +88,15 @@ func (log *ZapLogger) InfoWithContext(ctx context.Context, msg string, fields ..
 
 // Debug ===============================================================================================================
 
-func (log *ZapLogger) Debug(msg string, fields ...field.Fields) {
+func (log *Logger) Debug(msg string, fields ...field.Fields) {
 	zapFields := log.converter(fields...)
 	log.Logger.Debug(msg, zapFields...)
 }
 
-func (log *ZapLogger) DebugWithContext(ctx context.Context, msg string, fields ...field.Fields) {
+func (log *Logger) DebugWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
+		//nolint:revive // TODO: fix
 		log.Logger.Ctx(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 

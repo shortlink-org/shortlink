@@ -35,11 +35,6 @@ func (m *Store) Init(ctx context.Context) error {
 		return err
 	}
 
-	err = m.client.Connect(ctx)
-	if err != nil {
-		return err
-	}
-
 	// Check connect
 	err = m.client.Ping(ctx, readpref.Primary())
 	if err != nil {

@@ -8,7 +8,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 )
 
-type RabbitMQ struct {
+type MQ struct {
 	mu sync.Mutex
 
 	config *Config
@@ -18,14 +18,14 @@ type RabbitMQ struct {
 	ch   *Channel
 }
 
-func New(log logger.Logger) *RabbitMQ {
-	return &RabbitMQ{
+func New(log logger.Logger) *MQ {
+	return &MQ{
 		log:    log,
 		config: loadConfig(), // Set configuration
 	}
 }
 
-func (mq *RabbitMQ) Init(_ context.Context) error {
+func (mq *MQ) Init(_ context.Context) error {
 	// connect to RabbitMQ server
 	err := mq.Dial()
 	if err != nil {
@@ -41,7 +41,7 @@ func (mq *RabbitMQ) Init(_ context.Context) error {
 	return nil
 }
 
-func (mq *RabbitMQ) Close() error {
+func (mq *MQ) Close() error {
 	if err := mq.conn.Close(); err != nil {
 		return err
 	}
@@ -53,8 +53,8 @@ func (mq *RabbitMQ) Close() error {
 	return nil
 }
 
-func (r *RabbitMQ) Check(ctx context.Context) error {
-	if r.conn.IsClosed() {
+func (mq *MQ) Check(_ context.Context) error {
+	if mq.conn.IsClosed() {
 		return fmt.Errorf("connection is closed")
 	}
 

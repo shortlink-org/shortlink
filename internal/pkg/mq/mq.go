@@ -8,8 +8,6 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
-
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/kafka"

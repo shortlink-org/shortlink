@@ -22,12 +22,12 @@ type Store struct {
 
 var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
 
-func (s *Store) Init(ctx context.Context, db *db.Store) error {
+func (s *Store) Init(ctx context.Context, store *db.Store) error {
 	var ok bool
 
-	s.db, ok = db.Store.GetConn().(*pgxpool.Pool)
+	s.db, ok = store.Store.GetConn().(*pgxpool.Pool)
 	if !ok {
-		return errors.New("Error get connection to PostgreSQL")
+		return errors.New("error get connection to PostgreSQL")
 	}
 
 	return nil
@@ -100,7 +100,9 @@ func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Sn
 	}
 
 	var snapshot eventsourcing.Snapshot
+
 	row := s.db.QueryRow(ctx, q, args...)
+
 	err = row.Scan(&snapshot.AggregateId, &snapshot.AggregateType, &snapshot.AggregateVersion, &snapshot.Payload)
 	if err != nil && !errors.Is(err, pgx.ErrNoRows) {
 		return nil, nil, err
@@ -126,6 +128,7 @@ func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Sn
 	if err != nil {
 		return nil, nil, err
 	}
+
 	if rows.Err() != nil {
 		return nil, nil, rows.Err()
 	}

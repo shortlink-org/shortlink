@@ -74,6 +74,7 @@ func New(sql string) (*Parser, error) {
 func (p *Parser) Parse() (*query.Query, error) {
 	q, err := p.doParse()
 	p.Error = err.Error()
+
 	if p.GetError() == "" {
 		if errValidate := p.validate(); errValidate != nil {
 			p.Error = errValidate.Error()
@@ -142,13 +143,16 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 
 			if strings.EqualFold(maybeFrom, "AS") {
 				p.pop()
+
 				alias := p.peek()
 				if !isIdentifier(alias) {
 					return p.GetQuery(), fmt.Errorf("at SELECT: expected field alias for \"%s as\" to SELECT", identifier)
 				}
+
 				if p.GetQuery().GetAliases() == nil {
 					p.Query.Aliases = make(map[string]string)
 				}
+
 				p.Query.Aliases[identifier] = alias
 				p.pop()
 				maybeFrom = p.peek()
@@ -165,6 +169,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if commaRWord != "," {
 				return p.GetQuery(), fmt.Errorf("at SELECT: expected comma or FROM")
 			}
+
 			p.pop()
 			p.Step = Step_STEP_SELECT_FIELD
 		case Step_STEP_SELECT_FROM:
@@ -172,6 +177,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if !strings.EqualFold(fromRWord, "FROM") {
 				return p.GetQuery(), fmt.Errorf("at SELECT: expected FROM")
 			}
+
 			p.pop()
 			p.Step = Step_STEP_SELECT_FROM_TABLE
 		case Step_STEP_SELECT_FROM_TABLE:
@@ -188,6 +194,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 
 			p.Query.TableName = tableName
 			p.pop()
+
 			look := p.peek()
 			if strings.EqualFold(look, WHERE) {
 				p.Step = Step_STEP_WHERE
@@ -205,6 +212,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if len(tableName) == 0 {
 				return p.GetQuery(), fmt.Errorf("at INSERT INTO: expected quoted table name")
 			}
+
 			p.Query.TableName = tableName
 			p.pop()
 			p.Step = Step_STEP_INSERT_FIELD_OPENING_PARENTS
@@ -213,6 +221,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if len(tableName) == 0 {
 				return p.GetQuery(), fmt.Errorf("at DELETE FROM: expected quoted table name")
 			}
+
 			p.Query.TableName = tableName
 			p.pop()
 			p.Step = Step_STEP_WHERE
@@ -228,6 +237,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if !isIdentifier(identifier) {
 				return p.GetQuery(), fmt.Errorf("at WHERE: expected field")
 			}
+
 			p.Query.Conditions = append(p.GetQuery().GetConditions(), &query.Condition{LValue: identifier, LValueIsField: true})
 			p.pop()
 			p.Step = Step_STEP_WHERE_OPERATOR
@@ -245,6 +255,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			p.Step = Step_STEP_WHERE_VALUE
 		case Step_STEP_WHERE_VALUE:
 			currentCondition := p.GetQuery().GetConditions()[len(p.GetQuery().GetConditions())-1]
+
 			identifier := p.peek()
 			if isIdentifier(identifier) {
 				currentCondition.RValue = identifier
@@ -265,12 +276,14 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 				p.Step = Step_STEP_LIMIT
 				continue
 			}
+
 			p.Step = Step_STEP_WHERE_AND
 		case Step_STEP_WHERE_AND:
 			andRWord := p.peek()
 			if !strings.EqualFold(andRWord, "AND") {
 				return p.GetQuery(), fmt.Errorf("expected AND")
 			}
+
 			p.pop()
 			p.Step = Step_STEP_WHERE_FIELD
 		case Step_STEP_UPDATE_TABLE:
@@ -278,6 +291,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if len(tableName) == 0 {
 				return p.GetQuery(), fmt.Errorf("at UPDATE: expected quoted table name")
 			}
+
 			p.Query.TableName = tableName
 			p.pop()
 			p.Step = Step_STEP_UPDATE_SET
@@ -286,6 +300,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if setRWord != "SET" {
 				return p.GetQuery(), fmt.Errorf("at UPDATE: expected 'SET'")
 			}
+
 			p.pop()
 			p.Step = Step_STEP_UPDATE_FIELD
 		case Step_STEP_UPDATE_FIELD:
@@ -293,6 +308,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if !isIdentifier(identifier) {
 				return p.GetQuery(), fmt.Errorf("at UPDATE: expected at least one field to update")
 			}
+
 			p.NextUpdateField = identifier
 			p.pop()
 			p.Step = Step_STEP_UPDATE_EQUALS
@@ -301,6 +317,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if equalsRWord != "=" {
 				return p.GetQuery(), fmt.Errorf("at UPDATE: expected '='")
 			}
+
 			p.pop()
 			p.Step = Step_STEP_UPDATE_VALUE
 		case Step_STEP_UPDATE_VALUE:
@@ -308,20 +325,24 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if ln == 0 {
 				return p.GetQuery(), fmt.Errorf("at UPDATE: expected quoted value")
 			}
+
 			p.Query.Updates[p.GetNextUpdateField()] = quotedValue
 			p.NextUpdateField = ""
 			p.pop()
+
 			maybeWhere := p.peek()
 			if strings.EqualFold(maybeWhere, "WHERE") {
 				p.Step = Step_STEP_WHERE
 				continue
 			}
+
 			p.Step = Step_STEP_UPDATE_COMMA
 		case Step_STEP_UPDATE_COMMA:
 			commaRWord := p.peek()
 			if commaRWord != "," {
 				return p.GetQuery(), fmt.Errorf("at UPDATE: expected ','")
 			}
+
 			p.pop()
 			p.Step = Step_STEP_UPDATE_FIELD
 		case Step_STEP_ORDER:
@@ -329,6 +350,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if !strings.EqualFold(orderRWord, "ORDER BY") {
 				return p.GetQuery(), fmt.Errorf("expected ORDER")
 			}
+
 			p.pop()
 			p.Step = Step_STEP_ORDER_FIELD
 		case Step_STEP_ORDER_FIELD:
@@ -336,6 +358,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if !isIdentifier(identifier) {
 				return p.GetQuery(), fmt.Errorf("at ORDER BY: expected field to ORDER")
 			}
+
 			p.Query.OrderFields = append(p.GetQuery().GetOrderFields(), identifier)
 			p.Query.OrderDir = append(p.GetQuery().GetOrderDir(), "ASC")
 			p.pop()
@@ -350,6 +373,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 
 				continue
 			}
+
 			p.Step = Step_STEP_ORDER_FIELD
 		case Step_STEP_JOIN:
 			joinType := p.peek()
@@ -362,6 +386,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			currentJoin.Table = joinTable
 			p.Query.Joins[len(p.GetQuery().GetJoins())-1] = currentJoin
 			p.pop()
+
 			if strings.ToUpper(p.peek()) == "ON" {
 				p.Step = Step_STEP_JOIN_CONDITION
 			} else {
@@ -388,11 +413,13 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if len(op2split) != 2 { //nolint:gomnd
 				return p.GetQuery(), fmt.Errorf("at ON: expected <tablename>.<fieldname>")
 			}
+
 			currentCondition.RTable = op2split[0]
 			currentCondition.ROperand = op2split[1]
 			currentJoin := p.GetQuery().GetJoins()[len(p.GetQuery().GetJoins())-1]
 			currentJoin.Conditions = append(currentJoin.GetConditions(), currentCondition)
 			p.Query.Joins[len(p.GetQuery().GetJoins())-1] = currentJoin
+
 			nextOp := p.peek()
 			if strings.EqualFold(nextOp, "WHERE") {
 				p.Step = Step_STEP_WHERE
@@ -408,6 +435,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if len(openingParens) != 1 || openingParens != "(" {
 				return p.GetQuery(), fmt.Errorf("at INSERT INTO: expected opening parens")
 			}
+
 			p.pop()
 			p.Step = Step_STEP_INSERT_FIELDS
 		case Step_STEP_INSERT_FIELDS:
@@ -415,6 +443,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if !isIdentifier(identifier) {
 				return p.GetQuery(), fmt.Errorf("at INSERT INTO: expected at least one field to insert")
 			}
+
 			p.Query.Fields = append(p.GetQuery().GetFields(), identifier)
 			p.pop()
 			p.Step = Step_STEP_INSERT_FIELDS_COMMA_OR_CLOSING_PARENTS
@@ -423,17 +452,20 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if commaOrClosingParens != "," && commaOrClosingParens != ")" {
 				return p.GetQuery(), fmt.Errorf("at INSERT INTO: expected comma or closing parens")
 			}
+
 			p.pop()
 			if commaOrClosingParens == "," {
 				p.Step = Step_STEP_INSERT_FIELDS
 				continue
 			}
+
 			p.Step = Step_STEP_INSERT_RWORD
 		case Step_STEP_INSERT_RWORD:
 			valuesRWord := p.peek()
 			if !strings.EqualFold(valuesRWord, "VALUES") {
 				return p.GetQuery(), fmt.Errorf("at INSERT INTO: expected 'VALUES'")
 			}
+
 			p.pop()
 			p.Step = Step_STEP_INSERT_VALUES_OPENING_PARENS
 		case Step_STEP_INSERT_VALUES_OPENING_PARENS:
@@ -441,6 +473,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if openingParens != "(" {
 				return p.GetQuery(), fmt.Errorf("at INSERT INTO: expected opening parens")
 			}
+
 			p.Query.Inserts = append(p.GetQuery().GetInserts(), &query.Query_Array{})
 			p.pop()
 			p.Step = Step_STEP_INSERT_VALUES
@@ -449,6 +482,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if ln == 0 {
 				return p.GetQuery(), fmt.Errorf("at INSERT INTO: expected quoted value")
 			}
+
 			p.Query.Inserts[len(p.GetQuery().GetInserts())-1].Items = append(p.GetQuery().GetInserts()[len(p.GetQuery().GetInserts())-1].GetItems(), quotedValue)
 			p.pop()
 			p.Step = Step_STEP_INSERT_VALUES_COMMA_OR_CLOSING_PARENS
@@ -457,15 +491,18 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if commaOrClosingParens != "," && commaOrClosingParens != ")" {
 				return p.GetQuery(), fmt.Errorf("at INSERT INTO: expected comma or closing parens")
 			}
+
 			p.pop()
 			if commaOrClosingParens == "," {
 				p.Step = Step_STEP_INSERT_VALUES
 				continue
 			}
+
 			currentInsertRow := p.GetQuery().GetInserts()[len(p.GetQuery().GetInserts())-1]
 			if len(currentInsertRow.GetItems()) < len(p.GetQuery().GetFields()) {
 				return p.GetQuery(), fmt.Errorf("at INSERT INTO: value count doesn't match field count")
 			}
+
 			p.Step = Step_STEP_INSERT_VALUES_COMMA_BEFORE_OPENING_PARENS
 		case Step_STEP_INSERT_VALUES_COMMA_BEFORE_OPENING_PARENS:
 			commaRWord := p.peek()
@@ -474,6 +511,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			} else if !strings.EqualFold(commaRWord, ",") {
 				return p.GetQuery(), fmt.Errorf("at INSERT INTO: expected comma")
 			}
+
 			p.pop()
 			p.Step = Step_STEP_INSERT_VALUES_OPENING_PARENS
 		case Step_STEP_CREATE_TABLE_NAME:
@@ -481,6 +519,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if !isIdentifier(identifier) {
 				return p.GetQuery(), fmt.Errorf("at CREATE TABLE: table name cannot be empty")
 			}
+
 			p.pop()
 			p.Query.TableName = identifier
 			p.Step = Step_STEP_CREATE_TABLE_OPENING_PARENS
@@ -499,6 +538,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 				p.Step = Step_STEP_CREATE_TABLE_FIELDS_COMMA_OR_CLOSING_PARENS
 				continue
 			}
+
 			if !isIdentifier(identifier) {
 				return p.GetQuery(), fmt.Errorf("at CREATE TABLE: expected at least one field to create table")
 			}
@@ -519,15 +559,15 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if vector.Contains(typeFieldTable, typeField) {
 				switch typeField {
 				case "int":
-					fallthrough
+					p.Query.TableFields[identifier] = field.Type_TYPE_INTEGER
 				case "integer":
 					p.Query.TableFields[identifier] = field.Type_TYPE_INTEGER
 				case "text":
-					fallthrough
+					p.Query.TableFields[identifier] = field.Type_TYPE_STRING
 				case "string":
 					p.Query.TableFields[identifier] = field.Type_TYPE_STRING
 				case "bool":
-					fallthrough
+					p.Query.TableFields[identifier] = field.Type_TYPE_BOOLEAN
 				case "boolean":
 					p.Query.TableFields[identifier] = field.Type_TYPE_BOOLEAN
 				default:
@@ -545,11 +585,13 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			if commaOrClosingParens != "," && commaOrClosingParens != ")" && commaOrClosingParens != ";" {
 				return p.GetQuery(), fmt.Errorf("at CREATE TABLE: expected comma or closing parens")
 			}
+
 			p.pop()
 			if commaOrClosingParens == "," {
 				p.Step = Step_STEP_CREATE_TABLE_FIELDS
 				continue
 			}
+
 			if commaOrClosingParens == ";" {
 				p.Step = Step_STEP_SEMICOLON
 			}
@@ -564,7 +606,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			countRaw := p.peek()
 			p.pop()
 
-			if len(countRaw) == 0 {
+			if countRaw == "" {
 				return p.GetQuery(), fmt.Errorf("at LIMIT: empty LIMIT clause")
 			}
 

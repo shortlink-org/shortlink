@@ -26,9 +26,9 @@ func TestRateLimiter(t *testing.T) {
 
 	for i := 0; i < 10000; i++ {
 		wg.Go(func() error {
-			err := rl.Wait()
-			if err != nil {
-				return err
+			errWait := rl.Wait()
+			if errWait != nil {
+				return errWait
 			}
 
 			atomic.AddInt64(&sum, 1)

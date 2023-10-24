@@ -45,6 +45,7 @@ func (c *Connection) Channel() (*Channel, error) {
 
 				break
 			}
+
 			c.log.Error(fmt.Sprintf("channel closed, reason: %v", reason))
 
 			// reconnect if not closed by developer
@@ -69,7 +70,7 @@ func (c *Connection) Channel() (*Channel, error) {
 }
 
 // Dial wrap amqp.Dial, dial and get a reconnected connection
-func (mq *RabbitMQ) Dial() error {
+func (mq *MQ) Dial() error {
 	conn, err := amqp.Dial(mq.config.URI)
 	if err != nil {
 		return err
@@ -89,6 +90,7 @@ func (mq *RabbitMQ) Dial() error {
 				mq.log.Error("connection closed")
 				break
 			}
+
 			mq.log.Error(fmt.Sprintf("connection closed, reason: %v", reason))
 
 			// reconnect if not closed by developer

@@ -25,7 +25,7 @@ import (
 	grpc_logger "github.com/shortlink-org/shortlink/internal/pkg/rpc/middleware/logger"
 )
 
-type RPCServer struct {
+type Server struct {
 	Run      func()
 	Server   *grpc.Server
 	Endpoint string
@@ -44,8 +44,9 @@ type server struct {
 }
 
 // InitServer ...
-func InitServer(log logger.Logger, tracer trace.TracerProvider, monitoring *monitoring.Monitoring) (*RPCServer, func(), error) {
+func InitServer(log logger.Logger, tracer trace.TracerProvider, monitoring *monitoring.Monitoring) (*Server, func(), error) {
 	viper.SetDefault("GRPC_SERVER_ENABLED", true) // gRPC server enable
+
 	if !viper.GetBool("GRPC_SERVER_ENABLED") {
 		return nil, nil, nil
 	}
@@ -64,7 +65,7 @@ func InitServer(log logger.Logger, tracer trace.TracerProvider, monitoring *moni
 	// Initialize the gRPC server.
 	rpc := grpc.NewServer(config.optionsNewServer...)
 
-	r := &RPCServer{
+	r := &Server{
 		Server: rpc,
 		Run: func() {
 			// Register reflection service on gRPC server.
@@ -90,7 +91,7 @@ func InitServer(log logger.Logger, tracer trace.TracerProvider, monitoring *moni
 }
 
 // setConfig - set configuration
-func setServerConfig(log logger.Logger, tracer trace.TracerProvider, monitoring *monitoring.Monitoring) (*server, error) {
+func setServerConfig(log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*server, error) {
 	viper.SetDefault("GRPC_SERVER_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_SERVER_PORT")
 
@@ -105,8 +106,8 @@ func setServerConfig(log logger.Logger, tracer trace.TracerProvider, monitoring 
 	}
 
 	config.WithLogger(log)
-	config.WithMetrics(monitoring)
-	config.WithRecovery(monitoring)
+	config.WithMetrics(monitor)
+	config.WithRecovery(monitor)
 	config.WithTracer(tracer)
 
 	config.optionsNewServer = append(config.optionsNewServer,
@@ -125,13 +126,13 @@ func setServerConfig(log logger.Logger, tracer trace.TracerProvider, monitoring 
 }
 
 // WithMetrics - setup metrics.
-func (s *server) WithMetrics(monitoring *monitoring.Monitoring) {
+func (s *server) WithMetrics(monitor *monitoring.Monitoring) {
 	s.serverMetrics = grpc_prometheus.NewServerMetrics(
 		grpc_prometheus.WithServerHandlingTimeHistogram(
 			grpc_prometheus.WithHistogramBuckets([]float64{0.001, 0.01, 0.1, 0.3, 0.6, 1, 3, 6, 9, 20, 30, 60, 90, 120}),
 		),
 	)
-	monitoring.Prometheus.MustRegister(s.serverMetrics)
+	monitor.Prometheus.MustRegister(s.serverMetrics)
 
 	s.interceptorUnaryServerList = append(s.interceptorUnaryServerList, s.serverMetrics.UnaryServerInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
 	s.interceptorStreamServerList = append(s.interceptorStreamServerList, s.serverMetrics.StreamServerInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
@@ -148,9 +149,9 @@ func (s *server) WithTracer(tracer trace.TracerProvider) {
 }
 
 // WithRecovery - setup recovery
-func (s *server) WithRecovery(monitoring *monitoring.Monitoring) {
+func (s *server) WithRecovery(monitor *monitoring.Monitoring) {
 	// Setup metric for panic recoveries.
-	panicsTotal := promauto.With(monitoring.Prometheus).NewCounter(prometheus.CounterOpts{
+	panicsTotal := promauto.With(monitor.Prometheus).NewCounter(prometheus.CounterOpts{
 		Name: "grpc_req_panics_recovered_total",
 		Help: "Total number of gRPC requests recovered from internal panic.",
 	})
@@ -160,6 +161,7 @@ func (s *server) WithRecovery(monitoring *monitoring.Monitoring) {
 			"panic": p,
 			"stack": debug.Stack(),
 		})
+
 		return status.Errorf(codes.Internal, "%s", p)
 	}
 
@@ -174,7 +176,7 @@ func (s *server) WithRecovery(monitoring *monitoring.Monitoring) {
 
 // WithLogger - setup logger
 func (s *server) WithLogger(log logger.Logger) {
-	viper.SetDefault("GRPC_SERVER_LOGGER_ENABLED", true) // Enable logging for gRPC-client
+	viper.SetDefault("GRPC_SERVER_LOGGER_ENABLED", true) // Enable logging for gRPC-Client
 	isEnableLogger := viper.GetBool("GRPC_SERVER_LOGGER_ENABLED")
 
 	if isEnableLogger {

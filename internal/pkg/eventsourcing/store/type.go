@@ -11,7 +11,7 @@ import (
 
 // EventStore saves the events from an aggregate
 type EventStore interface {
-	Init(ctx context.Context, db *db.Store) error
+	Init(ctx context.Context, eventStore *db.Store) error
 
 	Save(ctx context.Context, events []*eventsourcing.Event) error
 	SafeSave(ctx context.Context, events []*eventsourcing.Event) error

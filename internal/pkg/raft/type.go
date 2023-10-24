@@ -32,16 +32,16 @@ type Raft interface {
 }
 
 // RaftRole represents the role of a Raft node.
-type RaftRole uint8
+type Role uint8
 
 const (
-	Follower RaftRole = iota + 1
+	Follower Role = iota + 1
 	Candidate
 	Leader
 )
 
-// RaftClient represents a client that interacts with a Raft cluster.
-type RaftClient interface {
+// Client represents a client that interacts with a Raft cluster.
+type Client interface {
 	// Connect connects the client to the Raft cluster.
 	// It takes a Config struct and returns an error if the connection fails.
 	Connect(config Config) error

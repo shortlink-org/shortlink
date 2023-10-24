@@ -30,7 +30,7 @@ func (s *Saga) AddStep(name string, setters ...Option) *BuilderStep {
 			dag:    s.dag,
 			status: INIT,
 
-			Options: Options{logger: s.logger},
+			Options: Options{log: s.log},
 		},
 	}
 
@@ -40,8 +40,9 @@ func (s *Saga) AddStep(name string, setters ...Option) *BuilderStep {
 
 	// check uniq
 	if s.steps[name] != nil {
-		step.errorList = append(s.errorList, fmt.Errorf("Dublicate step: %s", name))
+		step.errorList = append(s.errorList, fmt.Errorf("dublicate step: %s", name))
 	}
+
 	s.steps[name] = step.Step
 
 	// add vertex to DAG
@@ -73,8 +74,9 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 
 	// start tracing
 	newCtx, span := otel.Tracer(fmt.Sprintf("saga: %s", s.name)).Start(s.ctx, fmt.Sprintf("saga: %s", s.name))
-	span.SetAttributes(attribute.String("saga", s.name))
 	defer span.End()
+
+	span.SetAttributes(attribute.String("saga", s.name))
 
 	for _, step := range initSteps {
 		step.ctx = &newCtx
@@ -93,6 +95,7 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 
 	// Run children
 	initChildrenStep := make(map[string]*Step)
+
 	for _, rootStep := range initSteps {
 		vertex, errGetVertex := s.dag.GetVertex(rootStep.name)
 		if errGetVertex != nil {
@@ -107,6 +110,7 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 			initChildrenStep[step.name] = step
 		}
 	}
+
 	if len(initChildrenStep) == 0 {
 		return nil
 	}
@@ -146,6 +150,7 @@ func (s *Saga) getRootSteps() (map[string]*Step, error) {
 func (s *Saga) validateRun(steps map[string]*Step) (map[string]*Step, error) {
 	// skip if status of all parents steps not DONE
 	doneSteps := make(map[string]*Step)
+
 	for _, step := range steps {
 		vertex, errGetVertex := s.dag.GetVertex(step.name)
 		if errGetVertex != nil {
@@ -153,12 +158,14 @@ func (s *Saga) validateRun(steps map[string]*Step) (map[string]*Step, error) {
 		}
 
 		isDone := true
+
 		for _, child := range vertex.Parents() {
 			if s.steps[child.GetId()].status != DONE {
 				isDone = false
 				step.status = WAIT
 			}
 		}
+
 		if isDone {
 			doneSteps[step.name] = step
 		}
@@ -178,12 +185,13 @@ func (s *Saga) Reject(rejectSteps map[string]*Step) error {
 	// ignore error and continue reject parent func
 	err := g.Wait()
 	if err != nil {
-		s.logger.ErrorWithContext(s.ctx, err.Error())
+		s.log.ErrorWithContext(s.ctx, err.Error())
 		return err
 	}
 
 	// get parents
 	initParentStep := make(map[string]*Step)
+
 	for _, rootStep := range rejectSteps {
 		vertex, errGetVertex := s.dag.GetVertex(rootStep.name)
 		if errGetVertex != nil {
@@ -195,6 +203,7 @@ func (s *Saga) Reject(rejectSteps map[string]*Step) error {
 			initParentStep[step.name] = step
 		}
 	}
+
 	if len(initParentStep) == 0 {
 		return nil
 	}
@@ -210,6 +219,7 @@ func (s *Saga) Reject(rejectSteps map[string]*Step) error {
 func (s *Saga) validateReject(steps map[string]*Step) (map[string]*Step, error) {
 	// skip the status of all parents step ROLLBACK's
 	doneSteps := make(map[string]*Step)
+
 	for _, step := range steps {
 		vertex, errGetVertex := s.dag.GetVertex(step.name)
 		if errGetVertex != nil {
@@ -217,11 +227,13 @@ func (s *Saga) validateReject(steps map[string]*Step) (map[string]*Step, error) 
 		}
 
 		isDone := true
+
 		for _, parent := range vertex.Parents() {
 			if s.steps[parent.GetId()].status == ROLLBACK && step.status != DONE {
 				isDone = false
 			}
 		}
+
 		if isDone {
 			doneSteps[step.name] = step
 		}

@@ -48,13 +48,16 @@ func (s *singleFlight) middleware(next http.Handler) http.Handler {
 		if r.Method == http.MethodGet {
 			key := s.keyFn(r)
 
-			response, err, _ := s.group.Do(key, func() (interface{}, error) {
+			response, err, _ := s.group.Do(key, func() (any, error) {
 				next.ServeHTTP(w, r)
+
+				//nolint:nilnil // nil, nil is valid return
 				return nil, nil
 			})
 
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
+
 				return
 			}
 

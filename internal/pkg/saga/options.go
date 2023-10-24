@@ -5,15 +5,15 @@ import (
 )
 
 type Options struct {
-	logger  logger.Logger
+	log     logger.Logger
 	limiter int
 }
 
 type Option func(*Options)
 
-func SetLogger(logger logger.Logger) Option {
+func SetLogger(log logger.Logger) Option {
 	return func(args *Options) {
-		args.logger = logger
+		args.log = log
 	}
 }
 

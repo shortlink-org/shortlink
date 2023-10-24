@@ -10,6 +10,7 @@ func Contains[V Type](a []V, x V) bool {
 			return true
 		}
 	}
+
 	return false
 }
 
@@ -22,6 +23,7 @@ func Find[V Type](a []V, x V) int {
 			return i
 		}
 	}
+
 	return len(a)
 }
 
@@ -39,5 +41,6 @@ func Unique[V Type](slice []V) []V {
 	for v := range uniqMap {
 		uniqSlice = append(uniqSlice, v)
 	}
+
 	return uniqSlice
 }

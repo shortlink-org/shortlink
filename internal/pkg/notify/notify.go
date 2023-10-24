@@ -46,8 +46,10 @@ func UnSubscribe(event uint32, subscriber Subscriber[any]) {
 // If a callback is provided, it returns the first successful response that matches the response filter.
 func Publish(ctx context.Context, event uint32, payload any, cb *Callback) {
 	responses := map[string]Response[any]{}
+
 	subscribers.mu.RLock()
 	defer subscribers.mu.RUnlock()
+
 	if len(subscribers.subscriberMap[event]) == 0 && cb != nil {
 		cb.CB <- nil
 	}

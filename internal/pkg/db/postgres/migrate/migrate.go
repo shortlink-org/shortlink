@@ -16,8 +16,8 @@ import (
 )
 
 // Migration - apply migration to db
-func Migration(ctx context.Context, db *db.Store, fs embed.FS, tableName string) error {
-	client, ok := db.Store.GetConn().(*pgxpool.Pool)
+func Migration(_ context.Context, store *db.Store, fs embed.FS, tableName string) error {
+	client, ok := store.Store.GetConn().(*pgxpool.Pool)
 	if !ok {
 		return errors.New("can't get db connection")
 	}
@@ -49,10 +49,10 @@ func buildURI(client *pgxpool.Pool, tableName string) string {
 		connStr += "?"
 	}
 
-	uri.WriteString(connStr)
-	uri.WriteString("&dbname=")
-	uri.WriteString(client.Config().ConnConfig.Database)
-	uri.WriteString("&x-migrations-table=")
-	uri.WriteString(fmt.Sprintf("schema_migrations_%s", strings.Replace(tableName, "-", "_", -1)))
+	_, _ = uri.WriteString(connStr)                                                                      //nolint:errcheck // ignore error
+	_, _ = uri.WriteString("&dbname=")                                                                   //nolint:errcheck // ignore error
+	_, _ = uri.WriteString(client.Config().ConnConfig.Database)                                          //nolint:errcheck // ignore error
+	_, _ = uri.WriteString("&x-migrations-table=")                                                       //nolint:errcheck // ignore error
+	_, _ = uri.WriteString(fmt.Sprintf("schema_migrations_%s", strings.ReplaceAll(tableName, "-", "_"))) //nolint:errcheck // ignore error
 	return uri.String()
 }

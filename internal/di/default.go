@@ -47,7 +47,7 @@ type Service struct {
 	DB        *db.Store
 	Cache     *redisCache.UniversalClient
 	MQ        *mq.DataBus
-	ServerRPC *rpc.RPCServer
+	ServerRPC *rpc.Server
 	ClientRPC *grpc.ClientConn
 
 	// Observability
@@ -90,7 +90,7 @@ func NewFullService(
 	i18n *message.Printer,
 
 	// Delivery
-	serverRPC *rpc.RPCServer,
+	serverRPC *rpc.Server,
 	clientRPC *grpc.ClientConn,
 	mq *mq.DataBus,
 	db *db.Store,

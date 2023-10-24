@@ -240,7 +240,7 @@ func NewMetaDataApplication(store2 *meta_store.MetaStore) (*parsers.Service, err
 	return metadataService, nil
 }
 
-func NewMetaDataRPCServer(runRPCServer *rpc.RPCServer, application *parsers.Service, log logger.Logger) (*v1.Metadata, error) {
+func NewMetaDataRPCServer(runRPCServer *rpc.Server, application *parsers.Service, log logger.Logger) (*v1.Metadata, error) {
 	metadataRPCServer, err := v1.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err

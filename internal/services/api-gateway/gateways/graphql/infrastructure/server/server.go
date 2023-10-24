@@ -23,7 +23,7 @@ func RunAPIServer(
 	ctx context.Context,
 	i18n *message.Printer,
 	log logger.Logger,
-	rpcServer *rpc.RPCServer,
+	rpcServer *rpc.Server,
 	tracer trace.TracerProvider,
 	monitoring *monitoring.Monitoring,
 

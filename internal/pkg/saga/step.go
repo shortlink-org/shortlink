@@ -24,11 +24,12 @@ type Step struct {
 func (s *Step) Run() error {
 	// start tracing
 	newCtx, span := otel.Tracer(fmt.Sprintf("saga: %s", s.name)).Start(*s.ctx, fmt.Sprintf("saga: %s", s.name))
-	span.SetAttributes(attribute.String("step", s.name))
-	span.SetAttributes(attribute.String("status", "run"))
 	defer span.End()
 
+	span.SetAttributes(attribute.String("step", s.name), attribute.String("status", "run"))
+
 	s.status = RUN
+
 	err := s.then(newCtx)
 	if err != nil {
 		s.status = REJECT
@@ -38,6 +39,7 @@ func (s *Step) Run() error {
 
 		return err
 	}
+
 	s.status = DONE
 
 	return nil
@@ -46,13 +48,13 @@ func (s *Step) Run() error {
 func (s *Step) Reject() error {
 	// start tracing
 	newCtx, span := otel.Tracer(fmt.Sprintf("saga: %s", s.name)).Start(*s.ctx, fmt.Sprintf("saga: %s", s.name))
-	span.SetAttributes(attribute.String("step", s.name))
-	span.SetAttributes(attribute.String("status", "reject"))
 	defer span.End()
+
+	span.SetAttributes(attribute.String("step", s.name), attribute.String("status", "reject"))
 
 	s.status = REJECT
 
-	// Check on compensation step
+	// Check on a compensation step
 	if s.reject == nil {
 		return nil
 	}
@@ -61,9 +63,12 @@ func (s *Step) Reject() error {
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
+
 		s.status = FAIL
+
 		return err
 	}
+
 	s.status = ROLLBACK
 
 	return nil

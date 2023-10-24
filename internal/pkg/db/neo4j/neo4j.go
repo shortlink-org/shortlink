@@ -22,7 +22,7 @@ type Store struct {
 	config Config
 }
 
-// Init ...
+// Init - init connection
 func (s *Store) Init(ctx context.Context) error {
 	// Set configuration
 	err := s.setConfig()
@@ -38,12 +38,12 @@ func (s *Store) Init(ctx context.Context) error {
 	return nil
 }
 
-// GetConn ...
+// GetConn - return connection
 func (s *Store) GetConn() any {
 	return s.client
 }
 
-// Close ...
+// Close - close connection
 func (s *Store) Close() error {
 	return s.client.Close(context.Background())
 }

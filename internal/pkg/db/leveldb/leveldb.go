@@ -13,7 +13,7 @@ type Config struct {
 }
 
 // Store implementation of db interface
-type Store struct { //nolint:decorder
+type Store struct {
 	client *leveldb.DB
 	config Config
 }
@@ -39,16 +39,16 @@ func (s *Store) GetConn() any {
 }
 
 // Close ...
-func (l *Store) Close() error {
-	return l.client.Close()
+func (s *Store) Close() error {
+	return s.client.Close()
 }
 
 // setConfig - set configuration
-func (l *Store) setConfig() {
+func (s *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_LEVELDB_PATH", "/tmp/links.db") // LevelDB path to file
 
-	l.config = Config{
+	s.config = Config{
 		Path: viper.GetString("STORE_LEVELDB_PATH"),
 	}
 }

@@ -24,7 +24,7 @@ type API struct {
 	LinkServiceServer
 
 	http *http.Server
-	RPC  *rpc.RPCServer
+	RPC  *rpc.Server
 }
 
 // Run HTTP-server

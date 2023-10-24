@@ -21,7 +21,7 @@ type DGraphLink struct {
 }
 
 // DGraphLinkResponse ...
-type DGraphLinkResponse struct { //nolint:decorder
+type DGraphLinkResponse struct {
 	Link []struct {
 		*v1.Link
 		Uid string `json:"uid,omitempty"`
@@ -29,21 +29,21 @@ type DGraphLinkResponse struct { //nolint:decorder
 }
 
 // Config ...
-type Config struct { //nolint:decorder
+type Config struct {
 	URL string
 }
 
 // Store ...
 type Store struct {
-	logger logger.Logger
+	log    logger.Logger
 	conn   *grpc.ClientConn
 	client *dgo.Dgraph
 	config Config
 }
 
-func New(logger logger.Logger) *Store {
+func New(log logger.Logger) *Store {
 	return &Store{
-		logger: logger,
+		log: log,
 	}
 }
 
@@ -60,8 +60,8 @@ func (s *Store) Init(ctx context.Context) error {
 	}
 	s.client = dgo.NewDgraphClient(api.NewDgraphClient(s.conn))
 
-	if err = s.migrate(ctx); err != nil {
-		return err
+	if errMigrate := s.migrate(ctx); errMigrate != nil {
+		return errMigrate
 	}
 
 	return nil
@@ -82,7 +82,7 @@ func (s *Store) migrate(ctx context.Context) error {
 	txn := s.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
-			s.logger.ErrorWithContext(ctx, err.Error())
+			s.log.ErrorWithContext(ctx, err.Error())
 		}
 	}()
 

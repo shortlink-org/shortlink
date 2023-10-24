@@ -7,7 +7,7 @@ import (
 )
 
 func TestThunkFib(t *testing.T) {
-	cache := make([]*Thunk[int], 41)
+	cache := make([]*Thunk[int], 41) //nolint:revive // it's test
 
 	fib := func(n int) int {
 		return cache[n-1].Force() + cache[n-2].Force()
@@ -17,9 +17,11 @@ func TestThunkFib(t *testing.T) {
 		i := i
 		cache[i] = New(func() int { return fib(i) })
 	}
+
 	cache[0].o.Set(0)
 	cache[1].o.Set(1)
 
+	//nolint:revive // it's test
 	assert.Equal(t, cache[40].Force(), 102334155)
 }
 
@@ -40,5 +42,6 @@ func TestMemoizedFib(t *testing.T) {
 		return result
 	}
 
+	//nolint:revive // it's test
 	assert.Equal(t, fib(40), 102334155)
 }

@@ -15,7 +15,7 @@ import (
 )
 
 // Use return implementation of db
-func (s *Repository) Use(ctx context.Context, log logger.Logger, db *db.Store) (*Repository, error) {
+func (s *Repository) Use(ctx context.Context, log logger.Logger, eventStore *db.Store) (*Repository, error) {
 	// Set configuration
 	s.setConfig()
 
@@ -26,7 +26,7 @@ func (s *Repository) Use(ctx context.Context, log logger.Logger, db *db.Store) (
 		s.EventStore = &es_postgres.Store{}
 	}
 
-	if err := s.EventStore.Init(ctx, db); err != nil {
+	if err := s.EventStore.Init(ctx, eventStore); err != nil {
 		return nil, err
 	}
 

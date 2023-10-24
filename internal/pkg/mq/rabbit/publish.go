@@ -7,7 +7,7 @@ import (
 	"go.opentelemetry.io/otel/propagation"
 )
 
-func (mq *RabbitMQ) Publish(ctx context.Context, target string, routingKey, payload []byte) error {
+func (mq *MQ) Publish(ctx context.Context, target string, routingKey, payload []byte) error {
 	mq.mu.Lock()
 	defer mq.mu.Unlock()
 

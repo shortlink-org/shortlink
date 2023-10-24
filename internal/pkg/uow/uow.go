@@ -24,7 +24,7 @@ func (q *Query[T]) RegisterDirty(entity ...T) error {
 	return nil
 }
 
-func (q *Query[T]) RegisterClean(entity ...T) error {
+func (q *Query[T]) RegisterClean(_ ...T) error {
 	return nil
 }
 

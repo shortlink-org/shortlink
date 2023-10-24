@@ -21,7 +21,7 @@ type MQ interface {
 }
 
 // DataBus abstract type
-type DataBus struct { //nolint:decorder
+type DataBus struct {
 	log    logger.Logger
 	mq     MQ
 	typeMQ string

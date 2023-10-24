@@ -3,6 +3,7 @@ package monitoring
 import (
 	"context"
 	"net/http"
+	"time"
 
 	"github.com/heptiolabs/healthcheck"
 	"github.com/prometheus/client_golang/prometheus"
@@ -14,6 +15,7 @@ import (
 	promExporter "go.opentelemetry.io/otel/exporters/prometheus"
 	api "go.opentelemetry.io/otel/sdk/metric"
 
+	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/common"
@@ -43,9 +45,16 @@ func New(ctx context.Context, log logger.Logger) (*Monitoring, func(), error) {
 	}
 
 	go func() {
-		err := http.ListenAndServe("0.0.0.0:9090", monitoring.Handler)
-		if err != nil {
-			log.Error(err.Error())
+		// Create a new HTTP server for Prometheus metrics
+		config := http_server.Config{
+			Port:    9090,             //nolint:gomnd
+			Timeout: 30 * time.Second, //nolint:gomnd
+		}
+		server := http_server.New(ctx, monitoring.Handler, config, nil)
+
+		errListenAndServe := server.ListenAndServe()
+		if errListenAndServe != nil {
+			log.Error(errListenAndServe.Error())
 		}
 	}()
 	log.Info("Run monitoring", field.Fields{

@@ -95,7 +95,7 @@ func NewAPIApplication(
 	ctx context.Context,
 	i18n *message.Printer,
 	logger logger.Logger,
-	rpcServer *rpc.RPCServer,
+	rpcServer *rpc.Server,
 	tracer trace.TracerProvider,
 	monitoring *monitoring.Monitoring,
 

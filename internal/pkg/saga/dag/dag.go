@@ -45,6 +45,7 @@ func (d *Dag) AddEdge(from, to string) error {
 	if !ok {
 		return errors.New("incorrect type assertion")
 	}
+
 	toVertexRaw, ok := d.vertices.Load(to)
 
 	if !ok {
@@ -72,5 +73,9 @@ func (d *Dag) GetVertex(id string) (*Vertex, error) {
 		return nil, fmt.Errorf("not found vertex with name: %s", id)
 	}
 
-	return vertex.(*Vertex), nil
+	if v, okAsserion := vertex.(*Vertex); okAsserion {
+		return v, nil
+	}
+
+	return nil, errors.New("incorrect type assertion")
 }

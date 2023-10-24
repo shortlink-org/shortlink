@@ -15,7 +15,7 @@ func NewTraceFromContext(
 	msg string,
 	tags []attribute.KeyValue,
 	fields ...field.Fields,
-) ([]field.Fields, error) { //nolint:contextcheck,maintidx
+) ([]field.Fields, error) { //nolint:contextcheck,maintidx // contextcheck: ctx is not nil
 
 	if ctx == nil {
 		ctx = context.Background()
@@ -41,9 +41,10 @@ func NewTraceFromContext(
 }
 
 func getNameFunc() string {
-	// at least 1 entry needed
-	pc := make([]uintptr, 10) //nolint:gomnd
-	runtime.Callers(4, pc)    //nolint:gomnd
+	// at least one entry needed
+	pc := make([]uintptr, 10) //nolint:gomnd,revive // 10
+	runtime.Callers(4, pc)    //nolint:gomnd,revive // 4
+
 	f := runtime.FuncForPC(pc[0])
 
 	return f.Name()

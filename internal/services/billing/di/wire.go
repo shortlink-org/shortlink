@@ -133,7 +133,7 @@ func NewBillingAPIServer(
 	ctx context.Context,
 	logger logger.Logger,
 	tracer trace.TracerProvider,
-	rpcServer *rpc.RPCServer,
+	rpcServer *rpc.Server,
 	db *db.Store,
 
 	// Applications
