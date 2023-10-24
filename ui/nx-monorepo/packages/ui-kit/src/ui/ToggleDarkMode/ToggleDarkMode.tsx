@@ -31,7 +31,7 @@ export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({
     setDarkMode(!darkMode)
     const newTheme = darkMode ? 'light' : 'dark'
     setTheme(newTheme)
-    onChange && onChange(newTheme)
+    onChange?.(newTheme)
   }
 
   if (!mounted) return null
