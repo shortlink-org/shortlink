@@ -182,7 +182,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			p.Step = Step_STEP_SELECT_FROM_TABLE
 		case Step_STEP_SELECT_FROM_TABLE:
 			tableName := p.peek()
-			if len(tableName) == 0 {
+			if tableName == "" {
 				return p.GetQuery(), fmt.Errorf("at SELECT: expected quoted table name")
 			}
 
@@ -209,7 +209,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			}
 		case Step_STEP_INSERT_TABLE:
 			tableName := p.peek()
-			if len(tableName) == 0 {
+			if tableName == "" {
 				return p.GetQuery(), fmt.Errorf("at INSERT INTO: expected quoted table name")
 			}
 
@@ -218,7 +218,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			p.Step = Step_STEP_INSERT_FIELD_OPENING_PARENTS
 		case Step_STEP_DELETE_FROM_TABLE:
 			tableName := p.peek()
-			if len(tableName) == 0 {
+			if tableName == "" {
 				return p.GetQuery(), fmt.Errorf("at DELETE FROM: expected quoted table name")
 			}
 
@@ -288,7 +288,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			p.Step = Step_STEP_WHERE_FIELD
 		case Step_STEP_UPDATE_TABLE:
 			tableName := p.peek()
-			if len(tableName) == 0 {
+			if tableName == "" {
 				return p.GetQuery(), fmt.Errorf("at UPDATE: expected quoted table name")
 			}
 
