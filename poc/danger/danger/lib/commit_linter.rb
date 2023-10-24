@@ -57,7 +57,7 @@ module Gitlab
       end
 
       def multi_line?
-        !details.nil? && !details.empty?
+        details.present?
       end
 
       def failed?
@@ -105,7 +105,7 @@ module Gitlab
       private
 
       def lint_separator
-        return self unless separator && !separator.empty?
+        return self unless separator.present?
 
         add_problem(:separator_missing)
 
