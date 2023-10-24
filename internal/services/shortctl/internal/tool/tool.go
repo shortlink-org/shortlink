@@ -1,7 +1,6 @@
 package tool
 
 import (
-	"io"
 	"os"
 	"path/filepath"
 )
@@ -63,7 +62,7 @@ func SaveToFile(filename, payload string) error {
 		_ = file.Close()
 	}()
 
-	_, err = io.WriteString(file, payload)
+	_, err = file.WriteString(payload)
 	if err != nil {
 		return err
 	}
