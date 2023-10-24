@@ -4,5 +4,6 @@ from dotenv import load_dotenv
 
 class Config:
     """Config class."""
-    def _provide(self, *args, **kwargs):
+    @staticmethod
+    def _provide(*args, **kwargs):
         return load_dotenv()
