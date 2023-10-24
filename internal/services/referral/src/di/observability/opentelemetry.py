@@ -12,7 +12,8 @@ from opentelemetry.exporter.otlp.proto.grpc.trace_exporter import OTLPSpanExport
 
 class OpenTelemetryProvider(providers.Provider):
     """OpenTelemetry provider."""
-    def _provide(self, *args, **kwargs):
+    @staticmethod
+    def _provide(*args, **kwargs):
         resource = Resource.create(attributes={
             "service.name": "referral-service",
         })

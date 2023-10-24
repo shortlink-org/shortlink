@@ -5,6 +5,7 @@ from quart import Quart
 
 class QuartProvider(providers.Provider):
     """Quart provider."""
-    def _provide(self, *args, **kwargs):
+    @staticmethod
+    def _provide(*args, **kwargs):
         app = Quart(__name__)
         return app

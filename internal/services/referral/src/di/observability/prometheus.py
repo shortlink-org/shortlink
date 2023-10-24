@@ -25,7 +25,8 @@ class PrometheusMetricsProvider(providers.Singleton):
         self.start_http_server()
         super().__init__(*args, **kwargs)
 
-    def start_http_server(self):
+    @staticmethod
+    def start_http_server():
         """Start Prometheus HTTP server."""
         port = os.getenv("PROMETHEUS_PORT")
         if port is None:
