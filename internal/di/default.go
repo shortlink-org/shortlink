@@ -57,7 +57,7 @@ type Service struct {
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 }
 
-// Default =============================================================================================================
+// DefaultSet ==========================================================================================================
 var DefaultSet = wire.NewSet(
 	shortctx.New,
 	autoMaxPro.New,
@@ -72,7 +72,7 @@ var DefaultSet = wire.NewSet(
 	permission.New,
 )
 
-// FullService =========================================================================================================
+// FullSet =============================================================================================================
 var FullSet = wire.NewSet(
 	DefaultSet,
 	NewFullService,
@@ -102,7 +102,6 @@ func NewFullService(
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {
-
 	return &Service{
 		// Common
 		Ctx:  ctx,

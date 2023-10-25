@@ -82,7 +82,7 @@ func (p *Parser) Parse() (*query.Query, error) {
 	}
 
 	if p.GetError() != "" {
-		return nil, fmt.Errorf(p.Error)
+		return nil, fmt.Errorf(p.GetError())
 	}
 
 	return q, nil
@@ -91,7 +91,7 @@ func (p *Parser) Parse() (*query.Query, error) {
 func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,maintidx,revive,cyclop // TODO: refactor
 	for {
 		if p.GetI() >= int32(len(p.GetSql())) {
-			return p.Query, fmt.Errorf(p.Error)
+			return p.GetQuery(), fmt.Errorf(p.GetError())
 		}
 
 		switch p.GetStep() {

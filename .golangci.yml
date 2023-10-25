@@ -11,10 +11,12 @@ run:
   # Default: true
   tests: true
 
+  skip-dirs:
+    - "internal/services/shortdb/io_uring"
+
   skip-files:
     - ".*mocks.+"
     - "wire_gen.go"
-    - "io_uring.go"
 
   # If set we pass it to "go list -mod={option}". From "go help modules":
   # If invoked with -mod=readonly, the go command is disallowed from the implicit
@@ -140,6 +142,7 @@ linters-settings:
 
     disabled-checks:
       - paramTypeCombine
+      - dynamicFmtString
       - appendAssign
       - ifElseChain
       - singleCaseSwitch

@@ -1,4 +1,5 @@
 include:
+  # https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/Security/Coverage-Fuzzing.gitlab-ci.yml
   - template: Security/Coverage-Fuzzing.gitlab-ci.yml
   - template: Jobs/Code-Intelligence.gitlab-ci.yml
   - local: /ops/gitlab/templates/common.yml
@@ -79,7 +80,7 @@ go_fuzz_test:
   script:
     # link package
     - GITLAB_COV_FUZZ_PATH=`pwd`
-    - cd $CI_PROJECT_DIR/internal/services/link/domain/link
+    - cd $CI_PROJECT_DIR/internal/services/link/domain/link/v1
     - go-fuzz-build -libfuzzer -o link_fuzz_target.a .
     - clang -fsanitize=fuzzer link_fuzz_target.a -o link_fuzz_target
     - $GITLAB_COV_FUZZ_PATH/gitlab-cov-fuzz run --regression=$REGRESSION -- ./link_fuzz_target

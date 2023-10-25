@@ -20,6 +20,7 @@ func SessionUnaryInterceptor() grpc.UnaryClientInterceptor {
 		invoker grpc.UnaryInvoker,
 		opts ...grpc.CallOption,
 	) (err error) {
+
 		sess := session.GetSession(ctx)
 
 		ctx = metadata.AppendToOutgoingContext(ctx, "user-id", sess.GetId())
@@ -38,6 +39,7 @@ func SessionStreamInterceptor() grpc.StreamClientInterceptor {
 		streamer grpc.Streamer,
 		opts ...grpc.CallOption,
 	) (grpc.ClientStream, error) {
+
 		sess := session.GetSession(ctx)
 
 		ctx = metadata.AppendToOutgoingContext(ctx, "user-id", sess.GetId())

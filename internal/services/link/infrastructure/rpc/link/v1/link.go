@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/types/known/emptypb" //nolint:imports // false positive
+	"google.golang.org/protobuf/types/known/emptypb"
 
 	queryStore "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
