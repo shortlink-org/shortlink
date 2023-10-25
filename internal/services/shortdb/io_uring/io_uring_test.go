@@ -4,7 +4,6 @@ package io_uring
 
 import (
 	"bytes"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"sync"
@@ -32,7 +31,7 @@ func TestRead(t *testing.T) {
 
 	helper := func(file string) {
 		wg.Add(1)
-		expected, err := ioutil.ReadFile(file)
+		expected, err := os.ReadFile(file)
 		if err != nil {
 			t.Error(err)
 			return
@@ -87,7 +86,7 @@ func TestQueueThreshold(t *testing.T) {
 			t.Error(err)
 		}
 	}()
-	expected, err := ioutil.ReadFile("testdata/ssa.html")
+	expected, err := os.ReadFile("testdata/ssa.html")
 	if err != nil {
 		t.Error(err)
 		return
@@ -126,7 +125,7 @@ func TestWrite(t *testing.T) {
 		}
 	}()
 
-	dir, err := ioutil.TempDir("", "frodo")
+	dir, err := os.TempDir("", "frodo")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -136,7 +135,7 @@ func TestWrite(t *testing.T) {
 
 	helper := func(file string) {
 		wg.Add(1)
-		input, err := ioutil.ReadFile("testdata/" + file)
+		input, err := os.ReadFile("testdata/" + file)
 		if err != nil {
 			t.Error(err)
 			return
@@ -153,7 +152,7 @@ func TestWrite(t *testing.T) {
 		}
 		Poll()
 		wg.Wait()
-		got, err := ioutil.ReadFile(filepath.Join(dir, file))
+		got, err := os.ReadFile(filepath.Join(dir, file))
 		if err != nil {
 			t.Error(err)
 			return
@@ -181,15 +180,15 @@ var globalBuf []byte
 func BenchmarkRead(b *testing.B) {
 	b.Run("stdlib", func(b *testing.B) {
 		for i := 0; i < b.N; i++ {
-			buf, err := ioutil.ReadFile("testdata/zero_byte.txt")
+			buf, err := os.ReadFile("testdata/zero_byte.txt")
 			if err != nil {
 				b.Error(err)
 			}
-			buf, err = ioutil.ReadFile("testdata/ssa.html")
+			buf, err = os.ReadFile("testdata/ssa.html")
 			if err != nil {
 				b.Error(err)
 			}
-			buf, err = ioutil.ReadFile("testdata/coverage.out")
+			buf, err = os.ReadFile("testdata/coverage.out")
 			if err != nil {
 				b.Error(err)
 			}

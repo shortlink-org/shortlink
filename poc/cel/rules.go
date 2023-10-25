@@ -1,7 +1,7 @@
 package main
 
 import (
-	"io/ioutil"
+	"os"
 	"path/filepath"
 
 	"github.com/google/cel-go/cel"
@@ -9,7 +9,7 @@ import (
 )
 
 func loadRules(path string) (map[string]string, error) {
-	files, err := ioutil.ReadDir(path)
+	files, err := os.ReadDir(path)
 	if err != nil {
 		return nil, err
 	}
@@ -18,9 +18,9 @@ func loadRules(path string) (map[string]string, error) {
 	for _, file := range files {
 		if !file.IsDir() {
 			filename := filepath.Join(path, file.Name())
-			content, err := ioutil.ReadFile(filename)
-			if err != nil {
-				return nil, err
+			content, errReadDir := os.ReadFile(filename)
+			if errReadDir != nil {
+				return nil, errReadDir
 			}
 			rules[file.Name()] = string(content)
 		}

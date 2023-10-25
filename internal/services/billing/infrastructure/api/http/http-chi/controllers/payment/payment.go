@@ -80,7 +80,7 @@ func (api *API) get(w http.ResponseWriter, r *http.Request) {
 	aggregateId := chi.URLParam(r, "id")
 	if aggregateId == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "need set payment of identity"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "need set payment of identity"}`)) //nolint:errcheck // ignore
 
 		return
 	}
@@ -88,7 +88,7 @@ func (api *API) get(w http.ResponseWriter, r *http.Request) {
 	getPayment, err := api.paymentService.Get(r.Context(), aggregateId)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore
 
 		return
 	}
@@ -96,13 +96,13 @@ func (api *API) get(w http.ResponseWriter, r *http.Request) {
 	res, err := api.jsonpb.Marshal(getPayment)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore
 
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(res) //nolint:errcheck
+	_, _ = w.Write(res) //nolint:errcheck // ignore
 }
 
 // list - get all payments of users
@@ -113,7 +113,7 @@ func (api *API) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck
+	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck // ignore
 }
 
 // close a payment
@@ -126,7 +126,7 @@ func (api *API) close(w http.ResponseWriter, r *http.Request) {
 	aggregateId := chi.URLParam(r, "id")
 	if aggregateId == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "need set payment of identity"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "need set payment of identity"}`)) //nolint:errcheck // ignore
 
 		return
 	}
@@ -134,11 +134,11 @@ func (api *API) close(w http.ResponseWriter, r *http.Request) {
 	err := api.paymentService.Close(r.Context(), aggregateId)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore
 
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck
+	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck // ignore
 }

@@ -7,7 +7,7 @@ import (
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5"
 
-	"github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
 func (s *Store) MetadataUpdate(ctx context.Context, in *v1.Meta) (*v1.Meta, error) {

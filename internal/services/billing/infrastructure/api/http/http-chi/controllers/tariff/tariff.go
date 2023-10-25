@@ -78,7 +78,7 @@ func (api *API) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck
+	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck // ignore
 }
 
 // List - list
@@ -91,7 +91,7 @@ func (api *API) list(w http.ResponseWriter, r *http.Request) {
 	tariffs, err := api.tariffService.List(r.Context(), nil)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore
 
 		return
 	}
@@ -99,13 +99,13 @@ func (api *API) list(w http.ResponseWriter, r *http.Request) {
 	res, err := api.jsonpb.Marshal(tariffs)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore
 
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(res) //nolint:errcheck
+	_, _ = w.Write(res) //nolint:errcheck // ignore
 }
 
 // Delete - delete
@@ -116,5 +116,5 @@ func (api *API) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck
+	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck // ignore
 }

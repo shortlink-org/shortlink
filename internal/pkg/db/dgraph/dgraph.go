@@ -10,7 +10,7 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
 // Link implementation of db interface

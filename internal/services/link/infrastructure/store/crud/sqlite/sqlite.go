@@ -9,7 +9,7 @@ import (
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
-	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 

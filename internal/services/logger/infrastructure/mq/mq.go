@@ -13,7 +13,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
-	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	logger_application "github.com/shortlink-org/shortlink/internal/services/logger/application"
 )
 

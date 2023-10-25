@@ -2,7 +2,7 @@ package engine
 
 import (
 	page "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/page/v1"
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
 	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/file"
 	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/options"
 )

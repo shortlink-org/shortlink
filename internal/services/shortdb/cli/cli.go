@@ -6,7 +6,7 @@ import (
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
 
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/domain/session/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/session/v1"
 	"github.com/shortlink-org/shortlink/internal/services/shortdb/repl"
 )
 

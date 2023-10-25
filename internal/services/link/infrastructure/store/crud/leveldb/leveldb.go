@@ -8,7 +8,7 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
-	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 

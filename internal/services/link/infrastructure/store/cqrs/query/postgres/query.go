@@ -10,7 +10,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb" //nolint:imports // false positive
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
-	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	v12 "github.com/shortlink-org/shortlink/internal/services/link/domain/link_cqrs/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
