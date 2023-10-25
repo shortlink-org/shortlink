@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
-	meta_store "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/store"
+	meta_store "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/repository"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	rpc "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"

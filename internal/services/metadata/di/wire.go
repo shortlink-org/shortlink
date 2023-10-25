@@ -29,8 +29,8 @@ import (
 	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/application/parsers"
 	metadata_domain "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 	metadata_mq "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/mq"
+	meta_store "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/repository"
 	metadata_rpc "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
-	meta_store "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/store"
 )
 
 type MetaDataService struct {

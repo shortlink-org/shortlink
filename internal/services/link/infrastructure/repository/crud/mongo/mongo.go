@@ -2,11 +2,14 @@ package mongo
 
 import (
 	"context"
+	"embed"
 	"errors"
 	"fmt"
 	"time"
 
+	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/mongodb"
+	"github.com/johejo/golang-migrate-extra/source/iofs"
 	"github.com/spf13/viper"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -19,6 +22,9 @@ import (
 	query2 "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
+//go:embed migrations/*.json
+var migrations embed.FS
+
 // New store
 func New(ctx context.Context, store *db.Store) (*Store, error) {
 	s := &Store{}
@@ -26,6 +32,12 @@ func New(ctx context.Context, store *db.Store) (*Store, error) {
 	// Set configuration
 	s.setConfig()
 	s.client = store.Store.GetConn().(*mongo.Client) //nolint:errcheck // ignore
+
+	// Apply migration
+	err := s.migrate()
+	if err != nil {
+		return nil, err
+	}
 
 	// Create a batch job
 	if s.config.mode == options.MODE_BATCH_WRITE {
@@ -61,6 +73,26 @@ func New(ctx context.Context, store *db.Store) (*Store, error) {
 	}
 
 	return s, nil
+}
+
+// migrate - migration to db
+func (s *Store) migrate() error {
+	driver, err := iofs.New(migrations, "migrations")
+	if err != nil {
+		return err
+	}
+
+	ms, err := migrate.NewWithSourceInstance("iofs", driver, s.config.URI)
+	if err != nil {
+		return err
+	}
+
+	err = ms.Up()
+	if err != nil && err.Error() != "no change" {
+		return err
+	}
+
+	return nil
 }
 
 // Add - add

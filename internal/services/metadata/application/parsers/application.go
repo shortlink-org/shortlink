@@ -13,7 +13,7 @@ import (
 	http_client "github.com/shortlink-org/shortlink/internal/pkg/http/client"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	v1 "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
-	meta_store "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/store"
+	meta_store "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/repository"
 )
 
 type Service struct {

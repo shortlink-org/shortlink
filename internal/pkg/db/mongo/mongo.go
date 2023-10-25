@@ -2,12 +2,9 @@ package mongo
 
 import (
 	"context"
-	"embed"
 
-	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/mongodb"
 	_ "github.com/johejo/golang-migrate-extra/source/file"
-	"github.com/johejo/golang-migrate-extra/source/iofs"
 	"github.com/spf13/viper"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -16,9 +13,6 @@ import (
 
 	storeOptions "github.com/shortlink-org/shortlink/internal/pkg/db/options"
 )
-
-//go:embed migrations/*.json
-var migrations embed.FS
 
 // Init - initialize
 func (s *Store) Init(ctx context.Context) error {
@@ -41,12 +35,6 @@ func (s *Store) Init(ctx context.Context) error {
 		return err
 	}
 
-	// Apply migration
-	err = s.migrate()
-	if err != nil {
-		return err
-	}
-
 	return nil
 }
 
@@ -58,26 +46,6 @@ func (s *Store) GetConn() any {
 // Close - close
 func (s *Store) Close() error {
 	return s.client.Disconnect(context.Background())
-}
-
-// Migrate ...
-func (s *Store) migrate() error {
-	driver, err := iofs.New(migrations, "migrations")
-	if err != nil {
-		return err
-	}
-
-	ms, err := migrate.NewWithSourceInstance("iofs", driver, s.config.URI)
-	if err != nil {
-		return err
-	}
-
-	err = ms.Up()
-	if err != nil && err.Error() != "no change" {
-		return err
-	}
-
-	return nil
 }
 
 // setConfig - set configuration
