@@ -6,9 +6,11 @@ import (
 	ory "github.com/ory/client-go"
 )
 
+type Session string
+
 const (
 	// ContextSessionKey is the key used to store the session in the context.
-	contextSessionKey = "session"
+	contextSessionKey = Session("session")
 )
 
 func WithSession(ctx context.Context, session *ory.Session) context.Context {

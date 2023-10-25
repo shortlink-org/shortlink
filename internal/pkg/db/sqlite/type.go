@@ -7,7 +7,7 @@ import (
 	"go.opentelemetry.io/otel/trace"
 )
 
-// Config ...
+// Config - config
 type Config struct {
 	Path string
 }

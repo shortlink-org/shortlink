@@ -2,17 +2,20 @@ package cache
 
 import (
 	"context"
-	"time"
 
 	"github.com/go-redis/cache/v9"
 	"github.com/redis/rueidis"
 	"github.com/redis/rueidis/rueidiscompat"
+	"github.com/spf13/viper"
 
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/redis"
 )
 
 // New returns a new cache.Client.
 func New(ctx context.Context) (*cache.Cache, error) {
+	viper.SetDefault("LOCAL_CACHE_TTL", "5m")
+	viper.SetDefault("LOCAL_CACHE_COUNT", 1000)
+
 	store := &db.Store{}
 	err := store.Init(ctx)
 	if err != nil {
@@ -25,7 +28,7 @@ func New(ctx context.Context) (*cache.Cache, error) {
 
 	s := cache.New(&cache.Options{
 		Redis:      adapter,
-		LocalCache: cache.NewTinyLFU(1000, 5*time.Minute), //nolint:gomnd
+		LocalCache: cache.NewTinyLFU(viper.GetInt("LOCAL_CACHE_COUNT"), viper.GetDuration("LOCAL_CACHE_TTL")),
 	})
 
 	return s, nil

@@ -7,7 +7,7 @@ import (
 	"google.golang.org/protobuf/types/known/emptypb"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
-	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
 // GetLink ...
@@ -25,7 +25,7 @@ func (api *API) GetLink(ctx context.Context, req *GetLinkRequest) (*GetLinkRespo
 	c := <-responseCh
 	switch r := c.(type) {
 	case nil:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+		err := fmt.Errorf("not found subscribe to event %s", "METHOD_GET")
 		return nil, err
 	case notify.Response[any]:
 		err := r.Error
@@ -38,7 +38,7 @@ func (api *API) GetLink(ctx context.Context, req *GetLinkRequest) (*GetLinkRespo
 			Link: response,
 		}, nil
 	default:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+		err := fmt.Errorf("not found subscribe to event %s", "METHOD_GET")
 
 		return nil, err
 	}
@@ -59,7 +59,7 @@ func (api *API) GetLinks(ctx context.Context, req *GetLinksRequest) (*GetLinksRe
 	c := <-responseCh
 	switch r := c.(type) {
 	case nil:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_LIST")
+		err := fmt.Errorf("not found subscribe to event %s", "METHOD_LIST")
 		return nil, err
 	case notify.Response[any]:
 		err := r.Error
@@ -75,7 +75,7 @@ func (api *API) GetLinks(ctx context.Context, req *GetLinksRequest) (*GetLinksRe
 			Links: response.Link,
 		}, nil
 	default:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_GET")
+		err := fmt.Errorf("not found subscribe to event %s", "METHOD_GET")
 		return nil, err
 	}
 }
@@ -95,7 +95,7 @@ func (api *API) CreateLink(ctx context.Context, req *CreateLinkRequest) (*Create
 	c := <-responseCh
 	switch r := c.(type) {
 	case nil:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_ADD")
+		err := fmt.Errorf("not found subscribe to event %s", "METHOD_ADD")
 		return nil, err
 	case notify.Response[any]:
 		err := r.Error
@@ -108,7 +108,7 @@ func (api *API) CreateLink(ctx context.Context, req *CreateLinkRequest) (*Create
 			Link: response,
 		}, nil
 	default:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_ADD")
+		err := fmt.Errorf("not found subscribe to event %s", "METHOD_ADD")
 
 		return nil, err
 	}
@@ -129,7 +129,7 @@ func (api *API) DeleteLink(ctx context.Context, req *DeleteLinkRequest) (*emptyp
 	c := <-responseCh
 	switch r := c.(type) {
 	case nil:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_DELETE")
+		err := fmt.Errorf("not found subscribe to event %s", "METHOD_DELETE")
 		return &emptypb.Empty{}, err
 	case notify.Response[any]:
 		err := r.Error
@@ -139,7 +139,7 @@ func (api *API) DeleteLink(ctx context.Context, req *DeleteLinkRequest) (*emptyp
 
 		return &emptypb.Empty{}, nil
 	default:
-		err := fmt.Errorf("Not found subscribe to event %s", "METHOD_DELETE")
+		err := fmt.Errorf("not found subscribe to event %s", "METHOD_DELETE")
 		return &emptypb.Empty{}, err
 	}
 }

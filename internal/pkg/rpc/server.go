@@ -43,15 +43,15 @@ type server struct {
 	serverMetrics *grpc_prometheus.ServerMetrics
 }
 
-// InitServer ...
-func InitServer(log logger.Logger, tracer trace.TracerProvider, monitoring *monitoring.Monitoring) (*Server, func(), error) {
+// InitServer - initialize gRPC server
+func InitServer(log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*Server, func(), error) {
 	viper.SetDefault("GRPC_SERVER_ENABLED", true) // gRPC server enable
 
 	if !viper.GetBool("GRPC_SERVER_ENABLED") {
 		return nil, nil, nil
 	}
 
-	config, err := setServerConfig(log, tracer, monitoring)
+	config, err := setServerConfig(log, tracer, monitor)
 	if err != nil {
 		return nil, nil, err
 	}

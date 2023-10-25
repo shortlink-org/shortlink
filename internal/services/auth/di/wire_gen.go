@@ -54,7 +54,7 @@ func InitializeAuthService() (*AuthService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint, err := profiling.New(logger)
+	pprofEndpoint, err := profiling.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()

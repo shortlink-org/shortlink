@@ -11,12 +11,12 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 )
 
-func New(log logger.Logger, tracer trace.TracerProvider, monitoring *monitoring.Monitoring) (*authzed.Client, error) {
+func New(log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*authzed.Client, error) {
 	viper.SetDefault("SPICE_DB_API", "shortlink.spicedb-operator:50051")
 	viper.SetDefault("SPICE_DB_COMMON_KEY", "secret-shortlink-preshared-key")
 	viper.SetDefault("SPICE_DB_TIMEOUT", "5s")
 
-	config, err := rpc.SetClientConfig(tracer, monitoring, log)
+	config, err := rpc.SetClientConfig(tracer, monitor, log)
 	if err != nil {
 		return nil, err
 	}

@@ -5,17 +5,17 @@ import (
 	table "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/table/v1"
 )
 
-func New(table *table.Table, isEnd bool) (*Cursor, error) {
+func New(t *table.Table, isEnd bool) (*Cursor, error) {
 	cursor := &Cursor{
-		Table:      table,
+		Table:      t,
 		RowId:      0,
 		PageId:     0,
 		EndOfTable: isEnd,
 	}
 
 	if isEnd {
-		cursor.RowId = table.GetStats().GetRowsCount()
-		cursor.PageId = table.GetStats().GetPageCount()
+		cursor.RowId = t.GetStats().GetRowsCount()
+		cursor.PageId = t.GetStats().GetPageCount()
 	}
 
 	return cursor, nil
@@ -41,7 +41,7 @@ func (c *Cursor) Value() (*page.Row, error) {
 	defer c.mu.RUnlock()
 
 	if c.Table.GetPages() == nil {
-		return nil, ErrorGetPage
+		return nil, ErrGetPage
 	}
 
 	p := c.Table.GetPages()[c.PageId]

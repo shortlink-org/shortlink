@@ -12,28 +12,28 @@ import (
 	billing "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/order/v1"
 )
 
-type OrderAPI struct {
-	jsonpb protojson.MarshalOptions //nolint:structcheck
+type API struct {
+	jsonpb protojson.MarshalOptions //nolint:structcheck // ignore
 
 	orderService *order_application.OrderService
 }
 
-func New(orderService *order_application.OrderService) (*OrderAPI, error) {
-	return &OrderAPI{
+func New(orderService *order_application.OrderService) (*API, error) {
+	return &API{
 		orderService: orderService,
 	}, nil
 }
 
 // Routes creates a REST router
-func (api *OrderAPI) Routes(r chi.Router) {
+func (api *API) Routes(r chi.Router) {
 	r.Get("/order/{hash}", api.get)
 	r.Get("/orders", api.list)
 	r.Post("/order", api.add)
 	r.Delete("/order/{hash}", api.delete)
 }
 
-// Add ...
-func (api *OrderAPI) add(w http.ResponseWriter, r *http.Request) {
+// Add - add
+func (api *API) add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
@@ -45,7 +45,7 @@ func (api *OrderAPI) add(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck,goconst // ignore
 
 		return
 	}
@@ -53,7 +53,7 @@ func (api *OrderAPI) add(w http.ResponseWriter, r *http.Request) {
 	newOrder, err := api.orderService.Add(r.Context(), &request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore
 
 		return
 	}
@@ -61,17 +61,28 @@ func (api *OrderAPI) add(w http.ResponseWriter, r *http.Request) {
 	res, err := api.jsonpb.Marshal(newOrder)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore
 
 		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	_, _ = w.Write(res) //nolint:errcheck
+	_, _ = w.Write(res) //nolint:errcheck // ignore
 }
 
-// Get ...
-func (api *OrderAPI) get(w http.ResponseWriter, r *http.Request) {
+// Get - get
+func (api *API) get(w http.ResponseWriter, r *http.Request) {
+	w.Header().Add("Content-type", "application/json")
+
+	// inject spanId in response header
+	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
+
+	w.WriteHeader(http.StatusOK)
+	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck // ignore
+}
+
+// List - list
+func (api *API) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
@@ -81,19 +92,8 @@ func (api *OrderAPI) get(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck
 }
 
-// List ...
-func (api *OrderAPI) list(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
-
-	// inject spanId in response header
-	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
-
-	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck
-}
-
-// Delete ...
-func (api *OrderAPI) delete(w http.ResponseWriter, r *http.Request) {
+// Delete - delete
+func (api *API) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header

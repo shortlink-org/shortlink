@@ -21,7 +21,7 @@ type BillingStore struct {
 }
 
 type Repository interface {
-	Init(ctx context.Context, db *db.Store) error
+	Init(ctx context.Context, store *db.Store) error
 }
 
 type AccountRepository interface {

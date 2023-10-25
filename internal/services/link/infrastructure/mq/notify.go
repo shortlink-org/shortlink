@@ -18,9 +18,9 @@ type Event struct {
 	service *link_application.Service
 }
 
-func New(mq *mq.DataBus, log logger.Logger, service *link_application.Service) (*Event, error) {
+func New(dataBus *mq.DataBus, log logger.Logger, service *link_application.Service) (*Event, error) {
 	event := &Event{
-		mq:  mq,
+		mq:  dataBus,
 		log: log,
 
 		// Application

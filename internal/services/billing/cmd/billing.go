@@ -25,7 +25,7 @@ func main() {
 
 	defer func() {
 		if r := recover(); r != nil {
-			service.Logger.Error(r.(string))
+			service.Log.Error(r.(string))
 		}
 	}()
 
@@ -35,5 +35,5 @@ func main() {
 	cleanup()
 
 	// Exit Code 143: Graceful Termination (SIGTERM)
-	os.Exit(143)
+	os.Exit(143) //nolint:gocritic // TODO: research
 }

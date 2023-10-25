@@ -7,7 +7,7 @@ import (
 
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"google.golang.org/protobuf/types/known/timestamppb" //nolint:importas // false positive
+	"google.golang.org/protobuf/types/known/timestamppb" //nolint:imports // false positive
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
@@ -17,13 +17,12 @@ import (
 
 var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
 
-// New ...
-func New(ctx context.Context, db *db.Store) (*Store, error) {
+func New(_ context.Context, store *db.Store) (*Store, error) {
 	var ok bool
 	s := &Store{}
 
 	// Set configuration
-	s.client, ok = db.Store.GetConn().(*pgxpool.Pool)
+	s.client, ok = store.Store.GetConn().(*pgxpool.Pool)
 	if !ok {
 		return nil, fmt.Errorf("error get connection")
 	}
@@ -31,7 +30,7 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 	return s, nil
 }
 
-// Get ...
+// Get - get
 func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 	// query builder
 	links := psql.Select("url, hash, describe", "image_url", "meta_description", "meta_keywords").
@@ -44,28 +43,28 @@ func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 
 	rows, err := s.client.Query(ctx, q, args...)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 	if rows.Err() != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	var response v12.LinkView
 	for rows.Next() {
 		err = rows.Scan(&response.Url, &response.Hash, &response.Describe, &response.ImageUrl, &response.MetaDescription, &response.MetaKeywords)
 		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+			return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 		}
 	}
 
 	if response.GetHash() == "" {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	return &response, nil
 }
 
-// List ...
+// List - list
 func (s *Store) List(ctx context.Context, filter *query.Filter) (*v12.LinksView, error) {
 	// query builder
 	links := psql.Select("hash, describe, ts_headline(meta_description, q, 'StartSel=<em>, StopSel=</em>') as meta_description, created_at, updated_at").
@@ -98,8 +97,8 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v12.LinksView,
 		if err != nil {
 			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
 		}
-		result.CreatedAt = &timestamppb.Timestamp{Seconds: int64(created_ad.Time.Unix()), Nanos: int32(created_ad.Time.Nanosecond())}
-		result.UpdatedAt = &timestamppb.Timestamp{Seconds: int64(updated_at.Time.Unix()), Nanos: int32(updated_at.Time.Nanosecond())}
+		result.CreatedAt = &timestamppb.Timestamp{Seconds: created_ad.Time.Unix(), Nanos: int32(created_ad.Time.Nanosecond())}
+		result.UpdatedAt = &timestamppb.Timestamp{Seconds: updated_at.Time.Unix(), Nanos: int32(updated_at.Time.Nanosecond())}
 
 		response.Links = append(response.GetLinks(), &result)
 	}

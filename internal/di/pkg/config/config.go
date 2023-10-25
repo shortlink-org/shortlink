@@ -24,9 +24,9 @@ func New() (*Config, error) {
 			// TODO: logger this fact
 			// return errors.New("The .env file has not been found in the current directory")
 			return nil, nil
-		} else {
-			return nil, err
 		}
+
+		return nil, err
 	}
 
 	config := &Config{}

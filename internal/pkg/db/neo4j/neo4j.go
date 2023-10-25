@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-// Config ...
+// Config - configuration
 type Config struct {
 	URI      string
 	login    string

@@ -10,7 +10,7 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 )
 
@@ -40,7 +40,7 @@ func Routes(
 	return r
 }
 
-// Add ...
+// Add - add
 // @Summary Add link
 // @Description Add link
 // @ID add-link
@@ -88,7 +88,7 @@ func (h *Handler) Add(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write(res) // nolint:errcheck
 }
 
-// Update ...
+// Update - update
 // @Summary Update link
 // @Description Update link
 // @ID update-link
@@ -136,7 +136,7 @@ func (h *Handler) Update(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write(res) // nolint:errcheck
 }
 
-// Get ...
+// Get - get
 // @Summary Get link
 // @Description Get link
 // @ID get-link
@@ -190,7 +190,7 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write(res) // nolint:errcheck
 }
 
-// List ...
+// List - list
 // @Summary List links
 // @Description List links
 // @ID list-links
@@ -237,7 +237,7 @@ func (h *Handler) List(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write(res) // nolint:errcheck
 }
 
-// Delete ...
+// Delete - delete
 // @Summary Delete link
 // @Description Delete link
 // @ID delete-link

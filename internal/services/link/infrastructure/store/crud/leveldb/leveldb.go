@@ -18,15 +18,15 @@ type Store struct {
 }
 
 // New store
-func New(ctx context.Context, db *db.Store) (*Store, error) {
+func New(ctx context.Context, store *db.Store) (*Store, error) {
 	s := &Store{
-		client: db.Store.GetConn().(*leveldb.DB),
+		client: store.Store.GetConn().(*leveldb.DB),
 	}
 
 	return s, nil
 }
 
-// Add ...
+// Add - add
 func (l *Store) Add(_ context.Context, source *v1.Link) (*v1.Link, error) {
 	err := v1.NewURL(source)
 	if err != nil {
@@ -46,11 +46,11 @@ func (l *Store) Add(_ context.Context, source *v1.Link) (*v1.Link, error) {
 	return source, nil
 }
 
-// Get ...
+// Get - get
 func (l *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	value, err := l.client.Get([]byte(id), nil)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	var response v1.Link
@@ -60,13 +60,13 @@ func (l *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	}
 
 	if response.GetUrl() == "" {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	return &response, nil
 }
 
-// List ...
+// List - list
 func (l *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
 	links := &v1.Links{
 		Link: []*v1.Link{},
@@ -96,12 +96,12 @@ func (l *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
 	return links, nil
 }
 
-// Update ...
+// Update - update
 func (l *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 	return nil, nil
 }
 
-// Delete ...
+// Delete - delete
 func (l *Store) Delete(ctx context.Context, id string) error {
 	err := l.client.Delete([]byte(id), nil)
 	return err

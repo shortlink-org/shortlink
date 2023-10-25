@@ -39,6 +39,7 @@ func TestMemoizedFib(t *testing.T) {
 
 		result := fib(n-1) + fib(n-2)
 		mem[n] = result
+
 		return result
 	}
 

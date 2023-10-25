@@ -9,19 +9,19 @@ import (
 )
 
 type Logger struct {
-	logger *logrus.Logger
+	log *logrus.Logger
 }
 
 func New(cfg config.Configuration) (*Logger, error) {
 	log := &Logger{
-		logger: logrus.New(),
+		log: logrus.New(),
 	}
 
 	// Logging =================================================================
 	// Setup the logger backend using sirupsen/logrus and configure
 	// it to use a custom JSONFormatter. See the logrus docs for how to
 	// configure the backend at github.com/sirupsen/logrus
-	log.logger.Formatter = &logrus.JSONFormatter{
+	log.log.Formatter = &logrus.JSONFormatter{
 		TimestampFormat: cfg.TimeFormat,
 		FieldMap: logrus.FieldMap{
 			logrus.FieldKeyTime:  "timestamp",
@@ -32,7 +32,7 @@ func New(cfg config.Configuration) (*Logger, error) {
 	}
 
 	// Tracing
-	log.logger.AddHook(otellogrus.NewHook(otellogrus.WithLevels(
+	log.log.AddHook(otellogrus.NewHook(otellogrus.WithLevels(
 		logrus.FatalLevel,
 		logrus.ErrorLevel,
 		logrus.WarnLevel,
@@ -40,8 +40,8 @@ func New(cfg config.Configuration) (*Logger, error) {
 		logrus.DebugLevel,
 	)))
 
-	log.logger.SetReportCaller(false) // TODO: https://github.com/sirupsen/logrus/pull/973
-	log.logger.SetOutput(cfg.Writer)
+	log.log.SetReportCaller(false) // TODO: https://github.com/sirupsen/logrus/pull/973
+	log.log.SetOutput(cfg.Writer)
 	log.setLogLevel(cfg.Level)
 
 	return log, nil
@@ -52,7 +52,7 @@ func (log *Logger) Close() error {
 }
 
 func (log *Logger) Get() any {
-	return log.logger
+	return log.log
 }
 
 func (log *Logger) converter(fields ...field.Fields) *logrus.Entry {
@@ -64,7 +64,7 @@ func (log *Logger) converter(fields ...field.Fields) *logrus.Entry {
 		}
 	}
 
-	entryLog := log.logger.WithFields(logrusFields)
+	entryLog := log.log.WithFields(logrusFields)
 
 	return entryLog
 }
@@ -72,16 +72,16 @@ func (log *Logger) converter(fields ...field.Fields) *logrus.Entry {
 func (log *Logger) setLogLevel(logLevel int) {
 	switch logLevel {
 	case config.FATAL_LEVEL:
-		log.logger.SetLevel(logrus.FatalLevel)
+		log.log.SetLevel(logrus.FatalLevel)
 	case config.ERROR_LEVEL:
-		log.logger.SetLevel(logrus.ErrorLevel)
+		log.log.SetLevel(logrus.ErrorLevel)
 	case config.WARN_LEVEL:
-		log.logger.SetLevel(logrus.WarnLevel)
+		log.log.SetLevel(logrus.WarnLevel)
 	case config.INFO_LEVEL:
-		log.logger.SetLevel(logrus.InfoLevel)
+		log.log.SetLevel(logrus.InfoLevel)
 	case config.DEBUG_LEVEL:
-		log.logger.SetLevel(logrus.DebugLevel)
+		log.log.SetLevel(logrus.DebugLevel)
 	default:
-		log.logger.SetLevel(logrus.InfoLevel)
+		log.log.SetLevel(logrus.InfoLevel)
 	}
 }

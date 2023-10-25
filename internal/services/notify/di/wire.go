@@ -11,7 +11,7 @@ import (
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
 
-	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 
 	"github.com/shortlink-org/shortlink/internal/di"
@@ -92,8 +92,8 @@ var NotifySet = wire.NewSet(
 	NewBotService,
 )
 
-func NewBotApplication(ctx context.Context, logger logger.Logger, mq *v1.DataBus) (*application.Bot, error) {
-	bot, err := application.New(mq, logger)
+func NewBotApplication(ctx context.Context, log logger.Logger, dataBus *mq.DataBus) (*application.Bot, error) {
+	bot, err := application.New(dataBus, log)
 	if err != nil {
 		return nil, err
 	}

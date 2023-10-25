@@ -21,7 +21,7 @@ import (
 type API interface {
 	Run(
 		ctx context.Context,
-		db *db.Store,
+		store *db.Store,
 		config http_server.Config,
 		log logger.Logger,
 		tracer trace.TracerProvider,
@@ -38,7 +38,7 @@ type Server struct{}
 
 func (s *Server) Use(
 	ctx context.Context,
-	db *db.Store,
+	store *db.Store,
 	log logger.Logger,
 	tracer trace.TracerProvider,
 
@@ -65,7 +65,7 @@ func (s *Server) Use(
 	g.Go(func() error {
 		return server.Run(
 			ctx,
-			db,
+			store,
 			config,
 			log,
 			tracer,

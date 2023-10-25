@@ -6,24 +6,26 @@ import (
 	"github.com/ethereum/go-ethereum/ethclient"
 )
 
-type WalletService struct {
+type Service struct {
 	client *ethclient.Client
 }
 
-func NewWalletService() (*WalletService, error) {
+func NewService() (*Service, error) {
 	var err error
-	wallet := &WalletService{}
+	wallet := &Service{}
 
-	wallet.client, err = NewWalletClient()
+	wallet.client, err = NewClient()
 	if err != nil {
 		return nil, err
 	}
 
+	//nolint:revive // TODO: add logger later
 	fmt.Println("we have a connection")
+
 	return wallet, nil
 }
 
-func NewWalletClient() (*ethclient.Client, error) {
+func NewClient() (*ethclient.Client, error) {
 	client, err := ethclient.Dial("https://cloudflare-eth.com")
 	if err != nil {
 		return nil, err

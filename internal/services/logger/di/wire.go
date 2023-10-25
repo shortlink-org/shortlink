@@ -20,7 +20,7 @@ import (
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	logger_application "github.com/shortlink-org/shortlink/internal/services/logger/application"
 	logger_mq "github.com/shortlink-org/shortlink/internal/services/logger/infrastructure/mq"
@@ -58,8 +58,8 @@ var LoggerSet = wire.NewSet(
 	NewLoggerService,
 )
 
-func InitLoggerMQ(ctx context.Context, log logger.Logger, mq *v1.DataBus, service *logger_application.Service) (*logger_mq.Event, error) {
-	loggerMQ, err := logger_mq.New(mq, log, service)
+func InitLoggerMQ(ctx context.Context, log logger.Logger, dataBus *mq.DataBus, service *logger_application.Service) (*logger_mq.Event, error) {
+	loggerMQ, err := logger_mq.New(dataBus, log, service)
 	if err != nil {
 		return nil, err
 	}
@@ -67,8 +67,8 @@ func InitLoggerMQ(ctx context.Context, log logger.Logger, mq *v1.DataBus, servic
 	return loggerMQ, nil
 }
 
-func NewLoggerApplication(logger logger.Logger) (*logger_application.Service, error) {
-	loggerService, err := logger_application.New(logger)
+func NewLoggerApplication(log logger.Logger) (*logger_application.Service, error) {
+	loggerService, err := logger_application.New(log)
 	if err != nil {
 		return nil, err
 	}

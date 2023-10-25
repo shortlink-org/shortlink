@@ -12,13 +12,12 @@ import (
 
 var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
 
-// New ...
-func New(_ context.Context, db *db.Store) (*Store, error) {
+func New(_ context.Context, store *db.Store) (*Store, error) {
 	var ok bool
 	s := &Store{}
 
 	// Set configuration
-	s.client, ok = db.Store.GetConn().(*pgxpool.Pool)
+	s.client, ok = store.Store.GetConn().(*pgxpool.Pool)
 	if !ok {
 		return nil, fmt.Errorf("error get connection")
 	}

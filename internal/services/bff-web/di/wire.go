@@ -26,7 +26,7 @@ import (
 
 type BFFWebService struct {
 	// Common
-	Logger logger.Logger
+	Log    logger.Logger
 	Config *config.Config
 
 	// Observability
@@ -52,12 +52,12 @@ var BFFWebServiceSet = wire.NewSet(
 func BFFWebAPIService(
 	// Common
 	ctx context.Context,
-	logger logger.Logger,
+	log logger.Logger,
 	tracer trace.TracerProvider,
 ) (*api.Server, error) {
 	// Run API server
 	API := api.Server{}
-	apiService, err := API.Run(ctx, logger, tracer)
+	apiService, err := API.Run(ctx, log, tracer)
 	if err != nil {
 		return nil, err
 	}
@@ -68,7 +68,7 @@ func BFFWebAPIService(
 func NewBFFWebService(
 	// Common
 	ctx context.Context,
-	logger logger.Logger,
+	log logger.Logger,
 	config *config.Config,
 
 	// Observability
@@ -82,7 +82,7 @@ func NewBFFWebService(
 ) *BFFWebService {
 	return &BFFWebService{
 		// Common
-		Logger: logger,
+		Log: log,
 		Config: config,
 
 		// Observability

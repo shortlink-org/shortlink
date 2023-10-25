@@ -18,12 +18,12 @@ type Tariff struct {
 	client *pgxpool.Pool
 }
 
-func (t *Tariff) Init(ctx context.Context, db *db.Store) error {
+func (t *Tariff) Init(_ context.Context, store *db.Store) error {
 	var ok bool
 
-	t.client, ok = db.Store.GetConn().(*pgxpool.Pool)
+	t.client, ok = store.Store.GetConn().(*pgxpool.Pool)
 	if !ok {
-		return errors.New("Error get connection to PostgreSQL")
+		return errors.New("error get connection to PostgreSQL")
 	}
 
 	return nil

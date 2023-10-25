@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestNewWalletClient(t *testing.T) {
-	_, err := NewWalletClient()
+func TestNewClient(t *testing.T) {
+	_, err := NewClient()
 	assert.NoError(t, err)
 }

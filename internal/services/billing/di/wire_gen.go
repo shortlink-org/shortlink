@@ -65,7 +65,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint, err := profiling.New(logger)
+	pprofEndpoint, err := profiling.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -81,7 +81,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup6, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
+	server, cleanup6, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -155,7 +155,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	server, err := NewBillingAPIServer(context, logger, tracerProvider, rpcServer, dbStore, accountService, orderService, paymentService, tariffService)
+	apiServer, err := NewBillingAPIServer(context, logger, tracerProvider, server, dbStore, accountService, orderService, paymentService, tariffService)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -166,7 +166,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	billingService, err := NewBillingService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, server)
+	billingService, err := NewBillingService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, apiServer)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -192,7 +192,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 
 type BillingService struct {
 	// Common
-	Logger logger.Logger
+	Log    logger.Logger
 	Config *config.Config
 
 	// Observability
@@ -226,9 +226,9 @@ var BillingSet = wire.NewSet(di.DefaultSet, rpc.InitServer, rpc.InitClient, stor
 	NewBillingService,
 )
 
-func NewBillingStore(ctx2 context.Context, logger2 logger.Logger, db2 *db.Store) (*billing_store.BillingStore, error) {
+func NewBillingStore(ctx2 context.Context, log logger.Logger, db2 *db.Store) (*billing_store.BillingStore, error) {
 	store2 := &billing_store.BillingStore{}
-	billingStore, err := store2.Use(ctx2, logger2, db2)
+	billingStore, err := store2.Use(ctx2, log, db2)
 	if err != nil {
 		return nil, err
 	}
@@ -236,8 +236,8 @@ func NewBillingStore(ctx2 context.Context, logger2 logger.Logger, db2 *db.Store)
 	return billingStore, nil
 }
 
-func NewAccountApplication(logger2 logger.Logger, store2 *billing_store.BillingStore) (*account_application.AccountService, error) {
-	accountService, err := account_application.New(logger2, store2.Account)
+func NewAccountApplication(log logger.Logger, store2 *billing_store.BillingStore) (*account_application.AccountService, error) {
+	accountService, err := account_application.New(log, store2.Account)
 	if err != nil {
 		return nil, err
 	}
@@ -245,8 +245,8 @@ func NewAccountApplication(logger2 logger.Logger, store2 *billing_store.BillingS
 	return accountService, nil
 }
 
-func NewOrderApplication(logger2 logger.Logger, store2 *billing_store.BillingStore) (*order_application.OrderService, error) {
-	orderService, err := order_application.New(logger2, store2.EventStore)
+func NewOrderApplication(log logger.Logger, store2 *billing_store.BillingStore) (*order_application.OrderService, error) {
+	orderService, err := order_application.New(log, store2.EventStore)
 	if err != nil {
 		return nil, err
 	}
@@ -254,8 +254,8 @@ func NewOrderApplication(logger2 logger.Logger, store2 *billing_store.BillingSto
 	return orderService, nil
 }
 
-func NewPaymentApplication(logger2 logger.Logger, store2 *billing_store.BillingStore) (*payment_application.PaymentService, error) {
-	paymentService, err := payment_application.New(logger2, store2.EventStore)
+func NewPaymentApplication(log logger.Logger, store2 *billing_store.BillingStore) (*payment_application.PaymentService, error) {
+	paymentService, err := payment_application.New(log, store2.EventStore)
 	if err != nil {
 		return nil, err
 	}
@@ -263,8 +263,8 @@ func NewPaymentApplication(logger2 logger.Logger, store2 *billing_store.BillingS
 	return paymentService, nil
 }
 
-func NewTariffApplication(logger2 logger.Logger, store2 *billing_store.BillingStore) (*tariff_application.TariffService, error) {
-	tariffService, err := tariff_application.New(logger2, store2.Tariff)
+func NewTariffApplication(log logger.Logger, store2 *billing_store.BillingStore) (*tariff_application.TariffService, error) {
+	tariffService, err := tariff_application.New(log, store2.Tariff)
 	if err != nil {
 		return nil, err
 	}
@@ -272,8 +272,9 @@ func NewTariffApplication(logger2 logger.Logger, store2 *billing_store.BillingSt
 	return tariffService, nil
 }
 
-func NewBillingAPIServer(ctx2 context.Context, logger2 logger.Logger,
+func NewBillingAPIServer(ctx2 context.Context,
 
+	log logger.Logger,
 	tracer trace.TracerProvider,
 	rpcServer *rpc.Server, db2 *db.Store,
 
@@ -285,7 +286,8 @@ func NewBillingAPIServer(ctx2 context.Context, logger2 logger.Logger,
 
 	API := api.Server{}
 
-	apiService, err := API.Use(ctx2, db2, logger2, tracer,
+	apiService, err := API.Use(ctx2, db2, log,
+		tracer,
 
 		accountService,
 		orderService,
@@ -310,7 +312,7 @@ func NewBillingService(
 ) (*BillingService, error) {
 	return &BillingService{
 
-		Logger: log,
+		Log:    log,
 		Config: config2,
 
 		Tracer:        tracer,

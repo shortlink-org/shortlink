@@ -10,7 +10,7 @@ import (
 	parser "github.com/shortlink-org/shortlink/internal/services/shortdb/parser/v1"
 )
 
-func (f *file) CreateIndex(query *v1.Query) error {
+func (f *File) CreateIndex(query *v1.Query) error {
 	t := f.database.GetTables()[query.GetTableName()]
 
 	if t.GetIndex() == nil {
@@ -40,7 +40,7 @@ func (f *file) CreateIndex(query *v1.Query) error {
 			return err
 		}
 		rows, err := f.Select(cmd.GetQuery())
-		if err != nil { //nolint:staticcheck
+		if err != nil { //nolint:staticcheck // ignore
 			// NOTE: ignore empty table
 		}
 
@@ -76,7 +76,7 @@ func (f *file) CreateIndex(query *v1.Query) error {
 	return nil
 }
 
-func (f *file) DropIndex(name string) error {
+func (f *File) DropIndex(name string) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 

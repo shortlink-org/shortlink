@@ -32,7 +32,7 @@ import (
 // Run HTTP-server
 func (api *API) Run(
 	ctx context.Context,
-	db *db.Store,
+	store *db.Store,
 	config http_server.Config,
 	log logger.Logger,
 	tracer trace.TracerProvider,
@@ -43,6 +43,7 @@ func (api *API) Run(
 	paymentService *payment_application.PaymentService,
 	tariffService *tariff_application.TariffService,
 ) error {
+
 	api.ctx = ctx
 	api.jsonpb = protojson.MarshalOptions{
 		UseProtoNames: true,
@@ -53,7 +54,7 @@ func (api *API) Run(
 	r := chi.NewRouter()
 
 	// CORS
-	cors := cors.New(cors.Options{
+	corsHandler := cors.New(cors.Options{ //nolint:gocritic // ignore
 		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"GET", "POST", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
@@ -63,7 +64,7 @@ func (api *API) Run(
 		// Debug:            true,
 	})
 
-	r.Use(cors.Handler)
+	r.Use(corsHandler.Handler)
 	r.Use(render.SetContentType(render.ContentTypeJSON))
 
 	// A good base middleware stack

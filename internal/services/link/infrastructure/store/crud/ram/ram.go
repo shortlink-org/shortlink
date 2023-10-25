@@ -9,11 +9,11 @@ import (
 
 	"github.com/shortlink-org/shortlink/internal/pkg/batch"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
-	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
-// Config ...
+// Config - config
 type Config struct {
 	job  *batch.Batch
 	mode int
@@ -40,7 +40,7 @@ func New(ctx context.Context) (*Store, error) {
 			}
 
 			for key := range args {
-				source := args[key].Item.(*v1.Link) //nolint:errcheck
+				source := args[key].Item.(*domain.Link) //nolint:errcheck // ignore
 				data, errSingleWrite := s.singleWrite(ctx, source)
 				if errSingleWrite != nil {
 					return errSingleWrite
@@ -62,29 +62,29 @@ func New(ctx context.Context) (*Store, error) {
 	return s, nil
 }
 
-// Get ...
-func (ram *Store) Get(_ context.Context, id string) (*v1.Link, error) {
-	response, ok := ram.links.Load(id)
+// Get - get
+func (s *Store) Get(_ context.Context, id string) (*domain.Link, error) {
+	response, ok := s.links.Load(id)
 	if !ok {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
-	v, ok := response.(*v1.Link)
+	v, ok := response.(*domain.Link)
 	if !ok {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	return v, nil
 }
 
-// List ...
-func (ram *Store) List(_ context.Context, filter *query.Filter) (*v1.Links, error) {
-	links := &v1.Links{
-		Link: []*v1.Link{},
+// List - list
+func (s *Store) List(_ context.Context, filter *query.Filter) (*domain.Links, error) {
+	links := &domain.Links{
+		Link: []*domain.Link{},
 	}
 
-	ram.links.Range(func(key, value any) bool {
-		link, ok := value.(*v1.Link)
+	s.links.Range(func(key, value any) bool {
+		link, ok := value.(*domain.Link)
 		if !ok {
 			return false
 		}
@@ -100,53 +100,53 @@ func (ram *Store) List(_ context.Context, filter *query.Filter) (*v1.Links, erro
 	return links, nil
 }
 
-// Add ...
-func (ram *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
-	switch ram.config.mode {
+// Add - add
+func (s *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, error) {
+	switch s.config.mode {
 	case options.MODE_BATCH_WRITE:
-		cb := ram.config.job.Push(source)
+		cb := s.config.job.Push(source)
 
 		res := <-cb
 		switch data := res.(type) {
 		case error:
 			return nil, data
-		case *v1.Link:
+		case *domain.Link:
 			return data, nil
 		default:
 			return nil, nil
 		}
 	case options.MODE_SINGLE_WRITE:
-		data, err := ram.singleWrite(ctx, source)
+		data, err := s.singleWrite(ctx, source)
 		return data, err
 	}
 
 	return nil, nil
 }
 
-// Update ...
-func (ram *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
+// Update - update
+func (s *Store) Update(_ context.Context, _ *domain.Link) (*domain.Link, error) {
 	return nil, nil
 }
 
-// Delete ...
-func (ram *Store) Delete(_ context.Context, id string) error {
-	ram.links.Delete(id)
+// Delete - delete
+func (s *Store) Delete(_ context.Context, id string) error {
+	s.links.Delete(id)
 	return nil
 }
 
-// Close ...
-func (ram *Store) Close() error {
-	ram.config.job.Stop()
+// Close - close
+func (s *Store) Close() error {
+	s.config.job.Stop()
 	return nil
 }
 
-func (ram *Store) singleWrite(_ context.Context, source *v1.Link) (*v1.Link, error) {
-	err := v1.NewURL(source) // Create a new link
+func (s *Store) singleWrite(_ context.Context, source *domain.Link) (*domain.Link, error) {
+	err := domain.NewURL(source) // Create a new link
 	if err != nil {
 		return nil, err
 	}
 
-	ram.links.Store(source.GetHash(), source)
+	s.links.Store(source.GetHash(), source)
 
 	return source, nil
 }

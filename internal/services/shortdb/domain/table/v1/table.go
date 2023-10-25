@@ -4,13 +4,13 @@ import (
 	"github.com/spf13/viper"
 
 	index "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/index/v1"
-	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
+	query "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
 )
 
-func New(query *v1.Query) *Table {
+func New(q *query.Query) *Table {
 	return &Table{
-		Name:   query.GetTableName(),
-		Fields: query.GetTableFields(),
+		Name:   q.GetTableName(),
+		Fields: q.GetTableFields(),
 		Stats: &TableStats{
 			RowsCount: 0,
 			PageCount: -1,

@@ -54,5 +54,6 @@ func buildURI(client *pgxpool.Pool, tableName string) string {
 	_, _ = uri.WriteString(client.Config().ConnConfig.Database)                                          //nolint:errcheck // ignore error
 	_, _ = uri.WriteString("&x-migrations-table=")                                                       //nolint:errcheck // ignore error
 	_, _ = uri.WriteString(fmt.Sprintf("schema_migrations_%s", strings.ReplaceAll(tableName, "-", "_"))) //nolint:errcheck // ignore error
+
 	return uri.String()
 }

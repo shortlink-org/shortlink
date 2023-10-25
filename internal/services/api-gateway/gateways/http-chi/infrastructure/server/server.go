@@ -25,7 +25,7 @@ func RunAPIServer(
 	log logger.Logger,
 	rpcServer *rpc.Server,
 	tracer trace.TracerProvider,
-	monitoring *monitoring.Monitoring,
+	monitor *monitoring.Monitoring,
 
 	// delivery
 	link_rpc link_rpc.LinkServiceClient,
@@ -49,7 +49,7 @@ func RunAPIServer(
 	g := errgroup.Group{}
 
 	g.Go(func() error {
-		return server.Run(ctx, i18n, config, log, tracer, monitoring, link_rpc, link_command, link_query, sitemap_rpc)
+		return server.Run(ctx, i18n, config, log, tracer, monitor, link_rpc, link_command, link_query, sitemap_rpc)
 	})
 
 	return server, nil

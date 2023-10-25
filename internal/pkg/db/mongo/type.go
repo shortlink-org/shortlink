@@ -4,7 +4,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-// Config ...
+// Config - config
 type Config struct {
 	URI  string
 	mode int

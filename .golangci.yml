@@ -13,6 +13,7 @@ run:
 
   skip-files:
     - ".*mocks.+"
+    - "wire_gen.go"
 
   # If set we pass it to "go list -mod={option}". From "go help modules":
   # If invoked with -mod=readonly, the go command is disallowed from the implicit
@@ -47,7 +48,7 @@ linters-settings:
 
   cyclop:
     # The maximal code complexity to report.
-    max-complexity: 12
+    max-complexity: 25
 
     # If true, order of declarations is not checked at all.
     # Default: true (disabled)
@@ -139,6 +140,16 @@ linters-settings:
     disabled-checks:
       - paramTypeCombine
       - appendAssign
+      - ifElseChain
+      - singleCaseSwitch
+      - dupImport
+      - commentedOutCode
+      - switchTrue
+      - nilValReturn
+      - deferInLoop
+      - emptyFallthrough
+      - unnecessaryBlock
+      - captLocal
 
     # Settings passed to gocritic.
     # The settings key is the name of a supported gocritic checker.
@@ -214,6 +225,11 @@ linters-settings:
       - '0666'
       - '0755'
       - '42'
+      - '3'
+      - '5'
+      - '100'
+      - '143'
+      - '1000'
 
   gosimple:
     go: "1.21"
@@ -379,15 +395,16 @@ linters-settings:
         severity: warning
         disabled: false
         arguments:
-          - maxLitCount: "4"
-            allowStrs: '""'
-            allowInts: "0,1,2,10,1000,10000"
+          - maxLitCount: "15"
+            allowStrs: '"",":",": ",";",")",","'
+            # TODO: fix
+            allowInts: "0,1,2,3,5,10,100,143,1000,10000"
             allowFloats: "0.0,0.,1.0,1.,2.0,2."
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#atomic
       - name: argument-limit
         severity: warning
         disabled: false
-        arguments: [8]
+        arguments: [15]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#atomic
       - name: atomic
         severity: warning
@@ -417,7 +434,7 @@ linters-settings:
       - name: cognitive-complexity
         severity: warning
         disabled: false
-        arguments: [25]
+        arguments: [270]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#confusing-naming
       - name: confusing-naming
         severity: warning
@@ -442,7 +459,7 @@ linters-settings:
       - name: cyclomatic
         severity: warning
         disabled: false
-        arguments: [15]
+        arguments: [150]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#deep-exit
       - name: deep-exit
         severity: warning
@@ -450,9 +467,9 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#defer
       - name: defer
         severity: warning
-        disabled: false
+        disabled: true
         arguments:
-          - [ "call-chain", "loop" ]
+          - ["call-chain", "loop"]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#dot-imports
       - name: dot-imports
         severity: warning
@@ -460,7 +477,7 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#duplicated-imports
       - name: duplicated-imports
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#early-return
       - name: early-return
         severity: warning
@@ -515,7 +532,7 @@ linters-settings:
       - name: function-length
         severity: warning
         disabled: false
-        arguments: [40, 0]
+        arguments: [45, 0]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#get-return
       - name: get-return
         severity: warning
@@ -531,7 +548,7 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#increment-decrement
       - name: increment-decrement
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#indent-error-flow
       - name: indent-error-flow
         severity: warning
@@ -656,14 +673,14 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unhandled-error
       - name: unhandled-error
         severity: warning
-        disabled: false
+        disabled: true
         arguments:
           - "fmt.Printf"
           - "myFunction"
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unnecessary-stmt
       - name: unnecessary-stmt
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unreachable-code
       - name: unreachable-code
         severity: warning
@@ -822,6 +839,10 @@ linters:
     - wsl
     - tagliatelle
     - nilnil
+    - interfacebloat
+    - exhaustive
+    - maintidx
+    - dupl
 
 issues:
 

@@ -25,7 +25,7 @@ func RunAPIServer(
 	log logger.Logger,
 	rpcServer *rpc.Server,
 	tracer trace.TracerProvider,
-	monitoring *monitoring.Monitoring,
+	monitor *monitoring.Monitoring,
 
 	// delivery
 	link_rpc link_rpc.LinkServiceClient,

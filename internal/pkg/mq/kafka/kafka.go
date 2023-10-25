@@ -122,6 +122,7 @@ func (mq *Kafka) setConfig() (*sarama.Config, error) {
 	viper.SetDefault("MQ_KAFKA_CONSUMER_GROUP", viper.GetString("SERVICE_NAME"))                               // Kafka consumer group
 	viper.SetDefault("MQ_KAFKA_CONSUMER_GROUP_PARTITION_ASSIGNMENT_STRATEGY", sarama.RangeBalanceStrategyName) // Consumer group partition assignment strategy (range, roundrobin, sticky)
 	viper.SetDefault("MQ_KAFKA_CONSUMER_GROUP_OFFSET", sarama.OffsetNewest)                                    // Kafka consumer consumes initial offset from oldest
+	viper.SetDefault("MQ_KAFKA_PRODUCER_RETRY_MAX", 5)                                                         // Kafka producer retry max
 
 	mq.Config = &Config{
 		URI: []string{
@@ -150,7 +151,7 @@ func (mq *Kafka) setConfig() (*sarama.Config, error) {
 
 	config.Producer.Partitioner = sarama.NewRandomPartitioner
 	config.Producer.RequiredAcks = sarama.WaitForAll
-	config.Producer.Retry.Max = 5
+	config.Producer.Retry.Max = viper.GetInt("MQ_KAFKA_PRODUCER_RETRY_MAX")
 	config.Producer.Return.Successes = true
 	config.Producer.Compression = sarama.CompressionSnappy
 	config.Version = sarama.MaxVersion

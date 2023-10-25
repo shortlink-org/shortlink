@@ -3,11 +3,11 @@ package file
 import (
 	"fmt"
 
-	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
+	query "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
 	table "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/table/v1"
 )
 
-func (f *file) CreateTable(query *v1.Query) error {
+func (f *File) CreateTable(q *query.Query) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 
@@ -16,16 +16,16 @@ func (f *file) CreateTable(query *v1.Query) error {
 	}
 
 	// check
-	if f.database.GetTables()[query.GetTableName()] != nil {
+	if f.database.GetTables()[q.GetTableName()] != nil {
 		return fmt.Errorf("at CREATE TABLE: exist table")
 	}
 
-	f.database.Tables[query.GetTableName()] = table.New(query)
+	f.database.Tables[q.GetTableName()] = table.New(q)
 
 	return nil
 }
 
-func (f *file) DropTable(name string) error {
+func (f *File) DropTable(name string) error {
 	// TODO implement me
 	return nil
 }

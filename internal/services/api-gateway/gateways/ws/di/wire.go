@@ -25,7 +25,7 @@ import (
 
 type WSService struct {
 	// Common
-	Logger logger.Logger
+	Log    logger.Logger
 	Config *config.Config
 
 	// Applications

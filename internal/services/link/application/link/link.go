@@ -37,18 +37,18 @@ type Service struct {
 	// Repository
 	store *crud.Store
 
-	logger logger.Logger
+	log logger.Logger
 }
 
-func New(logger logger.Logger, mq *mq.DataBus, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store, permission *authzed.Client) (*Service, error) {
+func New(log logger.Logger, dataBus *mq.DataBus, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store, permissionClient *authzed.Client) (*Service, error) {
 	service := &Service{
-		logger: logger,
+		log: log,
 
 		// Security
-		permission: permission,
+		permission: permissionClient,
 
 		// Delivery
-		mq:             mq,
+		mq:             dataBus,
 		MetadataClient: metadataService,
 
 		// Repository
@@ -58,16 +58,16 @@ func New(logger logger.Logger, mq *mq.DataBus, metadataService metadata_rpc.Meta
 	return service, nil
 }
 
-func errorHelper(ctx context.Context, logger logger.Logger, errs []error) error {
+func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {
 	if len(errs) > 0 {
 		errList := field.Fields{}
 		for index := range errs {
 			errList[fmt.Sprintf("stack error: %d", index)] = errs[index]
 		}
 
-		logger.ErrorWithContext(ctx, "Error create a new link", errList)
+		log.ErrorWithContext(ctx, "Error create a new link", errList)
 
-		return fmt.Errorf("Error create a new link")
+		return fmt.Errorf("error create a new link")
 	}
 
 	return nil
@@ -89,10 +89,10 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 	resp := &v1.Link{}
 
 	// create a new saga for a get link by hash
-	sagaGetLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
+	sagaGetLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.log)).
 		WithContext(ctx).
 		Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -111,7 +111,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 
 			return nil
 		}).Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -123,7 +123,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 
 			return err
 		}).Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -156,10 +156,10 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 	links := &v1.Links{}
 
 	// create a new saga for a get list of a link
-	sagaListLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
+	sagaListLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.log)).
 		WithContext(ctx).
 		Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -181,11 +181,11 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 				return err
 			}
 
-			s.logger.Info("list", field.Fields{"list": list})
+			s.log.Info("list", field.Fields{"list": list})
 
 			return nil
 		}).Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -196,7 +196,7 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 
 			return err
 		}).Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -228,10 +228,10 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	sess := session.GetSession(ctx)
 
 	// saga for create a new link
-	sagaAddLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
+	sagaAddLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.log)).
 		WithContext(ctx).
 		Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -243,7 +243,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 
 			return err
 		}).Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -283,7 +283,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 
 		return nil
 	}).Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -299,7 +299,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 
 			return nil
 		}).Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -317,7 +317,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 
 			return nil
 		}).Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -349,10 +349,10 @@ func (s *Service) Delete(ctx context.Context, hash string) (*v1.Link, error) {
 	sess := session.GetSession(ctx)
 
 	// create a new saga for a delete link by hash
-	sagaDeleteLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
+	sagaDeleteLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.log)).
 		WithContext(ctx).
 		Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -375,7 +375,7 @@ func (s *Service) Delete(ctx context.Context, hash string) (*v1.Link, error) {
 
 			return nil
 		}).Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -384,7 +384,7 @@ func (s *Service) Delete(ctx context.Context, hash string) (*v1.Link, error) {
 		Then(func(ctx context.Context) error {
 			return s.store.Delete(ctx, hash)
 		}).Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 

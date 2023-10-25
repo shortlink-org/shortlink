@@ -10,7 +10,7 @@ import (
 
 const HISTORY_LIMIT = 100
 
-func (r *repl) init() error {
+func (r *Repl) init() error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
@@ -41,7 +41,7 @@ func (r *repl) init() error {
 	return nil
 }
 
-func (r *repl) help() {
+func (r *Repl) help() {
 	fmt.Printf(`
 ShortDB repl
 Enter ".help" for usage hints.
@@ -52,11 +52,11 @@ current database: %s
 `, r.session.GetCurrentDatabase())
 }
 
-func (r *repl) save() error {
+func (r *Repl) save() error {
 	return r.engine.Close()
 }
 
-func (r *repl) close() error {
+func (r *Repl) close() error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
@@ -89,9 +89,9 @@ func (r *repl) close() error {
 	return nil
 }
 
-func (r *repl) open(t string) error {
+func (r *Repl) open(t string) error {
 	s := strings.Split(t, " ")
-	if len(s) != 2 { //nolint:gomnd
+	if len(s) != 2 { //nolint:gomnd // ignore
 		return fmt.Errorf("")
 	}
 

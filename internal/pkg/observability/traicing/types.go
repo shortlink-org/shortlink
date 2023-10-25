@@ -1,6 +1,6 @@
 package traicing
 
-// Config ...
+// Config - config
 type Config struct {
 	ServiceName    string
 	ServiceVersion string

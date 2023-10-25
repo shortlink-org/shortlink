@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/types/known/emptypb" //nolint:importas // false positive
+	"google.golang.org/protobuf/types/known/emptypb" //nolint:imports // false positive
 
 	queryStore "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
@@ -59,7 +59,7 @@ func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error)
 
 func (l *Link) Add(ctx context.Context, in *AddRequest) (*AddResponse, error) {
 	if in.GetLink() == nil {
-		return nil, fmt.Errorf("Create a new link: empty payload")
+		return nil, fmt.Errorf("create a new link: empty payload")
 	}
 
 	resp, err := l.service.Add(ctx, in.GetLink())

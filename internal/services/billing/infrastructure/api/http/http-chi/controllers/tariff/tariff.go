@@ -12,28 +12,28 @@ import (
 	billing "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/tariff/v1"
 )
 
-type TariffAPI struct {
+type API struct {
 	jsonpb protojson.MarshalOptions
 
 	tariffService *tariff_application.TariffService
 }
 
-func New(tariffService *tariff_application.TariffService) (*TariffAPI, error) {
-	return &TariffAPI{
+func New(tariffService *tariff_application.TariffService) (*API, error) {
+	return &API{
 		tariffService: tariffService,
 	}, nil
 }
 
-// Routes creates a REST router
-func (api *TariffAPI) Routes(r chi.Router) {
+// Routes create a REST router
+func (api *API) Routes(r chi.Router) {
 	r.Get("/tariffs", api.list)
 	r.Get("/tariff/{hash}", api.get)
 	r.Post("/tariff", api.add)
 	r.Delete("/tariff/{hash}", api.delete)
 }
 
-// Add ...
-func (api *TariffAPI) add(w http.ResponseWriter, r *http.Request) {
+// Add - add
+func (api *API) add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
@@ -45,7 +45,7 @@ func (api *TariffAPI) add(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck,goconst // ignore
 
 		return
 	}
@@ -70,8 +70,8 @@ func (api *TariffAPI) add(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write(res) //nolint:errcheck
 }
 
-// Get ...
-func (api *TariffAPI) get(w http.ResponseWriter, r *http.Request) {
+// Get - get
+func (api *API) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
@@ -81,8 +81,8 @@ func (api *TariffAPI) get(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck
 }
 
-// List ...
-func (api *TariffAPI) list(w http.ResponseWriter, r *http.Request) {
+// List - list
+func (api *API) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
@@ -108,8 +108,8 @@ func (api *TariffAPI) list(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write(res) //nolint:errcheck
 }
 
-// Delete ...
-func (api *TariffAPI) delete(w http.ResponseWriter, r *http.Request) {
+// Delete - delete
+func (api *API) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header

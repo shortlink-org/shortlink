@@ -8,7 +8,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/file/cursor"
 )
 
-func (f *file) Select(query *v1.Query) ([]*page.Row, error) {
+func (f *File) Select(query *v1.Query) ([]*page.Row, error) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 
@@ -57,7 +57,7 @@ func (f *file) Select(query *v1.Query) ([]*page.Row, error) {
 				return nil, fmt.Errorf("at SELECT: incorrect name fields %s in table %s", field, query.GetTableName())
 			}
 		}
-		if query.IsFilter(record,t.GetFields())) {
+		if query.IsFilter(record, t.GetFields()) {
 			response = append(response, record)
 
 			if query.IsLimit() {
@@ -75,12 +75,12 @@ func (f *file) Select(query *v1.Query) ([]*page.Row, error) {
 	return response, nil
 }
 
-func (f *file) Update(query *v1.Query) error {
+func (f *File) Update(query *v1.Query) error {
 	// TODO implement me
 	return nil
 }
 
-func (f *file) Insert(query *v1.Query) error {
+func (f *File) Insert(query *v1.Query) error {
 	err := f.insertToTable(query)
 	if err != nil {
 		return err
@@ -94,7 +94,7 @@ func (f *file) Insert(query *v1.Query) error {
 	return nil
 }
 
-func (f *file) insertToTable(query *v1.Query) error {
+func (f *File) insertToTable(query *v1.Query) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 
@@ -158,12 +158,12 @@ func (f *file) insertToTable(query *v1.Query) error {
 	return nil
 }
 
-func (f *file) insertToIndex(query *v1.Query) error {
+func (f *File) insertToIndex(query *v1.Query) error {
 	// TODO implement me
 	return nil
 }
 
-func (f *file) Delete(query *v1.Query) error {
+func (f *File) Delete(query *v1.Query) error {
 	// TODO implement me
 	return nil
 }

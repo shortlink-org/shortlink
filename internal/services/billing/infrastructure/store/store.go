@@ -20,7 +20,7 @@ import (
 )
 
 // Use return implementation of db
-func (s *BillingStore) Use(ctx context.Context, log logger.Logger, db *db.Store) (*BillingStore, error) {
+func (s *BillingStore) Use(ctx context.Context, log logger.Logger, store *db.Store) (*BillingStore, error) {
 	// Set configuration
 	s.setConfig()
 
@@ -43,29 +43,29 @@ func (s *BillingStore) Use(ctx context.Context, log logger.Logger, db *db.Store)
 		s.EventStore = &event_store.Repository{}
 
 		// Migration ---------------------------------------------------------------------------------------------------
-		err := migrate.Migration(ctx, db, postgres.Migrations, viper.GetString("SERVICE_NAME"))
+		err := migrate.Migration(ctx, store, postgres.Migrations, viper.GetString("SERVICE_NAME"))
 		if err != nil {
 			return nil, err
 		}
 	}
 
-	err := s.Account.Init(ctx, db)
+	err := s.Account.Init(ctx, store)
 	if err != nil {
 		return nil, err
 	}
 
-	err = s.Tariff.Init(ctx, db)
+	err = s.Tariff.Init(ctx, store)
 	if err != nil {
 		return nil, err
 	}
 
-	_, err = s.EventStore.Use(ctx, log, db)
+	_, err = s.EventStore.Use(ctx, log, store)
 	if err != nil {
 		return nil, err
 	}
 
 	log.Info("init billingStore", field.Fields{
-		"db": s.typeStore,
+		"store": s.typeStore,
 	})
 
 	return s, nil

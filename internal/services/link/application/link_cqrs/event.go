@@ -29,7 +29,7 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload any) notify.
 		{
 			_, err := s.cqsStore.LinkAdd(ctx, payload.(*link.Link))
 			if err != nil {
-				s.logger.ErrorWithContext(ctx, err.Error())
+				s.log.ErrorWithContext(ctx, err.Error())
 			}
 
 			return notify.Response[any]{}
@@ -38,7 +38,7 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload any) notify.
 		{
 			_, err := s.cqsStore.LinkUpdate(ctx, payload.(*link.Link))
 			if err != nil {
-				s.logger.ErrorWithContext(ctx, err.Error())
+				s.log.ErrorWithContext(ctx, err.Error())
 			}
 
 			return notify.Response[any]{}
@@ -47,7 +47,7 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload any) notify.
 		{
 			err := s.cqsStore.LinkDelete(ctx, payload.(string))
 			if err != nil {
-				s.logger.ErrorWithContext(ctx, err.Error())
+				s.log.ErrorWithContext(ctx, err.Error())
 			}
 
 			return notify.Response[any]{}
@@ -58,7 +58,7 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload any) notify.
 		{
 			_, err := s.cqsStore.MetadataUpdate(ctx, payload.(*metadata.Meta))
 			if err != nil {
-				s.logger.ErrorWithContext(ctx, err.Error())
+				s.log.ErrorWithContext(ctx, err.Error())
 			}
 
 			return notify.Response[any]{}

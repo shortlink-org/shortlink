@@ -37,7 +37,7 @@ import (
 
 type BillingService struct {
 	// Common
-	Logger logger.Logger
+	Log    logger.Logger
 	Config *config.Config
 
 	// Observability
@@ -82,9 +82,9 @@ var BillingSet = wire.NewSet(
 	NewBillingService,
 )
 
-func NewBillingStore(ctx context.Context, logger logger.Logger, db *db.Store) (*billing_store.BillingStore, error) {
+func NewBillingStore(ctx context.Context, log logger.Logger, db *db.Store) (*billing_store.BillingStore, error) {
 	store := &billing_store.BillingStore{}
-	billingStore, err := store.Use(ctx, logger, db)
+	billingStore, err := store.Use(ctx, log, db)
 	if err != nil {
 		return nil, err
 	}
@@ -92,8 +92,8 @@ func NewBillingStore(ctx context.Context, logger logger.Logger, db *db.Store) (*
 	return billingStore, nil
 }
 
-func NewAccountApplication(logger logger.Logger, store *billing_store.BillingStore) (*account_application.AccountService, error) {
-	accountService, err := account_application.New(logger, store.Account)
+func NewAccountApplication(log logger.Logger, store *billing_store.BillingStore) (*account_application.AccountService, error) {
+	accountService, err := account_application.New(log, store.Account)
 	if err != nil {
 		return nil, err
 	}
@@ -101,8 +101,8 @@ func NewAccountApplication(logger logger.Logger, store *billing_store.BillingSto
 	return accountService, nil
 }
 
-func NewOrderApplication(logger logger.Logger, store *billing_store.BillingStore) (*order_application.OrderService, error) {
-	orderService, err := order_application.New(logger, store.EventStore)
+func NewOrderApplication(log logger.Logger, store *billing_store.BillingStore) (*order_application.OrderService, error) {
+	orderService, err := order_application.New(log, store.EventStore)
 	if err != nil {
 		return nil, err
 	}
@@ -110,8 +110,8 @@ func NewOrderApplication(logger logger.Logger, store *billing_store.BillingStore
 	return orderService, nil
 }
 
-func NewPaymentApplication(logger logger.Logger, store *billing_store.BillingStore) (*payment_application.PaymentService, error) {
-	paymentService, err := payment_application.New(logger, store.EventStore)
+func NewPaymentApplication(log logger.Logger, store *billing_store.BillingStore) (*payment_application.PaymentService, error) {
+	paymentService, err := payment_application.New(log, store.EventStore)
 	if err != nil {
 		return nil, err
 	}
@@ -119,8 +119,8 @@ func NewPaymentApplication(logger logger.Logger, store *billing_store.BillingSto
 	return paymentService, nil
 }
 
-func NewTariffApplication(logger logger.Logger, store *billing_store.BillingStore) (*tariff_application.TariffService, error) {
-	tariffService, err := tariff_application.New(logger, store.Tariff)
+func NewTariffApplication(log logger.Logger, store *billing_store.BillingStore) (*tariff_application.TariffService, error) {
+	tariffService, err := tariff_application.New(log, store.Tariff)
 	if err != nil {
 		return nil, err
 	}
@@ -131,7 +131,7 @@ func NewTariffApplication(logger logger.Logger, store *billing_store.BillingStor
 func NewBillingAPIServer(
 	// Common
 	ctx context.Context,
-	logger logger.Logger,
+	log logger.Logger,
 	tracer trace.TracerProvider,
 	rpcServer *rpc.Server,
 	db *db.Store,
@@ -149,7 +149,7 @@ func NewBillingAPIServer(
 		// Common
 		ctx,
 		db,
-		logger,
+		log,
 		tracer,
 
 		// services
@@ -181,7 +181,7 @@ func NewBillingService(
 ) (*BillingService, error) {
 	return &BillingService{
 		// Common
-		Logger: log,
+		Log:    log,
 		Config: config,
 
 		// Observability

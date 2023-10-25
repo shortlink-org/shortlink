@@ -15,7 +15,7 @@ import (
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/encoding/protojson"
-	"google.golang.org/protobuf/types/known/timestamppb" //nolint:importas // false positive
+	"google.golang.org/protobuf/types/known/timestamppb" //nolint:imports // false positive
 
 	"github.com/shortlink-org/shortlink/internal/pkg/batch"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
@@ -33,37 +33,37 @@ var (
 )
 
 // New store
-func New(ctx context.Context, db *db.Store) (*Store, error) {
+func New(ctx context.Context, store *db.Store) (*Store, error) {
 	var ok bool
 	s := &Store{}
 
 	// Set configuration -----------------------------------------------------------------------------------------------
 	s.setConfig()
-	s.client, ok = db.Store.GetConn().(*pgxpool.Pool)
+	s.client, ok = store.Store.GetConn().(*pgxpool.Pool)
 	if !ok {
-		return nil, errors.New("Error get connection to PostgreSQL")
+		return nil, errors.New("error get connection to PostgreSQL")
 	}
 
 	// Migration -------------------------------------------------------------------------------------------------------
-	err := migrate.Migration(ctx, db, migrations, viper.GetString("SERVICE_NAME"))
+	err := migrate.Migration(ctx, store, migrations, viper.GetString("SERVICE_NAME"))
 	if err != nil {
 		return nil, err
 	}
 
 	// Create a batch job ----------------------------------------------------------------------------------------------
 	if s.config.mode == options.MODE_BATCH_WRITE {
-		cb := func(args []*batch.Item) any { //nolint:errcheck
+		cb := func(args []*batch.Item) any { //nolint:errcheck // ignore
 			sources := make([]*domain.Link, len(args))
 
 			for key := range args {
-				sources[key] = args[key].Item.(*domain.Link) //nolint:errcheck
+				sources[key] = args[key].Item.(*domain.Link) //nolint:errcheck // ignore
 			}
 
 			dataList, errBatchWrite := s.batchWrite(ctx, sources)
 			if errBatchWrite != nil {
 				for index := range args {
 					// TODO: add logs for error
-					args[index].CallbackChannel <- errors.New("Error write to PostgreSQL")
+					args[index].CallbackChannel <- errors.New("error write to PostgreSQL")
 				}
 
 				return errBatchWrite
@@ -86,8 +86,8 @@ func New(ctx context.Context, db *db.Store) (*Store, error) {
 	return s, nil
 }
 
-// Get - get link
-func (p *Store) Get(ctx context.Context, id string) (*domain.Link, error) {
+// Get - a get link
+func (s *Store) Get(ctx context.Context, id string) (*domain.Link, error) {
 	// query builder
 	links := psql.Select("url, hash, describe").
 		From("link.links").
@@ -97,31 +97,31 @@ func (p *Store) Get(ctx context.Context, id string) (*domain.Link, error) {
 		return nil, err
 	}
 
-	rows, err := p.client.Query(ctx, q, args...)
+	rows, err := s.client.Query(ctx, q, args...)
 	if err != nil {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 	if rows.Err() != nil {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	var response domain.Link
 	for rows.Next() {
 		err = rows.Scan(&response.Url, &response.Hash, &response.Describe)
 		if err != nil {
-			return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+			return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 		}
 	}
 
 	if response.GetHash() == "" {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	return &response, nil
 }
 
 // List - list links
-func (p *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, error) {
+func (s *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, error) {
 	// query builder
 	links := psql.Select("url, hash, describe, created_at, updated_at").
 		From("link.links")
@@ -132,13 +132,13 @@ func (p *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, 
 			Offset(uint64(filter.Pagination.Page * filter.Pagination.Limit))
 	}
 
-	links = p.buildFilter(links, filter)
+	links = s.buildFilter(links, filter)
 	q, args, err := links.ToSql()
 	if err != nil {
 		return nil, err
 	}
 
-	rows, err := p.client.Query(ctx, q, args...)
+	rows, err := s.client.Query(ctx, q, args...)
 	if err != nil {
 		if errors.Is(err, pgx.ErrNoRows) {
 			return &domain.Links{
@@ -172,11 +172,11 @@ func (p *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, 
 	return response, nil
 }
 
-// Add - add link
-func (p *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, error) {
-	switch p.config.mode {
+// Add - an add link
+func (s *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, error) {
+	switch s.config.mode {
 	case options.MODE_BATCH_WRITE:
-		cb := p.config.job.Push(source)
+		cb := s.config.job.Push(source)
 
 		res := <-cb
 		switch data := res.(type) {
@@ -188,7 +188,7 @@ func (p *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, err
 			return nil, nil
 		}
 	case options.MODE_SINGLE_WRITE:
-		data, err := p.singleWrite(ctx, source)
+		data, err := s.singleWrite(ctx, source)
 		if err != nil {
 			return nil, err
 		}
@@ -200,12 +200,12 @@ func (p *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, err
 }
 
 // Update - update link
-func (p *Store) Update(_ context.Context, _ *domain.Link) (*domain.Link, error) {
+func (s *Store) Update(_ context.Context, _ *domain.Link) (*domain.Link, error) {
 	return nil, nil
 }
 
 // Delete - delete link
-func (p *Store) Delete(ctx context.Context, id string) error {
+func (s *Store) Delete(ctx context.Context, id string) error {
 	// query builder
 	request := psql.Delete("link.links").
 		Where(squirrel.Eq{"hash": id})
@@ -214,15 +214,15 @@ func (p *Store) Delete(ctx context.Context, id string) error {
 		return err
 	}
 
-	_, err = p.client.Exec(ctx, q, args...)
+	_, err = s.client.Exec(ctx, q, args...)
 	if err != nil {
-		return &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
+		return &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("failed delete link: %s", id)}
 	}
 
 	return nil
 }
 
-func (p *Store) singleWrite(ctx context.Context, source *domain.Link) (*domain.Link, error) {
+func (s *Store) singleWrite(ctx context.Context, source *domain.Link) (*domain.Link, error) {
 	err := domain.NewURL(source)
 	if err != nil {
 		return nil, err
@@ -244,20 +244,20 @@ func (p *Store) singleWrite(ctx context.Context, source *domain.Link) (*domain.L
 		return nil, err
 	}
 
-	row := p.client.QueryRow(ctx, q, args...)
+	row := s.client.QueryRow(ctx, q, args...)
 
 	errScan := row.Scan()
 	if errors.Is(errScan, pgx.ErrNoRows) {
 		return source, nil
 	}
 	if errScan.Error() != "" {
-		return nil, &domain.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.GetUrl())}
+		return nil, &domain.NotFoundError{Link: source, Err: fmt.Errorf("failed save link: %s", source.GetUrl())}
 	}
 
 	return source, nil
 }
 
-func (p *Store) batchWrite(ctx context.Context, sources []*domain.Link) (*domain.Links, error) {
+func (s *Store) batchWrite(ctx context.Context, sources []*domain.Link) (*domain.Links, error) {
 	// Create a new link
 	for key := range sources {
 		err := domain.NewURL(sources[key])
@@ -284,7 +284,7 @@ func (p *Store) batchWrite(ctx context.Context, sources []*domain.Link) (*domain
 		return nil, err
 	}
 
-	row := p.client.QueryRow(ctx, q, args...)
+	row := s.client.QueryRow(ctx, q, args...)
 	errScan := row.Scan(&sources)
 	if errors.Is(errScan, pgx.ErrNoRows) {
 		return &domain.Links{
@@ -292,7 +292,7 @@ func (p *Store) batchWrite(ctx context.Context, sources []*domain.Link) (*domain
 		}, nil
 	}
 	if errScan != nil {
-		return nil, fmt.Errorf("Error save link")
+		return nil, fmt.Errorf("error save link")
 	}
 
 	response := &domain.Links{
@@ -307,7 +307,7 @@ func (p *Store) batchWrite(ctx context.Context, sources []*domain.Link) (*domain
 // setConfig - set configuration
 func (s *Store) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode write to db. Select: 0 (MODE_SINGLE_WRITE), 1 (MODE_BATCH_WRITE)
+	viper.SetDefault("STORE_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode writes to db. Select: 0 (MODE_SINGLE_WRITE), 1 (MODE_BATCH_WRITE)
 
 	s.config = Config{
 		mode: viper.GetInt("STORE_MODE_WRITE"),

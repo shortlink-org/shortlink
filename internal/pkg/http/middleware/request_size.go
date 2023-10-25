@@ -17,7 +17,9 @@ func RequestSize(bytes int64) func(http.Handler) http.Handler {
 			r.Body = http.MaxBytesReader(w, r.Body, bytes)
 			h.ServeHTTP(w, r)
 		}
+
 		return http.HandlerFunc(fn)
 	}
+
 	return f
 }

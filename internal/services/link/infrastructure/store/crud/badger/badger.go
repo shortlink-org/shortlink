@@ -7,7 +7,7 @@ import (
 	"github.com/dgraph-io/badger/v4"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
@@ -21,8 +21,8 @@ func New(_ context.Context) (*Store, error) {
 	return &Store{}, nil
 }
 
-// Get ...
-func (b *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
+// Get - get
+func (b *Store) Get(ctx context.Context, id string) (*domain.Link, error) {
 	var valCopy []byte
 
 	err := b.client.View(func(txn *badger.Txn) error {
@@ -50,10 +50,10 @@ func (b *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
-	var response v1.Link
+	var response domain.Link
 
 	err = protojson.Unmarshal(valCopy, &response)
 	if err != nil {
@@ -61,14 +61,14 @@ func (b *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	}
 
 	if response.GetUrl() == "" {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	return &response, nil
 }
 
-// List ...
-func (b *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
+// List - list
+func (b *Store) List(_ context.Context, _ *query.Filter) (*domain.Links, error) {
 	var list [][]byte
 
 	err := b.client.View(func(txn *badger.Txn) error {
@@ -101,15 +101,15 @@ func (b *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: fmt.Errorf("not found links: %w", err)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{}, Err: fmt.Errorf("not found links: %w", err)}
 	}
 
-	response := &v1.Links{
-		Link: []*v1.Link{},
+	response := &domain.Links{
+		Link: []*domain.Link{},
 	}
 
 	for _, item := range list {
-		l := &v1.Link{}
+		l := &domain.Link{}
 		err = protojson.Unmarshal(item, l)
 		if err != nil {
 			return nil, err
@@ -121,9 +121,9 @@ func (b *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
 	return response, nil
 }
 
-// Add ...
-func (b *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
-	err := v1.NewURL(source)
+// Add - add
+func (b *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, error) {
+	err := domain.NewURL(source)
 	if err != nil {
 		return nil, err
 	}
@@ -143,12 +143,12 @@ func (b *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	return source, nil
 }
 
-// Update ...
-func (b *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
+// Update - update
+func (b *Store) Update(_ context.Context, _ *domain.Link) (*domain.Link, error) {
 	return nil, nil
 }
 
-// Delete ...
+// Delete - delete
 func (b *Store) Delete(ctx context.Context, id string) error {
 	err := b.client.Update(func(txn *badger.Txn) error {
 		err := txn.Delete([]byte(id))

@@ -1,6 +1,7 @@
 package profiling
 
 import (
+	"context"
 	"net/http"
 	"net/http/pprof"
 	"runtime"
@@ -9,13 +10,17 @@ import (
 	pypprof "github.com/grafana/pyroscope-go/godeltaprof/http/pprof"
 	"github.com/spf13/viper"
 
+	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
 type PprofEndpoint *http.ServeMux
 
-func New(log logger.Logger) (PprofEndpoint, error) {
+func New(ctx context.Context, log logger.Logger) (PprofEndpoint, error) {
+	viper.SetDefault("PROFILING_PORT", 7071) //nolint:revive,gomnd // ignore
+	viper.SetDefault("PROFILING_TIMEOUT", "30s")
+
 	// Create "common" listener
 	pprofMux := http.NewServeMux()
 
@@ -30,7 +35,13 @@ func New(log logger.Logger) (PprofEndpoint, error) {
 	pprofMux.HandleFunc("/debug/pprof/delta_mutex", pypprof.Mutex)
 
 	go func() {
-		err := http.ListenAndServe("0.0.0.0:7071", pprofMux)
+		config := http_server.Config{
+			Port:    viper.GetInt("PROFILING_PORT"),
+			Timeout: viper.GetDuration("PROFILING_TIMEOUT"),
+		}
+		server := http_server.New(ctx, pprofMux, config, nil)
+
+		err := server.ListenAndServe()
 		if err != nil {
 			log.Error(err.Error())
 		}

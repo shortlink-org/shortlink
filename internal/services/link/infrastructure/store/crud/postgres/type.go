@@ -6,7 +6,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/batch"
 )
 
-// Config ...
+// Config - config
 type Config struct {
 	job  *batch.Batch
 	URI  string

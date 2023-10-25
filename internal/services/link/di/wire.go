@@ -25,7 +25,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link"
@@ -108,7 +108,7 @@ var LinkSet = wire.NewSet(
 	NewLinkService,
 )
 
-func InitLinkMQ(ctx context.Context, log logger.Logger, mq *v1.DataBus, service *link.Service) (*api_mq.Event, error) {
+func InitLinkMQ(ctx context.Context, log logger.Logger, mq *mq.DataBus, service *link.Service) (*api_mq.Event, error) {
 	linkMQ, err := api_mq.New(mq, log, service)
 	if err != nil {
 		return nil, err
@@ -117,8 +117,8 @@ func InitLinkMQ(ctx context.Context, log logger.Logger, mq *v1.DataBus, service 
 	return linkMQ, nil
 }
 
-func NewLinkStore(ctx context.Context, logger logger.Logger, db *db.Store, cache *cache.Cache) (*crud.Store, error) {
-	linkStore, err := crud.New(ctx, logger, db, cache)
+func NewLinkStore(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*crud.Store, error) {
+	linkStore, err := crud.New(ctx, log, db, cache)
 	if err != nil {
 		return nil, err
 	}
@@ -126,8 +126,8 @@ func NewLinkStore(ctx context.Context, logger logger.Logger, db *db.Store, cache
 	return linkStore, nil
 }
 
-func NewCQSLinkStore(ctx context.Context, logger logger.Logger, db *db.Store, cache *cache.Cache) (*cqs.Store, error) {
-	store, err := cqs.New(ctx, logger, db, cache)
+func NewCQSLinkStore(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*cqs.Store, error) {
+	store, err := cqs.New(ctx, log, db, cache)
 	if err != nil {
 		return nil, err
 	}
@@ -135,8 +135,8 @@ func NewCQSLinkStore(ctx context.Context, logger logger.Logger, db *db.Store, ca
 	return store, nil
 }
 
-func NewQueryLinkStore(ctx context.Context, logger logger.Logger, db *db.Store, cache *cache.Cache) (*query.Store, error) {
-	store, err := query.New(ctx, logger, db, cache)
+func NewQueryLinkStore(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*query.Store, error) {
+	store, err := query.New(ctx, log, db, cache)
 	if err != nil {
 		return nil, err
 	}
@@ -144,8 +144,8 @@ func NewQueryLinkStore(ctx context.Context, logger logger.Logger, db *db.Store, 
 	return store, nil
 }
 
-func NewLinkApplication(logger logger.Logger, mq *v1.DataBus, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store, authPermission *authzed.Client) (*link.Service, error) {
-	linkService, err := link.New(logger, mq, metadataService, store, authPermission)
+func NewLinkApplication(log logger.Logger, mq *mq.DataBus, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store, authPermission *authzed.Client) (*link.Service, error) {
+	linkService, err := link.New(log, mq, metadataService, store, authPermission)
 	if err != nil {
 		return nil, err
 	}
@@ -153,8 +153,8 @@ func NewLinkApplication(logger logger.Logger, mq *v1.DataBus, metadataService me
 	return linkService, nil
 }
 
-func NewLinkCQRSApplication(logger logger.Logger, cqsStore *cqs.Store, queryStore *query.Store) (*link_cqrs.Service, error) {
-	linkCQRSService, err := link_cqrs.New(logger, cqsStore, queryStore)
+func NewLinkCQRSApplication(log logger.Logger, cqsStore *cqs.Store, queryStore *query.Store) (*link_cqrs.Service, error) {
+	linkCQRSService, err := link_cqrs.New(log, cqsStore, queryStore)
 	if err != nil {
 		return nil, err
 	}
@@ -167,8 +167,8 @@ func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (link_rpc.LinkServiceClient
 	return LinkServiceClient, nil
 }
 
-func NewSitemapApplication(logger logger.Logger, mq *v1.DataBus) (*sitemap.Service, error) {
-	sitemapService, err := sitemap.New(logger, mq)
+func NewSitemapApplication(log logger.Logger, dataBus *mq.DataBus) (*sitemap.Service, error) {
+	sitemapService, err := sitemap.New(log, dataBus)
 	if err != nil {
 		return nil, err
 	}
@@ -203,7 +203,7 @@ func NewSitemapRPCServer(runRPCServer *rpc.Server, application *sitemap.Service,
 	return sitemapRPCServer, nil
 }
 
-func NewRunRPCServer(runRPCServer *rpc.Server, cqrsLinkRPC *cqrs.Link, linkRPC *link_rpc.Link) (*run.Response, error) {
+func NewRunRPCServer(runRPCServer *rpc.Server, _ *cqrs.Link, _ *link_rpc.Link) (*run.Response, error) {
 	return run.Run(runRPCServer)
 }
 

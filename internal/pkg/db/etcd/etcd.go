@@ -9,9 +9,10 @@ import (
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
-// Config ...
+// Config - config
 type Config struct {
-	URI []string
+	URI         []string
+	DialTimeout time.Duration
 }
 
 // Store implementation of db interface
@@ -20,7 +21,7 @@ type Store struct {
 	config Config
 }
 
-// Init ...
+// Init - initialize
 func (s *Store) Init(ctx context.Context) error {
 	// Set configuration
 	s.setConfig()
@@ -29,7 +30,7 @@ func (s *Store) Init(ctx context.Context) error {
 	var err error
 	s.client, err = clientv3.New(clientv3.Config{
 		Endpoints:   s.config.URI,
-		DialTimeout: 5 * time.Second, //nolint:gomnd
+		DialTimeout: s.config.DialTimeout,
 	})
 	if err != nil {
 		return err
@@ -38,12 +39,12 @@ func (s *Store) Init(ctx context.Context) error {
 	return nil
 }
 
-// GetConn ...
+// GetConn - get connect
 func (s *Store) GetConn() any {
 	return s.client
 }
 
-// Close ...
+// Close - close
 func (s *Store) Close() error {
 	return s.client.Close()
 }
@@ -52,10 +53,12 @@ func (s *Store) Close() error {
 func (s *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_ETCD_URI", "localhost:2379") // ETCD URI
+	viper.SetDefault("STORE_ETCD_TIMEOUT", "5s")         // ETCD timeout
 
 	etcd := strings.Split(viper.GetString("STORE_ETCD_URI"), ",")
 
 	s.config = Config{
-		URI: etcd,
+		URI:         etcd,
+		DialTimeout: viper.GetDuration("STORE_ETCD_TIMEOUT"),
 	}
 }

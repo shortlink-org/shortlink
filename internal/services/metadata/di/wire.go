@@ -22,7 +22,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
@@ -75,8 +75,8 @@ var MetaDataSet = wire.NewSet(
 	NewMetaDataService,
 )
 
-func InitMetadataMQ(ctx context.Context, log logger.Logger, mq *v1.DataBus) (*metadata_mq.Event, error) {
-	metadataMQ, err := metadata_mq.New(mq)
+func InitMetadataMQ(ctx context.Context, log logger.Logger, dataBus *mq.DataBus) (*metadata_mq.Event, error) {
+	metadataMQ, err := metadata_mq.New(dataBus)
 	if err != nil {
 		return nil, err
 	}
@@ -87,9 +87,9 @@ func InitMetadataMQ(ctx context.Context, log logger.Logger, mq *v1.DataBus) (*me
 	return metadataMQ, nil
 }
 
-func NewMetaDataStore(ctx context.Context, logger logger.Logger, db *db.Store) (*meta_store.MetaStore, error) {
+func NewMetaDataStore(ctx context.Context, log logger.Logger, db *db.Store) (*meta_store.MetaStore, error) {
 	store := &meta_store.MetaStore{}
-	metadataStore, err := store.Use(ctx, logger, db)
+	metadataStore, err := store.Use(ctx, log, db)
 	if err != nil {
 		return nil, err
 	}

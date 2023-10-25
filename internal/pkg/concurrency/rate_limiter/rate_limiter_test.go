@@ -32,6 +32,7 @@ func TestRateLimiter(t *testing.T) {
 			}
 
 			atomic.AddInt64(&sum, 1)
+
 			return nil
 		})
 	}

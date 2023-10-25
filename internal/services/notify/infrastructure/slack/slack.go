@@ -65,8 +65,8 @@ func (b *Bot) send(ctx context.Context, message string) error {
 	client := http_client.New()
 
 	resp, err := client.Do(req)
-	if err != nil || resp.StatusCode != 200 {
-		return errors.New("Don't send message to slack")
+	if err != nil || resp.StatusCode != http.StatusOK {
+		return errors.New("don't send message to slack")
 	}
 
 	defer resp.Body.Close()

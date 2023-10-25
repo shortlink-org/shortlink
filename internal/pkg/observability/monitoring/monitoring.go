@@ -47,8 +47,8 @@ func New(ctx context.Context, log logger.Logger) (*Monitoring, func(), error) {
 	go func() {
 		// Create a new HTTP server for Prometheus metrics
 		config := http_server.Config{
-			Port:    9090,             //nolint:gomnd
-			Timeout: 30 * time.Second, //nolint:gomnd
+			Port:    9090,             //nolint:gomnd // port for Prometheus metrics
+			Timeout: 30 * time.Second, //nolint:gomnd // timeout for Prometheus metrics
 		}
 		server := http_server.New(ctx, monitoring.Handler, config, nil)
 

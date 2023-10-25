@@ -56,7 +56,7 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint, err := profiling.New(logger)
+	pprofEndpoint, err := profiling.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -148,8 +148,8 @@ var LoggerSet = wire.NewSet(di.DefaultSet, mq_di.New, InitLoggerMQ,
 	NewLoggerService,
 )
 
-func InitLoggerMQ(ctx2 context.Context, log logger.Logger, mq2 *mq.DataBus, service *logger_application.Service) (*logger_mq.Event, error) {
-	loggerMQ, err := logger_mq.New(mq2, log, service)
+func InitLoggerMQ(ctx2 context.Context, log logger.Logger, dataBus *mq.DataBus, service *logger_application.Service) (*logger_mq.Event, error) {
+	loggerMQ, err := logger_mq.New(dataBus, log, service)
 	if err != nil {
 		return nil, err
 	}
@@ -157,8 +157,8 @@ func InitLoggerMQ(ctx2 context.Context, log logger.Logger, mq2 *mq.DataBus, serv
 	return loggerMQ, nil
 }
 
-func NewLoggerApplication(logger2 logger.Logger) (*logger_application.Service, error) {
-	loggerService, err := logger_application.New(logger2)
+func NewLoggerApplication(log logger.Logger) (*logger_application.Service, error) {
+	loggerService, err := logger_application.New(log)
 	if err != nil {
 		return nil, err
 	}

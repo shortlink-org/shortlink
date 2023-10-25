@@ -37,8 +37,8 @@ func New(ctx context.Context, log logger.Logger, client *authzed.Client) (*Servi
 }
 
 // Migrations run the migrations for the authzed service.
-func (s *Service) Migrations(ctx context.Context, fs embed.FS) error {
-	permissionsData, err := GetPermissions(fs)
+func (s *Service) Migrations(ctx context.Context, fsys embed.FS) error {
+	permissionsData, err := GetPermissions(fsys)
 	if err != nil {
 		return err
 	}
@@ -46,7 +46,7 @@ func (s *Service) Migrations(ctx context.Context, fs embed.FS) error {
 	for i := range permissionsData {
 		_, err = s.client.WriteSchema(ctx, permissionsData[i])
 		if err != nil {
-			return fmt.Errorf("Failed to write schema: %w", err)
+			return fmt.Errorf("failed to write schema: %w", err)
 		}
 	}
 
@@ -94,7 +94,7 @@ func GetSchema(files [][]byte) ([]*pb.WriteSchemaRequest, error) {
 
 		err := yaml.Unmarshal(file, schema)
 		if err != nil {
-			return nil, fmt.Errorf("Failed to unmarshal schema: %w", err)
+			return nil, fmt.Errorf("failed to unmarshal schema: %w", err)
 		}
 
 		schemaData = append(schemaData, schema)

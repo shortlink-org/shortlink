@@ -26,7 +26,7 @@ func New(_ context.Context) (logger.Logger, func(), error) {
 
 	cleanup := func() {
 		// flushes buffer, if any
-		_ = log.Close() //nolint:errcheck
+		_ = log.Close() //nolint:errcheck // ignore
 	}
 
 	return log, cleanup, nil

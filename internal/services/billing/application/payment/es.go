@@ -54,7 +54,7 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 	case t == billing.Event_EVENT_BALANCE_UPDATED.String():
 		// validate payment
 		if p.Status != billing.StatusPayment_STATUS_PAYMENT_APPROVE {
-			return fmt.Errorf("Incorrect status of payment: %s", p.Status)
+			return fmt.Errorf("incorrect status of payment: %s", p.Status)
 		}
 
 		var payload billing.EventBalanceUpdated
@@ -65,7 +65,7 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 
 		p.Amount += payload.GetAmount()
 	default:
-		return fmt.Errorf("Not found event with type: %s", event.GetType())
+		return fmt.Errorf("not found event with type: %s", event.GetType())
 	}
 
 	return nil
@@ -111,7 +111,7 @@ func (p *Payment) HandleCommand(ctx context.Context, command *eventsourcing.Base
 
 		span.SetAttributes(attribute.String("event_type", billing.Event_EVENT_BALANCE_UPDATED.String()))
 	default:
-		return fmt.Errorf("Not found command with type: %s", t)
+		return fmt.Errorf("not found command with type: %s", t)
 	}
 
 	err := p.ApplyChangeHelper(p, event, true)

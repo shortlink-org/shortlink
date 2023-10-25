@@ -51,7 +51,7 @@ func NewSCIDriver(
 	ctx context.Context,
 
 	// Observability
-	monitoring *monitoring.Monitoring,
+	monitor *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
@@ -63,7 +63,7 @@ func NewSCIDriver(
 
 		// Observability
 		Tracer:        tracer,
-		Monitoring:    monitoring,
+		Monitoring:    monitor,
 		PprofEndpoint: pprofHTTP,
 		AutoMaxPro:    autoMaxProcsOption,
 	}, nil

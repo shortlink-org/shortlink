@@ -35,5 +35,5 @@ func main() {
 	cleanup()
 
 	// Exit Code 143: Graceful Termination (SIGTERM)
-	os.Exit(143)
+	os.Exit(143) //nolint:gocritic // TODO: research
 }

@@ -11,15 +11,15 @@ import (
 )
 
 type AccountService struct {
-	logger logger.Logger
+	log logger.Logger
 
 	// Repositories
 	accountRepository billing_store.AccountRepository
 }
 
-func New(logger logger.Logger, accountRepository billing_store.AccountRepository) (*AccountService, error) {
+func New(log logger.Logger, accountRepository billing_store.AccountRepository) (*AccountService, error) {
 	return &AccountService{
-		logger: logger,
+		log: log,
 
 		// Repositories
 		accountRepository: accountRepository,

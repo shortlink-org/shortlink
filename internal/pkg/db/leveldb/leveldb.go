@@ -7,7 +7,7 @@ import (
 	"github.com/syndtr/goleveldb/leveldb"
 )
 
-// Config ...
+// Config - config
 type Config struct {
 	Path string
 }
@@ -18,7 +18,7 @@ type Store struct {
 	config Config
 }
 
-// Init ...
+// Init - initialize
 func (s *Store) Init(ctx context.Context) error {
 	var err error
 
@@ -33,12 +33,12 @@ func (s *Store) Init(ctx context.Context) error {
 	return nil
 }
 
-// GetConn ...
+// GetConn - get connect
 func (s *Store) GetConn() any {
 	return s.client
 }
 
-// Close ...
+// Close - close
 func (s *Store) Close() error {
 	return s.client.Close()
 }

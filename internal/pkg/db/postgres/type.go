@@ -5,7 +5,7 @@ import (
 	"go.opentelemetry.io/otel/sdk/metric"
 )
 
-// Config ...
+// Config - config
 type Config struct {
 	mode   int
 	config *pgxpool.Config

@@ -11,7 +11,7 @@ import (
 )
 
 type Redis struct {
-	client rueidis.Client //nolint:unused
+	client rueidis.Client //nolint:unused // TODO implement me
 }
 
 func New() *Redis {

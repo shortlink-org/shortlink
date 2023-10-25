@@ -27,10 +27,10 @@ import (
 )
 
 // New return implementation of db
-func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*Store, error) { //nolint:gocognit
+func New(ctx context.Context, log logger.Logger, store *db.Store, c *cache.Cache) (*Store, error) { //nolint:gocognit // ignore
 	s := &Store{
 		log:   log,
-		cache: cache,
+		cache: c,
 	}
 
 	// Set configuration
@@ -40,27 +40,27 @@ func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cach
 
 	switch s.typeStore {
 	case "postgres":
-		s.store, err = postgres.New(ctx, db)
+		s.store, err = postgres.New(ctx, store)
 		if err != nil {
 			return nil, err
 		}
 	case "mongo":
-		s.store, err = mongo.New(ctx, db)
+		s.store, err = mongo.New(ctx, store)
 		if err != nil {
 			return nil, err
 		}
 	case "redis":
-		s.store, err = redis.New(ctx, db)
+		s.store, err = redis.New(ctx, store)
 		if err != nil {
 			return nil, err
 		}
 	case "dgraph":
-		s.store, err = dgraph.New(ctx, db, log)
+		s.store, err = dgraph.New(ctx, store, log)
 		if err != nil {
 			return nil, err
 		}
 	case "leveldb":
-		s.store, err = leveldb.New(ctx, db)
+		s.store, err = leveldb.New(ctx, store)
 		if err != nil {
 			return nil, err
 		}
@@ -70,7 +70,7 @@ func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cach
 			return nil, err
 		}
 	case "sqlite":
-		s.store, err = sqlite.New(ctx, db)
+		s.store, err = sqlite.New(ctx, store)
 		if err != nil {
 			return nil, err
 		}
@@ -84,14 +84,13 @@ func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cach
 	}
 
 	log.Info("init linkStore", field.Fields{
-		"db": s.typeStore,
+		"store": s.typeStore,
 	})
 
 	return s, nil
 }
 
 func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
-	// cache
 	link := v1.Link{}
 	err := s.cache.Get(ctx, fmt.Sprintf(`link:%s`, id), &link)
 	if err != nil {
@@ -111,7 +110,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 		Ctx:   ctx,
 		Key:   fmt.Sprintf(`link:%s`, id),
 		Value: &response,
-		TTL:   5 * time.Minute, //nolint:gomnd
+		TTL:   5 * time.Minute, //nolint:gomnd // ignore
 	})
 	if err != nil {
 		s.log.ErrorWithContext(ctx, err.Error())
@@ -124,7 +123,7 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, erro
 	if filter.Pagination == nil {
 		filter.Pagination = &query.Pagination{
 			Page:  0,
-			Limit: 10, //nolint:gomnd
+			Limit: 10, //nolint:gomnd // ignore
 		}
 	}
 
@@ -156,7 +155,7 @@ func (s *Store) Update(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 		Ctx:   ctx,
 		Key:   fmt.Sprintf(`link:%s`, in.GetHash()),
 		Value: &response,
-		TTL:   5 * time.Minute, //nolint:gomnd
+		TTL:   5 * time.Minute, //nolint:gomnd // ignore
 	})
 	if err != nil {
 		s.log.ErrorWithContext(ctx, err.Error())

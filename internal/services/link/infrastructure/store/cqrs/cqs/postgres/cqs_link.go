@@ -11,7 +11,6 @@ import (
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
-// LinkAdd ...
 func (s *Store) LinkAdd(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	err := v1.NewURL(source)
 	if err != nil {
@@ -35,13 +34,13 @@ func (s *Store) LinkAdd(ctx context.Context, source *v1.Link) (*v1.Link, error) 
 		return source, nil
 	}
 	if errScan.Error() != "" {
-		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.GetUrl())}
+		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("failed save link: %s", source.GetUrl())}
 	}
 
 	return source, nil
 }
 
-// LinkUpdate ...
+// LinkUpdate - update link
 func (s *Store) LinkUpdate(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	// query builder
 	links := psql.Update("link.link_view").
@@ -62,13 +61,13 @@ func (s *Store) LinkUpdate(ctx context.Context, source *v1.Link) (*v1.Link, erro
 		return source, nil
 	}
 	if errScan.Error() != "" {
-		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.GetUrl())}
+		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("failed save link: %s", source.GetUrl())}
 	}
 
 	return source, nil
 }
 
-// LinkDelete ...
+// LinkDelete - delete link
 func (s *Store) LinkDelete(ctx context.Context, id string) error {
 	// query builder
 	request := psql.Delete("link.link_view").
@@ -80,7 +79,7 @@ func (s *Store) LinkDelete(ctx context.Context, id string) error {
 
 	_, err = s.client.Exec(ctx, q, args...)
 	if err != nil {
-		return &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Failed delete link: %s", id)}
+		return &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("failed delete link: %s", id)}
 	}
 
 	return nil

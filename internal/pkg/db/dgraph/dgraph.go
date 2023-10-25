@@ -13,27 +13,27 @@ import (
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
-// DGraphLink implementation of db interface
-type DGraphLink struct {
+// Link implementation of db interface
+type Link struct {
 	Uid      string `json:"uid,omitempty"`
 	*v1.Link `json:"link,omitempty"`
 	DType    []string `json:"dgraph.type,omitempty"`
 }
 
-// DGraphLinkResponse ...
-type DGraphLinkResponse struct {
+// LinkResponse - response from DGraph
+type LinkResponse struct {
 	Link []struct {
 		*v1.Link
 		Uid string `json:"uid,omitempty"`
 	}
 }
 
-// Config ...
+// Config - config
 type Config struct {
 	URL string
 }
 
-// Store ...
+// Store - store struct
 type Store struct {
 	log    logger.Logger
 	conn   *grpc.ClientConn
@@ -47,7 +47,7 @@ func New(log logger.Logger) *Store {
 	}
 }
 
-// Init ...
+// Init - initialize
 func (s *Store) Init(ctx context.Context) error {
 	var err error
 
@@ -67,12 +67,12 @@ func (s *Store) Init(ctx context.Context) error {
 	return nil
 }
 
-// GetConn ...
+// GetConn - get connect
 func (s *Store) GetConn() any {
 	return s.client
 }
 
-// Close ...
+// Close - close
 func (s *Store) Close() error {
 	return s.conn.Close()
 }

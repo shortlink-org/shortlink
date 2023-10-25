@@ -16,13 +16,13 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/shortdb/io_uring"
 )
 
-type file struct {
+type File struct {
 	database *database.DataBase
 	path     string
 	mu       sync.RWMutex
 }
 
-func New(opts ...options.Option) (*file, error) {
+func New(opts ...options.Option) (*File, error) {
 	const SHORTDB_PAGE_SIZE = 100
 
 	viper.AutomaticEnv()
@@ -30,7 +30,7 @@ func New(opts ...options.Option) (*file, error) {
 	viper.SetDefault("SHORTDB_PAGE_SIZE", SHORTDB_PAGE_SIZE) // ShortDB default page of size
 
 	var err error
-	f := &file{
+	f := &File{
 		database: &database.DataBase{
 			Name:   viper.GetString("SHORTDB_DEFAULT_DATABASE"),
 			Tables: make(map[string]*table.Table),
@@ -57,7 +57,7 @@ func New(opts ...options.Option) (*file, error) {
 	return f, nil
 }
 
-func (f *file) Exec(query *v1.Query) (any, error) {
+func (f *File) Exec(query *v1.Query) (any, error) {
 	switch query.GetType() {
 	case v1.Type_TYPE_UNSPECIFIED:
 		return nil, fmt.Errorf("exec: incorret type")
@@ -82,7 +82,7 @@ func (f *file) Exec(query *v1.Query) (any, error) {
 	return nil, nil
 }
 
-func (f *file) init() error {
+func (f *File) init() error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 
@@ -140,7 +140,7 @@ func (f *file) init() error {
 	return nil
 }
 
-func (f *file) Close() error {
+func (f *File) Close() error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 
@@ -188,7 +188,7 @@ func (f *file) Close() error {
 	}
 
 	// save database
-	err = io_uring.WriteFile(databaseFile.Name(), payload, 0o644, func(n int) { //nolint:gomnd
+	err = io_uring.WriteFile(databaseFile.Name(), payload, 0o644, func(n int) { //nolint:gomnd,revive // #nosec
 		wg.Go(func() {})
 		// handle n
 	})
@@ -204,12 +204,12 @@ func (f *file) Close() error {
 	return nil
 }
 
-func (f *file) createFile(name string) (*os.File, error) {
+func (f *File) createFile(name string) (*os.File, error) {
 	return os.OpenFile(fmt.Sprintf("%s/%s", f.path, name), os.O_RDONLY|os.O_CREATE, os.ModePerm) // #nosec
 }
 
-func (f *file) writeFile(name string, payload []byte) error {
-	err := os.WriteFile(name, payload, 0o600) //nolint:gomnd
+func (f *File) writeFile(name string, payload []byte) error {
+	err := os.WriteFile(name, payload, 0o600) //nolint:gomnd,revive // #nosec
 	if err != nil {
 		return err
 	}

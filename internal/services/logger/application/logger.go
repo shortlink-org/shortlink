@@ -5,21 +5,21 @@ import (
 	"fmt"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
 type Service struct {
-	logger logger.Logger
+	log logger.Logger
 }
 
-func New(logger logger.Logger) (*Service, error) {
+func New(log logger.Logger) (*Service, error) {
 	service := &Service{
-		logger: logger,
+		log: log,
 	}
 
 	return service, nil
 }
 
-func (s *Service) Log(ctx context.Context, link *v1.Link) {
-	s.logger.InfoWithContext(ctx, fmt.Sprintf("GET URL: %s", link.GetUrl()))
+func (s *Service) Log(ctx context.Context, link *domain.Link) {
+	s.log.InfoWithContext(ctx, fmt.Sprintf("GET URL: %s", link.GetUrl()))
 }

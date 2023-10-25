@@ -15,7 +15,7 @@ import (
 
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
-	ctx "github.com/shortlink-org/shortlink/internal/di/pkg/context"
+	shortctx "github.com/shortlink-org/shortlink/internal/di/pkg/context"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/flags"
 	logger_di "github.com/shortlink-org/shortlink/internal/di/pkg/logger"
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
@@ -25,7 +25,7 @@ import (
 	traicing_di "github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/cache"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
-	"github.com/shortlink-org/shortlink/internal/pkg/i18n"
+	short_i18n "github.com/shortlink-org/shortlink/internal/pkg/i18n"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
@@ -45,7 +45,7 @@ type Service struct {
 
 	// Delivery
 	DB        *db.Store
-	Cache     *redisCache.UniversalClient
+	Cache     redisCache.UniversalClient
 	MQ        *mq.DataBus
 	ServerRPC *rpc.Server
 	ClientRPC *grpc.ClientConn
@@ -59,7 +59,7 @@ type Service struct {
 
 // Default =============================================================================================================
 var DefaultSet = wire.NewSet(
-	ctx.New,
+	shortctx.New,
 	autoMaxPro.New,
 	flags.New,
 	config.New,
@@ -67,7 +67,7 @@ var DefaultSet = wire.NewSet(
 	traicing_di.New,
 	monitoring.New,
 	cache.New,
-	i18n.New,
+	short_i18n.New,
 	profiling.New,
 	permission.New,
 )
@@ -92,12 +92,12 @@ func NewFullService(
 	// Delivery
 	serverRPC *rpc.Server,
 	clientRPC *grpc.ClientConn,
-	mq *mq.DataBus,
-	db *db.Store,
-	cache *redisCache.UniversalClient,
+	dataBus *mq.DataBus,
+	store_db *db.Store,
+	shortcache redisCache.UniversalClient,
 
 	// Observability
-	monitoring *monitoring.Monitoring,
+	monitor *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
@@ -111,15 +111,15 @@ func NewFullService(
 		I18N: i18n,
 
 		// Delivery
-		MQ:        mq,
-		DB:        db,
-		Cache:     cache,
+		MQ:        dataBus,
+		DB:        store_db,
+		Cache:     shortcache,
 		ClientRPC: clientRPC,
 		ServerRPC: serverRPC,
 
 		// Observability
 		Tracer:        tracer,
-		Monitoring:    monitoring,
+		Monitoring:    monitor,
 		PprofEndpoint: pprofHTTP,
 		AutoMaxPro:    autoMaxProcsOption,
 	}, nil

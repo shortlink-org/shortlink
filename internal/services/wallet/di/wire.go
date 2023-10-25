@@ -16,7 +16,7 @@ import (
 )
 
 type WalletService struct {
-	Logger logger.Logger
+	Log logger.Logger
 }
 
 // WalletService =======================================================================================================
@@ -26,11 +26,11 @@ var WalletSet = wire.NewSet(
 	NewWalletService,
 )
 
-func NewWalletService(logger logger.Logger) (*WalletService, error) {
-	logger.Info("Start wallet service")
+func NewWalletService(log logger.Logger) (*WalletService, error) {
+	log.Info("Start wallet service")
 
 	return &WalletService{
-		Logger: logger,
+		Log: log,
 	}, nil
 }
 

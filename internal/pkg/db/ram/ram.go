@@ -8,7 +8,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 )
 
-// Config ...
+// Config - config
 type Config struct {
 	mode int // Type write mode. single or batch
 }
@@ -18,7 +18,7 @@ type Store struct {
 	config Config
 }
 
-// Init ...
+// Init - initialize
 func (s *Store) Init(_ context.Context) error {
 	// Set configuration
 	s.setConfig()
@@ -26,13 +26,13 @@ func (s *Store) Init(_ context.Context) error {
 	return nil
 }
 
-// GetConn ...
-func (_ *Store) GetConn() any {
+// GetConn - get connect
+func (s *Store) GetConn() any {
 	return nil
 }
 
-// Close ...
-func (_ *Store) Close() error {
+// Close - close
+func (s *Store) Close() error {
 	return nil
 }
 

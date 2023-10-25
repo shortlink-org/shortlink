@@ -5,7 +5,6 @@ import (
 	"strconv"
 
 	index "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/index/v1"
-	v2 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/index/v1"
 	page "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/page/v1"
 	binary_tree "github.com/shortlink-org/shortlink/internal/services/shortdb/engine/file/index/binary-tree"
 )
@@ -14,7 +13,7 @@ func New(in *index.Index, rows []*page.Row) (Index[any], error) {
 	var tree Index[any]
 
 	switch in.GetType() {
-	case v2.Type_TYPE_BINARY_SEARCH:
+	case index.Type_TYPE_BINARY_SEARCH:
 		tree = binary_tree.New(func(a, b any) int {
 			switch x, y := reflect.TypeOf(a), reflect.TypeOf(b); true {
 			case x.String() == "int" && y.String() == "int":

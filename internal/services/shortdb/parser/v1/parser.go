@@ -49,7 +49,7 @@ var reservedWords = []string{
 }
 
 var (
-	r, _ = regexp.Compile("[a-zA-Z0-9]") //nolint:errcheck
+	r = regexp.MustCompile("[a-zA-Z0-9]") //nolint:errcheck // TODO: refactor
 
 	// TypeFieldTable - list of support type fields of table
 	typeFieldTable = []string{"int", "integer", "string", "text", "boolean", "bool"}
@@ -88,7 +88,7 @@ func (p *Parser) Parse() (*query.Query, error) {
 	return q, nil
 }
 
-func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,maintidx
+func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,maintidx,revive,cyclop // TODO: refactor
 	for {
 		if p.GetI() >= int32(len(p.GetSql())) {
 			return p.Query, fmt.Errorf(p.Error)
@@ -345,6 +345,13 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 
 			p.pop()
 			p.Step = Step_STEP_UPDATE_FIELD
+		case Step_STEP_DELETE_INDEX:
+			indexName := p.peek()
+			if indexName == "" {
+				return p.GetQuery(), fmt.Errorf("at DELETE INDEX: expected quoted index name")
+			}
+
+			p.pop()
 		case Step_STEP_ORDER:
 			orderRWord := p.peek()
 			if !strings.EqualFold(orderRWord, "ORDER BY") {
@@ -396,7 +403,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			p.pop()
 			op1 := p.pop()
 			op1split := strings.Split(op1, ".")
-			if len(op1split) != 2 { //nolint:gomnd
+			if len(op1split) != 2 { //nolint:gomnd // ignore
 				return p.GetQuery(), fmt.Errorf("at ON: expected <tablename>.<fieldname>")
 			}
 			currentCondition := &query.JoinCondition{LTable: op1split[0], LOperand: op1split[1]}
@@ -410,7 +417,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			p.pop()
 			op2 := p.pop()
 			op2split := strings.Split(op2, ".")
-			if len(op2split) != 2 { //nolint:gomnd
+			if len(op2split) != 2 { //nolint:gomnd // ignore
 				return p.GetQuery(), fmt.Errorf("at ON: expected <tablename>.<fieldname>")
 			}
 
@@ -454,7 +461,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			}
 
 			p.pop()
-			if commaOrClosingParens == "," {
+			if commaOrClosingParens == "," { //nolint:revive // false positive
 				p.Step = Step_STEP_INSERT_FIELDS
 				continue
 			}
@@ -610,6 +617,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 				return p.GetQuery(), fmt.Errorf("at LIMIT: empty LIMIT clause")
 			}
 
+			//nolint:revive // ignore this linter
 			limit, err := strconv.ParseInt(countRaw, 10, 32)
 			if err != nil {
 				return p.GetQuery(), fmt.Errorf("at LIMIT: required number")
@@ -725,7 +733,7 @@ func (p *Parser) peekQuotedStringWithLength() (string, int32) {
 
 	for i := p.GetI() + 1; i < int32(len(p.GetSql())); i++ {
 		if p.GetSql()[i] == '\'' && p.GetSql()[i-1] != '\\' {
-			//nolint:gomnd
+			//nolint:gomnd // ignore
 			return p.GetSql()[p.GetI()+1 : i], int32(len(p.GetSql()[p.GetI()+1:i]) + 2) // +2 for the two quotes
 		}
 	}
@@ -743,7 +751,7 @@ func (p *Parser) peekIdentifierStringWithLength() (string, int32) {
 	return p.GetSql()[p.GetI():], int32(len(p.GetSql()[p.GetI():]))
 }
 
-func (p *Parser) validate() error { //nolint:gocyclo,gocognit
+func (p *Parser) validate() error { //nolint:gocyclo,gocognit // ignore
 	if p.GetQuery() == nil {
 		return nil
 	}
@@ -800,7 +808,7 @@ func isIdentifier(s string) bool {
 		}
 	}
 
-	matched, _ := regexp.MatchString("[a-zA-Z_][a-zA-Z_0-9]*", s) //nolint:errcheck
+	matched, _ := regexp.MatchString("[a-zA-Z_][a-zA-Z_0-9]*", s) //nolint:errcheck // ignore
 
 	return matched
 }

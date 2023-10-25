@@ -23,7 +23,7 @@ import (
 	appsv1 "k8s.io/api/apps/v1"
 	corev1 "k8s.io/api/core/v1"
 	"k8s.io/apimachinery/pkg/api/resource"
-	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
+	"k8s.io/apimachinery/pkg/apis/meta/v1"
 	"k8s.io/apimachinery/pkg/runtime"
 	ctrl "sigs.k8s.io/controller-runtime"
 	"sigs.k8s.io/controller-runtime/pkg/client"
@@ -38,12 +38,12 @@ type ShortDBReconciler struct {
 	Scheme *runtime.Scheme
 }
 
-//+kubebuilder:rbac:groups=shortdb.shortdb.shortlink,resources=shortdbs,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=shortdb.shortdb.shortlink,resources=shortdbs/status,verbs=get;update;patch
-//+kubebuilder:rbac:groups=shortdb.shortdb.shortlink,resources=shortdbs/finalizers,verbs=update
-//+kubebuilder:rbac:groups=apps/v1,resources=statefulsets,verbs=get;list;watch;create;update;patch;delete
-//+kubebuilder:rbac:groups=apps/v1,resources=pods,verbs=get;list
-//+kubebuilder:rbac:groups=v1,resources=configmaps,verbs=get;list;create;update;patch;delete
+// +kubebuilder:rbac:groups=shortdb.shortdb.shortlink,resources=shortdbs,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=shortdb.shortdb.shortlink,resources=shortdbs/status,verbs=get;update;patch
+// +kubebuilder:rbac:groups=shortdb.shortdb.shortlink,resources=shortdbs/finalizers,verbs=update
+// +kubebuilder:rbac:groups=apps/v1,resources=statefulsets,verbs=get;list;watch;create;update;patch;delete
+// +kubebuilder:rbac:groups=apps/v1,resources=pods,verbs=get;list
+// +kubebuilder:rbac:groups=v1,resources=configmaps,verbs=get;list;create;update;patch;delete
 
 // Reconcile is part of the main kubernetes reconciliation loop which aims to
 // move the current state of the cluster closer to the desired state.

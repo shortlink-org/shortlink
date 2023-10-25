@@ -14,26 +14,26 @@ import (
 	parser "github.com/shortlink-org/shortlink/internal/services/shortdb/parser/v1"
 )
 
-type repl struct {
+type Repl struct {
 	engine  engine.Engine
 	session *session.Session
 	mu      sync.Mutex
 }
 
-func New(s *session.Session) (*repl, error) {
+func New(s *session.Session) (*Repl, error) {
 	// set engine
 	store, err := engine.New("file", file.SetName(s.GetCurrentDatabase()), file.SetPath("/tmp/shortdb_repl"))
 	if err != nil {
 		return nil, err
 	}
 
-	return &repl{
+	return &Repl{
 		session: s,
 		engine:  store,
 	}, nil
 }
 
-func (r *repl) Run() { //nolint:gocyclo,gocognit
+func (r *Repl) Run() { //nolint:gocyclo,gocognit // ignore
 	// load history
 	if err := r.init(); err != nil {
 		pterm.FgRed.Println(err)

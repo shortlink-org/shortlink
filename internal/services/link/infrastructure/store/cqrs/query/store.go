@@ -18,10 +18,10 @@ import (
 )
 
 // New return implementation of db
-func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*Store, error) {
+func New(ctx context.Context, log logger.Logger, store *db.Store, cacheStore *cache.Cache) (*Store, error) {
 	s := &Store{
 		log:   log,
-		cache: cache,
+		cache: cacheStore,
 	}
 
 	// Set configuration
@@ -33,14 +33,14 @@ func New(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cach
 	case "postgres":
 		fallthrough
 	default:
-		s.store, err = postgres.New(ctx, db)
+		s.store, err = postgres.New(ctx, store)
 		if err != nil {
 			return nil, err
 		}
 	}
 
 	log.Info("init queryStore", field.Fields{
-		"db": s.typeStore,
+		"store": s.typeStore,
 	})
 
 	return s, nil
@@ -54,7 +54,7 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v12.LinksView,
 	if filter.Pagination == nil {
 		filter.Pagination = &query.Pagination{
 			Page:  0,
-			Limit: 10, //nolint:gomnd
+			Limit: 10, //nolint:gomnd // ignore
 		}
 	}
 

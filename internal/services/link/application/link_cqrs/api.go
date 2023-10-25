@@ -12,16 +12,16 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
-func errorHelper(ctx context.Context, logger logger.Logger, errs []error) error {
+func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {
 	if len(errs) > 0 {
 		errList := field.Fields{}
 		for index := range errs {
 			errList[fmt.Sprintf("stack error: %d", index)] = errs[index]
 		}
 
-		logger.ErrorWithContext(ctx, "Error create a new link", errList)
+		log.ErrorWithContext(ctx, "Error create a new link", errList)
 
-		return fmt.Errorf("Error create a new link")
+		return fmt.Errorf("error create a new link")
 	}
 
 	return nil
@@ -35,11 +35,11 @@ func (s *Service) Get(ctx context.Context, hash string) (*domain.LinkView, error
 
 	resp := &domain.LinkView{}
 
-	// create a new saga for get link by hash
-	sagaGetLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
+	// create a new saga for a get link by hash
+	sagaGetLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.log)).
 		WithContext(ctx).
 		Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -52,7 +52,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*domain.LinkView, error
 			return err
 		}).
 		Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -77,11 +77,11 @@ func (s *Service) List(ctx context.Context, filter *query.Filter) (*domain.Links
 
 	resp := &domain.LinksView{}
 
-	// create a new saga for get link by hash
-	sagaGetLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.logger)).
+	// create a new saga for a get link by hash
+	sagaGetLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.log)).
 		WithContext(ctx).
 		Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -94,7 +94,7 @@ func (s *Service) List(ctx context.Context, filter *query.Filter) (*domain.Links
 			return err
 		}).
 		Build()
-	if err := errorHelper(ctx, s.logger, errs); err != nil {
+	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
 

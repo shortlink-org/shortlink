@@ -23,13 +23,13 @@ type Event struct {
 	notify.Subscriber[link.Link]
 }
 
-func New(mq *mq.DataBus) (*Event, error) {
+func New(dataBus *mq.DataBus) (*Event, error) {
 	return &Event{
-		mq: mq,
+		mq: dataBus,
 	}, nil
 }
 
-// Notify ...
+// Notify - notify
 func (e *Event) Notify(ctx context.Context, event uint32, payload any) notify.Response[any] {
 	// Skip if MQ disabled
 	if !viper.GetBool("MQ_ENABLED") {
@@ -54,7 +54,7 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload any) notify.Re
 
 func (e *Event) add(ctx context.Context, payload any) notify.Response[any] {
 	// TODO: send []byte
-	msg := payload.(*metadata.Meta) //nolint:errcheck
+	msg := payload.(*metadata.Meta) //nolint:errcheck // ignore
 	data, err := proto.Marshal(msg)
 	if err != nil {
 		return notify.Response[any]{

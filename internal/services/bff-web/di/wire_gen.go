@@ -53,7 +53,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint, err := profiling.New(logger)
+	pprofEndpoint, err := profiling.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -92,7 +92,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 
 type BFFWebService struct {
 	// Common
-	Logger logger.Logger
+	Log    logger.Logger
 	Config *config.Config
 
 	// Observability
@@ -111,13 +111,14 @@ var BFFWebServiceSet = wire.NewSet(di.DefaultSet, BFFWebAPIService,
 	NewBFFWebService,
 )
 
-func BFFWebAPIService(ctx2 context.Context, logger2 logger.Logger,
+func BFFWebAPIService(ctx2 context.Context,
 
+	log logger.Logger,
 	tracer trace.TracerProvider,
 ) (*http.Server, error) {
 
 	API := http.Server{}
-	apiService, err := API.Run(ctx2, logger2, tracer)
+	apiService, err := API.Run(ctx2, log, tracer)
 	if err != nil {
 		return nil, err
 	}
@@ -125,7 +126,9 @@ func BFFWebAPIService(ctx2 context.Context, logger2 logger.Logger,
 	return apiService, nil
 }
 
-func NewBFFWebService(ctx2 context.Context, logger2 logger.Logger, config2 *config.Config,
+func NewBFFWebService(ctx2 context.Context,
+
+	log logger.Logger, config2 *config.Config,
 
 	tracer trace.TracerProvider, monitoring2 *monitoring.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint, autoMaxPro2 autoMaxPro.AutoMaxPro,
@@ -134,7 +137,7 @@ func NewBFFWebService(ctx2 context.Context, logger2 logger.Logger, config2 *conf
 ) *BFFWebService {
 	return &BFFWebService{
 
-		Logger: logger2,
+		Log:    log,
 		Config: config2,
 
 		Tracer:        tracer,

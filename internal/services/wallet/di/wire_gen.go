@@ -41,17 +41,16 @@ func InitializeWalletService() (*WalletService, func(), error) {
 // wire.go:
 
 type WalletService struct {
-	Logger logger.Logger
+	Log logger.Logger
 }
 
 // WalletService =======================================================================================================
 var WalletSet = wire.NewSet(di.DefaultSet, NewWalletService)
 
-func NewWalletService(logger2 logger.Logger) (*WalletService, error) {
-	logger2.
-		Info("Start wallet service")
+func NewWalletService(log logger.Logger) (*WalletService, error) {
+	log.Info("Start wallet service")
 
 	return &WalletService{
-		Logger: logger2,
+		Log: log,
 	}, nil
 }

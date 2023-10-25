@@ -10,7 +10,6 @@ import (
 	v1 "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
-// LinkUpdate ...
 func (s *Store) MetadataUpdate(ctx context.Context, in *v1.Meta) (*v1.Meta, error) {
 	// query builder
 	metadata := psql.Update("link.link_view").

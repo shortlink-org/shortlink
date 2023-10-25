@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"log"
@@ -8,10 +9,16 @@ import (
 	"os"
 	"strconv"
 	"strings"
-	"time"
+
+	"github.com/spf13/viper"
 )
 
 func main() {
+	ctx := context.Background()
+
+	viper.SetDefault("HTTP_SERVER_PORT", "3500")
+	viper.SetDefault("HTTP_SERVER_TIMEOUT", "30s")
+
 	daprHost := os.Getenv("DAPR_HOST")
 	if daprHost == "" {
 		daprHost = "http://localhost"
@@ -19,16 +26,16 @@ func main() {
 
 	daprHttpPort := os.Getenv("DAPR_HTTP_PORT")
 	if daprHttpPort == "" {
-		daprHttpPort = "3500"
+		daprHttpPort = viper.GetString("HTTP_SERVER_PORT")
 	}
 
 	client := &http.Client{
-		Timeout: 15 * time.Second,
+		Timeout: viper.GetDuration("HTTP_SERVER_TIMEOUT"),
 	}
 
-	for i := 1; i <= 20; i++ {
+	for i := 1; i <= 20; i++ { //nolint:revive // ignore
 		order := `{"orderId":` + strconv.Itoa(i) + "}"
-		req, err := http.NewRequest("POST", daprHost+":"+daprHttpPort+"/orders", strings.NewReader(order))
+		req, err := http.NewRequestWithContext(ctx, http.MethodPost, daprHost+":"+daprHttpPort+"/orders", strings.NewReader(order))
 		if err != nil {
 			log.Fatal(err.Error())
 		}

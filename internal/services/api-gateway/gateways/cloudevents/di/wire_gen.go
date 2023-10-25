@@ -62,7 +62,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint, err := profiling.New(logger)
+	pprofEndpoint, err := profiling.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -162,7 +162,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 
 type APIService struct {
 	// Common
-	Logger logger.Logger
+	Log    logger.Logger
 	Config *config.Config
 
 	// Applications
@@ -211,9 +211,10 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_4.MetadataServiceCl
 	return metadataRPCClient, nil
 }
 
-func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 logger.Logger,
-
-	tracer trace.TracerProvider, monitoring2 *monitoring.Monitoring,
+func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer,
+	log logger.Logger,
+	tracer trace.TracerProvider,
+	monitor *monitoring.Monitoring,
 
 	link_rpc v1.LinkServiceClient,
 	link_command v1_2.LinkCommandServiceClient,
@@ -221,7 +222,11 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 log
 	sitemap_rpc v1_3.SitemapServiceClient,
 ) (domain.API, error) {
 
-	apiService, err := server.RunAPIServer(ctx2, i18n2, logger2, tracer, monitoring2, link_rpc,
+	apiService, err := server.RunAPIServer(ctx2, i18n2, log,
+		tracer,
+		monitor,
+
+		link_rpc,
 		link_command,
 		link_query,
 		sitemap_rpc,
@@ -244,7 +249,7 @@ func NewAPIService(
 ) (*APIService, error) {
 	return &APIService{
 
-		Logger: log,
+		Log:    log,
 		Config: config2,
 
 		Tracer:        tracer,

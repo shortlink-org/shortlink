@@ -32,7 +32,7 @@ func (api *AccoutAPI) Routes(r chi.Router) {
 	r.Delete("/account/{hash}", api.delete)
 }
 
-// add ...
+// Add - add
 func (api *AccoutAPI) add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
@@ -45,7 +45,7 @@ func (api *AccoutAPI) add(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck,goconst // ignore
 
 		return
 	}
@@ -70,7 +70,7 @@ func (api *AccoutAPI) add(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write(res) //nolint:errcheck
 }
 
-// get ...
+// Get - get
 func (api *AccoutAPI) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
@@ -81,7 +81,7 @@ func (api *AccoutAPI) get(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck
 }
 
-// list ...
+// List - list
 func (api *AccoutAPI) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
@@ -92,7 +92,7 @@ func (api *AccoutAPI) list(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck
 }
 
-// delete ...
+// Delete - delete
 func (api *AccoutAPI) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 

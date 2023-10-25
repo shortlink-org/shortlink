@@ -19,7 +19,7 @@ func (log *Logger) Fatal(msg string, fields ...field.Fields) {
 func (log *Logger) FatalWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
-		log.logger.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.log.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
 	log.converter(fields...).WithContext(ctx).Fatal(msg)
@@ -40,7 +40,7 @@ func (log *Logger) ErrorWithContext(ctx context.Context, msg string, fields ...f
 	fields, err := tracer.NewTraceFromContext(ctx, msg, tags, fields...)
 	if err != nil {
 		//nolint:revive // TODO: fix this
-		log.logger.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.log.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
 	log.converter(fields...).WithContext(ctx).Error(msg)
@@ -56,7 +56,7 @@ func (log *Logger) WarnWithContext(ctx context.Context, msg string, fields ...fi
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
 		//nolint:revive // TODO: fix this
-		log.logger.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.log.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
 	log.converter(fields...).WithContext(ctx).Warn(msg)
@@ -72,7 +72,7 @@ func (log *Logger) InfoWithContext(ctx context.Context, msg string, fields ...fi
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
 		//nolint:revive // TODO: fix this
-		log.logger.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.log.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
 	log.converter(fields...).WithContext(ctx).Info(msg)
@@ -88,7 +88,7 @@ func (log *Logger) DebugWithContext(ctx context.Context, msg string, fields ...f
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
 		//nolint:revive // TODO: fix this
-		log.logger.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.log.WithContext(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
 	}
 
 	log.converter(fields...).WithContext(ctx).Debug(msg)

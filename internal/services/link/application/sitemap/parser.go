@@ -9,7 +9,6 @@ import (
 
 	"github.com/gogo/protobuf/proto"
 
-
 	http_client "github.com/shortlink-org/shortlink/internal/pkg/http/client"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
@@ -18,18 +17,18 @@ import (
 )
 
 type Service struct {
-	logger logger.Logger
+	log logger.Logger
 
 	// Delivery
 	mq *mq.DataBus
 }
 
-func New(logger logger.Logger, mq *mq.DataBus) (*Service, error) {
+func New(log logger.Logger, dataBus *mq.DataBus) (*Service, error) {
 	service := &Service{
-		logger: logger,
+		log: log,
 
 		// Delivery
-		mq: mq,
+		mq: dataBus,
 	}
 
 	return service, nil
@@ -51,7 +50,7 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf(`Incorrect response code: %d for %s`, resp.StatusCode, url)
+		return fmt.Errorf(`incorrect response code: %d for %s`, resp.StatusCode, url)
 	}
 
 	bodyBytes, err := io.ReadAll(resp.Body)

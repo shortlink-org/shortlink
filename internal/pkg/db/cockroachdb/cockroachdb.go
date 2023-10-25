@@ -7,11 +7,8 @@ import (
 	"github.com/spf13/viper"
 )
 
-// Config ...
-type Config struct {
-	host string
-	port int
-}
+// Config - config
+type Config struct{}
 
 // Store implementation of db interface
 type Store struct {
@@ -19,7 +16,7 @@ type Store struct {
 	config *pgx.ConnConfig
 }
 
-// Init ...
+// Init - initialize
 func (s *Store) Init(ctx context.Context) error {
 	// Set configuration
 	err := s.setConfig()
@@ -35,12 +32,12 @@ func (s *Store) Init(ctx context.Context) error {
 	return nil
 }
 
-// GetConn ...
+// GetConn - get connect
 func (s *Store) GetConn() any {
 	return s.client
 }
 
-// Close ...
+// Close - close
 func (s *Store) Close() error {
 	err := s.client.Close(context.Background())
 	if err != nil {

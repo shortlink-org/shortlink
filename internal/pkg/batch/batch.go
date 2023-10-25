@@ -6,15 +6,19 @@ package batch
 import (
 	"context"
 	"time"
+
+	"github.com/spf13/viper"
 )
 
 // New creates a new batch Config with a specified callback function.
 func New(ctx context.Context, cb func([]*Item) any, opts ...Option) (*Batch, error) {
+	viper.SetDefault("BATCH_INTERVAL", "100ms")
+
 	ctx, cancelFunc := context.WithCancel(ctx)
 
 	b := &Batch{
 		callback: cb,
-		interval: time.Millisecond * 100, // default interval
+		interval: viper.GetDuration("BATCH_INTERVAL"),
 
 		ctx:        ctx,
 		done:       make(chan struct{}),
@@ -27,6 +31,7 @@ func New(ctx context.Context, cb func([]*Item) any, opts ...Option) (*Batch, err
 	}
 
 	go b.run(ctx)
+
 	return b, nil
 }
 
@@ -39,6 +44,7 @@ func (b *Batch) Push(item any) chan any {
 		Item:            item,
 	}
 	b.items = append(b.items, newItem)
+
 	return newItem.CallbackChannel
 }
 
@@ -52,8 +58,8 @@ func (b *Batch) run(ctx context.Context) {
 		case <-ctx.Done():
 			b.clearItems()
 			close(b.done)
-			return
 
+			return
 		case <-ticker.C:
 			b.flushItems()
 		}

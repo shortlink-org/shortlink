@@ -9,15 +9,15 @@ import (
 )
 
 type OrderService struct {
-	logger logger.Logger
+	log logger.Logger
 
 	// Repositories
 	orderRepository event_store.EventStore
 }
 
-func New(logger logger.Logger, orderRepository event_store.EventStore) (*OrderService, error) {
+func New(log logger.Logger, orderRepository event_store.EventStore) (*OrderService, error) {
 	return &OrderService{
-		logger: logger,
+		log: log,
 
 		// Repositories
 		orderRepository: orderRepository,

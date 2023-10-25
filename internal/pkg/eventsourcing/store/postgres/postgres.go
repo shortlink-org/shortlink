@@ -33,7 +33,7 @@ func (s *Store) Init(ctx context.Context, store *db.Store) error {
 	return nil
 }
 
-func (s *Store) save(ctx context.Context, events []*eventsourcing.Event, safe bool) error { //nolint:govet
+func (s *Store) save(ctx context.Context, events []*eventsourcing.Event, _ bool) error {
 	if len(events) == 0 {
 		return nil
 	}
@@ -41,7 +41,7 @@ func (s *Store) save(ctx context.Context, events []*eventsourcing.Event, safe bo
 	for _, event := range events {
 		// TODO: use transaction
 		// Either insert a new aggregate or append to an existing.
-		if event.GetVersion() == 1 { //nolint:nestif
+		if event.GetVersion() == 1 { //nolint:nestif // TODO: refactor
 			err := s.addAggregate(ctx, event)
 			if err != nil {
 				return err
@@ -133,7 +133,7 @@ func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Sn
 		return nil, nil, rows.Err()
 	}
 
-	var events []*eventsourcing.Event //nolint:prealloc
+	var events []*eventsourcing.Event //nolint:prealloc // false positive
 
 	for rows.Next() {
 		event := eventsourcing.Event{

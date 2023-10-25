@@ -20,29 +20,29 @@ import (
 //go:embed migrations/*.json
 var migrations embed.FS
 
-// Init ...
-func (m *Store) Init(ctx context.Context) error {
+// Init - initialize
+func (s *Store) Init(ctx context.Context) error {
 	var err error
 
 	// Set configuration
-	m.setConfig()
+	s.setConfig()
 
 	// Connect to MongoDB
-	opts := options.Client().ApplyURI(m.config.URI)
+	opts := options.Client().ApplyURI(s.config.URI)
 	opts.Monitor = otelmongo.NewMonitor()
-	m.client, err = mongo.Connect(ctx, opts)
+	s.client, err = mongo.Connect(ctx, opts)
 	if err != nil {
 		return err
 	}
 
 	// Check connect
-	err = m.client.Ping(ctx, readpref.Primary())
+	err = s.client.Ping(ctx, readpref.Primary())
 	if err != nil {
 		return err
 	}
 
 	// Apply migration
-	err = m.migrate()
+	err = s.migrate()
 	if err != nil {
 		return err
 	}
@@ -50,24 +50,24 @@ func (m *Store) Init(ctx context.Context) error {
 	return nil
 }
 
-// GetConn ...
+// GetConn - get connect
 func (s *Store) GetConn() any {
 	return s.client
 }
 
-// Close ...
-func (m *Store) Close() error {
-	return m.client.Disconnect(context.Background())
+// Close - close
+func (s *Store) Close() error {
+	return s.client.Disconnect(context.Background())
 }
 
 // Migrate ...
-func (m *Store) migrate() error {
+func (s *Store) migrate() error {
 	driver, err := iofs.New(migrations, "migrations")
 	if err != nil {
 		return err
 	}
 
-	ms, err := migrate.NewWithSourceInstance("iofs", driver, m.config.URI)
+	ms, err := migrate.NewWithSourceInstance("iofs", driver, s.config.URI)
 	if err != nil {
 		return err
 	}
@@ -81,12 +81,12 @@ func (m *Store) migrate() error {
 }
 
 // setConfig - set configuration
-func (m *Store) setConfig() {
+func (s *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_MONGODB_URI", "mongodb://shortlink:password@localhost:27017/shortlink") // MongoDB URI
 	viper.SetDefault("STORE_MODE_WRITE", storeOptions.MODE_SINGLE_WRITE)                            // mode write to db
 
-	m.config = Config{
+	s.config = Config{
 		URI:  viper.GetString("STORE_MONGODB_URI"),
 		mode: viper.GetInt("STORE_MODE_WRITE"),
 	}

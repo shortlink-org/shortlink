@@ -13,10 +13,10 @@ import (
 )
 
 //go:embed permissions/*
-var permissions embed.FS
+var permissions embed.FS //nolint:unused // ignore
 
-func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, monitoring *monitoring.Monitoring) (*authzed.Client, error) {
-	permission, err := auth.New(log, tracer, monitoring)
+func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*authzed.Client, error) {
+	permission, err := auth.New(log, tracer, monitor)
 	if err != nil {
 		return nil, err
 	}

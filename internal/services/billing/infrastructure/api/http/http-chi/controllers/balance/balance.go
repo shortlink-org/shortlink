@@ -12,25 +12,25 @@ import (
 	billing "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/payment/v1"
 )
 
-type BalanceAPI struct {
-	jsonpb protojson.MarshalOptions //nolint:structcheck
+type API struct {
+	jsonpb protojson.MarshalOptions //nolint:structcheck // ignore
 
 	paymentService *payment_application.PaymentService
 }
 
-func New(paymentService *payment_application.PaymentService) (*BalanceAPI, error) {
-	return &BalanceAPI{
+func New(paymentService *payment_application.PaymentService) (*API, error) {
+	return &API{
 		paymentService: paymentService,
 	}, nil
 }
 
-// Routes creates a REST router
-func (api *BalanceAPI) Routes(r chi.Router) {
+// Routes create a REST router
+func (api *API) Routes(r chi.Router) {
 	r.Put("/balance/{payment_id}", api.update)
 }
 
-// Update ...
-func (api *BalanceAPI) update(w http.ResponseWriter, r *http.Request) {
+// Update - update
+func (api *API) update(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
@@ -42,7 +42,7 @@ func (api *BalanceAPI) update(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck,goconst // ignore
 
 		return
 	}
@@ -50,7 +50,7 @@ func (api *BalanceAPI) update(w http.ResponseWriter, r *http.Request) {
 	updatePayment, err := api.paymentService.UpdateBalance(r.Context(), &request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore
 
 		return
 	}
@@ -58,7 +58,7 @@ func (api *BalanceAPI) update(w http.ResponseWriter, r *http.Request) {
 	res, err := api.jsonpb.Marshal(updatePayment)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore
 
 		return
 	}

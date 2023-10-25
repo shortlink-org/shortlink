@@ -11,15 +11,15 @@ import (
 )
 
 type TariffService struct {
-	logger logger.Logger
+	log logger.Logger
 
 	// Repositories
 	tariffRepository billing_store.TariffRepository
 }
 
-func New(logger logger.Logger, tariffRepository billing_store.TariffRepository) (*TariffService, error) {
+func New(log logger.Logger, tariffRepository billing_store.TariffRepository) (*TariffService, error) {
 	return &TariffService{
-		logger: logger,
+		log: log,
 
 		// Repositories
 		tariffRepository: tariffRepository,

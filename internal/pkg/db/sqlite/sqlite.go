@@ -20,7 +20,7 @@ func New(tracer trace.TracerProvider, metrics *metric.MeterProvider) *Store {
 	}
 }
 
-// Init ...
+// Init - init connection
 func (s *Store) Init(ctx context.Context) error {
 	const SET_MAX_OPEN_CONNS = 25
 	const SET_MAX_IDLE_CONNS = 2
@@ -55,12 +55,12 @@ func (s *Store) Init(ctx context.Context) error {
 	return nil
 }
 
-// GetConn ...
+// GetConn - return connection
 func (s *Store) GetConn() any {
 	return s.client
 }
 
-// Close ...
+// Close - close connection
 func (s *Store) Close() error {
 	return s.client.Close()
 }

@@ -12,16 +12,16 @@ import (
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
-	v1 "github.com/shortlink-org/shortlink/internal/pkg/mq"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/notify/domain/events"
 )
 
-func New(mq *v1.DataBus, log logger.Logger) (*Bot, error) {
+func New(dataBus *mq.DataBus, log logger.Logger) (*Bot, error) {
 	return &Bot{
-		mq:  mq,
+		mq:  dataBus,
 		log: log,
 	}, nil
 }

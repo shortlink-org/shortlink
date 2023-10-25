@@ -24,13 +24,13 @@ type Event struct {
 	service *logger_application.Service
 }
 
-func New(mq *mq.DataBus, log logger.Logger, service *logger_application.Service) (*Event, error) {
-	if mq == nil {
+func New(dataBus *mq.DataBus, log logger.Logger, service *logger_application.Service) (*Event, error) {
+	if dataBus == nil {
 		return nil, fmt.Errorf("MQ is nil")
 	}
 
 	event := &Event{
-		mq:  mq,
+		mq:  dataBus,
 		log: log,
 
 		service: service,

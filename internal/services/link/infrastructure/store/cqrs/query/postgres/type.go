@@ -4,7 +4,7 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 )
 
-// Config ...
+// Config - config
 type Config struct {
 	URI string
 }

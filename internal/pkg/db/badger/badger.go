@@ -7,7 +7,7 @@ import (
 	"github.com/spf13/viper"
 )
 
-// Config ...
+// Config - config
 type Config struct {
 	Path string
 }
@@ -18,14 +18,14 @@ type Store struct {
 	config Config
 }
 
-// Init ...
-func (b *Store) Init(ctx context.Context) error {
+// Init - initialize
+func (s *Store) Init(ctx context.Context) error {
 	var err error
 
 	// Set configuration
-	b.setConfig()
+	s.setConfig()
 
-	b.client, err = badger.Open(badger.DefaultOptions(b.config.Path))
+	s.client, err = badger.Open(badger.DefaultOptions(s.config.Path))
 	if err != nil {
 		return err
 	}
@@ -33,22 +33,22 @@ func (b *Store) Init(ctx context.Context) error {
 	return nil
 }
 
-// GetConn ...
+// GetConn - get connect
 func (s *Store) GetConn() any {
 	return s.client
 }
 
-// Close ...
-func (b *Store) Close() error {
-	return b.client.Close()
+// Close - close
+func (s *Store) Close() error {
+	return s.client.Close()
 }
 
 // setConfig - set configuration
-func (b *Store) setConfig() {
+func (s *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_BADGER_PATH", "/tmp/links.badger") // Badger path to file
 
-	b.config = Config{
+	s.config = Config{
 		Path: viper.GetString("STORE_BADGER_PATH"),
 	}
 }

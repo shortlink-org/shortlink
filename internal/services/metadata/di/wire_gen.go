@@ -63,7 +63,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint, err := profiling.New(logger)
+	pprofEndpoint, err := profiling.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -129,7 +129,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	rpcServer, cleanup8, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
+	server, cleanup8, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -140,7 +140,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	metadata, err := NewMetaDataRPCServer(rpcServer, service, logger)
+	metadata, err := NewMetaDataRPCServer(server, service, logger)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -211,8 +211,8 @@ var MetaDataSet = wire.NewSet(di.DefaultSet, mq_di.New, store.New, rpc.InitServe
 	NewMetaDataService,
 )
 
-func InitMetadataMQ(ctx2 context.Context, log logger.Logger, mq2 *mq.DataBus) (*metadata_mq.Event, error) {
-	metadataMQ, err := metadata_mq.New(mq2)
+func InitMetadataMQ(ctx2 context.Context, log logger.Logger, dataBus *mq.DataBus) (*metadata_mq.Event, error) {
+	metadataMQ, err := metadata_mq.New(dataBus)
 	if err != nil {
 		return nil, err
 	}
@@ -221,9 +221,9 @@ func InitMetadataMQ(ctx2 context.Context, log logger.Logger, mq2 *mq.DataBus) (*
 	return metadataMQ, nil
 }
 
-func NewMetaDataStore(ctx2 context.Context, logger2 logger.Logger, db2 *db.Store) (*meta_store.MetaStore, error) {
+func NewMetaDataStore(ctx2 context.Context, log logger.Logger, db2 *db.Store) (*meta_store.MetaStore, error) {
 	store2 := &meta_store.MetaStore{}
-	metadataStore, err := store2.Use(ctx2, logger2, db2)
+	metadataStore, err := store2.Use(ctx2, log, db2)
 	if err != nil {
 		return nil, err
 	}

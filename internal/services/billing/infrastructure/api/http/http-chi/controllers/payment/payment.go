@@ -12,20 +12,20 @@ import (
 	billing "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/payment/v1"
 )
 
-type PaymentAPI struct {
-	jsonpb protojson.MarshalOptions //nolint:structcheck
+type API struct {
+	jsonpb protojson.MarshalOptions
 
 	paymentService *payment_application.PaymentService
 }
 
-func New(paymentService *payment_application.PaymentService) (*PaymentAPI, error) {
-	return &PaymentAPI{
+func New(paymentService *payment_application.PaymentService) (*API, error) {
+	return &API{
 		paymentService: paymentService,
 	}, nil
 }
 
-// Routes creates a REST router
-func (api *PaymentAPI) Routes(r chi.Router) {
+// Routes create a REST router
+func (api *API) Routes(r chi.Router) {
 	r.Get("/payment/{id}", api.get)
 	r.Get("/payments", api.list)
 	r.Post("/payment", api.open)
@@ -33,7 +33,7 @@ func (api *PaymentAPI) Routes(r chi.Router) {
 }
 
 // open a new payment
-func (api *PaymentAPI) open(w http.ResponseWriter, r *http.Request) {
+func (api *API) open(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
@@ -45,7 +45,7 @@ func (api *PaymentAPI) open(w http.ResponseWriter, r *http.Request) {
 	err := decoder.Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck,goconst // ignore
 
 		return
 	}
@@ -71,7 +71,7 @@ func (api *PaymentAPI) open(w http.ResponseWriter, r *http.Request) {
 }
 
 // get payment by identity
-func (api *PaymentAPI) get(w http.ResponseWriter, r *http.Request) {
+func (api *API) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
@@ -106,7 +106,7 @@ func (api *PaymentAPI) get(w http.ResponseWriter, r *http.Request) {
 }
 
 // list - get all payments of users
-func (api *PaymentAPI) list(w http.ResponseWriter, r *http.Request) {
+func (api *API) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
@@ -117,7 +117,7 @@ func (api *PaymentAPI) list(w http.ResponseWriter, r *http.Request) {
 }
 
 // close a payment
-func (api *PaymentAPI) close(w http.ResponseWriter, r *http.Request) {
+func (api *API) close(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header

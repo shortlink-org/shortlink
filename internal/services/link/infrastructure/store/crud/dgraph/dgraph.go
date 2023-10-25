@@ -15,44 +15,44 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )
 
-// DGraphLink implementation of db interface
-type DGraphLink struct {
+// Link implementation of db interface
+type Link struct {
 	Uid      string `json:"uid,omitempty"`
 	*v1.Link `json:"link,omitempty"`
 	DType    []string `json:"dgraph.type,omitempty"`
 }
 
-// DGraphLinkResponse ...
-type DGraphLinkResponse struct {
+// LinkResponse - response
+type LinkResponse struct {
 	Link []struct {
 		*v1.Link
 		Uid string `json:"uid,omitempty"`
 	}
 }
 
-// Store ...
+// Store - store struct
 type Store struct {
 	client *dgo.Dgraph
 
-	logger logger.Logger
+	log logger.Logger
 }
 
 // New store
-func New(ctx context.Context, db *db.Store, logger logger.Logger) (*Store, error) {
+func New(ctx context.Context, store *db.Store, log logger.Logger) (*Store, error) {
 	s := &Store{
-		logger: logger,
-		client: db.Store.GetConn().(*dgo.Dgraph),
+		log:    log,
+		client: store.Store.GetConn().(*dgo.Dgraph),
 	}
 
 	return s, nil
 }
 
 // get - private `get` method
-func (s *Store) get(ctx context.Context, id string) (*DGraphLinkResponse, error) {
+func (s *Store) get(ctx context.Context, id string) (*LinkResponse, error) {
 	txn := s.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
-			s.logger.ErrorWithContext(ctx, err.Error())
+			s.log.ErrorWithContext(ctx, err.Error())
 		}
 	}()
 
@@ -70,12 +70,12 @@ query all($a: string) {
 
 	val, err := txn.QueryWithVars(ctx, q, map[string]string{"$a": id})
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
-	var response DGraphLinkResponse
+	var response LinkResponse
 	if err = json.Unmarshal(val.Json, &response); err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Failed parse link: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("failed parse link: %s", id)}
 	}
 
 	return &response, nil
@@ -86,28 +86,28 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	txn := s.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
-			s.logger.ErrorWithContext(ctx, err.Error())
+			s.log.ErrorWithContext(ctx, err.Error())
 		}
 	}()
 
 	response, err := s.get(ctx, id)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	if len(response.Link) == 0 {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	return response.Link[0].Link, nil
 }
 
 // get - private `get` method
-func (s *Store) list(ctx context.Context) (*DGraphLinkResponse, error) {
+func (s *Store) list(ctx context.Context) (*LinkResponse, error) {
 	txn := s.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
-			s.logger.ErrorWithContext(ctx, err.Error())
+			s.log.ErrorWithContext(ctx, err.Error())
 		}
 	}()
 
@@ -128,20 +128,20 @@ query all {
 		return nil, err
 	}
 
-	var response DGraphLinkResponse
-	if err = json.Unmarshal(val.Json, &response); err != nil {
-		return nil, err
+	var response LinkResponse
+	if errUnmarshal := json.Unmarshal(val.Json, &response); errUnmarshal != nil {
+		return nil, errUnmarshal
 	}
 
 	return &response, nil
 }
 
-// List ...
+// List - list
 func (s *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error) {
 	txn := s.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
-			s.logger.ErrorWithContext(ctx, err.Error())
+			s.log.ErrorWithContext(ctx, err.Error())
 		}
 	}()
 
@@ -164,7 +164,7 @@ func (s *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error) {
 	return links, nil
 }
 
-// Add ...
+// Add - add
 func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	err := v1.NewURL(source)
 	if err != nil {
@@ -174,11 +174,11 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	txn := s.client.NewTxn()
 	defer func() {
 		if errTxn := txn.Discard(ctx); errTxn != nil {
-			s.logger.ErrorWithContext(ctx, err.Error())
+			s.log.ErrorWithContext(ctx, err.Error())
 		}
 	}()
 
-	item := DGraphLink{
+	item := Link{
 		Uid:   fmt.Sprintf(`_:%s`, source.GetHash()),
 		Link:  source,
 		DType: []string{"Link"},
@@ -201,29 +201,29 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	}
 	_, err = txn.Mutate(ctx, mu)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("Failed save link: %s", source.GetUrl())}
+		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("failed save link: %s", source.GetUrl())}
 	}
 
 	return source, nil
 }
 
-// Update ...
+// Update - update
 func (s *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 	return nil, nil
 }
 
-// Delete ...
+// Delete - delete
 func (s *Store) Delete(ctx context.Context, id string) error {
 	txn := s.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
-			s.logger.ErrorWithContext(ctx, err.Error())
+			s.log.ErrorWithContext(ctx, err.Error())
 		}
 	}()
 
 	links, err := s.get(ctx, id)
 	if err != nil {
-		return &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("Not found id: %s", id)}
+		return &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
 	}
 
 	if len(links.Link) == 0 {

@@ -10,7 +10,7 @@ import (
 	page "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/page/v1"
 )
 
-func (f *file) getPage(nameTable string, page int32) error { //nolint:unused
+func (f *File) getPage(nameTable string, p int32) error { //nolint:unused // ignore
 	t := f.database.GetTables()[nameTable]
 
 	// read page
@@ -19,15 +19,15 @@ func (f *file) getPage(nameTable string, page int32) error { //nolint:unused
 		return err
 	}
 
-	t.Pages[page] = pageFile
+	t.Pages[p] = pageFile
 
 	return nil
 }
 
-func (f *file) addPage(nameTable string) (int32, error) {
+func (f *File) addPage(nameTable string) (int32, error) {
 	t := f.database.GetTables()[nameTable]
 
-	if t.GetStats().GetRowsCount()%t.GetOption().GetPageSize() == 0 { //nolint:nestif
+	if t.GetStats().GetRowsCount()%t.GetOption().GetPageSize() == 0 { //nolint:nestif // ignore
 		if t.GetPages() == nil {
 			t.Pages = make(map[int32]*page.Page, 0)
 		}
@@ -65,7 +65,7 @@ func (f *file) addPage(nameTable string) (int32, error) {
 	return t.GetStats().GetPageCount(), nil
 }
 
-func (f *file) savePage(nameTable string, pageCount int32) error {
+func (f *File) savePage(nameTable string, pageCount int32) error {
 	t := f.database.GetTables()[nameTable]
 
 	if pageCount == -1 {
@@ -96,18 +96,20 @@ func (f *file) savePage(nameTable string, pageCount int32) error {
 	return nil
 }
 
-func (f *file) clearPage(nameTable string, pageCount int32) error {
+func (f *File) clearPage(nameTable string, pageCount int32) error { //nolint:unparam // ignore param
 	f.database.Tables[nameTable].Pages[pageCount] = nil
+
 	return nil
 }
 
-func (f *file) clearPages(nameTable string) error {
+func (f *File) clearPages(nameTable string) error {
 	f.database.Tables[nameTable].Pages = nil
+
 	return nil
 }
 
-func (f *file) loadPage(path string) (*page.Page, error) {
-	page := page.Page{}
+func (f *File) loadPage(path string) (*page.Page, error) {
+	p := page.Page{}
 
 	payload, err := os.ReadFile(filepath.Clean(path))
 	if err != nil {
@@ -115,15 +117,15 @@ func (f *file) loadPage(path string) (*page.Page, error) {
 	}
 
 	if len(payload) != 0 {
-		err = proto.Unmarshal(payload, &page)
+		err = proto.Unmarshal(payload, &p)
 		if err != nil {
 			return nil, err
 		}
 	}
 
-	return &page, nil
+	return &p, nil
 }
 
-func (f *file) pageName(nameTable string) string {
+func (f *File) pageName(nameTable string) string {
 	return fmt.Sprintf("%s_%s_%d.page", f.database.GetName(), nameTable, f.database.GetTables()[nameTable].GetStats().GetPageCount())
 }

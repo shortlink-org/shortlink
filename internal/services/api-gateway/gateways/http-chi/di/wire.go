@@ -32,7 +32,7 @@ import (
 
 type APIService struct {
 	// Common
-	Logger logger.Logger
+	Log    logger.Logger
 	Config *config.Config
 
 	// Applications
@@ -94,10 +94,10 @@ func NewAPIApplication(
 	// Common
 	ctx context.Context,
 	i18n *message.Printer,
-	logger logger.Logger,
+	log logger.Logger,
 	rpcServer *rpc.Server,
 	tracer trace.TracerProvider,
-	monitoring *monitoring.Monitoring,
+	monitor *monitoring.Monitoring,
 
 	// Delivery
 	link_rpc link_rpc.LinkServiceClient,
@@ -110,10 +110,10 @@ func NewAPIApplication(
 		// Common
 		ctx,
 		i18n,
-		logger,
+		log,
 		rpcServer,
 		tracer,
-		monitoring,
+		monitor,
 
 		// Delivery
 		link_rpc,
@@ -143,7 +143,7 @@ func NewAPIService(
 ) (*APIService, error) {
 	return &APIService{
 		// Common
-		Logger: log,
+		Log:    log,
 		Config: config,
 
 		// Observability

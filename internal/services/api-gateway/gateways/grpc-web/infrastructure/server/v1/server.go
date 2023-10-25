@@ -74,7 +74,7 @@ func (api *API) Run(
 	return nil
 }
 
-// Close ...
+// Close - close
 func (api *API) Close() error {
 	if err := api.http.Close(); err != nil {
 		return err

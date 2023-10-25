@@ -25,24 +25,24 @@ func New(tracer trace.TracerProvider, metrics *metric.MeterProvider) *Store {
 	}
 }
 
-// Init ...
-func (p *Store) Init(ctx context.Context) error {
+// Init - initialize
+func (s *Store) Init(ctx context.Context) error {
 	var err error
 
 	// Set configuration
-	p.config, err = getConfig(&p.tracer)
+	s.config, err = getConfig(&s.tracer)
 	if err != nil {
 		return err
 	}
 
 	// Connect to Postgres
-	p.client, err = pgxpool.NewWithConfig(ctx, p.config.config)
+	s.client, err = pgxpool.NewWithConfig(ctx, s.config.config)
 	if err != nil {
 		return fmt.Errorf("failed to open the database: %w", err)
 	}
 
 	// Check connect
-	err = p.client.Ping(ctx)
+	err = s.client.Ping(ctx)
 	if err != nil {
 		return fmt.Errorf("failed to ping the database: %w", err)
 	}
@@ -50,14 +50,14 @@ func (p *Store) Init(ctx context.Context) error {
 	return nil
 }
 
-// GetConn ...
+// GetConn - get connect
 func (s *Store) GetConn() any {
 	return s.client
 }
 
-// Close ...
-func (p *Store) Close() error {
-	p.client.Close()
+// Close - close
+func (s *Store) Close() error {
+	s.client.Close()
 	return nil
 }
 

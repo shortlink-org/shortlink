@@ -18,7 +18,7 @@ import (
 )
 
 type PaymentService struct {
-	logger logger.Logger
+	log logger.Logger
 
 	// EventSourcing
 	eventsourcing.CommandHandle
@@ -27,9 +27,9 @@ type PaymentService struct {
 	paymentRepository event_store.EventStore
 }
 
-func New(logger logger.Logger, paymentRepository event_store.EventStore) (*PaymentService, error) {
+func New(log logger.Logger, paymentRepository event_store.EventStore) (*PaymentService, error) {
 	service := &PaymentService{
-		logger: logger,
+		log: log,
 
 		// Repositories
 		paymentRepository: paymentRepository,
@@ -45,7 +45,7 @@ func New(logger logger.Logger, paymentRepository event_store.EventStore) (*Payme
 
 func (p *PaymentService) Handle(ctx context.Context, aggregate *Payment, command *eventsourcing.BaseCommand) error {
 	// Check update or create
-	if command.GetVersion() != 0 { //nolint:nestif
+	if command.GetVersion() != 0 { //nolint:nestif // ignore
 		snapshot, events, errLoad := p.paymentRepository.Load(ctx, command.GetAggregateId())
 		if errLoad != nil {
 			return errLoad
@@ -127,16 +127,16 @@ func (p *PaymentService) List(ctx context.Context, filter any) ([]*billing.Payme
 	// return p.paymentRepository.List(ctx, filter)
 }
 
-func errorHelper(ctx context.Context, logger logger.Logger, errs []error) error {
+func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {
 	if len(errs) > 0 {
 		errList := field.Fields{}
 		for index := range errs {
 			errList[fmt.Sprintf("stack error: %d", index)] = errs[index]
 		}
 
-		logger.ErrorWithContext(ctx, "Error create a new payment", errList)
+		log.ErrorWithContext(ctx, "Error create a new payment", errList)
 
-		return fmt.Errorf("Error create a new payment")
+		return fmt.Errorf("error create a new payment")
 	}
 
 	return nil
@@ -152,10 +152,10 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 	)
 
 	// saga for create a new payment
-	sagaAddPayment, errs := saga.New(SAGA_NAME, saga.SetLogger(p.logger)).
+	sagaAddPayment, errs := saga.New(SAGA_NAME, saga.SetLogger(p.log)).
 		WithContext(ctx).
 		Build()
-	if err := errorHelper(ctx, p.logger, errs); err != nil {
+	if err := errorHelper(ctx, p.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -183,10 +183,10 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 			return nil
 		}).
 		Reject(func(ctx context.Context) error {
-			return fmt.Errorf("Error create a new payment")
+			return fmt.Errorf("error create a new payment")
 		}).
 		Build()
-	if err := errorHelper(ctx, p.logger, errs); err != nil {
+	if err := errorHelper(ctx, p.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -201,7 +201,7 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 			return err
 		}).
 		Build()
-	if err := errorHelper(ctx, p.logger, errs); err != nil {
+	if err := errorHelper(ctx, p.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -221,7 +221,7 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 			return fmt.Errorf(`Payment was successfully created, but its status could not be received`)
 		}).
 		Build()
-	if err := errorHelper(ctx, p.logger, errs); err != nil {
+	if err := errorHelper(ctx, p.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -337,24 +337,24 @@ func (p *PaymentService) initTask() error {
 
 func (p *PaymentService) asyncUpdateSnapshot() {
 	ctx := context.Background()
-	p.logger.InfoWithContext(ctx, "Run asyncUpdateSnapshot")
+	p.log.InfoWithContext(ctx, "Run asyncUpdateSnapshot")
 
 	aggregates, errGetAggregate := p.paymentRepository.GetAggregateWithoutSnapshot(ctx)
 	if errGetAggregate != nil {
-		p.logger.ErrorWithContext(ctx, errGetAggregate.Error())
+		p.log.ErrorWithContext(ctx, errGetAggregate.Error())
 		return
 	}
 
 	for key := range aggregates {
 		payment, err := p.Get(ctx, aggregates[key].GetId())
 		if err != nil {
-			p.logger.ErrorWithContext(ctx, err.Error())
+			p.log.ErrorWithContext(ctx, err.Error())
 			return
 		}
 
 		payload, err := protojson.Marshal(payment)
 		if err != nil {
-			p.logger.ErrorWithContext(ctx, err.Error())
+			p.log.ErrorWithContext(ctx, err.Error())
 			return
 		}
 
@@ -368,7 +368,7 @@ func (p *PaymentService) asyncUpdateSnapshot() {
 		// save or update
 		err = p.paymentRepository.SaveSnapshot(ctx, snapshot)
 		if err != nil {
-			p.logger.ErrorWithContext(ctx, err.Error())
+			p.log.ErrorWithContext(ctx, err.Error())
 			return
 		}
 	}

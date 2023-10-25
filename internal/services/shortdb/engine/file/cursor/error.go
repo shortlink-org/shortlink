@@ -4,4 +4,4 @@ import (
 	"errors"
 )
 
-var ErrorGetPage = errors.New("not found page")
+var ErrGetPage = errors.New("not found page")

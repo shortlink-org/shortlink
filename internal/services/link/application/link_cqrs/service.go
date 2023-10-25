@@ -16,15 +16,15 @@ type Service struct {
 	cqsStore   *cqs.Store
 	queryStore *query.Store
 
-	logger logger.Logger
+	log logger.Logger
 }
 
-func New(logger logger.Logger, cqsStore *cqs.Store, queryStore *query.Store) (*Service, error) {
+func New(log logger.Logger, cqsStore *cqs.Store, queryStore *query.Store) (*Service, error) {
 	service := &Service{
 		cqsStore:   cqsStore,
 		queryStore: queryStore,
 
-		logger: logger,
+		log: log,
 	}
 
 	// Subscribe to event

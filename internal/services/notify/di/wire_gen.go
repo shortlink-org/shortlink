@@ -58,7 +58,7 @@ func InitializeFullBotService() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint, err := profiling.New(logger)
+	pprofEndpoint, err := profiling.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -179,8 +179,8 @@ var NotifySet = wire.NewSet(di.DefaultSet, mq_di.New, InitSlack,
 	NewBotService,
 )
 
-func NewBotApplication(ctx2 context.Context, logger2 logger.Logger, mq2 *mq.DataBus) (*application.Bot, error) {
-	bot, err := application.New(mq2, logger2)
+func NewBotApplication(ctx2 context.Context, log logger.Logger, dataBus *mq.DataBus) (*application.Bot, error) {
+	bot, err := application.New(dataBus, log)
 	if err != nil {
 		return nil, err
 	}
