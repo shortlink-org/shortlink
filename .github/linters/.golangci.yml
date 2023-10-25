@@ -14,6 +14,7 @@ run:
   skip-files:
     - ".*mocks.+"
     - "wire_gen.go"
+    - "io_uring.go"
 
   # If set we pass it to "go list -mod={option}". From "go help modules":
   # If invoked with -mod=readonly, the go command is disallowed from the implicit
