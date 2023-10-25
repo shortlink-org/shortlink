@@ -5,6 +5,7 @@ go 1.21
 toolchain go1.21.0
 
 require (
+	entgo.io/ent v0.12.4
 	github.com/IBM/sarama v1.41.3
 	github.com/Masterminds/squirrel v1.5.4
 	github.com/PuerkitoBio/goquery v1.8.1
@@ -23,6 +24,7 @@ require (
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/render v1.0.3
 	github.com/go-redis/cache/v9 v9.0.0
+	github.com/go-sql-driver/mysql v1.7.1
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang-migrate/migrate/v4 v4.16.2
@@ -140,7 +142,6 @@ require (
 	github.com/go-logr/logr v1.2.4 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
-	github.com/go-sql-driver/mysql v1.7.1 // indirect
 	github.com/go-stack/stack v1.8.1 // indirect
 	github.com/gofrs/uuid v4.4.0+incompatible // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect

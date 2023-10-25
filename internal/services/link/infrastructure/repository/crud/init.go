@@ -20,6 +20,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/dgraph"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/leveldb"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mongo"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mysql"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/postgres"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/ram"
@@ -42,6 +43,11 @@ func New(ctx context.Context, log logger.Logger, store *db.Store, c *cache.Cache
 	switch s.typeStore {
 	case "postgres":
 		s.store, err = postgres.New(ctx, store)
+		if err != nil {
+			return nil, err
+		}
+	case "mysql":
+		s.store, err = mysql.New(ctx, store)
 		if err != nil {
 			return nil, err
 		}
