@@ -6,7 +6,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	queryStore "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
+	queryStore "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
 func (l *Link) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {

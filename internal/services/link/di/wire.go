@@ -32,13 +32,13 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link_cqrs"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/sitemap"
 	api_mq "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/mq"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/cqrs/cqs"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/cqrs/query"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud"
 	cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/run"
 	sitemap_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/cqrs/cqs"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/cqrs/query"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud"
 	metadata_rpc "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 )
 
