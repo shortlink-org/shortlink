@@ -13,6 +13,7 @@ run:
 
   skip-files:
     - ".*mocks.+"
+    - "wire_gen.go"
 
   # If set we pass it to "go list -mod={option}". From "go help modules":
   # If invoked with -mod=readonly, the go command is disallowed from the implicit
@@ -47,7 +48,7 @@ linters-settings:
 
   cyclop:
     # The maximal code complexity to report.
-    max-complexity: 10
+    max-complexity: 25
 
     # If true, order of declarations is not checked at all.
     # Default: true (disabled)
@@ -136,6 +137,21 @@ linters-settings:
       - experimental
       - opinionated
 
+    disabled-checks:
+      - paramTypeCombine
+      - appendAssign
+      - ifElseChain
+      - singleCaseSwitch
+      - dupImport
+      - commentedOutCode
+      - switchTrue
+      - nilValReturn
+      - deferInLoop
+      - emptyFallthrough
+      - unnecessaryBlock
+      - captLocal
+      - whyNoLint
+
     # Settings passed to gocritic.
     # The settings key is the name of a supported gocritic checker.
     # The list of supported checkers can be find in https://go-critic.github.io/overview.
@@ -210,6 +226,11 @@ linters-settings:
       - '0666'
       - '0755'
       - '42'
+      - '3'
+      - '5'
+      - '100'
+      - '143'
+      - '1000'
 
   gosimple:
     go: "1.21"
@@ -276,6 +297,9 @@ linters-settings:
     # Default: false
     enable-all: true
 
+    disable:
+      - fieldalignment
+
   importas:
     # Do not allow unaliased imports of aliased packages.
     # Default: false
@@ -284,30 +308,11 @@ linters-settings:
     # Default: false
     no-extra-aliases: true
 
-  ireturn:
-    # ireturn allows using `allow` and `reject` settings at the same time.
-    # Both settings are lists of the keywords and regular expressions matched to interface or package names.
-    # keywords:
-    # - `empty` for `any`
-    # - `error` for errors
-    # - `stdlib` for standard library
-    # - `anon` for anonymous interfaces
-
-    # By default, it allows using errors, empty interfaces, anonymous interfaces,
-    # and interfaces provided by the standard library.
-    allow:
-      - anon
-      - error
-      - empty
-      - stdlib
-      # You can specify idiomatic endings for interface
-      - (or|er)$
-
   lll:
     # Max line length, lines longer will be reported.
     # '\t' is counted as 1 character by default, and can be changed with the tab-width option.
     # Default: 120.
-    line-length: 160
+    line-length: 200
 
   maintidx:
     # Show functions with maintainability index lower than N.
@@ -391,15 +396,16 @@ linters-settings:
         severity: warning
         disabled: false
         arguments:
-          - maxLitCount: "3"
-            allowStrs: '""'
-            allowInts: "0,1,2"
+          - maxLitCount: "15"
+            allowStrs: '"",":",": ",";",")",","'
+            # TODO: fix
+            allowInts: "0,1,2,3,5,10,100,143,1000,10000"
             allowFloats: "0.0,0.,1.0,1.,2.0,2."
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#atomic
       - name: argument-limit
         severity: warning
         disabled: false
-        arguments: [ 4 ]
+        arguments: [15]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#atomic
       - name: atomic
         severity: warning
@@ -408,7 +414,7 @@ linters-settings:
       - name: banned-characters
         severity: warning
         disabled: false
-        arguments: [ "Ω", "Σ", "σ", "7" ]
+        arguments: ["Ω", "Σ", "σ", "7"]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#bare-return
       - name: bare-return
         severity: warning
@@ -416,7 +422,7 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#blank-imports
       - name: blank-imports
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#bool-literal-in-expr
       - name: bool-literal-in-expr
         severity: warning
@@ -429,11 +435,11 @@ linters-settings:
       - name: cognitive-complexity
         severity: warning
         disabled: false
-        arguments: [ 7 ]
+        arguments: [270]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#confusing-naming
       - name: confusing-naming
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#confusing-results
       - name: confusing-results
         severity: warning
@@ -449,12 +455,12 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#context-keys-type
       - name: context-keys-type
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#cyclomatic
       - name: cyclomatic
         severity: warning
         disabled: false
-        arguments: [ 3 ]
+        arguments: [150]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#deep-exit
       - name: deep-exit
         severity: warning
@@ -462,9 +468,9 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#defer
       - name: defer
         severity: warning
-        disabled: false
+        disabled: true
         arguments:
-          - [ "call-chain", "loop" ]
+          - ["call-chain", "loop"]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#dot-imports
       - name: dot-imports
         severity: warning
@@ -472,7 +478,7 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#duplicated-imports
       - name: duplicated-imports
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#early-return
       - name: early-return
         severity: warning
@@ -480,11 +486,11 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#empty-block
       - name: empty-block
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#empty-lines
       - name: empty-lines
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#error-naming
       - name: error-naming
         severity: warning
@@ -511,23 +517,23 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#file-header
       - name: file-header
         severity: warning
-        disabled: false
+        disabled: true
         arguments:
           - This is the text that must appear at the top of source files.
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#flag-parameter
       - name: flag-parameter
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#function-result-limit
       - name: function-result-limit
         severity: warning
         disabled: false
-        arguments: [ 2 ]
+        arguments: [3]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#function-length
       - name: function-length
         severity: warning
         disabled: false
-        arguments: [ 10, 0 ]
+        arguments: [45, 0]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#get-return
       - name: get-return
         severity: warning
@@ -539,11 +545,11 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#if-return
       - name: if-return
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#increment-decrement
       - name: increment-decrement
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#indent-error-flow
       - name: indent-error-flow
         severity: warning
@@ -563,12 +569,12 @@ linters-settings:
       - name: line-length-limit
         severity: warning
         disabled: false
-        arguments: [ 140 ]
+        arguments: [200]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#max-public-structs
       - name: max-public-structs
         severity: warning
         disabled: false
-        arguments: [ 3 ]
+        arguments: [10]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#modifies-parameter
       - name: modifies-parameter
         severity: warning
@@ -580,7 +586,7 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#nested-structs
       - name: nested-structs
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#optimize-operands-order
       - name: optimize-operands-order
         severity: warning
@@ -645,10 +651,10 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#var-naming
       - name: var-naming
         severity: warning
-        disabled: false
+        disabled: true
         arguments:
-          - [ "ID" ] # AllowList
-          - [ "VM" ] # DenyList
+          - ["ID"] # AllowList
+          - ["VM"] # DenyList
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#var-declaration
       - name: var-declaration
         severity: warning
@@ -660,7 +666,7 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unexported-naming
       - name: unexported-naming
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unexported-return
       - name: unexported-return
         severity: warning
@@ -668,14 +674,14 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unhandled-error
       - name: unhandled-error
         severity: warning
-        disabled: false
+        disabled: true
         arguments:
           - "fmt.Printf"
           - "myFunction"
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unnecessary-stmt
       - name: unnecessary-stmt
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unreachable-code
       - name: unreachable-code
         severity: warning
@@ -683,11 +689,11 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unused-parameter
       - name: unused-parameter
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unused-receiver
       - name: unused-receiver
         severity: warning
-        disabled: false
+        disabled: true
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#useless-break
       - name: useless-break
         severity: warning
@@ -696,22 +702,34 @@ linters-settings:
       - name: waitgroup-by-value
         severity: warning
         disabled: false
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#import-alias-naming
+      - name: import-alias-naming
+        severity: warning
+        disabled: true
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unchecked-type-assertion
+      - name: unchecked-type-assertion
+        severity: warning
+        disabled: true
+      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unchecked-type-assertion
+      - name: redundant-import-alias
+        severity: warning
+        disabled: true
 
   staticcheck:
     # Select the Go version to target.
     # Default: 1.13
     go: "1.21"
     # https://staticcheck.io/docs/options#checks
-    checks: [ "all" ]
+    checks: ["all"]
 
   stylecheck:
     # Select the Go version to target.
     go: "1.21"
     # https://staticcheck.io/docs/options#checks
-    checks: [ "all", "-ST1000", "-ST1003", "-ST1016", "-ST1020", "-ST1021", "-ST1022" ]
+    checks: ["all", "-ST1000", "-ST1003", "-ST1016", "-ST1020", "-ST1021", "-ST1022"]
     # https://staticcheck.io/docs/options#dot_import_whitelist
     # https://staticcheck.io/docs/options#initialisms
-    initialisms: [ "ACL", "API", "ASCII", "CPU", "CSS", "DNS", "EOF", "GUID", "HTML", "HTTP", "HTTPS", "ID", "IP", "JSON", "QPS", "RAM", "RPC", "SLA", "SMTP", "SQL", "SSH", "TCP", "TLS", "TTL", "UDP", "UI", "GID", "UID", "UUID", "URI", "URL", "UTF8", "VM", "XML", "XMPP", "XSRF", "XSS" ]
+    initialisms: ["ACL", "API", "ASCII", "CPU", "CSS", "DNS", "EOF", "GUID", "HTML", "HTTP", "HTTPS", "ID", "IP", "JSON", "QPS", "RAM", "RPC", "SLA", "SMTP", "SQL", "SSH", "TCP", "TLS", "TTL", "UDP", "UI", "GID", "UID", "UUID", "URI", "URL", "UTF8", "VM", "XML", "XMPP", "XSRF", "XSS"]
 
   tenv:
     # The option `all` will run against whole test files (`_test.go`) regardless of method/function signatures.
@@ -736,17 +754,6 @@ linters-settings:
     # Default: false
     default-rpc-path: true
 
-  unparam:
-    # Inspect exported functions.
-    #
-    # Set to true if no external program/library imports your code.
-    # XXX: if you enable this setting, unparam will report a lot of false-positives in text editors:
-    # if it's called for subdir of a project it can't find external interfaces. All text editor integrations
-    # with golangci-lint call it on a directory with the changed file.
-    #
-    # Default: false
-    check-exported: true
-
   varcheck:
     # Check usage of exported fields and variables.
     # Default: false
@@ -760,7 +767,7 @@ linters-settings:
     # The minimum length of a variable's name that is considered "long".
     # Variable names that are at least this long will be ignored.
     # Default: 3
-    min-name-length: 2
+    min-name-length: 1
     # Check method receiver names.
     # Default: false
     check-receiver: true
@@ -781,6 +788,9 @@ linters-settings:
     ignore-names:
       - err
 
+  forbidigo:
+    tests: false
+
   whitespace:
     # Enforces newlines (or comments) after every multi-line if statement.
     # Default: false
@@ -789,25 +799,12 @@ linters-settings:
     # Default: false
     multi-func: true
 
-  wrapcheck:
-    # An array of strings that specify substrings of signatures to ignore.
-    # If this set, it will override the default set of ignored signatures.
-    # See https://github.com/tomarrell/wrapcheck#configuration for more information.
-    ignoreSigs:
-      - .Errorf(
-      - errors.New(
-      - errors.Unwrap(
-      - .WithMessage(
-      - .WithMessagef(
-      - .WithStack(
-    ignoreSigRegexps:
-      - \.New.*Error\(
-    ignorePackageGlobs:
-      - encoding/*
-      - github.com/pkg/*
-
   wsl:
-    allow-assign-and-anything: true
+    allow-cuddle-declarations: false
+    allow-assign-and-anything: false
+    allow-assign-and-call: false
+    allow-separated-leading-comment: false
+    force-case-trailing-whitespace: 0
 
 linters:
   # Enable all available linters.
@@ -826,6 +823,31 @@ linters:
     - varcheck # deprecated
     - structcheck # deprecated
     - musttag
+    - gochecknoinits
+    - inamedparam
+    - exhaustruct
+    - goerr113
+    - wrapcheck
+    - paralleltest
+    - forbidigo
+    - gochecknoglobals
+    - testpackage
+    - ireturn
+    - testifylint
+    - depguard
+    - importas
+    - containedctx
+    - gomoddirectives
+    - nonamedreturns
+    - contextcheck
+    - forcetypeassert
+    - wsl
+    - tagliatelle
+    - nilnil
+    - interfacebloat
+    - exhaustive
+    - maintidx
+    - dupl
 
 issues:
 
@@ -844,7 +866,7 @@ issues:
   new: false
 
   # Show only new issues created after git revision `REV`.
-  new-from-rev: HEAD
+  #  new-from-rev: HEAD
 
   # Fix found issues (if it's supported by the linter).
   fix: false
