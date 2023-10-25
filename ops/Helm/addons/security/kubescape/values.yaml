@@ -5,8 +5,10 @@
 kubescape:
   enabled: true
 
-  labels:
-    release: prometheus-operator
+  global:
+    networkPolicy:
+      enabled: true
+      createEgressRules: true
 
   capabilities:
     networkGenerator: enable
@@ -17,6 +19,9 @@ kubescape:
   clusterName: shortlink
 
   kubescape:
+    labels:
+      release: prometheus-operator
+
     serviceMonitor:
       enabled: true
 
