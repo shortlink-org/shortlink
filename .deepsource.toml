@@ -1,0 +1,77 @@
+version = 1
+
+[[analyzers]]
+name = "terraform"
+
+[[analyzers]]
+name = "java"
+
+  [analyzers.meta]
+  runtime_version = "11"
+
+[[analyzers]]
+name = "ruby"
+
+[[analyzers]]
+name = "scala"
+
+[[analyzers]]
+name = "secrets"
+
+[[analyzers]]
+name = "test-coverage"
+
+[[analyzers]]
+name = "sql"
+
+[[analyzers]]
+name = "python"
+
+  [analyzers.meta]
+  runtime_version = "3.x.x"
+
+[[analyzers]]
+name = "javascript"
+
+  [analyzers.meta]
+  plugins = ["react"]
+  environment = [
+    "nodejs",
+    "cypress"
+  ]
+
+[[analyzers]]
+name = "cxx"
+
+[[analyzers]]
+name = "ansible"
+
+[[analyzers]]
+name = "shell"
+
+[[analyzers]]
+name = "rust"
+
+  [analyzers.meta]
+  msrv = "stable"
+
+[[analyzers]]
+name = "php"
+
+[[analyzers]]
+name = "docker"
+
+[[analyzers]]
+name = "go"
+
+  [analyzers.meta]
+  import_root = "github.com/shortlink-org/shortlink"
+
+[[transformers]]
+name = "prettier"
+
+[[transformers]]
+name = "php-cs-fixer"
+
+[[transformers]]
+name = "gofmt"
