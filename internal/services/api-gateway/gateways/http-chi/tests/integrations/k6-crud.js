@@ -1,5 +1,5 @@
-import http from 'k6/http'
+import http from "k6/http";
 
 export default function () {
-  http.get('https://shortlink.best/api/links');
+  http.get("https://shortlink.best/api/links");
 }
