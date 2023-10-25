@@ -179,7 +179,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 
 type APIService struct {
 	// Common
-	Log logger.Logger
+	Log    logger.Logger
 	Config *config.Config
 
 	// Applications

@@ -82,7 +82,7 @@ func NewBFFWebService(
 ) *BFFWebService {
 	return &BFFWebService{
 		// Common
-		Log: log,
+		Log:    log,
 		Config: config,
 
 		// Observability
