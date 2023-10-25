@@ -68,7 +68,7 @@ func NewWSService(
 ) (*WSService, error) {
 	return &WSService{
 		// Common
-		Logger: log,
+		Log: log,
 		Config: config,
 
 		// Observability

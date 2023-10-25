@@ -53,7 +53,7 @@ func InitializeWSService() (*WSService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint, err := profiling.New(logger)
+	pprofEndpoint, err := profiling.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -100,7 +100,7 @@ func InitializeWSService() (*WSService, func(), error) {
 
 type WSService struct {
 	// Common
-	Log logger.Logger
+	Log    logger.Logger
 	Config *config.Config
 
 	// Applications
@@ -135,7 +135,7 @@ func NewWSService(
 ) (*WSService, error) {
 	return &WSService{
 
-		Logger: log,
+		Log:    log,
 		Config: config2,
 
 		Tracer:        tracer,

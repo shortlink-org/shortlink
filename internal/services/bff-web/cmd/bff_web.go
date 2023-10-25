@@ -25,7 +25,7 @@ func main() {
 
 	defer func() {
 		if r := recover(); r != nil {
-			service.log.Error(r.(string))
+			service.Log.Error(r.(string))
 		}
 	}()
 

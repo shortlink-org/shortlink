@@ -62,7 +62,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint, err := profiling.New(logger)
+	pprofEndpoint, err := profiling.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -79,7 +79,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		return nil, nil, err
 	}
 	printer := i18n.New(context)
-	rpcServer, cleanup6, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
+	server, cleanup6, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -142,7 +142,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	api, err := NewAPIApplication(context, printer, logger, rpcServer, tracerProvider, monitoringMonitoring, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
+	api, err := NewAPIApplication(context, printer, logger, server, tracerProvider, monitoringMonitoring, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -179,7 +179,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 
 type APIService struct {
 	// Common
-	Log logger.Logger
+	Log    logger.Logger
 	Config *config.Config
 
 	// Applications
@@ -228,10 +228,11 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_5.MetadataServiceCl
 	return metadataRPCClient, nil
 }
 
-func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 logger.Logger,
-
+func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer,
+	log logger.Logger,
 	rpcServer *rpc.Server,
-	tracer trace.TracerProvider, monitoring2 *monitoring.Monitoring,
+	tracer trace.TracerProvider,
+	monitor *monitoring.Monitoring,
 
 	link_rpc v1_2.LinkServiceClient,
 	link_command v1_3.LinkCommandServiceClient,
@@ -239,8 +240,12 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer, logger2 log
 	sitemap_rpc v1_4.SitemapServiceClient,
 ) (*v1.API, error) {
 
-	apiService, err := server.RunAPIServer(ctx2, i18n2, logger2, rpcServer,
-		tracer, monitoring2, link_rpc,
+	apiService, err := server.RunAPIServer(ctx2, i18n2, log,
+		rpcServer,
+		tracer,
+		monitor,
+
+		link_rpc,
 		link_command,
 		link_query,
 		sitemap_rpc,
@@ -263,7 +268,7 @@ func NewAPIService(
 ) (*APIService, error) {
 	return &APIService{
 
-		Logger: log,
+		Log:    log,
 		Config: config2,
 
 		Tracer:        tracer,
