@@ -1,6 +1,12 @@
 version = 1
 
 [[analyzers]]
+name = "docker"
+
+[[analyzers]]
+name = "shell"
+
+[[analyzers]]
 name = "go"
 
   [analyzers.meta]
