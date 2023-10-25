@@ -15,6 +15,7 @@ The goal of the project is to demonstrate the practical application of microserv
 [![CII Best Practices](https://bestpractices.coreinfrastructure.org/projects/3510/badge)](https://bestpractices.coreinfrastructure.org/projects/3510)
 [![StackShare](http://img.shields.io/badge/tech-stack-0690fa.svg?style=flat)](https://stackshare.io/shortlink-org/shortlink)
 [![FOSSA Status](https://app.fossa.com/api/projects/custom%2B396%2Fgithub.com%2Fshortlink-org%2Fshortlink.svg?type=shield)](https://app.fossa.com/projects/custom%2B396%2Fgithub.com%2Fshortlink-org%2Fshortlink?ref=badge_shield)
+[![DeepSource](https://app.deepsource.com/gh/shortlink-org/shortlink.svg/?label=active+issues&show_trend=true&token=DL-zlqtnyx6CvlHCroG0Jdx5)](https://app.deepsource.com/gh/shortlink-org/shortlink/)
 
 <hr />
 
