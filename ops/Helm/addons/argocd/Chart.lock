@@ -13,7 +13,7 @@ dependencies:
   version: 2.32.1
 - name: argo-workflows
   repository: https://argoproj.github.io/argo-helm
-  version: 0.36.1
+  version: 0.37.0
 - name: argocd-image-updater
   repository: https://argoproj.github.io/argo-helm
   version: 0.9.1
@@ -23,5 +23,5 @@ dependencies:
 - name: redis
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 18.1.6
-digest: sha256:2106879e184389aeb183289e449da6120736674ace9ccec24959fade01fbfa6f
-generated: "2023-10-24T15:15:06.507245957Z"
+digest: sha256:85064d2d674fd3bd333ce861036b639522341498dbf282c0785b40c877cebb9b
+generated: "2023-10-25T00:09:34.500980928Z"
