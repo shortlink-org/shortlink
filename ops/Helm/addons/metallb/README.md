@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://metallb.github.io/metallb | metallb | 0.13.11 |
+| https://metallb.github.io/metallb | metallb | 0.13.12 |
 
 ## Values
 

@@ -15,7 +15,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../../../shortlink-template | shortlink-template | 0.6.1 |
-| oci://registry-1.docker.io/bitnamicharts | rabbitmq-cluster-operator | 3.8.8 |
+| oci://registry-1.docker.io/bitnamicharts | rabbitmq-cluster-operator | 3.9.0 |
 
 ## Values
 
@@ -28,7 +28,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L40">ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td id="ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L42">ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
 			<td>
 string
 </td>
@@ -42,7 +42,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L41">ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L43">ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
 			<td>
 string
 </td>
@@ -56,7 +56,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L43">ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L45">ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -70,7 +70,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L42">ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L44">ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -84,7 +84,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/rewrite-target""><a href="./values.yaml#L44">ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target"</a></td>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/rewrite-target""><a href="./values.yaml#L46">ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target"</a></td>
 			<td>
 string
 </td>
@@ -98,7 +98,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/use-regex""><a href="./values.yaml#L45">ingress.annotations."nginx.ingress.kubernetes.io/use-regex"</a></td>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/use-regex""><a href="./values.yaml#L47">ingress.annotations."nginx.ingress.kubernetes.io/use-regex"</a></td>
 			<td>
 string
 </td>
@@ -112,7 +112,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--enabled"><a href="./values.yaml#L37">ingress.enabled</a></td>
+			<td id="ingress--enabled"><a href="./values.yaml#L39">ingress.enabled</a></td>
 			<td>
 bool
 </td>
@@ -126,7 +126,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--hostname"><a href="./values.yaml#L47">ingress.hostname</a></td>
+			<td id="ingress--hostname"><a href="./values.yaml#L49">ingress.hostname</a></td>
 			<td>
 string
 </td>
@@ -140,7 +140,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--path"><a href="./values.yaml#L48">ingress.path</a></td>
+			<td id="ingress--path"><a href="./values.yaml#L50">ingress.path</a></td>
 			<td>
 string
 </td>
@@ -154,7 +154,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--service--name"><a href="./values.yaml#L50">ingress.service.name</a></td>
+			<td id="ingress--service--name"><a href="./values.yaml#L52">ingress.service.name</a></td>
 			<td>
 string
 </td>
@@ -168,7 +168,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--service--port"><a href="./values.yaml#L51">ingress.service.port</a></td>
+			<td id="ingress--service--port"><a href="./values.yaml#L53">ingress.service.port</a></td>
 			<td>
 int
 </td>
@@ -182,7 +182,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--type"><a href="./values.yaml#L38">ingress.type</a></td>
+			<td id="ingress--type"><a href="./values.yaml#L40">ingress.type</a></td>
 			<td>
 string
 </td>
@@ -196,7 +196,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="rabbitmq-cluster-operator--clusterOperator--metrics--enabled"><a href="./values.yaml#L20">rabbitmq-cluster-operator.clusterOperator.metrics.enabled</a></td>
+			<td id="rabbitmq-cluster-operator--clusterOperator--metrics--service--enabled"><a href="./values.yaml#L21">rabbitmq-cluster-operator.clusterOperator.metrics.service.enabled</a></td>
 			<td>
 bool
 </td>
@@ -210,7 +210,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="rabbitmq-cluster-operator--clusterOperator--metrics--serviceMonitor--enabled"><a href="./values.yaml#L23">rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.enabled</a></td>
+			<td id="rabbitmq-cluster-operator--clusterOperator--metrics--serviceMonitor--enabled"><a href="./values.yaml#L24">rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -224,7 +224,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="rabbitmq-cluster-operator--clusterOperator--metrics--serviceMonitor--labels--release"><a href="./values.yaml#L25">rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.labels.release</a></td>
+			<td id="rabbitmq-cluster-operator--clusterOperator--metrics--serviceMonitor--labels--release"><a href="./values.yaml#L26">rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.labels.release</a></td>
 			<td>
 string
 </td>
@@ -266,7 +266,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="rabbitmq-cluster-operator--msgTopologyOperator--metrics--enabled"><a href="./values.yaml#L29">rabbitmq-cluster-operator.msgTopologyOperator.metrics.enabled</a></td>
+			<td id="rabbitmq-cluster-operator--msgTopologyOperator--metrics--service--enabled"><a href="./values.yaml#L31">rabbitmq-cluster-operator.msgTopologyOperator.metrics.service.enabled</a></td>
 			<td>
 bool
 </td>
@@ -280,7 +280,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="rabbitmq-cluster-operator--msgTopologyOperator--metrics--serviceMonitor--enabled"><a href="./values.yaml#L32">rabbitmq-cluster-operator.msgTopologyOperator.metrics.serviceMonitor.enabled</a></td>
+			<td id="rabbitmq-cluster-operator--msgTopologyOperator--metrics--serviceMonitor--enabled"><a href="./values.yaml#L34">rabbitmq-cluster-operator.msgTopologyOperator.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -294,7 +294,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="rabbitmq-cluster-operator--msgTopologyOperator--metrics--serviceMonitor--labels--release"><a href="./values.yaml#L34">rabbitmq-cluster-operator.msgTopologyOperator.metrics.serviceMonitor.labels.release</a></td>
+			<td id="rabbitmq-cluster-operator--msgTopologyOperator--metrics--serviceMonitor--labels--release"><a href="./values.yaml#L36">rabbitmq-cluster-operator.msgTopologyOperator.metrics.serviceMonitor.labels.release</a></td>
 			<td>
 string
 </td>

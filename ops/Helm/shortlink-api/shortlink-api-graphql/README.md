@@ -35,7 +35,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="NetworkPolicy--enabled"><a href="./values.yaml#L96">NetworkPolicy.enabled</a></td>
+			<td id="NetworkPolicy--enabled"><a href="./values.yaml#L97">NetworkPolicy.enabled</a></td>
 			<td>
 bool
 </td>
@@ -43,6 +43,20 @@ bool
 				<div style="max-width: 300px;">
 <pre lang="json">
 false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--AUTH_URI"><a href="./values.yaml#L63">deploy.env.AUTH_URI</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://shortlink.best/api/auth"
 </pre>
 </div>
 			</td>
@@ -105,7 +119,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L70">deploy.image.pullPolicy</a></td>
+			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L71">deploy.image.pullPolicy</a></td>
 			<td>
 string
 </td>
@@ -119,7 +133,7 @@ string
 			<td>Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images</td>
 		</tr>
 		<tr>
-			<td id="deploy--image--repository"><a href="./values.yaml#L65">deploy.image.repository</a></td>
+			<td id="deploy--image--repository"><a href="./values.yaml#L66">deploy.image.repository</a></td>
 			<td>
 string
 </td>
@@ -133,21 +147,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--tag"><a href="./values.yaml#L66">deploy.image.tag</a></td>
+			<td id="deploy--image--tag"><a href="./values.yaml#L67">deploy.image.tag</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.16.44"
+"0.16.49"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--livenessProbe"><a href="./values.yaml#L73">deploy.livenessProbe</a></td>
+			<td id="deploy--livenessProbe"><a href="./values.yaml#L74">deploy.livenessProbe</a></td>
 			<td>
 object
 </td>
@@ -166,7 +180,7 @@ object
 			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--readinessProbe"><a href="./values.yaml#L79">deploy.readinessProbe</a></td>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L80">deploy.readinessProbe</a></td>
 			<td>
 object
 </td>
@@ -297,7 +311,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="hpa--enabled"><a href="./values.yaml#L85">hpa.enabled</a></td>
+			<td id="hpa--enabled"><a href="./values.yaml#L86">hpa.enabled</a></td>
 			<td>
 bool
 </td>
@@ -311,7 +325,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="hpa--metrics[0]--containerResource--container"><a href="./values.yaml#L90">hpa.metrics[0].containerResource.container</a></td>
+			<td id="hpa--metrics[0]--containerResource--container"><a href="./values.yaml#L91">hpa.metrics[0].containerResource.container</a></td>
 			<td>
 string
 </td>
@@ -325,7 +339,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="hpa--metrics[0]--containerResource--name"><a href="./values.yaml#L89">hpa.metrics[0].containerResource.name</a></td>
+			<td id="hpa--metrics[0]--containerResource--name"><a href="./values.yaml#L90">hpa.metrics[0].containerResource.name</a></td>
 			<td>
 string
 </td>
@@ -339,7 +353,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="hpa--metrics[0]--containerResource--target--averageUtilization"><a href="./values.yaml#L93">hpa.metrics[0].containerResource.target.averageUtilization</a></td>
+			<td id="hpa--metrics[0]--containerResource--target--averageUtilization"><a href="./values.yaml#L94">hpa.metrics[0].containerResource.target.averageUtilization</a></td>
 			<td>
 int
 </td>
@@ -353,7 +367,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="hpa--metrics[0]--containerResource--target--type"><a href="./values.yaml#L92">hpa.metrics[0].containerResource.target.type</a></td>
+			<td id="hpa--metrics[0]--containerResource--target--type"><a href="./values.yaml#L93">hpa.metrics[0].containerResource.target.type</a></td>
 			<td>
 string
 </td>
@@ -367,7 +381,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="hpa--metrics[0]--type"><a href="./values.yaml#L87">hpa.metrics[0].type</a></td>
+			<td id="hpa--metrics[0]--type"><a href="./values.yaml#L88">hpa.metrics[0].type</a></td>
 			<td>
 string
 </td>
@@ -521,7 +535,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="./values.yaml#L112">monitoring.enabled</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L113">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -535,7 +549,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L117">podDisruptionBudget.enabled</a></td>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L118">podDisruptionBudget.enabled</a></td>
 			<td>
 bool
 </td>
@@ -549,7 +563,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--name"><a href="./values.yaml#L101">service.ports[0].name</a></td>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L102">service.ports[0].name</a></td>
 			<td>
 string
 </td>
@@ -563,7 +577,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--port"><a href="./values.yaml#L102">service.ports[0].port</a></td>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L103">service.ports[0].port</a></td>
 			<td>
 int
 </td>
@@ -577,7 +591,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--protocol"><a href="./values.yaml#L103">service.ports[0].protocol</a></td>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L104">service.ports[0].protocol</a></td>
 			<td>
 string
 </td>
@@ -591,7 +605,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--public"><a href="./values.yaml#L104">service.ports[0].public</a></td>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L105">service.ports[0].public</a></td>
 			<td>
 bool
 </td>
@@ -605,7 +619,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--name"><a href="./values.yaml#L105">service.ports[1].name</a></td>
+			<td id="service--ports[1]--name"><a href="./values.yaml#L106">service.ports[1].name</a></td>
 			<td>
 string
 </td>
@@ -619,7 +633,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--port"><a href="./values.yaml#L106">service.ports[1].port</a></td>
+			<td id="service--ports[1]--port"><a href="./values.yaml#L107">service.ports[1].port</a></td>
 			<td>
 int
 </td>
@@ -633,7 +647,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--protocol"><a href="./values.yaml#L107">service.ports[1].protocol</a></td>
+			<td id="service--ports[1]--protocol"><a href="./values.yaml#L108">service.ports[1].protocol</a></td>
 			<td>
 string
 </td>
@@ -647,7 +661,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--type"><a href="./values.yaml#L99">service.type</a></td>
+			<td id="service--type"><a href="./values.yaml#L100">service.type</a></td>
 			<td>
 string
 </td>

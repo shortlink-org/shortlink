@@ -22,7 +22,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | common | 2.13.2 |
+| oci://registry-1.docker.io/bitnamicharts | common | 2.13.3 |
 
 ## Values
 

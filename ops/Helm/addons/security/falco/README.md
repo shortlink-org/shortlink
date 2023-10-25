@@ -14,8 +14,8 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://falcosecurity.github.io/charts | falco | 3.7.1 |
-| https://falcosecurity.github.io/charts | falco-exporter | 0.9.6 |
+| https://falcosecurity.github.io/charts | falco | 3.8.3 |
+| https://falcosecurity.github.io/charts | falco-exporter | 0.9.7 |
 
 ## Values
 
@@ -28,7 +28,21 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="falco-exporter--enabled"><a href="./values.yaml#L16">falco-exporter.enabled</a></td>
+			<td id="events--deletePodEvent"><a href="./values.yaml#L6">events.deletePodEvent</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"{{inputs.parameters.falco-event}}"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco-exporter--enabled"><a href="./values.yaml#L63">falco-exporter.enabled</a></td>
 			<td>
 bool
 </td>
@@ -42,7 +56,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--fullnameOverride"><a href="./values.yaml#L18">falco-exporter.fullnameOverride</a></td>
+			<td id="falco-exporter--fullnameOverride"><a href="./values.yaml#L65">falco-exporter.fullnameOverride</a></td>
 			<td>
 string
 </td>
@@ -56,7 +70,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--grafanaDashboard--enabled"><a href="./values.yaml#L24">falco-exporter.grafanaDashboard.enabled</a></td>
+			<td id="falco-exporter--grafanaDashboard--enabled"><a href="./values.yaml#L71">falco-exporter.grafanaDashboard.enabled</a></td>
 			<td>
 bool
 </td>
@@ -70,7 +84,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--grafanaDashboard--folder"><a href="./values.yaml#L26">falco-exporter.grafanaDashboard.folder</a></td>
+			<td id="falco-exporter--grafanaDashboard--folder"><a href="./values.yaml#L73">falco-exporter.grafanaDashboard.folder</a></td>
 			<td>
 string
 </td>
@@ -84,7 +98,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--grafanaDashboard--namespace"><a href="./values.yaml#L25">falco-exporter.grafanaDashboard.namespace</a></td>
+			<td id="falco-exporter--grafanaDashboard--namespace"><a href="./values.yaml#L72">falco-exporter.grafanaDashboard.namespace</a></td>
 			<td>
 string
 </td>
@@ -98,7 +112,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--prometheusRules--enabled"><a href="./values.yaml#L29">falco-exporter.prometheusRules.enabled</a></td>
+			<td id="falco-exporter--prometheusRules--enabled"><a href="./values.yaml#L76">falco-exporter.prometheusRules.enabled</a></td>
 			<td>
 bool
 </td>
@@ -112,35 +126,63 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--serviceMonitor--enabled"><a href="./values.yaml#L21">falco-exporter.serviceMonitor.enabled</a></td>
-			<td>
-bool
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-true
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="falco--driver--kind"><a href="./values.yaml#L9">falco.driver.kind</a></td>
+			<td id="falco-exporter--resources--limits--cpu"><a href="./values.yaml#L80">falco-exporter.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"modern-bpf"
+"100m"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco--enabled"><a href="./values.yaml#L6">falco.enabled</a></td>
+			<td id="falco-exporter--resources--limits--memory"><a href="./values.yaml#L81">falco-exporter.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"128Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco-exporter--resources--requests--cpu"><a href="./values.yaml#L83">falco-exporter.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"20m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco-exporter--resources--requests--memory"><a href="./values.yaml#L84">falco-exporter.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"64Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco-exporter--serviceMonitor--enabled"><a href="./values.yaml#L68">falco-exporter.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -154,7 +196,49 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco--falco--grpc--enabled"><a href="./values.yaml#L13">falco.falco.grpc.enabled</a></td>
+			<td id="falco--collectors--crio--enabled"><a href="./values.yaml#L18">falco.collectors.crio.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--collectors--docker--enabled"><a href="./values.yaml#L16">falco.collectors.docker.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--driver--kind"><a href="./values.yaml#L21">falco.driver.kind</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ebpf"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--enabled"><a href="./values.yaml#L9">falco.enabled</a></td>
 			<td>
 bool
 </td>
@@ -162,6 +246,216 @@ bool
 				<div style="max-width: 300px;">
 <pre lang="json">
 true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falco--grpc--enabled"><a href="./values.yaml#L33">falco.falco.grpc.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falco--grpc_output--enabled"><a href="./values.yaml#L36">falco.falco.grpc_output.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falco--json_output"><a href="./values.yaml#L30">falco.falco.json_output</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falco--metrics--enabled"><a href="./values.yaml#L39">falco.falco.metrics.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falco--rules_file[0]"><a href="./values.yaml#L25">falco.falco.rules_file[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/etc/falco/falco_rules.yaml"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falco--rules_file[1]"><a href="./values.yaml#L26">falco.falco.rules_file[1]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/etc/falco/falco_rules.local.yaml"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falco--rules_file[2]"><a href="./values.yaml#L27">falco.falco.rules_file[2]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/etc/falco/rules.d"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falco--rules_file[3]"><a href="./values.yaml#L28">falco.falco.rules_file[3]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/etc/falco/k8s_audit_rules.yaml"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falcoctl--config--artifact--follow--refs[0]"><a href="./values.yaml#L49">falco.falcoctl.config.artifact.follow.refs[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"falco-rules:2"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falcoctl--config--artifact--install--refs[0]"><a href="./values.yaml#L46">falco.falcoctl.config.artifact.install.refs[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"falco-rules:2"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falcosidekick--config--webhook--address"><a href="./values.yaml#L56">falco.falcosidekick.config.webhook.address</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http://webhook-falco-eventsource-svc.argocd.svc.cluster.local:12000/falco"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falcosidekick--enabled"><a href="./values.yaml#L52">falco.falcosidekick.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falcosidekick--webui--enabled"><a href="./values.yaml#L59">falco.falcosidekick.webui.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falcosidekick--webui--replicaCount"><a href="./values.yaml#L60">falco.falcosidekick.webui.replicaCount</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+1
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--scc--create"><a href="./values.yaml#L12">falco.scc.create</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
 </pre>
 </div>
 			</td>

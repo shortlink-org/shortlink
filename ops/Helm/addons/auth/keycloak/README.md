@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | keycloak | 17.0.4 |
+| oci://registry-1.docker.io/bitnamicharts | keycloak | 17.1.2 |
 
 ## Values
 
@@ -259,6 +259,20 @@ bool
 				<div style="max-width: 300px;">
 <pre lang="json">
 true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="keycloak--postgresql--image--tag"><a href="./values.yaml#L78">keycloak.postgresql.image.tag</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"15.4.0-debian-11-r54"
 </pre>
 </div>
 			</td>
