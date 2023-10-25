@@ -2,12 +2,12 @@
   stage: build
   services:
     - name: docker:24.0.6-dind
-      command: [ "--experimental" ]
+      command: ["--experimental"]
   image: docker:24.0.6-cli
   variables:
     DOCKER_BUILDKIT: 1
     DOCKER_CONTENT_TRUST: 1
-    DOCKER_BUILDX_VERSION: v0.11.0
+    DOCKER_BUILDX_VERSION: v0.11.2
     BUILDX_GIT_LABELS: 1
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
