@@ -9,7 +9,7 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
-	v1 "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/tariff/v1"
+	"github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/tariff/v1"
 	v12 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/query"
 )

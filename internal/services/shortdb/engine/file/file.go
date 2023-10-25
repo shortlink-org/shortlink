@@ -10,7 +10,7 @@ import (
 	"google.golang.org/protobuf/proto"
 
 	database "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/database/v1"
-	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
+	"github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
 	table "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/table/v1"
 	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/options"
 	"github.com/shortlink-org/shortlink/internal/services/shortdb/io_uring"

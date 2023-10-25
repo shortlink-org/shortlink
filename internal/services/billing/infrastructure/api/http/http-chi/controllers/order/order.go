@@ -89,7 +89,7 @@ func (api *API) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck
+	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck // ignore
 }
 
 // Delete - delete
@@ -100,5 +100,5 @@ func (api *API) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck
+	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck // ignore
 }

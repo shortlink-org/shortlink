@@ -8,7 +8,7 @@ import (
 
 	"github.com/shortlink-org/shortlink/internal/pkg/types/vector"
 	field "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/field/v1"
-	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/index/v1"
+	"github.com/shortlink-org/shortlink/internal/services/shortdb/domain/index/v1"
 	query "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
 )
 

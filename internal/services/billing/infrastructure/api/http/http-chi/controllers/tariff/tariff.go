@@ -53,7 +53,7 @@ func (api *API) add(w http.ResponseWriter, r *http.Request) {
 	newTariff, err := api.tariffService.Add(r.Context(), &request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore
 
 		return
 	}
@@ -61,13 +61,13 @@ func (api *API) add(w http.ResponseWriter, r *http.Request) {
 	res, err := api.jsonpb.Marshal(newTariff)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore
 
 		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	_, _ = w.Write(res) //nolint:errcheck
+	_, _ = w.Write(res) //nolint:errcheck // ignore
 }
 
 // Get - get

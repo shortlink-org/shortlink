@@ -14,7 +14,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
-	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/badger"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/dgraph"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/store/crud/leveldb"

@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	v2 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/index/v1"
-	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
+	"github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
 	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/file/index"
 	parser "github.com/shortlink-org/shortlink/internal/services/shortdb/parser/v1"
 )
