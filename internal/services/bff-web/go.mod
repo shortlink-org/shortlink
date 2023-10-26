@@ -9,7 +9,6 @@ require (
 	github.com/go-chi/render v1.0.3
 	github.com/google/wire v0.5.0
 	github.com/riandyrn/otelchi v0.5.1
-	github.com/shortlink-org/shortlink v0.0.0-20231023201956-bfd6b062ec0b
 	github.com/spf13/viper v1.17.0
 	go.opentelemetry.io/otel/trace v1.19.0
 	golang.org/x/sync v0.4.0
@@ -71,7 +70,7 @@ require (
 	github.com/gomarkdown/markdown v0.0.0-20230716120725-531d2d74bc12 // indirect
 	github.com/google/flatbuffers v2.0.8+incompatible // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
-	github.com/google/uuid v1.3.1 // indirect
+	github.com/google/uuid v1.4.0 // indirect
 	github.com/gorilla/css v1.0.0 // indirect
 	github.com/grafana/pyroscope-go v1.0.4 // indirect
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.5 // indirect
@@ -125,9 +124,9 @@ require (
 	github.com/nats-io/nats.go v1.31.0 // indirect
 	github.com/nats-io/nkeys v0.4.5 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
-	github.com/neo4j/neo4j-go-driver/v5 v5.13.0 // indirect
-	github.com/onsi/gomega v1.28.1 // indirect
-	github.com/ory/client-go v1.2.11 // indirect
+	github.com/neo4j/neo4j-go-driver/v5 v5.14.0 // indirect
+	github.com/onsi/gomega v1.29.0 // indirect
+	github.com/ory/client-go v1.2.14 // indirect
 	github.com/pelletier/go-toml/v2 v2.1.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.18 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
@@ -192,13 +191,14 @@ require (
 	go.opentelemetry.io/proto/otlp v1.0.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/automaxprocs v1.5.3 // indirect
+	go.uber.org/goleak v1.3.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.26.0 // indirect
 	golang.org/x/arch v0.4.0 // indirect
 	golang.org/x/crypto v0.14.0 // indirect
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9 // indirect
 	golang.org/x/net v0.17.0 // indirect
-	golang.org/x/oauth2 v0.12.0 // indirect
+	golang.org/x/oauth2 v0.13.0 // indirect
 	golang.org/x/sys v0.13.0 // indirect
 	golang.org/x/text v0.13.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
