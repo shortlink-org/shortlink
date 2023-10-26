@@ -51,10 +51,9 @@ golint:
     entrypoint: [""]
   before_script:
     - mkdir -p .go
-    - apk add --no-cache jq
     - go mod vendor
     - apt-get update
-    - apt-get -y install linux-libc-dev
+    - apt-get -y install linux-libc-dev jq
   script:
     # Use default .golangci.yml file from the image if one is not present in the project root.
     - "[ -e .golangci.yml ] || cp /golangci/.golangci.yml ."
