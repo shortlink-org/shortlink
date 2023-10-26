@@ -47,13 +47,18 @@ After evaluating the limitations of `ent`, the current setup, the initial result
 | Database Integration       | Excellent  | Excellent     | Good          | Good       |
 | License                    | Apache 2.0 | BSD 2-clause  | MIT           | MIT        |
 
-## Sources and Notes:
+### Sources and Notes:
 
 - Ent's ease of use and code generation features are appreciated by the community, alongside its capabilities to handle complex relationships and automatic migrations, though it's noted to have a smaller community compared to some other ORMs
 - Bun is praised for SQL building, striking a good balance between a full ORM and a query builder, and is particularly favored for use with PostgreSQL
 - The 'Ease of Use', 'Performance', 'Community Support', and 'SQL Building Capabilities' columns are subjective and should be validated with further testing and community feedback.
 
 Further research and comparisons among various ORM tools can be found on [ossinsight.io collections](https://ossinsight.io/collections/golang-orm/).
+
+### Example
+
+1. [ent](./proof/ADR-0027/README.md)
+2. [go-orm](../../../poc/go-orm/README.md)
 
 ## Consequences
 

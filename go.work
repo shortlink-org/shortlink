@@ -1,9 +1,10 @@
-go 1.21.0
+go 1.21.3
 
 use (
 	.
 
 	./docs/ADR/decisions/proof/ADR-0007
+	./docs/ADR/decisions/proof/ADR-0027
 	./internal/services/api-gateway
 	./internal/services/bff-web
 	./internal/services/csi
