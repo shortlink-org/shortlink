@@ -47,12 +47,14 @@ golint:
     - .go-cache
     - .job_teplate_go
   image:
-    name: golangci/golangci-lint:v1.55.0-alpine
+    name: golangci/golangci-lint:v1.55.0
     entrypoint: [""]
   before_script:
     - mkdir -p .go
     - apk add --no-cache jq
     - go mod vendor
+    - apt-get update
+    - apt-get -y install linux-libc-dev
   script:
     # Use default .golangci.yml file from the image if one is not present in the project root.
     - "[ -e .golangci.yml ] || cp /golangci/.golangci.yml ."
