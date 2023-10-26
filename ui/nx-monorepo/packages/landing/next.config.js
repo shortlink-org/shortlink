@@ -9,6 +9,9 @@ const { composePlugins } = require('@nx/next')
 // PLUGINS =============================================================================================================
 const plugins = [withPWA]
 
+// ENVIRONMENT VARIABLE ================================================================================================
+const isProd = process.env.NODE_ENV === 'production'
+
 /** @type {import('@nx/next/plugins/with-nx').WithNxOptions} * */
 const nextConfig = {
   reactStrictMode: true,
@@ -42,6 +45,11 @@ const nextConfig = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   trailingSlash: false,
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
   experimental: {
     forceSwcTransforms: true,
     swcTraceProfiling: true,
@@ -50,10 +58,13 @@ const nextConfig = {
     turbo: {},
     // for Vercel deployment
     useDeploymentId: true,
-    // if you use with serverActions is desired
-    serverActions: false,
     useDeploymentIdServerActions: true,
   },
+}
+
+if (isProd) {
+  nextConfig.compress = true
+  nextConfig.productionBrowserSourceMaps = true
 }
 
 module.exports = composePlugins(...plugins)(nextConfig)

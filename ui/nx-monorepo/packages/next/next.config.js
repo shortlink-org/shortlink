@@ -92,17 +92,22 @@ let NEXT_CONFIG = {
 
     return config
   },
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
   experimental: {
     forceSwcTransforms: true,
     swcTraceProfiling: true,
-    turbo: {
-      rules: {},
-    },
+    turbo: {},
   },
 }
 
 if (isProd) {
   NEXT_CONFIG.output = 'export'
+  NEXT_CONFIG.compress = true
+  NEXT_CONFIG.productionBrowserSourceMaps = true
 }
 
 if (!isProd) {
