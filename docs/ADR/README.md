@@ -49,5 +49,6 @@ for information team about cases for updated ADR.
   - [ADR-0016](./decisions/0005-use-singleflight-for-debouncing.md) - Use singleflight for debouncing
 - **Golang**
   - [ADR-0017](./decisions/0017-profile-guided-optimization.md) - Profile-guided optimization
+  - [ADR-0027](./decisions/0027-orm-and-golang.md) - ORM and Golang
 - **Front-end**
   - [ADR-0019](./decisions/0019-front-end-testing.md) - Front-end testings
