@@ -1,9 +1,0 @@
-apiVersion: v1
-kind: ConfigMap
-metadata:
-  name: grafana-oncall-init-sql
-data:
-  init.sql: |
-    -- oncall database
-    \c oncall;
-    ALTER DATABASE oncall OWNER TO oncall;

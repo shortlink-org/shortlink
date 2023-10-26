@@ -3,7 +3,7 @@ kind: PostgresCluster
 metadata:
   name: oncall-postgres
 spec:
-  postgresVersion: 15
+  postgresVersion: 14
   metadata:
     annotations:
       sidecar.istio.io/inject: "false"
@@ -26,9 +26,6 @@ spec:
         resources:
           requests:
             storage: 1Gi
-  databaseInitSQL:
-    name: grafana-oncall-init-sql
-    key: init.sql
   monitoring:
     pgmonitor:
       exporter:
