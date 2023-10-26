@@ -3,6 +3,7 @@
 package migrate
 
 import (
+	"entgo.io/ent/dialect/entsql"
 	"entgo.io/ent/dialect/sql/schema"
 	"entgo.io/ent/schema/field"
 )
@@ -10,19 +11,32 @@ import (
 var (
 	// LinksColumns holds the columns for the "links" table.
 	LinksColumns = []*schema.Column{
-		{Name: "id", Type: field.TypeUUID},
-		{Name: "url", Type: field.TypeString},
-		{Name: "hash", Type: field.TypeString},
-		{Name: "describe", Type: field.TypeString, Nullable: true, Size: 2147483647},
-		{Name: "json", Type: field.TypeJSON},
-		{Name: "created_at", Type: field.TypeTime},
-		{Name: "updated_at", Type: field.TypeTime},
+		{Name: "id", Type: field.TypeUUID, Comment: "UUID"},
+		{Name: "url", Type: field.TypeString, Comment: "URL"},
+		{Name: "hash", Type: field.TypeString, Comment: "Hash"},
+		{Name: "describe", Type: field.TypeString, Nullable: true, Size: 2147483647, Comment: "Describe"},
+		{Name: "json", Type: field.TypeJSON, Comment: "JSON"},
+		{Name: "created_at", Type: field.TypeTime, Comment: "Created at"},
+		{Name: "updated_at", Type: field.TypeTime, Comment: "Updated at"},
 	}
 	// LinksTable holds the schema information for the "links" table.
 	LinksTable = &schema.Table{
 		Name:       "links",
+		Comment:    "Link holds the schema definition for the Link entity.",
 		Columns:    LinksColumns,
 		PrimaryKey: []*schema.Column{LinksColumns[0]},
+		Indexes: []*schema.Index{
+			{
+				Name:    "link_url_url",
+				Unique:  true,
+				Columns: []*schema.Column{LinksColumns[1], LinksColumns[1]},
+			},
+			{
+				Name:    "link_hash_hash",
+				Unique:  true,
+				Columns: []*schema.Column{LinksColumns[2], LinksColumns[2]},
+			},
+		},
 	}
 	// Tables holds all the tables in the schema.
 	Tables = []*schema.Table{
@@ -31,4 +45,7 @@ var (
 )
 
 func init() {
+	LinksTable.Annotation = &entsql.Annotation{
+		Table: "links",
+	}
 }

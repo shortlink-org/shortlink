@@ -1,4 +1,4 @@
-//go:generate go run entgo.io/ent/cmd/ent generate ./ent/schema
+//go:generate go run entgo.io/ent/cmd/ent generate --feature sql/upsert ./ent/schema
 
 package mysql
 
@@ -82,23 +82,19 @@ func (s Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, e
 }
 
 func (s Store) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
-	resp, err := s.client.Link.Create().
+	err := s.client.Link.Create().
 		SetURL(in.Url).
 		SetHash(in.Hash).
 		SetDescribe(in.Describe).
 		SetJSON(*in).
-		Save(ctx)
+		OnConflict().
+		UpdateNewValues().
+		Exec(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	return &domain.Link{
-		Url:       resp.URL,
-		Hash:      resp.Hash,
-		Describe:  resp.Describe,
-		CreatedAt: timestamppb.New(resp.CreatedAt),
-		UpdatedAt: timestamppb.New(resp.UpdatedAt),
-	}, nil
+	return in, nil
 }
 
 func (s Store) Update(ctx context.Context, in *domain.Link) (*domain.Link, error) {

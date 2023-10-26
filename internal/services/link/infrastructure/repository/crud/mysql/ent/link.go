@@ -15,22 +15,23 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mysql/ent/link"
 )
 
-// Link is the model entity for the Link schema.
+// Link holds the schema definition for the Link entity.
 type Link struct {
 	config `json:"-"`
 	// ID of the ent.
+	// UUID
 	ID uuid.UUID `json:"id,omitempty"`
-	// URL holds the value of the "url" field.
+	// URL
 	URL string `json:"url,omitempty"`
-	// Hash holds the value of the "hash" field.
+	// Hash
 	Hash string `json:"hash,omitempty"`
-	// Describe holds the value of the "describe" field.
+	// Describe
 	Describe string `json:"describe,omitempty"`
-	// JSON holds the value of the "json" field.
+	// JSON
 	JSON v1.Link `json:"json,omitempty"`
-	// CreatedAt holds the value of the "created_at" field.
+	// Created at
 	CreatedAt time.Time `json:"created_at,omitempty"`
-	// UpdatedAt holds the value of the "updated_at" field.
+	// Updated at
 	UpdatedAt    time.Time `json:"updated_at,omitempty"`
 	selectValues sql.SelectValues
 }
