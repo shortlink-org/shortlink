@@ -6,7 +6,6 @@
     "dev": "npx next dev -p 3001 --turbo",
     "build": "npx next build",
     "start": "npx next start",
-    "export": "npx next export",
     "lint": "npx eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
     "lint:fix": "npm run lint -- --fix",
     "lint:gitlab": "npm run lint -- --format gitlab",
