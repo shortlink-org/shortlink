@@ -73,8 +73,6 @@ const columns = [
 ]
 
 export const AdminUserLinksTable = ({ data }: AppProps) => (
-  // <p>need fix table component</p>
-  // TODO: fix this
   <Table data={data} columns={columns} />
 )
 

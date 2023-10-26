@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "dev": "npx next dev -p 3001",
+    "dev": "npx next dev -p 3001 --turbo",
     "build": "npx next build",
     "start": "npx next start",
     "export": "npx next export",
@@ -21,7 +21,6 @@
     "@tailwindcss/forms": "^0.5.6",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.10",
-    "@vercel/otel": "0.3.0",
     "postcss-preset-env": "^9.2.0"
   },
   "devDependencies": {

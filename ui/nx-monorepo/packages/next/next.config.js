@@ -100,6 +100,7 @@ let NEXT_CONFIG = {
   experimental: {
     forceSwcTransforms: true,
     swcTraceProfiling: true,
+    instrumentationHook: true,
     turbo: {},
   },
 }

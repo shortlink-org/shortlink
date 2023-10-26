@@ -73,9 +73,7 @@ const columns = [
 ]
 
 export const UserLinksTable = ({ data }: AppProps) => (
-  <p>need fix table component</p>
-  // TODO: fix this
-  // <Table data={data} columns={columns} />
+  <Table data={data} columns={columns} />
 )
 
 export default UserLinksTable
