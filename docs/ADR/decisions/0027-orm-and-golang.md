@@ -18,7 +18,7 @@ Currently, our setup incorporates:
 1. `pgxpool` for interacting with PostgreSQL, acknowledged for its efficiency and popularity within the community.
 2. `squirrel` for handling SQL-like databases, appreciated for its fluent SQL builder.
 
-Additionally, an attempt was made to create a [custom ORM](https://raw.githubusercontent.com/shortlink-org/shortlink/main/poc/go-orm/README.md) 
+Additionally, an attempt was made to create a [go-orm](../../../poc/go-orm/README.md) 
 to circumvent the issues identified with `ent`. However, the feasibility and effectiveness of the custom ORM require further assessment.
 
 Recent discoveries have introduced [Bun](https://bun.uptrace.dev/) and `sqlc` as potential alternatives. 
@@ -36,16 +36,16 @@ After evaluating the limitations of `ent`, the current setup, the initial result
 
 ## Comparison Table
 
-| Feature                    | ent        | Bun           | sqlc          | Custom ORM |
-|----------------------------|------------|---------------|---------------|------------|
-| Custom Driver Support      | Yes        | pgx           | No (assumed)  | pgx        |
-| OpenTelemetry Support      | No         | Yes (assumed) | Yes (assumed) | No         |
-| Ease of Use                | Low        | High          | High          | Medium     |
-| Performance                | High       | High          | High          | Medium     |
-| Community Support          | Medium     | Medium        | High          | Low        |
-| SQL Building Capabilities  | Good       | Excellent     | Excellent     | Good       |
-| Database Integration       | Excellent  | Excellent     | Good          | Good       |
-| License                    | Apache 2.0 | BSD 2-clause  | MIT           | MIT        |
+| Feature                    | ent        | Bun           | sqlc          | go-orm (Custom) |
+|----------------------------|------------|---------------|---------------|-----------------|
+| Custom Driver Support      | Yes        | pgx           | No (assumed)  | pgx             |
+| OpenTelemetry Support      | No         | Yes (assumed) | Yes (assumed) | No              |
+| Ease of Use                | Low        | High          | High          | Medium          |
+| Performance                | High       | High          | High          | Medium          |
+| Community Support          | Medium     | Medium        | High          | Low             |
+| SQL Building Capabilities  | Good       | Excellent     | Excellent     | Good            |
+| Database Integration       | Excellent  | Excellent     | Good          | Good            |
+| License                    | Apache 2.0 | BSD 2-clause  | MIT           | MIT             |
 
 ### Sources and Notes:
 
