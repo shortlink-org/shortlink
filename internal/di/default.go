@@ -102,6 +102,7 @@ func NewFullService(
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {
+
 	return &Service{
 		// Common
 		Ctx:  ctx,

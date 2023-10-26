@@ -4,7 +4,7 @@ import (
 	"database/sql"
 )
 
-// Config ...
+// Config - configuration
 type Config struct {
 	URI string
 }

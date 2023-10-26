@@ -19,9 +19,6 @@ func (s *Store) Init(_ context.Context) error {
 	if s.client, err = sql.Open("mysql", s.config.URI); err != nil {
 		return err
 	}
-	if err != nil {
-		return err
-	}
 
 	return nil
 }

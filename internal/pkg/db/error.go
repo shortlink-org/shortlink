@@ -4,6 +4,4 @@ import (
 	"errors"
 )
 
-var (
-	ErrUnknownStoreType = errors.New("unknown store type")
-)
+var ErrUnknownStoreType = errors.New("unknown store type")

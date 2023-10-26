@@ -1,9 +1,10 @@
-//go:build linux
+//go:build linux && nolint
 
 // Package io_uring implements a high-level Go wrapper to perform
 // file read/write operations using liburing.
 package io_uring
 
+// golint:ignore // nolint:golint // Package comment is in the file header.
 /*
 #cgo LDFLAGS: -luring
 #include <fcntl.h>
