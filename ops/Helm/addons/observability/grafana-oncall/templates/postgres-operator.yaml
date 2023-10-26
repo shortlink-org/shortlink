@@ -26,6 +26,9 @@ spec:
         resources:
           requests:
             storage: 1Gi
+  databaseInitSQL:
+    name: grafana-oncall-init-sql
+    key: init.sql
   monitoring:
     pgmonitor:
       exporter:
