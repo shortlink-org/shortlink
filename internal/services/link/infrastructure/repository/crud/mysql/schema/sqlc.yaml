@@ -1,0 +1,10 @@
+version: 2
+sql:
+  - engine: mysql
+    queries: query.sql
+    schema: ../migrations
+    gen:
+      go:
+        package: crud
+        out: crud
+        sql_package: database/sql

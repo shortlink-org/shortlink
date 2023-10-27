@@ -1,9 +1,9 @@
 package mysql
 
 import (
-	"database/sql"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mysql/schema/crud"
 )
 
 type Store struct {
-	client *sql.DB
+	client *crud.Queries
 }
