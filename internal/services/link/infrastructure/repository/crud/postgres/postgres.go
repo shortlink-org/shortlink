@@ -222,14 +222,14 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 	return nil
 }
 
-func (s *Store) singleWrite(ctx context.Context, source *domain.Link) (*domain.Link, error) {
-	err := domain.NewURL(source)
+func (s *Store) singleWrite(ctx context.Context, in *domain.Link) (*domain.Link, error) {
+	err := domain.NewURL(in)
 	if err != nil {
 		return nil, err
 	}
 
 	// save as JSON. it doesn't make sense
-	dataJson, err := protojson.Marshal(source)
+	dataJson, err := protojson.Marshal(in)
 	if err != nil {
 		return nil, err
 	}
@@ -237,24 +237,19 @@ func (s *Store) singleWrite(ctx context.Context, source *domain.Link) (*domain.L
 	// query builder
 	links := psql.Insert("link.links").
 		Columns("url", "hash", "describe", "json").
-		Values(source.GetUrl(), source.GetHash(), source.GetDescribe(), string(dataJson))
+		Values(in.GetUrl(), in.GetHash(), in.GetDescribe(), string(dataJson))
 
 	q, args, err := links.ToSql()
 	if err != nil {
 		return nil, err
 	}
 
-	row := s.client.QueryRow(ctx, q, args...)
-
-	errScan := row.Scan()
-	if errors.Is(errScan, pgx.ErrNoRows) {
-		return source, nil
-	}
-	if errScan.Error() != "" {
-		return nil, &domain.NotFoundError{Link: source, Err: fmt.Errorf("failed save link: %s", source.GetUrl())}
+	_, err = s.client.Exec(ctx, q, args...)
+	if err != nil {
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: in.GetHash()}, Err: fmt.Errorf("failed create link: %s", in.GetHash())}
 	}
 
-	return source, nil
+	return in, nil
 }
 
 func (s *Store) batchWrite(ctx context.Context, sources []*domain.Link) (*domain.Links, error) {

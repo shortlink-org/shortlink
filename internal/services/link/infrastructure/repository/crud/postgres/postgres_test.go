@@ -33,10 +33,10 @@ func TestPostgres(t *testing.T) {
 	require.NoError(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("postgres", "16", []string{
-		"POSTGRES_USER=postgres",
-		"POSTGRES_PASSWORD=shortlink",
-		"POSTGRES_DB=link",
+	resource, err := pool.Run("ghcr.io/dbsystel/postgresql-partman", "16", []string{
+		"POSTGRESQL_USERNAME=postgres",
+		"POSTGRESQL_PASSWORD=shortlink",
+		"POSTGRESQL_DATABASE=link",
 	})
 	if err != nil {
 		// When you're done, kill and remove the container
