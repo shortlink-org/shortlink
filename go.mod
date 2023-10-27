@@ -2,7 +2,7 @@ module github.com/shortlink-org/shortlink
 
 go 1.21
 
-toolchain go1.21.0
+toolchain go1.21.3
 
 require (
 	github.com/IBM/sarama v1.41.3
@@ -36,7 +36,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.0
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.1
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb
-	github.com/jackc/pgx/v5 v5.4.3
+	github.com/jackc/pgx/v5 v5.4.4-0.20231027014144-cf6ef75f9166
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a
 	github.com/lib/pq v1.10.9
 	github.com/mattn/go-sqlite3 v1.14.17

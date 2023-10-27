@@ -33,19 +33,19 @@ var (
 )
 
 // New store
-func New(ctx context.Context, store *db.Store) (*Store, error) {
+func New(ctx context.Context, store db.DB) (*Store, error) {
 	var ok bool
 	s := &Store{}
 
 	// Set configuration -----------------------------------------------------------------------------------------------
 	s.setConfig()
-	s.client, ok = store.Store.GetConn().(*pgxpool.Pool)
+	s.client, ok = store.GetConn().(*pgxpool.Pool)
 	if !ok {
 		return nil, errors.New("error get connection to PostgreSQL")
 	}
 
 	// Migration -------------------------------------------------------------------------------------------------------
-	err := migrate.Migration(ctx, store, migrations, viper.GetString("SERVICE_NAME"))
+	err := migrate.Migration(ctx, store, migrations, "repository_link")
 	if err != nil {
 		return nil, err
 	}

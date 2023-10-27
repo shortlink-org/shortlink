@@ -26,17 +26,17 @@ var linkUniqId atomic.Int64
 func TestPostgres(t *testing.T) {
 	ctx := context.Background()
 
-	st := db.Store{}
+	st := &db.Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
 	require.NoError(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("postgres", "latest", []string{
+	resource, err := pool.Run("postgres", "16", []string{
 		"POSTGRES_USER=postgres",
 		"POSTGRES_PASSWORD=shortlink",
-		"POSTGRES_DB=shortlink",
+		"POSTGRES_DB=link",
 	})
 	if err != nil {
 		// When you're done, kill and remove the container
@@ -51,7 +51,7 @@ func TestPostgres(t *testing.T) {
 	if err := pool.Retry(func() error {
 		var err error
 
-		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
+		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/link?sslmode=disable", resource.GetPort("5432/tcp")))
 		require.NoError(t, err, "Cannot set ENV")
 
 		err = st.Init(ctx)
@@ -76,15 +76,19 @@ func TestPostgres(t *testing.T) {
 		}
 	})
 
-	store := Store{
-		client: st.GetConn().(*pgxpool.Pool),
+	// new store
+	store, err := New(ctx, st)
+	if err != nil {
+		t.Fatalf("Could not create store: %s", err)
 	}
 
 	t.Run("Create [single]", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
-		require.NoError(t, err)
-		assert.Equal(t, link.Hash, mock.GetLink.Hash)
-		assert.Equal(t, link.Describe, mock.GetLink.Describe)
+		if err != nil {
+			t.Fatal(err)
+		}
+		assert.Equal(t, mock.AddLink.Hash, link.Hash)
+		assert.Equal(t, mock.AddLink.Describe, link.Describe)
 	})
 
 	t.Run("Create [batch]", func(t *testing.T) {

@@ -1,12 +1,12 @@
 CREATE TABLE link.links_partitioned_by_created_at
 (
-    id         uuid      DEFAULT link.uuid_generate_v4() NOT NULL,
-    url        text                                      NOT NULL,
-    hash       link.hash                                 NOT NULL,
+    id         uuid      DEFAULT uuid_generate_v4() NOT NULL,
+    url        text                                 NOT NULL,
+    hash       hash                                 NOT NULL,
     describe   text,
-    json       link.link                                 NOT NULL,
-    created_at timestamp DEFAULT CURRENT_TIMESTAMP       NOT NULL,
-    updated_at timestamp DEFAULT CURRENT_TIMESTAMP       NOT NULL,
+    json       link                                 NOT NULL,
+    created_at timestamp DEFAULT CURRENT_TIMESTAMP  NOT NULL,
+    updated_at timestamp DEFAULT CURRENT_TIMESTAMP  NOT NULL,
     PRIMARY KEY (created_at)
 )
     PARTITION BY RANGE (hash, created_at);

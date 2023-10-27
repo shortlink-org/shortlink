@@ -8,28 +8,37 @@ import (
 	"strings"
 
 	"github.com/golang-migrate/migrate/v4"
+	"github.com/golang-migrate/migrate/v4/database/postgres"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/jackc/pgx/v5/stdlib"
 	"github.com/johejo/golang-migrate-extra/source/iofs"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 )
 
 // Migration - apply migration to db
-func Migration(_ context.Context, store *db.Store, fs embed.FS, tableName string) error {
-	client, ok := store.Store.GetConn().(*pgxpool.Pool)
+func Migration(_ context.Context, store db.DB, fs embed.FS, tableName string) error {
+	client, ok := store.GetConn().(*pgxpool.Pool)
 	if !ok {
 		return errors.New("can't get db connection")
 	}
 
-	driver, err := iofs.New(fs, "migrations")
+	driverMigrations, err := iofs.New(fs, "migrations")
 	if err != nil {
 		return err
 	}
 
-	uri := buildURI(client, tableName)
+	conn := stdlib.OpenDBFromPool(client)
 
-	m, err := migrate.NewWithSourceInstance("iofs", driver, uri)
+	driverDB, err := postgres.WithInstance(conn, &postgres.Config{
+		MigrationsTable: fmt.Sprintf("schema_migrations_%s", strings.ReplaceAll(tableName, "-", "_")),
+	})
+	if err != nil {
+		return err
+	}
+
+	m, err := migrate.NewWithInstance("iofs", driverMigrations, "postgres", driverDB)
 	if err != nil {
 		return err
 	}
@@ -40,20 +49,4 @@ func Migration(_ context.Context, store *db.Store, fs embed.FS, tableName string
 	}
 
 	return nil
-}
-
-func buildURI(client *pgxpool.Pool, tableName string) string {
-	uri := strings.Builder{}
-	connStr := client.Config().ConnString()
-	if !strings.Contains(connStr, "?") {
-		connStr += "?"
-	}
-
-	_, _ = uri.WriteString(connStr)                                                                      //nolint:errcheck // ignore error
-	_, _ = uri.WriteString("&dbname=")                                                                   //nolint:errcheck // ignore error
-	_, _ = uri.WriteString(client.Config().ConnConfig.Database)                                          //nolint:errcheck // ignore error
-	_, _ = uri.WriteString("&x-migrations-table=")                                                       //nolint:errcheck // ignore error
-	_, _ = uri.WriteString(fmt.Sprintf("schema_migrations_%s", strings.ReplaceAll(tableName, "-", "_"))) //nolint:errcheck // ignore error
-
-	return uri.String()
 }
