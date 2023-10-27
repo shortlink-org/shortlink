@@ -18,8 +18,8 @@ import (
 )
 
 // New store
-func New(ctx context.Context, store *db.Store) (*Store, error) {
-	client, ok := store.Store.GetConn().(*sql.DB)
+func New(ctx context.Context, store db.DB) (*Store, error) {
+	client, ok := store.GetConn().(*sql.DB)
 	if !ok {
 		return nil, errors.New("error get connection to MySQL")
 	}

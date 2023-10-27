@@ -33,30 +33,30 @@ func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, me
 
 	switch store.typeStore {
 	case "cockroachdb":
-		store.Store = &cockroachdb.Store{}
+		store.DB = &cockroachdb.Store{}
 	case "postgres":
-		store.Store = postgres.New(tracer, metrics)
+		store.DB = postgres.New(tracer, metrics)
 	case "mongo":
-		store.Store = &mongo.Store{}
+		store.DB = &mongo.Store{}
 	case "redis":
-		store.Store = &redis.Store{}
+		store.DB = &redis.Store{}
 	case "dgraph":
-		store.Store = dgraph.New(log)
+		store.DB = dgraph.New(log)
 	case "leveldb":
-		store.Store = &leveldb.Store{}
+		store.DB = &leveldb.Store{}
 	case "badger":
-		store.Store = &badger.Store{}
+		store.DB = &badger.Store{}
 	case "ram":
-		store.Store = &ram.Store{}
+		store.DB = &ram.Store{}
 	case "neo4j":
-		store.Store = &neo4j.Store{}
+		store.DB = &neo4j.Store{}
 	case "sqlite":
-		store.Store = sqlite.New(tracer, metrics)
+		store.DB = sqlite.New(tracer, metrics)
 	default:
-		store.Store = &ram.Store{}
+		store.DB = &ram.Store{}
 	}
 
-	if err := store.Store.Init(ctx); err != nil {
+	if err := store.Init(ctx); err != nil {
 		return nil, err
 	}
 

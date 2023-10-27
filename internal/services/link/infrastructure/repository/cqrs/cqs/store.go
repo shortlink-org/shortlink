@@ -19,7 +19,7 @@ import (
 )
 
 // New return implementation of db
-func New(ctx context.Context, log logger.Logger, store *db.Store, cacheStore *cache.Cache) (*Store, error) {
+func New(ctx context.Context, log logger.Logger, store db.DB, cacheStore *cache.Cache) (*Store, error) {
 	s := &Store{
 		log:   log,
 		cache: cacheStore,

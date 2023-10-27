@@ -29,7 +29,7 @@ import (
 )
 
 // New return implementation of db
-func New(ctx context.Context, log logger.Logger, store *db.Store, c *cache.Cache) (*Store, error) { //nolint:gocognit // ignore
+func New(ctx context.Context, log logger.Logger, store db.DB, c *cache.Cache) (*Store, error) { //nolint:gocognit // ignore
 	s := &Store{
 		log:   log,
 		cache: c,

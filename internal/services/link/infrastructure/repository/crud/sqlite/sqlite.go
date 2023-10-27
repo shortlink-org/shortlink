@@ -19,9 +19,9 @@ type Store struct {
 }
 
 // New store
-func New(_ context.Context, store *db.Store) (*Store, error) {
+func New(_ context.Context, store db.DB) (*Store, error) {
 	s := &Store{
-		client: store.Store.GetConn().(*sql.DB),
+		client: store.GetConn().(*sql.DB),
 	}
 
 	// Migration

@@ -117,7 +117,7 @@ func InitLinkMQ(ctx context.Context, log logger.Logger, mq *mq.DataBus, service 
 	return linkMQ, nil
 }
 
-func NewLinkStore(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*crud.Store, error) {
+func NewLinkStore(ctx context.Context, log logger.Logger, db db.DB, cache *cache.Cache) (*crud.Store, error) {
 	linkStore, err := crud.New(ctx, log, db, cache)
 	if err != nil {
 		return nil, err
@@ -126,7 +126,7 @@ func NewLinkStore(ctx context.Context, log logger.Logger, db *db.Store, cache *c
 	return linkStore, nil
 }
 
-func NewCQSLinkStore(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*cqs.Store, error) {
+func NewCQSLinkStore(ctx context.Context, log logger.Logger, db db.DB, cache *cache.Cache) (*cqs.Store, error) {
 	store, err := cqs.New(ctx, log, db, cache)
 	if err != nil {
 		return nil, err
@@ -135,7 +135,7 @@ func NewCQSLinkStore(ctx context.Context, log logger.Logger, db *db.Store, cache
 	return store, nil
 }
 
-func NewQueryLinkStore(ctx context.Context, log logger.Logger, db *db.Store, cache *cache.Cache) (*query.Store, error) {
+func NewQueryLinkStore(ctx context.Context, log logger.Logger, db db.DB, cache *cache.Cache) (*query.Store, error) {
 	store, err := query.New(ctx, log, db, cache)
 	if err != nil {
 		return nil, err

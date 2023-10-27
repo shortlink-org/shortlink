@@ -27,8 +27,8 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/metadata/application/parsers"
 	v1_2 "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/mq"
-	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/repository"
+	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -79,7 +79,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	dbStore, cleanup6, err := store.New(context, logger, tracerProvider, monitoringMonitoring)
+	db, cleanup6, err := store.New(context, logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -88,7 +88,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	metaStore, err := NewMetaDataStore(context, logger, dbStore)
+	metaStore, err := NewMetaDataStore(context, logger, db)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -118,7 +118,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitMetadataMQ(context, logger, dataBus)
+	event, err := InitMetadataMQ(context, dataBus)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -211,7 +211,7 @@ var MetaDataSet = wire.NewSet(di.DefaultSet, mq_di.New, store.New, rpc.InitServe
 	NewMetaDataService,
 )
 
-func InitMetadataMQ(ctx2 context.Context, log logger.Logger, dataBus *mq.DataBus) (*metadata_mq.Event, error) {
+func InitMetadataMQ(ctx2 context.Context, dataBus *mq.DataBus) (*metadata_mq.Event, error) {
 	metadataMQ, err := metadata_mq.New(dataBus)
 	if err != nil {
 		return nil, err
@@ -221,7 +221,7 @@ func InitMetadataMQ(ctx2 context.Context, log logger.Logger, dataBus *mq.DataBus
 	return metadataMQ, nil
 }
 
-func NewMetaDataStore(ctx2 context.Context, log logger.Logger, db2 *db.Store) (*meta_store.MetaStore, error) {
+func NewMetaDataStore(ctx2 context.Context, log logger.Logger, db2 db.DB) (*meta_store.MetaStore, error) {
 	store2 := &meta_store.MetaStore{}
 	metadataStore, err := store2.Use(ctx2, log, db2)
 	if err != nil {

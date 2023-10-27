@@ -82,7 +82,7 @@ var BillingSet = wire.NewSet(
 	NewBillingService,
 )
 
-func NewBillingStore(ctx context.Context, log logger.Logger, db *db.Store) (*billing_store.BillingStore, error) {
+func NewBillingStore(ctx context.Context, log logger.Logger, db db.DB) (*billing_store.BillingStore, error) {
 	store := &billing_store.BillingStore{}
 	billingStore, err := store.Use(ctx, log, db)
 	if err != nil {
@@ -133,8 +133,6 @@ func NewBillingAPIServer(
 	ctx context.Context,
 	log logger.Logger,
 	tracer trace.TracerProvider,
-	rpcServer *rpc.Server,
-	db *db.Store,
 
 	// Applications
 	accountService *account_application.AccountService,
@@ -148,7 +146,6 @@ func NewBillingAPIServer(
 	apiService, err := API.Use(
 		// Common
 		ctx,
-		db,
 		log,
 		tracer,
 

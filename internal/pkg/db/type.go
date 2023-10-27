@@ -16,7 +16,7 @@ type DB interface {
 
 // Store abstract type
 type Store struct {
-	Store DB
+	DB
 
 	typeStore string
 }

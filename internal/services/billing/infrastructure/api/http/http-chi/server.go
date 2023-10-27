@@ -13,7 +13,6 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/http/handler"
 	additionalMiddleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware"
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
@@ -32,7 +31,6 @@ import (
 // Run HTTP-server
 func (api *API) Run(
 	ctx context.Context,
-	store *db.Store,
 	config http_server.Config,
 	log logger.Logger,
 	tracer trace.TracerProvider,

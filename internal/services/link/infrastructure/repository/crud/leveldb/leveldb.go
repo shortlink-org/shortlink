@@ -18,9 +18,9 @@ type Store struct {
 }
 
 // New store
-func New(ctx context.Context, store *db.Store) (*Store, error) {
+func New(ctx context.Context, store db.DB) (*Store, error) {
 	s := &Store{
-		client: store.Store.GetConn().(*leveldb.DB),
+		client: store.GetConn().(*leveldb.DB),
 	}
 
 	return s, nil

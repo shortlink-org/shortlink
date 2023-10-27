@@ -38,10 +38,10 @@ type Store struct {
 }
 
 // New store
-func New(ctx context.Context, store *db.Store, log logger.Logger) (*Store, error) {
+func New(ctx context.Context, store db.DB, log logger.Logger) (*Store, error) {
 	s := &Store{
 		log:    log,
-		client: store.Store.GetConn().(*dgo.Dgraph),
+		client: store.GetConn().(*dgo.Dgraph),
 	}
 
 	return s, nil

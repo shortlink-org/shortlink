@@ -15,7 +15,7 @@ import (
 )
 
 // Use return implementation of db
-func (s *Repository) Use(ctx context.Context, log logger.Logger, eventStore *db.Store) (*Repository, error) {
+func (s *Repository) Use(ctx context.Context, log logger.Logger, eventStore db.DB) (*Repository, error) {
 	// Set configuration
 	s.setConfig()
 

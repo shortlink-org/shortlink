@@ -26,12 +26,12 @@ import (
 var migrations embed.FS
 
 // New store
-func New(ctx context.Context, store *db.Store) (*Store, error) {
+func New(ctx context.Context, store db.DB) (*Store, error) {
 	s := &Store{}
 
 	// Set configuration
 	s.setConfig()
-	s.client = store.Store.GetConn().(*mongo.Client) //nolint:errcheck // ignore
+	s.client = store.GetConn().(*mongo.Client) //nolint:errcheck // ignore
 
 	// Apply migration
 	err := s.migrate()

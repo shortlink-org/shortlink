@@ -16,10 +16,10 @@ type Account struct {
 	client *pgxpool.Pool
 }
 
-func (a *Account) Init(ctx context.Context, store *db.Store) error {
+func (a *Account) Init(_ context.Context, store db.DB) error {
 	var ok bool
 
-	a.client, ok = store.Store.GetConn().(*pgxpool.Pool)
+	a.client, ok = store.GetConn().(*pgxpool.Pool)
 	if !ok {
 		return errors.New("can't get db connection")
 	}

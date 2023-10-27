@@ -21,10 +21,10 @@ func TestLink(t *testing.T) {
 	log, err := logger.NewLogger(logger.Zap, conf)
 	require.NoError(t, err, "Error init a logger")
 
-	var st Store
-	s, err := st.Use(ctx, log)
+	// Init db
+	s, err := New(ctx, log, nil, nil)
 	require.NoError(t, err, "Error init a db")
 
 	// Init db
-	require.NoError(t, s.Store.Init(ctx), "Error  create a new link list")
+	require.NoError(t, s.Init(ctx), "Error  create a new DB connection")
 }

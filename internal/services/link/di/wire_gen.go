@@ -31,13 +31,13 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link_cqrs"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/sitemap"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/mq"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/cqrs/cqs"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/cqrs/query"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud"
 	v1_2 "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/run"
 	v1_3 "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/cqrs/cqs"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/cqrs/query"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud"
 	v1_4 "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
@@ -129,7 +129,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	dbStore, cleanup8, err := store.New(context, logger, tracerProvider, monitoringMonitoring)
+	db, cleanup8, err := store.New(context, logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -152,7 +152,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	crudStore, err := NewLinkStore(context, logger, dbStore, cacheCache)
+	crudStore, err := NewLinkStore(context, logger, db, cacheCache)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -176,7 +176,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	cqsStore, err := NewCQSLinkStore(context, logger, dbStore, cacheCache)
+	cqsStore, err := NewCQSLinkStore(context, logger, db, cacheCache)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -188,7 +188,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	queryStore, err := NewQueryLinkStore(context, logger, dbStore, cacheCache)
+	queryStore, err := NewQueryLinkStore(context, logger, db, cacheCache)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -393,7 +393,7 @@ func InitLinkMQ(ctx2 context.Context, log logger.Logger, mq2 *mq.DataBus, servic
 	return linkMQ, nil
 }
 
-func NewLinkStore(ctx2 context.Context, log logger.Logger, db2 *db.Store, cache3 *cache2.Cache) (*crud.Store, error) {
+func NewLinkStore(ctx2 context.Context, log logger.Logger, db2 db.DB, cache3 *cache2.Cache) (*crud.Store, error) {
 	linkStore, err := crud.New(ctx2, log, db2, cache3)
 	if err != nil {
 		return nil, err
@@ -402,7 +402,7 @@ func NewLinkStore(ctx2 context.Context, log logger.Logger, db2 *db.Store, cache3
 	return linkStore, nil
 }
 
-func NewCQSLinkStore(ctx2 context.Context, log logger.Logger, db2 *db.Store, cache3 *cache2.Cache) (*cqs.Store, error) {
+func NewCQSLinkStore(ctx2 context.Context, log logger.Logger, db2 db.DB, cache3 *cache2.Cache) (*cqs.Store, error) {
 	store2, err := cqs.New(ctx2, log, db2, cache3)
 	if err != nil {
 		return nil, err
@@ -411,7 +411,7 @@ func NewCQSLinkStore(ctx2 context.Context, log logger.Logger, db2 *db.Store, cac
 	return store2, nil
 }
 
-func NewQueryLinkStore(ctx2 context.Context, log logger.Logger, db2 *db.Store, cache3 *cache2.Cache) (*query.Store, error) {
+func NewQueryLinkStore(ctx2 context.Context, log logger.Logger, db2 db.DB, cache3 *cache2.Cache) (*query.Store, error) {
 	store2, err := query.New(ctx2, log, db2, cache3)
 	if err != nil {
 		return nil, err

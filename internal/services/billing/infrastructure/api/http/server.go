@@ -7,7 +7,6 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	account_application "github.com/shortlink-org/shortlink/internal/services/billing/application/account"
@@ -21,7 +20,6 @@ import (
 type API interface {
 	Run(
 		ctx context.Context,
-		store *db.Store,
 		config http_server.Config,
 		log logger.Logger,
 		tracer trace.TracerProvider,
@@ -38,7 +36,6 @@ type Server struct{}
 
 func (s *Server) Use(
 	ctx context.Context,
-	store *db.Store,
 	log logger.Logger,
 	tracer trace.TracerProvider,
 
@@ -65,7 +62,6 @@ func (s *Server) Use(
 	g.Go(func() error {
 		return server.Run(
 			ctx,
-			store,
 			config,
 			log,
 			tracer,

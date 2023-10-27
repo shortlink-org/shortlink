@@ -18,9 +18,9 @@ type Store struct {
 }
 
 // New store
-func New(_ context.Context, store *db.Store) (*Store, error) {
+func New(_ context.Context, store db.DB) (*Store, error) {
 	s := &Store{
-		client: store.Store.GetConn().(rueidis.Client),
+		client: store.GetConn().(rueidis.Client),
 	}
 
 	return s, nil

@@ -20,7 +20,7 @@ import (
 )
 
 // Use return implementation of db
-func (s *BillingStore) Use(ctx context.Context, log logger.Logger, store *db.Store) (*BillingStore, error) {
+func (s *BillingStore) Use(ctx context.Context, log logger.Logger, store db.DB) (*BillingStore, error) {
 	// Set configuration
 	s.setConfig()
 

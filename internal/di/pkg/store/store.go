@@ -11,14 +11,14 @@ import (
 )
 
 // New - return implementation of db
-func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*db.Store, func(), error) {
+func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (db.DB, func(), error) {
 	store, err := db.New(ctx, log, tracer, monitor.Metrics)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	cleanup := func() {
-		if err := store.Store.Close(); err != nil {
+		if err := store.Close(); err != nil {
 			log.Error(err.Error())
 		}
 	}
