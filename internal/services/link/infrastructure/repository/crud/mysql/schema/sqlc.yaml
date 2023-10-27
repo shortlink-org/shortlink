@@ -8,3 +8,6 @@ sql:
         package: crud
         out: crud
         sql_package: database/sql
+        overrides:
+          - column: "*.id"
+            go_type: "github.com/google/uuid.UUID"

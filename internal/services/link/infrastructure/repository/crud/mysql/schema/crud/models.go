@@ -8,11 +8,13 @@ import (
 	"database/sql"
 	"encoding/json"
 	"time"
+
+	"github.com/google/uuid"
 )
 
 // Link list
 type Link struct {
-	ID        string
+	ID        uuid.UUID
 	Url       string
 	Hash      string
 	Describe  sql.NullString

@@ -76,14 +76,18 @@ func TestMysql(t *testing.T) {
 
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
-		require.NoError(t, err)
+		if err != nil {
+			t.Fatalf("Could not add link: %s", err)
+		}
 		assert.Equal(t, mock.AddLink.Hash, link.Hash)
 		assert.Equal(t, mock.AddLink.Describe, link.Describe)
 	})
 
 	t.Run("Get", func(t *testing.T) {
 		link, err := store.Get(ctx, mock.GetLink.Hash)
-		require.NoError(t, err)
+		if err != nil {
+			t.Fatalf("Could not get link: %s", err)
+		}
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 		assert.Equal(t, link.Describe, mock.GetLink.Describe)
 	})

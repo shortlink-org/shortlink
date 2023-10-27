@@ -16,4 +16,4 @@ WHERE id = ?;
 
 -- name: DeleteLink :exec
 DELETE FROM links
-  WHERE id = ?;
+  WHERE hash = ?;

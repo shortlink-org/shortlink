@@ -1,4 +1,5 @@
-//go:generate protoc -I../../../../../link/domain/link/v1 --gotemplate_out=all=true,template_dir=template:. link.proto
+//go:generate go run github.com/sqlc-dev/sqlc/cmd/sqlc generate -f ./schema/sqlc.yaml
+
 package postgres
 
 import (
@@ -11,6 +12,7 @@ import (
 	"github.com/Masterminds/squirrel"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/jackc/pgx/v5/pgxpool"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 	"github.com/spf13/viper"
@@ -22,6 +24,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/postgres/migrate"
 	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/postgres/schema/crud"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
@@ -43,6 +46,8 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 	if !ok {
 		return nil, errors.New("error get connection to PostgreSQL")
 	}
+
+	s.newClient = crud.New(s.client)
 
 	// Migration -------------------------------------------------------------------------------------------------------
 	err := migrate.Migration(ctx, store, migrations, "repository_link")
@@ -87,37 +92,19 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 }
 
 // Get - a get link
-func (s *Store) Get(ctx context.Context, id string) (*domain.Link, error) {
-	// query builder
-	links := psql.Select("url, hash, describe").
-		From("link.links").
-		Where(squirrel.Eq{"hash": id})
-	q, args, err := links.ToSql()
+func (s *Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
+	link, err := s.newClient.GetLinkByHash(ctx, hash)
 	if err != nil {
-		return nil, err
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: hash}, Err: fmt.Errorf("failed get link: %s", hash)}
 	}
 
-	rows, err := s.client.Query(ctx, q, args...)
-	if err != nil {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
-	}
-	if rows.Err() != nil {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
-	}
-
-	var response domain.Link
-	for rows.Next() {
-		err = rows.Scan(&response.Url, &response.Hash, &response.Describe)
-		if err != nil {
-			return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
-		}
-	}
-
-	if response.GetHash() == "" {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
-	}
-
-	return &response, nil
+	return &domain.Link{
+		Url:       link.Url,
+		Hash:      link.Hash,
+		Describe:  link.Describe.String,
+		CreatedAt: timestamppb.New(link.CreatedAt.Time),
+		UpdatedAt: timestamppb.New(link.UpdatedAt.Time),
+	}, nil
 }
 
 // List - list links
@@ -200,23 +187,28 @@ func (s *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, err
 }
 
 // Update - update link
-func (s *Store) Update(_ context.Context, _ *domain.Link) (*domain.Link, error) {
-	return nil, nil
+func (s *Store) Update(ctx context.Context, in *domain.Link) (*domain.Link, error) {
+	_, err := s.newClient.UpdateLink(ctx, crud.UpdateLinkParams{
+		Url:  in.Url,
+		Hash: in.Hash,
+		Describe: pgtype.Text{
+			String: in.Describe,
+			Valid:  true,
+		},
+		Json: *in,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	return in, nil
 }
 
 // Delete - delete link
-func (s *Store) Delete(ctx context.Context, id string) error {
-	// query builder
-	request := psql.Delete("link.links").
-		Where(squirrel.Eq{"hash": id})
-	q, args, err := request.ToSql()
+func (s *Store) Delete(ctx context.Context, hash string) error {
+	err := s.newClient.DeleteLink(ctx, hash)
 	if err != nil {
 		return err
-	}
-
-	_, err = s.client.Exec(ctx, q, args...)
-	if err != nil {
-		return &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("failed delete link: %s", id)}
 	}
 
 	return nil

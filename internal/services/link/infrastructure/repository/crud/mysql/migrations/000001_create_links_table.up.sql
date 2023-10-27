@@ -1,6 +1,6 @@
 CREATE TABLE links
 (
-  id         CHAR(36) NOT NULL,
+  id         BINARY(36) NOT NULL,
   url        TEXT NOT NULL,
   hash       CHAR(40) NOT NULL,  -- Adjusting for a potential SHA-1 hash
   `describe` TEXT,

@@ -1,0 +1,18 @@
+version: 2
+sql:
+  - engine: postgresql
+    queries: query.sql
+    schema: ../migrations
+    gen:
+      go:
+        package: crud
+        out: crud
+        sql_package: pgx/v5
+        overrides:
+          - column: "*.*.hash"
+            go_type: "string"
+          - column: "*.links.json"
+            go_type:
+              import: "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+              package: "v1"
+              type: "Link"

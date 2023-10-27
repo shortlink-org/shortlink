@@ -1,4 +1,4 @@
-//go:generate go run entgo.io/ent/cmd/ent generate --feature sql/upsert ./ent/schema
+//go:generate go run github.com/sqlc-dev/sqlc/cmd/sqlc generate -f ./schema/sqlc.yaml
 
 package mysql
 
@@ -89,16 +89,13 @@ func (s Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, e
 }
 
 func (s Store) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
-	// create uuid
-	id := uuid.New()
-
 	payload, err := json.Marshal(in)
 	if err != nil {
 		return nil, err
 	}
 
 	_, err = s.client.CreateLink(ctx, crud.CreateLinkParams{
-		ID:       id.String(),
+		ID:       uuid.New(),
 		Url:      in.Url,
 		Hash:     in.Hash,
 		Describe: sql.NullString{String: in.Describe, Valid: true},
@@ -130,8 +127,8 @@ func (s Store) Update(ctx context.Context, in *domain.Link) (*domain.Link, error
 	return in, nil
 }
 
-func (s Store) Delete(ctx context.Context, id string) error {
-	err := s.client.DeleteLink(ctx, id)
+func (s Store) Delete(ctx context.Context, hash string) error {
+	err := s.client.DeleteLink(ctx, hash)
 	if err != nil {
 		return err
 	}

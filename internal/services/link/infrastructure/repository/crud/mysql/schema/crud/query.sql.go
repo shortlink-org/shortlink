@@ -9,6 +9,8 @@ import (
 	"context"
 	"database/sql"
 	"encoding/json"
+
+	"github.com/google/uuid"
 )
 
 const createLink = `-- name: CreateLink :execresult
@@ -17,7 +19,7 @@ INSERT INTO links (id, url, hash, ` + "`" + `describe` + "`" + `, json)
 `
 
 type CreateLinkParams struct {
-	ID       string
+	ID       uuid.UUID
 	Url      string
 	Hash     string
 	Describe sql.NullString
@@ -36,11 +38,11 @@ func (q *Queries) CreateLink(ctx context.Context, arg CreateLinkParams) (sql.Res
 
 const deleteLink = `-- name: DeleteLink :exec
 DELETE FROM links
-  WHERE id = ?
+  WHERE hash = ?
 `
 
-func (q *Queries) DeleteLink(ctx context.Context, id string) error {
-	_, err := q.db.ExecContext(ctx, deleteLink, id)
+func (q *Queries) DeleteLink(ctx context.Context, hash string) error {
+	_, err := q.db.ExecContext(ctx, deleteLink, hash)
 	return err
 }
 
@@ -110,7 +112,7 @@ type UpdateLinkParams struct {
 	Hash     string
 	Describe sql.NullString
 	Json     json.RawMessage
-	ID       string
+	ID       uuid.UUID
 }
 
 func (q *Queries) UpdateLink(ctx context.Context, arg UpdateLinkParams) (sql.Result, error) {
