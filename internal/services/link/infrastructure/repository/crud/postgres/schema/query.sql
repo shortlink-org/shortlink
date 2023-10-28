@@ -1,13 +1,18 @@
--- name: CreateLink :execresult
-INSERT INTO link.links (id, url, hash, describe, json)
-VALUES ($1, $2, $3, $4, $5);
+-- name: CreateLink :exec
+INSERT INTO link.links (url, hash, describe, json)
+VALUES ($1, $2, $3, $4);
+
+-- name: CreateLinks :copyfrom
+INSERT INTO link.links (url, hash, describe, json)
+VALUES ($1, $2, $3, $4);
 
 -- name: GetLinkByHash :one
 SELECT * FROM link.links
 WHERE hash = $1;
 
 -- name: GetLinks :many
-SELECT * FROM link.links;
+SELECT * FROM link.links
+LIMIT $1 OFFSET $2;
 
 -- name: UpdateLink :execresult
 UPDATE link.links

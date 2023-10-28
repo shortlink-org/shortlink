@@ -1,18 +1,16 @@
+//go:generate protoc -I../../../../../link/domain/link/v1 --gotemplate_out=all=true,template_dir=template:. link.proto
 //go:generate go run github.com/sqlc-dev/sqlc/cmd/sqlc generate -f ./schema/sqlc.yaml
 
 package postgres
 
 import (
 	"context"
-	"database/sql"
 	"embed"
 	"errors"
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
-	"github.com/jackc/pgx/v5"
-	"github.com/jackc/pgx/v5/pgtype"
 	"github.com/jackc/pgx/v5/pgxpool"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 	"github.com/spf13/viper"
@@ -47,7 +45,7 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 		return nil, errors.New("error get connection to PostgreSQL")
 	}
 
-	s.newClient = crud.New(s.client)
+	s.query = crud.New(s.client)
 
 	// Migration -------------------------------------------------------------------------------------------------------
 	err := migrate.Migration(ctx, store, migrations, "repository_link")
@@ -93,7 +91,7 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 
 // Get - a get link
 func (s *Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
-	link, err := s.newClient.GetLinkByHash(ctx, hash)
+	link, err := s.query.GetLinkByHash(ctx, hash)
 	if err != nil {
 		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: hash}, Err: fmt.Errorf("failed get link: %s", hash)}
 	}
@@ -101,62 +99,46 @@ func (s *Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
 	return &domain.Link{
 		Url:       link.Url,
 		Hash:      link.Hash,
-		Describe:  link.Describe.String,
+		Describe:  link.Describe,
 		CreatedAt: timestamppb.New(link.CreatedAt.Time),
 		UpdatedAt: timestamppb.New(link.UpdatedAt.Time),
 	}, nil
 }
 
-// List - list links
+// List - return list links
 func (s *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, error) {
-	// query builder
-	links := psql.Select("url, hash, describe, created_at, updated_at").
-		From("link.links")
-
-	if filter != nil {
-		links = links.
-			Limit(uint64(filter.Pagination.Limit)).
-			Offset(uint64(filter.Pagination.Page * filter.Pagination.Limit))
+	// Set default filter
+	if filter == nil {
+		filter = &query.Filter{
+			Pagination: &query.Pagination{
+				Limit: 10,
+				Page:  0,
+			},
+		}
 	}
 
-	links = s.buildFilter(links, filter)
-	q, args, err := links.ToSql()
+	resp, err := s.query.GetLinks(ctx, crud.GetLinksParams{
+		Limit:  int32(filter.Pagination.Limit),
+		Offset: int32(filter.Pagination.Page * filter.Pagination.Limit),
+	})
 	if err != nil {
 		return nil, err
 	}
 
-	rows, err := s.client.Query(ctx, q, args...)
-	if err != nil {
-		if errors.Is(err, pgx.ErrNoRows) {
-			return &domain.Links{
-				Link: []*domain.Link{},
-			}, nil
-		}
-
-		return nil, &domain.NotFoundError{Link: &domain.Link{}, Err: query.ErrNotFound}
+	links := make([]*domain.Link, 0, len(resp))
+	for key := range resp {
+		links = append(links, &domain.Link{
+			Url:       resp[key].Url,
+			Hash:      resp[key].Hash,
+			Describe:  resp[key].Describe,
+			CreatedAt: timestamppb.New(resp[key].CreatedAt.Time),
+			UpdatedAt: timestamppb.New(resp[key].UpdatedAt.Time),
+		})
 	}
 
-	response := &domain.Links{
-		Link: []*domain.Link{},
-	}
-
-	for rows.Next() {
-		var result domain.Link
-		var (
-			created_ad sql.NullTime
-			updated_at sql.NullTime
-		)
-		err = rows.Scan(&result.Url, &result.Hash, &result.Describe, &created_ad, &updated_at)
-		if err != nil {
-			return nil, &domain.NotFoundError{Link: &domain.Link{}, Err: query.ErrNotFound}
-		}
-		result.CreatedAt = &timestamppb.Timestamp{Seconds: created_ad.Time.Unix(), Nanos: int32(created_ad.Time.Nanosecond())}
-		result.UpdatedAt = &timestamppb.Timestamp{Seconds: updated_at.Time.Unix(), Nanos: int32(updated_at.Time.Nanosecond())}
-
-		response.Link = append(response.GetLink(), &result)
-	}
-
-	return response, nil
+	return &domain.Links{
+		Link: links,
+	}, nil
 }
 
 // Add - an add link
@@ -188,14 +170,11 @@ func (s *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, err
 
 // Update - update link
 func (s *Store) Update(ctx context.Context, in *domain.Link) (*domain.Link, error) {
-	_, err := s.newClient.UpdateLink(ctx, crud.UpdateLinkParams{
-		Url:  in.Url,
-		Hash: in.Hash,
-		Describe: pgtype.Text{
-			String: in.Describe,
-			Valid:  true,
-		},
-		Json: *in,
+	_, err := s.query.UpdateLink(ctx, crud.UpdateLinkParams{
+		Url:      in.Url,
+		Hash:     in.Hash,
+		Describe: in.Describe,
+		Json:     *in,
 	})
 	if err != nil {
 		return nil, err
@@ -206,7 +185,7 @@ func (s *Store) Update(ctx context.Context, in *domain.Link) (*domain.Link, erro
 
 // Delete - delete link
 func (s *Store) Delete(ctx context.Context, hash string) error {
-	err := s.newClient.DeleteLink(ctx, hash)
+	err := s.query.DeleteLink(ctx, hash)
 	if err != nil {
 		return err
 	}
@@ -244,51 +223,37 @@ func (s *Store) singleWrite(ctx context.Context, in *domain.Link) (*domain.Link,
 	return in, nil
 }
 
-func (s *Store) batchWrite(ctx context.Context, sources []*domain.Link) (*domain.Links, error) {
+func (s *Store) batchWrite(ctx context.Context, in []*domain.Link) (*domain.Links, error) {
+	links := make([]crud.CreateLinksParams, 0, len(in))
+
 	// Create a new link
-	for key := range sources {
-		err := domain.NewURL(sources[key])
-		if err != nil {
-			return nil, err
-		}
-	}
-
-	links := psql.Insert("link.links").Columns("url", "hash", "describe", "json")
-
-	// query builder
-	for _, source := range sources {
-		// save as JSON. it doesn't make sense
-		dataJson, err := protojson.Marshal(source)
+	for key := range in {
+		err := domain.NewURL(in[key])
 		if err != nil {
 			return nil, err
 		}
 
-		links = links.Values(source.GetUrl(), source.GetHash(), source.GetDescribe(), dataJson)
+		links = append(links, crud.CreateLinksParams{
+			Url:      in[key].Url,
+			Hash:     in[key].Hash,
+			Describe: in[key].Describe,
+			Json:     *in[key],
+		})
 	}
 
-	q, args, err := links.ToSql()
+	_, err := s.query.CreateLinks(ctx, links)
 	if err != nil {
-		return nil, err
+		errs := make([]error, 0, len(in))
+		for key := range in {
+			errs = append(errs, &domain.ErrCreateLink{Link: &domain.Link{Hash: in[key].Hash}})
+		}
+
+		return nil, errors.Join(errs...)
 	}
 
-	row := s.client.QueryRow(ctx, q, args...)
-	errScan := row.Scan(&sources)
-	if errors.Is(errScan, pgx.ErrNoRows) {
-		return &domain.Links{
-			Link: []*domain.Link{},
-		}, nil
-	}
-	if errScan != nil {
-		return nil, fmt.Errorf("error save link")
-	}
-
-	response := &domain.Links{
-		Link: []*domain.Link{},
-	}
-
-	response.Link = append(response.GetLink(), sources...)
-
-	return response, nil
+	return &domain.Links{
+		Link: in,
+	}, nil
 }
 
 // setConfig - set configuration

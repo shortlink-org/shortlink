@@ -16,8 +16,8 @@ type Config struct {
 
 // Store implementation of db interface
 type Store struct {
-	client    *pgxpool.Pool
-	newClient *crud.Queries
+	client *pgxpool.Pool
+	query  *crud.Queries
 
 	config Config
 }

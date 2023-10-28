@@ -9,7 +9,6 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -96,8 +95,10 @@ func TestPostgres(t *testing.T) {
 		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 		require.NoError(t, err, "Cannot set ENV")
 
-		storeBatchMode := Store{
-			client: st.GetConn().(*pgxpool.Pool),
+		// new store
+		storeBatchMode, err := New(ctx, st)
+		if err != nil {
+			t.Fatalf("Could not create store: %s", err)
 		}
 
 		source, err := getLink()
@@ -139,7 +140,7 @@ func TestPostgres(t *testing.T) {
 	t.Run("Get list", func(t *testing.T) {
 		links, err := store.List(ctx, nil)
 		require.NoError(t, err)
-		assert.Equal(t, len(links.Link), 8)
+		assert.Equal(t, 8, len(links.Link))
 	})
 
 	t.Run("Delete", func(t *testing.T) {

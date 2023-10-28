@@ -13,27 +13,33 @@ import (
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
-const createLink = `-- name: CreateLink :execresult
-INSERT INTO link.links (id, url, hash, describe, json)
-VALUES ($1, $2, $3, $4, $5)
+const createLink = `-- name: CreateLink :exec
+INSERT INTO link.links (url, hash, describe, json)
+VALUES ($1, $2, $3, $4)
 `
 
 type CreateLinkParams struct {
-	ID       pgtype.UUID
 	Url      string
 	Hash     string
-	Describe pgtype.Text
+	Describe string
 	Json     v1.Link
 }
 
-func (q *Queries) CreateLink(ctx context.Context, arg CreateLinkParams) (pgconn.CommandTag, error) {
-	return q.db.Exec(ctx, createLink,
-		arg.ID,
+func (q *Queries) CreateLink(ctx context.Context, arg CreateLinkParams) error {
+	_, err := q.db.Exec(ctx, createLink,
 		arg.Url,
 		arg.Hash,
 		arg.Describe,
 		arg.Json,
 	)
+	return err
+}
+
+type CreateLinksParams struct {
+	Url      string
+	Hash     string
+	Describe string
+	Json     v1.Link
 }
 
 const deleteLink = `-- name: DeleteLink :exec
@@ -68,10 +74,16 @@ func (q *Queries) GetLinkByHash(ctx context.Context, hash string) (LinkLink, err
 
 const getLinks = `-- name: GetLinks :many
 SELECT id, url, hash, describe, json, created_at, updated_at FROM link.links
+LIMIT $1 OFFSET $2
 `
 
-func (q *Queries) GetLinks(ctx context.Context) ([]LinkLink, error) {
-	rows, err := q.db.Query(ctx, getLinks)
+type GetLinksParams struct {
+	Limit  int32
+	Offset int32
+}
+
+func (q *Queries) GetLinks(ctx context.Context, arg GetLinksParams) ([]LinkLink, error) {
+	rows, err := q.db.Query(ctx, getLinks, arg.Limit, arg.Offset)
 	if err != nil {
 		return nil, err
 	}
@@ -107,7 +119,7 @@ WHERE id = $5
 type UpdateLinkParams struct {
 	Url      string
 	Hash     string
-	Describe pgtype.Text
+	Describe string
 	Json     v1.Link
 	ID       pgtype.UUID
 }

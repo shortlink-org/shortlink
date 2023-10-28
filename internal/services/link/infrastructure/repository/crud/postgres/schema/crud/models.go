@@ -13,7 +13,7 @@ type LinkLink struct {
 	ID        pgtype.UUID
 	Url       string
 	Hash      string
-	Describe  pgtype.Text
+	Describe  string
 	Json      v1.Link
 	CreatedAt pgtype.Timestamp
 	UpdatedAt pgtype.Timestamp
@@ -24,7 +24,7 @@ type LinkLinkView struct {
 	ID              pgtype.UUID
 	Url             string
 	Hash            string
-	Describe        pgtype.Text
+	Describe        string
 	CreatedAt       pgtype.Timestamp
 	UpdatedAt       pgtype.Timestamp
 	ImageUrl        pgtype.Text

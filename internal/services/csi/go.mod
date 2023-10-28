@@ -6,7 +6,7 @@ require (
 	github.com/container-storage-interface/spec v1.9.0
 	github.com/golang/glog v1.1.2
 	github.com/google/uuid v1.4.0
-	github.com/google/wire v0.5.0
+	github.com/google/wire v0.5.1-0.20220620021424-0675cdc9191c
 	github.com/kubernetes-csi/csi-test/v5 v5.1.0
 	github.com/spf13/cobra v1.7.0
 	github.com/spf13/viper v1.17.0

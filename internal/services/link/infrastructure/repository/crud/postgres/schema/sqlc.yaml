@@ -8,8 +8,11 @@ sql:
         package: crud
         out: crud
         sql_package: pgx/v5
+        emit_interface: true
         overrides:
           - column: "*.*.hash"
+            go_type: "string"
+          - column: "*.*.describe"
             go_type: "string"
           - column: "*.links.json"
             go_type:

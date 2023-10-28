@@ -22,3 +22,12 @@ type NotUniqError struct {
 func (e *NotUniqError) Error() string {
 	return fmt.Sprintf("Not uniq link: %s", e.Link.GetUrl())
 }
+
+type ErrCreateLink struct {
+	Err  error
+	Link *Link
+}
+
+func (e *ErrCreateLink) Error() string {
+	return fmt.Sprintf("Failed create link: %s", e.Link.GetUrl())
+}
