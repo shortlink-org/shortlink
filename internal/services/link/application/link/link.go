@@ -35,12 +35,12 @@ type Service struct {
 	MetadataClient metadata_rpc.MetadataServiceClient
 
 	// Repository
-	store *crud.Store
+	store crud.Repository
 
 	log logger.Logger
 }
 
-func New(log logger.Logger, dataBus mq.MQ, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store, permissionClient *authzed.Client) (*Service, error) {
+func New(log logger.Logger, dataBus mq.MQ, metadataService metadata_rpc.MetadataServiceClient, store crud.Repository, permissionClient *authzed.Client) (*Service, error) {
 	service := &Service{
 		log: log,
 

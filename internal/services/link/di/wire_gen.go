@@ -152,7 +152,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	crudStore, err := NewLinkStore(context, logger, db, cacheCache)
+	repository, err := NewLinkStore(context, logger, db, cacheCache)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -164,7 +164,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewLinkApplication(logger, mq, metadataServiceClient, crudStore, client)
+	service, err := NewLinkApplication(logger, mq, metadataServiceClient, repository, client)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -300,7 +300,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, client, service, link_cqrsService, sitemapService, event, response, v1Link, link, sitemap, crudStore, cqsStore, queryStore)
+	linkService, err := NewLinkService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, client, service, link_cqrsService, sitemapService, event, response, v1Link, link, sitemap, repository, cqsStore, queryStore)
 	if err != nil {
 		cleanup9()
 		cleanup8()
@@ -355,7 +355,7 @@ type LinkService struct {
 	sitemapService  *sitemap.Service
 
 	// Repository
-	linkStore *crud.Store
+	linkStore crud.Repository
 
 	// CQRS
 	cqsStore   *cqs.Store
@@ -393,7 +393,7 @@ func InitLinkMQ(ctx2 context.Context, log logger.Logger, mq2 mq.MQ, service *lin
 	return linkMQ, nil
 }
 
-func NewLinkStore(ctx2 context.Context, log logger.Logger, db2 db.DB, cache3 *cache2.Cache) (*crud.Store, error) {
+func NewLinkStore(ctx2 context.Context, log logger.Logger, db2 db.DB, cache3 *cache2.Cache) (crud.Repository, error) {
 	linkStore, err := crud.New(ctx2, log, db2, cache3)
 	if err != nil {
 		return nil, err
@@ -420,7 +420,7 @@ func NewQueryLinkStore(ctx2 context.Context, log logger.Logger, db2 db.DB, cache
 	return store2, nil
 }
 
-func NewLinkApplication(log logger.Logger, mq2 mq.MQ, metadataService v1_4.MetadataServiceClient, store2 *crud.Store, authPermission *authzed.Client) (*link.Service, error) {
+func NewLinkApplication(log logger.Logger, mq2 mq.MQ, metadataService v1_4.MetadataServiceClient, store2 crud.Repository, authPermission *authzed.Client) (*link.Service, error) {
 	linkService, err := link.New(log, mq2, metadataService, store2, authPermission)
 	if err != nil {
 		return nil, err
@@ -506,7 +506,7 @@ func NewLinkService(
 	linkCQRSRPCServer *v1_2.Link,
 	sitemapRPCServer *v1_3.Sitemap,
 
-	linkStore *crud.Store,
+	linkStore crud.Repository,
 
 	cqsStore *cqs.Store,
 	queryStore *query.Store,

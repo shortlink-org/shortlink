@@ -69,7 +69,7 @@ type LinkService struct {
 	sitemapService  *sitemap.Service
 
 	// Repository
-	linkStore *crud.Store
+	linkStore crud.Repository
 
 	// CQRS
 	cqsStore   *cqs.Store
@@ -117,7 +117,7 @@ func InitLinkMQ(ctx context.Context, log logger.Logger, mq mq.MQ, service *link.
 	return linkMQ, nil
 }
 
-func NewLinkStore(ctx context.Context, log logger.Logger, db db.DB, cache *cache.Cache) (*crud.Store, error) {
+func NewLinkStore(ctx context.Context, log logger.Logger, db db.DB, cache *cache.Cache) (crud.Repository, error) {
 	linkStore, err := crud.New(ctx, log, db, cache)
 	if err != nil {
 		return nil, err
@@ -144,7 +144,7 @@ func NewQueryLinkStore(ctx context.Context, log logger.Logger, db db.DB, cache *
 	return store, nil
 }
 
-func NewLinkApplication(log logger.Logger, mq mq.MQ, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store, authPermission *authzed.Client) (*link.Service, error) {
+func NewLinkApplication(log logger.Logger, mq mq.MQ, metadataService metadata_rpc.MetadataServiceClient, store crud.Repository, authPermission *authzed.Client) (*link.Service, error) {
 	linkService, err := link.New(log, mq, metadataService, store, authPermission)
 	if err != nil {
 		return nil, err
@@ -239,7 +239,7 @@ func NewLinkService(
 	sitemapRPCServer *sitemap_rpc.Sitemap,
 
 	// Repository
-	linkStore *crud.Store,
+	linkStore crud.Repository,
 
 	// CQRS Repository
 	cqsStore *cqs.Store,
