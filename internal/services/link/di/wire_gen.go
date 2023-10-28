@@ -99,7 +99,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	dataBus, cleanup6, err := mq_di.New(context, logger)
+	mq, cleanup6, err := mq_di.New(context, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -164,7 +164,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewLinkApplication(logger, dataBus, metadataServiceClient, crudStore, client)
+	service, err := NewLinkApplication(logger, mq, metadataServiceClient, crudStore, client)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -212,7 +212,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	sitemapService, err := NewSitemapApplication(logger, dataBus)
+	sitemapService, err := NewSitemapApplication(logger, mq)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -224,7 +224,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitLinkMQ(context, logger, dataBus, service)
+	event, err := InitLinkMQ(context, logger, mq, service)
 	if err != nil {
 		cleanup8()
 		cleanup7()
@@ -384,7 +384,7 @@ var LinkSet = wire.NewSet(di.DefaultSet, mq_di.New, rpc.InitServer, rpc.InitClie
 	NewLinkService,
 )
 
-func InitLinkMQ(ctx2 context.Context, log logger.Logger, mq2 *mq.DataBus, service *link.Service) (*api_mq.Event, error) {
+func InitLinkMQ(ctx2 context.Context, log logger.Logger, mq2 mq.MQ, service *link.Service) (*api_mq.Event, error) {
 	linkMQ, err := api_mq.New(mq2, log, service)
 	if err != nil {
 		return nil, err
@@ -420,7 +420,7 @@ func NewQueryLinkStore(ctx2 context.Context, log logger.Logger, db2 db.DB, cache
 	return store2, nil
 }
 
-func NewLinkApplication(log logger.Logger, mq2 *mq.DataBus, metadataService v1_4.MetadataServiceClient, store2 *crud.Store, authPermission *authzed.Client) (*link.Service, error) {
+func NewLinkApplication(log logger.Logger, mq2 mq.MQ, metadataService v1_4.MetadataServiceClient, store2 *crud.Store, authPermission *authzed.Client) (*link.Service, error) {
 	linkService, err := link.New(log, mq2, metadataService, store2, authPermission)
 	if err != nil {
 		return nil, err
@@ -443,7 +443,7 @@ func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (v1.LinkServiceClient, erro
 	return LinkServiceClient, nil
 }
 
-func NewSitemapApplication(log logger.Logger, dataBus *mq.DataBus) (*sitemap.Service, error) {
+func NewSitemapApplication(log logger.Logger, dataBus mq.MQ) (*sitemap.Service, error) {
 	sitemapService, err := sitemap.New(log, dataBus)
 	if err != nil {
 		return nil, err

@@ -19,7 +19,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/notify/domain/events"
 )
 
-func New(dataBus *mq.DataBus, log logger.Logger) (*Bot, error) {
+func New(dataBus mq.MQ, log logger.Logger) (*Bot, error) {
 	return &Bot{
 		mq:  dataBus,
 		log: log,

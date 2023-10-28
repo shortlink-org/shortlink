@@ -17,13 +17,13 @@ import (
 )
 
 type Event struct {
-	mq *mq.DataBus
+	mq mq.MQ
 
 	// Observer interface for subscribe on system event
 	notify.Subscriber[link.Link]
 }
 
-func New(dataBus *mq.DataBus) (*Event, error) {
+func New(dataBus mq.MQ) (*Event, error) {
 	return &Event{
 		mq: dataBus,
 	}, nil

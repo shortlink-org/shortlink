@@ -11,14 +11,14 @@ import (
 )
 
 type Event struct {
-	mq  *mq.DataBus
+	mq  mq.MQ
 	log logger.Logger
 
 	// Application
 	service *link_application.Service
 }
 
-func New(dataBus *mq.DataBus, log logger.Logger, service *link_application.Service) (*Event, error) {
+func New(dataBus mq.MQ, log logger.Logger, service *link_application.Service) (*Event, error) {
 	event := &Event{
 		mq:  dataBus,
 		log: log,

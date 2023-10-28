@@ -92,7 +92,7 @@ var NotifySet = wire.NewSet(
 	NewBotService,
 )
 
-func NewBotApplication(ctx context.Context, log logger.Logger, dataBus *mq.DataBus) (*application.Bot, error) {
+func NewBotApplication(ctx context.Context, log logger.Logger, dataBus mq.MQ) (*application.Bot, error) {
 	bot, err := application.New(dataBus, log)
 	if err != nil {
 		return nil, err

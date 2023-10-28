@@ -108,7 +108,7 @@ var LinkSet = wire.NewSet(
 	NewLinkService,
 )
 
-func InitLinkMQ(ctx context.Context, log logger.Logger, mq *mq.DataBus, service *link.Service) (*api_mq.Event, error) {
+func InitLinkMQ(ctx context.Context, log logger.Logger, mq mq.MQ, service *link.Service) (*api_mq.Event, error) {
 	linkMQ, err := api_mq.New(mq, log, service)
 	if err != nil {
 		return nil, err
@@ -144,7 +144,7 @@ func NewQueryLinkStore(ctx context.Context, log logger.Logger, db db.DB, cache *
 	return store, nil
 }
 
-func NewLinkApplication(log logger.Logger, mq *mq.DataBus, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store, authPermission *authzed.Client) (*link.Service, error) {
+func NewLinkApplication(log logger.Logger, mq mq.MQ, metadataService metadata_rpc.MetadataServiceClient, store *crud.Store, authPermission *authzed.Client) (*link.Service, error) {
 	linkService, err := link.New(log, mq, metadataService, store, authPermission)
 	if err != nil {
 		return nil, err
@@ -167,7 +167,7 @@ func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (link_rpc.LinkServiceClient
 	return LinkServiceClient, nil
 }
 
-func NewSitemapApplication(log logger.Logger, dataBus *mq.DataBus) (*sitemap.Service, error) {
+func NewSitemapApplication(log logger.Logger, dataBus mq.MQ) (*sitemap.Service, error) {
 	sitemapService, err := sitemap.New(log, dataBus)
 	if err != nil {
 		return nil, err

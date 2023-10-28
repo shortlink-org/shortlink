@@ -46,7 +46,7 @@ type Service struct {
 	// Delivery
 	DB        db.DB
 	Cache     redisCache.UniversalClient
-	MQ        *mq.DataBus
+	MQ        mq.MQ
 	ServerRPC *rpc.Server
 	ClientRPC *grpc.ClientConn
 
@@ -92,7 +92,7 @@ func NewFullService(
 	// Delivery
 	serverRPC *rpc.Server,
 	clientRPC *grpc.ClientConn,
-	dataBus *mq.DataBus,
+	dataBus mq.MQ,
 	store_db db.DB,
 	shortcache redisCache.UniversalClient,
 

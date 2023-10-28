@@ -38,15 +38,25 @@ func (mq *DataBus) Use(ctx context.Context, log logger.Logger) (*DataBus, error)
 		mq.mq = &kafka.Kafka{}
 	}
 
-	if err := mq.mq.Init(ctx); err != nil {
+	if err := mq.Init(ctx); err != nil {
 		return nil, err
 	}
 
-	log.Info("run MQ", field.Fields{
+	return mq, nil
+}
+
+// Init - init connection
+func (mq *DataBus) Init(ctx context.Context) error {
+	err := mq.mq.Init(ctx)
+	if err != nil {
+		return err
+	}
+
+	mq.log.Info("run MQ", field.Fields{
 		"mq": mq.typeMQ,
 	})
 
-	return mq, nil
+	return nil
 }
 
 // Subscribe - subscribe to a topic

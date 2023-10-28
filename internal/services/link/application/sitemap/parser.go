@@ -20,10 +20,10 @@ type Service struct {
 	log logger.Logger
 
 	// Delivery
-	mq *mq.DataBus
+	mq mq.MQ
 }
 
-func New(log logger.Logger, dataBus *mq.DataBus) (*Service, error) {
+func New(log logger.Logger, dataBus mq.MQ) (*Service, error) {
 	service := &Service{
 		log: log,
 

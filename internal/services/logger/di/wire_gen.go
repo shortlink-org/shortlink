@@ -81,7 +81,7 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	dataBus, cleanup6, err := mq_di.New(context, logger)
+	mq, cleanup6, err := mq_di.New(context, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -90,7 +90,7 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitLoggerMQ(context, logger, dataBus, service)
+	event, err := InitLoggerMQ(context, logger, mq, service)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -148,7 +148,7 @@ var LoggerSet = wire.NewSet(di.DefaultSet, mq_di.New, InitLoggerMQ,
 	NewLoggerService,
 )
 
-func InitLoggerMQ(ctx2 context.Context, log logger.Logger, dataBus *mq.DataBus, service *logger_application.Service) (*logger_mq.Event, error) {
+func InitLoggerMQ(ctx2 context.Context, log logger.Logger, dataBus mq.MQ, service *logger_application.Service) (*logger_mq.Event, error) {
 	loggerMQ, err := logger_mq.New(dataBus, log, service)
 	if err != nil {
 		return nil, err

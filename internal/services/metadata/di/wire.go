@@ -75,7 +75,7 @@ var MetaDataSet = wire.NewSet(
 	NewMetaDataService,
 )
 
-func InitMetadataMQ(ctx context.Context, dataBus *mq.DataBus) (*metadata_mq.Event, error) {
+func InitMetadataMQ(ctx context.Context, dataBus mq.MQ) (*metadata_mq.Event, error) {
 	metadataMQ, err := metadata_mq.New(dataBus)
 	if err != nil {
 		return nil, err

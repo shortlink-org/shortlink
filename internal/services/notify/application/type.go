@@ -10,7 +10,7 @@ type Bot struct {
 	// Observer interface for subscribe on system event
 	notify.Subscriber[any]
 
-	mq  *mq.DataBus
+	mq  mq.MQ
 	log logger.Logger
 }
 

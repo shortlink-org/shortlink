@@ -108,7 +108,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	dataBus, cleanup7, err := mq_di.New(context, logger)
+	mq, cleanup7, err := mq_di.New(context, logger)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -118,7 +118,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitMetadataMQ(context, dataBus)
+	event, err := InitMetadataMQ(context, mq)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -211,7 +211,7 @@ var MetaDataSet = wire.NewSet(di.DefaultSet, mq_di.New, store.New, rpc.InitServe
 	NewMetaDataService,
 )
 
-func InitMetadataMQ(ctx2 context.Context, dataBus *mq.DataBus) (*metadata_mq.Event, error) {
+func InitMetadataMQ(ctx2 context.Context, dataBus mq.MQ) (*metadata_mq.Event, error) {
 	metadataMQ, err := metadata_mq.New(dataBus)
 	if err != nil {
 		return nil, err
