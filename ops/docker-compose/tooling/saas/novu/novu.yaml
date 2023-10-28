@@ -104,7 +104,7 @@ services:
 
   novu-widget:
     <<: *network
-    image: ghcr.io/novuhq/novu/widget:0.20.0
+    image: ghcr.io/novuhq/novu/widget:0.21.0
     container_name: novu-widget
     restart: unless-stopped
     ports:
