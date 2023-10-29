@@ -31,3 +31,12 @@ type ErrCreateLink struct {
 func (e *ErrCreateLink) Error() string {
 	return fmt.Sprintf("Failed create link: %s", e.Link.GetUrl())
 }
+
+type PermissionDeniedError struct {
+	Err  error
+	Link *Link
+}
+
+func (e *PermissionDeniedError) Error() string {
+	return fmt.Sprintf("Permission denied: %s", e.Link.GetUrl())
+}

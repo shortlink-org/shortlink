@@ -1,0 +1,28 @@
+with-expecter: true
+dir: mocks/
+all: True
+packages:
+  github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud:
+    # place your package-specific config here
+    config:
+      recursive: True
+      dir: mocks/crud
+    interface: Repository
+  github.com/shortlink-org/shortlink/internal/pkg/mq:
+    # place your package-specific config here
+    config:
+      recursive: True
+      dir: mocks/mq
+    interface: MQ
+  github.com/authzed/authzed-go/proto/authzed/api/v1:
+    # place your package-specific config here
+    config:
+      recursive: True
+      dir: mocks/authzed
+    interface: PermissionsServiceClient
+  github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1:
+    # place your package-specific config here
+    config:
+      recursive: True
+      dir: mocks/metadata
+    interface: MetadataServiceClient

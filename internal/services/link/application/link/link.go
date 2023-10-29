@@ -5,6 +5,7 @@ package link
 
 import (
 	"context"
+	"errors"
 	"fmt"
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
@@ -110,7 +111,9 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 			}
 
 			return nil
-		}).Build()
+		}).Reject(func(ctx context.Context) error {
+		return &v1.PermissionDeniedError{Link: &v1.Link{Hash: hash}, Err: errors.New("permission denied")}
+	}).Build()
 	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
@@ -120,9 +123,14 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 		Then(func(ctx context.Context) error {
 			var err error
 			resp, err = s.store.Get(ctx, hash)
+			if err != nil {
+				return err
+			}
 
-			return err
-		}).Build()
+			return nil
+		}).Reject(func(ctx context.Context) error {
+		return &v1.PermissionDeniedError{Link: &v1.Link{Hash: hash}, Err: errors.New("permission denied")}
+	}).Build()
 	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
@@ -184,7 +192,9 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 			s.log.Info("list", field.Fields{"list": list})
 
 			return nil
-		}).Build()
+		}).Reject(func(ctx context.Context) error {
+		return &v1.PermissionDeniedError{Link: &v1.Link{}, Err: errors.New("permission denied")}
+	}).Build()
 	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
@@ -374,7 +384,9 @@ func (s *Service) Delete(ctx context.Context, hash string) (*v1.Link, error) {
 			}
 
 			return nil
-		}).Build()
+		}).Reject(func(ctx context.Context) error {
+		return &v1.PermissionDeniedError{Link: &v1.Link{}, Err: errors.New("permission denied")}
+	}).Build()
 	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
 	}
