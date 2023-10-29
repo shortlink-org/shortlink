@@ -13,7 +13,7 @@ import (
 
 type Step struct {
 	Options
-	ctx    *context.Context
+	ctx    context.Context
 	then   func(ctx context.Context) error
 	reject func(ctx context.Context) error
 	dag    *dag.Dag
@@ -23,7 +23,7 @@ type Step struct {
 
 func (s *Step) Run() error {
 	// start tracing
-	newCtx, span := otel.Tracer(fmt.Sprintf("saga: %s", s.name)).Start(*s.ctx, fmt.Sprintf("saga: %s", s.name))
+	newCtx, span := otel.Tracer(fmt.Sprintf("saga: %s", s.name)).Start(s.ctx, fmt.Sprintf("saga: %s", s.name))
 	defer span.End()
 
 	span.SetAttributes(attribute.String("step", s.name), attribute.String("status", "run"))
@@ -47,7 +47,7 @@ func (s *Step) Run() error {
 
 func (s *Step) Reject() error {
 	// start tracing
-	newCtx, span := otel.Tracer(fmt.Sprintf("saga: %s", s.name)).Start(*s.ctx, fmt.Sprintf("saga: %s", s.name))
+	newCtx, span := otel.Tracer(fmt.Sprintf("saga: %s", s.name)).Start(s.ctx, fmt.Sprintf("saga: %s", s.name))
 	defer span.End()
 
 	span.SetAttributes(attribute.String("step", s.name), attribute.String("status", "reject"))

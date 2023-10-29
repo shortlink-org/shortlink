@@ -4,6 +4,7 @@ package saga
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"sync"
 	"testing"
@@ -259,5 +260,62 @@ func TestNewSaga(t *testing.T) {
 		err := sagaNumber.Play(nil)
 		assert.Equal(t, wallet.value, 3) // amount: 10+10+10-9-9-9=3
 		require.NoError(t, err)
+	})
+
+	t.Run("check error case", func(t *testing.T) {
+		const SAGA_NAME = "Error Check Saga"
+		const SAGA_STEP_A = "A"
+		const SAGA_STEP_B = "B"
+
+		ctx := context.Background()
+
+		wallet := &Wallet{
+			value: 0,
+		}
+
+		// Functions to simulate success and failure
+		successFunc := func(ctx context.Context) error {
+			wallet.mu.Lock()
+			wallet.value += 10
+			wallet.mu.Unlock()
+			return nil
+		}
+		rejectSuccessFunc := func(ctx context.Context) error {
+			wallet.mu.Lock()
+			wallet.value -= 10
+			wallet.mu.Unlock()
+			return nil
+		}
+		failFunc := func(ctx context.Context) error {
+			return fmt.Errorf("forced error")
+		}
+
+		// Create a new saga
+		saga, errs := New(SAGA_NAME, SetLogger(log)).
+			WithContext(ctx).
+			Build()
+		assert.Len(t, errs, 0)
+
+		// Add step A
+		_, errs = saga.AddStep(SAGA_STEP_A).
+			Then(successFunc).
+			Reject(rejectSuccessFunc).
+			Build()
+		assert.Len(t, errs, 0)
+
+		// Add step B, which will force an error
+		_, errs = saga.AddStep(SAGA_STEP_B).
+			Then(failFunc).
+			Reject(func(ctx context.Context) error {
+				return errors.New("forced error")
+			}).
+			Build()
+		assert.Len(t, errs, 0)
+
+		// Run saga
+		err := saga.Play(nil)
+		require.Error(t, err)                           // Ensure that an error is returned
+		assert.Contains(t, err.Error(), "forced error") // Check if the error message is as expected
+		assert.Equal(t, wallet.value, 0)                // The wallet value should remain 0 as the saga should rollback
 	})
 }

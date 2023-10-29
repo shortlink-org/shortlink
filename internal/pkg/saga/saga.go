@@ -25,7 +25,7 @@ func (s *Saga) AddStep(name string, setters ...Option) *BuilderStep {
 	// create a new step
 	step := &BuilderStep{
 		Step: &Step{
-			ctx:    &s.ctx,
+			ctx:    s.ctx,
 			name:   name,
 			dag:    s.dag,
 			status: INIT,
@@ -40,7 +40,7 @@ func (s *Saga) AddStep(name string, setters ...Option) *BuilderStep {
 
 	// check uniq
 	if s.steps[name] != nil {
-		step.errorList = append(s.errorList, fmt.Errorf("dublicate step: %s", name))
+		s.errorList = append(s.errorList, fmt.Errorf("dublicate step: %s", name))
 	}
 
 	s.steps[name] = step.Step
@@ -79,7 +79,7 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 	span.SetAttributes(attribute.String("saga", s.name))
 
 	for _, step := range initSteps {
-		step.ctx = &newCtx
+		step.ctx = newCtx
 		g.Go(step.Run)
 	}
 
