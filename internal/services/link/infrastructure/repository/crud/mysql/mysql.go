@@ -73,13 +73,13 @@ func (s Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, e
 	}
 
 	resp := make([]*domain.Link, 0, len(links))
-	for _, link := range links {
+	for item := range links {
 		resp = append(resp, &domain.Link{
-			Url:       link.Url,
-			Hash:      link.Hash,
-			Describe:  link.Describe.String,
-			CreatedAt: timestamppb.New(link.CreatedAt),
-			UpdatedAt: timestamppb.New(link.UpdatedAt),
+			Url:       links[item].Url,
+			Hash:      links[item].Hash,
+			Describe:  links[item].Describe.String,
+			CreatedAt: timestamppb.New(links[item].CreatedAt),
+			UpdatedAt: timestamppb.New(links[item].UpdatedAt),
 		})
 	}
 
@@ -96,9 +96,9 @@ func (s Store) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 
 	_, err = s.client.CreateLink(ctx, crud.CreateLinkParams{
 		ID:       uuid.New(),
-		Url:      in.Url,
-		Hash:     in.Hash,
-		Describe: sql.NullString{String: in.Describe, Valid: true},
+		Url:      in.GetUrl(),
+		Hash:     in.GetHash(),
+		Describe: sql.NullString{String: in.GetDescribe(), Valid: true},
 		Json:     payload,
 	})
 	if err != nil {
@@ -115,9 +115,9 @@ func (s Store) Update(ctx context.Context, in *domain.Link) (*domain.Link, error
 	}
 
 	_, err = s.client.UpdateLink(ctx, crud.UpdateLinkParams{
-		Url:      in.Url,
-		Hash:     in.Hash,
-		Describe: sql.NullString{String: in.Describe, Valid: true},
+		Url:      in.GetUrl(),
+		Hash:     in.GetHash(),
+		Describe: sql.NullString{String: in.GetDescribe(), Valid: true},
 		Json:     payload,
 	})
 	if err != nil {

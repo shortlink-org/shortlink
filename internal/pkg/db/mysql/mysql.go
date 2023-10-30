@@ -23,8 +23,8 @@ func (s *Store) Init(_ context.Context) error {
 	}
 
 	// Check connection
-	if err = s.client.Ping(); err != nil {
-		return err
+	if errPing := s.client.Ping(); errPing != nil {
+		return errPing
 	}
 
 	return nil

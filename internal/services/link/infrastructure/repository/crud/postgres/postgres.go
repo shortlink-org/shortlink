@@ -111,7 +111,7 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, 
 	if filter == nil {
 		filter = &query.Filter{
 			Pagination: &query.Pagination{
-				Limit: 10,
+				Limit: 10, //nolint:gomnd // default limit
 				Page:  0,
 			},
 		}
@@ -171,10 +171,15 @@ func (s *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, err
 // Update - update link
 func (s *Store) Update(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 	_, err := s.query.UpdateLink(ctx, crud.UpdateLinkParams{
-		Url:      in.Url,
-		Hash:     in.Hash,
-		Describe: in.Describe,
-		Json:     *in,
+		Url:      in.GetUrl(),
+		Hash:     in.GetHash(),
+		Describe: in.GetDescribe(),
+		Json: domain.Link{
+			Url:       in.GetUrl(),
+			Hash:      in.GetHash(),
+			Describe:  in.GetDescribe(),
+			CreatedAt: in.GetCreatedAt(),
+		},
 	})
 	if err != nil {
 		return nil, err
@@ -234,10 +239,14 @@ func (s *Store) batchWrite(ctx context.Context, in []*domain.Link) (*domain.Link
 		}
 
 		links = append(links, crud.CreateLinksParams{
-			Url:      in[key].Url,
-			Hash:     in[key].Hash,
-			Describe: in[key].Describe,
-			Json:     *in[key],
+			Url:      in[key].GetUrl(),
+			Hash:     in[key].GetHash(),
+			Describe: in[key].GetDescribe(),
+			Json: domain.Link{
+				Url:      in[key].GetUrl(),
+				Hash:     in[key].GetHash(),
+				Describe: in[key].GetDescribe(),
+			},
 		})
 	}
 
@@ -245,7 +254,7 @@ func (s *Store) batchWrite(ctx context.Context, in []*domain.Link) (*domain.Link
 	if err != nil {
 		errs := make([]error, 0, len(in))
 		for key := range in {
-			errs = append(errs, &domain.ErrCreateLink{Link: &domain.Link{Hash: in[key].Hash}})
+			errs = append(errs, &domain.CreateLinkError{Link: &domain.Link{Hash: in[key].GetHash()}})
 		}
 
 		return nil, errors.Join(errs...)

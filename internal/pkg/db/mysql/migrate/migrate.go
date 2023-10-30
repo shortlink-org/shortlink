@@ -10,7 +10,6 @@ import (
 
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/mysql"
-	_ "github.com/golang-migrate/migrate/v4/database/mysql"
 	"github.com/johejo/golang-migrate-extra/source/iofs"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
