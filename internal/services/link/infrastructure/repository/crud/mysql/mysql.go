@@ -45,7 +45,6 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 	return s, nil
 }
 
-// TODO: use uuid.FromString(id) for all id
 func (s Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
 	link, err := s.client.GetLinkByHash(ctx, hash)
 	if err != nil {
