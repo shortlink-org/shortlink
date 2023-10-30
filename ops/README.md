@@ -2,7 +2,7 @@
 
 ### ADR
 
-- [README.md](./docs/ADR/README.md)
+- [README.md](./docs/ADR/README.md) - Architecture Decision Records
 
 ### MQ
 
