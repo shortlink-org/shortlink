@@ -657,3 +657,8 @@ func getControllerServiceCapabilities(cl []csi.ControllerServiceCapability_RPC_T
 
 	return csc
 }
+
+func (d *driver) ControllerModifyVolume(ctx context.Context, request *csi.ControllerModifyVolumeRequest) (*csi.ControllerModifyVolumeResponse, error) {
+	// TODO implement me
+	panic("implement me")
+}

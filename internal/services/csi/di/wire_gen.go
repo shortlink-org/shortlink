@@ -45,7 +45,7 @@ func InitializeSCIDriver() (*Service, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint, err := profiling.New(logger)
+	pprofEndpoint, err := profiling.New(context, logger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -111,7 +111,9 @@ var CSISet = wire.NewSet(di.DefaultSet, NewSCIDriver)
 
 func NewSCIDriver(
 
-	log logger.Logger, ctx2 context.Context, monitoring2 *monitoring.Monitoring,
+	log logger.Logger, ctx2 context.Context,
+
+	monitor *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
@@ -122,7 +124,7 @@ func NewSCIDriver(
 		Log: log,
 
 		Tracer:        tracer,
-		Monitoring:    monitoring2,
+		Monitoring:    monitor,
 		PprofEndpoint: pprofHTTP,
 		AutoMaxPro:    autoMaxProcsOption,
 	}, nil
