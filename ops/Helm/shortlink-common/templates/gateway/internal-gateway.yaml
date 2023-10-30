@@ -1,21 +1,21 @@
 apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
-  name: shortlink-gateway
+  name: internal-gateway
+  annotations:
+    cert-manager.io/issuer: cert-manager-production
 spec:
   gatewayClassName: istio
   listeners:
     - name: grpc
-      hostname:
-        - "*"
+      hostname: "*.shortlink"
       port: 50051
       protocol: HTTPS
       allowedRoutes:
         namespaces:
           from: Same
     - name: http
-      hostname:
-        - "*"
+      hostname: "*.shortlink"
       port: 80
       protocol: HTTP
       allowedRoutes:
