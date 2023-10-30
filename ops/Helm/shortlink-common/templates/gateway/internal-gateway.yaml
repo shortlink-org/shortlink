@@ -12,10 +12,3 @@ spec:
       allowedRoutes:
         namespaces:
           from: Same
-    - name: http
-      hostname: "*.shortlink"
-      port: 80
-      protocol: HTTP
-      allowedRoutes:
-        namespaces:
-          from: Same
