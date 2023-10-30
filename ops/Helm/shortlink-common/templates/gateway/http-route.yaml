@@ -4,8 +4,13 @@ metadata:
   name: shortlink-landing
 spec:
   parentRefs:
-    - name: shortlink-gateway
+    - name: internal-gateway
   rules:
+    - filters:
+        - type: RequestRedirect
+          requestRedirect:
+            scheme: https
+            statusCode: 301
     - matches:
         - path:
             type: PathPrefix

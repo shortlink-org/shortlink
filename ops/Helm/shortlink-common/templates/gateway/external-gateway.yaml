@@ -7,13 +7,6 @@ metadata:
 spec:
   gatewayClassName: istio
   listeners:
-    - name: http
-      hostname: "shortlink.best"
-      port: 80
-      protocol: HTTP
-      allowedRoutes:
-        namespaces:
-          from: Same
     - name: https
       hostname: "shortlink.best"
       port: 443
