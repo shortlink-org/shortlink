@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"strings"
 
 	"github.com/segmentio/encoding/json"
 	"google.golang.org/grpc/codes"
@@ -41,8 +42,7 @@ func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error)
 	filter := queryStore.Filter{}
 
 	if in.GetFilter() != "" {
-		errJsonUnmarshal := json.Unmarshal([]byte(in.GetFilter()), &filter)
-		if errJsonUnmarshal != nil {
+		if json.NewDecoder(strings.NewReader(in.GetFilter())).Decode(&filter) != nil {
 			return nil, errors.New("error parse payload as string")
 		}
 	}

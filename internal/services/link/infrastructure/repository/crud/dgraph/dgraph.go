@@ -1,6 +1,7 @@
 package dgraph
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 
@@ -74,7 +75,7 @@ query all($a: string) {
 	}
 
 	var response LinkResponse
-	if err = json.Unmarshal(val.Json, &response); err != nil {
+	if err = json.NewDecoder(bytes.NewReader(val.Json)).Decode(&response); err != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("failed parse link: %s", id)}
 	}
 
@@ -129,7 +130,7 @@ query all {
 	}
 
 	var response LinkResponse
-	if errUnmarshal := json.Unmarshal(val.Json, &response); errUnmarshal != nil {
+	if errUnmarshal := json.NewDecoder(bytes.NewReader(val.Json)).Decode(&response); errUnmarshal != nil {
 		return nil, errUnmarshal
 	}
 

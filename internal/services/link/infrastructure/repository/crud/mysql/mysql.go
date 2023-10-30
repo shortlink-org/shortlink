@@ -3,6 +3,7 @@
 package mysql
 
 import (
+	"bytes"
 	"context"
 	"database/sql"
 	"embed"
@@ -52,8 +53,7 @@ func (s Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
 	}
 
 	var payload domain.Link
-	err = json.Unmarshal(link.Json, &payload)
-	if err != nil {
+	if json.NewDecoder(bytes.NewReader(link.Json)).Decode(&payload) != nil {
 		return nil, err
 	}
 
