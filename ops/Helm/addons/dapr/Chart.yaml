@@ -1,0 +1,23 @@
+apiVersion: v2
+appVersion: "1.0.0"
+name: dapr
+version: 0.1.0
+kubeVersion: ">= 1.28.0 || >= v1.28.0-0"
+keywords:
+  - dapr
+maintainers:
+  - email: batazor111@gmail.com
+    name: batazor
+    url: batazor.ru
+engine: gotpl
+type: application
+deprecated: false
+dependencies:
+  - name: dapr
+    version: 1.12
+    repository: https://dapr.github.io/helm-charts/
+    condition: dapr.enabled
+  - name: dapr-dashboard
+    version: 0.14.0
+    repository: https://dapr.github.io/helm-charts/
+    condition: dapr-dashboard.enabled
