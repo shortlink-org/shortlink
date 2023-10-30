@@ -9,6 +9,8 @@ annotations: {}
 certmanager:
   enabled: true
 
+  featureGates: "ExperimentalGatewayAPISupport=true"
+
   # type: http, cloudflare
   # default: http
   type: cloudflare
