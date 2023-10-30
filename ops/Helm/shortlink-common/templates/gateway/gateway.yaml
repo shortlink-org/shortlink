@@ -6,12 +6,16 @@ spec:
   gatewayClassName: istio
   listeners:
     - name: grpc
+      hostname:
+        - "*"
       port: 50051
       protocol: HTTPS
       allowedRoutes:
         namespaces:
           from: Same
     - name: http
+      hostname:
+        - "*"
       port: 80
       protocol: HTTP
       allowedRoutes:
