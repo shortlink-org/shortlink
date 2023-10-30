@@ -1,0 +1,22 @@
+apiVersion: gateway.networking.k8s.io/v1beta1
+kind: HTTPRoute
+metadata:
+  name: {{ empty .Values.ingress.name | ternary (include "helpers.fullname" .) .Values.ingress.name }}
+  labels:
+    {{- include "helpers.labels" . | nindent 4 }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  parentRefs:
+    - name: shortlink-gateway
+  hostnames: ["*"]
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: shortlink-landing
+          port: 8080
