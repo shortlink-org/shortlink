@@ -7,5 +7,5 @@ resources:
   # gateway-api
   - https://github.com/knative/serving/releases/latest/download/serving-crds.yaml
   - https://github.com/knative/serving/releases/latest/download/serving-core.yaml
-patchesStrategicMerge:
-  - patches/config-network-patch.yaml
+patches:
+  - path: patches/config-network-patch.yaml
