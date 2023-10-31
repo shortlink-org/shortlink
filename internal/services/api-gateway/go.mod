@@ -13,7 +13,6 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.0
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/segmentio/encoding v0.3.6
-	github.com/shortlink-org/shortlink v0.0.0-20231030114539-d42fbac578de
 	github.com/spf13/viper v1.17.0
 	github.com/swaggo/swag v1.16.2
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.2.3
@@ -45,6 +44,7 @@ require (
 	github.com/dgraph-io/ristretto v0.1.1 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/dnwe/otelsarama v0.0.0-20230929223353-aca2b9638438 // indirect
+	github.com/docker/docker v24.0.7+incompatible // indirect
 	github.com/dustin/go-humanize v1.0.1 // indirect
 	github.com/eapache/go-resiliency v1.4.0 // indirect
 	github.com/eapache/go-xerial-snappy v0.0.0-20230731223053-c322873962e3 // indirect
@@ -68,7 +68,6 @@ require (
 	github.com/golang/protobuf v1.5.3 // indirect
 	github.com/golang/snappy v0.0.5-0.20220116011046-fa5810519dcb // indirect
 	github.com/google/flatbuffers v2.0.8+incompatible // indirect
-	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/uuid v1.4.0 // indirect
 	github.com/grafana/pyroscope-go v1.0.4 // indirect
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.5 // indirect
@@ -109,7 +108,7 @@ require (
 	github.com/nats-io/nkeys v0.4.5 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/neo4j/neo4j-go-driver/v5 v5.14.0 // indirect
-	github.com/ory/client-go v1.2.14 // indirect
+	github.com/ory/client-go v1.2.15 // indirect
 	github.com/pelletier/go-toml/v2 v2.1.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.18 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
@@ -123,7 +122,6 @@ require (
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
 	github.com/redis/go-redis/v9 v9.2.1 // indirect
 	github.com/redis/rueidis v1.0.20 // indirect
-	github.com/rogpeppe/go-internal v1.11.0 // indirect
 	github.com/sagikazarmark/locafero v0.3.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
@@ -167,7 +165,6 @@ require (
 	go.opentelemetry.io/proto/otlp v1.0.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/automaxprocs v1.5.3 // indirect
-	go.uber.org/goleak v1.3.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.26.0 // indirect
 	golang.org/x/crypto v0.14.0 // indirect
