@@ -14,7 +14,7 @@ type: application
 deprecated: false
 dependencies:
   - name: k8s-monitoring
-    version: 0.2.14
+    version: 0.3.0
     repository: https://grafana.github.io/helm-charts
     condition: k8s-monitoring.enabled
     tags:
