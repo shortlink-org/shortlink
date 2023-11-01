@@ -4,11 +4,13 @@ go 1.21
 
 require (
 	github.com/deepmap/oapi-codegen v1.16.2
+	github.com/deepmap/oapi-codegen/v2 v2.0.0
 	github.com/go-chi/chi/v5 v5.0.10
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/render v1.0.3
 	github.com/google/wire v0.5.1-0.20220620021424-0675cdc9191c
 	github.com/riandyrn/otelchi v0.5.1
+	github.com/shortlink-org/shortlink v0.0.0-20231101094819-81bf718d31ec
 	github.com/spf13/viper v1.17.0
 	go.opentelemetry.io/otel/trace v1.19.0
 	golang.org/x/sync v0.4.0
