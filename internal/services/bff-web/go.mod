@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/internal/services/bff-web
 go 1.21
 
 require (
-	github.com/deepmap/oapi-codegen v1.16.2
+	github.com/deepmap/oapi-codegen/v2 v2.0.0
 	github.com/deepmap/oapi-codegen/v2 v2.0.0
 	github.com/go-chi/chi/v5 v5.0.10
 	github.com/go-chi/cors v1.2.1
