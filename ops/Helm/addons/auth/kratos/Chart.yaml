@@ -14,7 +14,7 @@ type: application
 deprecated: false
 dependencies:
   - name: kratos
-    version: 0.36.0
+    version: 0.37.0
     repository: https://k8s.ory.sh/helm/charts
     condition: kratos.enabled
     tags:
