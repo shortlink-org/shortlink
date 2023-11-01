@@ -27,63 +27,63 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="kubescape--capabilities--networkGenerator"><a href="./values.yaml#L9">kubescape.capabilities.networkGenerator</a></td>
+			<td id="kubescape--capabilities--networkGenerator"><a href="./values.yaml#L14">kubescape.capabilities.networkGenerator</a></td>
 			<td>
-bool
+string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-true
+"enable"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--capabilities--runtimeObservability"><a href="./values.yaml#L11">kubescape.capabilities.runtimeObservability</a></td>
+			<td id="kubescape--capabilities--runtimeObservability"><a href="./values.yaml#L16">kubescape.capabilities.runtimeObservability</a></td>
 			<td>
-bool
+string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-true
+"enable"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--capabilities--seccomp"><a href="./values.yaml#L10">kubescape.capabilities.seccomp</a></td>
+			<td id="kubescape--capabilities--seccompGenerator"><a href="./values.yaml#L15">kubescape.capabilities.seccompGenerator</a></td>
 			<td>
-bool
+string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-true
+"enable"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--capabilities--vulnerabilityScan"><a href="./values.yaml#L12">kubescape.capabilities.vulnerabilityScan</a></td>
+			<td id="kubescape--capabilities--vulnerabilityScan"><a href="./values.yaml#L17">kubescape.capabilities.vulnerabilityScan</a></td>
 			<td>
-bool
+string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-true
+"enable"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--clusterName"><a href="./values.yaml#L14">kubescape.clusterName</a></td>
+			<td id="kubescape--clusterName"><a href="./values.yaml#L19">kubescape.clusterName</a></td>
 			<td>
 string
 </td>
@@ -91,20 +91,6 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "shortlink"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="kubescape--configurations--otelUrl"><a href="./values.yaml#L24">kubescape.configurations.otelUrl</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"http://grafana-tempo.grafana:4317"
 </pre>
 </div>
 			</td>
@@ -125,7 +111,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--kubescape--serviceMonitor--enabled"><a href="./values.yaml#L18">kubescape.kubescape.serviceMonitor.enabled</a></td>
+			<td id="kubescape--global--networkPolicy--createEgressRules"><a href="./values.yaml#L11">kubescape.global.networkPolicy.createEgressRules</a></td>
 			<td>
 bool
 </td>
@@ -139,7 +125,21 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--kubescape--serviceMonitor--labels--release"><a href="./values.yaml#L21">kubescape.kubescape.serviceMonitor.labels.release</a></td>
+			<td id="kubescape--global--networkPolicy--enabled"><a href="./values.yaml#L10">kubescape.global.networkPolicy.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--kubescape--labels--release"><a href="./values.yaml#L23">kubescape.kubescape.labels.release</a></td>
 			<td>
 string
 </td>
@@ -153,7 +153,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--operator--resources--requests--cpu"><a href="./values.yaml#L29">kubescape.operator.resources.requests.cpu</a></td>
+			<td id="kubescape--kubescape--serviceMonitor--enabled"><a href="./values.yaml#L26">kubescape.kubescape.serviceMonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--operator--resources--requests--cpu"><a href="./values.yaml#L34">kubescape.operator.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -167,7 +181,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--operator--resources--requests--memory"><a href="./values.yaml#L30">kubescape.operator.resources.requests.memory</a></td>
+			<td id="kubescape--operator--resources--requests--memory"><a href="./values.yaml#L35">kubescape.operator.resources.requests.memory</a></td>
 			<td>
 string
 </td>

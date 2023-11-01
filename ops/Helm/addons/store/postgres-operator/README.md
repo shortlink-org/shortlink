@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry.developers.crunchydata.com/crunchydata | pgo | 5.4.2 |
+| oci://registry.developers.crunchydata.com/crunchydata | pgo | 5.4.3 |
 
 ## Values
 

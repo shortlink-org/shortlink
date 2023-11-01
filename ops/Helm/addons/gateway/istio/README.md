@@ -140,7 +140,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--meshConfig--extensionProviders[0]--envoyOtelAls--port"><a href="./values.yaml#L47">istiod.meshConfig.extensionProviders[0].envoyOtelAls.port</a></td>
+			<td id="istiod--meshConfig--extensionProviders[0]--envoyOtelAls--port"><a href="./values.yaml#L37">istiod.meshConfig.extensionProviders[0].envoyOtelAls.port</a></td>
 			<td>
 int
 </td>
@@ -154,7 +154,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--meshConfig--extensionProviders[0]--envoyOtelAls--service"><a href="./values.yaml#L46">istiod.meshConfig.extensionProviders[0].envoyOtelAls.service</a></td>
+			<td id="istiod--meshConfig--extensionProviders[0]--envoyOtelAls--service"><a href="./values.yaml#L36">istiod.meshConfig.extensionProviders[0].envoyOtelAls.service</a></td>
 			<td>
 string
 </td>
@@ -168,7 +168,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--meshConfig--extensionProviders[0]--name"><a href="./values.yaml#L44">istiod.meshConfig.extensionProviders[0].name</a></td>
+			<td id="istiod--meshConfig--extensionProviders[0]--name"><a href="./values.yaml#L34">istiod.meshConfig.extensionProviders[0].name</a></td>
 			<td>
 string
 </td>
@@ -182,7 +182,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--meshConfig--extensionProviders[1]--name"><a href="./values.yaml#L48">istiod.meshConfig.extensionProviders[1].name</a></td>
+			<td id="istiod--meshConfig--extensionProviders[1]--name"><a href="./values.yaml#L38">istiod.meshConfig.extensionProviders[1].name</a></td>
 			<td>
 string
 </td>
@@ -196,7 +196,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--meshConfig--extensionProviders[1]--opentelemetry--port"><a href="./values.yaml#L51">istiod.meshConfig.extensionProviders[1].opentelemetry.port</a></td>
+			<td id="istiod--meshConfig--extensionProviders[1]--opentelemetry--port"><a href="./values.yaml#L41">istiod.meshConfig.extensionProviders[1].opentelemetry.port</a></td>
 			<td>
 int
 </td>
@@ -210,7 +210,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--meshConfig--extensionProviders[1]--opentelemetry--service"><a href="./values.yaml#L50">istiod.meshConfig.extensionProviders[1].opentelemetry.service</a></td>
+			<td id="istiod--meshConfig--extensionProviders[1]--opentelemetry--service"><a href="./values.yaml#L40">istiod.meshConfig.extensionProviders[1].opentelemetry.service</a></td>
 			<td>
 string
 </td>
@@ -266,7 +266,7 @@ float
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--telemetry--v2--metadataExchange--wasmEnabled"><a href="./values.yaml#L62">istiod.telemetry.v2.metadataExchange.wasmEnabled</a></td>
+			<td id="istiod--telemetry--v2--metadataExchange--wasmEnabled"><a href="./values.yaml#L46">istiod.telemetry.v2.metadataExchange.wasmEnabled</a></td>
 			<td>
 bool
 </td>
@@ -280,7 +280,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--telemetry--v2--prometheus--configOverride--scrapeInterval"><a href="./values.yaml#L67">istiod.telemetry.v2.prometheus.configOverride.scrapeInterval</a></td>
+			<td id="istiod--telemetry--v2--prometheus--configOverride--scrapeInterval"><a href="./values.yaml#L51">istiod.telemetry.v2.prometheus.configOverride.scrapeInterval</a></td>
 			<td>
 string
 </td>
@@ -294,7 +294,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--telemetry--v2--prometheus--configOverride--scrapeTimeout"><a href="./values.yaml#L68">istiod.telemetry.v2.prometheus.configOverride.scrapeTimeout</a></td>
+			<td id="istiod--telemetry--v2--prometheus--configOverride--scrapeTimeout"><a href="./values.yaml#L52">istiod.telemetry.v2.prometheus.configOverride.scrapeTimeout</a></td>
 			<td>
 string
 </td>
@@ -308,7 +308,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--telemetry--v2--prometheus--enabled"><a href="./values.yaml#L64">istiod.telemetry.v2.prometheus.enabled</a></td>
+			<td id="istiod--telemetry--v2--prometheus--enabled"><a href="./values.yaml#L48">istiod.telemetry.v2.prometheus.enabled</a></td>
 			<td>
 bool
 </td>
@@ -322,7 +322,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="istiod--telemetry--v2--prometheus--wasmEnabled"><a href="./values.yaml#L65">istiod.telemetry.v2.prometheus.wasmEnabled</a></td>
+			<td id="istiod--telemetry--v2--prometheus--wasmEnabled"><a href="./values.yaml#L49">istiod.telemetry.v2.prometheus.wasmEnabled</a></td>
 			<td>
 bool
 </td>

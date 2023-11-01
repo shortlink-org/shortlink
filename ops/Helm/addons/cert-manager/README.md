@@ -14,8 +14,8 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.jetstack.io | certmanager(cert-manager) | v1.13.1 |
-| https://charts.jetstack.io | cert-manager-approver-policy | v0.8.0 |
+| https://charts.jetstack.io | certmanager(cert-manager) | v1.13.2 |
+| https://charts.jetstack.io | cert-manager-approver-policy | v0.9.0 |
 | https://charts.jetstack.io | spiffe(cert-manager-csi-driver-spiffe) | v0.4.0 |
 
 ## Values
@@ -43,7 +43,7 @@ object
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cert-manager-approver-policy--app--metrics--service--servicemonitor--enabled"><a href="./values.yaml#L37">cert-manager-approver-policy.app.metrics.service.servicemonitor.enabled</a></td>
+			<td id="cert-manager-approver-policy--app--metrics--service--servicemonitor--enabled"><a href="./values.yaml#L39">cert-manager-approver-policy.app.metrics.service.servicemonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -57,7 +57,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cert-manager-approver-policy--enabled"><a href="./values.yaml#L31">cert-manager-approver-policy.enabled</a></td>
+			<td id="cert-manager-approver-policy--enabled"><a href="./values.yaml#L33">cert-manager-approver-policy.enabled</a></td>
 			<td>
 bool
 </td>
@@ -85,7 +85,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--extraArgs[0]"><a href="./values.yaml#L19">certmanager.extraArgs[0]</a></td>
+			<td id="certmanager--extraArgs[0]"><a href="./values.yaml#L21">certmanager.extraArgs[0]</a></td>
 			<td>
 string
 </td>
@@ -99,7 +99,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--installCRDs"><a href="./values.yaml#L16">certmanager.installCRDs</a></td>
+			<td id="certmanager--featureGates"><a href="./values.yaml#L12">certmanager.featureGates</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ExperimentalGatewayAPISupport=true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--installCRDs"><a href="./values.yaml#L18">certmanager.installCRDs</a></td>
 			<td>
 bool
 </td>
@@ -113,7 +127,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--prometheus--enabled"><a href="./values.yaml#L23">certmanager.prometheus.enabled</a></td>
+			<td id="certmanager--prometheus--enabled"><a href="./values.yaml#L25">certmanager.prometheus.enabled</a></td>
 			<td>
 bool
 </td>
@@ -127,7 +141,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--prometheus--servicemonitor--enabled"><a href="./values.yaml#L26">certmanager.prometheus.servicemonitor.enabled</a></td>
+			<td id="certmanager--prometheus--servicemonitor--enabled"><a href="./values.yaml#L28">certmanager.prometheus.servicemonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -141,7 +155,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--prometheus--servicemonitor--labels--release"><a href="./values.yaml#L28">certmanager.prometheus.servicemonitor.labels.release</a></td>
+			<td id="certmanager--prometheus--servicemonitor--labels--release"><a href="./values.yaml#L30">certmanager.prometheus.servicemonitor.labels.release</a></td>
 			<td>
 string
 </td>
@@ -155,7 +169,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--type"><a href="./values.yaml#L14">certmanager.type</a></td>
+			<td id="certmanager--type"><a href="./values.yaml#L16">certmanager.type</a></td>
 			<td>
 string
 </td>
@@ -183,7 +197,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="spiffe--app--approver--metrics--service--servicemonitor--enabled"><a href="./values.yaml#L56">spiffe.app.approver.metrics.service.servicemonitor.enabled</a></td>
+			<td id="spiffe--app--approver--metrics--service--servicemonitor--enabled"><a href="./values.yaml#L58">spiffe.app.approver.metrics.service.servicemonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -197,7 +211,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="spiffe--app--driver--resources--limits--cpu"><a href="./values.yaml#L49">spiffe.app.driver.resources.limits.cpu</a></td>
+			<td id="spiffe--app--driver--resources--limits--cpu"><a href="./values.yaml#L51">spiffe.app.driver.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -211,7 +225,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="spiffe--app--driver--resources--limits--memory"><a href="./values.yaml#L50">spiffe.app.driver.resources.limits.memory</a></td>
+			<td id="spiffe--app--driver--resources--limits--memory"><a href="./values.yaml#L52">spiffe.app.driver.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -225,7 +239,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="spiffe--app--driver--resources--requests--cpu"><a href="./values.yaml#L46">spiffe.app.driver.resources.requests.cpu</a></td>
+			<td id="spiffe--app--driver--resources--requests--cpu"><a href="./values.yaml#L48">spiffe.app.driver.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -239,7 +253,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="spiffe--app--driver--resources--requests--memory"><a href="./values.yaml#L47">spiffe.app.driver.resources.requests.memory</a></td>
+			<td id="spiffe--app--driver--resources--requests--memory"><a href="./values.yaml#L49">spiffe.app.driver.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -253,7 +267,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="spiffe--enabled"><a href="./values.yaml#L40">spiffe.enabled</a></td>
+			<td id="spiffe--enabled"><a href="./values.yaml#L42">spiffe.enabled</a></td>
 			<td>
 bool
 </td>
