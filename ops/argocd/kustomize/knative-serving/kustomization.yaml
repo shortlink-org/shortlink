@@ -5,7 +5,6 @@ resources:
   - network/sidecar.yaml
   # gateway-api
   - https://github.com/knative/serving/releases/download/knative-v1.10.6/serving-core.yaml
-  - https://github.com/knative/serving/releases/download/knative-v1.10.6/serving-crds.yaml
 patches:
   - path: patches/config-network-patch.yaml
 patchesStrategicMerge:
