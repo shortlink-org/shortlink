@@ -11,9 +11,10 @@ kubescape:
       createEgressRules: true
 
   capabilities:
+    continuousScan: enable
+    runtimeObservability: enable
     networkGenerator: enable
     seccompGenerator: enable
-    runtimeObservability: enable
     vulnerabilityScan: enable
 
   clusterName: shortlink
@@ -27,6 +28,13 @@ kubescape:
 
   # configurations:
   #  otelUrl: http://grafana-tempo.grafana:4317
+
+  persistence:
+    storageClass: local-path
+
+  kubevuln:
+    image:
+      tag: v0.2.129
 
   operator:
     resources:
