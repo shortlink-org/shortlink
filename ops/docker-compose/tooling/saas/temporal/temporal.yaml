@@ -1,0 +1,62 @@
+version: '2.4'
+
+include:
+  - ./ops/docker-compose/database/cassandra/cassandra.yaml
+  - ./ops/docker-compose/database/elasticsearch/elasticsearch.yaml
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  temporal:
+    <<: *network
+    depends_on:
+      - coredns
+      - cassandra
+      - elasticsearch
+    image: temporalio/auto-setup:1.22.1
+    restart: on-failure
+    container_name: temporal
+    environment:
+      CASSANDRA_SEEDS: cassandra
+      DYNAMIC_CONFIG_FILE_PATH: config/dynamicconfig/development-cass.yaml
+      ENABLE_ES: "true"
+      ES_SEEDS: elasticsearch
+      ES_VERSION: v8
+    ports:
+      - 7233:7233
+    volumes:
+      - ./ops/docker-compose/tooling/saas/temporal/config:/etc/temporal/config/dynamicconfig
+
+  temporal-admin-tools:
+    <<: *network
+    depends_on:
+      - coredns
+      - temporal
+    image: temporalio/admin-tools:1.22.1
+    restart: on-failure
+    container_name: temporal-admin-tools
+    environment:
+      TEMPORAL_ADDRESS: temporal:7233
+      TEMPORAL_CLI_ADDRESS: temporal:7233
+    stdin_open: true
+    tty: true
+
+  temporal-ui:
+    <<: *network
+    depends_on:
+      - coredns
+      - temporal
+    image: temporalio/ui:2.20.0
+    restart: on-failure
+    container_name: temporal-ui
+    environment:
+      TEMPORAL_ADDRESS: temporal:7233
+      TEMPORAL_CORS_ORIGINS: "http://localhost:3000"
+    ports:
+      - 8080:8080

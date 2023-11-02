@@ -54,6 +54,7 @@ dev: ## Run for development mode
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
+		-f ops/docker-compose/tooling/saas/temporal/temporal.yaml \
 		up -d --remove-orphans --build
 
 watch: ## Run for development mode with watch
@@ -73,6 +74,7 @@ down: confirm ## Down docker compose
 		-f ops/docker-compose/tooling/saas/gitlab/gitlab.yaml \
 		-f ops/docker-compose/tooling/saas/novu/novu.yaml \
 		-f ops/docker-compose/tooling/saas/localstack/localstack.yaml \
+		-f ops/docker-compose/tooling/saas/temporal/temporal.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-loki.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-phlare.yaml \
