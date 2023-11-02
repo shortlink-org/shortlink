@@ -15,7 +15,7 @@ require (
 	github.com/cucumber/godog v0.13.0
 	github.com/dgraph-io/badger/v4 v4.2.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
-	github.com/dnwe/otelsarama v0.0.0-20230929223353-aca2b9638438
+	github.com/dnwe/otelsarama v0.0.0-20231102190601-56ca32030d0f
 	github.com/edgedb/edgedb-go v0.14.3
 	github.com/ethereum/go-ethereum v1.13.4
 	github.com/exaring/otelpgx v0.5.2
