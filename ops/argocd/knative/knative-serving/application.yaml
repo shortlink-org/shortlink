@@ -26,6 +26,8 @@ spec:
       labels:
         pod-security.kubernetes.io/enforce: baseline
         pod-security.kubernetes.io/enforce-version: latest
+        app.kubernetes.io/name: knative-serving
+        app.kubernetes.io/version: "1.10.6"
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
