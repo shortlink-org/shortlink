@@ -7,10 +7,11 @@ resources:
   - https://github.com/knative/serving/releases/latest/download/serving-crds.yaml
   - https://github.com/knative/serving/releases/latest/download/serving-core.yaml
 patches:
-# - patch: patches/config-network-patch.yaml
-- patch: |-
-    apiVersion: v1
-    kind: Namespace
-    metadata:
-      name: knative-serving
-    $patch: delete
+  - target:
+      kind: ConfigMap
+      name: config-network
+    patch: patches/config-network-patch.yaml
+  - target:
+      kind: Namespace
+    patch: |
+      $patch: delete
