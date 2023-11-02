@@ -32,10 +32,6 @@ kubescape:
   persistence:
     storageClass: local-path
 
-  kubevuln:
-    image:
-      tag: v0.2.129
-
   operator:
     resources:
       requests:
