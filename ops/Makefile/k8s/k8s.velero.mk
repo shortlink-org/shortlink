@@ -5,7 +5,7 @@ velero-up:
 
 	@velero install \
 		--provider aws \
-		--plugins velero/velero-plugin-for-aws:v1.6.1 \
+		--plugins velero/velero-plugin-for-aws:v1.8.1 \
 		--bucket velero \
 		--secret-file ./ops/Helm/velero/credentials-velero \
 		--use-volume-snapshots=false \
