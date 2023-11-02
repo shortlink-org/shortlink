@@ -5,7 +5,7 @@ go 1.21
 toolchain go1.21.3
 
 require (
-	github.com/IBM/sarama v1.41.3
+	github.com/IBM/sarama v1.42.0
 	github.com/Masterminds/squirrel v1.5.4
 	github.com/PuerkitoBio/goquery v1.8.1
 	github.com/Unleash/unleash-client-go/v3 v3.9.0
@@ -50,7 +50,7 @@ require (
 	github.com/pyroscope-io/otel-profiling-go v0.4.0
 	github.com/rabbitmq/amqp091-go v1.9.0
 	github.com/redis/go-redis/v9 v9.3.0
-	github.com/redis/rueidis v1.0.20
+	github.com/redis/rueidis v1.0.21
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/segmentio/encoding v0.3.6
@@ -103,7 +103,6 @@ require (
 	github.com/ajg/form v1.5.1 // indirect
 	github.com/andybalholm/cascadia v1.3.1 // indirect
 	github.com/antlr/antlr4/runtime/Go/antlr/v4 v4.0.0-20230512164433-5d1fd1a340c9 // indirect
-	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bits-and-blooms/bitset v1.7.0 // indirect
 	github.com/btcsuite/btcd/btcec/v2 v2.2.0 // indirect
@@ -191,7 +190,6 @@ require (
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect
 	github.com/nats-io/nkeys v0.4.6 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
-	github.com/oapi-codegen/runtime v1.0.0 // indirect
 	github.com/onsi/ginkgo/v2 v2.13.0 // indirect
 	github.com/onsi/gomega v1.29.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
