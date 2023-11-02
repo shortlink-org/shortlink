@@ -5,12 +5,3 @@ resources:
   - network/sidecar.yaml
   # gateway-api
   - https://github.com/knative/serving/releases/latest/download/serving-core.yaml
-patches:
-  - target:
-      kind: ConfigMap
-      name: config-network
-    patch: patches/config-network-patch.yaml
-  - target:
-      kind: Namespace
-    patch: |
-      $patch: delete
