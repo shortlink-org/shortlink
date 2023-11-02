@@ -26,7 +26,7 @@ type Event struct {
 
 func New(dataBus mq.MQ, log logger.Logger, service *logger_application.Service) (*Event, error) {
 	if dataBus == nil {
-		return nil, fmt.Errorf("MQ is nil")
+		return nil, ErrMQIsNil
 	}
 
 	event := &Event{

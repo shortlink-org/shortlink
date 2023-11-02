@@ -5,7 +5,6 @@ package cqs
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/go-redis/cache/v9"
 	"github.com/spf13/viper"
@@ -37,7 +36,7 @@ func New(ctx context.Context, log logger.Logger, store db.DB, cacheStore *cache.
 			return nil, err
 		}
 	default:
-		return nil, fmt.Errorf("unknown store type: %s", s.typeStore)
+		return nil, db.UnknownStoreTypeError{StoreType: s.typeStore}
 	}
 
 	log.Info("init cqsStore", field.Fields{

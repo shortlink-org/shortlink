@@ -60,7 +60,7 @@ func New(opts ...options.Option) (*File, error) {
 func (f *File) Exec(query *v1.Query) (any, error) {
 	switch query.GetType() {
 	case v1.Type_TYPE_UNSPECIFIED:
-		return nil, fmt.Errorf("exec: incorret type")
+		return nil, ErrIncorrectType
 	case v1.Type_TYPE_SELECT:
 		return f.Select(query)
 	case v1.Type_TYPE_UPDATE:

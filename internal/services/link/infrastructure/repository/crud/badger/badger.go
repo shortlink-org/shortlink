@@ -2,7 +2,6 @@ package badger
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/dgraph-io/badger/v4"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -50,7 +49,7 @@ func (b *Store) Get(ctx context.Context, id string) (*domain.Link, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}}
 	}
 
 	var response domain.Link
@@ -61,7 +60,7 @@ func (b *Store) Get(ctx context.Context, id string) (*domain.Link, error) {
 	}
 
 	if response.GetUrl() == "" {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}}
 	}
 
 	return &response, nil
@@ -101,7 +100,7 @@ func (b *Store) List(_ context.Context, _ *query.Filter) (*domain.Links, error) 
 		return nil
 	})
 	if err != nil {
-		return nil, &domain.NotFoundError{Link: &domain.Link{}, Err: fmt.Errorf("not found links: %w", err)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{}}
 	}
 
 	response := &domain.Links{

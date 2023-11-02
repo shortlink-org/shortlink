@@ -27,7 +27,7 @@ func (s *Store) Init(ctx context.Context, store db.DB) error {
 
 	s.db, ok = store.GetConn().(*pgxpool.Pool)
 	if !ok {
-		return errors.New("error get connection to PostgreSQL")
+		return db.ErrGetConnection
 	}
 
 	return nil

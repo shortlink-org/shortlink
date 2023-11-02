@@ -20,7 +20,7 @@ func (f *File) CreateIndex(query *v1.Query) error {
 	// check
 	for i := range query.GetIndexs() {
 		if t.GetIndex()[query.GetIndexs()[i].GetName()] != nil {
-			return fmt.Errorf("at CREATE INDEX: exist index %s", query.GetIndexs()[i].GetName())
+			return &CreateExistIndexError{Name: query.GetIndexs()[i].GetName()}
 		}
 	}
 

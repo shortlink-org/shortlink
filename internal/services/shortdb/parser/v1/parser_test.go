@@ -54,6 +54,7 @@ func expression(sql string) error {
 
 func theResponse(response string) error {
 	if response != sqlResponse {
+		//nolint:goerr113 // use for test
 		return fmt.Errorf("incorrect parse result. expect: %s, but get: %s", response, sqlResponse)
 	}
 

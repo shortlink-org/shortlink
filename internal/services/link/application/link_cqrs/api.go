@@ -21,7 +21,7 @@ func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {
 
 		log.ErrorWithContext(ctx, "Error create a new link", errList)
 
-		return fmt.Errorf("error create a new link")
+		return ErrCreateLink
 	}
 
 	return nil
@@ -63,7 +63,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*domain.LinkView, error
 	}
 
 	if resp == nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: hash}, Err: query.ErrNotFound}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: hash}}
 	}
 
 	return resp, nil
@@ -105,7 +105,7 @@ func (s *Service) List(ctx context.Context, filter *query.Filter) (*domain.Links
 	}
 
 	if resp == nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: ""}, Err: query.ErrNotFound}
+		return nil, &link.NotFoundError{Link: &link.Link{Hash: ""}}
 	}
 
 	return resp, nil

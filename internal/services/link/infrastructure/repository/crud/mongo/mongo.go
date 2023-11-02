@@ -4,7 +4,6 @@ import (
 	"context"
 	"embed"
 	"errors"
-	"fmt"
 	"time"
 
 	"github.com/golang-migrate/migrate/v4"
@@ -52,7 +51,7 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 			if errBatchWrite != nil {
 				for index := range args {
 					// TODO: add logs for error
-					args[index].CallbackChannel <- fmt.Errorf("error write to MongoDB")
+					args[index].CallbackChannel <- ErrWrite
 				}
 
 				return errBatchWrite
@@ -128,13 +127,13 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	val := collection.FindOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
 
 	if val.Err() != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 
 	var response v1.Link
 
 	if err := val.Decode(&response); err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("failed parse link: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 
 	return &response, nil
@@ -156,11 +155,11 @@ func (s *Store) List(ctx context.Context, filter *query2.Filter) (*v1.Links, err
 	// Passing bson.D{{}} as the filter matches all documents in the collection
 	cur, err := collection.Find(ctx, filterQuery)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query2.ErrNotFound}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}}
 	}
 
 	if cur.Err() != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query2.ErrNotFound}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}}
 	}
 
 	// Here's an array in which you can db the decoded documents
@@ -174,7 +173,7 @@ func (s *Store) List(ctx context.Context, filter *query2.Filter) (*v1.Links, err
 		// create a value into which the single document can be decoded
 		var elem v1.Link
 		if errDecode := cur.Decode(&elem); errDecode != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query2.ErrNotFound}
+			return nil, &v1.NotFoundError{Link: &v1.Link{}}
 		}
 
 		links.Link = append(links.GetLink(), &elem)
@@ -203,7 +202,7 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 
 	_, err := collection.DeleteOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
 	if err != nil {
-		return &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("failed save link: %s", id)}
+		return &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 
 	return nil
@@ -228,13 +227,13 @@ func (s *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, err
 		if errors.As(err, &typeErr) {
 			switch typeErr.WriteErrors[0].Code {
 			case 11000: //nolint:gomnd,revive // ignore
-				return nil, &v1.NotUniqError{Link: source, Err: fmt.Errorf("duplicate URL: %s", source.GetUrl())}
+				return nil, &v1.NotUniqError{Link: source}
 			default:
-				return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("failed marsharing link: %s", source.GetUrl())}
+				return nil, &v1.NotFoundError{Link: source}
 			}
 		}
 
-		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("failed marsharing link: %s", source.GetUrl())}
+		return nil, &v1.NotFoundError{Link: source}
 	}
 
 	return source, nil

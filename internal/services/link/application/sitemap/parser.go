@@ -3,7 +3,6 @@ package sitemap
 import (
 	"context"
 	"encoding/xml"
-	"fmt"
 	"io"
 	"net/http"
 
@@ -50,7 +49,10 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return fmt.Errorf(`incorrect response code: %d for %s`, resp.StatusCode, url)
+		return &IncorrectResponseCodeError{
+			StatusCode: resp.StatusCode,
+			URL:        url,
+		}
 	}
 
 	bodyBytes, err := io.ReadAll(resp.Body)

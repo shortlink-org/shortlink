@@ -1,8 +1,6 @@
 package file
 
 import (
-	"fmt"
-
 	query "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
 	table "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/table/v1"
 )
@@ -17,7 +15,7 @@ func (f *File) CreateTable(q *query.Query) error {
 
 	// check
 	if f.database.GetTables()[q.GetTableName()] != nil {
-		return fmt.Errorf("at CREATE TABLE: exist table")
+		return ErrExistTable
 	}
 
 	f.database.Tables[q.GetTableName()] = table.New(q)

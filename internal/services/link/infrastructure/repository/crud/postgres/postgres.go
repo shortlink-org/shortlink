@@ -7,7 +7,6 @@ import (
 	"context"
 	"embed"
 	"errors"
-	"fmt"
 
 	"github.com/Masterminds/squirrel"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
@@ -42,7 +41,7 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 	s.setConfig()
 	s.client, ok = store.GetConn().(*pgxpool.Pool)
 	if !ok {
-		return nil, errors.New("error get connection to PostgreSQL")
+		return nil, db.ErrGetConnection
 	}
 
 	s.query = crud.New(s.client)
@@ -66,7 +65,7 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 			if errBatchWrite != nil {
 				for index := range args {
 					// TODO: add logs for error
-					args[index].CallbackChannel <- errors.New("error write to PostgreSQL")
+					args[index].CallbackChannel <- ErrWrite
 				}
 
 				return errBatchWrite
@@ -93,7 +92,7 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 func (s *Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
 	link, err := s.query.GetLinkByHash(ctx, hash)
 	if err != nil {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: hash}, Err: fmt.Errorf("failed get link: %s", hash)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: hash}}
 	}
 
 	return &domain.Link{
@@ -222,7 +221,7 @@ func (s *Store) singleWrite(ctx context.Context, in *domain.Link) (*domain.Link,
 
 	_, err = s.client.Exec(ctx, q, args...)
 	if err != nil {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: in.GetHash()}, Err: fmt.Errorf("failed create link: %s", in.GetHash())}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: in.GetHash()}}
 	}
 
 	return in, nil

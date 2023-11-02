@@ -4,8 +4,6 @@ Logger
 package logger
 
 import (
-	"errors"
-
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/logrus"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/zap"
@@ -27,7 +25,7 @@ func NewLogger(loggerInstance int, cfg config.Configuration) (Logger, error) {
 	case Logrus:
 		log, err = logrus.New(cfg)
 	default:
-		return nil, errors.New("invalid logger instance")
+		return nil, ErrInvalidLoggerInstance
 	}
 
 	if err != nil {

@@ -11,7 +11,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	v1 "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/tariff/v1"
 	v12 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
 type Tariff struct {
@@ -23,7 +22,7 @@ func (t *Tariff) Init(_ context.Context, store db.DB) error {
 
 	t.client, ok = store.GetConn().(*pgxpool.Pool)
 	if !ok {
-		return errors.New("error get connection to PostgreSQL")
+		return db.ErrGetConnection
 	}
 
 	return nil
@@ -74,7 +73,7 @@ func (t *Tariff) List(ctx context.Context, filter any) (*v1.Tariffs, error) {
 		var result v1.Tariff
 		err = rows.Scan(&result.Id, &result.Name, &result.Payload)
 		if err != nil {
-			return nil, &v12.NotFoundError{Link: &v12.Link{}, Err: query.ErrNotFound}
+			return nil, &v12.NotFoundError{Link: &v12.Link{}}
 		}
 
 		response.List = append(response.GetList(), &result)

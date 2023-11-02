@@ -7,7 +7,6 @@ import (
 	"context"
 	"database/sql"
 	"embed"
-	"errors"
 
 	"github.com/google/uuid"
 	"github.com/segmentio/encoding/json"
@@ -29,7 +28,7 @@ var (
 func New(ctx context.Context, store db.DB) (*Store, error) {
 	client, ok := store.GetConn().(*sql.DB)
 	if !ok {
-		return nil, errors.New("error get connection to MySQL")
+		return nil, db.ErrGetConnection
 	}
 
 	s := &Store{

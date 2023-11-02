@@ -71,12 +71,12 @@ query all($a: string) {
 
 	val, err := txn.QueryWithVars(ctx, q, map[string]string{"$a": id})
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 
 	var response LinkResponse
 	if err = json.NewDecoder(bytes.NewReader(val.Json)).Decode(&response); err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("failed parse link: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 
 	return &response, nil
@@ -93,11 +93,11 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 
 	response, err := s.get(ctx, id)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 
 	if len(response.Link) == 0 {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 
 	return response.Link[0].Link, nil
@@ -148,7 +148,7 @@ func (s *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error) {
 
 	responses, err := s.list(ctx)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}}
 	}
 
 	links := &v1.Links{
@@ -202,7 +202,7 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	}
 	_, err = txn.Mutate(ctx, mu)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("failed save link: %s", source.GetUrl())}
+		return nil, &v1.NotFoundError{Link: source}
 	}
 
 	return source, nil
@@ -224,7 +224,7 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 
 	links, err := s.get(ctx, id)
 	if err != nil {
-		return &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 
 	if len(links.Link) == 0 {

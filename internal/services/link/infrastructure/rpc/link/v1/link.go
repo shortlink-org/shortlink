@@ -2,8 +2,6 @@ package v1
 
 import (
 	"context"
-	"errors"
-	"fmt"
 	"strings"
 
 	"github.com/segmentio/encoding/json"
@@ -12,6 +10,7 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
 
+	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	queryStore "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
@@ -30,12 +29,12 @@ func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error)
 	// Get session
 	md, ok := metadata.FromIncomingContext(ctx)
 	if !ok {
-		return nil, errors.New("error get metadata from context")
+		return nil, rpc.ErrGetMetadataFromContext
 	}
 
 	sess := md.Get("user-id")
 	if len(sess) == 0 {
-		return nil, errors.New("error get session from metadata")
+		return nil, rpc.ErrGetSessionFromMetadata
 	}
 
 	// Parse args
@@ -43,7 +42,7 @@ func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error)
 
 	if in.GetFilter() != "" {
 		if json.NewDecoder(strings.NewReader(in.GetFilter())).Decode(&filter) != nil {
-			return nil, errors.New("error parse payload as string")
+			return nil, ErrParsePayloadAsString
 		}
 	}
 
@@ -59,7 +58,7 @@ func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error)
 
 func (l *Link) Add(ctx context.Context, in *AddRequest) (*AddResponse, error) {
 	if in.GetLink() == nil {
-		return nil, fmt.Errorf("create a new link: empty payload")
+		return nil, ErrEmptyPayload
 	}
 
 	resp, err := l.service.Add(ctx, in.GetLink())

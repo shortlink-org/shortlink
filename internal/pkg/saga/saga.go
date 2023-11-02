@@ -40,7 +40,7 @@ func (s *Saga) AddStep(name string, setters ...Option) *BuilderStep {
 
 	// check uniq
 	if s.steps[name] != nil {
-		s.errorList = append(s.errorList, fmt.Errorf("dublicate step: %s", name))
+		s.errorList = append(s.errorList, &DublicateStepError{Name: name})
 	}
 
 	s.steps[name] = step.Step

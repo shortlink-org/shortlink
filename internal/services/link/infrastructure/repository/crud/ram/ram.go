@@ -2,7 +2,6 @@ package ram
 
 import (
 	"context"
-	"fmt"
 	"sync"
 
 	"github.com/spf13/viper"
@@ -66,12 +65,12 @@ func New(ctx context.Context) (*Store, error) {
 func (s *Store) Get(_ context.Context, id string) (*domain.Link, error) {
 	response, ok := s.links.Load(id)
 	if !ok {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}}
 	}
 
 	v, ok := response.(*domain.Link)
 	if !ok {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}}
 	}
 
 	return v, nil

@@ -3,8 +3,6 @@
 package dag
 
 import (
-	"errors"
-	"fmt"
 	"sync"
 )
 
@@ -19,9 +17,9 @@ func New() *Dag {
 
 // AddVertex adds a vertex to the graph
 func (d *Dag) AddVertex(id string, value any) (*Vertex, error) {
-	// check on uniq key
+	// check on an uniq key
 	if _, ok := d.vertices.Load(id); ok {
-		return nil, fmt.Errorf("dag already contains a vertex with the id: %s", id)
+		return nil, &VertexAlreadyExistsError{Id: id}
 	}
 
 	node := &Vertex{
@@ -38,23 +36,23 @@ func (d *Dag) AddVertex(id string, value any) (*Vertex, error) {
 func (d *Dag) AddEdge(from, to string) error {
 	fromVertexRaw, ok := d.vertices.Load(from)
 	if !ok {
-		return fmt.Errorf("not found vertex by id: %s", from)
+		return &VertexNotFoundError{Id: from}
 	}
 
 	fromVertex, ok := fromVertexRaw.(*Vertex)
 	if !ok {
-		return errors.New("incorrect type assertion")
+		return ErrIncorrectTypeAssertion
 	}
 
 	toVertexRaw, ok := d.vertices.Load(to)
 
 	if !ok {
-		return fmt.Errorf("not found vertex by id: %s", to)
+		return &VertexNotFoundError{Id: to}
 	}
 
 	toVertex, ok := toVertexRaw.(*Vertex)
 	if !ok {
-		return errors.New("incorrect type assertion")
+		return ErrIncorrectTypeAssertion
 	}
 
 	fromVertex.children = append(fromVertex.children, toVertex)
@@ -70,12 +68,12 @@ func (d *Dag) AddEdge(from, to string) error {
 func (d *Dag) GetVertex(id string) (*Vertex, error) {
 	vertex, ok := d.vertices.Load(id)
 	if !ok {
-		return nil, fmt.Errorf("not found vertex with name: %s", id)
+		return nil, &VertexNotFoundError{Id: id}
 	}
 
 	if v, okAsserion := vertex.(*Vertex); okAsserion {
 		return v, nil
 	}
 
-	return nil, errors.New("incorrect type assertion")
+	return nil, ErrIncorrectTypeAssertion
 }

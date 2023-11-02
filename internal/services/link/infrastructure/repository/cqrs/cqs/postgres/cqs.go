@@ -2,7 +2,6 @@ package postgres
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5/pgxpool"
@@ -19,7 +18,7 @@ func New(_ context.Context, store db.DB) (*Store, error) {
 	// Set configuration
 	s.client, ok = store.GetConn().(*pgxpool.Pool)
 	if !ok {
-		return nil, fmt.Errorf("error get connection")
+		return nil, db.ErrGetConnection
 	}
 
 	return s, nil

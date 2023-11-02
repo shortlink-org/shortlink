@@ -3,7 +3,6 @@ package sqlite
 import (
 	"context"
 	"database/sql"
-	"fmt"
 
 	"github.com/Masterminds/squirrel"
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
@@ -54,14 +53,14 @@ func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 
 	stmt, err := lite.client.Prepare(q)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 	defer stmt.Close() //nolint:errcheck // ignore
 
 	var response v1.Link
 	err = stmt.QueryRowContext(ctx, args...).Scan(&response.Url, &response.Hash, &response.Describe)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 
 	return &response, nil
@@ -79,7 +78,7 @@ func (lite *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error)
 
 	rows, err := lite.client.QueryContext(ctx, q, args...)
 	if err != nil || rows.Err() != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}}
 	}
 	defer rows.Close() //nolint:errcheck // ignore
 
@@ -91,7 +90,7 @@ func (lite *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error)
 		var result v1.Link
 		err = rows.Scan(&result.Url, &result.Hash, &result.Describe)
 		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
+			return nil, &v1.NotFoundError{Link: &v1.Link{}}
 		}
 
 		response.Link = append(response.GetLink(), &result)
@@ -119,7 +118,7 @@ func (lite *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 
 	_, err = lite.client.ExecContext(ctx, q, args...)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("failed save link: %s", source.GetUrl())}
+		return nil, &v1.NotFoundError{Link: source}
 	}
 
 	return source, nil
@@ -142,7 +141,7 @@ func (lite *Store) Delete(ctx context.Context, id string) error {
 
 	_, err = lite.client.ExecContext(ctx, q, args...)
 	if err != nil {
-		return &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("failed delete link: %s", id)}
+		return &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 
 	return nil

@@ -2,10 +2,10 @@ package redis
 
 import (
 	"context"
-	"errors"
 
 	"github.com/redis/rueidis"
 
+	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/redis"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
@@ -29,7 +29,7 @@ func (r *Redis) Init(ctx context.Context) error {
 
 	r.client, ok = store.GetConn().(rueidis.Client)
 	if !ok {
-		return errors.New("can't convert redis connection to rueidis.Client")
+		return db.ErrGetConnection
 	}
 
 	return nil

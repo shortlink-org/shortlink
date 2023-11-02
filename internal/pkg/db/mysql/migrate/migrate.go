@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"embed"
-	"errors"
 	"fmt"
 	"strings"
 
@@ -19,7 +18,7 @@ import (
 func Migration(_ context.Context, store db.DB, fs embed.FS, tableName string) error {
 	client, ok := store.GetConn().(*sql.DB)
 	if !ok {
-		return errors.New("can't get db connection")
+		return db.ErrGetConnection
 	}
 
 	driverMigrations, err := iofs.New(fs, "migrations")

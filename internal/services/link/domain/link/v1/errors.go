@@ -7,7 +7,6 @@ import (
 // NotFoundError - not found link
 type NotFoundError struct {
 	Link *Link
-	Err  error
 }
 
 func (e *NotFoundError) Error() string {
@@ -16,7 +15,6 @@ func (e *NotFoundError) Error() string {
 
 type NotUniqError struct {
 	Link *Link
-	Err  error
 }
 
 func (e *NotUniqError) Error() string {
@@ -24,7 +22,6 @@ func (e *NotUniqError) Error() string {
 }
 
 type CreateLinkError struct {
-	Err  error
 	Link *Link
 }
 
@@ -33,7 +30,6 @@ func (e *CreateLinkError) Error() string {
 }
 
 type PermissionDeniedError struct {
-	Err  error
 	Link *Link
 }
 

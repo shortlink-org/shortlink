@@ -15,11 +15,14 @@ func (f *File) Select(query *v1.Query) ([]*page.Row, error) {
 	// check table
 	t := f.database.GetTables()[query.GetTableName()]
 	if t == nil {
-		return nil, fmt.Errorf("at SELECT: not exist table")
+		return nil, &NotExistTableError{
+			Table: query.GetTableName(),
+			Type:  "SELECT",
+		}
 	}
 
 	if len(query.GetFields()) == 0 {
-		return nil, fmt.Errorf("at SELECT: expected field to SELECT")
+		return nil, ErrIncorrectNameFields
 	}
 
 	// response
@@ -27,7 +30,7 @@ func (f *File) Select(query *v1.Query) ([]*page.Row, error) {
 
 	currentRow, err := cursor.New(t, false)
 	if err != nil {
-		return nil, fmt.Errorf("at SELECT: error create a new cursor")
+		return nil, ErrCreateCursor
 	}
 
 	for !currentRow.EndOfTable {
@@ -54,7 +57,10 @@ func (f *File) Select(query *v1.Query) ([]*page.Row, error) {
 
 		for _, field := range query.GetFields() {
 			if record.GetValue()[field] == nil {
-				return nil, fmt.Errorf("at SELECT: incorrect name fields %s in table %s", field, query.GetTableName())
+				return nil, &IncorrectNameFieldsError{
+					Field: field,
+					Table: query.GetTableName(),
+				}
 			}
 		}
 		if query.IsFilter(record, t.GetFields()) {
@@ -101,13 +107,16 @@ func (f *File) insertToTable(query *v1.Query) error {
 	// check the table's existence
 	t := f.database.GetTables()[query.GetTableName()]
 	if t == nil {
-		return fmt.Errorf("at INSERT INTO: not exist table")
+		return &NotExistTableError{
+			Table: query.GetTableName(),
+			Type:  "INSERT",
+		}
 	}
 
 	// check if a new page needs to be created
 	_, err := f.addPage(query.GetTableName())
 	if err != nil {
-		return fmt.Errorf("at INSERT INTO: error create a new page")
+		return ErrCreatePage
 	}
 
 	if t.GetStats().GetPageCount() > -1 && t.GetPages()[t.GetStats().GetPageCount()] == nil {
@@ -128,12 +137,14 @@ func (f *File) insertToTable(query *v1.Query) error {
 	// insert to last page
 	currentRow, err := cursor.New(t, true)
 	if err != nil {
-		return fmt.Errorf("at INSERT INTO: error create a new cursor")
+		return &CreateCursorError{
+			Type: "INSERT",
+		}
 	}
 
 	row, err := currentRow.Value()
 	if err != nil {
-		return fmt.Errorf("at INSERT INTO: error get value from cursor")
+		return ErrCreateCursor
 	}
 
 	// check values and create row record
@@ -142,7 +153,10 @@ func (f *File) insertToTable(query *v1.Query) error {
 	}
 	for index, field := range query.GetFields() {
 		if t.GetFields()[field].String() == "" {
-			return fmt.Errorf("at INSERT INTO: incorrect type fields %s in table %s", field, query.GetTableName())
+			return &IncorrectTypeFieldsError{
+				Field: field,
+				Table: query.GetTableName(),
+			}
 		}
 
 		record.Value[field] = []byte(query.GetInserts()[0].GetItems()[index])

@@ -5,7 +5,6 @@ package link
 
 import (
 	"context"
-	"errors"
 	"fmt"
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
@@ -68,7 +67,7 @@ func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {
 
 		log.ErrorWithContext(ctx, "Error create a new link", errList)
 
-		return fmt.Errorf("error create a new link")
+		return ErrCreateLink
 	}
 
 	return nil
@@ -112,7 +111,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 
 			return nil
 		}).Reject(func(ctx context.Context) error {
-		return &v1.PermissionDeniedError{Link: &v1.Link{Hash: hash}, Err: errors.New("permission denied")}
+		return &v1.PermissionDeniedError{Link: &v1.Link{Hash: hash}}
 	}).Build()
 	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
@@ -129,7 +128,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 
 			return nil
 		}).Reject(func(ctx context.Context) error {
-		return &v1.PermissionDeniedError{Link: &v1.Link{Hash: hash}, Err: errors.New("permission denied")}
+		return &v1.PermissionDeniedError{Link: &v1.Link{Hash: hash}}
 	}).Build()
 	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
@@ -142,7 +141,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 	}
 
 	if resp == nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: hash}, Err: queryStore.ErrNotFound}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: hash}}
 	}
 
 	return resp, nil
@@ -193,7 +192,7 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 
 			return nil
 		}).Reject(func(ctx context.Context) error {
-		return &v1.PermissionDeniedError{Link: &v1.Link{}, Err: errors.New("permission denied")}
+		return &v1.PermissionDeniedError{Link: &v1.Link{}}
 	}).Build()
 	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
@@ -385,7 +384,7 @@ func (s *Service) Delete(ctx context.Context, hash string) (*v1.Link, error) {
 
 			return nil
 		}).Reject(func(ctx context.Context) error {
-		return &v1.PermissionDeniedError{Link: &v1.Link{}, Err: errors.New("permission denied")}
+		return &v1.PermissionDeniedError{Link: &v1.Link{}}
 	}).Build()
 	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err

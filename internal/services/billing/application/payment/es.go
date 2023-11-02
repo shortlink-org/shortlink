@@ -2,7 +2,6 @@ package payment_application
 
 import (
 	"context"
-	"fmt"
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
@@ -54,7 +53,7 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 	case t == billing.Event_EVENT_BALANCE_UPDATED.String():
 		// validate payment
 		if p.Status != billing.StatusPayment_STATUS_PAYMENT_APPROVE {
-			return fmt.Errorf("incorrect status of payment: %s", p.Status)
+			return &IncorrectStatusOfPaymentError{Status: p.Status.String()}
 		}
 
 		var payload billing.EventBalanceUpdated
@@ -65,7 +64,7 @@ func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
 
 		p.Amount += payload.GetAmount()
 	default:
-		return fmt.Errorf("not found event with type: %s", event.GetType())
+		return &NotFoundEventError{Type: t}
 	}
 
 	return nil
@@ -111,7 +110,7 @@ func (p *Payment) HandleCommand(ctx context.Context, command *eventsourcing.Base
 
 		span.SetAttributes(attribute.String("event_type", billing.Event_EVENT_BALANCE_UPDATED.String()))
 	default:
-		return fmt.Errorf("not found command with type: %s", t)
+		return &NotFoundCommandError{Type: t}
 	}
 
 	err := p.ApplyChangeHelper(p, event, true)

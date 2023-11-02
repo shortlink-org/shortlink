@@ -3,7 +3,6 @@ package slack
 import (
 	"bytes"
 	"context"
-	"errors"
 	"net/http"
 
 	"github.com/segmentio/encoding/json"
@@ -13,6 +12,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/notify/domain/events"
+	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure"
 )
 
 type Bot struct {
@@ -66,7 +66,7 @@ func (b *Bot) send(ctx context.Context, message string) error {
 
 	resp, err := client.Do(req)
 	if err != nil || resp.StatusCode != http.StatusOK {
-		return errors.New("don't send message to slack")
+		return infrastructure.ErrSendMessage
 	}
 
 	defer resp.Body.Close()

@@ -5,7 +5,6 @@ package crud
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"time"
 
@@ -87,7 +86,7 @@ func New(ctx context.Context, log logger.Logger, store db.DB, c *cache.Cache) (*
 			return nil, err
 		}
 	default:
-		return nil, errors.Join(db.ErrUnknownStoreType, fmt.Errorf("unknown store type: %s", s.typeStore))
+		return nil, db.UnknownStoreTypeError{StoreType: s.typeStore}
 	}
 
 	log.Info("init linkStore", field.Fields{

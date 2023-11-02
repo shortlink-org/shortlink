@@ -2,7 +2,6 @@ package leveldb
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/syndtr/goleveldb/leveldb"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -50,7 +49,7 @@ func (l *Store) Add(_ context.Context, source *v1.Link) (*v1.Link, error) {
 func (l *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	value, err := l.client.Get([]byte(id), nil)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 
 	var response v1.Link
@@ -60,7 +59,7 @@ func (l *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	}
 
 	if response.GetUrl() == "" {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 
 	return &response, nil
@@ -81,7 +80,7 @@ func (l *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
 		var response v1.Link
 		err := protojson.Unmarshal(value, &response)
 		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
+			return nil, &v1.NotFoundError{Link: &v1.Link{}}
 		}
 
 		links.Link = append(links.GetLink(), &response)
@@ -90,7 +89,7 @@ func (l *Store) List(_ context.Context, _ *query.Filter) (*v1.Links, error) {
 	iterator.Release()
 	err := iterator.Error()
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}}
 	}
 
 	return links, nil

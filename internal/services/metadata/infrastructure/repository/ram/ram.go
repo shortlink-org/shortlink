@@ -2,7 +2,6 @@ package ram
 
 import (
 	"context"
-	"fmt"
 	"sync"
 
 	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
@@ -18,12 +17,12 @@ type Store struct {
 func (s *Store) Get(_ context.Context, id string) (*rpc.Meta, error) {
 	response, ok := s.metadata.Load(id)
 	if !ok {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}}
 	}
 
 	v, ok := response.(*rpc.Meta)
 	if !ok {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}}
 	}
 
 	return v, nil

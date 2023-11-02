@@ -3,7 +3,6 @@ package es_postgres
 import (
 	"context"
 	"errors"
-	"fmt"
 	"time"
 
 	"github.com/Masterminds/squirrel"
@@ -78,7 +77,9 @@ func (s *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event)
 	}
 
 	if row.RowsAffected() != 1 {
-		return fmt.Errorf(`incorrect updated billing.aggregates. Updated: %d/1`, row.RowsAffected())
+		return &IncorrectUpdatedBillingError{
+			Updated: row.RowsAffected(),
+		}
 	}
 
 	return nil

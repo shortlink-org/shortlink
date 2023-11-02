@@ -2,8 +2,9 @@ package rabbit
 
 import (
 	"context"
-	"fmt"
 	"sync"
+
+	amqp "github.com/rabbitmq/amqp091-go"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 )
@@ -55,7 +56,7 @@ func (mq *MQ) Close() error {
 
 func (mq *MQ) Check(_ context.Context) error {
 	if mq.conn.IsClosed() {
-		return fmt.Errorf("connection is closed")
+		return amqp.ErrClosed
 	}
 
 	return nil

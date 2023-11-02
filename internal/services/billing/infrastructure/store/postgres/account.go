@@ -21,7 +21,7 @@ func (a *Account) Init(_ context.Context, store db.DB) error {
 
 	a.client, ok = store.GetConn().(*pgxpool.Pool)
 	if !ok {
-		return errors.New("can't get db connection")
+		return db.ErrGetConnection
 	}
 
 	return nil

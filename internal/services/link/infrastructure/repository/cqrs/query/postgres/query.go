@@ -24,7 +24,7 @@ func New(_ context.Context, store db.DB) (*Store, error) {
 	// Set configuration
 	s.client, ok = store.GetConn().(*pgxpool.Pool)
 	if !ok {
-		return nil, fmt.Errorf("error get connection")
+		return nil, db.ErrGetConnection
 	}
 
 	return s, nil
@@ -43,22 +43,22 @@ func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 
 	rows, err := s.client.Query(ctx, q, args...)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 	if rows.Err() != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 
 	var response v12.LinkView
 	for rows.Next() {
 		err = rows.Scan(&response.Url, &response.Hash, &response.Describe, &response.ImageUrl, &response.MetaDescription, &response.MetaKeywords)
 		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+			return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 		}
 	}
 
 	if response.GetHash() == "" {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("not found id: %s", id)}
+		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 
 	return &response, nil
@@ -80,7 +80,7 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v12.LinksView,
 
 	rows, err := s.client.Query(ctx, q, args...)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
+		return nil, &v1.NotFoundError{Link: &v1.Link{}}
 	}
 
 	response := &v12.LinksView{
@@ -95,7 +95,7 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*v12.LinksView,
 		)
 		err = rows.Scan(&result.Hash, &result.Describe, &result.MetaDescription, &created_ad, &updated_at)
 		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}, Err: query.ErrNotFound}
+			return nil, &v1.NotFoundError{Link: &v1.Link{}}
 		}
 		result.CreatedAt = &timestamppb.Timestamp{Seconds: created_ad.Time.Unix(), Nanos: int32(created_ad.Time.Nanosecond())}
 		result.UpdatedAt = &timestamppb.Timestamp{Seconds: updated_at.Time.Unix(), Nanos: int32(updated_at.Time.Nanosecond())}

@@ -136,7 +136,7 @@ func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {
 
 		log.ErrorWithContext(ctx, "Error create a new payment", errList)
 
-		return fmt.Errorf("error create a new payment")
+		return ErrCreatePayment
 	}
 
 	return nil
@@ -183,7 +183,7 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 			return nil
 		}).
 		Reject(func(ctx context.Context) error {
-			return fmt.Errorf("error create a new payment")
+			return ErrCreatePayment
 		}).
 		Build()
 	if err := errorHelper(ctx, p.log, errs); err != nil {
@@ -218,7 +218,7 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 			return nil
 		}).
 		Reject(func(ctx context.Context) error {
-			return fmt.Errorf(`Payment was successfully created, but its status could not be received`)
+			return ErrApprovePayment
 		}).
 		Build()
 	if err := errorHelper(ctx, p.log, errs); err != nil {

@@ -2,7 +2,6 @@ package kafka
 
 import (
 	"context"
-	"fmt"
 	"time"
 
 	"github.com/IBM/sarama"
@@ -57,7 +56,7 @@ func (mq *Kafka) Init(ctx context.Context) error {
 			return nil
 		}
 
-		return fmt.Errorf("kafka connection error")
+		return sarama.ErrOutOfBrokers
 	}, 5*time.Second) //nolint:gomnd // 5s
 
 	return nil
@@ -144,7 +143,7 @@ func (mq *Kafka) setConfig() (*sarama.Config, error) {
 	case sarama.RangeBalanceStrategyName:
 		config.Consumer.Group.Rebalance.GroupStrategies = []sarama.BalanceStrategy{sarama.NewBalanceStrategyRange()}
 	default:
-		return nil, fmt.Errorf("unrecognized consumer group partition assignor: %s", strategy)
+		return nil, sarama.ErrConsumerCoordinatorNotAvailable
 	}
 
 	config.Consumer.Offsets.Initial = viper.GetInt64("MQ_KAFKA_CONSUMER_GROUP_OFFSET")

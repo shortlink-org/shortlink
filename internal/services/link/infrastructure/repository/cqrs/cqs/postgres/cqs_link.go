@@ -3,7 +3,6 @@ package postgres
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5"
@@ -34,7 +33,7 @@ func (s *Store) LinkAdd(ctx context.Context, source *v1.Link) (*v1.Link, error) 
 		return source, nil
 	}
 	if errScan.Error() != "" {
-		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("failed save link: %s", source.GetUrl())}
+		return nil, &v1.NotFoundError{Link: source}
 	}
 
 	return source, nil
@@ -61,7 +60,7 @@ func (s *Store) LinkUpdate(ctx context.Context, source *v1.Link) (*v1.Link, erro
 		return source, nil
 	}
 	if errScan.Error() != "" {
-		return nil, &v1.NotFoundError{Link: source, Err: fmt.Errorf("failed save link: %s", source.GetUrl())}
+		return nil, &v1.NotFoundError{Link: source}
 	}
 
 	return source, nil
@@ -79,7 +78,7 @@ func (s *Store) LinkDelete(ctx context.Context, id string) error {
 
 	_, err = s.client.Exec(ctx, q, args...)
 	if err != nil {
-		return &v1.NotFoundError{Link: &v1.Link{Hash: id}, Err: fmt.Errorf("failed delete link: %s", id)}
+		return &v1.NotFoundError{Link: &v1.Link{Hash: id}}
 	}
 
 	return nil
