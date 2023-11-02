@@ -14,7 +14,7 @@ type ParserError struct {
 }
 
 func (e *ParserError) Error() string {
-	return fmt.Sprint(e.Err)
+	return e.Err
 }
 
 // Errors for SELECT ---------------------------------------------------------------------------------------------------
