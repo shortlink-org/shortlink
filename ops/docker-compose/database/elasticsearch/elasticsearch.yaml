@@ -27,8 +27,17 @@ services:
       cluster.routing.allocation.disk.watermark.low: "512mb"
       cluster.routing.allocation.disk.watermark.high: "256mb"
       cluster.routing.allocation.disk.watermark.flood_stage: "128mb"
+    ulimits:
+      memlock:
+        soft: -1
+        hard: -1
+      nofile:
+        soft: 65536
+        hard: 65536
+    cap_add:
+      - IPC_LOCK
     volumes:
-      - ${PWD}/ops/docker-compose/database/elasticsearch/conf/config.yaml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
+      - ./ops/docker-compose/database/elasticsearch/conf/config.yaml:/usr/share/elasticsearch/config/elasticsearch.yml:ro
 #      - type: bind
 #        source: /data/shortlink/store/elasticsearch
 #        target: /usr/share/elasticsearch/data

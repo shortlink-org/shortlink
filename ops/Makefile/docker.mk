@@ -53,7 +53,8 @@ dev: ## Run for development mode
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/database/postgres/postgres.yaml \
+		-f ops/docker-compose/database/cassandra/cassandra.yaml \
+		-f ops/docker-compose/database/elasticsearch/elasticsearch.yaml \
 		-f ops/docker-compose/tooling/saas/temporal/temporal.yaml \
 		up -d --remove-orphans --build
 

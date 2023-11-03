@@ -4,7 +4,9 @@ import (
 	"context"
 	"fmt"
 	"log"
+	"time"
 
+	"go.temporal.io/api/workflowservice/v1"
 	"go.temporal.io/sdk/client"
 
 	"github.com/shortlink-org/shortlink/internal/services/report/shared"
@@ -12,6 +14,22 @@ import (
 )
 
 func main() {
+
+	// create a namespace
+	c1, err := client.NewNamespaceClient(client.Options{})
+	if err != nil {
+		log.Fatalln("unable to create Temporal client", err)
+	}
+
+	t := time.Now()
+	duration := time.Since(t) + time.Hour*24*1
+	err = c1.Register(context.Background(), &workflowservice.RegisterNamespaceRequest{
+		Namespace:                        client.DefaultNamespace,
+		WorkflowExecutionRetentionPeriod: &duration,
+	})
+	if err != nil {
+		// log.Fatalln("unable to create Temporal client", err)
+	}
 
 	// Create the client object just once per process
 	c, err := client.Dial(client.Options{

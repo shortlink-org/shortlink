@@ -1,8 +1,16 @@
 version: '2.4'
 
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
 services:
 
   cassandra:
+    <<: *network
     depends_on:
       - coredns
     image: cassandra:4.1.3
@@ -12,11 +20,6 @@ services:
     ports:
       - "7000:7000"
       - "9042:9042"
-    networks:
-      - simple
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
     healthcheck:
       test: ["CMD", "cqlsh", "-e", "describe keyspaces"]
       interval: 5s
