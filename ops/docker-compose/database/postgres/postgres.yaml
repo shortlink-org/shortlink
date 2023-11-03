@@ -29,17 +29,13 @@ services:
       simple:
         ipv4_address: ${DATABASE_IP}
     healthcheck:
-      test: [ "CMD", "pg_isready", "--username=postgres", "--host=127.0.0.1", "--port=5432" ]
+      test: ["CMD", "pg_isready", "--username=postgres", "--host=127.0.0.1", "--port=5432"]
       interval: 2s
       timeout: 1m
       retries: 5
     volumes:
       - ./ops/docker-compose/database/postgres/conf/postgresql.conf:/etc/postgresql/postgresql.conf
-      - ./data/shortlink/store/postgres/data:/var/lib/postgresql/data
-#    logging:
-#      driver: fluent-bit
-#      options:
-#        tag: postgres
+#      - ./data/shortlink/store/postgres/data:/var/lib/postgresql/data
 
   pgbouncer:
     <<: *network

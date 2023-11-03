@@ -22,7 +22,3 @@ services:
       interval: 5s
       timeout: 5s
       retries: 60
-#    logging:
-#      driver: fluent-bit
-#      options:
-#        tag: cassandra
