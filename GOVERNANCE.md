@@ -2,7 +2,7 @@
 
 ### Introduction
 
-Shortlink is an open source project for demonstrating the use best practices and CNCF projects in a real world application. 
+Shortlink is an open source project for demonstrating the use of best practices and CNCF projects in a real world application. 
 
 The Shortlink project aims for open and transparent governance and decision-making.
 As such, external contributions are strongly encouraged.
