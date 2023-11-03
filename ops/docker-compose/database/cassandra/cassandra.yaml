@@ -13,11 +13,15 @@ services:
       - "7000:7000"
       - "9042:9042"
     networks:
-      simple:
-        ipv4_address: ${DATABASE_IP}
+      - simple
     dns:
       - ${DNS_IP}
     dns_search: ${DNS_SEARCH}
+    healthcheck:
+      test: ["CMD", "cqlsh", "-e", "describe keyspaces"]
+      interval: 5s
+      timeout: 5s
+      retries: 60
 #    logging:
 #      driver: fluent-bit
 #      options:
