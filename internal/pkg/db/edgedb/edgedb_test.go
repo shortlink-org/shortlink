@@ -21,7 +21,7 @@ func TestEdgeDB(t *testing.T) {
 	require.NoError(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("edgedb/edgedb", "2", []string{"EDGEDB_SERVER_SECURITY=insecure_dev_mode", "EDGEDB_SERVER_DATABASE=shortlink"})
+	resource, err := pool.Run("edgedb/edgedb", "4", []string{"EDGEDB_SERVER_SECURITY=insecure_dev_mode", "EDGEDB_SERVER_DATABASE=shortlink"})
 	require.NoError(t, err, "Could not start resource")
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
