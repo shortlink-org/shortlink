@@ -198,6 +198,7 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 }
 
 // Close - close
+//nolint:unparam // ignore
 func (s *Store) close() error {
 	if s.config.job != nil {
 		s.config.job.Stop()

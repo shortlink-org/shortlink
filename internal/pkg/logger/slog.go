@@ -22,6 +22,7 @@ func (sl *StructLogger) Enabled(ctx context.Context, level slog.Level) bool {
 	return true
 }
 
+//nolint:gocritic // This is a wrapper for the logger
 func (sl *StructLogger) Handle(ctx context.Context, record slog.Record) error {
 	switch record.Level {
 	case slog.LevelDebug:
