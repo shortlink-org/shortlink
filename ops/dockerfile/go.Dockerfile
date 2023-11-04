@@ -28,6 +28,9 @@ RUN go mod download
 # COPY the source code AS the last step
 COPY . .
 
+# Field Alignment
+RUN go run golang.org/x/tools/go/analysis/passes/fieldalignment/cmd/fieldalignment -fix ./internal/...
+
 # Build project
 RUN --mount=type=cache,target=/root/.cache/go-build \
   --mount=type=cache,target=/go/pkg \
