@@ -149,13 +149,16 @@ func TestPostgres(t *testing.T) {
 }
 
 func getLink() (*v1.Link, error) {
+	id := linkUniqId.Add(1)
+
 	data := &v1.Link{
-		Url:      fmt.Sprintf("%s/%d", "http://example.com", linkUniqId.Load()),
+		Url:      fmt.Sprintf("%s/%d", "http://example.com", id),
 		Describe: mock.AddLink.Describe,
 	}
+
 	if err := v1.NewURL(data); err != nil {
 		return nil, err
 	}
-	linkUniqId.Inc()
+
 	return data, nil
 }

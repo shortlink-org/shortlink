@@ -23,7 +23,7 @@ func NewURL(link *Link) error {
 }
 
 func NewHash(url string) string {
-	return CreateHash([]byte(url), []byte("secret"))[:9] //nolint:revive // ignore
+	return CreateHash([]byte(url), []byte("secret"))[:15] //nolint:revive // ignore
 }
 
 // CreateHash return hash by getting link

@@ -13,8 +13,11 @@ import (
 	"go.uber.org/atomic"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mock"
 )
+
+var linkUniqId atomic.Int64
 
 func BenchmarkRAMSerial(b *testing.B) {
 	ctx := context.Background()
@@ -63,16 +66,13 @@ func BenchmarkRAMParallel(b *testing.B) {
 		// create a db
 		store := Store{}
 
-		data := mock.AddLink
-		var atom atomic.Int64
-
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				data.Url = fmt.Sprintf("%s/%d", data.Url, atom.Load())
-				_, err := store.Add(ctx, data)
+				source, err := getLink()
 				require.NoError(b, err)
 
-				atom.Inc()
+				_, err = store.Add(ctx, source)
+				require.NoError(b, err)
 			}
 		})
 	})
@@ -87,17 +87,29 @@ func BenchmarkRAMParallel(b *testing.B) {
 		// create a db
 		store := Store{}
 
-		data := mock.AddLink
-		var atom atomic.Int64
-
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
-				data.Url = fmt.Sprintf("%s/%d", data.Url, atom.Load())
-				_, err := store.Add(ctx, data)
+				source, err := getLink()
 				require.NoError(b, err)
 
-				atom.Inc()
+				_, err = store.Add(ctx, source)
+				require.NoError(b, err)
 			}
 		})
 	})
+}
+
+func getLink() (*v1.Link, error) {
+	id := linkUniqId.Add(1)
+
+	data := &v1.Link{
+		Url:      fmt.Sprintf("%s/%d", "http://example.com", id),
+		Describe: mock.AddLink.Describe,
+	}
+
+	if err := v1.NewURL(data); err != nil {
+		return nil, err
+	}
+
+	return data, nil
 }

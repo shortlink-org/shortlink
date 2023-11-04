@@ -18,7 +18,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 )
 
-func BenchmarkPostgresSerial(b *testing.B) {
+func BenchmarkMongoSerial(b *testing.B) {
 	ctx := context.Background()
 
 	st := db.Store{}
@@ -100,7 +100,7 @@ func BenchmarkPostgresSerial(b *testing.B) {
 	})
 }
 
-func BenchmarkPostgresParallel(b *testing.B) {
+func BenchmarkMongoParallel(b *testing.B) {
 	ctx := context.Background()
 
 	st := db.Store{}

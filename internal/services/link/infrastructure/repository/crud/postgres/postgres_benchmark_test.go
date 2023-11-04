@@ -9,7 +9,6 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/require"
 
@@ -20,14 +19,14 @@ import (
 func BenchmarkPostgresSerial(b *testing.B) {
 	ctx := context.Background()
 
-	st := db.Store{}
+	st := &db.Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
 	require.NoError(b, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("postgres", "15.2-alpine", []string{
+	resource, err := pool.Run("ghcr.io/dbsystel/postgresql-partman", "16", []string{
 		"POSTGRES_USER=postgres",
 		"POSTGRES_PASSWORD=shortlink",
 		"POSTGRES_DB=shortlink",
@@ -70,13 +69,14 @@ func BenchmarkPostgresSerial(b *testing.B) {
 		}
 	})
 
+	// new store
+	store, err := New(ctx, st)
+	if err != nil {
+		b.Fatalf("Could not create store: %s", err)
+	}
+
 	b.Run("Create [single]", func(b *testing.B) {
 		b.ReportAllocs()
-
-		// create a db
-		store := Store{
-			client: st.GetConn().(*pgxpool.Pool),
-		}
 
 		for i := 0; i < b.N; i++ {
 			source, err := getLink()
@@ -90,13 +90,14 @@ func BenchmarkPostgresSerial(b *testing.B) {
 	b.Run("Create [batch]", func(b *testing.B) {
 		b.ReportAllocs()
 
-		// create a db
-		storeBatchMode := Store{
-			client: st.GetConn().(*pgxpool.Pool),
+		// new store
+		storeBatchMode, err := New(ctx, st)
+		if err != nil {
+			b.Fatalf("Could not create store: %s", err)
 		}
 
 		// Set config
-		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
+		err = os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 		require.NoError(b, err, "Cannot set ENV")
 
 		for i := 0; i < b.N; i++ {
@@ -112,14 +113,14 @@ func BenchmarkPostgresSerial(b *testing.B) {
 func BenchmarkPostgresParallel(b *testing.B) {
 	ctx := context.Background()
 
-	st := db.Store{}
+	st := &db.Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
 	require.NoError(b, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("postgres", "15.2-alpine", []string{
+	resource, err := pool.Run("ghcr.io/dbsystel/postgresql-partman", "16", []string{
 		"POSTGRES_USER=postgres",
 		"POSTGRES_PASSWORD=shortlink",
 		"POSTGRES_DB=shortlink",
@@ -162,13 +163,14 @@ func BenchmarkPostgresParallel(b *testing.B) {
 		}
 	})
 
+	// new store
+	store, err := New(ctx, st)
+	if err != nil {
+		b.Fatalf("Could not create store: %s", err)
+	}
+
 	b.Run("Create [single]", func(b *testing.B) {
 		b.ReportAllocs()
-
-		// create a db
-		store := Store{
-			client: st.GetConn().(*pgxpool.Pool),
-		}
 
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -188,9 +190,10 @@ func BenchmarkPostgresParallel(b *testing.B) {
 		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 		require.NoError(b, err, "Cannot set ENV")
 
-		// create a db
-		storeBatchMode := Store{
-			client: st.GetConn().(*pgxpool.Pool),
+		// new store
+		storeBatchMode, err := New(ctx, st)
+		if err != nil {
+			b.Fatalf("Could not create store: %s", err)
 		}
 
 		b.RunParallel(func(pb *testing.PB) {

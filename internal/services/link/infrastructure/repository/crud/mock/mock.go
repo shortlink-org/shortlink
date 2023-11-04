@@ -10,7 +10,7 @@ var (
 	timestamp = timestamppb.Now()
 	AddLink   = &domain.Link{
 		Url:       "https://example.com",
-		Hash:      "5888cabde",
+		Hash:      "5888cabde79b6d7",
 		Describe:  "example link",
 		CreatedAt: timestamp,
 		UpdatedAt: timestamp,
@@ -18,7 +18,7 @@ var (
 
 	GetLink = &domain.Link{
 		Url:       "https://example.com",
-		Hash:      "5888cabde",
+		Hash:      "5888cabde79b6d7",
 		Describe:  "example link",
 		CreatedAt: timestamp,
 		UpdatedAt: timestamp,
