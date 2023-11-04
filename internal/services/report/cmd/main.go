@@ -1,24 +1,50 @@
+/*
+Report application
+
+Make reports for users
+*/
 package main
 
 import (
 	"context"
-	"fmt"
-	"log"
 	"time"
 
+	"github.com/spf13/viper"
 	"go.temporal.io/api/workflowservice/v1"
 	"go.temporal.io/sdk/client"
 
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+	metadata_di "github.com/shortlink-org/shortlink/internal/services/metadata/di"
 	"github.com/shortlink-org/shortlink/internal/services/report/shared"
 	"github.com/shortlink-org/shortlink/internal/services/report/workflow"
 )
 
 func main() {
+	viper.SetDefault("SERVICE_NAME", "shortlink-report")
+
+	// Init a new service
+	service, cleanup, err := metadata_di.InitializeMetaDataService()
+	if err != nil { // TODO: use as helpers
+		panic(err)
+	}
+
+	defer func() {
+		if r := recover(); r != nil {
+			service.Log.Error(r.(string))
+		}
+	}()
+
+	// Stop the service gracefully.
+	defer cleanup()
 
 	// create a namespace
 	c1, err := client.NewNamespaceClient(client.Options{})
 	if err != nil {
-		log.Fatalln("unable to create Temporal client", err)
+		service.Log.Error("unable to create Temporal client", field.Fields{
+			"error": err.Error(),
+		})
+		panic(err)
 	}
 
 	t := time.Now()
@@ -28,15 +54,30 @@ func main() {
 		WorkflowExecutionRetentionPeriod: &duration,
 	})
 	if err != nil {
-		// log.Fatalln("unable to create Temporal client", err)
+		service.Log.Warn("unable to create Temporal namespace", field.Fields{
+			"error": err.Error(),
+		})
+	}
+
+	// get struct logger
+	structLogger, err := logger.NewStructLogger(service.Log)
+	if err != nil {
+		service.Log.Error("unable to create StructLogger", field.Fields{
+			"error": err.Error(),
+		})
+		panic(err)
 	}
 
 	// Create the client object just once per process
 	c, err := client.Dial(client.Options{
 		HostPort: client.DefaultHostPort,
+		Logger:   structLogger,
 	})
 	if err != nil {
-		log.Fatalln("unable to create Temporal client", err)
+		service.Log.Error("unable to create Temporal client", field.Fields{
+			"error": err.Error(),
+		})
+		panic(err)
 	}
 	defer c.Close()
 
@@ -49,20 +90,29 @@ func main() {
 	name := "World"
 	we, err := c.ExecuteWorkflow(context.Background(), options, workflow.GreetingWorkflow, name)
 	if err != nil {
-		log.Fatalln("unable to complete Workflow", err)
+		service.Log.Error("unable to start Workflow", field.Fields{
+			"error": err.Error(),
+		})
+		panic(err)
 	}
 
 	// Get the results
 	var greeting string
 	err = we.Get(context.Background(), &greeting)
 	if err != nil {
-		log.Fatalln("unable to get Workflow result", err)
+		service.Log.Error("unable to get Workflow result", field.Fields{
+			"error": err.Error(),
+		})
+		panic(err)
 	}
 
-	printResults(greeting, we.GetID(), we.GetRunID())
+	printResults(greeting, we.GetID(), we.GetRunID(), service.Log)
 }
 
-func printResults(greeting string, workflowID, runID string) {
-	fmt.Printf("\nWorkflowID: %s RunID: %s\n", workflowID, runID)
-	fmt.Printf("\n%s\n\n", greeting)
+func printResults(greeting string, workflowID, runID string, log logger.Logger) {
+	log.Info("Workflow completed", field.Fields{
+		"WorkflowID": workflowID,
+		"RunID":      runID,
+		"Greeting":   greeting,
+	})
 }
