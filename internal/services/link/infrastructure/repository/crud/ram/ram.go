@@ -135,7 +135,10 @@ func (s *Store) Delete(_ context.Context, id string) error {
 
 // Close - close
 func (s *Store) Close() error {
-	s.config.job.Stop()
+	if s.config.job != nil {
+		s.config.job.Stop()
+	}
+
 	return nil
 }
 

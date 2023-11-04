@@ -6,9 +6,7 @@ import (
 	"errors"
 	"time"
 
-	"github.com/golang-migrate/migrate/v4"
 	_ "github.com/golang-migrate/migrate/v4/database/mongodb"
-	"github.com/johejo/golang-migrate-extra/source/iofs"
 	"github.com/spf13/viper"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
@@ -16,6 +14,7 @@ import (
 
 	"github.com/shortlink-org/shortlink/internal/pkg/batch"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/internal/pkg/db/mongo/migrate"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	query2 "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
@@ -26,14 +25,18 @@ var migrations embed.FS
 
 // New store
 func New(ctx context.Context, store db.DB) (*Store, error) {
+	var ok bool
 	s := &Store{}
 
-	// Set configuration
+	// Set configuration -----------------------------------------------------------------------------------------------
 	s.setConfig()
-	s.client = store.GetConn().(*mongo.Client) //nolint:errcheck // ignore
+	s.client, ok = store.GetConn().(*mongo.Client)
+	if !ok {
+		return nil, db.ErrGetConnection
+	}
 
-	// Apply migration
-	err := s.migrate()
+	// Migration -------------------------------------------------------------------------------------------------------
+	err := migrate.Migration(ctx, store, migrations, "repository_link")
 	if err != nil {
 		return nil, err
 	}
@@ -71,27 +74,13 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 		}
 	}
 
+	// Graceful shutdown -----------------------------------------------------------------------------------------------
+	go func() {
+		<-ctx.Done()
+		s.close()
+	}()
+
 	return s, nil
-}
-
-// migrate - migration to db
-func (s *Store) migrate() error {
-	driver, err := iofs.New(migrations, "migrations")
-	if err != nil {
-		return err
-	}
-
-	ms, err := migrate.NewWithSourceInstance("iofs", driver, s.config.URI)
-	if err != nil {
-		return err
-	}
-
-	err = ms.Up()
-	if err != nil && err.Error() != "no change" {
-		return err
-	}
-
-	return nil
 }
 
 // Add - add
@@ -203,6 +192,15 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 	_, err := collection.DeleteOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
 	if err != nil {
 		return &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+	}
+
+	return nil
+}
+
+// Close - close
+func (s *Store) close() error {
+	if s.config.job != nil {
+		s.config.job.Stop()
 	}
 
 	return nil

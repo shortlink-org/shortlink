@@ -85,6 +85,12 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 		}
 	}
 
+	// Graceful shutdown -----------------------------------------------------------------------------------------------
+	go func() {
+		<-ctx.Done()
+		s.close()
+	}()
+
 	return s, nil
 }
 
@@ -192,6 +198,15 @@ func (s *Store) Delete(ctx context.Context, hash string) error {
 	err := s.query.DeleteLink(ctx, hash)
 	if err != nil {
 		return err
+	}
+
+	return nil
+}
+
+// Close - close
+func (s *Store) close() error {
+	if s.config.job != nil {
+		s.config.job.Stop()
 	}
 
 	return nil

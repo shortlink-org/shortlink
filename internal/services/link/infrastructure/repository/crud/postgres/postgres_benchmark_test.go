@@ -17,7 +17,7 @@ import (
 )
 
 func BenchmarkPostgresSerial(b *testing.B) {
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
 
 	st := &db.Store{}
 
@@ -63,6 +63,8 @@ func BenchmarkPostgresSerial(b *testing.B) {
 	}
 
 	b.Cleanup(func() {
+		cancel()
+
 		// When you're done, kill and remove the container
 		if err := pool.Purge(resource); err != nil {
 			b.Fatalf("Could not purge resource: %s", err)
@@ -90,15 +92,15 @@ func BenchmarkPostgresSerial(b *testing.B) {
 	b.Run("Create [batch]", func(b *testing.B) {
 		b.ReportAllocs()
 
+		// Set config
+		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
+		require.NoError(b, err, "Cannot set ENV")
+
 		// new store
 		storeBatchMode, err := New(ctx, st)
 		if err != nil {
 			b.Fatalf("Could not create store: %s", err)
 		}
-
-		// Set config
-		err = os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		require.NoError(b, err, "Cannot set ENV")
 
 		for i := 0; i < b.N; i++ {
 			source, err := getLink()
@@ -111,7 +113,7 @@ func BenchmarkPostgresSerial(b *testing.B) {
 }
 
 func BenchmarkPostgresParallel(b *testing.B) {
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
 
 	st := &db.Store{}
 
@@ -157,6 +159,8 @@ func BenchmarkPostgresParallel(b *testing.B) {
 	}
 
 	b.Cleanup(func() {
+		cancel()
+
 		// When you're done, kill and remove the container
 		if err := pool.Purge(resource); err != nil {
 			b.Fatalf("Could not purge resource: %s", err)
@@ -171,6 +175,10 @@ func BenchmarkPostgresParallel(b *testing.B) {
 
 	b.Run("Create [single]", func(b *testing.B) {
 		b.ReportAllocs()
+
+		// Set config
+		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_SINGLE_WRITE))
+		require.NoError(b, err, "Cannot set ENV")
 
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {

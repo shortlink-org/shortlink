@@ -15,6 +15,8 @@ import (
 
 func TestMain(m *testing.M) {
 	goleak.VerifyTestMain(m)
+
+	m.Run()
 }
 
 func TestNew(t *testing.T) {

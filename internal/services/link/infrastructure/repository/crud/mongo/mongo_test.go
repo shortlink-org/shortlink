@@ -13,8 +13,8 @@ import (
 	"github.com/ory/dockertest/v3/docker"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-	"go.mongodb.org/mongo-driver/mongo"
 	"go.uber.org/atomic"
+	"go.uber.org/goleak"
 
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/mongo"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
@@ -23,17 +23,18 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
-// TODO: Problem with testing into GitLab CI
-// func TestMain(m *testing.M) {
-//	goleak.VerifyTestMain(m)
-// }
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"))
+
+	m.Run()
+}
 
 var linkUniqId atomic.Int64
 
 func TestMongo(t *testing.T) {
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
 
-	st := db.Store{}
+	st := &db.Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -67,14 +68,20 @@ func TestMongo(t *testing.T) {
 	}
 
 	t.Cleanup(func() {
+		errClose := st.Close()
+		require.NoError(t, errClose)
+		cancel()
+
 		// When you're done, kill and remove the container
 		if err := pool.Purge(resource); err != nil {
 			t.Fatalf("Could not purge resource: %s", err)
 		}
 	})
 
-	store := Store{
-		client: st.GetConn().(*mongo.Client),
+	// new store
+	store, err := New(ctx, st)
+	if err != nil {
+		t.Fatalf("Could not create store: %s", err)
 	}
 
 	t.Run("Create [single]", func(t *testing.T) {
@@ -89,8 +96,11 @@ func TestMongo(t *testing.T) {
 		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 		require.NoError(t, err, "Cannot set ENV")
 
-		storeBatchMode := Store{
-			client: st.GetConn().(*mongo.Client),
+		newCtx, cancel := context.WithCancel(ctx)
+
+		storeBatchMode, err := New(newCtx, st)
+		if err != nil {
+			t.Fatalf("Could not create store: %s", err)
 		}
 
 		source, err := getLink()
@@ -120,6 +130,10 @@ func TestMongo(t *testing.T) {
 		require.NoError(t, err)
 		assert.NotNil(t, source.CreatedAt)
 		assert.Equal(t, source.Describe, mock.GetLink.Describe)
+
+		t.Cleanup(func() {
+			cancel()
+		})
 	})
 
 	t.Run("Get", func(t *testing.T) {

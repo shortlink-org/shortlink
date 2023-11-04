@@ -17,7 +17,9 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"))
+	goleak.VerifyTestMain(m)
+
+	m.Run()
 }
 
 func TestRAM(t *testing.T) {
@@ -31,6 +33,11 @@ func TestRAM(t *testing.T) {
 		require.NoError(t, errAdd)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 		assert.Equal(t, link.Describe, mock.GetLink.Describe)
+
+		t.Cleanup(func() {
+			errClose := store.Close()
+			require.NoError(t, errClose)
+		})
 	})
 
 	t.Run("Create [batch]", func(t *testing.T) {
@@ -65,6 +72,11 @@ func TestRAM(t *testing.T) {
 		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 		assert.Equal(t, link.Describe, mock.GetLink.Describe)
+
+		t.Cleanup(func() {
+			errClose := store.Close()
+			require.NoError(t, errClose)
+		})
 	})
 
 	t.Run("Get list", func(t *testing.T) {
@@ -77,6 +89,11 @@ func TestRAM(t *testing.T) {
 		links, err := store.List(ctx, nil)
 		require.NoError(t, err)
 		assert.Equal(t, len(links.Link), 1)
+
+		t.Cleanup(func() {
+			errClose := store.Close()
+			require.NoError(t, errClose)
+		})
 	})
 
 	t.Run("Delete", func(t *testing.T) {
@@ -86,5 +103,10 @@ func TestRAM(t *testing.T) {
 		link, err := store.Add(ctx, mock.GetLink)
 
 		require.NoError(t, store.Delete(ctx, link.Hash))
+
+		t.Cleanup(func() {
+			errClose := store.Close()
+			require.NoError(t, errClose)
+		})
 	})
 }

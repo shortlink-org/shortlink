@@ -12,16 +12,15 @@ import (
 	"github.com/ory/dockertest/v3"
 	"github.com/ory/dockertest/v3/docker"
 	"github.com/stretchr/testify/require"
-	"go.mongodb.org/mongo-driver/mongo"
 
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/mongo"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 )
 
 func BenchmarkMongoSerial(b *testing.B) {
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
 
-	st := db.Store{}
+	st := &db.Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -55,6 +54,10 @@ func BenchmarkMongoSerial(b *testing.B) {
 	}
 
 	b.Cleanup(func() {
+		errClose := st.Close()
+		require.NoError(b, errClose)
+		cancel()
+
 		// When you're done, kill and remove the container
 		if err := pool.Purge(resource); err != nil {
 			b.Fatalf("Could not purge resource: %s", err)
@@ -65,8 +68,9 @@ func BenchmarkMongoSerial(b *testing.B) {
 		b.ReportAllocs()
 
 		// create a db
-		store := Store{
-			client: st.GetConn().(*mongo.Client),
+		store, err := New(ctx, st)
+		if err != nil {
+			b.Fatalf("Could not create store: %s", err)
 		}
 
 		for i := 0; i < b.N; i++ {
@@ -81,14 +85,17 @@ func BenchmarkMongoSerial(b *testing.B) {
 	b.Run("Create [batch]", func(b *testing.B) {
 		b.ReportAllocs()
 
-		// create a db
-		storeBatchMode := Store{
-			client: st.GetConn().(*mongo.Client),
-		}
-
 		// Set config
 		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 		require.NoError(b, err, "Cannot set ENV")
+
+		newCtx, cancel := context.WithCancel(ctx)
+
+		// create a db
+		storeBatchMode, err := New(newCtx, st)
+		if err != nil {
+			b.Fatalf("Could not create store: %s", err)
+		}
 
 		for i := 0; i < b.N; i++ {
 			source, err := getLink()
@@ -97,13 +104,17 @@ func BenchmarkMongoSerial(b *testing.B) {
 			_, err = storeBatchMode.Add(ctx, source)
 			require.NoError(b, err)
 		}
+
+		b.Cleanup(func() {
+			cancel()
+		})
 	})
 }
 
 func BenchmarkMongoParallel(b *testing.B) {
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
 
-	st := db.Store{}
+	st := &db.Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -129,6 +140,10 @@ func BenchmarkMongoParallel(b *testing.B) {
 	}
 
 	b.Cleanup(func() {
+		errClose := st.Close()
+		require.NoError(b, errClose)
+		cancel()
+
 		// When you're done, kill and remove the container
 		if err = pool.Purge(resource); err != nil {
 			b.Fatalf("Could not purge resource: %s", err)
@@ -139,8 +154,9 @@ func BenchmarkMongoParallel(b *testing.B) {
 		b.ReportAllocs()
 
 		// create a db
-		store := Store{
-			client: st.GetConn().(*mongo.Client),
+		store, err := New(ctx, st)
+		if err != nil {
+			b.Fatalf("Could not create store: %s", err)
 		}
 
 		b.RunParallel(func(pb *testing.PB) {
@@ -161,9 +177,12 @@ func BenchmarkMongoParallel(b *testing.B) {
 		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 		require.NoError(b, err, "Cannot set ENV")
 
+		newCtx, cancel := context.WithCancel(ctx)
+
 		// create a db
-		storeBatchMode := Store{
-			client: st.GetConn().(*mongo.Client),
+		storeBatchMode, err := New(newCtx, st)
+		if err != nil {
+			b.Fatalf("Could not create store: %s", err)
 		}
 
 		b.RunParallel(func(pb *testing.PB) {
@@ -174,6 +193,10 @@ func BenchmarkMongoParallel(b *testing.B) {
 				_, err = storeBatchMode.Add(ctx, source)
 				require.NoError(b, err)
 			}
+		})
+
+		b.Cleanup(func() {
+			cancel()
 		})
 	})
 }

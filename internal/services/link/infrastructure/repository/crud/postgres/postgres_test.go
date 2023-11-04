@@ -13,6 +13,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/atomic"
+	"go.uber.org/goleak"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/postgres"
@@ -20,10 +21,21 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mock"
 )
 
+func TestMain(m *testing.M) {
+	// TODO: research how correct close store
+	// pgxpool: https://github.com/jackc/pgx/pull/1642
+	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("github.com/jackc/pgx/v5/pgxpool.(*Pool).backgroundHealthCheck"),
+		goleak.IgnoreTopFunction("database/sql.(*DB).connectionOpener"),
+		goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"),
+		goleak.IgnoreTopFunction("sync.runtime_Semacquire"))
+
+	m.Run()
+}
+
 var linkUniqId atomic.Int64
 
 func TestPostgres(t *testing.T) {
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
 
 	st := &db.Store{}
 
@@ -69,6 +81,8 @@ func TestPostgres(t *testing.T) {
 	}
 
 	t.Cleanup(func() {
+		cancel()
+
 		// When you're done, kill and remove the container
 		if err := pool.Purge(resource); err != nil {
 			t.Fatalf("Could not purge resource: %s", err)
@@ -83,9 +97,7 @@ func TestPostgres(t *testing.T) {
 
 	t.Run("Create [single]", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
-		if err != nil {
-			t.Fatal(err)
-		}
+		require.NoError(t, err)
 		assert.Equal(t, mock.AddLink.Hash, link.Hash)
 		assert.Equal(t, mock.AddLink.Describe, link.Describe)
 	})
@@ -95,8 +107,10 @@ func TestPostgres(t *testing.T) {
 		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 		require.NoError(t, err, "Cannot set ENV")
 
+		newCtx, cancelBatchMode := context.WithCancel(ctx)
+
 		// new store
-		storeBatchMode, err := New(ctx, st)
+		storeBatchMode, err := New(newCtx, st)
 		if err != nil {
 			t.Fatalf("Could not create store: %s", err)
 		}
@@ -128,6 +142,10 @@ func TestPostgres(t *testing.T) {
 		require.NoError(t, err)
 		assert.NotNil(t, source.CreatedAt)
 		assert.Equal(t, source.Describe, mock.GetLink.Describe)
+
+		t.Cleanup(func() {
+			cancelBatchMode()
+		})
 	})
 
 	t.Run("Get", func(t *testing.T) {
