@@ -10,11 +10,18 @@ import (
 
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
 )
 
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+
+	os.Exit(m.Run())
+}
+
 func TestCockroachDB(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
-	ctx := context.Background()
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -60,6 +67,8 @@ func TestCockroachDB(t *testing.T) {
 	}
 
 	t.Cleanup(func() {
+		cancel()
+
 		// When you're done, kill and remove the container
 		if errPurge := pool.Purge(resource); errPurge != nil {
 			t.Fatalf("Could not purge resource: %s", errPurge)

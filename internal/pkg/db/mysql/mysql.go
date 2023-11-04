@@ -10,7 +10,7 @@ import (
 )
 
 // Init - initialize
-func (s *Store) Init(_ context.Context) error {
+func (s *Store) Init(ctx context.Context) error {
 	// Set configuration
 	err := s.setConfig()
 	if err != nil {
@@ -24,8 +24,16 @@ func (s *Store) Init(_ context.Context) error {
 
 	// Check connection
 	if errPing := s.client.Ping(); errPing != nil {
+		_ = s.client.Close()
+
 		return errPing
 	}
+
+	// Graceful shutdown
+	go func() {
+		<-ctx.Done()
+		_ = s.close()
+	}()
 
 	return nil
 }
@@ -36,7 +44,7 @@ func (s *Store) GetConn() any {
 }
 
 // Close - close
-func (s *Store) Close() error {
+func (s *Store) close() error {
 	if err := s.client.Close(); err != nil {
 		return err
 	}

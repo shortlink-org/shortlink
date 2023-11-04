@@ -4,25 +4,30 @@ package badger
 
 import (
 	"context"
+	"os"
 	"testing"
 
 	"github.com/dgraph-io/badger/v4"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
 
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/badger"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mock"
 )
 
-// func TestMain(m *testing.M) {
-//	goleak.VerifyTestMain(m)
-// }
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"))
+
+	os.Exit(m.Run())
+}
 
 func TestBadger(t *testing.T) {
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
 
 	st := db.Store{}
-	st.Init(ctx)
+	err := st.Init(ctx)
+	require.NoError(t, err)
 
 	store := Store{
 		client: st.GetConn().(*badger.DB),
@@ -50,5 +55,9 @@ func TestBadger(t *testing.T) {
 
 	t.Run("Delete", func(t *testing.T) {
 		require.NoError(t, store.Delete(ctx, mock.GetLink.Hash))
+	})
+
+	t.Cleanup(func() {
+		cancel()
 	})
 }

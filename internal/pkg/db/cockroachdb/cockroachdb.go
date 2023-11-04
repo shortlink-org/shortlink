@@ -29,6 +29,14 @@ func (s *Store) Init(ctx context.Context) error {
 		return err
 	}
 
+	// Graceful shutdown
+	go func() {
+		<-ctx.Done()
+
+		//nolint:errcheck // ignore
+		_ = s.сlose()
+	}()
+
 	return nil
 }
 
@@ -37,8 +45,8 @@ func (s *Store) GetConn() any {
 	return s.client
 }
 
-// Close - close
-func (s *Store) Close() error {
+// сlose - close
+func (s *Store) сlose() error {
 	err := s.client.Close(context.Background())
 	if err != nil {
 		return err

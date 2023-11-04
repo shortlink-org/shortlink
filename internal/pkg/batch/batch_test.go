@@ -4,6 +4,7 @@ package batch
 
 import (
 	"context"
+	"os"
 	"testing"
 	"time"
 
@@ -16,7 +17,7 @@ import (
 func TestMain(m *testing.M) {
 	goleak.VerifyTestMain(m)
 
-	m.Run()
+	os.Exit(m.Run())
 }
 
 func TestNew(t *testing.T) {

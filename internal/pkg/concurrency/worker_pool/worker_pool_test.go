@@ -1,6 +1,7 @@
 package worker_pool
 
 import (
+	"os"
 	"sync"
 	"testing"
 
@@ -9,6 +10,8 @@ import (
 
 func TestMain(m *testing.M) {
 	goleak.VerifyTestMain(m)
+
+	os.Exit(m.Run())
 }
 
 func Test_WorkerPool(t *testing.T) {

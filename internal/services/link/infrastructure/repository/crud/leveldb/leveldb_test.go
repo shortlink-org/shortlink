@@ -4,18 +4,27 @@ package leveldb
 
 import (
 	"context"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"github.com/syndtr/goleveldb/leveldb"
+	"go.uber.org/goleak"
 
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/leveldb"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mock"
 )
 
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"),
+		goleak.IgnoreTopFunction("github.com/syndtr/goleveldb/leveldb.(*DB).mpoolDrain"))
+
+	os.Exit(m.Run())
+}
+
 func TestLevelDB(t *testing.T) {
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
 
 	st := db.Store{}
 
@@ -48,5 +57,9 @@ func TestLevelDB(t *testing.T) {
 
 	t.Run("Delete", func(t *testing.T) {
 		require.NoError(t, store.Delete(ctx, mock.GetLink.Hash))
+	})
+
+	t.Cleanup(func() {
+		cancel()
 	})
 }

@@ -2,6 +2,7 @@ package channel
 
 import (
 	"context"
+	"os"
 	"testing"
 	"time"
 
@@ -11,6 +12,8 @@ import (
 
 func TestMain(m *testing.M) {
 	goleak.VerifyTestMain(m)
+
+	os.Exit(m.Run())
 }
 
 func TestMerge(t *testing.T) {

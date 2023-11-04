@@ -24,12 +24,11 @@ import (
 func TestMain(m *testing.M) {
 	// TODO: research how correct close store
 	// pgxpool: https://github.com/jackc/pgx/pull/1642
-	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("github.com/jackc/pgx/v5/pgxpool.(*Pool).backgroundHealthCheck"),
-		goleak.IgnoreTopFunction("database/sql.(*DB).connectionOpener"),
+	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("database/sql.(*DB).connectionOpener"),
 		goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"),
 		goleak.IgnoreTopFunction("sync.runtime_Semacquire"))
 
-	m.Run()
+	os.Exit(m.Run())
 }
 
 var linkUniqId atomic.Int64

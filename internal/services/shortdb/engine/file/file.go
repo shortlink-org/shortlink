@@ -144,7 +144,7 @@ func (f *File) Close() error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 
-	// create database if not exist
+	// create a database if not exist
 	databaseFile, err := f.createFile(fmt.Sprintf("%s.db", f.database.GetName()))
 	if err != nil {
 		return err

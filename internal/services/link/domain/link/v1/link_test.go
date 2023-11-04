@@ -12,6 +12,8 @@ import (
 
 func TestMain(m *testing.M) {
 	goleak.VerifyTestMain(m)
+
+	os.Exit(m.Run())
 }
 
 func TestNewURL(t *testing.T) {

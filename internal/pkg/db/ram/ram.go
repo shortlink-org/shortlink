@@ -19,9 +19,15 @@ type Store struct {
 }
 
 // Init - initialize
-func (s *Store) Init(_ context.Context) error {
+func (s *Store) Init(ctx context.Context) error {
 	// Set configuration
 	s.setConfig()
+
+	// Graceful shutdown
+	go func() {
+		<-ctx.Done()
+		_ = s.close()
+	}()
 
 	return nil
 }
@@ -31,8 +37,8 @@ func (s *Store) GetConn() any {
 	return nil
 }
 
-// Close - close
-func (s *Store) Close() error {
+// close - close
+func (s *Store) close() error {
 	return nil
 }
 

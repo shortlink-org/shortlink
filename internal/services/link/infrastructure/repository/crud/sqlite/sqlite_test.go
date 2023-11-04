@@ -12,8 +12,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/db"
-	"github.com/shortlink-org/shortlink/internal/pkg/db/sqlite"
+	db "github.com/shortlink-org/shortlink/internal/pkg/db/sqlite"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mock"
 )
 
@@ -21,23 +20,25 @@ func TestMain(m *testing.M) {
 	goleak.VerifyTestMain(m,
 		goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"),
 		goleak.IgnoreTopFunction("database/sql.(*DB).connectionOpener"))
+
+	os.Exit(m.Run())
 }
 
 func TestSQLite(t *testing.T) {
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
+
+	st := &db.Store{}
 
 	err := os.Setenv("STORE_SQLITE_PATH", "/tmp/links-test.sqlite")
 	require.NoError(t, err, "Cannot set ENV")
 
 	// Create store
-	st := &sqlite.Store{}
 	err = st.Init(ctx)
 	require.NoError(t, err)
 
 	// Create repository
-	store, err := New(ctx, &db.Store{
-		Store: st,
-	})
+	store, err := New(ctx, st)
+	require.NoError(t, err)
 
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
@@ -67,6 +68,6 @@ func TestSQLite(t *testing.T) {
 	})
 
 	t.Cleanup(func() {
-		require.NoError(t, st.Close())
+		cancel()
 	})
 }

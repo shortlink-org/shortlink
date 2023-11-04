@@ -19,11 +19,11 @@ import (
 func TestMain(m *testing.M) {
 	goleak.VerifyTestMain(m)
 
-	m.Run()
+	os.Exit(m.Run())
 }
 
 func TestRAM(t *testing.T) {
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
 
 	t.Run("Create [single]", func(t *testing.T) {
 		store, err := New(ctx)
@@ -108,5 +108,9 @@ func TestRAM(t *testing.T) {
 			errClose := store.Close()
 			require.NoError(t, errClose)
 		})
+	})
+
+	t.Cleanup(func() {
+		cancel()
 	})
 }

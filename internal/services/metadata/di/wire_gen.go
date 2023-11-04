@@ -79,7 +79,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	db, cleanup6, err := store.New(context, logger, tracerProvider, monitoringMonitoring)
+	db, err := store.New(context, logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -90,7 +90,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	metaStore, err := NewMetaDataStore(context, logger, db)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -100,7 +99,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	service, err := NewMetaDataApplication(metaStore)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -108,9 +106,8 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	mq, cleanup7, err := mq_di.New(context, logger)
+	mq, cleanup6, err := mq_di.New(context, logger)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -120,7 +117,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	event, err := InitMetadataMQ(context, mq)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -129,9 +125,8 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	server, cleanup8, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
+	server, cleanup7, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -142,7 +137,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	metadata, err := NewMetaDataRPCServer(server, service, logger)
 	if err != nil {
-		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -154,7 +148,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	metaDataService, err := NewMetaDataService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, service, event, metadata, metaStore)
 	if err != nil {
-		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -165,7 +158,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		return nil, nil, err
 	}
 	return metaDataService, func() {
-		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()

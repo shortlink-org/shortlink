@@ -52,6 +52,12 @@ func (s *Store) Init(ctx context.Context) error {
 	s.client.SetMaxIdleConns(SET_MAX_IDLE_CONNS)
 	s.client.SetConnMaxLifetime(time.Minute)
 
+	// Graceful shutdown
+	go func() {
+		<-ctx.Done()
+		_ = s.close()
+	}()
+
 	return nil
 }
 
@@ -60,8 +66,8 @@ func (s *Store) GetConn() any {
 	return s.client
 }
 
-// Close - close connection
-func (s *Store) Close() error {
+// close - close connection
+func (s *Store) close() error {
 	return s.client.Close()
 }
 

@@ -25,6 +25,8 @@ type Wallet struct {
 
 func TestMain(m *testing.M) {
 	goleak.VerifyTestMain(m)
+
+	os.Exit(m.Run())
 }
 
 func TestNewSaga(t *testing.T) {

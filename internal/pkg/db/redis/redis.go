@@ -42,6 +42,12 @@ func (s *Store) Init(ctx context.Context) error {
 	// Enable tracing instrumentation.
 	s.client = rueidisotel.WithClient(s.client)
 
+	// Graceful shutdown
+	go func() {
+		<-ctx.Done()
+		_ = s.close()
+	}()
+
 	return nil
 }
 
@@ -50,8 +56,10 @@ func (s *Store) GetConn() any {
 	return s.client
 }
 
-// Close - close
-func (s *Store) Close() error {
+// close - close connection
+//
+//nolint:unparam // ignore
+func (s *Store) close() error {
 	s.client.Close()
 	return nil
 }

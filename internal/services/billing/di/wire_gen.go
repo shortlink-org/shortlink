@@ -81,7 +81,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	db, cleanup6, err := store.New(context, logger, tracerProvider, monitoringMonitoring)
+	db, err := store.New(context, logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -92,7 +92,6 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	billingStore, err := NewBillingStore(context, logger, db)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -102,7 +101,6 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	accountService, err := NewAccountApplication(logger, billingStore)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -112,7 +110,6 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	orderService, err := NewOrderApplication(logger, billingStore)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -122,7 +119,6 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	paymentService, err := NewPaymentApplication(logger, billingStore)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -132,7 +128,6 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	tariffService, err := NewTariffApplication(logger, billingStore)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -142,7 +137,6 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	server, err := NewBillingAPIServer(context, logger, tracerProvider, accountService, orderService, paymentService, tariffService)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -152,7 +146,6 @@ func InitializeBillingService() (*BillingService, func(), error) {
 	}
 	billingService, err := NewBillingService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, server)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -161,7 +154,6 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		return nil, nil, err
 	}
 	return billingService, func() {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()

@@ -54,8 +54,6 @@ func BenchmarkMongoSerial(b *testing.B) {
 	}
 
 	b.Cleanup(func() {
-		errClose := st.Close()
-		require.NoError(b, errClose)
 		cancel()
 
 		// When you're done, kill and remove the container
@@ -140,8 +138,6 @@ func BenchmarkMongoParallel(b *testing.B) {
 	}
 
 	b.Cleanup(func() {
-		errClose := st.Close()
-		require.NoError(b, errClose)
 		cancel()
 
 		// When you're done, kill and remove the container

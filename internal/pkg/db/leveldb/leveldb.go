@@ -30,6 +30,12 @@ func (s *Store) Init(ctx context.Context) error {
 		return err
 	}
 
+	// Graceful shutdown
+	go func() {
+		<-ctx.Done()
+		_ = s.close()
+	}()
+
 	return nil
 }
 
@@ -39,7 +45,7 @@ func (s *Store) GetConn() any {
 }
 
 // Close - close
-func (s *Store) Close() error {
+func (s *Store) close() error {
 	return s.client.Close()
 }
 

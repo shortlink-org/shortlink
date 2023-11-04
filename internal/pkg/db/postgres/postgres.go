@@ -44,13 +44,15 @@ func (s *Store) Init(ctx context.Context) error {
 	// Check connect
 	err = s.client.Ping(ctx)
 	if err != nil {
+		s.client.Close()
+
 		return fmt.Errorf("failed to ping the database: %w", err)
 	}
 
 	// Graceful shutdown
 	go func() {
 		<-ctx.Done()
-		_ = s.Close()
+		_ = s.close()
 	}()
 
 	return nil
@@ -61,8 +63,10 @@ func (s *Store) GetConn() any {
 	return s.client
 }
 
-// Close - close
-func (s *Store) Close() error {
+// close - close connection
+//
+//nolint:unparam // ignore
+func (s *Store) close() error {
 	s.client.Close()
 	return nil
 }

@@ -10,18 +10,25 @@ import (
 
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
 )
 
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+
+	os.Exit(m.Run())
+}
+
 func TestAerospike(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
-	ctx := context.Background()
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
 	require.NoError(t, err, "Could not connect to docker")
 
 	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("aerospike/aerospike-server", "6.2.0.2", nil)
+	resource, err := pool.Run("aerospike/aerospike-server", "6.4.0.6", nil)
 	require.NoError(t, err, "Could not start resource")
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
@@ -49,6 +56,6 @@ func TestAerospike(t *testing.T) {
 	})
 
 	t.Run("Close", func(t *testing.T) {
-		require.NoError(t, store.Close())
+		cancel()
 	})
 }

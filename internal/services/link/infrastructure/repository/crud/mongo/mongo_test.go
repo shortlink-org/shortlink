@@ -26,7 +26,7 @@ import (
 func TestMain(m *testing.M) {
 	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"))
 
-	m.Run()
+	os.Exit(m.Run())
 }
 
 var linkUniqId atomic.Int64
@@ -68,8 +68,6 @@ func TestMongo(t *testing.T) {
 	}
 
 	t.Cleanup(func() {
-		errClose := st.Close()
-		require.NoError(t, errClose)
 		cancel()
 
 		// When you're done, kill and remove the container

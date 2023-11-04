@@ -11,13 +11,21 @@ import (
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
 
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/mysql"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mock"
 )
 
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"),
+		goleak.IgnoreTopFunction("github.com/go-sql-driver/mysql.(*mysqlConn).startWatcher.func1"))
+
+	os.Exit(m.Run())
+}
+
 func TestMysql(t *testing.T) {
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
 
 	st := &db.Store{}
 
@@ -62,6 +70,8 @@ func TestMysql(t *testing.T) {
 	}
 
 	t.Cleanup(func() {
+		cancel()
+
 		// When you're done, kill and remove the container
 		if err := pool.Purge(resource); err != nil {
 			t.Fatalf("Could not purge resource: %s", err)

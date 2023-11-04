@@ -12,11 +12,18 @@ import (
 	"github.com/ory/dockertest/v3/docker"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
 )
 
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+
+	os.Exit(m.Run())
+}
+
 func TestDgraph(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
-	ctx := context.Background()
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -78,6 +85,8 @@ func TestDgraph(t *testing.T) {
 	}
 
 	t.Cleanup(func() {
+		cancel()
+
 		// When you're done, kill and remove the container
 		if err := pool.Purge(ALPHA); err != nil {
 			assert.Errorf(t, err, "Could not purge resource")
@@ -87,9 +96,5 @@ func TestDgraph(t *testing.T) {
 		if err := pool.Purge(ZERO); err != nil {
 			assert.Errorf(t, err, "Could not purge resource")
 		}
-	})
-
-	t.Run("Close", func(t *testing.T) {
-		require.NoError(t, store.Close())
 	})
 }

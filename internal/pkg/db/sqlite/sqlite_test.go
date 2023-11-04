@@ -4,6 +4,7 @@ package sqlite
 
 import (
 	"context"
+	"os"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -11,18 +12,19 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	// TODO: fix
-	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("database/sql.(*DB).connectionOpener"))
+	goleak.VerifyTestMain(m)
+
+	os.Exit(m.Run())
 }
 
 func TestSQLite(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
-	ctx := context.Background()
 
 	err := store.Init(ctx)
 	require.NoError(t, err)
 
-	t.Run("Close", func(t *testing.T) {
-		require.NoError(t, store.Close())
+	t.Cleanup(func() {
+		cancel()
 	})
 }

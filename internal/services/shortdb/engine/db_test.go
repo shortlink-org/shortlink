@@ -7,14 +7,16 @@ import (
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
 
 	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/file"
 	parser "github.com/shortlink-org/shortlink/internal/services/shortdb/parser/v1"
 )
 
 func TestMain(m *testing.M) {
-	// TODO: fix
-	// goleak.VerifyTestMain(m)
+	goleak.VerifyTestMain(m)
+
+	os.Exit(m.Run())
 }
 
 func TestDatabase(t *testing.T) {
@@ -27,6 +29,8 @@ func TestDatabase(t *testing.T) {
 	t.Cleanup(func() {
 		err = os.RemoveAll(path)
 		require.NoError(t, err)
+
+		_ = store.Close()
 	})
 
 	t.Run("CREATE TABLE", func(t *testing.T) {

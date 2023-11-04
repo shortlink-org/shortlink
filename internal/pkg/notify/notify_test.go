@@ -21,6 +21,8 @@ var (
 
 func TestMain(m *testing.M) {
 	goleak.VerifyTestMain(m)
+
+	os.Exit(m.Run())
 }
 
 type mockSubscriber[T any] struct {
