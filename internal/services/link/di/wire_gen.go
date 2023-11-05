@@ -228,7 +228,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	server, cleanup8, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
+	server, err := rpc.InitServer(context, logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup7()
 		cleanup6()
@@ -241,7 +241,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	link, err := NewLinkCQRSRPCServer(server, link_cqrsService, logger)
 	if err != nil {
-		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -253,7 +252,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	v1Link, err := NewLinkRPCServer(server, service, logger)
 	if err != nil {
-		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -265,7 +263,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	response, err := NewRunRPCServer(server, link, v1Link)
 	if err != nil {
-		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -277,7 +274,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	sitemap, err := NewSitemapRPCServer(server, sitemapService, logger)
 	if err != nil {
-		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -289,7 +285,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	linkService, err := NewLinkService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, client, service, link_cqrsService, sitemapService, event, response, v1Link, link, sitemap, repository, cqsStore, queryStore)
 	if err != nil {
-		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()
@@ -300,7 +295,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		return nil, nil, err
 	}
 	return linkService, func() {
-		cleanup8()
 		cleanup7()
 		cleanup6()
 		cleanup5()

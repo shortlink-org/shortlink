@@ -1,6 +1,7 @@
 package rpc
 
 import (
+	"context"
 	"fmt"
 	"net"
 	"runtime/debug"
@@ -44,22 +45,22 @@ type server struct {
 }
 
 // InitServer - initialize gRPC server
-func InitServer(log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*Server, func(), error) {
+func InitServer(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*Server, error) {
 	viper.SetDefault("GRPC_SERVER_ENABLED", true) // gRPC server enable
 
 	if !viper.GetBool("GRPC_SERVER_ENABLED") {
-		return nil, nil, nil
+		return nil, nil
 	}
 
 	config, err := setServerConfig(log, tracer, monitor)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
 	endpoint := fmt.Sprintf("%s:%d", config.host, config.port)
 	lis, err := net.Listen("tcp", endpoint)
 	if err != nil {
-		return nil, nil, err
+		return nil, err
 	}
 
 	// Initialize the gRPC server.
@@ -83,11 +84,15 @@ func InitServer(log logger.Logger, tracer trace.TracerProvider, monitor *monitor
 		Endpoint: endpoint,
 	}
 
-	cleanup := func() {
-		rpc.GracefulStop()
-	}
+	// Graceful shutdown
+	go func() {
+		<-ctx.Done()
 
-	return r, cleanup, err
+		log.Info("Shutdown gRPC server")
+		rpc.GracefulStop()
+	}()
+
+	return r, err
 }
 
 // setConfig - set configuration

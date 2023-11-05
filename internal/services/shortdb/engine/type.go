@@ -1,6 +1,8 @@
 package engine
 
 import (
+	"context"
+
 	page "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/page/v1"
 	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
 	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/file"
@@ -26,7 +28,7 @@ type Engine interface {
 	Delete(query *v1.Query) error
 }
 
-func New(name string, ops ...options.Option) (Engine, error) {
+func New(ctx context.Context, name string, ops ...options.Option) (Engine, error) {
 	var err error
 	var engine Engine
 
@@ -34,7 +36,7 @@ func New(name string, ops ...options.Option) (Engine, error) {
 	case "file":
 		fallthrough
 	default:
-		engine, err = file.New(ops...)
+		engine, err = file.New(ctx, ops...)
 		if err != nil {
 			return nil, err
 		}

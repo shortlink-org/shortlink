@@ -1,6 +1,7 @@
 package repl
 
 import (
+	"context"
 	"fmt"
 	"strings"
 	"sync"
@@ -20,9 +21,9 @@ type Repl struct {
 	mu      sync.Mutex
 }
 
-func New(s *session.Session) (*Repl, error) {
+func New(ctx context.Context, s *session.Session) (*Repl, error) {
 	// set engine
-	store, err := engine.New("file", file.SetName(s.GetCurrentDatabase()), file.SetPath("/tmp/shortdb_repl"))
+	store, err := engine.New(ctx, "file", file.SetName(s.GetCurrentDatabase()), file.SetPath("/tmp/shortdb_repl"))
 	if err != nil {
 		return nil, err
 	}

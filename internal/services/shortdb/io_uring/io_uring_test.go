@@ -6,15 +6,24 @@ import (
 	"bytes"
 	"os"
 	"path/filepath"
+	"runtime"
 	"sync"
 	"testing"
+
+	"go.uber.org/goleak"
 )
 
-func TestRead(t *testing.T) {
+func TestMain(m *testing.M) {
 	if runtime.GOOS == "darwin" {
 		t.Skip("Skipping test on macOS")
 	}
 
+	goleak.VerifyTestMain(m)
+
+	os.Exit(m.Run())
+}
+
+func TestRead(t *testing.T) {
 	err := Init()
 	if err != nil {
 		t.Fatal(err)
@@ -71,10 +80,6 @@ func TestRead(t *testing.T) {
 }
 
 func TestQueueThreshold(t *testing.T) {
-	if runtime.GOOS == "darwin" {
-		t.Skip("Skipping test on macOS")
-	}
-
 	err := Init()
 	if err != nil {
 		t.Fatal(err)
@@ -109,10 +114,6 @@ func TestQueueThreshold(t *testing.T) {
 }
 
 func TestWrite(t *testing.T) {
-	if runtime.GOOS == "darwin" {
-		t.Skip("Skipping test on macOS")
-	}
-
 	err := Init()
 	if err != nil {
 		t.Fatal(err)
@@ -125,7 +126,7 @@ func TestWrite(t *testing.T) {
 		}
 	}()
 
-	dir, err := os.TempDir("", "frodo")
+	dir, err := os.MkdirTemp("", "frodo")
 	if err != nil {
 		t.Fatal(err)
 	}

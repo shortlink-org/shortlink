@@ -5,10 +5,10 @@ import (
 )
 
 func New() (context.Context, func(), error) {
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
 
 	cb := func() {
-		ctx.Done()
+		cancel()
 	}
 
 	return ctx, cb, nil

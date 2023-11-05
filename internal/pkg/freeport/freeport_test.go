@@ -4,6 +4,7 @@ package freeport
 
 import (
 	"net"
+	"os"
 	"strconv"
 	"testing"
 

@@ -1,6 +1,7 @@
 package engine
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"testing"
@@ -13,13 +14,17 @@ import (
 )
 
 func BenchmarkEngine(b *testing.B) {
+	ctx, cancel := context.WithCancel(context.Background())
+
 	// set engine
 	path := "/tmp/shortdb_test_unit"
 
-	store, err := New("file", file.SetName("testDatabase"), file.SetPath(path))
+	store, err := New(ctx, "file", file.SetName("testDatabase"), file.SetPath(path))
 	require.NoError(b, err)
 
 	b.Cleanup(func() {
+		cancel()
+
 		err = os.RemoveAll(path)
 		require.NoError(b, err)
 	})

@@ -12,9 +12,16 @@ import (
 	pb "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/auth"
 )
+
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m)
+
+	os.Exit(m.Run())
+}
 
 // TestGetPermissions tests the GetPermissions function.
 func TestGetPermissions(t *testing.T) {
@@ -44,8 +51,8 @@ schema:
 }
 
 func TestSpiceDB(t *testing.T) {
-	ctx := context.Background()
-	var client *Service
+	ctx, cancel := context.WithCancel(context.Background())
+	client := &Service{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -179,6 +186,8 @@ func TestSpiceDB(t *testing.T) {
 			},
 		})
 		require.NoError(t, errDelete, "Cannot delete relationships")
+
+		cancel()
 
 		// When you're done, kill and remove the container
 		if errPurge := pool.Purge(resource); errPurge != nil {

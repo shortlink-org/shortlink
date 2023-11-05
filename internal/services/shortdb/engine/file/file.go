@@ -1,6 +1,7 @@
 package file
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"sync"
@@ -22,7 +23,7 @@ type File struct {
 	mu       sync.RWMutex
 }
 
-func New(opts ...options.Option) (*File, error) {
+func New(ctx context.Context, opts ...options.Option) (*File, error) {
 	const SHORTDB_PAGE_SIZE = 100
 
 	viper.AutomaticEnv()
@@ -49,7 +50,7 @@ func New(opts ...options.Option) (*File, error) {
 	}
 
 	// init db
-	err = f.init()
+	err = f.init(ctx)
 	if err != nil {
 		return nil, err
 	}
@@ -82,7 +83,7 @@ func (f *File) Exec(query *v1.Query) (any, error) {
 	return nil, nil
 }
 
-func (f *File) init() error {
+func (f *File) init(ctx context.Context) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 
@@ -109,8 +110,13 @@ func (f *File) init() error {
 	defer io_uring.Cleanup()
 
 	go func() {
-		for errIOUring := range io_uring.Err() {
-			fmt.Println(errIOUring)
+		for {
+			select {
+			case <-ctx.Done():
+				return
+			case errIOUring := <-io_uring.Err():
+				fmt.Println(errIOUring)
+			}
 		}
 	}()
 
@@ -159,12 +165,6 @@ func (f *File) Close() error {
 		return err
 	}
 	defer io_uring.Cleanup()
-
-	go func() {
-		for err := range io_uring.Err() {
-			fmt.Println(err)
-		}
-	}()
 
 	var wg conc.WaitGroup
 

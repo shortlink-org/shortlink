@@ -125,7 +125,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	server, cleanup7, err := rpc.InitServer(logger, tracerProvider, monitoringMonitoring)
+	server, err := rpc.InitServer(context, logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -137,7 +137,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	metadata, err := NewMetaDataRPCServer(server, service, logger)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -148,7 +147,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	metaDataService, err := NewMetaDataService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, service, event, metadata, metaStore)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -158,7 +156,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		return nil, nil, err
 	}
 	return metaDataService, func() {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()

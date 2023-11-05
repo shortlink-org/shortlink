@@ -33,6 +33,13 @@ func New(ctx context.Context, log logger.Logger, client *authzed.Client) (*Servi
 
 	log.Info("Permission migrations completed")
 
+	// Graceful shutdown
+	go func() {
+		<-ctx.Done()
+
+		log.Info("Permission service shutdown")
+	}()
+
 	return svc, nil
 }
 

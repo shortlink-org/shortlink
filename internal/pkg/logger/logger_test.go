@@ -5,6 +5,7 @@ package logger
 import (
 	"bytes"
 	"context"
+	"os"
 	"reflect"
 	"testing"
 	"time"

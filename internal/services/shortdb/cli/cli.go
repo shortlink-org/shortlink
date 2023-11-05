@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"log"
 
 	"github.com/spf13/cobra"
@@ -11,6 +12,9 @@ import (
 )
 
 func main() {
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
 	rootCmd := &cobra.Command{
 		Use:   "shortdb",
 		Short: "ShortDB it's daabase for experiments",
@@ -23,7 +27,7 @@ func main() {
 			}
 
 			// run REPL by default
-			r, err := repl.New(s)
+			r, err := repl.New(ctx, s)
 			if err != nil {
 				panic(err)
 			}

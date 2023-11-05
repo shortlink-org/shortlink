@@ -1,6 +1,7 @@
 package engine
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"testing"
@@ -20,13 +21,17 @@ func TestMain(m *testing.M) {
 }
 
 func TestDatabase(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
+
 	// set engine
 	path := "/tmp/shortdb_test_unit"
 
-	store, err := New("file", file.SetName("testDatabase"), file.SetPath(path))
+	store, err := New(ctx, "file", file.SetName("testDatabase"), file.SetPath(path))
 	require.NoError(t, err)
 
 	t.Cleanup(func() {
+		cancel()
+
 		err = os.RemoveAll(path)
 		require.NoError(t, err)
 
