@@ -70,12 +70,12 @@ func (mq *MQ) Subscribe(ctx context.Context, target string, message query.Respon
 	mq.mu.Lock()
 	defer mq.mu.Unlock()
 
-	if _, exists := mq.subscribes[string(message.Key)]; exists {
+	if _, exists := mq.subscribes[target]; exists {
 		return nil
 	}
 
 	ch := make(chan *nats.Msg, mq.config.ChannelSize)
-	mq.subscribes[string(message.Key)] = ch
+	mq.subscribes[target] = ch
 
 	_, err := mq.client.ChanSubscribe(target, ch)
 	if err != nil {
@@ -115,7 +115,8 @@ func (mq *MQ) UnSubscribe(name string) error {
 func (mq *MQ) setConfig() error {
 	viper.AutomaticEnv()
 	viper.SetDefault("MQ_NATS_URI", "nats://localhost:4222") // NATS_URI
-	viper.SetDefault("MQ_NATS_CHANNEL_SIZE", 64)             // NATS_CHANNEL_SIZE
+	//nolint:revive,gomnd // ignore magics numbers
+	viper.SetDefault("MQ_NATS_CHANNEL_SIZE", 64) // NATS_CHANNEL_SIZE
 
 	// parse uri
 	uri, err := url.Parse(viper.GetString("MQ_NATS_URI"))

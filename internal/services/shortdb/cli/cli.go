@@ -2,7 +2,7 @@ package main
 
 import (
 	"context"
-	"log"
+	"fmt"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
@@ -37,11 +37,13 @@ func main() {
 	}
 
 	if err := rootCmd.Execute(); err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+		return
 	}
 
 	// Generate docs
 	if err := doc.GenMarkdownTree(rootCmd, "./pkg/shortdb/docs"); err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
+		return
 	}
 }

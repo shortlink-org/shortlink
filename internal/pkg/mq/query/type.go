@@ -11,5 +11,4 @@ type ResponseMessage struct {
 
 type Response struct {
 	Chan chan ResponseMessage
-	Key  []byte
 }

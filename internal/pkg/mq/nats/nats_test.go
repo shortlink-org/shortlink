@@ -54,7 +54,6 @@ func TestNATS(t *testing.T) {
 		respCh := make(chan query.ResponseMessage)
 		msg := query.Response{
 			Chan: respCh,
-			Key:  nil,
 		}
 
 		err := mq.Subscribe(ctx, "test", msg)

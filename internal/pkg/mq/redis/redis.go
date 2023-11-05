@@ -49,6 +49,8 @@ func (r *Redis) Init(ctx context.Context, log logger.Logger) error {
 }
 
 // close - close connection
+//
+//nolint:unparam // ignore unused parameter
 func (r *Redis) close() error {
 	r.client.Close()
 
