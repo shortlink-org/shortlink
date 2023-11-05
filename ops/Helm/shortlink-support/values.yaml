@@ -22,7 +22,7 @@ deploy:
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/support
-    tag: 0.16.63
+    tag: 0.16.65
 
   # TODO: setting startupProbe, livenessProbe, and readinessProbe
   # startupProbe: {}
@@ -33,7 +33,7 @@ sidecars:
   - name: proxy
     image:
       repository: registry.gitlab.com/shortlink-org/shortlink/support-proxy
-      tag: 0.16.63
+      tag: 0.16.65
 
 # ==============================================================================
 service:
