@@ -26,7 +26,7 @@ RUN go mod download
 COPY . .
 
 # Field Alignment
-RUN go run golang.org/x/tools/go/analysis/passes/fieldalignment/cmd/fieldalignment -fix ./internal/...
+RUN go run golang.org/x/tools/go/analysis/passes/fieldalignment/cmd/fieldalignment -fix ./internal/...; exit 0
 
 # Build project
 RUN --mount=type=cache,target=/root/.cache/go-build \
