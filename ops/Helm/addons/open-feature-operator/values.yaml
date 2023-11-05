@@ -1,0 +1,18 @@
+# Common default values for open-feature-operator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+open-feature-operator:
+  enabled: true
+
+  defaultNamespace: open-feature-operator
+
+  otelCollectorUri: grafana-tempo.grafana:4317
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 30m
+      memory: 32Mi
