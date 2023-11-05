@@ -20,7 +20,7 @@
     - docker buildx inspect --bootstrap
   script:
     - docker buildx build 
-      --platform=linux/amd64
+      --platform=linux/amd64,linux/arm64
       --provenance=true
       --sbom=true
       --build-arg APP_ENV=ci

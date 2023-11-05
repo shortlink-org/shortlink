@@ -11,12 +11,12 @@ SNAPSHOTTER_VERSION=v6.2.1
 
 build: ## Build the CSI container
 		@echo docker buildx build \
-			--platform=linux/amd64 \
+			--platform=linux/amd64,linux/arm64 \
 			--provenance=true \
 			--sbom=true \
 			image ${CI_REGISTRY_IMAGE}-csi:${CI_COMMIT_TAG}
 		@docker buildx build \
-			--platform=linux/amd64 \
+			--platform=linux/amd64,linux/arm64 \
 			--provenance=true \
 			--sbom=true \
 			--no-cache \

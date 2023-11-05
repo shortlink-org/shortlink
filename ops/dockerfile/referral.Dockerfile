@@ -6,7 +6,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM python:3.12-slim AS builder
+FROM --platform=$BUILDPLATFORM python:3.12-slim AS builder
 
 WORKDIR /app
 
@@ -20,7 +20,7 @@ COPY internal/services/referral/requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
 
 # Final image
-FROM python:3.12-slim
+FROM --platform=$TARGETPLATFORM python:3.12-slim
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-referral"

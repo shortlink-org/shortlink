@@ -11,7 +11,8 @@ FROM --platform=$BUILDPLATFORM golang:1.21-alpine AS builder
 ARG CI_COMMIT_TAG
 # `skaffold debug` sets SKAFFOLD_GO_GCFLAGS to disable compiler optimizations
 ARG SKAFFOLD_GO_GCFLAGS
-ARG TARGETOS TARGETARCH
+ARG TARGETOS
+ARG TARGETARCH
 
 ENV GOEXPERIMENT=arenas,cgocheck2,loopvar
 
@@ -39,7 +40,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
   -trimpath \
   -o app ./internal/services/csi/cmd
 
-FROM alpine:3.18
+FROM --platform=$TARGETPLATFORM alpine:3.18
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-csi"

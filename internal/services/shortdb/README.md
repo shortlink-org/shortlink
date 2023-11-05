@@ -34,7 +34,7 @@ This database with support SQL language.
 #### Docker build
 
 ```bash
-$> docker buildx build --platform=linux/amd64 --load -t shortdb -f ops/dockerfile/shortdb.Dockerfile .
+$> docker buildx build --platform=linux/amd64,linux/arm64 --load -t shortdb -f ops/dockerfile/shortdb.Dockerfile .
 ```
 
 #### Reference

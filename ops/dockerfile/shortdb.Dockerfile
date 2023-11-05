@@ -11,7 +11,8 @@ FROM --platform=$BUILDPLATFORM golang:1.21-alpine AS builder
 ARG CI_COMMIT_TAG
 # `skaffold debug` sets SKAFFOLD_GO_GCFLAGS to disable compiler optimizations
 ARG SKAFFOLD_GO_GCFLAGS
-ARG TARGETOS TARGETARCH
+ARG TARGETOS
+ARG TARGETARCH
 
 WORKDIR /go/github.com/shortlink-org/shortlink
 
@@ -40,7 +41,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
   -trimpath \
   -o app ./internal/services/shortdb/cli
 
-FROM debian:12.2
+FROM --platform=$TARGETPLATFORM debian:12.2
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortdb"

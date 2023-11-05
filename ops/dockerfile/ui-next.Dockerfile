@@ -11,7 +11,7 @@ ARG APP_ENV=development
 ARG API_URI
 
 # Install dependencies only when needed
-FROM node:21.1-alpine AS development-builder
+FROM --platform=$BUILDPLATFORM node:21.1-alpine AS development-builder
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
@@ -26,17 +26,17 @@ RUN npm ci --cache .npm --prefer-offline --force
 RUN npx nx run ui-next:build
 RUN npx nx run ui-next:export
 
-FROM development-builder AS cache
+FROM --platform=$BUILDPLATFORM development-builder AS cache
 
 COPY --from=development-builder /app/packages/next/out /app/out
 
-FROM alpine:3.18 AS ci-builder
-FROM ${APP_ENV}-builder AS cache
+FROM --platform=$BUILDPLATFORM alpine:3.18 AS ci-builder
+FROM --platform=$BUILDPLATFORM ${APP_ENV}-builder AS cache
 
 COPY ./ui/nx-monorepo/packages/next/out /app/out
 
 # Production image, copy all the files and run next
-FROM ghcr.io/nginxinc/nginx-unprivileged:1.25-alpine
+FROM --platform=$TARGETPLATFORM ghcr.io/nginxinc/nginx-unprivileged:1.25-alpine
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-next"
