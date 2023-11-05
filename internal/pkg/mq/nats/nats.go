@@ -2,30 +2,34 @@ package nats
 
 import (
 	"context"
+	"net/url"
 
 	"github.com/nats-io/nats.go"
+	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
 
-type Config struct{}
-
-type NATS struct {
-	*Config
-	client *nats.Conn
+func New() *MQ {
+	return &MQ{
+		subscribes: make(map[string]chan *nats.Msg),
+	}
 }
 
-func New() *NATS {
-	return &NATS{}
-}
-
-func (mq *NATS) Init(ctx context.Context, log logger.Logger) error {
-	var err error
+func (mq *MQ) Init(ctx context.Context, log logger.Logger) error {
+	// Set configuration
+	err := mq.setConfig()
+	if err != nil {
+		return err
+	}
 
 	// Connect to a server
-	mq.client, err = nats.Connect(nats.DefaultURL)
+	mq.client, err = nats.Connect(mq.config.URI.String())
+	if err != nil {
+		return err
+	}
 
 	// Graceful shutdown
 	go func() {
@@ -41,42 +45,89 @@ func (mq *NATS) Init(ctx context.Context, log logger.Logger) error {
 	return err
 }
 
-// close - close connection
-func (mq *NATS) close() error {
-	mq.client.Close()
+// close - drain connection
+func (mq *MQ) close() error {
+	err := mq.client.Drain()
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
 
-func (mq *NATS) Publish(_ context.Context, _ string, routingKey, payload []byte) error {
+// Publish - publish a message
+func (mq *MQ) Publish(_ context.Context, _ string, routingKey, payload []byte) error {
 	err := mq.client.Publish(string(routingKey), payload)
-	return err
-}
-
-func (mq *NATS) Subscribe(_ context.Context, _ string, message query.Response) error {
-	_, err := mq.client.Subscribe(string(message.Key), func(m *nats.Msg) {
-		message.Chan <- query.ResponseMessage{
-			Body: m.Data,
-		}
-	})
 	if err != nil {
 		return err
 	}
 
-	ch := make(chan *nats.Msg, 64) //nolint:gomnd,revive // TODO: move to config
-	_, err = mq.client.ChanSubscribe(string(message.Key), ch)
+	return nil
+}
 
+// Subscribe - subscribe to message
+func (mq *MQ) Subscribe(ctx context.Context, target string, message query.Response) error {
+	mq.mu.Lock()
+	defer mq.mu.Unlock()
+
+	if _, exists := mq.subscribes[string(message.Key)]; exists {
+		return nil
+	}
+
+	ch := make(chan *nats.Msg, mq.config.ChannelSize)
+	mq.subscribes[string(message.Key)] = ch
+
+	_, err := mq.client.ChanSubscribe(target, ch)
 	if err != nil {
 		return err
 	}
 
-	for {
-		msg := <-ch
-		message.Chan <- query.ResponseMessage{
-			Body: msg.Data,
+	go func() {
+		for {
+			select {
+			case <-ctx.Done():
+				return
+			case msg := <-ch:
+				message.Chan <- query.ResponseMessage{
+					Body: msg.Data,
+				}
+			}
 		}
-	}
+	}()
+
+	return nil
 }
 
-func (mq *NATS) UnSubscribe(_ string) error {
-	panic("implement me!")
+// UnSubscribe - unsubscribe from message
+func (mq *MQ) UnSubscribe(name string) error {
+	mq.mu.Lock()
+	defer mq.mu.Unlock()
+
+	if ch, exists := mq.subscribes[name]; exists {
+		close(ch)
+		delete(mq.subscribes, name)
+	}
+
+	return nil
+}
+
+// setConfig - set configuration
+func (mq *MQ) setConfig() error {
+	viper.AutomaticEnv()
+	viper.SetDefault("MQ_NATS_URI", "nats://localhost:4222") // NATS_URI
+	viper.SetDefault("MQ_NATS_CHANNEL_SIZE", 64)             // NATS_CHANNEL_SIZE
+
+	// parse uri
+	uri, err := url.Parse(viper.GetString("MQ_NATS_URI"))
+	if err != nil {
+		return err
+	}
+
+	// set config
+	mq.config = &Config{
+		URI:         uri,
+		ChannelSize: viper.GetInt("MQ_NATS_CHANNEL_SIZE"),
+	}
+
+	return nil
 }

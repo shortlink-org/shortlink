@@ -12,7 +12,7 @@ type MQ interface {
 	Init(ctx context.Context, log logger.Logger) error
 
 	// Pub/Sub a pattern
-	Publish(ctx context.Context, target string, routingKey, payload []byte) error
+	Publish(ctx context.Context, target string, routingKey []byte, payload []byte) error
 	Subscribe(ctx context.Context, target string, message query.Response) error
 	UnSubscribe(target string) error
 }
