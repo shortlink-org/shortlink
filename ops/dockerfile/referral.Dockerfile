@@ -6,7 +6,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM --platform=$BUILDPLATFORM python:3.12-slim AS builder
+FROM --platform=$BUILDPLATFORM python:3.11-slim AS builder
 
 WORKDIR /app
 
@@ -14,13 +14,13 @@ ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends gcc
+    apt-get install -y --no-install-recommends gcc git libc6-dev
 
 COPY internal/services/referral/requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
 
 # Final image
-FROM --platform=$TARGETPLATFORM python:3.12-slim
+FROM --platform=$TARGETPLATFORM python:3.11-slim
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-referral"
