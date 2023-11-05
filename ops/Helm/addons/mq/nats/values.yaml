@@ -14,4 +14,26 @@ nats:
       memory: 50Mi
 
   cluster:
-    create: false
+    create: true
+
+    namespace: "nats"
+
+    resources:
+      limits:
+        cpu: 100m
+        memory: 256Mi
+      requests:
+        cpu: 20m
+        memory: 50Mi
+
+    auth:
+      enableServiceAccounts: true
+      username: "my-user"
+      password: "T0pS3cr3t"
+
+    metrics:
+      enabled: true
+
+      servicemonitor:
+        enabled: true
+
