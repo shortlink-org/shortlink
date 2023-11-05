@@ -22,11 +22,13 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Link
 type LinkView struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// FieldMask
 	FieldMask *fieldmaskpb.FieldMask `protobuf:"bytes,9,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
 	// URL
 	Url string `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
@@ -35,9 +37,11 @@ type LinkView struct {
 	// Describe of link
 	Describe string `protobuf:"bytes,3,opt,name=describe,proto3" json:"describe,omitempty"`
 	// Metadata
-	ImageUrl        string `protobuf:"bytes,4,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
+	ImageUrl string `protobuf:"bytes,4,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
+	// Meta description
 	MetaDescription string `protobuf:"bytes,5,opt,name=meta_description,json=metaDescription,proto3" json:"meta_description,omitempty"`
-	MetaKeywords    string `protobuf:"bytes,6,opt,name=meta_keywords,json=metaKeywords,proto3" json:"meta_keywords,omitempty"`
+	// Meta keywords
+	MetaKeywords string `protobuf:"bytes,6,opt,name=meta_keywords,json=metaKeywords,proto3" json:"meta_keywords,omitempty"`
 	// Create at
 	CreatedAt *timestamppb.Timestamp `protobuf:"bytes,7,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	// Update at
@@ -139,11 +143,13 @@ func (x *LinkView) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+// Links
 type LinksView struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Links
 	Links []*LinkView `protobuf:"bytes,1,rep,name=links,proto3" json:"links,omitempty"`
 }
 
@@ -253,7 +259,7 @@ func file_domain_link_cqrs_v1_link_proto_rawDescGZIP() []byte {
 }
 
 var file_domain_link_cqrs_v1_link_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_domain_link_cqrs_v1_link_proto_goTypes = []any{
+var file_domain_link_cqrs_v1_link_proto_goTypes = []interface{}{
 	(*LinkView)(nil),              // 0: domain.link_cqrs.v1.LinkView
 	(*LinksView)(nil),             // 1: domain.link_cqrs.v1.LinksView
 	(*fieldmaskpb.FieldMask)(nil), // 2: google.protobuf.FieldMask
@@ -277,7 +283,7 @@ func file_domain_link_cqrs_v1_link_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_domain_link_cqrs_v1_link_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_domain_link_cqrs_v1_link_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*LinkView); i {
 			case 0:
 				return &v.state
@@ -289,7 +295,7 @@ func file_domain_link_cqrs_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_domain_link_cqrs_v1_link_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_domain_link_cqrs_v1_link_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*LinksView); i {
 			case 0:
 				return &v.state

@@ -147,7 +147,7 @@ func file_eventsourcing_v1_command_proto_rawDescGZIP() []byte {
 }
 
 var file_eventsourcing_v1_command_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_eventsourcing_v1_command_proto_goTypes = []any{
+var file_eventsourcing_v1_command_proto_goTypes = []interface{}{
 	(*BaseCommand)(nil), // 0: eventsourcing.v1.BaseCommand
 }
 var file_eventsourcing_v1_command_proto_depIdxs = []int32{
@@ -164,7 +164,7 @@ func file_eventsourcing_v1_command_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_eventsourcing_v1_command_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_eventsourcing_v1_command_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*BaseCommand); i {
 			case 0:
 				return &v.state

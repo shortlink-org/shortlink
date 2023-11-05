@@ -21,11 +21,15 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Event is a billing account event
 type Event int32
 
 const (
-	Event_EVENT_UNSPECIFIED    Event = 0
-	Event_EVENT_ACCOUNT_NEW    Event = 1
+	// event unspecified
+	Event_EVENT_UNSPECIFIED Event = 0
+	// account new
+	Event_EVENT_ACCOUNT_NEW Event = 1
+	// account delete
 	Event_EVENT_ACCOUNT_DELETE Event = 2
 )
 
@@ -70,15 +74,20 @@ func (Event) EnumDescriptor() ([]byte, []int) {
 	return file_domain_billing_account_v1_account_proto_rawDescGZIP(), []int{0}
 }
 
+// Account is a billing account
 type Account struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// field_mask
 	FieldMask *fieldmaskpb.FieldMask `protobuf:"bytes,4,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
-	Id        string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	UserId    string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	TariffId  string                 `protobuf:"bytes,3,opt,name=tariff_id,json=tariffId,proto3" json:"tariff_id,omitempty"`
+	// account id
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// user id
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// tariff id
+	TariffId string `protobuf:"bytes,3,opt,name=tariff_id,json=tariffId,proto3" json:"tariff_id,omitempty"`
 }
 
 func (x *Account) Reset() {
@@ -141,11 +150,13 @@ func (x *Account) GetTariffId() string {
 	return ""
 }
 
+// Accounts is a list of billing accounts
 type Accounts struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// accounts
 	List []*Account `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
 }
 
@@ -249,7 +260,7 @@ func file_domain_billing_account_v1_account_proto_rawDescGZIP() []byte {
 
 var file_domain_billing_account_v1_account_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_domain_billing_account_v1_account_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_domain_billing_account_v1_account_proto_goTypes = []any{
+var file_domain_billing_account_v1_account_proto_goTypes = []interface{}{
 	(Event)(0),                    // 0: domain.billing.account.v1.Event
 	(*Account)(nil),               // 1: domain.billing.account.v1.Account
 	(*Accounts)(nil),              // 2: domain.billing.account.v1.Accounts
@@ -271,7 +282,7 @@ func file_domain_billing_account_v1_account_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_domain_billing_account_v1_account_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_domain_billing_account_v1_account_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Account); i {
 			case 0:
 				return &v.state
@@ -283,7 +294,7 @@ func file_domain_billing_account_v1_account_proto_init() {
 				return nil
 			}
 		}
-		file_domain_billing_account_v1_account_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_domain_billing_account_v1_account_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Accounts); i {
 			case 0:
 				return &v.state

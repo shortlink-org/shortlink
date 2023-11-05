@@ -6,23 +6,34 @@ option go_package = "github.com/shortlink-org/shortlink/internal/metadata/infras
 
 import "domain/metadata/v1/meta.proto";
 
+// MetadataService is the service that provides metadata operations.
 service MetadataService {
+  // Get returns the metadata for the given URL.
   rpc Get(MetadataServiceGetRequest) returns(MetadataServiceGetResponse) {}
+  // Set sets the metadata for the given URL.
   rpc Set(MetadataServiceSetRequest) returns(MetadataServiceSetResponse) {}
 }
 
+// MetadataServiceGetRequest is the request message for the Get method.
 message MetadataServiceGetRequest {
+  // URL is the URL to get the metadata for.
   string url = 1;
 }
 
+// MetadataServiceGetResponse is the response message for the Get method.
 message MetadataServiceGetResponse {
+  // Meta is the metadata for the given URL.
   domain.metadata.v1.Meta meta = 1;
 }
 
+// MetadataServiceSetRequest is the request message for the Set method.
 message MetadataServiceSetRequest {
+  // URL is the URL to set the metadata for.
   string url = 1;
 }
 
+// MetadataServiceSetResponse is the response message for the Set method.
 message MetadataServiceSetResponse {
+  // Meta is the metadata for the given URL.
   domain.metadata.v1.Meta meta = 1;
 }

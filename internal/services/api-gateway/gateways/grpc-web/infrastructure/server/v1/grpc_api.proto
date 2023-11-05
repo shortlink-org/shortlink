@@ -11,34 +11,41 @@ import "google/protobuf/empty.proto";
 import "domain/link/v1/link.proto";
 import "protoc-gen-openapiv2/options/annotations.proto";
 
+// LinkService is the service that provides link methods.
 service LinkService {
+  // GetLinks returns a list of links.
   rpc GetLinks(GetLinksRequest) returns (GetLinksResponse) {
     option(google.api.http) = {
-        get: "/api/grpc/links"
-      };
+      get: "/api/grpc/links"
     };
+  };
 
-    rpc GetLink(GetLinkRequest) returns (GetLinkResponse) {
-        option(google.api.http) = {
-        get: "/api/grpc/link/{link.hash}"
-      };
+  // GetLink returns a link.
+  rpc GetLink(GetLinkRequest) returns (GetLinkResponse) {
+    option(google.api.http) = {
+      get: "/api/grpc/link/{link.hash}"
     };
+  };
 
-    rpc CreateLink(CreateLinkRequest) returns (CreateLinkResponse) {
-        option(google.api.http) = {
-        post: "/api/grpc"
-        body: "*"
-      };
+  // CreateLink creates a link.
+  rpc CreateLink(CreateLinkRequest) returns (CreateLinkResponse) {
+    option(google.api.http) = {
+      post: "/api/grpc"
+      body: "*"
     };
+  };
 
-    rpc DeleteLink(DeleteLinkRequest) returns (google.protobuf.Empty) {
-        option(google.api.http) = {
-        delete: "/api/grpc/{link.hash}"
-      };
+  // DeleteLink deletes a link.
+  rpc DeleteLink(DeleteLinkRequest) returns (google.protobuf.Empty) {
+    option(google.api.http) = {
+      delete: "/api/grpc/{link.hash}"
     };
+  };
 }
 
+// GetLinksRequest is the request message for GetLinks.
 message GetLinksRequest {
+  // Link hash
   domain.link.v1.Link link = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: "{\"hash\": \"1234567890\"}",
@@ -47,18 +54,23 @@ message GetLinksRequest {
     (google.api.field_behavior) = REQUIRED
   ];
 
+  // Link filter
   string filter = 2 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description: "Filter by link"
   }];
 }
 
+// GetLinksResponse is the response message for GetLinks.
 message GetLinksResponse {
+  // Links
   repeated domain.link.v1.Link links = 1 [(grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
     description: "Links"
   }];
 }
 
+// GetLinkRequest is the request message for GetLink.
 message GetLinkRequest {
+  // Link hash
   domain.link.v1.Link link = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: "{\"hash\": \"1234567890\"}",
@@ -68,7 +80,9 @@ message GetLinkRequest {
   ];
 }
 
+// GetLinkResponse is the response message for GetLink.
 message GetLinkResponse {
+  // Link
   domain.link.v1.Link link = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: "{\"hash\": \"1234567890\"}",
@@ -78,7 +92,9 @@ message GetLinkResponse {
   ];
 }
 
+// CreateLinkRequest is the request message for CreateLink.
 message CreateLinkRequest {
+  // Link
   domain.link.v1.Link link = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: "{\"hash\": \"1234567890\"}",
@@ -88,7 +104,9 @@ message CreateLinkRequest {
   ];
 }
 
+// CreateLinkResponse is the response message for CreateLink.
 message CreateLinkResponse {
+  // Link
   domain.link.v1.Link link = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: "{\"hash\": \"1234567890\"}",
@@ -98,7 +116,9 @@ message CreateLinkResponse {
   ];
 }
 
+// DeleteLinkRequest is the request message for DeleteLink.
 message DeleteLinkRequest {
+  // Link hash
   domain.link.v1.Link link = 1 [
     (grpc.gateway.protoc_gen_openapiv2.options.openapiv2_field) = {
       example: "{\"hash\": \"1234567890\"}",

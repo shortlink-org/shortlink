@@ -21,13 +21,18 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Tariff events
 type Event int32
 
 const (
-	Event_EVENT_UNSPECIFIED   Event = 0
-	Event_EVENT_TARIFF_NEW    Event = 1
+	// Unspecified event
+	Event_EVENT_UNSPECIFIED Event = 0
+	// New tariff created
+	Event_EVENT_TARIFF_NEW Event = 1
+	// Tariff updated
 	Event_EVENT_TARIFF_UPDATE Event = 2
-	Event_EVENT_TARIFF_CLOSE  Event = 3
+	// Tariff closed
+	Event_EVENT_TARIFF_CLOSE Event = 3
 )
 
 // Enum value maps for Event.
@@ -73,15 +78,20 @@ func (Event) EnumDescriptor() ([]byte, []int) {
 	return file_domain_billing_tariff_v1_tariff_proto_rawDescGZIP(), []int{0}
 }
 
+// Tariff
 type Tariff struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// FieldMask
 	FieldMask *fieldmaskpb.FieldMask `protobuf:"bytes,4,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
-	Id        string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name      string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Payload   string                 `protobuf:"bytes,3,opt,name=payload,proto3" json:"payload,omitempty"`
+	// ID of tariff
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// Name of tariff
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// Description of tariff
+	Payload string `protobuf:"bytes,3,opt,name=payload,proto3" json:"payload,omitempty"`
 }
 
 func (x *Tariff) Reset() {
@@ -144,11 +154,13 @@ func (x *Tariff) GetPayload() string {
 	return ""
 }
 
+// Tariff list
 type Tariffs struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// List of tariffs
 	List []*Tariff `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
 }
 
@@ -252,7 +264,7 @@ func file_domain_billing_tariff_v1_tariff_proto_rawDescGZIP() []byte {
 
 var file_domain_billing_tariff_v1_tariff_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_domain_billing_tariff_v1_tariff_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_domain_billing_tariff_v1_tariff_proto_goTypes = []any{
+var file_domain_billing_tariff_v1_tariff_proto_goTypes = []interface{}{
 	(Event)(0),                    // 0: domain.billing.tariff.v1.Event
 	(*Tariff)(nil),                // 1: domain.billing.tariff.v1.Tariff
 	(*Tariffs)(nil),               // 2: domain.billing.tariff.v1.Tariffs
@@ -274,7 +286,7 @@ func file_domain_billing_tariff_v1_tariff_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_domain_billing_tariff_v1_tariff_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_domain_billing_tariff_v1_tariff_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Tariff); i {
 			case 0:
 				return &v.state
@@ -286,7 +298,7 @@ func file_domain_billing_tariff_v1_tariff_proto_init() {
 				return nil
 			}
 		}
-		file_domain_billing_tariff_v1_tariff_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_domain_billing_tariff_v1_tariff_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Tariffs); i {
 			case 0:
 				return &v.state

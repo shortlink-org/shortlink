@@ -7,7 +7,7 @@
 package v1
 
 import (
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/domain/field/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/field/v1"
 	v12 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/index/v1"
 	v11 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/page/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
@@ -260,7 +260,7 @@ func file_shortdb_domain_table_v1_table_proto_rawDescGZIP() []byte {
 }
 
 var file_shortdb_domain_table_v1_table_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_shortdb_domain_table_v1_table_proto_goTypes = []any{
+var file_shortdb_domain_table_v1_table_proto_goTypes = []interface{}{
 	(*Option)(nil),                // 0: shortdb.domain.table.v1.Option
 	(*Table)(nil),                 // 1: shortdb.domain.table.v1.Table
 	nil,                           // 2: shortdb.domain.table.v1.Table.FieldsEntry
@@ -296,7 +296,7 @@ func file_shortdb_domain_table_v1_table_proto_init() {
 	}
 	file_shortdb_domain_table_v1_stats_proto_init()
 	if !protoimpl.UnsafeEnabled {
-		file_shortdb_domain_table_v1_table_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_shortdb_domain_table_v1_table_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Option); i {
 			case 0:
 				return &v.state
@@ -308,7 +308,7 @@ func file_shortdb_domain_table_v1_table_proto_init() {
 				return nil
 			}
 		}
-		file_shortdb_domain_table_v1_table_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_shortdb_domain_table_v1_table_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Table); i {
 			case 0:
 				return &v.state

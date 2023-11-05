@@ -116,7 +116,7 @@ func file_shortdb_domain_field_v1_field_proto_rawDescGZIP() []byte {
 }
 
 var file_shortdb_domain_field_v1_field_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_shortdb_domain_field_v1_field_proto_goTypes = []any{
+var file_shortdb_domain_field_v1_field_proto_goTypes = []interface{}{
 	(Type)(0), // 0: shortdb.domain.field.v1.Type
 }
 var file_shortdb_domain_field_v1_field_proto_depIdxs = []int32{

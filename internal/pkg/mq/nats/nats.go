@@ -5,6 +5,8 @@ import (
 
 	"github.com/nats-io/nats.go"
 
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
 
@@ -19,16 +21,28 @@ func New() *NATS {
 	return &NATS{}
 }
 
-func (mq *NATS) Init(_ context.Context) error {
+func (mq *NATS) Init(ctx context.Context, log logger.Logger) error {
 	var err error
 
 	// Connect to a server
 	mq.client, err = nats.Connect(nats.DefaultURL)
 
+	// Graceful shutdown
+	go func() {
+		<-ctx.Done()
+
+		if errClose := mq.close(); errClose != nil {
+			log.Error("NATS close", field.Fields{
+				"error": errClose.Error(),
+			})
+		}
+	}()
+
 	return err
 }
 
-func (mq *NATS) Close() error {
+// close - close connection
+func (mq *NATS) close() error {
 	mq.client.Close()
 	return nil
 }

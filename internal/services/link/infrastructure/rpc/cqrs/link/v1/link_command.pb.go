@@ -7,7 +7,7 @@
 package v1
 
 import (
-	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -22,11 +22,13 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// AddRequest is the request for adding a new link
 type AddRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Link is the link to add
 	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
@@ -69,11 +71,13 @@ func (x *AddRequest) GetLink() *v1.Link {
 	return nil
 }
 
+// AddResponse is the response for adding a new link
 type AddResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Link is the added link
 	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
@@ -116,11 +120,13 @@ func (x *AddResponse) GetLink() *v1.Link {
 	return nil
 }
 
+// UpdateRequest is the request for updating an existing link
 type UpdateRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Link is the link to update
 	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
@@ -163,11 +169,13 @@ func (x *UpdateRequest) GetLink() *v1.Link {
 	return nil
 }
 
+// UpdateResponse is the response for updating an existing link
 type UpdateResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Link is the updated link
 	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
@@ -210,11 +218,13 @@ func (x *UpdateResponse) GetLink() *v1.Link {
 	return nil
 }
 
+// DeleteRequest is the request for deleting an existing link
 type DeleteRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Hash is the hash of the link to delete
 	Hash string `protobuf:"bytes,1,opt,name=hash,proto3" json:"hash,omitempty"`
 }
 
@@ -340,7 +350,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_command_proto_rawDescGZIP() []byt
 }
 
 var file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_infrastructure_rpc_cqrs_link_v1_link_command_proto_goTypes = []any{
+var file_infrastructure_rpc_cqrs_link_v1_link_command_proto_goTypes = []interface{}{
 	(*AddRequest)(nil),     // 0: infrastructure.rpc.cqrs.link.v1.AddRequest
 	(*AddResponse)(nil),    // 1: infrastructure.rpc.cqrs.link.v1.AddResponse
 	(*UpdateRequest)(nil),  // 2: infrastructure.rpc.cqrs.link.v1.UpdateRequest
@@ -373,7 +383,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_command_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AddRequest); i {
 			case 0:
 				return &v.state
@@ -385,7 +395,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_command_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AddResponse); i {
 			case 0:
 				return &v.state
@@ -397,7 +407,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_command_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[2].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UpdateRequest); i {
 			case 0:
 				return &v.state
@@ -409,7 +419,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_command_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[3].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UpdateResponse); i {
 			case 0:
 				return &v.state
@@ -421,7 +431,7 @@ func file_infrastructure_rpc_cqrs_link_v1_link_command_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[4].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_cqrs_link_v1_link_command_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteRequest); i {
 			case 0:
 				return &v.state

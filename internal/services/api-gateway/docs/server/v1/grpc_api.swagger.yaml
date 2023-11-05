@@ -11,6 +11,7 @@ produces:
 paths:
   /api/grpc:
     post:
+      summary: CreateLink creates a link.
       operationId: LinkService_CreateLink
       responses:
         "200":
@@ -23,6 +24,7 @@ paths:
             $ref: '#/definitions/rpcStatus'
       parameters:
         - name: body
+          description: CreateLinkRequest is the request message for CreateLink.
           in: body
           required: true
           schema:
@@ -31,6 +33,7 @@ paths:
         - LinkService
   /api/grpc/link/{link.hash}:
     get:
+      summary: GetLink returns a link.
       operationId: LinkService_GetLink
       responses:
         "200":
@@ -48,6 +51,7 @@ paths:
           required: true
           type: string
         - name: link.fieldMask
+          description: Field mask
           in: query
           required: false
           type: string
@@ -77,6 +81,7 @@ paths:
         - LinkService
   /api/grpc/links:
     get:
+      summary: GetLinks returns a list of links.
       operationId: LinkService_GetLinks
       responses:
         "200":
@@ -89,6 +94,7 @@ paths:
             $ref: '#/definitions/rpcStatus'
       parameters:
         - name: link.fieldMask
+          description: Field mask
           in: query
           required: false
           type: string
@@ -120,7 +126,10 @@ paths:
           type: string
           format: date-time
         - name: filter
-          description: Filter by link
+          description: |-
+            Link filter
+
+            Filter by link
           in: query
           required: false
           type: string
@@ -128,6 +137,7 @@ paths:
         - LinkService
   /api/grpc/{link.hash}:
     delete:
+      summary: DeleteLink deletes a link.
       operationId: LinkService_DeleteLink
       responses:
         "200":
@@ -146,6 +156,7 @@ paths:
           required: true
           type: string
         - name: link.fieldMask
+          description: Field mask
           in: query
           required: false
           type: string
@@ -201,6 +212,8 @@ definitions:
         example:
           hash: "1234567890"
         description: Link hash
+        title: Link
+    description: CreateLinkRequest is the request message for CreateLink.
     required:
       - link
   v1CreateLinkResponse:
@@ -211,6 +224,8 @@ definitions:
         example:
           hash: "1234567890"
         description: Link hash
+        title: Link
+    description: CreateLinkResponse is the response message for CreateLink.
     required:
       - link
   v1GetLinkResponse:
@@ -221,6 +236,8 @@ definitions:
         example:
           hash: "1234567890"
         description: Link hash
+        title: Link
+    description: GetLinkResponse is the response message for GetLink.
     required:
       - link
   v1GetLinksResponse:
@@ -232,11 +249,14 @@ definitions:
           type: object
           $ref: '#/definitions/v1Link'
         description: Links
+        title: Links
+    description: GetLinksResponse is the response message for GetLinks.
   v1Link:
     type: object
     properties:
       fieldMask:
         type: string
+        title: Field mask
       url:
         type: string
         title: URL
@@ -254,3 +274,4 @@ definitions:
         type: string
         format: date-time
         title: Update at
+    title: Link

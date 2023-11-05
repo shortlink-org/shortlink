@@ -77,7 +77,7 @@ func InitializeFullBotService() (*Service, func(), error) {
 	bot := InitSlack(context)
 	telegramBot := InitTelegram(context)
 	smtpBot := InitSMTP(context)
-	mq, cleanup6, err := mq_di.New(context, logger)
+	mq, err := mq_di.New(context, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -88,7 +88,6 @@ func InitializeFullBotService() (*Service, func(), error) {
 	}
 	applicationBot, err := NewBotApplication(context, logger, mq)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -98,7 +97,6 @@ func InitializeFullBotService() (*Service, func(), error) {
 	}
 	service, err := NewBotService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, bot, telegramBot, smtpBot, applicationBot)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -107,7 +105,6 @@ func InitializeFullBotService() (*Service, func(), error) {
 		return nil, nil, err
 	}
 	return service, func() {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()

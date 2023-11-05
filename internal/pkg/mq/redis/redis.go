@@ -7,6 +7,8 @@ import (
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/redis"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
 
@@ -18,25 +20,38 @@ func New() *Redis {
 	return &Redis{}
 }
 
-func (r *Redis) Init(ctx context.Context) error {
+func (r *Redis) Init(ctx context.Context, log logger.Logger) error {
 	var ok bool
-	store := &redis.Store{}
+	mq := &redis.Store{}
 
-	err := store.Init(ctx)
+	err := mq.Init(ctx)
 	if err != nil {
 		return err
 	}
 
-	r.client, ok = store.GetConn().(rueidis.Client)
+	r.client, ok = mq.GetConn().(rueidis.Client)
 	if !ok {
 		return db.ErrGetConnection
 	}
 
+	// Graceful shutdown
+	go func() {
+		<-ctx.Done()
+
+		if errClose := r.close(); errClose != nil {
+			log.Error("Redis close error", field.Fields{
+				"error": errClose.Error(),
+			})
+		}
+	}()
+
 	return nil
 }
 
-func (r *Redis) Close() error {
+// close - close connection
+func (r *Redis) close() error {
 	r.client.Close()
+
 	return nil
 }
 

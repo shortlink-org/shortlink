@@ -9,6 +9,8 @@ import (
 	"github.com/heptiolabs/healthcheck"
 	"github.com/spf13/viper"
 
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
 
@@ -24,7 +26,7 @@ type Kafka struct {
 	consumer sarama.ConsumerGroup
 }
 
-func (mq *Kafka) Init(ctx context.Context) error {
+func (mq *Kafka) Init(ctx context.Context, log logger.Logger) error {
 	var err error
 
 	// Set configuration
@@ -59,10 +61,22 @@ func (mq *Kafka) Init(ctx context.Context) error {
 		return sarama.ErrOutOfBrokers
 	}, 5*time.Second) //nolint:gomnd // 5s
 
+	// Graceful shutdown
+	go func() {
+		<-ctx.Done()
+
+		if errClose := mq.close(); errClose != nil {
+			log.Error("Kafka close error", field.Fields{
+				"error": errClose.Error(),
+			})
+		}
+	}()
+
 	return nil
 }
 
-func (mq *Kafka) Close() error {
+// close - Close all connections
+func (mq *Kafka) close() error {
 	var err error
 
 	if mq.client != nil {

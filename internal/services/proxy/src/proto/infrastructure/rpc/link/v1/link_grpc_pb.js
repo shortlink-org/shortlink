@@ -117,8 +117,10 @@ function deserialize_infrastructure_rpc_link_v1_UpdateResponse(buffer_arg) {
 }
 
 
+// LinkService is the service that provides link operations.
 var LinkServiceService = exports.LinkServiceService = {
-  get: {
+  // Get returns a link by hash.
+get: {
     path: '/infrastructure.rpc.link.v1.LinkService/Get',
     requestStream: false,
     responseStream: false,
@@ -129,7 +131,8 @@ var LinkServiceService = exports.LinkServiceService = {
     responseSerialize: serialize_infrastructure_rpc_link_v1_GetResponse,
     responseDeserialize: deserialize_infrastructure_rpc_link_v1_GetResponse,
   },
-  list: {
+  // List returns a list of links.
+list: {
     path: '/infrastructure.rpc.link.v1.LinkService/List',
     requestStream: false,
     responseStream: false,
@@ -140,7 +143,8 @@ var LinkServiceService = exports.LinkServiceService = {
     responseSerialize: serialize_infrastructure_rpc_link_v1_ListResponse,
     responseDeserialize: deserialize_infrastructure_rpc_link_v1_ListResponse,
   },
-  add: {
+  // Add adds a link.
+add: {
     path: '/infrastructure.rpc.link.v1.LinkService/Add',
     requestStream: false,
     responseStream: false,
@@ -151,7 +155,8 @@ var LinkServiceService = exports.LinkServiceService = {
     responseSerialize: serialize_infrastructure_rpc_link_v1_AddResponse,
     responseDeserialize: deserialize_infrastructure_rpc_link_v1_AddResponse,
   },
-  update: {
+  // Update updates a link.
+update: {
     path: '/infrastructure.rpc.link.v1.LinkService/Update',
     requestStream: false,
     responseStream: false,
@@ -162,7 +167,8 @@ var LinkServiceService = exports.LinkServiceService = {
     responseSerialize: serialize_infrastructure_rpc_link_v1_UpdateResponse,
     responseDeserialize: deserialize_infrastructure_rpc_link_v1_UpdateResponse,
   },
-  delete: {
+  // Delete deletes a link by hash.
+delete: {
     path: '/infrastructure.rpc.link.v1.LinkService/Delete',
     requestStream: false,
     responseStream: false,

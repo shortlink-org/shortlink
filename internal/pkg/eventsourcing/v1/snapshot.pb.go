@@ -164,7 +164,7 @@ func file_eventsourcing_v1_snapshot_proto_rawDescGZIP() []byte {
 }
 
 var file_eventsourcing_v1_snapshot_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_eventsourcing_v1_snapshot_proto_goTypes = []any{
+var file_eventsourcing_v1_snapshot_proto_goTypes = []interface{}{
 	(*Snapshot)(nil),              // 0: eventsourcing.v1.Snapshot
 	(*timestamppb.Timestamp)(nil), // 1: google.protobuf.Timestamp
 }
@@ -184,7 +184,7 @@ func file_eventsourcing_v1_snapshot_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_eventsourcing_v1_snapshot_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_eventsourcing_v1_snapshot_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Snapshot); i {
 			case 0:
 				return &v.state

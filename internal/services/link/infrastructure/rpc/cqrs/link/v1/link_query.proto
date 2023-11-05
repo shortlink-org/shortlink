@@ -6,24 +6,35 @@ option go_package = "github.com/shortlink-org/shortlink/internal/services/link/i
 
 import "domain/link_cqrs/v1/link.proto";
 
+// LinkQueryService is the service that provides the query methods for the Link aggregate.
 service LinkQueryService {
+  // Get returns a LinkView for the given hash.
   rpc Get(GetRequest) returns(GetResponse) {}
+  // List returns a LinksView for the given filter.
   rpc List(ListRequest) returns(ListResponse) {}
 }
 
+// GetRequest is the request message for the Get method.
 message GetRequest {
+  // Hash is the hash of the Link to get.
   string hash = 1;
 }
 
+// GetResponse is the response message for the Get method.
 message GetResponse {
+  // Link is the LinkView for the given hash.
   domain.link_cqrs.v1.LinkView link = 1;
 }
 
+// ListRequest is the request message for the List method.
 message ListRequest {
+  // Filter is the filter to apply to the Links.
   string filter = 1;
 }
 
+// ListResponse is the response message for the List method.
 message ListResponse {
+  // Links is the LinksView for the given filter.
   domain.link_cqrs.v1.LinksView links = 1;
 }
 

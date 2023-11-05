@@ -4,13 +4,20 @@ package domain.billing.payment.v1;
 
 option go_package = "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/payment/v1";
 
+// Command is a command to be executed by the payment service.
 enum Command {
+  // unspecified command
   COMMAND_UNSPECIFIED = 0;
 
+  // create a new payment
   COMMAND_PAYMENT_CREATE = 1;
+  // approve a payment
   COMMAND_PAYMENT_APPROVE = 2;
+  // close a payment
   COMMAND_PAYMENT_CLOSE = 3;
+  // reject a payment
   COMMAND_PAYMENT_REJECT = 4;
 
+  // update balance
   COMMAND_BALANCE_UPDATE = 5;
 }

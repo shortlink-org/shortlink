@@ -27,7 +27,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MetadataServiceClient interface {
+	// Get returns the metadata for the given URL.
 	Get(ctx context.Context, in *MetadataServiceGetRequest, opts ...grpc.CallOption) (*MetadataServiceGetResponse, error)
+	// Set sets the metadata for the given URL.
 	Set(ctx context.Context, in *MetadataServiceSetRequest, opts ...grpc.CallOption) (*MetadataServiceSetResponse, error)
 }
 
@@ -61,7 +63,9 @@ func (c *metadataServiceClient) Set(ctx context.Context, in *MetadataServiceSetR
 // All implementations must embed UnimplementedMetadataServiceServer
 // for forward compatibility
 type MetadataServiceServer interface {
+	// Get returns the metadata for the given URL.
 	Get(context.Context, *MetadataServiceGetRequest) (*MetadataServiceGetResponse, error)
+	// Set sets the metadata for the given URL.
 	Set(context.Context, *MetadataServiceSetRequest) (*MetadataServiceSetResponse, error)
 	mustEmbedUnimplementedMetadataServiceServer()
 }
@@ -89,7 +93,7 @@ func RegisterMetadataServiceServer(s grpc.ServiceRegistrar, srv MetadataServiceS
 	s.RegisterService(&MetadataService_ServiceDesc, srv)
 }
 
-func _MetadataService_Get_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
+func _MetadataService_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MetadataServiceGetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -101,13 +105,13 @@ func _MetadataService_Get_Handler(srv any, ctx context.Context, dec func(any) er
 		Server:     srv,
 		FullMethod: MetadataService_Get_FullMethodName,
 	}
-	handler := func(ctx context.Context, req any) (any, error) {
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MetadataServiceServer).Get(ctx, req.(*MetadataServiceGetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _MetadataService_Set_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
+func _MetadataService_Set_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(MetadataServiceSetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -119,7 +123,7 @@ func _MetadataService_Set_Handler(srv any, ctx context.Context, dec func(any) er
 		Server:     srv,
 		FullMethod: MetadataService_Set_FullMethodName,
 	}
-	handler := func(ctx context.Context, req any) (any, error) {
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(MetadataServiceServer).Set(ctx, req.(*MetadataServiceSetRequest))
 	}
 	return interceptor(ctx, in, info, handler)

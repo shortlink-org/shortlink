@@ -28,10 +28,14 @@ type Url struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Loc        string  `protobuf:"bytes,1,opt,name=loc,proto3" json:"loc,omitempty" xml:"loc"`
-	LastMod    string  `protobuf:"bytes,2,opt,name=last_mod,json=lastMod,proto3" json:"last_mod,omitempty" xml:"lastmod"`
-	ChangeFreq string  `protobuf:"bytes,3,opt,name=change_freq,json=changeFreq,proto3" json:"change_freq,omitempty" xml:"changefreq"`
-	Priority   float32 `protobuf:"fixed32,4,opt,name=priority,proto3" json:"priority,omitempty" xml:"priority"`
+	// loc is a structure of <loc> in <url>
+	Loc string `protobuf:"bytes,1,opt,name=loc,proto3" json:"loc,omitempty" xml:"loc"`
+	// lastmod is a structure of <lastmod> in <url>
+	LastMod string `protobuf:"bytes,2,opt,name=last_mod,json=lastMod,proto3" json:"last_mod,omitempty" xml:"lastmod"`
+	// changefreq is a structure of <changefreq> in <url>
+	ChangeFreq string `protobuf:"bytes,3,opt,name=change_freq,json=changeFreq,proto3" json:"change_freq,omitempty" xml:"changefreq"`
+	// priority is a structure of <priority> in <url>
+	Priority float32 `protobuf:"fixed32,4,opt,name=priority,proto3" json:"priority,omitempty" xml:"priority"`
 }
 
 func (x *Url) Reset() {
@@ -100,6 +104,7 @@ type Sitemap struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Url is a structure of <url> in <sitemap>
 	Url []*Url `protobuf:"bytes,1,rep,name=url,proto3" json:"url,omitempty" xml:"url"`
 }
 
@@ -198,7 +203,7 @@ func file_domain_sitemap_v1_sitemap_proto_rawDescGZIP() []byte {
 }
 
 var file_domain_sitemap_v1_sitemap_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_domain_sitemap_v1_sitemap_proto_goTypes = []any{
+var file_domain_sitemap_v1_sitemap_proto_goTypes = []interface{}{
 	(*Url)(nil),     // 0: domain.sitemap.v1.Url
 	(*Sitemap)(nil), // 1: domain.sitemap.v1.Sitemap
 }
@@ -217,7 +222,7 @@ func file_domain_sitemap_v1_sitemap_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_domain_sitemap_v1_sitemap_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_domain_sitemap_v1_sitemap_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Url); i {
 			case 0:
 				return &v.state
@@ -229,7 +234,7 @@ func file_domain_sitemap_v1_sitemap_proto_init() {
 				return nil
 			}
 		}
-		file_domain_sitemap_v1_sitemap_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_domain_sitemap_v1_sitemap_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Sitemap); i {
 			case 0:
 				return &v.state

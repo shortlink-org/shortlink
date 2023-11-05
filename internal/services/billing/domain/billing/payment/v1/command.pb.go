@@ -20,15 +20,22 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Command is a command to be executed by the payment service.
 type Command int32
 
 const (
-	Command_COMMAND_UNSPECIFIED     Command = 0
-	Command_COMMAND_PAYMENT_CREATE  Command = 1
+	// unspecified command
+	Command_COMMAND_UNSPECIFIED Command = 0
+	// create a new payment
+	Command_COMMAND_PAYMENT_CREATE Command = 1
+	// approve a payment
 	Command_COMMAND_PAYMENT_APPROVE Command = 2
-	Command_COMMAND_PAYMENT_CLOSE   Command = 3
-	Command_COMMAND_PAYMENT_REJECT  Command = 4
-	Command_COMMAND_BALANCE_UPDATE  Command = 5
+	// close a payment
+	Command_COMMAND_PAYMENT_CLOSE Command = 3
+	// reject a payment
+	Command_COMMAND_PAYMENT_REJECT Command = 4
+	// update balance
+	Command_COMMAND_BALANCE_UPDATE Command = 5
 )
 
 // Enum value maps for Command.
@@ -129,7 +136,7 @@ func file_domain_billing_payment_v1_command_proto_rawDescGZIP() []byte {
 }
 
 var file_domain_billing_payment_v1_command_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
-var file_domain_billing_payment_v1_command_proto_goTypes = []any{
+var file_domain_billing_payment_v1_command_proto_goTypes = []interface{}{
 	(Command)(0), // 0: domain.billing.payment.v1.Command
 }
 var file_domain_billing_payment_v1_command_proto_depIdxs = []int32{

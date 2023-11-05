@@ -3,10 +3,14 @@ syntax = "proto3";
 package domain.referral.v1;
 
 // QUERIES =====================================================================
+// Referral queries ------------------------------------------------------------
 enum ReferralQuery {
+  // Unspecified query
   REFERRAL_QUERY_UNSPECIFIED = 0;
 
+  // Get a referral from the system
   REFERRAL_QUERY_GET = 1;
+  // List referrals from the system
   REFERRAL_QUERY_LIST = 2;
 }
 

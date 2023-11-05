@@ -31,10 +31,15 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type OrderServiceClient interface {
+	// OrderHistory returns the order history.
 	OrderHistory(ctx context.Context, in *emptypb.Empty, opts ...grpc.CallOption) (*OrderHistoryResponse, error)
+	// OrderCreate creates a new order.
 	OrderCreate(ctx context.Context, in *OrderCreateRequest, opts ...grpc.CallOption) (*OrderCreateResponse, error)
+	// OrderUpdate updates an existing order.
 	OrderUpdate(ctx context.Context, in *OrderUpdateRequest, opts ...grpc.CallOption) (*OrderUpdateResponse, error)
+	// OrderClose closes an existing order.
 	OrderClose(ctx context.Context, in *OrderCloseRequest, opts ...grpc.CallOption) (*OrderCloseResponse, error)
+	// OrderApprove approves an existing order.
 	OrderApprove(ctx context.Context, in *OrderApproveRequest, opts ...grpc.CallOption) (*OrderApproveResponse, error)
 }
 
@@ -95,10 +100,15 @@ func (c *orderServiceClient) OrderApprove(ctx context.Context, in *OrderApproveR
 // All implementations must embed UnimplementedOrderServiceServer
 // for forward compatibility
 type OrderServiceServer interface {
+	// OrderHistory returns the order history.
 	OrderHistory(context.Context, *emptypb.Empty) (*OrderHistoryResponse, error)
+	// OrderCreate creates a new order.
 	OrderCreate(context.Context, *OrderCreateRequest) (*OrderCreateResponse, error)
+	// OrderUpdate updates an existing order.
 	OrderUpdate(context.Context, *OrderUpdateRequest) (*OrderUpdateResponse, error)
+	// OrderClose closes an existing order.
 	OrderClose(context.Context, *OrderCloseRequest) (*OrderCloseResponse, error)
+	// OrderApprove approves an existing order.
 	OrderApprove(context.Context, *OrderApproveRequest) (*OrderApproveResponse, error)
 	mustEmbedUnimplementedOrderServiceServer()
 }
@@ -135,7 +145,7 @@ func RegisterOrderServiceServer(s grpc.ServiceRegistrar, srv OrderServiceServer)
 	s.RegisterService(&OrderService_ServiceDesc, srv)
 }
 
-func _OrderService_OrderHistory_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
+func _OrderService_OrderHistory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(emptypb.Empty)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -147,13 +157,13 @@ func _OrderService_OrderHistory_Handler(srv any, ctx context.Context, dec func(a
 		Server:     srv,
 		FullMethod: OrderService_OrderHistory_FullMethodName,
 	}
-	handler := func(ctx context.Context, req any) (any, error) {
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).OrderHistory(ctx, req.(*emptypb.Empty))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrderService_OrderCreate_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
+func _OrderService_OrderCreate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(OrderCreateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -165,13 +175,13 @@ func _OrderService_OrderCreate_Handler(srv any, ctx context.Context, dec func(an
 		Server:     srv,
 		FullMethod: OrderService_OrderCreate_FullMethodName,
 	}
-	handler := func(ctx context.Context, req any) (any, error) {
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).OrderCreate(ctx, req.(*OrderCreateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrderService_OrderUpdate_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
+func _OrderService_OrderUpdate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(OrderUpdateRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -183,13 +193,13 @@ func _OrderService_OrderUpdate_Handler(srv any, ctx context.Context, dec func(an
 		Server:     srv,
 		FullMethod: OrderService_OrderUpdate_FullMethodName,
 	}
-	handler := func(ctx context.Context, req any) (any, error) {
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).OrderUpdate(ctx, req.(*OrderUpdateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrderService_OrderClose_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
+func _OrderService_OrderClose_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(OrderCloseRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -201,13 +211,13 @@ func _OrderService_OrderClose_Handler(srv any, ctx context.Context, dec func(any
 		Server:     srv,
 		FullMethod: OrderService_OrderClose_FullMethodName,
 	}
-	handler := func(ctx context.Context, req any) (any, error) {
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).OrderClose(ctx, req.(*OrderCloseRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrderService_OrderApprove_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
+func _OrderService_OrderApprove_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(OrderApproveRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -219,7 +229,7 @@ func _OrderService_OrderApprove_Handler(srv any, ctx context.Context, dec func(a
 		Server:     srv,
 		FullMethod: OrderService_OrderApprove_FullMethodName,
 	}
-	handler := func(ctx context.Context, req any) (any, error) {
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).OrderApprove(ctx, req.(*OrderApproveRequest))
 	}
 	return interceptor(ctx, in, info, handler)

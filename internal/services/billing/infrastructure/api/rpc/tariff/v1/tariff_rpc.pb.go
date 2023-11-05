@@ -7,7 +7,7 @@
 package tariff_rpc
 
 import (
-	"github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/tariff/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/tariff/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -22,11 +22,13 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// TariffRequest is the tariff request message.
 type TariffRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Tariff is the tariff.
 	Tariff *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
 }
 
@@ -69,11 +71,13 @@ func (x *TariffRequest) GetTariff() *v1.Tariff {
 	return nil
 }
 
+// TariffResponse is the tariff response message.
 type TariffResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Tariff is the tariff.
 	Tariff *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
 }
 
@@ -116,11 +120,13 @@ func (x *TariffResponse) GetTariff() *v1.Tariff {
 	return nil
 }
 
+// TariffsResponse is the tariffs response message.
 type TariffsResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Tariff is the tariff.
 	List []*v1.Tariff `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
 }
 
@@ -163,11 +169,13 @@ func (x *TariffsResponse) GetList() []*v1.Tariff {
 	return nil
 }
 
+// TariffCreateRequest is the tariff create request message.
 type TariffCreateRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Tariff is the tariff.
 	Tariff *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
 }
 
@@ -210,11 +218,13 @@ func (x *TariffCreateRequest) GetTariff() *v1.Tariff {
 	return nil
 }
 
+// TariffCreateResponse is the tariff create response message.
 type TariffCreateResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Tariff is the tariff.
 	Tariff *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
 }
 
@@ -257,11 +267,13 @@ func (x *TariffCreateResponse) GetTariff() *v1.Tariff {
 	return nil
 }
 
+// TariffUpdateRequest is the tariff update request message.
 type TariffUpdateRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Tariff is the tariff.
 	Tariff *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
 }
 
@@ -304,11 +316,13 @@ func (x *TariffUpdateRequest) GetTariff() *v1.Tariff {
 	return nil
 }
 
+// TariffUpdateResponse is the tariff update response message.
 type TariffUpdateResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Tariff is the tariff.
 	Tariff *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
 }
 
@@ -351,11 +365,13 @@ func (x *TariffUpdateResponse) GetTariff() *v1.Tariff {
 	return nil
 }
 
+// TariffCloseRequest is the tariff close request message.
 type TariffCloseRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Tariff is the tariff.
 	Tariff *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
 }
 
@@ -398,11 +414,13 @@ func (x *TariffCloseRequest) GetTariff() *v1.Tariff {
 	return nil
 }
 
+// TariffCloseResponse is the tariff close response message.
 type TariffCloseResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Tariff is the tariff.
 	Tariff *v1.Tariff `protobuf:"bytes,1,opt,name=tariff,proto3" json:"tariff,omitempty"`
 }
 
@@ -574,7 +592,7 @@ func file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_rawDescGZIP() []byte
 }
 
 var file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_goTypes = []any{
+var file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_goTypes = []interface{}{
 	(*TariffRequest)(nil),        // 0: infrastructure.api.rpc.tariff.v1.TariffRequest
 	(*TariffResponse)(nil),       // 1: infrastructure.api.rpc.tariff.v1.TariffResponse
 	(*TariffsResponse)(nil),      // 2: infrastructure.api.rpc.tariff.v1.TariffsResponse
@@ -620,7 +638,7 @@ func file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*TariffRequest); i {
 			case 0:
 				return &v.state
@@ -632,7 +650,7 @@ func file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*TariffResponse); i {
 			case 0:
 				return &v.state
@@ -644,7 +662,7 @@ func file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[2].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*TariffsResponse); i {
 			case 0:
 				return &v.state
@@ -656,7 +674,7 @@ func file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[3].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*TariffCreateRequest); i {
 			case 0:
 				return &v.state
@@ -668,7 +686,7 @@ func file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[4].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*TariffCreateResponse); i {
 			case 0:
 				return &v.state
@@ -680,7 +698,7 @@ func file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[5].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*TariffUpdateRequest); i {
 			case 0:
 				return &v.state
@@ -692,7 +710,7 @@ func file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[6].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*TariffUpdateResponse); i {
 			case 0:
 				return &v.state
@@ -704,7 +722,7 @@ func file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[7].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*TariffCloseRequest); i {
 			case 0:
 				return &v.state
@@ -716,7 +734,7 @@ func file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[8].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_tariff_v1_tariff_rpc_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*TariffCloseResponse); i {
 			case 0:
 				return &v.state

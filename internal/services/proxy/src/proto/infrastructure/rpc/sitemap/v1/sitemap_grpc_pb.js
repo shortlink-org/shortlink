@@ -28,8 +28,10 @@ function deserialize_infrastructure_rpc_sitemap_v1_ParseRequest(buffer_arg) {
 }
 
 
+// SitemapService is the service that provides sitemap functionality.
 var SitemapServiceService = exports.SitemapServiceService = {
-  parse: {
+  // Parse parses a sitemap.
+parse: {
     path: '/infrastructure.rpc.sitemap.v1.SitemapService/Parse',
     requestStream: false,
     responseStream: false,

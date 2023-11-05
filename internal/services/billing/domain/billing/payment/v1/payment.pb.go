@@ -21,15 +21,22 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// StatusPayment status payment
 type StatusPayment int32
 
 const (
+	// Unspecified
 	StatusPayment_STATUS_PAYMENT_UNSPECIFIED StatusPayment = 0
-	StatusPayment_STATUS_PAYMENT_NEW         StatusPayment = 1
-	StatusPayment_STATUS_PAYMENT_PENDING     StatusPayment = 2
-	StatusPayment_STATUS_PAYMENT_APPROVE     StatusPayment = 3
-	StatusPayment_STATUS_PAYMENT_CLOSE       StatusPayment = 4
-	StatusPayment_STATUS_PAYMENT_REJECT      StatusPayment = 5
+	// New payment
+	StatusPayment_STATUS_PAYMENT_NEW StatusPayment = 1
+	// Pending payment
+	StatusPayment_STATUS_PAYMENT_PENDING StatusPayment = 2
+	// Approve payment
+	StatusPayment_STATUS_PAYMENT_APPROVE StatusPayment = 3
+	// Close payment
+	StatusPayment_STATUS_PAYMENT_CLOSE StatusPayment = 4
+	// Reject payment
+	StatusPayment_STATUS_PAYMENT_REJECT StatusPayment = 5
 )
 
 // Enum value maps for StatusPayment.
@@ -79,17 +86,24 @@ func (StatusPayment) EnumDescriptor() ([]byte, []int) {
 	return file_domain_billing_payment_v1_payment_proto_rawDescGZIP(), []int{0}
 }
 
+// Payment - information about payment
 type Payment struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// FieldMask
 	FieldMask *fieldmaskpb.FieldMask `protobuf:"bytes,6,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
-	Id        string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name      string                 `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
-	Status    StatusPayment          `protobuf:"varint,3,opt,name=status,proto3,enum=domain.billing.payment.v1.StatusPayment" json:"status,omitempty"`
-	UserId    string                 `protobuf:"bytes,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	Amount    int64                  `protobuf:"varint,5,opt,name=amount,proto3" json:"amount,omitempty"`
+	// ID payment
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// Name payment
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// Status payment
+	Status StatusPayment `protobuf:"varint,3,opt,name=status,proto3,enum=domain.billing.payment.v1.StatusPayment" json:"status,omitempty"`
+	// User ID
+	UserId string `protobuf:"bytes,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// Amount payment
+	Amount int64 `protobuf:"varint,5,opt,name=amount,proto3" json:"amount,omitempty"`
 }
 
 func (x *Payment) Reset() {
@@ -166,11 +180,13 @@ func (x *Payment) GetAmount() int64 {
 	return 0
 }
 
+// Payments - list payments
 type Payments struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// List of payments
 	List []*Payment `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
 }
 
@@ -286,7 +302,7 @@ func file_domain_billing_payment_v1_payment_proto_rawDescGZIP() []byte {
 
 var file_domain_billing_payment_v1_payment_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_domain_billing_payment_v1_payment_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_domain_billing_payment_v1_payment_proto_goTypes = []any{
+var file_domain_billing_payment_v1_payment_proto_goTypes = []interface{}{
 	(StatusPayment)(0),            // 0: domain.billing.payment.v1.StatusPayment
 	(*Payment)(nil),               // 1: domain.billing.payment.v1.Payment
 	(*Payments)(nil),              // 2: domain.billing.payment.v1.Payments
@@ -309,7 +325,7 @@ func file_domain_billing_payment_v1_payment_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_domain_billing_payment_v1_payment_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_domain_billing_payment_v1_payment_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Payment); i {
 			case 0:
 				return &v.state
@@ -321,7 +337,7 @@ func file_domain_billing_payment_v1_payment_proto_init() {
 				return nil
 			}
 		}
-		file_domain_billing_payment_v1_payment_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_domain_billing_payment_v1_payment_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Payments); i {
 			case 0:
 				return &v.state

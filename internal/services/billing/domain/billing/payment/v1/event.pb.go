@@ -20,15 +20,22 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Event
 type Event int32
 
 const (
-	Event_EVENT_UNSPECIFIED      Event = 0
-	Event_EVENT_PAYMENT_CREATED  Event = 1
+	// Unspecified event
+	Event_EVENT_UNSPECIFIED Event = 0
+	// created event
+	Event_EVENT_PAYMENT_CREATED Event = 1
+	// approved event
 	Event_EVENT_PAYMENT_APPROVED Event = 2
-	Event_EVENT_PAYMENT_CLOSED   Event = 3
+	// closed event
+	Event_EVENT_PAYMENT_CLOSED Event = 3
+	// rejected event
 	Event_EVENT_PAYMENT_REJECTED Event = 4
-	Event_EVENT_BALANCE_UPDATED  Event = 5
+	// balance updated event
+	Event_EVENT_BALANCE_UPDATED Event = 5
 )
 
 // Enum value maps for Event.
@@ -78,15 +85,20 @@ func (Event) EnumDescriptor() ([]byte, []int) {
 	return file_domain_billing_payment_v1_event_proto_rawDescGZIP(), []int{0}
 }
 
+// EventPaymentCreated is published when a payment is created
 type EventPaymentCreated struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id     string        `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Name   string        `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// id of the payment
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// name of the payment
+	Name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	// status of the payment
 	Status StatusPayment `protobuf:"varint,3,opt,name=status,proto3,enum=domain.billing.payment.v1.StatusPayment" json:"status,omitempty"`
-	UserId string        `protobuf:"bytes,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// owner of the payment
+	UserId string `protobuf:"bytes,4,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 }
 
 func (x *EventPaymentCreated) Reset() {
@@ -149,12 +161,15 @@ func (x *EventPaymentCreated) GetUserId() string {
 	return ""
 }
 
+// EventPaymentApproved is published when a payment is approved
 type EventPaymentApproved struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id     string        `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// id of the payment
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// status of the payment
 	Status StatusPayment `protobuf:"varint,2,opt,name=status,proto3,enum=domain.billing.payment.v1.StatusPayment" json:"status,omitempty"`
 }
 
@@ -204,12 +219,15 @@ func (x *EventPaymentApproved) GetStatus() StatusPayment {
 	return StatusPayment_STATUS_PAYMENT_UNSPECIFIED
 }
 
+// EventPaymentRejected is published when a payment is rejected
 type EventPaymentRejected struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id     string        `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// id of the payment
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// status of the payment
 	Status StatusPayment `protobuf:"varint,2,opt,name=status,proto3,enum=domain.billing.payment.v1.StatusPayment" json:"status,omitempty"`
 }
 
@@ -259,12 +277,15 @@ func (x *EventPaymentRejected) GetStatus() StatusPayment {
 	return StatusPayment_STATUS_PAYMENT_UNSPECIFIED
 }
 
+// EventPaymentClosed is published when a payment is closed
 type EventPaymentClosed struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id     string        `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// id of the payment
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// status of the payment
 	Status StatusPayment `protobuf:"varint,2,opt,name=status,proto3,enum=domain.billing.payment.v1.StatusPayment" json:"status,omitempty"`
 }
 
@@ -314,13 +335,16 @@ func (x *EventPaymentClosed) GetStatus() StatusPayment {
 	return StatusPayment_STATUS_PAYMENT_UNSPECIFIED
 }
 
+// EventBalanceUpdated is published when a balance is updated
 type EventBalanceUpdated struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Id     string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	Amount int64  `protobuf:"varint,2,opt,name=amount,proto3" json:"amount,omitempty"`
+	// id of the balance
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// amount of the balance
+	Amount int64 `protobuf:"varint,2,opt,name=amount,proto3" json:"amount,omitempty"`
 }
 
 func (x *EventBalanceUpdated) Reset() {
@@ -456,7 +480,7 @@ func file_domain_billing_payment_v1_event_proto_rawDescGZIP() []byte {
 
 var file_domain_billing_payment_v1_event_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_domain_billing_payment_v1_event_proto_msgTypes = make([]protoimpl.MessageInfo, 5)
-var file_domain_billing_payment_v1_event_proto_goTypes = []any{
+var file_domain_billing_payment_v1_event_proto_goTypes = []interface{}{
 	(Event)(0),                   // 0: domain.billing.payment.v1.Event
 	(*EventPaymentCreated)(nil),  // 1: domain.billing.payment.v1.EventPaymentCreated
 	(*EventPaymentApproved)(nil), // 2: domain.billing.payment.v1.EventPaymentApproved
@@ -484,7 +508,7 @@ func file_domain_billing_payment_v1_event_proto_init() {
 	}
 	file_domain_billing_payment_v1_payment_proto_init()
 	if !protoimpl.UnsafeEnabled {
-		file_domain_billing_payment_v1_event_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_domain_billing_payment_v1_event_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*EventPaymentCreated); i {
 			case 0:
 				return &v.state
@@ -496,7 +520,7 @@ func file_domain_billing_payment_v1_event_proto_init() {
 				return nil
 			}
 		}
-		file_domain_billing_payment_v1_event_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_domain_billing_payment_v1_event_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*EventPaymentApproved); i {
 			case 0:
 				return &v.state
@@ -508,7 +532,7 @@ func file_domain_billing_payment_v1_event_proto_init() {
 				return nil
 			}
 		}
-		file_domain_billing_payment_v1_event_proto_msgTypes[2].Exporter = func(v any, i int) any {
+		file_domain_billing_payment_v1_event_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*EventPaymentRejected); i {
 			case 0:
 				return &v.state
@@ -520,7 +544,7 @@ func file_domain_billing_payment_v1_event_proto_init() {
 				return nil
 			}
 		}
-		file_domain_billing_payment_v1_event_proto_msgTypes[3].Exporter = func(v any, i int) any {
+		file_domain_billing_payment_v1_event_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*EventPaymentClosed); i {
 			case 0:
 				return &v.state
@@ -532,7 +556,7 @@ func file_domain_billing_payment_v1_event_proto_init() {
 				return nil
 			}
 		}
-		file_domain_billing_payment_v1_event_proto_msgTypes[4].Exporter = func(v any, i int) any {
+		file_domain_billing_payment_v1_event_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*EventBalanceUpdated); i {
 			case 0:
 				return &v.state

@@ -16,13 +16,14 @@ build:
     - internal/services/eventsourcing
     - internal/services/link
     - internal/services/metadata
-    - internal/services/referral
+    - internal/services/referral/src
     - internal/services/newsletter/src
     - internal/pkg/raft
 
 lint:
   use:
     - DEFAULT # the current strictest possible
+    - COMMENTS
   rpc_allow_google_protobuf_empty_requests: true
   rpc_allow_google_protobuf_empty_responses: true
 

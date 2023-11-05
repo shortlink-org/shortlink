@@ -5,14 +5,27 @@ package domain.newsletter.v1;
 import "google/protobuf/empty.proto";
 import "domain/newsletter/v1/newsletter.proto";
 
+// NewsletterService is the service that provides newsletter operations.
 service NewsletterService {
+  // Get returns the newsletter with the given id.
   rpc Get(google.protobuf.Empty) returns (GetResponse) {}
+  // Subscribe subscribes the user to the newsletter.
   rpc Subscribe(SubscribeRequest) returns (SubscribeResponse) {}
+  // UnSubscribe unsubscribes the user from the newsletter.
   rpc UnSubscribe(UnSubscribeRequest) returns (UnSubscribeResponse) {}
 }
 
+// GetResponse is the response message containing the newsletter.
 message GetResponse {}
+
+// SubscribeRequest is the request message containing the user id.
 message SubscribeRequest {}
+
+// SubscribeResponse is the response message containing the user id.
 message SubscribeResponse {}
+
+// UnSubscribeRequest is the request message containing the user id.
 message UnSubscribeRequest {}
+
+// UnSubscribeResponse is the response message containing the user id.
 message UnSubscribeResponse {}

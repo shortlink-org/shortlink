@@ -73,8 +73,10 @@ function deserialize_infrastructure_rpc_cqrs_link_v1_UpdateResponse(buffer_arg) 
 }
 
 
+// LinkCommandService is the command service for the link aggregate
 var LinkCommandServiceService = exports.LinkCommandServiceService = {
-  add: {
+  // Add adds a new link
+add: {
     path: '/infrastructure.rpc.cqrs.link.v1.LinkCommandService/Add',
     requestStream: false,
     responseStream: false,
@@ -85,7 +87,8 @@ var LinkCommandServiceService = exports.LinkCommandServiceService = {
     responseSerialize: serialize_infrastructure_rpc_cqrs_link_v1_AddResponse,
     responseDeserialize: deserialize_infrastructure_rpc_cqrs_link_v1_AddResponse,
   },
-  update: {
+  // Update updates an existing link
+update: {
     path: '/infrastructure.rpc.cqrs.link.v1.LinkCommandService/Update',
     requestStream: false,
     responseStream: false,
@@ -96,7 +99,8 @@ var LinkCommandServiceService = exports.LinkCommandServiceService = {
     responseSerialize: serialize_infrastructure_rpc_cqrs_link_v1_UpdateResponse,
     responseDeserialize: deserialize_infrastructure_rpc_cqrs_link_v1_UpdateResponse,
   },
-  delete: {
+  // Delete deletes an existing link
+delete: {
     path: '/infrastructure.rpc.cqrs.link.v1.LinkCommandService/Delete',
     requestStream: false,
     responseStream: false,

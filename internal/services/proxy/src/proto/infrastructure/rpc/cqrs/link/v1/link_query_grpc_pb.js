@@ -50,8 +50,10 @@ function deserialize_infrastructure_rpc_cqrs_link_v1_ListResponse(buffer_arg) {
 }
 
 
+// LinkQueryService is the service that provides the query methods for the Link aggregate.
 var LinkQueryServiceService = exports.LinkQueryServiceService = {
-  get: {
+  // Get returns a LinkView for the given hash.
+get: {
     path: '/infrastructure.rpc.cqrs.link.v1.LinkQueryService/Get',
     requestStream: false,
     responseStream: false,
@@ -62,7 +64,8 @@ var LinkQueryServiceService = exports.LinkQueryServiceService = {
     responseSerialize: serialize_infrastructure_rpc_cqrs_link_v1_GetResponse,
     responseDeserialize: deserialize_infrastructure_rpc_cqrs_link_v1_GetResponse,
   },
-  list: {
+  // List returns a LinksView for the given filter.
+list: {
     path: '/infrastructure.rpc.cqrs.link.v1.LinkQueryService/List',
     requestStream: false,
     responseStream: false,

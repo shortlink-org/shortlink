@@ -163,7 +163,7 @@ func file_shortdb_domain_page_v1_page_proto_rawDescGZIP() []byte {
 }
 
 var file_shortdb_domain_page_v1_page_proto_msgTypes = make([]protoimpl.MessageInfo, 3)
-var file_shortdb_domain_page_v1_page_proto_goTypes = []any{
+var file_shortdb_domain_page_v1_page_proto_goTypes = []interface{}{
 	(*Row)(nil),  // 0: shortdb.domain.page.v1.Row
 	(*Page)(nil), // 1: shortdb.domain.page.v1.Page
 	nil,          // 2: shortdb.domain.page.v1.Row.ValueEntry
@@ -184,7 +184,7 @@ func file_shortdb_domain_page_v1_page_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_shortdb_domain_page_v1_page_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_shortdb_domain_page_v1_page_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Row); i {
 			case 0:
 				return &v.state
@@ -196,7 +196,7 @@ func file_shortdb_domain_page_v1_page_proto_init() {
 				return nil
 			}
 		}
-		file_shortdb_domain_page_v1_page_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_shortdb_domain_page_v1_page_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Page); i {
 			case 0:
 				return &v.state

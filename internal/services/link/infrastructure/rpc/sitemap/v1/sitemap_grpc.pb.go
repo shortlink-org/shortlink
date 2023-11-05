@@ -27,6 +27,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SitemapServiceClient interface {
+	// Parse parses a sitemap.
 	Parse(ctx context.Context, in *ParseRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
@@ -51,6 +52,7 @@ func (c *sitemapServiceClient) Parse(ctx context.Context, in *ParseRequest, opts
 // All implementations must embed UnimplementedSitemapServiceServer
 // for forward compatibility
 type SitemapServiceServer interface {
+	// Parse parses a sitemap.
 	Parse(context.Context, *ParseRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedSitemapServiceServer()
 }
@@ -75,7 +77,7 @@ func RegisterSitemapServiceServer(s grpc.ServiceRegistrar, srv SitemapServiceSer
 	s.RegisterService(&SitemapService_ServiceDesc, srv)
 }
 
-func _SitemapService_Parse_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
+func _SitemapService_Parse_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ParseRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -87,7 +89,7 @@ func _SitemapService_Parse_Handler(srv any, ctx context.Context, dec func(any) e
 		Server:     srv,
 		FullMethod: SitemapService_Parse_FullMethodName,
 	}
-	handler := func(ctx context.Context, req any) (any, error) {
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(SitemapServiceServer).Parse(ctx, req.(*ParseRequest))
 	}
 	return interceptor(ctx, in, info, handler)

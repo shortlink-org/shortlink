@@ -10,7 +10,7 @@ package v1
 
 import (
 	_ "github.com/grpc-ecosystem/grpc-gateway/v2/protoc-gen-openapiv2/options"
-	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	_ "google.golang.org/genproto/googleapis/api/annotations"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -26,13 +26,16 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// GetLinksRequest is the request message for GetLinks.
 type GetLinksRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Link   *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
-	Filter string   `protobuf:"bytes,2,opt,name=filter,proto3" json:"filter,omitempty"`
+	// Link hash
+	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
+	// Link filter
+	Filter string `protobuf:"bytes,2,opt,name=filter,proto3" json:"filter,omitempty"`
 }
 
 func (x *GetLinksRequest) Reset() {
@@ -81,11 +84,13 @@ func (x *GetLinksRequest) GetFilter() string {
 	return ""
 }
 
+// GetLinksResponse is the response message for GetLinks.
 type GetLinksResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Links
 	Links []*v1.Link `protobuf:"bytes,1,rep,name=links,proto3" json:"links,omitempty"`
 }
 
@@ -128,11 +133,13 @@ func (x *GetLinksResponse) GetLinks() []*v1.Link {
 	return nil
 }
 
+// GetLinkRequest is the request message for GetLink.
 type GetLinkRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Link hash
 	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
@@ -175,11 +182,13 @@ func (x *GetLinkRequest) GetLink() *v1.Link {
 	return nil
 }
 
+// GetLinkResponse is the response message for GetLink.
 type GetLinkResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Link
 	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
@@ -222,11 +231,13 @@ func (x *GetLinkResponse) GetLink() *v1.Link {
 	return nil
 }
 
+// CreateLinkRequest is the request message for CreateLink.
 type CreateLinkRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Link
 	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
@@ -269,11 +280,13 @@ func (x *CreateLinkRequest) GetLink() *v1.Link {
 	return nil
 }
 
+// CreateLinkResponse is the response message for CreateLink.
 type CreateLinkResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Link
 	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
@@ -316,11 +329,13 @@ func (x *CreateLinkResponse) GetLink() *v1.Link {
 	return nil
 }
 
+// DeleteLinkRequest is the request message for DeleteLink.
 type DeleteLinkRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Link hash
 	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
@@ -480,7 +495,7 @@ func file_server_v1_grpc_api_proto_rawDescGZIP() []byte {
 }
 
 var file_server_v1_grpc_api_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_server_v1_grpc_api_proto_goTypes = []any{
+var file_server_v1_grpc_api_proto_goTypes = []interface{}{
 	(*GetLinksRequest)(nil),    // 0: server.v1.GetLinksRequest
 	(*GetLinksResponse)(nil),   // 1: server.v1.GetLinksResponse
 	(*GetLinkRequest)(nil),     // 2: server.v1.GetLinkRequest
@@ -520,7 +535,7 @@ func file_server_v1_grpc_api_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_server_v1_grpc_api_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_server_v1_grpc_api_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetLinksRequest); i {
 			case 0:
 				return &v.state
@@ -532,7 +547,7 @@ func file_server_v1_grpc_api_proto_init() {
 				return nil
 			}
 		}
-		file_server_v1_grpc_api_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_server_v1_grpc_api_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetLinksResponse); i {
 			case 0:
 				return &v.state
@@ -544,7 +559,7 @@ func file_server_v1_grpc_api_proto_init() {
 				return nil
 			}
 		}
-		file_server_v1_grpc_api_proto_msgTypes[2].Exporter = func(v any, i int) any {
+		file_server_v1_grpc_api_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetLinkRequest); i {
 			case 0:
 				return &v.state
@@ -556,7 +571,7 @@ func file_server_v1_grpc_api_proto_init() {
 				return nil
 			}
 		}
-		file_server_v1_grpc_api_proto_msgTypes[3].Exporter = func(v any, i int) any {
+		file_server_v1_grpc_api_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetLinkResponse); i {
 			case 0:
 				return &v.state
@@ -568,7 +583,7 @@ func file_server_v1_grpc_api_proto_init() {
 				return nil
 			}
 		}
-		file_server_v1_grpc_api_proto_msgTypes[4].Exporter = func(v any, i int) any {
+		file_server_v1_grpc_api_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*CreateLinkRequest); i {
 			case 0:
 				return &v.state
@@ -580,7 +595,7 @@ func file_server_v1_grpc_api_proto_init() {
 				return nil
 			}
 		}
-		file_server_v1_grpc_api_proto_msgTypes[5].Exporter = func(v any, i int) any {
+		file_server_v1_grpc_api_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*CreateLinkResponse); i {
 			case 0:
 				return &v.state
@@ -592,7 +607,7 @@ func file_server_v1_grpc_api_proto_init() {
 				return nil
 			}
 		}
-		file_server_v1_grpc_api_proto_msgTypes[6].Exporter = func(v any, i int) any {
+		file_server_v1_grpc_api_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteLinkRequest); i {
 			case 0:
 				return &v.state

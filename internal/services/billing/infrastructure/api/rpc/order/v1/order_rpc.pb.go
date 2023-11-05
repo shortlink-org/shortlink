@@ -7,7 +7,7 @@
 package order_rpc
 
 import (
-	"github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/order/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/order/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -22,11 +22,13 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// OrderHistoryResponse is the response for the OrderHistory RPC.
 type OrderHistoryResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// List of orders.
 	List []*v1.Order `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
 }
 
@@ -69,11 +71,13 @@ func (x *OrderHistoryResponse) GetList() []*v1.Order {
 	return nil
 }
 
+// OrderCreateRequest is the request for the OrderCreate RPC.
 type OrderCreateRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Order to create.
 	Order *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
 }
 
@@ -116,11 +120,13 @@ func (x *OrderCreateRequest) GetOrder() *v1.Order {
 	return nil
 }
 
+// OrderCreateResponse is the response for the OrderCreate RPC.
 type OrderCreateResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Created order.
 	Order *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
 }
 
@@ -163,11 +169,13 @@ func (x *OrderCreateResponse) GetOrder() *v1.Order {
 	return nil
 }
 
+// OrderUpdateRequest is the request for the OrderUpdate RPC.
 type OrderUpdateRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Order to update.
 	Order *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
 }
 
@@ -210,11 +218,13 @@ func (x *OrderUpdateRequest) GetOrder() *v1.Order {
 	return nil
 }
 
+// OrderUpdateResponse is the response for the OrderUpdate RPC.
 type OrderUpdateResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Updated order.
 	Order *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
 }
 
@@ -257,11 +267,13 @@ func (x *OrderUpdateResponse) GetOrder() *v1.Order {
 	return nil
 }
 
+// OrderCloseRequest is the request for the OrderClose RPC.
 type OrderCloseRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Order to close.
 	Order *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
 }
 
@@ -304,11 +316,13 @@ func (x *OrderCloseRequest) GetOrder() *v1.Order {
 	return nil
 }
 
+// OrderCloseResponse is the response for the OrderClose RPC.
 type OrderCloseResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Closed order.
 	Order *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
 }
 
@@ -351,11 +365,13 @@ func (x *OrderCloseResponse) GetOrder() *v1.Order {
 	return nil
 }
 
+// OrderApproveRequest is the request for the OrderApprove RPC.
 type OrderApproveRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Order to approve.
 	Order *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
 }
 
@@ -398,11 +414,13 @@ func (x *OrderApproveRequest) GetOrder() *v1.Order {
 	return nil
 }
 
+// OrderApproveResponse is the response for the OrderApprove RPC.
 type OrderApproveResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Approved order.
 	Order *v1.Order `protobuf:"bytes,1,opt,name=order,proto3" json:"order,omitempty"`
 }
 
@@ -573,7 +591,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_rawDescGZIP() []byte {
 }
 
 var file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_infrastructure_api_rpc_order_v1_order_rpc_proto_goTypes = []any{
+var file_infrastructure_api_rpc_order_v1_order_rpc_proto_goTypes = []interface{}{
 	(*OrderHistoryResponse)(nil), // 0: infrastructure.api.rpc.order.v1.OrderHistoryResponse
 	(*OrderCreateRequest)(nil),   // 1: infrastructure.api.rpc.order.v1.OrderCreateRequest
 	(*OrderCreateResponse)(nil),  // 2: infrastructure.api.rpc.order.v1.OrderCreateResponse
@@ -619,7 +637,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*OrderHistoryResponse); i {
 			case 0:
 				return &v.state
@@ -631,7 +649,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*OrderCreateRequest); i {
 			case 0:
 				return &v.state
@@ -643,7 +661,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[2].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*OrderCreateResponse); i {
 			case 0:
 				return &v.state
@@ -655,7 +673,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[3].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*OrderUpdateRequest); i {
 			case 0:
 				return &v.state
@@ -667,7 +685,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[4].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*OrderUpdateResponse); i {
 			case 0:
 				return &v.state
@@ -679,7 +697,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[5].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*OrderCloseRequest); i {
 			case 0:
 				return &v.state
@@ -691,7 +709,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[6].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*OrderCloseResponse); i {
 			case 0:
 				return &v.state
@@ -703,7 +721,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[7].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*OrderApproveRequest); i {
 			case 0:
 				return &v.state
@@ -715,7 +733,7 @@ func file_infrastructure_api_rpc_order_v1_order_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[8].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_order_v1_order_rpc_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*OrderApproveResponse); i {
 			case 0:
 				return &v.state

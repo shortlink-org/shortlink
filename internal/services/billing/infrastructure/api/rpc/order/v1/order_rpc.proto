@@ -7,47 +7,71 @@ option go_package = "github.com/shortlink-org/shortlink/internal/billing/infrast
 import "google/protobuf/empty.proto";
 import "domain/billing/order/v1/order.proto";
 
+// OrderService is the order service definition.
 service OrderService {
+  // OrderHistory returns the order history.
   rpc OrderHistory(google.protobuf.Empty) returns(OrderHistoryResponse) {}
+  // OrderCreate creates a new order.
   rpc OrderCreate(OrderCreateRequest) returns(OrderCreateResponse) {}
+  // OrderUpdate updates an existing order.
   rpc OrderUpdate(OrderUpdateRequest) returns(OrderUpdateResponse) {}
+  // OrderClose closes an existing order.
   rpc OrderClose(OrderCloseRequest) returns(OrderCloseResponse) {}
+  // OrderApprove approves an existing order.
   rpc OrderApprove(OrderApproveRequest) returns(OrderApproveResponse) {}
 }
 
+// OrderHistoryResponse is the response for the OrderHistory RPC.
 message OrderHistoryResponse {
+  // List of orders.
   repeated domain.billing.order.v1.Order list = 1;
 }
 
+// OrderCreateRequest is the request for the OrderCreate RPC.
 message OrderCreateRequest {
+  // Order to create.
   domain.billing.order.v1.Order order = 1;
 }
 
+// OrderCreateResponse is the response for the OrderCreate RPC.
 message OrderCreateResponse {
+  // Created order.
   domain.billing.order.v1.Order order = 1;
 }
 
+// OrderUpdateRequest is the request for the OrderUpdate RPC.
 message OrderUpdateRequest {
+  // Order to update.
   domain.billing.order.v1.Order order = 1;
 }
 
+// OrderUpdateResponse is the response for the OrderUpdate RPC.
 message OrderUpdateResponse {
+  // Updated order.
   domain.billing.order.v1.Order order = 1;
 }
 
+// OrderCloseRequest is the request for the OrderClose RPC.
 message OrderCloseRequest {
+  // Order to close.
   domain.billing.order.v1.Order order = 1;
 }
 
+// OrderCloseResponse is the response for the OrderClose RPC.
 message OrderCloseResponse {
+  // Closed order.
   domain.billing.order.v1.Order order = 1;
 }
 
+// OrderApproveRequest is the request for the OrderApprove RPC.
 message OrderApproveRequest {
+  // Order to approve.
   domain.billing.order.v1.Order order = 1;
 }
 
+// OrderApproveResponse is the response for the OrderApprove RPC.
 message OrderApproveResponse {
+  // Approved order.
   domain.billing.order.v1.Order order = 1;
 }
 

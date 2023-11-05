@@ -21,16 +21,24 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Order service
 type StatusOrder int32
 
 const (
+	// unspecified
 	StatusOrder_STATUS_ORDER_UNSPECIFIED StatusOrder = 0
-	StatusOrder_STATUS_ORDER_CREATE      StatusOrder = 1
-	StatusOrder_STATUS_ORDER_PENDING     StatusOrder = 2
-	StatusOrder_STATUS_ORDER_APPROVE     StatusOrder = 3
-	StatusOrder_STATUS_ORDER_PAID        StatusOrder = 4
-	StatusOrder_STATUS_ORDER_CLOSE       StatusOrder = 5
-	StatusOrder_STATUS_ORDER_REJECT      StatusOrder = 6
+	// create order
+	StatusOrder_STATUS_ORDER_CREATE StatusOrder = 1
+	// pending order
+	StatusOrder_STATUS_ORDER_PENDING StatusOrder = 2
+	// approve order
+	StatusOrder_STATUS_ORDER_APPROVE StatusOrder = 3
+	// paid order
+	StatusOrder_STATUS_ORDER_PAID StatusOrder = 4
+	// close order
+	StatusOrder_STATUS_ORDER_CLOSE StatusOrder = 5
+	// reject order
+	StatusOrder_STATUS_ORDER_REJECT StatusOrder = 6
 )
 
 // Enum value maps for StatusOrder.
@@ -82,16 +90,24 @@ func (StatusOrder) EnumDescriptor() ([]byte, []int) {
 	return file_domain_billing_order_v1_order_proto_rawDescGZIP(), []int{0}
 }
 
+// Event of order
 type Event int32
 
 const (
-	Event_EVENT_UNSPECIFIED    Event = 0
-	Event_EVENT_ORDER_NEW      Event = 1
-	Event_EVENT_ORDER_UPDATE   Event = 2
+	// unspecified
+	Event_EVENT_UNSPECIFIED Event = 0
+	// new order
+	Event_EVENT_ORDER_NEW Event = 1
+	// update order
+	Event_EVENT_ORDER_UPDATE Event = 2
+	// approve order
 	Event_EVENT_ORDER_APPROVED Event = 3
-	Event_EVENT_ORDER_PAID     Event = 4
-	Event_EVENT_ORDER_CLOSE    Event = 5
-	Event_EVENT_ORDER_REJECT   Event = 6
+	// paid order
+	Event_EVENT_ORDER_PAID Event = 4
+	// close order
+	Event_EVENT_ORDER_CLOSE Event = 5
+	// reject order
+	Event_EVENT_ORDER_REJECT Event = 6
 )
 
 // Enum value maps for Event.
@@ -143,16 +159,22 @@ func (Event) EnumDescriptor() ([]byte, []int) {
 	return file_domain_billing_order_v1_order_proto_rawDescGZIP(), []int{1}
 }
 
+// Order service
 type Order struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// FieldMask
 	FieldMask *fieldmaskpb.FieldMask `protobuf:"bytes,5,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
-	Id        string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	UserId    string                 `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
-	TariffId  string                 `protobuf:"bytes,3,opt,name=tariff_id,json=tariffId,proto3" json:"tariff_id,omitempty"`
-	Status    StatusOrder            `protobuf:"varint,4,opt,name=status,proto3,enum=domain.billing.order.v1.StatusOrder" json:"status,omitempty"`
+	// order id
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// user id
+	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	// tariff id
+	TariffId string `protobuf:"bytes,3,opt,name=tariff_id,json=tariffId,proto3" json:"tariff_id,omitempty"`
+	// status order
+	Status StatusOrder `protobuf:"varint,4,opt,name=status,proto3,enum=domain.billing.order.v1.StatusOrder" json:"status,omitempty"`
 }
 
 func (x *Order) Reset() {
@@ -222,11 +244,13 @@ func (x *Order) GetStatus() StatusOrder {
 	return StatusOrder_STATUS_ORDER_UNSPECIFIED
 }
 
+// Order list
 type Orders struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// order list
 	List []*Order `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
 }
 
@@ -350,7 +374,7 @@ func file_domain_billing_order_v1_order_proto_rawDescGZIP() []byte {
 
 var file_domain_billing_order_v1_order_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_domain_billing_order_v1_order_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_domain_billing_order_v1_order_proto_goTypes = []any{
+var file_domain_billing_order_v1_order_proto_goTypes = []interface{}{
 	(StatusOrder)(0),              // 0: domain.billing.order.v1.StatusOrder
 	(Event)(0),                    // 1: domain.billing.order.v1.Event
 	(*Order)(nil),                 // 2: domain.billing.order.v1.Order
@@ -374,7 +398,7 @@ func file_domain_billing_order_v1_order_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_domain_billing_order_v1_order_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_domain_billing_order_v1_order_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Order); i {
 			case 0:
 				return &v.state
@@ -386,7 +410,7 @@ func file_domain_billing_order_v1_order_proto_init() {
 				return nil
 			}
 		}
-		file_domain_billing_order_v1_order_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_domain_billing_order_v1_order_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Orders); i {
 			case 0:
 				return &v.state

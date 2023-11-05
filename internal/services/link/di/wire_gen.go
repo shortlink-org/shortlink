@@ -99,7 +99,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	mq, cleanup6, err := mq_di.New(context, logger)
+	mq, err := mq_di.New(context, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -108,9 +108,8 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup7, err := rpc.InitClient(logger, tracerProvider, monitoringMonitoring)
+	clientConn, cleanup6, err := rpc.InitClient(logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -120,7 +119,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	metadataServiceClient, err := NewMetadataRPCClient(clientConn)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -131,7 +129,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	db, err := store.New(context, logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -142,7 +139,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	cacheCache, err := cache.New(context)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -153,7 +149,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	repository, err := NewLinkStore(context, logger, db, cacheCache)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -164,7 +159,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	service, err := NewLinkApplication(logger, mq, metadataServiceClient, repository, client)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -175,7 +169,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	cqsStore, err := NewCQSLinkStore(context, logger, db, cacheCache)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -186,7 +179,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	queryStore, err := NewQueryLinkStore(context, logger, db, cacheCache)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -197,7 +189,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	link_cqrsService, err := NewLinkCQRSApplication(logger, cqsStore, queryStore)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -208,7 +199,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	sitemapService, err := NewSitemapApplication(logger, mq)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -219,7 +209,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	event, err := InitLinkMQ(context, logger, mq, service)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -230,7 +219,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	server, err := rpc.InitServer(context, logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -241,7 +229,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	link, err := NewLinkCQRSRPCServer(server, link_cqrsService, logger)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -252,7 +239,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	v1Link, err := NewLinkRPCServer(server, service, logger)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -263,7 +249,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	response, err := NewRunRPCServer(server, link, v1Link)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -274,7 +259,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	sitemap, err := NewSitemapRPCServer(server, sitemapService, logger)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -285,7 +269,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}
 	linkService, err := NewLinkService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, client, service, link_cqrsService, sitemapService, event, response, v1Link, link, sitemap, repository, cqsStore, queryStore)
 	if err != nil {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()
@@ -295,7 +278,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		return nil, nil, err
 	}
 	return linkService, func() {
-		cleanup7()
 		cleanup6()
 		cleanup5()
 		cleanup4()

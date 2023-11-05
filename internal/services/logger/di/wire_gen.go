@@ -81,7 +81,7 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	mq, cleanup6, err := mq_di.New(context, logger)
+	mq, err := mq_di.New(context, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -92,7 +92,6 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 	}
 	event, err := InitLoggerMQ(context, logger, mq, service)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -102,7 +101,6 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 	}
 	loggerService, err := NewLoggerService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, service, event)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -111,7 +109,6 @@ func InitializeLoggerService() (*LoggerService, func(), error) {
 		return nil, nil, err
 	}
 	return loggerService, func() {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()

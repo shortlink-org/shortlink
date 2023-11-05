@@ -28,8 +28,10 @@ function deserialize_infrastructure_rpc_proxy_v1_StatsResponse(buffer_arg) {
 }
 
 
+// ProxyService is the service that provides proxy functionality.
 var StatsServiceService = exports.StatsServiceService = {
-  stats: {
+  // Stats returns the stats for the given proxy.
+stats: {
     path: '/infrastructure.rpc.proxy.v1.StatsService/Stats',
     requestStream: false,
     responseStream: false,

@@ -7,7 +7,7 @@
 package v1
 
 import (
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/domain/table/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/table/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -131,7 +131,7 @@ func file_shortdb_domain_database_v1_database_proto_rawDescGZIP() []byte {
 }
 
 var file_shortdb_domain_database_v1_database_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_shortdb_domain_database_v1_database_proto_goTypes = []any{
+var file_shortdb_domain_database_v1_database_proto_goTypes = []interface{}{
 	(*DataBase)(nil), // 0: shortdb.domain.database.v1.DataBase
 	nil,              // 1: shortdb.domain.database.v1.DataBase.TablesEntry
 	(*v1.Table)(nil), // 2: shortdb.domain.table.v1.Table
@@ -152,7 +152,7 @@ func file_shortdb_domain_database_v1_database_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_shortdb_domain_database_v1_database_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_shortdb_domain_database_v1_database_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DataBase); i {
 			case 0:
 				return &v.state

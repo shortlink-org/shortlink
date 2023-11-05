@@ -7,17 +7,26 @@ option go_package = "github.com/shortlink-org/shortlink/internal/services/link/d
 import "google/protobuf/field_mask.proto";
 import "google/protobuf/timestamp.proto";
 
+// Link event
 enum LinkEvent {
+  // Unspecified
   LINK_EVENT_UNSPECIFIED = 0;
 
+  // Add link
   LINK_EVENT_ADD = 1;
+  // Get link
   LINK_EVENT_GET = 2;
+  // List link
   LINK_EVENT_LIST = 3;
+  // Update link
   LINK_EVENT_UPDATE = 4;
+  // Delete link
   LINK_EVENT_DELETE = 5;
 }
 
+// Link
 message Link {
+  // Field mask
   google.protobuf.FieldMask field_mask = 6;
 
   // URL
@@ -33,6 +42,8 @@ message Link {
   google.protobuf.Timestamp updated_at = 5;
 }
 
+// Link list
 message Links {
-    repeated Link link = 1;
+  // Links
+  repeated Link link = 1;
 }

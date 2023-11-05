@@ -5,11 +5,16 @@ package domain.referral.v1;
 import "google/protobuf/field_mask.proto";
 
 // COMMANDS ====================================================================
+// ReferralCommand is the type of command to execute on the referral
 enum ReferralCommand {
+  // Unspecified command
   REFERRAL_COMMAND_UNSPECIFIED = 0;
 
+  // Add a referral to the system
   REFERRAL_COMMAND_ADD = 1;
+  // Update a referral in the system
   REFERRAL_COMMAND_UPDATE = 2;
+  // Delete a referral from the system
   REFERRAL_COMMAND_DELETE = 3;
 }
 
@@ -17,6 +22,7 @@ enum ReferralCommand {
 message ReferralAddCommand {
   // Name of the referral
   string name = 1;
+  // User identifier
   string user_id = 2;
 }
 
@@ -26,8 +32,10 @@ message ReferralUpdateCommand {
   string id = 1;
   // Name of the referral
   string name = 2;
+  // User identifier
   string user_id = 3;
 
+  // Fields to update
   google.protobuf.FieldMask field_mask = 4;
 }
 

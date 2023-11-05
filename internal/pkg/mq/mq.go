@@ -38,7 +38,7 @@ func (mq *DataBus) Use(ctx context.Context, log logger.Logger) (*DataBus, error)
 		mq.mq = &kafka.Kafka{}
 	}
 
-	if err := mq.Init(ctx); err != nil {
+	if err := mq.Init(ctx, log); err != nil {
 		return nil, err
 	}
 
@@ -46,8 +46,8 @@ func (mq *DataBus) Use(ctx context.Context, log logger.Logger) (*DataBus, error)
 }
 
 // Init - init connection
-func (mq *DataBus) Init(ctx context.Context) error {
-	err := mq.mq.Init(ctx)
+func (mq *DataBus) Init(ctx context.Context, log logger.Logger) error {
+	err := mq.mq.Init(ctx, log)
 	if err != nil {
 		return err
 	}
@@ -84,15 +84,6 @@ func (mq *DataBus) Publish(ctx context.Context, target string, key, payload []by
 	})
 
 	return mq.mq.Publish(ctx, target, key, payload)
-}
-
-// Close - close connection
-func (mq *DataBus) Close() error {
-	mq.log.Info("close MQ", field.Fields{
-		"mq": mq.typeMQ,
-	})
-
-	return mq.mq.Close()
 }
 
 // setConfig - set configuration

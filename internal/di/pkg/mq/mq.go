@@ -9,26 +9,20 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 )
 
-func New(ctx context.Context, log logger.Logger) (mq.MQ, func(), error) {
+func New(ctx context.Context, log logger.Logger) (mq.MQ, error) {
 	viper.SetDefault("MQ_ENABLED", "false") // Enabled MQ
 
 	if viper.GetBool("MQ_ENABLED") {
 		var service mq.DataBus
 		dataBus, err := service.Use(ctx, log)
 		if err != nil {
-			return nil, func() {}, err
+			return nil, err
 		}
 
-		cleanup := func() {
-			if err := dataBus.Close(); err != nil {
-				log.Error(err.Error())
-			}
-		}
-
-		return dataBus, cleanup, nil
+		return dataBus, nil
 	}
 
 	log.Warn("MQ disabled")
 
-	return nil, func() {}, nil
+	return nil, nil
 }

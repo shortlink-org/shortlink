@@ -6,22 +6,34 @@ option go_package = "github.com/shortlink-org/shortlink/internal/services/billin
 
 import "google/protobuf/field_mask.proto";
 
+// Tariff events
 enum Event {
+  // Unspecified event
   EVENT_UNSPECIFIED = 0;
 
+  // New tariff created
   EVENT_TARIFF_NEW = 1;
+  // Tariff updated
   EVENT_TARIFF_UPDATE = 2;
+  // Tariff closed
   EVENT_TARIFF_CLOSE = 3;
 }
 
+// Tariff
 message Tariff {
+  // FieldMask
   google.protobuf.FieldMask field_mask = 4;
 
+  // ID of tariff
   string id = 1;
+  // Name of tariff
   string name = 2;
+  // Description of tariff
   string payload = 3;
 }
 
+// Tariff list
 message Tariffs {
+  // List of tariffs
   repeated Tariff list = 1;
 }

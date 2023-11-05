@@ -6,44 +6,68 @@ option go_package = "github.com/shortlink-org/shortlink/internal/services/billin
 
 import "domain/billing/payment/v1/payment.proto";
 
+// Event
 enum Event {
+  // Unspecified event
   EVENT_UNSPECIFIED = 0;
 
+  // created event
   EVENT_PAYMENT_CREATED = 1;
+  // approved event
   EVENT_PAYMENT_APPROVED = 2;
+  // closed event
   EVENT_PAYMENT_CLOSED = 3;
+  // rejected event
   EVENT_PAYMENT_REJECTED = 4;
 
+  // balance updated event
   EVENT_BALANCE_UPDATED = 5;
 }
 
 // PAYMENT =============================================================================================================
 
+// EventPaymentCreated is published when a payment is created
 message EventPaymentCreated {
+  // id of the payment
   string id = 1;
+  // name of the payment
   string name = 2;
+  // status of the payment
   StatusPayment status = 3;
+  // owner of the payment
   string user_id = 4;
 }
 
+// EventPaymentApproved is published when a payment is approved
 message EventPaymentApproved {
+  // id of the payment
   string id = 1;
+  // status of the payment
   StatusPayment status = 2;
 }
 
+// EventPaymentRejected is published when a payment is rejected
 message EventPaymentRejected {
+  // id of the payment
   string id = 1;
+  // status of the payment
   StatusPayment status = 2;
 }
 
+// EventPaymentClosed is published when a payment is closed
 message EventPaymentClosed {
+  // id of the payment
   string id = 1;
+  // status of the payment
   StatusPayment status = 2;
 }
 
 // BALANCE =============================================================================================================
 
+// EventBalanceUpdated is published when a balance is updated
 message EventBalanceUpdated {
+  // id of the balance
   string id = 1;
+  // amount of the balance
   int64 amount = 2;
 }

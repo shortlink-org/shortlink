@@ -7,7 +7,7 @@
 package v1
 
 import (
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/domain/field/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/field/v1"
 	v11 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/index/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
@@ -776,7 +776,7 @@ func file_shortdb_domain_query_v1_query_proto_rawDescGZIP() []byte {
 
 var file_shortdb_domain_query_v1_query_proto_enumTypes = make([]protoimpl.EnumInfo, 2)
 var file_shortdb_domain_query_v1_query_proto_msgTypes = make([]protoimpl.MessageInfo, 8)
-var file_shortdb_domain_query_v1_query_proto_goTypes = []any{
+var file_shortdb_domain_query_v1_query_proto_goTypes = []interface{}{
 	(Type)(0),                     // 0: shortdb.domain.query.v1.Type
 	(Operator)(0),                 // 1: shortdb.domain.query.v1.Operator
 	(*Condition)(nil),             // 2: shortdb.domain.query.v1.Condition
@@ -818,7 +818,7 @@ func file_shortdb_domain_query_v1_query_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_shortdb_domain_query_v1_query_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_shortdb_domain_query_v1_query_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Condition); i {
 			case 0:
 				return &v.state
@@ -830,7 +830,7 @@ func file_shortdb_domain_query_v1_query_proto_init() {
 				return nil
 			}
 		}
-		file_shortdb_domain_query_v1_query_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_shortdb_domain_query_v1_query_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*JoinCondition); i {
 			case 0:
 				return &v.state
@@ -842,7 +842,7 @@ func file_shortdb_domain_query_v1_query_proto_init() {
 				return nil
 			}
 		}
-		file_shortdb_domain_query_v1_query_proto_msgTypes[2].Exporter = func(v any, i int) any {
+		file_shortdb_domain_query_v1_query_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Join); i {
 			case 0:
 				return &v.state
@@ -854,7 +854,7 @@ func file_shortdb_domain_query_v1_query_proto_init() {
 				return nil
 			}
 		}
-		file_shortdb_domain_query_v1_query_proto_msgTypes[3].Exporter = func(v any, i int) any {
+		file_shortdb_domain_query_v1_query_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Query); i {
 			case 0:
 				return &v.state
@@ -866,7 +866,7 @@ func file_shortdb_domain_query_v1_query_proto_init() {
 				return nil
 			}
 		}
-		file_shortdb_domain_query_v1_query_proto_msgTypes[4].Exporter = func(v any, i int) any {
+		file_shortdb_domain_query_v1_query_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Query_Array); i {
 			case 0:
 				return &v.state

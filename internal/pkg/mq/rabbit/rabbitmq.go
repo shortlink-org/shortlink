@@ -7,6 +7,7 @@ import (
 	amqp "github.com/rabbitmq/amqp091-go"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
 type MQ struct {
@@ -26,7 +27,7 @@ func New(log logger.Logger) *MQ {
 	}
 }
 
-func (mq *MQ) Init(_ context.Context) error {
+func (mq *MQ) Init(ctx context.Context, log logger.Logger) error {
 	// connect to RabbitMQ server
 	err := mq.Dial()
 	if err != nil {
@@ -39,10 +40,22 @@ func (mq *MQ) Init(_ context.Context) error {
 		return err
 	}
 
+	// Graceful shutdown
+	go func() {
+		<-ctx.Done()
+
+		if errClose := mq.close(); errClose != nil {
+			log.Error("RabbitMQ close error", field.Fields{
+				"error": errClose.Error(),
+			})
+		}
+	}()
+
 	return nil
 }
 
-func (mq *MQ) Close() error {
+// close - close connection
+func (mq *MQ) close() error {
 	if err := mq.conn.Close(); err != nil {
 		return err
 	}

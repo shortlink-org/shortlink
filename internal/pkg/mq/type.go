@@ -2,7 +2,6 @@ package mq
 
 import (
 	"context"
-	"io"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
@@ -10,9 +9,7 @@ import (
 
 // MQ - common interface of DataBus
 type MQ interface {
-	// setting
-	Init(context.Context) error
-	io.Closer // Closer is the interface that wraps the basic Close method.
+	Init(ctx context.Context, log logger.Logger) error
 
 	// Pub/Sub a pattern
 	Publish(ctx context.Context, target string, routingKey, payload []byte) error

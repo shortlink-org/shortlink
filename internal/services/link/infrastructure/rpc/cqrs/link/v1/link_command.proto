@@ -7,29 +7,43 @@ option go_package = "github.com/shortlink-org/shortlink/internal/services/link/i
 import "google/protobuf/empty.proto";
 import "domain/link/v1/link.proto";
 
+// LinkCommandService is the command service for the link aggregate
 service LinkCommandService {
+  // Add adds a new link
   rpc Add(AddRequest) returns(AddResponse) {}
+  // Update updates an existing link
   rpc Update(UpdateRequest) returns(UpdateResponse) {}
+  // Delete deletes an existing link
   rpc Delete(DeleteRequest) returns(google.protobuf.Empty) {}
 }
 
+// AddRequest is the request for adding a new link
 message AddRequest {
+  // Link is the link to add
   domain.link.v1.Link link = 1;
 }
 
+// AddResponse is the response for adding a new link
 message AddResponse {
+  // Link is the added link
   domain.link.v1.Link link = 1;
 }
 
+// UpdateRequest is the request for updating an existing link
 message UpdateRequest {
+  // Link is the link to update
   domain.link.v1.Link link = 1;
 }
 
+// UpdateResponse is the response for updating an existing link
 message UpdateResponse {
+  // Link is the updated link
   domain.link.v1.Link link = 1;
 }
 
+// DeleteRequest is the request for deleting an existing link
 message DeleteRequest {
+  // Hash is the hash of the link to delete
   string hash = 1;
 }
 

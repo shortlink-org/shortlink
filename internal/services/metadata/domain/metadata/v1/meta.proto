@@ -6,11 +6,17 @@ option go_package = "github.com/shortlink-org/shortlink/internal/services/metada
 
 import "google/protobuf/field_mask.proto";
 
+// Meta is the metadata for a shortlink
 message Meta {
+  // Field mask
   google.protobuf.FieldMask field_mask = 5;
 
+  // ID is the ID of the shortlink
   string id = 1;
+  // Title is the title of the shortlink
   string image_url = 2;
+  // Description is the description of the shortlink
   string description = 3;
+  // Keywords is the keywords of the shortlink
   string keywords = 4;
 }

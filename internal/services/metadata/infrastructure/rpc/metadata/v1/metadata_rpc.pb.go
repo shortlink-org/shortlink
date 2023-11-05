@@ -7,7 +7,7 @@
 package v1
 
 import (
-	"github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -21,11 +21,13 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// MetadataServiceGetRequest is the request message for the Get method.
 type MetadataServiceGetRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// URL is the URL to get the metadata for.
 	Url string `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
 }
 
@@ -68,11 +70,13 @@ func (x *MetadataServiceGetRequest) GetUrl() string {
 	return ""
 }
 
+// MetadataServiceGetResponse is the response message for the Get method.
 type MetadataServiceGetResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Meta is the metadata for the given URL.
 	Meta *v1.Meta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
 }
 
@@ -115,11 +119,13 @@ func (x *MetadataServiceGetResponse) GetMeta() *v1.Meta {
 	return nil
 }
 
+// MetadataServiceSetRequest is the request message for the Set method.
 type MetadataServiceSetRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// URL is the URL to set the metadata for.
 	Url string `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
 }
 
@@ -162,11 +168,13 @@ func (x *MetadataServiceSetRequest) GetUrl() string {
 	return ""
 }
 
+// MetadataServiceSetResponse is the response message for the Set method.
 type MetadataServiceSetResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Meta is the metadata for the given URL.
 	Meta *v1.Meta `protobuf:"bytes,1,opt,name=meta,proto3" json:"meta,omitempty"`
 }
 
@@ -286,7 +294,7 @@ func file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_rawDescGZIP() []byte
 }
 
 var file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 4)
-var file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_goTypes = []any{
+var file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_goTypes = []interface{}{
 	(*MetadataServiceGetRequest)(nil),  // 0: infrastructure.rpc.metadata.v1.MetadataServiceGetRequest
 	(*MetadataServiceGetResponse)(nil), // 1: infrastructure.rpc.metadata.v1.MetadataServiceGetResponse
 	(*MetadataServiceSetRequest)(nil),  // 2: infrastructure.rpc.metadata.v1.MetadataServiceSetRequest
@@ -313,7 +321,7 @@ func file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MetadataServiceGetRequest); i {
 			case 0:
 				return &v.state
@@ -325,7 +333,7 @@ func file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MetadataServiceGetResponse); i {
 			case 0:
 				return &v.state
@@ -337,7 +345,7 @@ func file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes[2].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MetadataServiceSetRequest); i {
 			case 0:
 				return &v.state
@@ -349,7 +357,7 @@ func file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes[3].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_metadata_v1_metadata_rpc_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*MetadataServiceSetResponse); i {
 			case 0:
 				return &v.state

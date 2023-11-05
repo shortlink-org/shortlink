@@ -186,7 +186,7 @@ func file_shortdb_domain_index_v1_index_proto_rawDescGZIP() []byte {
 
 var file_shortdb_domain_index_v1_index_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_shortdb_domain_index_v1_index_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_shortdb_domain_index_v1_index_proto_goTypes = []any{
+var file_shortdb_domain_index_v1_index_proto_goTypes = []interface{}{
 	(Type)(0),     // 0: shortdb.domain.index.v1.Type
 	(*Index)(nil), // 1: shortdb.domain.index.v1.Index
 }
@@ -205,7 +205,7 @@ func file_shortdb_domain_index_v1_index_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_shortdb_domain_index_v1_index_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_shortdb_domain_index_v1_index_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Index); i {
 			case 0:
 				return &v.state

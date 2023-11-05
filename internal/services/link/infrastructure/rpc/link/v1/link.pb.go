@@ -7,7 +7,7 @@
 package v1
 
 import (
-	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -22,11 +22,13 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// GetRequest is the request message for LinkService.Get.
 type GetRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Hash is the hash of the link.
 	Hash string `protobuf:"bytes,1,opt,name=hash,proto3" json:"hash,omitempty"`
 }
 
@@ -69,11 +71,13 @@ func (x *GetRequest) GetHash() string {
 	return ""
 }
 
+// GetResponse is the response message for LinkService.Get.
 type GetResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Link is the link.
 	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
@@ -116,11 +120,13 @@ func (x *GetResponse) GetLink() *v1.Link {
 	return nil
 }
 
+// ListRequest is the request message for LinkService.List.
 type ListRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Filter is the filter of the list.
 	Filter string `protobuf:"bytes,1,opt,name=filter,proto3" json:"filter,omitempty"`
 }
 
@@ -163,11 +169,13 @@ func (x *ListRequest) GetFilter() string {
 	return ""
 }
 
+// ListResponse is the response message for LinkService.List.
 type ListResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Links is the list of links.
 	Links *v1.Links `protobuf:"bytes,1,opt,name=links,proto3" json:"links,omitempty"`
 }
 
@@ -210,11 +218,13 @@ func (x *ListResponse) GetLinks() *v1.Links {
 	return nil
 }
 
+// AddRequest is the request message for LinkService.Add.
 type AddRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Link is the link.
 	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
@@ -257,11 +267,13 @@ func (x *AddRequest) GetLink() *v1.Link {
 	return nil
 }
 
+// AddResponse is the response message for LinkService.Add.
 type AddResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Link is the link.
 	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
@@ -304,11 +316,13 @@ func (x *AddResponse) GetLink() *v1.Link {
 	return nil
 }
 
+// UpdateRequest is the request message for LinkService.Update.
 type UpdateRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Link is the link.
 	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
@@ -351,11 +365,13 @@ func (x *UpdateRequest) GetLink() *v1.Link {
 	return nil
 }
 
+// UpdateResponse is the response message for LinkService.Update.
 type UpdateResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Link is the link.
 	Link *v1.Link `protobuf:"bytes,1,opt,name=link,proto3" json:"link,omitempty"`
 }
 
@@ -398,11 +414,13 @@ func (x *UpdateResponse) GetLink() *v1.Link {
 	return nil
 }
 
+// DeleteRequest is the request message for LinkService.Delete.
 type DeleteRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Hash is the hash of the link.
 	Hash string `protobuf:"bytes,1,opt,name=hash,proto3" json:"hash,omitempty"`
 }
 
@@ -547,7 +565,7 @@ func file_infrastructure_rpc_link_v1_link_proto_rawDescGZIP() []byte {
 }
 
 var file_infrastructure_rpc_link_v1_link_proto_msgTypes = make([]protoimpl.MessageInfo, 9)
-var file_infrastructure_rpc_link_v1_link_proto_goTypes = []any{
+var file_infrastructure_rpc_link_v1_link_proto_goTypes = []interface{}{
 	(*GetRequest)(nil),     // 0: infrastructure.rpc.link.v1.GetRequest
 	(*GetResponse)(nil),    // 1: infrastructure.rpc.link.v1.GetResponse
 	(*ListRequest)(nil),    // 2: infrastructure.rpc.link.v1.ListRequest
@@ -591,7 +609,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetRequest); i {
 			case 0:
 				return &v.state
@@ -603,7 +621,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*GetResponse); i {
 			case 0:
 				return &v.state
@@ -615,7 +633,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[2].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListRequest); i {
 			case 0:
 				return &v.state
@@ -627,7 +645,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[3].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*ListResponse); i {
 			case 0:
 				return &v.state
@@ -639,7 +657,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[4].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AddRequest); i {
 			case 0:
 				return &v.state
@@ -651,7 +669,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[5].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*AddResponse); i {
 			case 0:
 				return &v.state
@@ -663,7 +681,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[6].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UpdateRequest); i {
 			case 0:
 				return &v.state
@@ -675,7 +693,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[7].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[7].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*UpdateResponse); i {
 			case 0:
 				return &v.state
@@ -687,7 +705,7 @@ func file_infrastructure_rpc_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_rpc_link_v1_link_proto_msgTypes[8].Exporter = func(v any, i int) any {
+		file_infrastructure_rpc_link_v1_link_proto_msgTypes[8].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*DeleteRequest); i {
 			case 0:
 				return &v.state

@@ -7,7 +7,7 @@
 package payment_rpc
 
 import (
-	"github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/payment/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/payment/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"
@@ -22,11 +22,13 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// PaymentRequest is the request message for PaymentService.Payment.
 type PaymentRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// ID is the id of the payment.
 	Payment *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
 }
 
@@ -69,11 +71,13 @@ func (x *PaymentRequest) GetPayment() *v1.Payment {
 	return nil
 }
 
+// PaymentResponse is the response message for PaymentService.Payment.
 type PaymentResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Payment is the payment.
 	Payment *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
 }
 
@@ -116,11 +120,13 @@ func (x *PaymentResponse) GetPayment() *v1.Payment {
 	return nil
 }
 
+// PaymentsResponse is the response message for PaymentService.Payments.
 type PaymentsResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Payments is the list of payments.
 	List []*v1.Payment `protobuf:"bytes,1,rep,name=list,proto3" json:"list,omitempty"`
 }
 
@@ -163,11 +169,13 @@ func (x *PaymentsResponse) GetList() []*v1.Payment {
 	return nil
 }
 
+// PaymentCreateRequest is the request message for PaymentService.PaymentCreate.
 type PaymentCreateRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Payment is the payment.
 	Payment *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
 }
 
@@ -210,11 +218,13 @@ func (x *PaymentCreateRequest) GetPayment() *v1.Payment {
 	return nil
 }
 
+// PaymentCreateResponse is the response message for PaymentService.PaymentCreate.
 type PaymentCreateResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Payment is the payment.
 	Payment *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
 }
 
@@ -257,11 +267,13 @@ func (x *PaymentCreateResponse) GetPayment() *v1.Payment {
 	return nil
 }
 
+// PaymentCloseRequest is the request message for PaymentService.PaymentClose.
 type PaymentCloseRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Payment is the payment.
 	Payment *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
 }
 
@@ -304,11 +316,13 @@ func (x *PaymentCloseRequest) GetPayment() *v1.Payment {
 	return nil
 }
 
+// PaymentCloseResponse is the response message for PaymentService.PaymentClose.
 type PaymentCloseResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Payment is the payment.
 	Payment *v1.Payment `protobuf:"bytes,1,opt,name=payment,proto3" json:"payment,omitempty"`
 }
 
@@ -466,7 +480,7 @@ func file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_rawDescGZIP() []by
 }
 
 var file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
-var file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_goTypes = []any{
+var file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_goTypes = []interface{}{
 	(*PaymentRequest)(nil),        // 0: infrastructure.api.rpc.payment.v1.PaymentRequest
 	(*PaymentResponse)(nil),       // 1: infrastructure.api.rpc.payment.v1.PaymentResponse
 	(*PaymentsResponse)(nil),      // 2: infrastructure.api.rpc.payment.v1.PaymentsResponse
@@ -506,7 +520,7 @@ func file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*PaymentRequest); i {
 			case 0:
 				return &v.state
@@ -518,7 +532,7 @@ func file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*PaymentResponse); i {
 			case 0:
 				return &v.state
@@ -530,7 +544,7 @@ func file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[2].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*PaymentsResponse); i {
 			case 0:
 				return &v.state
@@ -542,7 +556,7 @@ func file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[3].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*PaymentCreateRequest); i {
 			case 0:
 				return &v.state
@@ -554,7 +568,7 @@ func file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[4].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*PaymentCreateResponse); i {
 			case 0:
 				return &v.state
@@ -566,7 +580,7 @@ func file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[5].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*PaymentCloseRequest); i {
 			case 0:
 				return &v.state
@@ -578,7 +592,7 @@ func file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_init() {
 				return nil
 			}
 		}
-		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[6].Exporter = func(v any, i int) any {
+		file_infrastructure_api_rpc_payment_v1_billing_rpc_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*PaymentCloseResponse); i {
 			case 0:
 				return &v.state

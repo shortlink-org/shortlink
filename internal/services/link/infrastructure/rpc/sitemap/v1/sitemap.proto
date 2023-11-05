@@ -6,11 +6,15 @@ option go_package = "github.com/shortlink-org/shortlink/internal/services/link/i
 
 import "google/protobuf/empty.proto";
 
+// SitemapService is the service that provides sitemap functionality.
 service SitemapService {
+  // Parse parses a sitemap.
   rpc Parse(ParseRequest) returns(google.protobuf.Empty) {}
 }
 
+// ParseRequest is the request message for Parse.
 message ParseRequest {
+  // URL is the URL of the sitemap to parse.
   string url = 1;
 }
 

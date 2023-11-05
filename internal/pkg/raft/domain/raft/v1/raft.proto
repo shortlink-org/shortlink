@@ -7,16 +7,24 @@ option go_package = "github.com/shortlink-org/shortlink/pkg/raft/domain/raft/v1"
 import "google/protobuf/field_mask.proto";
 import "google/protobuf/timestamp.proto";
 
+// RaftStatus is the status of a raft node.
 enum RaftStatus {
+  // RAFT_STATUS_UNSPECIFIED is the default status of a raft node.
   RAFT_STATUS_UNSPECIFIED = 0;
 
+  // RAFT_STATUS_LEADER is the status of a raft node when it is the leader.
   RAFT_STATUS_LEADER = 1;
+  // RAFT_STATUS_FOLLOWER is the status of a raft node when it is a follower.
   RAFT_STATUS_FOLLOWER = 2;
+  // RAFT_STATUS_CANDIDATE is the status of a raft node when it is a candidate.
   RAFT_STATUS_CANDIDATE = 3;
+  // RAFT_STATUS_STOPPED is the status of a raft node when it is stopped.
   RAFT_STATUS_STOPPED = 4;
 }
 
+// Raft is the representation of a raft node.
 message Raft {
+  // field_mask is the list of fields to update.
   google.protobuf.FieldMask field_mask = 8;
 
   // id is the unique identifier of the raft node.

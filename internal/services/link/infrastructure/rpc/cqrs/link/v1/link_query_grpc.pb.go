@@ -27,7 +27,9 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type LinkQueryServiceClient interface {
+	// Get returns a LinkView for the given hash.
 	Get(ctx context.Context, in *GetRequest, opts ...grpc.CallOption) (*GetResponse, error)
+	// List returns a LinksView for the given filter.
 	List(ctx context.Context, in *ListRequest, opts ...grpc.CallOption) (*ListResponse, error)
 }
 
@@ -61,7 +63,9 @@ func (c *linkQueryServiceClient) List(ctx context.Context, in *ListRequest, opts
 // All implementations must embed UnimplementedLinkQueryServiceServer
 // for forward compatibility
 type LinkQueryServiceServer interface {
+	// Get returns a LinkView for the given hash.
 	Get(context.Context, *GetRequest) (*GetResponse, error)
+	// List returns a LinksView for the given filter.
 	List(context.Context, *ListRequest) (*ListResponse, error)
 	mustEmbedUnimplementedLinkQueryServiceServer()
 }
@@ -89,7 +93,7 @@ func RegisterLinkQueryServiceServer(s grpc.ServiceRegistrar, srv LinkQueryServic
 	s.RegisterService(&LinkQueryService_ServiceDesc, srv)
 }
 
-func _LinkQueryService_Get_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
+func _LinkQueryService_Get_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -101,13 +105,13 @@ func _LinkQueryService_Get_Handler(srv any, ctx context.Context, dec func(any) e
 		Server:     srv,
 		FullMethod: LinkQueryService_Get_FullMethodName,
 	}
-	handler := func(ctx context.Context, req any) (any, error) {
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LinkQueryServiceServer).Get(ctx, req.(*GetRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-func _LinkQueryService_List_Handler(srv any, ctx context.Context, dec func(any) error, interceptor grpc.UnaryServerInterceptor) (any, error) {
+func _LinkQueryService_List_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ListRequest)
 	if err := dec(in); err != nil {
 		return nil, err
@@ -119,7 +123,7 @@ func _LinkQueryService_List_Handler(srv any, ctx context.Context, dec func(any) 
 		Server:     srv,
 		FullMethod: LinkQueryService_List_FullMethodName,
 	}
-	handler := func(ctx context.Context, req any) (any, error) {
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(LinkQueryServiceServer).List(ctx, req.(*ListRequest))
 	}
 	return interceptor(ctx, in, info, handler)

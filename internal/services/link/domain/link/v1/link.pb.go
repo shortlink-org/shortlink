@@ -22,15 +22,22 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Link event
 type LinkEvent int32
 
 const (
+	// Unspecified
 	LinkEvent_LINK_EVENT_UNSPECIFIED LinkEvent = 0
-	LinkEvent_LINK_EVENT_ADD         LinkEvent = 1
-	LinkEvent_LINK_EVENT_GET         LinkEvent = 2
-	LinkEvent_LINK_EVENT_LIST        LinkEvent = 3
-	LinkEvent_LINK_EVENT_UPDATE      LinkEvent = 4
-	LinkEvent_LINK_EVENT_DELETE      LinkEvent = 5
+	// Add link
+	LinkEvent_LINK_EVENT_ADD LinkEvent = 1
+	// Get link
+	LinkEvent_LINK_EVENT_GET LinkEvent = 2
+	// List link
+	LinkEvent_LINK_EVENT_LIST LinkEvent = 3
+	// Update link
+	LinkEvent_LINK_EVENT_UPDATE LinkEvent = 4
+	// Delete link
+	LinkEvent_LINK_EVENT_DELETE LinkEvent = 5
 )
 
 // Enum value maps for LinkEvent.
@@ -80,11 +87,13 @@ func (LinkEvent) EnumDescriptor() ([]byte, []int) {
 	return file_domain_link_v1_link_proto_rawDescGZIP(), []int{0}
 }
 
+// Link
 type Link struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Field mask
 	FieldMask *fieldmaskpb.FieldMask `protobuf:"bytes,6,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
 	// URL
 	Url string `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
@@ -172,11 +181,13 @@ func (x *Link) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+// Link list
 type Links struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
+	// Links
 	Link []*Link `protobuf:"bytes,1,rep,name=link,proto3" json:"link,omitempty"`
 }
 
@@ -286,7 +297,7 @@ func file_domain_link_v1_link_proto_rawDescGZIP() []byte {
 
 var file_domain_link_v1_link_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_domain_link_v1_link_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
-var file_domain_link_v1_link_proto_goTypes = []any{
+var file_domain_link_v1_link_proto_goTypes = []interface{}{
 	(LinkEvent)(0),                // 0: domain.link.v1.LinkEvent
 	(*Link)(nil),                  // 1: domain.link.v1.Link
 	(*Links)(nil),                 // 2: domain.link.v1.Links
@@ -311,7 +322,7 @@ func file_domain_link_v1_link_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_domain_link_v1_link_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_domain_link_v1_link_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Link); i {
 			case 0:
 				return &v.state
@@ -323,7 +334,7 @@ func file_domain_link_v1_link_proto_init() {
 				return nil
 			}
 		}
-		file_domain_link_v1_link_proto_msgTypes[1].Exporter = func(v any, i int) any {
+		file_domain_link_v1_link_proto_msgTypes[1].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Links); i {
 			case 0:
 				return &v.state

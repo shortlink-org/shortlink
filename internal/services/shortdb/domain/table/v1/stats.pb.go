@@ -118,7 +118,7 @@ func file_shortdb_domain_table_v1_stats_proto_rawDescGZIP() []byte {
 }
 
 var file_shortdb_domain_table_v1_stats_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_shortdb_domain_table_v1_stats_proto_goTypes = []any{
+var file_shortdb_domain_table_v1_stats_proto_goTypes = []interface{}{
 	(*TableStats)(nil), // 0: shortdb.domain.table.v1.TableStats
 }
 var file_shortdb_domain_table_v1_stats_proto_depIdxs = []int32{
@@ -135,7 +135,7 @@ func file_shortdb_domain_table_v1_stats_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_shortdb_domain_table_v1_stats_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_shortdb_domain_table_v1_stats_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*TableStats); i {
 			case 0:
 				return &v.state

@@ -153,7 +153,7 @@ func file_eventsourcing_v1_aggregate_proto_rawDescGZIP() []byte {
 }
 
 var file_eventsourcing_v1_aggregate_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_eventsourcing_v1_aggregate_proto_goTypes = []any{
+var file_eventsourcing_v1_aggregate_proto_goTypes = []interface{}{
 	(*BaseAggregate)(nil),         // 0: eventsourcing.v1.BaseAggregate
 	(*fieldmaskpb.FieldMask)(nil), // 1: google.protobuf.FieldMask
 	(*Event)(nil),                 // 2: eventsourcing.v1.Event
@@ -175,7 +175,7 @@ func file_eventsourcing_v1_aggregate_proto_init() {
 	}
 	file_eventsourcing_v1_event_proto_init()
 	if !protoimpl.UnsafeEnabled {
-		file_eventsourcing_v1_aggregate_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_eventsourcing_v1_aggregate_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*BaseAggregate); i {
 			case 0:
 				return &v.state

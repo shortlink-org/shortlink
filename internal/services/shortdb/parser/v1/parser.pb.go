@@ -7,7 +7,7 @@
 package v1
 
 import (
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
@@ -410,7 +410,7 @@ func file_shortdb_parser_v1_parser_proto_rawDescGZIP() []byte {
 
 var file_shortdb_parser_v1_parser_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_shortdb_parser_v1_parser_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_shortdb_parser_v1_parser_proto_goTypes = []any{
+var file_shortdb_parser_v1_parser_proto_goTypes = []interface{}{
 	(Step)(0),        // 0: shortdb.parser.v1.Step
 	(*Parser)(nil),   // 1: shortdb.parser.v1.Parser
 	(*v1.Query)(nil), // 2: shortdb.domain.query.v1.Query
@@ -431,7 +431,7 @@ func file_shortdb_parser_v1_parser_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_shortdb_parser_v1_parser_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_shortdb_parser_v1_parser_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Parser); i {
 			case 0:
 				return &v.state

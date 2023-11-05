@@ -6,12 +6,17 @@ import "google/protobuf/field_mask.proto";
 
 // Newsletter
 message Newsletter {
+  // Field mask to be used for update operations.
   google.protobuf.FieldMask field_mask = 3;
 
+  // The unique identifier of the newsletter.
   string email = 1;
+  // Status of the newsletter.
   bool active = 2;
 }
 
+// NewsletterList
 message Newsletters {
+  // List of newsletters.
   repeated Newsletter list = 1;
 }

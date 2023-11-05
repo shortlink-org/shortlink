@@ -21,16 +21,22 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// Meta is the metadata for a shortlink
 type Meta struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	FieldMask   *fieldmaskpb.FieldMask `protobuf:"bytes,5,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
-	Id          string                 `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
-	ImageUrl    string                 `protobuf:"bytes,2,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
-	Description string                 `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
-	Keywords    string                 `protobuf:"bytes,4,opt,name=keywords,proto3" json:"keywords,omitempty"`
+	// Field mask
+	FieldMask *fieldmaskpb.FieldMask `protobuf:"bytes,5,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
+	// ID is the ID of the shortlink
+	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	// Title is the title of the shortlink
+	ImageUrl string `protobuf:"bytes,2,opt,name=image_url,json=imageUrl,proto3" json:"image_url,omitempty"`
+	// Description is the description of the shortlink
+	Description string `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	// Keywords is the keywords of the shortlink
+	Keywords string `protobuf:"bytes,4,opt,name=keywords,proto3" json:"keywords,omitempty"`
 }
 
 func (x *Meta) Reset() {
@@ -149,7 +155,7 @@ func file_domain_metadata_v1_meta_proto_rawDescGZIP() []byte {
 }
 
 var file_domain_metadata_v1_meta_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_domain_metadata_v1_meta_proto_goTypes = []any{
+var file_domain_metadata_v1_meta_proto_goTypes = []interface{}{
 	(*Meta)(nil),                  // 0: domain.metadata.v1.Meta
 	(*fieldmaskpb.FieldMask)(nil), // 1: google.protobuf.FieldMask
 }
@@ -168,7 +174,7 @@ func file_domain_metadata_v1_meta_proto_init() {
 		return
 	}
 	if !protoimpl.UnsafeEnabled {
-		file_domain_metadata_v1_meta_proto_msgTypes[0].Exporter = func(v any, i int) any {
+		file_domain_metadata_v1_meta_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*Meta); i {
 			case 0:
 				return &v.state
