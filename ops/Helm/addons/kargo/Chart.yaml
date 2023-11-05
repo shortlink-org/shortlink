@@ -1,0 +1,22 @@
+apiVersion: v2
+appVersion: "2.9.0"
+name: kargo
+version: 0.3.17
+kubeVersion: ">= 1.28.0 || >= v1.28.0-0"
+keywords:
+  - kargo
+maintainers:
+  - email: batazor111@gmail.com
+    name: batazor
+    url: batazor.ru
+engine: gotpl
+type: application
+deprecated: false
+dependencies:
+  - name: kargo
+    version: 0.1.0
+    repository: oci://ghcr.io/akuity/kargo-charts
+    condition: kargo.enabled
+    tags:
+      - kargo
+      - gitops

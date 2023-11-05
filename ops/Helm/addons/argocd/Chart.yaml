@@ -50,13 +50,6 @@ dependencies:
     condition: argocd-image-updater.enabled
     tags:
       - ci/cd
-  - name: kargo
-    version: 0.1.0
-    repository: oci://ghcr.io/akuity/kargo-charts
-    condition: kargo.enabled
-    tags:
-      - kargo
-      - gitops
   - name: redis
     version: 18.2.0
     repository: oci://registry-1.docker.io/bitnamicharts

@@ -17,11 +17,8 @@ dependencies:
 - name: argocd-image-updater
   repository: https://argoproj.github.io/argo-helm
   version: 0.9.1
-- name: kargo
-  repository: oci://ghcr.io/akuity/kargo-charts
-  version: 0.1.0
 - name: redis
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 18.2.0
-digest: sha256:13381366be128a41cd6bd68613283204dc902b91fdda79a806d48cfcb8c51503
-generated: "2023-11-05T13:37:05.894188+01:00"
+digest: sha256:998d1bdf0ee8068aa21695a90ea6eb912ac12d79046d29117e1f8188396fb811
+generated: "2023-11-05T22:51:52.285332+01:00"
