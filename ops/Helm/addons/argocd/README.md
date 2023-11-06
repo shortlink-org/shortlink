@@ -14,14 +14,13 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 5.50.0 |
+| https://argoproj.github.io/argo-helm | argo-cd | 5.50.1 |
 | https://argoproj.github.io/argo-helm | argo-events | 2.4.1 |
 | https://argoproj.github.io/argo-helm | argo-rollouts | 2.32.2 |
-| https://argoproj.github.io/argo-helm | argo-workflows | 0.37.0 |
+| https://argoproj.github.io/argo-helm | argo-workflows | 0.38.0 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 1.4.1 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.1 |
-| oci://ghcr.io/akuity/kargo-charts | kargo | 0.1.0 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 18.2.0 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 18.2.1 |
 
 ## Values
 

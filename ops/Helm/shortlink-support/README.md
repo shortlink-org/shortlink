@@ -70,7 +70,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.16.63"
+"0.16.69"
 </pre>
 </div>
 			</td>
@@ -252,7 +252,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.16.63"
+"0.16.69"
 </pre>
 </div>
 			</td>

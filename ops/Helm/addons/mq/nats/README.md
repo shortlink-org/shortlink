@@ -27,6 +27,48 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
+			<td id="nats--cluster--auth--enableServiceAccounts"><a href="./values.yaml#L30">nats.cluster.auth.enableServiceAccounts</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="nats--cluster--auth--password"><a href="./values.yaml#L32">nats.cluster.auth.password</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"T0pS3cr3t"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="nats--cluster--auth--username"><a href="./values.yaml#L31">nats.cluster.auth.username</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"my-user"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
 			<td id="nats--cluster--create"><a href="./values.yaml#L17">nats.cluster.create</a></td>
 			<td>
 bool
@@ -34,7 +76,105 @@ bool
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-false
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="nats--cluster--metrics--enabled"><a href="./values.yaml#L35">nats.cluster.metrics.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="nats--cluster--metrics--servicemonitor--enabled"><a href="./values.yaml#L38">nats.cluster.metrics.servicemonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="nats--cluster--namespace"><a href="./values.yaml#L19">nats.cluster.namespace</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"nats"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="nats--cluster--resources--limits--cpu"><a href="./values.yaml#L23">nats.cluster.resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"100m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="nats--cluster--resources--limits--memory"><a href="./values.yaml#L24">nats.cluster.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"256Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="nats--cluster--resources--requests--cpu"><a href="./values.yaml#L26">nats.cluster.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"20m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="nats--cluster--resources--requests--memory"><a href="./values.yaml#L27">nats.cluster.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"50Mi"
 </pre>
 </div>
 			</td>

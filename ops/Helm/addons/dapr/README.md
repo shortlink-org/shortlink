@@ -28,7 +28,35 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="dapr--argoRolloutServiceReconciler--enabled"><a href="./values.yaml#L7">dapr.argoRolloutServiceReconciler.enabled</a></td>
+			<td id="dapr-dashboard--enabled"><a href="./values.yaml#L12">dapr-dashboard.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dapr--argoRolloutServiceReconciler--enabled"><a href="./values.yaml#L9">dapr.argoRolloutServiceReconciler.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dapr--enabled"><a href="./values.yaml#L6">dapr.enabled</a></td>
 			<td>
 bool
 </td>

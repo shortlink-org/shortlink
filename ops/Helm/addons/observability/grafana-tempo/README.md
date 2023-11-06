@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | tempo | 1.6.3 |
+| https://grafana.github.io/helm-charts | tempo | 1.7.0 |
 
 ## Values
 
@@ -300,7 +300,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"vParquet"
+"vParquet3"
 </pre>
 </div>
 			</td>

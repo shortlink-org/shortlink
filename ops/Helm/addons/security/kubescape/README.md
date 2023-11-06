@@ -1,6 +1,6 @@
 # kubescape
 
-![Version: 1.14.3](https://img.shields.io/badge/Version-1.14.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 1.16.2](https://img.shields.io/badge/Version-1.16.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubescape.github.io/helm-charts/ | kubescape(kubescape-operator) | 1.16.1 |
+| https://kubescape.github.io/helm-charts/ | kubescape(kubescape-operator) | 1.16.2 |
 
 ## Values
 
@@ -27,7 +27,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="kubescape--capabilities--networkGenerator"><a href="./values.yaml#L14">kubescape.capabilities.networkGenerator</a></td>
+			<td id="kubescape--capabilities--continuousScan"><a href="./values.yaml#L14">kubescape.capabilities.continuousScan</a></td>
 			<td>
 string
 </td>
@@ -41,7 +41,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--capabilities--runtimeObservability"><a href="./values.yaml#L16">kubescape.capabilities.runtimeObservability</a></td>
+			<td id="kubescape--capabilities--networkGenerator"><a href="./values.yaml#L17">kubescape.capabilities.networkGenerator</a></td>
 			<td>
 string
 </td>
@@ -55,7 +55,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--capabilities--seccompGenerator"><a href="./values.yaml#L15">kubescape.capabilities.seccompGenerator</a></td>
+			<td id="kubescape--capabilities--networkPolicyService"><a href="./values.yaml#L16">kubescape.capabilities.networkPolicyService</a></td>
 			<td>
 string
 </td>
@@ -69,7 +69,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--capabilities--vulnerabilityScan"><a href="./values.yaml#L17">kubescape.capabilities.vulnerabilityScan</a></td>
+			<td id="kubescape--capabilities--runtimeObservability"><a href="./values.yaml#L15">kubescape.capabilities.runtimeObservability</a></td>
 			<td>
 string
 </td>
@@ -83,7 +83,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--clusterName"><a href="./values.yaml#L19">kubescape.clusterName</a></td>
+			<td id="kubescape--capabilities--seccompGenerator"><a href="./values.yaml#L18">kubescape.capabilities.seccompGenerator</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"enable"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--clusterName"><a href="./values.yaml#L20">kubescape.clusterName</a></td>
 			<td>
 string
 </td>
@@ -139,7 +153,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--kubescape--labels--release"><a href="./values.yaml#L23">kubescape.kubescape.labels.release</a></td>
+			<td id="kubescape--kubescape--labels--release"><a href="./values.yaml#L24">kubescape.kubescape.labels.release</a></td>
 			<td>
 string
 </td>
@@ -153,7 +167,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--kubescape--serviceMonitor--enabled"><a href="./values.yaml#L26">kubescape.kubescape.serviceMonitor.enabled</a></td>
+			<td id="kubescape--kubescape--serviceMonitor--enabled"><a href="./values.yaml#L27">kubescape.kubescape.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -167,7 +181,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--operator--resources--requests--cpu"><a href="./values.yaml#L34">kubescape.operator.resources.requests.cpu</a></td>
+			<td id="kubescape--operator--resources--requests--cpu"><a href="./values.yaml#L38">kubescape.operator.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -181,7 +195,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--operator--resources--requests--memory"><a href="./values.yaml#L35">kubescape.operator.resources.requests.memory</a></td>
+			<td id="kubescape--operator--resources--requests--memory"><a href="./values.yaml#L39">kubescape.operator.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -189,6 +203,20 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "120Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--persistence--storageClass"><a href="./values.yaml#L33">kubescape.persistence.storageClass</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"local-path"
 </pre>
 </div>
 			</td>
