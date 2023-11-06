@@ -7,7 +7,7 @@ import (
 	"strings"
 
 	"github.com/golang-migrate/migrate/v4"
-	"github.com/golang-migrate/migrate/v4/database/postgres"
+	"github.com/golang-migrate/migrate/v4/database/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/jackc/pgx/v5/stdlib"
 	"github.com/johejo/golang-migrate-extra/source/iofs"
@@ -29,7 +29,7 @@ func Migration(_ context.Context, store db.DB, fs embed.FS, tableName string) er
 
 	conn := stdlib.OpenDBFromPool(client)
 
-	driverDB, err := postgres.WithInstance(conn, &postgres.Config{
+	driverDB, err := pgx.WithInstance(conn, &pgx.Config{
 		MigrationsTable: fmt.Sprintf("schema_migrations_%s", strings.ReplaceAll(tableName, "-", "_")),
 	})
 	if err != nil {

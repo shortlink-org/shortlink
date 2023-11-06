@@ -19,7 +19,10 @@ import (
 )
 
 func TestRedPanda(t *testing.T) {
+	// Set configuration
 	viper.SetDefault("SERVICE_NAME", "shortlink")
+	err := os.Setenv("MQ_KAFKA_SARAMA_VERSION", "DEFAULT")
+	require.NoError(t, err, "Cannot set ENV")
 
 	ctx, cancel := context.WithCancel(context.Background())
 	mq := Kafka{}
