@@ -9,6 +9,8 @@ strimzi-kafka-operator:
     - shortlink
   watchAnyNamespace: true
 
+  createAggregateRoles: true
+
   dashboards:
     enabled: true
     label: grafana_dashboard
