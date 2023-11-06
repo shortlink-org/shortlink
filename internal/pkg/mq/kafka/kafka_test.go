@@ -11,7 +11,6 @@ import (
 	"github.com/ory/dockertest/v3"
 	"github.com/ory/dockertest/v3/docker"
 	"github.com/spf13/viper"
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 
@@ -81,7 +80,11 @@ func TestKafka(t *testing.T) {
 	if err != nil {
 		// When you're done, kill and remove the container
 		if errPurge := pool.Purge(ZOOKEEPER); errPurge != nil {
-			assert.Errorf(t, errPurge, "Could not purge resource")
+			require.Errorf(t, errPurge, "Could not purge resource")
+		}
+
+		if err := pool.Client.RemoveNetwork(network.ID); err != nil {
+			require.Errorf(t, err, "Could not purge resource")
 		}
 
 		t.Fatalf("Could not start resource: %s", err)

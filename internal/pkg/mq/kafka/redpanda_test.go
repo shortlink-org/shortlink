@@ -10,14 +10,17 @@ import (
 
 	"github.com/ory/dockertest/v3"
 	"github.com/ory/dockertest/v3/docker"
-	"github.com/stretchr/testify/assert"
+	"github.com/spf13/viper"
 	"github.com/stretchr/testify/require"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
 
 func TestRedPanda(t *testing.T) {
+	viper.SetDefault("SERVICE_NAME", "shortlink")
+
 	ctx, cancel := context.WithCancel(context.Background())
 	mq := Kafka{}
 
@@ -33,33 +36,36 @@ func TestRedPanda(t *testing.T) {
 		Name: "shortlink-test",
 	})
 	if err != nil {
-		assert.Errorf(t, err, "Error create docker network")
-		os.Exit(1)
+		require.Errorf(t, err, "Error create docker network")
+		t.Error(err)
 	}
 
 	RED_PANDA, err := pool.RunWithOptions(&dockertest.RunOptions{
-		Repository:   "docker.redpanda.com/vectorized/redpanda",
-		Tag:          "v23.2.14",
-		ExposedPorts: []string{"8081", "8082", "9092", "28082", "29092"},
-		Name:         "test-redpanda-server",
+		Repository: "docker.redpanda.com/vectorized/redpanda",
+		Tag:        "v23.2.14",
+		Name:       "test-redpanda-server",
 		Cmd: []string{
 			"redpanda",
 			"start",
 			"--smp",
 			"1",
+			"--overprovisioned",
 			"--reserve-memory",
 			"0M",
-			"--overprovisioned",
 			"--node-id",
 			"0",
 			"--kafka-addr",
-			"PLAINTEXT://0.0.0.0:29092,OUTSIDE://0.0.0.0:9092",
+			"internal://0.0.0.0:9092,external://0.0.0.0:19092",
 			"--advertise-kafka-addr",
-			"PLAINTEXT://redpanda:29092,OUTSIDE://localhost:9092",
+			"internal://redpanda:9092,external://localhost:19092",
 			"--pandaproxy-addr",
-			"PLAINTEXT://0.0.0.0:28082,OUTSIDE://0.0.0.0:8082",
+			"internal://0.0.0.0:8082,external://0.0.0.0:18082",
 			"--advertise-pandaproxy-addr",
-			"PLAINTEXT://redpanda:28082,OUTSIDE://localhost:8082",
+			"internal://redpanda:8082,external://localhost:18082",
+		},
+		ExposedPorts: []string{"19092/tcp"},
+		PortBindings: map[docker.Port][]docker.PortBinding{
+			"19092/tcp": {{HostIP: "localhost", HostPort: "19092/tcp"}},
 		},
 		NetworkID: network.ID,
 	})
@@ -71,10 +77,10 @@ func TestRedPanda(t *testing.T) {
 	if err := pool.Retry(func() error {
 		var err error
 
-		err = os.Setenv("MQ_KAFKA_URI", fmt.Sprintf("localhost:%s", RED_PANDA.GetPort("9092/tcp")))
+		err = os.Setenv("MQ_KAFKA_URI", fmt.Sprintf("localhost:%s", RED_PANDA.GetPort("19092/tcp")))
 		if err != nil {
-			assert.Errorf(t, err, "Cannot set ENV")
-			return nil
+			require.Errorf(t, err, "Cannot set ENV")
+			return err
 		}
 
 		err = mq.Init(ctx, log)
@@ -84,13 +90,49 @@ func TestRedPanda(t *testing.T) {
 
 		return nil
 	}); err != nil {
-		assert.Errorf(t, err, "Could not connect to docker")
+		// When you're done, kill and remove the container
+		if errPurge := pool.Purge(RED_PANDA); errPurge != nil {
+			require.Errorf(t, errPurge, "Could not purge resource")
+		}
+
+		if err := pool.Client.RemoveNetwork(network.ID); err != nil {
+			require.Errorf(t, err, "Could not purge resource")
+		}
+
+		t.Fatalf("Could not start resource: %s", err)
 	}
+
+	t.Run("Subscribe", func(t *testing.T) {
+		respCh := make(chan query.ResponseMessage)
+		msg := query.Response{
+			Chan: respCh,
+		}
+
+		err := mq.Subscribe(ctx, "test", msg)
+		require.Nil(t, err, "Cannot subscribe")
+
+		err = mq.Publish(ctx, "test", []byte("test"), []byte("test"))
+		require.Nil(t, err, "Cannot publish")
+
+		select {
+		case <-ctx.Done():
+			t.Fatal("Timeout")
+		case resp := <-respCh:
+			require.Equal(t, []byte("test"), resp.Body, "Payloads are not equal")
+		}
+
+		err = mq.UnSubscribe("test")
+		require.Nil(t, err, "Cannot unsubscribe")
+	})
 
 	t.Cleanup(func() {
 		cancel()
 
 		if err := pool.Purge(RED_PANDA); err != nil {
+			t.Fatalf("Could not purge resource: %s", err)
+		}
+
+		if err := pool.Client.RemoveNetwork(network.ID); err != nil {
 			t.Fatalf("Could not purge resource: %s", err)
 		}
 	})
