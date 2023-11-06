@@ -14,7 +14,7 @@ type: application
 deprecated: false
 dependencies:
   - name: dragonfly
-    version: v1.12.0
+    version: v1.12.1
     repository: oci://ghcr.io/dragonflydb/dragonfly/helm
     condition: dragonfly.enabled
     tags:
