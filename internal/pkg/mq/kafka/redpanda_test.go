@@ -12,11 +12,17 @@ import (
 	"github.com/ory/dockertest/v3/docker"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
 )
 
 func TestRedPanda(t *testing.T) {
+	ctx, cancel := context.WithCancel(context.Background())
 	mq := Kafka{}
-	ctx := context.Background()
+
+	log, err := logger.NewLogger(logger.Zap, config.Configuration{})
+	require.NoError(t, err, "Cannot create logger")
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -33,7 +39,7 @@ func TestRedPanda(t *testing.T) {
 
 	RED_PANDA, err := pool.RunWithOptions(&dockertest.RunOptions{
 		Repository:   "docker.redpanda.com/vectorized/redpanda",
-		Tag:          "v21.11.15",
+		Tag:          "v23.2.14",
 		ExposedPorts: []string{"8081", "8082", "9092", "28082", "29092"},
 		Name:         "test-redpanda-server",
 		Cmd: []string{
@@ -71,7 +77,7 @@ func TestRedPanda(t *testing.T) {
 			return nil
 		}
 
-		err = mq.Init(ctx)
+		err = mq.Init(ctx, log)
 		if err != nil {
 			return err
 		}
@@ -82,12 +88,10 @@ func TestRedPanda(t *testing.T) {
 	}
 
 	t.Cleanup(func() {
+		cancel()
+
 		if err := pool.Purge(RED_PANDA); err != nil {
 			t.Fatalf("Could not purge resource: %s", err)
 		}
-	})
-
-	t.Run("Close", func(t *testing.T) {
-		require.NoError(t, mq.Close())
 	})
 }

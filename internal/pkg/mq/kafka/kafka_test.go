@@ -10,13 +10,30 @@ import (
 
 	"github.com/ory/dockertest/v3"
 	"github.com/ory/dockertest/v3/docker"
+	"github.com/spf13/viper"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	"go.uber.org/goleak"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
+	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 )
 
+func TestMain(m *testing.M) {
+	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("github.com/rcrowley/go-metrics.(*meterArbiter).tick"))
+
+	os.Exit(m.Run())
+}
+
 func TestKafka(t *testing.T) {
+	viper.SetDefault("SERVICE_NAME", "shortlink")
+
+	ctx, cancel := context.WithCancel(context.Background())
 	mq := Kafka{}
-	ctx := context.Background()
+
+	log, err := logger.NewLogger(logger.Zap, config.Configuration{})
+	require.NoError(t, err, "Cannot create logger")
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
@@ -27,14 +44,13 @@ func TestKafka(t *testing.T) {
 		Name: "shortlink-test",
 	})
 	if err != nil {
-		assert.Errorf(t, err, "Error create docker network")
-		os.Exit(1)
+		t.Fatalf("Error create docker network: %s", err)
 	}
 
 	// pulls an image, creates a container based on it and runs it
 	ZOOKEEPER, err := pool.RunWithOptions(&dockertest.RunOptions{
 		Repository:   "confluentinc/cp-zookeeper",
-		Tag:          "7.0.0",
+		Tag:          "7.5.1",
 		ExposedPorts: []string{"2181"},
 		Name:         "test-kafka-zookeeper",
 		Env:          []string{"ZOOKEEPER_CLIENT_PORT=2181", "ZOOKEEPER_TICK_TIME=2000"},
@@ -43,17 +59,22 @@ func TestKafka(t *testing.T) {
 	require.NoError(t, err, "Could not start resource")
 
 	KAFKA, err := pool.RunWithOptions(&dockertest.RunOptions{
-		Repository:   "confluentinc/cp-kafka",
-		Tag:          "7.0.0",
-		ExposedPorts: []string{"9092"},
-		Name:         "test-kafka-server",
+		Repository: "confluentinc/cp-kafka",
+		Tag:        "7.5.1",
+		Name:       "test-kafka-server",
+		Hostname:   "kafka",
 		Env: []string{
 			"KAFKA_BROKER_ID=1",
 			"KAFKA_ZOOKEEPER_CONNECT=test-kafka-zookeeper:2181",
-			"KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT",
-			"KAFKA_INTER_BROKER_LISTENER_NAME=PLAINTEXT",
+			"KAFKA_ADVERTISED_LISTENERS=INSIDE://kafka:9092,OUTSIDE://localhost:9093",
+			"KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT",
+			"KAFKA_LISTENERS=INSIDE://0.0.0.0:9092,OUTSIDE://0.0.0.0:9093",
+			"KAFKA_INTER_BROKER_LISTENER_NAME=INSIDE",
 			"KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1",
-			"KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://test-kafka-server:9092",
+		},
+		ExposedPorts: []string{"9093/tcp"},
+		PortBindings: map[docker.Port][]docker.PortBinding{
+			"9093/tcp": {{HostIP: "localhost", HostPort: "9093/tcp"}},
 		},
 		NetworkID: network.ID,
 	})
@@ -70,23 +91,48 @@ func TestKafka(t *testing.T) {
 	if err := pool.Retry(func() error {
 		var err error
 
-		err = os.Setenv("MQ_KAFKA_URI", fmt.Sprintf("localhost:%s", KAFKA.GetPort("9092/tcp")))
+		err = os.Setenv("MQ_KAFKA_URI", fmt.Sprintf("localhost:%s", KAFKA.GetPort("9093/tcp")))
 		if err != nil {
-			assert.Errorf(t, err, "Cannot set ENV")
+			require.Errorf(t, err, "Cannot set ENV")
 			return nil
 		}
 
-		err = mq.Init(ctx)
+		err = mq.Init(ctx, log)
 		if err != nil {
 			return err
 		}
 
 		return nil
 	}); err != nil {
-		assert.Errorf(t, err, "Could not connect to docker")
+		require.Errorf(t, err, "Could not connect to docker")
 	}
 
+	t.Run("Subscribe", func(t *testing.T) {
+		respCh := make(chan query.ResponseMessage)
+		msg := query.Response{
+			Chan: respCh,
+		}
+
+		err := mq.Subscribe(ctx, "test", msg)
+		require.Nil(t, err, "Cannot subscribe")
+
+		err = mq.Publish(ctx, "test", []byte("test"), []byte("test"))
+		require.Nil(t, err, "Cannot publish")
+
+		select {
+		case <-ctx.Done():
+			t.Fatal("Timeout")
+		case resp := <-respCh:
+			require.Equal(t, []byte("test"), resp.Body, "Payloads are not equal")
+		}
+
+		err = mq.UnSubscribe("test")
+		require.Nil(t, err, "Cannot unsubscribe")
+	})
+
 	t.Cleanup(func() {
+		cancel()
+
 		// When you're done, kill and remove the container
 		if err := pool.Purge(ZOOKEEPER); err != nil {
 			t.Fatalf("Could not purge resource: %s", err)
@@ -95,9 +141,9 @@ func TestKafka(t *testing.T) {
 		if err := pool.Purge(KAFKA); err != nil {
 			t.Fatalf("Could not purge resource: %s", err)
 		}
-	})
 
-	t.Run("Close", func(t *testing.T) {
-		require.NoError(t, mq.Close())
+		if err := pool.Client.RemoveNetwork(network.ID); err != nil {
+			t.Fatalf("Could not purge resource: %s", err)
+		}
 	})
 }

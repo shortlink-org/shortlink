@@ -2,6 +2,8 @@ package kafka
 
 import (
 	"context"
+	"errors"
+	"sync"
 	"time"
 
 	"github.com/IBM/sarama"
@@ -21,9 +23,13 @@ type Config struct {
 
 type Kafka struct {
 	*Config
+
 	client   sarama.Client
 	producer sarama.SyncProducer
 	consumer sarama.ConsumerGroup
+
+	// Use a sync.Map to keep track of the ConsumerGroup sessions
+	sessions sync.Map
 }
 
 func (mq *Kafka) Init(ctx context.Context, log logger.Logger) error {
@@ -52,6 +58,11 @@ func (mq *Kafka) Init(ctx context.Context, log logger.Logger) error {
 		return err
 	}
 
+	// Check connection
+	if len(mq.client.Brokers()) == 0 {
+		return sarama.ErrOutOfBrokers
+	}
+
 	// run cron for check connection
 	healthcheck.AsyncWithContext(ctx, func() error {
 		if len(mq.client.Brokers()) > 0 {
@@ -77,24 +88,41 @@ func (mq *Kafka) Init(ctx context.Context, log logger.Logger) error {
 
 // close - Close all connections
 func (mq *Kafka) close() error {
-	var err error
+	var errs error
 
 	if mq.client != nil {
-		err = mq.client.Close()
+		err := mq.client.Close()
+		if err != nil {
+			err = errors.Join(errs, err)
+		}
 	}
 
 	if mq.producer != nil {
-		err = mq.producer.Close()
+		err := mq.producer.Close()
+		if err != nil {
+			err = errors.Join(errs, err)
+		}
 	}
 
 	if mq.consumer != nil {
-		err = mq.consumer.Close()
+		err := mq.consumer.Close()
+		if err != nil {
+			err = errors.Join(errs, err)
+		}
 	}
 
-	return err
+	mq.sessions.Range(func(key, value interface{}) bool {
+		sess := *value.(*sarama.ConsumerGroupSession)
+		sess.Context().Done()
+		mq.sessions.Delete(key)
+
+		return true
+	})
+
+	return errs
 }
 
-func (mq *Kafka) Publish(_ context.Context, target string, routingKey, payload []byte) error {
+func (mq *Kafka) Publish(_ context.Context, target string, routingKey []byte, payload []byte) error {
 	_, _, err := mq.producer.SendMessage(&sarama.ProducerMessage{
 		Topic:     target,
 		Key:       sarama.StringEncoder(routingKey),
@@ -108,24 +136,57 @@ func (mq *Kafka) Publish(_ context.Context, target string, routingKey, payload [
 	return err
 }
 
+// Subscribe - subscribe to message
 func (mq *Kafka) Subscribe(ctx context.Context, target string, message query.Response) error {
+	// Set up a new Sarama consumer group
 	consumer := &Consumer{
-		ch: message,
+		ch:    message,
+		ready: make(chan bool),
 	}
 
 	// OpenTelemetry
 	handler := otelsarama.WrapConsumerGroupHandler(consumer)
 
-	err := mq.consumer.Consume(ctx, []string{target}, handler)
-	if err != nil {
-		return err
-	}
+	go func() {
+		for {
+			// `Consume` should be called inside an infinite loop, when a
+			// server-side rebalance happens, the consumer session will need to be
+			// recreated to get the new claims
+			err := mq.consumer.Consume(ctx, []string{target}, handler)
+			if err != nil {
+				if errors.Is(err, sarama.ErrClosedConsumerGroup) {
+					return
+				}
+
+				panic(err)
+			}
+
+			// check if context was cancelled, signaling that the consumer should stop
+			if ctx.Err() != nil {
+				return
+			}
+
+			consumer.ready = make(chan bool)
+		}
+	}()
+
+	// Wait until the consumer has been set up
+	<-consumer.ready
+
+	// Keep track of sessions to be able to close them
+	mq.sessions.Store(target, consumer.session)
 
 	return nil
 }
 
-func (mq *Kafka) UnSubscribe(_ string) error {
-	panic("implement me!")
+func (mq *Kafka) UnSubscribe(target string) error {
+	if session, ok := mq.sessions.Load(target); ok {
+		sess := *session.(*sarama.ConsumerGroupSession)
+		sess.Context().Done()
+		mq.sessions.Delete(target)
+	}
+
+	return nil
 }
 
 // setConfig - Construct a new Sarama configuration.
