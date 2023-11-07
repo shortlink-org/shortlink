@@ -93,25 +93,25 @@ func (mq *Kafka) close() error {
 	if mq.client != nil {
 		err := mq.client.Close()
 		if err != nil {
-			err = errors.Join(errs, err)
+			errs = errors.Join(errs, err)
 		}
 	}
 
 	if mq.producer != nil {
 		err := mq.producer.Close()
 		if err != nil {
-			err = errors.Join(errs, err)
+			errs = errors.Join(errs, err)
 		}
 	}
 
 	if mq.consumer != nil {
 		err := mq.consumer.Close()
 		if err != nil {
-			err = errors.Join(errs, err)
+			errs = errors.Join(errs, err)
 		}
 	}
 
-	mq.sessions.Range(func(key, value interface{}) bool {
+	mq.sessions.Range(func(key, value any) bool {
 		sess := *value.(*sarama.ConsumerGroupSession)
 		sess.Context().Done()
 		mq.sessions.Delete(key)
@@ -161,7 +161,7 @@ func (mq *Kafka) Subscribe(ctx context.Context, target string, message query.Res
 				panic(err)
 			}
 
-			// check if context was cancelled, signaling that the consumer should stop
+			// check if context was canceled, signaling that the consumer should stop
 			if ctx.Err() != nil {
 				return
 			}

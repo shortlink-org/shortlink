@@ -21,6 +21,7 @@ func (consumer *Consumer) Setup(s sarama.ConsumerGroupSession) error {
 
 	// Mark the consumer as ready
 	close(consumer.ready)
+
 	return nil
 }
 
@@ -32,6 +33,8 @@ func (consumer *Consumer) Cleanup(sarama.ConsumerGroupSession) error {
 // ConsumeClaim must start a consumer loop of ConsumerGroupClaim's Messages().
 // Once the Messages() channel is closed, the Handler must finish its processing
 // loop and exit.
+//
+//nolint:unparam // ignore unused parameter
 func (consumer *Consumer) ConsumeClaim(session sarama.ConsumerGroupSession, claim sarama.ConsumerGroupClaim) error {
 	// NOTE:
 	// Do not move the code below to a goroutine.
@@ -58,6 +61,4 @@ func (consumer *Consumer) ConsumeClaim(session sarama.ConsumerGroupSession, clai
 			return nil
 		}
 	}
-
-	return nil
 }
