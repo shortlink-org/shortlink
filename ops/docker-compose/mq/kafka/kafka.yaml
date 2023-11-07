@@ -1,5 +1,8 @@
 version: '2.4'
 
+include:
+  - ./ops/docker-compose/mq/zookeeper/zookeeper.yaml
+
 x-network: &network
   networks:
     - simple

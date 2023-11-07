@@ -53,9 +53,7 @@ dev: ## Run for development mode
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/database/cassandra/cassandra.yaml \
-		-f ops/docker-compose/database/elasticsearch/elasticsearch.yaml \
-		-f ops/docker-compose/tooling/saas/temporal/temporal.yaml \
+		-f ops/docker-compose/mq/pulsar/pulsar.yaml \
 		up -d --remove-orphans --build
 
 watch: ## Run for development mode with watch
@@ -118,12 +116,14 @@ down: confirm ## Down docker compose
 		-f ops/docker-compose/database/tarantool/tarantool.yaml \
 		-f ops/docker-compose/database/tidb/tidb.yaml \
 		-f ops/docker-compose/mq/rabbitmq/rabbitmq.yaml \
-		-f ops/docker-compose/mq/kafka/zookeeper.yaml \
+		-f ops/docker-compose/mq/kafka/kafka-connector-elasticsearch.yaml \
 		-f ops/docker-compose/mq/kafka/kafka.yaml \
 		-f ops/docker-compose/mq/kafka/kafka-schema-registry.yaml \
 		-f ops/docker-compose/mq/kafka/kafka-connect.yaml \
 		-f ops/docker-compose/mq/kafka/kafka-connector-postgres.yaml \
 		-f ops/docker-compose/mq/kafka/kafka-connector-elasticsearch.yaml \
+		-f ops/docker-compose/mq/zookeeper/zookeeper.yaml \
+		-f ops/docker-compose/mq/pulsar/pulsar.yaml \
 		-f ops/docker-compose/mq/nats/nats.yaml \
 	down --remove-orphans
 	@docker network prune -f
