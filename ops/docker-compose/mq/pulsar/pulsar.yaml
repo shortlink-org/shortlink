@@ -72,3 +72,34 @@ services:
     ports:
       - "6650:6650"
       - "8080:8080"
+
+  # UI
+  pulsar-manager:
+    <<: *network
+    depends_on:
+      - coredns
+      - zookeeper
+      - pulsar-init
+    image: apachepulsar/pulsar-manager:v0.4.0
+    container_name: pulsar-manager
+    restart: on-failure
+    environment:
+      SPRING_CONFIGURATION_FILE: /pulsar-manager/pulsar-manager/application.properties
+    ports:
+      - 9527:9527
+      - 7750:7750
+
+  pulsar-manager-add-user:
+    <<: *network
+    depends_on:
+      - coredns
+      - pulsar-manager
+    image: curlimages/curl:latest
+    environment:
+      - USER_NAME=admin
+      - USER_PASSWORD=apachepulsar
+      - USER_EMAIL=username@test.org
+      - USER_DESCRIPTION=test
+    command: ["sh", "/add-pulsar-manager-user.sh"]
+    volumes:
+      - ./ops/docker-compose/mq/pulsar/conf/add-pulsar-manager-user.sh:/add-pulsar-manager-user.sh
