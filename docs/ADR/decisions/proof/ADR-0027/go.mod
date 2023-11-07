@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/docs/ADR/decisions/proof/ADR-0027
 
-go 1.21.3
+go 1.21.4
 
 require (
 	entgo.io/ent v0.12.4

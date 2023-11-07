@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink
 
-go 1.21.3
+go 1.21.4
 
 require (
 	github.com/IBM/sarama v1.42.0
