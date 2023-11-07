@@ -10,9 +10,10 @@ require (
 	github.com/go-chi/render v1.0.3
 	github.com/google/wire v0.5.1-0.20220620021424-0675cdc9191c
 	github.com/graph-gophers/graphql-go v1.5.0
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.0
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/segmentio/encoding v0.3.6
+	github.com/shortlink-org/shortlink v0.0.0-20231106232702-1d4bf662cdb3
 	github.com/spf13/viper v1.17.0
 	github.com/swaggo/swag v1.16.2
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.2.3
@@ -78,6 +79,7 @@ require (
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb // indirect
 	github.com/inconshreveable/mousetrap v1.1.0 // indirect
+	github.com/jackc/pgerrcode v0.0.0-20220416144525-469b46aa5efa // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
 	github.com/jackc/pgx/v5 v5.5.0 // indirect
