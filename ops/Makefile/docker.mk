@@ -53,7 +53,10 @@ dev: ## Run for development mode
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/mq/pulsar/pulsar.yaml \
+		-f ops/docker-compose/gateway/traefik/traefik.yaml \
+		-f ops/docker-compose/database/postgres/postgres.yaml \
+		-f ops/docker-compose/application/auth/spicedb/spicedb.yaml \
+		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
 		up -d --remove-orphans --build
 
 watch: ## Run for development mode with watch
@@ -68,6 +71,8 @@ down: confirm ## Down docker compose
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
+		-f ops/docker-compose/tooling/services/docker-registry/docker-registry.yaml \
+		-f ops/docker-compose/tooling/services/feature-toggle/feature-toggle.yaml \
 		-f ops/docker-compose/tooling/saas/airflow/airflow.yaml \
 		-f ops/docker-compose/tooling/saas/nifi/nifi.yaml \
 		-f ops/docker-compose/tooling/saas/gitlab/gitlab.yaml \
@@ -89,6 +94,7 @@ down: confirm ## Down docker compose
 		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
 		-f ops/docker-compose/application/auth/hydra/hydra.yaml \
 		-f ops/docker-compose/application/auth/keto/keto.yaml \
+		-f ops/docker-compose/application/auth/spicedb/spicedb.yaml \
 		-f ops/docker-compose/application/api/api.yaml \
 		-f ops/docker-compose/application/metadata/metadata.yaml \
 		-f ops/docker-compose/application/logger/logger.yaml \

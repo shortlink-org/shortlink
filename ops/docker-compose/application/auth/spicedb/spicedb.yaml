@@ -1,0 +1,39 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  spicedb:
+    <<: *network
+    depends_on:
+      - coredns
+      - spicedb_migrate
+    image: authzed/spicedb
+    command: serve
+    restart: always
+    ports:
+      - 8080:8080
+      - 9091:9090
+      - 50051:50051
+    environment:
+      SPICEDB_GRPC_PRESHARED_KEY: foobar
+      SPICEDB_DATASTORE_ENGINE: postgres
+      SPICEDB_DATASTORE_CONN_URI: postgres://postgres:shortlink@postgres:5432/shortlink?sslmode=disable
+
+  spicedb_migrate:
+    <<: *network
+    depends_on:
+      - coredns
+      - postgres
+    image: authzed/spicedb
+    command: "migrate head"
+    restart: on-failure
+    environment:
+      SPICEDB_DATASTORE_ENGINE: postgres
+      SPICEDB_DATASTORE_CONN_URI: postgres://postgres:shortlink@postgres:5432/shortlink?sslmode=disable

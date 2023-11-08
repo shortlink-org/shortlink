@@ -1,9 +1,9 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="next-ui" type="js.build_tools.npm" folderName="ui">
-    <package-json value="$PROJECT_DIR$/ui/nx-monorepo/packages/next/package.json" />
+    <package-json value="$PROJECT_DIR$/ui/nx-monorepo/package.json" />
     <command value="run" />
     <scripts>
-      <script value="start:dev" />
+      <script value="dev:ui-next" />
     </scripts>
     <node-interpreter value="node" />
     <package-manager value="npm" />

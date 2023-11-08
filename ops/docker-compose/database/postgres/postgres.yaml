@@ -13,8 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: postgres:16.0-alpine
-    command: -c 'config_file=/etc/postgresql/postgresql.conf'
+    image: ghcr.io/dbsystel/postgresql-partman:16
     init: true
     restart: on-failure
     container_name: postgres
@@ -34,7 +33,7 @@ services:
       timeout: 1m
       retries: 5
     volumes:
-      - ./ops/docker-compose/database/postgres/conf/postgresql.conf:/etc/postgresql/postgresql.conf
+      - ./ops/docker-compose/database/postgres/conf/postgresql.conf:/opt/bitnami/postgresql/conf/postgresql.conf
 #      - ./data/shortlink/store/postgres/data:/var/lib/postgresql/data
 
   pgbouncer:

@@ -1,7 +1,7 @@
 /* eslint-disable */
 const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
-  maximumFileSizeToCacheInBytes: 40000000,
+  maximumFileSizeToCacheInBytes: 4000000,
   swcMinify: true,
   cacheOnFrontendNav: true,
   aggressiveFrontEndNavCaching: true,

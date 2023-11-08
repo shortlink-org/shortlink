@@ -19,9 +19,10 @@ func main() {
 
 	// Init a new service
 	service, cleanup, err := link_di.InitializeLinkService()
-	if err != nil { // TODO: use as helpers
+	if err != nil {
 		panic(err)
 	}
+	service.Log.Info("Service initialized")
 
 	defer func() {
 		if r := recover(); r != nil {
