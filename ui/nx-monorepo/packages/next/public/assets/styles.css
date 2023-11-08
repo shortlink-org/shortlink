@@ -17,6 +17,12 @@
   }
 }
 
+.bg-white {
+  @media (prefers-reduced-transparency: reduce) {
+    --tw-bg-opacity: 0;
+  }
+}
+
 /* switch dark mode */
 .toggleWrapper {
   overflow: hidden;
