@@ -12,7 +12,7 @@ minikube-up: ## run minikube for dev mode
 		--memory "4192" \
 		--driver=docker \
 		--container-runtime=${VARIABLE_NAME} \
-		--addons=pod-security-policy,ingress \
+		--addons=ingress,local-path-provisioner \
 		--feature-gates="GracefulNodeShutdown=true,EphemeralContainers=true" \
 		--extra-config=apiserver.tracing-config-file=/etc/ssl/certs/tracing-config-file.yaml \
 		--extra-config=apiserver.authorization-mode=Node,RBAC \
