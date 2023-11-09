@@ -12,7 +12,6 @@ import (
 )
 
 func New(log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*authzed.Client, error) {
-	viper.SetDefault("SPICE_DB_API", "shortlink.spicedb-operator:50051")
 	viper.SetDefault("SPICE_DB_COMMON_KEY", "secret-shortlink-preshared-key")
 	viper.SetDefault("SPICE_DB_TIMEOUT", "5s")
 
@@ -26,7 +25,7 @@ func New(log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Mon
 		grpc.WithPerRPCCredentials(insecureMetadataCreds{"authorization": "Bearer " + viper.GetString("SPICE_DB_COMMON_KEY")}),
 		grpc.WithIdleTimeout(viper.GetDuration("SPICE_DB_TIMEOUT")))
 
-	client, err := authzed.NewClient(viper.GetString("SPICE_DB_API"), options...)
+	client, err := authzed.NewClient(config.GetURI(), options...)
 	if err != nil {
 		return nil, err
 	}

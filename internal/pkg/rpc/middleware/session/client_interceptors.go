@@ -9,8 +9,8 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/auth/session"
 )
 
-// SessionUnaryInterceptor - set user-id to gRPC metadata for each request
-func SessionUnaryInterceptor() grpc.UnaryClientInterceptor {
+// SessionUnaryClientInterceptor - set user-id to gRPC metadata for each request
+func SessionUnaryClientInterceptor() grpc.UnaryClientInterceptor {
 	return func(
 		ctx context.Context,
 		method string,
@@ -19,17 +19,18 @@ func SessionUnaryInterceptor() grpc.UnaryClientInterceptor {
 		cc *grpc.ClientConn,
 		invoker grpc.UnaryInvoker,
 		opts ...grpc.CallOption,
-	) (err error) {
+	) error {
 		sess := session.GetSession(ctx)
-
-		ctx = metadata.AppendToOutgoingContext(ctx, "user-id", sess.GetId())
+		if sess != nil {
+			ctx = metadata.AppendToOutgoingContext(ctx, "user-id", sess.GetId())
+		}
 
 		return invoker(ctx, method, req, resp, cc, opts...)
 	}
 }
 
-// SessionStreamInterceptor - set user-id to gRPC metadata for each request
-func SessionStreamInterceptor() grpc.StreamClientInterceptor {
+// SessionStreamClientInterceptor - set user-id to gRPC metadata for each request
+func SessionStreamClientInterceptor() grpc.StreamClientInterceptor {
 	return func(
 		ctx context.Context,
 		desc *grpc.StreamDesc,
@@ -39,8 +40,9 @@ func SessionStreamInterceptor() grpc.StreamClientInterceptor {
 		opts ...grpc.CallOption,
 	) (grpc.ClientStream, error) {
 		sess := session.GetSession(ctx)
-
-		ctx = metadata.AppendToOutgoingContext(ctx, "user-id", sess.GetId())
+		if sess != nil {
+			ctx = metadata.AppendToOutgoingContext(ctx, "user-id", sess.GetId())
+		}
 
 		return streamer(ctx, desc, cc, method, opts...)
 	}

@@ -24,6 +24,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	grpc_logger "github.com/shortlink-org/shortlink/internal/pkg/rpc/middleware/logger"
+	session_interceptor "github.com/shortlink-org/shortlink/internal/pkg/rpc/middleware/session"
 )
 
 type Server struct {
@@ -114,6 +115,7 @@ func setServerConfig(log logger.Logger, tracer trace.TracerProvider, monitor *mo
 	config.WithMetrics(monitor)
 	config.WithRecovery(monitor)
 	config.WithTracer(tracer)
+	config.withSession()
 
 	config.optionsNewServer = append(config.optionsNewServer,
 		// Initialize your gRPC server's interceptor.
@@ -211,4 +213,10 @@ func (s *server) WithTLS() error {
 	}
 
 	return nil
+}
+
+// withSession - setup session
+func (s *server) withSession() {
+	s.interceptorUnaryServerList = append(s.interceptorUnaryServerList, session_interceptor.SessionUnaryServerInterceptor())
+	s.interceptorStreamServerList = append(s.interceptorStreamServerList, session_interceptor.SessionStreamServerInterceptor())
 }

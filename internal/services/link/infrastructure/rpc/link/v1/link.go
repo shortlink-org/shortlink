@@ -6,11 +6,9 @@ import (
 
 	"github.com/segmentio/encoding/json"
 	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/metadata"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 	queryStore "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
@@ -26,17 +24,6 @@ func (l *Link) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
 }
 
 func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error) {
-	// Get session
-	md, ok := metadata.FromIncomingContext(ctx)
-	if !ok {
-		return nil, rpc.ErrGetMetadataFromContext
-	}
-
-	sess := md.Get("user-id")
-	if len(sess) == 0 {
-		return nil, rpc.ErrGetSessionFromMetadata
-	}
-
 	// Parse args
 	filter := queryStore.Filter{}
 

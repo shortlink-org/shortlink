@@ -29,6 +29,10 @@ type Client struct {
 	host string
 }
 
+func (c *Client) GetURI() string {
+	return fmt.Sprintf("%s:%d", c.host, c.port)
+}
+
 // InitClient - set up a connection to the server.
 func InitClient(log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*grpc.ClientConn, func(), error) {
 	config, err := SetClientConfig(tracer, monitor, log)
@@ -38,7 +42,7 @@ func InitClient(log logger.Logger, tracer trace.TracerProvider, monitor *monitor
 
 	// Set up a connection to the server peer
 	conn, err := grpc.Dial(
-		fmt.Sprintf("%s:%d", config.host, config.port),
+		config.GetURI(),
 		config.optionsNewClient...,
 	)
 	if err != nil {
@@ -174,6 +178,6 @@ func (c *Client) withMetrics(monitor *monitoring.Monitoring) {
 
 // withSession - setup session
 func (c *Client) withSession() {
-	c.interceptorUnaryClientList = append(c.interceptorUnaryClientList, session_interceptor.SessionUnaryInterceptor())
-	c.interceptorStreamClientList = append(c.interceptorStreamClientList, session_interceptor.SessionStreamInterceptor())
+	c.interceptorUnaryClientList = append(c.interceptorUnaryClientList, session_interceptor.SessionUnaryClientInterceptor())
+	c.interceptorStreamClientList = append(c.interceptorStreamClientList, session_interceptor.SessionStreamClientInterceptor())
 }

@@ -21,6 +21,7 @@ deploy:
     TRACER_URI: grafana-tempo.grafana:4317
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
     AUTH_URI: https://shortlink.best/api/auth
+    SPICE_DB_API: shortlink.spicedb-operator:50051
 
     # -- Default store config
     STORE_TYPE: redis

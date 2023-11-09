@@ -16,15 +16,24 @@ services:
       - spicedb_migrate
     image: authzed/spicedb
     command: serve
+    container_name: spicedb
     restart: always
     ports:
       - 8080:8080
       - 9091:9090
-      - 50051:50051
+      - 50151:50051
     environment:
-      SPICEDB_GRPC_PRESHARED_KEY: foobar
+      SPICEDB_GRPC_PRESHARED_KEY: secret-shortlink-preshared-key
       SPICEDB_DATASTORE_ENGINE: postgres
       SPICEDB_DATASTORE_CONN_URI: postgres://postgres:shortlink@postgres:5432/shortlink?sslmode=disable
+      SPICEDB_DISPATCH_CACHE_METRICS: true
+      SPICEDB_DISPATCH_CLUSTER_METRICS: true
+      SPICEDB_NS_CACHE_METRICS: true
+      SPICEDB_METRICS_ENABLED: true
+      # SPICEDB_OTEL_PROVIDER: jaeger
+      SPICEDB_OTEL_SAMPLE_RATIO: 1
+      OTEL_EXPORTER_OTLP_ENDPOINT: jaeger-agent:4317
+      SPICEDB_LOG_LEVEL: trace
 
   spicedb_migrate:
     <<: *network
@@ -33,6 +42,7 @@ services:
       - postgres
     image: authzed/spicedb
     command: "migrate head"
+    container_name: spicedb_migrate
     restart: on-failure
     environment:
       SPICEDB_DATASTORE_ENGINE: postgres

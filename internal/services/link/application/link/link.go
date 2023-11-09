@@ -159,7 +159,7 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 		SAGA_STEP_GET_LIST_FROM_STORE = "SAGA_STEP_GET_LIST_FROM_STORE"
 	)
 
-	sess := session.GetSession(ctx)
+	userID := session.GetUserID(ctx)
 	links := &v1.Links{}
 
 	// create a new saga for a get list of a link
@@ -175,7 +175,7 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 			relationship := &permission.LookupResourcesRequest{
 				ResourceObjectType: "link",
 				Permission:         "reader",
-				Subject:            &permission.SubjectReference{Object: &permission.ObjectReference{ObjectType: "user", ObjectId: sess.GetId()}},
+				Subject:            &permission.SubjectReference{Object: &permission.ObjectReference{ObjectType: "user", ObjectId: userID}},
 			}
 
 			resp, err := s.permission.PermissionsServiceClient.LookupResources(ctx, relationship)
@@ -234,7 +234,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 		SAGA_STEP_PUBLISH_EVENT_NEW_LINK = "SAGA_STEP_PUBLISH_EVENT_NEW_LINK"
 	)
 
-	sess := session.GetSession(ctx)
+	userID := session.GetUserID(ctx)
 
 	// saga for create a new link
 	sagaAddLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.log)).
@@ -271,7 +271,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 						Subject: &permission.SubjectReference{
 							Object: &permission.ObjectReference{
 								ObjectType: "user",
-								ObjectId:   sess.GetId(),
+								ObjectId:   userID,
 							},
 						},
 					},

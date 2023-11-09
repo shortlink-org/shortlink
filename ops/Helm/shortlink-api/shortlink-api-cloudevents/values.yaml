@@ -53,6 +53,7 @@ deploy:
     TRACER_URI: grafana-tempo.grafana:4317
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress.svc.cluster.local
     AUTH_URI: https://shortlink.best/api/auth
+    SPICE_DB_API: shortlink.spicedb-operator:50051
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/api-cloudevents

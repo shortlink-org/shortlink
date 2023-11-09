@@ -36,7 +36,7 @@
 ################################################################
 [http.routers.link]
   entryPoints = ["websecure"]
-  rule = "PathPrefix(`/infrastructure.rpc.link.v1.LinkService/`) || PathPrefix(`/infrastructure.rpc.cqrs.link.v1.LinkCommandService/) || PathPrefix(/infrastructure.rpc.cqrs.link.v1.LinkQueryService/) || PathPrefix(/infrastructure.rpc.sitemap.v1.SitemapService/`)"
+  rule = "PathPrefix(`/infrastructure.rpc.link.v1.LinkService/`) || PathPrefix(`/infrastructure.rpc.cqrs.link.v1.LinkCommandService/`) || PathPrefix(`/infrastructure.rpc.cqrs.link.v1.LinkQueryService/`) || PathPrefix(`/infrastructure.rpc.sitemap.v1.SitemapService/`)"
   service = "link"
   [http.routers.link.tls]
     certResolver = "default"
@@ -74,7 +74,7 @@
 ################################################################
 [http.routers.billing]
   entryPoints = ["websecure"]
-  rule = "PathPrefix(`/infrastructure.api.rpc.payment.v1.PaymentService/) || PathPrefix(/infrastructure.api.rpc.order.v1.OrderService/) || PathPrefix(/infrastructure.api.rpc.tariff.v1.TariffService/`)"
+  rule = "PathPrefix(`/infrastructure.api.rpc.payment.v1.PaymentService/`) || PathPrefix(`/infrastructure.api.rpc.order.v1.OrderService/`) || PathPrefix(`/infrastructure.api.rpc.tariff.v1.TariffService/`)"
   service = "billing"
   [http.routers.billing.tls]
     certResolver = "default"
@@ -99,6 +99,25 @@
 
 [[http.services.newsletter.loadBalancer.servers]]
   url = "http://host.docker.internal:8080"
+
+################################################################
+# SpiceDB
+################################################################
+[http.routers.spicedb]
+entryPoints = ["websecure"]
+rule = "PathPrefix(`/authzed.api.v1.SchemaService/`) || PathPrefix(`/authzed.api.v1.PermissionsService/`) || PathPrefix(`/authzed.api.v1.WatchService/`) || PathPrefix(`/authzed.api.v1.ExperimentalService/`)"
+service = "spicedb"
+[http.routers.spicedb.tls]
+certResolver = "default"
+[http.services.spicedb.loadBalancer.healthCheck]
+scheme = "http"
+path = "/metrics"
+interval = "10s"
+timeout = "3s"
+port = 9090
+
+[[http.services.spicedb.loadBalancer.servers]]
+url = "h2c://spicedb:50051"
 
 ################################################################
 # UI
