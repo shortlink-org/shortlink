@@ -50,7 +50,7 @@ services:
     depends_on:
       - coredns
       - temporal
-    image: temporalio/ui:2.21.0
+    image: temporalio/ui:2.21.2
     restart: on-failure
     container_name: temporal-ui
     environment:
