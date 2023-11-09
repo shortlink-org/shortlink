@@ -34,6 +34,8 @@ graph LR
 package main
 
 import (
+	"context"
+	
   "github.com/shortlink-org/shortlink/internal/pkg/saga"
 )
 
@@ -58,7 +60,7 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
       err := l.Store.Add(link)
       return err
     }).
-    Reject(func(context.Context) error {
+    Reject(func(context.Context, thenErr error) error {
       err := l.Store.Delete(link)
       return err
     }).
@@ -93,7 +95,7 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
 
 ![OpenTracing](./docs/tracing.png)
 
-### Ref
+### Refferences
 
 - [Saga pattern](https://microservices.io/patterns/data/saga.html)
 - [DAG](https://github.com/goombaio/dag) - for build pipeline steps
