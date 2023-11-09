@@ -15,7 +15,7 @@ type Step struct {
 	Options
 	ctx    context.Context
 	then   func(ctx context.Context) error
-	reject func(ctx context.Context) error
+	reject func(ctx context.Context, thenError error) error
 	dag    *dag.Dag
 	name   string
 	status StepState
@@ -34,8 +34,12 @@ func (s *Step) Run() error {
 	if err != nil {
 		s.status = REJECT
 
+		// set tracing error
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())
+
+		// save error in context
+		s.ctx = WithError(newCtx, err)
 
 		return err
 	}
@@ -59,7 +63,10 @@ func (s *Step) Reject() error {
 		return nil
 	}
 
-	err := s.reject(newCtx)
+	// Get error from context
+	thenErr := GetError(newCtx)
+
+	err := s.reject(newCtx, thenErr)
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())

@@ -4,7 +4,6 @@ package saga
 
 import (
 	"context"
-	"errors"
 	"fmt"
 	"os"
 	"sync"
@@ -59,13 +58,17 @@ func TestNewSaga(t *testing.T) {
 			wallet.mu.Unlock()
 			return nil
 		}
-		rejectFunc := func(ctx context.Context) error {
+		rejectFunc := func(ctx context.Context, thenError error) error {
 			wallet.mu.Lock()
 			wallet.value -= 10
 			wallet.mu.Unlock()
 			return nil
 		}
 		printFunc := func(ctx context.Context) error {
+			log.Info(fmt.Sprintf("amount: %d", wallet.value))
+			return nil
+		}
+		rejectPrintFunc := func(ctx context.Context, thenError error) error {
 			log.Info(fmt.Sprintf("amount: %d", wallet.value))
 			return nil
 		}
@@ -105,7 +108,7 @@ func TestNewSaga(t *testing.T) {
 		// add step decrement
 		_, errs = sagaNumber.AddStep(SAGA_STEP_C).
 			Then(printFunc).
-			Reject(printFunc).
+			Reject(rejectPrintFunc).
 			Needs(SAGA_STEP_A, SAGA_STEP_B).
 			Build()
 		// check error
@@ -129,7 +132,7 @@ func TestNewSaga(t *testing.T) {
 		// add step decrement
 		_, errs = sagaNumber.AddStep(SAGA_STEP_E).
 			Then(printFunc).
-			Reject(printFunc).
+			Reject(rejectPrintFunc).
 			Needs(SAGA_STEP_D, SAGA_STEP_B).
 			Build()
 		// check error
@@ -166,13 +169,17 @@ func TestNewSaga(t *testing.T) {
 			wallet.mu.Unlock()
 			return nil
 		}
-		rejectFunc := func(ctx context.Context) error {
+		rejectFunc := func(ctx context.Context, therErr error) error {
 			wallet.mu.Lock()
 			wallet.value -= 9 // For check work addFunc after saga.Play ;-)
 			wallet.mu.Unlock()
 			return nil
 		}
 		printFunc := func(ctx context.Context) error {
+			log.Info(fmt.Sprintf("amount: %d", wallet.value))
+			return nil
+		}
+		rejectPrintFunc := func(ctx context.Context, thenError error) error {
 			log.Info(fmt.Sprintf("amount: %d", wallet.value))
 			return nil
 		}
@@ -212,7 +219,7 @@ func TestNewSaga(t *testing.T) {
 		// add step decrement
 		_, errs = sagaNumber.AddStep(SAGA_STEP_C).
 			Then(printFunc).
-			Reject(printFunc).
+			Reject(rejectPrintFunc).
 			Needs(SAGA_STEP_A, SAGA_STEP_B).
 			Build()
 		// check error
@@ -236,7 +243,7 @@ func TestNewSaga(t *testing.T) {
 		// add step decrement
 		_, errs = sagaNumber.AddStep(SAGA_STEP_E).
 			Then(printFunc).
-			Reject(printFunc).
+			Reject(rejectPrintFunc).
 			Needs(SAGA_STEP_D, SAGA_STEP_B).
 			Build()
 		// check error
@@ -250,7 +257,7 @@ func TestNewSaga(t *testing.T) {
 			Then(func(ctx context.Context) error {
 				return fmt.Errorf("SAGA_STEP_FAIL")
 			}).
-			Reject(printFunc).
+			Reject(rejectPrintFunc).
 			Needs(SAGA_STEP_E, SAGA_STEP_C).
 			Build()
 		// check error
@@ -283,7 +290,7 @@ func TestNewSaga(t *testing.T) {
 			wallet.mu.Unlock()
 			return nil
 		}
-		rejectSuccessFunc := func(ctx context.Context) error {
+		rejectSuccessFunc := func(ctx context.Context, thenErr error) error {
 			wallet.mu.Lock()
 			wallet.value -= 10
 			wallet.mu.Unlock()
@@ -309,8 +316,8 @@ func TestNewSaga(t *testing.T) {
 		// Add step B, which will force an error
 		_, errs = saga.AddStep(SAGA_STEP_B).
 			Then(failFunc).
-			Reject(func(ctx context.Context) error {
-				return errors.New("forced error")
+			Reject(func(ctx context.Context, thenErr error) error {
+				return thenErr
 			}).
 			Build()
 		assert.Len(t, errs, 0)

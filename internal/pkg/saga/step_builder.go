@@ -15,7 +15,7 @@ func (s *BuilderStep) Then(f func(ctx context.Context) error) *BuilderStep {
 	return s
 }
 
-func (s *BuilderStep) Reject(f func(ctx context.Context) error) *BuilderStep {
+func (s *BuilderStep) Reject(f func(ctx context.Context, thenError error) error) *BuilderStep {
 	s.reject = f
 	return s
 }
