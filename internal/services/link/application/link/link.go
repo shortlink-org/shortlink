@@ -110,8 +110,8 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 			}
 
 			return nil
-		}).Reject(func(ctx context.Context) error {
-		return &v1.PermissionDeniedError{Link: &v1.Link{Hash: hash}}
+		}).Reject(func(ctx context.Context, thenErr error) error {
+		return &v1.PermissionDeniedError{Err: thenErr}
 	}).Build()
 	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
@@ -127,8 +127,8 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 			}
 
 			return nil
-		}).Reject(func(ctx context.Context) error {
-		return &v1.PermissionDeniedError{Link: &v1.Link{Hash: hash}}
+		}).Reject(func(ctx context.Context, thenErr error) error {
+		return &v1.PermissionDeniedError{Err: thenErr}
 	}).Build()
 	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
@@ -185,14 +185,16 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 
 			list, err := resp.Recv()
 			if err != nil {
-				return err
+				if err.Error() != "EOF" {
+					return err
+				}
 			}
 
-			s.log.Info("list", field.Fields{"list": list})
+			*filter.Link.Contains = list.String()
 
 			return nil
-		}).Reject(func(ctx context.Context) error {
-		return &v1.PermissionDeniedError{Link: &v1.Link{}}
+		}).Reject(func(ctx context.Context, thenErr error) error {
+		return &v1.PermissionDeniedError{Err: thenErr}
 	}).Build()
 	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
@@ -284,7 +286,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 			}
 
 			return nil
-		}).Reject(func(ctx context.Context) error {
+		}).Reject(func(ctx context.Context, thenErr error) error {
 		err := s.store.Delete(ctx, in.GetHash())
 		if err != nil {
 			return err
@@ -383,8 +385,8 @@ func (s *Service) Delete(ctx context.Context, hash string) (*v1.Link, error) {
 			}
 
 			return nil
-		}).Reject(func(ctx context.Context) error {
-		return &v1.PermissionDeniedError{Link: &v1.Link{}}
+		}).Reject(func(ctx context.Context, thenErr error) error {
+		return &v1.PermissionDeniedError{Err: thenErr}
 	}).Build()
 	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err

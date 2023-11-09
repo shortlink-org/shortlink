@@ -18,12 +18,20 @@ import (
 var permissions embed.FS
 
 type Service struct {
-	client *authzed.Client
+	// Common
+	log logger.Logger
+
+	// Security
+	permission *authzed.Client
 }
 
-func New(ctx context.Context, log logger.Logger, client *authzed.Client) (*Service, error) {
+func New(ctx context.Context, log logger.Logger, permissionClient *authzed.Client) (*Service, error) {
 	svc := &Service{
-		client: client,
+		// Common
+		log: log,
+
+		// Security
+		permission: permissionClient,
 	}
 
 	err := svc.Migrations(ctx, permissions)
@@ -51,7 +59,7 @@ func (s *Service) Migrations(ctx context.Context, fsys embed.FS) error {
 	}
 
 	for i := range permissionsData {
-		_, err = s.client.WriteSchema(ctx, permissionsData[i])
+		_, err = s.permission.SchemaServiceClient.WriteSchema(ctx, permissionsData[i])
 		if err != nil {
 			return fmt.Errorf("failed to write schema: %w", err)
 		}

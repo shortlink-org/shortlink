@@ -14,14 +14,14 @@ services:
     depends_on:
       - coredns
       - spicedb_migrate
-    image: authzed/spicedb
+    image: authzed/spicedb:v1.27.0
     command: serve
     container_name: spicedb
     restart: always
     ports:
       - 8080:8080
-      - 9091:9090
-      - 50151:50051
+      # - 9091:9090
+      # - 50151:50051
     environment:
       SPICEDB_GRPC_PRESHARED_KEY: secret-shortlink-preshared-key
       SPICEDB_DATASTORE_ENGINE: postgres
@@ -34,13 +34,24 @@ services:
       SPICEDB_OTEL_SAMPLE_RATIO: 1
       OTEL_EXPORTER_OTLP_ENDPOINT: jaeger-agent:4317
       SPICEDB_LOG_LEVEL: trace
+    labels:
+      - "traefik.enable=false"
+      - "traefik.http.routers.spicedb.entrypoints=websecure"
+      - "traefik.http.routers.spicedb.rule=PathPrefix(`/authzed.api.v1.SchemaService/`) || PathPrefix(`/authzed.api.v1.PermissionsService/`) || PathPrefix(`/authzed.api.v1.WatchService/`) || PathPrefix(`/authzed.api.v1.ExperimentalService/`)"
+      - "traefik.http.routers.spicedb.tls.certresolver=default"
+      - "traefik.http.services.spicedb.loadbalancer.healthcheck.scheme=http"
+      - "traefik.http.services.spicedb.loadbalancer.healthcheck.path=/metrics"
+      - "traefik.http.services.spicedb.loadbalancer.healthcheck.interval=10s"
+      - "traefik.http.services.spicedb.loadbalancer.healthcheck.timeout=3s"
+      - "traefik.http.services.spicedb.loadbalancer.server.port=9090"
+      - "traefik.http.services.spicedb.loadbalancer.server.url=h2c://spicedb:50051"
 
   spicedb_migrate:
     <<: *network
     depends_on:
       - coredns
       - postgres
-    image: authzed/spicedb
+    image: authzed/spicedb:v1.27.0
     command: "migrate head"
     container_name: spicedb_migrate
     restart: on-failure

@@ -1,17 +1,18 @@
 /* eslint-disable */
-const withPWA = require('@ducanh2912/next-pwa').default({
-  dest: 'public',
-  maximumFileSizeToCacheInBytes: 4000000,
-  swcMinify: true,
-  cacheOnFrontendNav: true,
-  aggressiveFrontEndNavCaching: true,
-})
+// const withPWA = require('@ducanh2912/next-pwa').default({
+//   dest: 'public',
+//   maximumFileSizeToCacheInBytes: 4000000,
+//   swcMinify: true,
+//   cacheOnFrontendNav: true,
+//   aggressiveFrontEndNavCaching: true,
+// })
 const { composePlugins } = require('@nx/next')
 const { withSentryConfig } = require('@sentry/nextjs')
 const path = require('path')
 
 // PLUGINS =============================================================================================================
-const plugins = [withPWA]
+// const plugins = [withPWA]
+const plugins = []
 
 // ENVIRONMENT VARIABLE ================================================================================================
 const isProd = process.env.NODE_ENV === 'production'
@@ -20,6 +21,7 @@ const API_URI = process.env.API_URI || 'http://127.0.0.1:7070'
 const AUTH_URI = process.env.AUTH_URI || 'http://127.0.0.1:4433'
 
 console.info('API_URI', API_URI)
+console.info('NODE_ENV', process.env.NODE_ENV)
 
 /** @type {import('@nx/next/plugins/with-nx').WithNxOptions} * */
 let NEXT_CONFIG = {
@@ -47,26 +49,22 @@ let NEXT_CONFIG = {
   swcMinify: true,
   productionBrowserSourceMaps: true,
   transpilePackages: ['@shortlink-org/ui-kit'],
-  compiler: {
-    // ssr and displayName are configured by default
-    styledComponents: true,
-  },
-  images: {
-    loader: 'custom',
-    domains: ['images.unsplash.com'],
-    formats: ['image/avif', 'image/webp'],
-    remotePatterns: [
-      {
-        // The `src` property hostname must end with `.example.com`,
-        // otherwise the API will respond with 400 Bad Request.
-        protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-    ],
-    dangerouslyAllowSVG: false,
-    contentDispositionType: 'attachment',
-    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-  },
+  // images: {
+  //   loader: 'custom',
+  //   domains: ['images.unsplash.com'],
+  //   formats: ['image/avif', 'image/webp'],
+  //   remotePatterns: [
+  //     {
+  //       // The `src` property hostname must end with `.example.com`,
+  //       // otherwise the API will respond with 400 Bad Request.
+  //       protocol: 'https',
+  //       hostname: 'images.unsplash.com',
+  //     },
+  //   ],
+  //   dangerouslyAllowSVG: false,
+  //   contentDispositionType: 'attachment',
+  //   contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  // },
   trailingSlash: false,
   webpack: (config, { isServer, buildId }) => {
     config.module.rules.push({
@@ -112,9 +110,13 @@ if (isProd) {
 }
 
 if (!isProd) {
+  NEXT_CONFIG.httpAgentOptions = {
+    keepAlive: true,
+  }
+
   NEXT_CONFIG.rewrites = async function () {
     return {
-      fallback: [
+      beforeFiles: [
         // we need to define a no-op rewrite to trigger checking
         // all pages/static files before we attempt proxying
         {

@@ -30,9 +30,9 @@ func (e *CreateLinkError) Error() string {
 }
 
 type PermissionDeniedError struct {
-	Link *Link
+	Err error
 }
 
 func (e *PermissionDeniedError) Error() string {
-	return fmt.Sprintf("Permission denied: %s", e.Link.GetUrl())
+	return fmt.Sprintf("Permission denied: %w", e.Err)
 }
