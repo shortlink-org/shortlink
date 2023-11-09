@@ -4,7 +4,9 @@ import (
 	"context"
 )
 
-const ContextErrorKey = "saga-error"
+type Error string
+
+const ContextErrorKey = Error("saga-error")
 
 func WithError(ctx context.Context, err error) context.Context {
 	return context.WithValue(ctx, ContextErrorKey, err)

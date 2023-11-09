@@ -182,7 +182,7 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 
 			return nil
 		}).
-		Reject(func(ctx context.Context) error {
+		Reject(func(ctx context.Context, thenErr error) error {
 			return ErrCreatePayment
 		}).
 		Build()
@@ -196,7 +196,7 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 		Then(func(ctx context.Context) error {
 			return p.Approve(ctx, in.GetId())
 		}).
-		Reject(func(ctx context.Context) error {
+		Reject(func(ctx context.Context, thenErr error) error {
 			err := p.Reject(ctx, in.GetId())
 			return err
 		}).
@@ -217,7 +217,7 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 
 			return nil
 		}).
-		Reject(func(ctx context.Context) error {
+		Reject(func(ctx context.Context, thenErr error) error {
 			return ErrApprovePayment
 		}).
 		Build()

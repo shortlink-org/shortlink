@@ -80,7 +80,9 @@ func (lite *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error)
 	if err != nil || rows.Err() != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{}}
 	}
-	defer rows.Close() //nolint:errcheck // ignore
+	defer func() {
+		_ = rows.Close()
+	}()
 
 	response := &v1.Links{
 		Link: []*v1.Link{},

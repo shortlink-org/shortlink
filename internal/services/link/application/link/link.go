@@ -5,6 +5,7 @@ package link
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 
@@ -188,21 +189,19 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 			resources := []*permission.LookupResourcesResponse{}
 			for {
 				resp, errRead := stream.Recv()
-				switch errRead {
-				case nil:
-					resources = append(resources, resp)
-				case io.EOF:
-					fmt.Println(resources)
-					return nil
-				default:
+				if errRead != nil {
+					if errors.Is(errRead, io.EOF) {
+						return nil
+					}
+
 					return errRead
 				}
+
+				resources = append(resources, resp) //nolint:staticcheck // use it later
 			}
 
 			// TODO: use filter
 			// *filter.Link.Contains = list.String()
-
-			return nil
 		}).Reject(func(ctx context.Context, thenErr error) error {
 		return &v1.PermissionDeniedError{Err: thenErr}
 	}).Build()
@@ -325,7 +324,8 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 				// TODO:
 				// 1. Move to metadata service
 				// 2. Listen MQ event
-				return nil
+
+				return nil //nolint:nilerr // ignore
 			}
 
 			return nil
