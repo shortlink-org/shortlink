@@ -40,7 +40,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.18
 	github.com/nats-io/nats.go v1.31.0
 	github.com/neo4j/neo4j-go-driver/v5 v5.14.0
-	github.com/ory/client-go v1.2.16
+	github.com/ory/client-go v1.2.17
 	github.com/ory/dockertest/v3 v3.10.0
 	github.com/prometheus/client_golang v1.17.0
 	github.com/prometheus/client_model v0.5.0
@@ -247,7 +247,7 @@ require (
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9 // indirect
 	golang.org/x/mod v0.12.0 // indirect
 	golang.org/x/net v0.18.0 // indirect
-	golang.org/x/oauth2 v0.13.0 // indirect
+	golang.org/x/oauth2 v0.14.0 // indirect
 	golang.org/x/sys v0.14.0 // indirect
 	golang.org/x/term v0.14.0 // indirect
 	golang.org/x/tools v0.13.0 // indirect
