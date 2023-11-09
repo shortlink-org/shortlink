@@ -7,7 +7,7 @@
   "main": "server/index.js",
   "scripts": {
     "build": "NODE_ENV=production npx next build",
-    "start": "NODE_OPTIONS='--max-http-header-size=13107200' npx next dev",
+    "start": "NODE_OPTIONS='--max-http-header-size=131072' npx next dev",
     "start:dev": "cp .env.dev .env.local && npm start",
     "start:k8s": "cp .env.k8s .env.local && npm start",
     "start:prod": "cp .env.prod .env.local && npm start",

@@ -1,25 +1,27 @@
 /* eslint-disable */
-// const withPWA = require('@ducanh2912/next-pwa').default({
-//   dest: 'public',
-//   maximumFileSizeToCacheInBytes: 4000000,
-//   swcMinify: true,
-//   cacheOnFrontendNav: true,
-//   aggressiveFrontEndNavCaching: true,
-// })
+const withPWA = require('@ducanh2912/next-pwa').default({
+  dest: 'public',
+  maximumFileSizeToCacheInBytes: 4000000,
+  swcMinify: true,
+  cacheOnFrontendNav: true,
+  aggressiveFrontEndNavCaching: true,
+})
 const { composePlugins } = require('@nx/next')
 const { withSentryConfig } = require('@sentry/nextjs')
 const path = require('path')
 
 // PLUGINS =============================================================================================================
-// const plugins = [withPWA]
-const plugins = []
+const plugins = [withPWA]
 
 // ENVIRONMENT VARIABLE ================================================================================================
 const isProd = process.env.NODE_ENV === 'production'
 const isEnableSentry = process.env.SENTRY_ENABLE === 'true'
-const API_URI = process.env.API_URI || 'http://127.0.0.1:7070'
+const PROXY_URI = process.env.PROXY_URI || 'http://127.0.0.1:3000'
 const AUTH_URI = process.env.AUTH_URI || 'http://127.0.0.1:4433'
+const API_URI = process.env.API_URI || 'http://127.0.0.1:7070'
 
+console.info('PROXY_URI', PROXY_URI)
+console.info('AUTH_URI', AUTH_URI)
 console.info('API_URI', API_URI)
 console.info('NODE_ENV', process.env.NODE_ENV)
 
@@ -30,7 +32,7 @@ let NEXT_CONFIG = {
   env: {
     // ShortLink API
     NEXT_PUBLIC_SERVICE_NAME: 'shortlink-next',
-    NEXT_PUBLIC_API_URI: process.env.API_URI,
+    NEXT_PUBLIC_API_URI: process.env.PROXY_URI,
 
     // Sentry
     NEXT_PUBLIC_SENTRY_DSN: process.env.SENTRY_DSN,
@@ -49,22 +51,22 @@ let NEXT_CONFIG = {
   swcMinify: true,
   productionBrowserSourceMaps: true,
   transpilePackages: ['@shortlink-org/ui-kit'],
-  // images: {
-  //   loader: 'custom',
-  //   domains: ['images.unsplash.com'],
-  //   formats: ['image/avif', 'image/webp'],
-  //   remotePatterns: [
-  //     {
-  //       // The `src` property hostname must end with `.example.com`,
-  //       // otherwise the API will respond with 400 Bad Request.
-  //       protocol: 'https',
-  //       hostname: 'images.unsplash.com',
-  //     },
-  //   ],
-  //   dangerouslyAllowSVG: false,
-  //   contentDispositionType: 'attachment',
-  //   contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
-  // },
+  images: {
+    loader: 'custom',
+    domains: ['images.unsplash.com'],
+    formats: ['image/avif', 'image/webp'],
+    remotePatterns: [
+      {
+        // The `src` property hostname must end with `.example.com`,
+        // otherwise the API will respond with 400 Bad Request.
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+    ],
+    dangerouslyAllowSVG: false,
+    contentDispositionType: 'attachment',
+    contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+  },
   trailingSlash: false,
   webpack: (config, { isServer, buildId }) => {
     config.module.rules.push({
@@ -98,7 +100,7 @@ let NEXT_CONFIG = {
   experimental: {
     forceSwcTransforms: true,
     swcTraceProfiling: true,
-    instrumentationHook: true,
+    instrumentationHook: false,
     turbo: {},
   },
 }
@@ -110,10 +112,6 @@ if (isProd) {
 }
 
 if (!isProd) {
-  NEXT_CONFIG.httpAgentOptions = {
-    keepAlive: true,
-  }
-
   NEXT_CONFIG.rewrites = async function () {
     return {
       beforeFiles: [
@@ -125,8 +123,13 @@ if (!isProd) {
           basePath: false,
         },
         {
-          source: `/api/:uri*`,
-          destination: `${API_URI}/api/:uri*`,
+          source: `/api/links`,
+          destination: `${API_URI}/api/links`,
+          basePath: false,
+        },
+        {
+          source: `/api/links/:uri*`,
+          destination: `${API_URI}/api/links/:uri*`,
           basePath: false,
         },
         {

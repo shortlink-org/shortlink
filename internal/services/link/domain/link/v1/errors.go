@@ -34,5 +34,5 @@ type PermissionDeniedError struct {
 }
 
 func (e *PermissionDeniedError) Error() string {
-	return fmt.Sprintf("Permission denied: %w", e.Err)
+	return fmt.Sprint("Permission denied")
 }

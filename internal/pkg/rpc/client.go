@@ -60,6 +60,8 @@ func InitClient(log logger.Logger, tracer trace.TracerProvider, monitor *monitor
 
 // setConfig - set configuration
 func SetClientConfig(tracer trace.TracerProvider, monitor *monitoring.Monitoring, log logger.Logger) (*Client, error) {
+	viper.AutomaticEnv()
+
 	viper.SetDefault("GRPC_CLIENT_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_CLIENT_PORT")
 

@@ -4,10 +4,10 @@ package permission
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"testing"
 	"testing/fstest"
+	"time"
 
 	pb "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"github.com/ory/dockertest/v3"
@@ -15,10 +15,12 @@ import (
 	"go.uber.org/goleak"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/auth"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
 )
 
 func TestMain(m *testing.M) {
-	goleak.VerifyTestMain(m)
+	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("google.golang.org/grpc/internal/grpcsync.(*CallbackSerializer).run"))
 
 	os.Exit(m.Run())
 }
@@ -54,6 +56,9 @@ func TestSpiceDB(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	client := &Service{}
 
+	// get logger
+	log, err := logger.NewLogger(logger.Zap, config.Configuration{})
+
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
 	require.NoError(t, err, "Could not connect to docker")
@@ -63,7 +68,7 @@ func TestSpiceDB(t *testing.T) {
 		Repository:   "authzed/spicedb",
 		Tag:          "latest",
 		Cmd:          []string{"serve-testing"},
-		ExposedPorts: []string{"50051/tcp", "50052/tcp"},
+		ExposedPorts: []string{"50051/tcp"},
 	})
 	if err != nil {
 		// When you're done, kill and remove the container
@@ -76,11 +81,14 @@ func TestSpiceDB(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if errRetry := pool.Retry(func() error {
-		errSetenv := os.Setenv("SPICE_DB_API", fmt.Sprintf("localhost:%s", resource.GetPort("50051/tcp")))
+		errSetenv := os.Setenv("GRPC_CLIENT_PORT", resource.GetPort("50051/tcp"))
 		require.NoError(t, errSetenv, "Cannot set ENV")
 
-		client.client, err = auth.New(nil, nil, nil)
+		client.permission, err = auth.New(log, nil, nil)
 		require.NoError(t, err, "Cannot create client")
+
+		// wait for the connection to be ready
+		time.Sleep(2 * time.Second)
 
 		return nil
 	}); errRetry != nil {
@@ -139,13 +147,13 @@ func TestSpiceDB(t *testing.T) {
 			},
 		}
 
-		_, errWrite := client.client.WriteRelationships(context.Background(), request)
+		_, errWrite := client.permission.WriteRelationships(context.Background(), request)
 		require.NoError(t, errWrite)
 	})
 
 	// check permissions
 	t.Run("CheckPermissions", func(t *testing.T) {
-		resp, err := client.client.CheckPermission(ctx, &pb.CheckPermissionRequest{
+		resp, err := client.permission.CheckPermission(ctx, &pb.CheckPermissionRequest{
 			Resource:   firstItem,
 			Permission: "view",
 			Subject:    emilia,
@@ -153,7 +161,7 @@ func TestSpiceDB(t *testing.T) {
 		require.NoError(t, err, "Cannot check permission")
 		require.Equal(t, pb.CheckPermissionResponse_PERMISSIONSHIP_HAS_PERMISSION, resp.Permissionship, "Emilia should have view permission")
 
-		resp, err = client.client.CheckPermission(ctx, &pb.CheckPermissionRequest{
+		resp, err = client.permission.CheckPermission(ctx, &pb.CheckPermissionRequest{
 			Resource:   firstItem,
 			Permission: "edit",
 			Subject:    emilia,
@@ -161,7 +169,7 @@ func TestSpiceDB(t *testing.T) {
 		require.NoError(t, err, "Cannot check permission")
 		require.Equal(t, pb.CheckPermissionResponse_PERMISSIONSHIP_HAS_PERMISSION, resp.Permissionship, "Emilia should have write permission")
 
-		resp, err = client.client.CheckPermission(ctx, &pb.CheckPermissionRequest{
+		resp, err = client.permission.CheckPermission(ctx, &pb.CheckPermissionRequest{
 			Resource:   firstItem,
 			Permission: "view",
 			Subject:    beatrice,
@@ -169,7 +177,7 @@ func TestSpiceDB(t *testing.T) {
 		require.NoError(t, err, "Cannot check permission")
 		require.Equal(t, pb.CheckPermissionResponse_PERMISSIONSHIP_HAS_PERMISSION, resp.Permissionship, "Beatrice should have view permission")
 
-		resp, err = client.client.CheckPermission(ctx, &pb.CheckPermissionRequest{
+		resp, err = client.permission.CheckPermission(ctx, &pb.CheckPermissionRequest{
 			Resource:   firstItem,
 			Permission: "edit",
 			Subject:    beatrice,
@@ -180,7 +188,7 @@ func TestSpiceDB(t *testing.T) {
 
 	t.Cleanup(func() {
 		// delete all data
-		_, errDelete := client.client.DeleteRelationships(ctx, &pb.DeleteRelationshipsRequest{
+		_, errDelete := client.permission.DeleteRelationships(ctx, &pb.DeleteRelationshipsRequest{
 			RelationshipFilter: &pb.RelationshipFilter{
 				ResourceType: "link",
 			},

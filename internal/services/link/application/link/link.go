@@ -6,9 +6,11 @@ package link
 import (
 	"context"
 	"fmt"
+	"io"
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"github.com/authzed/authzed-go/v1"
+	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/auth/session"
@@ -178,19 +180,27 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 				Subject:            &permission.SubjectReference{Object: &permission.ObjectReference{ObjectType: "user", ObjectId: userID}},
 			}
 
-			resp, err := s.permission.PermissionsServiceClient.LookupResources(ctx, relationship)
+			stream, err := s.permission.PermissionsServiceClient.LookupResources(ctx, relationship)
 			if err != nil {
 				return err
 			}
 
-			list, err := resp.Recv()
-			if err != nil {
-				if err.Error() != "EOF" {
-					return err
+			resources := []*permission.LookupResourcesResponse{}
+			for {
+				resp, errRead := stream.Recv()
+				switch errRead {
+				case nil:
+					resources = append(resources, resp)
+				case io.EOF:
+					fmt.Println(resources)
+					return nil
+				default:
+					return errRead
 				}
 			}
 
-			*filter.Link.Contains = list.String()
+			// TODO: use filter
+			// *filter.Link.Contains = list.String()
 
 			return nil
 		}).Reject(func(ctx context.Context, thenErr error) error {
@@ -282,6 +292,13 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 
 			_, err := s.permission.PermissionsServiceClient.WriteRelationships(ctx, relationship)
 			if err != nil {
+				st, ok := status.FromError(err)
+				if ok {
+					if int32(st.Code()) == int32(permission.ErrorReason_ERROR_REASON_TOO_MANY_PRECONDITIONS_IN_REQUEST) {
+						return nil
+					}
+				}
+
 				return err
 			}
 
@@ -305,7 +322,10 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 				Url: in.GetUrl(),
 			})
 			if err != nil {
-				return err
+				// TODO:
+				// 1. Move to metadata service
+				// 2. Listen MQ event
+				return nil
 			}
 
 			return nil
@@ -316,6 +336,11 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_PUBLISH_EVENT_NEW_LINK).
 		Then(func(ctx context.Context) error {
+			// If mq is nil, then we don't need to publish event
+			if s.mq == nil {
+				return nil
+			}
+
 			data, err := proto.Marshal(in)
 			if err != nil {
 				return err
