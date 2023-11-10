@@ -54,6 +54,7 @@ dev: ## Run for development mode
 		-f docker-compose.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
 		-f ops/docker-compose/gateway/traefik/traefik.yaml \
+		-f ops/docker-compose/database/redis/redis.yaml \
 		-f ops/docker-compose/database/postgres/postgres.yaml \
 		-f ops/docker-compose/application/auth/spicedb/spicedb.yaml \
 		-f ops/docker-compose/application/auth/kratos/kratos.yaml \

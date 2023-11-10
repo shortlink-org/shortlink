@@ -7,6 +7,7 @@ package link
 import (
 	"context"
 	"errors"
+	"io"
 	"testing"
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
@@ -90,15 +91,17 @@ func TestLinkService(t *testing.T) {
 	t.Run("List", func(t *testing.T) {
 		t.Run("Success", func(t *testing.T) {
 			mockPermissionsService_LookupResourcesClient := new(mockPermission.MockPermissionsService_LookupResourcesClient)
-			mockPermissionsService_LookupResourcesClient.On("Recv").Return(&permission.LookupResourcesResponse{}, nil).Once()
+			mockPermissionsService_LookupResourcesClient.On("Recv").Return(&permission.LookupResourcesResponse{}, nil).Times(2)
+			mockPermissionsService_LookupResourcesClient.On("Recv").Return(nil, io.EOF).Once()
 
 			mockRepository.On("List", mock.Anything, mock.Anything).Return(&v1.Links{}, nil)
 			mockPermissionsServiceClient.On("LookupResources", mock.Anything, mock.Anything).Return(func(context.Context, *permission.LookupResourcesRequest, ...grpc.CallOption) permission.PermissionsService_LookupResourcesClient {
 				return mockPermissionsService_LookupResourcesClient
 			}, nil).Once()
 
-			_, err := linkService.List(context.Background(), queryStore.Filter{})
+			resp, err := linkService.List(context.Background(), queryStore.Filter{})
 			assert.NoError(t, err)
+			assert.NotNil(t, resp)
 		})
 
 		t.Run("Permission Denied", func(t *testing.T) {

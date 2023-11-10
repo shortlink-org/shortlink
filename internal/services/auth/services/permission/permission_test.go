@@ -4,6 +4,8 @@ package permission
 
 import (
 	"context"
+	"errors"
+	"io"
 	"os"
 	"testing"
 	"testing/fstest"
@@ -184,6 +186,40 @@ func TestSpiceDB(t *testing.T) {
 		})
 		require.NoError(t, err, "Cannot check permission")
 		require.Equal(t, pb.CheckPermissionResponse_PERMISSIONSHIP_NO_PERMISSION, resp.Permissionship, "Beatrice should have write permission")
+	})
+
+	// check lookup
+	t.Run("Lookup", func(t *testing.T) {
+		relationship := &pb.LookupResourcesRequest{
+			ResourceObjectType: "link",
+			Permission:         "view",
+			Subject: &pb.SubjectReference{
+				Object: &pb.ObjectReference{
+					ObjectType: "user",
+					ObjectId:   "emilia",
+				},
+			},
+		}
+
+		stream, err := client.permission.PermissionsServiceClient.LookupResources(ctx, relationship)
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		resources := []*pb.LookupResourcesResponse{}
+		for {
+			resp, errRead := stream.Recv()
+			if errRead != nil {
+				if errors.Is(errRead, io.EOF) {
+					break
+				}
+
+				t.Fatal(errRead)
+			}
+
+			resources = append(resources, resp)
+		}
+		require.Equal(t, 1, len(resources), "Should have 1 resource")
 	})
 
 	t.Cleanup(func() {
