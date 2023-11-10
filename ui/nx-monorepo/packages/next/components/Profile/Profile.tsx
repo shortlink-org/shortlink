@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-export default () => (
+const Profile = () => (
   <div className="md:grid md:grid-cols-3 md:gap-6">
     <div className="md:col-span-1">
       <div className="px-4 sm:px-0">
@@ -285,3 +285,5 @@ export default () => (
     </div>
   </div>
 )
+
+export default Profile
