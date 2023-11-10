@@ -27,7 +27,10 @@ export function LinkTable() {
 
       <Statistic count={state.list.length} />
 
-      <UserLinksTable data={state.list} />
+      <UserLinksTable
+        data={state.list}
+        onRefresh={() => dispatch(fetchLinkList())}
+      />
     </Layout>
   )
 }

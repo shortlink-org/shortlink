@@ -29,12 +29,14 @@ const csvConfig = mkConfig({
 type TableProps = {
   columns: any
   data: any
+
+  onCreate?: () => void
+  onUpdate?: () => void
+  onDelete?: () => void
+  onRefresh?: () => void
 }
 
-export const Table: React.FC<TableProps> = ({
-  columns,
-  data,
-}) => {
+export const Table: React.FC<TableProps> = ({ columns, data, onRefresh }) => {
   // export data to csv --------------------------------------------------------
   const handleExportData = () => {
     const csv = generateCsv(csvConfig)(data)
@@ -127,7 +129,7 @@ export const Table: React.FC<TableProps> = ({
     // eslint-disable-next-line no-shadow
     renderToolbarInternalActions: ({ table }) => (
       <Box>
-        <IconButton onClick={() => alert('Update')}>
+        <IconButton onClick={onRefresh}>
           <Update />
         </IconButton>
         {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}

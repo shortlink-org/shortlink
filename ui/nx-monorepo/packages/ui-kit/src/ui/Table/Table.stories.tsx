@@ -106,5 +106,6 @@ export const Default = {
         },
       },
     ],
+    onRefresh: () => alert('Refresh'),
   },
 }

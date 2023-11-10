@@ -183,7 +183,7 @@ const Header = () => {
         )}
       </Toolbar>
     </AppBar>,
-    <Fragment>
+    <Fragment key="menu">
       {hasSession && (
         <Drawer key="drawer" variant="permanent" open={open}>
           <DrawerHeader>

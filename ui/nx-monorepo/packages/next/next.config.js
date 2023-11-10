@@ -1,17 +1,19 @@
-/* eslint-disable */
+// @ts-check
 const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
-  maximumFileSizeToCacheInBytes: 4000000,
-  swcMinify: true,
+  maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // Set the limit to 10 MB
+  swcMinify: process.env.NODE_ENV === 'production',
   cacheOnFrontendNav: true,
   aggressiveFrontEndNavCaching: true,
+  publicExcludes: ['!robots.txt', '!sitemap.xml'],
+  extendDefaultRuntimeCaching: false,
+  workboxOptions: {
+    dontCacheBustURLsMatching: /\/api/,
+  },
 })
 const { composePlugins } = require('@nx/next')
 const { withSentryConfig } = require('@sentry/nextjs')
 const path = require('path')
-
-// PLUGINS =============================================================================================================
-const plugins = [withPWA]
 
 // ENVIRONMENT VARIABLE ================================================================================================
 const isProd = process.env.NODE_ENV === 'production'
@@ -24,6 +26,9 @@ console.info('PROXY_URI', PROXY_URI)
 console.info('AUTH_URI', AUTH_URI)
 console.info('API_URI', API_URI)
 console.info('NODE_ENV', process.env.NODE_ENV)
+
+// PLUGINS =============================================================================================================
+const plugins = [withPWA]
 
 /** @type {import('@nx/next/plugins/with-nx').WithNxOptions} * */
 let NEXT_CONFIG = {

@@ -6,6 +6,8 @@ import { ContentCopy } from '@mui/icons-material'
 
 type AppProps = {
   data: any
+
+  onRefresh?: () => void
 }
 
 const columns = [
@@ -72,8 +74,8 @@ const columns = [
   },
 ]
 
-export const UserLinksTable = ({ data }: AppProps) => (
-  <Table data={data} columns={columns} />
+export const UserLinksTable = ({ data, onRefresh }: AppProps) => (
+  <Table data={data} columns={columns} onRefresh={onRefresh} />
 )
 
 export default UserLinksTable

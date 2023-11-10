@@ -1,11 +1,9 @@
-import { combineReducers } from 'redux'
-
 import linkReducer from 'store/reducers/link'
 import sessionReducer from 'store/reducers/session'
 
-const rootReducer = combineReducers({
+const rootReducer = {
   link: linkReducer,
   session: sessionReducer,
-})
+}
 
 export default rootReducer
