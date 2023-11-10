@@ -177,7 +177,7 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 		Then(func(ctx context.Context) error {
 			relationship := &permission.LookupResourcesRequest{
 				ResourceObjectType: "link",
-				Permission:         "reader",
+				Permission:         "view",
 				Subject:            &permission.SubjectReference{Object: &permission.ObjectReference{ObjectType: "user", ObjectId: userID}},
 			}
 

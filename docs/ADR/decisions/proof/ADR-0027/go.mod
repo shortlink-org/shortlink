@@ -26,6 +26,6 @@ require (
 	github.com/sergi/go-diff v1.3.1 // indirect
 	github.com/stretchr/testify v1.8.4 // indirect
 	github.com/zclconf/go-cty v1.8.0 // indirect
-	golang.org/x/mod v0.12.0 // indirect
+	golang.org/x/mod v0.13.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 )

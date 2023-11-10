@@ -6,7 +6,6 @@ package traicing
 import (
 	"context"
 
-	otelpyroscope "github.com/pyroscope-io/otel-profiling-go"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc"
@@ -44,15 +43,16 @@ func Init(ctx context.Context, cnf Config, log logger.Logger) (*trace.TracerProv
 	}
 
 	// Register the global Tracer provider
-	otel.SetTracerProvider(otelpyroscope.NewTracerProvider(
-		tp,
-		otelpyroscope.WithAppName(cnf.ServiceName),
-		otelpyroscope.WithPyroscopeURL(cnf.PyroscopeURI),
-		otelpyroscope.WithRootSpanOnly(true),
-		otelpyroscope.WithAddSpanName(true),
-		otelpyroscope.WithProfileURL(true),
-		otelpyroscope.WithProfileBaselineURL(true),
-	))
+	// TODO: fix this
+	// otel.SetTracerProvider(otelpyroscope.NewTracerProvider(
+	// 	tp,
+	// 	otelpyroscope.WithAppName(cnf.ServiceName),
+	// 	otelpyroscope.WithPyroscopeURL(cnf.PyroscopeURI),
+	// 	otelpyroscope.WithRootSpanOnly(true),
+	// 	otelpyroscope.WithAddSpanName(true),
+	// 	otelpyroscope.WithProfileURL(true),
+	// 	otelpyroscope.WithProfileBaselineURL(true),
+	// ))
 
 	// Register the W3C trace context and baggage propagators so data is propagated across services/processes
 	otel.SetTextMapPropagator(
