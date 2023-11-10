@@ -17,7 +17,7 @@ require (
 	github.com/spf13/viper v1.17.0
 	github.com/swaggo/swag v1.16.2
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.2.3
-	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.45.0
+	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.46.0
 	go.opentelemetry.io/otel/trace v1.20.0
 	golang.org/x/sync v0.5.0
 	golang.org/x/text v0.14.0
@@ -51,7 +51,7 @@ require (
 	github.com/eapache/queue v1.1.0 // indirect
 	github.com/envoyproxy/protoc-gen-validate v1.0.2 // indirect
 	github.com/exaring/otelpgx v0.5.2 // indirect
-	github.com/felixge/httpsnoop v1.0.3 // indirect
+	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/fsnotify/fsnotify v1.6.0 // indirect
 	github.com/go-logr/logr v1.3.0 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
