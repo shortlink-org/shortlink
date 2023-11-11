@@ -11,3 +11,8 @@ plugins:
   - plugin: buf.build/grpc/go
     out: internal/services/link
     opt: paths=source_relative
+
+  - plugin: go-orm
+    out: internal/services/link
+    opt: paths=source_relative
+
