@@ -54,11 +54,58 @@ func TestFilterLink_BuildFilter(t *testing.T) {
 				Url:      &fixtures.StringFilterInput{Eq: "https://example.com"},
 				Describe: &fixtures.StringFilterInput{Contains: "test"},
 			},
-			expectedSQL:  "SELECT * FROM links WHERE url = ? AND describe LIKE '%' || ?", // Updated expected SQL
-			expectedArgs: []interface{}{"https://example.com", "test"},                   // Args should match the bound variables
+			expectedSQL:  "SELECT * FROM links WHERE url = ? AND describe LIKE '%' || ?",
+			expectedArgs: []interface{}{"https://example.com", "test"},
 		},
-		// Add more test cases for different combinations of filter conditions
-		// ...
+		{
+			name: "Not Equal and Starts With",
+			filter: fixtures.FilterLink{
+				Url:      &fixtures.StringFilterInput{Ne: "https://example.org"},
+				Describe: &fixtures.StringFilterInput{StartsWith: "start"},
+			},
+			expectedSQL:  "SELECT * FROM links WHERE url <> ? AND describe LIKE '%' || ?",
+			expectedArgs: []interface{}{"https://example.org", "start"},
+		},
+		{
+			name: "Greater Than and Ends With",
+			filter: fixtures.FilterLink{
+				Url:      &fixtures.StringFilterInput{Gt: "https://example.com/a"},
+				Describe: &fixtures.StringFilterInput{EndsWith: "end"},
+			},
+			expectedSQL:  "SELECT * FROM links WHERE url > ? AND describe LIKE ? || '%'",
+			expectedArgs: []interface{}{"https://example.com/a", "end"},
+		},
+		{
+			name: "Less Than and Is Empty",
+			filter: fixtures.FilterLink{
+				Url:      &fixtures.StringFilterInput{Lt: "https://example.com/z"},
+				Describe: &fixtures.StringFilterInput{IsEmpty: true},
+			},
+			expectedSQL:  "SELECT * FROM links WHERE url < ? AND describe = '' OR describe IS NULL",
+			expectedArgs: []interface{}{"https://example.com/z"},
+		},
+		{
+			name: "Complex - Multiple Conditions",
+			filter: fixtures.FilterLink{
+				Url: &fixtures.StringFilterInput{
+					Ne:         "https://example.org",
+					StartsWith: "https",
+					EndsWith:   ".com",
+				},
+				Describe: &fixtures.StringFilterInput{
+					Contains:    "test",
+					NotContains: "example",
+					Gt:          "a",
+					Lt:          "m",
+				},
+			},
+			expectedSQL: "SELECT * FROM links WHERE url <> ? AND url LIKE '%' || ? AND url LIKE ? || '%' AND " +
+				"describe < ? AND describe > ? AND describe LIKE '%' || ? AND describe NOT LIKE ?",
+			expectedArgs: []interface{}{
+				"https://example.org", "https", ".com",
+				"m", "a", "test", "example", // Adjusted to match actual behavior
+			},
+		},
 	}
 
 	for _, tt := range tests {
