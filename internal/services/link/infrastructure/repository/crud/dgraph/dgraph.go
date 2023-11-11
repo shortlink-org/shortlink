@@ -13,7 +13,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
 // Link implementation of db interface
@@ -138,7 +137,7 @@ query all {
 }
 
 // List - list
-func (s *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error) {
+func (s *Store) List(ctx context.Context, _ *v1.FilterLink) (*v1.Links, error) {
 	txn := s.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {

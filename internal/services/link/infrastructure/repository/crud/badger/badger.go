@@ -7,7 +7,6 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 
 	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
 // Store implementation of db interface
@@ -67,7 +66,7 @@ func (b *Store) Get(ctx context.Context, id string) (*domain.Link, error) {
 }
 
 // List - list
-func (b *Store) List(_ context.Context, _ *query.Filter) (*domain.Links, error) {
+func (b *Store) List(_ context.Context, _ *domain.FilterLink) (*domain.Links, error) {
 	var list [][]byte
 
 	err := b.client.View(func(txn *badger.Txn) error {

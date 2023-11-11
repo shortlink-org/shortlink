@@ -23,7 +23,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/saga"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud"
-	queryStore "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 	metadata_rpc "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 )
 
@@ -156,7 +155,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 // Saga:
 // 1. Check permission
 // 2. Get a list of links from store
-func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links, error) {
+func (s *Service) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, error) {
 	const (
 		SAGA_NAME                     = "LIST_LINK"
 		SAGA_STEP_LOOKUP              = "SAGA_STEP_LOOKUP"
@@ -214,11 +213,11 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 
 			// use filter
 			hash := strings.Join(myLinks, ",")
-			filter.Hash = &queryStore.StringFilterInput{
-				Contains: &hash,
+			filter.Hash = &v1.StringFilterInput{
+				Contains: hash,
 			}
 
-			links, err = s.store.List(ctx, &filter)
+			links, err = s.store.List(ctx, filter)
 			if err != nil {
 				return err
 			}

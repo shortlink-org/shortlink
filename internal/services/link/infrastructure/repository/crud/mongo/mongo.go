@@ -17,7 +17,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db/mongo/migrate"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	query2 "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
 //go:embed migrations/*.json
@@ -129,7 +128,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 }
 
 // List - list
-func (s *Store) List(ctx context.Context, filter *query2.Filter) (*v1.Links, error) {
+func (s *Store) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, error) {
 	collection := s.client.Database("shortlink").Collection("links")
 
 	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:gomnd // ignore

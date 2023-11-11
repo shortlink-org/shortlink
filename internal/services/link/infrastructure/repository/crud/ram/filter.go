@@ -8,7 +8,20 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
-func isFilterSuccess(link *domain.Link, filter *query.Filter) bool { //nolint:gocognit // ignore
+// TODO: fix this hardcode
+func GetKeys() []string {
+	return []string{
+		"Field_mask",
+		"Url",
+		"Hash",
+		"Describe",
+		"Created_at",
+		"Updated_at",
+		"Link",
+	}
+}
+
+func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool { //nolint:gocognit // ignore
 	// Skip empty filter
 	if filter == nil {
 		return true
@@ -17,7 +30,7 @@ func isFilterSuccess(link *domain.Link, filter *query.Filter) bool { //nolint:go
 	r := reflect.ValueOf(filter)
 	l := reflect.ValueOf(link)
 
-	for _, key := range filter.GetKeys() {
+	for _, key := range GetKeys() {
 		val := reflect.Indirect(r).FieldByName(key).Interface().(*query.StringFilterInput) //nolint:errcheck // ignore
 
 		// Skip empty value

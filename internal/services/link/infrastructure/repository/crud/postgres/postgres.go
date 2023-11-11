@@ -7,7 +7,6 @@ import (
 	"context"
 	"embed"
 	"errors"
-	"strings"
 
 	"github.com/Masterminds/squirrel"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
@@ -23,7 +22,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db/postgres/migrate"
 	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/postgres/schema/crud"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
 var (
@@ -112,11 +110,11 @@ func (s *Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
 }
 
 // List - return list links
-func (s *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, error) {
+func (s *Store) List(ctx context.Context, filter *domain.FilterLink) (*domain.Links, error) {
 	// Set default filter
 	if filter == nil {
-		filter = &query.Filter{
-			Pagination: &query.Pagination{
+		filter = &domain.FilterLink{
+			Pagination: &domain.Pagination{
 				Limit: 10, //nolint:gomnd // default limit
 				Page:  0,
 			},
@@ -124,10 +122,9 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, 
 	}
 
 	request := psql.Select("url", "hash", "describe", "created_at", "updated_at").
-		From("link.links").
-		Where(squirrel.Eq{"hash": strings.Split(*filter.Hash.Contains, ",")}).
-		Limit(uint64(filter.Pagination.Limit)).
-		Offset(uint64(filter.Pagination.Page * filter.Pagination.Limit))
+		From("link.links")
+
+	request = filter.BuildFilter(request)
 
 	q, args, err := request.ToSql()
 	if err != nil {

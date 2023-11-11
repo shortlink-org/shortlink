@@ -9,7 +9,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/batch"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
 // Config - config
@@ -77,7 +76,7 @@ func (s *Store) Get(_ context.Context, id string) (*domain.Link, error) {
 }
 
 // List - list
-func (s *Store) List(_ context.Context, filter *query.Filter) (*domain.Links, error) {
+func (s *Store) List(_ context.Context, filter *domain.FilterLink) (*domain.Links, error) {
 	links := &domain.Links{
 		Link: []*domain.Link{},
 	}

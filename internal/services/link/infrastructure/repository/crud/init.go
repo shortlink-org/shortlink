@@ -21,7 +21,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mongo"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mysql"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/postgres"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/ram"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/redis"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/sqlite"
@@ -125,9 +124,9 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	return response, err
 }
 
-func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) {
+func (s *Store) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, error) {
 	if filter.Pagination == nil {
-		filter.Pagination = &query.Pagination{
+		filter.Pagination = &v1.Pagination{
 			Page:  0,
 			Limit: 10, //nolint:gomnd // ignore
 		}

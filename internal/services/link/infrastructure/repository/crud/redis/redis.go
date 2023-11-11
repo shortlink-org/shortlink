@@ -8,7 +8,6 @@ import (
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
 // Store implementation of db interface
@@ -41,7 +40,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 }
 
 // List - list
-func (s *Store) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) {
+func (s *Store) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, error) {
 	list, err := s.client.Do(ctx, s.client.B().Scan().Cursor(0).Match("*").Count(100).Build()).AsScanEntry()
 	if err != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{}}

@@ -7,13 +7,12 @@ import (
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
 // Repository abstract
 type Repository interface {
 	Get(ctx context.Context, id string) (*v1.Link, error)
-	List(ctx context.Context, filter *query.Filter) (*v1.Links, error)
+	List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, error)
 
 	Add(ctx context.Context, in *v1.Link) (*v1.Link, error)
 	Update(ctx context.Context, in *v1.Link) (*v1.Link, error)

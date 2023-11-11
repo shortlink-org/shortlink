@@ -16,7 +16,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db/mysql/migrate"
 	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mysql/schema/crud"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
 var (
@@ -64,7 +63,7 @@ func (s Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
 	}, nil
 }
 
-func (s Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, error) {
+func (s Store) List(ctx context.Context, filter *domain.FilterLink) (*domain.Links, error) {
 	links, err := s.client.GetLinks(ctx)
 	if err != nil {
 		return nil, err

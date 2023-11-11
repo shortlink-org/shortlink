@@ -9,7 +9,7 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	queryStore "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
 func (l *Link) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
@@ -25,7 +25,7 @@ func (l *Link) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
 
 func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error) {
 	// Parse args
-	filter := queryStore.Filter{}
+	filter := &v1.FilterLink{}
 
 	if in.GetFilter() != "" {
 		if json.NewDecoder(strings.NewReader(in.GetFilter())).Decode(&filter) != nil {

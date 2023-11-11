@@ -9,7 +9,6 @@ import (
 
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
 // Store implementation of db interface
@@ -67,7 +66,7 @@ func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 }
 
 // List - list
-func (lite *Store) List(ctx context.Context, _ *query.Filter) (*v1.Links, error) {
+func (lite *Store) List(ctx context.Context, _ *v1.FilterLink) (*v1.Links, error) {
 	// query builder
 	links := squirrel.Select("url, hash, describe").
 		From("links")

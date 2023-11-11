@@ -7,14 +7,28 @@ import (
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 
+	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
-func getFilter(filter *query.Filter) bson.D {
+// TODO: fix this hardcode
+func GetKeys() []string {
+	return []string{
+		"Field_mask",
+		"Url",
+		"Hash",
+		"Describe",
+		"Created_at",
+		"Updated_at",
+		"Link",
+	}
+}
+
+func getFilter(filter *domain.FilterLink) bson.D {
 	filterQuery := bson.D{}
 	r := reflect.ValueOf(filter)
 
-	for _, key := range filter.GetKeys() {
+	for _, key := range GetKeys() {
 		val := reflect.Indirect(r).FieldByName(key).Interface().(*query.StringFilterInput) //nolint:errcheck // ignore
 
 		// Skip empty value
