@@ -31,6 +31,8 @@ func (s *Store) GetAggregateWithoutSnapshot(ctx context.Context) ([]*eventsourci
 		return nil, err
 	}
 
+	defer rows.Close()
+
 	var aggregates []*eventsourcing.BaseAggregate //nolint:prealloc // false positive
 
 	for rows.Next() {
@@ -52,6 +54,10 @@ func (s *Store) GetAggregateWithoutSnapshot(ctx context.Context) ([]*eventsourci
 			Type:    typeAggregate.String,
 			Version: version.Int32,
 		})
+	}
+
+	if rows.Err() != nil {
+		return nil, rows.Err()
 	}
 
 	return aggregates, nil

@@ -129,9 +129,7 @@ func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Sn
 		return nil, nil, err
 	}
 
-	if rows.Err() != nil {
-		return nil, nil, rows.Err()
-	}
+	defer rows.Close()
 
 	var events []*eventsourcing.Event //nolint:prealloc // false positive
 
@@ -145,6 +143,10 @@ func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Sn
 		}
 
 		events = append(events, &event)
+	}
+
+	if rows.Err() != nil {
+		return nil, nil, rows.Err()
 	}
 
 	return &snapshot, events, nil

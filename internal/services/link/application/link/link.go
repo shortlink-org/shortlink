@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
+	"strings"
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"github.com/authzed/authzed-go/v1"
@@ -173,6 +174,7 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 		return nil, err
 	}
 
+	myLinks := []string{}
 	_, errs = sagaListLink.AddStep(SAGA_STEP_LOOKUP).
 		Then(func(ctx context.Context) error {
 			relationship := &permission.LookupResourcesRequest{
@@ -186,7 +188,6 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 				return err
 			}
 
-			resources := []*permission.LookupResourcesResponse{}
 			for {
 				resp, errRead := stream.Recv()
 				if errRead != nil {
@@ -197,11 +198,8 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 					return errRead
 				}
 
-				resources = append(resources, resp) //nolint:staticcheck // use it later
+				myLinks = append(myLinks, resp.GetResourceObjectId())
 			}
-
-			// TODO: use filter
-			// *filter.Link.Contains = list.String()
 		}).Reject(func(ctx context.Context, thenErr error) error {
 		return &v1.PermissionDeniedError{Err: thenErr}
 	}).Build()
@@ -210,11 +208,22 @@ func (s *Service) List(ctx context.Context, filter queryStore.Filter) (*v1.Links
 	}
 
 	_, errs = sagaListLink.AddStep(SAGA_STEP_GET_LIST_FROM_STORE).
+		Needs(SAGA_STEP_LOOKUP).
 		Then(func(ctx context.Context) error {
 			var err error
-			links, err = s.store.List(ctx, &filter)
 
-			return err
+			// use filter
+			hash := strings.Join(myLinks, ",")
+			filter.Hash = &queryStore.StringFilterInput{
+				Contains: &hash,
+			}
+
+			links, err = s.store.List(ctx, &filter)
+			if err != nil {
+				return err
+			}
+
+			return nil
 		}).Build()
 	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err

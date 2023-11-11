@@ -7,10 +7,12 @@ import (
 	"context"
 	"embed"
 	"errors"
+	"strings"
 
 	"github.com/Masterminds/squirrel"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"github.com/jackc/pgx/v5/pgxpool"
+	"github.com/lib/pq"
 	_ "github.com/lib/pq" // need for init PostgreSQL interface
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -122,23 +124,49 @@ func (s *Store) List(ctx context.Context, filter *query.Filter) (*domain.Links, 
 		}
 	}
 
-	resp, err := s.query.GetLinks(ctx, crud.GetLinksParams{
-		Limit:  int32(filter.Pagination.Limit),
-		Offset: int32(filter.Pagination.Page * filter.Pagination.Limit),
-	})
+	request := psql.Select("url", "hash", "describe", "created_at", "updated_at").
+		From("link.links").
+		Where(squirrel.Eq{"hash": strings.Split(*filter.Hash.Contains, ",")}).
+		Limit(uint64(filter.Pagination.Limit)).
+		Offset(uint64(filter.Pagination.Page * filter.Pagination.Limit))
+
+	q, args, err := request.ToSql()
 	if err != nil {
 		return nil, err
 	}
 
-	links := make([]*domain.Link, 0, len(resp))
-	for key := range resp {
+	rows, err := s.client.Query(ctx, q, args...)
+	if err != nil || rows.Err() != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	links := make([]*domain.Link, 0, filter.Pagination.Limit)
+	for rows.Next() {
+		var (
+			url       string
+			hash      string
+			describe  string
+			createdAt pq.NullTime
+			updatedAt pq.NullTime
+		)
+
+		err = rows.Scan(&url, &hash, &describe, &createdAt, &updatedAt)
+		if err != nil {
+			return nil, err
+		}
+
 		links = append(links, &domain.Link{
-			Url:       resp[key].Url,
-			Hash:      resp[key].Hash,
-			Describe:  resp[key].Describe,
-			CreatedAt: timestamppb.New(resp[key].CreatedAt.Time),
-			UpdatedAt: timestamppb.New(resp[key].UpdatedAt.Time),
+			Url:       url,
+			Hash:      hash,
+			Describe:  describe,
+			CreatedAt: timestamppb.New(createdAt.Time),
+			UpdatedAt: timestamppb.New(updatedAt.Time),
 		})
+	}
+
+	if rows.Err() != nil {
+		return nil, rows.Err()
 	}
 
 	return &domain.Links{
