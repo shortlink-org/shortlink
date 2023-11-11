@@ -36,16 +36,16 @@ func (f *FilterGetRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.Se
 			query = query.Where("hash >= ?", f.Hash.Ge)
 		}
 		if f.Hash.Contains != "" {
-			query = query.Where("hash LIKE ?", "%"+f.Hash.Contains+"%")
+			query = query.Where("hash LIKE '%' || ?", f.Hash.Contains)
 		}
 		if f.Hash.NotContains != "" {
-			query = query.Where("hash NOT LIKE ?", "%"+f.Hash.NotContains+"%")
+			query = query.Where("hash NOT LIKE ?", f.Hash.NotContains)
 		}
 		if f.Hash.StartsWith != "" {
-			query = query.Where("hash LIKE ?", f.Hash.StartsWith+"%")
+			query = query.Where("hash LIKE '%' || ?", f.Hash.StartsWith)
 		}
 		if f.Hash.EndsWith != "" {
-			query = query.Where("hash LIKE ?", "%"+f.Hash.EndsWith)
+			query = query.Where("hash LIKE ? || '%'", f.Hash.EndsWith)
 		}
 		if f.Hash.IsEmpty {
 			query = query.Where("hash = '' OR hash IS NULL")
@@ -83,16 +83,16 @@ func (f *FilterGetResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.S
 			query = query.Where("link >= ?", f.Link.Ge)
 		}
 		if f.Link.Contains != "" {
-			query = query.Where("link LIKE ?", "%"+f.Link.Contains+"%")
+			query = query.Where("link LIKE '%' || ?", f.Link.Contains)
 		}
 		if f.Link.NotContains != "" {
-			query = query.Where("link NOT LIKE ?", "%"+f.Link.NotContains+"%")
+			query = query.Where("link NOT LIKE ?", f.Link.NotContains)
 		}
 		if f.Link.StartsWith != "" {
-			query = query.Where("link LIKE ?", f.Link.StartsWith+"%")
+			query = query.Where("link LIKE '%' || ?", f.Link.StartsWith)
 		}
 		if f.Link.EndsWith != "" {
-			query = query.Where("link LIKE ?", "%"+f.Link.EndsWith)
+			query = query.Where("link LIKE ? || '%'", f.Link.EndsWith)
 		}
 		if f.Link.IsEmpty {
 			query = query.Where("link = '' OR link IS NULL")
@@ -130,16 +130,16 @@ func (f *FilterListRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.S
 			query = query.Where("filter >= ?", f.Filter.Ge)
 		}
 		if f.Filter.Contains != "" {
-			query = query.Where("filter LIKE ?", "%"+f.Filter.Contains+"%")
+			query = query.Where("filter LIKE '%' || ?", f.Filter.Contains)
 		}
 		if f.Filter.NotContains != "" {
-			query = query.Where("filter NOT LIKE ?", "%"+f.Filter.NotContains+"%")
+			query = query.Where("filter NOT LIKE ?", f.Filter.NotContains)
 		}
 		if f.Filter.StartsWith != "" {
-			query = query.Where("filter LIKE ?", f.Filter.StartsWith+"%")
+			query = query.Where("filter LIKE '%' || ?", f.Filter.StartsWith)
 		}
 		if f.Filter.EndsWith != "" {
-			query = query.Where("filter LIKE ?", "%"+f.Filter.EndsWith)
+			query = query.Where("filter LIKE ? || '%'", f.Filter.EndsWith)
 		}
 		if f.Filter.IsEmpty {
 			query = query.Where("filter = '' OR filter IS NULL")
@@ -177,16 +177,16 @@ func (f *FilterListResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.
 			query = query.Where("links >= ?", f.Links.Ge)
 		}
 		if f.Links.Contains != "" {
-			query = query.Where("links LIKE ?", "%"+f.Links.Contains+"%")
+			query = query.Where("links LIKE '%' || ?", f.Links.Contains)
 		}
 		if f.Links.NotContains != "" {
-			query = query.Where("links NOT LIKE ?", "%"+f.Links.NotContains+"%")
+			query = query.Where("links NOT LIKE ?", f.Links.NotContains)
 		}
 		if f.Links.StartsWith != "" {
-			query = query.Where("links LIKE ?", f.Links.StartsWith+"%")
+			query = query.Where("links LIKE '%' || ?", f.Links.StartsWith)
 		}
 		if f.Links.EndsWith != "" {
-			query = query.Where("links LIKE ?", "%"+f.Links.EndsWith)
+			query = query.Where("links LIKE ? || '%'", f.Links.EndsWith)
 		}
 		if f.Links.IsEmpty {
 			query = query.Where("links = '' OR links IS NULL")

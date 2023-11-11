@@ -44,16 +44,16 @@ func (f *FilterLinkView) BuildFilter(query squirrel.SelectBuilder) squirrel.Sele
 			query = query.Where("fieldmask >= ?", f.FieldMask.Ge)
 		}
 		if f.FieldMask.Contains != "" {
-			query = query.Where("fieldmask LIKE ?", "%"+f.FieldMask.Contains+"%")
+			query = query.Where("fieldmask LIKE '%' || ?", f.FieldMask.Contains)
 		}
 		if f.FieldMask.NotContains != "" {
-			query = query.Where("fieldmask NOT LIKE ?", "%"+f.FieldMask.NotContains+"%")
+			query = query.Where("fieldmask NOT LIKE ?", f.FieldMask.NotContains)
 		}
 		if f.FieldMask.StartsWith != "" {
-			query = query.Where("fieldmask LIKE ?", f.FieldMask.StartsWith+"%")
+			query = query.Where("fieldmask LIKE '%' || ?", f.FieldMask.StartsWith)
 		}
 		if f.FieldMask.EndsWith != "" {
-			query = query.Where("fieldmask LIKE ?", "%"+f.FieldMask.EndsWith)
+			query = query.Where("fieldmask LIKE ? || '%'", f.FieldMask.EndsWith)
 		}
 		if f.FieldMask.IsEmpty {
 			query = query.Where("fieldmask = '' OR fieldmask IS NULL")
@@ -82,16 +82,16 @@ func (f *FilterLinkView) BuildFilter(query squirrel.SelectBuilder) squirrel.Sele
 			query = query.Where("url >= ?", f.Url.Ge)
 		}
 		if f.Url.Contains != "" {
-			query = query.Where("url LIKE ?", "%"+f.Url.Contains+"%")
+			query = query.Where("url LIKE '%' || ?", f.Url.Contains)
 		}
 		if f.Url.NotContains != "" {
-			query = query.Where("url NOT LIKE ?", "%"+f.Url.NotContains+"%")
+			query = query.Where("url NOT LIKE ?", f.Url.NotContains)
 		}
 		if f.Url.StartsWith != "" {
-			query = query.Where("url LIKE ?", f.Url.StartsWith+"%")
+			query = query.Where("url LIKE '%' || ?", f.Url.StartsWith)
 		}
 		if f.Url.EndsWith != "" {
-			query = query.Where("url LIKE ?", "%"+f.Url.EndsWith)
+			query = query.Where("url LIKE ? || '%'", f.Url.EndsWith)
 		}
 		if f.Url.IsEmpty {
 			query = query.Where("url = '' OR url IS NULL")
@@ -120,16 +120,16 @@ func (f *FilterLinkView) BuildFilter(query squirrel.SelectBuilder) squirrel.Sele
 			query = query.Where("hash >= ?", f.Hash.Ge)
 		}
 		if f.Hash.Contains != "" {
-			query = query.Where("hash LIKE ?", "%"+f.Hash.Contains+"%")
+			query = query.Where("hash LIKE '%' || ?", f.Hash.Contains)
 		}
 		if f.Hash.NotContains != "" {
-			query = query.Where("hash NOT LIKE ?", "%"+f.Hash.NotContains+"%")
+			query = query.Where("hash NOT LIKE ?", f.Hash.NotContains)
 		}
 		if f.Hash.StartsWith != "" {
-			query = query.Where("hash LIKE ?", f.Hash.StartsWith+"%")
+			query = query.Where("hash LIKE '%' || ?", f.Hash.StartsWith)
 		}
 		if f.Hash.EndsWith != "" {
-			query = query.Where("hash LIKE ?", "%"+f.Hash.EndsWith)
+			query = query.Where("hash LIKE ? || '%'", f.Hash.EndsWith)
 		}
 		if f.Hash.IsEmpty {
 			query = query.Where("hash = '' OR hash IS NULL")
@@ -158,16 +158,16 @@ func (f *FilterLinkView) BuildFilter(query squirrel.SelectBuilder) squirrel.Sele
 			query = query.Where("describe >= ?", f.Describe.Ge)
 		}
 		if f.Describe.Contains != "" {
-			query = query.Where("describe LIKE ?", "%"+f.Describe.Contains+"%")
+			query = query.Where("describe LIKE '%' || ?", f.Describe.Contains)
 		}
 		if f.Describe.NotContains != "" {
-			query = query.Where("describe NOT LIKE ?", "%"+f.Describe.NotContains+"%")
+			query = query.Where("describe NOT LIKE ?", f.Describe.NotContains)
 		}
 		if f.Describe.StartsWith != "" {
-			query = query.Where("describe LIKE ?", f.Describe.StartsWith+"%")
+			query = query.Where("describe LIKE '%' || ?", f.Describe.StartsWith)
 		}
 		if f.Describe.EndsWith != "" {
-			query = query.Where("describe LIKE ?", "%"+f.Describe.EndsWith)
+			query = query.Where("describe LIKE ? || '%'", f.Describe.EndsWith)
 		}
 		if f.Describe.IsEmpty {
 			query = query.Where("describe = '' OR describe IS NULL")
@@ -196,16 +196,16 @@ func (f *FilterLinkView) BuildFilter(query squirrel.SelectBuilder) squirrel.Sele
 			query = query.Where("imageurl >= ?", f.ImageUrl.Ge)
 		}
 		if f.ImageUrl.Contains != "" {
-			query = query.Where("imageurl LIKE ?", "%"+f.ImageUrl.Contains+"%")
+			query = query.Where("imageurl LIKE '%' || ?", f.ImageUrl.Contains)
 		}
 		if f.ImageUrl.NotContains != "" {
-			query = query.Where("imageurl NOT LIKE ?", "%"+f.ImageUrl.NotContains+"%")
+			query = query.Where("imageurl NOT LIKE ?", f.ImageUrl.NotContains)
 		}
 		if f.ImageUrl.StartsWith != "" {
-			query = query.Where("imageurl LIKE ?", f.ImageUrl.StartsWith+"%")
+			query = query.Where("imageurl LIKE '%' || ?", f.ImageUrl.StartsWith)
 		}
 		if f.ImageUrl.EndsWith != "" {
-			query = query.Where("imageurl LIKE ?", "%"+f.ImageUrl.EndsWith)
+			query = query.Where("imageurl LIKE ? || '%'", f.ImageUrl.EndsWith)
 		}
 		if f.ImageUrl.IsEmpty {
 			query = query.Where("imageurl = '' OR imageurl IS NULL")
@@ -234,16 +234,16 @@ func (f *FilterLinkView) BuildFilter(query squirrel.SelectBuilder) squirrel.Sele
 			query = query.Where("metadescription >= ?", f.MetaDescription.Ge)
 		}
 		if f.MetaDescription.Contains != "" {
-			query = query.Where("metadescription LIKE ?", "%"+f.MetaDescription.Contains+"%")
+			query = query.Where("metadescription LIKE '%' || ?", f.MetaDescription.Contains)
 		}
 		if f.MetaDescription.NotContains != "" {
-			query = query.Where("metadescription NOT LIKE ?", "%"+f.MetaDescription.NotContains+"%")
+			query = query.Where("metadescription NOT LIKE ?", f.MetaDescription.NotContains)
 		}
 		if f.MetaDescription.StartsWith != "" {
-			query = query.Where("metadescription LIKE ?", f.MetaDescription.StartsWith+"%")
+			query = query.Where("metadescription LIKE '%' || ?", f.MetaDescription.StartsWith)
 		}
 		if f.MetaDescription.EndsWith != "" {
-			query = query.Where("metadescription LIKE ?", "%"+f.MetaDescription.EndsWith)
+			query = query.Where("metadescription LIKE ? || '%'", f.MetaDescription.EndsWith)
 		}
 		if f.MetaDescription.IsEmpty {
 			query = query.Where("metadescription = '' OR metadescription IS NULL")
@@ -272,16 +272,16 @@ func (f *FilterLinkView) BuildFilter(query squirrel.SelectBuilder) squirrel.Sele
 			query = query.Where("metakeywords >= ?", f.MetaKeywords.Ge)
 		}
 		if f.MetaKeywords.Contains != "" {
-			query = query.Where("metakeywords LIKE ?", "%"+f.MetaKeywords.Contains+"%")
+			query = query.Where("metakeywords LIKE '%' || ?", f.MetaKeywords.Contains)
 		}
 		if f.MetaKeywords.NotContains != "" {
-			query = query.Where("metakeywords NOT LIKE ?", "%"+f.MetaKeywords.NotContains+"%")
+			query = query.Where("metakeywords NOT LIKE ?", f.MetaKeywords.NotContains)
 		}
 		if f.MetaKeywords.StartsWith != "" {
-			query = query.Where("metakeywords LIKE ?", f.MetaKeywords.StartsWith+"%")
+			query = query.Where("metakeywords LIKE '%' || ?", f.MetaKeywords.StartsWith)
 		}
 		if f.MetaKeywords.EndsWith != "" {
-			query = query.Where("metakeywords LIKE ?", "%"+f.MetaKeywords.EndsWith)
+			query = query.Where("metakeywords LIKE ? || '%'", f.MetaKeywords.EndsWith)
 		}
 		if f.MetaKeywords.IsEmpty {
 			query = query.Where("metakeywords = '' OR metakeywords IS NULL")
@@ -310,16 +310,16 @@ func (f *FilterLinkView) BuildFilter(query squirrel.SelectBuilder) squirrel.Sele
 			query = query.Where("createdat >= ?", f.CreatedAt.Ge)
 		}
 		if f.CreatedAt.Contains != "" {
-			query = query.Where("createdat LIKE ?", "%"+f.CreatedAt.Contains+"%")
+			query = query.Where("createdat LIKE '%' || ?", f.CreatedAt.Contains)
 		}
 		if f.CreatedAt.NotContains != "" {
-			query = query.Where("createdat NOT LIKE ?", "%"+f.CreatedAt.NotContains+"%")
+			query = query.Where("createdat NOT LIKE ?", f.CreatedAt.NotContains)
 		}
 		if f.CreatedAt.StartsWith != "" {
-			query = query.Where("createdat LIKE ?", f.CreatedAt.StartsWith+"%")
+			query = query.Where("createdat LIKE '%' || ?", f.CreatedAt.StartsWith)
 		}
 		if f.CreatedAt.EndsWith != "" {
-			query = query.Where("createdat LIKE ?", "%"+f.CreatedAt.EndsWith)
+			query = query.Where("createdat LIKE ? || '%'", f.CreatedAt.EndsWith)
 		}
 		if f.CreatedAt.IsEmpty {
 			query = query.Where("createdat = '' OR createdat IS NULL")
@@ -348,16 +348,16 @@ func (f *FilterLinkView) BuildFilter(query squirrel.SelectBuilder) squirrel.Sele
 			query = query.Where("updatedat >= ?", f.UpdatedAt.Ge)
 		}
 		if f.UpdatedAt.Contains != "" {
-			query = query.Where("updatedat LIKE ?", "%"+f.UpdatedAt.Contains+"%")
+			query = query.Where("updatedat LIKE '%' || ?", f.UpdatedAt.Contains)
 		}
 		if f.UpdatedAt.NotContains != "" {
-			query = query.Where("updatedat NOT LIKE ?", "%"+f.UpdatedAt.NotContains+"%")
+			query = query.Where("updatedat NOT LIKE ?", f.UpdatedAt.NotContains)
 		}
 		if f.UpdatedAt.StartsWith != "" {
-			query = query.Where("updatedat LIKE ?", f.UpdatedAt.StartsWith+"%")
+			query = query.Where("updatedat LIKE '%' || ?", f.UpdatedAt.StartsWith)
 		}
 		if f.UpdatedAt.EndsWith != "" {
-			query = query.Where("updatedat LIKE ?", "%"+f.UpdatedAt.EndsWith)
+			query = query.Where("updatedat LIKE ? || '%'", f.UpdatedAt.EndsWith)
 		}
 		if f.UpdatedAt.IsEmpty {
 			query = query.Where("updatedat = '' OR updatedat IS NULL")

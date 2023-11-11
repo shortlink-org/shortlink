@@ -36,16 +36,16 @@ func (f *FilterAddRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.Se
 			query = query.Where("link >= ?", f.Link.Ge)
 		}
 		if f.Link.Contains != "" {
-			query = query.Where("link LIKE ?", "%"+f.Link.Contains+"%")
+			query = query.Where("link LIKE '%' || ?", f.Link.Contains)
 		}
 		if f.Link.NotContains != "" {
-			query = query.Where("link NOT LIKE ?", "%"+f.Link.NotContains+"%")
+			query = query.Where("link NOT LIKE ?", f.Link.NotContains)
 		}
 		if f.Link.StartsWith != "" {
-			query = query.Where("link LIKE ?", f.Link.StartsWith+"%")
+			query = query.Where("link LIKE '%' || ?", f.Link.StartsWith)
 		}
 		if f.Link.EndsWith != "" {
-			query = query.Where("link LIKE ?", "%"+f.Link.EndsWith)
+			query = query.Where("link LIKE ? || '%'", f.Link.EndsWith)
 		}
 		if f.Link.IsEmpty {
 			query = query.Where("link = '' OR link IS NULL")
@@ -83,16 +83,16 @@ func (f *FilterAddResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.S
 			query = query.Where("link >= ?", f.Link.Ge)
 		}
 		if f.Link.Contains != "" {
-			query = query.Where("link LIKE ?", "%"+f.Link.Contains+"%")
+			query = query.Where("link LIKE '%' || ?", f.Link.Contains)
 		}
 		if f.Link.NotContains != "" {
-			query = query.Where("link NOT LIKE ?", "%"+f.Link.NotContains+"%")
+			query = query.Where("link NOT LIKE ?", f.Link.NotContains)
 		}
 		if f.Link.StartsWith != "" {
-			query = query.Where("link LIKE ?", f.Link.StartsWith+"%")
+			query = query.Where("link LIKE '%' || ?", f.Link.StartsWith)
 		}
 		if f.Link.EndsWith != "" {
-			query = query.Where("link LIKE ?", "%"+f.Link.EndsWith)
+			query = query.Where("link LIKE ? || '%'", f.Link.EndsWith)
 		}
 		if f.Link.IsEmpty {
 			query = query.Where("link = '' OR link IS NULL")
@@ -130,16 +130,16 @@ func (f *FilterUpdateRequest) BuildFilter(query squirrel.SelectBuilder) squirrel
 			query = query.Where("link >= ?", f.Link.Ge)
 		}
 		if f.Link.Contains != "" {
-			query = query.Where("link LIKE ?", "%"+f.Link.Contains+"%")
+			query = query.Where("link LIKE '%' || ?", f.Link.Contains)
 		}
 		if f.Link.NotContains != "" {
-			query = query.Where("link NOT LIKE ?", "%"+f.Link.NotContains+"%")
+			query = query.Where("link NOT LIKE ?", f.Link.NotContains)
 		}
 		if f.Link.StartsWith != "" {
-			query = query.Where("link LIKE ?", f.Link.StartsWith+"%")
+			query = query.Where("link LIKE '%' || ?", f.Link.StartsWith)
 		}
 		if f.Link.EndsWith != "" {
-			query = query.Where("link LIKE ?", "%"+f.Link.EndsWith)
+			query = query.Where("link LIKE ? || '%'", f.Link.EndsWith)
 		}
 		if f.Link.IsEmpty {
 			query = query.Where("link = '' OR link IS NULL")
@@ -177,16 +177,16 @@ func (f *FilterUpdateResponse) BuildFilter(query squirrel.SelectBuilder) squirre
 			query = query.Where("link >= ?", f.Link.Ge)
 		}
 		if f.Link.Contains != "" {
-			query = query.Where("link LIKE ?", "%"+f.Link.Contains+"%")
+			query = query.Where("link LIKE '%' || ?", f.Link.Contains)
 		}
 		if f.Link.NotContains != "" {
-			query = query.Where("link NOT LIKE ?", "%"+f.Link.NotContains+"%")
+			query = query.Where("link NOT LIKE ?", f.Link.NotContains)
 		}
 		if f.Link.StartsWith != "" {
-			query = query.Where("link LIKE ?", f.Link.StartsWith+"%")
+			query = query.Where("link LIKE '%' || ?", f.Link.StartsWith)
 		}
 		if f.Link.EndsWith != "" {
-			query = query.Where("link LIKE ?", "%"+f.Link.EndsWith)
+			query = query.Where("link LIKE ? || '%'", f.Link.EndsWith)
 		}
 		if f.Link.IsEmpty {
 			query = query.Where("link = '' OR link IS NULL")
@@ -224,16 +224,16 @@ func (f *FilterDeleteRequest) BuildFilter(query squirrel.SelectBuilder) squirrel
 			query = query.Where("hash >= ?", f.Hash.Ge)
 		}
 		if f.Hash.Contains != "" {
-			query = query.Where("hash LIKE ?", "%"+f.Hash.Contains+"%")
+			query = query.Where("hash LIKE '%' || ?", f.Hash.Contains)
 		}
 		if f.Hash.NotContains != "" {
-			query = query.Where("hash NOT LIKE ?", "%"+f.Hash.NotContains+"%")
+			query = query.Where("hash NOT LIKE ?", f.Hash.NotContains)
 		}
 		if f.Hash.StartsWith != "" {
-			query = query.Where("hash LIKE ?", f.Hash.StartsWith+"%")
+			query = query.Where("hash LIKE '%' || ?", f.Hash.StartsWith)
 		}
 		if f.Hash.EndsWith != "" {
-			query = query.Where("hash LIKE ?", "%"+f.Hash.EndsWith)
+			query = query.Where("hash LIKE ? || '%'", f.Hash.EndsWith)
 		}
 		if f.Hash.IsEmpty {
 			query = query.Where("hash = '' OR hash IS NULL")

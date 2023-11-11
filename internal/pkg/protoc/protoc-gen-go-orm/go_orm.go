@@ -76,78 +76,23 @@ func processFile(file *protogen.File, g *protogen.GeneratedFile) {
 }
 
 func generateStructForMessage(message *protogen.Message, g *protogen.GeneratedFile) {
+	// Generate the BuildFilter method
 	structName := "Filter" + message.GoIdent.GoName
 	g.P("type ", structName, " struct {")
 	for _, field := range message.Fields {
 		if field.Desc.IsList() || field.Desc.IsMap() {
-			// Skipping list or map fields for simplicity
 			continue
 		}
 
 		fieldName := field.GoName
-		goType := "StringFilterInput" // assuming all fields are converted to StringFilterInput
-
-		// Make the field a pointer
-		goType = "*" + goType
-
+		goType := "*" + "StringFilterInput"
 		g.P(fieldName, " ", goType, " `json:\"", strings.ToLower(fieldName), "\"`")
 	}
-
-	// Optionally, add pagination fields
 	g.P("Pagination ", "*Pagination", " `json:\"pagination,omitempty\"`")
 	g.P("}")
 	g.P()
 
-	// Generate the BuildFilter method
-	g.P("func (f *", structName, ") BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {")
-	for _, field := range message.Fields {
-		if field.Desc.IsList() || field.Desc.IsMap() {
-			continue
-		}
-		fieldName := field.GoName
-		dbColumnName := strings.ToLower(fieldName) // Adjust this as per your DB column naming conventions
-		g.P("if f.", fieldName, " != nil {")
-		g.P("if f.", fieldName, ".Eq != \"\" {")
-		g.P("query = query.Where(\"", dbColumnName, " = ?\", f.", fieldName, ".Eq)")
-		g.P("}")
-		g.P("if f.", fieldName, ".Ne != \"\" {")
-		g.P("query = query.Where(\"", dbColumnName, " <> ?\", f.", fieldName, ".Ne)")
-		g.P("}")
-		g.P("if f.", fieldName, ".Lt != \"\" {")
-		g.P("query = query.Where(\"", dbColumnName, " < ?\", f.", fieldName, ".Lt)")
-		g.P("}")
-		g.P("if f.", fieldName, ".Le != \"\" {")
-		g.P("query = query.Where(\"", dbColumnName, " <= ?\", f.", fieldName, ".Le)")
-		g.P("}")
-		g.P("if f.", fieldName, ".Gt != \"\" {")
-		g.P("query = query.Where(\"", dbColumnName, " > ?\", f.", fieldName, ".Gt)")
-		g.P("}")
-		g.P("if f.", fieldName, ".Ge != \"\" {")
-		g.P("query = query.Where(\"", dbColumnName, " >= ?\", f.", fieldName, ".Ge)")
-		g.P("}")
-		g.P("if f.", fieldName, ".Contains != \"\" {")
-		g.P("query = query.Where(\"", dbColumnName, " LIKE ?\", \"%\" + f.", fieldName, ".Contains + \"%\")")
-		g.P("}")
-		g.P("if f.", fieldName, ".NotContains != \"\" {")
-		g.P("query = query.Where(\"", dbColumnName, " NOT LIKE ?\", \"%\" + f.", fieldName, ".NotContains + \"%\")")
-		g.P("}")
-		g.P("if f.", fieldName, ".StartsWith != \"\" {")
-		g.P("query = query.Where(\"", dbColumnName, " LIKE ?\", f.", fieldName, ".StartsWith + \"%\")")
-		g.P("}")
-		g.P("if f.", fieldName, ".EndsWith != \"\" {")
-		g.P("query = query.Where(\"", dbColumnName, " LIKE ?\", \"%\" + f.", fieldName, ".EndsWith)")
-		g.P("}")
-		g.P("if f.", fieldName, ".IsEmpty {")
-		g.P("query = query.Where(\"", dbColumnName, " = '' OR ", dbColumnName, " IS NULL\")")
-		g.P("}")
-		g.P("if f.", fieldName, ".IsNotEmpty {")
-		g.P("query = query.Where(\"", dbColumnName, " <> '' AND ", dbColumnName, " IS NOT NULL\")")
-		g.P("}")
-		g.P("}")
-	}
-	g.P("return query")
-	g.P("}")
-	g.P()
+	generateBuildFilterMethod(g, structName, message.Fields)
 }
 
 func generateCommonFile(gen *protogen.Plugin, file *protogen.File) {
@@ -182,4 +127,48 @@ func generateCommonFile(gen *protogen.Plugin, file *protogen.File) {
 	g.P("    Limit int")
 	g.P("}")
 	g.P()
+}
+
+func generateBuildFilterMethod(g *protogen.GeneratedFile, structName string, fields []*protogen.Field) {
+	g.P("func (f *", structName, ") BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {")
+	for _, field := range fields {
+		if field.Desc.IsList() || field.Desc.IsMap() {
+			continue
+		}
+		fieldName := field.GoName
+		dbColumnName := strings.ToLower(fieldName)
+		generateFieldFilterConditions(g, fieldName, dbColumnName)
+	}
+	g.P("return query")
+	g.P("}")
+}
+
+func generateFieldFilterConditions(g *protogen.GeneratedFile, fieldName, dbColumnName string) {
+	conditions := []string{"Eq", "Ne", "Lt", "Le", "Gt", "Ge", "Contains", "NotContains", "StartsWith", "EndsWith"}
+	operators := []string{"=", "<>", "<", "<=", ">", ">=", "LIKE", "NOT LIKE", "LIKE", "LIKE"}
+
+	g.P("if f.", fieldName, " != nil {") // nil pointer check
+
+	for i, cond := range conditions {
+		op := operators[i]
+		valuePlaceholder := "?"
+		if cond == "Contains" || cond == "StartsWith" {
+			valuePlaceholder = "'%' || ?"
+		} else if cond == "EndsWith" {
+			valuePlaceholder = "? || '%'"
+		}
+		g.P("if f.", fieldName, ".", cond, " != \"\" {")
+		g.P("query = query.Where(\"", dbColumnName, " ", op, " ", valuePlaceholder, "\", f.", fieldName, ".", cond, ")")
+		g.P("}")
+	}
+
+	g.P("if f.", fieldName, ".IsEmpty {")
+	g.P("query = query.Where(\"", dbColumnName, " = '' OR ", dbColumnName, " IS NULL\")")
+	g.P("}")
+
+	g.P("if f.", fieldName, ".IsNotEmpty {")
+	g.P("query = query.Where(\"", dbColumnName, " <> '' AND ", dbColumnName, " IS NOT NULL\")")
+	g.P("}")
+
+	g.P("}") // End of nil pointer check
 }

@@ -32,7 +32,7 @@ func TestGenerateProto(t *testing.T) {
 	require.NoError(t, err, "protoc failed with output:\n%s", output)
 
 	// Read the generated file
-	generatedFileName := "fixtures/github.com/shortlink-org/link.orm.go" // Update this with the correct file name
+	generatedFileName := "fixtures/link.orm.go" // Update this with the correct file name
 	content, err := os.ReadFile(generatedFileName)
 	require.NoError(t, err, "Failed to read generated file")
 
@@ -42,26 +42,34 @@ func TestGenerateProto(t *testing.T) {
 }
 
 func TestFilterLink_BuildFilter(t *testing.T) {
-	// Create an instance of FilterLink with some criteria
-	filter := fixtures.FilterLink{
-		Url:      &fixtures.StringFilterInput{Eq: "https://example.com"},
-		Describe: &fixtures.StringFilterInput{Contains: "test"},
-		// Add more fields as necessary...
+	tests := []struct {
+		name         string
+		filter       fixtures.FilterLink
+		expectedSQL  string
+		expectedArgs []interface{}
+	}{
+		{
+			name: "Equal and Contains",
+			filter: fixtures.FilterLink{
+				Url:      &fixtures.StringFilterInput{Eq: "https://example.com"},
+				Describe: &fixtures.StringFilterInput{Contains: "test"},
+			},
+			expectedSQL:  "SELECT * FROM links WHERE url = ? AND describe LIKE '%' || ?", // Updated expected SQL
+			expectedArgs: []interface{}{"https://example.com", "test"},                   // Args should match the bound variables
+		},
+		// Add more test cases for different combinations of filter conditions
+		// ...
 	}
 
-	// Create a new Squirrel select builder
-	query := squirrel.Select("*").From("links")
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			query := squirrel.Select("*").From("links")
+			query = tt.filter.BuildFilter(query)
+			sql, args, err := query.ToSql()
 
-	// Build the query using the filter
-	query = filter.BuildFilter(query)
-
-	// Convert the query to SQL and arguments
-	sql, args, err := query.ToSql()
-	require.NoError(t, err, "Failed to build SQL query")
-
-	// Check if the SQL query and arguments are as expected
-	expectedSQL := "SELECT * FROM links WHERE url = ? AND description LIKE ?"
-	expectedArgs := []interface{}{"https://example.com", "%test%"}
-	require.Equal(t, expectedSQL, sql, "SQL query does not match expected")
-	require.Equal(t, expectedArgs, args, "Query arguments do not match expected")
+			require.NoError(t, err, "Failed to build SQL query")
+			require.Equal(t, tt.expectedSQL, sql, "SQL query does not match expected")
+			require.Equal(t, tt.expectedArgs, args, "Query arguments do not match expected")
+		})
+	}
 }

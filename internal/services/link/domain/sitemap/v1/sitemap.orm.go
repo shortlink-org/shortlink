@@ -39,16 +39,16 @@ func (f *FilterUrl) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBui
 			query = query.Where("loc >= ?", f.Loc.Ge)
 		}
 		if f.Loc.Contains != "" {
-			query = query.Where("loc LIKE ?", "%"+f.Loc.Contains+"%")
+			query = query.Where("loc LIKE '%' || ?", f.Loc.Contains)
 		}
 		if f.Loc.NotContains != "" {
-			query = query.Where("loc NOT LIKE ?", "%"+f.Loc.NotContains+"%")
+			query = query.Where("loc NOT LIKE ?", f.Loc.NotContains)
 		}
 		if f.Loc.StartsWith != "" {
-			query = query.Where("loc LIKE ?", f.Loc.StartsWith+"%")
+			query = query.Where("loc LIKE '%' || ?", f.Loc.StartsWith)
 		}
 		if f.Loc.EndsWith != "" {
-			query = query.Where("loc LIKE ?", "%"+f.Loc.EndsWith)
+			query = query.Where("loc LIKE ? || '%'", f.Loc.EndsWith)
 		}
 		if f.Loc.IsEmpty {
 			query = query.Where("loc = '' OR loc IS NULL")
@@ -77,16 +77,16 @@ func (f *FilterUrl) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBui
 			query = query.Where("lastmod >= ?", f.LastMod.Ge)
 		}
 		if f.LastMod.Contains != "" {
-			query = query.Where("lastmod LIKE ?", "%"+f.LastMod.Contains+"%")
+			query = query.Where("lastmod LIKE '%' || ?", f.LastMod.Contains)
 		}
 		if f.LastMod.NotContains != "" {
-			query = query.Where("lastmod NOT LIKE ?", "%"+f.LastMod.NotContains+"%")
+			query = query.Where("lastmod NOT LIKE ?", f.LastMod.NotContains)
 		}
 		if f.LastMod.StartsWith != "" {
-			query = query.Where("lastmod LIKE ?", f.LastMod.StartsWith+"%")
+			query = query.Where("lastmod LIKE '%' || ?", f.LastMod.StartsWith)
 		}
 		if f.LastMod.EndsWith != "" {
-			query = query.Where("lastmod LIKE ?", "%"+f.LastMod.EndsWith)
+			query = query.Where("lastmod LIKE ? || '%'", f.LastMod.EndsWith)
 		}
 		if f.LastMod.IsEmpty {
 			query = query.Where("lastmod = '' OR lastmod IS NULL")
@@ -115,16 +115,16 @@ func (f *FilterUrl) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBui
 			query = query.Where("changefreq >= ?", f.ChangeFreq.Ge)
 		}
 		if f.ChangeFreq.Contains != "" {
-			query = query.Where("changefreq LIKE ?", "%"+f.ChangeFreq.Contains+"%")
+			query = query.Where("changefreq LIKE '%' || ?", f.ChangeFreq.Contains)
 		}
 		if f.ChangeFreq.NotContains != "" {
-			query = query.Where("changefreq NOT LIKE ?", "%"+f.ChangeFreq.NotContains+"%")
+			query = query.Where("changefreq NOT LIKE ?", f.ChangeFreq.NotContains)
 		}
 		if f.ChangeFreq.StartsWith != "" {
-			query = query.Where("changefreq LIKE ?", f.ChangeFreq.StartsWith+"%")
+			query = query.Where("changefreq LIKE '%' || ?", f.ChangeFreq.StartsWith)
 		}
 		if f.ChangeFreq.EndsWith != "" {
-			query = query.Where("changefreq LIKE ?", "%"+f.ChangeFreq.EndsWith)
+			query = query.Where("changefreq LIKE ? || '%'", f.ChangeFreq.EndsWith)
 		}
 		if f.ChangeFreq.IsEmpty {
 			query = query.Where("changefreq = '' OR changefreq IS NULL")
@@ -153,16 +153,16 @@ func (f *FilterUrl) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBui
 			query = query.Where("priority >= ?", f.Priority.Ge)
 		}
 		if f.Priority.Contains != "" {
-			query = query.Where("priority LIKE ?", "%"+f.Priority.Contains+"%")
+			query = query.Where("priority LIKE '%' || ?", f.Priority.Contains)
 		}
 		if f.Priority.NotContains != "" {
-			query = query.Where("priority NOT LIKE ?", "%"+f.Priority.NotContains+"%")
+			query = query.Where("priority NOT LIKE ?", f.Priority.NotContains)
 		}
 		if f.Priority.StartsWith != "" {
-			query = query.Where("priority LIKE ?", f.Priority.StartsWith+"%")
+			query = query.Where("priority LIKE '%' || ?", f.Priority.StartsWith)
 		}
 		if f.Priority.EndsWith != "" {
-			query = query.Where("priority LIKE ?", "%"+f.Priority.EndsWith)
+			query = query.Where("priority LIKE ? || '%'", f.Priority.EndsWith)
 		}
 		if f.Priority.IsEmpty {
 			query = query.Where("priority = '' OR priority IS NULL")

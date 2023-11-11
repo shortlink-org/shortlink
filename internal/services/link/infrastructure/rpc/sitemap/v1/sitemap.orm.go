@@ -36,16 +36,16 @@ func (f *FilterParseRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.
 			query = query.Where("url >= ?", f.Url.Ge)
 		}
 		if f.Url.Contains != "" {
-			query = query.Where("url LIKE ?", "%"+f.Url.Contains+"%")
+			query = query.Where("url LIKE '%' || ?", f.Url.Contains)
 		}
 		if f.Url.NotContains != "" {
-			query = query.Where("url NOT LIKE ?", "%"+f.Url.NotContains+"%")
+			query = query.Where("url NOT LIKE ?", f.Url.NotContains)
 		}
 		if f.Url.StartsWith != "" {
-			query = query.Where("url LIKE ?", f.Url.StartsWith+"%")
+			query = query.Where("url LIKE '%' || ?", f.Url.StartsWith)
 		}
 		if f.Url.EndsWith != "" {
-			query = query.Where("url LIKE ?", "%"+f.Url.EndsWith)
+			query = query.Where("url LIKE ? || '%'", f.Url.EndsWith)
 		}
 		if f.Url.IsEmpty {
 			query = query.Where("url = '' OR url IS NULL")
