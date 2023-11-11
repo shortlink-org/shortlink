@@ -3,6 +3,8 @@
 
 package batch
 
-func FuzzBatch(data []byte) int {
-	return 1
+func FuzzBatch(f *testing.F) {
+	f.Fuzz(func(t *testing.T, input string) {
+		// Do something with input
+	})
 }
