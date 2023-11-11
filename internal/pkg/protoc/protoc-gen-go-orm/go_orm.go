@@ -131,6 +131,7 @@ func generateCommonFile(gen *protogen.Plugin, file *protogen.File) {
 
 func generateBuildFilterMethod(g *protogen.GeneratedFile, structName string, fields []*protogen.Field) {
 	g.P("func (f *", structName, ") BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {")
+
 	for _, field := range fields {
 		if field.Desc.IsList() || field.Desc.IsMap() {
 			continue
@@ -139,6 +140,17 @@ func generateBuildFilterMethod(g *protogen.GeneratedFile, structName string, fie
 		dbColumnName := strings.ToLower(fieldName)
 		generateFieldFilterConditions(g, fieldName, dbColumnName)
 	}
+
+	// Add pagination logic
+	g.P("if f.Pagination != nil {")
+	g.P("if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {")
+	g.P("offset := (f.Pagination.Page - 1) * f.Pagination.Limit")
+	g.P("query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))")
+	g.P("} else if f.Pagination.Limit > 0 {")
+	g.P("query = query.Limit(uint64(f.Pagination.Limit))")
+	g.P("}")
+	g.P("}")
+
 	g.P("return query")
 	g.P("}")
 }

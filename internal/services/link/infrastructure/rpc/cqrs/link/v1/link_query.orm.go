@@ -54,6 +54,14 @@ func (f *FilterGetRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.Se
 			query = query.Where("hash <> '' AND hash IS NOT NULL")
 		}
 	}
+	if f.Pagination != nil {
+		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
+			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
+			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
+		} else if f.Pagination.Limit > 0 {
+			query = query.Limit(uint64(f.Pagination.Limit))
+		}
+	}
 	return query
 }
 
@@ -99,6 +107,14 @@ func (f *FilterGetResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.S
 		}
 		if f.Link.IsNotEmpty {
 			query = query.Where("link <> '' AND link IS NOT NULL")
+		}
+	}
+	if f.Pagination != nil {
+		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
+			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
+			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
+		} else if f.Pagination.Limit > 0 {
+			query = query.Limit(uint64(f.Pagination.Limit))
 		}
 	}
 	return query
@@ -148,6 +164,14 @@ func (f *FilterListRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.S
 			query = query.Where("filter <> '' AND filter IS NOT NULL")
 		}
 	}
+	if f.Pagination != nil {
+		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
+			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
+			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
+		} else if f.Pagination.Limit > 0 {
+			query = query.Limit(uint64(f.Pagination.Limit))
+		}
+	}
 	return query
 }
 
@@ -193,6 +217,14 @@ func (f *FilterListResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.
 		}
 		if f.Links.IsNotEmpty {
 			query = query.Where("links <> '' AND links IS NOT NULL")
+		}
+	}
+	if f.Pagination != nil {
+		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
+			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
+			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
+		} else if f.Pagination.Limit > 0 {
+			query = query.Limit(uint64(f.Pagination.Limit))
 		}
 	}
 	return query

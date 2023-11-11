@@ -106,6 +106,22 @@ func TestFilterLink_BuildFilter(t *testing.T) {
 				"m", "a", "test", "example", // Adjusted to match actual behavior
 			},
 		},
+		{
+			name: "Pagination - First Page",
+			filter: fixtures.FilterLink{
+				Pagination: &fixtures.Pagination{Page: 1, Limit: 10},
+			},
+			expectedSQL:  "SELECT * FROM links LIMIT 10 OFFSET 0",
+			expectedArgs: nil,
+		},
+		{
+			name: "Pagination - Second Page",
+			filter: fixtures.FilterLink{
+				Pagination: &fixtures.Pagination{Page: 2, Limit: 10},
+			},
+			expectedSQL:  "SELECT * FROM links LIMIT 10 OFFSET 10",
+			expectedArgs: nil,
+		},
 	}
 
 	for _, tt := range tests {

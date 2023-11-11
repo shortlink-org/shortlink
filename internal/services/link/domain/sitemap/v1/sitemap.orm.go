@@ -171,6 +171,14 @@ func (f *FilterUrl) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBui
 			query = query.Where("priority <> '' AND priority IS NOT NULL")
 		}
 	}
+	if f.Pagination != nil {
+		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
+			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
+			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
+		} else if f.Pagination.Limit > 0 {
+			query = query.Limit(uint64(f.Pagination.Limit))
+		}
+	}
 	return query
 }
 
@@ -179,5 +187,13 @@ type FilterSitemap struct {
 }
 
 func (f *FilterSitemap) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
+	if f.Pagination != nil {
+		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
+			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
+			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
+		} else if f.Pagination.Limit > 0 {
+			query = query.Limit(uint64(f.Pagination.Limit))
+		}
+	}
 	return query
 }

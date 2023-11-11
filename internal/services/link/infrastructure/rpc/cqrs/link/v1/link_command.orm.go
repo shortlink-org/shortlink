@@ -54,6 +54,14 @@ func (f *FilterAddRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.Se
 			query = query.Where("link <> '' AND link IS NOT NULL")
 		}
 	}
+	if f.Pagination != nil {
+		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
+			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
+			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
+		} else if f.Pagination.Limit > 0 {
+			query = query.Limit(uint64(f.Pagination.Limit))
+		}
+	}
 	return query
 }
 
@@ -99,6 +107,14 @@ func (f *FilterAddResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.S
 		}
 		if f.Link.IsNotEmpty {
 			query = query.Where("link <> '' AND link IS NOT NULL")
+		}
+	}
+	if f.Pagination != nil {
+		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
+			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
+			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
+		} else if f.Pagination.Limit > 0 {
+			query = query.Limit(uint64(f.Pagination.Limit))
 		}
 	}
 	return query
@@ -148,6 +164,14 @@ func (f *FilterUpdateRequest) BuildFilter(query squirrel.SelectBuilder) squirrel
 			query = query.Where("link <> '' AND link IS NOT NULL")
 		}
 	}
+	if f.Pagination != nil {
+		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
+			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
+			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
+		} else if f.Pagination.Limit > 0 {
+			query = query.Limit(uint64(f.Pagination.Limit))
+		}
+	}
 	return query
 }
 
@@ -195,6 +219,14 @@ func (f *FilterUpdateResponse) BuildFilter(query squirrel.SelectBuilder) squirre
 			query = query.Where("link <> '' AND link IS NOT NULL")
 		}
 	}
+	if f.Pagination != nil {
+		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
+			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
+			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
+		} else if f.Pagination.Limit > 0 {
+			query = query.Limit(uint64(f.Pagination.Limit))
+		}
+	}
 	return query
 }
 
@@ -240,6 +272,14 @@ func (f *FilterDeleteRequest) BuildFilter(query squirrel.SelectBuilder) squirrel
 		}
 		if f.Hash.IsNotEmpty {
 			query = query.Where("hash <> '' AND hash IS NOT NULL")
+		}
+	}
+	if f.Pagination != nil {
+		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
+			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
+			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
+		} else if f.Pagination.Limit > 0 {
+			query = query.Limit(uint64(f.Pagination.Limit))
 		}
 	}
 	return query
