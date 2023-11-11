@@ -6,7 +6,10 @@ import (
 	"path/filepath"
 	"testing"
 
+	"github.com/Masterminds/squirrel"
 	"github.com/stretchr/testify/require"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/protoc/protoc-gen-go-orm/fixtures"
 )
 
 // TestGenerateFile tests the generateFile function of the plugin
@@ -36,10 +39,29 @@ func TestGenerateProto(t *testing.T) {
 	// Check if the content of the generated file is as expected
 	expectedContent := "type FilterLink struct {" // Update this with the expected content
 	require.Contains(t, string(content), expectedContent, "Generated file does not contain expected content")
+}
 
-	t.Cleanup(func() {
-		// Remove the generated file
-		err := os.RemoveAll("fixtures/github.com")
-		require.NoError(t, err, "Failed to remove generated file")
-	})
+func TestFilterLink_BuildFilter(t *testing.T) {
+	// Create an instance of FilterLink with some criteria
+	filter := fixtures.FilterLink{
+		Url:      &fixtures.StringFilterInput{Eq: "https://example.com"},
+		Describe: &fixtures.StringFilterInput{Contains: "test"},
+		// Add more fields as necessary...
+	}
+
+	// Create a new Squirrel select builder
+	query := squirrel.Select("*").From("links")
+
+	// Build the query using the filter
+	query = filter.BuildFilter(query)
+
+	// Convert the query to SQL and arguments
+	sql, args, err := query.ToSql()
+	require.NoError(t, err, "Failed to build SQL query")
+
+	// Check if the SQL query and arguments are as expected
+	expectedSQL := "SELECT * FROM links WHERE url = ? AND description LIKE ?"
+	expectedArgs := []interface{}{"https://example.com", "%test%"}
+	require.Equal(t, expectedSQL, sql, "SQL query does not match expected")
+	require.Equal(t, expectedArgs, args, "Query arguments do not match expected")
 }

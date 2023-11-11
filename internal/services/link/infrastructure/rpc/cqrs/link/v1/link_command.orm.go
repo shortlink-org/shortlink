@@ -6,9 +6,55 @@
 
 package v1
 
+import (
+	"github.com/Masterminds/squirrel"
+)
+
 type FilterAddRequest struct {
 	Link       *StringFilterInput `json:"link"`
 	Pagination *Pagination        `json:"pagination,omitempty"`
+}
+
+func (f *FilterAddRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
+	if f.Link != nil {
+		if f.Link.Eq != "" {
+			query = query.Where("link = ?", f.Link.Eq)
+		}
+		if f.Link.Ne != "" {
+			query = query.Where("link <> ?", f.Link.Ne)
+		}
+		if f.Link.Lt != "" {
+			query = query.Where("link < ?", f.Link.Lt)
+		}
+		if f.Link.Le != "" {
+			query = query.Where("link <= ?", f.Link.Le)
+		}
+		if f.Link.Gt != "" {
+			query = query.Where("link > ?", f.Link.Gt)
+		}
+		if f.Link.Ge != "" {
+			query = query.Where("link >= ?", f.Link.Ge)
+		}
+		if f.Link.Contains != "" {
+			query = query.Where("link LIKE ?", "%"+f.Link.Contains+"%")
+		}
+		if f.Link.NotContains != "" {
+			query = query.Where("link NOT LIKE ?", "%"+f.Link.NotContains+"%")
+		}
+		if f.Link.StartsWith != "" {
+			query = query.Where("link LIKE ?", f.Link.StartsWith+"%")
+		}
+		if f.Link.EndsWith != "" {
+			query = query.Where("link LIKE ?", "%"+f.Link.EndsWith)
+		}
+		if f.Link.IsEmpty {
+			query = query.Where("link = '' OR link IS NULL")
+		}
+		if f.Link.IsNotEmpty {
+			query = query.Where("link <> '' AND link IS NOT NULL")
+		}
+	}
+	return query
 }
 
 type FilterAddResponse struct {
@@ -16,9 +62,93 @@ type FilterAddResponse struct {
 	Pagination *Pagination        `json:"pagination,omitempty"`
 }
 
+func (f *FilterAddResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
+	if f.Link != nil {
+		if f.Link.Eq != "" {
+			query = query.Where("link = ?", f.Link.Eq)
+		}
+		if f.Link.Ne != "" {
+			query = query.Where("link <> ?", f.Link.Ne)
+		}
+		if f.Link.Lt != "" {
+			query = query.Where("link < ?", f.Link.Lt)
+		}
+		if f.Link.Le != "" {
+			query = query.Where("link <= ?", f.Link.Le)
+		}
+		if f.Link.Gt != "" {
+			query = query.Where("link > ?", f.Link.Gt)
+		}
+		if f.Link.Ge != "" {
+			query = query.Where("link >= ?", f.Link.Ge)
+		}
+		if f.Link.Contains != "" {
+			query = query.Where("link LIKE ?", "%"+f.Link.Contains+"%")
+		}
+		if f.Link.NotContains != "" {
+			query = query.Where("link NOT LIKE ?", "%"+f.Link.NotContains+"%")
+		}
+		if f.Link.StartsWith != "" {
+			query = query.Where("link LIKE ?", f.Link.StartsWith+"%")
+		}
+		if f.Link.EndsWith != "" {
+			query = query.Where("link LIKE ?", "%"+f.Link.EndsWith)
+		}
+		if f.Link.IsEmpty {
+			query = query.Where("link = '' OR link IS NULL")
+		}
+		if f.Link.IsNotEmpty {
+			query = query.Where("link <> '' AND link IS NOT NULL")
+		}
+	}
+	return query
+}
+
 type FilterUpdateRequest struct {
 	Link       *StringFilterInput `json:"link"`
 	Pagination *Pagination        `json:"pagination,omitempty"`
+}
+
+func (f *FilterUpdateRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
+	if f.Link != nil {
+		if f.Link.Eq != "" {
+			query = query.Where("link = ?", f.Link.Eq)
+		}
+		if f.Link.Ne != "" {
+			query = query.Where("link <> ?", f.Link.Ne)
+		}
+		if f.Link.Lt != "" {
+			query = query.Where("link < ?", f.Link.Lt)
+		}
+		if f.Link.Le != "" {
+			query = query.Where("link <= ?", f.Link.Le)
+		}
+		if f.Link.Gt != "" {
+			query = query.Where("link > ?", f.Link.Gt)
+		}
+		if f.Link.Ge != "" {
+			query = query.Where("link >= ?", f.Link.Ge)
+		}
+		if f.Link.Contains != "" {
+			query = query.Where("link LIKE ?", "%"+f.Link.Contains+"%")
+		}
+		if f.Link.NotContains != "" {
+			query = query.Where("link NOT LIKE ?", "%"+f.Link.NotContains+"%")
+		}
+		if f.Link.StartsWith != "" {
+			query = query.Where("link LIKE ?", f.Link.StartsWith+"%")
+		}
+		if f.Link.EndsWith != "" {
+			query = query.Where("link LIKE ?", "%"+f.Link.EndsWith)
+		}
+		if f.Link.IsEmpty {
+			query = query.Where("link = '' OR link IS NULL")
+		}
+		if f.Link.IsNotEmpty {
+			query = query.Where("link <> '' AND link IS NOT NULL")
+		}
+	}
+	return query
 }
 
 type FilterUpdateResponse struct {
@@ -26,7 +156,91 @@ type FilterUpdateResponse struct {
 	Pagination *Pagination        `json:"pagination,omitempty"`
 }
 
+func (f *FilterUpdateResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
+	if f.Link != nil {
+		if f.Link.Eq != "" {
+			query = query.Where("link = ?", f.Link.Eq)
+		}
+		if f.Link.Ne != "" {
+			query = query.Where("link <> ?", f.Link.Ne)
+		}
+		if f.Link.Lt != "" {
+			query = query.Where("link < ?", f.Link.Lt)
+		}
+		if f.Link.Le != "" {
+			query = query.Where("link <= ?", f.Link.Le)
+		}
+		if f.Link.Gt != "" {
+			query = query.Where("link > ?", f.Link.Gt)
+		}
+		if f.Link.Ge != "" {
+			query = query.Where("link >= ?", f.Link.Ge)
+		}
+		if f.Link.Contains != "" {
+			query = query.Where("link LIKE ?", "%"+f.Link.Contains+"%")
+		}
+		if f.Link.NotContains != "" {
+			query = query.Where("link NOT LIKE ?", "%"+f.Link.NotContains+"%")
+		}
+		if f.Link.StartsWith != "" {
+			query = query.Where("link LIKE ?", f.Link.StartsWith+"%")
+		}
+		if f.Link.EndsWith != "" {
+			query = query.Where("link LIKE ?", "%"+f.Link.EndsWith)
+		}
+		if f.Link.IsEmpty {
+			query = query.Where("link = '' OR link IS NULL")
+		}
+		if f.Link.IsNotEmpty {
+			query = query.Where("link <> '' AND link IS NOT NULL")
+		}
+	}
+	return query
+}
+
 type FilterDeleteRequest struct {
 	Hash       *StringFilterInput `json:"hash"`
 	Pagination *Pagination        `json:"pagination,omitempty"`
+}
+
+func (f *FilterDeleteRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
+	if f.Hash != nil {
+		if f.Hash.Eq != "" {
+			query = query.Where("hash = ?", f.Hash.Eq)
+		}
+		if f.Hash.Ne != "" {
+			query = query.Where("hash <> ?", f.Hash.Ne)
+		}
+		if f.Hash.Lt != "" {
+			query = query.Where("hash < ?", f.Hash.Lt)
+		}
+		if f.Hash.Le != "" {
+			query = query.Where("hash <= ?", f.Hash.Le)
+		}
+		if f.Hash.Gt != "" {
+			query = query.Where("hash > ?", f.Hash.Gt)
+		}
+		if f.Hash.Ge != "" {
+			query = query.Where("hash >= ?", f.Hash.Ge)
+		}
+		if f.Hash.Contains != "" {
+			query = query.Where("hash LIKE ?", "%"+f.Hash.Contains+"%")
+		}
+		if f.Hash.NotContains != "" {
+			query = query.Where("hash NOT LIKE ?", "%"+f.Hash.NotContains+"%")
+		}
+		if f.Hash.StartsWith != "" {
+			query = query.Where("hash LIKE ?", f.Hash.StartsWith+"%")
+		}
+		if f.Hash.EndsWith != "" {
+			query = query.Where("hash LIKE ?", "%"+f.Hash.EndsWith)
+		}
+		if f.Hash.IsEmpty {
+			query = query.Where("hash = '' OR hash IS NULL")
+		}
+		if f.Hash.IsNotEmpty {
+			query = query.Where("hash <> '' AND hash IS NOT NULL")
+		}
+	}
+	return query
 }

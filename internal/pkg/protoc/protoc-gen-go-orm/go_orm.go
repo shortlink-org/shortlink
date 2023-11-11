@@ -59,6 +59,13 @@ func generateFile(gen *protogen.Plugin, file *protogen.File) {
 	g.P("package ", file.GoPackageName)
 	g.P()
 
+	// Add import for Squirrel
+	g.P("import (")
+	g.P("\"github.com/Masterminds/squirrel\"")
+	// Add any other imports your generated code needs
+	g.P(")")
+	g.P()
+
 	processFile(file, g)
 }
 
@@ -90,6 +97,57 @@ func generateStructForMessage(message *protogen.Message, g *protogen.GeneratedFi
 	g.P("Pagination ", "*Pagination", " `json:\"pagination,omitempty\"`")
 	g.P("}")
 	g.P()
+
+	// Generate the BuildFilter method
+	g.P("func (f *", structName, ") BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {")
+	for _, field := range message.Fields {
+		if field.Desc.IsList() || field.Desc.IsMap() {
+			continue
+		}
+		fieldName := field.GoName
+		dbColumnName := strings.ToLower(fieldName) // Adjust this as per your DB column naming conventions
+		g.P("if f.", fieldName, " != nil {")
+		g.P("if f.", fieldName, ".Eq != \"\" {")
+		g.P("query = query.Where(\"", dbColumnName, " = ?\", f.", fieldName, ".Eq)")
+		g.P("}")
+		g.P("if f.", fieldName, ".Ne != \"\" {")
+		g.P("query = query.Where(\"", dbColumnName, " <> ?\", f.", fieldName, ".Ne)")
+		g.P("}")
+		g.P("if f.", fieldName, ".Lt != \"\" {")
+		g.P("query = query.Where(\"", dbColumnName, " < ?\", f.", fieldName, ".Lt)")
+		g.P("}")
+		g.P("if f.", fieldName, ".Le != \"\" {")
+		g.P("query = query.Where(\"", dbColumnName, " <= ?\", f.", fieldName, ".Le)")
+		g.P("}")
+		g.P("if f.", fieldName, ".Gt != \"\" {")
+		g.P("query = query.Where(\"", dbColumnName, " > ?\", f.", fieldName, ".Gt)")
+		g.P("}")
+		g.P("if f.", fieldName, ".Ge != \"\" {")
+		g.P("query = query.Where(\"", dbColumnName, " >= ?\", f.", fieldName, ".Ge)")
+		g.P("}")
+		g.P("if f.", fieldName, ".Contains != \"\" {")
+		g.P("query = query.Where(\"", dbColumnName, " LIKE ?\", \"%\" + f.", fieldName, ".Contains + \"%\")")
+		g.P("}")
+		g.P("if f.", fieldName, ".NotContains != \"\" {")
+		g.P("query = query.Where(\"", dbColumnName, " NOT LIKE ?\", \"%\" + f.", fieldName, ".NotContains + \"%\")")
+		g.P("}")
+		g.P("if f.", fieldName, ".StartsWith != \"\" {")
+		g.P("query = query.Where(\"", dbColumnName, " LIKE ?\", f.", fieldName, ".StartsWith + \"%\")")
+		g.P("}")
+		g.P("if f.", fieldName, ".EndsWith != \"\" {")
+		g.P("query = query.Where(\"", dbColumnName, " LIKE ?\", \"%\" + f.", fieldName, ".EndsWith)")
+		g.P("}")
+		g.P("if f.", fieldName, ".IsEmpty {")
+		g.P("query = query.Where(\"", dbColumnName, " = '' OR ", dbColumnName, " IS NULL\")")
+		g.P("}")
+		g.P("if f.", fieldName, ".IsNotEmpty {")
+		g.P("query = query.Where(\"", dbColumnName, " <> '' AND ", dbColumnName, " IS NOT NULL\")")
+		g.P("}")
+		g.P("}")
+	}
+	g.P("return query")
+	g.P("}")
+	g.P()
 }
 
 func generateCommonFile(gen *protogen.Plugin, file *protogen.File) {
@@ -101,16 +159,20 @@ func generateCommonFile(gen *protogen.Plugin, file *protogen.File) {
 	g.P("package ", file.GoPackageName) // Use the package name of the first file
 	g.P()
 
-	// Define the StringFilterInput struct
+	// Generate the StringFilterInput struct definition
 	g.P("type StringFilterInput struct { // nolint:unused")
-	g.P("    Eq           string")
-	g.P("    Ne           string")
-	g.P("    Lt           string")
-	g.P("    Le           string")
-	g.P("    Gt           string")
-	g.P("    Ge           string")
-	g.P("    Contains     string")
-	g.P("    NotContains  string")
+	g.P("    Eq           string  `json:\"eq,omitempty\"`")          // Equal
+	g.P("    Ne           string  `json:\"ne,omitempty\"`")          // Not Equal
+	g.P("    Lt           string  `json:\"lt,omitempty\"`")          // Less Than
+	g.P("    Le           string  `json:\"le,omitempty\"`")          // Less Than or Equal
+	g.P("    Gt           string  `json:\"gt,omitempty\"`")          // Greater Than
+	g.P("    Ge           string  `json:\"ge,omitempty\"`")          // Greater Than or Equal
+	g.P("    Contains     string  `json:\"contains,omitempty\"`")    // Contains
+	g.P("    NotContains  string  `json:\"notContains,omitempty\"`") // Not Contains
+	g.P("    StartsWith   string  `json:\"startsWith,omitempty\"`")  // Starts With
+	g.P("    EndsWith     string  `json:\"endsWith,omitempty\"`")    // Ends With
+	g.P("    IsEmpty      bool    `json:\"isEmpty,omitempty\"`")     // Is Empty
+	g.P("    IsNotEmpty   bool    `json:\"isNotEmpty,omitempty\"`")  // Is Not Empty
 	g.P("}")
 	g.P()
 

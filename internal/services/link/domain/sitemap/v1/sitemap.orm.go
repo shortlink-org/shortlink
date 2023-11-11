@@ -6,6 +6,10 @@
 
 package v1
 
+import (
+	"github.com/Masterminds/squirrel"
+)
+
 type FilterUrl struct {
 	Loc        *StringFilterInput `json:"loc"`
 	LastMod    *StringFilterInput `json:"lastmod"`
@@ -14,6 +18,166 @@ type FilterUrl struct {
 	Pagination *Pagination        `json:"pagination,omitempty"`
 }
 
+func (f *FilterUrl) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
+	if f.Loc != nil {
+		if f.Loc.Eq != "" {
+			query = query.Where("loc = ?", f.Loc.Eq)
+		}
+		if f.Loc.Ne != "" {
+			query = query.Where("loc <> ?", f.Loc.Ne)
+		}
+		if f.Loc.Lt != "" {
+			query = query.Where("loc < ?", f.Loc.Lt)
+		}
+		if f.Loc.Le != "" {
+			query = query.Where("loc <= ?", f.Loc.Le)
+		}
+		if f.Loc.Gt != "" {
+			query = query.Where("loc > ?", f.Loc.Gt)
+		}
+		if f.Loc.Ge != "" {
+			query = query.Where("loc >= ?", f.Loc.Ge)
+		}
+		if f.Loc.Contains != "" {
+			query = query.Where("loc LIKE ?", "%"+f.Loc.Contains+"%")
+		}
+		if f.Loc.NotContains != "" {
+			query = query.Where("loc NOT LIKE ?", "%"+f.Loc.NotContains+"%")
+		}
+		if f.Loc.StartsWith != "" {
+			query = query.Where("loc LIKE ?", f.Loc.StartsWith+"%")
+		}
+		if f.Loc.EndsWith != "" {
+			query = query.Where("loc LIKE ?", "%"+f.Loc.EndsWith)
+		}
+		if f.Loc.IsEmpty {
+			query = query.Where("loc = '' OR loc IS NULL")
+		}
+		if f.Loc.IsNotEmpty {
+			query = query.Where("loc <> '' AND loc IS NOT NULL")
+		}
+	}
+	if f.LastMod != nil {
+		if f.LastMod.Eq != "" {
+			query = query.Where("lastmod = ?", f.LastMod.Eq)
+		}
+		if f.LastMod.Ne != "" {
+			query = query.Where("lastmod <> ?", f.LastMod.Ne)
+		}
+		if f.LastMod.Lt != "" {
+			query = query.Where("lastmod < ?", f.LastMod.Lt)
+		}
+		if f.LastMod.Le != "" {
+			query = query.Where("lastmod <= ?", f.LastMod.Le)
+		}
+		if f.LastMod.Gt != "" {
+			query = query.Where("lastmod > ?", f.LastMod.Gt)
+		}
+		if f.LastMod.Ge != "" {
+			query = query.Where("lastmod >= ?", f.LastMod.Ge)
+		}
+		if f.LastMod.Contains != "" {
+			query = query.Where("lastmod LIKE ?", "%"+f.LastMod.Contains+"%")
+		}
+		if f.LastMod.NotContains != "" {
+			query = query.Where("lastmod NOT LIKE ?", "%"+f.LastMod.NotContains+"%")
+		}
+		if f.LastMod.StartsWith != "" {
+			query = query.Where("lastmod LIKE ?", f.LastMod.StartsWith+"%")
+		}
+		if f.LastMod.EndsWith != "" {
+			query = query.Where("lastmod LIKE ?", "%"+f.LastMod.EndsWith)
+		}
+		if f.LastMod.IsEmpty {
+			query = query.Where("lastmod = '' OR lastmod IS NULL")
+		}
+		if f.LastMod.IsNotEmpty {
+			query = query.Where("lastmod <> '' AND lastmod IS NOT NULL")
+		}
+	}
+	if f.ChangeFreq != nil {
+		if f.ChangeFreq.Eq != "" {
+			query = query.Where("changefreq = ?", f.ChangeFreq.Eq)
+		}
+		if f.ChangeFreq.Ne != "" {
+			query = query.Where("changefreq <> ?", f.ChangeFreq.Ne)
+		}
+		if f.ChangeFreq.Lt != "" {
+			query = query.Where("changefreq < ?", f.ChangeFreq.Lt)
+		}
+		if f.ChangeFreq.Le != "" {
+			query = query.Where("changefreq <= ?", f.ChangeFreq.Le)
+		}
+		if f.ChangeFreq.Gt != "" {
+			query = query.Where("changefreq > ?", f.ChangeFreq.Gt)
+		}
+		if f.ChangeFreq.Ge != "" {
+			query = query.Where("changefreq >= ?", f.ChangeFreq.Ge)
+		}
+		if f.ChangeFreq.Contains != "" {
+			query = query.Where("changefreq LIKE ?", "%"+f.ChangeFreq.Contains+"%")
+		}
+		if f.ChangeFreq.NotContains != "" {
+			query = query.Where("changefreq NOT LIKE ?", "%"+f.ChangeFreq.NotContains+"%")
+		}
+		if f.ChangeFreq.StartsWith != "" {
+			query = query.Where("changefreq LIKE ?", f.ChangeFreq.StartsWith+"%")
+		}
+		if f.ChangeFreq.EndsWith != "" {
+			query = query.Where("changefreq LIKE ?", "%"+f.ChangeFreq.EndsWith)
+		}
+		if f.ChangeFreq.IsEmpty {
+			query = query.Where("changefreq = '' OR changefreq IS NULL")
+		}
+		if f.ChangeFreq.IsNotEmpty {
+			query = query.Where("changefreq <> '' AND changefreq IS NOT NULL")
+		}
+	}
+	if f.Priority != nil {
+		if f.Priority.Eq != "" {
+			query = query.Where("priority = ?", f.Priority.Eq)
+		}
+		if f.Priority.Ne != "" {
+			query = query.Where("priority <> ?", f.Priority.Ne)
+		}
+		if f.Priority.Lt != "" {
+			query = query.Where("priority < ?", f.Priority.Lt)
+		}
+		if f.Priority.Le != "" {
+			query = query.Where("priority <= ?", f.Priority.Le)
+		}
+		if f.Priority.Gt != "" {
+			query = query.Where("priority > ?", f.Priority.Gt)
+		}
+		if f.Priority.Ge != "" {
+			query = query.Where("priority >= ?", f.Priority.Ge)
+		}
+		if f.Priority.Contains != "" {
+			query = query.Where("priority LIKE ?", "%"+f.Priority.Contains+"%")
+		}
+		if f.Priority.NotContains != "" {
+			query = query.Where("priority NOT LIKE ?", "%"+f.Priority.NotContains+"%")
+		}
+		if f.Priority.StartsWith != "" {
+			query = query.Where("priority LIKE ?", f.Priority.StartsWith+"%")
+		}
+		if f.Priority.EndsWith != "" {
+			query = query.Where("priority LIKE ?", "%"+f.Priority.EndsWith)
+		}
+		if f.Priority.IsEmpty {
+			query = query.Where("priority = '' OR priority IS NULL")
+		}
+		if f.Priority.IsNotEmpty {
+			query = query.Where("priority <> '' AND priority IS NOT NULL")
+		}
+	}
+	return query
+}
+
 type FilterSitemap struct {
 	Pagination *Pagination `json:"pagination,omitempty"`
+}
+
+func (f *FilterSitemap) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
+	return query
 }

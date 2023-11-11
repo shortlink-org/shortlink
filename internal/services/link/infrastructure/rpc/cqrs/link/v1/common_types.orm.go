@@ -2,14 +2,18 @@
 package v1
 
 type StringFilterInput struct { // nolint:unused
-	Eq          string
-	Ne          string
-	Lt          string
-	Le          string
-	Gt          string
-	Ge          string
-	Contains    string
-	NotContains string
+	Eq          string `json:"eq,omitempty"`
+	Ne          string `json:"ne,omitempty"`
+	Lt          string `json:"lt,omitempty"`
+	Le          string `json:"le,omitempty"`
+	Gt          string `json:"gt,omitempty"`
+	Ge          string `json:"ge,omitempty"`
+	Contains    string `json:"contains,omitempty"`
+	NotContains string `json:"notContains,omitempty"`
+	StartsWith  string `json:"startsWith,omitempty"`
+	EndsWith    string `json:"endsWith,omitempty"`
+	IsEmpty     bool   `json:"isEmpty,omitempty"`
+	IsNotEmpty  bool   `json:"isNotEmpty,omitempty"`
 }
 
 type Pagination struct {

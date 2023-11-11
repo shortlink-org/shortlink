@@ -6,7 +6,53 @@
 
 package v1
 
+import (
+	"github.com/Masterminds/squirrel"
+)
+
 type FilterParseRequest struct {
 	Url        *StringFilterInput `json:"url"`
 	Pagination *Pagination        `json:"pagination,omitempty"`
+}
+
+func (f *FilterParseRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
+	if f.Url != nil {
+		if f.Url.Eq != "" {
+			query = query.Where("url = ?", f.Url.Eq)
+		}
+		if f.Url.Ne != "" {
+			query = query.Where("url <> ?", f.Url.Ne)
+		}
+		if f.Url.Lt != "" {
+			query = query.Where("url < ?", f.Url.Lt)
+		}
+		if f.Url.Le != "" {
+			query = query.Where("url <= ?", f.Url.Le)
+		}
+		if f.Url.Gt != "" {
+			query = query.Where("url > ?", f.Url.Gt)
+		}
+		if f.Url.Ge != "" {
+			query = query.Where("url >= ?", f.Url.Ge)
+		}
+		if f.Url.Contains != "" {
+			query = query.Where("url LIKE ?", "%"+f.Url.Contains+"%")
+		}
+		if f.Url.NotContains != "" {
+			query = query.Where("url NOT LIKE ?", "%"+f.Url.NotContains+"%")
+		}
+		if f.Url.StartsWith != "" {
+			query = query.Where("url LIKE ?", f.Url.StartsWith+"%")
+		}
+		if f.Url.EndsWith != "" {
+			query = query.Where("url LIKE ?", "%"+f.Url.EndsWith)
+		}
+		if f.Url.IsEmpty {
+			query = query.Where("url = '' OR url IS NULL")
+		}
+		if f.Url.IsNotEmpty {
+			query = query.Where("url <> '' AND url IS NOT NULL")
+		}
+	}
+	return query
 }
