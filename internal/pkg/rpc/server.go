@@ -151,8 +151,7 @@ func (s *server) WithTracer(tracer trace.TracerProvider) {
 		return
 	}
 
-	s.interceptorStreamServerList = append(s.interceptorStreamServerList, otelgrpc.StreamServerInterceptor(otelgrpc.WithTracerProvider(otel.GetTracerProvider())))
-	s.interceptorUnaryServerList = append(s.interceptorUnaryServerList, otelgrpc.UnaryServerInterceptor(otelgrpc.WithTracerProvider(otel.GetTracerProvider())))
+	s.optionsNewServer = append(s.optionsNewServer, grpc.StatsHandler(otelgrpc.NewServerHandler(otelgrpc.WithTracerProvider(otel.GetTracerProvider()))))
 }
 
 // WithRecovery - setup recovery

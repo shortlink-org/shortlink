@@ -13,7 +13,6 @@ import (
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/lib/pq"
-	_ "github.com/lib/pq" // need for init PostgreSQL interface
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/types/known/timestamppb"

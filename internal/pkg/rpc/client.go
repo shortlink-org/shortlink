@@ -150,8 +150,7 @@ func (c *Client) withTracer(tracer trace.TracerProvider) {
 		return
 	}
 
-	c.interceptorUnaryClientList = append(c.interceptorUnaryClientList, otelgrpc.UnaryClientInterceptor(otelgrpc.WithTracerProvider(otel.GetTracerProvider())))
-	c.interceptorStreamClientList = append(c.interceptorStreamClientList, otelgrpc.StreamClientInterceptor(otelgrpc.WithTracerProvider(otel.GetTracerProvider())))
+	c.optionsNewClient = append(c.optionsNewClient, grpc.WithStatsHandler(otelgrpc.NewClientHandler(otelgrpc.WithTracerProvider(otel.GetTracerProvider()))))
 }
 
 // withMetrics - setup metrics.
