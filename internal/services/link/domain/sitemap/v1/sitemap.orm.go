@@ -7,7 +7,9 @@
 package v1
 
 import (
+	"fmt"
 	"github.com/Masterminds/squirrel"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 type FilterUrl struct {
@@ -181,6 +183,134 @@ func (f *FilterUrl) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBui
 	}
 	return query
 }
+func (f *FilterUrl) BuildMongoFilter() bson.M {
+	filter := bson.M{}
+	if f.Loc != nil {
+		fieldFilter := bson.M{}
+		if f.Loc.Eq != "" {
+			fieldFilter["$eq"] = f.Loc.Eq
+		}
+		if f.Loc.Ne != "" {
+			fieldFilter["$ne"] = f.Loc.Ne
+		}
+		if f.Loc.Lt != "" {
+			fieldFilter["$lt"] = f.Loc.Lt
+		}
+		if f.Loc.Le != "" {
+			fieldFilter["$lte"] = f.Loc.Le
+		}
+		if f.Loc.Gt != "" {
+			fieldFilter["$gt"] = f.Loc.Gt
+		}
+		if f.Loc.Ge != "" {
+			fieldFilter["$gte"] = f.Loc.Ge
+		}
+		if f.Loc.Contains != "" {
+			fieldFilter["$regex"] = bson.M{"$regex": f.Loc.Contains, "$options": "i"}
+		}
+		if f.Loc.NotContains != "" {
+			regexPattern := fmt.Sprintf("^((?!%s).)*$", f.Loc.NotContains)
+			fieldFilter["$regex"] = bson.M{"$regex": regexPattern, "$options": "i"}
+		}
+		if len(fieldFilter) > 0 {
+			filter["loc"] = fieldFilter
+		}
+	}
+	if f.LastMod != nil {
+		fieldFilter := bson.M{}
+		if f.LastMod.Eq != "" {
+			fieldFilter["$eq"] = f.LastMod.Eq
+		}
+		if f.LastMod.Ne != "" {
+			fieldFilter["$ne"] = f.LastMod.Ne
+		}
+		if f.LastMod.Lt != "" {
+			fieldFilter["$lt"] = f.LastMod.Lt
+		}
+		if f.LastMod.Le != "" {
+			fieldFilter["$lte"] = f.LastMod.Le
+		}
+		if f.LastMod.Gt != "" {
+			fieldFilter["$gt"] = f.LastMod.Gt
+		}
+		if f.LastMod.Ge != "" {
+			fieldFilter["$gte"] = f.LastMod.Ge
+		}
+		if f.LastMod.Contains != "" {
+			fieldFilter["$regex"] = bson.M{"$regex": f.LastMod.Contains, "$options": "i"}
+		}
+		if f.LastMod.NotContains != "" {
+			regexPattern := fmt.Sprintf("^((?!%s).)*$", f.LastMod.NotContains)
+			fieldFilter["$regex"] = bson.M{"$regex": regexPattern, "$options": "i"}
+		}
+		if len(fieldFilter) > 0 {
+			filter["lastmod"] = fieldFilter
+		}
+	}
+	if f.ChangeFreq != nil {
+		fieldFilter := bson.M{}
+		if f.ChangeFreq.Eq != "" {
+			fieldFilter["$eq"] = f.ChangeFreq.Eq
+		}
+		if f.ChangeFreq.Ne != "" {
+			fieldFilter["$ne"] = f.ChangeFreq.Ne
+		}
+		if f.ChangeFreq.Lt != "" {
+			fieldFilter["$lt"] = f.ChangeFreq.Lt
+		}
+		if f.ChangeFreq.Le != "" {
+			fieldFilter["$lte"] = f.ChangeFreq.Le
+		}
+		if f.ChangeFreq.Gt != "" {
+			fieldFilter["$gt"] = f.ChangeFreq.Gt
+		}
+		if f.ChangeFreq.Ge != "" {
+			fieldFilter["$gte"] = f.ChangeFreq.Ge
+		}
+		if f.ChangeFreq.Contains != "" {
+			fieldFilter["$regex"] = bson.M{"$regex": f.ChangeFreq.Contains, "$options": "i"}
+		}
+		if f.ChangeFreq.NotContains != "" {
+			regexPattern := fmt.Sprintf("^((?!%s).)*$", f.ChangeFreq.NotContains)
+			fieldFilter["$regex"] = bson.M{"$regex": regexPattern, "$options": "i"}
+		}
+		if len(fieldFilter) > 0 {
+			filter["changefreq"] = fieldFilter
+		}
+	}
+	if f.Priority != nil {
+		fieldFilter := bson.M{}
+		if f.Priority.Eq != "" {
+			fieldFilter["$eq"] = f.Priority.Eq
+		}
+		if f.Priority.Ne != "" {
+			fieldFilter["$ne"] = f.Priority.Ne
+		}
+		if f.Priority.Lt != "" {
+			fieldFilter["$lt"] = f.Priority.Lt
+		}
+		if f.Priority.Le != "" {
+			fieldFilter["$lte"] = f.Priority.Le
+		}
+		if f.Priority.Gt != "" {
+			fieldFilter["$gt"] = f.Priority.Gt
+		}
+		if f.Priority.Ge != "" {
+			fieldFilter["$gte"] = f.Priority.Ge
+		}
+		if f.Priority.Contains != "" {
+			fieldFilter["$regex"] = bson.M{"$regex": f.Priority.Contains, "$options": "i"}
+		}
+		if f.Priority.NotContains != "" {
+			regexPattern := fmt.Sprintf("^((?!%s).)*$", f.Priority.NotContains)
+			fieldFilter["$regex"] = bson.M{"$regex": regexPattern, "$options": "i"}
+		}
+		if len(fieldFilter) > 0 {
+			filter["priority"] = fieldFilter
+		}
+	}
+	return filter
+}
 
 type FilterSitemap struct {
 	Pagination *Pagination `json:"pagination,omitempty"`
@@ -196,4 +326,8 @@ func (f *FilterSitemap) BuildFilter(query squirrel.SelectBuilder) squirrel.Selec
 		}
 	}
 	return query
+}
+func (f *FilterSitemap) BuildMongoFilter() bson.M {
+	filter := bson.M{}
+	return filter
 }

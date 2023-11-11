@@ -7,7 +7,9 @@
 package v1
 
 import (
+	"fmt"
 	"github.com/Masterminds/squirrel"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 type FilterParseRequest struct {
@@ -63,4 +65,39 @@ func (f *FilterParseRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.
 		}
 	}
 	return query
+}
+func (f *FilterParseRequest) BuildMongoFilter() bson.M {
+	filter := bson.M{}
+	if f.Url != nil {
+		fieldFilter := bson.M{}
+		if f.Url.Eq != "" {
+			fieldFilter["$eq"] = f.Url.Eq
+		}
+		if f.Url.Ne != "" {
+			fieldFilter["$ne"] = f.Url.Ne
+		}
+		if f.Url.Lt != "" {
+			fieldFilter["$lt"] = f.Url.Lt
+		}
+		if f.Url.Le != "" {
+			fieldFilter["$lte"] = f.Url.Le
+		}
+		if f.Url.Gt != "" {
+			fieldFilter["$gt"] = f.Url.Gt
+		}
+		if f.Url.Ge != "" {
+			fieldFilter["$gte"] = f.Url.Ge
+		}
+		if f.Url.Contains != "" {
+			fieldFilter["$regex"] = bson.M{"$regex": f.Url.Contains, "$options": "i"}
+		}
+		if f.Url.NotContains != "" {
+			regexPattern := fmt.Sprintf("^((?!%s).)*$", f.Url.NotContains)
+			fieldFilter["$regex"] = bson.M{"$regex": regexPattern, "$options": "i"}
+		}
+		if len(fieldFilter) > 0 {
+			filter["url"] = fieldFilter
+		}
+	}
+	return filter
 }

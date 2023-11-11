@@ -9,7 +9,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/saga"
 	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link_cqrs/v1"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
 func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {
@@ -69,7 +68,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*domain.LinkView, error
 	return resp, nil
 }
 
-func (s *Service) List(ctx context.Context, filter *query.Filter) (*domain.LinksView, error) {
+func (s *Service) List(ctx context.Context, filter *link.FilterLink) (*domain.LinksView, error) {
 	const (
 		SAGA_NAME           = "GET_LINKS_CQRS"
 		SAGA_STEP_STORE_GET = "SAGA_STEP_STORE_GET_CQRS"

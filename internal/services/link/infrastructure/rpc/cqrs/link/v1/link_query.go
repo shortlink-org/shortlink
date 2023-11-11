@@ -6,7 +6,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	queryStore "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
+	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
 func (l *Link) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
@@ -22,8 +22,8 @@ func (l *Link) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
 
 func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error) {
 	// Parse args
-	filter := queryStore.Filter{
-		Search: &queryStore.StringFilterInput{Contains: &in.Filter},
+	filter := v1.FilterLink{
+		Url: &v1.StringFilterInput{Contains: in.Filter},
 	}
 
 	resp, err := l.service.List(ctx, &filter)

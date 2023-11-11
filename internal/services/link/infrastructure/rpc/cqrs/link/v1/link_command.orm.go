@@ -7,7 +7,9 @@
 package v1
 
 import (
+	"fmt"
 	"github.com/Masterminds/squirrel"
+	"go.mongodb.org/mongo-driver/bson"
 )
 
 type FilterAddRequest struct {
@@ -64,6 +66,41 @@ func (f *FilterAddRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.Se
 	}
 	return query
 }
+func (f *FilterAddRequest) BuildMongoFilter() bson.M {
+	filter := bson.M{}
+	if f.Link != nil {
+		fieldFilter := bson.M{}
+		if f.Link.Eq != "" {
+			fieldFilter["$eq"] = f.Link.Eq
+		}
+		if f.Link.Ne != "" {
+			fieldFilter["$ne"] = f.Link.Ne
+		}
+		if f.Link.Lt != "" {
+			fieldFilter["$lt"] = f.Link.Lt
+		}
+		if f.Link.Le != "" {
+			fieldFilter["$lte"] = f.Link.Le
+		}
+		if f.Link.Gt != "" {
+			fieldFilter["$gt"] = f.Link.Gt
+		}
+		if f.Link.Ge != "" {
+			fieldFilter["$gte"] = f.Link.Ge
+		}
+		if f.Link.Contains != "" {
+			fieldFilter["$regex"] = bson.M{"$regex": f.Link.Contains, "$options": "i"}
+		}
+		if f.Link.NotContains != "" {
+			regexPattern := fmt.Sprintf("^((?!%s).)*$", f.Link.NotContains)
+			fieldFilter["$regex"] = bson.M{"$regex": regexPattern, "$options": "i"}
+		}
+		if len(fieldFilter) > 0 {
+			filter["link"] = fieldFilter
+		}
+	}
+	return filter
+}
 
 type FilterAddResponse struct {
 	Link       *StringFilterInput `json:"link"`
@@ -118,6 +155,41 @@ func (f *FilterAddResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.S
 		}
 	}
 	return query
+}
+func (f *FilterAddResponse) BuildMongoFilter() bson.M {
+	filter := bson.M{}
+	if f.Link != nil {
+		fieldFilter := bson.M{}
+		if f.Link.Eq != "" {
+			fieldFilter["$eq"] = f.Link.Eq
+		}
+		if f.Link.Ne != "" {
+			fieldFilter["$ne"] = f.Link.Ne
+		}
+		if f.Link.Lt != "" {
+			fieldFilter["$lt"] = f.Link.Lt
+		}
+		if f.Link.Le != "" {
+			fieldFilter["$lte"] = f.Link.Le
+		}
+		if f.Link.Gt != "" {
+			fieldFilter["$gt"] = f.Link.Gt
+		}
+		if f.Link.Ge != "" {
+			fieldFilter["$gte"] = f.Link.Ge
+		}
+		if f.Link.Contains != "" {
+			fieldFilter["$regex"] = bson.M{"$regex": f.Link.Contains, "$options": "i"}
+		}
+		if f.Link.NotContains != "" {
+			regexPattern := fmt.Sprintf("^((?!%s).)*$", f.Link.NotContains)
+			fieldFilter["$regex"] = bson.M{"$regex": regexPattern, "$options": "i"}
+		}
+		if len(fieldFilter) > 0 {
+			filter["link"] = fieldFilter
+		}
+	}
+	return filter
 }
 
 type FilterUpdateRequest struct {
@@ -174,6 +246,41 @@ func (f *FilterUpdateRequest) BuildFilter(query squirrel.SelectBuilder) squirrel
 	}
 	return query
 }
+func (f *FilterUpdateRequest) BuildMongoFilter() bson.M {
+	filter := bson.M{}
+	if f.Link != nil {
+		fieldFilter := bson.M{}
+		if f.Link.Eq != "" {
+			fieldFilter["$eq"] = f.Link.Eq
+		}
+		if f.Link.Ne != "" {
+			fieldFilter["$ne"] = f.Link.Ne
+		}
+		if f.Link.Lt != "" {
+			fieldFilter["$lt"] = f.Link.Lt
+		}
+		if f.Link.Le != "" {
+			fieldFilter["$lte"] = f.Link.Le
+		}
+		if f.Link.Gt != "" {
+			fieldFilter["$gt"] = f.Link.Gt
+		}
+		if f.Link.Ge != "" {
+			fieldFilter["$gte"] = f.Link.Ge
+		}
+		if f.Link.Contains != "" {
+			fieldFilter["$regex"] = bson.M{"$regex": f.Link.Contains, "$options": "i"}
+		}
+		if f.Link.NotContains != "" {
+			regexPattern := fmt.Sprintf("^((?!%s).)*$", f.Link.NotContains)
+			fieldFilter["$regex"] = bson.M{"$regex": regexPattern, "$options": "i"}
+		}
+		if len(fieldFilter) > 0 {
+			filter["link"] = fieldFilter
+		}
+	}
+	return filter
+}
 
 type FilterUpdateResponse struct {
 	Link       *StringFilterInput `json:"link"`
@@ -229,6 +336,41 @@ func (f *FilterUpdateResponse) BuildFilter(query squirrel.SelectBuilder) squirre
 	}
 	return query
 }
+func (f *FilterUpdateResponse) BuildMongoFilter() bson.M {
+	filter := bson.M{}
+	if f.Link != nil {
+		fieldFilter := bson.M{}
+		if f.Link.Eq != "" {
+			fieldFilter["$eq"] = f.Link.Eq
+		}
+		if f.Link.Ne != "" {
+			fieldFilter["$ne"] = f.Link.Ne
+		}
+		if f.Link.Lt != "" {
+			fieldFilter["$lt"] = f.Link.Lt
+		}
+		if f.Link.Le != "" {
+			fieldFilter["$lte"] = f.Link.Le
+		}
+		if f.Link.Gt != "" {
+			fieldFilter["$gt"] = f.Link.Gt
+		}
+		if f.Link.Ge != "" {
+			fieldFilter["$gte"] = f.Link.Ge
+		}
+		if f.Link.Contains != "" {
+			fieldFilter["$regex"] = bson.M{"$regex": f.Link.Contains, "$options": "i"}
+		}
+		if f.Link.NotContains != "" {
+			regexPattern := fmt.Sprintf("^((?!%s).)*$", f.Link.NotContains)
+			fieldFilter["$regex"] = bson.M{"$regex": regexPattern, "$options": "i"}
+		}
+		if len(fieldFilter) > 0 {
+			filter["link"] = fieldFilter
+		}
+	}
+	return filter
+}
 
 type FilterDeleteRequest struct {
 	Hash       *StringFilterInput `json:"hash"`
@@ -283,4 +425,39 @@ func (f *FilterDeleteRequest) BuildFilter(query squirrel.SelectBuilder) squirrel
 		}
 	}
 	return query
+}
+func (f *FilterDeleteRequest) BuildMongoFilter() bson.M {
+	filter := bson.M{}
+	if f.Hash != nil {
+		fieldFilter := bson.M{}
+		if f.Hash.Eq != "" {
+			fieldFilter["$eq"] = f.Hash.Eq
+		}
+		if f.Hash.Ne != "" {
+			fieldFilter["$ne"] = f.Hash.Ne
+		}
+		if f.Hash.Lt != "" {
+			fieldFilter["$lt"] = f.Hash.Lt
+		}
+		if f.Hash.Le != "" {
+			fieldFilter["$lte"] = f.Hash.Le
+		}
+		if f.Hash.Gt != "" {
+			fieldFilter["$gt"] = f.Hash.Gt
+		}
+		if f.Hash.Ge != "" {
+			fieldFilter["$gte"] = f.Hash.Ge
+		}
+		if f.Hash.Contains != "" {
+			fieldFilter["$regex"] = bson.M{"$regex": f.Hash.Contains, "$options": "i"}
+		}
+		if f.Hash.NotContains != "" {
+			regexPattern := fmt.Sprintf("^((?!%s).)*$", f.Hash.NotContains)
+			fieldFilter["$regex"] = bson.M{"$regex": regexPattern, "$options": "i"}
+		}
+		if len(fieldFilter) > 0 {
+			filter["hash"] = fieldFilter
+		}
+	}
+	return filter
 }

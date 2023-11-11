@@ -135,10 +135,7 @@ func (s *Store) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, err
 	defer cancel()
 
 	// build Filter
-	filterQuery := bson.D{}
-	if filter != nil {
-		filterQuery = getFilter(filter)
-	}
+	filterQuery := filter.BuildMongoFilter()
 
 	// Passing bson.D{{}} as the filter matches all documents in the collection
 	cur, err := collection.Find(ctx, filterQuery)

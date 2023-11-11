@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
 // TODO: fix this hardcode
@@ -31,7 +30,7 @@ func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool { //noli
 	l := reflect.ValueOf(link)
 
 	for _, key := range GetKeys() {
-		val := reflect.Indirect(r).FieldByName(key).Interface().(*query.StringFilterInput) //nolint:errcheck // ignore
+		val := reflect.Indirect(r).FieldByName(key).Interface().(*domain.StringFilterInput) //nolint:errcheck // ignore
 
 		// Skip empty value
 		if val == nil {
@@ -39,65 +38,65 @@ func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool { //noli
 		}
 
 		// Eq
-		if val.Eq != nil {
+		if val.Eq != "" {
 			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) //nolint:errcheck // ignore
-			if linkValue != *val.Eq {
+			if linkValue != val.Eq {
 				return false
 			}
 		}
 
 		// Ne
-		if val.Ne != nil {
+		if val.Ne != "" {
 			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) //nolint:errcheck // ignore
-			if linkValue == *val.Ne {
+			if linkValue == val.Ne {
 				return false
 			}
 		}
 
 		// Lt
-		if val.Lt != nil {
+		if val.Lt != "" {
 			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) //nolint:errcheck // ignore
-			if linkValue > *val.Lt {
+			if linkValue > val.Lt {
 				return false
 			}
 		}
 
 		// Le
-		if val.Le != nil {
+		if val.Le != "" {
 			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) //nolint:errcheck // ignore
-			if linkValue >= *val.Le {
+			if linkValue >= val.Le {
 				return false
 			}
 		}
 
 		// Gt
-		if val.Gt != nil {
+		if val.Gt != "" {
 			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) //nolint:errcheck // ignore
-			if linkValue < *val.Gt {
+			if linkValue < val.Gt {
 				return false
 			}
 		}
 
 		// Ge
-		if val.Ge != nil {
+		if val.Ge != "" {
 			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) //nolint:errcheck // ignore
-			if linkValue <= *val.Ge {
+			if linkValue <= val.Ge {
 				return false
 			}
 		}
 
 		// Contains
-		if val.Contains != nil {
+		if val.Contains != "" {
 			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) //nolint:errcheck // ignore
-			if !strings.Contains(linkValue, *val.Contains) {
+			if !strings.Contains(linkValue, val.Contains) {
 				return false
 			}
 		}
 
 		// NotContains
-		if val.Contains != nil {
+		if val.Contains != "" {
 			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) //nolint:errcheck // ignore
-			if strings.Contains(linkValue, *val.NotContains) {
+			if strings.Contains(linkValue, val.NotContains) {
 				return false
 			}
 		}

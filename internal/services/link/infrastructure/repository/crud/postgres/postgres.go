@@ -1,4 +1,3 @@
-//go:generate protoc -I../../../../../link/domain/link/v1 --gotemplate_out=all=true,template_dir=template:. link.proto
 //go:generate go run github.com/sqlc-dev/sqlc/cmd/sqlc generate -f ./schema/sqlc.yaml
 
 package postgres
