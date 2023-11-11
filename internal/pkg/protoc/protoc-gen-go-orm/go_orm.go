@@ -61,7 +61,9 @@ func generateFile(gen *protogen.Plugin, file *protogen.File) {
 
 	// Add import for Squirrel
 	g.P("import (")
+	g.P("\"fmt\"")
 	g.P("\"github.com/Masterminds/squirrel\"")
+	g.P("\"go.mongodb.org/mongo-driver/bson\"")
 	// Add any other imports your generated code needs
 	g.P(")")
 	g.P()
@@ -93,6 +95,7 @@ func generateStructForMessage(message *protogen.Message, g *protogen.GeneratedFi
 	g.P()
 
 	generateBuildFilterMethod(g, structName, message.Fields)
+	generateBuildMongoFilterMethod(g, structName, message.Fields)
 }
 
 func generateCommonFile(gen *protogen.Plugin, file *protogen.File) {
