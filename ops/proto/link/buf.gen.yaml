@@ -13,6 +13,7 @@ plugins:
     opt: paths=source_relative
 
   - plugin: go-orm
+    strategy: all
     out: internal/services/link
     opt: paths=source_relative
 

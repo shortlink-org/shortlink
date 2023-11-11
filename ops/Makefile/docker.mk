@@ -16,38 +16,14 @@ DOCKER_CONTENT_TRUST := 0
 BUILDX_GIT_LABELS := 1
 BUILDX_EXPERIMENTAL := 1
 SOURCE_DATE_EPOCH := $(git log -1 --pretty=%ct)
+export CURRENT_UID=$(id -u):$(id -g)
 
 # DOCKER TASKS =========================================================================================================
 docker-login: ## Docker login
 	@echo docker login as ${DOCKER_USERNAME}
 	@echo ${DOCKER_PASSWORD} | docker login -u ${DOCKER_USERNAME} --password-stdin
 
-### Helpers ============================================================================================================
-
-docker_ip: ## View docker ip and container name
-	@docker ps -q | xargs docker inspect --format "{{range .NetworkSettings.Networks}}{{print .IPAddress}} {{end}}{{.Name}}"
-
-
-# APPLICATION TASKS ====================================================================================================
-dep: ## Install dependencies for this project
-	# install protoc addons
-	@go install github.com/swaggo/swag/cmd/swag@latest
-	@go install github.com/srikrsna/protoc-gen-gotag@latest
-	@go install moul.io/protoc-gen-gotemplate@latest
-	@go install github.com/cloudflare/cfssl/cmd/...@latest
-	@go install golang.org/x/tools/cmd/goimports@latest
-	@go install github.com/vektra/mockery/v2@v2.33.3
-
-	# for NodeJS
-	@npm install -g grpc-tools grpc_tools_node_protoc_ts ts-protoc-gen protoc-gen-ts @bufbuild/protobuf @bufbuild/protoc-gen-es @bufbuild/buf
-
-	# install wire
-	@go install github.com/google/wire/cmd/wire@latest
-
-	#i18n
-	@go install golang.org/x/text/cmd/gotext@latest
-
-export CURRENT_UID=$(id -u):$(id -g)
+### Runnings ===========================================================================================================
 
 dev: ## Run for development mode
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
@@ -135,3 +111,9 @@ down: confirm ## Down docker compose
 		-f ops/docker-compose/mq/nats/nats.yaml \
 	down --remove-orphans
 	@docker network prune -f
+
+### Helpers ============================================================================================================
+
+docker_ip: ## View docker ip and container name
+	@docker ps -q | xargs docker inspect --format "{{range .NetworkSettings.Networks}}{{print .IPAddress}} {{end}}{{.Name}}"
+

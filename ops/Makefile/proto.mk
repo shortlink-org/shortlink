@@ -1,3 +1,23 @@
+# APPLICATION TASKS ====================================================================================================
+dep: ## Install dependencies for this project
+	# install protoc addons
+	@go install github.com/swaggo/swag/cmd/swag@latest
+	@go install github.com/srikrsna/protoc-gen-gotag@latest
+	@go install moul.io/protoc-gen-gotemplate@latest
+	@go install github.com/cloudflare/cfssl/cmd/...@latest
+	@go install golang.org/x/tools/cmd/goimports@latest
+	@go install github.com/vektra/mockery/v2@v2.33.3
+	@go install github.com/shortlink-org/shortlink/internal/pkg/protoc/protoc-gen-go-orm
+
+	# for NodeJS
+	@npm install -g grpc-tools grpc_tools_node_protoc_ts ts-protoc-gen protoc-gen-ts @bufbuild/protobuf @bufbuild/protoc-gen-es @bufbuild/buf
+
+	# install wire
+	@go install github.com/google/wire/cmd/wire@latest
+
+	#i18n
+	@go install golang.org/x/text/cmd/gotext@latest
+
 # PROTO TASKS ==========================================================================================================
 
 proto-lint: ## Check lint
