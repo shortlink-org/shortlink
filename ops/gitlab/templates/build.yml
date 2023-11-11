@@ -1,9 +1,9 @@
 .template_build:
   stage: build
   services:
-    - name: docker:24.0.6-dind
+    - name: docker:24.0.7-dind
       command: ["--experimental"]
-  image: docker:24.0.6-cli
+  image: docker:24.0.7-cli
   variables:
     DOCKER_BUILDKIT: 1
     DOCKER_CONTENT_TRUST: 1
