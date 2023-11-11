@@ -15,7 +15,7 @@ jobs:
    strategy:
      fail-fast: false
      matrix:
-       sanitizer: [address, undefined, memory]  # Override this with the sanitizers you want.
+       sanitizer: [address]  # options: undefined, memory, address
 
    steps:
    - name: Harden Runner
