@@ -167,11 +167,6 @@ updates:
       interval: daily
 
   - package-ecosystem: gomod
-    directory: /poc/go-orm
-    schedule:
-      interval: daily
-
-  - package-ecosystem: gomod
     directory: /docs/ADR/decisions/proof/ADR-0027
     schedule:
       interval: daily

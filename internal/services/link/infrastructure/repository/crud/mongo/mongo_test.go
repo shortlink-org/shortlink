@@ -20,7 +20,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mock"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 )
 
 func TestMain(m *testing.M) {
@@ -149,12 +148,12 @@ func TestMongo(t *testing.T) {
 
 	t.Run("Get list using filter", func(t *testing.T) {
 		linkNotValid := "https://google.com"
-		filter := &query.Filter{
-			Url: &query.StringFilterInput{
-				Eq: &mock.GetLink.Url,
-				Ne: &linkNotValid,
+		filter := &v1.FilterLink{
+			Url: &v1.StringFilterInput{
+				Eq: mock.GetLink.Url,
+				Ne: linkNotValid,
 			},
-			Hash: &query.StringFilterInput{Eq: &mock.GetLink.Hash},
+			Hash: &v1.StringFilterInput{Eq: mock.GetLink.Hash},
 		}
 		links, err := store.List(ctx, filter)
 		require.NoError(t, err)

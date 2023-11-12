@@ -6,7 +6,7 @@ import (
 
 	"github.com/segmentio/encoding/json"
 
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
+	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
 )
 
@@ -26,7 +26,7 @@ func (r *Resolver) Link(ctx context.Context, args struct {
 
 // Links ...
 func (r *Resolver) Links(ctx context.Context, args struct {
-	Filter *query.Filter
+	Filter *link.FilterLink
 }) (*[]*LinkResolver, error) {
 	// Filter to string
 	filterRaw, err := json.Marshal(args.Filter)

@@ -7,8 +7,6 @@ import (
 
 	mock "github.com/stretchr/testify/mock"
 
-	query "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
-
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
@@ -179,15 +177,15 @@ func (_c *MockRepository_Get_Call) RunAndReturn(run func(context.Context, string
 }
 
 // List provides a mock function with given fields: ctx, filter
-func (_m *MockRepository) List(ctx context.Context, filter *query.Filter) (*v1.Links, error) {
+func (_m *MockRepository) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, error) {
 	ret := _m.Called(ctx, filter)
 
 	var r0 *v1.Links
 	var r1 error
-	if rf, ok := ret.Get(0).(func(context.Context, *query.Filter) (*v1.Links, error)); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, *v1.FilterLink) (*v1.Links, error)); ok {
 		return rf(ctx, filter)
 	}
-	if rf, ok := ret.Get(0).(func(context.Context, *query.Filter) *v1.Links); ok {
+	if rf, ok := ret.Get(0).(func(context.Context, *v1.FilterLink) *v1.Links); ok {
 		r0 = rf(ctx, filter)
 	} else {
 		if ret.Get(0) != nil {
@@ -195,7 +193,7 @@ func (_m *MockRepository) List(ctx context.Context, filter *query.Filter) (*v1.L
 		}
 	}
 
-	if rf, ok := ret.Get(1).(func(context.Context, *query.Filter) error); ok {
+	if rf, ok := ret.Get(1).(func(context.Context, *v1.FilterLink) error); ok {
 		r1 = rf(ctx, filter)
 	} else {
 		r1 = ret.Error(1)
@@ -211,14 +209,14 @@ type MockRepository_List_Call struct {
 
 // List is a helper method to define mock.On call
 //   - ctx context.Context
-//   - filter *query.Filter
+//   - filter *v1.FilterLink
 func (_e *MockRepository_Expecter) List(ctx interface{}, filter interface{}) *MockRepository_List_Call {
 	return &MockRepository_List_Call{Call: _e.mock.On("List", ctx, filter)}
 }
 
-func (_c *MockRepository_List_Call) Run(run func(ctx context.Context, filter *query.Filter)) *MockRepository_List_Call {
+func (_c *MockRepository_List_Call) Run(run func(ctx context.Context, filter *v1.FilterLink)) *MockRepository_List_Call {
 	_c.Call.Run(func(args mock.Arguments) {
-		run(args[0].(context.Context), args[1].(*query.Filter))
+		run(args[0].(context.Context), args[1].(*v1.FilterLink))
 	})
 	return _c
 }
@@ -228,7 +226,7 @@ func (_c *MockRepository_List_Call) Return(_a0 *v1.Links, _a1 error) *MockReposi
 	return _c
 }
 
-func (_c *MockRepository_List_Call) RunAndReturn(run func(context.Context, *query.Filter) (*v1.Links, error)) *MockRepository_List_Call {
+func (_c *MockRepository_List_Call) RunAndReturn(run func(context.Context, *v1.FilterLink) (*v1.Links, error)) *MockRepository_List_Call {
 	_c.Call.Return(run)
 	return _c
 }

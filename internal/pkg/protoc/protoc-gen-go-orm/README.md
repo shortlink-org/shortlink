@@ -7,7 +7,8 @@ by automatically generating ORM-like structures based on your protobuf definitio
 ### Features
 
 - Generates Go structs with filter and pagination capabilities based on protobuf messages.
-- Easily integrates with existing Protocol Buffer and Go projects.
+- Integrate with existing Protocol Buffer and Go projects.
+- Supports filter and pagination for PostgreSQL, MongoDB.
 
 ### Installation
 

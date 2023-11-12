@@ -25,7 +25,6 @@ import (
 	metadata "github.com/shortlink-org/shortlink/internal/services/link/application/link/mocks/metadata"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link/mocks/mq"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	queryStore "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/query"
 	metadata_rpc "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 )
 
@@ -99,7 +98,7 @@ func TestLinkService(t *testing.T) {
 				return mockPermissionsService_LookupResourcesClient
 			}, nil).Once()
 
-			resp, err := linkService.List(context.Background(), queryStore.Filter{})
+			resp, err := linkService.List(context.Background(), &v1.FilterLink{})
 			assert.NoError(t, err)
 			assert.NotNil(t, resp)
 		})
@@ -107,7 +106,7 @@ func TestLinkService(t *testing.T) {
 		t.Run("Permission Denied", func(t *testing.T) {
 			mockPermissionsServiceClient.On("LookupResources", mock.Anything, mock.Anything).Return(nil, errors.New("permission denied")).Once()
 
-			_, err := linkService.List(context.Background(), queryStore.Filter{})
+			_, err := linkService.List(context.Background(), &v1.FilterLink{})
 			assert.Error(t, err)
 		})
 	})

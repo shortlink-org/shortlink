@@ -17,13 +17,17 @@ Currently, our setup incorporates:
 
 1. `pgxpool` for interacting with PostgreSQL, acknowledged for its efficiency and popularity within the community.
 2. `squirrel` for handling SQL-like databases, appreciated for its fluent SQL builder.
+3. `protoc-gen-go-orm` for generating ORM-like structures based on protobuf definitions.
+4. `sqlc` for generating type-safe Go from SQL.
 
-Additionally, an attempt was made to create a [go-orm](../../../poc/go-orm/README.md) 
-to circumvent the issues identified with `ent`. However, the feasibility and effectiveness of the custom ORM require further assessment.
+Our `protoc-gen-go-orm` goes a step further in optimizing database interactions by automatically generating filter code from 
+Protobuf types. This zero-config/coding approach greatly reduces boilerplate and accelerates development, 
+as developers do not need to manually write filter logic for each Protobuf type. 
+The plugin intelligently creates filters for both PostgreSQL and MongoDB, ensuring compatibility 
+and efficiency across different database systems.
 
-Recent discoveries have introduced [Bun](https://bun.uptrace.dev/) and `sqlc` as potential alternatives. 
+Recent discoveries have introduced [Bun](https://bun.uptrace.dev/) as potential alternatives. 
 Bun is commended for its SQL building capabilities and is particularly favored when working with PostgreSQL. 
-On the other hand, `sqlc` is known for its straightforward SQL generation from code.
 
 The aim is to find an ORM solution that not only addresses the limitations encountered with `ent` but also aligns 
 with our project's technical needs and long-term sustainability. The decision to explore alternative ORM tools or 
@@ -32,7 +36,9 @@ and ensure ease of integration with our existing systems.
 
 ## Decision
 
-After evaluating the limitations of `ent`, the current setup, the initial results from the custom ORM attempt, and reviewing `Bun` and `sqlc`, we have decided to continue the exploration of alternative ORM tools or libraries that seamlessly integrate with Golang and address the highlighted issues.
+After evaluating the limitations of `ent`, the current setup, the initial results from the custom ORM attempt, 
+and reviewing `Bun` and `sqlc`, we have decided to continue the exploration of alternative ORM tools or libraries 
+that seamlessly integrate with Golang and address the highlighted issues.
 
 ## Comparison Table
 
@@ -54,11 +60,6 @@ After evaluating the limitations of `ent`, the current setup, the initial result
 - The 'Ease of Use', 'Performance', 'Community Support', and 'SQL Building Capabilities' columns are subjective and should be validated with further testing and community feedback.
 
 Further research and comparisons among various ORM tools can be found on [ossinsight.io collections](https://ossinsight.io/collections/golang-orm/).
-
-### Example
-
-1. [ent](./proof/ADR-0027/README.md)
-2. [go-orm](../../../poc/go-orm/README.md)
 
 ## Consequences
 
