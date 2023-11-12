@@ -102,3 +102,11 @@ We write a Cookbook for this.
 #### Serving Suggestions
 
 + Regularly run your test suite with goleak enabled to catch and resolve goroutine leaks early in the development cycle.
+
+
+### Recipe 4: Using special libraries for work with concurrency
+
+Libs:
+
++ [go-deadlock](https://github.com/sasha-s/go-deadlock) - (RW)Mutex with deadlock detection
+  + cockroachdb uses it [code](https://github.com/cockroachdb/cockroach/blob/master/pkg/util/syncutil/mutex_deadlock.go)

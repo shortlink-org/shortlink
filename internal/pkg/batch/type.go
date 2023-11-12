@@ -2,8 +2,9 @@ package batch
 
 import (
 	"context"
-	"sync"
 	"time"
+
+	"github.com/sasha-s/go-deadlock"
 )
 
 // Batch is a structure for batch processing
@@ -11,7 +12,7 @@ type Batch struct {
 	callback func([]*Item) any
 	items    []*Item
 	interval time.Duration
-	mu       sync.Mutex
+	mu       deadlock.Mutex
 
 	ctx        context.Context
 	done       chan struct{}
