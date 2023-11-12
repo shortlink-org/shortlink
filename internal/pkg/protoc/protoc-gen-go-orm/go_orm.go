@@ -31,6 +31,7 @@ func main() {
 			// Generate ORM
 			generateFile(gen, f)
 		}
+
 		return nil
 	})
 }
@@ -44,6 +45,7 @@ func protocVersion(gen *protogen.Plugin) string {
 	if s := v.GetSuffix(); s != "" {
 		suffix = "-" + s
 	}
+
 	return fmt.Sprintf("v%d.%d.%d%s", v.GetMajor(), v.GetMinor(), v.GetPatch(), suffix)
 }
 

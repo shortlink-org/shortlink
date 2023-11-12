@@ -46,7 +46,7 @@ func TestFilterLink_BuildFilter(t *testing.T) {
 		name         string
 		filter       fixtures.FilterLink
 		expectedSQL  string
-		expectedArgs []interface{}
+		expectedArgs []any
 	}{
 		{
 			name: "Equal and Contains",
@@ -55,7 +55,7 @@ func TestFilterLink_BuildFilter(t *testing.T) {
 				Describe: &fixtures.StringFilterInput{Contains: "test"},
 			},
 			expectedSQL:  "SELECT * FROM links WHERE url = ? AND describe LIKE '%' || ?",
-			expectedArgs: []interface{}{"https://example.com", "test"},
+			expectedArgs: []any{"https://example.com", "test"},
 		},
 		{
 			name: "Not Equal and Starts With",
@@ -64,7 +64,7 @@ func TestFilterLink_BuildFilter(t *testing.T) {
 				Describe: &fixtures.StringFilterInput{StartsWith: "start"},
 			},
 			expectedSQL:  "SELECT * FROM links WHERE url <> ? AND describe LIKE '%' || ?",
-			expectedArgs: []interface{}{"https://example.org", "start"},
+			expectedArgs: []any{"https://example.org", "start"},
 		},
 		{
 			name: "Greater Than and Ends With",
@@ -73,7 +73,7 @@ func TestFilterLink_BuildFilter(t *testing.T) {
 				Describe: &fixtures.StringFilterInput{EndsWith: "end"},
 			},
 			expectedSQL:  "SELECT * FROM links WHERE url > ? AND describe LIKE ? || '%'",
-			expectedArgs: []interface{}{"https://example.com/a", "end"},
+			expectedArgs: []any{"https://example.com/a", "end"},
 		},
 		{
 			name: "Less Than and Is Empty",
@@ -82,7 +82,7 @@ func TestFilterLink_BuildFilter(t *testing.T) {
 				Describe: &fixtures.StringFilterInput{IsEmpty: true},
 			},
 			expectedSQL:  "SELECT * FROM links WHERE url < ? AND describe = '' OR describe IS NULL",
-			expectedArgs: []interface{}{"https://example.com/z"},
+			expectedArgs: []any{"https://example.com/z"},
 		},
 		{
 			name: "Complex - Multiple Conditions",
@@ -101,7 +101,7 @@ func TestFilterLink_BuildFilter(t *testing.T) {
 			},
 			expectedSQL: "SELECT * FROM links WHERE url <> ? AND url LIKE '%' || ? AND url LIKE ? || '%' AND " +
 				"describe < ? AND describe > ? AND describe LIKE '%' || ? AND describe NOT LIKE ?",
-			expectedArgs: []interface{}{
+			expectedArgs: []any{
 				"https://example.org", "https", ".com",
 				"m", "a", "test", "example", // Adjusted to match actual behavior
 			},
