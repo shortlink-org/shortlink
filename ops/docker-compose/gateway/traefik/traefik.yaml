@@ -47,4 +47,4 @@ services:
     profiles:
       - prometheus
     volumes:
-      - ./ops/docker-compose/gateway/traefik/traefik-target.json:/etc/prometheus/targets/traefik-server.json
+      - ./ops/docker-compose/gateway/traefik/conf/traefik-target.json:/etc/prometheus/targets/traefik-server.json

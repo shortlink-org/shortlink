@@ -22,6 +22,7 @@ services:
       - 6432:6432
     environment:
       - POSTGRESQL_HOST=postgres
+      - POSTGRESQL_USER=postgres
       - POSTGRESQL_PASSWORD=shortlink
       - POSTGRESQL_DATABASE=shortlink
       - PGBOUNCER_DATABASE=shortlink
@@ -34,11 +35,12 @@ services:
     <<: *network
     depends_on:
       - coredns
-      - postgres
+      - pgbouncer
     restart: on-failure
-    image: bitnami/postgres-exporter
+    image: prometheuscommunity/pgbouncer-exporter
     container_name: pgbouncer-exporter
-    environment:
-      DATA_SOURCE_NAME: postgresql://postgres:shortlink@postgres:5432/postgres?sslmode=disable
+    command:
+      - --pgBouncer.connectionString=postgres://postgres:shortlink@pgbouncer:6432/pgbouncer?sslmode=disable&dbname=pgbouncer
+      - --web.listen-address=:9127
     ports:
       - 9127:9127
