@@ -65,15 +65,15 @@ func TestKafka(t *testing.T) {
 		Env: []string{
 			"KAFKA_BROKER_ID=1",
 			"KAFKA_ZOOKEEPER_CONNECT=test-kafka-zookeeper:2181",
-			"KAFKA_ADVERTISED_LISTENERS=INSIDE://kafka:9092,OUTSIDE://localhost:9093",
+			"KAFKA_ADVERTISED_LISTENERS=INSIDE://kafka:9092,OUTSIDE://localhost:19093",
 			"KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT",
-			"KAFKA_LISTENERS=INSIDE://0.0.0.0:9092,OUTSIDE://0.0.0.0:9093",
+			"KAFKA_LISTENERS=INSIDE://0.0.0.0:9092,OUTSIDE://0.0.0.0:19093",
 			"KAFKA_INTER_BROKER_LISTENER_NAME=INSIDE",
 			"KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR=1",
 		},
-		ExposedPorts: []string{"9093/tcp"},
+		ExposedPorts: []string{"19093/tcp"},
 		PortBindings: map[docker.Port][]docker.PortBinding{
-			"9093/tcp": {{HostIP: "localhost", HostPort: "9093/tcp"}},
+			"19093/tcp": {{HostIP: "localhost", HostPort: "19093/tcp"}},
 		},
 		NetworkID: network.ID,
 	})
@@ -94,7 +94,7 @@ func TestKafka(t *testing.T) {
 	if err := pool.Retry(func() error {
 		var err error
 
-		err = os.Setenv("MQ_KAFKA_URI", fmt.Sprintf("localhost:%s", KAFKA.GetPort("9093/tcp")))
+		err = os.Setenv("MQ_KAFKA_URI", fmt.Sprintf("localhost:%s", KAFKA.GetPort("19093/tcp")))
 		if err != nil {
 			require.Errorf(t, err, "Cannot set ENV")
 			return nil

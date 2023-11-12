@@ -3,7 +3,9 @@ Get free port
 */
 package freeport
 
-import "net"
+import (
+	"net"
+)
 
 // GetFreePort asks the kernel for a free open port that is ready to use.
 func GetFreePort() (int, error) {
@@ -21,5 +23,10 @@ func GetFreePort() (int, error) {
 		_ = l.Close()
 	}()
 
-	return l.Addr().(*net.TCPAddr).Port, nil
+	port, ok := l.Addr().(*net.TCPAddr)
+	if !ok {
+		return 0, ErrNoFreePort
+	}
+
+	return port.Port, nil
 }

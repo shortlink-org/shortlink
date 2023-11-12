@@ -18,5 +18,5 @@ func GetError(ctx context.Context) error {
 		return nil
 	}
 
-	return err.(error)
+	return err.(error) //nolint:forcetypeassert // simple type assertion
 }

@@ -16,10 +16,22 @@ type Store struct {
 }
 
 // New store
-func New(_ context.Context, store db.DB) (*Store, error) {
-	s := &Store{
-		client: store.GetConn().(*leveldb.DB),
+func New(ctx context.Context, store db.DB) (*Store, error) {
+	conn, ok := store.GetConn().(*leveldb.DB)
+	if !ok {
+		return nil, db.ErrGetConnection
 	}
+
+	s := &Store{
+		client: conn,
+	}
+
+	// Graceful shutdown
+	go func() {
+		<-ctx.Done()
+
+		_ = s.client.Close() //nolint: errcheck // TODO: handle error
+	}()
 
 	return s, nil
 }

@@ -54,7 +54,15 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload any) notify.Re
 
 func (e *Event) add(ctx context.Context, payload any) notify.Response[any] {
 	// TODO: send []byte
-	msg := payload.(*metadata.Meta) //nolint:errcheck // ignore
+	msg, ok := payload.(*metadata.Meta)
+	if !ok {
+		return notify.Response[any]{
+			Name:    "RESPONSE_MQ_ADD",
+			Payload: nil,
+			Error:   ErrInvalidPayload,
+		}
+	}
+
 	data, err := proto.Marshal(msg)
 	if err != nil {
 		return notify.Response[any]{

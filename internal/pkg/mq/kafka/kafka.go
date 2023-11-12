@@ -112,8 +112,12 @@ func (mq *Kafka) close() error {
 	}
 
 	mq.sessions.Range(func(key, value any) bool {
-		sess := *value.(*sarama.ConsumerGroupSession)
-		sess.Context().Done()
+		sess, ok := value.(*sarama.ConsumerGroupSession)
+		if !ok {
+			return true
+		}
+
+		(*sess).Context().Done()
 		mq.sessions.Delete(key)
 
 		return true
@@ -181,8 +185,12 @@ func (mq *Kafka) Subscribe(ctx context.Context, target string, message query.Res
 
 func (mq *Kafka) UnSubscribe(target string) error {
 	if session, ok := mq.sessions.Load(target); ok {
-		sess := *session.(*sarama.ConsumerGroupSession)
-		sess.Context().Done()
+		sess, okType := session.(*sarama.ConsumerGroupSession)
+		if !okType {
+			return nil
+		}
+
+		(*sess).Context().Done()
 		mq.sessions.Delete(target)
 	}
 

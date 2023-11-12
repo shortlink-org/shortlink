@@ -8,8 +8,12 @@ func (c amqpHeadersCarrier) Get(key string) string {
 		return ""
 	}
 
-	//nolint:revive // no critical issue
-	return val.(string)
+	v, ok := val.(string)
+	if !ok {
+		return ""
+	}
+
+	return v
 }
 
 func (c amqpHeadersCarrier) Keys() []string {

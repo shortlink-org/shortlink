@@ -45,7 +45,7 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload any) notify.
 		}
 	case link.METHOD_DELETE:
 		{
-			err := s.cqsStore.LinkDelete(ctx, payload.(string))
+			err := s.cqsStore.LinkDelete(ctx, payload.(string)) //nolint:forcetypeassert // simple type assertion
 			if err != nil {
 				s.log.ErrorWithContext(ctx, err.Error())
 			}

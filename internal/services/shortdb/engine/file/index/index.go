@@ -17,7 +17,7 @@ func New(in *index.Index, rows []*page.Row) (Index[any], error) {
 		tree = binary_tree.New(func(a, b any) int {
 			switch x, y := reflect.TypeOf(a), reflect.TypeOf(b); true {
 			case x.String() == "int" && y.String() == "int":
-				return a.(int) - b.(int)
+				return a.(int) - b.(int) //nolint:forcetypeassert // simple type assertion
 			default:
 				return 0
 			}

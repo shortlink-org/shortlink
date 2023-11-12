@@ -8,6 +8,7 @@ import (
 	"github.com/redis/rueidis/rueidiscompat"
 	"github.com/spf13/viper"
 
+	db2 "github.com/shortlink-org/shortlink/internal/pkg/db"
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/redis"
 )
 
@@ -22,8 +23,13 @@ func New(ctx context.Context) (*cache.Cache, error) {
 		return nil, err
 	}
 
+	conn, ok := store.GetConn().(rueidis.Client)
+	if !ok {
+		return nil, db2.ErrGetConnection
+	}
+
 	adapter := &client{
-		rueidiscompat.NewAdapter(store.GetConn().(rueidis.Client)),
+		rueidiscompat.NewAdapter(conn),
 	}
 
 	s := cache.New(&cache.Options{

@@ -39,9 +39,14 @@ type Store struct {
 
 // New store
 func New(ctx context.Context, store db.DB, log logger.Logger) (*Store, error) {
+	conn, ok := store.GetConn().(*dgo.Dgraph)
+	if !ok {
+		return nil, db.ErrGetConnection
+	}
+
 	s := &Store{
 		log:    log,
-		client: store.GetConn().(*dgo.Dgraph),
+		client: conn,
 	}
 
 	return s, nil

@@ -29,10 +29,10 @@ func (q *Query) IsFilter(record *page.Row, fields map[string]field.Type) bool {
 				return false
 			}
 
-			return Filter(LValue.(int), RValue.(int), condition.GetOperator())
+			return Filter(LValue.(int), RValue.(int), condition.GetOperator()) //nolint:forcetypeassert // simple type assertion
 		case field.Type_TYPE_STRING:
 			LValue = string(payload)
-			return Filter(LValue.(string), condition.GetRValue(), condition.GetOperator())
+			return Filter(LValue.(string), condition.GetRValue(), condition.GetOperator()) //nolint:forcetypeassert // simple type assertion
 		case field.Type_TYPE_BOOLEAN:
 			LValue, err = strconv.ParseBool(string(payload))
 			if err != nil {
@@ -43,7 +43,7 @@ func (q *Query) IsFilter(record *page.Row, fields map[string]field.Type) bool {
 				return false
 			}
 
-			return FilterBool(LValue.(bool), RValue.(bool), condition.GetOperator())
+			return FilterBool(LValue.(bool), RValue.(bool), condition.GetOperator()) //nolint:forcetypeassert // simple type assertion
 		case field.Type_TYPE_UNSPECIFIED:
 			fallthrough
 		default:

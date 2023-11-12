@@ -23,7 +23,7 @@ func main() {
 
 	defer func() {
 		if r := recover(); r != nil {
-			s.Log.Error(r.(string))
+			s.Log.Error(r.(string)) //nolint:forcetypeassert // simple type assertion
 		}
 	}()
 

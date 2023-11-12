@@ -38,7 +38,11 @@ func New(ctx context.Context) (*Store, error) {
 			}
 
 			for key := range args {
-				source := args[key].Item.(*domain.Link) //nolint:errcheck // ignore
+				source, ok := args[key].Item.(*domain.Link)
+				if !ok {
+					return nil
+				}
+
 				data, errSingleWrite := s.singleWrite(ctx, source)
 				if errSingleWrite != nil {
 					return errSingleWrite

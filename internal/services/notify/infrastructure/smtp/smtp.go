@@ -36,7 +36,7 @@ func (b *Bot) Notify(ctx context.Context, event uint32, payload any) notify.Resp
 	switch event {
 	case events.METHOD_SEND_NEW_LINK:
 		{
-			if err := b.send(payload.(string)); err != nil {
+			if err := b.send(payload.(string)); err != nil { //nolint:forcetypeassert // simple type assertion
 				return notify.Response[any]{
 					Error: err,
 				}

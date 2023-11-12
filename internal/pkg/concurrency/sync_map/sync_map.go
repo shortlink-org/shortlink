@@ -20,7 +20,7 @@ func New() *SyncMap {
 }
 
 func (s *SyncMap) Get(key any) any {
-	return s.m.Load().(map[any]any)[key]
+	return s.m.Load().(map[any]any)[key] //nolint:forcetypeassert // ignore
 }
 
 func (s *SyncMap) Set(key, value any) {

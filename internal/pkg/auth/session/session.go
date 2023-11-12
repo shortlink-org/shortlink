@@ -31,7 +31,7 @@ func GetSession(ctx context.Context) *ory.Session {
 		return nil
 	}
 
-	return sess.(*ory.Session)
+	return sess.(*ory.Session) //nolint:forcetypeassert // ignore
 }
 
 func WithUserID(ctx context.Context, userID string) context.Context {
@@ -44,5 +44,5 @@ func GetUserID(ctx context.Context) string {
 		return ""
 	}
 
-	return userID.(string)
+	return userID.(string) //nolint:forcetypeassert // simple type assertion
 }

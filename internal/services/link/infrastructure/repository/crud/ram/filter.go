@@ -20,7 +20,8 @@ func GetKeys() []string {
 	}
 }
 
-func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool { //nolint:gocognit // ignore
+// TODO: write generator for protoc
+func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool { //nolint:gocognit,cyclop // ignore
 	// Skip empty filter
 	if filter == nil {
 		return true
@@ -30,7 +31,10 @@ func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool { //noli
 	l := reflect.ValueOf(link)
 
 	for _, key := range GetKeys() {
-		val := reflect.Indirect(r).FieldByName(key).Interface().(*domain.StringFilterInput) //nolint:errcheck // ignore
+		val, okStringFilterInput := reflect.Indirect(r).FieldByName(key).Interface().(*domain.StringFilterInput)
+		if !okStringFilterInput {
+			continue
+		}
 
 		// Skip empty value
 		if val == nil {
@@ -39,7 +43,11 @@ func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool { //noli
 
 		// Eq
 		if val.Eq != "" {
-			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) //nolint:errcheck // ignore
+			linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
+			if !ok {
+				continue
+			}
+
 			if linkValue != val.Eq {
 				return false
 			}
@@ -47,7 +55,11 @@ func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool { //noli
 
 		// Ne
 		if val.Ne != "" {
-			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) //nolint:errcheck // ignore
+			linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
+			if !ok {
+				continue
+			}
+
 			if linkValue == val.Ne {
 				return false
 			}
@@ -55,7 +67,11 @@ func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool { //noli
 
 		// Lt
 		if val.Lt != "" {
-			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) //nolint:errcheck // ignore
+			linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
+			if !ok {
+				continue
+			}
+
 			if linkValue > val.Lt {
 				return false
 			}
@@ -63,7 +79,11 @@ func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool { //noli
 
 		// Le
 		if val.Le != "" {
-			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) //nolint:errcheck // ignore
+			linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
+			if !ok {
+				continue
+			}
+
 			if linkValue >= val.Le {
 				return false
 			}
@@ -71,7 +91,11 @@ func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool { //noli
 
 		// Gt
 		if val.Gt != "" {
-			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) //nolint:errcheck // ignore
+			linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
+			if !ok {
+				continue
+			}
+
 			if linkValue < val.Gt {
 				return false
 			}
@@ -79,7 +103,11 @@ func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool { //noli
 
 		// Ge
 		if val.Ge != "" {
-			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) //nolint:errcheck // ignore
+			linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
+			if !ok {
+				continue
+			}
+
 			if linkValue <= val.Ge {
 				return false
 			}
@@ -87,7 +115,11 @@ func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool { //noli
 
 		// Contains
 		if val.Contains != "" {
-			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) //nolint:errcheck // ignore
+			linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
+			if !ok {
+				continue
+			}
+
 			if !strings.Contains(linkValue, val.Contains) {
 				return false
 			}
@@ -95,7 +127,11 @@ func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool { //noli
 
 		// NotContains
 		if val.Contains != "" {
-			linkValue := reflect.Indirect(l).FieldByName(key).Interface().(string) //nolint:errcheck // ignore
+			linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
+			if !ok {
+				continue
+			}
+
 			if strings.Contains(linkValue, val.NotContains) {
 				return false
 			}

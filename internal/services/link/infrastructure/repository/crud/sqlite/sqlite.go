@@ -18,8 +18,13 @@ type Store struct {
 
 // New store
 func New(_ context.Context, store db.DB) (*Store, error) {
+	conn, ok := store.GetConn().(*sql.DB)
+	if !ok {
+		return nil, db.ErrGetConnection
+	}
+
 	s := &Store{
-		client: store.GetConn().(*sql.DB),
+		client: conn,
 	}
 
 	// Migration

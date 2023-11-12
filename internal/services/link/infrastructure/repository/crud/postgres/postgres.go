@@ -56,7 +56,10 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 			sources := make([]*domain.Link, len(args))
 
 			for key := range args {
-				sources[key] = args[key].Item.(*domain.Link) //nolint:errcheck // ignore
+				sources[key], ok = args[key].Item.(*domain.Link)
+				if !ok {
+					args[key].CallbackChannel <- batch.ErrInvalidType
+				}
 			}
 
 			dataList, errBatchWrite := s.batchWrite(ctx, sources)
