@@ -1,0 +1,19 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="pkg/batch - fuzz" type="GoTestRunConfiguration" factoryName="Go Test" folderName="pkg">
+    <module name="shortlink" />
+    <working_directory value="$PROJECT_DIR$/internal/pkg/batch" />
+    <go_parameters value="-race -v -tags=fuzz -cover -fuzz" />
+    <envs>
+      <env name="GOEXPERIMENT" value="arenas,cgocheck2,loopvar" />
+    </envs>
+    <root_directory value="$PROJECT_DIR$" />
+    <kind value="DIRECTORY" />
+    <package value="github.com/shortlink-org/shortlink/internal/pkg/batch" />
+    <directory value="$PROJECT_DIR$/internal/pkg/batch" />
+    <filePath value="$PROJECT_DIR$" />
+    <framework value="go test -fuzz" />
+    <pattern value="^\QFuzzBatch\E$" />
+    <test_name_prefix value="go test -fuzz " />
+    <method v="2" />
+  </configuration>
+</component>
