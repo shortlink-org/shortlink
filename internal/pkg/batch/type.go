@@ -14,6 +14,7 @@ type Batch struct {
 	items    []*Item
 
 	interval time.Duration
+	size     int
 }
 
 // Item represents an item that can be pushed to the batch.

@@ -8,7 +8,6 @@ import (
 	"testing"
 	"time"
 
-	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 	"golang.org/x/sync/errgroup"
@@ -22,9 +21,7 @@ func TestMain(m *testing.M) {
 
 func TestNew(t *testing.T) {
 	t.Run("Create new a batch", func(t *testing.T) {
-		ctx, cancel := context.WithCancel(context.Background())
-		defer cancel()
-
+		ctx, cancelFunc := context.WithCancel(context.Background())
 		eg, ctx := errgroup.WithContext(ctx)
 
 		aggrCB := func(args []*Item) any {
@@ -46,19 +43,22 @@ func TestNew(t *testing.T) {
 			res := b.Push(request)
 
 			eg.Go(func() error {
-				assert.Equal(t, <-res, request)
+				require.Equal(t, <-res, request)
 				return nil
 			})
 		}
 
 		err = eg.Wait()
 		require.NoError(t, err)
+
+		t.Cleanup(func() {
+			cancelFunc()
+		})
 	})
 
 	t.Run("Check close context", func(t *testing.T) {
 		ctx := context.Background()
 		ctx, cancelFunc := context.WithTimeout(ctx, time.Millisecond*10)
-		defer cancelFunc()
 
 		eg, ctx := errgroup.WithContext(ctx)
 
@@ -83,12 +83,16 @@ func TestNew(t *testing.T) {
 			res := b.Push(request)
 
 			eg.Go(func() error {
-				assert.Equal(t, nil, <-res)
+				require.Equal(t, nil, <-res)
 				return nil
 			})
 		}
 
 		err = eg.Wait()
 		require.NoError(t, err)
+
+		t.Cleanup(func() {
+			cancelFunc()
+		})
 	})
 }

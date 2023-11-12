@@ -13,3 +13,10 @@ func WithInterval(interval time.Duration) Option {
 		b.interval = interval
 	}
 }
+
+// WithSize sets the size for the batch.
+func WithSize(size int) Option {
+	return func(b *Batch) {
+		b.size = size
+	}
+}

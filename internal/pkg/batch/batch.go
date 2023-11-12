@@ -13,10 +13,13 @@ import (
 // New creates a new batch Config with a specified callback function.
 func New(ctx context.Context, cb func([]*Item) any, opts ...Option) (*Batch, error) {
 	viper.SetDefault("BATCH_INTERVAL", "100ms")
+	viper.SetDefault("BATCH_SIZE", 100)
 
 	b := &Batch{
 		callback: cb,
+
 		interval: viper.GetDuration("BATCH_INTERVAL"),
+		size:     viper.GetInt("BATCH_SIZE"),
 	}
 
 	// Apply options
@@ -31,14 +34,20 @@ func New(ctx context.Context, cb func([]*Item) any, opts ...Option) (*Batch, err
 
 // Push adds an item to the batch.
 func (b *Batch) Push(item any) chan any {
-	b.mu.Lock()
-	defer b.mu.Unlock()
-
 	newItem := &Item{
 		CallbackChannel: make(chan any),
 		Item:            item,
 	}
+
+	b.mu.Lock()
 	b.items = append(b.items, newItem)
+	shouldFlush := len(b.items) >= b.size
+	b.mu.Unlock()
+
+	// If the batch is full, flush it
+	if shouldFlush {
+		go b.flushItems()
+	}
 
 	return newItem.CallbackChannel
 }
