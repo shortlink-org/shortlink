@@ -74,3 +74,31 @@ We write a Cookbook for this.
 
 + [dlv backend](https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_backend.md) can be used to automate the recording process.
 + [dlv_replay](https://github.com/go-delve/delve/blob/master/Documentation/usage/dlv_replay.md) can be used to replay the recorded session.
+
+
+### Recipe 3: Use `uber/goleak` in TestMain for Goroutine Leak Detection
+
+#### Ingredients
+
++ Go application with tests
++ `TestMain` function with `uber/goleak` package
+
+#### Method
+
+1. **Preparation:** Begin by importing the `uber/goleak` package into your codebase. 
+    Ensure it is properly initialized within your `TestMain` function.
+
+  ```go
+  func TestMain(m *testing.M) {
+    goleak.VerifyTestMain(m)
+	
+	  os.Exit(m.Run())
+  }
+  ```
+
+2. **Testing:** Run your tests as usual. 
+    `uber/goleak` will detect any goroutine leaks and report them to the console.
+
+#### Serving Suggestions
+
++ Regularly run your test suite with goleak enabled to catch and resolve goroutine leaks early in the development cycle.
