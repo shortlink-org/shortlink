@@ -14,7 +14,9 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/http/handler"
-	additionalMiddleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware"
+	auth_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/auth"
+	logger_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/logger"
+	metrics_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/metrics"
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	account_application "github.com/shortlink-org/shortlink/internal/services/billing/application/account"
@@ -76,10 +78,10 @@ func (api *API) Run(
 
 	// Additional middleware
 	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
-	r.Use(additionalMiddleware.Logger(log))
-	r.Use(additionalMiddleware.Auth())
+	r.Use(logger_middleware.Logger(log))
+	r.Use(auth_middleware.Auth())
 
-	metrics, err := additionalMiddleware.NewMetrics()
+	metrics, err := metrics_middleware.NewMetrics()
 	if err != nil {
 		return err
 	}

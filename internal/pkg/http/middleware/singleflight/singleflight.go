@@ -1,4 +1,4 @@
-package middleware
+package singleflight_middleware
 
 import (
 	"fmt"

@@ -1,4 +1,4 @@
-package middleware
+package metrics_middleware
 
 import (
 	"net/http"

@@ -1,4 +1,4 @@
-package middleware
+package request_size_middleware
 
 import (
 	"net/http"

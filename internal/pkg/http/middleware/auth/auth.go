@@ -1,4 +1,4 @@
-package middleware
+package auth_middleware
 
 import (
 	"context"
