@@ -53,7 +53,7 @@ func InitServer(ctx context.Context, log logger.Logger, tracer trace.TracerProvi
 		return nil, nil
 	}
 
-	config, err := setServerConfig(log, tracer, monitor)
+	config, err := setServerConfig(log, tracer, monitor) //nolint:contextcheck // false positive
 	if err != nil {
 		return nil, err
 	}

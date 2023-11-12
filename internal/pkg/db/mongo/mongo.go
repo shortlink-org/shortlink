@@ -38,7 +38,7 @@ func (s *Store) Init(ctx context.Context) error {
 	// Graceful shutdown
 	go func() {
 		<-ctx.Done()
-		_ = s.close()
+		_ = s.close(ctx)
 	}()
 
 	return nil
@@ -50,8 +50,8 @@ func (s *Store) GetConn() any {
 }
 
 // Close - close
-func (s *Store) close() error {
-	return s.client.Disconnect(context.Background())
+func (s *Store) close(ctx context.Context) error {
+	return s.client.Disconnect(ctx)
 }
 
 // setConfig - set configuration

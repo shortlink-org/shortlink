@@ -11,11 +11,11 @@ import (
 )
 
 func NewTraceFromContext(
-	ctx context.Context,
+	ctx context.Context, //nolint:contextcheck,maintidx // contextcheck: ctx is not nil
 	msg string,
 	tags []attribute.KeyValue,
 	fields ...field.Fields,
-) ([]field.Fields, error) { //nolint:contextcheck,maintidx // contextcheck: ctx is not nil
+) ([]field.Fields, error) {
 
 	if ctx == nil {
 		ctx = context.Background()
