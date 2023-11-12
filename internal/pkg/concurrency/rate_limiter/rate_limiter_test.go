@@ -20,8 +20,6 @@ func TestRateLimiter(t *testing.T) {
 	rl, err := New(ctx, 100, 5*time.Millisecond)
 	require.NoError(t, err)
 
-	defer rl.Close()
-
 	var wg errgroup.Group
 
 	for i := 0; i < 10000; i++ {

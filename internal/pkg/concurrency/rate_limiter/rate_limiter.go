@@ -27,6 +27,13 @@ func New(ctx context.Context, limit int64, interval time.Duration) (*RateLimiter
 
 	go rl.refill()
 
+	// Graceful shutdown
+	go func() {
+		<-ctx.Done()
+		rl.ticker.Stop()
+		close(rl.limiter)
+	}()
+
 	return rl, nil
 }
 
@@ -54,13 +61,8 @@ func (r *RateLimiter) refill() {
 				}
 			}
 		case <-r.ctx.Done():
+			r.ticker.Stop()
 			return
 		}
 	}
-}
-
-func (r *RateLimiter) Close() {
-	r.ticker.Stop()
-
-	close(r.limiter)
 }
