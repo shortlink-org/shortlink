@@ -175,3 +175,8 @@ updates:
     directory: /internal/services/report
     schedule:
       interval: daily
+
+  - package-ecosystem: docker
+    directory: /.clusterfuzzlite
+    schedule:
+      interval: daily
