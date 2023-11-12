@@ -1,7 +1,6 @@
 package batch
 
 import (
-	"context"
 	"time"
 
 	"github.com/sasha-s/go-deadlock"
@@ -9,14 +8,14 @@ import (
 
 // Batch is a structure for batch processing
 type Batch struct {
+	mu deadlock.Mutex
+
 	callback func([]*Item) any
 	items    []*Item
-	interval time.Duration
-	mu       deadlock.Mutex
 
-	ctx        context.Context
-	done       chan struct{}
-	cancelFunc context.CancelFunc
+	interval time.Duration
+
+	done chan struct{}
 }
 
 // Item represents an item that can be pushed to the batch.

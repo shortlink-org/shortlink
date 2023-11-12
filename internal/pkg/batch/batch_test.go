@@ -22,7 +22,9 @@ func TestMain(m *testing.M) {
 
 func TestNew(t *testing.T) {
 	t.Run("Create new a batch", func(t *testing.T) {
-		ctx := context.Background()
+		ctx, cancel := context.WithCancel(context.Background())
+		defer cancel()
+
 		eg, ctx := errgroup.WithContext(ctx)
 
 		aggrCB := func(args []*Item) any {
@@ -37,7 +39,6 @@ func TestNew(t *testing.T) {
 
 		b, err := New(ctx, aggrCB)
 		require.NoError(t, err)
-		t.Cleanup(b.Stop)
 
 		requests := []string{"A", "B", "C", "D"}
 		for key := range requests {
@@ -76,7 +77,6 @@ func TestNew(t *testing.T) {
 
 		b, err := New(ctx, aggrCB)
 		require.NoError(t, err)
-		t.Cleanup(b.Stop)
 
 		for key := range requests {
 			request := requests[key]

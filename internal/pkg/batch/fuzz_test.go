@@ -37,12 +37,9 @@ func FuzzBatch(f *testing.F) {
 		select {
 		case <-callbackChan:
 			// Callback completed
-		case <-time.After(60 * time.Second):
+		case <-time.After(20 * time.Second):
 			// Handle timeout if the callback takes too long
 			t.Fatal("Callback timed out")
 		}
-
-		// Stop the batch processing
-		batch.Stop()
 	})
 }

@@ -14,15 +14,11 @@ import (
 func New(ctx context.Context, cb func([]*Item) any, opts ...Option) (*Batch, error) {
 	viper.SetDefault("BATCH_INTERVAL", "100ms")
 
-	ctx, cancelFunc := context.WithCancel(ctx)
-
 	b := &Batch{
 		callback: cb,
 		interval: viper.GetDuration("BATCH_INTERVAL"),
 
-		ctx:        ctx,
-		done:       make(chan struct{}),
-		cancelFunc: cancelFunc,
+		done: make(chan struct{}),
 	}
 
 	// Apply options
@@ -56,6 +52,9 @@ func (b *Batch) run(ctx context.Context) {
 	for {
 		select {
 		case <-ctx.Done():
+			ticker.Stop()
+
+			// Clear all items
 			b.clearItems()
 			close(b.done)
 
@@ -75,23 +74,11 @@ func (b *Batch) clearItems() {
 	}
 }
 
+// flushItems - flushes all items to the callback function.
 func (b *Batch) flushItems() {
 	b.mu.Lock()
 	defer b.mu.Unlock()
 
-	if len(b.items) > 0 {
-		// Check if the context is done before invoking the callback
-		select {
-		case <-b.ctx.Done():
-			return
-		default:
-			b.callback(b.items)
-			b.items = []*Item{}
-		}
-	}
-}
-
-// Stop cancels the Batch's context, effectively stopping the run goroutine.
-func (b *Batch) Stop() {
-	b.cancelFunc()
+	b.callback(b.items)
+	b.items = []*Item{}
 }
