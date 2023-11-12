@@ -93,7 +93,9 @@ down: confirm ## Down docker compose
 		-f ops/docker-compose/database/mongo/mongo.yaml \
 		-f ops/docker-compose/database/neo4j/neo4j.yaml \
 		-f ops/docker-compose/database/postgres/postgres.yaml \
+		-f ops/docker-compose/database/postgres/pgbouncer.yaml \
 		-f ops/docker-compose/database/postgres/patroni.yaml \
+		-f ops/docker-compose/database/postgres/backup.yaml \
 		-f ops/docker-compose/database/redis/redis.yaml \
 		-f ops/docker-compose/database/rethinkdb/rethinkdb.yaml \
 		-f ops/docker-compose/database/scylla/scylla.yaml \

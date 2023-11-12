@@ -1,0 +1,44 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  pgbouncer:
+    <<: *network
+    depends_on:
+      - coredns
+      - postgres
+    image: bitnami/pgbouncer:1.21.0
+    restart: on-failure
+    container_name: pgbouncer
+    init: true
+    ports:
+      - 6432:6432
+    environment:
+      - POSTGRESQL_HOST=postgres
+      - POSTGRESQL_PASSWORD=shortlink
+      - POSTGRESQL_DATABASE=shortlink
+      - PGBOUNCER_DATABASE=shortlink
+    extra_hosts:
+      - "postgres:${DATABASE_IP}"
+    volumes:
+      - ./ops/docker-compose/database/postgres/conf/pgbouncer.ini:/bitnami/pgbouncer/conf/pgbouncer.ini
+
+  pgbouncer-exporter:
+    <<: *network
+    depends_on:
+      - coredns
+      - postgres
+    restart: on-failure
+    image: bitnami/postgres-exporter
+    container_name: pgbouncer-exporter
+    environment:
+      DATA_SOURCE_NAME: postgresql://postgres:shortlink@postgres:5432/postgres?sslmode=disable
+    ports:
+      - 9127:9127

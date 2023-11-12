@@ -33,3 +33,13 @@ services:
       options:
         loki-url: ${LOGGER_DRIVER_URL}
         max-size: ${LOGGER_MAX_SIZE}
+
+  node-exporter:
+    <<: *network
+    depends_on:
+      - coredns
+    image: prom/node-exporter:latest
+    container_name: node-exporter
+    restart: always
+    expose:
+      - 9100
