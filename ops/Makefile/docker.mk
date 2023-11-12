@@ -101,6 +101,7 @@ down: confirm ## Down docker compose
 		-f ops/docker-compose/database/scylla/scylla.yaml \
 		-f ops/docker-compose/database/tarantool/tarantool.yaml \
 		-f ops/docker-compose/database/tidb/tidb.yaml \
+		-f ops/docker-compose/database/victoria-metrics/victoria-metrics.yaml \
 		-f ops/docker-compose/mq/rabbitmq/rabbitmq.yaml \
 		-f ops/docker-compose/mq/kafka/kafka-connector-elasticsearch.yaml \
 		-f ops/docker-compose/mq/kafka/kafka.yaml \

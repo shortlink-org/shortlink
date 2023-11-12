@@ -1,8 +1,14 @@
 [
   {
-    "targets": [ "postgres-exporter:9187" ],
+    "targets": ["postgres-exporter:9187"],
     "labels": {
       "job": "postgres-exporter"
+    }
+  },
+  {
+    "targets": ["pgbouncer-exporter:9127"],
+    "labels": {
+      "job": "pgbouncer"
     }
   }
 ]
