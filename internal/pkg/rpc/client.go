@@ -7,7 +7,6 @@ import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/v2/interceptors/timeout"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
-	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
@@ -76,7 +75,7 @@ func SetClientConfig(tracer trace.TracerProvider, monitor *monitoring.Monitoring
 	// Initialize gRPC Client's interceptor.
 	config.withSession()
 	config.withMetrics(monitor)
-	config.withTracer(tracer)
+	config.withTracer(tracer, monitor)
 	config.withLogger(log)
 	config.withTimeout()
 
@@ -145,12 +144,17 @@ func (c *Client) withTLS() error {
 }
 
 // withTracer - setup tracing
-func (c *Client) withTracer(tracer trace.TracerProvider) {
+func (c *Client) withTracer(tracer trace.TracerProvider, monitor *monitoring.Monitoring) {
 	if tracer == nil {
 		return
 	}
 
-	c.optionsNewClient = append(c.optionsNewClient, grpc.WithStatsHandler(otelgrpc.NewClientHandler(otelgrpc.WithTracerProvider(otel.GetTracerProvider()))))
+	c.optionsNewClient = append(c.optionsNewClient, grpc.WithStatsHandler(
+		otelgrpc.NewClientHandler(
+			otelgrpc.WithTracerProvider(tracer),
+			otelgrpc.WithMeterProvider(monitor.Metrics),
+			otelgrpc.WithMessageEvents(otelgrpc.ReceivedEvents, otelgrpc.SentEvents))),
+	)
 }
 
 // withMetrics - setup metrics.

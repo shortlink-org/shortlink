@@ -12,7 +12,6 @@ import (
 	"github.com/prometheus/client_golang/prometheus/promauto"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc"
-	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/codes"
@@ -151,7 +150,9 @@ func (s *server) WithTracer(tracer trace.TracerProvider) {
 		return
 	}
 
-	s.optionsNewServer = append(s.optionsNewServer, grpc.StatsHandler(otelgrpc.NewServerHandler(otelgrpc.WithTracerProvider(otel.GetTracerProvider()))))
+	s.optionsNewServer = append(s.optionsNewServer, grpc.StatsHandler(
+		otelgrpc.NewServerHandler(otelgrpc.WithTracerProvider(tracer))),
+	)
 }
 
 // WithRecovery - setup recovery
