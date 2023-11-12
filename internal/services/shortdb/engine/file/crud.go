@@ -9,8 +9,8 @@ import (
 )
 
 func (f *File) Select(query *v1.Query) ([]*page.Row, error) {
-	f.mu.Lock()
-	defer f.mu.Unlock()
+	f.mu.RLock()
+	defer f.mu.RUnlock()
 
 	// check table
 	t := f.database.GetTables()[query.GetTableName()]
