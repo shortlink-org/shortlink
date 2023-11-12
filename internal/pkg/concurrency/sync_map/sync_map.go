@@ -1,31 +1,34 @@
 package sync_map
 
 import (
-	"sync"
+	"sync/atomic"
 )
 
 type SyncMap struct {
-	mu sync.RWMutex
-
-	m map[any]any
+	// We use atomic.Value to store the map, so we don't need to use mutex
+	m atomic.Value
 }
 
 func New() *SyncMap {
+	m := make(map[any]any)
+	v := atomic.Value{}
+	v.Store(m)
+
 	return &SyncMap{
-		m: make(map[any]any),
+		m: v,
 	}
 }
 
 func (s *SyncMap) Get(key any) any {
-	s.mu.RLock()
-	defer s.mu.RUnlock()
-
-	return s.m[key]
+	return s.m.Load().(map[any]any)[key]
 }
 
 func (s *SyncMap) Set(key, value any) {
-	s.mu.Lock()
-	defer s.mu.Unlock()
+	m, ok := s.m.Load().(map[any]any)
+	if !ok {
+		return
+	}
 
-	s.m[key] = value
+	m[key] = value
+	s.m.Store(m)
 }

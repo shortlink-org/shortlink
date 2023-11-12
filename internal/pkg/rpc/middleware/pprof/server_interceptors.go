@@ -10,22 +10,20 @@ import (
 
 // UnaryServerInterceptor returns a new unary server interceptors that adds pprof labels.
 func UnaryServerInterceptor() grpc.UnaryServerInterceptor {
-	return func(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+	return func(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp any, err error) {
 		// Extract method information and create labels
 		labels := pprof.Labels("method", info.FullMethod)
 		ctx = pprof.WithLabels(ctx, labels)
 
 		pprof.SetGoroutineLabels(ctx)
 
-		// Proceed with handler and catch any panic
-		resp, err = handler(ctx, req)
-		return
+		return handler(ctx, req)
 	}
 }
 
 // StreamServerInterceptor returns a new streaming server interceptor that adds pprof labels.
 func StreamServerInterceptor() grpc.StreamServerInterceptor {
-	return func(srv interface{}, stream grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
+	return func(srv any, stream grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
 		// Wrap the server stream and extract the context
 		wrapped := grpc_middleware.WrapServerStream(stream)
 		ctx := wrapped.Context()

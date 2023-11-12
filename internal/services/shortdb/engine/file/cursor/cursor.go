@@ -22,8 +22,8 @@ func New(t *table.Table, isEnd bool) (*Cursor, error) {
 }
 
 func (c *Cursor) Advance() {
-	c.mu.RLock()
-	defer c.mu.RUnlock()
+	c.mu.Lock()
+	defer c.mu.Unlock()
 
 	if c.RowId > 0 && c.RowId%c.Table.GetOption().GetPageSize() == 0 {
 		c.PageId = int32(c.RowId / c.Table.GetOption().GetPageSize())
@@ -37,8 +37,8 @@ func (c *Cursor) Advance() {
 }
 
 func (c *Cursor) Value() (*page.Row, error) {
-	c.mu.RLock()
-	defer c.mu.RUnlock()
+	c.mu.Lock()
+	defer c.mu.Unlock()
 
 	if c.Table.GetPages() == nil {
 		return nil, ErrGetPage

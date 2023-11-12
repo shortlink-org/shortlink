@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"os"
-	"sync"
 
+	"github.com/sasha-s/go-deadlock"
 	"github.com/sourcegraph/conc"
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
@@ -20,7 +20,7 @@ import (
 type File struct {
 	database *database.DataBase
 	path     string
-	mu       sync.RWMutex
+	mu       deadlock.RWMutex
 }
 
 func New(ctx context.Context, opts ...options.Option) (*File, error) {
