@@ -3,6 +3,9 @@
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$/internal/pkg/db/redis" />
     <go_parameters value="-race -v -tags=unit -cover" />
+    <envs>
+      <env name="GOEXPERIMENT" value="arenas,cgocheck2,loopvar" />
+    </envs>
     <EXTENSION ID="software.aws.toolkits.jetbrains.core.execution.GoAwsConnectionRunConfigurationExtension">
       <option name="credential" />
       <option name="region" />

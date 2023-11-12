@@ -2,6 +2,9 @@
   <configuration default="false" name="shortdb: benchmark parser" type="GoTestRunConfiguration" factoryName="Go Test" folderName="shortdb">
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$/internal/services/shortdb/parser/v1/tests" />
+    <envs>
+      <env name="GOEXPERIMENT" value="arenas,cgocheck2,loopvar" />
+    </envs>
     <root_directory value="$PROJECT_DIR$" />
     <kind value="PACKAGE" />
     <package value="github.com/shortlink-org/shortlink/internal/services/shortdb/parser/v1/tests" />

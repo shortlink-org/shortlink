@@ -2,6 +2,9 @@
   <configuration default="false" name="order-processor" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="merch">
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$" />
+    <envs>
+      <env name="GOEXPERIMENT" value="arenas,cgocheck2,loopvar" />
+    </envs>
     <kind value="PACKAGE" />
     <package value="github.com/shortlink-org/shortlink/internal/services/merch/usecases/order-processor/pkg" />
     <directory value="$PROJECT_DIR$" />

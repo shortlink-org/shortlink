@@ -2,6 +2,9 @@
   <configuration default="false" name="auth" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="services">
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$" />
+    <envs>
+      <env name="GOEXPERIMENT" value="arenas,cgocheck2,loopvar" />
+    </envs>
     <kind value="PACKAGE" />
     <package value="github.com/shortlink-org/shortlink/internal/services/auth/cmd" />
     <directory value="$PROJECT_DIR$" />

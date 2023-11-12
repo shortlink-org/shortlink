@@ -4,6 +4,7 @@
     <working_directory value="$PROJECT_DIR$" />
     <envs>
       <env name="GRPC_SERVER_PORT" value="50052" />
+      <env name="GOEXPERIMENT" value="arenas,cgocheck2,loopvar" />
     </envs>
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />

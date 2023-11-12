@@ -2,6 +2,9 @@
   <configuration default="false" name="notify" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="services">
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$" />
+    <envs>
+      <env name="GOEXPERIMENT" value="arenas,cgocheck2,loopvar" />
+    </envs>
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
       <option name="IS_SUBST" value="false" />

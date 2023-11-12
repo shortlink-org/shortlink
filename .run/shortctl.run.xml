@@ -3,6 +3,9 @@
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$" />
     <parameters value="--o ./docs/env.md --include-dir &quot;internal,pkg&quot; --exclude-dir &quot;vendor,node_modules,dist,ui,ops,ds&quot;" />
+    <envs>
+      <env name="GOEXPERIMENT" value="arenas,cgocheck2,loopvar" />
+    </envs>
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
       <option name="IS_SUBST" value="false" />
