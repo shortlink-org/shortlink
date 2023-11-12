@@ -83,7 +83,7 @@ func TestNew(t *testing.T) {
 			res := b.Push(request)
 
 			eg.Go(func() error {
-				assert.Equal(t, struct{}{}, <-res)
+				assert.Equal(t, nil, <-res)
 				return nil
 			})
 		}

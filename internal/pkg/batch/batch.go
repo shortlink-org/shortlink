@@ -17,8 +17,6 @@ func New(ctx context.Context, cb func([]*Item) any, opts ...Option) (*Batch, err
 	b := &Batch{
 		callback: cb,
 		interval: viper.GetDuration("BATCH_INTERVAL"),
-
-		done: make(chan struct{}),
 	}
 
 	// Apply options
@@ -35,6 +33,7 @@ func New(ctx context.Context, cb func([]*Item) any, opts ...Option) (*Batch, err
 func (b *Batch) Push(item any) chan any {
 	b.mu.Lock()
 	defer b.mu.Unlock()
+
 	newItem := &Item{
 		CallbackChannel: make(chan any),
 		Item:            item,
@@ -52,11 +51,8 @@ func (b *Batch) run(ctx context.Context) {
 	for {
 		select {
 		case <-ctx.Done():
-			ticker.Stop()
-
 			// Clear all items
 			b.clearItems()
-			close(b.done)
 
 			return
 		case <-ticker.C:
@@ -70,7 +66,7 @@ func (b *Batch) clearItems() {
 	defer b.mu.Unlock()
 
 	for _, item := range b.items {
-		item.CallbackChannel <- struct{}{}
+		close(item.CallbackChannel)
 	}
 }
 

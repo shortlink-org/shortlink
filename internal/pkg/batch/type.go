@@ -14,8 +14,6 @@ type Batch struct {
 	items    []*Item
 
 	interval time.Duration
-
-	done chan struct{}
 }
 
 // Item represents an item that can be pushed to the batch.
