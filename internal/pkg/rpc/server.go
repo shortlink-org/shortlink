@@ -23,6 +23,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	grpc_logger "github.com/shortlink-org/shortlink/internal/pkg/rpc/middleware/logger"
+	pprof_interceptor "github.com/shortlink-org/shortlink/internal/pkg/rpc/middleware/pprof"
 	session_interceptor "github.com/shortlink-org/shortlink/internal/pkg/rpc/middleware/session"
 )
 
@@ -115,6 +116,7 @@ func setServerConfig(log logger.Logger, tracer trace.TracerProvider, monitor *mo
 	config.WithRecovery(monitor)
 	config.WithTracer(tracer)
 	config.withSession()
+	config.withPprofLabels()
 
 	config.optionsNewServer = append(config.optionsNewServer,
 		// Initialize your gRPC server's interceptor.
@@ -219,4 +221,10 @@ func (s *server) WithTLS() error {
 func (s *server) withSession() {
 	s.interceptorUnaryServerList = append(s.interceptorUnaryServerList, session_interceptor.SessionUnaryServerInterceptor())
 	s.interceptorStreamServerList = append(s.interceptorStreamServerList, session_interceptor.SessionStreamServerInterceptor())
+}
+
+// withPprofLabels - setup pprof labels
+func (s *server) withPprofLabels() {
+	s.interceptorUnaryServerList = append(s.interceptorUnaryServerList, pprof_interceptor.UnaryServerInterceptor())
+	s.interceptorStreamServerList = append(s.interceptorStreamServerList, pprof_interceptor.StreamServerInterceptor())
 }

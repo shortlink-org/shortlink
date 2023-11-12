@@ -17,6 +17,7 @@ import (
 	auth_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/auth"
 	logger_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/logger"
 	metrics_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/metrics"
+	pprof_labels_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/pprof_labels"
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	account_application "github.com/shortlink-org/shortlink/internal/services/billing/application/account"
@@ -80,6 +81,7 @@ func (api *API) Run(
 	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
 	r.Use(logger_middleware.Logger(log))
 	r.Use(auth_middleware.Auth())
+	r.Use(pprof_labels_middleware.Labels)
 
 	metrics, err := metrics_middleware.NewMetrics()
 	if err != nil {
