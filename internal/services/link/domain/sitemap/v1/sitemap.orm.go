@@ -184,6 +184,9 @@ func (f *FilterUrl) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBui
 	return query
 }
 func (f *FilterUrl) BuildMongoFilter() bson.M {
+	if f == nil {
+		return nil
+	}
 	filter := bson.M{}
 	if f.Loc != nil {
 		fieldFilter := bson.M{}
@@ -328,6 +331,9 @@ func (f *FilterSitemap) BuildFilter(query squirrel.SelectBuilder) squirrel.Selec
 	return query
 }
 func (f *FilterSitemap) BuildMongoFilter() bson.M {
+	if f == nil {
+		return nil
+	}
 	filter := bson.M{}
 	return filter
 }

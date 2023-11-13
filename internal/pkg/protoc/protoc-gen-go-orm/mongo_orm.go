@@ -8,6 +8,9 @@ import (
 
 func generateBuildMongoFilterMethod(g *protogen.GeneratedFile, structName string, fields []*protogen.Field) {
 	g.P("func (f *", structName, ") BuildMongoFilter() bson.M {")
+	g.P("if f == nil {")
+	g.P("return nil")
+	g.P("}")
 	g.P("filter := bson.M{}")
 
 	for _, field := range fields {

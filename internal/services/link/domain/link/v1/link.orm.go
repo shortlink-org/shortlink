@@ -262,6 +262,9 @@ func (f *FilterLink) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBu
 	return query
 }
 func (f *FilterLink) BuildMongoFilter() bson.M {
+	if f == nil {
+		return nil
+	}
 	filter := bson.M{}
 	if f.FieldMask != nil {
 		fieldFilter := bson.M{}
@@ -468,6 +471,9 @@ func (f *FilterLinks) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectB
 	return query
 }
 func (f *FilterLinks) BuildMongoFilter() bson.M {
+	if f == nil {
+		return nil
+	}
 	filter := bson.M{}
 	return filter
 }

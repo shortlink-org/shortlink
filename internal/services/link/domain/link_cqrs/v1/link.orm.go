@@ -379,6 +379,9 @@ func (f *FilterLinkView) BuildFilter(query squirrel.SelectBuilder) squirrel.Sele
 	return query
 }
 func (f *FilterLinkView) BuildMongoFilter() bson.M {
+	if f == nil {
+		return nil
+	}
 	filter := bson.M{}
 	if f.FieldMask != nil {
 		fieldFilter := bson.M{}
@@ -678,6 +681,9 @@ func (f *FilterLinksView) BuildFilter(query squirrel.SelectBuilder) squirrel.Sel
 	return query
 }
 func (f *FilterLinksView) BuildMongoFilter() bson.M {
+	if f == nil {
+		return nil
+	}
 	filter := bson.M{}
 	return filter
 }

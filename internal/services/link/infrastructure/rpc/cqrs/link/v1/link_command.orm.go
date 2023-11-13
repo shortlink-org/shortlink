@@ -67,6 +67,9 @@ func (f *FilterAddRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.Se
 	return query
 }
 func (f *FilterAddRequest) BuildMongoFilter() bson.M {
+	if f == nil {
+		return nil
+	}
 	filter := bson.M{}
 	if f.Link != nil {
 		fieldFilter := bson.M{}
@@ -157,6 +160,9 @@ func (f *FilterAddResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.S
 	return query
 }
 func (f *FilterAddResponse) BuildMongoFilter() bson.M {
+	if f == nil {
+		return nil
+	}
 	filter := bson.M{}
 	if f.Link != nil {
 		fieldFilter := bson.M{}
@@ -247,6 +253,9 @@ func (f *FilterUpdateRequest) BuildFilter(query squirrel.SelectBuilder) squirrel
 	return query
 }
 func (f *FilterUpdateRequest) BuildMongoFilter() bson.M {
+	if f == nil {
+		return nil
+	}
 	filter := bson.M{}
 	if f.Link != nil {
 		fieldFilter := bson.M{}
@@ -337,6 +346,9 @@ func (f *FilterUpdateResponse) BuildFilter(query squirrel.SelectBuilder) squirre
 	return query
 }
 func (f *FilterUpdateResponse) BuildMongoFilter() bson.M {
+	if f == nil {
+		return nil
+	}
 	filter := bson.M{}
 	if f.Link != nil {
 		fieldFilter := bson.M{}
@@ -427,6 +439,9 @@ func (f *FilterDeleteRequest) BuildFilter(query squirrel.SelectBuilder) squirrel
 	return query
 }
 func (f *FilterDeleteRequest) BuildMongoFilter() bson.M {
+	if f == nil {
+		return nil
+	}
 	filter := bson.M{}
 	if f.Hash != nil {
 		fieldFilter := bson.M{}

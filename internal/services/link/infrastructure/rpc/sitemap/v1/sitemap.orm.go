@@ -67,6 +67,9 @@ func (f *FilterParseRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.
 	return query
 }
 func (f *FilterParseRequest) BuildMongoFilter() bson.M {
+	if f == nil {
+		return nil
+	}
 	filter := bson.M{}
 	if f.Url != nil {
 		fieldFilter := bson.M{}
