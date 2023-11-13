@@ -73,12 +73,6 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 		}
 	}
 
-	// Graceful shutdown -----------------------------------------------------------------------------------------------
-	go func() {
-		<-ctx.Done()
-		s.close()
-	}()
-
 	return s, nil
 }
 
@@ -188,17 +182,6 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 	_, err := collection.DeleteOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
 	if err != nil {
 		return &v1.NotFoundError{Link: &v1.Link{Hash: id}}
-	}
-
-	return nil
-}
-
-// Close - close
-//
-//nolint:unparam // ignore
-func (s *Store) close() error {
-	if s.config.job != nil {
-		s.config.job.Stop()
 	}
 
 	return nil

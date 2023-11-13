@@ -136,15 +136,6 @@ func (s *Store) Delete(_ context.Context, id string) error {
 	return nil
 }
 
-// Close - close
-func (s *Store) Close() error {
-	if s.config.job != nil {
-		s.config.job.Stop()
-	}
-
-	return nil
-}
-
 func (s *Store) singleWrite(_ context.Context, source *domain.Link) (*domain.Link, error) {
 	err := domain.NewURL(source) // Create a new link
 	if err != nil {
