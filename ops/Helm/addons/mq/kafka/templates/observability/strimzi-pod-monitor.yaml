@@ -4,6 +4,7 @@ metadata:
   name: cluster-operator-metrics
   labels:
     app: strimzi
+    release: prometheus-operator
 spec:
   selector:
     matchLabels:
@@ -14,6 +15,7 @@ spec:
   podMetricsEndpoints:
     - path: /metrics
       port: http
+
 ---
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
@@ -21,6 +23,7 @@ metadata:
   name: entity-operator-metrics
   labels:
     app: strimzi
+    release: prometheus-operator
 spec:
   selector:
     matchLabels:
@@ -38,6 +41,7 @@ metadata:
   name: bridge-metrics
   labels:
     app: strimzi
+    release: prometheus-operator
 spec:
   selector:
     matchLabels:
@@ -55,6 +59,7 @@ metadata:
   name: kafka-resources-metrics
   labels:
     app: strimzi
+    release: prometheus-operator
 spec:
   selector:
     matchExpressions:

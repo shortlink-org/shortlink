@@ -4,6 +4,7 @@ metadata:
   labels:
     role: alert-rules
     app: strimzi
+    release: prometheus-operator
   name: prometheus-k8s-rules
 spec:
   groups:
