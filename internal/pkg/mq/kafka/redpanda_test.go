@@ -36,11 +36,10 @@ func TestRedPanda(t *testing.T) {
 
 	// create a network with Client.CreateNetwork()
 	network, err := pool.Client.CreateNetwork(docker.CreateNetworkOptions{
-		Name: "shortlink-test",
+		Name: "shortlink-test-redpanda",
 	})
 	if err != nil {
-		require.Errorf(t, err, "Error create docker network")
-		t.Error(err)
+		t.Fatalf("Error create docker network: %s", err)
 	}
 
 	RED_PANDA, err := pool.RunWithOptions(&dockertest.RunOptions{

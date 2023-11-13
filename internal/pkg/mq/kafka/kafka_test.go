@@ -40,7 +40,7 @@ func TestKafka(t *testing.T) {
 
 	// create a network with Client.CreateNetwork()
 	network, err := pool.Client.CreateNetwork(docker.CreateNetworkOptions{
-		Name: "shortlink-test",
+		Name: "shortlink-test-kafka",
 	})
 	if err != nil {
 		t.Fatalf("Error create docker network: %s", err)
@@ -107,7 +107,7 @@ func TestKafka(t *testing.T) {
 
 		return nil
 	}); err != nil {
-		require.Errorf(t, err, "Could not connect to docker")
+		t.Fatalf("Could not connect to docker: %s", err)
 	}
 
 	t.Run("Subscribe", func(t *testing.T) {

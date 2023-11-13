@@ -198,13 +198,16 @@ func (mq *Kafka) UnSubscribe(target string) error {
 }
 
 // setConfig - Construct a new Sarama configuration.
+//
+// Reference:
+// - https://developers.redhat.com/articles/2022/05/03/fine-tune-kafka-performance-kafka-optimization-theorem#the_kafka_optimization_theorem
 func (mq *Kafka) setConfig() (*sarama.Config, error) {
 	viper.AutomaticEnv()
 	viper.SetDefault("MQ_KAFKA_URI", "localhost:9092")                                                         // Kafka URI
 	viper.SetDefault("MQ_KAFKA_CONSUMER_GROUP", viper.GetString("SERVICE_NAME"))                               // Kafka consumer group
 	viper.SetDefault("MQ_KAFKA_CONSUMER_GROUP_PARTITION_ASSIGNMENT_STRATEGY", sarama.RangeBalanceStrategyName) // Consumer group partition assignment strategy (range, roundrobin, sticky)
 	viper.SetDefault("MQ_KAFKA_CONSUMER_GROUP_OFFSET", sarama.OffsetNewest)                                    // Kafka consumer consumes initial offset from oldest
-	viper.SetDefault("MQ_KAFKA_PRODUCER_RETRY_MAX", 5)                                                         // Kafka producer retry max
+	viper.SetDefault("MQ_KAFKA_PRODUCER_RETRY_MAX", 3)                                                         // Kafka producer retry max
 	viper.SetDefault("MQ_KAFKA_SARAMA_VERSION", "MAX")                                                         // Kafka sarama version: MAX, DEFAULT
 
 	mq.Config = &Config{
@@ -236,8 +239,10 @@ func (mq *Kafka) setConfig() (*sarama.Config, error) {
 	config.Producer.RequiredAcks = sarama.WaitForAll
 	config.Producer.Retry.Max = viper.GetInt("MQ_KAFKA_PRODUCER_RETRY_MAX")
 	config.Producer.Return.Successes = true
+	config.Consumer.Return.Errors = true
 	config.Producer.Compression = sarama.CompressionSnappy
 
+	// set sarama version for support redpanda
 	switch viper.GetString("MQ_KAFKA_SARAMA_VERSION") {
 	case "MAX":
 		config.Version = sarama.MaxVersion
@@ -245,7 +250,18 @@ func (mq *Kafka) setConfig() (*sarama.Config, error) {
 		config.Version = sarama.DefaultVersion
 	}
 
-	config.Consumer.Return.Errors = true
+	// idempotent producer
+	config.Producer.Idempotent = true
+	if config.Producer.Idempotent {
+		if config.Producer.Retry.Max == 0 {
+			return nil, errors.New("Idempotent producer requires config.Producer.Retry.Max to be greater than 0")
+		}
+		if config.Producer.RequiredAcks != sarama.WaitForAll {
+			return nil, errors.New("Idempotent producer requires config.Producer.RequiredAcks to be WaitForAll")
+		}
+
+		config.Net.MaxOpenRequests = 1
+	}
 
 	return config, nil
 }
