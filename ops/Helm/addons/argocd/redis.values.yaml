@@ -10,10 +10,10 @@ redis:
 
     resources:
       limits:
-        cpu: 200m
+        cpu: 500m
         memory: 500Mi
       requests:
-        cpu: 10m
+        cpu: 50m
         memory: 126Mi
 
   auth:
