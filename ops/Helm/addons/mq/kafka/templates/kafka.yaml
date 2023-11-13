@@ -5,7 +5,7 @@ metadata:
 spec:
   kafka:
     version: 3.6.0
-    replicas: 1
+    replicas: 3
     listeners:
       - name: plain
         port: 9092
@@ -18,21 +18,27 @@ spec:
         type: internal
         tls: true
     config:
-      offsets.topic.replication.factor: 1
-      transaction.state.log.replication.factor: 1
-      transaction.state.log.min.isr: 1
-      default.replication.factor: 1
-      min.insync.replicas: 1
+      offsets.topic.replication.factor: 3
+      transaction.state.log.replication.factor: 3
+      transaction.state.log.min.isr: 2
+      default.replication.factor: 3
+      min.insync.replicas: 2
       inter.broker.protocol.version: "3.6"
     storage:
       type: ephemeral
     resources:
       requests:
         memory: 100Mi
-        cpu: 10m
+        cpu: 50m
       limits:
         memory: 2Gi
-        cpu: "1"
+        cpu: 1000m
+    metricsConfig:
+      type: jmxPrometheusExporter
+      valueFrom:
+        configMapKeyRef:
+          name: kafka-metrics
+          key: kafka-metrics-config.yml
   zookeeper:
     replicas: 3
     template:
@@ -45,10 +51,26 @@ spec:
     resources:
       requests:
         memory: 100Mi
-        cpu: 10m
+        cpu: 50m
       limits:
         memory: 2Gi
-        cpu: "1"
+        cpu: 1000m
+    metricsConfig:
+      type: jmxPrometheusExporter
+      valueFrom:
+        configMapKeyRef:
+          name: kafka-metrics
+          key: zookeeper-metrics-config.yml
   entityOperator:
     topicOperator: {}
     userOperator: {}
+  kafkaExporter:
+    topicRegex: ".*"
+    groupRegex: ".*"
+  cruiseControl:
+    metricsConfig:
+      type: jmxPrometheusExporter
+      valueFrom:
+        configMapKeyRef:
+          name: cruise-control-metrics
+          key: metrics-config.yml
