@@ -67,6 +67,7 @@ spec:
   kafkaExporter:
     topicRegex: ".*"
     groupRegex: ".*"
+    enableSaramaLogging: true
   cruiseControl:
     metricsConfig:
       type: jmxPrometheusExporter
