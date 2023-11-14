@@ -9,8 +9,8 @@ argo-cd:
   fullnameOverride: argocd
 
   global:
-    image:
-      tag: "v2.9.0"
+    image: {}
+      # tag: "v2.9.0"
 
     logging:
       format: json
@@ -283,7 +283,7 @@ argo-cd:
     resources:
       limits:
         cpu: 300m
-        memory: 1Gi
+        memory: 256Mi
       requests:
         cpu: 15m
         memory: 64Mi
