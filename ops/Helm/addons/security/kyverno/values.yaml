@@ -96,12 +96,18 @@ policy-reporter:
       memory: 75Mi
 
   networkPolicy:
-    enabled: false
+    enabled: true
+
+  logging:
+    encoding: json
 
   rest:
     enabled: true
 
   metrics:
+    enabled: true
+
+  profiling:
     enabled: true
 
   ui:
