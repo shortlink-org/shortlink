@@ -34,7 +34,7 @@ func (api *API) update(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
-	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
+	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	// Parse request
 	decoder := json.NewDecoder(r.Body)

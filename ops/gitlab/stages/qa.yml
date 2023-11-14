@@ -1,7 +1,7 @@
 gateway:http-chi:crud:
   stage: qa
   image:
-    name: loadimpact/k6:latest
+    name: grafana/k6:latest
     entrypoint: ['']
   variables:
     API_URL: $ENVIRONMENT_URL

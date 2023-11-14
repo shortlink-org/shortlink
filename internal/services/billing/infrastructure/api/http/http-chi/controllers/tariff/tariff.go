@@ -37,7 +37,7 @@ func (api *API) add(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
-	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
+	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	// Parse request
 	decoder := json.NewDecoder(r.Body)
@@ -75,7 +75,7 @@ func (api *API) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
-	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
+	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck // ignore
@@ -86,7 +86,7 @@ func (api *API) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
-	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
+	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	tariffs, err := api.tariffService.List(r.Context(), nil)
 	if err != nil {
@@ -113,7 +113,7 @@ func (api *API) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
-	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
+	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck // ignore

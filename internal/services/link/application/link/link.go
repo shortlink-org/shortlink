@@ -253,6 +253,9 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 		SAGA_STEP_PUBLISH_EVENT_NEW_LINK = "SAGA_STEP_PUBLISH_EVENT_NEW_LINK"
 	)
 
+	// Observability
+	NewLinkHistogramObserve(ctx)
+
 	userID := session.GetUserID(ctx)
 
 	// saga for create a new link

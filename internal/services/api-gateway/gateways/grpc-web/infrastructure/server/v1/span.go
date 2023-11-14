@@ -11,6 +11,6 @@ import (
 // RegisterSpan - inject spanId in response header
 func RegisterSpan(ctx context.Context) error {
 	return grpc.SendHeader(ctx, metadata.New(map[string]string{
-		"trace-id": trace.LinkFromContext(ctx).SpanContext.TraceID().String(),
+		"trace_id": trace.LinkFromContext(ctx).SpanContext.TraceID().String(),
 	}))
 }

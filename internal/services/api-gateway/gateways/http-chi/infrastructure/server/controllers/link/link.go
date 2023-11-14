@@ -65,7 +65,7 @@ func (h *Handler) Add(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// inject spanId in response header
-	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
+	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	// Save link
 	response, err := h.LinkServiceClient.Add(r.Context(), &link_rpc.AddRequest{Link: &request})
@@ -113,7 +113,7 @@ func (h *Handler) Update(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// inject spanId in response header
-	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
+	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	// Update link
 	response, err := h.LinkServiceClient.Update(r.Context(), &link_rpc.UpdateRequest{Link: &request})
@@ -159,7 +159,7 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// inject spanId in response header
-	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
+	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	response, err := h.LinkServiceClient.Get(r.Context(), &link_rpc.GetRequest{Hash: hash})
 	if err != nil {
@@ -206,7 +206,7 @@ func (h *Handler) List(w http.ResponseWriter, r *http.Request) {
 	filter := r.URL.Query().Get("filter")
 
 	// inject spanId in response header
-	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
+	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	response, err := h.LinkServiceClient.List(r.Context(), &link_rpc.ListRequest{Filter: filter})
 	if err != nil {
@@ -260,7 +260,7 @@ func (h *Handler) Delete(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// inject spanId in response header
-	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
+	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	_, err := h.LinkServiceClient.Delete(r.Context(), &link_rpc.DeleteRequest{Hash: hash})
 	if err != nil {

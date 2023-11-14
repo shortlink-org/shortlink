@@ -2,6 +2,7 @@ package link
 
 import (
 	"context"
+	"time"
 
 	"github.com/prometheus/client_golang/prometheus"
 	"go.opentelemetry.io/otel/trace"
@@ -18,15 +19,18 @@ var newLinkHistogram = prometheus.NewHistogram(prometheus.HistogramOpts{
 })
 
 func NewLinkHistogramObserve(ctx context.Context) {
-	traceID := trace.SpanContextFromContext(ctx).TraceID()
+	now := time.Now()
+	spanContext := trace.SpanContextFromContext(ctx)
 
-	if exemplarObserver, ok := newLinkHistogram.(prometheus.ExemplarObserver); ok && traceID.IsValid() {
-		exemplarObserver.ObserveWithExemplar(1, prometheus.Labels{
-			"trace-id": traceID.String(),
-		})
+	if spanContext.IsValid() {
+		if exemplarObserver, ok := newLinkHistogram.(prometheus.ExemplarObserver); ok && spanContext.TraceID().IsValid() {
+			exemplarObserver.ObserveWithExemplar(time.Since(now).Seconds(), prometheus.Labels{
+				"traceID": spanContext.TraceID().String(),
+			})
 
-		return
+			return
+		}
 	}
 
-	newLinkHistogram.Observe(1)
+	newLinkHistogram.Observe(time.Since(now).Seconds())
 }

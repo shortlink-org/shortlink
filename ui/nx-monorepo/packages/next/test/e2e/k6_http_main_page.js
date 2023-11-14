@@ -24,7 +24,7 @@ export default () => {
 
   const res = http.get(`${TARGET_HOSTNAME}/`, {
     headers: {
-      'trace-id': 'instrumented/get',
+      'trace_id': 'instrumented/get',
     },
   })
   check(res, {

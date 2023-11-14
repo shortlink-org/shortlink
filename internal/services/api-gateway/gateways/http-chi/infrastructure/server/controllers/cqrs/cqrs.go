@@ -50,7 +50,7 @@ func (h *Handler) GetByCQRS(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// inject spanId in response header
-	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
+	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	response, err := h.LinkQueryServiceClient.Get(r.Context(), &link_cqrs.GetRequest{Hash: hash})
 	var errorLink *v1.NotFoundError
@@ -84,7 +84,7 @@ func (h *Handler) GetByAllCQRS(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// inject spanId in response header
-	w.Header().Add("trace-id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
+	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	search := r.URL.Query().Get("search")
 	response, err := h.LinkQueryServiceClient.List(r.Context(), &link_cqrs.ListRequest{Filter: search})
