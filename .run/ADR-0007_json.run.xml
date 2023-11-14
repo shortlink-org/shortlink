@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="ADR-0007/json" type="GoTestRunConfiguration" factoryName="Go Test" folderName="ADR">
+    <module name="shortlink" />
+    <working_directory value="$PROJECT_DIR$/docs/ADR/decisions/proof/ADR-0007" />
+    <go_parameters value="-v -tags=unit -count 10 -run '^$'" />
+    <envs>
+      <env name="GOEXPERIMENT" value="arenas,loopvar" />
+    </envs>
+    <kind value="PACKAGE" />
+    <package value="github.com/shortlink-org/shortlink/docs/ADR/decisions/proof/ADR-0007" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$" />
+    <framework value="gobench" />
+    <method v="2" />
+  </configuration>
+</component>
