@@ -2125,7 +2125,7 @@
     openapi-merge "^1.3.2"
     openapi3-ts "^3.1.2"
 
-"@backstage/backend-plugin-api@^0.6.6", "@backstage/backend-plugin-api@^0.6.7":
+"@backstage/backend-plugin-api@^0.6.7":
   version "0.6.7"
   resolved "https://registry.yarnpkg.com/@backstage/backend-plugin-api/-/backend-plugin-api-0.6.7.tgz#c80508180f26ba83a03d0ed42d983da86b4a1e8a"
   integrity sha512-pGFFfh+olT+oWqfZvlqFsMiExW//glSacw5uTW0RCnQTFjWPhA18InSUKE1fa3DPOZTCxvAwQHHKlpQoDXgYkw==
@@ -2598,7 +2598,7 @@
     "@types/express" "^4.17.6"
     express "^4.17.1"
 
-"@backstage/plugin-auth-backend-module-gcp-iap-provider@^0.2.0":
+"@backstage/plugin-auth-backend-module-gcp-iap-provider@^0.2.1":
   version "0.2.1"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend-module-gcp-iap-provider/-/plugin-auth-backend-module-gcp-iap-provider-0.2.1.tgz#1d2a0a2595eef8fa254e513817232f5e74e9d4a0"
   integrity sha512-M9VsyO7zyLLZJPMNWIQaCPttw9abZVwIUd/fzLcuElUCpv0O4GTRSO9bwdFfwF0ZBtR4RTsBlyAe2IZN2b8NvQ==
@@ -2609,7 +2609,7 @@
     "@backstage/types" "^1.1.1"
     google-auth-library "^8.0.0"
 
-"@backstage/plugin-auth-backend-module-github-provider@^0.1.3":
+"@backstage/plugin-auth-backend-module-github-provider@^0.1.4":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend-module-github-provider/-/plugin-auth-backend-module-github-provider-0.1.4.tgz#b2f9ad06cc215e4bb046c1a25c453581e8f76751"
   integrity sha512-j5iiqo5NfLUY4BQY4PEIXMUxpYCTdf8OUP3cuy//PHFHei0o2jnd+gF7ygY9XjZLVgRDLkD97Cg9lM16+1gVOw==
@@ -2619,7 +2619,7 @@
     "@backstage/plugin-auth-node" "^0.4.1"
     passport-github2 "^0.1.12"
 
-"@backstage/plugin-auth-backend-module-gitlab-provider@^0.1.3":
+"@backstage/plugin-auth-backend-module-gitlab-provider@^0.1.4":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend-module-gitlab-provider/-/plugin-auth-backend-module-gitlab-provider-0.1.4.tgz#a87d4f81460b8e23f5f29bcfb265321604854eeb"
   integrity sha512-F0JB4kqe2y3Eoh1icgSpqp8KiaFSUkevX4bboyNi7Gi2G6wNrrKSazV0w1DsYozXjGufbqerPga8QkrDWyJH5g==
@@ -2631,7 +2631,7 @@
     passport "^0.6.0"
     passport-gitlab2 "^5.0.0"
 
-"@backstage/plugin-auth-backend-module-google-provider@^0.1.3":
+"@backstage/plugin-auth-backend-module-google-provider@^0.1.4":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend-module-google-provider/-/plugin-auth-backend-module-google-provider-0.1.4.tgz#ebb98af216bcbd70caf5cd4657b8cf0606cd10c2"
   integrity sha512-iTld8MDQHtpIHUIT082KwDknXi3kFYmL58hyMm6BHxTfIegFUyn7RbGs45Ys/Bln0bGL5V6782ZkgR20I5YtKg==
@@ -2641,7 +2641,7 @@
     google-auth-library "^8.0.0"
     passport-google-oauth20 "^2.0.0"
 
-"@backstage/plugin-auth-backend-module-oauth2-provider@^0.1.3":
+"@backstage/plugin-auth-backend-module-oauth2-provider@^0.1.4":
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend-module-oauth2-provider/-/plugin-auth-backend-module-oauth2-provider-0.1.4.tgz#a10d10a77a595855a5c8a2ec5fe1cac254c8ee3c"
   integrity sha512-QK4YHOEL26uuktvHMDV5uvE0u9YvI7NopDCT74peyzE4rjWFUyZOK2a9gYBcn0veomDbv1XGCNhB1Pc2ar8g9g==
@@ -2653,31 +2653,31 @@
     passport "^0.6.0"
     passport-oauth2 "^1.6.1"
 
-"@backstage/plugin-auth-backend@^0.19.4":
-  version "0.19.4"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend/-/plugin-auth-backend-0.19.4.tgz#6aa91117f74d0f3b58dfa1a847c041c2bb5d6396"
-  integrity sha512-lmYQyKHl/MrM8K/RwVN8fx1VcKFUdHxknpod2CGP+5iT2iFFCdmStaqY03EKiHFK8LaukB5x7tT7iFhcGQzvIA==
+"@backstage/plugin-auth-backend@^0.20.0":
+  version "0.20.0"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-auth-backend/-/plugin-auth-backend-0.20.0.tgz#9aee214797b7dea53588850d3b3b2a4eb8110d7f"
+  integrity sha512-19mSr3mHD6oVaoNbGUzqZphclOg8JteS3ptwql9xKOdNW9XFbBK2oaM+UnMt46pVwQzMyhDFP6AgwRFksE7gGQ==
   dependencies:
-    "@backstage/backend-common" "^0.19.8"
-    "@backstage/backend-plugin-api" "^0.6.6"
-    "@backstage/catalog-client" "^1.4.5"
+    "@backstage/backend-common" "^0.19.9"
+    "@backstage/backend-plugin-api" "^0.6.7"
+    "@backstage/catalog-client" "^1.4.6"
     "@backstage/catalog-model" "^1.4.3"
     "@backstage/config" "^1.1.1"
     "@backstage/errors" "^1.2.3"
-    "@backstage/plugin-auth-backend-module-gcp-iap-provider" "^0.2.0"
-    "@backstage/plugin-auth-backend-module-github-provider" "^0.1.3"
-    "@backstage/plugin-auth-backend-module-gitlab-provider" "^0.1.3"
-    "@backstage/plugin-auth-backend-module-google-provider" "^0.1.3"
-    "@backstage/plugin-auth-backend-module-oauth2-provider" "^0.1.3"
-    "@backstage/plugin-auth-node" "^0.4.0"
-    "@backstage/plugin-catalog-node" "^1.4.7"
+    "@backstage/plugin-auth-backend-module-gcp-iap-provider" "^0.2.1"
+    "@backstage/plugin-auth-backend-module-github-provider" "^0.1.4"
+    "@backstage/plugin-auth-backend-module-gitlab-provider" "^0.1.4"
+    "@backstage/plugin-auth-backend-module-google-provider" "^0.1.4"
+    "@backstage/plugin-auth-backend-module-oauth2-provider" "^0.1.4"
+    "@backstage/plugin-auth-node" "^0.4.1"
+    "@backstage/plugin-catalog-node" "^1.5.0"
     "@backstage/types" "^1.1.1"
     "@davidzemon/passport-okta-oauth" "^0.0.5"
     "@google-cloud/firestore" "^6.0.0"
     "@types/express" "^4.17.6"
     "@types/passport" "^1.0.3"
     compression "^1.7.4"
-    connect-session-knex "^3.0.1"
+    connect-session-knex "^4.0.0"
     cookie-parser "^1.4.5"
     cors "^2.8.5"
     express "^4.17.1"
@@ -2687,7 +2687,7 @@
     google-auth-library "^8.0.0"
     jose "^4.6.0"
     jwt-decode "^3.1.0"
-    knex "^2.0.0"
+    knex "^3.0.0"
     lodash "^4.17.21"
     luxon "^3.0.0"
     minimatch "^5.0.0"
@@ -2847,7 +2847,7 @@
     react-use "^17.2.4"
     yaml "^2.0.0"
 
-"@backstage/plugin-catalog-node@^1.4.7", "@backstage/plugin-catalog-node@^1.5.0":
+"@backstage/plugin-catalog-node@^1.5.0":
   version "1.5.0"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-node/-/plugin-catalog-node-1.5.0.tgz#20f9c0be9f1feca616b32fceb74f4d83bda41277"
   integrity sha512-Fn8KXJQa9zDeGETwATI1qoEOTUBFFf/2dZvS1Pf1XyPQmJZzjll/1CehkH34MrRyMVJzUGzixfme+NiD4e0bFw==
@@ -10822,13 +10822,13 @@ connect-history-api-fallback@^2.0.0:
   resolved "https://registry.yarnpkg.com/connect-history-api-fallback/-/connect-history-api-fallback-2.0.0.tgz#647264845251a0daf25b97ce87834cace0f5f1c8"
   integrity sha512-U73+6lQFmfiNPrYbXqr6kZ1i1wiRqXnp2nhMsINseWXO8lDau0LGEffJ8kQi4EjLZympVgRdvqjAgiZ1tgzDDA==
 
-connect-session-knex@^3.0.1:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/connect-session-knex/-/connect-session-knex-3.0.1.tgz#2c7c8c77ea4a65b836b3011e9a28cfc924a5bb03"
-  integrity sha512-w+sNn/mdEmAGCfw90hyXlC0QixGvkfzTs9hZpDWLnzdyI3BQqnWUxZshWJlYNeZza45OrTxT+yqe3epNMPbs2Q==
+connect-session-knex@^4.0.0:
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/connect-session-knex/-/connect-session-knex-4.0.0.tgz#87df15d723a544afa765455dcefd7e92666aa8a8"
+  integrity sha512-syZf6ao03b+x42k5iwr76IBnHC6l+0Kr9d88lCTmGWimbW45ns6UYGEKv/ug60DkMrh3Wt8mO3hjhdaZLH1Rbg==
   dependencies:
     bluebird "^3.7.2"
-    knex "^2.3.0"
+    knex "3"
 
 console-browserify@^1.1.0:
   version "1.2.0"
@@ -16234,27 +16234,7 @@ kleur@^4.0.3:
   resolved "https://registry.yarnpkg.com/kleur/-/kleur-4.1.5.tgz#95106101795f7050c6c650f350c683febddb1780"
   integrity sha512-o+NO+8WrRiQEE4/7nwRJhN1HWpVmJm511pBHUxPLtp0BUISzlBplORYSmTclCnJvQq2tKu/sgl3xVpkc7ZWuQQ==
 
-knex@^2.0.0, knex@^2.3.0:
-  version "2.5.1"
-  resolved "https://registry.yarnpkg.com/knex/-/knex-2.5.1.tgz#a6c6b449866cf4229f070c17411f23871ba52ef9"
-  integrity sha512-z78DgGKUr4SE/6cm7ku+jHvFT0X97aERh/f0MUKAKgFnwCYBEW4TFBqtHWFYiJFid7fMrtpZ/gxJthvz5mEByA==
-  dependencies:
-    colorette "2.0.19"
-    commander "^10.0.0"
-    debug "4.3.4"
-    escalade "^3.1.1"
-    esm "^3.2.25"
-    get-package-type "^0.1.0"
-    getopts "2.3.0"
-    interpret "^2.2.0"
-    lodash "^4.17.21"
-    pg-connection-string "2.6.1"
-    rechoir "^0.8.0"
-    resolve-from "^5.0.0"
-    tarn "^3.0.2"
-    tildify "2.0.0"
-
-knex@^3.0.0:
+knex@3, knex@^3.0.0:
   version "3.0.1"
   resolved "https://registry.yarnpkg.com/knex/-/knex-3.0.1.tgz#b12f3173c30d8c7b6d69dc257cc9c84db00ad60e"
   integrity sha512-ruASxC6xPyDklRdrcDy6a9iqK+R9cGK214aiQa+D9gX2ZnHZKv6o6JC9ZfgxILxVAul4bZ13c3tgOAHSuQ7/9g==
