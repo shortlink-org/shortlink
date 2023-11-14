@@ -19,3 +19,7 @@ stringData:
           queryTimeout: 30s
           httpMethod: POST
           alertmanagerUid: alertmanager
+          incrementalQuerying: true
+          exemplarTraceIdDestinations:
+            - name: "trace-id"
+              datasourceUid: tempo

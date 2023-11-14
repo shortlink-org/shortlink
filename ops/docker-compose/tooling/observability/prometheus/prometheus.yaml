@@ -24,6 +24,7 @@ services:
       - '--storage.tsdb.path=/prometheus'
       - '--web.console.libraries=/usr/share/prometheus/console_libraries'
       - '--web.console.templates=/usr/share/prometheus/consoles'
+      - '--enable-feature=exemplar-storage,memory-snapshot-on-shutdown,new-service-discovery-manager,auto-gomaxprocs'
     ports:
       - 9093:9090
     volumes:

@@ -17,6 +17,9 @@ datasources:
       httpMethod: POST
       alertmanagerUid: alertmanager
       incrementalQuerying: true
+      exemplarTraceIdDestinations:
+        - name: "trace-id"
+          datasourceUid: tempo
 
   - name: Loki
     type: loki

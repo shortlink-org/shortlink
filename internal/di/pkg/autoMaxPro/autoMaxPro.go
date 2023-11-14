@@ -10,7 +10,7 @@ import (
 
 type AutoMaxPro *string
 
-// InitAutoMaxProcs - Automatically set GOMAXPROCS to match Linux container CPU quota
+// New - Automatically set GOMAXPROCS to match Linux container CPU quota
 func New(log logger.Logger) (AutoMaxPro, func(), error) {
 	undo, err := maxprocs.Set(maxprocs.Logger(func(s string, args ...any) {
 		log.Info(fmt.Sprintf(s, args))
