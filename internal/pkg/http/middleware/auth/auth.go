@@ -37,7 +37,7 @@ func (a auth) middleware(next http.Handler) http.Handler {
 		cookies := r.Header.Get("Cookie")
 
 		// check if the cookie is valid
-		sess, _, err := a.ory.FrontendApi.ToSession(r.Context()).Cookie(cookies).Execute() //nolint:bodyclose // false positive
+		sess, _, err := a.ory.FrontendAPI.ToSession(r.Context()).Cookie(cookies).Execute() //nolint:bodyclose // false positive
 		if (err != nil && sess == nil) || (err == nil && !*sess.Active) {
 			// this will redirect the user to the managed Ory Login UI
 			http.Redirect(w, r, fmt.Sprintf("%s/self-service/login/browser", viper.GetString("AUTH_URI")), http.StatusSeeOther)

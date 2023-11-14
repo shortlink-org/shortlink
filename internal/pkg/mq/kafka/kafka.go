@@ -254,10 +254,10 @@ func (mq *Kafka) setConfig() (*sarama.Config, error) {
 	config.Producer.Idempotent = true
 	if config.Producer.Idempotent {
 		if config.Producer.Retry.Max == 0 {
-			return nil, errors.New("Idempotent producer requires config.Producer.Retry.Max to be greater than 0")
+			return nil, sarama.ErrInvalidConfig
 		}
 		if config.Producer.RequiredAcks != sarama.WaitForAll {
-			return nil, errors.New("Idempotent producer requires config.Producer.RequiredAcks to be WaitForAll")
+			return nil, sarama.ErrInvalidConfig
 		}
 
 		config.Net.MaxOpenRequests = 1

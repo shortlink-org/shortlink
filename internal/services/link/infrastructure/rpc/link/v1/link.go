@@ -25,12 +25,12 @@ func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error)
 	// Parse args
 	filter := &v1.FilterLink{}
 
-	if in.GetFilter() != "" {
-		// TODO: update filter
-		// if json.NewDecoder(strings.NewReader(in.GetFilter())).Decode(&filter) != nil {
-		// 	return nil, ErrParsePayloadAsString
-		// }
-	}
+	// TODO: update filter
+	// if in.GetFilter() != "" {
+	// 	if json.NewDecoder(strings.NewReader(in.GetFilter())).Decode(&filter) != nil {
+	// 		return nil, ErrParsePayloadAsString
+	// 	}
+	// }
 
 	resp, err := l.service.List(ctx, filter)
 	if err != nil {

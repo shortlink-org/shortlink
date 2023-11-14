@@ -16,6 +16,7 @@ var newLinkHistogram = prometheus.NewHistogram(prometheus.HistogramOpts{
 	Namespace: "link",
 	Subsystem: "application",
 	Name:      "new",
+	Help:      "New link event",
 })
 
 func NewLinkHistogramObserve(ctx context.Context) {
