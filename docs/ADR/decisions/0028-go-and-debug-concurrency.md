@@ -110,3 +110,8 @@ Libs:
 
 + [go-deadlock](https://github.com/sasha-s/go-deadlock) - (RW)Mutex with deadlock detection
   + cockroachdb uses it [code](https://github.com/cockroachdb/cockroach/blob/master/pkg/util/syncutil/mutex_deadlock.go)
+
+
+## One line
+
+- [go-profiler-notes](https://github.com/DataDog/go-profiler-notes/blob/main/README.md)
