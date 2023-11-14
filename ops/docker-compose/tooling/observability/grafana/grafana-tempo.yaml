@@ -23,16 +23,17 @@ services:
     container_name: jaeger-agent
     init: true
     ports:
-      - "4317:4317"     # OpenTelemetry
+      - "3100:3100"     # tempo
+      - "4317:4317"     # OpenTelemetry gRPC
+      - "4318:4318"     # OpenTelemetry HTTP
       - "6831:6831/udp" # Jaeger - Thrift Compact
       - "6832:6832"     # Jaeger - Thrift Binary
+      - "9411:9411"     # Zipkin
       - "14268:14268"   # Jaeger - Thrift HTTP
       - "14250:14250"   # Jaeger - GRPC
-      - "9411:9411"     # Zipkin
-      - "3100:3100"     # tempo
     volumes:
       - ./ops/docker-compose/tooling/observability/grafana/conf/tempo/tempo-local.yaml:/etc/tempo.yaml
-      - $HOME/data/tempo:/tmp/tempo
+      - ./data/tempo:/tmp/tempo
 
   jaeger-query:
     <<: *network

@@ -9,7 +9,6 @@ require (
 	github.com/google/wire v0.5.1-0.20220620021424-0675cdc9191c
 	github.com/oapi-codegen/runtime v1.1.0
 	github.com/riandyrn/otelchi v0.5.1
-	github.com/shortlink-org/shortlink v0.0.0-20231114164827-201f98d0ac2b
 	github.com/spf13/viper v1.17.0
 	go.opentelemetry.io/otel/trace v1.20.0
 	golang.org/x/sync v0.5.0
@@ -100,7 +99,6 @@ require (
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
 	github.com/redis/go-redis/v9 v9.3.0 // indirect
 	github.com/redis/rueidis v1.0.21 // indirect
-	github.com/rogpeppe/go-internal v1.11.0 // indirect
 	github.com/sagikazarmark/locafero v0.3.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
@@ -129,7 +127,7 @@ require (
 	go.opencensus.io v0.24.0 // indirect
 	go.opentelemetry.io/contrib v1.19.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.46.0 // indirect
-	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.46.0 // indirect
+	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.46.1-0.20231114154618-7469f6101b0b // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.46.0 // indirect
 	go.opentelemetry.io/otel v1.20.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v0.43.0 // indirect
@@ -155,7 +153,6 @@ require (
 	google.golang.org/genproto/googleapis/api v0.0.0-20231106174013-bbf56f31fb17 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20231030173426-d783a09b4405 // indirect
 	google.golang.org/grpc v1.59.0 // indirect
-	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

@@ -33,6 +33,8 @@ query_frontend:
   search:
     concurrent_jobs: 2000
     target_bytes_per_job: 400_000_000
+  trace_by_id:
+    duration_slo: 5s
 
 compactor:
   compaction:

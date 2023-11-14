@@ -96,13 +96,14 @@ func New(ctx context.Context, log logger.Logger, store db.DB, c *cache.Cache) (*
 }
 
 func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
-	link := v1.Link{}
+	link := &v1.Link{}
+
 	err := s.cache.Get(ctx, fmt.Sprintf(`link:%s`, id), &link)
 	if err != nil {
 		s.log.ErrorWithContext(ctx, err.Error())
 	}
-	if err == nil {
-		return &link, nil
+	if err == nil && link.GetHash() != "" {
+		return link, nil
 	}
 
 	response, err := s.store.Get(ctx, id)

@@ -88,7 +88,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 		SAGA_STEP_GET_FROM_STORE   = "SAGA_STEP_GET_FROM_STORE"
 	)
 
-	sess := session.GetSession(ctx)
+	userID := session.GetUserID(ctx)
 	resp := &v1.Link{}
 
 	// create a new saga for a get link by hash
@@ -103,8 +103,8 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 		Then(func(ctx context.Context) error {
 			relationship := &permission.CheckPermissionRequest{
 				Resource:   &permission.ObjectReference{ObjectType: "link", ObjectId: hash},
-				Permission: "reader",
-				Subject:    &permission.SubjectReference{Object: &permission.ObjectReference{ObjectType: "user", ObjectId: sess.GetId()}},
+				Permission: "view",
+				Subject:    &permission.SubjectReference{Object: &permission.ObjectReference{ObjectType: "user", ObjectId: userID}},
 			}
 
 			_, err := s.permission.PermissionsServiceClient.CheckPermission(ctx, relationship)
@@ -316,10 +316,10 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 		}).Reject(func(ctx context.Context, thenErr error) error {
 		err := s.store.Delete(ctx, in.GetHash())
 		if err != nil {
-			return err
+			return errors.Join(thenErr, err)
 		}
 
-		return nil
+		return thenErr
 	}).Build()
 	if err := errorHelper(ctx, s.log, errs); err != nil {
 		return nil, err
@@ -393,7 +393,7 @@ func (s *Service) Delete(ctx context.Context, hash string) (*v1.Link, error) {
 		SAGA_STEP_DELETE_FROM_STORE = "SAGA_STEP_DELETE_FROM_STORE"
 	)
 
-	sess := session.GetSession(ctx)
+	userID := session.GetUserID(ctx)
 
 	// create a new saga for a delete link by hash
 	sagaDeleteLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.log)).
@@ -412,7 +412,7 @@ func (s *Service) Delete(ctx context.Context, hash string) (*v1.Link, error) {
 					OptionalRelation:   "writer",
 					OptionalSubjectFilter: &permission.SubjectFilter{
 						SubjectType:       "user",
-						OptionalSubjectId: sess.GetId(),
+						OptionalSubjectId: userID,
 					},
 				},
 			})

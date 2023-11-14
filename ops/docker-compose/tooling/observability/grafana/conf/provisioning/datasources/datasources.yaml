@@ -66,6 +66,10 @@ datasources:
         filterBySpanID: true
         filterByTraceID: true
         mapTagNamesEnabled: true
+      tracesToProfiles:
+        customQuery: false
+        datasourceUid: pyroscope
+        profileTypeId: "process_cpu:cpu:nanoseconds:cpu:nanoseconds"
 
   - name: Alertmanager
     type: alertmanager
@@ -98,20 +102,10 @@ datasources:
       timeField: "@timestamp"
       esVersion: "7.10.0"
 
-  - name: Phlare
+  - name: Pyroscope
     type: phlare
     access: proxy
-    uid: phlare
-    url: http://phlare:4100
-    version: 1
-    basicAuth: false
-    editable: false
-
-  - name: Pyroscope
-    type: pyroscope-datasource
-    access: proxy
     uid: pyroscope
-    jsonData:
-      path: http://pyroscope:4040
+    url: http://pyroscope:4040
 
 

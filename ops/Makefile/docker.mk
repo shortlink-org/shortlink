@@ -35,6 +35,7 @@ dev: ## Run for development mode
 		-f ops/docker-compose/application/auth/spicedb/spicedb.yaml \
 		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
+		-f ops/docker-compose/tooling/observability/grafana/grafana-pyroscope.yaml \
 		-f ops/docker-compose/tooling/observability/prometheus/prometheus.yaml \
 		up -d --remove-orphans --build
 
@@ -60,12 +61,11 @@ down: confirm ## Down docker compose
 		-f ops/docker-compose/tooling/saas/temporal/temporal.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-loki.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana-phlare.yaml \
+		-f ops/docker-compose/tooling/observability/grafana/grafana-pyroscope.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-oncall.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-beyla.yaml \
 		-f ops/docker-compose/tooling/observability/prometheus/prometheus.yaml \
 		-f ops/docker-compose/tooling/observability/fluent-bit/fluent-bit.yaml \
-		-f ops/docker-compose/tooling/observability/pyroscope/pyroscope.yaml \
 		-f ops/docker-compose/gateway/caddy/caddy.yaml \
 		-f ops/docker-compose/gateway/nginx/nginx.yaml \
 		-f ops/docker-compose/gateway/traefik/traefik.yaml \

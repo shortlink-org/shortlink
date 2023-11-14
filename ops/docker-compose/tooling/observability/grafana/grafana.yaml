@@ -18,7 +18,7 @@ services:
     restart: on-failure
     environment:
       GF_SERVER_ROOT_URL: http://localhost:3030
-      GF_FEATURE_TOGGLES_ENABLE: flameGraph
+      GF_FEATURE_TOGGLES_ENABLE: flameGraph,traceToProfiles
       GF_SERVER_ROUTER_LOGGING: true
       GF_SECURITY_ADMIN_USER: admin
       GF_SECURITY_ADMIN_PASSWORD: shortlink
@@ -29,7 +29,7 @@ services:
       GF_DIAGNOSTICS_PROFILING_ADDR: "0.0.0.0"
       GF_DIAGNOSTICS_PROFILING_PORT: "6060"
       GF_PLUGINS_ALLOW_LOADING_UNSIGNED_PLUGINS: grafana-oncall-app
-      GF_INSTALL_PLUGINS: grafana-oncall-app
+      GF_INSTALL_PLUGINS: grafana-oncall-app,pyroscope-panel
       GF_AUTH_BASIC_ENABLED: true
       GF_AUTH_DISABLE_LOGIN_FORM: false
       GF_AUTH_GENERIC_OAUTH_TLS_SKIP_VERIFY_INSECURE: true

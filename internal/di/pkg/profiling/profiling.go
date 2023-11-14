@@ -20,6 +20,7 @@ type PprofEndpoint *http.ServeMux
 func New(ctx context.Context, log logger.Logger) (PprofEndpoint, error) {
 	viper.SetDefault("PROFILING_PORT", 7071) //nolint:revive,gomnd // ignore
 	viper.SetDefault("PROFILING_TIMEOUT", "30s")
+	viper.SetDefault("PYROSCOPE_ADDRESS", "http://127.0.0.1:4040")
 
 	// Create "common" listener
 	pprofMux := http.NewServeMux()
@@ -51,13 +52,13 @@ func New(ctx context.Context, log logger.Logger) (PprofEndpoint, error) {
 	})
 
 	// These 2 lines are only required if you're using mutex or block profiling
-	// Read the explanation below for how to set these rates:
+	// to read the explanation below for how to set these rates:
 	runtime.SetMutexProfileFraction(5)
 	runtime.SetBlockProfileRate(5)
 
 	_, err := pyroscope.Start(pyroscope.Config{
 		ApplicationName: viper.GetString("SERVICE_NAME"),
-		ServerAddress:   "http://pyroscope.pyroscope:4040",
+		ServerAddress:   viper.GetString("PYROSCOPE_ADDRESS"),
 		Logger:          nil,
 		ProfileTypes: []pyroscope.ProfileType{
 			// these profile types are enabled by default:
@@ -78,6 +79,10 @@ func New(ctx context.Context, log logger.Logger) (PprofEndpoint, error) {
 	if err != nil {
 		return nil, err
 	}
+
+	log.Info("Run pyroscope", field.Fields{
+		"addr": viper.GetString("PYROSCOPE_ADDRESS"),
+	})
 
 	return pprofMux, nil
 }

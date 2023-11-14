@@ -56,39 +56,39 @@ export default () => {
     'Get call succeeded': (r) => r && r.status === grpc.StatusOK,
   });
 
-  // // Test the List method
-  // let listRequest = { filter: hash };
-  // let listResponse = client.invoke('infrastructure.rpc.link.v1.LinkService/List', listRequest);
-  // check(listResponse, {
-  //   'List call succeeded': (r) => r && r.status === grpc.StatusOK,
-  // });
-  //
-  // // Test the Update method
-  // let updateRequest = {
-  //   link: {
-  //     url: 'google.com',
-  //     hash: hash,
-  //     describe: 'yourUpdatedDescription',
-  //     // Add timestamps as needed
-  //   },
-  // };
-  // let updateResponse = client.invoke('infrastructure.rpc.link.v1.LinkService/Update', updateRequest);
-  // check(updateResponse, {
-  //   'Update call succeeded': (r) => r && r.status === grpc.StatusOK,
-  // });
-  //
-  // // Test the Delete method
-  // let deleteRequest = { hash: hash };
-  // let deleteResponse = client.invoke('infrastructure.rpc.link.v1.LinkService/Delete', deleteRequest);
-  // check(deleteResponse, {
-  //   'Delete call succeeded': (r) => r && r.status === grpc.StatusOK,
-  // });
-  //
-  // // Negative test: Get method should fail after Delete
-  // getResponse = client.invoke('infrastructure.rpc.link.v1.LinkService/Get', getRequest);
-  // check(getResponse, {
-  //   'Get call failed after delete': (r) => r && r.status !== grpc.StatusOK,
-  // });
+  // Test the List method
+  let listRequest = { filter: hash };
+  let listResponse = client.invoke('infrastructure.rpc.link.v1.LinkService/List', listRequest, params);
+  check(listResponse, {
+    'List call succeeded': (r) => r && r.status === grpc.StatusOK,
+  });
+
+  // Test the Update method
+  let updateRequest = {
+    link: {
+      url: 'google.com',
+      hash: hash,
+      describe: 'yourUpdatedDescription',
+      // Add timestamps as needed
+    },
+  };
+  let updateResponse = client.invoke('infrastructure.rpc.link.v1.LinkService/Update', updateRequest, params);
+  check(updateResponse, {
+    'Update call succeeded': (r) => r && r.status === grpc.StatusOK,
+  });
+
+  // Test the Delete method
+  let deleteRequest = { hash: hash };
+  let deleteResponse = client.invoke('infrastructure.rpc.link.v1.LinkService/Delete', deleteRequest, params);
+  check(deleteResponse, {
+    'Delete call succeeded': (r) => r && r.status === grpc.StatusOK,
+  });
+
+  // Negative test: Get method should fail after Delete
+  getResponse = client.invoke('infrastructure.rpc.link.v1.LinkService/Get', getRequest, params);
+  check(getResponse, {
+    'Get call failed after delete': (r) => r && r.status !== grpc.StatusOK,
+  });
 
   // Close the connection at the end of the test
   client.close();
