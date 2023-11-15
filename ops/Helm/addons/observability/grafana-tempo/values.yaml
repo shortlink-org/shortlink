@@ -5,6 +5,8 @@ tempo:
     enabled: true
 
   tempo:
+    reportingEnabled: false
+
     metricsGenerator:
       enabled: true
       remoteWriteUrl: http://prometheus-operated.prometheus-operator:9090/api/v1/write

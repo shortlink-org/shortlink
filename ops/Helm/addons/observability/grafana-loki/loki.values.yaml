@@ -34,9 +34,13 @@ loki:
       storageClass: local-path
 
   tableManager:
-    enabled: false
+    enabled: true
 
   monitoring:
+    serviceMonitor:
+      labels:
+        release: prometheus-operator
+
     selfMonitoring:
       grafanaAgent:
         installOperator: false
@@ -55,6 +59,5 @@ loki:
   lokiCanary:
     enabled: false
 
-  grafana-agent-operator:
-    image:
-      tag: v0.33.0-rc.2
+  tracing:
+    jaegerAgentHost: grafana-tempo.grafana:6831

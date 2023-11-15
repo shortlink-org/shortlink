@@ -4,3 +4,51 @@ promtail:
   config:
     clients:
       - url: http://grafana-loki:3100/loki/api/v1/push
+
+    logFormat: json
+    enableTracing: true
+
+  networkPolicy:
+    enabled: true
+
+  resources:
+    limits:
+      cpu: 200m
+      memory: 128Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+  serviceMonitor:
+    enabled: true
+
+    labels:
+      release: prometheus-operator
+
+    prometheusRule:
+      enabled: true
+      rules:
+        - alert: PromtailRequestErrors
+          expr: 100 * sum(rate(promtail_request_duration_seconds_count{status_code=~"5..|failed"}[1m])) by (namespace, job, route, instance) / sum(rate(promtail_request_duration_seconds_count[1m])) by (namespace, job, route, instance) > 10
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            description: |
+              The {{"{{"}} $labels.job {{"}}"}} {{"{{"}} $labels.route {{"}}"}} is experiencing
+              {{"{{"}} printf \"%.2f\" $value {{"}}"}} errors.
+              VALUE = {{"{{"}} $value {{"}}"}}
+              LABELS = {{"{{"}} $labels {{"}}"}}
+            summary: Promtail request errors (instance {{"{{"}} $labels.instance {{"}}"}})
+        - alert: PromtailRequestLatency
+          expr: histogram_quantile(0.99, sum(rate(promtail_request_duration_seconds_bucket[5m])) by (le)) > 1
+          for: 5m
+          labels:
+            severity: critical
+          annotations:
+            summary: Promtail request latency (instance {{"{{"}} $labels.instance {{"}}"}})
+            description: |
+              The {{"{{"}} $labels.job {{"}}"}} {{"{{"}} $labels.route {{"}}"}} is experiencing
+              {{"{{"}} printf \"%.2f\" $value {{"}}"}}s 99th percentile latency.
+              VALUE = {{"{{"}} $value {{"}}"}}
+              LABELS = {{"{{"}} $labels {{"}}"}}
