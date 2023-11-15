@@ -15,7 +15,7 @@ WORKDIR /app
 COPY internal/services/bot /app
 RUN mvn -f /app/pom.xml clean package
 
-FROM --platform=$TARGETPLATFORM openjdk:22-ea-14-jdk-slim-bullseye
+FROM --platform=$TARGETPLATFORM openjdk:22-ea-21-jdk-oracle
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-bot"
