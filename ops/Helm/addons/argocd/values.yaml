@@ -9,8 +9,8 @@ argo-cd:
   fullnameOverride: argocd
 
   global:
-    image: {}
-      # tag: "v2.9.0"
+    image:
+       tag: "v2.9.1"
 
     logging:
       format: json
