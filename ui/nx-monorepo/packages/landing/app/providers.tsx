@@ -21,6 +21,24 @@ import React, { useState } from 'react'
 
 const cache = createCache({ key: 'next' })
 
+// TODO: research problem with faro
+// initializeFaro({
+//   url: process.env.NEXT_PUBLIC_FARO_URI,
+//   app: {
+//     name: process.env.NEXT_PUBLIC_SERVICE_NAME,
+//     version: process.env.NEXT_PUBLIC_GIT_TAG,
+//     environment: 'production',
+//   },
+//   instrumentations: [
+//     // Mandatory, overwriting the instrumentations array would cause the default instrumentations to be omitted
+//     ...getWebInstrumentations(),
+//
+//     // Initialization of the tracing package.
+//     // This package is optional because it increases the bundle size noticeably. Only add it if you want tracing data.
+//     new TracingInstrumentation(),
+//   ],
+// })
+
 // @ts-ignore
 export function Providers({ children }) {
   const CLOUDFLARE_SITE_KEY = process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY

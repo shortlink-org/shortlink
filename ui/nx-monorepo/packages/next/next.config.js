@@ -38,6 +38,7 @@ let NEXT_CONFIG = {
     // ShortLink API
     NEXT_PUBLIC_SERVICE_NAME: 'shortlink-next',
     NEXT_PUBLIC_API_URI: process.env.PROXY_URI,
+    NEXT_PUBLIC_GIT_TAG: process.env.CI_COMMIT_TAG,
 
     // Sentry
     NEXT_PUBLIC_SENTRY_DSN: process.env.SENTRY_DSN,
@@ -52,6 +53,9 @@ let NEXT_CONFIG = {
       process.env.FIREBASE_MESSAGING_SENDER_ID,
     NEXT_PUBLIC_FIREBASE_APP_ID: process.env.FIREBASE_APP_ID,
     NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
+
+    // Faro
+    NEXT_PUBLIC_FARO_URI: process.env.FARO_URI,
   },
   swcMinify: true,
   productionBrowserSourceMaps: true,

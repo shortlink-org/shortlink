@@ -5,6 +5,24 @@ import * as React from 'react'
 
 import { renderStatic } from '../pkg/renderer'
 
+// TODO: research problem with faro
+// initializeFaro({
+//   url: process.env.NEXT_PUBLIC_FARO_URI,
+//   app: {
+//     name: process.env.NEXT_PUBLIC_SERVICE_NAME,
+//     version: process.env.NEXT_PUBLIC_GIT_TAG,
+//     environment: 'production',
+//   },
+//   instrumentations: [
+//     // Mandatory, overwriting the instrumentations array would cause the default instrumentations to be omitted
+//     ...getWebInstrumentations(),
+//
+//     // Initialization of the tracing package.
+//     // This package is optional because it increases the bundle size noticeably. Only add it if you want tracing data.
+//     new TracingInstrumentation(),
+//   ],
+// })
+
 class MyDocument extends Document {
   static async getInitialProps(ctx: any) {
     const page = await ctx.renderPage()

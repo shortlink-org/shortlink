@@ -20,6 +20,13 @@ const nextConfig = {
   env: {
     // ShortLink API
     NEXT_PUBLIC_SERVICE_NAME: 'shortlink-landing',
+    NEXT_PUBLIC_GIT_TAG: process.env.CI_COMMIT_TAG,
+
+    // Sentry
+    NEXT_PUBLIC_SENTRY_DSN: process.env.SENTRY_DSN,
+
+    // Faro
+    NEXT_PUBLIC_FARO_URI: process.env.FARO_URI,
   },
   swcMinify: true,
   productionBrowserSourceMaps: true,
