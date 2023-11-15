@@ -8,4 +8,4 @@ metadata:
     grafana_dashboard_folder: RabbitMQ
 data:
   # https://grafana.com/grafana/dashboards/11350
-  erlang-memory-allocators-dashboard.json.url: https://grafana.com/api/dashboards/11350/revisions/5/download
+  erlang-memory-allocators-dashboard.json.url: "https://raw.githubusercontent.com/rabbitmq/rabbitmq-server/main/deps/rabbitmq_prometheus/docker/grafana/dashboards/Erlang-Memory-Allocators.json"

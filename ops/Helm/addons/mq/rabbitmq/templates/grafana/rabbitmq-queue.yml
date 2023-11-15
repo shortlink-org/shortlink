@@ -9,297 +9,351 @@ metadata:
 data:
   rabbitmq-queue-grafana-dashboard.json: |-
     {
-      "__inputs": [
+      "__inputs":[
         {
-          "name": "DS_PROMETHEUS",
-          "label": "Prometheus",
-          "description": "",
-          "type": "datasource",
-          "pluginId": "prometheus",
-          "pluginName": "Prometheus"
+          "name":"DS_PROMETHEUS",
+          "label":"prometheus",
+          "description":"",
+          "type":"datasource",
+          "pluginId":"prometheus",
+          "pluginName":"Prometheus"
         }
       ],
-      "__requires": [
+      "__elements":{
+
+      },
+      "__requires":[
         {
-          "type": "grafana",
-          "id": "grafana",
-          "name": "Grafana",
-          "version": "7.5.3"
+          "type":"grafana",
+          "id":"grafana",
+          "name":"Grafana",
+          "version":"8.3.4"
         },
         {
-          "type": "datasource",
-          "id": "prometheus",
-          "name": "Prometheus",
-          "version": "1.0.0"
+          "type":"datasource",
+          "id":"prometheus",
+          "name":"Prometheus",
+          "version":"1.0.0"
         },
         {
-          "type": "panel",
-          "id": "timeseries",
-          "name": "Time series",
-          "version": ""
+          "type":"panel",
+          "id":"timeseries",
+          "name":"Time series",
+          "version":""
         }
       ],
-      "annotations": {
-        "list": [
+      "annotations":{
+        "list":[
           {
-            "builtIn": 1,
-            "datasource": "-- Grafana --",
-            "enable": true,
-            "hide": true,
-            "iconColor": "rgba(0, 211, 255, 1)",
-            "name": "Annotations & Alerts",
-            "type": "dashboard"
+            "builtIn":1,
+            "datasource":{
+              "type":"datasource",
+              "uid":"grafana"
+            },
+            "enable":true,
+            "hide":true,
+            "iconColor":"rgba(0, 211, 255, 1)",
+            "name":"Annotations & Alerts",
+            "target":{
+              "limit":100,
+              "matchAny":false,
+              "tags":[
+
+              ],
+              "type":"dashboard"
+            },
+            "type":"dashboard"
           }
         ]
       },
-      "editable": true,
-      "gnetId": null,
-      "graphTooltip": 0,
-      "id": null,
-      "iteration": 1633508002435,
-      "links": [],
-      "panels": [
+      "editable":true,
+      "fiscalYearStartMonth":0,
+      "graphTooltip":0,
+      "id":null,
+      "links":[
+
+      ],
+      "liveNow":false,
+      "panels":[
         {
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
+          "datasource":{
+            "type":"prometheus",
+            "uid":"${DS_PROMETHEUS}"
+          },
+          "fieldConfig":{
+            "defaults":{
+              "color":{
+                "mode":"palette-classic"
               },
-              "custom": {
-                "axisLabel": "Messages",
-                "axisPlacement": "left",
-                "axisSoftMin": 0,
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "graph": false,
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
+              "custom":{
+                "axisCenteredZero":false,
+                "axisColorMode":"text",
+                "axisLabel":"Messages",
+                "axisPlacement":"left",
+                "axisSoftMin":0,
+                "barAlignment":0,
+                "drawStyle":"line",
+                "fillOpacity":0,
+                "gradientMode":"none",
+                "hideFrom":{
+                  "graph":false,
+                  "legend":false,
+                  "tooltip":false,
+                  "viz":false
                 },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
+                "lineInterpolation":"linear",
+                "lineWidth":1,
+                "pointSize":5,
+                "scaleDistribution":{
+                  "type":"linear"
                 },
-                "showPoints": "auto",
-                "spanNulls": false
+                "showPoints":"auto",
+                "spanNulls":false,
+                "stacking":{
+                  "group":"A",
+                  "mode":"none"
+                },
+                "thresholdsStyle":{
+                  "mode":"off"
+                }
               },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
+              "mappings":[
+
+              ],
+              "thresholds":{
+                "mode":"absolute",
+                "steps":[
                   {
-                    "color": "green",
-                    "value": null
+                    "color":"green",
+                    "value":null
                   },
                   {
-                    "color": "red",
-                    "value": 80
+                    "color":"red",
+                    "value":80
                   }
                 ]
               }
             },
-            "overrides": [
+            "overrides":[
               {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Consumers"
+                "matcher":{
+                  "id":"byName",
+                  "options":"Consumers"
                 },
-                "properties": [
+                "properties":[
                   {
-                    "id": "custom.axisPlacement",
-                    "value": "right"
+                    "id":"custom.axisPlacement",
+                    "value":"right"
                   },
                   {
-                    "id": "unit",
-                    "value": "prefix:"
+                    "id":"unit",
+                    "value":"prefix:"
                   },
                   {
-                    "id": "custom.axisLabel",
-                    "value": "Consumers"
+                    "id":"custom.axisLabel",
+                    "value":"Consumers"
                   }
                 ]
               },
               {
-                "matcher": {
-                  "id": "byName",
-                  "options": "Messages"
+                "matcher":{
+                  "id":"byName",
+                  "options":"Messages"
                 },
-                "properties": [
+                "properties":[
                   {
-                    "id": "custom.drawStyle",
-                    "value": "line"
+                    "id":"custom.drawStyle",
+                    "value":"line"
                   },
                   {
-                    "id": "custom.fillOpacity",
-                    "value": 0
+                    "id":"custom.fillOpacity",
+                    "value":0
                   }
                 ]
               }
             ]
           },
-          "gridPos": {
-            "h": 17,
-            "w": 11,
-            "x": 0,
-            "y": 0
+          "gridPos":{
+            "h":20,
+            "w":24,
+            "x":0,
+            "y":0
           },
-          "id": 2,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
+          "id":2,
+          "options":{
+            "legend":{
+              "calcs":[
+
+              ],
+              "displayMode":"list",
+              "placement":"bottom",
+              "showLegend":true
             },
-            "tooltip": {
-              "mode": "single"
-            },
-            "tooltipOptions": {
-              "mode": "single"
+            "tooltip":{
+              "mode":"single",
+              "sort":"none"
             }
           },
-          "targets": [
+          "targets":[
             {
-              "exemplar": true,
-              "expr": "(rabbitmq_detailed_queue_messages{namespace=\"$namespace\", queue=\"$queue\"} * on (instance, job) rabbitmq_identity_info{namespace=\"$namespace\",rabbitmq_cluster=\"$rabbitmq_cluster\"})",
-              "interval": "",
-              "legendFormat": "Messages",
-              "refId": "A"
+              "datasource":{
+                "type":"prometheus",
+                "uid":"${DS_PROMETHEUS}"
+              },
+              "editorMode":"code",
+              "expr":"(rabbitmq_detailed_queue_messages{namespace=\"$namespace\", queue=\"$queue\"} * on (instance, job) rabbitmq_identity_info{namespace=\"$namespace\",rabbitmq_cluster=\"$rabbitmq_cluster\"})",
+              "legendFormat":"Messages ({{job}} | {{instance}})",
+              "range":true,
+              "refId":"A"
             },
             {
-              "exemplar": true,
-              "expr": "rabbitmq_detailed_queue_consumers{namespace=\"$namespace\", queue=\"$queue\"} * on (instance, job) rabbitmq_identity_info{namespace=\"$namespace\",rabbitmq_cluster=\"$rabbitmq_cluster\"}",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "Consumers",
-              "refId": "B"
+              "datasource":{
+                "type":"prometheus",
+                "uid":"${DS_PROMETHEUS}"
+              },
+              "editorMode":"code",
+              "expr":"rabbitmq_detailed_queue_consumers{namespace=\"$namespace\", queue=\"$queue\"} * on (instance, job) rabbitmq_identity_info{namespace=\"$namespace\",rabbitmq_cluster=\"$rabbitmq_cluster\"}",
+              "legendFormat":"Consumers ({{job}} | {{instance}})",
+              "range":true,
+              "refId":"B"
             }
           ],
-          "title": "Queue messages and consumers",
-          "type": "timeseries"
+          "title":"Queue messages and consumers",
+          "type":"timeseries"
         }
       ],
-      "refresh": false,
-      "schemaVersion": 27,
-      "style": "dark",
-      "tags": [],
-      "templating": {
-        "list": [
+      "refresh":"10s",
+      "revision":1,
+      "schemaVersion":38,
+      "style":"dark",
+      "tags":[
+        "rabbitmq-prometheus"
+      ],
+      "templating":{
+        "list":[
           {
-            "current": {
-              "selected": false,
-              "text": "Prometheus",
-              "value": "Prometheus"
+            "current":{
+              "selected":false,
+              "text":"default",
+              "value":"default"
             },
-            "description": null,
-            "error": null,
-            "hide": 2,
-            "includeAll": false,
-            "label": "datasource",
-            "multi": false,
-            "name": "DS_PROMETHEUS",
-            "options": [],
-            "query": "prometheus",
-            "refresh": 1,
-            "regex": "",
-            "skipUrlSync": false,
-            "type": "datasource"
+            "hide":2,
+            "includeAll":false,
+            "label":"datasource",
+            "multi":false,
+            "name":"DS_PROMETHEUS",
+            "options":[
+
+            ],
+            "query":"prometheus",
+            "refresh":1,
+            "regex":"",
+            "skipUrlSync":false,
+            "type":"datasource",
+            "datasource":"${DS_PROMETHEUS}"
           },
           {
-            "allValue": null,
-            "current": {},
-            "datasource": "${DS_PROMETHEUS}",
-            "definition": "label_values(rabbitmq_identity_info, namespace)",
-            "description": null,
-            "error": null,
-            "hide": 0,
-            "includeAll": false,
-            "label": "Namespace",
-            "multi": false,
-            "name": "namespace",
-            "options": [],
-            "query": {
-              "query": "label_values(rabbitmq_identity_info, namespace)",
-              "refId": "StandardVariableQuery"
+            "current":{
+
             },
-            "refresh": 2,
-            "regex": "",
-            "skipUrlSync": false,
-            "sort": 1,
-            "tagValuesQuery": "",
-            "tags": [],
-            "tagsQuery": "",
-            "type": "query",
-            "useTags": false
+            "datasource":{
+              "type":"prometheus",
+              "uid":"${DS_PROMETHEUS}"
+            },
+            "definition":"label_values(rabbitmq_identity_info, namespace)",
+            "hide":0,
+            "includeAll":false,
+            "label":"Namespace",
+            "multi":false,
+            "name":"namespace",
+            "options":[
+
+            ],
+            "query":{
+              "query":"label_values(rabbitmq_identity_info, namespace)",
+              "refId":"StandardVariableQuery"
+            },
+            "refresh":2,
+            "regex":"",
+            "skipUrlSync":false,
+            "sort":1,
+            "tagValuesQuery":"",
+            "tagsQuery":"",
+            "type":"query",
+            "useTags":false
           },
           {
-            "allValue": null,
-            "current": {},
-            "datasource": "${DS_PROMETHEUS}",
-            "definition": "label_values(rabbitmq_identity_info{namespace=\"$namespace\"}, rabbitmq_cluster)",
-            "description": null,
-            "error": null,
-            "hide": 0,
-            "includeAll": false,
-            "label": "RabbitMQ Cluster",
-            "multi": false,
-            "name": "rabbitmq_cluster",
-            "options": [],
-            "query": {
-              "query": "label_values(rabbitmq_identity_info{namespace=\"$namespace\"}, rabbitmq_cluster)",
-              "refId": "StandardVariableQuery"
+            "current":{
+
             },
-            "refresh": 2,
-            "regex": "",
-            "skipUrlSync": false,
-            "sort": 1,
-            "tagValuesQuery": "",
-            "tags": [],
-            "tagsQuery": "",
-            "type": "query",
-            "useTags": false
+            "datasource":{
+              "type":"prometheus",
+              "uid":"${DS_PROMETHEUS}"
+            },
+            "definition":"label_values(rabbitmq_identity_info{namespace=\"$namespace\"}, rabbitmq_cluster)",
+            "hide":0,
+            "includeAll":false,
+            "label":"RabbitMQ Cluster",
+            "multi":false,
+            "name":"rabbitmq_cluster",
+            "options":[
+
+            ],
+            "query":{
+              "query":"label_values(rabbitmq_identity_info{namespace=\"$namespace\"}, rabbitmq_cluster)",
+              "refId":"StandardVariableQuery"
+            },
+            "refresh":2,
+            "regex":"",
+            "skipUrlSync":false,
+            "sort":1,
+            "tagValuesQuery":"",
+            "tagsQuery":"",
+            "type":"query",
+            "useTags":false
           },
           {
-            "allValue": null,
-            "current": {},
-            "datasource": "${DS_PROMETHEUS}",
-            "definition": "query_result(rabbitmq_detailed_queue_messages{namespace=\"$namespace\"} * on (instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{namespace=\"$namespace\"})",
-            "description": null,
-            "error": null,
-            "hide": 0,
-            "includeAll": false,
-            "label": "Queue",
-            "multi": false,
-            "name": "queue",
-            "options": [],
-            "query": {
-              "query": "query_result(rabbitmq_detailed_queue_messages{namespace=\"$namespace\"} * on (instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{namespace=\"$namespace\", rabbitmq_cluster=\"$rabbitmq_cluster\"})",
-              "refId": "StandardVariableQuery"
+            "current":{
+
             },
-            "refresh": 2,
-            "regex": "/.*queue=\"([^\"]+)\".*/",
-            "skipUrlSync": false,
-            "sort": 0,
-            "tagValuesQuery": "",
-            "tags": [],
-            "tagsQuery": "",
-            "type": "query",
-            "useTags": false
+            "datasource":{
+              "type":"prometheus",
+              "uid":"${DS_PROMETHEUS}"
+            },
+            "definition":"query_result(rabbitmq_detailed_queue_messages{namespace=\"$namespace\"} * on (instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{namespace=\"$namespace\"})",
+            "hide":0,
+            "includeAll":false,
+            "label":"Queue",
+            "multi":false,
+            "name":"queue",
+            "options":[
+
+            ],
+            "query":{
+              "query":"query_result(rabbitmq_detailed_queue_messages{namespace=\"$namespace\"} * on (instance, job) group_left(rabbitmq_cluster) rabbitmq_identity_info{namespace=\"$namespace\", rabbitmq_cluster=\"$rabbitmq_cluster\"})",
+              "refId":"StandardVariableQuery"
+            },
+            "refresh":2,
+            "regex":"/.*queue=\"([^\"]+)\".*/",
+            "skipUrlSync":false,
+            "sort":0,
+            "tagValuesQuery":"",
+            "tagsQuery":"",
+            "type":"query",
+            "useTags":false
           }
         ]
       },
-      "time": {
-        "from": "now-6h",
-        "to": "now"
+      "time":{
+        "from":"now-15m",
+        "to":"now"
       },
-      "timepicker": {},
-      "timezone": "",
-      "title": "RabbitMQ-Queue",
-      "uid": "j9t8vwH7k",
-      "version": 1
+      "timepicker":{
+
+      },
+      "timezone":"",
+      "title":"RabbitMQ-Queue",
+      "uid":"j9t8vwH7k",
+      "version":3,
+      "weekStart":""
     }
