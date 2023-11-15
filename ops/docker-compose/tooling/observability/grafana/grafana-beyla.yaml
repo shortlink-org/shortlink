@@ -28,9 +28,10 @@ services:
       - SYS_ADMIN
     environment:
       PRINT_TRACES: true
-      OPEN_PORT: 8443
       SERVICE_NAMESPACE: shortlink
       OTEL_SERVICE_NAME: beyla
       OTEL_EXPORTER_OTLP_ENDPOINT: "http://jaeger-agent:4317"
+      BEYLA_EXECUTABLE_NAME: beyla
+      BEYLA_OPEN_PORT: 8443
     volumes:
       - ./ops/docker-compose/tooling/observability/grafana/conf/beyla/config.yml:/configs/beyla-config.yml
