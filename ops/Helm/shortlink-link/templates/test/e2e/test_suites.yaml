@@ -2,7 +2,6 @@ apiVersion: tests.testkube.io/v3
 kind: TestSuite
 metadata:
   name: shortlink-link
-  namespace: testkube
   labels:
     {{- with .Values.commonLabels }}
       {{- include "common.tplvalues.render" (dict "value" . "context" $) | nindent 4 }}

@@ -15,6 +15,9 @@ testkube:
     nats:
       enabled: true
 
+    multinamespace:
+      enabled: true
+
     minio:
       enabled: false
 
@@ -73,6 +76,6 @@ testkube:
           secretName: testkube-tls
 
     oauth2:
-      enabled: false
+      enabled: true
 
   testkube-operator: {}
