@@ -2,15 +2,53 @@ package queue
 
 import (
 	"testing"
-
-	"github.com/stretchr/testify/assert"
 )
 
+// TestQueue conducts a series of subtests on the Queue.
 func TestQueue(t *testing.T) {
-	q := New[string](5) //nolint:revive // it's ok
-	q.Push("hello world!")
+	// Subtest for Push and Pop
+	t.Run("PushPop", func(t *testing.T) {
+		q := New[int]()
+		q.Push(1)
+		q.Push(2)
 
-	str := q.Pop()
+		if size := q.Size(); size != 2 {
+			t.Errorf("Expected size 2, got %d", size)
+		}
 
-	assert.Equal(t, "hello world!", str)
+		if val, ok := q.Pop(); !ok || val != 1 {
+			t.Errorf("Expected Pop to return 1, got %d", val)
+		}
+
+		if val, ok := q.Pop(); !ok || val != 2 {
+			t.Errorf("Expected Pop to return 2, got %d", val)
+		}
+
+		if size := q.Size(); size != 0 {
+			t.Errorf("Expected size 0, got %d", size)
+		}
+	})
+
+	// Subtest for Size
+	t.Run("Size", func(t *testing.T) {
+		q := New[int]()
+		q.Push(1)
+		q.Push(2)
+
+		if size := q.Size(); size != 2 {
+			t.Errorf("Expected size 2, got %d", size)
+		}
+	})
+
+	// Subtest for Clean
+	t.Run("Clean", func(t *testing.T) {
+		q := New[int]()
+		q.Push(1)
+		q.Push(2)
+		q.Clean()
+
+		if size := q.Size(); size != 0 {
+			t.Errorf("Expected size 0 after Clean, got %d", size)
+		}
+	})
 }
