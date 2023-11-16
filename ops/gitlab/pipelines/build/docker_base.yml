@@ -1,7 +1,7 @@
 include:
   - local: /ops/gitlab/templates/common.yml
   - local: /ops/gitlab/templates/build.yml
-  - template: Security/Container-Scanning.gitlab-ci.yml # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/Container-Scanning.gitlab-ci.yml
+  - component: gitlab.com/gitlab-components/container-scanning/container-scanning@main
 
 stages:
   - .pre

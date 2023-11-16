@@ -1,16 +1,14 @@
 include:
   # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/License-Scanning.gitlab-ci.yml
   - template: Jobs/License-Scanning.gitlab-ci.yml
-  # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/SAST.latest.gitlab-ci.yml
-  - template: Security/SAST.gitlab-ci.yml
+  - component: gitlab.com/gitlab-components/sast/sast@main
     rules:
       - if: $CI_COMMIT_TAG
   # https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/Jobs/SAST-IaC.latest.gitlab-ci.yml
   - template: Jobs/SAST-IaC.latest.gitlab-ci.yml
     rules:
       - if: $CI_COMMIT_TAG
-  # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/Secret-Detection.gitlab-ci.yml
-  - template: Security/Secret-Detection.gitlab-ci.yml
+  - component: gitlab.com/gitlab-components/secret-detection/secret-detection@main
   - local: /ops/gitlab/templates/rules.yml
 
 # GOLANG ===============================================================================================================
