@@ -1,9 +1,9 @@
 import * as dotenv from 'dotenv'
 import * as Amqp from "amqp-ts"
 import {injectable} from "inversify"
-import {Logger} from "tslog"
+import { Logger, ILogObj } from "tslog"
 
-const log: Logger<any> = new Logger()
+const log: Logger<ILogObj> = new Logger()
 
 @injectable()
 class AMQPController {

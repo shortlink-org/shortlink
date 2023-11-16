@@ -14,6 +14,7 @@ export class LinkService {
         throw new Error(`${resp.status} ${resp.statusText}`)
       }
 
+      // @ts-ignore
       const link: Link = await resp.json()
       return link.url
     } catch (err) {

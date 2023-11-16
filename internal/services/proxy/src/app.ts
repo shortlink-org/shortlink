@@ -3,7 +3,7 @@ import http from "http"
 import * as express from "express"
 import * as bodyParser from 'body-parser'
 import helmet from 'helmet'
-import {Logger} from "tslog"
+import { Logger, ILogObj } from "tslog"
 import {InversifyExpressServer} from "inversify-express-utils"
 import {createTerminus} from "@godaddy/terminus"
 import * as dotenv from 'dotenv'
@@ -11,13 +11,14 @@ import * as dotenv from 'dotenv'
 dotenv.config()
 
 import './opentelemtery'
+// @ts-ignore
 import container from "./inversify.config"
 
 import './proxy/infrastructure/http/proxy'
 
 const APP = express.default()
 const PORT = process.env.PORT || 3020
-const log: Logger<any> = new Logger()
+const log: Logger<ILogObj> = new Logger()
 const SERVER_HTTP = http.createServer(APP)
 
 // configuration application
