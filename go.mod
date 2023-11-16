@@ -273,7 +273,7 @@ replace (
 	k8s.io/cluster-bootstrap => k8s.io/cluster-bootstrap v0.28.3
 	k8s.io/code-generator => k8s.io/code-generator v0.28.4
 	k8s.io/component-base => k8s.io/component-base v0.28.4
-	k8s.io/component-helpers => k8s.io/component-helpers v0.28.3
+	k8s.io/component-helpers => k8s.io/component-helpers v0.28.4
 	k8s.io/controller-manager => k8s.io/controller-manager v0.28.3
 	k8s.io/cri-api => k8s.io/cri-api v0.28.3
 	k8s.io/csi-translation-lib => k8s.io/csi-translation-lib v0.28.3
