@@ -1,7 +1,6 @@
 include:
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
-  # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/Code-Quality.gitlab-ci.yml
-  - template: Jobs/Code-Quality.gitlab-ci.yml
+  - component: gitlab.com/gitlab-components/code-quality/code-quality@main
 
 # CODE QUALITY =========================================================================================================
 code_quality:
@@ -16,6 +15,7 @@ code_quality:
   artifacts:
     paths:
       - ${ARTIFACT_NAME}
+    expire_in: 14 days
 
 # DEPENDENCY ===========================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/

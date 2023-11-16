@@ -83,6 +83,7 @@ qodana:
   artifacts:
     paths:
       - qodana
+    expire_in: 14 days
 
 # SAST =================================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/sast/

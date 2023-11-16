@@ -58,6 +58,7 @@ plan:
       - plan.tfplan
     reports:
       terraform: tfplan.json
+    expire_in: 14 days
   needs:
     - job: validate
   rules:
