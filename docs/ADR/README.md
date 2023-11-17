@@ -51,5 +51,6 @@ for information team about cases for updated ADR.
   - [ADR-0017](./decisions/0017-profile-guided-optimization.md) - Profile-guided optimization
   - [ADR-0027](./decisions/0027-orm-and-golang.md) - ORM and Golang [Cookbook]
   - [ADR-0028](./decisions/0028-go-and-debug-concurrency.md) - Go and debug concurrency
+  - [ADR-0029](./decisions/0029-go-key-recommendations.md) - Go: Key Recommendations
 - **Front-end**
   - [ADR-0019](./decisions/0019-front-end-testing.md) - Front-end testings
