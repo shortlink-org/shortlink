@@ -14,7 +14,7 @@ type: application
 deprecated: false
 dependencies:
   - name: gitlab-runner
-    version: 0.58.2
+    version: 0.59.0
     repository: https://charts.gitlab.io
     condition: gitlab-runner.enabled
     tags:
