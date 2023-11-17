@@ -61,6 +61,7 @@ func (s *Store) GetConn() any {
 //nolint:unparam // ignore
 func (s *Store) close() error {
 	s.client.Close()
+
 	return nil
 }
 
