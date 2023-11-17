@@ -9,14 +9,12 @@ x-network: &network
 
 services:
 
-  scylla:
+  trino:
     <<: *network
     depends_on:
       - coredns
-    image: scylladb/scylla
-    container_name: scylla
-    init: true
+    image: trinodb/trino
+    container_name: trino
     restart: on-failure
-    command: "--smp 1 --memory 256M"
     ports:
-      - "9042:9042"
+      - "8080:8080"

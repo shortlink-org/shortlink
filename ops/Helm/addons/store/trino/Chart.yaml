@@ -1,0 +1,22 @@
+apiVersion: v2
+appVersion: "1.0.0"
+name: trino
+version: 0.1.0
+kubeVersion: ">= 1.28.0 || >= v1.28.0-0"
+keywords:
+  - redis
+maintainers:
+  - email: batazor111@gmail.com
+    name: batazor
+    url: batazor.ru
+engine: gotpl
+type: application
+deprecated: false
+dependencies:
+  - name: trino
+    version: 0.14.0
+    repository: https://trinodb.github.io/charts
+    condition: trino.enabled
+    tags:
+      - trino
+      - store
