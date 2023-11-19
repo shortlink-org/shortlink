@@ -6,7 +6,7 @@ require (
 	github.com/IBM/sarama v1.42.1
 	github.com/Masterminds/squirrel v1.5.4
 	github.com/PuerkitoBio/goquery v1.8.1
-	github.com/Unleash/unleash-client-go/v4 v4.0.0
+	github.com/Unleash/unleash-client-go/v3 v3.9.0
 	github.com/Unleash/unleash-client-go/v4 v4.0.0
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/authzed/authzed-go v0.10.1
@@ -48,7 +48,7 @@ require (
 	github.com/pterm/pterm v0.12.70
 	github.com/rabbitmq/amqp091-go v1.9.0
 	github.com/redis/go-redis/v9 v9.3.0
-	github.com/redis/rueidis v1.0.21
+	github.com/redis/rueidis v1.0.22
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sasha-s/go-deadlock v0.3.1
