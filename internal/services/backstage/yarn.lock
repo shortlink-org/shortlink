@@ -2500,7 +2500,7 @@
     front-matter "^4.0.2"
     luxon "^3.0.0"
 
-"@backstage/plugin-adr@^0.6.9":
+"@backstage/plugin-adr@^0.6.10":
   version "0.6.10"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-adr/-/plugin-adr-0.6.10.tgz#38cb010a11a65584fdb1ce17f69d784e688592fb"
   integrity sha512-xMPaun3KBd+uX6a4h0Wmii9joRkygk5jqsI71a6DDBUzkSK7OKzReVntftCp631ZnqhaGAg7a+mayqqgfn2AcA==
@@ -2779,7 +2779,7 @@
     "@backstage/plugin-permission-common" "^0.7.10"
     "@backstage/plugin-search-common" "^1.2.8"
 
-"@backstage/plugin-catalog-graph@^0.3.0":
+"@backstage/plugin-catalog-graph@^0.3.1":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-graph/-/plugin-catalog-graph-0.3.1.tgz#ab13d44afe8ef3803203f4f84ea67f2a7e2245eb"
   integrity sha512-NFPYOSdntZyYCq7weyeZOr+x13t4Cz533ZCHtS7+k3HFdZsFVW7/i+tK/dRaC2ZuUzMBijsL0/9MoK0RFhEQGA==
@@ -2801,7 +2801,7 @@
     qs "^6.9.4"
     react-use "^17.2.4"
 
-"@backstage/plugin-catalog-import@^0.10.2":
+"@backstage/plugin-catalog-import@^0.10.3":
   version "0.10.3"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-import/-/plugin-catalog-import-0.10.3.tgz#1c956dd8e02022a2a171e571cd1d9ad6117f6807"
   integrity sha512-r+irIhVsvAyA3HVe/xeFuQ3Kv5h0hW/svC00bpMFABkOC/g2I+oaVUMD6YMYxMtdFAcysTg8sLlNkfmJLiX7+w==
@@ -2841,7 +2841,7 @@
     "@backstage/plugin-catalog-common" "^1.0.18"
     "@backstage/types" "^1.1.1"
 
-"@backstage/plugin-catalog-react@^1.8.5", "@backstage/plugin-catalog-react@^1.9.0", "@backstage/plugin-catalog-react@^1.9.1":
+"@backstage/plugin-catalog-react@^1.8.5", "@backstage/plugin-catalog-react@^1.9.1":
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-react/-/plugin-catalog-react-1.9.1.tgz#80d3ba027499c704bffbb11d877b3e871f557499"
   integrity sha512-ucuJCVfHEdEsRLv3nv9Ds1eybkKzaDYKqt7KUb2rc/WfNiSZpsaf0/fWYfR/hNIAmxlE3o9PRuLN6wv5v8Ah9w==
@@ -2872,7 +2872,7 @@
     yaml "^2.0.0"
     zen-observable "^0.10.0"
 
-"@backstage/plugin-catalog@^1.15.0", "@backstage/plugin-catalog@^1.15.1":
+"@backstage/plugin-catalog@^1.15.1":
   version "1.15.1"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog/-/plugin-catalog-1.15.1.tgz#1d06c66ffd45844122818c14abda265eb6467a86"
   integrity sha512-jvdUu9eZ+Y2R0Qp+QA862f82Jck6N2M90rkk3/4I7eGPZWsQNh0WIX9Yn6yBRLEJVz3xpd6oQYCZQ+8G9V8Tvg==
@@ -3028,7 +3028,7 @@
     xterm-addon-attach "^0.9.0"
     xterm-addon-fit "^0.8.0"
 
-"@backstage/plugin-kubernetes@^0.11.1":
+"@backstage/plugin-kubernetes@^0.11.2":
   version "0.11.2"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes/-/plugin-kubernetes-0.11.2.tgz#2436f89f6a3117f1cc2d1556613973cb66cd00e9"
   integrity sha512-z7F1zVpOG36USYyRCDKrKCesAwIPUDqILy6GQYEtg0rjBOmO7IMR2TXp3aYrt3oyplsJivyiK7umWJ6KSwUyHg==
@@ -3085,7 +3085,7 @@
     "@types/react" "^16.13.1 || ^17.0.0"
     react-use "^17.2.4"
 
-"@backstage/plugin-org@^0.6.16":
+"@backstage/plugin-org@^0.6.17":
   version "0.6.17"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-org/-/plugin-org-0.6.17.tgz#2c9e0b93dcfad79b342218dd986f7c18fdb703f3"
   integrity sha512-d//6WJoAQe+kGX9Vmv1uBgbU0Eh3afa7QkJKIyrKTutUuXS3EwU5cpdkRFlJOFskeRuWXuHAfcv3WOQWY6v2Eg==
@@ -3291,7 +3291,7 @@
     zod "^3.21.4"
     zod-to-json-schema "^3.20.4"
 
-"@backstage/plugin-scaffolder@^1.16.0":
+"@backstage/plugin-scaffolder@^1.16.1":
   version "1.16.1"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-scaffolder/-/plugin-scaffolder-1.16.1.tgz#03d403d3fcd71e60b05d023576a07a8e776f9c28"
   integrity sha512-HJxcLel66Wkmg+zhhpSoh2M2MDm5uiYQc43Xa7P9f56i6M8PbBx3Q7aVGZJYfJudfjh4uZi17xuTcu5T78CzrQ==
@@ -3610,7 +3610,7 @@
     react-helmet "6.1.0"
     react-use "^17.2.4"
 
-"@backstage/plugin-techdocs@^1.9.0":
+"@backstage/plugin-techdocs@^1.9.1":
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-techdocs/-/plugin-techdocs-1.9.1.tgz#e630488b429026c0de5e5ffb617af575b45cd0dd"
   integrity sha512-TOhnGf/SJ2PKdUBAnnqd+hQsu9e9mKJQlQDQcbUvKuqCSkY2v8sreyP0Kgm5Fc7zGPTCfu9Xach3qwGevbc43w==
@@ -3662,7 +3662,7 @@
     winston "^3.2.1"
     yn "^4.0.0"
 
-"@backstage/plugin-todo@^0.2.30":
+"@backstage/plugin-todo@^0.2.31":
   version "0.2.31"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-todo/-/plugin-todo-0.2.31.tgz#af35f6704480d3556c48a2aafd1b211316531e66"
   integrity sha512-h2Xep1m9lzln1f6OUP7+NyHr87Lq35o9BgzzZZLsf/zAdmH0cbjwHObipFPhjg94iXC7hNNymw+49bw6GmaKHA==
