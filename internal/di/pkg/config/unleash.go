@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/Unleash/unleash-client-go/v3"
+	"github.com/Unleash/unleash-client-go/v4"
 	"github.com/spf13/viper"
 )
 
