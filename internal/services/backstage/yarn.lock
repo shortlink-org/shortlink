@@ -2891,6 +2891,37 @@
     yaml "^2.0.0"
     zen-observable "^0.10.0"
 
+"@backstage/plugin-catalog-react@^1.9.1":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-react/-/plugin-catalog-react-1.9.1.tgz#80d3ba027499c704bffbb11d877b3e871f557499"
+  integrity sha512-ucuJCVfHEdEsRLv3nv9Ds1eybkKzaDYKqt7KUb2rc/WfNiSZpsaf0/fWYfR/hNIAmxlE3o9PRuLN6wv5v8Ah9w==
+  dependencies:
+    "@backstage/catalog-client" "^1.4.6"
+    "@backstage/catalog-model" "^1.4.3"
+    "@backstage/core-components" "^0.13.8"
+    "@backstage/core-plugin-api" "^1.8.0"
+    "@backstage/errors" "^1.2.3"
+    "@backstage/frontend-plugin-api" "^0.3.0"
+    "@backstage/integration-react" "^1.1.21"
+    "@backstage/plugin-catalog-common" "^1.0.18"
+    "@backstage/plugin-permission-common" "^0.7.10"
+    "@backstage/plugin-permission-react" "^0.4.17"
+    "@backstage/theme" "^0.4.4"
+    "@backstage/types" "^1.1.1"
+    "@backstage/version-bridge" "^1.0.7"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.61"
+    "@react-hookz/web" "^23.0.0"
+    "@types/react" "^16.13.1 || ^17.0.0"
+    classnames "^2.2.6"
+    lodash "^4.17.21"
+    material-ui-popup-state "^1.9.3"
+    qs "^6.9.4"
+    react-use "^17.2.4"
+    yaml "^2.0.0"
+    zen-observable "^0.10.0"
+
 "@backstage/plugin-catalog@^1.15.0":
   version "1.15.0"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog/-/plugin-catalog-1.15.0.tgz#e32ee2cd5f32cc234dae2e7de48cc303ffb0225c"
@@ -3668,10 +3699,10 @@
     react-helmet "6.1.0"
     react-use "^17.2.4"
 
-"@backstage/plugin-techdocs@^1.9.0":
-  version "1.9.0"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-techdocs/-/plugin-techdocs-1.9.0.tgz#5377f52cd5cdfb061d9eb34565b2bcb6408cd12f"
-  integrity sha512-LQnqsXWOEuDIs1OlH+bvn4tIiLZpCV1CSFd4V6DKHK3zSPiOs0mImFkllsuE9GF6QtVlpm/k8zJ3HGxXInpHgA==
+"@backstage/plugin-techdocs@^1.9.1":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-techdocs/-/plugin-techdocs-1.9.1.tgz#e630488b429026c0de5e5ffb617af575b45cd0dd"
+  integrity sha512-TOhnGf/SJ2PKdUBAnnqd+hQsu9e9mKJQlQDQcbUvKuqCSkY2v8sreyP0Kgm5Fc7zGPTCfu9Xach3qwGevbc43w==
   dependencies:
     "@backstage/catalog-model" "^1.4.3"
     "@backstage/config" "^1.1.1"
@@ -3681,9 +3712,9 @@
     "@backstage/frontend-plugin-api" "^0.3.0"
     "@backstage/integration" "^1.7.2"
     "@backstage/integration-react" "^1.1.21"
-    "@backstage/plugin-catalog-react" "^1.9.0"
+    "@backstage/plugin-catalog-react" "^1.9.1"
     "@backstage/plugin-search-common" "^1.2.8"
-    "@backstage/plugin-search-react" "^1.7.2"
+    "@backstage/plugin-search-react" "^1.7.3"
     "@backstage/plugin-techdocs-react" "^1.1.13"
     "@backstage/theme" "^0.4.4"
     "@material-ui/core" "^4.12.2"
