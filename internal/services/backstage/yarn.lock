@@ -2519,10 +2519,10 @@
     front-matter "^4.0.2"
     luxon "^3.0.0"
 
-"@backstage/plugin-adr@^0.6.9":
-  version "0.6.9"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-adr/-/plugin-adr-0.6.9.tgz#d5c8180761d3d96ac1cf0a16dc006e43188c15a0"
-  integrity sha512-AAdTEMzHpxJveme1BHVS403FubXCFu7jgZfgU0RrX5Ejxp7INWZPcghrbKTk6Fi3lDYsVCt7VhMjesk2KWCTfg==
+"@backstage/plugin-adr@^0.6.10":
+  version "0.6.10"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-adr/-/plugin-adr-0.6.10.tgz#38cb010a11a65584fdb1ce17f69d784e688592fb"
+  integrity sha512-xMPaun3KBd+uX6a4h0Wmii9joRkygk5jqsI71a6DDBUzkSK7OKzReVntftCp631ZnqhaGAg7a+mayqqgfn2AcA==
   dependencies:
     "@backstage/catalog-model" "^1.4.3"
     "@backstage/core-components" "^0.13.8"
@@ -2530,9 +2530,9 @@
     "@backstage/frontend-plugin-api" "^0.3.0"
     "@backstage/integration-react" "^1.1.21"
     "@backstage/plugin-adr-common" "^0.2.17"
-    "@backstage/plugin-catalog-react" "^1.9.0"
+    "@backstage/plugin-catalog-react" "^1.9.1"
     "@backstage/plugin-search-common" "^1.2.8"
-    "@backstage/plugin-search-react" "^1.7.2"
+    "@backstage/plugin-search-react" "^1.7.3"
     "@backstage/theme" "^0.4.4"
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
@@ -2864,6 +2864,37 @@
   version "1.9.0"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-react/-/plugin-catalog-react-1.9.0.tgz#9077d78d7c382b9017840c896c44678a1f2960ed"
   integrity sha512-/hGRgnaHNpyZkt062v1xJbLSdh6fx0WTipafWIP++sVaoU6xE3zZdzbyMZxfgC8KIxIij6tRB+fWx1gNYg+RUg==
+  dependencies:
+    "@backstage/catalog-client" "^1.4.6"
+    "@backstage/catalog-model" "^1.4.3"
+    "@backstage/core-components" "^0.13.8"
+    "@backstage/core-plugin-api" "^1.8.0"
+    "@backstage/errors" "^1.2.3"
+    "@backstage/frontend-plugin-api" "^0.3.0"
+    "@backstage/integration-react" "^1.1.21"
+    "@backstage/plugin-catalog-common" "^1.0.18"
+    "@backstage/plugin-permission-common" "^0.7.10"
+    "@backstage/plugin-permission-react" "^0.4.17"
+    "@backstage/theme" "^0.4.4"
+    "@backstage/types" "^1.1.1"
+    "@backstage/version-bridge" "^1.0.7"
+    "@material-ui/core" "^4.12.2"
+    "@material-ui/icons" "^4.9.1"
+    "@material-ui/lab" "4.0.0-alpha.61"
+    "@react-hookz/web" "^23.0.0"
+    "@types/react" "^16.13.1 || ^17.0.0"
+    classnames "^2.2.6"
+    lodash "^4.17.21"
+    material-ui-popup-state "^1.9.3"
+    qs "^6.9.4"
+    react-use "^17.2.4"
+    yaml "^2.0.0"
+    zen-observable "^0.10.0"
+
+"@backstage/plugin-catalog-react@^1.9.1":
+  version "1.9.1"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-react/-/plugin-catalog-react-1.9.1.tgz#80d3ba027499c704bffbb11d877b3e871f557499"
+  integrity sha512-ucuJCVfHEdEsRLv3nv9Ds1eybkKzaDYKqt7KUb2rc/WfNiSZpsaf0/fWYfR/hNIAmxlE3o9PRuLN6wv5v8Ah9w==
   dependencies:
     "@backstage/catalog-client" "^1.4.6"
     "@backstage/catalog-model" "^1.4.3"
