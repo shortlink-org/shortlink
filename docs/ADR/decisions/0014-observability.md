@@ -8,7 +8,7 @@ Accepted
 
 ## Context
 
-In order to maintain a consistent and effective approach to observability across our systems, 
+To maintain a consistent and effective approach to observability across our systems, 
 we need to establish standard tools for monitoring, tracing, and logging.
 
 ## Decision
@@ -38,7 +38,7 @@ We use [OpenTelemetry](https://opentelemetry.io/) for tracing and metrics.
   * [Loki](https://github.com/grafana/loki), like Prometheus, but for logs.
     + [docs](docs/tutorial/logger.md)
 
-  + [Tempo](https://grafana.com/docs/tempo/latest/), a high volume, high throughput distributed tracing system.
+  * [Tempo](https://grafana.com/docs/tempo/latest/), a high volume, high throughput distributed tracing system.
 
   * [Grafana](https://github.com/grafana/grafana), the open and composable observability and data visualization
     platform.
@@ -55,3 +55,5 @@ We use [OpenTelemetry](https://opentelemetry.io/) for tracing and metrics.
 ### Docs/Articles
 
 + [The RED Method: How to Instrument Your Services](https://grafana.com/blog/2018/08/02/the-red-method-how-to-instrument-your-services/)
++ [Do you need an OpenTelemetry Collector?](https://grafana.com/blog/2023/11/21/do-you-need-an-opentelemetry-collector/)
+
