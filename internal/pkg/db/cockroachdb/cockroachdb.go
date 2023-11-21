@@ -7,9 +7,6 @@ import (
 	"github.com/spf13/viper"
 )
 
-// Config - config
-type Config struct{}
-
 // Store implementation of db interface
 type Store struct {
 	client *pgx.Conn

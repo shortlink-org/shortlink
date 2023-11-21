@@ -82,6 +82,7 @@ down: confirm ## Down docker compose
 		-f ops/docker-compose/database/aerospike/aerospike.yaml \
 		-f ops/docker-compose/database/cassandra/cassandra.yaml \
 		-f ops/docker-compose/database/clickhouse/clickhouse.yaml \
+		-f ops/docker-compose/database/couchbase/couchbase.yaml \
 		-f ops/docker-compose/database/mysql/mysql.yaml \
 		-f ops/docker-compose/database/trino/trino.yaml \
 		-f ops/docker-compose/database/cockroachdb/cockroachdb.yaml \

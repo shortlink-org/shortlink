@@ -10,6 +10,7 @@ require (
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/authzed/authzed-go v0.10.1
 	github.com/c-bata/go-prompt v0.2.6
+	github.com/couchbase/gocb/v2 v2.6.5
 	github.com/cucumber/godog v0.13.0
 	github.com/dgraph-io/badger/v4 v4.2.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
@@ -114,6 +115,7 @@ require (
 	github.com/containerd/continuity v0.3.0 // indirect
 	github.com/coreos/go-semver v0.3.1 // indirect
 	github.com/coreos/go-systemd/v22 v22.5.0 // indirect
+	github.com/couchbase/gocbcore/v10 v10.2.9 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.3 // indirect
 	github.com/crate-crypto/go-kzg-4844 v0.7.0 // indirect
 	github.com/cucumber/gherkin/go/v26 v26.2.0 // indirect
