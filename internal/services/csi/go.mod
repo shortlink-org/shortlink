@@ -7,7 +7,7 @@ require (
 	github.com/golang/glog v1.1.2
 	github.com/google/uuid v1.4.0
 	github.com/google/wire v0.5.1-0.20220620021424-0675cdc9191c
-	github.com/kubernetes-csi/csi-test/v5 v5.1.0
+	github.com/kubernetes-csi/csi-test/v5 v5.2.0
 	github.com/shortlink-org/shortlink v0.0.0-20231121152143-034a83e97191
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/viper v1.17.0
@@ -165,7 +165,7 @@ require (
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	k8s.io/apimachinery v0.28.4 // indirect
-	k8s.io/klog/v2 v2.100.1 // indirect
+	k8s.io/klog/v2 v2.110.1 // indirect
 )
 
 replace (
