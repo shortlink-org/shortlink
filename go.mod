@@ -26,7 +26,7 @@ require (
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang-migrate/migrate/v4 v4.16.2
-	github.com/golang/glog v1.1.2
+	github.com/golang/glog v1.2.0
 	github.com/google/cel-go v0.18.2
 	github.com/google/uuid v1.4.0
 	github.com/google/wire v0.5.1-0.20220620021424-0675cdc9191c
