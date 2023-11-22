@@ -1,6 +1,6 @@
 # rabbitmq
 
-![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -15,7 +15,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../../../shortlink-template | shortlink-template | 0.6.1 |
-| oci://registry-1.docker.io/bitnamicharts | rabbitmq-cluster-operator | 3.10.0 |
+| oci://registry-1.docker.io/bitnamicharts | rabbitmq-cluster-operator | 3.10.5 |
 
 ## Values
 
@@ -210,6 +210,20 @@ true
 			<td></td>
 		</tr>
 		<tr>
+			<td id="rabbitmq-cluster-operator--clusterOperator--metrics--serviceMonitor--additionalLabels--release"><a href="./values.yaml#L26">rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.additionalLabels.release</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"prometheus-operator"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
 			<td id="rabbitmq-cluster-operator--clusterOperator--metrics--serviceMonitor--enabled"><a href="./values.yaml#L24">rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
@@ -218,20 +232,6 @@ bool
 				<div style="max-width: 300px;">
 <pre lang="json">
 true
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="rabbitmq-cluster-operator--clusterOperator--metrics--serviceMonitor--labels--release"><a href="./values.yaml#L26">rabbitmq-cluster-operator.clusterOperator.metrics.serviceMonitor.labels.release</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"prometheus-operator"
 </pre>
 </div>
 			</td>
@@ -280,6 +280,20 @@ true
 			<td></td>
 		</tr>
 		<tr>
+			<td id="rabbitmq-cluster-operator--msgTopologyOperator--metrics--serviceMonitor--additionalLabels--release"><a href="./values.yaml#L36">rabbitmq-cluster-operator.msgTopologyOperator.metrics.serviceMonitor.additionalLabels.release</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"prometheus-operator"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
 			<td id="rabbitmq-cluster-operator--msgTopologyOperator--metrics--serviceMonitor--enabled"><a href="./values.yaml#L34">rabbitmq-cluster-operator.msgTopologyOperator.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
@@ -288,20 +302,6 @@ bool
 				<div style="max-width: 300px;">
 <pre lang="json">
 true
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="rabbitmq-cluster-operator--msgTopologyOperator--metrics--serviceMonitor--labels--release"><a href="./values.yaml#L36">rabbitmq-cluster-operator.msgTopologyOperator.metrics.serviceMonitor.labels.release</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"prometheus-operator"
 </pre>
 </div>
 			</td>

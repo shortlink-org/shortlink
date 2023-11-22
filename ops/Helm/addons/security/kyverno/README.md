@@ -14,9 +14,9 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kyverno.github.io/kyverno | kyverno | 3.0.6 |
-| https://kyverno.github.io/kyverno | kyverno-policies | 3.0.5 |
-| https://kyverno.github.io/policy-reporter | policy-reporter | 2.21.1 |
+| https://kyverno.github.io/kyverno | kyverno | 3.1.0 |
+| https://kyverno.github.io/kyverno | kyverno-policies | 3.1.0 |
+| https://kyverno.github.io/policy-reporter | policy-reporter | 2.21.2 |
 
 ## Values
 
@@ -533,7 +533,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--global--plugins--kyverno"><a href="./values.yaml#L149">policy-reporter.global.plugins.kyverno</a></td>
+			<td id="policy-reporter--global--plugins--kyverno"><a href="./values.yaml#L155">policy-reporter.global.plugins.kyverno</a></td>
 			<td>
 bool
 </td>
@@ -547,7 +547,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--grafana--folder--annotation"><a href="./values.yaml#L144">policy-reporter.grafana.folder.annotation</a></td>
+			<td id="policy-reporter--grafana--folder--annotation"><a href="./values.yaml#L150">policy-reporter.grafana.folder.annotation</a></td>
 			<td>
 string
 </td>
@@ -561,7 +561,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--grafana--folder--name"><a href="./values.yaml#L145">policy-reporter.grafana.folder.name</a></td>
+			<td id="policy-reporter--grafana--folder--name"><a href="./values.yaml#L151">policy-reporter.grafana.folder.name</a></td>
 			<td>
 string
 </td>
@@ -575,7 +575,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--kyvernoPlugin--enabled"><a href="./values.yaml#L137">policy-reporter.kyvernoPlugin.enabled</a></td>
+			<td id="policy-reporter--kyvernoPlugin--enabled"><a href="./values.yaml#L143">policy-reporter.kyvernoPlugin.enabled</a></td>
 			<td>
 bool
 </td>
@@ -589,7 +589,21 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--metrics--enabled"><a href="./values.yaml#L105">policy-reporter.metrics.enabled</a></td>
+			<td id="policy-reporter--logging--encoding"><a href="./values.yaml#L102">policy-reporter.logging.encoding</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"json"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="policy-reporter--metrics--enabled"><a href="./values.yaml#L108">policy-reporter.metrics.enabled</a></td>
 			<td>
 bool
 </td>
@@ -603,7 +617,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--monitoring--enabled"><a href="./values.yaml#L140">policy-reporter.monitoring.enabled</a></td>
+			<td id="policy-reporter--monitoring--enabled"><a href="./values.yaml#L146">policy-reporter.monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -624,7 +638,21 @@ bool
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-false
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="policy-reporter--profiling--enabled"><a href="./values.yaml#L111">policy-reporter.profiling.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
 </pre>
 </div>
 			</td>
@@ -687,7 +715,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--rest--enabled"><a href="./values.yaml#L102">policy-reporter.rest.enabled</a></td>
+			<td id="policy-reporter--rest--enabled"><a href="./values.yaml#L105">policy-reporter.rest.enabled</a></td>
 			<td>
 bool
 </td>
@@ -701,7 +729,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--target--loki--host"><a href="./values.yaml#L153">policy-reporter.target.loki.host</a></td>
+			<td id="policy-reporter--target--loki--host"><a href="./values.yaml#L159">policy-reporter.target.loki.host</a></td>
 			<td>
 string
 </td>
@@ -715,7 +743,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--target--loki--minimumPriority"><a href="./values.yaml#L154">policy-reporter.target.loki.minimumPriority</a></td>
+			<td id="policy-reporter--target--loki--minimumPriority"><a href="./values.yaml#L160">policy-reporter.target.loki.minimumPriority</a></td>
 			<td>
 string
 </td>
@@ -729,7 +757,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--target--loki--skipExistingOnStartup"><a href="./values.yaml#L155">policy-reporter.target.loki.skipExistingOnStartup</a></td>
+			<td id="policy-reporter--target--loki--skipExistingOnStartup"><a href="./values.yaml#L161">policy-reporter.target.loki.skipExistingOnStartup</a></td>
 			<td>
 bool
 </td>
@@ -743,7 +771,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--target--loki--sources[0]"><a href="./values.yaml#L157">policy-reporter.target.loki.sources[0]</a></td>
+			<td id="policy-reporter--target--loki--sources[0]"><a href="./values.yaml#L163">policy-reporter.target.loki.sources[0]</a></td>
 			<td>
 string
 </td>
@@ -757,7 +785,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--ui--enabled"><a href="./values.yaml#L108">policy-reporter.ui.enabled</a></td>
+			<td id="policy-reporter--ui--enabled"><a href="./values.yaml#L114">policy-reporter.ui.enabled</a></td>
 			<td>
 bool
 </td>
@@ -771,7 +799,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--ui--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L118">policy-reporter.ui.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td id="policy-reporter--ui--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L124">policy-reporter.ui.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
 			<td>
 string
 </td>
@@ -785,7 +813,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L119">policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
+			<td id="policy-reporter--ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L125">policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
 			<td>
 string
 </td>
@@ -799,7 +827,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L121">policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="policy-reporter--ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L127">policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -813,7 +841,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L120">policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="policy-reporter--ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L126">policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -827,7 +855,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--ui--ingress--annotations--"nginx--ingress--kubernetes--io/rewrite-target""><a href="./values.yaml#L122">policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target"</a></td>
+			<td id="policy-reporter--ui--ingress--annotations--"nginx--ingress--kubernetes--io/rewrite-target""><a href="./values.yaml#L128">policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target"</a></td>
 			<td>
 string
 </td>
@@ -841,7 +869,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--ui--ingress--annotations--"nginx--ingress--kubernetes--io/use-regex""><a href="./values.yaml#L123">policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/use-regex"</a></td>
+			<td id="policy-reporter--ui--ingress--annotations--"nginx--ingress--kubernetes--io/use-regex""><a href="./values.yaml#L129">policy-reporter.ui.ingress.annotations."nginx.ingress.kubernetes.io/use-regex"</a></td>
 			<td>
 string
 </td>
@@ -855,7 +883,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--ui--ingress--className"><a href="./values.yaml#L115">policy-reporter.ui.ingress.className</a></td>
+			<td id="policy-reporter--ui--ingress--className"><a href="./values.yaml#L121">policy-reporter.ui.ingress.className</a></td>
 			<td>
 string
 </td>
@@ -869,7 +897,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--ui--ingress--enabled"><a href="./values.yaml#L114">policy-reporter.ui.ingress.enabled</a></td>
+			<td id="policy-reporter--ui--ingress--enabled"><a href="./values.yaml#L120">policy-reporter.ui.ingress.enabled</a></td>
 			<td>
 bool
 </td>
@@ -883,7 +911,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--ui--ingress--hosts[0]--host"><a href="./values.yaml#L126">policy-reporter.ui.ingress.hosts[0].host</a></td>
+			<td id="policy-reporter--ui--ingress--hosts[0]--host"><a href="./values.yaml#L132">policy-reporter.ui.ingress.hosts[0].host</a></td>
 			<td>
 string
 </td>
@@ -897,7 +925,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--ui--ingress--hosts[0]--paths[0]--path"><a href="./values.yaml#L128">policy-reporter.ui.ingress.hosts[0].paths[0].path</a></td>
+			<td id="policy-reporter--ui--ingress--hosts[0]--paths[0]--path"><a href="./values.yaml#L134">policy-reporter.ui.ingress.hosts[0].paths[0].path</a></td>
 			<td>
 string
 </td>
@@ -911,7 +939,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--ui--ingress--hosts[0]--paths[0]--pathType"><a href="./values.yaml#L129">policy-reporter.ui.ingress.hosts[0].paths[0].pathType</a></td>
+			<td id="policy-reporter--ui--ingress--hosts[0]--paths[0]--pathType"><a href="./values.yaml#L135">policy-reporter.ui.ingress.hosts[0].paths[0].pathType</a></td>
 			<td>
 string
 </td>
@@ -925,7 +953,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--ui--ingress--tls[0]--hosts[0]"><a href="./values.yaml#L134">policy-reporter.ui.ingress.tls[0].hosts[0]</a></td>
+			<td id="policy-reporter--ui--ingress--tls[0]--hosts[0]"><a href="./values.yaml#L140">policy-reporter.ui.ingress.tls[0].hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -939,7 +967,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--ui--ingress--tls[0]--secretName"><a href="./values.yaml#L132">policy-reporter.ui.ingress.tls[0].secretName</a></td>
+			<td id="policy-reporter--ui--ingress--tls[0]--secretName"><a href="./values.yaml#L138">policy-reporter.ui.ingress.tls[0].secretName</a></td>
 			<td>
 string
 </td>
@@ -953,7 +981,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="policy-reporter--ui--plugins--kyverno"><a href="./values.yaml#L111">policy-reporter.ui.plugins.kyverno</a></td>
+			<td id="policy-reporter--ui--plugins--kyverno"><a href="./values.yaml#L117">policy-reporter.ui.plugins.kyverno</a></td>
 			<td>
 bool
 </td>

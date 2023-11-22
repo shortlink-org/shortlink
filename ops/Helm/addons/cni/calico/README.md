@@ -24,7 +24,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://docs.tigera.io/calico/charts | tigera-operator | v3.26.3 |
+| https://docs.tigera.io/calico/charts | tigera-operator | v3.26.4 |
 
 ## Values
 

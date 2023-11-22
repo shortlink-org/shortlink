@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://helm.elastic.co | elastic-operator(eck-operator) | 2.9.0 |
+| https://helm.elastic.co | elastic-operator(eck-operator) | 2.10.0 |
 
 ## Values
 

@@ -35,7 +35,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="NetworkPolicy--enabled"><a href="./values.yaml#L112">NetworkPolicy.enabled</a></td>
+			<td id="NetworkPolicy--enabled"><a href="./values.yaml#L113">NetworkPolicy.enabled</a></td>
 			<td>
 bool
 </td>
@@ -105,6 +105,20 @@ string
 			<td></td>
 		</tr>
 		<tr>
+			<td id="deploy--env--SPICE_DB_API"><a href="./values.yaml#L72">deploy.env.SPICE_DB_API</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink.spicedb-operator:50051"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
 			<td id="deploy--env--TRACER_URI"><a href="./values.yaml#L69">deploy.env.TRACER_URI</a></td>
 			<td>
 string
@@ -119,7 +133,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L79">deploy.image.pullPolicy</a></td>
+			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L80">deploy.image.pullPolicy</a></td>
 			<td>
 string
 </td>
@@ -133,7 +147,7 @@ string
 			<td>Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images</td>
 		</tr>
 		<tr>
-			<td id="deploy--image--repository"><a href="./values.yaml#L74">deploy.image.repository</a></td>
+			<td id="deploy--image--repository"><a href="./values.yaml#L75">deploy.image.repository</a></td>
 			<td>
 string
 </td>
@@ -147,21 +161,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--tag"><a href="./values.yaml#L75">deploy.image.tag</a></td>
+			<td id="deploy--image--tag"><a href="./values.yaml#L76">deploy.image.tag</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.16.66"
+"0.16.71"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--livenessProbe"><a href="./values.yaml#L82">deploy.livenessProbe</a></td>
+			<td id="deploy--livenessProbe"><a href="./values.yaml#L83">deploy.livenessProbe</a></td>
 			<td>
 object
 </td>
@@ -180,7 +194,7 @@ object
 			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--readinessProbe"><a href="./values.yaml#L88">deploy.readinessProbe</a></td>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L89">deploy.readinessProbe</a></td>
 			<td>
 object
 </td>
@@ -381,7 +395,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="external_database"><a href="./values.yaml#L136">external_database</a></td>
+			<td id="external_database"><a href="./values.yaml#L137">external_database</a></td>
 			<td>
 object
 </td>
@@ -399,7 +413,7 @@ object
 			<td>If you want to use an external database</td>
 		</tr>
 		<tr>
-			<td id="hpa--enabled"><a href="./values.yaml#L94">hpa.enabled</a></td>
+			<td id="hpa--enabled"><a href="./values.yaml#L95">hpa.enabled</a></td>
 			<td>
 bool
 </td>
@@ -413,7 +427,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="hpa--metrics[0]--containerResource--container"><a href="./values.yaml#L99">hpa.metrics[0].containerResource.container</a></td>
+			<td id="hpa--metrics[0]--containerResource--container"><a href="./values.yaml#L100">hpa.metrics[0].containerResource.container</a></td>
 			<td>
 string
 </td>
@@ -427,7 +441,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="hpa--metrics[0]--containerResource--name"><a href="./values.yaml#L98">hpa.metrics[0].containerResource.name</a></td>
+			<td id="hpa--metrics[0]--containerResource--name"><a href="./values.yaml#L99">hpa.metrics[0].containerResource.name</a></td>
 			<td>
 string
 </td>
@@ -441,7 +455,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="hpa--metrics[0]--containerResource--target--averageUtilization"><a href="./values.yaml#L102">hpa.metrics[0].containerResource.target.averageUtilization</a></td>
+			<td id="hpa--metrics[0]--containerResource--target--averageUtilization"><a href="./values.yaml#L103">hpa.metrics[0].containerResource.target.averageUtilization</a></td>
 			<td>
 int
 </td>
@@ -455,7 +469,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="hpa--metrics[0]--containerResource--target--type"><a href="./values.yaml#L101">hpa.metrics[0].containerResource.target.type</a></td>
+			<td id="hpa--metrics[0]--containerResource--target--type"><a href="./values.yaml#L102">hpa.metrics[0].containerResource.target.type</a></td>
 			<td>
 string
 </td>
@@ -469,7 +483,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="hpa--metrics[0]--type"><a href="./values.yaml#L96">hpa.metrics[0].type</a></td>
+			<td id="hpa--metrics[0]--type"><a href="./values.yaml#L97">hpa.metrics[0].type</a></td>
 			<td>
 string
 </td>
@@ -483,7 +497,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="hpa--metrics[1]--external--metric--name"><a href="./values.yaml#L106">hpa.metrics[1].external.metric.name</a></td>
+			<td id="hpa--metrics[1]--external--metric--name"><a href="./values.yaml#L107">hpa.metrics[1].external.metric.name</a></td>
 			<td>
 string
 </td>
@@ -497,7 +511,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="hpa--metrics[1]--external--target--averageValue"><a href="./values.yaml#L109">hpa.metrics[1].external.target.averageValue</a></td>
+			<td id="hpa--metrics[1]--external--target--averageValue"><a href="./values.yaml#L110">hpa.metrics[1].external.target.averageValue</a></td>
 			<td>
 int
 </td>
@@ -511,7 +525,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="hpa--metrics[1]--external--target--type"><a href="./values.yaml#L108">hpa.metrics[1].external.target.type</a></td>
+			<td id="hpa--metrics[1]--external--target--type"><a href="./values.yaml#L109">hpa.metrics[1].external.target.type</a></td>
 			<td>
 string
 </td>
@@ -525,7 +539,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="hpa--metrics[1]--type"><a href="./values.yaml#L103">hpa.metrics[1].type</a></td>
+			<td id="hpa--metrics[1]--type"><a href="./values.yaml#L104">hpa.metrics[1].type</a></td>
 			<td>
 string
 </td>
@@ -679,7 +693,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="./values.yaml#L128">monitoring.enabled</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L129">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -693,7 +707,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L133">podDisruptionBudget.enabled</a></td>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L134">podDisruptionBudget.enabled</a></td>
 			<td>
 bool
 </td>
@@ -707,7 +721,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--name"><a href="./values.yaml#L117">service.ports[0].name</a></td>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L118">service.ports[0].name</a></td>
 			<td>
 string
 </td>
@@ -721,7 +735,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--port"><a href="./values.yaml#L118">service.ports[0].port</a></td>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L119">service.ports[0].port</a></td>
 			<td>
 int
 </td>
@@ -735,7 +749,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--protocol"><a href="./values.yaml#L119">service.ports[0].protocol</a></td>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L120">service.ports[0].protocol</a></td>
 			<td>
 string
 </td>
@@ -749,7 +763,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--public"><a href="./values.yaml#L120">service.ports[0].public</a></td>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L121">service.ports[0].public</a></td>
 			<td>
 bool
 </td>
@@ -763,7 +777,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--name"><a href="./values.yaml#L121">service.ports[1].name</a></td>
+			<td id="service--ports[1]--name"><a href="./values.yaml#L122">service.ports[1].name</a></td>
 			<td>
 string
 </td>
@@ -777,7 +791,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--port"><a href="./values.yaml#L122">service.ports[1].port</a></td>
+			<td id="service--ports[1]--port"><a href="./values.yaml#L123">service.ports[1].port</a></td>
 			<td>
 int
 </td>
@@ -791,7 +805,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--protocol"><a href="./values.yaml#L123">service.ports[1].protocol</a></td>
+			<td id="service--ports[1]--protocol"><a href="./values.yaml#L124">service.ports[1].protocol</a></td>
 			<td>
 string
 </td>
@@ -805,7 +819,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--type"><a href="./values.yaml#L115">service.type</a></td>
+			<td id="service--type"><a href="./values.yaml#L116">service.type</a></td>
 			<td>
 string
 </td>

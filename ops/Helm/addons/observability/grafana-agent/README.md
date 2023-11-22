@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | k8s-monitoring | 0.3.1 |
+| https://grafana.github.io/helm-charts | k8s-monitoring | 0.5.1 |
 
 ## Values
 
@@ -203,6 +203,62 @@ int
 				<div style="max-width: 300px;">
 <pre lang="json">
 4318
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="k8s-monitoring--grafana-agent--agent--extraPorts[2]--name"><a href="./values.yaml#L40">k8s-monitoring.grafana-agent.agent.extraPorts[2].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"zipkin"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="k8s-monitoring--grafana-agent--agent--extraPorts[2]--port"><a href="./values.yaml#L41">k8s-monitoring.grafana-agent.agent.extraPorts[2].port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+9411
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="k8s-monitoring--grafana-agent--agent--extraPorts[2]--protocol"><a href="./values.yaml#L43">k8s-monitoring.grafana-agent.agent.extraPorts[2].protocol</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"TCP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="k8s-monitoring--grafana-agent--agent--extraPorts[2]--targetPort"><a href="./values.yaml#L42">k8s-monitoring.grafana-agent.agent.extraPorts[2].targetPort</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+9411
 </pre>
 </div>
 			</td>

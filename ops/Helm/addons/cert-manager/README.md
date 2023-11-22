@@ -15,7 +15,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.jetstack.io | certmanager(cert-manager) | v1.13.2 |
-| https://charts.jetstack.io | cert-manager-approver-policy | v0.9.0 |
+| https://charts.jetstack.io | cert-manager-approver-policy | v0.10.1 |
 | https://charts.jetstack.io | spiffe(cert-manager-csi-driver-spiffe) | v0.4.0 |
 
 ## Values

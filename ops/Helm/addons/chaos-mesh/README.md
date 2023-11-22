@@ -189,6 +189,20 @@ string
 			<td></td>
 		</tr>
 		<tr>
+			<td id="chaos-mesh--chaosDlv--enable"><a href="./values.yaml#L84">chaos-mesh.chaosDlv.enable</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
 			<td id="chaos-mesh--controllerManager--enableFilterNamespace"><a href="./values.yaml#L9">chaos-mesh.controllerManager.enableFilterNamespace</a></td>
 			<td>
 bool
