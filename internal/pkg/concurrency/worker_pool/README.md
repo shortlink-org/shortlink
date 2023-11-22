@@ -19,6 +19,11 @@ Task5-->Done
 Done-->Result
 ```
 
+#### TODO:
+
+- [ ] Use `sync.Pool` or `sync.Cond` to manage workers
+- [ ] Add Graceful Shutdown
+
 #### References
 
 **Looking for Alternatives? Peek Here:**
