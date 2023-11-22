@@ -20,6 +20,7 @@ we will utilize [Uber's `nilaway`](https://github.com/uber-go/nilaway).
 
 3. **Follow the Uber Go Style Guide**: Our coding style will align with the [Uber Go Style Guide](https://github.com/uber-go/guide), 
 ensuring consistency and adherence to industry best practices.
+   1. **Google Style Guide**: We will also follow the [Google Style Guide](https://google.github.io/styleguide/go/index)
 
 ## Consequences
 
