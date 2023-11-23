@@ -35,6 +35,7 @@ func (q *Queue[T]) Pop() (T, bool) {
 
 	v := q.data[0]
 	q.data = q.data[1:]
+
 	return v, true
 }
 
