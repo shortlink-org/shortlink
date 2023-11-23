@@ -537,7 +537,7 @@ linters-settings:
       - name: function-length
         severity: warning
         disabled: false
-        arguments: [45, 0]
+        arguments: [70, 0]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#get-return
       - name: get-return
         severity: warning
@@ -830,7 +830,6 @@ linters:
     - gochecknoinits
     - inamedparam
     - exhaustruct
-    - goerr113
     - wrapcheck
     - paralleltest
     - forbidigo
@@ -843,8 +842,6 @@ linters:
     - containedctx
     - gomoddirectives
     - nonamedreturns
-    - contextcheck
-    - forcetypeassert
     - wsl
     - tagliatelle
     - nilnil
@@ -852,6 +849,8 @@ linters:
     - exhaustive
     - maintidx
     - dupl
+    - whitespace
+    - gofumpt
 
 issues:
 
