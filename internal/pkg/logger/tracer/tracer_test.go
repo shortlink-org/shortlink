@@ -37,7 +37,7 @@ func TestZapFieldsToOpenTelemetry(t *testing.T) {
 		{
 			name: "ErrorField",
 			fields: []field.Fields{
-				// nolint: goerr113 // This is a mock error
+				//nolint: goerr113 // This is a mock error
 				{"errorKey": errors.New("mock error")},
 			},
 			want: []attribute.KeyValue{
