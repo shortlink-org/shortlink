@@ -10,10 +10,12 @@ name: OSSAR
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+      - main
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ "main" ]
+    branches:
+      - main
   schedule:
     - cron: '15 10 * * *'
 
@@ -43,6 +45,10 @@ jobs:
 
     - name: Checkout repository
       uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+      with:
+        # We must fetch at least the immediate parents so that if this is
+        # a pull request, then we can check out the head.
+        fetch-depth: 2
 
     # Ensure a compatible version of dotnet is installed.
     # The [Microsoft Security Code Analysis CLI](https://aka.ms/mscadocs) is built with dotnet v3.1.201.
@@ -56,7 +62,7 @@ jobs:
 
       # Run open source static analysis tools
     - name: Run OSSAR
-      uses: github/ossar-action@b51f8b4adb5a0d5dbcb24d9ae33488c56a4bd5dd # master
+      uses: github/ossar-action@v1
       id: ossar
 
       # Upload results to the Security tab
