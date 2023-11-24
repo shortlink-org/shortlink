@@ -2,9 +2,9 @@ name: CodeCov
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ]
+    branches: [main]
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -13,23 +13,28 @@ concurrency:
 permissions:
   contents: read
 
-steps:
-  - name: Checkout
-    uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
-    with:
-      fetch-depth: 0
+jobs:
+  analyze:
+    name: CodeCov
+    runs-on: ubuntu-latest
 
-  - uses: actions/setup-go@v4
-    with:
-      go-version: '1.20'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4.1.1
+        with:
+          fetch-depth: 0
 
-  - name: Run coverage
-    run: go test -coverprofile=coverage.txt -covermode atomic -race -tags=unit -v ./internal/...
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '1.21'
 
-  - uses: codecov/codecov-action@v3
-    with:
-      token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-      files: ./coverage.txt # optional
-      flags: unittests # optional
-      fail_ci_if_error: true # optional (default = false)
-      verbose: true # optional (default = false)
+      - name: Run coverage
+        run: go test -coverprofile=coverage.txt -covermode atomic -race -tags=unit -v ./internal/...
+
+      - uses: codecov/codecov-action@v3
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          files: ./coverage.txt # optional
+          flags: unittests # optional
+          fail_ci_if_error: true # optional (default = false)
+          verbose: true # optional (default = false)
