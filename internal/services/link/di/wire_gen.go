@@ -108,7 +108,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup6, err := rpc.InitClient(logger, tracerProvider, monitoringMonitoring)
+	clientConn, cleanup6, err := rpc.InitClient(context, logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()

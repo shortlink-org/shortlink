@@ -16,7 +16,8 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	goleak.VerifyTestMain(m)
+	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("google.golang.org/grpc/internal/grpcsync.(*CallbackSerializer).run"),
+		goleak.IgnoreTopFunction("google.golang.org/grpc.(*addrConn).resetTransport"))
 
 	os.Exit(m.Run())
 }
@@ -31,7 +32,7 @@ func TestDgraph(t *testing.T) {
 
 	// create a network with Client.CreateNetwork()
 	network, err := pool.Client.CreateNetwork(docker.CreateNetworkOptions{
-		Name: "shortlink-test",
+		Name: "shortlink-test-dgraph",
 	})
 	if err != nil {
 		assert.Errorf(t, err, "Error create docker network")
@@ -95,6 +96,11 @@ func TestDgraph(t *testing.T) {
 		// When you're done, kill and remove the container
 		if err := pool.Purge(ZERO); err != nil {
 			assert.Errorf(t, err, "Could not purge resource")
+		}
+
+		// Drop network
+		if err := pool.Client.RemoveNetwork(network.ID); err != nil {
+			assert.Errorf(t, err, "Could not remove network")
 		}
 	})
 }

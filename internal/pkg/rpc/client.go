@@ -1,6 +1,7 @@
 package rpc
 
 import (
+	"context"
 	"fmt"
 
 	grpc_prometheus "github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus"
@@ -33,14 +34,15 @@ func (c *Client) GetURI() string {
 }
 
 // InitClient - set up a connection to the server.
-func InitClient(log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*grpc.ClientConn, func(), error) {
+func InitClient(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*grpc.ClientConn, func(), error) {
 	config, err := SetClientConfig(tracer, monitor, log)
 	if err != nil {
 		return nil, nil, err
 	}
 
 	// Set up a connection to the server peer
-	conn, err := grpc.Dial(
+	conn, err := grpc.DialContext(
+		ctx,
 		config.GetURI(),
 		config.optionsNewClient...,
 	)

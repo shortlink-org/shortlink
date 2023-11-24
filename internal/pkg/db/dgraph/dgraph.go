@@ -8,6 +8,7 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/encoding/gzip"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
@@ -36,7 +37,6 @@ type Config struct {
 // Store - store struct
 type Store struct {
 	log    logger.Logger
-	conn   *grpc.ClientConn
 	client *dgo.Dgraph
 	config Config
 }
@@ -49,16 +49,19 @@ func New(log logger.Logger) *Store {
 
 // Init - initialize
 func (s *Store) Init(ctx context.Context) error {
-	var err error
-
 	// Set configuration
 	s.setConfig()
 
-	s.conn, err = grpc.Dial(s.config.URL, grpc.WithTransportCredentials(insecure.NewCredentials()))
+	conn, err := grpc.DialContext(
+		ctx,
+		s.config.URL,
+		grpc.WithTransportCredentials(insecure.NewCredentials()),
+		grpc.WithDefaultCallOptions(grpc.UseCompressor(gzip.Name)))
 	if err != nil {
 		return err
 	}
-	s.client = dgo.NewDgraphClient(api.NewDgraphClient(s.conn))
+
+	s.client = dgo.NewDgraphClient(api.NewDgraphClient(conn))
 
 	if errMigrate := s.migrate(ctx); errMigrate != nil {
 		return errMigrate
@@ -67,7 +70,11 @@ func (s *Store) Init(ctx context.Context) error {
 	// Graceful shutdown
 	go func() {
 		<-ctx.Done()
-		_ = s.close()
+
+		errClose := conn.Close()
+		if errClose != nil {
+			s.log.ErrorWithContext(ctx, errClose.Error())
+		}
 	}()
 
 	return nil
@@ -76,11 +83,6 @@ func (s *Store) Init(ctx context.Context) error {
 // GetConn - get connect
 func (s *Store) GetConn() any {
 	return s.client
-}
-
-// Close - close
-func (s *Store) close() error {
-	return s.conn.Close()
 }
 
 // Migrate - init structure
