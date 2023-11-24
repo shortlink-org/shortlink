@@ -88,6 +88,11 @@ func (mq *MQ) Subscribe(ctx context.Context, target string, message query.Respon
 			case <-ctx.Done():
 				return
 			case msg := <-ch:
+				// we can get a nil message if we close the connection
+				if msg == nil {
+					continue
+				}
+
 				message.Chan <- query.ResponseMessage{
 					Body: msg.Data,
 				}

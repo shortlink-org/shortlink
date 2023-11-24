@@ -44,7 +44,7 @@ func TestOutputInfoWithContextZap(t *testing.T) {
 	expected := map[string]any{
 		"level":     "info",
 		"timestamp": expectedTime,
-		"caller":    "logger/logger_test.go:38",
+		"caller":    "logger/logger_test.go:41",
 		"msg":       "Hello World",
 		"traceID":   "00000000000000000000000000000000",
 	}
@@ -136,7 +136,7 @@ func TestFieldsZap(t *testing.T) {
 		"level":     "info",
 		"timestamp": expectedTime,
 		"msg":       "Hello World",
-		"caller":    "logger/logger_test.go:126",
+		"caller":    "logger/logger_test.go:129",
 		"first":     float64(1),
 		"hello":     "world",
 		"traceID":   "00000000000000000000000000000000",

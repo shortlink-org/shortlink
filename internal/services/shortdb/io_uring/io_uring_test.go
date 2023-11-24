@@ -15,7 +15,7 @@ import (
 
 func TestMain(m *testing.M) {
 	if runtime.GOOS == "darwin" {
-		t.Skip("Skipping test on macOS")
+		m.Skip("Skipping test on macOS")
 	}
 
 	goleak.VerifyTestMain(m)

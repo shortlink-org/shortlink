@@ -44,6 +44,12 @@ jobs:
         with:
           go-version: '1.21'
 
+      - name: Install Protoc
+        uses: arduino/setup-protoc@v2
+
+      - name: Install protoc-gen-go-orm
+        run: go get github.com/shortlink-org/shortlink/tree/main/internal/pkg/protoc/protoc-gen-go-orm
+
       - name: Run coverage
         run: go test -coverprofile=coverage.txt -covermode atomic -race -tags=unit -v ./internal/...
 
