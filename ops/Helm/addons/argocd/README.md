@@ -677,20 +677,6 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--global--image--tag"><a href="./values.yaml#L13">argo-cd.global.image.tag</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"v2.9.1"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
 			<td id="argo-cd--global--logging--format"><a href="./values.yaml#L16">argo-cd.global.logging.format</a></td>
 			<td>
 string
