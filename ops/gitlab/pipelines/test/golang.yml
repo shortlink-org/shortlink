@@ -49,9 +49,11 @@ golint:
     - .go-cache
     - .job_teplate_go
   image:
-    name: golangci/golangci-lint:v1.55.2-alpine
+    # We don't use the ready golangci-lint image because it doesn't support the last version of Golang.
+    name: golang:1.21-alpine
     entrypoint: [""]
   before_script:
+    - wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.55.2
     - mkdir -p .go
     - apk add --no-cache jq
     - go mod vendor
