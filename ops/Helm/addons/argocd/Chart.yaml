@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: "2.9.0"
 name: argo
-version: 0.3.17
+version: 0.3.18
 kubeVersion: ">= 1.28.0 || >= v1.28.0-0"
 keywords:
   - argo
@@ -15,7 +15,7 @@ type: application
 deprecated: false
 dependencies:
   - name: argo-cd
-    version: 5.51.3
+    version: 5.51.4
     repository: https://argoproj.github.io/argo-helm
     condition: argo-cd.enabled
     tags:
