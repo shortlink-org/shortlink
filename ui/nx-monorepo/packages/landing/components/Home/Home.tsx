@@ -109,7 +109,7 @@ const Home = () => {
                 },
                 {
                   name: 'Argo Workflows',
-                  url: 'https://argo.shortlink.best/workflows',
+                  url: 'https://workflows.shortlink.best',
                 },
               ]}
             />
