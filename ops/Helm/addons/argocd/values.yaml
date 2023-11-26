@@ -137,14 +137,6 @@ argo-cd:
         secrets,secrets+literal,
         https
 
-      dex.config: |
-        staticClients:
-          - id: argo-workflows-sso
-            name: Argo Workflow
-            redirectURIs:
-              - https://argo.shortlink.best/workflows/oauth2/callback
-            secretEnv: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
-
     configAnnotations: {}
 
     rbacConfig:
