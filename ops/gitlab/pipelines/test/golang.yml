@@ -53,13 +53,11 @@ golint:
     name: golang:1.21-alpine
     entrypoint: [""]
   before_script:
-    - go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.55.2
     - mkdir -p .go
     - apk add --no-cache jq
     - go mod vendor
   script:
-    # Use default .golangci.yml file from the image if one is not present in the project root.
-    - "[ -e .golangci.yml ] || cp /golangci/.golangci.yml ."
+    - go install github.com/golangci/golangci-lint/cmd/golangci-lint@v1.55.2
     # Write the code coverage report to gl-code-quality-report.json
     # and print linting issues to stdout in the format: path/to/file:line description
     - golangci-lint run --out-format code-climate ./internal/... | tee gl-code-quality-report.json | jq -r '.[] | "\(.location.path):\(.location.lines.begin) \(.description)"'
