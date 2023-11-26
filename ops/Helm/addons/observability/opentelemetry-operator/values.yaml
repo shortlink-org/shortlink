@@ -6,5 +6,7 @@ opentelemetry-operator:
       enabled: true
 
     prometheusRule:
-      # TODO: enable
-      enabled: false
+      enabled: true
+
+      defaultRules:
+        enabled: true
