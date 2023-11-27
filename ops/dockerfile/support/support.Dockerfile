@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM php:8.2-fpm-alpine
+FROM --platform=$BUILDPLATFORM php:8.3-fpm-alpine
 
 # Install dependencies
 RUN apk add --no-cache \
