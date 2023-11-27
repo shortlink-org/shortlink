@@ -12,7 +12,7 @@ require (
 	github.com/graph-gophers/graphql-go v1.5.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.18.1
 	github.com/riandyrn/otelchi v0.5.1
-	github.com/segmentio/encoding v0.3.6
+	github.com/segmentio/encoding v0.3.7
 	github.com/shortlink-org/shortlink v0.0.0-20231127183440-33fd3948908b
 	github.com/spf13/viper v1.17.0
 	github.com/swaggo/swag v1.16.2

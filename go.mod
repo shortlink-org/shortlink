@@ -52,7 +52,7 @@ require (
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sasha-s/go-deadlock v0.3.1
-	github.com/segmentio/encoding v0.3.6
+	github.com/segmentio/encoding v0.3.7
 	github.com/sirupsen/logrus v1.9.3
 	github.com/sourcegraph/conc v0.3.0
 	github.com/spf13/cobra v1.8.0
