@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: apache/nifi:1.23.2
+    image: apache/nifi:1.24.0
     container_name: nifi
     init: true
     ports:
