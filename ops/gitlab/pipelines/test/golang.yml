@@ -50,7 +50,7 @@ golint:
     - .job_teplate_go
   image:
     # We don't use the ready golangci-lint image because it doesn't support the last version of Golang.
-    name: golang:1.21-alpine
+    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/golang:1.21-alpine
     entrypoint: [""]
   before_script:
     - wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.55.2
@@ -58,11 +58,9 @@ golint:
     - apk add --no-cache jq
     - go mod vendor
   script:
-    # Use default .golangci.yml file from the image if one is not present in the project root.
-    - "[ -e .golangci.yml ] || cp /golangci/.golangci.yml ."
     # Write the code coverage report to gl-code-quality-report.json
     # and print linting issues to stdout in the format: path/to/file:line description
-    - golangci-lint run --out-format code-climate ./internal/... | tee gl-code-quality-report.json | jq -r '.[] | "\(.location.path):\(.location.lines.begin) \(.description)"'
+    - /go/bin/golangci-lint --out-format code-climate ./internal/... | tee gl-code-quality-report.json | jq -r '.[] | "\(.location.path):\(.location.lines.begin) \(.description)"'
   artifacts:
     reports:
       codequality: gl-code-quality-report.json
@@ -76,7 +74,7 @@ golint:
 go_fuzz_test:
   extends: .fuzz_base
   stage: test
-  image: golang:1.21-alpine
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/golang:1.21-alpine
   variables:
     CI_SEED_CORPUS: './seed_corpus'
   before_script:
