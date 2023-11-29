@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "dev": "npx next dev -p 3001 --turbo",
+    "dev": "npx next dev -p 3001",
     "build": "npx next build",
     "start": "npx next start",
     "lint": "npx eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
