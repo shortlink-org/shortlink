@@ -22,8 +22,14 @@ func (s *Store) Init(ctx context.Context) error {
 	s.setConfig()
 
 	// Connect to MongoDB
-	opts := options.Client().ApplyURI(s.config.URI)
-	opts.Monitor = otelmongo.NewMonitor()
+	opts := options.Client().
+		ApplyURI(s.config.URI).
+		SetCompressors([]string{"snappy", "zlib", "zstd"}).
+		SetAppName(viper.GetString("SERVICE_NAME")).
+		SetMonitor(otelmongo.NewMonitor()).
+		SetRetryReads(true).
+		SetRetryWrites(true)
+
 	s.client, err = mongo.Connect(ctx, opts)
 	if err != nil {
 		return err

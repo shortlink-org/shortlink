@@ -30,8 +30,8 @@ require (
 	github.com/google/cel-go v0.18.2
 	github.com/google/uuid v1.4.0
 	github.com/google/wire v0.5.1-0.20220620021424-0675cdc9191c
-	github.com/grafana/pyroscope-go abbb3814be9a
-	github.com/grafana/pyroscope-go/godeltaprof abbb3814be9a
+	github.com/grafana/pyroscope-go v1.0.5-0.20231130084046-2eb5d49453c0
+	github.com/grafana/pyroscope-go/godeltaprof v0.1.6-0.20231130084046-2eb5d49453c0
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.0
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.1
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb
@@ -68,8 +68,8 @@ require (
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.2.3
 	github.com/uptrace/opentelemetry-go-extra/otelzap v0.2.3
 	go.etcd.io/etcd/client/v3 v3.5.10
-	go.mongodb.org/mongo-driver v1.13.0
-	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.46.1
+	go.mongodb.org/mongo-driver v1.12.2
+	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.46.0
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.46.1-0.20231116151803-492d856d367d
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.46.1
 	go.opentelemetry.io/otel v1.21.0
@@ -177,7 +177,7 @@ require (
 	github.com/jcmturner/rpc/v2 v2.0.3 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jzelinskie/stringz v0.0.2 // indirect
-	github.com/klauspost/compress v1.17.1 // indirect
+	github.com/klauspost/compress v1.17.3 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.5 // indirect
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0 // indirect
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
