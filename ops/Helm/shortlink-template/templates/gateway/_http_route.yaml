@@ -1,0 +1,23 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{- define "shortlink-common.http_route" }}
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  {{- include "shortlink-common.metadata" . | indent 2 }}
+spec:
+  parentRefs:
+    - name: {{ .name | default (include "helpers.fullname" .) }}-gateway
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      # timeouts:
+      #   request: 10s
+      #   backendRequest: 2s
+      # backendRefs:
+      #   - name: timeout-svc
+      #     port: 8080
+{{- end }}
