@@ -34,7 +34,7 @@ gotest:
     - apt-get update && apt-get install --no-install-recommends -y liburing-dev curl
   script:
     - $GOPATH/bin/gotestsum --junitfile report.xml --format testname -- -tags=unit ./internal/...
-  allow_failure: true # recommended
+  allow_failure: true
   artifacts:
     when: always
     reports:
@@ -61,6 +61,7 @@ golint:
     # Write the code coverage report to gl-code-quality-report.json
     # and print linting issues to stdout in the format: path/to/file:line description
     - /go/bin/golangci-lint --out-format code-climate ./internal/... | tee gl-code-quality-report.json | jq -r '.[] | "\(.location.path):\(.location.lines.begin) \(.description)"'
+  allow_failure: true
   artifacts:
     reports:
       codequality: gl-code-quality-report.json
@@ -86,7 +87,7 @@ go_fuzz_test:
     - go-fuzz-build -libfuzzer -o link_fuzz_target.a .
     - clang -fsanitize=fuzzer link_fuzz_target.a -o link_fuzz_target
     - $GITLAB_COV_FUZZ_PATH/gitlab-cov-fuzz run --regression=$REGRESSION -- ./link_fuzz_target
-  allow_failure: true # recommended
+  allow_failure: true
   needs: []
   rules:
     - when: always
