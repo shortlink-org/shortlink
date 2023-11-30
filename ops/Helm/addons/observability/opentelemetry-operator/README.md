@@ -1,6 +1,6 @@
 # opentelemetry-operator
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -41,14 +41,28 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="opentelemetry-operator--manager--prometheusRule--enabled"><a href="./values.yaml#L10">opentelemetry-operator.manager.prometheusRule.enabled</a></td>
+			<td id="opentelemetry-operator--manager--prometheusRule--defaultRules--enabled"><a href="./values.yaml#L12">opentelemetry-operator.manager.prometheusRule.defaultRules.enabled</a></td>
 			<td>
 bool
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-false
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="opentelemetry-operator--manager--prometheusRule--enabled"><a href="./values.yaml#L9">opentelemetry-operator.manager.prometheusRule.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
 </pre>
 </div>
 			</td>

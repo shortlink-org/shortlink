@@ -61,6 +61,7 @@ golint:
     # Write the code coverage report to gl-code-quality-report.json
     # and print linting issues to stdout in the format: path/to/file:line description
     - /go/bin/golangci-lint --out-format code-climate ./internal/... | tee gl-code-quality-report.json | jq -r '.[] | "\(.location.path):\(.location.lines.begin) \(.description)"'
+  # TODO: Remove allow_failure when fixed dependencies problem with mongodb package
   allow_failure: true
   artifacts:
     reports:

@@ -1,6 +1,6 @@
 # argo
 
-![Version: 0.3.17](https://img.shields.io/badge/Version-0.3.17-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.9.0](https://img.shields.io/badge/AppVersion-2.9.0-informational?style=flat-square)
+![Version: 0.3.18](https://img.shields.io/badge/Version-0.3.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.9.0](https://img.shields.io/badge/AppVersion-2.9.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,10 +14,10 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 5.51.4 |
+| https://argoproj.github.io/argo-helm | argo-cd | 5.51.5 |
 | https://argoproj.github.io/argo-helm | argo-events | 2.4.1 |
-| https://argoproj.github.io/argo-helm | argo-rollouts | 2.32.4 |
-| https://argoproj.github.io/argo-helm | argo-workflows | 0.39.3 |
+| https://argoproj.github.io/argo-helm | argo-rollouts | 2.32.5 |
+| https://argoproj.github.io/argo-helm | argo-workflows | 0.39.5 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 1.4.1 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.1 |
 | oci://registry-1.docker.io/bitnamicharts | redis | 18.4.0 |
