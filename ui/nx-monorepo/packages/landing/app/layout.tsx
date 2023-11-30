@@ -16,6 +16,16 @@ const robotoMono = Roboto_Mono({
 
 export async function generateMetadata(): Promise<Metadata> {
   return {
+    // https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+    metadataBase: new URL('https://shortlink.best/'),
+    alternates: {
+      canonical: '/',
+      languages: {
+        // example:
+        // en: '/',
+        // ru: '/ru',
+      },
+    },
     title: {
       template: '%s | Routing by project',
       default: 'ShortLink | Routing by project',
