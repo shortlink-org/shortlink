@@ -2,6 +2,5 @@ build:
   extends: .nx
   stage: build
   script:
-    - export NX_SKIP_NX_CACHE="true"
     - npm run build
     - npm run build-storybook
