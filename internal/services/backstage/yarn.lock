@@ -2367,7 +2367,7 @@
     zen-observable "^0.10.0"
     zod "^3.21.4"
 
-"@backstage/core-components@^0.13.7", "@backstage/core-components@^0.13.8":
+"@backstage/core-components@^0.13.8":
   version "0.13.8"
   resolved "https://registry.yarnpkg.com/@backstage/core-components/-/core-components-0.13.8.tgz#4b45fec4b03601677d9b1d6279f2d8874ada176a"
   integrity sha512-isQB7WXrw1QsDZ2njSwah7L4L8aGQsu/GZCHEtXkV/0A54ZWOuYXzW4ME4Vcjh7UPXOdhejeBi+B3gHlWURRXA==
@@ -2414,7 +2414,7 @@
     zen-observable "^0.10.0"
     zod "^3.21.4"
 
-"@backstage/core-plugin-api@^1.7.0", "@backstage/core-plugin-api@^1.8.0":
+"@backstage/core-plugin-api@^1.8.0":
   version "1.8.0"
   resolved "https://registry.yarnpkg.com/@backstage/core-plugin-api/-/core-plugin-api-1.8.0.tgz#97e87e13dcc5a65cb65e883d67d4387c7a42db32"
   integrity sha512-yZ52w8Msf6cwLAf97bQKDqEWHA0N3ikRejYHFSn6hb3IVTgxV738m4ybFdgULVEAZFLrATs7nzu+UI3rqoVeZg==
@@ -2848,7 +2848,7 @@
     "@backstage/plugin-catalog-common" "^1.0.18"
     "@backstage/types" "^1.1.1"
 
-"@backstage/plugin-catalog-react@^1.8.5", "@backstage/plugin-catalog-react@^1.9.1":
+"@backstage/plugin-catalog-react@^1.9.1":
   version "1.9.1"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-react/-/plugin-catalog-react-1.9.1.tgz#80d3ba027499c704bffbb11d877b3e871f557499"
   integrity sha512-ucuJCVfHEdEsRLv3nv9Ds1eybkKzaDYKqt7KUb2rc/WfNiSZpsaf0/fWYfR/hNIAmxlE3o9PRuLN6wv5v8Ah9w==
@@ -3732,7 +3732,7 @@
     i18next "^22.4.15"
     zen-observable "^0.10.0"
 
-"@backstage/theme@^0.4.3", "@backstage/theme@^0.4.4":
+"@backstage/theme@^0.4.4":
   version "0.4.4"
   resolved "https://registry.yarnpkg.com/@backstage/theme/-/theme-0.4.4.tgz#807735b58a5e1b2a0cdb50fc05ad83656f2f66cb"
   integrity sha512-Mvs0FrEnQtyO2dVNPyo1wjkNHbN3vefIdj4V27SFiX9W9sj+R1b4rzFACF6xjVzfdV9oo9HdsL59CMnFlDxz4Q==
@@ -6405,16 +6405,16 @@
     lodash "^4.17.21"
     lodash-es "^4.17.21"
 
-"@roadiehq/backstage-plugin-argo-cd@^2.4.0":
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/@roadiehq/backstage-plugin-argo-cd/-/backstage-plugin-argo-cd-2.4.0.tgz#07e5d616d3f15aa6c0fe1f9c9479348bac2852c2"
-  integrity sha512-/W6LBSXOPPqt88WcMapWsywO8Mk6Vh7FmatLULrwcCNV2LZC3Ykz/v+EtDLkiXBEUaW9ZZvmLYrt5zCRmGBwQQ==
+"@roadiehq/backstage-plugin-argo-cd@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@roadiehq/backstage-plugin-argo-cd/-/backstage-plugin-argo-cd-2.4.1.tgz#5b874e690bb9f37e2462433f93151821ce33b1f6"
+  integrity sha512-9S8+DXP01/2pPCaK9+tvdBl5+5MquPisR1KptFh+sr0088VtfPZqUv7gAT/WykzgDca/oLXhMh9dLXJWd0S7Nw==
   dependencies:
     "@backstage/catalog-model" "^1.4.3"
-    "@backstage/core-components" "^0.13.7"
-    "@backstage/core-plugin-api" "^1.7.0"
-    "@backstage/plugin-catalog-react" "^1.8.5"
-    "@backstage/theme" "^0.4.3"
+    "@backstage/core-components" "^0.13.8"
+    "@backstage/core-plugin-api" "^1.8.0"
+    "@backstage/plugin-catalog-react" "^1.9.1"
+    "@backstage/theme" "^0.4.4"
     "@material-ui/core" "^4.11.0"
     "@material-ui/icons" "^4.9.1"
     "@material-ui/lab" "4.0.0-alpha.45"
