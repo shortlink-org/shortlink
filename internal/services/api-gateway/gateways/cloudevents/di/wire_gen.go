@@ -79,7 +79,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		return nil, nil, err
 	}
 	printer := i18n.New(context)
-	clientConn, cleanup6, err := rpc.InitClient(logger, tracerProvider, monitoringMonitoring)
+	clientConn, cleanup6, err := rpc.InitClient(context, logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
