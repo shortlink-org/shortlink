@@ -28,7 +28,6 @@ module.exports = {
     '@storybook/addon-controls',
     {
       name: '@storybook/addon-styling-webpack',
-
       options: {
         rules: [
           {
@@ -63,6 +62,9 @@ module.exports = {
     options: {
       fsCache: true,
       lazyCompilation: true,
+      // builder: {
+      //   useSWC: true,
+      // }
     },
   },
   features: {

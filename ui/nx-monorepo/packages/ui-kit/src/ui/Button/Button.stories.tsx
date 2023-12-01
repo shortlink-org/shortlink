@@ -1,9 +1,13 @@
 import Button from '@mui/material/Button'
 import { Meta } from '@storybook/react'
+import { fn } from '@storybook/test'
 
 const meta: Meta<any> = {
   title: 'UI/Button',
   component: Button,
+  args: {
+    onClick: fn(),
+  },
 }
 
 export default meta
