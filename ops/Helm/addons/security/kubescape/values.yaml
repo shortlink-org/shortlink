@@ -16,6 +16,7 @@ kubescape:
     networkPolicyService: enable
     networkGenerator: enable
     seccompGenerator: enable
+    vexGeneration: enable
 
   clusterName: shortlink
 
@@ -26,8 +27,8 @@ kubescape:
     serviceMonitor:
       enabled: true
 
-  # configurations:
-  #  otelUrl: http://grafana-tempo.grafana:4317
+  configurations:
+    otelUrl: http://grafana-tempo.grafana:4317
 
   persistence:
     storageClass: local-path
