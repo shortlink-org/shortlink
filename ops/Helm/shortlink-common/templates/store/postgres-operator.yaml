@@ -64,7 +64,8 @@ spec:
           memory: 4Gi
   monitoring:
     pgmonitor:
-      exporter: {}
+      exporter:
+        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.5.0-0
   patroni:
     dynamicConfiguration:
       synchronous_mode: true

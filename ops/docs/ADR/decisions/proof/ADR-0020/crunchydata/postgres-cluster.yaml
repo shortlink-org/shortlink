@@ -42,7 +42,8 @@ spec:
           memory: 128Mi
   monitoring:
     pgmonitor:
-      exporter: {}
+      exporter:
+        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.5.0-0
   users:
     - name: shortlink
       databases:
