@@ -3,7 +3,7 @@ kind: PostgresCluster
 metadata:
   name: spicedb-postgres
 spec:
-  postgresVersion: 15
+  postgresVersion: 16
   metadata:
     annotations:
       sidecar.istio.io/inject: "false"
@@ -40,10 +40,9 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
-#  monitoring:
-#    pgmonitor:
-#      exporter:
-#        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.4.2-0
+  monitoring:
+    pgmonitor:
+      exporter: {}
   users:
     - name: admin
       databases:

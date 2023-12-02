@@ -3,7 +3,7 @@ kind: PostgresCluster
 metadata:
   name: shortlink-postgres
 spec:
-  postgresVersion: 15
+  postgresVersion: 16
   metadata:
     annotations:
       sidecar.istio.io/inject: "false"
@@ -64,8 +64,7 @@ spec:
           memory: 4Gi
   monitoring:
     pgmonitor:
-      exporter:
-        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.4.2-0
+      exporter: {}
   patroni:
     dynamicConfiguration:
       synchronous_mode: true
@@ -93,7 +92,7 @@ spec:
           # Partitioning
           enable_partition_pruning: 'on'
           # other settings
-          shared_preload_libraries: pgaudit,auto_explain,pg_stat_statements,timescaledb,pg_prewarm,uuid-ossp,pg_partman_bgw
+          shared_preload_libraries: citus,pgaudit,auto_explain,pg_stat_statements,timescaledb,pg_prewarm,uuid-ossp,pg_partman_bgw
   users:
     - name: admin
       databases:

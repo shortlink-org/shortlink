@@ -3,7 +3,7 @@ kind: PostgresCluster
 metadata:
   name: kratos-postgres
 spec:
-  postgresVersion: 15
+  postgresVersion: 16
   metadata:
     annotations:
       sidecar.istio.io/inject: "false"
@@ -28,11 +28,9 @@ spec:
             storage: 1Gi
   monitoring:
     pgmonitor:
-      exporter:
-        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.4.2-0
+      exporter: {}
   backups:
     pgbackrest:
-      image: registry.developers.crunchydata.com/crunchydata/crunchy-pgbackrest:ubi8-2.41-4
       repos:
         - name: repo1
           volume:
