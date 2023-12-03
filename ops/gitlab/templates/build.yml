@@ -5,10 +5,14 @@
       command: ["--experimental"]
   image: docker:24.0.7-cli
   variables:
+    COSIGN_YES: "true"  # Used by Cosign to skip confirmation prompts for non-destructive operations
     DOCKER_BUILDKIT: 1
     DOCKER_CONTENT_TRUST: 1
-    DOCKER_BUILDX_VERSION: v0.11.2
+    DOCKER_BUILDX_VERSION: v0.12.0
     BUILDX_GIT_LABELS: 1
+  id_tokens:
+    SIGSTORE_ID_TOKEN: # Used by Cosign to get certificate from Fulcio
+      aud: sigstore
   before_script:
     - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - apk add curl git
@@ -18,6 +22,10 @@
     - DOCKER_CONTENT_TRUST=0 docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
     - docker buildx create --use
     - docker buildx inspect --bootstrap
+  after_script:
+    - apk add --update cosign
+    - IMAGE_DIGEST="$(docker inspect --format='{{index .RepoDigests 0}}' "${REGISTRY_IMAGE}:latest")"
+    - cosign sign "$IMAGE_DIGEST"
   script:
     - docker buildx build 
       --platform=linux/amd64,linux/arm64
