@@ -35,15 +35,9 @@ argo-workflows:
 
   server:
     extraArgs:
-      - --basehref
-      - /workflows/
       - --auth-mode=sso
 
-    baseHref: /workflows/
-
-    extraEnv:
-      - name: ARGO_BASE_HREF
-        value: /workflows
+    baseHref: /
 
     ingress:
       enabled: true
@@ -56,19 +50,17 @@ argo-workflows:
         nginx.ingress.kubernetes.io/enable-modsecurity: "false"
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
-        nginx.ingress.kubernetes.io/rewrite-target: /$1
-        nginx.ingress.kubernetes.io/use-regex: "true"
 
       hosts:
-        - argo.shortlink.best
+        - workflows.shortlink.best
 
       paths:
-        - /workflows/?(.*)
+        - /
 
       tls:
-        - secretName: argo-ingress-tls
+        - secretName: workflows-argo-ingress-tls
           hosts:
-            - argo.shortlink.best
+            - workflows.shortlink.best
 
     logging:
       format: "json"
