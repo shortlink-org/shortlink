@@ -1,6 +1,9 @@
 opentelemetry-operator:
   enabled: true
 
+  kubeRBACProxy:
+    enabled: false
+
   manager:
     serviceMonitor:
       enabled: true
