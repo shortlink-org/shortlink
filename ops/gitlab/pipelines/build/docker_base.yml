@@ -26,7 +26,14 @@ container_scanning:
     - export DOCKER_IMAGE="$REGISTRY_IMAGE:$CI_COMMIT_TAG"
   needs:
     - build
-  rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
 
+verify_image:
+  stage: security
+  image: alpine:3.18
+  before_script:
+    - apk add --update cosign docker
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  needs:
+    - build
+  script:
+    - cosign verify "${REGISTRY_IMAGE}:${CI_COMMIT_TAG}" --certificate-identity "https://gitlab.com/shortlink-org/shortlink/ops/gitlab/.gitlab-ci.yml@refs/heads/main" --certificate-oidc-issuer "https://gitlab.com"
