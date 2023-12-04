@@ -5,8 +5,6 @@ opentelemetry-operator:
     enabled: false
 
   manager:
-    image:
-      tag: main
     collectorImage:
       tag: 0.90.1
 
