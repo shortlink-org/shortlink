@@ -1,9 +1,9 @@
 .template_build:
   stage: build
   services:
-    - name: docker:24.0.7-dind
+    - name: 25.0.0-beta.1-dind
       command: ["--experimental"]
-  image: docker:24.0.7-cli
+  image: 25.0.0-beta.1-cli
   variables:
     COSIGN_YES: "true"  # Used by Cosign to skip confirmation prompts for non-destructive operations
     DOCKER_BUILDKIT: 1
