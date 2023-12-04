@@ -51,3 +51,9 @@ To ensure the security of our supply chain, we will adopt [SLSA](https://slsa.de
 + The use of SOPS will be required to decrypt secret data prior to deployment.
 + Kubescape will be used to regularly scan our cluster for potential security issues.
 + SLSA will be adopted to ensure the security of our supply chain.
+
+
+#### References
+
+- [Open Source Supply Chain Security at Google](https://research.swtch.com/acmscored)
+  - [slides](https://research.swtch.com/acmscored.pdf)
