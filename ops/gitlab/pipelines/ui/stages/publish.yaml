@@ -9,6 +9,9 @@ npm:
     - .cache
   stage: publish
   image: node:21-alpine
+  id_tokens:
+    SIGSTORE_ID_TOKEN:
+      aud: sigstore
   variables:
     NPM_TOKEN: $CI_JOB_TOKEN
   before_script:

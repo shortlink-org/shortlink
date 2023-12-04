@@ -24,8 +24,9 @@
     - docker buildx inspect --bootstrap
   after_script:
     - apk add --update cosign
-    - IMAGE_DIGEST="$(docker inspect --format='{{index .RepoDigests 0}}' "${REGISTRY_IMAGE}:${CI_COMMIT_TAG}")"
-    - cosign sign "$IMAGE_DIGEST"
+    - docker pull ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
+    - IMAGE_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' ${REGISTRY_IMAGE}:${CI_COMMIT_TAG})
+    - cosign sign $IMAGE_DIGEST
   script:
     - docker buildx build 
       --platform=linux/amd64,linux/arm64
