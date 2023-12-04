@@ -28,7 +28,6 @@
   + Minikube
   + Backup/Restore [(Velero)](https://velero.io/)
   + Custom CSI driver (fork [csi-driver-host-pat](https://github.com/kubernetes-csi/csi-driver-host-path))
-+ MetalLB
 + [kyverno](https://kyverno.io/) - Kubernetes Native Policy Management
 + Storage
   + [rook-ceph](https://rook.io/)

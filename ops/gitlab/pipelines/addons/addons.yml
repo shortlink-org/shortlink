@@ -1,22 +1,6 @@
 include:
   - local: /ops/gitlab/workflows/matrix_deploy.yml
 
-# METALLB ==============================================================================================================
-metallb:
-  stage: addons
-  variables:
-    PROVIDER: $PROVIDER
-    RELEASE_NAME: metallb
-    HELM_PATH: ops/Helm/addons/metallb
-    HELM_NAMESPACE: metallb-system
-  trigger:
-    include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
-    strategy: depend
-  needs: []
-  rules:
-    - when: manual
-
 # CALICO ===============================================================================================================
 calico:
   stage: addons

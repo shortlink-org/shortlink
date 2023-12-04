@@ -35,7 +35,6 @@ for information team about cases for updated ADR.
   - [ADR-0014](./decisions/0014-observability.md) - Standardizing Observability Tools
 - **Network**
   - [ADR-0007](./decisions/0007-optimization-network.md) - Optimization network
-  - **Proposed**: [ADR-0018](./decisions/0018-kubernetes-network.md) - Kubernetes network
 - **DataBase**
   - [ADR-0004](./decisions/0004-use-uuid-as-primary-keys.md) - Use UUID as primary keys
   - [ADR-0026](./decisions/0026-pattern-database-per-service.md) - Pattern: database per service

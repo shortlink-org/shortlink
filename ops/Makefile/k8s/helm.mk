@@ -3,7 +3,7 @@ export HELM_EXPERIMENTAL_OCI=1
 
 SHORTLINK_HELM_PATH     := ops/Helm
 SHORTLINK_HELM_SERVICES := api bot common landing link logger metadata next notify proxy workflows
-SHORTLINK_HELM_ADDONS   := argocd cert-manager gateway/istio gateway/nginx-ingress grafana keda knative-operator kyverno metallb prometheus-operator mq/rabbitmq rook-ceph store/postgresql store/redis
+SHORTLINK_HELM_ADDONS   := argocd cert-manager gateway/istio gateway/nginx-ingress grafana keda knative-operator kyverno prometheus-operator mq/rabbitmq rook-ceph store/postgresql store/redis
 
 helm-lint: ## Check Helm chart by linter
 	for i in $(SHORTLINK_HELM_SERVICES); do \
