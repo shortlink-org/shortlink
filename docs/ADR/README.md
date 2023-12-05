@@ -1,6 +1,6 @@
 # ADR
 
-### How use
+### How to use
 
 ```shell
 export ADR_TEMPLATE=${PWD}/docs/ADR/template/template.md
@@ -13,8 +13,9 @@ adr new Implement as Unix shell scripts
 
 ### Update
 
-For update ADR we use GIT, so we can get date each updated and we use git message
-for information team about cases for updated ADR.
+> [!NOTE]
+> For update ADR we use GIT, so we can get date each updated and we use git message
+> for an information team about cases for updated ADR.
 
 ### Architecture Decision Log (ADL):
 
