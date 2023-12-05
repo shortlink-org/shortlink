@@ -1,6 +1,7 @@
 # Link services
 
-Service for work with link-domain.
+> [!NOTE]
+> Service for work with link-domain.
 
 **Functionality**:
 
@@ -15,7 +16,7 @@ Service for work with link-domain.
 
 ### Architecture
 
-We use C4 model for describe architecture.
+We use the C4 model to describe architecture.
 
 #### Context diagram
 

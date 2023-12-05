@@ -1,5 +1,8 @@
 ## Auth service
 
+> [!WARNING]
+> This service is under development.
+
 ### ADR
 
 - [ADR-0001](./docs/ADR/decisions/0001-init.md) - Init project

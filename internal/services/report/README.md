@@ -1,6 +1,7 @@
 ## Report Service
 
-The report service is responsible for generating reports for the user.
+> [!NOTE]
+> The report service is responsible for generating reports for the user.
 
 **Functionality**:
 

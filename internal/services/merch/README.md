@@ -1,6 +1,7 @@
 ## Merch
 
-This service is responsible for the merch store.
+> [!NOTE]
+> This service is responsible for the merch store.
 
 ### ADR
 

@@ -1,6 +1,7 @@
 # Billing
 
-Service for work with billing.
+> [!NOTE]
+> Service for work with billing.
 
 **Functionality**:
 
@@ -14,7 +15,7 @@ Service for work with billing.
 
 ### Architecture
 
-We use C4 model for describe architecture.
+We use the C4 model for describe architecture.
 
 #### Context diagram
 

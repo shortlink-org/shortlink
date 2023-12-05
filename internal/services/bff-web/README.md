@@ -1,5 +1,8 @@
 ## BFF: web
 
+> [!NOTE]
+> This is a BFF service for web clients
+
 ### Docs
 
 - [API](./docs/api.yaml) - API documentation in Swagger format

@@ -3,7 +3,8 @@
 When contributing to this repository, please first discuss the change you wish to make via issue,
 email, or any other method with the owners of this repository before making a change. 
 
-Please note we have a code of conduct, please follow it in all your interactions with the project.
+> [!WARNING]  
+> Please note we have a code of conduct, please follow it in all your interactions with the project.
 
 ### Initial Setup
 
@@ -19,7 +20,7 @@ cp .env.example .env
 
 #### Launch Options 
 
-Depending on your preference, you can launch the project using either Docker Compose, Minikube/Kubernetes (1.26+), 
+Depending on your preference, you can launch the project using either Docker Compose, Minikube/Kubernetes (1.28+), 
 or Skaffold. Here are the details for each method:
 
 <details><summary>DETAILS</summary>
@@ -48,7 +49,7 @@ make down
 </p>
 </details>
 
-##### Minikube/Kubernetes (1.26+)
+##### Minikube/Kubernetes (1.28+)
 
 <details><summary>DETAILS</summary>
 <p>
@@ -96,11 +97,12 @@ make skaffold-debug
 
 When undertaking a new task, it's generally a good practice to create a separate branch. This approach prevents excessive changes in a single commit. However, in some cases where tasks are closely related, combining them might be more beneficial.
 
-The naming conventions for the branches are as follows:
-
-- For new features, use the **feature/new-feature-description** pattern. 
-  Ensure that the description succinctly summarizes the changes.
-- For bug fixes, use the **fix/** prefix followed by a brief summary of the fix.
+> [!TIP]
+> The naming conventions for the branches are as follows:
+>
+> - For new features, use the **feature/new-feature-description** pattern. 
+> Ensure that the description succinctly summarizes the changes.
+> - For bug fixes, use the **fix/** prefix followed by a brief summary of the fix.
 
 #### Code Workflow
 

@@ -1,7 +1,8 @@
 # API Gateway Service
 
-This is the gateway service that serves as an interface for external clients, 
-leveraging multiple communication protocols and API designs.
+> [!NOTE]
+> This is the gateway service that serves as an interface for external clients, 
+> leveraging multiple communication protocols and API designs.
 
 ### ADR
 

@@ -1,5 +1,8 @@
 ## Referral Service
 
+> [!NOTE]
+> This service is responsible for the referral program.
+
 ### ADR
 
 - [ADR-0001](./docs/ADR/decisions/0001-init.md) - Init project
@@ -12,7 +15,7 @@
 
 ### Architecture
 
-We use C4 model for describe architecture.
+We use the C4 model to describe architecture.
 
 #### Container diagram
 

@@ -1,6 +1,7 @@
 ## Support Services
 
-This service implements the support services for our customers.
+> [!NOTE]
+> This service implements the support services for our customers.
 
 ### ADR
 
