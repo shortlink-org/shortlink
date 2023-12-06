@@ -55,6 +55,9 @@ spec:
           sidecar.istio.io/inject: "false"
       replicas: 1
       port: 5432
+      config:
+        global:
+          pool_mode: transaction
       resources:
         requests:
           cpu: 2m

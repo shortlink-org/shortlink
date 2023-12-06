@@ -33,6 +33,9 @@ spec:
       replicas: 1
       port: 5432
       poolSize: 10
+      config:
+        global:
+          pool_mode: transaction
       resources:
         requests:
           cpu: 2m
