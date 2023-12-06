@@ -8,9 +8,9 @@ include:
   - local: /ops/gitlab/pipelines/ui/stages/accessibility.yml
 
 stages:
-  - test
   - publish
   - build
+  - test # TODO: move after build
   - artifacts
   - deploy
   - accessibility
