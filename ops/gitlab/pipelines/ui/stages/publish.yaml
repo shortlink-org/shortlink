@@ -9,9 +9,10 @@ npm:
     - .cache
   stage: publish
   image: node:21-alpine
-  id_tokens:
-    SIGSTORE_ID_TOKEN:
-      aud: sigstore
+  # TODO: Research how to use SIGSTORE_ID_TOKEN
+  # id_tokens:
+  #  SIGSTORE_ID_TOKEN:
+  #    aud: sigstore
   variables:
     NPM_TOKEN: $CI_JOB_TOKEN
   before_script:
@@ -22,5 +23,6 @@ npm:
       } | tee -a ~/.npmrc
   script:
     - cd $PACKAGE_PATH
-    - npm publish --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/ --scope=@shortlink-org --provenance --access=public
+    # - npm publish --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/ --scope=@shortlink-org --provenance --access=public
+    - npm publish --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/ --scope=@shortlink-org --access=public
   allow_failure: true
