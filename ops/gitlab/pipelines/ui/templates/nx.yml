@@ -3,7 +3,7 @@ include:
 
 .nx:
   extends: .cache
-  image: node:21.3-alpine
+  image: node:21.4-alpine
   interruptible: true
   variables:
     GIT_DEPTH: 0
