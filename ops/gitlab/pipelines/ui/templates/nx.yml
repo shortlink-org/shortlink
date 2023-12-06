@@ -8,11 +8,9 @@ include:
   variables:
     GIT_DEPTH: 0
     NX_BATCH_MODE: "true"
+    NX_HEAD: $CI_COMMIT_SHA
+    NX_BASE: ${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
   before_script:
     - cd ui/nx-monorepo
-    - echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
-    - echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> ./packages/landing/.npmrc
     - apk add --no-cache git || apt-get install -y git
     - npm ci --cache .npm --prefer-offline --force
-    - NX_HEAD=$CI_COMMIT_SHA
-    - NX_BASE=${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
