@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/internal/services/report
 
-go 1.21.4
+go 1.21.5
 
 require (
 	github.com/google/wire v0.5.1-0.20220620021424-0675cdc9191c
