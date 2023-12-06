@@ -10,6 +10,10 @@ This repository is a monorepo for the nx workspace.
 
 ### Services
 
+> [!TIP]
+> `npx nx graph` to see the dependency graph. 
+
+
 | Service | Description               | Language/Framework | Docs                                 |
 |---------|---------------------------|--------------------|--------------------------------------|
 | eslint  | Custom rules for eslint   | JavaScript         | [docs](./packages/eslint/README.md)  |
