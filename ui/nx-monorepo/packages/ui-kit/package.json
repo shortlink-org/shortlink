@@ -8,7 +8,7 @@
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c --strictDeprecations --bundleConfigAsCjs",
+    "build": "npx rollup -c --strictDeprecations --bundleConfigAsCjs",
     "storybook": "npx storybook dev -p 6006",
     "build-storybook": "npx storybook build",
     "semantic-release": "npx semantic-release",
@@ -52,6 +52,8 @@
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.5",
+    "@rollup/rollup-darwin-x64": "^4.6.1",
+    "eslint-config-shortlink": "*",
     "@storybook/addon-actions": "^8.0.0-alpha.0",
     "@storybook/addon-controls": "^8.0.0-alpha.0",
     "@storybook/addon-docs": "^8.0.0-alpha.0",
