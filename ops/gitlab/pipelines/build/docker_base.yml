@@ -36,6 +36,6 @@ verify_image:
   needs:
     - build
   script:
-    - cosign verify "${REGISTRY_IMAGE}:${CI_COMMIT_TAG}" \
-        --certificate-identity "https://gitlab.com/shortlink-org/shortlink//ops/gitlab/.gitlab-ci.yml@refs/heads/main" \
+    - cosign verify "${REGISTRY_IMAGE}:${CI_COMMIT_TAG}" 
+        --certificate-identity "${CI_PROJECT_URL}//${DOCKER_ENV_CI_CONFIG_PATH}@refs/heads/main" 
         --certificate-oidc-issuer $CI_SERVER_URL
