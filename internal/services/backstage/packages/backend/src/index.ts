@@ -30,6 +30,7 @@ import techdocs from './plugins/techdocs';
 import search from './plugins/search';
 import kubernetes from './plugins/kubernetes';
 import healthcheck from './plugins/healthcheck';
+import readme from './plugins/readme'
 import todo from './plugins/todo';
 import { PluginEnvironment } from './types';
 import { ServerPermissionClient } from '@backstage/plugin-permission-node';
@@ -81,6 +82,8 @@ async function main() {
   });
   const createEnv = makeCreateEnv(config);
 
+  // Add this line under the other lines that follow the useHotMemoize pattern
+  const readmeEnv = useHotMemoize(module, () => createEnv('readme'))
   const healthcheckEnv = useHotMemoize(module, () => createEnv('healthcheck'));
   const catalogEnv = useHotMemoize(module, () => createEnv('catalog'));
   const scaffolderEnv = useHotMemoize(module, () => createEnv('scaffolder'));
@@ -101,6 +104,7 @@ async function main() {
   apiRouter.use('/search', await search(searchEnv));
   apiRouter.use('/kubernetes', await kubernetes(kubernetesEnv));
   apiRouter.use('/todo', await todo(todoEnv));
+  apiRouter.use('/readme', await readme(readmeEnv));
 
   // Add backends ABOVE this line; this 404 handler is the catch-all fallback
   apiRouter.use(notFoundHandler());

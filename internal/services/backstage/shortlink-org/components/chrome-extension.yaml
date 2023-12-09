@@ -1,0 +1,19 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: chrome-extension
+  description: Chrome extension for ShortLink
+  links:
+    - url: https://github.com/shortlink-org/shortlink/tree/main/internal/extension/chrome-extension
+      title: GitHub Repo
+      icon: github
+  tags:
+    - extension
+  annotations:
+    backstage.io/source-location: url:https://github.com/shortlink-org/shortlink/tree/main/internal/extension/chrome-extension
+    backstage.io/techdocs-ref: url:url:https://github.com/shortlink-org/shortlink/tree/main/internal/extension/chrome-extension
+spec:
+  type: service
+  lifecycle: production
+  owner: shortlink-org
+  system: shortlink

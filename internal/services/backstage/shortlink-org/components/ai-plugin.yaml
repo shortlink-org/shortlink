@@ -1,0 +1,17 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ai-plugin
+  description: AI plugin for ShortLink
+  links:
+    - url: https://github.com/shortlink-org/shortlink/tree/main/internal/extension/chrome-extension
+      title: GitHub Repo
+      icon: github
+  tags:
+    - extension
+  annotations: {}
+spec:
+  type: service
+  lifecycle: production
+  owner: shortlink-org
+  system: shortlink

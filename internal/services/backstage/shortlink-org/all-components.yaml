@@ -5,8 +5,17 @@ metadata:
   description: A collection of all Backstage shortlink components
 spec:
   targets:
-    - ./components/shortlink-api.yaml
-    - ./components/shortlink-billing.yaml
+    # UI
     - ./components/shortlink-landing.yaml
     - ./components/shortlink-next.yaml
+    # API boundary
+    - ./components/shortlink-api.yaml
+    # Payment boundary
+    - ./components/shortlink-billing.yaml
+    # Notify boundary
+    - ./components/shortlink-newsletter.yaml
+    # Integration boundary
+    - ./components/chrome-extension.yaml
+    - ./components/ai-plugin.yaml
+    # Observability
     - ./components/k8s-opencost.yaml

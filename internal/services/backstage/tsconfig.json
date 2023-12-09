@@ -8,7 +8,11 @@
   ],
   "exclude": ["node_modules"],
   "compilerOptions": {
+    "lib": ["es6", "dom"],
     "outDir": "dist-types",
-    "rootDir": "."
+    "rootDir": ".",
+    "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true
   }
 }

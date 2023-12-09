@@ -74,10 +74,15 @@ integrations:
     #   token: ${GHE_TOKEN}
 
 proxy:
+  '/prometheus/api':
+    target: https://shortlink.best/prometheus/api/v1/
+  '/gitlab/api':
+    target: https://gitlab.com/api/v4
+    headers:
+      Accept: application/json
   '/argocd/api':
     target: https://argo.shortlink.best/api/v1/
     changeOrigin: true
-    # only if your argocd api has self-signed cert
     secure: false
     headers:
       Cookie:

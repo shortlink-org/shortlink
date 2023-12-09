@@ -8,6 +8,7 @@ import {
 } from '@backstage/plugin-catalog-react';
 import { TechDocsSearchResultListItem } from '@backstage/plugin-techdocs';
 import { AdrSearchResultListItem } from '@backstage/plugin-adr';
+import { AdrDocument } from '@backstage/plugin-adr-common'
 
 import { SearchType } from '@backstage/plugin-search';
 import {
@@ -72,6 +73,11 @@ const SearchPage = () => {
                   name: 'Documentation',
                   icon: <DocsIcon />,
                 },
+                {
+                  value: 'adr',
+                  name: 'Architecture Decision Records',
+                  icon: <DocsIcon />,
+                },
               ]}
             />
             <Paper className={classes.filters}>
@@ -130,7 +136,7 @@ const SearchPage = () => {
                         return (
                           <AdrSearchResultListItem
                             key={document.location} // @ts-ignore
-                            result={document}
+                            result={document as AdrDocument}
                           />
                         );
                       case 'techdocs':

@@ -26,6 +26,10 @@ import {
   hasCatalogProcessingErrors,
   isOrphan,
 } from '@backstage/plugin-catalog';
+import { ReadmeCard } from '@axis-backstage/plugin-readme';
+import {
+  EntityPrometheusContent,
+} from '@roadiehq/backstage-plugin-prometheus'
 import {
   isGithubActionsAvailable,
   EntityGithubActionsContent,
@@ -130,6 +134,9 @@ const overviewContent = (
     <Grid item md={6} xs={12}>
       <EntityCatalogGraphCard variant="gridItem" height={400} />
     </Grid>
+    <Grid item md={6} sx={12}>
+      <ReadmeCard />
+    </Grid>
 
     <EntitySwitch>
       <EntitySwitch.Case if={e => Boolean(isArgocdAvailable(e))}>
@@ -154,7 +161,12 @@ const serviceEntityPage = (
       {overviewContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route path="/lighthouse" title="Lighthouse">
+    <EntityLayout.Route if={isAdrAvailable} path="/adrs" title="ADRs">
+      <EntityAdrContent />
+    </EntityLayout.Route>
+
+    {/* @ts-ignore */}
+    <EntityLayout.Route if={e => e.metadata.annotations['lighthouse.com/website-url'] != null} path="/lighthouse" title="Lighthouse">
       <EntityLighthouseContent />
     </EntityLayout.Route>
 
@@ -170,8 +182,8 @@ const serviceEntityPage = (
       {cicdContent}
     </EntityLayout.Route>
 
-    <EntityLayout.Route if={isAdrAvailable} path="/adrs" title="ADRs">
-      <EntityAdrContent />
+    <EntityLayout.Route path="/prometheus" title="Prometheus">
+      <EntityPrometheusContent />
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/api" title="API">
