@@ -21,13 +21,14 @@ type Engine interface {
 	CreateIndex(query *v1.Query) error
 	DropIndex(name string) error
 
-	// Command
+	// Commands
 	Select(query *v1.Query) ([]*page.Row, error)
 	Update(query *v1.Query) error
 	Insert(query *v1.Query) error
 	Delete(query *v1.Query) error
 }
 
+// nolint:ireturn,nolintlint // ignore
 func New(ctx context.Context, name string, ops ...options.Option) (Engine, error) {
 	var err error
 	var engine Engine
