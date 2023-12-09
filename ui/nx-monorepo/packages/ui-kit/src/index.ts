@@ -9,6 +9,7 @@ export { GithubRepository } from './card/GithubRepository/GithubRepository'
 export { Timeline } from './ui/Timeline/Timeline'
 export { Spotlight } from './effect/Spotlight/Spotlight'
 export { default as Table } from './ui/Table/Table'
+export { default as ScrollToTopButton } from './ui/ScrollToTopButton/ScrollToTopButton'
 
 // Layout exports
 export { Header } from './page/Header/Header'

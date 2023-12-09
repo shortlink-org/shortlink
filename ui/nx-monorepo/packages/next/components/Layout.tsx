@@ -5,6 +5,9 @@ import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import { styled } from '@mui/material/styles'
 import * as React from 'react'
+import {
+  ScrollToTopButton, // @ts-ignore
+} from '@shortlink-org/ui-kit'
 
 import PushNotificationLayout from 'components/PushNotificationLayout'
 
@@ -16,7 +19,6 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   alignItems: 'center',
   justifyContent: 'flex-end',
   padding: theme.spacing(0, 1),
-  // necessary for content to be below app bar
   ...theme.mixins.toolbar,
 }))
 
@@ -43,6 +45,8 @@ export function Layout({ children }) {
           >
             <Container>{children}</Container>
             <Footer />
+
+            <ScrollToTopButton />
           </Box>
         </Box>
       </Box>

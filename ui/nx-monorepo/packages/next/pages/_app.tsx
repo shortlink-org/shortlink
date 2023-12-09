@@ -1,8 +1,6 @@
 // @ts-ignore
 import { CacheProvider } from '@emotion/react'
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp'
 import CssBaseline from '@mui/material/CssBaseline'
-import Fab from '@mui/material/Fab'
 import {
   getInitColorSchemeScript,
   StyledEngineProvider,
@@ -24,7 +22,6 @@ import 'react-toastify/dist/ReactToastify.css'
 import { Provider } from 'react-redux'
 import { Provider as BalancerProvider } from 'react-wrap-balancer'
 
-import ScrollTop from 'components/ScrollTop'
 import { wrapper } from 'store/store'
 import '@shortlink-org/ui-kit/dist/cjs/index.css'
 
@@ -109,17 +106,6 @@ function MyApp({ Component, ...rest }) {
                     <BalancerProvider>
                       <Component {...pageProps} />
                     </BalancerProvider>
-
-                    <ScrollTop {...props}>
-                      <Fab
-                        color="secondary"
-                        size="small"
-                        aria-label="scroll back to top"
-                        className="bg-red-600 hover:bg-red-700"
-                      >
-                        <KeyboardArrowUpIcon />
-                      </Fab>
-                    </ScrollTop>
                   </ColorModeContext.Provider>
                 </ThemeProvider>
               </StyledEngineProvider>
