@@ -13,6 +13,12 @@ func New(in *index.Index, rows []*page.Row) (Index[any], error) {
 	var tree Index[any]
 
 	switch in.GetType() {
+	case index.Type_TYPE_UNSPECIFIED:
+		return nil, ErrUnemployment
+	case index.Type_TYPE_BTREE:
+		return nil, ErrUnemployment
+	case index.Type_TYPE_HASH:
+		return nil, ErrUnemployment
 	case index.Type_TYPE_BINARY_SEARCH:
 		tree = binary_tree.New(func(a, b any) int {
 			switch x, y := reflect.TypeOf(a), reflect.TypeOf(b); true {
