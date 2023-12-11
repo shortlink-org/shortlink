@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.8.3 |
+| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.8.4 |
 
 ## Values
 

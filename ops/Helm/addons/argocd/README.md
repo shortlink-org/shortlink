@@ -14,13 +14,11 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 5.51.5 |
+| https://argoproj.github.io/argo-helm | argo-cd | 5.51.6 |
 | https://argoproj.github.io/argo-helm | argo-events | 2.4.1 |
-| https://argoproj.github.io/argo-helm | argo-rollouts | 2.32.5 |
-| https://argoproj.github.io/argo-helm | argo-workflows | 0.39.5 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 1.4.1 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.1 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 18.4.0 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 18.5.0 |
 
 ## Values
 
@@ -1118,7 +1116,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"1.28.2"
+"1.28.4"
 </pre>
 </div>
 			</td>
@@ -1146,7 +1144,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.28.0"
+"0.30.0"
 </pre>
 </div>
 			</td>

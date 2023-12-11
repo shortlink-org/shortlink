@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubescape.github.io/helm-charts/ | kubescape(kubescape-operator) | 1.16.4 |
+| https://kubescape.github.io/helm-charts/ | kubescape(kubescape-operator) | 1.16.5 |
 
 ## Values
 
@@ -97,7 +97,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--clusterName"><a href="./values.yaml#L20">kubescape.clusterName</a></td>
+			<td id="kubescape--capabilities--vexGeneration"><a href="./values.yaml#L19">kubescape.capabilities.vexGeneration</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"enable"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--clusterName"><a href="./values.yaml#L21">kubescape.clusterName</a></td>
 			<td>
 string
 </td>
@@ -105,6 +119,20 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "shortlink"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--configurations--otelUrl"><a href="./values.yaml#L31">kubescape.configurations.otelUrl</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http://grafana-tempo.grafana:4317"
 </pre>
 </div>
 			</td>
@@ -153,7 +181,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--kubescape--labels--release"><a href="./values.yaml#L24">kubescape.kubescape.labels.release</a></td>
+			<td id="kubescape--kubescape--labels--release"><a href="./values.yaml#L25">kubescape.kubescape.labels.release</a></td>
 			<td>
 string
 </td>
@@ -167,7 +195,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--kubescape--serviceMonitor--enabled"><a href="./values.yaml#L27">kubescape.kubescape.serviceMonitor.enabled</a></td>
+			<td id="kubescape--kubescape--serviceMonitor--enabled"><a href="./values.yaml#L28">kubescape.kubescape.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -181,7 +209,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--operator--resources--requests--cpu"><a href="./values.yaml#L38">kubescape.operator.resources.requests.cpu</a></td>
+			<td id="kubescape--operator--resources--requests--cpu"><a href="./values.yaml#L39">kubescape.operator.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -195,7 +223,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--operator--resources--requests--memory"><a href="./values.yaml#L39">kubescape.operator.resources.requests.memory</a></td>
+			<td id="kubescape--operator--resources--requests--memory"><a href="./values.yaml#L40">kubescape.operator.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -209,7 +237,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--persistence--storageClass"><a href="./values.yaml#L33">kubescape.persistence.storageClass</a></td>
+			<td id="kubescape--persistence--storageClass"><a href="./values.yaml#L34">kubescape.persistence.storageClass</a></td>
 			<td>
 string
 </td>
