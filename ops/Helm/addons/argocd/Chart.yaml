@@ -38,12 +38,6 @@ dependencies:
     condition: argo-rollouts.enabled
     tags:
       - ci/cd
-  - name: argo-workflows
-    version: 0.39.8
-    repository: https://argoproj.github.io/argo-helm
-    condition: argo-workflows.enabled
-    tags:
-      - ci/cd
   - name: argocd-image-updater
     version: 0.9.1
     repository: https://argoproj.github.io/argo-helm
