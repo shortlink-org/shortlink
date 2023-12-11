@@ -16,7 +16,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: grafana/loki:2.9.2
+    image: grafana/loki:2.9.3
     container_name: loki
     init: true
     command: -config.file=/etc/loki/local-config.yaml
