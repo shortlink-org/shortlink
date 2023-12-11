@@ -10,6 +10,6 @@ shortlink:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
     strategy: depend
-  needs: [ ]
+  needs: []
   rules:
     - when: manual
