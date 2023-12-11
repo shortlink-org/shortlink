@@ -1,0 +1,6 @@
+## Delivery Boundary
+
+| Service  | Description       | Language/Framework | Docs                                          | Status                                                                                                                                                  |
+|----------|-------------------|--------------------|-----------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| merch    | Merch store       | Go (Dapr)          | [docs](./internal/services/merch/README.md)   | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-merch&revision=true)](https://argo.shortlink.best/applications/shortlink-merch)     |                                                                   
+| support  | Support service   | PHP                | [docs](./internal/services/support/README.md) | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-support&revision=true)](https://argo.shortlink.best/applications/shortlink-support) |                                                                 

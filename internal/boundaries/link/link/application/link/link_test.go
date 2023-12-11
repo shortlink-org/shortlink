@@ -22,7 +22,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
 	mockPermission "github.com/shortlink-org/shortlink/internal/services/link/application/link/mocks/authzed"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link/mocks/crud"
-	metadata "github.com/shortlink-org/shortlink/internal/services/link/application/link/mocks/metadata"
+	"github.com/shortlink-org/shortlink/internal/services/link/application/link/mocks/metadata"
 	"github.com/shortlink-org/shortlink/internal/services/link/application/link/mocks/mq"
 	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 	metadata_rpc "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"

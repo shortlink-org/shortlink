@@ -1,0 +1,13 @@
+## Platform Boundary
+
+| Service   | Description                                                   | Language/Framework | Docs                                         | Status                                                                                                                                                |
+|-----------|---------------------------------------------------------------|--------------------|----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| csi       | CSI example                                                   | Go                 | [docs](./internal/services/csi/README.md)    | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-csi&revision=true)](https://argo.shortlink.best/applications/shortlink-csi)       |                                                                     
+| logger    | Logger service                                                | Go                 | [docs](./internal/services/logger/README.md) | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-logger&revision=true)](https://argo.shortlink.best/applications/shortlink-logger) |                                                                  
+| shortctl  | Shortlink CLI                                                 | Go                 | [docs](./internal/services/cli/README.md)    |                                                                                                                                                       |                                                                   
+
+### Third-party Service
+
+| Service   | Description                                                   | Language/Framework | Docs                                         | Status                                                                                                                                                |
+|-----------|---------------------------------------------------------------|--------------------|----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| backstage | Backstage is an open platform for building developer portals. | TypeScript         | [docs](https://backstage.io/docs/)           | [![App Status](https://argo.shortlink.best/api/badge?name=backstage&revision=true)](https://argo.shortlink.best/applications/backstage)               |    
