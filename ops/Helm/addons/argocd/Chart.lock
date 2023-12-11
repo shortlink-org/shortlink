@@ -8,14 +8,11 @@ dependencies:
 - name: argo-events
   repository: https://argoproj.github.io/argo-helm
   version: 2.4.1
-- name: argo-rollouts
-  repository: https://argoproj.github.io/argo-helm
-  version: 2.32.7
 - name: argocd-image-updater
   repository: https://argoproj.github.io/argo-helm
   version: 0.9.1
 - name: redis
   repository: oci://registry-1.docker.io/bitnamicharts
   version: 18.4.0
-digest: sha256:f8bff59d9a7abef4354d48542109218da7707515cc5a7aa5690bee11dedbc2b4
-generated: "2023-12-11T18:56:57.004134+01:00"
+digest: sha256:fbbb0318e86c6290b63548b499e10dabb8840549dcab8fcb656efdee9c956e4f
+generated: "2023-12-11T19:32:16.148207+01:00"
