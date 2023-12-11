@@ -26,12 +26,6 @@ dependencies:
     condition: argocd-apps.enabled
     tags:
       - ci/cd
-  - name: argo-events
-    version: 2.4.1
-    repository: https://argoproj.github.io/argo-helm
-    condition: argo-events.enabled
-    tags:
-      - ci/cd
   - name: argocd-image-updater
     version: 0.9.1
     repository: https://argoproj.github.io/argo-helm

@@ -1,0 +1,22 @@
+apiVersion: v2
+appVersion: "2.9.0"
+name: argocd-events
+version: 0.3.18
+kubeVersion: ">= 1.28.0 || >= v1.28.0-0"
+keywords:
+  - argo
+  - ci/cd
+maintainers:
+  - email: batazor111@gmail.com
+    name: batazor
+    url: batazor.ru
+engine: gotpl
+type: application
+deprecated: false
+dependencies:
+  - name: argo-events
+    version: 2.4.1
+    repository: https://argoproj.github.io/argo-helm
+    condition: argo-events.enabled
+    tags:
+      - ci/cd
