@@ -5,7 +5,7 @@ import (
 
 	"go.temporal.io/sdk/workflow"
 
-	"github.com/shortlink-org/shortlink/internal/services/report/activity"
+	"github.com/shortlink-org/shortlink/internal/boundaries/marketing/report/activity"
 )
 
 func GreetingWorkflow(ctx workflow.Context, name string) (string, error) {

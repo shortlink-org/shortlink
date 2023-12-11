@@ -10,11 +10,11 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	logger_application "github.com/shortlink-org/shortlink/internal/boundaries/platform/logger/application"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
-	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	logger_application "github.com/shortlink-org/shortlink/internal/services/logger/application"
 )
 
 type Event struct {

@@ -8,11 +8,11 @@ import (
 
 	"github.com/gogo/protobuf/proto"
 
+	link "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	domain "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/sitemap/v1"
 	http_client "github.com/shortlink-org/shortlink/internal/pkg/http/client"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
-	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/sitemap/v1"
 )
 
 type Service struct {

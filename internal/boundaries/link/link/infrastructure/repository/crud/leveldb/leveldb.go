@@ -6,8 +6,8 @@ import (
 	"github.com/syndtr/goleveldb/leveldb"
 	"google.golang.org/protobuf/encoding/protojson"
 
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
-	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
 // Store implementation of db interface
@@ -30,7 +30,7 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 	go func() {
 		<-ctx.Done()
 
-		_ = s.client.Close() //nolint: errcheck // TODO: handle error
+		_ = s.client.Close() // nolint: errcheck // TODO: handle error
 	}()
 
 	return s, nil

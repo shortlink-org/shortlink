@@ -1,13 +1,13 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="shortdb-operator" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="shortdb">
     <module name="shortlink" />
-    <working_directory value="$PROJECT_DIR$/internal/services/shortdb-operator" />
+    <working_directory value="$PROJECT_DIR$/internal/boundaries/shortdb/shortdb-operator" />
     <envs>
       <env name="ENABLE_WEBHOOKS" value="false" />
       <env name="GOEXPERIMENT" value="arenas,cgocheck2,loopvar" />
     </envs>
     <kind value="PACKAGE" />
-    <package value="github.com/shortlink-org/shortlink/internal/services/shortdb-operator" />
+    <package value="github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb-operator" />
     <directory value="$PROJECT_DIR$" />
     <filePath value="$PROJECT_DIR$/pkg/shortdb-operator/main.go" />
     <method v="2" />

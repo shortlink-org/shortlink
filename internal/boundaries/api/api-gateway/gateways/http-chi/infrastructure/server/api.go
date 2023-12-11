@@ -13,6 +13,12 @@ import (
 	"golang.org/x/text/message"
 	"google.golang.org/protobuf/encoding/protojson"
 
+	cqrs_api "github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/http-chi/infrastructure/server/controllers/cqrs"
+	link_api "github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/http-chi/infrastructure/server/controllers/link"
+	sitemap_api "github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/http-chi/infrastructure/server/controllers/sitemap"
+	link_cqrs "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
+	link_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/link/v1"
+	sitemap_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/sitemap/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/http/handler"
 	auth_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/auth"
 	logger_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/logger"
@@ -21,12 +27,6 @@ import (
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
-	cqrs_api "github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/http-chi/infrastructure/server/controllers/cqrs"
-	link_api "github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/http-chi/infrastructure/server/controllers/link"
-	sitemap_api "github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/http-chi/infrastructure/server/controllers/sitemap"
-	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
-	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
-	sitemap_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 )
 
 const MAX_AGE = 300

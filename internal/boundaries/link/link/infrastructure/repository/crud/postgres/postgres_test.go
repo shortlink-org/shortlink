@@ -15,10 +15,10 @@ import (
 	"go.uber.org/atomic"
 	"go.uber.org/goleak"
 
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/repository/crud/mock"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/postgres"
-	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mock"
 )
 
 func TestMain(m *testing.M) {

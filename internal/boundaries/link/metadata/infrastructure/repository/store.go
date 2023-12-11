@@ -8,12 +8,12 @@ import (
 
 	"github.com/spf13/viper"
 
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository/ram"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
-	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/repository/ram"
 )
 
 // Use return implementation of db

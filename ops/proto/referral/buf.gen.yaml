@@ -5,10 +5,10 @@ managed:
 
 plugins:
   - plugin: buf.build/grpc/python
-    out: internal/services/referral
+    out: internal/boundaries/marketing/referral
 
   - plugin: buf.build/protocolbuffers/python
-    out: internal/services/referral
+    out: internal/boundaries/marketing/referral
 
   - plugin: buf.build/protocolbuffers/pyi
-    out: internal/services/referral
+    out: internal/boundaries/marketing/referral

@@ -19,7 +19,7 @@ import (
 	"github.com/spf13/cobra/doc"
 	"github.com/spf13/viper"
 
-	"github.com/shortlink-org/shortlink/internal/services/shortctl/internal/tool"
+	"github.com/shortlink-org/shortlink/internal/boundaries/portal/shortctl/internal/tool"
 )
 
 func init() {
@@ -52,7 +52,7 @@ func init() {
 	}
 
 	// Generate docs
-	if err := doc.GenMarkdownTree(rootCmd, "./internal/services/shortctl"); err != nil {
+	if err := doc.GenMarkdownTree(rootCmd, "./internal/boundaries/portal/shortctl"); err != nil {
 		log.Fatal(err)
 	}
 }

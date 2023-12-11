@@ -4,9 +4,9 @@ import (
 	"reflect"
 	"strconv"
 
-	index "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/index/v1"
-	page "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/page/v1"
-	binary_tree "github.com/shortlink-org/shortlink/internal/services/shortdb/engine/file/index/binary-tree"
+	index "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/index/v1"
+	page "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/page/v1"
+	binary_tree "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/engine/file/index/binary-tree"
 )
 
 func New(in *index.Index, rows []*page.Row) (Index[any], error) {

@@ -14,13 +14,13 @@ import (
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
 
+	"github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/ws/infrustracture/ws"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
-	"github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/ws/infrustracture/ws"
 )
 
 type WSService struct {
@@ -68,7 +68,7 @@ func NewWSService(
 ) (*WSService, error) {
 	return &WSService{
 		// Common
-		Log: log,
+		Log:    log,
 		Config: config,
 
 		// Observability

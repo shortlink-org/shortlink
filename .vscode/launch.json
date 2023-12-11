@@ -9,7 +9,7 @@
             "type": "go",
             "request": "launch",
             "mode": "auto",
-            "program": "${fileDirname}/internal/services/api-gateway/cmd"
+            "program": "${fileDirname}/internal/boundaries/api/api-gateway/cmd"
         },
         {
             "name": "sortlink-api [k8s:attach]",

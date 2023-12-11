@@ -15,7 +15,7 @@ spec:
       type: git
       uri: https://github.com/shortlink-org/shortlink.git
       branch: main
-      path: internal/services/link/tests/e2e
+      path: internal/boundaries/link/link/tests/e2e
   executionRequest:
     activeDeadlineSeconds: 60
     variables:

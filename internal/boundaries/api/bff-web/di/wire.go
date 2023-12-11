@@ -21,7 +21,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 
-	api "github.com/shortlink-org/shortlink/internal/services/bff-web/infrastructure/http"
+	api "github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http"
 )
 
 type BFFWebService struct {
@@ -82,7 +82,7 @@ func NewBFFWebService(
 ) *BFFWebService {
 	return &BFFWebService{
 		// Common
-		Log: log,
+		Log:    log,
 		Config: config,
 
 		// Observability

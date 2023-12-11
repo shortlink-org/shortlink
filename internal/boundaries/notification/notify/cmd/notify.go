@@ -8,8 +8,8 @@ import (
 
 	"github.com/spf13/viper"
 
+	notify_di "github.com/shortlink-org/shortlink/internal/boundaries/notification/notify/di"
 	"github.com/shortlink-org/shortlink/internal/pkg/graceful_shutdown"
-	notify_di "github.com/shortlink-org/shortlink/internal/services/notify/di"
 )
 
 func main() {

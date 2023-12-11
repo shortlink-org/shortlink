@@ -24,11 +24,11 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
-	"github.com/shortlink-org/shortlink/internal/services/metadata/application/parsers"
-	v1_2 "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
-	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/mq"
-	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/repository"
-	"github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/application/parsers"
+	v1_2 "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/domain/metadata/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/mq"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
 	"go.opentelemetry.io/otel/trace"
 )
 

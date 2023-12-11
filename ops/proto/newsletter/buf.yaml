@@ -7,7 +7,7 @@ deps:
 
 build:
   roots:
-    - internal/services/newsletter/src/domain
+    - internal/boundaries/notification/newsletter/src/domain
 
 lint:
   use:

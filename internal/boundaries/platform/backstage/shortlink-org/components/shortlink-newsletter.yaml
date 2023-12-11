@@ -4,15 +4,15 @@ metadata:
   name: shortlink-newsletter
   description: Notify service for ShortLink
   links:
-    - url: https://github.com/shortlink-org/shortlink/tree/main/internal/services/newsletter
+    - url: https://github.com/shortlink-org/shortlink/tree/main/internal/boundaries/notification/newsletter
       title: GitHub Repo
       icon: github
   tags:
     - rust
   annotations:
     'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/name=shortlink-newsletter'
-    backstage.io/source-location: url:https://github.com/shortlink-org/shortlink/tree/main/internal/services/newsletter
-    backstage.io/techdocs-ref: url:url:https://github.com/shortlink-org/shortlink/tree/main/internal/services/newsletter
+    backstage.io/source-location: url:https://github.com/shortlink-org/shortlink/tree/main/internal/boundaries/notification/newsletter
+    backstage.io/techdocs-ref: url:url:https://github.com/shortlink-org/shortlink/tree/main/internal/boundaries/notification/newsletter
     prometheus.io/alert: 'Excessive Memory Usage'
     prometheus.io/rule: memUsage|component,node_memory_active_bytes|instance,sum by (instance) (node_cpu_seconds_total)
 spec:

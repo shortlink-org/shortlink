@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"strings"
 
-	v2 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/index/v1"
-	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/file/index"
-	parser "github.com/shortlink-org/shortlink/internal/services/shortdb/parser/v1"
+	v2 "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/index/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/query/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/engine/file/index"
+	parser "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/parser/v1"
 )
 
 func (f *File) CreateIndex(query *v1.Query) error {

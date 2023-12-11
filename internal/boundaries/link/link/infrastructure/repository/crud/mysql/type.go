@@ -1,7 +1,7 @@
 package mysql
 
 import (
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mysql/schema/crud"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/repository/crud/mysql/schema/crud"
 )
 
 type Store struct {

@@ -9,9 +9,9 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	v12 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link_cqrs/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
-	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	v12 "github.com/shortlink-org/shortlink/internal/services/link/domain/link_cqrs/v1"
 )
 
 var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)

@@ -20,10 +20,10 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
-	"github.com/shortlink-org/shortlink/internal/services/notify/application"
-	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure/slack"
-	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure/smtp"
-	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure/telegram"
+	"github.com/shortlink-org/shortlink/internal/boundaries/notification/notify/application"
+	"github.com/shortlink-org/shortlink/internal/boundaries/notification/notify/infrastructure/slack"
+	"github.com/shortlink-org/shortlink/internal/boundaries/notification/notify/infrastructure/smtp"
+	"github.com/shortlink-org/shortlink/internal/boundaries/notification/notify/infrastructure/telegram"
 	"go.opentelemetry.io/otel/trace"
 )
 

@@ -7,13 +7,13 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
 
+	account_application "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/account"
+	order_application "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/order"
+	payment_application "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/payment"
+	tariff_application "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/tariff"
+	http_chi "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/http/http-chi"
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	account_application "github.com/shortlink-org/shortlink/internal/services/billing/application/account"
-	order_application "github.com/shortlink-org/shortlink/internal/services/billing/application/order"
-	payment_application "github.com/shortlink-org/shortlink/internal/services/billing/application/payment"
-	tariff_application "github.com/shortlink-org/shortlink/internal/services/billing/application/tariff"
-	http_chi "github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/http/http-chi"
 )
 
 // API - general describe of API

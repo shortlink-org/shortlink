@@ -3,7 +3,7 @@ package mock
 import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 
-	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	domain "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 )
 
 var (

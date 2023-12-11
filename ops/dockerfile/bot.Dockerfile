@@ -12,7 +12,7 @@ ARG CI_COMMIT_TAG
 WORKDIR /app
 
 # Load dependencies
-COPY internal/services/bot /app
+COPY internal/boundaries/notification/bot /app
 RUN mvn -f /app/pom.xml clean package
 
 FROM --platform=$TARGETPLATFORM openjdk:22-ea-25-jdk-slim-bullseye

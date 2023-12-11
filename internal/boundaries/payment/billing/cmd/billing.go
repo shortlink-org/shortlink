@@ -10,8 +10,8 @@ import (
 
 	"github.com/spf13/viper"
 
+	billing_di "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/di"
 	"github.com/shortlink-org/shortlink/internal/pkg/graceful_shutdown"
-	billing_di "github.com/shortlink-org/shortlink/internal/services/billing/di"
 )
 
 func main() {

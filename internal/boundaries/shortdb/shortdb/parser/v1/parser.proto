@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package shortdb.parser.v1;
 
-option go_package = "github.com/shortlink-org/shortlink/internal/services/shortdb/parser/v1";
+option go_package = "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/parser/v1";
 
 import "shortdb/domain/query/v1/query.proto";
 

@@ -14,6 +14,15 @@ import (
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
 
+	account_application "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/account"
+	order_application "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/order"
+	payment_application "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/payment"
+	tariff_application "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/tariff"
+	api "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/http"
+	order_rpc "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/rpc/order/v1"
+	payment_rpc "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/rpc/payment/v1"
+	tariff_rpc "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/rpc/tariff/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/store"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
@@ -24,15 +33,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
-	account_application "github.com/shortlink-org/shortlink/internal/services/billing/application/account"
-	order_application "github.com/shortlink-org/shortlink/internal/services/billing/application/order"
-	payment_application "github.com/shortlink-org/shortlink/internal/services/billing/application/payment"
-	tariff_application "github.com/shortlink-org/shortlink/internal/services/billing/application/tariff"
-	api "github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/http"
-	order_rpc "github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/rpc/order/v1"
-	payment_rpc "github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/rpc/payment/v1"
-	tariff_rpc "github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/rpc/tariff/v1"
-	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/store"
 )
 
 type BillingService struct {

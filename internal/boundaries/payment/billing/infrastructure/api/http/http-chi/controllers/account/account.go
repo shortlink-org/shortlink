@@ -8,8 +8,8 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	account_application "github.com/shortlink-org/shortlink/internal/services/billing/application/account"
-	billing "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/account/v1"
+	account_application "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/account"
+	billing "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/domain/billing/account/v1"
 )
 
 type AccoutAPI struct {

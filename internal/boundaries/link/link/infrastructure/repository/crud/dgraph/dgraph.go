@@ -10,9 +10,9 @@ import (
 	"github.com/segmentio/encoding/json"
 	"google.golang.org/protobuf/encoding/protojson"
 
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
 // Link implementation of db interface

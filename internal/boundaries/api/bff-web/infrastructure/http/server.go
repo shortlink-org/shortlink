@@ -20,9 +20,9 @@ import (
 	metrics_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/metrics"
 	pprof_labels_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/pprof_labels"
 
+	serverAPI "github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/api"
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	serverAPI "github.com/shortlink-org/shortlink/internal/services/bff-web/infrastructure/http/api"
 )
 
 // Run HTTP-server

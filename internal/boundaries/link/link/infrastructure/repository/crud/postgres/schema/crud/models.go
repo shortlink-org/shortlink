@@ -6,7 +6,7 @@ package crud
 
 import (
 	"github.com/jackc/pgx/v5/pgtype"
-	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 )
 
 type LinkLink struct {

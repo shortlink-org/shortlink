@@ -10,8 +10,8 @@ import (
 
 	"github.com/spf13/viper"
 
+	bff_web_di "github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/di"
 	"github.com/shortlink-org/shortlink/internal/pkg/graceful_shutdown"
-	bff_web_di "github.com/shortlink-org/shortlink/internal/services/bff-web/di"
 )
 
 func main() {

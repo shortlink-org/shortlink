@@ -29,8 +29,8 @@ import (
 	logf "sigs.k8s.io/controller-runtime/pkg/log"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	shortdbv1alpha1 "github.com/shortlink-org/shortlink/internal/services/shortdb-operator/api/v1alpha1"
-	//+kubebuilder:scaffold:imports
+	shortdbv1alpha1 "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb-operator/api/v1alpha1"
+	// +kubebuilder:scaffold:imports
 )
 
 // These tests use Ginkgo (BDD-style Go testing framework). Refer to
@@ -62,7 +62,7 @@ var _ = BeforeSuite(func() {
 	err = shortdbv1alpha1.AddToScheme(scheme.Scheme)
 	Expect(err).NotTo(HaveOccurred())
 
-	//+kubebuilder:scaffold:scheme
+	// +kubebuilder:scaffold:scheme
 
 	k8sClient, err = client.New(cfg, client.Options{Scheme: scheme.Scheme})
 	Expect(err).NotTo(HaveOccurred())

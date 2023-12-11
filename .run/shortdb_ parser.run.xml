@@ -1,13 +1,13 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="shortdb: parser" type="GoTestRunConfiguration" factoryName="Go Test" folderName="shortdb">
     <module name="shortlink" />
-    <working_directory value="$PROJECT_DIR$/internal/services/shortdb/parser/v1" />
+    <working_directory value="$PROJECT_DIR$/internal/boundaries/shortdb/shortdb/parser/v1" />
     <envs>
       <env name="GOEXPERIMENT" value="arenas,cgocheck2,loopvar" />
     </envs>
     <root_directory value="$PROJECT_DIR$" />
     <kind value="PACKAGE" />
-    <package value="github.com/shortlink-org/shortlink/internal/services/shortdb/parser/v1" />
+    <package value="github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/parser/v1" />
     <directory value="$PROJECT_DIR$" />
     <filePath value="$PROJECT_DIR$" />
     <framework value="gotest" />

@@ -7,7 +7,7 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
-	page "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/page/v1"
+	page "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/page/v1"
 )
 
 func (f *File) getPage(nameTable string, p int32) error { //nolint:unused // ignore

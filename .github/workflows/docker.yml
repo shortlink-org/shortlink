@@ -55,7 +55,7 @@ jobs:
           context: .
           file: ops/dockerfile/go.Dockerfile
           build-args: |
-            CMD_PATH=${{ format('./internal/services/{0}/cmd', matrix.service) }}
+            CMD_PATH=${{ format('./internal/boundaries/{0}/cmd', matrix.service) }}
           push: true
           tags: latest
           provenance: true

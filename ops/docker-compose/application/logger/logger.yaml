@@ -22,14 +22,14 @@ services:
       context: .
       dockerfile: ops/dockerfile/go.Dockerfile
       args:
-        CMD_PATH: "./internal/services/logger/cmd"
+        CMD_PATH: "./internal/boundaries/platform/logger/cmd"
       shm_size: 1gb
       cache_from:
         - shortlink-logger
     develop:
       watch:
         - action: rebuild
-          path: ./internal/services/logger
+          path: ./internal/boundaries/platform/logger
     image: shortlink-logger
     container_name: logger
     init: true

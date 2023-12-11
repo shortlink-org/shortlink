@@ -12,8 +12,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/repository/crud/mock"
 	db "github.com/shortlink-org/shortlink/internal/pkg/db/badger"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mock"
 )
 
 func TestMain(m *testing.M) {

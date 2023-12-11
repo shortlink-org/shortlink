@@ -3,9 +3,9 @@ package file
 import (
 	"fmt"
 
-	page "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/page/v1"
-	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/file/cursor"
+	page "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/page/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/query/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/engine/file/cursor"
 )
 
 func (f *File) Select(query *v1.Query) ([]*page.Row, error) {

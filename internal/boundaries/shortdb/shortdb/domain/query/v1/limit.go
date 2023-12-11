@@ -3,8 +3,8 @@ package v1
 import (
 	"strconv"
 
-	field "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/field/v1"
-	page "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/page/v1"
+	field "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/field/v1"
+	page "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/page/v1"
 )
 
 func (q *Query) IsLimit() bool {

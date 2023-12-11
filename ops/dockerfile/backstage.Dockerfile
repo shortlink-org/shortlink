@@ -2,9 +2,9 @@
 FROM --platform=$BUILDPLATFORM node:21.4-bookworm-slim AS packages
 
 WORKDIR /app
-COPY ./internal/services/backstage/package.json ./internal/services/backstage/yarn.lock ./
+COPY ./internal/boundaries/platform/backstage/package.json ./internal/boundaries/platform/backstage/yarn.lock ./
 
-COPY ./internal/services/backstage/packages packages
+COPY ./internal/boundaries/platform/backstage/packages packages
 
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -exec rm -rf {} \+
 
@@ -27,7 +27,7 @@ ENV CYPRESS_INSTALL_BINARY=0
 RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
     yarn install --frozen-lockfile --network-timeout 600000 --ignore-engines
 
-COPY --chown=node:node ./internal/services/backstage .
+COPY --chown=node:node ./internal/boundaries/platform/backstage .
 
 RUN yarn tsc
 RUN yarn --cwd packages/backend build
@@ -75,9 +75,9 @@ RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid
 COPY --from=build --chown=node:node /app/packages/backend/dist/bundle/ ./
 
 COPY --chown=node:node \
-  ./internal/services/backstage/app-config.yaml \
-  ./internal/services/backstage/app-config.production.yaml \
-  ./internal/services/backstage/shortlink-org ./
+  ./internal/boundaries/platform/backstage/app-config.yaml \
+  ./internal/boundaries/platform/backstage/app-config.production.yaml \
+  ./internal/boundaries/platform/backstage/shortlink-org ./
 
 ENV PORT 7007
 ENV NODE_ENV production

@@ -3,7 +3,7 @@ syntax = "proto3";
 // buf:lint:ignore
 package server.v1;
 
-option go_package = "github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/grpc-web/infrastructure/server/v1";
+option go_package = "github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/grpc-web/infrastructure/server/v1";
 
 import "google/api/annotations.proto";
 import "google/api/field_behavior.proto";

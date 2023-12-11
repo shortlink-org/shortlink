@@ -2,7 +2,7 @@ with-expecter: true
 dir: mocks/
 all: True
 packages:
-  github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud:
+  github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/repository/crud:
     # place your package-specific config here
     config:
       recursive: True
@@ -20,7 +20,7 @@ packages:
       recursive: True
       dir: mocks/authzed
     interface: PermissionsServiceClient
-  github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1:
+  github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/rpc/metadata/v1:
     # place your package-specific config here
     config:
       recursive: True

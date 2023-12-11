@@ -11,7 +11,7 @@ build:
     docker:
       dockerfile: ops/dockerfile/go.Dockerfile
       buildArgs:
-        CMD_PATH: "./internal/services/api-gateway/cmd/api"
+        CMD_PATH: "./internal/boundaries/api/api-gateway/cmd/api"
     sync:
       infer:
         - 'cmd/api/**'

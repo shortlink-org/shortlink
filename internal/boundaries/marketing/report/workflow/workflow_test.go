@@ -7,7 +7,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.temporal.io/sdk/testsuite"
 
-	"github.com/shortlink-org/shortlink/internal/services/report/activity"
+	"github.com/shortlink-org/shortlink/internal/boundaries/marketing/report/activity"
 )
 
 func Test_Workflow(t *testing.T) {

@@ -9,10 +9,10 @@ import (
 	"github.com/spf13/cobra/doc"
 	"github.com/spf13/viper"
 
+	csi_di "github.com/shortlink-org/shortlink/internal/boundaries/platform/csi/di"
 	"github.com/shortlink-org/shortlink/internal/pkg/graceful_shutdown"
-	csi_di "github.com/shortlink-org/shortlink/internal/services/csi/di"
 
-	csi_driver "github.com/shortlink-org/shortlink/internal/services/csi"
+	csi_driver "github.com/shortlink-org/shortlink/internal/boundaries/platform/csi"
 )
 
 func init() {
@@ -45,7 +45,7 @@ func init() {
 	}
 
 	// Generate docs
-	if err := doc.GenMarkdownTree(rootCmd, "./internal/services/csi/docs"); err != nil {
+	if err := doc.GenMarkdownTree(rootCmd, "./internal/boundaries/platform/csi/docs"); err != nil {
 		log.Fatal(err)
 	}
 }

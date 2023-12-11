@@ -63,5 +63,5 @@ $> curl -s  http://localhost:7071/debug/pprof/profile\?seconds\=30 > ./cpu.out
 # Merging profiles
 $> go tool pprof -proto a.pprof b.pprof > default.pgo
 # Build
-$> go build -o app -pgo=auto ./internal/services/api-gateway/cmd/api.go
+$> go build -o app -pgo=auto ./internal/boundaries/api/api-gateway/cmd/api.go
 ```

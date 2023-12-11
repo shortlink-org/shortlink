@@ -31,9 +31,9 @@ import (
 	"sigs.k8s.io/controller-runtime/pkg/healthz"
 	"sigs.k8s.io/controller-runtime/pkg/log/zap"
 
-	shortdbv1alpha1 "github.com/shortlink-org/shortlink/internal/services/shortdb-operator/api/v1alpha1"
-	"github.com/shortlink-org/shortlink/internal/services/shortdb-operator/controllers"
-	//+kubebuilder:scaffold:imports
+	shortdbv1alpha1 "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb-operator/api/v1alpha1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb-operator/controllers"
+	// +kubebuilder:scaffold:imports
 )
 
 var (
@@ -45,7 +45,7 @@ func init() {
 	utilruntime.Must(clientgoscheme.AddToScheme(scheme))
 
 	utilruntime.Must(shortdbv1alpha1.AddToScheme(scheme))
-	//+kubebuilder:scaffold:scheme
+	// +kubebuilder:scaffold:scheme
 }
 
 func main() {
@@ -100,7 +100,7 @@ func main() {
 		setupLog.Error(err, "unable to create webhook", "webhook", "ShortDB")
 		os.Exit(1)
 	}
-	//+kubebuilder:scaffold:builder
+	// +kubebuilder:scaffold:builder
 
 	if err := mgr.AddHealthzCheck("healthz", healthz.Ping); err != nil {
 		setupLog.Error(err, "unable to set up health check")

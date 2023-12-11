@@ -12,9 +12,9 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/atomic"
 
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/repository/crud/mock"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
-	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mock"
 )
 
 var linkUniqId atomic.Int64

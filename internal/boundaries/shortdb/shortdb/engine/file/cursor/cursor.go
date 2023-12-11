@@ -1,8 +1,8 @@
 package cursor
 
 import (
-	page "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/page/v1"
-	table "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/table/v1"
+	page "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/page/v1"
+	table "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/table/v1"
 )
 
 func New(t *table.Table, isEnd bool) (*Cursor, error) {

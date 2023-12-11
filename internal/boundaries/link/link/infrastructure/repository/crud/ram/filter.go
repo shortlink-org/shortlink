@@ -4,7 +4,7 @@ import (
 	"reflect"
 	"strings"
 
-	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	domain "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 )
 
 // TODO: fix this hardcode

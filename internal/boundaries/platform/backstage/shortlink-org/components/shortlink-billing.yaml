@@ -4,18 +4,18 @@ metadata:
   name: shortlink-billing
   description: Billing service for ShortLink
   links:
-    - url: https://github.com/shortlink-org/shortlink/tree/main/internal/services/billing
+    - url: https://github.com/shortlink-org/shortlink/tree/main/internal/boundaries/payment/billing
       title: GitHub Repo
       icon: github
   tags:
     - go
   annotations:
     'backstage.io/kubernetes-label-selector': 'app.kubernetes.io/name=shortlink-billing'
-    backstage.io/source-location: url:https://github.com/shortlink-org/shortlink/tree/main/internal/services/billing
-    backstage.io/techdocs-ref: url:url:https://github.com/shortlink-org/shortlink/tree/main/internal/services/billing
+    backstage.io/source-location: url:https://github.com/shortlink-org/shortlink/tree/main/internal/boundaries/payment/billing
+    backstage.io/techdocs-ref: url:url:https://github.com/shortlink-org/shortlink/tree/main/internal/boundaries/payment/billing
     prometheus.io/alert: 'Excessive Memory Usage'
     prometheus.io/rule: memUsage|component,node_memory_active_bytes|instance,sum by (service) (container_cpu_usage_seconds_total)
-    backstage.io/adr-location: https://github.com/shortlink-org/shortlink/tree/main/internal/services/billing/docs/ADR/decisions
+    backstage.io/adr-location: https://github.com/shortlink-org/shortlink/tree/main/internal/boundaries/payment/billing/docs/ADR/decisions
     argocd/app-name: shortlink-billing
 spec:
   type: service

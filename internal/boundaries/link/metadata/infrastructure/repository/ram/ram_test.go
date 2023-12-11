@@ -9,7 +9,7 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/domain/metadata/v1"
 )
 
 func TestRAM(t *testing.T) {

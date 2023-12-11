@@ -5,7 +5,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	parser "github.com/shortlink-org/shortlink/internal/services/shortdb/parser/v1"
+	parser "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/parser/v1"
 )
 
 func BenchmarkParser(b *testing.B) {

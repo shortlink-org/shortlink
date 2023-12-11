@@ -16,6 +16,12 @@ import (
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
+	"github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/grpc-web/infrastructure/server"
+	api_application "github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/grpc-web/infrastructure/server/v1"
+	link_cqrs "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
+	link_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/link/v1"
+	sitemap_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/sitemap/v1"
+	metadata_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
@@ -23,12 +29,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
-	"github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/grpc-web/infrastructure/server"
-	api_application "github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/grpc-web/infrastructure/server/v1"
-	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
-	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
-	sitemap_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
-	metadata_rpc "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 )
 
 type APIService struct {

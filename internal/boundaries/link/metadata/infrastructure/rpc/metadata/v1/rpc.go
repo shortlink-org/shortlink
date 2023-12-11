@@ -6,9 +6,9 @@ package v1
 import (
 	"context"
 
+	metadata "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/application/parsers"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
-	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/application/parsers"
 )
 
 type Metadata struct {

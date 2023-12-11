@@ -6,8 +6,8 @@ import (
 
 	"github.com/segmentio/encoding/json"
 
-	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
+	link "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	link_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/link/v1"
 )
 
 // Link ...

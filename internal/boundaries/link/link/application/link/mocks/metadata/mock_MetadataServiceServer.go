@@ -5,7 +5,7 @@ package v1
 import (
 	context "context"
 
-	v1 "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
 	mock "github.com/stretchr/testify/mock"
 )
 

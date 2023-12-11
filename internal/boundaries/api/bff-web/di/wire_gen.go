@@ -18,7 +18,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
-	"github.com/shortlink-org/shortlink/internal/services/bff-web/infrastructure/http"
+	"github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http"
 	"go.opentelemetry.io/otel/trace"
 )
 

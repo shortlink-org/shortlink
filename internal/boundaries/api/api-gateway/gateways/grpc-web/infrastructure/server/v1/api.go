@@ -6,8 +6,8 @@ import (
 
 	"google.golang.org/protobuf/types/known/emptypb"
 
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
-	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
 // GetLink ...

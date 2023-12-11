@@ -16,6 +16,6 @@ sql:
             go_type: "string"
           - column: "*.links.json"
             go_type:
-              import: "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+              import: "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
               package: "v1"
               type: "Link"

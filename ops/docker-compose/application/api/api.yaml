@@ -22,14 +22,14 @@ services:
       context: .
       dockerfile: ops/dockerfile/go.Dockerfile
       args:
-        CMD_PATH: "./internal/services/api-gateway/gateways/http-chi/cmd"
+        CMD_PATH: "./internal/boundaries/api/api-gateway/gateways/http-chi/cmd"
       shm_size: 1gb
       cache_from:
         - shortlink-api
     develop:
       watch:
         - action: rebuild
-          path: ./internal/services/api-gateway
+          path: ./internal/boundaries/api/api-gateway
     image: shortlink-api
     container_name: api
     init: true

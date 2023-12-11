@@ -6,10 +6,10 @@ import (
 
 	"google.golang.org/protobuf/proto"
 
+	link "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	metadata_domain "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
-	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	metadata_domain "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
 func (e *Event) SubscribeNewLink() error {

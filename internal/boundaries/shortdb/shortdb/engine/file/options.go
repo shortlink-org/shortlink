@@ -3,7 +3,7 @@ package file
 import (
 	"errors"
 
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/options"
+	"github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/engine/options"
 )
 
 var ErrInvalidType = errors.New("invalid type")

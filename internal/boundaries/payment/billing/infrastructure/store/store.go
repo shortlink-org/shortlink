@@ -8,15 +8,15 @@ import (
 
 	"github.com/spf13/viper"
 
+	account "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/domain/billing/account/v1"
+	tariff "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/domain/billing/tariff/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/store/postgres"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/postgres/migrate"
 	event_store "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
-	account "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/account/v1"
-	tariff "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/tariff/v1"
-	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/store/postgres"
 )
 
 // Use return implementation of db

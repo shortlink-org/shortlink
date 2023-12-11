@@ -1,4 +1,4 @@
-module github.com/shortlink-org/shortlink/internal/services/shortdb-operator
+module github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb-operator
 
 go 1.21.5
 

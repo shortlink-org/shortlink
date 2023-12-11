@@ -5,9 +5,9 @@ MQ Endpoint
 package api_mq
 
 import (
+	link_application "github.com/shortlink-org/shortlink/internal/boundaries/link/link/application/link"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
-	link_application "github.com/shortlink-org/shortlink/internal/services/link/application/link"
 )
 
 type Event struct {

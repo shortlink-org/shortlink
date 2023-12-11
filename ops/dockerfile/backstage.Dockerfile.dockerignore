@@ -1,10 +1,10 @@
 *
-!internal/services/backstage/*
+!internal/boundaries/platform/backstage/*
 
-internal/services/backstage/dist-types
-internal/services/backstage/node_modules
-internal/services/backstage/packages/*/dist
-internal/services/backstage/packages/*/node_modules
-internal/services/backstage/plugins/*/dist
-internal/services/backstage/plugins/*/node_modules
-internal/services/backstage/*.local.yaml
+internal/boundaries/platform/backstage/dist-types
+internal/boundaries/platform/backstage/node_modules
+internal/boundaries/platform/backstage/packages/*/dist
+internal/boundaries/platform/backstage/packages/*/node_modules
+internal/boundaries/platform/backstage/plugins/*/dist
+internal/boundaries/platform/backstage/plugins/*/node_modules
+internal/boundaries/platform/backstage/*.local.yaml

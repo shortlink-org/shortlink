@@ -7,7 +7,7 @@
 package v1
 
 import (
-	v1 "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/domain/metadata/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"

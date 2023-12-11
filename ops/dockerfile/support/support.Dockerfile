@@ -20,7 +20,7 @@ COPY ./ops/dockerfile/support/conf/php /usr/local/etc/php/conf.d
 WORKDIR /usr/share/nginx/html
 
 # Copy the application code
-COPY ./internal/services/support/src .
+COPY ./internal/boundaries/delivery/support/src .
 
 # Expose the application port
 EXPOSE 9000

@@ -14,16 +14,16 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 
+	"github.com/shortlink-org/shortlink/internal/boundaries/notification/notify/application"
+	"github.com/shortlink-org/shortlink/internal/boundaries/notification/notify/infrastructure/slack"
+	"github.com/shortlink-org/shortlink/internal/boundaries/notification/notify/infrastructure/smtp"
+	"github.com/shortlink-org/shortlink/internal/boundaries/notification/notify/infrastructure/telegram"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/services/notify/application"
-	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure/slack"
-	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure/smtp"
-	"github.com/shortlink-org/shortlink/internal/services/notify/infrastructure/telegram"
 )
 
 // Service - heplers

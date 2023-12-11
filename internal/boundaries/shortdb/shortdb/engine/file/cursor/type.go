@@ -3,7 +3,7 @@ package cursor
 import (
 	"sync"
 
-	table "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/table/v1"
+	table "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/table/v1"
 )
 
 type Cursor struct {

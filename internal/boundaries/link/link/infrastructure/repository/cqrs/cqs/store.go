@@ -9,12 +9,12 @@ import (
 	"github.com/go-redis/cache/v9"
 	"github.com/spf13/viper"
 
+	link "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/repository/cqrs/cqs/postgres"
+	metadata "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
-	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/cqrs/cqs/postgres"
-	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
 // New return implementation of db

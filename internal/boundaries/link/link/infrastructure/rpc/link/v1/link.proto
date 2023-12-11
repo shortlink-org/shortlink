@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package infrastructure.rpc.link.v1;
 
-option go_package = "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1";
+option go_package = "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/link/v1";
 
 import "google/protobuf/empty.proto";
 import "domain/link/v1/link.proto";

@@ -12,7 +12,7 @@ run:
   tests: true
 
   skip-dirs:
-    - "internal/services/shortdb/io_uring"
+    - "internal/boundaries/shortdb/shortdb/io_uring"
 
   skip-files:
     - ".*mocks.+"

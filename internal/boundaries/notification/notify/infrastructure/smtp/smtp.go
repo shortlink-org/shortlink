@@ -6,9 +6,9 @@ import (
 
 	"github.com/spf13/viper"
 
+	link "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/notification/notify/domain/events"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
-	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/services/notify/domain/events"
 )
 
 type Bot struct {

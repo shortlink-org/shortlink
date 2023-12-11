@@ -12,10 +12,10 @@ import (
 	"github.com/segmentio/encoding/json"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
+	domain "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/repository/crud/mysql/schema/crud"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/mysql/migrate"
-	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/mysql/schema/crud"
 )
 
 var (

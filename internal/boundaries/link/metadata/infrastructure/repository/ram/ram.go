@@ -4,8 +4,8 @@ import (
 	"context"
 	"sync"
 
-	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	rpc "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
+	domain "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/domain/metadata/v1"
 )
 
 type Store struct {

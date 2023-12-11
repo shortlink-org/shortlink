@@ -10,11 +10,11 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
 
-	database "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/database/v1"
-	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
-	table "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/table/v1"
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/options"
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/io_uring"
+	database "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/database/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/query/v1"
+	table "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/table/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/engine/options"
+	"github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/io_uring"
 )
 
 type File struct {

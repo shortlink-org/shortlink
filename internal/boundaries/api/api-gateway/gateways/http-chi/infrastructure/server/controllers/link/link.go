@@ -10,8 +10,8 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	link_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/link/v1"
 )
 
 var jsonpb protojson.MarshalOptions

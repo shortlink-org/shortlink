@@ -10,8 +10,8 @@ import (
 
 	"github.com/spf13/viper"
 
+	logger_di "github.com/shortlink-org/shortlink/internal/boundaries/platform/logger/di"
 	"github.com/shortlink-org/shortlink/internal/pkg/graceful_shutdown"
-	logger_di "github.com/shortlink-org/shortlink/internal/services/logger/di"
 )
 
 func main() {

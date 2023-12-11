@@ -13,11 +13,11 @@ import (
 	"go.temporal.io/api/workflowservice/v1"
 	"go.temporal.io/sdk/client"
 
+	metadata_di "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/di"
+	"github.com/shortlink-org/shortlink/internal/boundaries/marketing/report/shared"
+	"github.com/shortlink-org/shortlink/internal/boundaries/marketing/report/workflow"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
-	metadata_di "github.com/shortlink-org/shortlink/internal/services/metadata/di"
-	"github.com/shortlink-org/shortlink/internal/services/report/shared"
-	"github.com/shortlink-org/shortlink/internal/services/report/workflow"
 )
 
 func main() {

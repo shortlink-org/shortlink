@@ -15,12 +15,12 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
+	domain "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/repository/crud/postgres/schema/crud"
 	"github.com/shortlink-org/shortlink/internal/pkg/batch"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/postgres/migrate"
-	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/postgres/schema/crud"
 )
 
 var (

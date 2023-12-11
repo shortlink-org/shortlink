@@ -5,8 +5,8 @@ import (
 
 	"github.com/spf13/viper"
 
+	api_di "github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/ws/di"
 	"github.com/shortlink-org/shortlink/internal/pkg/graceful_shutdown"
-	api_di "github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/ws/di"
 )
 
 func main() {

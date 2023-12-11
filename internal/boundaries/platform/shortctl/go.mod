@@ -1,4 +1,4 @@
-module github.com/shortlink-org/shortlink/internal/services/shortctl
+module github.com/shortlink-org/shortlink/internal/boundaries/portal/shortctl
 
 go 1.21.5
 

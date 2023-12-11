@@ -3,10 +3,10 @@ package event_store
 import (
 	"context"
 
+	link "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	eventsourcing "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
-	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
 // EventStore saves the events from an aggregate

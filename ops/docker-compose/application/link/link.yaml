@@ -24,14 +24,14 @@ services:
       context: .
       dockerfile: ops/dockerfile/go.Dockerfile
       args:
-        CMD_PATH: "./internal/services/link/cmd"
+        CMD_PATH: "./internal/boundaries/link/link/cmd"
       shm_size: 1gb
       cache_from:
         - shortlink-link
     develop:
       watch:
         - action: rebuild
-          path: ./internal/services/link
+          path: ./internal/boundaries/link/link
     image: shortlink-link
     container_name: link
     init: true

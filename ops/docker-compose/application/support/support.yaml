@@ -26,7 +26,7 @@ services:
     develop:
       watch:
         - action: rebuild
-          path: ./internal/services/support
+          path: ./internal/boundaries/delivery/support
     image: support-proxy
     container_name: support-proxy
     init: true
@@ -46,7 +46,7 @@ services:
     develop:
       watch:
         - action: rebuild
-          path: ./internal/services/support
+          path: ./internal/boundaries/delivery/support
     image: shortlink-support
     container_name: support
     init: true

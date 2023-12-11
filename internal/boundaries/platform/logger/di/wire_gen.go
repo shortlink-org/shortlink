@@ -20,8 +20,8 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
-	"github.com/shortlink-org/shortlink/internal/services/logger/application"
-	"github.com/shortlink-org/shortlink/internal/services/logger/infrastructure/mq"
+	"github.com/shortlink-org/shortlink/internal/boundaries/platform/logger/application"
+	"github.com/shortlink-org/shortlink/internal/boundaries/platform/logger/infrastructure/mq"
 	"go.opentelemetry.io/otel/trace"
 )
 

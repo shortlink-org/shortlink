@@ -31,7 +31,7 @@ USER node
 RUN mkdir -p /home/node/.npm/_cacache
 
 WORKDIR /app
-COPY ./internal/services/proxy /app/
+COPY ./internal/boundaries/link/proxy /app/
 
 RUN npm ci --cache .npm --prefer-offline --force
 RUN npm run build

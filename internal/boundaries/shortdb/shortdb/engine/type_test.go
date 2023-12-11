@@ -9,8 +9,8 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/file"
-	parser "github.com/shortlink-org/shortlink/internal/services/shortdb/parser/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/engine/file"
+	parser "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/parser/v1"
 )
 
 func BenchmarkEngine(b *testing.B) {

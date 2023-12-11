@@ -14,6 +14,11 @@ import (
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
 
+	metadata "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/application/parsers"
+	metadata_domain "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/domain/metadata/v1"
+	metadata_mq "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/mq"
+	meta_store "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository"
+	metadata_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
@@ -26,11 +31,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
-	metadata "github.com/shortlink-org/shortlink/internal/services/metadata/application/parsers"
-	metadata_domain "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
-	metadata_mq "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/mq"
-	meta_store "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/repository"
-	metadata_rpc "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/rpc/metadata/v1"
 )
 
 type MetaDataService struct {

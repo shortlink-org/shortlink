@@ -3,12 +3,12 @@ package billing_store
 import (
 	"context"
 
+	link "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/domain/billing/account/v1"
+	billing "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/domain/billing/tariff/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	event_store "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/store"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
-	v1 "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/account/v1"
-	billing "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/tariff/v1"
-	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
 // Store abstract type

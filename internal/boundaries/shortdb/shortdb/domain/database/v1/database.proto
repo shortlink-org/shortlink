@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package shortdb.domain.database.v1;
 
-option go_package = "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/database/v1";
+option go_package = "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/database/v1";
 
 import "shortdb/domain/table/v1/table.proto";
 

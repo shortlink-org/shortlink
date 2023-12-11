@@ -13,6 +13,15 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
+	account_application "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/account"
+	order_application "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/order"
+	payment_application "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/payment"
+	tariff_application "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/tariff"
+	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/http/http-chi/controllers/account"
+	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/http/http-chi/controllers/balance"
+	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/http/http-chi/controllers/order"
+	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/http/http-chi/controllers/payment"
+	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/http/http-chi/controllers/tariff"
 	"github.com/shortlink-org/shortlink/internal/pkg/http/handler"
 	auth_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/auth"
 	logger_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/logger"
@@ -20,15 +29,6 @@ import (
 	pprof_labels_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/pprof_labels"
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	account_application "github.com/shortlink-org/shortlink/internal/services/billing/application/account"
-	order_application "github.com/shortlink-org/shortlink/internal/services/billing/application/order"
-	payment_application "github.com/shortlink-org/shortlink/internal/services/billing/application/payment"
-	tariff_application "github.com/shortlink-org/shortlink/internal/services/billing/application/tariff"
-	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/account"
-	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/balance"
-	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/order"
-	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/payment"
-	"github.com/shortlink-org/shortlink/internal/services/billing/infrastructure/api/http/http-chi/controllers/tariff"
 )
 
 // Run HTTP-server

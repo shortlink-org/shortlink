@@ -3,10 +3,10 @@ package engine
 import (
 	"context"
 
-	page "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/page/v1"
-	v1 "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/file"
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/options"
+	page "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/page/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/query/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/engine/file"
+	"github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/engine/options"
 )
 
 type Engine interface {

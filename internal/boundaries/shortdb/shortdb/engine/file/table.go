@@ -1,8 +1,8 @@
 package file
 
 import (
-	query "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
-	table "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/table/v1"
+	query "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/query/v1"
+	table "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/table/v1"
 )
 
 func (f *File) CreateTable(q *query.Query) error {

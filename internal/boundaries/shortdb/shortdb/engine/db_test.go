@@ -10,8 +10,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/file"
-	parser "github.com/shortlink-org/shortlink/internal/services/shortdb/parser/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/engine/file"
+	parser "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/parser/v1"
 )
 
 func TestMain(m *testing.M) {

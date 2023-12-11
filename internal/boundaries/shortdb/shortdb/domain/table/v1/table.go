@@ -3,8 +3,8 @@ package v1
 import (
 	"github.com/spf13/viper"
 
-	index "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/index/v1"
-	query "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/query/v1"
+	index "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/index/v1"
+	query "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/query/v1"
 )
 
 func New(q *query.Query) *Table {

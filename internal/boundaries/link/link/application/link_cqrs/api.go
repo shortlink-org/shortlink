@@ -4,11 +4,11 @@ import (
 	"context"
 	"fmt"
 
+	link "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	domain "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link_cqrs/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/internal/pkg/saga"
-	link "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
-	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link_cqrs/v1"
 )
 
 func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {

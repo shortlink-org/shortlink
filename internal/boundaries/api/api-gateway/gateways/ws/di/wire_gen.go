@@ -18,7 +18,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
-	"github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/ws/infrustracture/ws"
+	"github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/ws/infrustracture/ws"
 	"go.opentelemetry.io/otel/trace"
 )
 

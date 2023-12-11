@@ -6,9 +6,9 @@ import (
 	"go.temporal.io/sdk/client"
 	"go.temporal.io/sdk/worker"
 
-	"github.com/shortlink-org/shortlink/internal/services/report/activity"
-	"github.com/shortlink-org/shortlink/internal/services/report/shared"
-	"github.com/shortlink-org/shortlink/internal/services/report/workflow"
+	"github.com/shortlink-org/shortlink/internal/boundaries/marketing/report/activity"
+	"github.com/shortlink-org/shortlink/internal/boundaries/marketing/report/shared"
+	"github.com/shortlink-org/shortlink/internal/boundaries/marketing/report/workflow"
 )
 
 func main() {

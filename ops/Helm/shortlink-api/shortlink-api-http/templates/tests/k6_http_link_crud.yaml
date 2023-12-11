@@ -16,7 +16,7 @@ spec:
       type: git
       uri: https://github.com/shortlink-org/shortlink.git
       branch: main
-      path: internal/services/api-gateway/tests/integrations
+      path: internal/boundaries/api/api-gateway/tests/integrations
   executionRequest:
     activeDeadlineSeconds: 60
     variables:
@@ -40,4 +40,4 @@ spec:
         value: "experimental-prometheus-rw"
         type: basic
     args:
-      - internal/services/api-gateway/tests/integrations/k6-crud.js
+      - internal/boundaries/api/api-gateway/tests/integrations/k6-crud.js

@@ -8,8 +8,8 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	payment_application "github.com/shortlink-org/shortlink/internal/services/billing/application/payment"
-	billing "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/payment/v1"
+	payment_application "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/payment"
+	billing "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/domain/billing/payment/v1"
 )
 
 type API struct {

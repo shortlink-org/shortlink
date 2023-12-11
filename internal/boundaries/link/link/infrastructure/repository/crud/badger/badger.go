@@ -6,7 +6,7 @@ import (
 	"github.com/dgraph-io/badger/v4"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
+	domain "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 )
 
 // Store implementation of db interface

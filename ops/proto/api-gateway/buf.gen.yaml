@@ -5,17 +5,17 @@ managed:
 
 plugins:
   - plugin: buf.build/protocolbuffers/go
-    out: internal/services/api-gateway/gateways/grpc-web/infrastructure
+    out: internal/boundaries/api/api-gateway/gateways/grpc-web/infrastructure
     opt: paths=source_relative
 
   - plugin: buf.build/grpc/go
-    out: internal/services/api-gateway/gateways/grpc-web/infrastructure
+    out: internal/boundaries/api/api-gateway/gateways/grpc-web/infrastructure
     opt: paths=source_relative,require_unimplemented_servers=false
 
   - plugin: buf.build/grpc-ecosystem/gateway
-    out: internal/services/api-gateway/gateways/grpc-web/infrastructure
+    out: internal/boundaries/api/api-gateway/gateways/grpc-web/infrastructure
     opt: paths=source_relative,logtostderr=true,allow_delete_body=true
 
   - plugin: buf.build/grpc-ecosystem/openapiv2
-    out: internal/services/api-gateway/docs
+    out: internal/boundaries/api/api-gateway/docs
     opt: logtostderr=true,output_format=yaml

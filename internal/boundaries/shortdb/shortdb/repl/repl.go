@@ -9,10 +9,10 @@ import (
 	"github.com/c-bata/go-prompt"
 	"github.com/pterm/pterm"
 
-	session "github.com/shortlink-org/shortlink/internal/services/shortdb/domain/session/v1"
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine"
-	"github.com/shortlink-org/shortlink/internal/services/shortdb/engine/file"
-	parser "github.com/shortlink-org/shortlink/internal/services/shortdb/parser/v1"
+	session "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/domain/session/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/engine"
+	"github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/engine/file"
+	parser "github.com/shortlink-org/shortlink/internal/boundaries/shortdb/shortdb/parser/v1"
 )
 
 type Repl struct {

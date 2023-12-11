@@ -22,14 +22,14 @@ services:
       context: .
       dockerfile: ops/dockerfile/go.Dockerfile
       args:
-        CMD_PATH: "./internal/services/metadata/cmd"
+        CMD_PATH: "./internal/boundaries/link/metadata/cmd"
       shm_size: 1gb
       cache_from:
         - shortlink-metadata
     develop:
       watch:
         - action: rebuild
-          path: ./internal/services/metadata
+          path: ./internal/boundaries/link/metadata
     image: shortlink-metadata
     container_name: metadata
     init: true

@@ -5,7 +5,7 @@ package crud
 import (
 	context "context"
 
-	crud "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/repository/crud/postgres/schema/crud"
+	crud "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/repository/crud/postgres/schema/crud"
 	mock "github.com/stretchr/testify/mock"
 
 	pgconn "github.com/jackc/pgx/v5/pgconn"

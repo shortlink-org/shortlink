@@ -9,11 +9,11 @@ import (
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 
+	meta_store "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
-	meta_store "github.com/shortlink-org/shortlink/internal/services/metadata/infrastructure/repository"
 
+	rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	rpc "github.com/shortlink-org/shortlink/internal/services/metadata/domain/metadata/v1"
 )
 
 var metaMock = rpc.Meta{

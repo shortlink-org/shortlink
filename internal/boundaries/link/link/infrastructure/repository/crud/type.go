@@ -5,8 +5,8 @@ import (
 
 	"github.com/go-redis/cache/v9"
 
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	v1 "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
 // Repository abstract

@@ -7,7 +7,7 @@
 package payment_rpc
 
 import (
-	v1 "github.com/shortlink-org/shortlink/internal/services/billing/domain/billing/payment/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/domain/billing/payment/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"

@@ -5,10 +5,10 @@ managed:
 
 plugins:
   - name: es
-    out: internal/services/proxy/src/proto
+    out: internal/boundaries/link/proxy/src/proto
     opt: target=ts
 
   - name: grpc
-    out: internal/services/proxy/src/proto
+    out: internal/boundaries/link/proxy/src/proto
     opt: grpc_js
     path: grpc_tools_node_protoc_plugin

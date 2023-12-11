@@ -16,14 +16,14 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 
+	"github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/graphql/infrastructure/server/resolver"
+	link_cqrs "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
+	link_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/link/v1"
+	sitemap_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/sitemap/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
-	"github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/graphql/infrastructure/server/resolver"
-	link_cqrs "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/cqrs/link/v1"
-	link_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/link/v1"
-	sitemap_rpc "github.com/shortlink-org/shortlink/internal/services/link/infrastructure/rpc/sitemap/v1"
 )
 
 //go:embed schema/*.graphqls

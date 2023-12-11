@@ -14,6 +14,8 @@ import (
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
 
+	logger_application "github.com/shortlink-org/shortlink/internal/boundaries/platform/logger/application"
+	logger_mq "github.com/shortlink-org/shortlink/internal/boundaries/platform/logger/infrastructure/mq"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
@@ -22,8 +24,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
-	logger_application "github.com/shortlink-org/shortlink/internal/services/logger/application"
-	logger_mq "github.com/shortlink-org/shortlink/internal/services/logger/infrastructure/mq"
 )
 
 type LoggerService struct {

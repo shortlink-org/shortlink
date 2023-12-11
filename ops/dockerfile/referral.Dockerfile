@@ -16,7 +16,7 @@ ENV PYTHONUNBUFFERED 1
 RUN apt-get update && \
     apt-get install -y --no-install-recommends make gcc git libc6-dev g++
 
-COPY internal/services/referral/requirements.txt .
+COPY internal/boundaries/marketing/referral/requirements.txt .
 RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
 
 # Final image
@@ -61,5 +61,5 @@ RUN pip install --no-cache /wheels/*
 RUN addgroup --system referall && adduser --system --group referall
 USER referall
 
-COPY internal/services/referral/ .
+COPY internal/boundaries/marketing/referral/ .
 CMD ["python", "src/__main__.py"]

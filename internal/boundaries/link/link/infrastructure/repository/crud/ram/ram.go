@@ -6,9 +6,9 @@ import (
 
 	"github.com/spf13/viper"
 
+	domain "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/batch"
 	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
-	domain "github.com/shortlink-org/shortlink/internal/services/link/domain/link/v1"
 )
 
 // Config - config

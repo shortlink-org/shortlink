@@ -5,9 +5,9 @@ managed:
 
 plugins:
   - name: js
-    out: internal/services/proxy/src/proto
+    out: internal/boundaries/link/proxy/src/proto
     opt: import_style=commonjs,binary
 
   - name: ts
-    out: internal/services/proxy/src/proto
+    out: internal/boundaries/link/proxy/src/proto
     opt: grpc_js

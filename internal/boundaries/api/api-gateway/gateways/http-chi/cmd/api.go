@@ -12,9 +12,9 @@ import (
 
 	"github.com/spf13/viper"
 
+	api_di "github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/http-chi/di"
 	"github.com/shortlink-org/shortlink/internal/pkg/graceful_shutdown"
 	_ "github.com/shortlink-org/shortlink/internal/pkg/i18n"
-	api_di "github.com/shortlink-org/shortlink/internal/services/api-gateway/gateways/http-chi/di"
 )
 
 func main() {
