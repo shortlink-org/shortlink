@@ -17,7 +17,7 @@
 
 We use the C4 model for describe architecture.
 
-#### Context diagram
+#### System context diagram
 
 ```plantuml
 !include https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/preset/common.puml
