@@ -2253,10 +2253,10 @@
     semver "^7.5.3"
     zod "^3.21.4"
 
-"@backstage/cli@^0.25.0-next.2":
-  version "0.25.0-next.2"
-  resolved "https://registry.yarnpkg.com/@backstage/cli/-/cli-0.25.0-next.2.tgz#00d072d8ea4ff7fe3faadd129cf9fab65edc52e0"
-  integrity sha512-OuBpNkJIBsoQjTOv4cFRNx9tXwCYTatZZL7PXxwbE9yC3cnyjb1X2SomF9BJt0lPZAGBYUWC6qxh3iW6+tzocw==
+"@backstage/cli@^0.25.0-next.3":
+  version "0.25.0-next.3"
+  resolved "https://registry.yarnpkg.com/@backstage/cli/-/cli-0.25.0-next.3.tgz#55d13f6bc786d5fdf7fe61f11089ab812fd59078"
+  integrity sha512-XykXQ2TpY55xOMtbMO+b6txxABxOOuoYa8yWlugkN8Ck5+lTd+vtwMaha2gcL32NGfsYJewifBVVjs36lVs5IQ==
   dependencies:
     "@backstage/catalog-model" "^1.4.3"
     "@backstage/cli-common" "^0.1.13"
@@ -2296,7 +2296,7 @@
     "@typescript-eslint/parser" "^6.7.2"
     "@yarnpkg/lockfile" "^1.1.0"
     "@yarnpkg/parsers" "^3.0.0-rc.4"
-    bfj "^7.0.2"
+    bfj "^8.0.0"
     buffer "^6.0.3"
     chalk "^4.0.0"
     chokidar "^3.3.1"
@@ -9737,10 +9737,10 @@ better-sqlite3@^9.2.2:
     bindings "^1.5.0"
     prebuild-install "^7.1.1"
 
-bfj@^7.0.2:
-  version "7.1.0"
-  resolved "https://registry.yarnpkg.com/bfj/-/bfj-7.1.0.tgz#c5177d522103f9040e1b12980fe8c38cf41d3f8b"
-  integrity sha512-I6MMLkn+anzNdCUp9hMRyui1HaNEUCco50lxbvNS4+EyXg8lN3nJ48PjPWtbH8UVS9CuMoaKE9U2V3l29DaRQw==
+bfj@^8.0.0:
+  version "8.0.0"
+  resolved "https://registry.yarnpkg.com/bfj/-/bfj-8.0.0.tgz#d15931bd5ef1ef5c874a59e6ef00653de8416568"
+  integrity sha512-6KJe4gFrZ4lhmvWcUIj37yFAs36mi2FZXuTkw6udZ/QsX/znFypW4SatqcLA5K5T4BAWgJZD73UFEJJQxuJjoA==
   dependencies:
     bluebird "^3.7.2"
     check-types "^11.2.3"
