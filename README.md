@@ -67,9 +67,9 @@ made along with its context and consequences.
 | Search Boundary       | Search services          | [docs](./internal/boundaries/search/README.md)       |
 | UI Boundary           | UI services              | [docs](./internal/boundaries/ui/README.md)           |
 
-### Contributing
-
 > [!TIP]
+> ### Contributing
+> 
 > - [Getting Started](./CONTRIBUTING.md#getting-started)
 
 ### License
