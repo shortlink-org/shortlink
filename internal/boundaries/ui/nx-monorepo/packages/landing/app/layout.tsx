@@ -6,7 +6,7 @@ import * as React from 'react'
 import { Organization, WithContext } from 'schema-dts'
 
 import { Providers } from './providers'
-import 'public/assets/styles.css'
+import '../public/assets/styles.css'
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin'],
