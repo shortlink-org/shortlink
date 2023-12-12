@@ -45,11 +45,11 @@ _Please [star ⭐](https://github.com/shortlink-org/shortlink/stargazers) the re
 made along with its context and consequences.
 >
 >+ [Docs ADR](https://github.com/joelparkerhenderson/architecture-decision-record)
-
-**Decisions:**
-  + [main decisions](./docs/ADR/README.md)
-  + [ops decisions](./ops/docs/ADR/README.md)
-  + [ui](./ui/nx-monorepo/docs/ADR/README.md)
+>
+> **Decisions:**
+>  + [main decisions](./docs/ADR/README.md)
+>  + [ops decisions](./ops/docs/ADR/README.md)
+>  + [ui](./ui/nx-monorepo/docs/ADR/README.md)
 
 ### Boundaries
 
@@ -69,7 +69,8 @@ made along with its context and consequences.
 
 ### Contributing
 
- - [Getting Started](./CONTRIBUTING.md#getting-started)
+> [!TIP]
+> - [Getting Started](./CONTRIBUTING.md#getting-started)
 
 ### License
 
