@@ -2,8 +2,8 @@ shortlink:
   stage: application
   variables:
     PROVIDER: $PROVIDER
-    RELEASE_NAME: argo-workflows
-    HELM_PATH: ops/Helm/addons/argo/argo-workflows
+    RELEASE_NAME: argocd-shortlink
+    HELM_PATH: ops/Helm/addons/argocd-shortlink
     HELM_NAMESPACE: argocd
     ENVIRONMENT_URL: https://${ENVIRONMENT_URL}
   trigger:
