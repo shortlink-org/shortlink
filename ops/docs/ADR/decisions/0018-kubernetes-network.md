@@ -51,3 +51,8 @@ By selecting Cilium as our network plugin, we expect to achieve the following be
 ### References
 
 - [Migrating from MetaLB to Cilium](https://blog.stonegarden.dev/articles/2023/12/migrating-from-metallb-to-cilium/)
+
+### Changelog
+
+- 2023-03-07: Initial draft
+- 2023-12-12: Migration to Cilium. Deprecate Istio.

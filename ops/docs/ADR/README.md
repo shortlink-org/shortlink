@@ -26,7 +26,7 @@ for information team about cases for updated ADR.
     - [ADR-0022](./decisions/0022-kubernetes.md) - Kubernetes
     - [ADR-0027](./decisions/0027-local-kubernetes-development-tools.md) - Local Kubernetes Development Tools
   - **Network**
-    - **Proposed**: [ADR-0018](./decisions/0018-kubernetes-network.md) - Use Cilium as CNI
+    - [ADR-0018](./decisions/0018-kubernetes-network.md) - Use Cilium as CNI
   - **Security**
     - [ADR-0029](./decisions/0029-ids-and-ips.md) - Intrusion Detection System (IDS) and Intrusion Prevention System (IPS) for Kubernetes (k8s)
   - **DataBase**
