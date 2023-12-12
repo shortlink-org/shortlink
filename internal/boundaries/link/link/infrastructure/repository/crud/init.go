@@ -65,7 +65,7 @@ func New(ctx context.Context, log logger.Logger, store db.DB, c *cache.Cache) (*
 			return nil, err
 		}
 	case "leveldb":
-		s.store, err = leveldb.New(ctx, store)
+		s.store, err = leveldb.New(ctx, store, log)
 		if err != nil {
 			return nil, err
 		}

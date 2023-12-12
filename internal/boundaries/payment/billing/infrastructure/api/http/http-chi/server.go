@@ -44,7 +44,6 @@ func (api *API) Run(
 	paymentService *payment_application.PaymentService,
 	tariffService *tariff_application.TariffService,
 ) error {
-
 	api.jsonpb = protojson.MarshalOptions{
 		UseProtoNames: true,
 	}

@@ -8,6 +8,7 @@ import (
 
 	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 )
 
 // Store implementation of db interface
@@ -16,7 +17,7 @@ type Store struct {
 }
 
 // New store
-func New(ctx context.Context, store db.DB) (*Store, error) {
+func New(ctx context.Context, store db.DB, log logger.Logger) (*Store, error) {
 	conn, ok := store.GetConn().(*leveldb.DB)
 	if !ok {
 		return nil, db.ErrGetConnection
@@ -30,13 +31,16 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 	go func() {
 		<-ctx.Done()
 
-		_ = s.client.Close() // nolint: errcheck // TODO: handle error
+		err := s.client.Close()
+		if err != nil {
+			log.Error(err.Error())
+		}
 	}()
 
 	return s, nil
 }
 
-// Add - add
+// Add - add new link
 func (l *Store) Add(_ context.Context, source *v1.Link) (*v1.Link, error) {
 	err := v1.NewURL(source)
 	if err != nil {
@@ -56,7 +60,7 @@ func (l *Store) Add(_ context.Context, source *v1.Link) (*v1.Link, error) {
 	return source, nil
 }
 
-// Get - get
+// Get - a get link
 func (l *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	value, err := l.client.Get([]byte(id), nil)
 	if err != nil {
@@ -76,7 +80,7 @@ func (l *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	return &response, nil
 }
 
-// List - list
+// List - list links
 func (l *Store) List(_ context.Context, _ *v1.FilterLink) (*v1.Links, error) {
 	links := &v1.Links{
 		Link: []*v1.Link{},
@@ -106,12 +110,12 @@ func (l *Store) List(_ context.Context, _ *v1.FilterLink) (*v1.Links, error) {
 	return links, nil
 }
 
-// Update - update
+// Update - update link
 func (l *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 	return nil, nil
 }
 
-// Delete - delete
+// Delete - delete link
 func (l *Store) Delete(ctx context.Context, id string) error {
 	err := l.client.Delete([]byte(id), nil)
 	return err

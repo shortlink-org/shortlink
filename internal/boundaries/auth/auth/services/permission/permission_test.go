@@ -59,7 +59,7 @@ func TestSpiceDB(t *testing.T) {
 	client := &Service{}
 
 	// get logger
-	log, err := logger.NewLogger(logger.Zap, config.Configuration{})
+	log, err := logger.New(logger.Zap, config.Configuration{})
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")

@@ -14,7 +14,7 @@ func TestNewStructLogger(t *testing.T) {
 	cfg := config.Configuration{}
 
 	// Test with Zap logger
-	zapLogger, err := NewLogger(Zap, cfg)
+	zapLogger, err := New(Zap, cfg)
 	require.NoError(t, err, "Expected no error creating Zap logger")
 
 	structZapLogger, err := NewStructLogger(zapLogger)
@@ -22,7 +22,7 @@ func TestNewStructLogger(t *testing.T) {
 	require.NotNil(t, structZapLogger, "Expected StructLogger instance for Zap logger")
 
 	// Test with Logrus logger
-	logrusLogger, err := NewLogger(Logrus, cfg)
+	logrusLogger, err := New(Logrus, cfg)
 	require.NoError(t, err, "Expected no error creating Logrus logger")
 
 	structLogrusLogger, err := NewStructLogger(logrusLogger)

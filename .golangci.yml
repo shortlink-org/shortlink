@@ -801,7 +801,7 @@ linters-settings:
     multi-if: true
     # Enforces newlines (or comments) after every multi-line function signature.
     # Default: false
-    multi-func: true
+    multi-func: false
 
   wsl:
     allow-cuddle-declarations: false
@@ -826,6 +826,8 @@ linters:
     - deadcode # deprecated
     - varcheck # deprecated
     - structcheck # deprecated
+    - interfacebloat # we don't use limit of methods in interfaces
+    - ireturn # return interface{} is allowed
     - musttag
     - gochecknoinits
     - inamedparam

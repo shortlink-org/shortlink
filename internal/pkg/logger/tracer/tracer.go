@@ -16,7 +16,6 @@ func NewTraceFromContext(
 	tags []attribute.KeyValue,
 	fields ...field.Fields,
 ) ([]field.Fields, error) {
-
 	if ctx == nil {
 		ctx = context.Background()
 	}

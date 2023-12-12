@@ -35,7 +35,7 @@ func TestOutputInfoWithContextZap(t *testing.T) {
 		TimeFormat: time.RFC822,
 	}
 
-	log, err := NewLogger(Zap, conf)
+	log, err := New(Zap, conf)
 	require.NoError(t, err, "Error init a logger")
 
 	log.InfoWithContext(context.Background(), "Hello World")
@@ -65,7 +65,7 @@ func BenchmarkOutputZap(bench *testing.B) {
 		TimeFormat: time.RFC822,
 	}
 
-	log, _ := NewLogger(Zap, conf)
+	log, _ := New(Zap, conf)
 
 	for i := 0; i < bench.N; i++ {
 		log.Info("Hello World")
@@ -81,7 +81,7 @@ func TestOutputInfoWithContextLogrus(t *testing.T) {
 		TimeFormat: time.RFC822,
 	}
 
-	log, err := NewLogger(Logrus, conf)
+	log, err := New(Logrus, conf)
 	require.NoError(t, err, "Error init a logger")
 
 	log.InfoWithContext(context.Background(), "Hello World")
@@ -107,7 +107,7 @@ func BenchmarkOutputLogrus(bench *testing.B) {
 		TimeFormat: time.RFC822,
 	}
 
-	log, _ := NewLogger(Logrus, conf)
+	log, _ := New(Logrus, conf)
 
 	for i := 0; i < bench.N; i++ {
 		log.Info("Hello World")
@@ -123,7 +123,7 @@ func TestFieldsZap(t *testing.T) {
 		TimeFormat: time.RFC822,
 	}
 
-	log, err := NewLogger(Zap, conf)
+	log, err := New(Zap, conf)
 	require.NoError(t, err, "Error init a logger")
 
 	log.InfoWithContext(context.Background(), "Hello World", field.Fields{
@@ -158,7 +158,7 @@ func TestFieldsLogrus(t *testing.T) {
 		TimeFormat: time.RFC822,
 	}
 
-	log, err := NewLogger(Logrus, conf)
+	log, err := New(Logrus, conf)
 	require.NoError(t, err, "Error init a logger")
 
 	log.Info("Hello World", field.Fields{
@@ -191,7 +191,7 @@ func TestSetLevel(t *testing.T) {
 			TimeFormat: time.RFC822,
 		}
 
-		log, err := NewLogger(logger, conf)
+		log, err := New(logger, conf)
 		require.NoError(t, err, "Error init a logger")
 
 		log.Info("Hello World")

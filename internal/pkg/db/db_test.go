@@ -18,7 +18,7 @@ func TestLink(t *testing.T) {
 
 	// Init logger
 	conf := config.Configuration{}
-	log, err := logger.NewLogger(logger.Zap, conf)
+	log, err := logger.New(logger.Zap, conf)
 	require.NoError(t, err, "Error init a logger")
 
 	// Init db

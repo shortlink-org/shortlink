@@ -34,7 +34,7 @@ func TestNewSaga(t *testing.T) {
 	conf := config.Configuration{
 		Level: config.DEBUG_LEVEL,
 	}
-	log, err := logger.NewLogger(logger.Zap, conf)
+	log, err := logger.New(logger.Zap, conf)
 	require.NoError(t, err, "Error init a logger")
 
 	t.Run("create simple saga", func(t *testing.T) {

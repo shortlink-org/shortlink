@@ -19,7 +19,7 @@ func New(_ context.Context) (logger.Logger, func(), error) {
 		TimeFormat: viper.GetString("LOG_TIME_FORMAT"),
 	}
 
-	log, err := logger.NewLogger(logger.Zap, conf)
+	log, err := logger.New(logger.Zap, conf)
 	if err != nil {
 		return nil, nil, err
 	}

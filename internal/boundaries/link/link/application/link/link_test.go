@@ -29,7 +29,7 @@ import (
 )
 
 func TestLinkService(t *testing.T) {
-	log, err := logger.NewLogger(logger.Zap, config.Configuration{
+	log, err := logger.New(logger.Zap, config.Configuration{
 		Level:      viper.GetInt("LOG_LEVEL"),
 		TimeFormat: viper.GetString("LOG_TIME_FORMAT"),
 	})
