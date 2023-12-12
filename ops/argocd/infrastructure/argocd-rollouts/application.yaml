@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: argocd-rollouts
+  name: argo-rollouts
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
@@ -14,11 +14,11 @@ spec:
     namespace: argocd
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/argocd-rollouts
+    path: ops/Helm/addons/argo/argo-rollouts
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
-      releaseName: argocd-rollouts
+      releaseName: argo-rollouts
       valueFiles:
         - values.yaml
 

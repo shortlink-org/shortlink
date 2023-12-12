@@ -1,6 +1,6 @@
 include:
   - local: /ops/gitlab/templates/common.yml
-  - local: ops/gitlab/pipelines/addons/argocd/stages/**
+  - local: ops/gitlab/pipelines/addons/argo/argocd/stages/**
 
 stages:
   - .pre

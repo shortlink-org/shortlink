@@ -14,7 +14,7 @@ spec:
     namespace: argocd
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/argocd-workflows
+    path: ops/Helm/addons/argo/argocd-workflows
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:

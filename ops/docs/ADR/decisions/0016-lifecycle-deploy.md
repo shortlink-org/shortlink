@@ -14,7 +14,7 @@ We need to decide how we will update images in ArgoCD.
 
 ### ArgoCD ApplicationSet
 
-We use Helm chart [argocd-shortlink](https://github.com/shortlink-org/shortlink/tree/main/ops/Helm/addons/argocd-shortlink) for deploy ArgoCD ApplicationSet.
+We use Helm chart [argo-workflows](https://github.com/shortlink-org/shortlink/tree/main/ops/Helm/addons/argo/argo-workflows) for deploy ArgoCD ApplicationSet.
 
 We use argocd wave for priority deploy.
 
