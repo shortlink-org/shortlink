@@ -9,6 +9,30 @@
 | [Kafka](https://kafka.apache.org/) | [RabbitMQ](https://www.rabbitmq.com/) | [NATS](https://nats.io/) |
 |------------------------------------|---------------------------------------|--------------------------|
 
+### Third-party Service
+
+| Boundary      | Service       | Description                                                             | Language/Framework | Docs                                                | Status                                                                                                                                                  |
+|---------------|---------------|-------------------------------------------------------------------------|--------------------|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Observability | grafana       | Grafana is the open source analytics & monitoring solution for          | More               | [docs](https://grafana.com/docs/)                   | [![App Status](https://argo.shortlink.best/api/badge?name=grafana&revision=true)](https://argo.shortlink.best/applications/grafana)               |       
+| Platfrom      | cert-manager  | Automatically provision and manage TLS certificates in Kubernetes       | Go                 | [docs](https://cert-manager.io/docs/)               | [![App Status](https://argo.shortlink.best/api/badge?name=cert-manager&revision=true)](https://argo.shortlink.best/applications/cert-manager)     |  
+| Network       | nginx-ingress | Ingress controller for Kubernetes using NGINX                           | Go                 | [docs](https://kubernetes.github.io/ingress-nginx/) | [![App Status](https://argo.shortlink.best/api/badge?name=nginx-ingress&revision=true)](https://argo.shortlink.best/applications/nginx-ingress)   | 
+| MQ            | kafka         | Kafka is used as a message broker                                       | Java               | [docs](https://kafka.apache.org/)                   | [![App Status](https://argo.shortlink.best/api/badge?name=kafka&revision=true)](https://argo.shortlink.best/applications/kafka)                   |         
+|               | keycloak      | Keycloak is an open source identity and access management solution      | Java               | [docs](https://www.keycloak.org/documentation.html) | [![App Status](https://argo.shortlink.best/api/badge?name=keycloak&revision=true)](https://argo.shortlink.best/applications/keycloak)             | 
+
+#### Draft
+
+| Boundary | Service       | Description                                                        | Language/Framework | Docs                                                | Status                                                                                                                                                  |
+|----------|---------------|--------------------------------------------------------------------|--------------------|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| Platform | keycloak      | Keycloak is an open source identity and access management solution | Java               | [docs](https://www.keycloak.org/documentation.html) | [![App Status](https://argo.shortlink.best/api/badge?name=keycloak&revision=true)](https://argo.shortlink.best/applications/keycloak)             | 
+
+
+#### Deprecated
+
+| Boundary | Service      | Description                                                             | Language/Framework | Docs                                  |
+|----------|--------------|-------------------------------------------------------------------------|--------------------|---------------------------------------|
+| Network  | istio        | Istio is an open platform to connect, manage, and secure microservices. | Go                 | [docs](https://istio.io/latest/docs/) |
+
+
 ### Cloud-Native stack
 
 + Development

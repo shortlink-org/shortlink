@@ -67,23 +67,6 @@ made along with its context and consequences.
 | Search Boundary       | Search services          | [docs](./internal/boundaries/search/README.md)       |
 | UI Boundary           | UI services              | [docs](./internal/boundaries/ui/README.md)           |
 
-### Third-party Service
-
-<details><summary>DETAILS</summary>
-<p>
-
-| Service       | Description                                                             | Language/Framework | Docs                                                | Status                                                                                                                                                  |
-|---------------|-------------------------------------------------------------------------|--------------------|-----------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| grafana       | Grafana is the open source analytics & monitoring solution for          | More               | [docs](https://grafana.com/docs/)                   | [![App Status](https://argo.shortlink.best/api/badge?name=grafana&revision=true)](https://argo.shortlink.best/applications/grafana)               |       
-| cert-manager  | Automatically provision and manage TLS certificates in Kubernetes       | Go                 | [docs](https://cert-manager.io/docs/)               | [![App Status](https://argo.shortlink.best/api/badge?name=cert-manager&revision=true)](https://argo.shortlink.best/applications/cert-manager)     |  
-| istio         | Istio is an open platform to connect, manage, and secure microservices. | Go                 | [docs](https://istio.io/latest/docs/)               | [![App Status](https://argo.shortlink.best/api/badge?name=istio&revision=true)](https://argo.shortlink.best/applications/istio)                   |         
-| nginx-ingress | Ingress controller for Kubernetes using NGINX                           | Go                 | [docs](https://kubernetes.github.io/ingress-nginx/) | [![App Status](https://argo.shortlink.best/api/badge?name=nginx-ingress&revision=true)](https://argo.shortlink.best/applications/nginx-ingress)   | 
-| kafka         | Kafka is used as a message broker                                       | Java               | [docs](https://kafka.apache.org/)                   | [![App Status](https://argo.shortlink.best/api/badge?name=kafka&revision=true)](https://argo.shortlink.best/applications/kafka)                   |         
-| keycloak      | Keycloak is an open source identity and access management solution      | Java               | [docs](https://www.keycloak.org/documentation.html) | [![App Status](https://argo.shortlink.best/api/badge?name=keycloak&revision=true)](https://argo.shortlink.best/applications/keycloak)             | 
-
-</p>
-</details>
-
 ### Contributing
 
  - [Getting Started](./CONTRIBUTING.md#getting-started)
