@@ -1,14 +1,14 @@
 include:
   - local: /ops/gitlab/workflows/matrix_deploy.yml
 
-# CALICO ===============================================================================================================
-calico:
+# CILIUM ===============================================================================================================
+cilium:
   stage: addons
   variables:
     PROVIDER: $PROVIDER
-    RELEASE_NAME: calico
-    HELM_PATH: ops/Helm/addons/cni/calico
-    HELM_NAMESPACE: tigera-operator
+    RELEASE_NAME: cilium
+    HELM_PATH: ops/Helm/addons/cni/cilium
+    HELM_NAMESPACE: cilium
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
