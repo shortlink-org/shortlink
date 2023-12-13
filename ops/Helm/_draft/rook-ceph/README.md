@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-template | shortlink-template | 0.7.0 |
+| file://../shortlink-template | shortlink-template | 0.8.0 |
 | https://charts.rook.io/release | rook-ceph | v1.12.9 |
 
 ## Values

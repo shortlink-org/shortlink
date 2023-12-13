@@ -27,15 +27,12 @@ secret:
 # ==============================================================================
 ingress:
   enabled: true
-  # type ingress-controller: istio
-  type: cilium
-  istio:
-    match:
-      - uri:
-          prefix: /infrastructure.rpc.link.v1.LinkService/
-    route:
-      destination:
-        port: 50051
+  # type ingress-controller: istio, cilium, nginx
+  ingressClassName: cilium
+  path: /infrastructure.rpc.link.v1.LinkService/
+  service:
+    name: shortlink-link
+    port: 50051
 
 # ==============================================================================
 deploy:

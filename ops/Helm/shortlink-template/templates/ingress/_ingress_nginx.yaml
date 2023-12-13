@@ -1,6 +1,6 @@
 {{/* vim: set filetype=mustache: */}}
 
-{{- define "shortlink-common.nginxIngress" }}
+{{- define "shortlink-common.defaultIngress" }}
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
@@ -9,31 +9,13 @@ metadata:
     {{- include "helpers.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
   annotations:
-    {{/* retry policies */}}
-    {{/*    nginx.ingress.kubernetes.io/proxy-next-upstream: "error timeout http_502 http_503 http_504"*/}}
-    {{/*    nginx.ingress.kubernetes.io/proxy-next-upstream-tries: "3"*/}}
-    {{/*    nginx.ingress.kubernetes.io/proxy-next-upstream-timeout: "20"*/}}
-
-    {{/* rate limits */}}
-    {{/*  TODO: Disabled: details - https://github.com/kubernetes/ingress-nginx/issues/9323  */}}
-    {{/*    nginx.ingress.kubernetes.io/limit-connections: "1000"*/}}
-    {{/*    nginx.ingress.kubernetes.io/limit-rpm: "100000"*/}}
-    {{/*    nginx.ingress.kubernetes.io/limit-rps: "10000"*/}}
-    {{/*    nginx.ingress.kubernetes.io/limit-burst-multiplier: "10"*/}}
-    {{/*    nginx.ingress.kubernetes.io/proxy-buffering: "on"*/}}
-    {{/*    nginx.ingress.kubernetes.io/limit-rate: "100k"*/}}
-    {{/*    nginx.ingress.kubernetes.io/limit-rate-after: "1m"*/}}
-
-    {{/* timeouts */}}
-
-
     {{- toYaml . | nindent 4 }}
   {{- end }}
 spec:
   {{- with .Values.ingress.spec }}
     {{- toYaml . | nindent 2 }}
   {{- end }}
-  ingressClassName: nginx
+  ingressClassName: {{ .Values.ingress.ingressClassName | default "nginx" }}
 {{- if .Values.ingress.tls }}
   tls:
   {{- range .Values.ingress.tls }}
@@ -45,8 +27,7 @@ spec:
   {{- end }}
 {{- end }}
   rules:
-    - host: {{ .Values.ingress.hostname }}
-      http:
+    - http:
         paths:
           - path: {{ .Values.ingress.path }}
             pathType: {{ default "Prefix" .Values.ingress.pathType }}
@@ -55,4 +36,7 @@ spec:
                 name: {{ .Values.ingress.service.name }}
                 port:
                   number: {{ .Values.ingress.service.port }}
+      {{- if .Values.ingress.hostname }}
+      host: {{ .Values.ingress.hostname }}
+      {{- end }}
 {{- end }}

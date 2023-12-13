@@ -22,7 +22,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../shortlink-template | shortlink-template | 0.7.0 |
+| file://../../shortlink-template | shortlink-template | 0.8.0 |
 
 ## Values
 
@@ -168,7 +168,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.16.101"
+"0.16.105"
 </pre>
 </div>
 			</td>

@@ -15,7 +15,6 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | https://argoproj.github.io/argo-helm | argo-cd | 5.51.6 |
-| https://argoproj.github.io/argo-helm | argo-events | 2.4.1 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 1.4.1 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.1 |
 | oci://registry-1.docker.io/bitnamicharts | redis | 18.5.0 |

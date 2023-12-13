@@ -3,10 +3,10 @@
 {{- define "shortlink-common.Ingress" }}
 {{- if and .Values.ingress.enabled }}
 ---
-{{- if (eq .Values.ingress.type "nginx") -}}
-{{ template "shortlink-common.nginxIngress" . }}
-{{- else if and (eq .Values.ingress.type "istio") -}}
+{{- if (eq .Values.ingress.ingressClassName "istio") -}}
 {{ template "shortlink-common.istioIngress" . }}
+{{- else -}}
+{{ template "shortlink-common.defaultIngress" . }}
 {{- end }}
 {{- end }}
 {{- end }}
