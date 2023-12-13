@@ -28,7 +28,7 @@ secret:
 ingress:
   enabled: true
   # type ingress-controller: istio
-  type: istio
+  type: cilium
 
   istio:
     match:
