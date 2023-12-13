@@ -3,7 +3,7 @@ shortlink:
   variables:
     PROVIDER: $PROVIDER
     RELEASE_NAME: argocd-shortlink
-    HELM_PATH: ops/Helm/addons/argocd-shortlink
+    HELM_PATH: ops/Helm/addons/argo/argocd-shortlink
     HELM_NAMESPACE: argocd
     ENVIRONMENT_URL: https://${ENVIRONMENT_URL}
   trigger:
