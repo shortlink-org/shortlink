@@ -10,3 +10,168 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "daily"
+
+  - package-ecosystem: docker
+    directory: /.clusterfuzzlite
+    schedule:
+      interval: daily
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /docs/ADR/decisions/proof/ADR-0007
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /internal/boundaries/api/api-gateway
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /internal/boundaries/api/bff-web
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/extension/argocd-extension-docs/ui
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /internal/boundaries/knative/kafka-to-elasticsearch
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/link/proxy
+    schedule:
+      interval: daily
+
+  - package-ecosystem: pip
+    directory: /internal/boundaries/marketing/referral
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /internal/boundaries/marketing/report
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/platform/backstage
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/platform/backstage/packages/app
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/platform/backstage/packages/backend
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /internal/boundaries/platform/csi
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /internal/boundaries/platform/shortctl
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /internal/boundaries/shortdb/shortdb-operator
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /internal/boundaries/shortdb/shortdb-operator
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/ui/mobile/expo/apps/shortlink
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/ui/mobile/expo/libs/ui
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/ui/mobile/expo
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/ui/nx-monorepo
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/ui/nx-monorepo/packages/eslint/eslint-config-shortlink
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/ui/nx-monorepo/packages/eslint/eslint-plugin-shortlink
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/ui/nx-monorepo/packages/landing
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/ui/nx-monorepo/packages/next/components/Footer
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/ui/nx-monorepo/packages/next/components/Header
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/ui/nx-monorepo/packages/next/components/Testimonials
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/ui/nx-monorepo/packages/next
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/boundaries/ui/nx-monorepo/packages/ui-kit
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /internal/pkg/k8s/kube-secret-fetcher
+    schedule:
+      interval: daily
+
+  - package-ecosystem: pip
+    directory: /poc/ml-diff/ml
+    schedule:
+      interval: daily
+
+  - package-ecosystem: maven
+    directory: /internal/boundaries/notification/bot
+    schedule:
+      interval: daily
