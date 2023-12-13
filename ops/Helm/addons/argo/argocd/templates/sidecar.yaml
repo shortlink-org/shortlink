@@ -1,3 +1,4 @@
+{{ if .Capabilities.APIVersions.Has "networking.istio.io/v1beta1" -}}
 apiVersion: networking.istio.io/v1beta1
 kind: Sidecar
 metadata:
@@ -11,3 +12,4 @@ spec:
       - "prometheus-operator/*" # prometheus-operator services
       - "kube-system/*"         # kube-system services
       - "grafana/*"             # grafana services
+{{ end -}}

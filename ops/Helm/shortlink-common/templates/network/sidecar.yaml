@@ -1,3 +1,4 @@
+{{ if .Capabilities.APIVersions.Has "networking.istio.io/v1beta1" -}}
 apiVersion: networking.istio.io/v1beta1
 kind: Sidecar
 metadata:
@@ -9,3 +10,4 @@ spec:
       - "istio-system/*"   # istio-system services
       - "istio-ingress/*"  # istio-ingress services
       - "grafana/*"        # grafana services
+{{ end -}}
