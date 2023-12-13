@@ -27,8 +27,12 @@ secret:
 # ==============================================================================
 ingress:
   enabled: true
-  # type ingress-controller: istio
-  type: cilium
+  # type ingress-controller: istio, cilium, nginx (default: nginx)
+  ingressClassName: cilium
+  path: /infrastructure.api.rpc.payment.v1.PaymentService/
+  service:
+    name: shortlink-billing
+    port: 50051
 
   istio:
     match:
