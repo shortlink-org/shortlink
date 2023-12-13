@@ -1,4 +1,4 @@
 ## UI boundary
 
-- [UI: README](./ui/nx-monorepo/README.md) - UI for ShortLink
-- [MOBILE: README](./ui/mobile/README.md) - Mobile app for ShortLink
+- [UI: README](./nx-monorepo/README.md) - UI for ShortLink
+- [MOBILE: README](./mobile/README.md) - Mobile app for ShortLink

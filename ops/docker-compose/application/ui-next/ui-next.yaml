@@ -27,7 +27,7 @@ services:
     develop:
       watch:
         - action: rebuild
-          path: ./ui/nx-monorepo/packages/next
+          path: ./internal/boundaries/ui/nx-monorepo/packages/next
     image: ui-next
     container_name: ui-next
     init: true

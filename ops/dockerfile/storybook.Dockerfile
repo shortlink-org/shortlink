@@ -18,7 +18,7 @@ RUN npm config set ignore-scripts false
 WORKDIR /app
 RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
 
-COPY ./ui/nx-monorepo/ ./
+COPY ./internal/boundaries/ui/nx-monorepo/ ./
 
 RUN npm ci --cache .npm --prefer-offline --force
 RUN npx nx run @shortlink-org/ui-kit:build-storybook
@@ -30,7 +30,7 @@ COPY --from=development-builder /app/packages/ui-kit/storybook-static /app/story
 FROM --platform=$BUILDPLATFORM alpine:3.19 AS ci-builder
 FROM --platform=$BUILDPLATFORM ${APP_ENV}-builder AS cache
 
-COPY ./ui/nx-monorepo/packages/ui-kit/storybook-static /app/storybook-static
+COPY ./internal/boundaries/ui/nx-monorepo/packages/ui-kit/storybook-static /app/storybook-static
 
 # Production image, copy all the files and run next
 FROM --platform=$TARGETPLATFORM ghcr.io/nginxinc/nginx-unprivileged:1.25-alpine

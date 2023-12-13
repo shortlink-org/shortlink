@@ -7,7 +7,7 @@ lint:
   allow_failure: true
   artifacts:
     reports:
-      codequality: ./ui/nx-monorepo/gl-codequality.json
+      codequality: ./internal/boundaries/ui/nx-monorepo/gl-codequality.json
     expire_in: 14 days
 
 # LANDINGS =============================================================================================================
@@ -27,8 +27,8 @@ ui:landing:
     when: always
     name: "cypress-${CI_COMMIT_REF_SLUG}"
     paths:
-      # - ./ui/nx-monorepo/packages/landing/cypress/videos/**/*.mp4
-      - ./ui/nx-monorepo/packages/landing/cypress/screenshots/**/*.png
+      # - ./internal/boundaries/ui/nx-monorepo/packages/landing/cypress/videos/**/*.mp4
+      - ./internal/boundaries/ui/nx-monorepo/packages/landing/cypress/screenshots/**/*.png
     expire_in: 14 days
   needs:
     - job: build

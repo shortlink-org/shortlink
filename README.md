@@ -49,23 +49,8 @@ made along with its context and consequences.
 > **Decisions:**
 >  + [main decisions](./docs/ADR/README.md)
 >  + [ops decisions](./ops/docs/ADR/README.md)
->  + [ui](./ui/nx-monorepo/docs/ADR/README.md)
+>  + [ui](./internal/boundaries/ui/nx-monorepo/docs/ADR/README.md)
 
-### Boundaries
-
-| Bounded Context       | Description              | Docs                                                 |
-|-----------------------|--------------------------|------------------------------------------------------|
-| API Gateway           | Gateway for all services | [docs](./internal/boundaries/api/README.md)          |
-| Payment Boundary      | Payment services         | [docs](./internal/boundaries/payment/README.md)      |
-| Notification Boundary | Notification services    | [docs](./internal/boundaries/notification/README.md) |
-| Chat Boundary         | Chat services            | [docs](./internal/boundaries/chat/README.md)         |
-| Extension Boundary    | Extension services       | [docs](./internal/boundaries/extension/README.md)    |
-| ShortDB Boundary      | ShortDB services         | [docs](./internal/boundaries/shortdb/README.md)      |
-| Platform Boundary     | Platform services        | [docs](./internal/boundaries/platform/README.md)     |
-| Link Boundary         | Link services            | [docs](./internal/boundaries/link/README.md)         |
-| Delivery Boundary     | Delivery services        | [docs](./internal/boundaries/delivery/README.md)     |
-| Search Boundary       | Search services          | [docs](./internal/boundaries/search/README.md)       |
-| UI Boundary           | UI services              | [docs](./internal/boundaries/ui/README.md)           |
 
 > [!TIP]
 > ### Contributing

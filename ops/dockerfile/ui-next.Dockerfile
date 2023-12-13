@@ -20,7 +20,7 @@ RUN npm config set ignore-scripts false
 WORKDIR /app
 RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
 
-COPY ./ui/nx-monorepo/ ./
+COPY ./internal/boundaries/ui/nx-monorepo/ ./
 
 RUN npm ci --cache .npm --prefer-offline --force
 RUN npx nx run ui-next:build
@@ -33,7 +33,7 @@ COPY --from=development-builder /app/packages/next/out /app/out
 FROM --platform=$BUILDPLATFORM alpine:3.19 AS ci-builder
 FROM --platform=$BUILDPLATFORM ${APP_ENV}-builder AS cache
 
-COPY ./ui/nx-monorepo/packages/next/out /app/out
+COPY ./internal/boundaries/ui/nx-monorepo/packages/next/out /app/out
 
 # Production image, copy all the files and run next
 FROM --platform=$TARGETPLATFORM ghcr.io/nginxinc/nginx-unprivileged:1.25-alpine
