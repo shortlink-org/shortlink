@@ -3,7 +3,7 @@ name: Publish Package to npmjs
 on:
   push:
     paths:
-      - 'ui/nx-monorepo/packages/ui-kit/**'
+      - 'internal/boundaries/ui/nx-monorepo/packages/ui-kit/**'
     branches:
       - 'main'
 
