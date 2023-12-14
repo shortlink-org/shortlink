@@ -3,12 +3,12 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "build": "NX_BATCH_MODE=true npx nx@next run-many -t build --all --parallel",
-    "build-storybook": "NX_BATCH_MODE=true npx nx@next run-many -t build-storybook --all --parallel",
-    "export": "NX_BATCH_MODE=true npx nx@next run-many -t export --all --parallel",
-    "prettier": "NX_BATCH_MODE=true npx nx@next run-many -t prettier --all --parallel",
-    "lint:fix": "NX_BATCH_MODE=true npx nx@next run-many -t lint:fix --all --parallel",
-    "dev:ui-next": "npx nx@next run ui-next:start:dev"
+    "build": "NX_BATCH_MODE=true npx nx run-many -t build --all --parallel",
+    "build-storybook": "NX_BATCH_MODE=true npx nx run-many -t build-storybook --all --parallel",
+    "export": "NX_BATCH_MODE=true npx nx run-many -t export --all --parallel",
+    "prettier": "NX_BATCH_MODE=true npx nx run-many -t prettier --all --parallel",
+    "lint:fix": "NX_BATCH_MODE=true npx nx run-many -t lint:fix --all --parallel",
+    "dev:ui-next": "npx nx run ui-next:start:dev"
   },
   "private": true,
   "devDependencies": {
