@@ -85,7 +85,6 @@ grafana:
       searchNamespace: ALL
 
   plugins:
-    - grafana-polystat-panel
     - grafana-oncall-app
     - cloudflare-app
     - hamedkarbasi93-kafka-datasource
