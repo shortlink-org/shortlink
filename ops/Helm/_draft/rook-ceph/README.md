@@ -14,8 +14,8 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-template | shortlink-template | 0.8.0 |
-| https://charts.rook.io/release | rook-ceph | v1.12.9 |
+| file://../shortlink-template | shortlink-template | 0.8.1 |
+| https://charts.rook.io/release | rook-ceph | v1.13.0 |
 
 ## Values
 
@@ -140,7 +140,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--path"><a href="./values.yaml#L19">ingress.path</a></td>
+			<td id="ingress--ingressClassName"><a href="./values.yaml#L9">ingress.ingressClassName</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"nginx"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--paths[0]--path"><a href="./values.yaml#L21">ingress.paths[0].path</a></td>
 			<td>
 string
 </td>
@@ -154,7 +168,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--service--name"><a href="./values.yaml#L21">ingress.service.name</a></td>
+			<td id="ingress--paths[0]--service--name"><a href="./values.yaml#L23">ingress.paths[0].service.name</a></td>
 			<td>
 string
 </td>
@@ -168,7 +182,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--service--port"><a href="./values.yaml#L22">ingress.service.port</a></td>
+			<td id="ingress--paths[0]--service--port"><a href="./values.yaml#L24">ingress.paths[0].service.port</a></td>
 			<td>
 int
 </td>
@@ -176,20 +190,6 @@ int
 				<div style="max-width: 300px;">
 <pre lang="json">
 7000
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="ingress--type"><a href="./values.yaml#L9">ingress.type</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"nginx"
 </pre>
 </div>
 			</td>

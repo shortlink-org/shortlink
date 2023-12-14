@@ -22,7 +22,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-template | shortlink-template | 0.8.0 |
+| file://../shortlink-template | shortlink-template | 0.8.1 |
 
 ## Values
 
@@ -35,7 +35,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="deploy--annotations"><a href="./values.yaml#L43">deploy.annotations</a></td>
+			<td id="deploy--annotations"><a href="./values.yaml#L44">deploy.annotations</a></td>
 			<td>
 object
 </td>
@@ -49,7 +49,7 @@ object
 			<td>Annotations to be added to controller pods</td>
 		</tr>
 		<tr>
-			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L51">deploy.image.pullPolicy</a></td>
+			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L52">deploy.image.pullPolicy</a></td>
 			<td>
 string
 </td>
@@ -63,7 +63,7 @@ string
 			<td>Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images</td>
 		</tr>
 		<tr>
-			<td id="deploy--image--repository"><a href="./values.yaml#L46">deploy.image.repository</a></td>
+			<td id="deploy--image--repository"><a href="./values.yaml#L47">deploy.image.repository</a></td>
 			<td>
 string
 </td>
@@ -77,7 +77,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--tag"><a href="./values.yaml#L47">deploy.image.tag</a></td>
+			<td id="deploy--image--tag"><a href="./values.yaml#L48">deploy.image.tag</a></td>
 			<td>
 string
 </td>
@@ -91,7 +91,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--imagePullSecrets"><a href="./values.yaml#L32">deploy.imagePullSecrets</a></td>
+			<td id="deploy--imagePullSecrets"><a href="./values.yaml#L33">deploy.imagePullSecrets</a></td>
 			<td>
 list
 </td>
@@ -105,7 +105,7 @@ list
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--livenessProbe"><a href="./values.yaml#L54">deploy.livenessProbe</a></td>
+			<td id="deploy--livenessProbe"><a href="./values.yaml#L55">deploy.livenessProbe</a></td>
 			<td>
 object
 </td>
@@ -124,7 +124,7 @@ object
 			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--readinessProbe"><a href="./values.yaml#L60">deploy.readinessProbe</a></td>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L61">deploy.readinessProbe</a></td>
 			<td>
 object
 </td>
@@ -143,7 +143,7 @@ object
 			<td>define a readiness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--replicaCount"><a href="./values.yaml#L30">deploy.replicaCount</a></td>
+			<td id="deploy--replicaCount"><a href="./values.yaml#L31">deploy.replicaCount</a></td>
 			<td>
 int
 </td>
@@ -157,7 +157,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--limits--cpu"><a href="./values.yaml#L36">deploy.resources.limits.cpu</a></td>
+			<td id="deploy--resources--limits--cpu"><a href="./values.yaml#L37">deploy.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -171,7 +171,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--limits--memory"><a href="./values.yaml#L37">deploy.resources.limits.memory</a></td>
+			<td id="deploy--resources--limits--memory"><a href="./values.yaml#L38">deploy.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -185,7 +185,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L39">deploy.resources.requests.cpu</a></td>
+			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L40">deploy.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -199,7 +199,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L40">deploy.resources.requests.memory</a></td>
+			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L41">deploy.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -213,7 +213,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--volumes[0]--mountPath"><a href="./values.yaml#L67">deploy.volumes[0].mountPath</a></td>
+			<td id="deploy--volumes[0]--mountPath"><a href="./values.yaml#L68">deploy.volumes[0].mountPath</a></td>
 			<td>
 string
 </td>
@@ -227,7 +227,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--volumes[0]--name"><a href="./values.yaml#L66">deploy.volumes[0].name</a></td>
+			<td id="deploy--volumes[0]--name"><a href="./values.yaml#L67">deploy.volumes[0].name</a></td>
 			<td>
 string
 </td>
@@ -241,7 +241,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--volumes[0]--type"><a href="./values.yaml#L68">deploy.volumes[0].type</a></td>
+			<td id="deploy--volumes[0]--type"><a href="./values.yaml#L69">deploy.volumes[0].type</a></td>
 			<td>
 string
 </td>
@@ -367,49 +367,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--path"><a href="./values.yaml#L23">ingress.path</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"/storybook(/|$)(.*)"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="ingress--service--name"><a href="./values.yaml#L25">ingress.service.name</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"ui-kit"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="ingress--service--port"><a href="./values.yaml#L26">ingress.service.port</a></td>
-			<td>
-int
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-8080
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="ingress--type"><a href="./values.yaml#L13">ingress.type</a></td>
+			<td id="ingress--ingressClassName"><a href="./values.yaml#L13">ingress.ingressClassName</a></td>
 			<td>
 string
 </td>
@@ -423,49 +381,35 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="./values.yaml#L83">monitoring.enabled</a></td>
-			<td>
-bool
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-true
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L88">podDisruptionBudget.enabled</a></td>
-			<td>
-bool
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-false
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="service--ports[0]--name"><a href="./values.yaml#L75">service.ports[0].name</a></td>
+			<td id="ingress--paths[0]--path"><a href="./values.yaml#L24">ingress.paths[0].path</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"http"
+"/storybook(/|$)(.*)"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--port"><a href="./values.yaml#L76">service.ports[0].port</a></td>
+			<td id="ingress--paths[0]--service--name"><a href="./values.yaml#L26">ingress.paths[0].service.name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ui-kit"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--paths[0]--service--port"><a href="./values.yaml#L27">ingress.paths[0].service.port</a></td>
 			<td>
 int
 </td>
@@ -479,21 +423,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--protocol"><a href="./values.yaml#L77">service.ports[0].protocol</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"TCP"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="service--ports[0]--public"><a href="./values.yaml#L78">service.ports[0].public</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L84">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -507,7 +437,77 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--type"><a href="./values.yaml#L73">service.type</a></td>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L89">podDisruptionBudget.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L76">service.ports[0].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L77">service.ports[0].port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+8080
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L78">service.ports[0].protocol</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"TCP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L79">service.ports[0].public</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--type"><a href="./values.yaml#L74">service.type</a></td>
 			<td>
 string
 </td>

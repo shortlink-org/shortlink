@@ -14,7 +14,7 @@ serviceAccount:
 
 ingress:
   enabled: true
-  type: nginx
+  ingressClassName: nginx
   annotations:
     cert-manager.io/cluster-issuer: cert-manager-production
     nginx.ingress.kubernetes.io/enable-modsecurity: "false"
@@ -22,10 +22,11 @@ ingress:
     nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
 
   hostname: shortlink.best
-  path: /ws(/|$)(.*)
-  service:
-    name: shortlink-api-ws
-    port: 7070
+  paths:
+    - path: /ws(/|$)(.*)
+      service:
+        name: shortlink-api-ws
+        port: 7070
 
 # ==============================================================================
 deploy:

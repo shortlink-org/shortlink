@@ -1,12 +1,13 @@
 ingress:
   enabled: true
-  type: nginx
+  ingressClassName: nginx
 
   hostname: teleport.shortlink.best
-  path: /
-  service:
-    name: teleport
-    port: 443
+  paths:
+    - path: /
+      service:
+        name: teleport
+        port: 443
 
 teleport-cluster:
   enabled: true

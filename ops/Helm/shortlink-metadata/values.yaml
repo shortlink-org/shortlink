@@ -29,10 +29,11 @@ ingress:
   enabled: true
   # type ingress-controller: istio
   ingressClassName: cilium
-  path: /infrastructure.rpc.metadata.v1.MetadataService/
-  service:
-    name: shortlink-link
-    port: 50051
+  paths:
+    - path: /infrastructure.rpc.metadata.v1.MetadataService/
+      service:
+        name: shortlink-link
+        port: 50051
 
 
 # ==============================================================================

@@ -37,7 +37,7 @@ rabbitmq-cluster-operator:
 
 ingress:
   enabled: true
-  type: nginx
+  ingressClassName: nginx
   annotations:
     cert-manager.io/cluster-issuer: cert-manager-production
     nginx.ingress.kubernetes.io/enable-modsecurity: "false"
@@ -47,7 +47,8 @@ ingress:
     nginx.ingress.kubernetes.io/use-regex: "true"
 
   hostname: shortlink.best
-  path: /rabbitmq/?(.*)
-  service:
-    name: shortlink
-    port: 15672
+  paths:
+    - path: /rabbitmq/?(.*)
+      service:
+        name: shortlink
+        port: 15672

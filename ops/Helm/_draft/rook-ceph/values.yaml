@@ -6,7 +6,7 @@ rook-ceph:
 
 ingress:
   enabled: true
-  type: nginx
+  ingressClassName: nginx
   annotations:
     cert-manager.io/cluster-issuer: cert-manager-production
     nginx.ingress.kubernetes.io/enable-modsecurity: "false"
@@ -16,7 +16,9 @@ ingress:
     nginx.ingress.kubernetes.io/use-regex: "true"
 
   hostname: shortlink.best
-  path: /ceph-dashboard(/|$)(.*)
-  service:
-    name: rook-ceph-mgr-dashboard
-    port: 7000
+
+  paths:
+    - path: /ceph-dashboard(/|$)(.*)
+      service:
+        name: rook-ceph-mgr-dashboard
+        port: 7000

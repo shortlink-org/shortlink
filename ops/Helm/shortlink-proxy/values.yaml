@@ -27,7 +27,7 @@ secret:
 # ==============================================================================
 ingress:
   enabled: true
-  type: nginx
+  ingressClassName: nginx
   annotations:
     cert-manager.io/cluster-issuer: cert-manager-production
     nginx.ingress.kubernetes.io/enable-modsecurity: "false"
@@ -37,10 +37,11 @@ ingress:
     nginx.ingress.kubernetes.io/use-regex: "true"
 
   hostname: shortlink.best
-  path: /s(/|$)(.*)
-  service:
-    name: shortlink-proxy
-    port: 3020
+  paths:
+    - path: /s(/|$)(.*)
+      service:
+        name: shortlink-proxy
+        port: 3020
 
 # ==============================================================================
 deploy:

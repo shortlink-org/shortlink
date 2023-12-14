@@ -22,7 +22,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-template | shortlink-template | 0.8.0 |
+| file://../shortlink-template | shortlink-template | 0.8.1 |
 
 ## Values
 
@@ -415,7 +415,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--path"><a href="./values.yaml#L25">ingress.path</a></td>
+			<td id="ingress--ingressClassName"><a href="./values.yaml#L13">ingress.ingressClassName</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"nginx"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--paths[0]--path"><a href="./values.yaml#L22">ingress.paths[0].path</a></td>
 			<td>
 string
 </td>
@@ -429,7 +443,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--service--name"><a href="./values.yaml#L22">ingress.service.name</a></td>
+			<td id="ingress--paths[0]--service--name"><a href="./values.yaml#L24">ingress.paths[0].service.name</a></td>
 			<td>
 string
 </td>
@@ -443,7 +457,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--service--port"><a href="./values.yaml#L23">ingress.service.port</a></td>
+			<td id="ingress--paths[0]--service--port"><a href="./values.yaml#L25">ingress.paths[0].service.port</a></td>
 			<td>
 int
 </td>
@@ -479,20 +493,6 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "backstage-tls"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="ingress--type"><a href="./values.yaml#L13">ingress.type</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"nginx"
 </pre>
 </div>
 			</td>
