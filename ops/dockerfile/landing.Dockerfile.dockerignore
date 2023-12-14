@@ -5,10 +5,9 @@ ds
 internal
 ops
 pkg
-ui
 *.yml
 
 # Exclude
-!ui/nx-monorepo
+!internal/boundaries/ui/nx-monorepo
 !ops/dockerfile/conf/ui.local
 !ops/docker-compose/gateway/nginx

@@ -9,6 +9,6 @@ ui
 *.yml
 
 # Exclude
-!ui/nx-monorepo
+!internal/boundaries/ui/nx-monorepo
 !ops/dockerfile/conf/nextjs.local
 !ops/docker-compose/gateway/nginx
