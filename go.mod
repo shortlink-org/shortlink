@@ -38,7 +38,7 @@ require (
 	github.com/jackc/pgx/v5 v5.5.1
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a
 	github.com/lib/pq v1.10.9
-	github.com/mattn/go-sqlite3 v1.14.18
+	github.com/mattn/go-sqlite3 v1.14.19
 	github.com/nats-io/nats.go v1.31.0
 	github.com/neo4j/neo4j-go-driver/v5 v5.15.0
 	github.com/ory/client-go v1.4.6
