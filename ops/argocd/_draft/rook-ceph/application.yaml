@@ -41,7 +41,3 @@ spec:
       kind: ClusterPolicy
       jqPathExpressions:
         - .spec.rules[] | select(.name|test("autogen-."))
-    - group: *
-      kind: *
-      labels:
-        istio.io/config: 'true'

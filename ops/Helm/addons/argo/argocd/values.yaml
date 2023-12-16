@@ -270,6 +270,14 @@ argo-cd:
         # disables status field diffing in specified resource types
         ignoreAggregatedRoles: true
 
+      resource.exclusions: |
+        - apiGroups:
+            - cilium.io
+          kinds:
+            - CiliumIdentity
+          clusters:
+            - "*"
+
     repositories:
       shortlink:
         url: https://github.com/shortlink-org/shortlink

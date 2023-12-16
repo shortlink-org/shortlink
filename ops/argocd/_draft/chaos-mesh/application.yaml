@@ -35,10 +35,6 @@ spec:
         maxDuration: 3m0s
         factor: 2
   ignoreDifferences:
-    - group: istio.io
-      kind: ClusterPolicy
-      jqPathExpressions:
-        - .spec.rules[] | select(.name|test("autogen-."))
     - group: kyverno.io
       kind: ClusterPolicy
       jqPathExpressions:
