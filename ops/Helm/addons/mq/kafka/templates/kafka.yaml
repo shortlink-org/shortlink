@@ -11,8 +11,8 @@ spec:
         port: 9092
         type: internal
         tls: false
-        configuration:
-          useServiceDnsDomain: true
+        #configuration:
+        #  useServiceDnsDomain: true
       - name: tls
         port: 9093
         type: internal
@@ -33,12 +33,12 @@ spec:
       limits:
         memory: 2Gi
         cpu: 1000m
-    metricsConfig:
-      type: jmxPrometheusExporter
-      valueFrom:
-        configMapKeyRef:
-          name: kafka-metrics
-          key: kafka-metrics-config.yml
+    # metricsConfig:
+    #  type: jmxPrometheusExporter
+    #  valueFrom:
+    #    configMapKeyRef:
+    #      name: kafka-metrics
+    #      key: kafka-metrics-config.yml
   zookeeper:
     replicas: 3
     storage:
