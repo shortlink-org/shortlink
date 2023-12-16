@@ -10,7 +10,7 @@ spec:
   rules:
     - matches:
         - method:
-            service: /infrastructure.rpc.link.v1.LinkService/
+            service: infrastructure.rpc.link.v1.LinkService
       backendRefs:
         - name: shortlink-link
           port: 50051
