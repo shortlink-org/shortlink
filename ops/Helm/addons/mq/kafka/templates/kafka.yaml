@@ -41,10 +41,6 @@ spec:
           key: kafka-metrics-config.yml
   zookeeper:
     replicas: 3
-    template:
-      pod:
-        metadata:
-          labels: {}
     storage:
       type: ephemeral
     resources:
