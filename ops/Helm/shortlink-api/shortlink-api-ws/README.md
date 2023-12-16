@@ -56,7 +56,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"istio-ingress.istio-ingress.svc.cluster.local"
+"internal-gateway.shortlink"
 </pre>
 </div>
 			</td>

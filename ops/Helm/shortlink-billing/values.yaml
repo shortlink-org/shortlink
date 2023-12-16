@@ -52,7 +52,7 @@ deploy:
     MQ_TYPE: "kafka"
     MQ_KAFKA_URI: "shortlink-kafka-bootstrap.kafka:9092"
     TRACER_URI: grafana-tempo.grafana:4317
-    GRPC_CLIENT_HOST: istio-ingress.istio-ingress
+    GRPC_CLIENT_HOST: internal-gateway.shortlink
 
     # -- Default store config
     STORE_TYPE: postgres

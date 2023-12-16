@@ -13,7 +13,7 @@ deploy:
 
   env:
     TRACER_URI: grafana-tempo.grafana:4317
-    GRPC_CLIENT_HOST: istio-ingress.istio-ingress
+    GRPC_CLIENT_HOST: internal-gateway.shortlink
 
   imagePullSecrets: []
 
