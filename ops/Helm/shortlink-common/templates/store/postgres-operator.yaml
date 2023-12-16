@@ -97,7 +97,7 @@ spec:
           # Partitioning
           enable_partition_pruning: 'on'
           # other settings
-          shared_preload_libraries: pgaudit,auto_explain,pg_stat_statements,timescaledb,pg_prewarm,uuid-ossp,pg_partman_bgw
+          shared_preload_libraries: pgaudit,auto_explain,pg_stat_statements,pg_prewarm,uuid-ossp,pg_partman_bgw
   users:
     - name: admin
       databases:

@@ -64,7 +64,7 @@ spec:
           max_parallel_workers: 8
           max_parallel_maintenance_workers: 4
           # other settings
-          shared_preload_libraries: pgaudit,auto_explain,pg_stat_statements,timescaledb,pg_prewarm,uuid-ossp
+          shared_preload_libraries: pgaudit,auto_explain,pg_stat_statements,pg_prewarm,uuid-ossp
   users:
     - name: admin
       databases:
