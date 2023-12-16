@@ -7,6 +7,7 @@ strimzi-kafka-operator:
 
   watchNamespaces:
     - shortlink
+    - kafka
   watchAnyNamespace: true
 
   createAggregateRoles: true
