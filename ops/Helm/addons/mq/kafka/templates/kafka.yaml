@@ -40,7 +40,7 @@ spec:
           name: kafka-metrics
           key: kafka-metrics-config.yml
   zookeeper:
-    replicas: 3
+    replicas: 1
     storage:
       type: ephemeral
     resources:
