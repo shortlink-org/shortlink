@@ -98,6 +98,8 @@ spec:
           enable_partition_pruning: 'on'
           # other settings
           shared_preload_libraries: pgaudit,auto_explain,pg_stat_statements,pg_prewarm,uuid-ossp,pg_partman_bgw
+    syncPeriodSeconds: 60
+    leaderLeaseDurationSeconds: 300
   users:
     - name: admin
       databases:
