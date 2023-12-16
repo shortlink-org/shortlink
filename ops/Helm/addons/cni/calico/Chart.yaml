@@ -21,6 +21,6 @@ type: application
 deprecated: false
 dependencies:
   - name: tigera-operator
-    version: v3.26.4
+    version: v3.27.0
     repository: https://docs.tigera.io/calico/charts
     condition: tigera-operator.enabled
