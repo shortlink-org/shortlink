@@ -5,13 +5,11 @@ metadata:
 spec:
   postgresVersion: 16
   metadata:
-    annotations:
-      sidecar.istio.io/inject: "false"
+    annotations: {}
   instances:
     - name: spicedb
       metadata:
-        annotations:
-          sidecar.istio.io/inject: "false"
+        annotations: {}
       dataVolumeClaimSpec:
         storageClassName: local-path
         accessModes:
@@ -28,8 +26,7 @@ spec:
   backups:
     pgbackrest:
       metadata:
-        annotations:
-          sidecar.istio.io/inject: "false"
+        annotations: {}
       repos:
         - name: repo1
           volume:

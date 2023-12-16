@@ -44,8 +44,7 @@ spec:
     template:
       pod:
         metadata:
-          labels:
-            sidecar.istio.io/inject: "false"
+          labels: {}
     storage:
       type: ephemeral
     resources:
