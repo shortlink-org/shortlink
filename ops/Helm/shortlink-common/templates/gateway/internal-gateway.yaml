@@ -3,7 +3,7 @@ kind: Gateway
 metadata:
   name: internal-gateway
 spec:
-  gatewayClassName: istio
+  gatewayClassName: cilium
   listeners:
     - name: grpc
       hostname: "*.shortlink"
@@ -16,4 +16,4 @@ spec:
             name: internal-gateway-cert
       allowedRoutes:
         namespaces:
-          from: Same
+          from: shortlink
