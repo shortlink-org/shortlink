@@ -40,7 +40,7 @@ spec:
           name: kafka-metrics
           key: kafka-metrics-config.yml
   zookeeper:
-    replicas: 1
+    replicas: 3
     storage:
       type: ephemeral
     resources:
@@ -50,12 +50,12 @@ spec:
       limits:
         memory: 2Gi
         cpu: 1000m
-    metricsConfig:
-      type: jmxPrometheusExporter
-      valueFrom:
-        configMapKeyRef:
-          name: kafka-metrics
-          key: zookeeper-metrics-config.yml
+    # metricsConfig:
+    #  type: jmxPrometheusExporter
+    #  valueFrom:
+    #    configMapKeyRef:
+    #      name: kafka-metrics
+    #      key: zookeeper-metrics-config.yml
   entityOperator:
     topicOperator: {}
     userOperator: {}
