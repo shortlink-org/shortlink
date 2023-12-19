@@ -43,7 +43,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
   -trimpath \
   -o app ./internal/boundaries/shortdb/shortdb/cli
 
-FROM --platform=$TARGETPLATFORM debian:12.2
+FROM --platform=$TARGETPLATFORM debian:12.4
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortdb"
