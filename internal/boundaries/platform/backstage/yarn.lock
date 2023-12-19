@@ -4149,15 +4149,16 @@
     qs "^6.9.4"
     react-use "^17.2.4"
 
-"@backstage/plugin-tech-radar@^0.6.10":
-  version "0.6.10"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-tech-radar/-/plugin-tech-radar-0.6.10.tgz#28c7b702046c659410f0b7fd5fdbfa731333e7ae"
-  integrity sha512-TUOSmMCxuuoauw3wCmDvTJ+3cwriMPX7K3gUjXncL4r1ZSivnhwDfuPgkKe+Z1b3c6xgSHB0Mbyd3Yhq4LizYQ==
+"@backstage/plugin-tech-radar@^0.6.11":
+  version "0.6.11"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-tech-radar/-/plugin-tech-radar-0.6.11.tgz#eff64845e9ffeb7ef181b675cbbd036ec8d57fa7"
+  integrity sha512-hYToaBIseBBfveEcIUaaURVAibq11r9RWnPLQP1pzEVfRrbFAfG9KC9Tz2xqny1+YtMgTz8GWygyK92uYZrrMQ==
   dependencies:
-    "@backstage/core-components" "^0.13.8"
-    "@backstage/core-plugin-api" "^1.8.0"
-    "@backstage/frontend-plugin-api" "^0.3.0"
-    "@backstage/theme" "^0.4.4"
+    "@backstage/core-compat-api" "^0.1.0"
+    "@backstage/core-components" "^0.13.9"
+    "@backstage/core-plugin-api" "^1.8.1"
+    "@backstage/frontend-plugin-api" "^0.4.0"
+    "@backstage/theme" "^0.5.0"
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
     "@material-ui/lab" "4.0.0-alpha.61"
