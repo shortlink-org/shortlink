@@ -3454,6 +3454,20 @@
     lodash "^4.17.21"
     luxon "^3.0.0"
 
+"@backstage/plugin-kubernetes-common@^0.7.2":
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes-common/-/plugin-kubernetes-common-0.7.2.tgz#fd0398e06f63dcef56a08665718e67528e7c6216"
+  integrity sha512-PCpD1R/N7ilVbVIdduNtcT72diNoZVltevwKWclj7sPZ3U/FFFUuilZqMpoEitj71zL+ZKQwhY9Vpd3OJYgNaA==
+  dependencies:
+    "@backstage/catalog-model" "^1.4.3"
+    "@backstage/errors" "^1.2.3"
+    "@backstage/plugin-permission-common" "^0.7.11"
+    "@backstage/types" "^1.1.1"
+    "@kubernetes/client-node" "0.20.0"
+    kubernetes-models "^4.3.1"
+    lodash "^4.17.21"
+    luxon "^3.0.0"
+
 "@backstage/plugin-kubernetes-node@^0.1.1":
   version "0.1.1"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes-node/-/plugin-kubernetes-node-0.1.1.tgz#e5f81b1e267dfc9a33c056e91c2007edc3b6c3fa"
@@ -3463,20 +3477,20 @@
     "@backstage/catalog-model" "^1.4.3"
     "@backstage/plugin-kubernetes-common" "^0.7.1"
 
-"@backstage/plugin-kubernetes-react@^0.1.1":
-  version "0.1.1"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes-react/-/plugin-kubernetes-react-0.1.1.tgz#bda51396c220353cacaa7ace95e66b737d94c64a"
-  integrity sha512-5B9vVckPxmrk9pV+HhoyEUpE6SQwIMa1I1j7cKsKi3Cyr5ceylXmeaYD2I3xeAkb02wBOpfn8wv7pT+pugkFAQ==
+"@backstage/plugin-kubernetes-react@^0.2.0":
+  version "0.2.0"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes-react/-/plugin-kubernetes-react-0.2.0.tgz#b4a770512e2b955ff4ac4cd7db0a623268820aad"
+  integrity sha512-aLUzI01pU2ffX4q6YWQpY28m+WR0LzpCu08lW9S45tmlmToEZ5hL3wN/yBgUGLdwIZPBZK1bkQsvqhAlNQifvw==
   dependencies:
     "@backstage/catalog-model" "^1.4.3"
-    "@backstage/core-components" "^0.13.8"
-    "@backstage/core-plugin-api" "^1.8.0"
+    "@backstage/core-components" "^0.13.9"
+    "@backstage/core-plugin-api" "^1.8.1"
     "@backstage/errors" "^1.2.3"
-    "@backstage/plugin-kubernetes-common" "^0.7.1"
+    "@backstage/plugin-kubernetes-common" "^0.7.2"
     "@backstage/types" "^1.1.1"
     "@kubernetes-models/apimachinery" "^1.1.0"
     "@kubernetes-models/base" "^4.0.1"
-    "@kubernetes/client-node" "^0.19.0"
+    "@kubernetes/client-node" "^0.20.0"
     "@material-ui/core" "^4.9.13"
     "@material-ui/icons" "^4.11.3"
     "@material-ui/lab" "^4.0.0-alpha.61"
@@ -3491,24 +3505,24 @@
     xterm-addon-attach "^0.9.0"
     xterm-addon-fit "^0.8.0"
 
-"@backstage/plugin-kubernetes@^0.11.2":
-  version "0.11.2"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes/-/plugin-kubernetes-0.11.2.tgz#2436f89f6a3117f1cc2d1556613973cb66cd00e9"
-  integrity sha512-z7F1zVpOG36USYyRCDKrKCesAwIPUDqILy6GQYEtg0rjBOmO7IMR2TXp3aYrt3oyplsJivyiK7umWJ6KSwUyHg==
+"@backstage/plugin-kubernetes@^0.11.3":
+  version "0.11.3"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-kubernetes/-/plugin-kubernetes-0.11.3.tgz#6de3a4ef585f9bacecb9c4787ceb469512acac79"
+  integrity sha512-cg+wFgOrmtuhEWOZxzb3DdjNWRvh+j3+nZ87ku1QKer1ltz1bYSRrgCJCnQs9Yq4c2EXXHnv8jLMCXT8T0GCzQ==
   dependencies:
     "@backstage/catalog-model" "^1.4.3"
     "@backstage/config" "^1.1.1"
-    "@backstage/core-components" "^0.13.8"
-    "@backstage/core-plugin-api" "^1.8.0"
+    "@backstage/core-components" "^0.13.9"
+    "@backstage/core-plugin-api" "^1.8.1"
     "@backstage/errors" "^1.2.3"
-    "@backstage/plugin-catalog-react" "^1.9.1"
-    "@backstage/plugin-kubernetes-common" "^0.7.1"
-    "@backstage/plugin-kubernetes-react" "^0.1.1"
-    "@backstage/theme" "^0.4.4"
+    "@backstage/plugin-catalog-react" "^1.9.2"
+    "@backstage/plugin-kubernetes-common" "^0.7.2"
+    "@backstage/plugin-kubernetes-react" "^0.2.0"
+    "@backstage/theme" "^0.5.0"
     "@backstage/types" "^1.1.1"
     "@kubernetes-models/apimachinery" "^1.1.0"
     "@kubernetes-models/base" "^4.0.1"
-    "@kubernetes/client-node" "0.19.0"
+    "@kubernetes/client-node" "0.20.0"
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
     "@material-ui/lab" "4.0.0-alpha.61"
@@ -5613,7 +5627,7 @@
     ajv-formats-draft2019 "^1.6.1"
     tslib "^2.4.0"
 
-"@kubernetes/client-node@0.19.0", "@kubernetes/client-node@^0.19.0":
+"@kubernetes/client-node@0.19.0":
   version "0.19.0"
   resolved "https://registry.yarnpkg.com/@kubernetes/client-node/-/client-node-0.19.0.tgz#ebd2121e5c8dc1a47ff1b2574bda1e760d0abb82"
   integrity sha512-WTOjGuFQ8yeW3+qD6JrAYhpwpoQbe9R8cA/61WCyFrNawSTUgLstHu7EsZRYEs39er3jDn3wCEaczz+VOFlc2Q==
@@ -5635,7 +5649,7 @@
   optionalDependencies:
     openid-client "^5.3.0"
 
-"@kubernetes/client-node@0.20.0":
+"@kubernetes/client-node@0.20.0", "@kubernetes/client-node@^0.20.0":
   version "0.20.0"
   resolved "https://registry.yarnpkg.com/@kubernetes/client-node/-/client-node-0.20.0.tgz#4447ae27fd6eef3d4830a5a039f3b84ffd5c5913"
   integrity sha512-xxlv5GLX4FVR/dDKEsmi4SPeuB49aRc35stndyxcC73XnUEEwF39vXbROpHOirmDse8WE9vxOjABnSVS+jb7EA==
