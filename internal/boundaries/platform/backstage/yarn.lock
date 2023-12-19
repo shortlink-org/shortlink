@@ -2255,19 +2255,33 @@
     semver "^7.5.3"
     zod "^3.21.4"
 
-"@backstage/cli@^0.25.0-next.3":
-  version "0.25.0-next.3"
-  resolved "https://registry.yarnpkg.com/@backstage/cli/-/cli-0.25.0-next.3.tgz#55d13f6bc786d5fdf7fe61f11089ab812fd59078"
-  integrity sha512-XykXQ2TpY55xOMtbMO+b6txxABxOOuoYa8yWlugkN8Ck5+lTd+vtwMaha2gcL32NGfsYJewifBVVjs36lVs5IQ==
+"@backstage/cli-node@^0.2.1":
+  version "0.2.1"
+  resolved "https://registry.yarnpkg.com/@backstage/cli-node/-/cli-node-0.2.1.tgz#7e7da0d6f3471e6843c55b547694def7dce9ee4a"
+  integrity sha512-S67miZbAjVVlQrLyc0hyci4grtSFcnh25Hg9XkPKs28bYEXFC6d0246sl0gpSG9+EMO2TdVQezwVfV3pZn/41w==
+  dependencies:
+    "@backstage/cli-common" "^0.1.13"
+    "@backstage/errors" "^1.2.3"
+    "@backstage/types" "^1.1.1"
+    "@manypkg/get-packages" "^1.1.3"
+    "@yarnpkg/parsers" "^3.0.0-rc.4"
+    fs-extra "10.1.0"
+    semver "^7.5.3"
+    zod "^3.22.4"
+
+"@backstage/cli@^0.25.0":
+  version "0.25.0"
+  resolved "https://registry.yarnpkg.com/@backstage/cli/-/cli-0.25.0.tgz#a68af4bda6059086e299a04025f935f6549950e7"
+  integrity sha512-2HJR6Q+N9X9GBI65hjAeuFba9b7SCwYws8T6EHjpWnmJWnJsgxwXmPEGpjEed9YJFOrgjIpel5ndm2KnbnhsTg==
   dependencies:
     "@backstage/catalog-model" "^1.4.3"
     "@backstage/cli-common" "^0.1.13"
-    "@backstage/cli-node" "^0.2.0"
+    "@backstage/cli-node" "^0.2.1"
     "@backstage/config" "^1.1.1"
-    "@backstage/config-loader" "^1.6.0-next.0"
+    "@backstage/config-loader" "^1.6.0"
     "@backstage/errors" "^1.2.3"
-    "@backstage/eslint-plugin" "^0.1.4-next.0"
-    "@backstage/integration" "^1.8.0-next.1"
+    "@backstage/eslint-plugin" "^0.1.4"
+    "@backstage/integration" "^1.8.0"
     "@backstage/release-manifests" "^0.0.11"
     "@backstage/types" "^1.1.1"
     "@manypkg/get-packages" "^1.1.3"
@@ -2368,7 +2382,7 @@
     yaml "^2.0.0"
     yml-loader "^2.1.0"
     yn "^4.0.0"
-    zod "^3.21.4"
+    zod "^3.22.4"
 
 "@backstage/config-loader@^1.5.3":
   version "1.5.3"
@@ -2392,10 +2406,10 @@
     typescript-json-schema "^0.62.0"
     yaml "^2.0.0"
 
-"@backstage/config-loader@^1.6.0-next.0":
-  version "1.6.0-next.0"
-  resolved "https://registry.yarnpkg.com/@backstage/config-loader/-/config-loader-1.6.0-next.0.tgz#706172f6a9ca9768df91b21365ee38ba1c0a5dab"
-  integrity sha512-UmDWqOPhttT3QLqC1jCpEIbjWcYKw8Guh/W1iyp2oYZIPNCsS6Ymgy2tQKG0YOx+AkRNjqKDuVTDciaolVelpQ==
+"@backstage/config-loader@^1.6.0":
+  version "1.6.0"
+  resolved "https://registry.yarnpkg.com/@backstage/config-loader/-/config-loader-1.6.0.tgz#f3486f099923838620f7e557753e0180a05cc955"
+  integrity sha512-T8knDbAJYdTqvXqXwyzRQiKQwjeBasy5I7wgKCCzM7xuZSswN6C2Y7Ljx0qmdVHejKclVxXpiUq5uRB9b0IVjg==
   dependencies:
     "@backstage/cli-common" "^0.1.13"
     "@backstage/config" "^1.1.1"
@@ -2509,10 +2523,10 @@
     "@backstage/types" "^1.1.1"
     serialize-error "^8.0.1"
 
-"@backstage/eslint-plugin@^0.1.4-next.0":
-  version "0.1.4-next.0"
-  resolved "https://registry.yarnpkg.com/@backstage/eslint-plugin/-/eslint-plugin-0.1.4-next.0.tgz#aef024a0f9d6f1d2df83ea9de62c865417811f66"
-  integrity sha512-Q1nHzWWg47Ibha2GJLgXEBiZLwOiJJapP/KSj8ySbOuX+bDTjffFxcw9ad6MBLf4/6CWRKkn28bZj48NEtUyIQ==
+"@backstage/eslint-plugin@^0.1.4":
+  version "0.1.4"
+  resolved "https://registry.yarnpkg.com/@backstage/eslint-plugin/-/eslint-plugin-0.1.4.tgz#7504ed126fbdb97777c94df5072960470ece2949"
+  integrity sha512-y2Cu6n+vObrIDWM4mk7+JPQ+Hjv1/60qGoonCrScQEFFQal3nyjSeWFm+V+YlXYhyW65KR8J0rUiyAOLbDzahw==
   dependencies:
     "@manypkg/get-packages" "^1.1.3"
     minimatch "^5.1.2"
@@ -2571,10 +2585,10 @@
     lodash "^4.17.21"
     luxon "^3.0.0"
 
-"@backstage/integration@^1.8.0-next.1":
-  version "1.8.0-next.1"
-  resolved "https://registry.yarnpkg.com/@backstage/integration/-/integration-1.8.0-next.1.tgz#a2a99ca9e6b3cdcdae028b346a561840fe0d04b1"
-  integrity sha512-ND8aofkoqrn12p1M9d4XA0d5gOP3Dcib7gBK6Off0Lvi/0rTJgri0kfYgXUJ5qBk/0Yj1+GJnSgZgNt2MdXSBw==
+"@backstage/integration@^1.8.0":
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/@backstage/integration/-/integration-1.8.0.tgz#affc54e1c12c5a4e68a92de4e42c6cf001bdf6ec"
+  integrity sha512-FCFOubvpKK2dt38sNATrImHrS0pkmvS2LPzvLQ01JzRy5F/QxsdRGxJmzB9irpLOUh7F3/Ilr7cBdG5nYyYVOA==
   dependencies:
     "@azure/identity" "^4.0.0"
     "@backstage/config" "^1.1.1"
@@ -24139,7 +24153,7 @@ zod-to-json-schema@^3.20.4, zod-to-json-schema@^3.21.4:
   resolved "https://registry.yarnpkg.com/zod-to-json-schema/-/zod-to-json-schema-3.22.2.tgz#085b3c84887933d756727d53c11b5b46125bf30e"
   integrity sha512-y21A75dhLD674m5eO7rF16Wqvk4sIxbBYeguBt49yA0ttndDkbQtMAYOxSO2U563wjxIAucGKMjTR5UnzHyYMw==
 
-zod@^3.21.4:
+zod@^3.21.4, zod@^3.22.4:
   version "3.22.4"
   resolved "https://registry.yarnpkg.com/zod/-/zod-3.22.4.tgz#f31c3a9386f61b1f228af56faa9255e845cf3fff"
   integrity sha512-iC+8Io04lddc+mVqQ9AZ7OQ2MrUKGN+oIQyq1vemgt46jwCwLfhq7/pwnBnNXXXZb8VTVLKwp9EDkx+ryxIWmg==
