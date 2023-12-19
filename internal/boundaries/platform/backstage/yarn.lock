@@ -3377,38 +3377,6 @@
     yaml "^2.0.0"
     zen-observable "^0.10.0"
 
-"@backstage/plugin-catalog@^1.15.1":
-  version "1.15.1"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog/-/plugin-catalog-1.15.1.tgz#1d06c66ffd45844122818c14abda265eb6467a86"
-  integrity sha512-jvdUu9eZ+Y2R0Qp+QA862f82Jck6N2M90rkk3/4I7eGPZWsQNh0WIX9Yn6yBRLEJVz3xpd6oQYCZQ+8G9V8Tvg==
-  dependencies:
-    "@backstage/catalog-client" "^1.4.6"
-    "@backstage/catalog-model" "^1.4.3"
-    "@backstage/core-components" "^0.13.8"
-    "@backstage/core-plugin-api" "^1.8.0"
-    "@backstage/errors" "^1.2.3"
-    "@backstage/frontend-plugin-api" "^0.3.0"
-    "@backstage/integration-react" "^1.1.21"
-    "@backstage/plugin-catalog-common" "^1.0.18"
-    "@backstage/plugin-catalog-react" "^1.9.1"
-    "@backstage/plugin-scaffolder-common" "^1.4.3"
-    "@backstage/plugin-search-common" "^1.2.8"
-    "@backstage/plugin-search-react" "^1.7.3"
-    "@backstage/theme" "^0.4.4"
-    "@backstage/types" "^1.1.1"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.61"
-    "@mui/utils" "^5.14.15"
-    "@types/react" "^16.13.1 || ^17.0.0"
-    dataloader "^2.0.0"
-    expiry-map "^2.0.0"
-    history "^5.0.0"
-    lodash "^4.17.21"
-    pluralize "^8.0.0"
-    react-use "^17.2.4"
-    zen-observable "^0.10.0"
-
 "@backstage/plugin-catalog@^1.16.0":
   version "1.16.0"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog/-/plugin-catalog-1.16.0.tgz#701cc2caf06844ff9ab7f37c64f05660b2fae8a8"
@@ -4079,26 +4047,6 @@
   dependencies:
     "@backstage/plugin-permission-common" "^0.7.11"
     "@backstage/types" "^1.1.1"
-
-"@backstage/plugin-search-react@^1.7.3":
-  version "1.7.3"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-search-react/-/plugin-search-react-1.7.3.tgz#2c3f9086c741939a5edbb3a4071308ea2acacc60"
-  integrity sha512-zTfKWpATdbGR/RwNapxTlDea5Efq39b4f5FK9wswJCpWbZk9+cl7aKkyB5qozU+Evm7HF1nnZ8XRGa5hdLEQ3Q==
-  dependencies:
-    "@backstage/core-components" "^0.13.8"
-    "@backstage/core-plugin-api" "^1.8.0"
-    "@backstage/frontend-plugin-api" "^0.3.0"
-    "@backstage/plugin-search-common" "^1.2.8"
-    "@backstage/theme" "^0.4.4"
-    "@backstage/types" "^1.1.1"
-    "@backstage/version-bridge" "^1.0.7"
-    "@material-ui/core" "^4.12.2"
-    "@material-ui/icons" "^4.9.1"
-    "@material-ui/lab" "4.0.0-alpha.61"
-    "@types/react" "^16.13.1 || ^17.0.0"
-    lodash "^4.17.21"
-    qs "^6.9.4"
-    react-use "^17.3.2"
 
 "@backstage/plugin-search-react@^1.7.4":
   version "1.7.4"
