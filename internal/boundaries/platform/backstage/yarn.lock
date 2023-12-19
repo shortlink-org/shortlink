@@ -2920,6 +2920,15 @@
     "@backstage/plugin-permission-common" "^0.7.10"
     "@backstage/plugin-search-common" "^1.2.8"
 
+"@backstage/plugin-catalog-common@^1.0.19":
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-common/-/plugin-catalog-common-1.0.19.tgz#ebbc6c46a1234db8f4d8a43bdf13559d462a8b51"
+  integrity sha512-Q8Wrber/sUg8Y62KovKH99TfdQT2ss67Z49jSxegXFZr8hquaAv58HUPfuZHuKKj8LZ+f6n7LfKJCXUS6rAShA==
+  dependencies:
+    "@backstage/catalog-model" "^1.4.3"
+    "@backstage/plugin-permission-common" "^0.7.11"
+    "@backstage/plugin-search-common" "^1.2.9"
+
 "@backstage/plugin-catalog-graph@^0.3.1":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@backstage/plugin-catalog-graph/-/plugin-catalog-graph-0.3.1.tgz#ab13d44afe8ef3803203f4f84ea67f2a7e2245eb"
@@ -3613,6 +3622,14 @@
   integrity sha512-bUg8NFFkEC6sRMkqzj4y1MkDRAgHnCTBFsqby2bjPv5WLDmSd5z9dtxCL4NGn2QOlYaHAKH7sYyLvWSq5yUstg==
   dependencies:
     "@backstage/plugin-permission-common" "^0.7.10"
+    "@backstage/types" "^1.1.1"
+
+"@backstage/plugin-search-common@^1.2.9":
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-search-common/-/plugin-search-common-1.2.9.tgz#b9672435c88057a8721d12194a1dc8883dd6cc18"
+  integrity sha512-0DpFkHf9hO/13aM/C9Kh/CI9PqS7o/C0bpL/R+1PzQBSXyoiLLoXwjBJd8H+gLfCY0b6xCGDXdzc6Bkgx/X/2Q==
+  dependencies:
+    "@backstage/plugin-permission-common" "^0.7.11"
     "@backstage/types" "^1.1.1"
 
 "@backstage/plugin-search-react@^1.7.3":
