@@ -2595,25 +2595,6 @@
     "@backstage/types" "^1.1.1"
     lodash "^4.17.21"
 
-"@backstage/core-app-api@^1.11.1":
-  version "1.11.1"
-  resolved "https://registry.yarnpkg.com/@backstage/core-app-api/-/core-app-api-1.11.1.tgz#21584a43cf7bc80171b8f03a3c0db80b1adef424"
-  integrity sha512-BtYilKoiAnyPjTBZ/LuBIU+nopuleAG/KqfDB36cQ5zAC5cNd2xpXw9NlCQcxJnMV1MjsiqHrfK2lb1S1owXpQ==
-  dependencies:
-    "@backstage/config" "^1.1.1"
-    "@backstage/core-plugin-api" "^1.8.0"
-    "@backstage/types" "^1.1.1"
-    "@backstage/version-bridge" "^1.0.7"
-    "@types/prop-types" "^15.7.3"
-    "@types/react" "^16.13.1 || ^17.0.0"
-    history "^5.0.0"
-    i18next "^22.4.15"
-    lodash "^4.17.21"
-    prop-types "^15.7.2"
-    react-use "^17.2.4"
-    zen-observable "^0.10.0"
-    zod "^3.21.4"
-
 "@backstage/core-app-api@^1.11.2":
   version "1.11.2"
   resolved "https://registry.yarnpkg.com/@backstage/core-app-api/-/core-app-api-1.11.2.tgz#02e0f697b7594854a5c0c32e8f2d973971107590"
@@ -4251,18 +4232,19 @@
     "@types/react" "^16.13.1 || ^17.0.0"
     react-use "^17.2.4"
 
-"@backstage/plugin-user-settings@^0.7.13":
-  version "0.7.13"
-  resolved "https://registry.yarnpkg.com/@backstage/plugin-user-settings/-/plugin-user-settings-0.7.13.tgz#5fdc8c6b72590b7d338a463df02b6cffdfecb3f5"
-  integrity sha512-fmL7aUNz6RoiiVPu0HnyPw2j4dhhV7TL9uQ9wFE14d9yGSRIpa6UjfrOpGE+Rz11zXSC+VWXmwyTXsDjaeJydw==
+"@backstage/plugin-user-settings@^0.7.14":
+  version "0.7.14"
+  resolved "https://registry.yarnpkg.com/@backstage/plugin-user-settings/-/plugin-user-settings-0.7.14.tgz#03a44baa6df51f0d5bc43bc7aed26219f5a535a5"
+  integrity sha512-fX2tN6GmGn8L1ByB6Pw0TUL3sE0VK8x8KkZpcK+P4Ash2x+64m8VJ8E9XeQE4dTLyEWS1Kss//cZdXv/XbdryQ==
   dependencies:
-    "@backstage/core-app-api" "^1.11.1"
-    "@backstage/core-components" "^0.13.8"
-    "@backstage/core-plugin-api" "^1.8.0"
+    "@backstage/core-app-api" "^1.11.2"
+    "@backstage/core-compat-api" "^0.1.0"
+    "@backstage/core-components" "^0.13.9"
+    "@backstage/core-plugin-api" "^1.8.1"
     "@backstage/errors" "^1.2.3"
-    "@backstage/frontend-plugin-api" "^0.3.0"
-    "@backstage/plugin-catalog-react" "^1.9.1"
-    "@backstage/theme" "^0.4.4"
+    "@backstage/frontend-plugin-api" "^0.4.0"
+    "@backstage/plugin-catalog-react" "^1.9.2"
+    "@backstage/theme" "^0.5.0"
     "@backstage/types" "^1.1.1"
     "@material-ui/core" "^4.12.2"
     "@material-ui/icons" "^4.9.1"
