@@ -16,6 +16,8 @@ We also required a seamless method for deploying services to Kubernetes.
 
 ### Kubernetes Cluster Maintenance
 
+![Talos](./proof/ADR-0003/talos.png)
+
 We have transitioned from Kubespray to Talos for maintaining our Kubernetes clusters. 
 Talos is a modern OS designed specifically for Kubernetes, providing a minimal, immutable, and secure environment. 
 We have also integrated the GitLab Agent in our Kubernetes clusters for improved CI pipeline connectivity.
