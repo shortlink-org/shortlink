@@ -4,7 +4,11 @@ This is your newly scaffolded Backstage App, Good Luck!
 
 To start the app, run:
 
-```sh
+```shell
+### install yarn
+yarn set version stable
 yarn install
-yarn dev
+
+### update dependencies
+yarn upgrade --ignore-engines
 ```
