@@ -1,6 +1,6 @@
 # ADR
 
-### How use
+### How to use
 
 ```shell
 export ADR_TEMPLATE=${PWD}/docs/ADR/template/template.md

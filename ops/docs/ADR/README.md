@@ -1,6 +1,6 @@
 # ADR
 
-### How use
+### How to use
 
 ```shell
 export ADR_TEMPLATE=${PWD}/docs/ADR/template/template.md
@@ -13,8 +13,8 @@ adr new Implement as Unix shell scripts
 
 ### Update
 
-For update ADR we use GIT, so we can get date each updated and we use git message
-for information team about cases for updated ADR.
+For update ADR we use GIT, so we can get date each updated, and we use a git message
+for an information team about cases for updated ADR.
 
 ### Architecture Decision Log (ADL):
 
@@ -23,7 +23,8 @@ for information team about cases for updated ADR.
     - [ADR-0016](./decisions/0016-lifecycle-deploy.md) - Lifecycle deploy
     - [ADR-0028](./decisions/0028-application-lifecycle-orchestration.md) - Implementing Stage-based Promotion Mechanisms with Kargo for CD in Kubernetes
   - **Kubernetes**
-    - [ADR-0022](./decisions/0022-kubernetes.md) - Kubernetes
+    - [ADR-0003](./decisions/0003-maintaining-kubernetes.md) - Kubernetes
+    - [ADR-0004](./decisions/0004-kubernetes-tips.md) - Kubernetes tips
     - [ADR-0027](./decisions/0027-local-kubernetes-development-tools.md) - Local Kubernetes Development Tools
   - **Network**
     - [ADR-0018](./decisions/0018-kubernetes-network.md) - Use Cilium as CNI
