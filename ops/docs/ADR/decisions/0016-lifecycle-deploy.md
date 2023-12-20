@@ -14,15 +14,14 @@ We need to decide how we will update images in ArgoCD.
 
 ### ArgoCD ApplicationSet
 
-We use Helm chart [argo-workflows](https://github.com/shortlink-org/shortlink/tree/main/ops/Helm/addons/argo/argo-workflows) for deploy ArgoCD ApplicationSet.
-
 We use argocd wave for priority deploy.
 
 **steps:**
-1. [0] deploy infrastructure (Istio, cert-manager, etc...)
-2. [1] deploy observability (Prometheus, Grafana, etc...)
-3. [2] deploy shortlink (shortlink-link, shortlink-landing, etc...)
-3. [2] deploy knative (knative-serving, knative-eventing, etc...)
+
+  1. deploy infrastructure (Istio, cert-manager, etc...)
+  2. deploy observability (Prometheus, Grafana, etc...)
+  3. deploy shortlink (shortlink-link, shortlink-landing, etc...)
+  4. deploy knative (knative-serving, knative-eventing, etc...)
 
 ### ArgoCD Image Updater
 

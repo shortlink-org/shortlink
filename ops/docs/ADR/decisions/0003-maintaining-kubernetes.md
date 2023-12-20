@@ -53,6 +53,8 @@ We will use ArgoCD to manage our Kubernetes cluster.
 
 - [Introduction to Continuous Delivery and GitOps using Argo CD](https://academy.akuity.io/courses/gitops-argocd-intro)
 
+![argocd-install](./proof/ADR-0003/argocd-install.png)
+
 ### Secrets
 
 We use SOPS to manage our secrets.
