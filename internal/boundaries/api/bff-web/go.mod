@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web
 go 1.21.5
 
 require (
-	github.com/go-chi/chi/v5 v5.0.10
+	github.com/go-chi/chi/v5 v5.0.11
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/render v1.0.3
 	github.com/google/wire v0.5.1-0.20220620021424-0675cdc9191c

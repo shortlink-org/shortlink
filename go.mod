@@ -18,7 +18,7 @@ require (
 	github.com/edgedb/edgedb-go v0.14.4
 	github.com/ethereum/go-ethereum v1.13.7
 	github.com/exaring/otelpgx v0.5.2
-	github.com/go-chi/chi/v5 v5.0.10
+	github.com/go-chi/chi/v5 v5.0.11
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/render v1.0.3
 	github.com/go-redis/cache/v9 v9.0.0
