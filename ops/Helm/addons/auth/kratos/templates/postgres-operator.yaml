@@ -8,6 +8,7 @@ spec:
     annotations: {}
   instances:
     - name: kratos
+      replicas: 1
       metadata:
         annotations: {}
       dataVolumeClaimSpec:
@@ -24,14 +25,15 @@ spec:
         resources:
           requests:
             storage: 1Gi
-  monitoring:
-    pgmonitor:
-      exporter:
-        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.5.0-0
   backups:
     pgbackrest:
+      metadata:
+        annotations: {}
       repos:
         - name: repo1
+          schedules:
+            full: "0 1 * * 0"
+            differential: "0 1 * * 1-6"
           volume:
             volumeClaimSpec:
               storageClassName: local-path
@@ -40,29 +42,39 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
+  monitoring:
+    pgmonitor:
+      exporter:
+        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.5.0-0
   patroni:
     dynamicConfiguration:
+      synchronous_mode: true
       postgresql:
         parameters:
           # https://pgtune.leopard.in.ua/#/
           max_connections: 100
-          shared_buffers: 1GB
-          effective_cache_size: 3GB
-          maintenance_work_mem: 256MB
+          shared_buffers: 256MB
+          effective_cache_size: 768MB
+          maintenance_work_mem: 64MB
           checkpoint_completion_target: 0.9
-          wal_buffers: 16MB
+          wal_buffers: 7864kB
           default_statistics_target: 100
           random_page_cost: 1.1
           effective_io_concurrency: 200
-          work_mem: 2621kB
-          min_wal_size: 2GB
-          max_wal_size: 8GB
+          work_mem: 655kB
+          huge_pages: off
+          min_wal_size: 1GB
+          max_wal_size: 4GB
           max_worker_processes: 8
           max_parallel_workers_per_gather: 4
           max_parallel_workers: 8
           max_parallel_maintenance_workers: 4
+          # Synchronous Replication
+          synchronous_commit: 'on'
           # other settings
           shared_preload_libraries: pgaudit,auto_explain,pg_stat_statements,pg_prewarm,uuid-ossp
+    syncPeriodSeconds: 60
+    leaderLeaseDurationSeconds: 300
   users:
     - name: admin
       databases:

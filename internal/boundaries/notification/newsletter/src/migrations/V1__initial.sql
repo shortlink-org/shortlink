@@ -1,6 +1,6 @@
 create table shortlink.newsletters
 (
-    id    UUID default uuid_generate_v4() not null
+    id    UUID default gen_random_uuid() not null
         constraint newsletters_pk
             primary key,
     email text not null

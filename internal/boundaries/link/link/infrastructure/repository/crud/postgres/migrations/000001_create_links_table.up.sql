@@ -11,7 +11,7 @@ COMMENT ON SCHEMA link IS 'Shortlink link service';
 -- Create a table for links
 CREATE TABLE link.links
 (
-    id       UUID NOT NULL DEFAULT uuid_generate_v4(),
+    id       UUID NOT NULL DEFAULT gen_random_uuid(),
              CONSTRAINT id_links PRIMARY KEY(id),
     url      varchar(255) not null,
     hash     varchar(20)  not null,

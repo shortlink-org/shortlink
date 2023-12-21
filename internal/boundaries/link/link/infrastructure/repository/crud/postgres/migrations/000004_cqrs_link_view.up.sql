@@ -1,7 +1,7 @@
 -- CQRS for links ======================================================================================================
 CREATE TABLE link.link_view
 (
-  id UUID DEFAULT uuid_generate_v4() NOT NULL,
+  id UUID DEFAULT gen_random_uuid() NOT NULL,
   url VARCHAR(2048) NOT NULL,
   hash VARCHAR(20) NOT NULL,
   describe TEXT,

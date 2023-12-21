@@ -1,6 +1,6 @@
 CREATE TABLE link.links_partitioned_by_created_at
 (
-    id         uuid      DEFAULT uuid_generate_v4() NOT NULL,
+    id         uuid      DEFAULT gen_random_uuid() NOT NULL,
     url        text                                 NOT NULL,
     hash       hash                                 NOT NULL,
     describe   text,
