@@ -32,6 +32,10 @@ spec:
       prune: true
       allowEmpty: true
       selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        pod-security.kubernetes.io/enforce: privileged
+        pod-security.kubernetes.io/enforce-version: latest
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true

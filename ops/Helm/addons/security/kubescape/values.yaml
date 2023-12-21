@@ -27,9 +27,8 @@ kubescape:
     serviceMonitor:
       enabled: true
 
-  # TODO: fix and enable
-  # configurations:
-  #  otelUrl: http://grafana-tempo.grafana:4317
+  configurations:
+    otelUrl: http://grafana-tempo.grafana:4317
 
   persistence:
     storageClass: local-path
