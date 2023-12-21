@@ -2,7 +2,7 @@ loki:
   enabled: true
 
   global:
-    dnsService: coredns
+    dnsService: kube-dns
 
   nameOverride: grafana-loki
 
