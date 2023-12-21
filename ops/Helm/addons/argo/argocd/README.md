@@ -1,6 +1,6 @@
 # argo
 
-![Version: 0.3.18](https://img.shields.io/badge/Version-0.3.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.9.0](https://img.shields.io/badge/AppVersion-2.9.0-informational?style=flat-square)
+![Version: 0.3.18](https://img.shields.io/badge/Version-0.3.18-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.9.3](https://img.shields.io/badge/AppVersion-2.9.3-informational?style=flat-square)
 
 ## Maintainers
 
@@ -17,7 +17,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 | https://argoproj.github.io/argo-helm | argo-cd | 5.51.6 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 1.4.1 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.1 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 18.5.0 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 18.6.1 |
 
 ## Values
 
@@ -128,7 +128,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--params--"otlp--address""><a href="./values.yaml#L280">argo-cd.configs.params."otlp.address"</a></td>
+			<td id="argo-cd--configs--cm--"resource--exclusions""><a href="./values.yaml#L273">argo-cd.configs.cm."resource.exclusions"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"- apiGroups:\n    - cilium.io\n  kinds:\n    - CiliumIdentity\n  clusters:\n    - \"*\"\n"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-cd--configs--params--"otlp--address""><a href="./values.yaml#L288">argo-cd.configs.params."otlp.address"</a></td>
 			<td>
 string
 </td>
@@ -142,7 +156,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--repositories--shortlink--name"><a href="./values.yaml#L276">argo-cd.configs.repositories.shortlink.name</a></td>
+			<td id="argo-cd--configs--repositories--shortlink--name"><a href="./values.yaml#L284">argo-cd.configs.repositories.shortlink.name</a></td>
 			<td>
 string
 </td>
@@ -156,7 +170,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--repositories--shortlink--type"><a href="./values.yaml#L277">argo-cd.configs.repositories.shortlink.type</a></td>
+			<td id="argo-cd--configs--repositories--shortlink--type"><a href="./values.yaml#L285">argo-cd.configs.repositories.shortlink.type</a></td>
 			<td>
 string
 </td>
@@ -170,7 +184,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--repositories--shortlink--url"><a href="./values.yaml#L275">argo-cd.configs.repositories.shortlink.url</a></td>
+			<td id="argo-cd--configs--repositories--shortlink--url"><a href="./values.yaml#L283">argo-cd.configs.repositories.shortlink.url</a></td>
 			<td>
 string
 </td>
@@ -702,7 +716,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--metrics--enabled"><a href="./values.yaml#L292">argo-cd.notifications.metrics.enabled</a></td>
+			<td id="argo-cd--notifications--metrics--enabled"><a href="./values.yaml#L300">argo-cd.notifications.metrics.enabled</a></td>
 			<td>
 bool
 </td>
@@ -716,7 +730,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--metrics--serviceMonitor--enabled"><a href="./values.yaml#L294">argo-cd.notifications.metrics.serviceMonitor.enabled</a></td>
+			<td id="argo-cd--notifications--metrics--serviceMonitor--enabled"><a href="./values.yaml#L302">argo-cd.notifications.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -730,7 +744,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--resources--limits--cpu"><a href="./values.yaml#L285">argo-cd.notifications.resources.limits.cpu</a></td>
+			<td id="argo-cd--notifications--resources--limits--cpu"><a href="./values.yaml#L293">argo-cd.notifications.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -744,7 +758,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--resources--limits--memory"><a href="./values.yaml#L286">argo-cd.notifications.resources.limits.memory</a></td>
+			<td id="argo-cd--notifications--resources--limits--memory"><a href="./values.yaml#L294">argo-cd.notifications.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -758,7 +772,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--resources--requests--cpu"><a href="./values.yaml#L288">argo-cd.notifications.resources.requests.cpu</a></td>
+			<td id="argo-cd--notifications--resources--requests--cpu"><a href="./values.yaml#L296">argo-cd.notifications.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -772,7 +786,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--resources--requests--memory"><a href="./values.yaml#L289">argo-cd.notifications.resources.requests.memory</a></td>
+			<td id="argo-cd--notifications--resources--requests--memory"><a href="./values.yaml#L297">argo-cd.notifications.resources.requests.memory</a></td>
 			<td>
 string
 </td>

@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.8.4 |
+| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.9.0 |
 
 ## Values
 
@@ -748,7 +748,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"node1"
+"talos-js2-gkr"
 </pre>
 </div>
 			</td>
@@ -783,6 +783,34 @@ int
 			<td></td>
 		</tr>
 		<tr>
+			<td id="ingress-nginx--controller--resources--limits--cpu"><a href="./values.yaml#L29">ingress-nginx.controller.resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"1000m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress-nginx--controller--resources--limits--memory"><a href="./values.yaml#L30">ingress-nginx.controller.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"256Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
 			<td id="ingress-nginx--controller--resources--requests--cpu"><a href="./values.yaml#L32">ingress-nginx.controller.resources.requests.cpu</a></td>
 			<td>
 string
@@ -804,7 +832,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"90Mi"
+"128Mi"
 </pre>
 </div>
 			</td>

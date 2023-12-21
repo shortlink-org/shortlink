@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://open-telemetry.github.io/opentelemetry-helm-charts | opentelemetry-operator | 0.44.1 |
+| https://open-telemetry.github.io/opentelemetry-helm-charts | opentelemetry-operator | 0.44.2 |
 
 ## Values
 
@@ -55,21 +55,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="opentelemetry-operator--manager--collectorImage--tag"><a href="./values.yaml#L9">opentelemetry-operator.manager.collectorImage.tag</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"0.90.1"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="opentelemetry-operator--manager--prometheusRule--defaultRules--enabled"><a href="./values.yaml#L18">opentelemetry-operator.manager.prometheusRule.defaultRules.enabled</a></td>
+			<td id="opentelemetry-operator--manager--prometheusRule--defaultRules--enabled"><a href="./values.yaml#L15">opentelemetry-operator.manager.prometheusRule.defaultRules.enabled</a></td>
 			<td>
 bool
 </td>
@@ -83,7 +69,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="opentelemetry-operator--manager--prometheusRule--enabled"><a href="./values.yaml#L15">opentelemetry-operator.manager.prometheusRule.enabled</a></td>
+			<td id="opentelemetry-operator--manager--prometheusRule--enabled"><a href="./values.yaml#L12">opentelemetry-operator.manager.prometheusRule.enabled</a></td>
 			<td>
 bool
 </td>
@@ -97,7 +83,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="opentelemetry-operator--manager--serviceMonitor--enabled"><a href="./values.yaml#L12">opentelemetry-operator.manager.serviceMonitor.enabled</a></td>
+			<td id="opentelemetry-operator--manager--serviceMonitor--enabled"><a href="./values.yaml#L9">opentelemetry-operator.manager.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>

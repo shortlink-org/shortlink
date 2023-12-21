@@ -38,9 +38,6 @@ spec:
     spec:
       terminationGracePeriodSeconds: {{ .Values.deploy.terminationGracePeriodSeconds | default 60 }}
       automountServiceAccountToken: {{ .Values.deploy.automountServiceAccountToken | default true }}
-      {{- if semverCompare ">=1.29-0" .Capabilities.KubeVersion.GitVersion }}
-      hostUsers: {{ .Values.deploy.hostUsers | default true }}
-      {{- end }}
     {{- with .Values.deploy.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}

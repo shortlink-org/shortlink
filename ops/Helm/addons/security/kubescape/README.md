@@ -195,7 +195,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--operator--resources--requests--cpu"><a href="./values.yaml#L40">kubescape.operator.resources.requests.cpu</a></td>
+			<td id="kubescape--operator--resources--requests--cpu"><a href="./values.yaml#L36">kubescape.operator.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -209,7 +209,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--operator--resources--requests--memory"><a href="./values.yaml#L41">kubescape.operator.resources.requests.memory</a></td>
+			<td id="kubescape--operator--resources--requests--memory"><a href="./values.yaml#L37">kubescape.operator.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -223,7 +223,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--persistence--storageClass"><a href="./values.yaml#L35">kubescape.persistence.storageClass</a></td>
+			<td id="kubescape--persistence--storageClass"><a href="./values.yaml#L31">kubescape.persistence.storageClass</a></td>
 			<td>
 string
 </td>
