@@ -34,7 +34,7 @@ loki:
       storageClass: local-path
 
   tableManager:
-    enabled: true
+    enabled: false
 
   monitoring:
     serviceMonitor:
