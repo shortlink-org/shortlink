@@ -6,10 +6,10 @@ load artifacts golang:
     - echo "Load artifacts from multi-pipeline"
   needs:
     - job: GOLANG
-    - pipeline: $CI_UPSTREAM_PIPELINE_ID
+    - pipeline: $CI_COMMIT_REF_NAME
       job: golint
       artifacts: true
-    - pipeline: $CI_UPSTREAM_PIPELINE_ID
+    - pipeline: $CI_COMMIT_REF_NAME
       job: gotest
       artifacts: true
 #    - pipeline: $CI_UPSTREAM_PIPELINE_ID
@@ -25,7 +25,7 @@ load artifacts sast:
     - echo "Load artifacts from multi-pipeline"
   needs:
     - job: DEPENDENCY
-    - pipeline: $CI_UPSTREAM_PIPELINE_ID
+    - pipeline: $CI_COMMIT_REF_NAME
       job: code_quality
       artifacts: true
   rules:
