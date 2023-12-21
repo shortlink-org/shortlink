@@ -22,7 +22,7 @@ ingress-nginx:
   controller:
 
     nodeSelector:
-      kubernetes.io/hostname: node1
+      kubernetes.io/hostname: talos-js2-gkr
 
     resources:
       # limits:
