@@ -7,11 +7,11 @@ load artifacts golang:
   needs:
     - job: GOLANG
     - project: $CI_PROJECT_PATH
-      pipeline: $CI_COMMIT_REF_NAME
+      ref: $CI_COMMIT_REF_NAME
       job: golint
       artifacts: true
     - project: $CI_PROJECT_PATH
-      pipeline: $CI_COMMIT_REF_NAME
+      ref: $CI_COMMIT_REF_NAME
       job: gotest
       artifacts: true
 #    - pipeline: $CI_UPSTREAM_PIPELINE_ID
@@ -28,7 +28,7 @@ load artifacts sast:
   needs:
     - job: DEPENDENCY
     - project: $CI_PROJECT_PATH
-      pipeline: $CI_COMMIT_REF_NAME
+      ref: $CI_COMMIT_REF_NAME
       job: code_quality
       artifacts: true
   rules:
