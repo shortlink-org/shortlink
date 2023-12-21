@@ -78,14 +78,10 @@ ingress-nginx:
       fsGroup: 1001
 
     service:
-      enabled: true
       type: NodePort
       nodePorts:
         http: 80
         https: 443
-
-    external:
-      enabled: true
 
     admissionWebhooks:
       enabled: false
