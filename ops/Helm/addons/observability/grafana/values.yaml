@@ -14,6 +14,13 @@ grafana:
   containerSecurityContext:
     seccompProfile: {}
 
+  downloadDashboards:
+    seccompProfile: {}
+
+  initChownData:
+    securityContext:
+      seccompProfile: {}
+
   # adminPassword: shortlink
 
   dnsPolicy: ClusterFirst
@@ -45,6 +52,9 @@ grafana:
   imageRenderer:
     enabled: true
 
+    containerSecurityContext:
+      seccompProfile: {}
+
     revisionHistoryLimit: 2
 
     serviceMonitor:
@@ -71,6 +81,8 @@ grafana:
           - grafana.shortlink.best
 
   sidecar:
+    securityContext:
+      seccompProfile: {}
     image:
       tag: 1.25.3
     alerts:
