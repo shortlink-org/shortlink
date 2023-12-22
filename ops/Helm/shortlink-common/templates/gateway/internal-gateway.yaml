@@ -9,11 +9,6 @@ spec:
       hostname: "*.shortlink"
       port: 50051
       protocol: HTTPS
-      tls:
-        certificateRefs:
-          - kind: Secret
-            group: ""
-            name: self-signed
       allowedRoutes:
         namespaces:
           from: Same
