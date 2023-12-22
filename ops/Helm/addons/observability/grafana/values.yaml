@@ -13,6 +13,9 @@ grafana:
 
   # adminPassword: shortlink
 
+  dnsPolicy: ""
+  dnsConfig: {}
+
   resources:
     limits:
       cpu: 300m
