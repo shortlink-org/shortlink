@@ -42,6 +42,22 @@ spec:
               resources:
                 requests:
                   storage: 1Gi
+  proxy:
+    pgBouncer:
+      metadata:
+        annotations: {}
+      replicas: 1
+      port: 5432
+      config:
+        global:
+          pool_mode: transaction
+      resources:
+        requests:
+          cpu: 2m
+          memory: 56Mi
+        limits:
+          cpu: 800m
+          memory: 4Gi
   monitoring:
     pgmonitor:
       exporter:
