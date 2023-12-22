@@ -13,6 +13,13 @@ grafana:
 
   # adminPassword: shortlink
 
+  dnsConfig:
+    nameservers:
+      - 8.8.8.8
+    options:
+      - name: ndots
+        value: "2"
+
   resources:
     limits:
       cpu: 300m
