@@ -131,6 +131,8 @@ argo-cd:
 
       statusbadge.enabled: "true"
 
+      controller.diff.server.side: "true"
+
       helm.valuesFileSchemes: >-
         secrets+gpg-import, secrets+gpg-import-kubernetes,
         secrets+age-import, secrets+age-import-kubernetes,
