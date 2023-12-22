@@ -48,7 +48,7 @@ spec:
         - ports:
             - port: "50051"
               protocol: TCP
-            - port: "80"
+            - port: "7070"
               protocol: TCP
           rules:
             http:
