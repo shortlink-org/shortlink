@@ -63,6 +63,8 @@ grafana:
           - grafana.shortlink.best
 
   sidecar:
+    image:
+      tag: 1.25.3
     alerts:
       enabled: true
       searchNamespace: ALL
@@ -79,6 +81,8 @@ grafana:
     plugins:
       enabled: true
       searchNamespace: ALL
+      watchServerTimeout: 3600
+      watchClientTimeout: 120
     notifiers:
       enabled: true
       searchNamespace: ALL
