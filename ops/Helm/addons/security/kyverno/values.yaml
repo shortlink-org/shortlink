@@ -122,7 +122,6 @@ policy-reporter:
 
       annotations:
         cert-manager.io/cluster-issuer: cert-manager-production
-        nginx.ingress.kubernetes.io/enable-modsecurity: "false"
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
         nginx.ingress.kubernetes.io/rewrite-target: /$1
