@@ -14,7 +14,7 @@ services:
     depends_on:
       - coredns
     # NOTE: Please use the latest version here!
-    image: docker.redpanda.com/vectorized/redpanda:v23.2.21
+    image: docker.redpanda.com/vectorized/redpanda:v23.3.1
     container_name: redpanda
     init: true
     restart: always
