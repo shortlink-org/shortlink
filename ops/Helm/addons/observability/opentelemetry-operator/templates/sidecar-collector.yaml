@@ -22,9 +22,13 @@ spec:
         tls:
           insecure: true
     service:
+      telemetry:
+        logs:
+          level: info
       pipelines:
         traces:
           receivers:
           - otlp
           exporters:
           - otlp
+          - logging
