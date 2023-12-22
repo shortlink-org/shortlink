@@ -133,6 +133,8 @@ argo-cd:
 
       controller.diff.server.side: "true"
 
+      exec.enabled: "true"
+
       helm.valuesFileSchemes: >-
         secrets+gpg-import, secrets+gpg-import-kubernetes,
         secrets+age-import, secrets+age-import-kubernetes,
@@ -149,6 +151,7 @@ argo-cd:
         p, role:org-admin, repositories, create, *, allow
         p, role:org-admin, repositories, update, *, allow
         p, role:org-admin, repositories, delete, *, allow
+        p, role:org-admin, exec, create, */*, allow
         g, shortlink-org:devops, role:org-admin
       policy.default: role:readonly
 
@@ -167,6 +170,12 @@ argo-cd:
           - secrets
         verbs:
           - get
+      - apiGroups:
+          - ""
+        resources:
+          - pods/exec
+        verbs:
+          - create
 
     env:
       - name: HELM_PLUGINS
@@ -228,7 +237,7 @@ argo-cd:
           - name: HELM_SECRETS_VERSION
             value: "4.5.1"
           - name: KUBECTL_VERSION
-            value: "1.28.4"
+            value: "1.29.0"
           - name: VALS_VERSION
             value: "0.30.0"
           - name: SOPS_VERSION
@@ -270,7 +279,7 @@ argo-cd:
       # https://argo-cd.readthedocs.io/en/stable/user-guide/diffing/#ignoring-rbac-changes-made-by-aggregateroles
       resource.compareoptions: |
         # disables status field diffing in specified resource types
-        ignoreAggregatedRoles: true
+        # ignoreAggregatedRoles: true
 
       resource.exclusions: |
         - apiGroups:
