@@ -50,9 +50,10 @@ spec:
     dynamicConfiguration:
       synchronous_mode: true
       postgresql:
+        use_pg_rewind: true
         parameters:
           # https://pgtune.leopard.in.ua/#/
-          max_connections: 100
+          max_connections: 101
           shared_buffers: 256MB
           effective_cache_size: 768MB
           maintenance_work_mem: 64MB
@@ -61,7 +62,7 @@ spec:
           default_statistics_target: 100
           random_page_cost: 1.1
           effective_io_concurrency: 200
-          work_mem: 655kB
+          work_mem: 8MB
           huge_pages: off
           min_wal_size: 1GB
           max_wal_size: 4GB
@@ -74,6 +75,8 @@ spec:
           # other settings
           shared_preload_libraries: pgaudit,auto_explain,pg_stat_statements,pg_prewarm,uuid-ossp
     syncPeriodSeconds: 60
+    retry_timeout: 10
+    ttl: 30
     leaderLeaseDurationSeconds: 300
   users:
     - name: admin
