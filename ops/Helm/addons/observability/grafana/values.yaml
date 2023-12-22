@@ -81,8 +81,8 @@ grafana:
     plugins:
       enabled: true
       searchNamespace: ALL
-      watchServerTimeout: 3600
-      watchClientTimeout: 120
+      skipReload: true
+      initPlugins: true
     notifiers:
       enabled: true
       searchNamespace: ALL
