@@ -13,10 +13,10 @@ grafana:
 
   # adminPassword: shortlink
 
-  dnsPolicy: None
-  dnsConfig:
-    nameservers:
-      - 8.8.8.8
+  dnsPolicy: ""
+#  dnsConfig:
+#    nameservers:
+#      - 8.8.8.8
 
   resources:
     limits:
