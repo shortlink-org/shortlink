@@ -11,6 +11,9 @@ grafana:
   ##
   defaultDashboardsEnabled: true
 
+  containerSecurityContext:
+    seccompProfile: {}
+
   # adminPassword: shortlink
 
   dnsPolicy: ClusterFirst
