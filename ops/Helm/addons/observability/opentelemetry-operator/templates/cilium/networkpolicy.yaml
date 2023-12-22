@@ -12,7 +12,6 @@ spec:
         - {}
 
 ---
----
 apiVersion: cilium.io/v2
 kind: CiliumClusterwideNetworkPolicy
 metadata:
@@ -37,12 +36,11 @@ spec:
         - {}
 
 ---
----
 apiVersion: cilium.io/v2
 kind: CiliumNetworkPolicy
 metadata:
   name: http-visibility
-  namespace: podinfo
+  namespace: shortlink
 spec:
   endpointSelector: {}
   egress:
