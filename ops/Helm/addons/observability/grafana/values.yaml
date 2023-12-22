@@ -11,22 +11,7 @@ grafana:
   ##
   defaultDashboardsEnabled: true
 
-  containerSecurityContext:
-    seccompProfile: {}
-
-  downloadDashboards:
-    seccompProfile: {}
-
-  initChownData:
-    securityContext:
-      seccompProfile: {}
-
   # adminPassword: shortlink
-
-  dnsPolicy: ClusterFirst
-#  dnsConfig:
-#    nameservers:
-#      - 8.8.8.8
 
   resources:
     limits:
@@ -51,9 +36,6 @@ grafana:
 
   imageRenderer:
     enabled: true
-
-    containerSecurityContext:
-      seccompProfile: {}
 
     revisionHistoryLimit: 2
 
@@ -81,8 +63,6 @@ grafana:
           - grafana.shortlink.best
 
   sidecar:
-    securityContext:
-      seccompProfile: {}
     image:
       tag: 1.25.3
     alerts:
@@ -107,11 +87,11 @@ grafana:
       enabled: true
       searchNamespace: ALL
 
-#  plugins:
-#    - grafana-polystat-panel
-#    - grafana-oncall-app
-#    - cloudflare-app
-#    - hamedkarbasi93-kafka-datasource
+  plugins:
+    - grafana-polystat-panel
+    - grafana-oncall-app
+    - cloudflare-app
+    - hamedkarbasi93-kafka-datasource
 
   grafana.ini:
     reporting:
