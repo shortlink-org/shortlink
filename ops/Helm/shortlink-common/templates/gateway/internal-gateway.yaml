@@ -9,6 +9,7 @@ spec:
   listeners:
     - name: grpc
       port: 50051
+      hostname: cilium-gateway-internal-gateway.shortlink
       protocol: HTTP
       allowedRoutes:
         namespaces:
