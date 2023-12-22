@@ -71,8 +71,8 @@ spec:
         send_batch_size: 100
 
     exporters:
-      otlp:
-        endpoint: otel-collector-collector.grafana.svc.cluster.local:4317
+      jaeger:
+        endpoint: grafana-tempo.grafana.svc.cluster.local:14250
         tls:
           insecure: true
 
@@ -84,4 +84,4 @@ spec:
         traces:
           receivers: [hubble, otlp]
           processors: [batch]
-          exporters: [otlp]
+          exporters: [jaeger]
