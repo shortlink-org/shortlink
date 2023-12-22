@@ -10,7 +10,12 @@ spec:
     - name: grpc
       port: 50051
       hostname: cilium-gateway-internal-gateway.shortlink
-      protocol: HTTP
+      protocol: HTTPS
+      tls:
+        certificateRefs:
+          - kind: Secret
+            group: ""
+            name: self-signed
       allowedRoutes:
         namespaces:
           from: Same
