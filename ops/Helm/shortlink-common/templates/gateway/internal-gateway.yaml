@@ -9,12 +9,7 @@ spec:
   listeners:
     - name: grpc
       port: 50051
-      protocol: HTTPS
-      tls:
-        certificateRefs:
-          - kind: Secret
-            group: ""
-            name: self-signed
+      protocol: HTTP
       allowedRoutes:
         namespaces:
           from: Same

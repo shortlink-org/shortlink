@@ -5,8 +5,6 @@ metadata:
 spec:
   parentRefs:
     - name: internal-gateway
-  hostnames:
-    - "*"
   rules:
     - matches:
         - method:
