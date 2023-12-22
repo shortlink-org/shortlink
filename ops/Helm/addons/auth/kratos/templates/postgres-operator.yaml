@@ -75,7 +75,6 @@ spec:
           # other settings
           shared_preload_libraries: pgaudit,auto_explain,pg_stat_statements,pg_prewarm,uuid-ossp
     syncPeriodSeconds: 60
-    ttl: 30
     leaderLeaseDurationSeconds: 300
   users:
     - name: admin
