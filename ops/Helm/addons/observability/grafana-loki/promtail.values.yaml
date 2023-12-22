@@ -36,7 +36,7 @@ promtail:
                 __path__: /var/log/audit/kube/*.log 
 
   networkPolicy:
-    enabled: true
+    enabled: false
 
   resources:
     limits:
