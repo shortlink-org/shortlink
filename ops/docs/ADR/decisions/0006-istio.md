@@ -52,3 +52,23 @@ spec:
 > 
 >   - **Complexity**: Demands precise understanding of service interactions.
 >   - **Maintenance**: Requires ongoing updates to align with service changes.
+
+### Recipe 2: Configuring Telemetry in Istio
+
+**Telemetry** in Istio is a crucial configuration for monitoring the behavior of your service mesh.
+
+```yaml
+apiVersion: telemetry.istio.io/v1alpha1
+kind: Telemetry
+metadata:
+  name: default
+spec:
+  # no selector specified, applies to all workloads
+  accessLogging:
+    - providers:
+        - name: envoy
+      # By default, this turns on access logging (no need to set `disabled: false`).
+      # Unspecified `disabled` will be treated as `disabled: false`, except in
+      # cases where a parent configuration has marked as `disabled: true`. In
+      # those cases, `disabled: false` must be set explicitly to override.
+```
