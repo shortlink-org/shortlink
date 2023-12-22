@@ -8,7 +8,7 @@ spec:
   gatewayClassName: cilium
   listeners:
     - name: grpc
-      hostname: "*.shortlink"
+      hostname: "*"
       port: 50051
       protocol: HTTPS
       tls:

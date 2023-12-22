@@ -6,7 +6,7 @@ spec:
   parentRefs:
     - name: internal-gateway
   hostnames:
-    - "*.shortlink"
+    - "*"
   rules:
     - matches:
         - method:
