@@ -2,6 +2,8 @@ apiVersion: gateway.networking.k8s.io/v1beta1
 kind: Gateway
 metadata:
   name: internal-gateway
+  annotations:
+    cert-manager.io/issuer: ca-issuer
 spec:
   gatewayClassName: cilium
   listeners:
@@ -9,6 +11,11 @@ spec:
       hostname: "*.shortlink"
       port: 50051
       protocol: HTTPS
+      tls:
+        certificateRefs:
+          - kind: Secret
+            group: ""
+            name: self-signed
       allowedRoutes:
         namespaces:
           from: Same
