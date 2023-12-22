@@ -13,7 +13,7 @@ spec:
         certificateRefs:
           - kind: Secret
             group: ""
-            name: internal-gateway-cert
+            name: internal-gateway-tls
       allowedRoutes:
         namespaces:
           from: Same
