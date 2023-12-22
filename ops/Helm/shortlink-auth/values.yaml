@@ -13,7 +13,7 @@ deploy:
 
   env:
     TRACER_URI: grafana-tempo.grafana:4317
-    GRPC_CLIENT_HOST: internal-gateway.shortlink
+    GRPC_CLIENT_HOST: cilium-gateway-internal-gateway.shortlink
 
   imagePullSecrets: []
 

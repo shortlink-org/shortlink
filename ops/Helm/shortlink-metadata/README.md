@@ -70,7 +70,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"internal-gateway.shortlink"
+"cilium-gateway-internal-gateway.shortlink"
 </pre>
 </div>
 			</td>
