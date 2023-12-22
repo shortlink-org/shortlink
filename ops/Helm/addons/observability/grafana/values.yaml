@@ -92,11 +92,11 @@ grafana:
       enabled: true
       searchNamespace: ALL
 
-  plugins:
-    - grafana-polystat-panel
-    - grafana-oncall-app
-    - cloudflare-app
-    - hamedkarbasi93-kafka-datasource
+#  plugins:
+#    - grafana-polystat-panel
+#    - grafana-oncall-app
+#    - cloudflare-app
+#    - hamedkarbasi93-kafka-datasource
 
   grafana.ini:
     reporting:
