@@ -34,12 +34,12 @@ spec:
                         secretKeyRef:
                           name: spicedb-postgres-pguser-spicedb
                           key: uri
-#                    - name: SPICEDB_DISPATCH_CACHE_METRICS
-#                      value: "true"
+                    - name: SPICEDB_DISPATCH_CACHE_METRICS
+                      value: "true"
                     - name: SPICEDB_DISPATCH_CLUSTER_METRICS
                       value: "true"
-#                    - name: SPICEDB_NS_CACHE_METRICS
-#                      value: "true"
+                    - name: SPICEDB_NS_CACHE_METRICS
+                      value: "true"
                     - name: SPICEDB_METRICS_ENABLED
                       value: "true"
                     - name: SPICEDB_OTEL_PROVIDER
