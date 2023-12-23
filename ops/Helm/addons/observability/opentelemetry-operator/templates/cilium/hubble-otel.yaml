@@ -82,6 +82,6 @@ spec:
           level: info
       pipelines:
         traces:
-          receivers: [otlp]
+          receivers: [hubble, otlp]
           processors: [batch]
           exporters: [jaeger]
