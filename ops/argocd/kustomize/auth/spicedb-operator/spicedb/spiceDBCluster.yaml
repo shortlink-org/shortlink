@@ -42,12 +42,12 @@ spec:
 #                      value: "true"
                     - name: SPICEDB_METRICS_ENABLED
                       value: "true"
-#                    - name: SPICEDB_OTEL_PROVIDER
-#                      value: otlpgrpc
-#                    - name: SPICEDB_OTEL_SAMPLE_RATIO
-#                      value: "1"
-#                    - name: OTEL_EXPORTER_OTLP_ENDPOINT
-#                      value: "grafana-tempo.grafana:4317"
+                    - name: SPICEDB_OTEL_PROVIDER
+                      value: otlpgrpc
+                    - name: SPICEDB_OTEL_SAMPLE_RATIO
+                      value: "1"
+                    - name: OTEL_EXPORTER_OTLP_ENDPOINT
+                      value: "http://grafana-tempo.grafana:4317"
     - kind: Job
       patch:
         spec:
