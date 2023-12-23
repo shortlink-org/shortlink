@@ -1,0 +1,14 @@
+{{ if .Capabilities.APIVersions.Has "networking.istio.io/v1beta1" -}}
+apiVersion: networking.istio.io/v1beta1
+kind: Sidecar
+metadata:
+  name: default
+spec:
+  egress:
+    - hosts:
+      - "./*"                   # current namespace
+      - "istio-system/*"        # istio-system services
+      - "istio-ingress/*"    # istio-ingress services
+      - "prometheus-operator/*" # prometheus-operator services
+      - "kube-system/*"         # kube-system services
+{{ end -}}

@@ -1,23 +1,10 @@
-# 6. Istio
+# 6. Istio [Cookbook]
 
 Date: 2023-12-22
 
 ## Status
 
-Deprecated
-
-## Context
-
-We long time used Istio as a service mesh. But now we use Cilium as CNI and it has its own service mesh. 
-So we don't need Istio anymore.
-
-## Decision
-
-We will remove Istio from the cluster and codebase. But we write this ADR for save history and for future reference.
-
-## Consequences
-
-We write a cookbook for Istio. We will remove it. But we will keep it in the history.
+Accepted
 
 ## Cookbook
 
