@@ -3,6 +3,7 @@ kind: Secret
 metadata:
   name: kratos-postgres-pguser-grafana
   annotations:
+    argocd.argoproj.io/sync-wave: "1"
     argocd.argoproj.io/compare-options: IgnoreExtraneous
 stringData:
   password: "grafana-password"
