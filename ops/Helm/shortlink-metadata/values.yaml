@@ -29,10 +29,14 @@ ingress:
   enabled: true
   # type ingress-controller: istio
   ingressClassName: istio
-  paths:
-    - path: /infrastructure.rpc.metadata.v1.MetadataService/
-      service:
-        name: shortlink-link
+
+  istio:
+    match:
+      - uri:
+          prefix: /infrastructure.rpc.metadata.v1.MetadataService/
+
+    route:
+      destination:
         port: 50051
 
 
