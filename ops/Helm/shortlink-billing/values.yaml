@@ -29,18 +29,18 @@ ingress:
   enabled: true
   # type ingress-controller: istio, cilium, nginx (default: nginx)
   ingressClassName: istio
-  paths:
-    - path: /infrastructure.api.rpc.payment.v1.PaymentService/
-      service:
-        name: shortlink-billing
-        port: 50051
-    - path: /infrastructure.api.rpc.tariff.v1.TariffService/
-      service:
-        name: shortlink-billing
-        port: 50051
-    - path: /infrastructure.api.rpc.order.v1.OrderService/
-      service:
-        name: shortlink-billing
+
+  istio:
+    match:
+      - uri:
+          prefix: /infrastructure.api.rpc.payment.v1.PaymentService/
+      - uri:
+          prefix: /infrastructure.api.rpc.tariff.v1.TariffService/
+      - uri:
+          prefix: /infrastructure.api.rpc.order.v1.OrderService/
+
+    route:
+      destination:
         port: 50051
 
 # ==============================================================================
