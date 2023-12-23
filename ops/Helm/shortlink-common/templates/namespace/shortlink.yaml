@@ -3,6 +3,7 @@ kind: Namespace
 metadata:
   name: shortlink
   labels:
+    istio-injection: enabled
     # TODO: tuning https://kubernetes.io/docs/concepts/security/pod-security-admission/
     pod-security.kubernetes.io/enforce: baseline
     pod-security.kubernetes.io/enforce-version: latest
