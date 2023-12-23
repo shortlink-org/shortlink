@@ -2,6 +2,8 @@ apiVersion: authzed.com/v1alpha1
 kind: SpiceDBCluster
 metadata:
   name: shortlink
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
 spec:
   config:
     replicas: 1
