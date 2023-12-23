@@ -5,7 +5,7 @@ metadata:
   annotations:
     cert-manager.io/issuer: ca-issuer
 spec:
-  gatewayClassName: cilium
+  gatewayClassName: istio
   listeners:
     - name: grpc
       port: 50051
