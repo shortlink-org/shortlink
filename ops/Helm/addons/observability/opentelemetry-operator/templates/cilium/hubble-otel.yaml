@@ -30,13 +30,13 @@ spec:
                   path: ca.crt
     # it's possible to use the UNIX socket also, for which
     # the following volume will be needed
-    # - name: cilium-run
-    #   hostPath:
-    #     path: /var/run/cilium
-    #     type: Directory
+    - name: cilium-run
+      hostPath:
+        path: /var/run/cilium
+        type: Directory
   volumeMounts:
-    # - name: cilium-run
-    #   mountPath: /var/run/cilium
+    - name: cilium-run
+      mountPath: /var/run/cilium
     - name: hubble-tls
       mountPath: /var/run/hubble-tls
       readOnly: true
@@ -51,7 +51,8 @@ spec:
         # the '\' prefix is required only in order for this config to be
         # inlined in the guide and make it easy to paste, i.e. to avoid
         # shell subtituting it
-        endpoint: \${NODE_IP}:4244 # unix:///var/run/cilium/hubble.sock
+        # endpoint: \${NODE_IP}:4244 # unix:///var/run/cilium/hubble.sock
+        endpoint: unix:///var/run/cilium/hubble.sock
         buffer_size: 100
         include_flow_types:
           # this sets an L7 flow filter, removing this section will
