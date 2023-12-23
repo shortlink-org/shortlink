@@ -5,12 +5,14 @@ metadata:
 spec:
   postgresVersion: 16
   metadata:
-    annotations: {}
+    annotations:
+      sidecar.istio.io/inject: "false"
   instances:
     - name: shortlink
       replicas: 1
       metadata:
-        annotations: {}
+        annotations:
+          sidecar.istio.io/inject: "false"
       dataVolumeClaimSpec:
         storageClassName: local-path
         accessModes:
@@ -31,7 +33,8 @@ spec:
   backups:
     pgbackrest:
       metadata:
-        annotations: {}
+        annotations:
+          sidecar.istio.io/inject: "false"
       repos:
         - name: repo1
           schedules:
@@ -48,7 +51,8 @@ spec:
   proxy:
     pgBouncer:
       metadata:
-        annotations: {}
+        annotations:
+          sidecar.istio.io/inject: "false"
       replicas: 1
       port: 5432
       config:
