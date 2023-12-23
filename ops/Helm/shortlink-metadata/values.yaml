@@ -28,7 +28,7 @@ secret:
 ingress:
   enabled: true
   # type ingress-controller: istio
-  ingressClassName: cilium
+  ingressClassName: istio
   paths:
     - path: /infrastructure.rpc.metadata.v1.MetadataService/
       service:

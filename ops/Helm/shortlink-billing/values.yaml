@@ -28,7 +28,7 @@ secret:
 ingress:
   enabled: true
   # type ingress-controller: istio, cilium, nginx (default: nginx)
-  ingressClassName: cilium
+  ingressClassName: istio
   paths:
     - path: /infrastructure.api.rpc.payment.v1.PaymentService/
       service:
