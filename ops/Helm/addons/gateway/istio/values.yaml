@@ -19,11 +19,11 @@ istiod:
     traceSampling: 100.0
 
     env:
-      ENABLE_NATIVE_SIDECARS: "false"
-      ISTIO_ENABLE_CONTROLLER_QUEUE_METRICS: "false"
+      ENABLE_NATIVE_SIDECARS: "true"
+      ISTIO_ENABLE_CONTROLLER_QUEUE_METRICS: "true"
 
   istio_cni:
-    enabled: true
+    enabled: false
 
   # meshConfig defines runtime configuration of components, including Istiod and istio-agent behavior
   # See https://istio.io/docs/reference/config/istio.mesh.v1alpha1/ for all available options
