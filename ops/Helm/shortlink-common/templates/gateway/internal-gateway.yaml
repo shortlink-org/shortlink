@@ -9,7 +9,7 @@ spec:
   listeners:
     - name: grpc
       port: 50051
-      hostname: internal-gateway-istio.shortlink
+      hostname: "*.shortlink"
       protocol: HTTPS
       tls:
         certificateRefs:
