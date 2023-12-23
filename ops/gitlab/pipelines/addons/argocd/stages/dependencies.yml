@@ -34,6 +34,19 @@ prometheus-operator:crd:
     kubernetes:
       namespace: default
 
+# CRD templates for ArgoCD
+istio:crd:
+  extends: .crd_templates
+  variables:
+    NAME: https://raw.githubusercontent.com/istio/istio/master/manifests/charts/base/crds/crd-all.gen.yaml
+    APPLYSET: istio
+  environment:
+    name: ${PROVIDER}/istio-crd
+    deployment_tier: production
+    url: $ENVIRONMENT_URL
+    kubernetes:
+      namespace: default
+
 # Set secret credential
 dockerfile:
   stage: .pre
