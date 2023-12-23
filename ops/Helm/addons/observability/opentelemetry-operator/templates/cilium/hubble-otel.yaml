@@ -5,7 +5,7 @@ metadata:
   namespace: kube-system
 spec:
   mode: daemonset
-  image: ghcr.io/cilium/hubble-otel/otelcol:v0.1.1
+  image: ghcr.io/cilium/hubble-otel/otelcol:34b5ba9
   env:
     # set NODE_IP environment variable using downwards API
     - name: NODE_IP
