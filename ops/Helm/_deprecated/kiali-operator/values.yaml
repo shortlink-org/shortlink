@@ -1,0 +1,57 @@
+kiali-operator:
+  enabled: true
+
+  onlyViewOnlyMode: true
+
+  cr:
+    create: true
+    namespace: ""
+
+    spec:
+      istio_namespace: "istio-system"
+      istio_labels:
+        app_label_name: "app.kubernetes.io/name"
+        version_label_name: "app.kubernetes.io/version"
+      auth:
+        strategy: anonymous
+      deployment:
+        accessible_namespaces: ["**"]
+        view_only_mode: true
+      server:
+        web_root: "/kiali"
+      external_services:
+        tracing:
+          enabled: true
+          auth:
+            type: none
+          namespace_selector: false
+          in_cluster_url: 'http://grafana-tempo.grafana:16686'
+          url: 'http://grafana-tempo.grafana:16686/'
+          use_grpc: false
+        grafana:
+          enabled: false
+          in_cluster_url: 'http://grafana.grafana:80'
+          # Public facing URL of Grafana
+          url: 'https://shortlink.best/grafana'
+        prometheus:
+          url: 'http://prometheus-prometheus.prometheus-operator:9090/prometheus'
+        custom_dashboards:
+          enabled: true
+          label_selector: "app=grafana"
+          namespace: "grafana"
+          folder: "Kiali"
+        istio:
+          config_map_name: "istio"
+          istiod_deployment_name: "istiod"
+          istio_sidecar_injector_config_map_name: "istio-sidecar-injector"
+          root_namespace: "istio-system"
+          component_status:
+            enabled: true
+            components:
+              - app_label: "istiod"
+                is_core: true
+                is_proxy: false
+              - app_label: "istio-ingress"
+                is_core: true
+                is_proxy: true
+                namespace: istio-ingress
