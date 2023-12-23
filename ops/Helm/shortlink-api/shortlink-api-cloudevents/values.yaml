@@ -51,7 +51,7 @@ deploy:
     MQ_ENABLED: false
     MQ_TYPE: "kafka"
     TRACER_URI: grafana-tempo.grafana:4317
-    GRPC_CLIENT_HOST: cilium-gateway-internal-gateway.shortlink
+    GRPC_CLIENT_HOST: internal-gateway-istio.shortlink
     AUTH_URI: https://shortlink.best/api/auth
     SPICE_DB_API: shortlink.spicedb-operator:50051
 

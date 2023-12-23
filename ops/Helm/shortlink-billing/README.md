@@ -56,7 +56,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"cilium-gateway-internal-gateway.shortlink"
+"internal-gateway-istio.shortlink"
 </pre>
 </div>
 			</td>

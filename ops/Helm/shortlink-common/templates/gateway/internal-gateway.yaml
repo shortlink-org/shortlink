@@ -9,7 +9,7 @@ spec:
   listeners:
     - name: grpc
       port: 50051
-      hostname: cilium-gateway-internal-gateway.shortlink
+      hostname: internal-gateway-istio.shortlink
       protocol: HTTPS
       tls:
         certificateRefs:
