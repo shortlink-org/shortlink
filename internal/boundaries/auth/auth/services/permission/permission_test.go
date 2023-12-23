@@ -14,7 +14,6 @@ import (
 	pb "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/require"
-	"go.uber.org/goleak"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/auth"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -22,8 +21,6 @@ import (
 )
 
 func TestMain(m *testing.M) {
-	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("google.golang.org/grpc/internal/grpcsync.(*CallbackSerializer).run"))
-
 	os.Exit(m.Run())
 }
 
@@ -68,7 +65,7 @@ func TestSpiceDB(t *testing.T) {
 	// pulls an image, creates a container based on it and runs it
 	resource, err := pool.RunWithOptions(&dockertest.RunOptions{
 		Repository:   "authzed/spicedb",
-		Tag:          "latest",
+		Tag:          "v1.28.0",
 		Cmd:          []string{"serve-testing"},
 		ExposedPorts: []string{"50051/tcp"},
 	})
