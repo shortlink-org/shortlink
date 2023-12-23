@@ -13,7 +13,8 @@ spec:
         spec:
           template:
             metadata:
-              annotations: {}
+              annotations:
+                sidecar.istio.io/inject: "false"
             spec:
               containers:
                 - name: spicedb
@@ -50,7 +51,8 @@ spec:
         spec:
           template:
             metadata:
-              annotations: {}
+              annotations:
+                sidecar.istio.io/inject: "false"
             spec:
               containers:
                 - name: migrate
