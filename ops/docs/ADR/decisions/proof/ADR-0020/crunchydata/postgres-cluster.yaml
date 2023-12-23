@@ -9,6 +9,7 @@ spec:
       metadata:
         annotations:
           replicator.v1.mittwald.de/replicate-to: "shortlink"
+          sidecar.istio.io/inject: "false"
       dataVolumeClaimSpec:
         storageClassName: local-path
         accessModes:

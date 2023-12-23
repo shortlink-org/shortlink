@@ -5,11 +5,13 @@ metadata:
 spec:
   postgresVersion: 16
   metadata:
-    annotations: {}
+    annotations:
+      sidecar.istio.io/inject: "false"
   instances:
     - name: grafana
       metadata:
-        annotations: {}
+        annotations:
+          sidecar.istio.io/inject: "false"
       dataVolumeClaimSpec:
         storageClassName: local-path
         accessModes:
