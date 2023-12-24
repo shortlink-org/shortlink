@@ -13,7 +13,7 @@ deploy:
 
   env:
     TRACER_URI: grafana-tempo.grafana:4317
-    GRPC_CLIENT_HOST: shortlink.spicedb-operator:50051
+    GRPC_CLIENT_HOST: shortlink.spicedb-operator
 
   imagePullSecrets: []
 
