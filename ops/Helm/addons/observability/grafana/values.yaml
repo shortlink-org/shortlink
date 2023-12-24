@@ -44,6 +44,14 @@ grafana:
       selfMonitor: true
       interval: "1m"
 
+    resources:
+      limits:
+        cpu: 300m
+        memory: 256Mi
+      requests:
+        cpu: 25m
+        memory: 64Mi
+
   ingress:
     enabled: true
 
