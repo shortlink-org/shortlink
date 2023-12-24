@@ -25,7 +25,7 @@ spec:
         {{- toYaml .Values.ingress.istio.match | nindent 8 }}
       route:
         - destination:
-            host: {{ include "helpers.fullname" . }}
+            host: {{ .Values.ingress.istio.route.destination.host | default (include "helpers.fullname" .) }}
             port:
               number: {{ .Values.ingress.istio.route.destination.port | default 50051 }}
       retries:

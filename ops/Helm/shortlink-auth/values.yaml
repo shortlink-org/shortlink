@@ -21,8 +21,11 @@ ingress:
           prefix: /authzed.api.v1.PermissionsService/
       - uri:
           prefix: /authzed.api.v1.WatchService/
+      - uri:
+          prefix: /authzed.api.v1.ExperimentalService/
     route:
       destination:
+        host: shortlink.spicedb-operator
         port: 50051
 
 # ==============================================================================
