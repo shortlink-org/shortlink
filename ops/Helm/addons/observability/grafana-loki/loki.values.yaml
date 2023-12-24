@@ -37,6 +37,11 @@ loki:
     enabled: false
 
   monitoring:
+    dashboards:
+      enabled: true
+      annotations:
+        grafana_dashboard_folder: Loki
+
     serviceMonitor:
       labels:
         release: prometheus-operator
