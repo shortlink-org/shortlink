@@ -34,3 +34,4 @@ for an information team about cases for updated ADR.
     - [ADR-0002](./decisions/0002-cache-system.md) - Cache System
     - [ADR-0005](./decisions/0005-postgres-optimization.md) - Postgres optimization
     - [ADR-0020](./decisions/0020-postgresql-operator.md) - Research Summary and Decision for PostgreSQL Operators: Choosing Crunchy Postgres Operator
+    - [ADR-0007](./decisions/0007-mongodb.md) - MongoDB
