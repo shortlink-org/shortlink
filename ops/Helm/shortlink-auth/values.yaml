@@ -13,6 +13,7 @@ ingress:
   enabled: true
   # type ingress-controller: istio, cilium, nginx
   ingressClassName: istio
+  namespace: spicedb-operator
   istio:
     match:
       - uri:
@@ -25,7 +26,7 @@ ingress:
           prefix: /authzed.api.v1.ExperimentalService/
     route:
       destination:
-        host: shortlink.spicedb-operator
+        host: shortlink
         port: 50051
 
 # ==============================================================================

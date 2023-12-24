@@ -5,6 +5,7 @@ apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
   name: {{ empty .Values.ingress.name | ternary (include "helpers.fullname" .) .Values.ingress.name }}
+  namespace: {{ .Values.ingress.namespace | default .Release.Namespace }}
   labels:
     {{- include "helpers.labels" . | nindent 4 }}
   {{- with .Values.ingress.annotations }}
@@ -40,6 +41,7 @@ spec:
 apiVersion: networking.istio.io/v1beta1
 kind: DestinationRule
 metadata:
+  namespace: {{ .Values.ingress.namespace | default .Release.Namespace }}
   {{- include "shortlink-common.metadata" . | indent 2 }}
 spec:
   host: {{ .name | default (include "helpers.fullname" .) }}.{{ .Release.Namespace }}.svc.cluster.local
