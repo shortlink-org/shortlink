@@ -8,6 +8,24 @@ serviceAccount:
   create: true
 
 # ==============================================================================
+# TODO: Setting route
+ingress:
+  enabled: true
+  # type ingress-controller: istio, cilium, nginx
+  ingressClassName: istio
+  istio:
+    match:
+      - uri:
+          prefix: /authzed.api.v1.SchemaService/
+      - uri:
+          prefix: /authzed.api.v1.PermissionsService/
+      - uri:
+          prefix: /authzed.api.v1.WatchService/
+    route:
+      destination:
+        port: 50051
+
+# ==============================================================================
 deploy:
   replicaCount: 1
 

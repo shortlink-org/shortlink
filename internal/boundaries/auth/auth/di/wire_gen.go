@@ -9,6 +9,7 @@ package auth_di
 import (
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
+	permission2 "github.com/shortlink-org/shortlink/internal/boundaries/auth/auth/services/permission"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
@@ -19,7 +20,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
-	permission2 "github.com/shortlink-org/shortlink/internal/boundaries/auth/auth/services/permission"
 	"go.opentelemetry.io/otel/trace"
 )
 

@@ -18,8 +18,7 @@ if err != nil {
 
 This function reads configurations from environment variables:
 
-| Name                  | Description                         | Default Value                      |
-|-----------------------|-------------------------------------|------------------------------------|
-| `SPICE_DB_API`        | The address of the SpiceDB API.     | `"shortlink.spicedb-operator:50051"`           |
-| `SPICE_DB_COMMON_KEY` | The shared key for the SpiceDB API. | `"secret-shortlink-preshared-key"` |
-
+| Name                  | Description                         | Default Value                        |
+|-----------------------|-------------------------------------|--------------------------------------|
+| `SPICE_DB_TIMEOUT`    | The timeout for the SpiceDB API.    | `"5s"`                               |
+| `SPICE_DB_COMMON_KEY` | The shared key for the SpiceDB API. | `"secret-shortlink-preshared-key"`   |
