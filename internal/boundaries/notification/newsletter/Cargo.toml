@@ -11,7 +11,7 @@ edition = "2021"
 repository = "https://github.com/shortlink-org/shortlink"
 
 [dependencies]
-futures = { version = "0.3.29", default-features = true, features = ["async-await"] }
+futures = { version = "0.3.30", default-features = true, features = ["async-await"] }
 hyper = { version = "1.1", features = ["full"] }
 tokio = { version = "1", features = ["full"] }
 serde = {version = "1.0.193", features = ["derive"] }
