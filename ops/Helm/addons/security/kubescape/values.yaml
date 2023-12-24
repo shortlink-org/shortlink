@@ -7,8 +7,8 @@ kubescape:
 
   global:
     networkPolicy:
-      enabled: true
-      createEgressRules: true
+      enabled: false
+      createEgressRules: false
 
   capabilities:
     continuousScan: enable
@@ -17,10 +17,17 @@ kubescape:
     networkGenerator: enable
     seccompGenerator: enable
     vexGeneration: enable
+    autoUpgrading: enable
+
+  configurations:
+    persistence: disable
 
   clusterName: shortlink
 
   kubescape:
+    prometheusAnnotation:
+      enabled: true
+
     labels:
       release: prometheus-operator
 
