@@ -39,6 +39,12 @@ grafana:
 
     revisionHistoryLimit: 2
 
+    securityContext:
+      runAsNonRoot: true
+      runAsUser: 472
+      runAsGroup: 472
+      fsGroup: 472
+
     serviceMonitor:
       enabled: true
       selfMonitor: true
