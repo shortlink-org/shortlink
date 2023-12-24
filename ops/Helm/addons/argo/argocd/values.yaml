@@ -65,6 +65,9 @@ argo-cd:
   dex:
     enabled: true
 
+    image:
+      tag: latest-alpine
+
     env:
       - name: ARGO_WORKFLOWS_SSO_CLIENT_SECRET
         valueFrom:
