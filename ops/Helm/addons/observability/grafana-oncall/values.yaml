@@ -17,7 +17,7 @@ oncall:
         memory: 50Mi
 
   migrate:
-    enabled: false
+    enabled: true
     resources:
       limits:
         cpu: 100m
