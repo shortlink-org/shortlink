@@ -76,4 +76,9 @@ testkube:
     oauth2:
       enabled: true
 
-  testkube-operator: {}
+  testkube-operator:
+    webhook:
+      enabled: true
+
+      patch:
+        enabled: true
