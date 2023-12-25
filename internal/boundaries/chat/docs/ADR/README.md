@@ -20,3 +20,4 @@ for an information team about cases for updated ADR.
 
 - [ADR-0001](./decisions/0001-init.md) - Init Chat Boundary context
 - [ADR-0002](./decisions/0002-c4.md) - C4 Model for Chat boundary context
+- [ADR-0003](./decisions/0003-requirements-and-consumption-calculations.md) - Requirements and Consumption Calculations
