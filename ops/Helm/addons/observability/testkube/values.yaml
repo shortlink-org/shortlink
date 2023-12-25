@@ -34,7 +34,6 @@ testkube:
         nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
       hosts:
         - testkube.shortlink.best
-      path: /results
       tlsenabled: true
       tls:
         - hosts:
