@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+
+// Message represents a single message in a chat.
+message Message {
+  // message_id is a unique identifier for the message, typically a UUID.
+  string message_id = 1;
+
+  // chat_id is the identifier of the chat this message belongs to.
+  string chat_id = 2;
+
+  // sender_id is the identifier of the user who sent the message.
+  string sender_id = 3;
+
+  // timestamp represents the time when the message was originally sent.
+  google.protobuf.Timestamp timestamp = 4;
+
+  // content is the text or data of the message.
+  string content = 5;
+
+  // Indicates if the message has been edited.
+  bool is_edited = 6;
+
+  // Timestamp of the last edit. Set only if the message was edited.
+  google.protobuf.Timestamp last_edit_time = 7;
+
+  // reply_to provides context if this message is a reply to another message.
+  ReplyContext reply_to = 8;
+
+  // forward_from provides context if this message is forwarded from another message.
+  ForwardContext forward_from = 9;
+}
+
+// ReplyContext provides context for a message that is a reply to another message.
+message ReplyContext {
+  // original_message_id is the identifier of the original message being replied to.
+  string original_message_id = 1;
+
+  // snippet of the original message's content.
+  string content_snippet = 2;
+}
+
+// ForwardContext provides context for a message that is forwarded from another message.
+message ForwardContext {
+  // original_message_id is the identifier of the original message being forwarded.
+  string original_message_id = 1;
+
+  // original_chat_id is the identifier of the chat from which the message is forwarded.
+  string original_chat_id = 2;
+
+  // snippet of the original message's content.
+  string content_snippet = 3;
+}

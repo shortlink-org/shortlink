@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+
+// User represents a user of the chat service.
+message User {
+  // user_id is a unique identifier for the user, typically a UUID.
+  string user_id = 1;
+
+  // username is the user's chosen name for identification within the service.
+  string username = 2;
+
+  // email is the user's email address.
+  string email = 3;
+
+  // last_login_time represents the last time the user logged in to the service.
+  google.protobuf.Timestamp last_login_time = 4;
+
+  // Field mask
+  google.protobuf.FieldMask field_mask = 5;
+}
