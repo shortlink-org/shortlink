@@ -17,6 +17,6 @@ message User {
   // last_login_time represents the last time the user logged in to the service.
   google.protobuf.Timestamp last_login_time = 4;
 
-  // Field mask
+  // Field mask indicating which fields have been updated.
   google.protobuf.FieldMask field_mask = 5;
 }

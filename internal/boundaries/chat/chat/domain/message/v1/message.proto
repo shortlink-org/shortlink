@@ -1,6 +1,7 @@
 syntax = "proto3";
 
 import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
 
 // Message represents a single message in a chat.
 message Message {
@@ -19,17 +20,32 @@ message Message {
   // content is the text or data of the message.
   string content = 5;
 
-  // Indicates if the message has been edited.
-  bool is_edited = 6;
-
-  // Timestamp of the last edit. Set only if the message was edited.
-  google.protobuf.Timestamp last_edit_time = 7;
+  // Pin information, if the message is pinned.
+  PinInfo pin_info = 6;
 
   // reply_to provides context if this message is a reply to another message.
-  ReplyContext reply_to = 8;
+  ReplyContext reply_to = 7;
 
   // forward_from provides context if this message is forwarded from another message.
-  ForwardContext forward_from = 9;
+  ForwardContext forward_from = 8;
+
+  // Field mask indicating which fields have been updated.
+  google.protobuf.FieldMask updated_mask = 9;
+}
+
+// PinInfo represents the pinning information for a message.
+message PinInfo {
+  // Indicates if the message is currently pinned.
+  bool is_pinned = 1;
+
+  // user_id of the user who pinned or unpinned the message.
+  string pinned_by_user_id = 2;
+
+  // Timestamp when the message was pinned or unpinned.
+  google.protobuf.Timestamp pin_action_time = 3;
+
+  // The content of the pinned message.
+  string pinned_message_content = 4;
 }
 
 // ReplyContext provides context for a message that is a reply to another message.
