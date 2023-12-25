@@ -16,6 +16,10 @@ $> make help # show help message with all commands and targets
 - Phoenix
 - Cassandra
 
+### ADR
+
+- [ADR-0001](./docs/ADR/decisions/0001-overview.md) - Overview chat service
+
 ### Learn more
 
 > [!TIP]

@@ -19,4 +19,4 @@ for an information team about cases for updated ADR.
 ### Architecture Decision Log (ADL):
 
 - [ADR-0001](./decisions/0001-init.md) - Init Chat Boundary context
-- [ADR-0002](./decisions/0002-c4.md) - C4 Model for Chat Service
+- [ADR-0002](./decisions/0002-c4.md) - C4 Model for Chat boundary context
