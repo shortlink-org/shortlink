@@ -78,6 +78,10 @@ testkube:
   testkube-operator:
     enabled: true
 
+    proxy:
+      image:
+        tag: v0.15.0
+
     webhook:
       enabled: true
 
