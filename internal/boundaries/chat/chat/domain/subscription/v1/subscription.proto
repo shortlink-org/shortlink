@@ -9,13 +9,29 @@ enum SubscriptionStatus {
   DECLINED = 2; // The user's subscription request was declined or the user left the chat.
 }
 
+// PinMessage represents a pinned message in a chat.
+message PinMessage {
+  string message_id = 1;                  // Identifier of the pinned message.
+  string content_snippet = 2;             // A snippet or summary of the pinned message's content.
+  google.protobuf.Timestamp pin_time = 3; // Timestamp when the message was pinned.
+}
+
+// Nested message for private data like pinned messages.
+message Private {
+  repeated PinMessage pin_messages = 1; // Details of pinned messages in the chat.
+}
+
 // Subscription represents a user's subscription to a chat.
 message Subscription {
-  string subscription_id = 1; // Unique identifier for the subscription, typically a UUID.
-  string user_id = 2;         // Identifier of the user subscribing to the chat.
-  string chat_id = 3;         // Identifier of the chat to which the user is subscribing.
+  string subscription_id = 1;    // Unique identifier for the subscription, typically a UUID.
+  string user_id = 2;            // Identifier of the user subscribing to the chat.
+  string chat_id = 3;            // Identifier of the chat to which the user is subscribing.
   SubscriptionStatus status = 4; // Status of the subscription.
 
-  google.protobuf.Timestamp created_at = 5; // Time when the subscription was created or requested.
-  google.protobuf.Timestamp updated_at = 6; // Time when the subscription was last updated.
+  string last_notified_message_id = 5; // ID of the last message that was notified to the user.
+  string last_read_message_id = 6;     // ID of the last message that was read by the user.
+  Private private_data = 7;            // Private data related to the subscription.
+
+  google.protobuf.Timestamp created_at = 8; // Time when the subscription was created or requested.
+  google.protobuf.Timestamp updated_at = 9; // Time when the subscription was last updated.
 }
