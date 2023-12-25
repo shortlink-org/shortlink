@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+
+// Chat represents a conversation between users.
+message Chat {
+  string chat_id = 1; // Unique identifier for the chat, typically a UUID.
+  string name = 2; // Name or title of the chat.
+
+  google.protobuf.Timestamp created_at = 3; // Time when the chat was created.
+
+  // FieldMask for partial updates.
+  google.protobuf.FieldMask field_mask = 4;
+}
