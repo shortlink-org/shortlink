@@ -13,6 +13,9 @@ pyrra:
   prometheusUrl: http://prometheus-prometheus.prometheus-operator:9090
   prometheusExternalUrl: https://shortlink.best/prometheus
 
+  extraKubernetesArgs:
+    - --config-map-mode=true
+
   ingress:
     enabled: true
     className: nginx
