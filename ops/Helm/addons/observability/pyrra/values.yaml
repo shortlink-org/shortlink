@@ -1,0 +1,47 @@
+# Common default values for tracetest.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+pyrra:
+  enabled: true
+
+  fullnameOverride: pyrra
+
+  image:
+    tag: v0.7.2
+
+  prometheusUrl: http://prometheus-prometheus.prometheus-operator:9090
+  prometheusExternalUrl: https://shortlink.best/prometheus
+
+  ingress:
+    enabled: true
+    className: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: cert-manager-production
+      nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+      nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+    hosts:
+      - host: status.shortlink.best
+        paths:
+          - path: /
+            pathType: Prefix
+    tls:
+      - secretName: status-page-ingress-tls
+        hosts:
+          - status.shortlink.best
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
+
+  serviceMonitor:
+    enabled: true
+    labels:
+      release: prometheus-operator
+
+  genericRules:
+    enabled: true
