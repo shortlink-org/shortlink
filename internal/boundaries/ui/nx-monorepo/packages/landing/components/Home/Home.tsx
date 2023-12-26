@@ -141,6 +141,7 @@ const Home = () => {
                 { name: 'Pyroscope', url: 'https://pyroscope.shortlink.best' },
                 { name: 'Testkube', url: 'https://testkube.shortlink.best' },
                 { name: 'TraceTest', url: 'https://tracetest.shortlink.best' },
+                { name: 'Status Page', url: 'https://status.shortlink.best' },
               ]}
             />
           </TabPanel>
