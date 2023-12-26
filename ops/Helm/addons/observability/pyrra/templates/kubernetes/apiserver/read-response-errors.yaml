@@ -5,9 +5,8 @@ metadata:
     prometheus: k8s
     role: alert-rules
   name: apiserver-read-response-errors
-  namespace: monitoring
 spec:
-  description: ""
+  description: "The percentage of read requests that return an error response."
   indicator:
     ratio:
       errors:
