@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-template | shortlink-template | 0.8.3 |
+| file://../shortlink-template | shortlink-template | 0.8.6 |
 | https://charts.rook.io/release | rook-ceph | v1.13.1 |
 
 ## Values
@@ -42,21 +42,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L12">ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"false"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L14">ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L13">ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -70,7 +56,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L13">ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L12">ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -84,7 +70,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/rewrite-target""><a href="./values.yaml#L15">ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target"</a></td>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/rewrite-target""><a href="./values.yaml#L14">ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target"</a></td>
 			<td>
 string
 </td>
@@ -98,7 +84,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/use-regex""><a href="./values.yaml#L16">ingress.annotations."nginx.ingress.kubernetes.io/use-regex"</a></td>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/use-regex""><a href="./values.yaml#L15">ingress.annotations."nginx.ingress.kubernetes.io/use-regex"</a></td>
 			<td>
 string
 </td>
@@ -126,7 +112,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--hostname"><a href="./values.yaml#L18">ingress.hostname</a></td>
+			<td id="ingress--hostname"><a href="./values.yaml#L17">ingress.hostname</a></td>
 			<td>
 string
 </td>
@@ -154,7 +140,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--paths[0]--path"><a href="./values.yaml#L21">ingress.paths[0].path</a></td>
+			<td id="ingress--paths[0]--path"><a href="./values.yaml#L20">ingress.paths[0].path</a></td>
 			<td>
 string
 </td>
@@ -168,7 +154,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--paths[0]--service--name"><a href="./values.yaml#L23">ingress.paths[0].service.name</a></td>
+			<td id="ingress--paths[0]--service--name"><a href="./values.yaml#L22">ingress.paths[0].service.name</a></td>
 			<td>
 string
 </td>
@@ -182,7 +168,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--paths[0]--service--port"><a href="./values.yaml#L24">ingress.paths[0].service.port</a></td>
+			<td id="ingress--paths[0]--service--port"><a href="./values.yaml#L23">ingress.paths[0].service.port</a></td>
 			<td>
 int
 </td>

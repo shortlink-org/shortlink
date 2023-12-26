@@ -139,7 +139,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--prometheus--enabled"><a href="./values.yaml#L53">testkube.testkube-api.prometheus.enabled</a></td>
+			<td id="testkube--testkube-api--prometheus--enabled"><a href="./values.yaml#L51">testkube.testkube-api.prometheus.enabled</a></td>
 			<td>
 bool
 </td>
@@ -153,7 +153,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--prometheus--monitoringLabels--release"><a href="./values.yaml#L55">testkube.testkube-api.prometheus.monitoringLabels.release</a></td>
+			<td id="testkube--testkube-api--prometheus--monitoringLabels--release"><a href="./values.yaml#L53">testkube.testkube-api.prometheus.monitoringLabels.release</a></td>
 			<td>
 string
 </td>
@@ -167,7 +167,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--storage--SSL"><a href="./values.yaml#L49">testkube.testkube-api.storage.SSL</a></td>
+			<td id="testkube--testkube-api--storage--SSL"><a href="./values.yaml#L47">testkube.testkube-api.storage.SSL</a></td>
 			<td>
 bool
 </td>
@@ -181,7 +181,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--storage--expiration"><a href="./values.yaml#L48">testkube.testkube-api.storage.expiration</a></td>
+			<td id="testkube--testkube-api--storage--expiration"><a href="./values.yaml#L46">testkube.testkube-api.storage.expiration</a></td>
 			<td>
 int
 </td>
@@ -195,7 +195,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--storage--region"><a href="./values.yaml#L46">testkube.testkube-api.storage.region</a></td>
+			<td id="testkube--testkube-api--storage--region"><a href="./values.yaml#L44">testkube.testkube-api.storage.region</a></td>
 			<td>
 string
 </td>
@@ -209,7 +209,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--storage--scrapperEnabled"><a href="./values.yaml#L50">testkube.testkube-api.storage.scrapperEnabled</a></td>
+			<td id="testkube--testkube-api--storage--scrapperEnabled"><a href="./values.yaml#L48">testkube.testkube-api.storage.scrapperEnabled</a></td>
 			<td>
 bool
 </td>
@@ -223,7 +223,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--storage--token"><a href="./values.yaml#L47">testkube.testkube-api.storage.token</a></td>
+			<td id="testkube--testkube-api--storage--token"><a href="./values.yaml#L45">testkube.testkube-api.storage.token</a></td>
 			<td>
 string
 </td>
@@ -251,21 +251,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--uiIngress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L33">testkube.testkube-api.uiIngress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"false"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="testkube--testkube-api--uiIngress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L35">testkube.testkube-api.uiIngress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="testkube--testkube-api--uiIngress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L34">testkube.testkube-api.uiIngress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -279,7 +265,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--uiIngress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L34">testkube.testkube-api.uiIngress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="testkube--testkube-api--uiIngress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L33">testkube.testkube-api.uiIngress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -321,7 +307,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--uiIngress--hosts[0]"><a href="./values.yaml#L37">testkube.testkube-api.uiIngress.hosts[0]</a></td>
+			<td id="testkube--testkube-api--uiIngress--hosts[0]"><a href="./values.yaml#L36">testkube.testkube-api.uiIngress.hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -335,21 +321,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--uiIngress--path"><a href="./values.yaml#L38">testkube.testkube-api.uiIngress.path</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"/results"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="testkube--testkube-api--uiIngress--tls[0]--hosts[0]"><a href="./values.yaml#L42">testkube.testkube-api.uiIngress.tls[0].hosts[0]</a></td>
+			<td id="testkube--testkube-api--uiIngress--tls[0]--hosts[0]"><a href="./values.yaml#L40">testkube.testkube-api.uiIngress.tls[0].hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -363,7 +335,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--uiIngress--tls[0]--secretName"><a href="./values.yaml#L43">testkube.testkube-api.uiIngress.tls[0].secretName</a></td>
+			<td id="testkube--testkube-api--uiIngress--tls[0]--secretName"><a href="./values.yaml#L41">testkube.testkube-api.uiIngress.tls[0].secretName</a></td>
 			<td>
 string
 </td>
@@ -377,7 +349,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--uiIngress--tlsenabled"><a href="./values.yaml#L39">testkube.testkube-api.uiIngress.tlsenabled</a></td>
+			<td id="testkube--testkube-api--uiIngress--tlsenabled"><a href="./values.yaml#L37">testkube.testkube-api.uiIngress.tlsenabled</a></td>
 			<td>
 bool
 </td>
@@ -391,7 +363,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--apiServerEndpoint"><a href="./values.yaml#L58">testkube.testkube-dashboard.apiServerEndpoint</a></td>
+			<td id="testkube--testkube-dashboard--apiServerEndpoint"><a href="./values.yaml#L56">testkube.testkube-dashboard.apiServerEndpoint</a></td>
 			<td>
 string
 </td>
@@ -405,7 +377,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L64">testkube.testkube-dashboard.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td id="testkube--testkube-dashboard--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L62">testkube.testkube-dashboard.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
 			<td>
 string
 </td>
@@ -419,21 +391,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L65">testkube.testkube-dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"false"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="testkube--testkube-dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L67">testkube.testkube-dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="testkube--testkube-dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L64">testkube.testkube-dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -447,7 +405,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L66">testkube.testkube-dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="testkube--testkube-dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L63">testkube.testkube-dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -461,7 +419,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--ingress--enabled"><a href="./values.yaml#L61">testkube.testkube-dashboard.ingress.enabled</a></td>
+			<td id="testkube--testkube-dashboard--ingress--enabled"><a href="./values.yaml#L59">testkube.testkube-dashboard.ingress.enabled</a></td>
 			<td>
 bool
 </td>
@@ -475,7 +433,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--ingress--hosts[0]"><a href="./values.yaml#L70">testkube.testkube-dashboard.ingress.hosts[0]</a></td>
+			<td id="testkube--testkube-dashboard--ingress--hosts[0]"><a href="./values.yaml#L67">testkube.testkube-dashboard.ingress.hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -489,7 +447,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--ingress--tls[0]--hosts[0]"><a href="./values.yaml#L75">testkube.testkube-dashboard.ingress.tls[0].hosts[0]</a></td>
+			<td id="testkube--testkube-dashboard--ingress--tls[0]--hosts[0]"><a href="./values.yaml#L72">testkube.testkube-dashboard.ingress.tls[0].hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -503,7 +461,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--ingress--tls[0]--secretName"><a href="./values.yaml#L76">testkube.testkube-dashboard.ingress.tls[0].secretName</a></td>
+			<td id="testkube--testkube-dashboard--ingress--tls[0]--secretName"><a href="./values.yaml#L73">testkube.testkube-dashboard.ingress.tls[0].secretName</a></td>
 			<td>
 string
 </td>
@@ -517,7 +475,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--ingress--tlsenabled"><a href="./values.yaml#L72">testkube.testkube-dashboard.ingress.tlsenabled</a></td>
+			<td id="testkube--testkube-dashboard--ingress--tlsenabled"><a href="./values.yaml#L69">testkube.testkube-dashboard.ingress.tlsenabled</a></td>
 			<td>
 bool
 </td>
@@ -531,7 +489,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--oauth2--enabled"><a href="./values.yaml#L79">testkube.testkube-dashboard.oauth2.enabled</a></td>
+			<td id="testkube--testkube-dashboard--oauth2--enabled"><a href="./values.yaml#L76">testkube.testkube-dashboard.oauth2.enabled</a></td>
 			<td>
 bool
 </td>
@@ -545,14 +503,42 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-operator"><a href="./values.yaml#L81">testkube.testkube-operator</a></td>
+			<td id="testkube--testkube-operator--enabled"><a href="./values.yaml#L79">testkube.testkube-operator.enabled</a></td>
 			<td>
-object
+bool
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-{}
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="testkube--testkube-operator--webhook--enabled"><a href="./values.yaml#L86">testkube.testkube-operator.webhook.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="testkube--testkube-operator--webhook--patch--enabled"><a href="./values.yaml#L89">testkube.testkube-operator.webhook.patch.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
 </pre>
 </div>
 			</td>

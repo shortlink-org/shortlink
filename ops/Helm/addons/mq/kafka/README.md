@@ -224,21 +224,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L58">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"false"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L60">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L59">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -252,7 +238,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L59">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L58">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -266,7 +252,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/rewrite-target""><a href="./values.yaml#L61">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target"</a></td>
+			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/rewrite-target""><a href="./values.yaml#L60">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target"</a></td>
 			<td>
 string
 </td>
@@ -280,7 +266,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/use-regex""><a href="./values.yaml#L62">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/use-regex"</a></td>
+			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/use-regex""><a href="./values.yaml#L61">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/use-regex"</a></td>
 			<td>
 string
 </td>
@@ -308,7 +294,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--host"><a href="./values.yaml#L64">kafka-ui.ingress.host</a></td>
+			<td id="kafka-ui--ingress--host"><a href="./values.yaml#L63">kafka-ui.ingress.host</a></td>
 			<td>
 string
 </td>
@@ -336,7 +322,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--path"><a href="./values.yaml#L66">kafka-ui.ingress.path</a></td>
+			<td id="kafka-ui--ingress--path"><a href="./values.yaml#L65">kafka-ui.ingress.path</a></td>
 			<td>
 string
 </td>
@@ -350,7 +336,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--tls--enabled"><a href="./values.yaml#L69">kafka-ui.ingress.tls.enabled</a></td>
+			<td id="kafka-ui--ingress--tls--enabled"><a href="./values.yaml#L68">kafka-ui.ingress.tls.enabled</a></td>
 			<td>
 bool
 </td>
@@ -364,7 +350,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--tls--secretName"><a href="./values.yaml#L70">kafka-ui.ingress.tls.secretName</a></td>
+			<td id="kafka-ui--ingress--tls--secretName"><a href="./values.yaml#L69">kafka-ui.ingress.tls.secretName</a></td>
 			<td>
 string
 </td>

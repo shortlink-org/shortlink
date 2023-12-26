@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-rollouts | 2.33.0 |
+| https://argoproj.github.io/argo-helm | argo-rollouts | 2.34.0 |
 
 ## Values
 
@@ -153,21 +153,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-rollouts--dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L42">argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"false"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="argo-rollouts--dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L44">argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="argo-rollouts--dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L43">argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -181,7 +167,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-rollouts--dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L43">argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="argo-rollouts--dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L42">argo-rollouts.dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -209,7 +195,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-rollouts--dashboard--ingress--hosts[0]"><a href="./values.yaml#L47">argo-rollouts.dashboard.ingress.hosts[0]</a></td>
+			<td id="argo-rollouts--dashboard--ingress--hosts[0]"><a href="./values.yaml#L46">argo-rollouts.dashboard.ingress.hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -237,7 +223,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-rollouts--dashboard--ingress--paths[0]"><a href="./values.yaml#L50">argo-rollouts.dashboard.ingress.paths[0]</a></td>
+			<td id="argo-rollouts--dashboard--ingress--paths[0]"><a href="./values.yaml#L49">argo-rollouts.dashboard.ingress.paths[0]</a></td>
 			<td>
 string
 </td>
@@ -251,7 +237,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-rollouts--dashboard--ingress--tls[0]--hosts[0]"><a href="./values.yaml#L55">argo-rollouts.dashboard.ingress.tls[0].hosts[0]</a></td>
+			<td id="argo-rollouts--dashboard--ingress--tls[0]--hosts[0]"><a href="./values.yaml#L54">argo-rollouts.dashboard.ingress.tls[0].hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -265,7 +251,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-rollouts--dashboard--ingress--tls[0]--secretName"><a href="./values.yaml#L53">argo-rollouts.dashboard.ingress.tls[0].secretName</a></td>
+			<td id="argo-rollouts--dashboard--ingress--tls[0]--secretName"><a href="./values.yaml#L52">argo-rollouts.dashboard.ingress.tls[0].secretName</a></td>
 			<td>
 string
 </td>
@@ -377,7 +363,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-rollouts--metrics--enabled"><a href="./values.yaml#L58">argo-rollouts.metrics.enabled</a></td>
+			<td id="argo-rollouts--metrics--enabled"><a href="./values.yaml#L57">argo-rollouts.metrics.enabled</a></td>
 			<td>
 bool
 </td>
@@ -391,7 +377,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-rollouts--metrics--serviceMonitor--enabled"><a href="./values.yaml#L60">argo-rollouts.metrics.serviceMonitor.enabled</a></td>
+			<td id="argo-rollouts--metrics--serviceMonitor--enabled"><a href="./values.yaml#L59">argo-rollouts.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>

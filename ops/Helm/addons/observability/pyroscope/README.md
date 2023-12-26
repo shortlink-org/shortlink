@@ -28,7 +28,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="pyroscope-ebpf--args[0]"><a href="./values.yaml#L36">pyroscope-ebpf.args[0]</a></td>
+			<td id="pyroscope-ebpf--args[0]"><a href="./values.yaml#L35">pyroscope-ebpf.args[0]</a></td>
 			<td>
 string
 </td>
@@ -42,7 +42,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope-ebpf--args[1]"><a href="./values.yaml#L37">pyroscope-ebpf.args[1]</a></td>
+			<td id="pyroscope-ebpf--args[1]"><a href="./values.yaml#L36">pyroscope-ebpf.args[1]</a></td>
 			<td>
 string
 </td>
@@ -56,7 +56,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope-ebpf--args[2]"><a href="./values.yaml#L38">pyroscope-ebpf.args[2]</a></td>
+			<td id="pyroscope-ebpf--args[2]"><a href="./values.yaml#L37">pyroscope-ebpf.args[2]</a></td>
 			<td>
 string
 </td>
@@ -70,7 +70,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope-ebpf--args[3]"><a href="./values.yaml#L39">pyroscope-ebpf.args[3]</a></td>
+			<td id="pyroscope-ebpf--args[3]"><a href="./values.yaml#L38">pyroscope-ebpf.args[3]</a></td>
 			<td>
 string
 </td>
@@ -84,7 +84,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope-ebpf--args[4]"><a href="./values.yaml#L40">pyroscope-ebpf.args[4]</a></td>
+			<td id="pyroscope-ebpf--args[4]"><a href="./values.yaml#L39">pyroscope-ebpf.args[4]</a></td>
 			<td>
 string
 </td>
@@ -98,7 +98,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope-ebpf--enabled"><a href="./values.yaml#L33">pyroscope-ebpf.enabled</a></td>
+			<td id="pyroscope-ebpf--enabled"><a href="./values.yaml#L32">pyroscope-ebpf.enabled</a></td>
 			<td>
 bool
 </td>
@@ -140,21 +140,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L9">pyroscope.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"false"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="pyroscope--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L11">pyroscope.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="pyroscope--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L10">pyroscope.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -168,7 +154,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L10">pyroscope.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="pyroscope--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L9">pyroscope.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -210,7 +196,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--ingress--hosts[0]--host"><a href="./values.yaml#L14">pyroscope.ingress.hosts[0].host</a></td>
+			<td id="pyroscope--ingress--hosts[0]--host"><a href="./values.yaml#L13">pyroscope.ingress.hosts[0].host</a></td>
 			<td>
 string
 </td>
@@ -224,7 +210,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--ingress--hosts[0]--paths[0]--path"><a href="./values.yaml#L16">pyroscope.ingress.hosts[0].paths[0].path</a></td>
+			<td id="pyroscope--ingress--hosts[0]--paths[0]--path"><a href="./values.yaml#L15">pyroscope.ingress.hosts[0].paths[0].path</a></td>
 			<td>
 string
 </td>
@@ -238,7 +224,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--ingress--hosts[0]--paths[0]--pathType"><a href="./values.yaml#L17">pyroscope.ingress.hosts[0].paths[0].pathType</a></td>
+			<td id="pyroscope--ingress--hosts[0]--paths[0]--pathType"><a href="./values.yaml#L16">pyroscope.ingress.hosts[0].paths[0].pathType</a></td>
 			<td>
 string
 </td>
@@ -252,7 +238,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--ingress--tls[0]--hosts[0]"><a href="./values.yaml#L22">pyroscope.ingress.tls[0].hosts[0]</a></td>
+			<td id="pyroscope--ingress--tls[0]--hosts[0]"><a href="./values.yaml#L21">pyroscope.ingress.tls[0].hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -266,7 +252,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--ingress--tls[0]--secretName"><a href="./values.yaml#L20">pyroscope.ingress.tls[0].secretName</a></td>
+			<td id="pyroscope--ingress--tls[0]--secretName"><a href="./values.yaml#L19">pyroscope.ingress.tls[0].secretName</a></td>
 			<td>
 string
 </td>
@@ -280,7 +266,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--resources--limits--cpu"><a href="./values.yaml#L26">pyroscope.resources.limits.cpu</a></td>
+			<td id="pyroscope--resources--limits--cpu"><a href="./values.yaml#L25">pyroscope.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -294,7 +280,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--resources--limits--memory"><a href="./values.yaml#L27">pyroscope.resources.limits.memory</a></td>
+			<td id="pyroscope--resources--limits--memory"><a href="./values.yaml#L26">pyroscope.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -308,7 +294,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--resources--requests--cpu"><a href="./values.yaml#L29">pyroscope.resources.requests.cpu</a></td>
+			<td id="pyroscope--resources--requests--cpu"><a href="./values.yaml#L28">pyroscope.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -322,7 +308,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--resources--requests--memory"><a href="./values.yaml#L30">pyroscope.resources.requests.memory</a></td>
+			<td id="pyroscope--resources--requests--memory"><a href="./values.yaml#L29">pyroscope.resources.requests.memory</a></td>
 			<td>
 string
 </td>

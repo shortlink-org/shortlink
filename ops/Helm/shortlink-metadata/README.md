@@ -22,7 +22,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-template | shortlink-template | 0.8.3 |
+| file://../shortlink-template | shortlink-template | 0.8.6 |
 
 ## Values
 
@@ -35,7 +35,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="deploy--affinity"><a href="./values.yaml#L70">deploy.affinity</a></td>
+			<td id="deploy--affinity"><a href="./values.yaml#L74">deploy.affinity</a></td>
 			<td>
 list
 </td>
@@ -49,7 +49,7 @@ list
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--annotations"><a href="./values.yaml#L53">deploy.annotations</a></td>
+			<td id="deploy--annotations"><a href="./values.yaml#L57">deploy.annotations</a></td>
 			<td>
 object
 </td>
@@ -63,21 +63,21 @@ object
 			<td>Annotations to be added to controller pods</td>
 		</tr>
 		<tr>
-			<td id="deploy--env--GRPC_CLIENT_HOST"><a href="./values.yaml#L48">deploy.env.GRPC_CLIENT_HOST</a></td>
+			<td id="deploy--env--GRPC_CLIENT_HOST"><a href="./values.yaml#L52">deploy.env.GRPC_CLIENT_HOST</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"internal-gateway-istio.shortlink"
+"istio-ingress.istio-ingress"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--MQ_ENABLED"><a href="./values.yaml#L44">deploy.env.MQ_ENABLED</a></td>
+			<td id="deploy--env--MQ_ENABLED"><a href="./values.yaml#L48">deploy.env.MQ_ENABLED</a></td>
 			<td>
 bool
 </td>
@@ -91,7 +91,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--MQ_KAFKA_URI"><a href="./values.yaml#L46">deploy.env.MQ_KAFKA_URI</a></td>
+			<td id="deploy--env--MQ_KAFKA_URI"><a href="./values.yaml#L50">deploy.env.MQ_KAFKA_URI</a></td>
 			<td>
 string
 </td>
@@ -105,7 +105,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--MQ_TYPE"><a href="./values.yaml#L45">deploy.env.MQ_TYPE</a></td>
+			<td id="deploy--env--MQ_TYPE"><a href="./values.yaml#L49">deploy.env.MQ_TYPE</a></td>
 			<td>
 string
 </td>
@@ -119,7 +119,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--TRACER_URI"><a href="./values.yaml#L47">deploy.env.TRACER_URI</a></td>
+			<td id="deploy--env--TRACER_URI"><a href="./values.yaml#L51">deploy.env.TRACER_URI</a></td>
 			<td>
 string
 </td>
@@ -133,7 +133,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L61">deploy.image.pullPolicy</a></td>
+			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L65">deploy.image.pullPolicy</a></td>
 			<td>
 string
 </td>
@@ -147,7 +147,7 @@ string
 			<td>Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images</td>
 		</tr>
 		<tr>
-			<td id="deploy--image--repository"><a href="./values.yaml#L56">deploy.image.repository</a></td>
+			<td id="deploy--image--repository"><a href="./values.yaml#L60">deploy.image.repository</a></td>
 			<td>
 string
 </td>
@@ -161,21 +161,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--tag"><a href="./values.yaml#L57">deploy.image.tag</a></td>
+			<td id="deploy--image--tag"><a href="./values.yaml#L61">deploy.image.tag</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.16.119"
+"0.16.121"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--imagePullSecrets"><a href="./values.yaml#L50">deploy.imagePullSecrets</a></td>
+			<td id="deploy--imagePullSecrets"><a href="./values.yaml#L54">deploy.imagePullSecrets</a></td>
 			<td>
 list
 </td>
@@ -189,7 +189,7 @@ list
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--livenessProbe"><a href="./values.yaml#L73">deploy.livenessProbe</a></td>
+			<td id="deploy--livenessProbe"><a href="./values.yaml#L77">deploy.livenessProbe</a></td>
 			<td>
 object
 </td>
@@ -208,7 +208,7 @@ object
 			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--nodeSelector"><a href="./values.yaml#L66">deploy.nodeSelector</a></td>
+			<td id="deploy--nodeSelector"><a href="./values.yaml#L70">deploy.nodeSelector</a></td>
 			<td>
 list
 </td>
@@ -222,7 +222,7 @@ list
 			<td>Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature</td>
 		</tr>
 		<tr>
-			<td id="deploy--podSecurityContext--fsGroup"><a href="./values.yaml#L98">deploy.podSecurityContext.fsGroup</a></td>
+			<td id="deploy--podSecurityContext--fsGroup"><a href="./values.yaml#L102">deploy.podSecurityContext.fsGroup</a></td>
 			<td>
 int
 </td>
@@ -236,7 +236,7 @@ int
 			<td>fsGroup is the group ID associated with the container</td>
 		</tr>
 		<tr>
-			<td id="deploy--readinessProbe"><a href="./values.yaml#L79">deploy.readinessProbe</a></td>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L83">deploy.readinessProbe</a></td>
 			<td>
 object
 </td>
@@ -255,7 +255,7 @@ object
 			<td>define a readiness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--replicaCount"><a href="./values.yaml#L41">deploy.replicaCount</a></td>
+			<td id="deploy--replicaCount"><a href="./values.yaml#L45">deploy.replicaCount</a></td>
 			<td>
 int
 </td>
@@ -269,7 +269,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--limits"><a href="./values.yaml#L89">deploy.resources.limits</a></td>
+			<td id="deploy--resources--limits"><a href="./values.yaml#L93">deploy.resources.limits</a></td>
 			<td>
 object
 </td>
@@ -286,7 +286,7 @@ object
 			<td>We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'.</td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L93">deploy.resources.requests.cpu</a></td>
+			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L97">deploy.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -300,7 +300,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L94">deploy.resources.requests.memory</a></td>
+			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L98">deploy.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -314,7 +314,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--securityContext"><a href="./values.yaml#L103">deploy.securityContext</a></td>
+			<td id="deploy--securityContext"><a href="./values.yaml#L107">deploy.securityContext</a></td>
 			<td>
 object
 </td>
@@ -339,7 +339,7 @@ object
 			<td>Security Context policies for controller pods See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for notes on enabling and using sysctls</td>
 		</tr>
 		<tr>
-			<td id="deploy--tolerations"><a href="./values.yaml#L68">deploy.tolerations</a></td>
+			<td id="deploy--tolerations"><a href="./values.yaml#L72">deploy.tolerations</a></td>
 			<td>
 list
 </td>
@@ -374,14 +374,14 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"cilium"
+"istio"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--paths[0]--path"><a href="./values.yaml#L33">ingress.paths[0].path</a></td>
+			<td id="ingress--istio--match[0]--uri--prefix"><a href="./values.yaml#L36">ingress.istio.match[0].uri.prefix</a></td>
 			<td>
 string
 </td>
@@ -395,21 +395,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--paths[0]--service--name"><a href="./values.yaml#L35">ingress.paths[0].service.name</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"shortlink-link"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="ingress--paths[0]--service--port"><a href="./values.yaml#L36">ingress.paths[0].service.port</a></td>
+			<td id="ingress--istio--route--destination--port"><a href="./values.yaml#L40">ingress.istio.route.destination.port</a></td>
 			<td>
 int
 </td>
@@ -423,7 +409,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="./values.yaml#L129">monitoring.enabled</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L133">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -437,7 +423,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L134">podDisruptionBudget.enabled</a></td>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L138">podDisruptionBudget.enabled</a></td>
 			<td>
 bool
 </td>
@@ -507,7 +493,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--name"><a href="./values.yaml#L121">service.ports[0].name</a></td>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L125">service.ports[0].name</a></td>
 			<td>
 string
 </td>
@@ -521,7 +507,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--port"><a href="./values.yaml#L122">service.ports[0].port</a></td>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L126">service.ports[0].port</a></td>
 			<td>
 int
 </td>
@@ -535,7 +521,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--protocol"><a href="./values.yaml#L123">service.ports[0].protocol</a></td>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L127">service.ports[0].protocol</a></td>
 			<td>
 string
 </td>
@@ -549,7 +535,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--public"><a href="./values.yaml#L124">service.ports[0].public</a></td>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L128">service.ports[0].public</a></td>
 			<td>
 bool
 </td>
@@ -563,7 +549,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--type"><a href="./values.yaml#L119">service.type</a></td>
+			<td id="service--type"><a href="./values.yaml#L123">service.type</a></td>
 			<td>
 string
 </td>

@@ -27,5 +27,8 @@ spec:
       - {{ .Release.Namespace }}
   endpoints:
     - port: metrics
+  targetLabels:
+    - app.kubernetes.io/name
+    - helm.sh/chart
 {{- end }}
 {{- end }}

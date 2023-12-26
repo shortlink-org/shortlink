@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubescape.github.io/helm-charts/ | kubescape(kubescape-operator) | 1.16.5 |
+| https://kubescape.github.io/helm-charts/ | kubescape(kubescape-operator) | 1.16.8 |
 
 ## Values
 
@@ -26,6 +26,20 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 		<th>Description</th>
 	</thead>
 	<tbody>
+		<tr>
+			<td id="kubescape--capabilities--autoUpgrading"><a href="./values.yaml#L20">kubescape.capabilities.autoUpgrading</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"enable"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
 		<tr>
 			<td id="kubescape--capabilities--continuousScan"><a href="./values.yaml#L14">kubescape.capabilities.continuousScan</a></td>
 			<td>
@@ -111,7 +125,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--clusterName"><a href="./values.yaml#L21">kubescape.clusterName</a></td>
+			<td id="kubescape--clusterName"><a href="./values.yaml#L25">kubescape.clusterName</a></td>
 			<td>
 string
 </td>
@@ -119,6 +133,20 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "shortlink"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--configurations--persistence"><a href="./values.yaml#L23">kubescape.configurations.persistence</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"disable"
 </pre>
 </div>
 			</td>
@@ -146,7 +174,7 @@ bool
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-true
+false
 </pre>
 </div>
 			</td>
@@ -160,14 +188,14 @@ bool
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-true
+false
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--kubescape--labels--release"><a href="./values.yaml#L25">kubescape.kubescape.labels.release</a></td>
+			<td id="kubescape--kubescape--labels--release"><a href="./values.yaml#L32">kubescape.kubescape.labels.release</a></td>
 			<td>
 string
 </td>
@@ -181,7 +209,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--kubescape--serviceMonitor--enabled"><a href="./values.yaml#L28">kubescape.kubescape.serviceMonitor.enabled</a></td>
+			<td id="kubescape--kubescape--prometheusAnnotation--enabled"><a href="./values.yaml#L29">kubescape.kubescape.prometheusAnnotation.enabled</a></td>
 			<td>
 bool
 </td>
@@ -195,7 +223,21 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--operator--resources--requests--cpu"><a href="./values.yaml#L36">kubescape.operator.resources.requests.cpu</a></td>
+			<td id="kubescape--kubescape--serviceMonitor--enabled"><a href="./values.yaml#L35">kubescape.kubescape.serviceMonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--operator--resources--requests--cpu"><a href="./values.yaml#L43">kubescape.operator.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -209,7 +251,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--operator--resources--requests--memory"><a href="./values.yaml#L37">kubescape.operator.resources.requests.memory</a></td>
+			<td id="kubescape--operator--resources--requests--memory"><a href="./values.yaml#L44">kubescape.operator.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -223,7 +265,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--persistence--storageClass"><a href="./values.yaml#L31">kubescape.persistence.storageClass</a></td>
+			<td id="kubescape--persistence--storageClass"><a href="./values.yaml#L38">kubescape.persistence.storageClass</a></td>
 			<td>
 string
 </td>

@@ -22,7 +22,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-template | shortlink-template | 0.8.3 |
+| file://../shortlink-template | shortlink-template | 0.8.6 |
 
 ## Values
 
@@ -56,7 +56,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"internal-gateway-istio.shortlink"
+"istio-ingress.istio-ingress"
 </pre>
 </div>
 			</td>
@@ -224,7 +224,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.16.119"
+"0.16.121"
 </pre>
 </div>
 			</td>
@@ -402,14 +402,14 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"cilium"
+"istio"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--paths[0]--path"><a href="./values.yaml#L33">ingress.paths[0].path</a></td>
+			<td id="ingress--istio--match[0]--uri--prefix"><a href="./values.yaml#L36">ingress.istio.match[0].uri.prefix</a></td>
 			<td>
 string
 </td>
@@ -423,35 +423,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--paths[0]--service--name"><a href="./values.yaml#L35">ingress.paths[0].service.name</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"shortlink-billing"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="ingress--paths[0]--service--port"><a href="./values.yaml#L36">ingress.paths[0].service.port</a></td>
-			<td>
-int
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-50051
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="ingress--paths[1]--path"><a href="./values.yaml#L37">ingress.paths[1].path</a></td>
+			<td id="ingress--istio--match[1]--uri--prefix"><a href="./values.yaml#L38">ingress.istio.match[1].uri.prefix</a></td>
 			<td>
 string
 </td>
@@ -465,35 +437,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--paths[1]--service--name"><a href="./values.yaml#L39">ingress.paths[1].service.name</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"shortlink-billing"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="ingress--paths[1]--service--port"><a href="./values.yaml#L40">ingress.paths[1].service.port</a></td>
-			<td>
-int
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-50051
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="ingress--paths[2]--path"><a href="./values.yaml#L41">ingress.paths[2].path</a></td>
+			<td id="ingress--istio--match[2]--uri--prefix"><a href="./values.yaml#L40">ingress.istio.match[2].uri.prefix</a></td>
 			<td>
 string
 </td>
@@ -507,21 +451,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--paths[2]--service--name"><a href="./values.yaml#L43">ingress.paths[2].service.name</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"shortlink-billing"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="ingress--paths[2]--service--port"><a href="./values.yaml#L44">ingress.paths[2].service.port</a></td>
+			<td id="ingress--istio--route--destination--port"><a href="./values.yaml#L44">ingress.istio.route.destination.port</a></td>
 			<td>
 int
 </td>

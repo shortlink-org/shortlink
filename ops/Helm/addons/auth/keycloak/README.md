@@ -83,21 +83,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="keycloak--ingress--annotations--"nginx--ingress--kubernetes--io/enable-modsecurity""><a href="./values.yaml#L51">keycloak.ingress.annotations."nginx.ingress.kubernetes.io/enable-modsecurity"</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"false"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="keycloak--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L53">keycloak.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="keycloak--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L52">keycloak.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -111,7 +97,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="keycloak--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L52">keycloak.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="keycloak--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L51">keycloak.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -139,7 +125,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="keycloak--ingress--extraTls[0]--hosts[0]"><a href="./values.yaml#L58">keycloak.ingress.extraTls[0].hosts[0]</a></td>
+			<td id="keycloak--ingress--extraTls[0]--hosts[0]"><a href="./values.yaml#L57">keycloak.ingress.extraTls[0].hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -153,7 +139,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="keycloak--ingress--extraTls[0]--secretName"><a href="./values.yaml#L56">keycloak.ingress.extraTls[0].secretName</a></td>
+			<td id="keycloak--ingress--extraTls[0]--secretName"><a href="./values.yaml#L55">keycloak.ingress.extraTls[0].secretName</a></td>
 			<td>
 string
 </td>
@@ -195,7 +181,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="keycloak--keycloakConfigCli--enabled"><a href="./values.yaml#L73">keycloak.keycloakConfigCli.enabled</a></td>
+			<td id="keycloak--keycloakConfigCli--enabled"><a href="./values.yaml#L72">keycloak.keycloakConfigCli.enabled</a></td>
 			<td>
 bool
 </td>
@@ -223,7 +209,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="keycloak--metrics--enabled"><a href="./values.yaml#L64">keycloak.metrics.enabled</a></td>
+			<td id="keycloak--metrics--enabled"><a href="./values.yaml#L63">keycloak.metrics.enabled</a></td>
 			<td>
 bool
 </td>
@@ -237,7 +223,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="keycloak--metrics--prometheusRule--enabled"><a href="./values.yaml#L70">keycloak.metrics.prometheusRule.enabled</a></td>
+			<td id="keycloak--metrics--prometheusRule--enabled"><a href="./values.yaml#L69">keycloak.metrics.prometheusRule.enabled</a></td>
 			<td>
 bool
 </td>
@@ -251,7 +237,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="keycloak--metrics--serviceMonitor--enabled"><a href="./values.yaml#L67">keycloak.metrics.serviceMonitor.enabled</a></td>
+			<td id="keycloak--metrics--serviceMonitor--enabled"><a href="./values.yaml#L66">keycloak.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -265,7 +251,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="keycloak--postgresql--image--tag"><a href="./values.yaml#L78">keycloak.postgresql.image.tag</a></td>
+			<td id="keycloak--postgresql--image--tag"><a href="./values.yaml#L77">keycloak.postgresql.image.tag</a></td>
 			<td>
 string
 </td>
@@ -307,7 +293,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="keycloak--rbac--create"><a href="./values.yaml#L61">keycloak.rbac.create</a></td>
+			<td id="keycloak--rbac--create"><a href="./values.yaml#L60">keycloak.rbac.create</a></td>
 			<td>
 bool
 </td>
