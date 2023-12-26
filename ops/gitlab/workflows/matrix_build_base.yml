@@ -83,3 +83,7 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/wallet
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./internal/boundaries/payment/wallet/cmd"
+      - APPLICATION: speech-to-text
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/speech-to-text
+        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
+        CMD_PATH: "--build-arg CMD_PATH=./internal/boundaries/chat/speech-to-text/cmd"
