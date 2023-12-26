@@ -10,5 +10,5 @@ yarn set version stable
 yarn install
 
 ### update dependencies
-yarn upgrade --ignore-engines
+yarn upgrade-interactive --ignore-engines
 ```
