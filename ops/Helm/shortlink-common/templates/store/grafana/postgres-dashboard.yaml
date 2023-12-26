@@ -5,6 +5,6 @@ metadata:
   labels:
     grafana_dashboard: "true"
   annotations:
-    grafana_dashboard_folder: Shortlink
+    grafana_dashboard_folder: ShortLink
 data:
   postgres_crud_details.json.url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/ops/Helm/shortlink-common/files/grafana/dashboards/shortlink-postgres.json"
