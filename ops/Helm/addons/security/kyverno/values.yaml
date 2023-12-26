@@ -116,6 +116,14 @@ policy-reporter:
     plugins:
       kyverno: true
 
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 15m
+        memory: 45Mi
+
     ingress:
       enabled: true
       className: nginx
