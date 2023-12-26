@@ -28,6 +28,17 @@ kafka-ui:
     tag: master
     pullPolicy: Always
 
+  networkPolicy:
+    enabled: false
+
+  securityContext:
+    capabilities:
+      drop:
+        - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1000
+
   envs:
     secret: {}
     config:
@@ -49,7 +60,6 @@ kafka-ui:
   #    security:
   #      oauth2:
 
-
   ingress:
     enabled: true
     ingressClassName: nginx
@@ -67,3 +77,11 @@ kafka-ui:
     tls:
       enabled: true
       secretName: shortlink-ingress-tls
+
+  resources:
+    limit:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 20m
+      memory: 56Mi
