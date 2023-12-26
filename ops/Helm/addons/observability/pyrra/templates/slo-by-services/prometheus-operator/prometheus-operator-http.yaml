@@ -1,0 +1,17 @@
+apiVersion: pyrra.dev/v1alpha1
+kind: ServiceLevelObjective
+metadata:
+  name: prometheus-operator-http
+  namespace: monitoring
+  labels:
+    prometheus: k8s
+    role: alert-rules
+spec:
+  target: '95.0'
+  window: 7d
+  indicator:
+    ratio:
+      errors:
+        metric: prometheus_operator_kubernetes_client_http_requests_total{status_code=~"5.."}
+      total:
+        metric: prometheus_operator_kubernetes_client_http_requests_total
