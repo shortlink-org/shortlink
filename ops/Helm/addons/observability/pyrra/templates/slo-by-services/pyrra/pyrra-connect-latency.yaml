@@ -2,7 +2,6 @@ apiVersion: pyrra.dev/v1alpha1
 kind: ServiceLevelObjective
 metadata:
   name: pyrra-connect-latency
-  namespace: monitoring
   labels:
     prometheus: k8s
     role: alert-rules
