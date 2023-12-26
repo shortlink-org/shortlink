@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: status-page-dashboard
+  labels:
+    grafana_dashboard: "true"
+  annotations:
+    grafana_dashboard_folder: Observability
+data:
+  status-page-dashboard.json.url: "https://raw.githubusercontent.com/pyrra-dev/pyrra/main/examples/grafana/detail.json"
