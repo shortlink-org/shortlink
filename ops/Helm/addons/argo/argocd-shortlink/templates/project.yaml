@@ -6,7 +6,7 @@ metadata:
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
-  description: Shortlink Project
+  description: ShortLink Project
   # Allow manifests to deploy from any Git repos
   sourceRepos:
     - '*'

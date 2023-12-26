@@ -2,7 +2,7 @@
 
 # shortlink 
 
-Shortlink is an open-source educational project that provides a pretty user interface and respects GDPR. 
+ShortLink is an open-source educational project that provides a pretty user interface and respects GDPR. 
 
 The goal of the project is to demonstrate the practical application of microservices architecture.
 

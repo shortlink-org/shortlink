@@ -1,10 +1,10 @@
 ## shortctl-csi
 
-Shortlink container storage interface
+ShortLink container storage interface
 
 ### Synopsis
 
-Shortlink container storage interface
+ShortLink container storage interface
 
 ```
 shortctl-csi [flags]

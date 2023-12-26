@@ -1,6 +1,6 @@
 # shortlink
 
-Shortlink application.
+ShortLink application.
 
 ## Getting Started
 

@@ -2,7 +2,7 @@
 
 ### ADR
 
-- [ADR-0001](./docs/ADR/decisions/0001-init.md) - Adopting Expo Monorepo with Nx for Shortlink Service Client
+- [ADR-0001](./docs/ADR/decisions/0001-init.md) - Adopting Expo Monorepo with Nx for ShortLink Service Client
 
 ### Getting Started
 

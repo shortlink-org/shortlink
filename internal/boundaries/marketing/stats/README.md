@@ -1,6 +1,6 @@
 # stats
 
-Shortlink stats-server
+ShortLink stats-server
 
 ### Goal
 

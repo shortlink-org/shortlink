@@ -2,7 +2,7 @@
 
 ![Version: 0.8.6](https://img.shields.io/badge/Version-0.8.6-informational?style=flat-square) ![Type: library](https://img.shields.io/badge/Type-library-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
-Shortlink templates
+ShortLink templates
 
 **Homepage:** <https://batazor.github.io/shortlink/>
 

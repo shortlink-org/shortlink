@@ -1,6 +1,6 @@
 ## eslint-config-shortlink
 
-This package provides Shortlink's `.eslintrc` as an extensible shared config.
+This package provides ShortLink's `.eslintrc` as an extensible shared config.
 
 ### References
 

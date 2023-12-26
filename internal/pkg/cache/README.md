@@ -1,7 +1,7 @@
 # Cache
 
 This repository contains the `cache` package, a Go package that provides a high-level interface to cache operations used 
-in the **Shortlink** project. This package leverages `go-redis/cache` to provide a comprehensive caching solution 
+in the **ShortLink** project. This package leverages `go-redis/cache` to provide a comprehensive caching solution 
 that includes both local and Redis-based caching.
 
 ## Getting Started
