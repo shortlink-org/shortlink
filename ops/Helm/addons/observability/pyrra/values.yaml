@@ -40,6 +40,9 @@ pyrra:
 
   serviceMonitor:
     enabled: true
+
+    jobLabel: pyrra
+
     labels:
       release: prometheus-operator
 
