@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+import "domain/v1/user.proto"; // Assuming this file defines your User message
+
+// Service for managing users.
+service UserService {
+  // CRUD operations for users
+  rpc CreateUser(CreateUserRequest) returns (google.protobuf.Empty);
+  rpc GetUser(GetUserRequest) returns (GetUserResponse);
+  rpc ListUsers(ListUsersRequest) returns (ListUsersResponse);
+  rpc UpdateUser(UpdateUserRequest) returns (google.protobuf.Empty);
+  rpc DeleteUser(DeleteUserRequest) returns (google.protobuf.Empty);
+}
+
+// Request and response messages for user operations
+
+message CreateUserRequest {
+  domain.v1.User user = 1; // Details of the user to be created
+}
+
+message GetUserRequest {
+  string id = 1; // Identifier of the user to retrieve
+}
+
+message GetUserResponse {
+  domain.v1.User user = 1; // The retrieved user instance
+}
+
+// Pagination message used in list operations
+message Pagination {
+  int32 page_size = 1; // Number of items to return per page
+  string page_token = 2; // Token for pagination to get the next set of items
+}
+
+// Request message for ListUsers
+message ListUsersRequest {
+  Pagination pagination = 1; // Pagination details
+  // Add filter options if necessary
+}
+
+// Response message for ListUsers
+message ListUsersResponse {
+  repeated domain.v1.User users = 1; // List of users
+  string next_page_token = 2; // Token for the next page of results
+}
+
+message UpdateUserRequest {
+  domain.v1.User user = 1; // Updated user details
+}
+
+message DeleteUserRequest {
+  string id = 1; // Identifier of the user to delete
+}

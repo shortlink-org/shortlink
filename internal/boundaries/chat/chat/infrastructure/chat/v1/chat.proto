@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "domain/v1/chat.proto";
+import "google/protobuf/empty.proto";
+
+// Service for managing chats.
+service ChatService {
+  // Chat operations
+  rpc CreateChat(CreateChatRequest) returns (google.protobuf.Empty);
+  rpc GetChat(GetChatRequest) returns (GetChatResponse);
+  rpc ListChats(ListChatsRequest) returns (ListChatsResponse);
+  rpc UpdateChat(UpdateChatRequest) returns (google.protobuf.Empty);
+  rpc DeleteChat(DeleteChatRequest) returns (google.protobuf.Empty);
+}
+
+// Request and response messages for chat operations
+message CreateChatRequest {
+  domain.v1.Chat chat = 1; // Details of the chat to be created
+}
+
+message GetChatRequest {
+  string id = 1; // Identifier of the chat to retrieve
+}
+
+message GetChatResponse {
+  domain.v1.Chat chat = 1; // The retrieved chat instance
+}
+
+// Pagination message used in list operations
+message Pagination {
+  int32 page_size = 1; // Number of items to return per page
+  string page_token = 2; // Token for pagination to get the next set of items
+}
+
+// Define filters for listing chats
+message ChatFilter {
+  string name = 1; // Filter by chat name
+  google.protobuf.Timestamp created_after = 2; // Filter by creation date (after a certain date)
+  google.protobuf.Timestamp created_before = 3; // Filter by creation date (before a certain date)
+  // Add more filters as needed...
+}
+
+// Request message for ListChats
+message ListChatsRequest {
+  ChatFilter filters = 1; // Filters to apply when listing chats
+  Pagination pagination = 2; // Pagination details
+}
+
+// Response message for ListChats
+message ListChatsResponse {
+  repeated domain.v1.Chat chats = 1; // List of chats
+  string next_page_token = 2; // Token for the next page of results
+}
+
+message UpdateChatRequest {
+  domain.v1.Chat chat = 1; // Updated chat details
+}
+
+message DeleteChatRequest {
+  string id = 1; // Identifier of the chat to delete
+}

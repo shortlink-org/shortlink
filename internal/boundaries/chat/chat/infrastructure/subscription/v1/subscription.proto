@@ -1,0 +1,54 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "domain/v1/subscription.proto";
+import "google/protobuf/empty.proto";
+
+// Service for managing subscriptions.
+service SubscriptionService {
+  // Subscription operations
+  rpc CreateSubscription(CreateSubscriptionRequest) returns (google.protobuf.Empty);
+  rpc GetSubscription(GetSubscriptionRequest) returns (GetSubscriptionResponse);
+  rpc ListSubscriptions(ListSubscriptionsRequest) returns (ListSubscriptionsResponse);
+  rpc UpdateSubscription(UpdateSubscriptionRequest) returns (google.protobuf.Empty);
+  rpc DeleteSubscription(DeleteSubscriptionRequest) returns (google.protobuf.Empty);
+}
+
+// Request and response messages for subscription operations
+
+message CreateSubscriptionRequest {
+  domain.v1.Subscription subscription = 1; // Details of the subscription to be created
+}
+
+message GetSubscriptionRequest {
+  string id = 1; // Identifier of the subscription to retrieve
+}
+
+message GetSubscriptionResponse {
+  domain.v1.Subscription subscription = 1; // The retrieved subscription instance
+}
+
+message UpdateSubscriptionRequest {
+  domain.v1.Subscription subscription = 1; // Updated subscription details
+}
+
+message DeleteSubscriptionRequest {
+  string id = 1; // Identifier of the subscription to delete
+}
+
+// Pagination message used in list operations
+message Pagination {
+  int32 page_size = 1; // Number of items to return per page
+  string page_token = 2; // Token for pagination to get the next set of items
+}
+
+// For listing subscriptions with pagination
+message ListSubscriptionsRequest {
+  Pagination pagination = 1; // Pagination details
+  // Add filter options if necessary
+}
+
+message ListSubscriptionsResponse {
+  repeated domain.v1.Subscription subscriptions = 1; // List of subscriptions
+  string next_page_token = 2; // Token for the next page of results
+}

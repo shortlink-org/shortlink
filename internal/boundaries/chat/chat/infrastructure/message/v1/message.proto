@@ -1,0 +1,71 @@
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+import "domain/v1/message.proto";
+import "google/protobuf/empty.proto";
+
+// Service for managing messages.
+service MessageService {
+  // CRUD operations for messages
+  rpc CreateMessage(CreateMessageRequest) returns (CreateMessageResponse);
+  rpc GetMessage(GetMessageRequest) returns (GetMessageResponse);
+  rpc UpdateMessage(UpdateMessageRequest) returns (google.protobuf.Empty);
+  rpc DeleteMessage(DeleteMessageRequest) returns (google.protobuf.Empty);
+
+  // Additional functionalities
+  rpc PinMessage(PinMessageRequest) returns (google.protobuf.Empty);
+  rpc UnpinMessage(UnpinMessageRequest) returns (google.protobuf.Empty);
+  rpc ReplyToMessage(ReplyToMessageRequest) returns (google.protobuf.Empty);
+  rpc ForwardMessage(ForwardMessageRequest) returns (google.protobuf.Empty);
+}
+
+// Request and response messages for CRUD operations -------------------------------------------------------------------
+
+message CreateMessageRequest {
+  domain.v1.Message message = 1; // Details of the message to be created
+}
+
+message CreateMessageResponse {
+  domain.v1.Message message = 1; // The created message instance
+}
+
+message GetMessageRequest {
+  string message_id = 1; // Identifier of the message to retrieve
+}
+
+message GetMessageResponse {
+  domain.v1.Message message = 1; // The retrieved message instance
+}
+
+message UpdateMessageRequest {
+  domain.v1.Message message = 1; // Updated message details
+}
+
+message DeleteMessageRequest {
+  string message_id = 1; // Identifier of the message to delete
+}
+
+// Request and response messages for additional functionalities --------------------------------------------------------
+
+message PinMessageRequest {
+  string message_id = 1; // Identifier of the message to pin
+  string user_id = 2;    // Identifier of the user to pin the message for
+  bool pin_for_all = 3;  // Whether to pin for all users or just for the requester
+}
+
+message UnpinMessageRequest {
+  string message_id = 1;  // Identifier of the message to unpin
+  string user_id = 2;     // Identifier of the user to pin the message for
+  bool unpin_for_all = 3; // Whether to unpin for all users or just for the requester
+}
+
+message ReplyToMessageRequest {
+  string message_id = 1; // Identifier of the message to reply to
+  string reply_content = 2; // Content of the reply
+}
+
+message ForwardMessageRequest {
+  string message_id = 1; // Identifier of the message to forward
+  string forward_to_chat_id = 2; // Identifier of the chat to forward the message to
+}
