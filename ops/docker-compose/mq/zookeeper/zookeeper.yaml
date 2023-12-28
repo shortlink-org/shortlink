@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: confluentinc/cp-zookeeper:7.5.2
+    image: confluentinc/cp-zookeeper:7.5.3
     hostname: zookeeper
     container_name: zookeeper
     init: true
