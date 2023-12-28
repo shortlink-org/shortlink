@@ -14233,7 +14233,7 @@ __metadata:
     "@types/luxon": "npm:^3.3.7"
     app: "link:packages/app"
     better-sqlite3: "npm:^9.2.2"
-    dockerode: "npm:^4.0.1"
+    dockerode: "npm:^4.0.2"
     express: "npm:^4.18.2"
     express-promise-router: "npm:^4.1.1"
     pg: "npm:^8.11.3"
@@ -15994,7 +15994,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cpu-features@npm:~0.0.8":
+"cpu-features@npm:~0.0.8, cpu-features@npm:~0.0.9":
   version: 0.0.9
   resolution: "cpu-features@npm:0.0.9"
   dependencies:
@@ -17187,15 +17187,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"docker-modem@npm:^5.0.2":
-  version: 5.0.2
-  resolution: "docker-modem@npm:5.0.2"
+"docker-modem@npm:^5.0.3":
+  version: 5.0.3
+  resolution: "docker-modem@npm:5.0.3"
   dependencies:
     debug: "npm:^4.1.1"
     readable-stream: "npm:^3.5.0"
     split-ca: "npm:^1.0.1"
-    ssh2: "npm:^1.11.0"
-  checksum: c7cbaf5191178534e426f07c273632f3dfa8c3f0998e4e7d63204c0d053c7b9d5ee53b1523565b041324287f31499ff34b542695e1f4314fc505110adaaa5bf8
+    ssh2: "npm:^1.15.0"
+  checksum: 86d18b1b1e92954f4f5632b82453588670c11265a60d982c57bfcd737fe0362f4aa68176edae6d3c3f92c17a59bcfe8840fc741c06baea55e2003a78d7d16045
   languageName: node
   linkType: hard
 
@@ -17210,14 +17210,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dockerode@npm:^4.0.1":
-  version: 4.0.1
-  resolution: "dockerode@npm:4.0.1"
+"dockerode@npm:^4.0.2":
+  version: 4.0.2
+  resolution: "dockerode@npm:4.0.2"
   dependencies:
     "@balena/dockerignore": "npm:^1.0.2"
-    docker-modem: "npm:^5.0.2"
+    docker-modem: "npm:^5.0.3"
     tar-fs: "npm:~2.0.1"
-  checksum: 7a9a1865bd809dfa4aee29369ef02ae8e36e7c0b28c099fecf5051c584dfca997f4120add6a480ab0504f89770d0e37131d66e062c4cc9f49f890e7cec46793f
+  checksum: 69ece79408aca8523726fcec9d9c168b9a987b60b7143502583cc0b731dd2abf8b69b9d7d71c20d2bddcc508ebb477d82849d0bd368df260fedd8d62de5c5937
   languageName: node
   linkType: hard
 
@@ -30608,6 +30608,23 @@ __metadata:
     nan:
       optional: true
   checksum: be2f98c967557df70d21ab16f278d6e276de3678b655bcf385efdd1d38202e1b89d143cf89f975b88225dfca6c7b9f18e9b32f8ebc76f3634b6478554e74e844
+  languageName: node
+  linkType: hard
+
+"ssh2@npm:^1.15.0":
+  version: 1.15.0
+  resolution: "ssh2@npm:1.15.0"
+  dependencies:
+    asn1: "npm:^0.2.6"
+    bcrypt-pbkdf: "npm:^1.0.2"
+    cpu-features: "npm:~0.0.9"
+    nan: "npm:^2.18.0"
+  dependenciesMeta:
+    cpu-features:
+      optional: true
+    nan:
+      optional: true
+  checksum: 7c76888fbfa1c15660cf51086a6e5699b3c1caad516e29adb1d2a00fc1ef6b48946ca7ec811b4bb50456984967c4346115c7ddd3dbf981a1193bd1f40fa4529a
   languageName: node
   linkType: hard
 
