@@ -20,18 +20,45 @@ loki:
 
   write:
     replicas: 1
+
     persistence:
       storageClass: local-path
+
+    resources:
+      limits:
+        cpu: 300m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
 
   read:
     replicas: 1
+
     persistence:
       storageClass: local-path
 
+    resources:
+      limits:
+        cpu: 300m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
+
   singleBinary:
     replicas: 1
+
     persistence:
       storageClass: local-path
+
+    resources:
+      limits:
+        cpu: 300m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
 
   tableManager:
     enabled: false
@@ -63,6 +90,33 @@ loki:
 
   lokiCanary:
     enabled: false
+
+  gateway:
+    resources:
+      limits:
+        cpu: 300m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
+
+  sidecar:
+    resources:
+      limits:
+        cpu: 300m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
+
+  backend:
+    resources:
+      limits:
+        cpu: 300m
+        memory: 256Mi
+      requests:
+        cpu: 50m
+        memory: 64Mi
 
   tracing:
     jaegerAgentHost: grafana-tempo.grafana:6831
