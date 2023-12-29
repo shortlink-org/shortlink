@@ -5,11 +5,38 @@
 testkube:
   enabled: true
 
+  preUpgradeHook:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 100Mi
+      requests:
+        cpu: 20m
+        memory: 56Mi
+
   mongodb:
     enabled: false
 
   nats:
     enabled: true
+
+    nats:
+      resources:
+        limits:
+          cpu: 100m
+          memory: 100Mi
+        requests:
+          cpu: 20m
+          memory: 56Mi
+
+    exporter:
+      resources:
+        limits:
+          cpu: 100m
+          memory: 100Mi
+        requests:
+          cpu: 20m
+          memory: 56Mi
 
   testkube-api:
     nats:
@@ -52,6 +79,23 @@ testkube:
       monitoringLabels:
         release: prometheus-operator
 
+    resources:
+      limits:
+        cpu: 500m
+        memory: 512Mi
+      requests:
+        cpu: 200m
+        memory: 200Mi
+
+    testConnection:
+      resources:
+        limits:
+          cpu: 100m
+          memory: 100Mi
+        requests:
+          cpu: 20m
+          memory: 56Mi
+
   testkube-dashboard:
     apiServerEndpoint: "https://testkube.shortlink.best/results/v1"
 
@@ -75,12 +119,44 @@ testkube:
     oauth2:
       enabled: true
 
+    resources:
+      limits:
+        cpu: 100m
+        memory: 100Mi
+      requests:
+        cpu: 20m
+        memory: 56Mi
+
+    testConnection:
+      resources:
+        limits:
+          cpu: 100m
+          memory: 100Mi
+        requests:
+          cpu: 20m
+          memory: 56Mi
+
   testkube-operator:
     enabled: true
 
-#    proxy:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 100Mi
+      requests:
+        cpu: 20m
+        memory: 56Mi
+
+    proxy:
 #      image:
 #        tag: v0.15.0
+      resources:
+        limits:
+          cpu: 100m
+          memory: 100Mi
+        requests:
+          cpu: 20m
+          memory: 56Mi
 
     webhook:
       enabled: true
