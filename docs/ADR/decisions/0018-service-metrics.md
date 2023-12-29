@@ -1,5 +1,3 @@
-To further improve the ADR on standard metrics for services using Prometheus, it's crucial to integrate insights from Prometheus's best practices for metric and label naming, as well as general monitoring guidelines. Here's how the ADR can be enhanced:
-
 # 18. Standard Metrics for Services using Prometheus
 
 Date: 2023-12-29

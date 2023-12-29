@@ -49,6 +49,7 @@ adr new Implement as Unix shell scripts
   - [ADR-0025](./decisions/0025-configuration.md) - Application Configuration Redesign
 - **Optimization**
   - [ADR-0016](./decisions/0005-use-singleflight-for-debouncing.md) - Use singleflight for debouncing
+  - [ADR-0022](./decisions/0022-cache.md) - Cache Strategy [common]
 - **Golang**
   - [ADR-0017](./decisions/0017-profile-guided-optimization.md) - Profile-guided optimization
   - [ADR-0027](./decisions/0027-orm-and-golang.md) - ORM and Golang [Cookbook]
