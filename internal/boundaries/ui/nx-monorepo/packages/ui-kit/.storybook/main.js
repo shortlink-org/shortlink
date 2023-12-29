@@ -1,5 +1,3 @@
-import remarkGfm from 'remark-gfm'
-
 module.exports = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
@@ -62,9 +60,9 @@ module.exports = {
     options: {
       fsCache: true,
       lazyCompilation: true,
-      // builder: {
-      //   useSWC: true,
-      // }
+      builder: {
+        useSWC: true,
+      }
     },
   },
   features: {
