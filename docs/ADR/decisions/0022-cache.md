@@ -33,14 +33,21 @@ Our strategy will integrate both internal and external caching methods to optimi
 
 ### Data Eviction Policies
 
-| Policy | Description                                                                                                                       |
-|--------|-----------------------------------------------------------------------------------------------------------------------------------|
-| FIFO   | First-In-First-Out: The oldest data in the cache is evicted first.                                                                |
-| LIFO   | Last-In-First-Out: The most recently added data is evicted first.                                                                 |
-| Random | Random selection for eviction.                                                                                                    |
-| LRU    | Least Recently Used: Data not accessed for the longest time is evicted.                                                           |
-| MRU    | Most Recently Used: The most recently accessed data is evicted. This is a specific case where older data is preserved over newer. |
-| LFU    | Least Frequently Used: Data that is least often accessed is evicted.                                                              |
+| Policy        | Description                                                                                                                                                       |
+|---------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| FIFO          | First-In-First-Out: The oldest data in the cache is evicted first.                                                                                                |
+| LIFO          | Last-In-First-Out: The most recently added data is evicted first.                                                                                                 |
+| Random        | Random selection for eviction.                                                                                                                                    |
+| **LRU**       | Least Recently Used: Data not accessed for the longest time is evicted.                                                                                           |
+| MRU           | Most Recently Used: The most recently accessed data is evicted. This is a specific case where older data is preserved over newer.                                 |
+| LFU           | Least Frequently Used: Data that is least often accessed is evicted.                                                                                              |
+| Belady's OPT  | Optimal Page Replacement: Theoretically the best page replacement algorithm, it evicts pages that will not be used for the longest period in the future.          |
+| Second Chance | A modification of FIFO, giving pages a "second chance" if they've been accessed recently.                                                                         |
+| Clock         | Similar to Second Chance, organizes pages in a circular queue and gives a second chance before eviction.                                                          |
+| 2Q            | Maintains two separate queues, one for recently accessed pages and another for frequently accessed pages, combining recency and frequency aspects of LRU and LFU. |
+| SLRU          | Segmented LRU: Divides the cache into two segments, a probationary and a protected segment, to differentiate between frequently and recently used data.           |
+| TLRU          | Time Aware LRU: An extension of LRU that considers the age of the data, not just the usage pattern.                                                               |
+| LRU-k         | An extension of LRU, maintains the times of the last k references to each page, and uses this data for making eviction decisions.                                 |
 
 > [!NOTE]
 > Selecting the right eviction policy is crucial as it affects the efficiency of the caching mechanism. It should align with the specific data access patterns of the application.

@@ -32,6 +32,25 @@ We have decided to adopt standard metrics for our services using Prometheus.
 - **`cache_hit_ratio`**: A calculated ratio from `cache_hit_total` and `cache_miss_total` to determine the effectiveness of the cache.
 - **`hot_key_access_frequency`**: A gauge metric indicating the frequency of access for hot keys.
 
+#### Basic Service Metrics
+- 
+- **`requests_per_second` (RPS)**: Counter metric measuring service request load per second.
+- **`transactions_per_second` (TPS)** & **`queries_per_second` (QPS)**: Counter metrics for transactions and database queries per second, respectively.
+- **`response_time_seconds`**: Histogram metric tracking service response time.
+- **`error_rate_percentage`**: Gauge metric for percentage of error requests.
+
+#### Resource Utilization Metrics
+- 
+- **`network_traffic_bytes`**: Counter metric for inbound and outbound network traffic.
+- **`cpu_usage_percentage`**: Gauge metric for CPU utilization.
+- **`ram_usage_bytes`**: Gauge metric for RAM usage.
+- **`disk_usage_bytes`**: Gauge metric for disk space usage (HDD/SSD).
+
+#### Additional Metrics
+
+- **`queue_size`**: Gauge metric for the size of each critical queue.
+- **`process_count`** & **`thread_count`**: Gauge metrics for monitoring the number of processes and threads.
+
 ### Reference to ADR #23: Prometheus Metrics Naming
 
 Consistent with [ADR #23](./0023-naming-prometheus-metrics.md), all metrics will follow the prescribed naming conventions and utilize labels for additional dimensions.
