@@ -26,7 +26,7 @@ Our strategy will integrate both internal and external caching methods to optimi
   - *Benefits*: High speed, no network delays.
 - **External Caching**:
   - *Use Case*: For managing larger data volumes.
-  - *Benefits*: Eases scalability.
+  - *Benefits*: Ease scalability.
 
 > [!TIP]
 > We will employ a mix of 'Cache Aside', 'Cache Through', and 'Cache Ahead' strategies, depending on the specific requirements of each use case.
