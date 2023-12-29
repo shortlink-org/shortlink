@@ -34,6 +34,8 @@ adr new Implement as Unix shell scripts
 - **Observability**
   - [ADR-0003](./decisions/0003-observability-health-check.md) - Observability health check
   - [ADR-0014](./decisions/0014-observability.md) - Standardizing Observability Tools
+  - [ADR-0018](./decisions/0018-service-metrics.md) - Standard Metrics for Services using Prometheus
+  - [ADR-0023](./decisions/0023-naming-prometheus-metrics.md) - Prometheus Metrics Naming
 - **Network**
   - [ADR-0007](./decisions/0007-optimization-network.md) - Optimization network
 - **DataBase**
