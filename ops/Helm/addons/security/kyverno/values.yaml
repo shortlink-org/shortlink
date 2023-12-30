@@ -13,6 +13,9 @@ kyverno:
       address: grafana-tempo.grafana
       port: 4317
 
+    networkPolicy:
+      enabled: true
+
     serviceMonitor:
       enabled: true
 
@@ -24,6 +27,9 @@ kyverno:
 
   reportsController:
     enabled: true
+
+    networkPolicy:
+      enabled: true
 
     tracing:
       enabled: true
@@ -38,6 +44,9 @@ kyverno:
 
   backgroundController:
     enabled: true
+
+    networkPolicy:
+      enabled: true
 
     tracing:
       enabled: true

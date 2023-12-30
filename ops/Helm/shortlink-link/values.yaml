@@ -116,3 +116,20 @@ monitoring:
 # PodDisruptionBudget
 podDisruptionBudget:
   enabled: false
+
+# ==============================================================================
+# NetworkPolicy
+networkPolicy:
+  enabled: true
+
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: shortlink  # Allow ingress from 'shortlink' namespace
+        - namespaceSelector:
+            matchLabels:
+              name: istio-ingress  # Allow ingress from 'istio-ingress' namespace
+  policyTypes:
+    - Ingress
+    - Egress

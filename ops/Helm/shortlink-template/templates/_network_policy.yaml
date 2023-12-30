@@ -26,33 +26,37 @@ spec:
               {{ .key }}: {{ .value }}
               {{- end }}
           podSelector:
+            {{- with .podSelector }}
             matchLabels:
-              {{- range .podSelector }}
+              {{- range . }}
               {{ .key }}: {{ .value }}
               {{- end }}
+            {{- end }}
         {{- end }}
     {{- end }}
   ingress:
+    {{- range .Values.networkPolicy.ingress }}
     - from:
-      {{- range .Values.networkPolicy.ingress.from }}
-      - namespaceSelector:
-          matchLabels:
-            {{- range .namespaceSelector }}
-              {{- toYaml . | nindent 14 }}
-            {{- end }}
+      {{- range .from }}
+      {{- if .namespaceSelector }}
+        - namespaceSelector:
+            matchLabels:
+            {{- toYaml .namespaceSelector | nindent 14 }}
       {{- end }}
-      {{- range .Values.networkPolicy.ingress.from }}
-      - podSelector:
-          matchLabels:
-            {{- range .podSelector }}
-              {{- toYaml . | nindent 14 }}
-            {{- end }}
+      {{- if .podSelector }}
+        - podSelector:
+            matchLabels:
+            {{- toYaml .podSelector | nindent 14 }}
       {{- end }}
+      {{- if .ports }}
       ports:
-        {{- range .Values.networkPolicy.ingress.ports }}
+        {{- range .ports }}
         - port: {{ .port }}
           protocol: {{ .protocol }}
         {{- end }}
+      {{- end }}
+      {{- end }}
+    {{- end }}
   policyTypes:
     {{- if .Values.networkPolicy.policyTypes }}
     {{- toYaml .Values.networkPolicy.policyTypes | nindent 4 }}

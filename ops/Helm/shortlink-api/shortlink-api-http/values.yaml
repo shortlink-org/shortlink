@@ -130,3 +130,20 @@ external_database:
   enable: false
   ip: 192.168.0.101
   port: 6379
+
+# ==============================================================================
+# NetworkPolicy
+networkPolicy:
+  enabled: true
+
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: shortlink  # Allow ingress from 'shortlink' namespace
+        - namespaceSelector:
+            matchLabels:
+              name: nginx-ingress  # Allow ingress from 'nginx-ingress' namespace
+  policyTypes:
+    - Ingress
+    - Egress

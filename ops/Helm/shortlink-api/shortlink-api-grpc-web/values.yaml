@@ -109,3 +109,20 @@ monitoring:
 # PodDisruptionBudget
 podDisruptionBudget:
   enabled: false
+
+# ==============================================================================
+# NetworkPolicy
+networkPolicy:
+  enabled: true
+
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              name: shortlink  # Allow ingress from 'shortlink' namespace
+        - namespaceSelector:
+            matchLabels:
+              name: nginx-ingress  # Allow ingress from 'nginx-ingress' namespace
+  policyTypes:
+    - Ingress
+    - Egress
