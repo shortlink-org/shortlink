@@ -40,13 +40,11 @@ spec:
       {{- range .from }}
       {{- if .namespaceSelector }}
         - namespaceSelector:
-            matchLabels:
-            {{- toYaml .namespaceSelector | nindent 14 }}
+            {{- toYaml .namespaceSelector | nindent 12 }}
       {{- end }}
       {{- if .podSelector }}
         - podSelector:
-            matchLabels:
-            {{- toYaml .podSelector | nindent 14 }}
+            {{- toYaml .podSelector | nindent 12 }}
       {{- end }}
       {{- if .ports }}
       ports:

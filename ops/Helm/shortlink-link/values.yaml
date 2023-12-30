@@ -132,4 +132,3 @@ networkPolicy:
               name: istio-ingress  # Allow ingress from 'istio-ingress' namespace
   policyTypes:
     - Ingress
-    - Egress
