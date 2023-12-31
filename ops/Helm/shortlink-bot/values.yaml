@@ -140,6 +140,9 @@ networkPolicy:
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: prometheus-operator
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: grafana
   policyTypes:
     - Ingress
     - Egress

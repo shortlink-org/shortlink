@@ -132,9 +132,9 @@ networkPolicy:
               kubernetes.io/metadata.name: istio-ingress  # Allow ingress from 'istio-ingress' namespace
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: nginx-ingress  # Allow ingress from 'nginx-ingress' namespace
+              kubernetes.io/metadata.name: prometheus-operator
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: prometheus-operator
+              kubernetes.io/metadata.name: grafana
   policyTypes:
     - Ingress
