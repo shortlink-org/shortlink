@@ -13,7 +13,18 @@ type client struct {
 }
 
 func (c client) Set(ctx context.Context, key string, value any, ttl time.Duration) *redis.StatusCmd {
+	start := time.Now()
+
 	resp := c.adapter.Set(ctx, key, value, ttl)
+
+	// Record the duration and increment the appropriate metric based on the response
+	cacheOperationDuration.WithLabelValues("set", key).Observe(time.Since(start).Seconds())
+	if resp.Err() != nil {
+		cacheOperationErrors.WithLabelValues("set", key).Inc()
+	} else {
+		cacheOperations.WithLabelValues("set", "success", key).Inc()
+	}
+
 	return redis.NewStatusCmd(ctx, resp)
 }
 
@@ -28,7 +39,18 @@ func (c client) SetNX(ctx context.Context, key string, value any, ttl time.Durat
 }
 
 func (c client) Get(ctx context.Context, key string) *redis.StringCmd {
+	start := time.Now()
+
 	resp := c.adapter.Get(ctx, key)
+
+	// Record the duration and increment the appropriate metric based on the response
+	cacheOperationDuration.WithLabelValues("get", key).Observe(time.Since(start).Seconds())
+	if resp.Err() != nil {
+		cacheOperationErrors.WithLabelValues("get", key).Inc()
+	} else {
+		cacheOperations.WithLabelValues("get", "success", key).Inc()
+	}
+
 	return redis.NewStringCmd(ctx, resp)
 }
 
