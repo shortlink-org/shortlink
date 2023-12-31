@@ -1,0 +1,13 @@
+# Common default values for tetragon.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+tetragon:
+  enabled: true
+
+  tetragon:
+    prometheus:
+      serviceMonitor:
+        enabled: true
+        labelsOverride:
+          release: prometheus-operator
