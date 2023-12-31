@@ -129,6 +129,9 @@ networkPolicy:
               kubernetes.io/metadata.name: shortlink  # Allow ingress from 'shortlink' namespace
         - namespaceSelector:
             matchLabels:
+              kubernetes.io/metadata.name: istio-system
+        - namespaceSelector:
+            matchLabels:
               kubernetes.io/metadata.name: istio-ingress  # Allow ingress from 'istio-ingress' namespace
         - namespaceSelector:
             matchLabels:
