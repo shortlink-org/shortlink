@@ -93,7 +93,7 @@ podDisruptionBudget:
 # ==============================================================================
 # NetworkPolicy
 networkPolicy:
-  enabled: true
+  enabled: false
   policyTypes:
     - Ingress
   ingress:
