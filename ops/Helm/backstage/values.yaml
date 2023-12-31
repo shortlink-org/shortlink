@@ -105,3 +105,16 @@ service:
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
   enabled: true
+
+# ==============================================================================
+# NetworkPolicy
+networkPolicy:
+  enabled: true
+
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: nginx-ingress  # Allow ingress from 'nginx-ingress' namespace
+  policyTypes:
+    - Ingress

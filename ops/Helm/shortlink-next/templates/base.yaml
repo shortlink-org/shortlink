@@ -11,3 +11,5 @@
 {{ include "shortlink-common.ServiceMonitor" . }}
 
 {{ include "shortlink-common.PodDisruptionBudget" . }}
+
+{{ include "shortlink-common.NetworkPolicy" . }}

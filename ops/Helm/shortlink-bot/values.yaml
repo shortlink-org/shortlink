@@ -133,10 +133,10 @@ networkPolicy:
     - from:
         - namespaceSelector:
             matchLabels:
-              name: shortlink  # Allow ingress from 'shortlink' namespace
+              kubernetes.io/metadata.name: shortlink  # Allow ingress from 'shortlink' namespace
         - namespaceSelector:
             matchLabels:
-              name: istio-ingress
+              kubernetes.io/metadata.name: istio-ingress
   policyTypes:
     - Ingress
     - Egress
