@@ -134,6 +134,9 @@ networkPolicy:
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: istio-ingress
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: prometheus-operator
   policyTypes:
     - Ingress
     - Egress

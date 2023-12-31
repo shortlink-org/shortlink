@@ -101,9 +101,6 @@ hpa:
           type: AverageValue
           averageValue: 100
 
-NetworkPolicy:
-  enabled: false
-
 service:
   type: ClusterIP
   ports:

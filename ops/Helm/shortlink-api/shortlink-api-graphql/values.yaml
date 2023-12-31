@@ -86,9 +86,6 @@ hpa:
           type: Utilization
           averageUtilization: 80
 
-NetworkPolicy:
-  enabled: false
-
 service:
   type: ClusterIP
   ports:
