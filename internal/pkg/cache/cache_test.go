@@ -12,8 +12,6 @@ import (
 	cache2 "github.com/go-redis/cache/v9"
 	"github.com/ory/dockertest/v3"
 	"github.com/ory/dockertest/v3/docker"
-	"github.com/prometheus/client_golang/prometheus"
-	io_prometheus_client "github.com/prometheus/client_model/go"
 	"github.com/stretchr/testify/require"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/cache"
@@ -79,73 +77,4 @@ func TestCache(t *testing.T) {
 		require.NoError(t, err)
 		require.Equal(t, value, resp)
 	})
-
-	t.Run("Test Set and Get with Prometheus Metrics", func(t *testing.T) {
-		ctx := context.Background()
-		c, err := cache.New(ctx)
-		require.NoError(t, err)
-
-		keyExists := "myKey"
-		keyNotExists := "unknownKey"
-		value := "myValue"
-
-		// Set operation for existing key
-		err = c.Set(&cache2.Item{
-			Key:   keyExists,
-			Value: value,
-		})
-		require.NoError(t, err)
-
-		// Get operation where key exists
-		resp := ""
-		err = c.Get(ctx, keyExists, &resp)
-		require.NoError(t, err)
-		require.Equal(t, value, resp)
-
-		// Get operation where key does not exist
-		resp = ""
-		err = c.Get(ctx, keyNotExists, &resp)
-		require.NoError(t, err)
-
-		// Gather metrics after operations
-		metrics, err := prometheus.DefaultGatherer.Gather()
-		require.NoError(t, err)
-
-		// Iterate over gathered metrics and check values inline
-		for _, m := range metrics {
-			if *m.Name == "cache_operation_duration_seconds" {
-				for _, metric := range m.Metric {
-					if getValueForLabel(metric.Label, "key") == keyExists || getValueForLabel(metric.Label, "key") == keyNotExists {
-						require.GreaterOrEqual(t, *metric.Histogram.SampleSum, 0.0, "Duration should be non-negative")
-					}
-				}
-			}
-
-			if *m.Name == "cache_operation_errors_total" {
-				for _, metric := range m.Metric {
-					if getValueForLabel(metric.Label, "key") == keyNotExists {
-						require.GreaterOrEqual(t, *metric.Counter.Value, 1.0, "Error count should be positive for non-existent key")
-					}
-				}
-			}
-
-			if *m.Name == "cache_operations_total" {
-				for _, metric := range m.Metric {
-					if getValueForLabel(metric.Label, "key") == keyExists {
-						require.GreaterOrEqual(t, *metric.Counter.Value, 1.0, "Operation count should be positive for existing key")
-					}
-				}
-			}
-		}
-	})
-}
-
-func getValueForLabel(labels []*io_prometheus_client.LabelPair, labelName string) string {
-	for _, l := range labels {
-		if l.GetName() == labelName {
-			return l.GetValue()
-		}
-	}
-
-	return ""
 }

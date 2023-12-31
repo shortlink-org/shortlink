@@ -16,6 +16,7 @@ import (
 func New(ctx context.Context) (*cache.Cache, error) {
 	viper.SetDefault("LOCAL_CACHE_TTL", "5m")
 	viper.SetDefault("LOCAL_CACHE_COUNT", 1000)
+	viper.SetDefault("LOCAL_CACHE_METRICS_ENABLED", true)
 
 	store := &db.Store{}
 	err := store.Init(ctx)
@@ -33,8 +34,9 @@ func New(ctx context.Context) (*cache.Cache, error) {
 	}
 
 	s := cache.New(&cache.Options{
-		Redis:      adapter,
-		LocalCache: cache.NewTinyLFU(viper.GetInt("LOCAL_CACHE_COUNT"), viper.GetDuration("LOCAL_CACHE_TTL")),
+		Redis:        adapter,
+		LocalCache:   cache.NewTinyLFU(viper.GetInt("LOCAL_CACHE_COUNT"), viper.GetDuration("LOCAL_CACHE_TTL")),
+		StatsEnabled: viper.GetBool("LOCAL_CACHE_METRICS_ENABLED"),
 	})
 
 	return s, nil
