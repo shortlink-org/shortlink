@@ -106,6 +106,9 @@ networkPolicy:
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: nginx-ingress  # Allow ingress from 'nginx-ingress' namespace
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: prometheus-operator
   policyTypes:
     - Ingress
     - Egress
