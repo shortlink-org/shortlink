@@ -1,7 +1,7 @@
 /*
 Metadata Service. Infrastructure layer
 */
-package meta_store
+package store
 
 import (
 	"context"
@@ -9,7 +9,7 @@ import (
 	"github.com/spf13/viper"
 
 	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository/ram"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository/store/ram"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"

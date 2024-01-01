@@ -4,7 +4,7 @@
 // The build tag makes sure the stub is not built in the final build.
 
 /*
-MetaData Service DI-package
+MetaData UC DI-package
 */
 package metadata_di
 
@@ -14,11 +14,13 @@ import (
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
 
-	metadata "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/application/parsers"
 	metadata_domain "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/domain/metadata/v1"
 	metadata_mq "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/mq"
-	meta_store "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository/media"
+	meta_store "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository/store"
 	metadata_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/parsers"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/screenshot"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
@@ -31,6 +33,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
+	"github.com/shortlink-org/shortlink/internal/pkg/s3"
 )
 
 type MetaDataService struct {
@@ -49,7 +52,7 @@ type MetaDataService struct {
 	metadataRPCServer *metadata_rpc.Metadata
 
 	// Application
-	service *metadata.Service
+	service *parsers.UC
 
 	// Repository
 	metadataStore *meta_store.MetaStore
@@ -61,16 +64,19 @@ var MetaDataSet = wire.NewSet(
 	mq_di.New,
 	store.New,
 	rpc.InitServer,
+	s3.New,
 
 	// Delivery
 	InitMetadataMQ,
 	NewMetaDataRPCServer,
 
 	// Applications
-	NewMetaDataApplication,
+	NewParserUC,
+	NewScreenshotUC,
 
 	// repository
 	NewMetaDataStore,
+	NewMetaDataMediaStore,
 
 	NewMetaDataService,
 )
@@ -97,8 +103,17 @@ func NewMetaDataStore(ctx context.Context, log logger.Logger, db db.DB) (*meta_s
 	return metadataStore, nil
 }
 
-func NewMetaDataApplication(store *meta_store.MetaStore) (*metadata.Service, error) {
-	metadataService, err := metadata.New(store)
+func NewMetaDataMediaStore(ctx context.Context, s3 *s3.Client) (*media.Service, error) {
+	client, err := media.New(ctx, s3)
+	if err != nil {
+		return nil, err
+	}
+
+	return client, nil
+}
+
+func NewParserUC(store *meta_store.MetaStore) (*parsers.UC, error) {
+	metadataService, err := parsers.New(store)
 	if err != nil {
 		return nil, err
 	}
@@ -106,8 +121,17 @@ func NewMetaDataApplication(store *meta_store.MetaStore) (*metadata.Service, err
 	return metadataService, nil
 }
 
-func NewMetaDataRPCServer(runRPCServer *rpc.Server, application *metadata.Service, log logger.Logger) (*metadata_rpc.Metadata, error) {
-	metadataRPCServer, err := metadata_rpc.New(runRPCServer, application, log)
+func NewScreenshotUC(ctx context.Context) (*screenshot.UC, error) {
+	metadataService, err := screenshot.New(ctx)
+	if err != nil {
+		return nil, err
+	}
+
+	return metadataService, nil
+}
+
+func NewMetaDataRPCServer(log logger.Logger, runRPCServer *rpc.Server, parsersUC *parsers.UC, screenshotUC *screenshot.UC) (*metadata_rpc.Metadata, error) {
+	metadataRPCServer, err := metadata_rpc.New(log, runRPCServer, parsersUC, screenshotUC)
 	if err != nil {
 		return nil, err
 	}
@@ -127,7 +151,7 @@ func NewMetaDataService(
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	// Application
-	service *metadata.Service,
+	service *parsers.UC,
 
 	// Delivery
 	metadataMQ *metadata_mq.Event,

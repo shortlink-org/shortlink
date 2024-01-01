@@ -1,6 +1,7 @@
 package s3
 
 import (
+	"bytes"
 	"context"
 	"net/url"
 	"time"
@@ -9,8 +10,8 @@ import (
 )
 
 // UploadFile uploads a file to S3 with context
-func (c *Client) UploadFile(ctx context.Context, bucketName string, objectName string, filePath string) error {
-	_, err := c.client.FPutObject(ctx, bucketName, objectName, filePath, minio.PutObjectOptions{})
+func (c *Client) UploadFile(ctx context.Context, bucketName string, objectName string, reader *bytes.Reader) error {
+	_, err := c.client.PutObject(ctx, bucketName, objectName, reader, int64(reader.Len()), minio.PutObjectOptions{})
 	if err != nil {
 		return err
 	}
@@ -63,11 +64,14 @@ func (c *Client) FileExists(ctx context.Context, bucketName string, objectName s
 }
 
 // GetFileURL returns a URL for a file with context
-func (c *Client) GetFileURL(ctx context.Context, bucketName string, objectName string) (string, error) {
-	presignedURL, err := c.client.PresignedGetObject(ctx, bucketName, objectName, time.Second*24*60*60, url.Values{})
+func (c *Client) GetFileURL(ctx context.Context, bucketName string, objectName string) (*url.URL, error) {
+	// TODO: use ENV variable for duration
+	duration := time.Minute * 60
+
+	presignedURL, err := c.client.PresignedGetObject(ctx, bucketName, objectName, duration, url.Values{})
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
-	return presignedURL.String(), nil
+	return presignedURL, nil
 }

@@ -9,11 +9,13 @@ package metadata_di
 import (
 	"context"
 	"github.com/google/wire"
-	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/application/parsers"
 	v1_2 "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/mq"
-	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository/media"
+	store2 "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository/store"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/parsers"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/screenshot"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
@@ -29,6 +31,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
+	"github.com/shortlink-org/shortlink/internal/pkg/s3"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -97,7 +100,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewMetaDataApplication(metaStore)
+	uc, err := NewParserUC(metaStore)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -133,7 +136,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	metadata, err := NewMetaDataRPCServer(server, service, logger)
+	screenshotUC, err := NewScreenshotUC(context)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -142,7 +145,16 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	metaDataService, err := NewMetaDataService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, service, event, metadata, metaStore)
+	metadata, err := NewMetaDataRPCServer(logger, server, uc, screenshotUC)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	metaDataService, err := NewMetaDataService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, uc, event, metadata, metaStore)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -178,19 +190,21 @@ type MetaDataService struct {
 	metadataRPCServer *v1.Metadata
 
 	// Application
-	service *parsers.Service
+	service *parsers.UC
 
 	// Repository
-	metadataStore *meta_store.MetaStore
+	metadataStore *store2.MetaStore
 }
 
 // MetaDataService =====================================================================================================
-var MetaDataSet = wire.NewSet(di.DefaultSet, mq_di.New, store.New, rpc.InitServer, InitMetadataMQ,
+var MetaDataSet = wire.NewSet(di.DefaultSet, mq_di.New, store.New, rpc.InitServer, s3.New, InitMetadataMQ,
 	NewMetaDataRPCServer,
 
-	NewMetaDataApplication,
+	NewParserUC,
+	NewScreenshotUC,
 
 	NewMetaDataStore,
+	NewMetaDataMediaStore,
 
 	NewMetaDataService,
 )
@@ -205,9 +219,9 @@ func InitMetadataMQ(ctx2 context.Context, dataBus mq.MQ) (*metadata_mq.Event, er
 	return metadataMQ, nil
 }
 
-func NewMetaDataStore(ctx2 context.Context, log logger.Logger, db2 db.DB) (*meta_store.MetaStore, error) {
-	store2 := &meta_store.MetaStore{}
-	metadataStore, err := store2.Use(ctx2, log, db2)
+func NewMetaDataStore(ctx2 context.Context, log logger.Logger, db2 db.DB) (*store2.MetaStore, error) {
+	store3 := &store2.MetaStore{}
+	metadataStore, err := store3.Use(ctx2, log, db2)
 	if err != nil {
 		return nil, err
 	}
@@ -215,8 +229,17 @@ func NewMetaDataStore(ctx2 context.Context, log logger.Logger, db2 db.DB) (*meta
 	return metadataStore, nil
 }
 
-func NewMetaDataApplication(store2 *meta_store.MetaStore) (*parsers.Service, error) {
-	metadataService, err := parsers.New(store2)
+func NewMetaDataMediaStore(ctx2 context.Context, s3_2 *s3.Client) (*media.Service, error) {
+	client, err := media.New(ctx2, s3_2)
+	if err != nil {
+		return nil, err
+	}
+
+	return client, nil
+}
+
+func NewParserUC(store3 *store2.MetaStore) (*parsers.UC, error) {
+	metadataService, err := parsers.New(store3)
 	if err != nil {
 		return nil, err
 	}
@@ -224,8 +247,17 @@ func NewMetaDataApplication(store2 *meta_store.MetaStore) (*parsers.Service, err
 	return metadataService, nil
 }
 
-func NewMetaDataRPCServer(runRPCServer *rpc.Server, application *parsers.Service, log logger.Logger) (*v1.Metadata, error) {
-	metadataRPCServer, err := v1.New(runRPCServer, application, log)
+func NewScreenshotUC(ctx2 context.Context) (*screenshot.UC, error) {
+	metadataService, err := screenshot.New(ctx2)
+	if err != nil {
+		return nil, err
+	}
+
+	return metadataService, nil
+}
+
+func NewMetaDataRPCServer(log logger.Logger, runRPCServer *rpc.Server, parsersUC *parsers.UC, screenshotUC *screenshot.UC) (*v1.Metadata, error) {
+	metadataRPCServer, err := v1.New(log, runRPCServer, parsersUC, screenshotUC)
 	if err != nil {
 		return nil, err
 	}
@@ -240,12 +272,12 @@ func NewMetaDataService(
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
-	service *parsers.Service,
+	service *parsers.UC,
 
 	metadataMQ *metadata_mq.Event,
 	metadataRPCServer *v1.Metadata,
 
-	metadataStore *meta_store.MetaStore,
+	metadataStore *store2.MetaStore,
 ) (*MetaDataService, error) {
 	return &MetaDataService{
 

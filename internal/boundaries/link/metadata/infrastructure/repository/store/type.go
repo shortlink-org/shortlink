@@ -1,4 +1,4 @@
-package meta_store
+package store
 
 import (
 	"context"

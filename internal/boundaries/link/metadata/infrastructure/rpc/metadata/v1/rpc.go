@@ -1,12 +1,13 @@
 /*
-Metadata Service. Infrastructure layer
+Metadata UC. Infrastructure layer
 */
 package v1
 
 import (
 	"context"
 
-	metadata "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/application/parsers"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/parsers"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/screenshot"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
 )
@@ -14,14 +15,22 @@ import (
 type Metadata struct {
 	MetadataServiceServer
 
-	service *metadata.Service
-	log     logger.Logger
+	// application
+	parserUC     *parsers.UC
+	screenshotUC *screenshot.UC
+
+	// common
+	log logger.Logger
 }
 
-func New(runRPCServer *rpc.Server, application *metadata.Service, log logger.Logger) (*Metadata, error) {
+func New(log logger.Logger, runRPCServer *rpc.Server, parsersUC *parsers.UC, screenshotUC *screenshot.UC) (*Metadata, error) {
 	server := &Metadata{
-		service: application,
-		log:     log,
+		// application
+		parserUC:     parsersUC,
+		screenshotUC: screenshotUC,
+
+		// common
+		log: log,
 	}
 
 	// Register services
@@ -34,10 +43,20 @@ func New(runRPCServer *rpc.Server, application *metadata.Service, log logger.Log
 }
 
 func (m *Metadata) Get(ctx context.Context, req *MetadataServiceGetRequest) (*MetadataServiceGetResponse, error) {
-	meta, err := m.service.Get(ctx, req.GetUrl())
+	// Get metadata
+	meta, err := m.parserUC.Get(ctx, req.GetUrl())
 	if err != nil {
 		return nil, err
 	}
+
+	// Get screenshotURL
+	screenshotURL, err := m.screenshotUC.Get(ctx, req.GetUrl())
+	if err != nil {
+		return nil, err
+	}
+
+	// Set screenshotURL
+	meta.ImageUrl = screenshotURL.String()
 
 	return &MetadataServiceGetResponse{
 		Meta: meta,
@@ -45,7 +64,14 @@ func (m *Metadata) Get(ctx context.Context, req *MetadataServiceGetRequest) (*Me
 }
 
 func (m *Metadata) Set(ctx context.Context, req *MetadataServiceSetRequest) (*MetadataServiceSetResponse, error) {
-	meta, err := m.service.Set(ctx, req.GetUrl())
+	// Set metadata
+	meta, err := m.parserUC.Set(ctx, req.GetUrl())
+	if err != nil {
+		return nil, err
+	}
+
+	// Set screenshot
+	err = m.screenshotUC.Put(ctx, req.GetUrl())
 	if err != nil {
 		return nil, err
 	}

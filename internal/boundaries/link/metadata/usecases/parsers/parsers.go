@@ -1,5 +1,5 @@
 /*
-Metadata Service. Application layer
+Metadata UC. Application layer
 */
 package parsers
 
@@ -11,22 +11,22 @@ import (
 	"github.com/PuerkitoBio/goquery"
 
 	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/domain/metadata/v1"
-	meta_store "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository"
+	meta_store "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository/store"
 	http_client "github.com/shortlink-org/shortlink/internal/pkg/http/client"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 )
 
-type Service struct {
+type UC struct {
 	MetaStore *meta_store.MetaStore
 }
 
-func New(store *meta_store.MetaStore) (*Service, error) {
-	return &Service{
+func New(store *meta_store.MetaStore) (*UC, error) {
+	return &UC{
 		MetaStore: store,
 	}, nil
 }
 
-func (r *Service) Get(ctx context.Context, hash string) (*v1.Meta, error) {
+func (r *UC) Get(ctx context.Context, hash string) (*v1.Meta, error) {
 	meta, err := r.MetaStore.Store.Get(ctx, hash)
 	if err != nil {
 		return nil, err
@@ -35,7 +35,7 @@ func (r *Service) Get(ctx context.Context, hash string) (*v1.Meta, error) {
 	return meta, nil
 }
 
-func (r *Service) Set(ctx context.Context, url string) (*v1.Meta, error) {
+func (r *UC) Set(ctx context.Context, url string) (*v1.Meta, error) {
 	meta := &v1.Meta{
 		Id: url,
 	}

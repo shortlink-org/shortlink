@@ -1,14 +1,14 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="saga" type="GoTestRunConfiguration" factoryName="Go Test" folderName="pkg">
+  <configuration default="false" name="services/permission" type="GoTestRunConfiguration" factoryName="Go Test" folderName="auth">
     <module name="shortlink" />
-    <working_directory value="$PROJECT_DIR$/internal/pkg/saga" />
+    <working_directory value="$PROJECT_DIR$/internal/boundaries/auth/auth/services/permission" />
     <go_parameters value="-race -v -tags=unit -cover" />
     <envs>
       <env name="GOEXPERIMENT" value="arenas,cgocheck2,loopvar" />
     </envs>
     <root_directory value="$PROJECT_DIR$" />
     <kind value="PACKAGE" />
-    <package value="github.com/shortlink-org/shortlink/internal/pkg/saga" />
+    <package value="github.com/shortlink-org/shortlink/internal/boundaries/auth/auth/services/permission" />
     <directory value="$PROJECT_DIR$" />
     <filePath value="$PROJECT_DIR$" />
     <framework value="gotest" />

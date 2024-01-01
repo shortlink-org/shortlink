@@ -20,5 +20,5 @@ grpcurl -cacert ./ops/cert/intermediate_ca.pem -d '{"Id": "http://google.com"}' 
 
 **Use cases**:
 
-- [UC-1](./application/parsers/README.md) Parse metadata from URL
-- [UC-2](./application/screenshot/README.md) Made screenshot from URL
+- [UC-1](./usecases/parsers/README.md) Parse metadata from URL
+- [UC-2](./usecases/screenshot/README.md) Made screenshot from URL
