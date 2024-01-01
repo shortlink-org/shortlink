@@ -1,12 +1,14 @@
 # Metadata
 
-Service got get metadata by URL.
+> [!NOTE]
+> This ADR introduces a service to the shortlink system, designed to enrich link information.
+> Upon the creation of a new link, this service fetches metadata and generates screenshots,
+> subsequently storing this data to provide a more detailed description of the links.
 
-### DDD
+### ADR
 
-- application (Write business logic)
-- domain (Entity struct that represent mapping to data model)
-- infrastructure (Solves backend technical topics)
+- [ADR-0001](./docs/ADR/decisions/0001-init.md) - Init project
+- [ADR-0002](./docs/ADR/decisions/0002-c4-system.md) - C4 system
 
 ### Example request
 
@@ -19,3 +21,4 @@ grpcurl -cacert ./ops/cert/intermediate_ca.pem -d '{"Id": "http://google.com"}' 
 **Use cases**:
 
 - [UC-1](./application/parsers/README.md) Parse metadata from URL
+- [UC-2](./application/screenshot/README.md) Made screenshot from URL
