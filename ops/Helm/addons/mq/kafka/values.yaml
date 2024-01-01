@@ -77,11 +77,3 @@ kafka-ui:
     tls:
       enabled: true
       secretName: shortlink-ingress-tls
-
-  resources:
-    limit:
-      cpu: 100m
-      memory: 256Mi
-    requests:
-      cpu: 20m
-      memory: 56Mi
