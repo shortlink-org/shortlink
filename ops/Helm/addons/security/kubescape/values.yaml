@@ -12,9 +12,6 @@ kubescape:
 
   capabilities:
     continuousScan: enable
-    runtimeObservability: enable
-    networkPolicyService: enable
-    networkGenerator: enable
     seccompGenerator: enable
     vexGeneration: enable
     autoUpgrading: enable
