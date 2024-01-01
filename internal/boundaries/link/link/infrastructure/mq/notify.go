@@ -15,10 +15,10 @@ type Event struct {
 	log logger.Logger
 
 	// Application
-	service *link_application.Service
+	service *link_application.UC
 }
 
-func New(dataBus mq.MQ, log logger.Logger, service *link_application.Service) (*Event, error) {
+func New(dataBus mq.MQ, log logger.Logger, service *link_application.UC) (*Event, error) {
 	event := &Event{
 		mq:  dataBus,
 		log: log,

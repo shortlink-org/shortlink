@@ -4,7 +4,7 @@
 // The build tag makes sure the stub is not built in the final build.
 
 /*
-Link Service DI-package
+Link UC DI-package
 */
 package link_di
 
@@ -64,7 +64,7 @@ type LinkService struct {
 	sitemapRPCServer  *sitemap_rpc.Sitemap
 
 	// Application
-	linkService     *link.Service
+	linkService     *link.UC
 	linkCQRSService *link_cqrs.Service
 	sitemapService  *sitemap.Service
 
@@ -108,7 +108,7 @@ var LinkSet = wire.NewSet(
 	NewLinkService,
 )
 
-func InitLinkMQ(ctx context.Context, log logger.Logger, mq mq.MQ, service *link.Service) (*api_mq.Event, error) {
+func InitLinkMQ(ctx context.Context, log logger.Logger, mq mq.MQ, service *link.UC) (*api_mq.Event, error) {
 	linkMQ, err := api_mq.New(mq, log, service)
 	if err != nil {
 		return nil, err
@@ -144,7 +144,7 @@ func NewQueryLinkStore(ctx context.Context, log logger.Logger, db db.DB, cache *
 	return store, nil
 }
 
-func NewLinkApplication(log logger.Logger, mq mq.MQ, metadataService metadata_rpc.MetadataServiceClient, store crud.Repository, authPermission *authzed.Client) (*link.Service, error) {
+func NewLinkApplication(log logger.Logger, mq mq.MQ, metadataService metadata_rpc.MetadataServiceClient, store crud.Repository, authPermission *authzed.Client) (*link.UC, error) {
 	linkService, err := link.New(log, mq, metadataService, store, authPermission)
 	if err != nil {
 		return nil, err
@@ -185,7 +185,7 @@ func NewLinkCQRSRPCServer(runRPCServer *rpc.Server, application *link_cqrs.Servi
 	return linkRPCServer, nil
 }
 
-func NewLinkRPCServer(runRPCServer *rpc.Server, application *link.Service, log logger.Logger) (*link_rpc.Link, error) {
+func NewLinkRPCServer(runRPCServer *rpc.Server, application *link.UC, log logger.Logger) (*link_rpc.Link, error) {
 	linkRPCServer, err := link_rpc.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err
@@ -227,7 +227,7 @@ func NewLinkService(
 	authPermission *authzed.Client,
 
 	// Application
-	linkService *link.Service,
+	linkService *link.UC,
 	linkCQRSService *link_cqrs.Service,
 	sitemapService *sitemap.Service,
 

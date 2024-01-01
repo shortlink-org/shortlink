@@ -19,6 +19,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository/media"
 	meta_store "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository/store"
 	metadata_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/metadata"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/parsers"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/screenshot"
 	"github.com/shortlink-org/shortlink/internal/di"
@@ -73,6 +74,7 @@ var MetaDataSet = wire.NewSet(
 	// Applications
 	NewParserUC,
 	NewScreenshotUC,
+	NewMetadataUC,
 
 	// repository
 	NewMetaDataStore,
@@ -130,8 +132,17 @@ func NewScreenshotUC(ctx context.Context, media *s3Repository.Service) (*screens
 	return metadataService, nil
 }
 
-func NewMetaDataRPCServer(log logger.Logger, runRPCServer *rpc.Server, parsersUC *parsers.UC, screenshotUC *screenshot.UC) (*metadata_rpc.Metadata, error) {
-	metadataRPCServer, err := metadata_rpc.New(log, runRPCServer, parsersUC, screenshotUC)
+func NewMetadataUC(log logger.Logger, parsersUC *parsers.UC, screenshotUC *screenshot.UC) (*metadata.UC, error) {
+	metadataService, err := metadata.New(log, parsersUC, screenshotUC)
+	if err != nil {
+		return nil, err
+	}
+
+	return metadataService, nil
+}
+
+func NewMetaDataRPCServer(log logger.Logger, runRPCServer *rpc.Server, parsersUC *parsers.UC, screenshotUC *screenshot.UC, metadataUC *metadata.UC) (*metadata_rpc.Metadata, error) {
+	metadataRPCServer, err := metadata_rpc.New(log, runRPCServer, parsersUC, screenshotUC, metadataUC)
 	if err != nil {
 		return nil, err
 	}

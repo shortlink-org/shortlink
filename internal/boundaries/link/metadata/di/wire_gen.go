@@ -14,6 +14,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository/media"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository/store"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/metadata"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/parsers"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/screenshot"
 	"github.com/shortlink-org/shortlink/internal/di"
@@ -163,7 +164,16 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	metadata, err := NewMetaDataRPCServer(logger, server, uc, screenshotUC)
+	metadataUC, err := NewMetadataUC(logger, uc, screenshotUC)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	metadata, err := NewMetaDataRPCServer(logger, server, uc, screenshotUC, metadataUC)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -220,6 +230,7 @@ var MetaDataSet = wire.NewSet(di.DefaultSet, mq_di.New, store.New, rpc.InitServe
 
 	NewParserUC,
 	NewScreenshotUC,
+	NewMetadataUC,
 
 	NewMetaDataStore,
 	NewMetaDataMediaStore,
@@ -274,8 +285,17 @@ func NewScreenshotUC(ctx2 context.Context, media *s3Repository.Service) (*screen
 	return metadataService, nil
 }
 
-func NewMetaDataRPCServer(log logger.Logger, runRPCServer *rpc.Server, parsersUC *parsers.UC, screenshotUC *screenshot.UC) (*v1.Metadata, error) {
-	metadataRPCServer, err := v1.New(log, runRPCServer, parsersUC, screenshotUC)
+func NewMetadataUC(log logger.Logger, parsersUC *parsers.UC, screenshotUC *screenshot.UC) (*metadata.UC, error) {
+	metadataService, err := metadata.New(log, parsersUC, screenshotUC)
+	if err != nil {
+		return nil, err
+	}
+
+	return metadataService, nil
+}
+
+func NewMetaDataRPCServer(log logger.Logger, runRPCServer *rpc.Server, parsersUC *parsers.UC, screenshotUC *screenshot.UC, metadataUC *metadata.UC) (*v1.Metadata, error) {
+	metadataRPCServer, err := v1.New(log, runRPCServer, parsersUC, screenshotUC, metadataUC)
 	if err != nil {
 		return nil, err
 	}

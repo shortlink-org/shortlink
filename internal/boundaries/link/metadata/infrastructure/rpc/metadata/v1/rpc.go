@@ -7,6 +7,7 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/metadata"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/parsers"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/screenshot"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -19,16 +20,18 @@ type Metadata struct {
 	// application
 	parserUC     *parsers.UC
 	screenshotUC *screenshot.UC
+	metadataUC   *metadata.UC
 
 	// common
 	log logger.Logger
 }
 
-func New(log logger.Logger, runRPCServer *rpc.Server, parsersUC *parsers.UC, screenshotUC *screenshot.UC) (*Metadata, error) {
+func New(log logger.Logger, runRPCServer *rpc.Server, parsersUC *parsers.UC, screenshotUC *screenshot.UC, metadataUC *metadata.UC) (*Metadata, error) {
 	server := &Metadata{
 		// application
 		parserUC:     parsersUC,
 		screenshotUC: screenshotUC,
+		metadataUC:   metadataUC,
 
 		// common
 		log: log,
@@ -66,13 +69,7 @@ func (m *Metadata) Get(ctx context.Context, req *MetadataServiceGetRequest) (*Me
 
 func (m *Metadata) Set(ctx context.Context, req *MetadataServiceSetRequest) (*MetadataServiceSetResponse, error) {
 	// Set metadata
-	meta, err := m.parserUC.Set(ctx, req.GetUrl())
-	if err != nil {
-		return nil, err
-	}
-
-	// Set screenshot
-	err = m.screenshotUC.Put(ctx, req.GetUrl())
+	meta, err := m.metadataUC.Add(ctx, req.GetUrl())
 	if err != nil {
 		return nil, err
 	}

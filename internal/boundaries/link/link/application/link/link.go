@@ -1,5 +1,5 @@
 /*
-Link Service. Application layer
+Link UC. Application layer
 */
 package link
 
@@ -15,7 +15,7 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 
-	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	domain "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/repository/crud"
 	metadata_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/auth/session"
@@ -26,9 +26,9 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/saga"
 )
 
-type Service struct {
+type UC struct {
 	// Observer interface for subscribe on system event
-	notify.Subscriber[v1.Link]
+	notify.Subscriber[domain.Link]
 
 	// Security
 	permission *authzed.Client
@@ -43,8 +43,8 @@ type Service struct {
 	log logger.Logger
 }
 
-func New(log logger.Logger, dataBus mq.MQ, metadataService metadata_rpc.MetadataServiceClient, store crud.Repository, permissionClient *authzed.Client) (*Service, error) {
-	service := &Service{
+func New(log logger.Logger, dataBus mq.MQ, metadataService metadata_rpc.MetadataServiceClient, store crud.Repository, permissionClient *authzed.Client) (*UC, error) {
+	service := &UC{
 		log: log,
 
 		// Security
@@ -81,7 +81,7 @@ func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {
 // Saga:
 // 1. Check permission
 // 2. Get a link from store
-func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
+func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 	const (
 		SAGA_NAME                  = "GET_LINK"
 		SAGA_STEP_CHECK_PERMISSION = "SAGA_STEP_CHECK_PERMISSION"
@@ -89,13 +89,13 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 	)
 
 	userID := session.GetUserID(ctx)
-	resp := &v1.Link{}
+	resp := &domain.Link{}
 
 	// create a new saga for a get link by hash
-	sagaGetLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.log)).
+	sagaGetLink, errs := saga.New(SAGA_NAME, saga.SetLogger(uc.log)).
 		WithContext(ctx).
 		Build()
-	if err := errorHelper(ctx, s.log, errs); err != nil {
+	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -107,16 +107,16 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 				Subject:    &permission.SubjectReference{Object: &permission.ObjectReference{ObjectType: "user", ObjectId: userID}},
 			}
 
-			_, err := s.permission.PermissionsServiceClient.CheckPermission(ctx, relationship)
+			_, err := uc.permission.PermissionsServiceClient.CheckPermission(ctx, relationship)
 			if err != nil {
 				return err
 			}
 
 			return nil
 		}).Reject(func(ctx context.Context, thenErr error) error {
-		return &v1.PermissionDeniedError{Err: thenErr}
+		return &domain.PermissionDeniedError{Err: thenErr}
 	}).Build()
-	if err := errorHelper(ctx, s.log, errs); err != nil {
+	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -124,16 +124,16 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 		Needs(SAGA_STEP_CHECK_PERMISSION).
 		Then(func(ctx context.Context) error {
 			var err error
-			resp, err = s.store.Get(ctx, hash)
+			resp, err = uc.store.Get(ctx, hash)
 			if err != nil {
 				return err
 			}
 
 			return nil
 		}).Reject(func(ctx context.Context, thenErr error) error {
-		return &v1.PermissionDeniedError{Err: thenErr}
+		return &domain.PermissionDeniedError{Err: thenErr}
 	}).Build()
-	if err := errorHelper(ctx, s.log, errs); err != nil {
+	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -144,7 +144,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 	}
 
 	if resp == nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: hash}}
+		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: hash}}
 	}
 
 	return resp, nil
@@ -155,7 +155,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*v1.Link, error) {
 // Saga:
 // 1. Check permission
 // 2. Get a list of links from store
-func (s *Service) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, error) {
+func (uc *UC) List(ctx context.Context, filter *domain.FilterLink) (*domain.Links, error) {
 	const (
 		SAGA_NAME                     = "LIST_LINK"
 		SAGA_STEP_LOOKUP              = "SAGA_STEP_LOOKUP"
@@ -163,13 +163,13 @@ func (s *Service) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, e
 	)
 
 	userID := session.GetUserID(ctx)
-	links := &v1.Links{}
+	links := &domain.Links{}
 
 	// create a new saga for a get list of a link
-	sagaListLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.log)).
+	sagaListLink, errs := saga.New(SAGA_NAME, saga.SetLogger(uc.log)).
 		WithContext(ctx).
 		Build()
-	if err := errorHelper(ctx, s.log, errs); err != nil {
+	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -182,7 +182,7 @@ func (s *Service) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, e
 				Subject:            &permission.SubjectReference{Object: &permission.ObjectReference{ObjectType: "user", ObjectId: userID}},
 			}
 
-			stream, err := s.permission.PermissionsServiceClient.LookupResources(ctx, relationship)
+			stream, err := uc.permission.PermissionsServiceClient.LookupResources(ctx, relationship)
 			if err != nil {
 				return err
 			}
@@ -200,9 +200,9 @@ func (s *Service) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, e
 				myLinks = append(myLinks, resp.GetResourceObjectId())
 			}
 		}).Reject(func(ctx context.Context, thenErr error) error {
-		return &v1.PermissionDeniedError{Err: thenErr}
+		return &domain.PermissionDeniedError{Err: thenErr}
 	}).Build()
-	if err := errorHelper(ctx, s.log, errs); err != nil {
+	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -213,18 +213,18 @@ func (s *Service) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, e
 
 			// use filter
 			hash := strings.Join(myLinks, ",")
-			filter.Hash = &v1.StringFilterInput{
+			filter.Hash = &domain.StringFilterInput{
 				Contains: hash,
 			}
 
-			links, err = s.store.List(ctx, filter)
+			links, err = uc.store.List(ctx, filter)
 			if err != nil {
 				return err
 			}
 
 			return nil
 		}).Build()
-	if err := errorHelper(ctx, s.log, errs); err != nil {
+	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -244,7 +244,7 @@ func (s *Service) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, e
 // 2. Add permission
 // 3. Get metadata
 // 4. Publish event
-func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
+func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 	const (
 		SAGA_NAME                        = "ADD_LINK"
 		SAGA_STEP_ADD_PERMISSION         = "SAGA_STEP_ADD_PERMISSION"
@@ -259,10 +259,10 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	userID := session.GetUserID(ctx)
 
 	// saga for create a new link
-	sagaAddLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.log)).
+	sagaAddLink, errs := saga.New(SAGA_NAME, saga.SetLogger(uc.log)).
 		WithContext(ctx).
 		Build()
-	if err := errorHelper(ctx, s.log, errs); err != nil {
+	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -270,11 +270,11 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 		AddStep(SAGA_STEP_SAVE_TO_STORE).
 		Then(func(ctx context.Context) error {
 			var err error
-			_, err = s.store.Add(ctx, in)
+			_, err = uc.store.Add(ctx, in)
 
 			return err
 		}).Build()
-	if err := errorHelper(ctx, s.log, errs); err != nil {
+	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -300,7 +300,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 				}},
 			}
 
-			_, err := s.permission.PermissionsServiceClient.WriteRelationships(ctx, relationship)
+			_, err := uc.permission.PermissionsServiceClient.WriteRelationships(ctx, relationship)
 			if err != nil {
 				st, ok := status.FromError(err)
 				if ok {
@@ -314,21 +314,21 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 
 			return nil
 		}).Reject(func(ctx context.Context, thenErr error) error {
-		err := s.store.Delete(ctx, in.GetHash())
+		err := uc.store.Delete(ctx, in.GetHash())
 		if err != nil {
 			return errors.Join(thenErr, err)
 		}
 
 		return thenErr
 	}).Build()
-	if err := errorHelper(ctx, s.log, errs); err != nil {
+	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}
 
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_GET_METADATA).
 		Needs(SAGA_STEP_ADD_PERMISSION).
 		Then(func(ctx context.Context) error {
-			_, err := s.MetadataClient.Set(ctx, &metadata_rpc.MetadataServiceSetRequest{
+			_, err := uc.MetadataClient.Set(ctx, &metadata_rpc.MetadataServiceSetRequest{
 				Url: in.GetUrl(),
 			})
 			if err != nil {
@@ -341,14 +341,14 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 
 			return nil
 		}).Build()
-	if err := errorHelper(ctx, s.log, errs); err != nil {
+	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}
 
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_PUBLISH_EVENT_NEW_LINK).
 		Then(func(ctx context.Context) error {
 			// If mq is nil, then we don't need to publish event
-			if s.mq == nil {
+			if uc.mq == nil {
 				return nil
 			}
 
@@ -357,14 +357,14 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 				return err
 			}
 
-			err = s.mq.Publish(ctx, v1.MQ_EVENT_LINK_CREATED, nil, data)
+			err = uc.mq.Publish(ctx, domain.MQ_EVENT_LINK_CREATED, nil, data)
 			if err != nil {
 				return err
 			}
 
 			return nil
 		}).Build()
-	if err := errorHelper(ctx, s.log, errs); err != nil {
+	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}
 
@@ -377,7 +377,7 @@ func (s *Service) Add(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	return in, nil
 }
 
-func (s *Service) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
+func (uc *UC) Update(_ context.Context, _ *domain.Link) (*domain.Link, error) {
 	return nil, nil
 }
 
@@ -386,7 +386,7 @@ func (s *Service) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 // Saga:
 // 1. Check permission
 // 2. Delete from store
-func (s *Service) Delete(ctx context.Context, hash string) (*v1.Link, error) {
+func (uc *UC) Delete(ctx context.Context, hash string) (*domain.Link, error) {
 	const (
 		SAGA_NAME                   = "DELETE_LINK"
 		SAGE_STEP_CHECK_PERMISSION  = "SAGE_STEP_CHECK_PERMISSION"
@@ -396,16 +396,16 @@ func (s *Service) Delete(ctx context.Context, hash string) (*v1.Link, error) {
 	userID := session.GetUserID(ctx)
 
 	// create a new saga for a delete link by hash
-	sagaDeleteLink, errs := saga.New(SAGA_NAME, saga.SetLogger(s.log)).
+	sagaDeleteLink, errs := saga.New(SAGA_NAME, saga.SetLogger(uc.log)).
 		WithContext(ctx).
 		Build()
-	if err := errorHelper(ctx, s.log, errs); err != nil {
+	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}
 
 	_, errs = sagaDeleteLink.AddStep(SAGE_STEP_CHECK_PERMISSION).
 		Then(func(ctx context.Context) error {
-			_, err := s.permission.DeleteRelationships(ctx, &permission.DeleteRelationshipsRequest{
+			_, err := uc.permission.DeleteRelationships(ctx, &permission.DeleteRelationshipsRequest{
 				RelationshipFilter: &permission.RelationshipFilter{
 					ResourceType:       "link",
 					OptionalResourceId: hash,
@@ -422,18 +422,18 @@ func (s *Service) Delete(ctx context.Context, hash string) (*v1.Link, error) {
 
 			return nil
 		}).Reject(func(ctx context.Context, thenErr error) error {
-		return &v1.PermissionDeniedError{Err: thenErr}
+		return &domain.PermissionDeniedError{Err: thenErr}
 	}).Build()
-	if err := errorHelper(ctx, s.log, errs); err != nil {
+	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}
 
 	_, errs = sagaDeleteLink.AddStep(SAGA_STEP_DELETE_FROM_STORE).
 		Needs(SAGE_STEP_CHECK_PERMISSION).
 		Then(func(ctx context.Context) error {
-			return s.store.Delete(ctx, hash)
+			return uc.store.Delete(ctx, hash)
 		}).Build()
-	if err := errorHelper(ctx, s.log, errs); err != nil {
+	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}
 

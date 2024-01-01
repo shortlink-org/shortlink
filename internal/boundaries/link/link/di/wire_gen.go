@@ -311,7 +311,7 @@ type LinkService struct {
 	sitemapRPCServer  *v1_3.Sitemap
 
 	// Application
-	linkService     *link.Service
+	linkService     *link.UC
 	linkCQRSService *link_cqrs.Service
 	sitemapService  *sitemap.Service
 
@@ -345,7 +345,7 @@ var LinkSet = wire.NewSet(di.DefaultSet, mq_di.New, rpc.InitServer, rpc.InitClie
 	NewLinkService,
 )
 
-func InitLinkMQ(ctx2 context.Context, log logger.Logger, mq2 mq.MQ, service *link.Service) (*api_mq.Event, error) {
+func InitLinkMQ(ctx2 context.Context, log logger.Logger, mq2 mq.MQ, service *link.UC) (*api_mq.Event, error) {
 	linkMQ, err := api_mq.New(mq2, log, service)
 	if err != nil {
 		return nil, err
@@ -381,7 +381,7 @@ func NewQueryLinkStore(ctx2 context.Context, log logger.Logger, db2 db.DB, cache
 	return store2, nil
 }
 
-func NewLinkApplication(log logger.Logger, mq2 mq.MQ, metadataService v1_4.MetadataServiceClient, store2 crud.Repository, authPermission *authzed.Client) (*link.Service, error) {
+func NewLinkApplication(log logger.Logger, mq2 mq.MQ, metadataService v1_4.MetadataServiceClient, store2 crud.Repository, authPermission *authzed.Client) (*link.UC, error) {
 	linkService, err := link.New(log, mq2, metadataService, store2, authPermission)
 	if err != nil {
 		return nil, err
@@ -422,7 +422,7 @@ func NewLinkCQRSRPCServer(runRPCServer *rpc.Server, application *link_cqrs.Servi
 	return linkRPCServer, nil
 }
 
-func NewLinkRPCServer(runRPCServer *rpc.Server, application *link.Service, log logger.Logger) (*v1.Link, error) {
+func NewLinkRPCServer(runRPCServer *rpc.Server, application *link.UC, log logger.Logger) (*v1.Link, error) {
 	linkRPCServer, err := v1.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err
@@ -458,7 +458,7 @@ func NewLinkService(
 
 	authPermission *authzed.Client,
 
-	linkService *link.Service,
+	linkService *link.UC,
 	linkCQRSService *link_cqrs.Service,
 	sitemapService *sitemap.Service,
 

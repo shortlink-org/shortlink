@@ -1,5 +1,5 @@
 /*
-Link Service. Infrastructure layer. RPC EndpointRPC Endpoint
+Link UC. Infrastructure layer. RPC EndpointRPC Endpoint
 */
 
 package v1
@@ -16,12 +16,12 @@ type Link struct {
 	log logger.Logger
 
 	// Application
-	service *link_application.Service
+	service *link_application.UC
 }
 
-func New(runRPCServer *rpc.Server, application *link_application.Service, log logger.Logger) (*Link, error) {
+func New(runRPCServer *rpc.Server, application *link_application.UC, log logger.Logger) (*Link, error) {
 	server := &Link{
-		// Create Service Application
+		// Create UC Application
 		service: application,
 
 		log: log,
