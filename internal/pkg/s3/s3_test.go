@@ -77,6 +77,12 @@ func TestMinio(t *testing.T) {
 		if err := pool.Purge(resource); err != nil {
 			t.Fatalf("Could not purge resource: %s", err)
 		}
+
+		// drop downloaded file
+		err := os.Remove("./fixtures/download.json")
+		if err != nil {
+			t.Fatal(err)
+		}
 	})
 
 	t.Run("UploadFile", func(t *testing.T) {
@@ -86,6 +92,55 @@ func TestMinio(t *testing.T) {
 		}
 
 		err = client.UploadFile(ctx, "test", "test", "./fixtures/test.json")
+		if err != nil {
+			t.Fatal(err)
+		}
+	})
+
+	t.Run("DownloadFile", func(t *testing.T) {
+		err := client.DownloadFile(ctx, "test", "test", "./fixtures/download.json")
+		if err != nil {
+			t.Fatal(err)
+		}
+	})
+
+	t.Run("ListFiles", func(t *testing.T) {
+		files, err := client.ListFiles(ctx, "test")
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		require.Equal(t, []string{"test"}, files)
+	})
+
+	t.Run("FileExists", func(t *testing.T) {
+		exists, err := client.FileExists(ctx, "test", "test")
+		if err != nil {
+			t.Fatal(err)
+		}
+
+		require.Equal(t, true, exists)
+	})
+
+	t.Run("DeleteFile", func(t *testing.T) {
+		err := client.RemoveFile(ctx, "test", "test")
+		if err != nil {
+			t.Fatal(err)
+		}
+	})
+
+	t.Run("FileNoExists", func(t *testing.T) {
+		exists, err := client.FileExists(ctx, "test", "test")
+		// The specified key does not exist
+		if err != nil {
+			require.Equal(t, "The specified key does not exist.", err.Error())
+		}
+
+		require.Equal(t, false, exists)
+	})
+
+	t.Run("RemoveBucket", func(t *testing.T) {
+		err := client.RemoveBucket(ctx, "test")
 		if err != nil {
 			t.Fatal(err)
 		}
