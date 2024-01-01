@@ -52,5 +52,5 @@ export default () => {
     'Get call succeeded': (r) => r && r.status === grpc.StatusOK,
   });
 
-  console.warn('getResponse', getResponse.message.meta.imageUrl)
+  console.info('screenshot URL:', getResponse.message.meta.imageUrl)
 }
