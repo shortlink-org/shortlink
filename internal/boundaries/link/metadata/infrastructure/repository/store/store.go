@@ -1,7 +1,7 @@
 /*
 Metadata Service. Infrastructure layer
 */
-package store
+package storeRepository
 
 import (
 	"context"

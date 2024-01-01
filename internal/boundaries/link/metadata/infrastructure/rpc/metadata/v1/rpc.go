@@ -5,6 +5,7 @@ package v1
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/parsers"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/screenshot"
@@ -50,7 +51,7 @@ func (m *Metadata) Get(ctx context.Context, req *MetadataServiceGetRequest) (*Me
 	}
 
 	// Get screenshotURL
-	screenshotURL, err := m.screenshotUC.Get(ctx, req.GetUrl())
+	screenshotURL, err := m.screenshotUC.Get(ctx, fmt.Sprintf("%s.png", req.GetUrl()))
 	if err != nil {
 		return nil, err
 	}

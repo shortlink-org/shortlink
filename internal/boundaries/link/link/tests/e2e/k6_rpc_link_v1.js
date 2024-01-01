@@ -46,7 +46,7 @@ export default () => {
     'Add call succeeded': (r) => r && r.status === grpc.StatusOK,
   });
 
-  // Extract the hash from the AddResponse
+  // Extract the hash from the addResponse
   let hash = addResponse.message.link.hash;
 
   // Test the Get method

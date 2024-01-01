@@ -1,4 +1,4 @@
-package media
+package s3Repository
 
 import (
 	"bytes"
@@ -26,15 +26,21 @@ func New(ctx context.Context, store *s3.Client) (*Service, error) {
 	}, nil
 }
 
-func (s *Service) Get(ctx context.Context, linkID string) (*url.URL, error) {
-	return s.store.GetFileURL(ctx, "screenshot", linkID)
+func (s *Service) Get(ctx context.Context, linkURL string) (*url.URL, error) {
+	// replace characters that are not allowed in the URL
+	linkURL = url.PathEscape(linkURL)
+
+	return s.store.GetFileURL(ctx, "screenshot", linkURL)
 }
 
-func (s *Service) Put(ctx context.Context, linkID string, screenshot []byte) error {
+func (s *Service) Put(ctx context.Context, linkURL string, screenshot []byte) error {
 	// convert byte slice to io.Reader
 	reader := bytes.NewReader(screenshot)
 
-	err := s.store.UploadFile(ctx, "screenshot", linkID, reader)
+	// replace characters that are not allowed in the URL
+	linkURL = url.PathEscape(linkURL)
+
+	err := s.store.UploadFile(ctx, "screenshot", linkURL, reader)
 	if err != nil {
 		return err
 	}
@@ -42,8 +48,8 @@ func (s *Service) Put(ctx context.Context, linkID string, screenshot []byte) err
 	return nil
 }
 
-func (s *Service) Delete(ctx context.Context, linkID string) error {
-	err := s.store.RemoveFile(ctx, "screenshot", linkID)
+func (s *Service) Delete(ctx context.Context, linkURL string) error {
+	err := s.store.RemoveFile(ctx, "screenshot", linkURL)
 	if err != nil {
 		return err
 	}

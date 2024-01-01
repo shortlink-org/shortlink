@@ -103,8 +103,8 @@ func NewMetaDataStore(ctx context.Context, log logger.Logger, db db.DB) (*meta_s
 	return metadataStore, nil
 }
 
-func NewMetaDataMediaStore(ctx context.Context, s3 *s3.Client) (*media.Service, error) {
-	client, err := media.New(ctx, s3)
+func NewMetaDataMediaStore(ctx context.Context, s3 *s3.Client) (*s3Repository.Service, error) {
+	client, err := s3Repository.New(ctx, s3)
 	if err != nil {
 		return nil, err
 	}
@@ -121,8 +121,8 @@ func NewParserUC(store *meta_store.MetaStore) (*parsers.UC, error) {
 	return metadataService, nil
 }
 
-func NewScreenshotUC(ctx context.Context) (*screenshot.UC, error) {
-	metadataService, err := screenshot.New(ctx)
+func NewScreenshotUC(ctx context.Context, media *s3Repository.Service) (*screenshot.UC, error) {
+	metadataService, err := screenshot.New(ctx, media)
 	if err != nil {
 		return nil, err
 	}

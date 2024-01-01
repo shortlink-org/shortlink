@@ -6,6 +6,9 @@ import (
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
 	"github.com/spf13/viper"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
 )
 
 type Client struct {
@@ -13,7 +16,7 @@ type Client struct {
 }
 
 // New creates a new S3 client
-func New(ctx context.Context) (*Client, error) {
+func New(ctx context.Context, log logger.Logger) (*Client, error) {
 	viper.AutomaticEnv()
 	viper.SetDefault("S3_ENDPOINT", "localhost:9000")
 	viper.SetDefault("S3_ACCESS_KEY_ID", "minio_access_key")
@@ -31,6 +34,10 @@ func New(ctx context.Context) (*Client, error) {
 	if client.IsOffline() {
 		return nil, ErrConnectionFailed
 	}
+
+	log.Info("S3 client created", field.Fields{
+		"endpoint": viper.GetString("S3_ENDPOINT"),
+	})
 
 	return &Client{
 		client: client,

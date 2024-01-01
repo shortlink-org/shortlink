@@ -12,7 +12,7 @@ import (
 	v1_2 "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/mq"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository/media"
-	store2 "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository/store"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository/store"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/parsers"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/usecases/screenshot"
@@ -136,7 +136,25 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	screenshotUC, err := NewScreenshotUC(context)
+	client, err := s3.New(context, logger)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	service, err := NewMetaDataMediaStore(context, client)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	screenshotUC, err := NewScreenshotUC(context, service)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -193,7 +211,7 @@ type MetaDataService struct {
 	service *parsers.UC
 
 	// Repository
-	metadataStore *store2.MetaStore
+	metadataStore *storeRepository.MetaStore
 }
 
 // MetaDataService =====================================================================================================
@@ -219,9 +237,9 @@ func InitMetadataMQ(ctx2 context.Context, dataBus mq.MQ) (*metadata_mq.Event, er
 	return metadataMQ, nil
 }
 
-func NewMetaDataStore(ctx2 context.Context, log logger.Logger, db2 db.DB) (*store2.MetaStore, error) {
-	store3 := &store2.MetaStore{}
-	metadataStore, err := store3.Use(ctx2, log, db2)
+func NewMetaDataStore(ctx2 context.Context, log logger.Logger, db2 db.DB) (*storeRepository.MetaStore, error) {
+	store2 := &storeRepository.MetaStore{}
+	metadataStore, err := store2.Use(ctx2, log, db2)
 	if err != nil {
 		return nil, err
 	}
@@ -229,8 +247,8 @@ func NewMetaDataStore(ctx2 context.Context, log logger.Logger, db2 db.DB) (*stor
 	return metadataStore, nil
 }
 
-func NewMetaDataMediaStore(ctx2 context.Context, s3_2 *s3.Client) (*media.Service, error) {
-	client, err := media.New(ctx2, s3_2)
+func NewMetaDataMediaStore(ctx2 context.Context, s3_2 *s3.Client) (*s3Repository.Service, error) {
+	client, err := s3Repository.New(ctx2, s3_2)
 	if err != nil {
 		return nil, err
 	}
@@ -238,8 +256,8 @@ func NewMetaDataMediaStore(ctx2 context.Context, s3_2 *s3.Client) (*media.Servic
 	return client, nil
 }
 
-func NewParserUC(store3 *store2.MetaStore) (*parsers.UC, error) {
-	metadataService, err := parsers.New(store3)
+func NewParserUC(store2 *storeRepository.MetaStore) (*parsers.UC, error) {
+	metadataService, err := parsers.New(store2)
 	if err != nil {
 		return nil, err
 	}
@@ -247,8 +265,8 @@ func NewParserUC(store3 *store2.MetaStore) (*parsers.UC, error) {
 	return metadataService, nil
 }
 
-func NewScreenshotUC(ctx2 context.Context) (*screenshot.UC, error) {
-	metadataService, err := screenshot.New(ctx2)
+func NewScreenshotUC(ctx2 context.Context, media *s3Repository.Service) (*screenshot.UC, error) {
+	metadataService, err := screenshot.New(ctx2, media)
 	if err != nil {
 		return nil, err
 	}
@@ -277,7 +295,7 @@ func NewMetaDataService(
 	metadataMQ *metadata_mq.Event,
 	metadataRPCServer *v1.Metadata,
 
-	metadataStore *store2.MetaStore,
+	metadataStore *storeRepository.MetaStore,
 ) (*MetaDataService, error) {
 	return &MetaDataService{
 
