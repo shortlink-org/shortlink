@@ -15,21 +15,21 @@ type: application
 deprecated: false
 dependencies:
   - name: scylla-operator
-    version: 1.11.0
+    version: 1.11.1
     repository: https://scylla-operator-charts.storage.googleapis.com/stable
     condition: scylla-operator.enabled
     tags:
       - scylla
       - store
   - name: scylla-manager
-    version: 1.11.0
+    version: 1.11.1
     repository: https://scylla-operator-charts.storage.googleapis.com/stable
     condition: scylla-manager.enabled
     tags:
       - scylla
       - store
   - name: scylla
-    version: v1.11.1
+    version: 1.11.1
     repository: https://scylla-operator-charts.storage.googleapis.com/stable
     condition: scylla.enabled
     tags:
