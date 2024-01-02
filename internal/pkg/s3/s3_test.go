@@ -3,12 +3,15 @@
 package s3
 
 import (
+	"bytes"
 	"context"
 	"fmt"
+	"io"
 	"net/http"
 	"os"
 	"testing"
 
+	"github.com/minio/minio-go/v7"
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
@@ -91,12 +94,34 @@ func TestMinio(t *testing.T) {
 	})
 
 	t.Run("UploadFile", func(t *testing.T) {
-		err := client.CreateBucket(ctx, "test")
+		err := client.CreateBucket(ctx, "test", minio.MakeBucketOptions{})
 		if err != nil {
 			t.Fatal(err)
 		}
 
-		err = client.UploadFile(ctx, "test", "test", "./fixtures/test.json")
+		// read file
+		file, err := os.Open("./fixtures/test.json")
+		if err != nil {
+			t.Fatal(err)
+		}
+		defer func() {
+			err := file.Close()
+			if err != nil {
+				t.Fatal(err)
+			}
+		}()
+
+		// Read the file into a byte slice
+		data, err := io.ReadAll(file)
+		if err != nil {
+			fmt.Println("Error reading file:", err)
+			return
+		}
+
+		// Convert the byte slice to a *bytes.Reader
+		reader := bytes.NewReader(data)
+
+		err = client.UploadFile(ctx, "test", "test", reader)
 		if err != nil {
 			t.Fatal(err)
 		}
