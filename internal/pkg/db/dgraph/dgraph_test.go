@@ -67,13 +67,7 @@ func TestDgraph(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		var err error
-
-		err = os.Setenv("STORE_DGRAPH_URI", fmt.Sprintf("localhost:%s", ALPHA.GetPort("9080/tcp")))
-		if err != nil {
-			assert.Errorf(t, err, "Cannot set ENV")
-			return nil
-		}
+		t.Setenv("STORE_DGRAPH_URI", fmt.Sprintf("localhost:%s", ALPHA.GetPort("9080/tcp")))
 
 		err = store.Init(ctx)
 		if err != nil {

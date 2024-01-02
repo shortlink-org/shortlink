@@ -33,10 +33,7 @@ func TestEdgeDB(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		var err error
-
-		err = os.Setenv("STORE_EDGEDB_URI", fmt.Sprintf("edgedb://localhost:%s", resource.GetPort("5656/tcp")))
-		require.NoError(t, err, "Cannot set ENV")
+		t.Setenv("STORE_EDGEDB_URI", fmt.Sprintf("edgedb://localhost:%s", resource.GetPort("5656/tcp")))
 
 		err = store.Init(ctx)
 		if err != nil {

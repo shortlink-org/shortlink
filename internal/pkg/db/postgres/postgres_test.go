@@ -44,8 +44,7 @@ func TestPostgres(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if errRetry := pool.Retry(func() error {
-		errSetenv := os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
-		require.NoError(t, errSetenv, "Cannot set ENV")
+		t.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
 
 		errInit := store.Init(ctx)
 		if errInit != nil {

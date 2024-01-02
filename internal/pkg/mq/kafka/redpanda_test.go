@@ -5,7 +5,6 @@ package kafka
 import (
 	"context"
 	"fmt"
-	"os"
 	"testing"
 
 	"github.com/ory/dockertest/v3"
@@ -21,8 +20,7 @@ import (
 func TestRedPanda(t *testing.T) {
 	// Set configuration
 	viper.SetDefault("SERVICE_NAME", "shortlink")
-	err := os.Setenv("MQ_KAFKA_SARAMA_VERSION", "DEFAULT")
-	require.NoError(t, err, "Cannot set ENV")
+	t.Setenv("MQ_KAFKA_SARAMA_VERSION", "DEFAULT")
 
 	ctx, cancel := context.WithCancel(context.Background())
 	mq := Kafka{}
@@ -77,13 +75,7 @@ func TestRedPanda(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		var err error
-
-		err = os.Setenv("MQ_KAFKA_URI", fmt.Sprintf("localhost:%s", RED_PANDA.GetPort("19092/tcp")))
-		if err != nil {
-			require.Errorf(t, err, "Cannot set ENV")
-			return err
-		}
+		t.Setenv("MQ_KAFKA_URI", fmt.Sprintf("localhost:%s", RED_PANDA.GetPort("19092/tcp")))
 
 		err = mq.Init(ctx, log)
 		if err != nil {

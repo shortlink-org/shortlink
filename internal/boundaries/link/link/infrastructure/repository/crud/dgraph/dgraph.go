@@ -22,12 +22,15 @@ type Link struct {
 	DType    []string `json:"dgraph.type,omitempty"`
 }
 
+// LinkData represents the data of a link
+type LinkData struct {
+	*v1.Link
+	Uid string `json:"uid,omitempty"`
+}
+
 // LinkResponse - response
 type LinkResponse struct {
-	Link []struct {
-		*v1.Link
-		Uid string `json:"uid,omitempty"`
-	}
+	Link []LinkData
 }
 
 // Store - store struct

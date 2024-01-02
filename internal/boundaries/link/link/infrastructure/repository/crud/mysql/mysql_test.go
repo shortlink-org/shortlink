@@ -51,8 +51,7 @@ func TestMysql(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		errSetenv := os.Setenv("STORE_MYSQL_URI", fmt.Sprintf("shortlink:shortlink@(localhost:%s)/link", resource.GetPort("3306/tcp")))
-		require.NoError(t, errSetenv, "Cannot set ENV")
+		t.Setenv("STORE_MYSQL_URI", fmt.Sprintf("shortlink:shortlink@(localhost:%s)/link", resource.GetPort("3306/tcp")))
 
 		errInit := st.Init(ctx)
 		if errInit != nil {

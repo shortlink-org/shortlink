@@ -92,13 +92,7 @@ func TestKafka(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		var err error
-
-		err = os.Setenv("MQ_KAFKA_URI", fmt.Sprintf("localhost:%s", KAFKA.GetPort("19093/tcp")))
-		if err != nil {
-			require.Errorf(t, err, "Cannot set ENV")
-			return nil
-		}
+		t.Setenv("MQ_KAFKA_URI", fmt.Sprintf("localhost:%s", KAFKA.GetPort("19093/tcp")))
 
 		err = mq.Init(ctx, log)
 		if err != nil {

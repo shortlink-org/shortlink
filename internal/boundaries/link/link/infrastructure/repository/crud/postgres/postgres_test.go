@@ -59,14 +59,11 @@ func TestPostgres(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		var err error
+		t.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/link?sslmode=disable", resource.GetPort("5432/tcp")))
 
-		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/link?sslmode=disable", resource.GetPort("5432/tcp")))
-		require.NoError(t, err, "Cannot set ENV")
-
-		err = st.Init(ctx)
-		if err != nil {
-			return err
+		errInit := st.Init(ctx)
+		if errInit != nil {
+			return errInit
 		}
 
 		return nil
@@ -103,8 +100,7 @@ func TestPostgres(t *testing.T) {
 
 	t.Run("Create [batch]", func(t *testing.T) {
 		// Set config
-		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		require.NoError(t, err, "Cannot set ENV")
+		t.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 
 		newCtx, cancelBatchMode := context.WithCancel(ctx)
 

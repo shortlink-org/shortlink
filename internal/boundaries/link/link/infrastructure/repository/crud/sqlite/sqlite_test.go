@@ -29,11 +29,10 @@ func TestSQLite(t *testing.T) {
 
 	st := &db.Store{}
 
-	err := os.Setenv("STORE_SQLITE_PATH", "/tmp/links-test.sqlite")
-	require.NoError(t, err, "Cannot set ENV")
+	t.Setenv("STORE_SQLITE_PATH", "/tmp/links-test.sqlite")
 
 	// Create store
-	err = st.Init(ctx)
+	err := st.Init(ctx)
 	require.NoError(t, err)
 
 	// Create repository

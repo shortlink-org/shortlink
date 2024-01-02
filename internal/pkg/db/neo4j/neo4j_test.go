@@ -33,10 +33,7 @@ func TestNeo4j(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		var err error
-
-		err = os.Setenv("STORE_NEO4J_URI", fmt.Sprintf("neo4j://localhost:%s", resource.GetPort("7687/tcp")))
-		require.NoError(t, err, "Cannot set ENV")
+		t.Setenv("STORE_NEO4J_URI", fmt.Sprintf("neo4j://localhost:%s", resource.GetPort("7687/tcp")))
 
 		err = store.Init(ctx)
 		if err != nil {

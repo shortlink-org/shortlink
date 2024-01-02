@@ -46,14 +46,12 @@ func TestRedis(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		var err error
-
-		err = os.Setenv("STORE_REDIS_URI", fmt.Sprintf("localhost:%s", resource.GetPort("6379/tcp")))
+		t.Setenv("STORE_REDIS_URI", fmt.Sprintf("localhost:%s", resource.GetPort("6379/tcp")))
 		require.NoError(t, err, "Cannot set ENV")
 
-		err = st.Init(ctx)
-		if err != nil {
-			return err
+		errInit := st.Init(ctx)
+		if errInit != nil {
+			return errInit
 		}
 
 		return nil

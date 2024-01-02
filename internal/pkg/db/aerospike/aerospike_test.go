@@ -35,8 +35,7 @@ func TestAerospike(t *testing.T) {
 	if err := pool.Retry(func() error {
 		var err error
 
-		err = os.Setenv("STORE_AEROSPIKE_URI", fmt.Sprintf("tcp://localhost:%s", resource.GetPort("3000/tcp")))
-		require.NoError(t, err, "Cannot set ENV")
+		t.Setenv("STORE_AEROSPIKE_URI", fmt.Sprintf("tcp://localhost:%s", resource.GetPort("3000/tcp")))
 
 		err = store.Init(ctx)
 		if err != nil {

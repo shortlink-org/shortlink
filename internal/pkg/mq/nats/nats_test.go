@@ -35,10 +35,7 @@ func TestNATS(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		var err error
-
-		err = os.Setenv("MQ_NATS_URI", fmt.Sprintf("nats://localhost:%s", resource.GetPort("4222/tcp")))
-		require.Nil(t, err, "Cannot set ENV")
+		t.Setenv("MQ_NATS_URI", fmt.Sprintf("nats://localhost:%s", resource.GetPort("4222/tcp")))
 
 		err = mq.Init(ctx, nil)
 		if err != nil {

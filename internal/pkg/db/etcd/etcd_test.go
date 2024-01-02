@@ -40,14 +40,11 @@ func TestETCD(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		var err error
+		t.Setenv("STORE_ETCD_URI", fmt.Sprintf("localhost:%s", resource.GetPort("2379/tcp")))
 
-		err = os.Setenv("STORE_ETCD_URI", fmt.Sprintf("localhost:%s", resource.GetPort("2379/tcp")))
-		require.NoError(t, err, "Cannot set ENV")
-
-		err = store.Init(ctx)
-		if err != nil {
-			return err
+		errInit := store.Init(ctx)
+		if errInit != nil {
+			return errInit
 		}
 
 		return nil

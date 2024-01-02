@@ -14,10 +14,6 @@ import (
 	s3Repository "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/repository/media"
 )
 
-type UC struct {
-	media *s3Repository.Service
-}
-
 func New(ctx context.Context, media *s3Repository.Service) (*UC, error) {
 	return &UC{
 		media: media,
@@ -52,7 +48,7 @@ func (s *UC) Set(ctx context.Context, linkURL string) error {
 // elementScreenshot takes a screenshot of a specific element.
 func elementScreenshot(urlstr string, res *[]byte) chromedp.Tasks {
 	return chromedp.Tasks{
-		chromedp.EmulateViewport(1920, 1080),
+		chromedp.EmulateViewport(defaultWidth, defaultHeight),
 		chromedp.Navigate(urlstr),
 		chromedp.CaptureScreenshot(res),
 	}

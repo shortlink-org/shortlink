@@ -33,10 +33,7 @@ func TestMySQL(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		var err error
-
-		err = os.Setenv("STORE_MYSQL_URI", fmt.Sprintf("root:secret@(localhost:%s)/mysql?parseTime=true", resource.GetPort("3306/tcp")))
-		require.Nil(t, err, "Cannot set ENV")
+		t.Setenv("STORE_MYSQL_URI", fmt.Sprintf("root:secret@(localhost:%s)/mysql?parseTime=true", resource.GetPort("3306/tcp")))
 
 		err = store.Init(ctx)
 		if err != nil {

@@ -5,7 +5,6 @@ package postgres
 import (
 	"context"
 	"fmt"
-	"os"
 	"strconv"
 	"testing"
 
@@ -42,14 +41,11 @@ func BenchmarkPostgresSerial(b *testing.B) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		var err error
+		b.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
 
-		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
-		require.NoError(b, err, "Cannot set ENV")
-
-		err = st.Init(ctx)
-		if err != nil {
-			return err
+		errInit := st.Init(ctx)
+		if errInit != nil {
+			return errInit
 		}
 
 		return nil
@@ -93,8 +89,7 @@ func BenchmarkPostgresSerial(b *testing.B) {
 		b.ReportAllocs()
 
 		// Set config
-		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		require.NoError(b, err, "Cannot set ENV")
+		b.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 
 		// new store
 		storeBatchMode, err := New(ctx, st)
@@ -138,10 +133,7 @@ func BenchmarkPostgresParallel(b *testing.B) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		var err error
-
-		err = os.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
-		require.NoError(b, err, "Cannot set ENV")
+		b.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/shortlink?sslmode=disable", resource.GetPort("5432/tcp")))
 
 		err = st.Init(ctx)
 		if err != nil {
@@ -177,8 +169,7 @@ func BenchmarkPostgresParallel(b *testing.B) {
 		b.ReportAllocs()
 
 		// Set config
-		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_SINGLE_WRITE))
-		require.NoError(b, err, "Cannot set ENV")
+		b.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_SINGLE_WRITE))
 
 		b.RunParallel(func(pb *testing.PB) {
 			for pb.Next() {
@@ -195,8 +186,7 @@ func BenchmarkPostgresParallel(b *testing.B) {
 		b.ReportAllocs()
 
 		// Set config
-		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		require.NoError(b, err, "Cannot set ENV")
+		b.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 
 		// new store
 		storeBatchMode, err := New(ctx, st)

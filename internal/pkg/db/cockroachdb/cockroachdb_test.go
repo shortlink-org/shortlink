@@ -48,8 +48,7 @@ func TestCockroachDB(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if errRetry := pool.Retry(func() error {
-		errSetenv := os.Setenv("STORE_COCKROACHDB_URI", fmt.Sprintf("postgresql://root:password@localhost:%s/shortlink?sslmode=disable", resource.GetPort("26257/tcp"))) // Note that the port has changed
-		require.NoError(t, errSetenv, "Cannot set ENV")
+		t.Setenv("STORE_COCKROACHDB_URI", fmt.Sprintf("postgresql://root:password@localhost:%s/shortlink?sslmode=disable", resource.GetPort("26257/tcp"))) // Note that the port has changed
 
 		errInit := store.Init(ctx)
 		if errInit != nil {

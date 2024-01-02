@@ -80,8 +80,7 @@ func TestSpiceDB(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if errRetry := pool.Retry(func() error {
-		errSetenv := os.Setenv("GRPC_CLIENT_PORT", resource.GetPort("50051/tcp"))
-		require.NoError(t, errSetenv, "Cannot set ENV")
+		t.Setenv("GRPC_CLIENT_PORT", resource.GetPort("50051/tcp"))
 
 		client.permission, err = auth.New(log, nil, nil)
 		require.NoError(t, err, "Cannot create client")

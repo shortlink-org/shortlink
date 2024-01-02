@@ -254,6 +254,7 @@ linters-settings:
       - G108
       - G109
       - G110
+      - G111
       - G112
       - G113
       - G114
@@ -278,6 +279,7 @@ linters-settings:
       - G504
       - G505
       - G601
+      - G602
 
     # To specify the configuration of rules.
     # The configuration of rules is not fully documented by gosec:
@@ -482,7 +484,7 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#duplicated-imports
       - name: duplicated-imports
         severity: warning
-        disabled: true
+        disabled: false
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#early-return
       - name: early-return
         severity: warning
@@ -549,7 +551,7 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#if-return
       - name: if-return
         severity: warning
-        disabled: true
+        disabled: false
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#increment-decrement
       - name: increment-decrement
         severity: warning
@@ -590,7 +592,7 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#nested-structs
       - name: nested-structs
         severity: warning
-        disabled: true
+        disabled: false
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#optimize-operands-order
       - name: optimize-operands-order
         severity: warning
@@ -681,7 +683,6 @@ linters-settings:
         disabled: true
         arguments:
           - "fmt.Printf"
-          - "myFunction"
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unnecessary-stmt
       - name: unnecessary-stmt
         severity: warning

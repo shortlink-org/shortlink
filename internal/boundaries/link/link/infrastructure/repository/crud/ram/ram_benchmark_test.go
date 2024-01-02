@@ -5,7 +5,6 @@ package ram
 import (
 	"context"
 	"fmt"
-	"os"
 	"strconv"
 	"testing"
 
@@ -44,8 +43,7 @@ func BenchmarkRAMSerial(b *testing.B) {
 		store := Store{}
 
 		// Set config
-		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		require.NoError(b, err, "Cannot set ENV")
+		b.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 
 		data := mock.AddLink
 
@@ -81,8 +79,7 @@ func BenchmarkRAMParallel(b *testing.B) {
 		b.ReportAllocs()
 
 		// Set config
-		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		require.NoError(b, err, "Cannot set ENV")
+		b.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 
 		// create a db
 		store := Store{}

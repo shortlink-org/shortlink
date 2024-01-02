@@ -12,6 +12,9 @@ import (
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
+
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
 )
 
 func TestMain(m *testing.M) {
@@ -22,6 +25,9 @@ func TestMain(m *testing.M) {
 
 func TestMinio(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
+
+	log, err := logger.New(logger.Zap, config.Configuration{})
+	require.NoError(t, err, "Error init a logger")
 
 	client := &Client{}
 
@@ -45,8 +51,7 @@ func TestMinio(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	endpoint := fmt.Sprintf("localhost:%s", resource.GetPort("9000/tcp"))
-	err = os.Setenv("S3_ENDPOINT", fmt.Sprintf("localhost:%s", resource.GetPort("9000/tcp")))
-	require.NoError(t, err, "Cannot set ENV")
+	t.Setenv("S3_ENDPOINT", fmt.Sprintf("localhost:%s", resource.GetPort("9000/tcp")))
 
 	if err := pool.Retry(func() error {
 		url := fmt.Sprintf("http://%s/minio/health/live", endpoint)
@@ -60,7 +65,7 @@ func TestMinio(t *testing.T) {
 			return fmt.Errorf("status code not OK")
 		}
 
-		client, err = New(ctx)
+		client, err = New(ctx, log)
 		if err != nil {
 			return err
 		}

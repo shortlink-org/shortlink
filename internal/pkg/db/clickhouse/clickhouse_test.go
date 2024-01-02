@@ -33,10 +33,7 @@ func TestClickHouse(t *testing.T) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		var err error
-
-		err = os.Setenv("STORE_CLICKHOUSE_URI", fmt.Sprintf("clickhouse://localhost:%s/default?sslmode=disable", resource.GetPort("9000/tcp")))
-		require.NoError(t, err, "Cannot set ENV")
+		t.Setenv("STORE_CLICKHOUSE_URI", fmt.Sprintf("clickhouse://localhost:%s/default?sslmode=disable", resource.GetPort("9000/tcp")))
 
 		err = store.Init(ctx)
 		if err != nil {

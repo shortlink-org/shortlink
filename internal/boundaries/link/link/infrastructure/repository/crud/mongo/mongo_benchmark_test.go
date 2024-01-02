@@ -5,7 +5,6 @@ package mongo
 import (
 	"context"
 	"fmt"
-	"os"
 	"strconv"
 	"testing"
 
@@ -38,14 +37,11 @@ func BenchmarkMongoSerial(b *testing.B) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err := pool.Retry(func() error {
-		var err error
+		b.Setenv("STORE_MONGODB_URI", fmt.Sprintf("mongodb://localhost:%s/shortlink", resource.GetPort("27017/tcp")))
 
-		err = os.Setenv("STORE_MONGODB_URI", fmt.Sprintf("mongodb://localhost:%s/shortlink", resource.GetPort("27017/tcp")))
-		require.NoError(b, err, "Cannot set ENV")
-
-		err = st.Init(ctx)
-		if err != nil {
-			return err
+		errInit := st.Init(ctx)
+		if errInit != nil {
+			return errInit
 		}
 
 		return nil
@@ -84,15 +80,14 @@ func BenchmarkMongoSerial(b *testing.B) {
 		b.ReportAllocs()
 
 		// Set config
-		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		require.NoError(b, err, "Cannot set ENV")
+		b.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 
 		newCtx, cancel := context.WithCancel(ctx)
 
 		// create a db
-		storeBatchMode, err := New(newCtx, st)
-		if err != nil {
-			b.Fatalf("Could not create store: %s", err)
+		storeBatchMode, errNewBatchMode := New(newCtx, st)
+		if errNewBatchMode != nil {
+			b.Fatalf("Could not create store: %s", errNewBatchMode)
 		}
 
 		for i := 0; i < b.N; i++ {
@@ -124,12 +119,11 @@ func BenchmarkMongoParallel(b *testing.B) {
 
 	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
 	if err = pool.Retry(func() error {
-		err = os.Setenv("STORE_MONGODB_URI", fmt.Sprintf("mongodb://localhost:%s/shortlink", resource.GetPort("27017/tcp")))
-		require.NoError(b, err, "Cannot set ENV")
+		b.Setenv("STORE_MONGODB_URI", fmt.Sprintf("mongodb://localhost:%s/shortlink", resource.GetPort("27017/tcp")))
 
-		err = st.Init(ctx)
-		if err != nil {
-			return err
+		errInit := st.Init(ctx)
+		if errInit != nil {
+			return errInit
 		}
 
 		return nil
@@ -170,8 +164,7 @@ func BenchmarkMongoParallel(b *testing.B) {
 		b.ReportAllocs()
 
 		// Set config
-		err := os.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
-		require.NoError(b, err, "Cannot set ENV")
+		b.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 
 		newCtx, cancel := context.WithCancel(ctx)
 
