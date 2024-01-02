@@ -54,16 +54,6 @@ Accepted
 > **Yearly Data**: `0.357 GB/day * 365 days` ≈ `130.3 GB/year`  
 > **Five-Year Data**: `130.3 GB/year * 5` ≈ `651.5 GB`
 
-### Analytics Calculation
-> [!TIP]
->
-> **Daily Analytics for Each URL**:  
-> `20 accesses/URL/day * 50 bytes/access` = `1,000 bytes/URL/day`  
-> **Total Daily Analytics for All URLs**:  
-> `7,142,857 URLs/day * 1,000 bytes/URL/day` ≈ `7,142,857,000 bytes/day` ≈ `7.14 GB/day`  
-> **Total Analytics for 5 Years**:  
-> `7.14 GB/day * 365 days/year * 5 years` ≈ `13,061 GB` ≈ `13.06 TB`
-
 ### Considerations
 
 * Potential peak usage scenarios and strategies for load balancing.
