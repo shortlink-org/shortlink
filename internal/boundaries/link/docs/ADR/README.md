@@ -20,3 +20,4 @@ for an information team about cases for updated ADR.
 
 - [ADR-0001](./decisions/0001-init.md) - Init Link Boundary context
 - [ADR-0002](./decisions/0002-c4-model.md) - C4 Model for Link boundary context
+- [ADR-0003](./decisions/0003-requirements.md) - Requirements and Consumption Calculations

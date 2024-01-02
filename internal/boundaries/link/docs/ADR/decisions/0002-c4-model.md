@@ -64,13 +64,15 @@ title Container diagram for Link Boundary Context
 
 Person(user, "User", "A user of the ShortLink system.")
 Container_Ext(api_gateway, "API Gateway", "API Gateway", "Central entry point for handling requests.")
+Container_Ext(s3_minio, "S3 (MinIO)", "Storage", "Stores screenshots and metadata.")
 System_Boundary(slb, "Link Boundary Context") {
     Container(link_service, "Link Service", "Service", "Manages CRUD operations for short links.")
     Container(proxy_service, "Proxy Service", "Service", "Redirects short links to original URLs.")
     Container(metadata_service, "Metadata Service", "Service", "Generates and stores metadata and screenshots for links.")
     ContainerDb(metadata_db, "Metadata Database", "Database", "Stores metadata and screenshot data.")
     ContainerDb(link_db, "Link Database", "Database", "Stores short link data.")
-    Container_Ext(s3_minio, "S3 (MinIO)", "Storage", "Stores screenshots and metadata.")
+    Container(link_cache, "Link Cache Server", "Cache", "Caches frequently accessed link data.")
+    Container(metadata_cache, "Metadata Cache Server", "Cache", "Caches frequently accessed metadata.")
 }
 
 Rel(user, api_gateway, "Makes requests to")
@@ -79,6 +81,8 @@ Rel(api_gateway, metadata_service, "Routes to")
 Rel(api_gateway, proxy_service, "Routes to")
 Rel(link_service, link_db, "Reads/Writes data")
 Rel(metadata_service, metadata_db, "Reads/Writes data")
+Rel(link_service, link_cache, "Utilizes")
+Rel(metadata_service, metadata_cache, "Utilizes")
 Rel(metadata_service, s3_minio, "Stores data in")
 
 @enduml
