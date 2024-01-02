@@ -5,12 +5,6 @@
 scylla-operator:
   enabled: true
 
-scylla-manager:
-  enabled: true
-
-  serviceMonitor:
-    create: true
-
 scylla:
   enabled: true
 
