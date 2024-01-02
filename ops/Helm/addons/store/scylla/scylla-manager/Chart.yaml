@@ -16,7 +16,7 @@ deprecated: false
 dependencies:
   - name: scylla-manager
     version: 1.11.1
-    repository: https://scylla-manager-charts.storage.googleapis.com/stable
+    repository: https://scylla-operator-charts.storage.googleapis.com/stable
     condition: scylla-manager.enabled
     tags:
       - scylla
