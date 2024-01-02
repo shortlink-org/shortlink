@@ -3,13 +3,6 @@ syntax = "proto3";
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/field_mask.proto";
 
-// ChatOwner represents the owner of the chat.
-message ChatOwner {
-  string owner_id = 5; // Unique identifier for the owner, typically a UUID.
-  string name = 6; // Name of the owner.
-  string email = 7; // Email address of the owner.
-}
-
 // Chat represents a conversation between users.
 message Chat {
   string chat_id = 1; // Unique identifier for the chat, typically a UUID.
