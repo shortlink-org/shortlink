@@ -33,10 +33,10 @@ Accepted
 
 > [!NOTE]
 >
-> Daily URL creations = `50,000,000 / 7` ≈ `7,142,857`  
-> Daily URL accesses = `50,000,000 * 20` = `1,000,000,000`  
-> Total daily requests = `7,142,857 + 1,000,000,000` = `1,007,142,857`  
-> Seconds per day = `24 * 60 * 60` = `86,400`
+> **Daily URL creations:** `50,000,000 / 7` ≈ `7,142,857`  
+> **Daily URL accesses:** `50,000,000 * 20` = `1,000,000,000`  
+> **Total daily requests:** `7,142,857 + 1,000,000,000` = `1,007,142,857`  
+> **Seconds per day:** `24 * 60 * 60` = `86,400`
  
 > [!TIP]
 >
@@ -57,11 +57,12 @@ Accepted
 ### Analytics Calculation
 > [!TIP]
 >
-> **Daily Analytics for Each URL**: `20 accesses/URL/day * 50 bytes/access` = `1,000 bytes/URL/day`
->
-> **Total Daily Analytics for All URLs**: `7,142,857 URLs/day * 1,000 bytes/URL/day` ≈ `7,142,857,000 bytes/day` ≈ `7.14 GB/day`
->
-> **Total Analytics for 5 Years**: `7.14 GB/day * 365 days/year * 5 years` ≈ `13,061 GB` ≈ `13.06 TB`
+> **Daily Analytics for Each URL**:  
+> `20 accesses/URL/day * 50 bytes/access` = `1,000 bytes/URL/day`  
+> **Total Daily Analytics for All URLs**:  
+> `7,142,857 URLs/day * 1,000 bytes/URL/day` ≈ `7,142,857,000 bytes/day` ≈ `7.14 GB/day`  
+> **Total Analytics for 5 Years**:  
+> `7.14 GB/day * 365 days/year * 5 years` ≈ `13,061 GB` ≈ `13.06 TB`
 
 ### Considerations
 
