@@ -64,6 +64,7 @@ title Container diagram for Link Boundary Context
 
 Person(user, "User", "A user of the ShortLink system.")
 Container_Ext(api_gateway, "API Gateway", "API Gateway", "Central entry point for handling requests.")
+SystemQueue_Ext(mq, "Message Queue", "Handles event-driven operations.")
 Container_Ext(s3_minio, "S3 (MinIO)", "Storage", "Stores screenshots and metadata.")
 System_Boundary(slb, "Link Boundary Context") {
     Container(link_service, "Link Service", "Service", "Manages CRUD operations for short links.")
@@ -75,6 +76,8 @@ System_Boundary(slb, "Link Boundary Context") {
     Container(metadata_cache, "Metadata Cache Server", "Cache", "Caches frequently accessed metadata.")
 }
 
+Rel_D(mq, link_service, "Exchanges events")
+Rel_D(mq, metadata_service, "Exchanges events")
 Rel(user, api_gateway, "Makes requests to")
 Rel(api_gateway, link_service, "Routes to")
 Rel(api_gateway, metadata_service, "Routes to")

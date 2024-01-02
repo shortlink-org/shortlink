@@ -24,33 +24,44 @@ Accepted
 * Support 50 million daily active users (DAU).
 * Maintain a Service Level Agreement (SLA) of 99.95%.
 * Anticipate each user creating one tiny URL per week.
-* An Average of 20 accesses per tiny URL daily.
+* An average of 20 accesses per tiny URL daily.
 * Operational lifespan of the service: 5 years.
 
 ## Load and Memory Consumption Calculations
 
 ### Load Calculation
 
-1. **Daily Active Users (DAU)**: 50,000,000
-2. **Tiny URL Creations Per Week**: Each user creates one tiny URL per week, so in a day, \( \frac{50,000,000}{7} \approx 7,142,857 \) tiny URLs are created.
-3. **Tiny URL Accesses Per Day**: Each tiny URL is accessed 20 times, which translates to \( 7,142,857 \times 20 = 142,857,140 \) accesses.
-4. **Total Daily Requests**: Sum of creations and accesses is \( 7,142,857 + 142,857,140 = 150,000,000 \).
-5. **Requests Per Second (RPS)**: For average load, divide total daily requests by seconds in a day, \( \frac{150,000,000}{86,400} \approx 1,736 \) RPS.
+> [!NOTE]
+>
+> Daily URL creations = `50,000,000 / 7` ≈ `7,142,857`  
+> Daily URL accesses = `50,000,000 * 20` = `1,000,000,000`  
+> Total daily requests = `7,142,857 + 1,000,000,000` = `1,007,142,857`  
+> Seconds per day = `24 * 60 * 60` = `86,400`
+ 
+> [!TIP]
+>
+> **Requests Per Second (RPS)** = `1,007,142,857 / 86,400` ≈ `11,655`
 
 ### Memory Consumption
 
-1. **Storage Per URL**: Assuming an average of 500 bytes per URL (including metadata and tiny URL).
-2. **Daily New Data**: \( 7,142,857 \times 500 \) bytes.
-3. **Yearly Data**: \( 7,142,857 \times 500 \times 365 \) bytes.
-4. **Five-Year Data**: Multiply yearly data by 5.
+> [!NOTE]
+> 
+> **Storage Per URL**: `50 bytes`  
+> **Daily New Data**: `7,142,857 URLs/day * 50 bytes/URL` = `357,142,850 bytes/day` ≈ `0.357 GB/day`  
+
+> [!TIP]
+>
+> **Yearly Data**: `0.357 GB/day * 365 days` ≈ `130.3 GB/year`  
+> **Five-Year Data**: `130.3 GB/year * 5` ≈ `651.5 GB`
 
 ### Analytics Calculation
-
-1. **Click Data Per URL**: Assuming 50 bytes per click.
-2. **Daily Click Data**: \( 142,857,140 \times 50 \) bytes.
-3. **Storage for 5 Years**: Daily click data multiplied by 365 days and then by 5 years.
-
-These calculations provide a basic understanding of the load and memory requirements.
+> [!TIP]
+>
+> **Daily Analytics for Each URL**: `20 accesses/URL/day * 50 bytes/access` = `1,000 bytes/URL/day`
+>
+> **Total Daily Analytics for All URLs**: `7,142,857 URLs/day * 1,000 bytes/URL/day` ≈ `7,142,857,000 bytes/day` ≈ `7.14 GB/day`
+>
+> **Total Analytics for 5 Years**: `7.14 GB/day * 365 days/year * 5 years` ≈ `13,061 GB` ≈ `13.06 TB`
 
 ### Considerations
 
