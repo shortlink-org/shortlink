@@ -5,10 +5,4 @@
 scylla-operator:
   enabled: true
 
-  affinity:
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution: []
-
-  webhookServerAffinity:
-    podAntiAffinity:
-      preferredDuringSchedulingIgnoredDuringExecution: []
+  replicas: 1
