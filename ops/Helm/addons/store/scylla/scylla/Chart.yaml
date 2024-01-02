@@ -1,6 +1,6 @@
 apiVersion: v2
 appVersion: "1.0.0"
-name: scylla-operator
+name: scylla
 version: 1.0.0   
 kubeVersion: ">= 1.28.0 || >= v1.28.0-0"
 keywords:
@@ -14,10 +14,10 @@ engine: gotpl
 type: application
 deprecated: false
 dependencies:
-  - name: scylla-operator
+  - name: scylla
     version: 1.11.1
     repository: https://scylla-operator-charts.storage.googleapis.com/stable
-    condition: scylla-operator.enabled
+    condition: scylla.enabled
     tags:
       - scylla
       - store

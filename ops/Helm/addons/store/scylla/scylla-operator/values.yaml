@@ -12,11 +12,3 @@ scylla-operator:
   webhookServerAffinity:
     podAntiAffinity:
       preferredDuringSchedulingIgnoredDuringExecution: []
-
-scylla:
-  enabled: true
-
-  automaticOrphanedNodeCleanup: true
-
-  serviceMonitor:
-    create: true
