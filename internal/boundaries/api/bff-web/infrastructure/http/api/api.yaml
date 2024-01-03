@@ -32,13 +32,32 @@ paths:
   /links:
     get:
       summary: List links
-      description: Retrieve a list of all short links.
-      operationId: listLinks
+      description: Retrieve a list of all short links with pagination.
+      operationId: getLinks
       tags:
         - Link
+      parameters:
+        - $ref: '#/components/parameters/LimitParam'
+        - $ref: '#/components/parameters/CursorParam'
+        - in: query
+          name: filter
+          schema:
+            type: object
+            properties:
+              createdAt:
+                type: string
+                format: date-time
+                description: Filter links created at a specific date and time.
+              urlContains:
+                type: string
+                description: Filter links containing specific text in the URL.
+            additionalProperties: false
+          style: form
+          explode: true
+          description: JSON object used for filtering the results.
       responses:
         '200':
-          $ref: '#/components/responses/ListResponse'
+          $ref: '#/components/responses/PaginatedLinksResponse'
         '500':
           $ref: '#/components/responses/InternalServerError'
 
@@ -60,6 +79,31 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
 
+    put:
+      summary: Update links
+      description: Update existing links based on a filter. Updates a single link if the 'id' field is specified in the filter.
+      operationId: updateLinks
+      tags:
+        - Link
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                filter:
+                  $ref: '#/components/schemas/LinkFilter'
+                data:
+                  $ref: '#/components/schemas/UpdateRequest'
+      responses:
+        '200':
+          $ref: '#/components/responses/LinksUpdated'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
   /links/{hash}:
     get:
       summary: Get link
@@ -72,28 +116,6 @@ paths:
       responses:
         '200':
           $ref: '#/components/responses/LinkDetails'
-        '404':
-          $ref: '#/components/responses/NotFound'
-
-    put:
-      summary: Update link
-      description: Update an existing link by its hash.
-      operationId: updateLink
-      tags:
-        - Link
-      parameters:
-        - $ref: '#/components/parameters/HashParam'
-      requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/UpdateRequest'
-      responses:
-        '200':
-          $ref: '#/components/responses/LinkUpdated'
-        '400':
-          $ref: '#/components/responses/BadRequest'
         '404':
           $ref: '#/components/responses/NotFound'
 
@@ -113,53 +135,91 @@ paths:
 
 components:
   parameters:
+    LimitParam:
+      in: query
+      name: limit
+      schema:
+        type: integer
+        default: 10
+      description: The number of links to return per page.
+
+    CursorParam:
+      in: query
+      name: cursor
+      schema:
+        type: string
+      description: A cursor for use in pagination. This is the ID of the last item in the previous page.
+
     HashParam:
       name: hash
       in: path
       required: true
       schema:
         type: string
+        pattern: '^[0-9a-fA-F]{32}$'
       description: Unique hash of the link.
 
   responses:
-    ListResponse:
-      description: A list of links.
+    PaginatedLinksResponse:
+      description: A page of links with pagination details.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/ListResponse'
+            type: object
+            properties:
+              links:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Link'
+              next_cursor:
+                type: string
+                description: A cursor to be used to fetch the next page of results.
+
     LinkCreated:
       description: Link created successfully.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/AddResponse'
+
     LinkDetails:
       description: Details of the link.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/GetResponse'
-    LinkUpdated:
-      description: Link updated successfully.
+
+    LinksUpdated:
+      description: Links updated successfully.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UpdateResponse'
+            type: object
+            properties:
+              updatedCount:
+                type: integer
+                description: The number of links updated.
+              message:
+                type: string
+                description: A message about the update operation.
+
     LinkDeleted:
       description: Link deleted successfully.
+
     NotFound:
       description: Link not found.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+
     BadRequest:
       description: Bad request.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+
     InternalServerError:
       description: Internal Server Error
       content:
@@ -175,9 +235,11 @@ components:
           type: string
           format: uri
           description: The URL to be shortened.
+          example: 'https://example.com'
         describe:
           type: string
           description: Optional description of the link.
+          example: 'Example link description'
       required:
         - url
 
@@ -193,6 +255,22 @@ components:
         link:
           $ref: '#/components/schemas/Link'
       description: Response schema for a single link retrieval.
+
+    LinkFilter:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the link. Use this to update a specific link.
+        urlContains:
+          type: string
+          description: Filter links that contain this text in their URL.
+        createdAt:
+          type: string
+          format: date-time
+          description: Filter links created after this date and time.
+      additionalProperties: false
 
     Link:
       type: object
@@ -220,14 +298,6 @@ components:
         - url
         - created_at
 
-    ListResponse:
-      type: object
-      properties:
-        links:
-          type: array
-          items:
-            $ref: '#/components/schemas/Link'
-
     UpdateRequest:
       type: object
       properties:
@@ -240,12 +310,6 @@ components:
           description: Updated description of the link.
       required:
         - url
-
-    UpdateResponse:
-      type: object
-      properties:
-        link:
-          $ref: '#/components/schemas/Link'
 
     ErrorResponse:
       type: object

@@ -10,6 +10,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/oapi-codegen/runtime"
+	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
 // AddRequest defines model for AddRequest.
@@ -58,9 +59,16 @@ type Link struct {
 	Url string `json:"url"`
 }
 
-// ListResponse defines model for ListResponse.
-type ListResponse struct {
-	Links *[]Link `json:"links,omitempty"`
+// LinkFilter defines model for LinkFilter.
+type LinkFilter struct {
+	// CreatedAt Filter links created after this date and time.
+	CreatedAt *time.Time `json:"createdAt,omitempty"`
+
+	// Id Unique identifier of the link. Use this to update a specific link.
+	Id *openapi_types.UUID `json:"id,omitempty"`
+
+	// UrlContains Filter links that contain this text in their URL.
+	UrlContains *string `json:"urlContains,omitempty"`
 }
 
 // UpdateRequest defines model for UpdateRequest.
@@ -72,13 +80,14 @@ type UpdateRequest struct {
 	Url string `json:"url"`
 }
 
-// UpdateResponse defines model for UpdateResponse.
-type UpdateResponse struct {
-	Link *Link `json:"link,omitempty"`
-}
+// CursorParam defines model for CursorParam.
+type CursorParam = string
 
 // HashParam defines model for HashParam.
 type HashParam = string
+
+// LimitParam defines model for LimitParam.
+type LimitParam = int
 
 // BadRequest defines model for BadRequest.
 type BadRequest = ErrorResponse
@@ -92,35 +101,73 @@ type LinkCreated = AddResponse
 // LinkDetails Response schema for a single link retrieval.
 type LinkDetails = GetResponse
 
-// LinkUpdated defines model for LinkUpdated.
-type LinkUpdated = UpdateResponse
+// LinksUpdated defines model for LinksUpdated.
+type LinksUpdated struct {
+	// Message A message about the update operation.
+	Message *string `json:"message,omitempty"`
+
+	// UpdatedCount The number of links updated.
+	UpdatedCount *int `json:"updatedCount,omitempty"`
+}
 
 // NotFound defines model for NotFound.
 type NotFound = ErrorResponse
 
+// PaginatedLinksResponse defines model for PaginatedLinksResponse.
+type PaginatedLinksResponse struct {
+	Links *[]Link `json:"links,omitempty"`
+
+	// NextCursor A cursor to be used to fetch the next page of results.
+	NextCursor *string `json:"next_cursor,omitempty"`
+}
+
+// GetLinksParams defines parameters for GetLinks.
+type GetLinksParams struct {
+	// Limit The number of links to return per page.
+	Limit *LimitParam `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// Cursor A cursor for use in pagination. This is the ID of the last item in the previous page.
+	Cursor *CursorParam `form:"cursor,omitempty" json:"cursor,omitempty"`
+
+	// Filter JSON object used for filtering the results.
+	Filter *struct {
+		// CreatedAt Filter links created at a specific date and time.
+		CreatedAt *time.Time `json:"createdAt,omitempty"`
+
+		// UrlContains Filter links containing specific text in the URL.
+		UrlContains *string `json:"urlContains,omitempty"`
+	} `form:"filter,omitempty" json:"filter,omitempty"`
+}
+
+// UpdateLinksJSONBody defines parameters for UpdateLinks.
+type UpdateLinksJSONBody struct {
+	Data   *UpdateRequest `json:"data,omitempty"`
+	Filter *LinkFilter    `json:"filter,omitempty"`
+}
+
 // AddLinkJSONRequestBody defines body for AddLink for application/json ContentType.
 type AddLinkJSONRequestBody = AddRequest
 
-// UpdateLinkJSONRequestBody defines body for UpdateLink for application/json ContentType.
-type UpdateLinkJSONRequestBody = UpdateRequest
+// UpdateLinksJSONRequestBody defines body for UpdateLinks for application/json ContentType.
+type UpdateLinksJSONRequestBody UpdateLinksJSONBody
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
 	// List links
 	// (GET /links)
-	ListLinks(w http.ResponseWriter, r *http.Request)
+	GetLinks(w http.ResponseWriter, r *http.Request, params GetLinksParams)
 	// Add link
 	// (POST /links)
 	AddLink(w http.ResponseWriter, r *http.Request)
+	// Update links
+	// (PUT /links)
+	UpdateLinks(w http.ResponseWriter, r *http.Request)
 	// Delete link
 	// (DELETE /links/{hash})
 	DeleteLink(w http.ResponseWriter, r *http.Request, hash HashParam)
 	// Get link
 	// (GET /links/{hash})
 	GetLink(w http.ResponseWriter, r *http.Request, hash HashParam)
-	// Update link
-	// (PUT /links/{hash})
-	UpdateLink(w http.ResponseWriter, r *http.Request, hash HashParam)
 }
 
 // Unimplemented server implementation that returns http.StatusNotImplemented for each endpoint.
@@ -129,13 +176,19 @@ type Unimplemented struct{}
 
 // List links
 // (GET /links)
-func (_ Unimplemented) ListLinks(w http.ResponseWriter, r *http.Request) {
+func (_ Unimplemented) GetLinks(w http.ResponseWriter, r *http.Request, params GetLinksParams) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
 // Add link
 // (POST /links)
 func (_ Unimplemented) AddLink(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// Update links
+// (PUT /links)
+func (_ Unimplemented) UpdateLinks(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
@@ -151,12 +204,6 @@ func (_ Unimplemented) GetLink(w http.ResponseWriter, r *http.Request, hash Hash
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
-// Update link
-// (PUT /links/{hash})
-func (_ Unimplemented) UpdateLink(w http.ResponseWriter, r *http.Request, hash HashParam) {
-	w.WriteHeader(http.StatusNotImplemented)
-}
-
 // ServerInterfaceWrapper converts contexts to parameters.
 type ServerInterfaceWrapper struct {
 	Handler            ServerInterface
@@ -166,12 +213,41 @@ type ServerInterfaceWrapper struct {
 
 type MiddlewareFunc func(http.Handler) http.Handler
 
-// ListLinks operation middleware
-func (siw *ServerInterfaceWrapper) ListLinks(w http.ResponseWriter, r *http.Request) {
+// GetLinks operation middleware
+func (siw *ServerInterfaceWrapper) GetLinks(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
+	var err error
+
+	// Parameter object where we will unmarshal all parameters from the context
+	var params GetLinksParams
+
+	// ------------- Optional query parameter "limit" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "limit", r.URL.Query(), &params.Limit)
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "limit", Err: err})
+		return
+	}
+
+	// ------------- Optional query parameter "cursor" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "cursor", r.URL.Query(), &params.Cursor)
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "cursor", Err: err})
+		return
+	}
+
+	// ------------- Optional query parameter "filter" -------------
+
+	err = runtime.BindQueryParameter("form", true, false, "filter", r.URL.Query(), &params.Filter)
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "filter", Err: err})
+		return
+	}
+
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.ListLinks(w, r)
+		siw.Handler.GetLinks(w, r, params)
 	}))
 
 	for i := len(siw.HandlerMiddlewares) - 1; i >= 0; i-- {
@@ -187,6 +263,21 @@ func (siw *ServerInterfaceWrapper) AddLink(w http.ResponseWriter, r *http.Reques
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		siw.Handler.AddLink(w, r)
+	}))
+
+	for i := len(siw.HandlerMiddlewares) - 1; i >= 0; i-- {
+		handler = siw.HandlerMiddlewares[i](handler)
+	}
+
+	handler.ServeHTTP(w, r.WithContext(ctx))
+}
+
+// UpdateLinks operation middleware
+func (siw *ServerInterfaceWrapper) UpdateLinks(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.UpdateLinks(w, r)
 	}))
 
 	for i := len(siw.HandlerMiddlewares) - 1; i >= 0; i-- {
@@ -239,32 +330,6 @@ func (siw *ServerInterfaceWrapper) GetLink(w http.ResponseWriter, r *http.Reques
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		siw.Handler.GetLink(w, r, hash)
-	}))
-
-	for i := len(siw.HandlerMiddlewares) - 1; i >= 0; i-- {
-		handler = siw.HandlerMiddlewares[i](handler)
-	}
-
-	handler.ServeHTTP(w, r.WithContext(ctx))
-}
-
-// UpdateLink operation middleware
-func (siw *ServerInterfaceWrapper) UpdateLink(w http.ResponseWriter, r *http.Request) {
-	ctx := r.Context()
-
-	var err error
-
-	// ------------- Path parameter "hash" -------------
-	var hash HashParam
-
-	err = runtime.BindStyledParameterWithLocation("simple", false, "hash", runtime.ParamLocationPath, chi.URLParam(r, "hash"), &hash)
-	if err != nil {
-		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "hash", Err: err})
-		return
-	}
-
-	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.UpdateLink(w, r, hash)
 	}))
 
 	for i := len(siw.HandlerMiddlewares) - 1; i >= 0; i-- {
@@ -388,19 +453,19 @@ func HandlerWithOptions(si ServerInterface, options ChiServerOptions) http.Handl
 	}
 
 	r.Group(func(r chi.Router) {
-		r.Get(options.BaseURL+"/links", wrapper.ListLinks)
+		r.Get(options.BaseURL+"/links", wrapper.GetLinks)
 	})
 	r.Group(func(r chi.Router) {
 		r.Post(options.BaseURL+"/links", wrapper.AddLink)
+	})
+	r.Group(func(r chi.Router) {
+		r.Put(options.BaseURL+"/links", wrapper.UpdateLinks)
 	})
 	r.Group(func(r chi.Router) {
 		r.Delete(options.BaseURL+"/links/{hash}", wrapper.DeleteLink)
 	})
 	r.Group(func(r chi.Router) {
 		r.Get(options.BaseURL+"/links/{hash}", wrapper.GetLink)
-	})
-	r.Group(func(r chi.Router) {
-		r.Put(options.BaseURL+"/links/{hash}", wrapper.UpdateLink)
 	})
 
 	return r

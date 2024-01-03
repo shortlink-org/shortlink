@@ -4,7 +4,6 @@ import (
 	"errors"
 	"net/http"
 
-	"github.com/go-chi/chi/v5"
 	"github.com/segmentio/encoding/json"
 	"google.golang.org/protobuf/encoding/protojson"
 
@@ -20,7 +19,7 @@ type LinkController struct {
 }
 
 // AddLink - add link
-func (c *LinkController) AddLink(w http.ResponseWriter, r *http.Request, params any) {
+func (c *LinkController) AddLink(w http.ResponseWriter, r *http.Request) {
 	// Parse request
 	var request v1.Link
 	decoder := json.NewDecoder(r.Body)
@@ -54,7 +53,7 @@ func (c *LinkController) AddLink(w http.ResponseWriter, r *http.Request, params 
 }
 
 // UpdateLink - update link
-func (c *LinkController) UpdateLink(w http.ResponseWriter, r *http.Request, params any) {
+func (c *LinkController) UpdateLinks(w http.ResponseWriter, r *http.Request) {
 	// Parse request
 	var request v1.Link
 	decoder := json.NewDecoder(r.Body)
@@ -88,15 +87,7 @@ func (c *LinkController) UpdateLink(w http.ResponseWriter, r *http.Request, para
 }
 
 // GetLink - get link by hash
-func (c *LinkController) GetLink(w http.ResponseWriter, r *http.Request, params any) {
-	hash := chi.URLParam(r, "hash")
-	if hash == "" {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "need set hash URL"}`)) // nolint:errcheck
-
-		return
-	}
-
+func (c *LinkController) GetLink(w http.ResponseWriter, r *http.Request, hash api.HashParam) {
 	response, err := c.LinkServiceClient.Get(r.Context(), &link_rpc.GetRequest{Hash: hash})
 	if err != nil {
 		var errorLink *v1.NotFoundError
@@ -165,16 +156,7 @@ func (c *LinkController) GetLinks(w http.ResponseWriter, r *http.Request, params
 }
 
 // DeleteLink - delete link
-func (c *LinkController) DeleteLink(w http.ResponseWriter, r *http.Request, params any) {
-	// Parse request
-	hash := chi.URLParam(r, "hash")
-	if hash == "" {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "need set hash URL"}`)) // nolint:errcheck
-
-		return
-	}
-
+func (c *LinkController) DeleteLink(w http.ResponseWriter, r *http.Request, hash api.HashParam) {
 	_, err := c.LinkServiceClient.Delete(r.Context(), &link_rpc.DeleteRequest{Hash: hash})
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)

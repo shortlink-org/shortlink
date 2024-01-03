@@ -88,6 +88,7 @@ func (api *Server) run(config http_server.Config, params Config) error {
 			SitemapServiceClient: params.Sitemap_rpc,
 		},
 	}
+
 	r.Mount(viper.GetString("BASE_PATH"), serverAPI.HandlerFromMux(controller, r))
 
 	srv := http_server.New(params.Ctx, r, config, params.Tracer)
