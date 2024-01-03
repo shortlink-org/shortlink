@@ -10,6 +10,9 @@ Accepted
 
 This section describes the access control schema definitions for our application using SpiceDB.
 
+> [!TIP]
+> 
+> Postman collection: https://www.postman.com/authzed/workspace/spicedb/overview
 > Playgrounds: https://play.authzed.com/s/uQrKpM5mUJ5o/expected
 
 ## Entities

@@ -47,46 +47,6 @@ paths:
                 $ref: '#/components/schemas/Links'
         '404':
           $ref: '#/components/responses/NotFoundError'
-#  /cqrs:
-#    get:
-#      tags:
-#        - Link
-#      summary: Get all cqrs
-#      description: |
-#        Get all cqrs
-#      operationId: getCqrs
-#      parameters:
-#        - $ref: '#/components/parameters/limit'
-#        - $ref: '#/components/parameters/offset'
-#      responses:
-#        '200':
-#          description: OK
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/schemas/Links'
-#        '404':
-#          $ref: '#/components/responses/NotFoundError'
-#  /sitemap:
-#    get:
-#      tags:
-#        - Link
-#      summary: Get all sitemap
-#      description: |
-#        Get all sitemap
-#      operationId: getSitemap
-#      parameters:
-#        - $ref: '#/components/parameters/limit'
-#        - $ref: '#/components/parameters/offset'
-#      responses:
-#        '200':
-#          description: OK
-#          content:
-#            application/json:
-#              schema:
-#                $ref: '#/components/schemas/Links'
-#        '404':
-#          $ref: '#/components/responses/NotFoundError'
 
 components:
   parameters:
