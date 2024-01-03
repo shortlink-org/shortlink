@@ -7,6 +7,7 @@ release:
   image: registry.gitlab.com/gitlab-org/release-cli
   script:
     - echo 'running release_job'
+  needs: []
   rules:
     - if: $CI_COMMIT_TAG
   release:
@@ -27,6 +28,7 @@ pages:
   variables:
     DOCS_FOLDER: "internal/boundaries/api/bff-web/infrastructure/http/api/api.yaml"
     SPEC_TO_DISPLAY: "swagger.json"
+  needs: []
   rules:
     - if: $CI_COMMIT_TAG
     - changes:

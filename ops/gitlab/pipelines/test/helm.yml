@@ -7,7 +7,7 @@ stages:
 # Helm =================================================================================================================
 helm-lint-chart:
   stage: test
-  image: quay.io/helmpack/chart-testing:v3.10.0
+  image: quay.io/helmpack/chart-testing:v3.10.1
   script:
     - ct lint --all --config ct.yaml
   interruptible: true
@@ -19,7 +19,7 @@ helm-lint-chart:
 
 helm-run-chart:
   stage: test
-  image: quay.io/helmpack/chart-testing:v3.10.0
+  image: quay.io/helmpack/chart-testing:v3.10.1
   variables:
     KIND: v0.20.0
   before_script:
