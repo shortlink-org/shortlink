@@ -21,7 +21,7 @@ func New(ctx context.Context) (*cache.Cache, error) {
 	store := &db.Store{}
 	err := store.Init(ctx)
 	if err != nil {
-		return nil, err
+		return nil, &ErrorInitCache{err}
 	}
 
 	conn, ok := store.GetConn().(rueidis.Client)

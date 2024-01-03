@@ -46,7 +46,7 @@ func (s *Store) Init(ctx context.Context) error {
 	if err != nil {
 		s.client.Close()
 
-		return fmt.Errorf("failed to ping the database: %w", err)
+		return &ErrorPingConnection{err}
 	}
 
 	// Graceful shutdown

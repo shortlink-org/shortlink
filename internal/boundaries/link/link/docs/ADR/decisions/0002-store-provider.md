@@ -16,16 +16,16 @@ After evaluating the features and scalability of different data stores, we have 
 
 Here is the support and scalability summary of each:
 
-| Name                        | Support | Scale  |
-|-----------------------------|---------|--------|
-| RAM                         | ✅       | ❌      |
-| MongoDB                     | ✅       | ✅      |
-| Postgres                    | ✅       | ✅      |
-| Redis                       | ❌       | ✅      |
-| LevelDB                     | ❌       | ❌      |
-| Badger                      | ❌       | ❌      |
-| SQLite                      | ❌       | ❌      |
-| DGraph                      | ❌       | ✅      |
+| Name     | Support | Scale |
+|----------|---------|-------|
+| RAM      | ✅       | ❌     |
+| MongoDB  | ✅       | ✅     |
+| Postgres | ✅       | ✅     |
+| Redis    | ❌       | ✅     |
+| LevelDB  | ❌       | ❌     |
+| Badger   | ❌       | ❌     |
+| SQLite   | ❌       | ❌     |
+| DGraph   | ❌       | ✅     |
 
 However, the decision is also influenced by our past experiences. We have decided to drop support for MySQL, scylla, and cassandra due to various reasons, as reflected in our changelog:
 

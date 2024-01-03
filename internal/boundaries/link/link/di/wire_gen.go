@@ -11,6 +11,18 @@ import (
 	"github.com/authzed/authzed-go/v1"
 	cache2 "github.com/go-redis/cache/v9"
 	"github.com/google/wire"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/application/link"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/application/link_cqrs"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/application/sitemap"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/mq"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/repository/cqrs/cqs"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/repository/cqrs/query"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/repository/crud"
+	v1_2 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/link/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/run"
+	v1_3 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/sitemap/v1"
+	v1_4 "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
@@ -27,18 +39,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
-	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/application/link"
-	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/application/link_cqrs"
-	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/application/sitemap"
-	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/mq"
-	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/repository/cqrs/cqs"
-	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/repository/cqrs/query"
-	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/repository/crud"
-	v1_2 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
-	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/link/v1"
-	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/run"
-	v1_3 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/sitemap/v1"
-	v1_4 "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 )
@@ -157,7 +157,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewLinkApplication(logger, mq, metadataServiceClient, repository, client)
+	uc, err := NewLinkApplication(logger, mq, metadataServiceClient, repository, client)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -187,7 +187,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	link_cqrsService, err := NewLinkCQRSApplication(logger, cqsStore, queryStore)
+	service, err := NewLinkCQRSApplication(logger, cqsStore, queryStore)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -207,7 +207,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitLinkMQ(context, logger, mq, service)
+	event, err := InitLinkMQ(context, logger, mq, uc)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -227,7 +227,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	link, err := NewLinkCQRSRPCServer(server, link_cqrsService, logger)
+	link, err := NewLinkCQRSRPCServer(server, service, logger)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -237,7 +237,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	v1Link, err := NewLinkRPCServer(server, service, logger)
+	v1Link, err := NewLinkRPCServer(server, uc, logger)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -267,7 +267,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, client, service, link_cqrsService, sitemapService, event, response, v1Link, link, sitemap, repository, cqsStore, queryStore)
+	linkService, err := NewLinkService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, client, uc, service, sitemapService, event, response, v1Link, link, sitemap, repository, cqsStore, queryStore)
 	if err != nil {
 		cleanup6()
 		cleanup5()
