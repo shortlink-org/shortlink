@@ -9,9 +9,20 @@ serviceAccount:
 
 # ==============================================================================
 ingress:
-  enabled: false
-  # type ingress-controller: istio
+  enabled: true
+  # type ingress-controller: nginx, istio, cilium
   type: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: cert-manager-production
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+    nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+
+    hostname: shortlink.best
+    paths:
+      - path: /api(/|$)(.*)
+        service:
+          name: shortlink-bff-web
+          port: 7070
 
 # ==============================================================================
 deploy:
