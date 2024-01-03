@@ -1160,7 +1160,6 @@ Full tech stack [here](/techstack.md)
 |[squirrel](https://pkg.go.dev/github.com/Masterminds/squirrel)|v1.5.4|03/17/23|renovate[bot] |Other|N/A|
 |[stringprep](https://pkg.go.dev/github.com/xdg/stringprep)|v1.0.0|10/17/23|renovate[bot] |Apache-2.0|N/A|
 |[swag](https://pkg.go.dev/github.com/go-openapi/swag)|v0.19.5|08/31/23|renovate[bot] |Apache-2.0|N/A|
-|[swaggo/swag](https://pkg.go.dev/github.com/swaggo/swag)|v1.16.2|08/31/23|renovate[bot] |MIT|N/A|
 |[sys](https://pkg.go.dev/golang.org/x/sys)|v0.5.0|04/19/23|Victor Login |BSD-3-Clause|N/A|
 |[term](https://pkg.go.dev/github.com/pkg/term)|v1.2.0|12/17/23|renovate[bot] |BSD-2-Clause|N/A|
 |[text](https://pkg.go.dev/golang.org/x/text)|v0.0.0|11/04/23|renovate[bot] |BSD-3-Clause|N/A|

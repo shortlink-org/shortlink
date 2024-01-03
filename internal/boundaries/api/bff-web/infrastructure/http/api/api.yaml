@@ -37,8 +37,7 @@ paths:
         Get all links
       operationId: getLinks
       parameters:
-        - $ref: '#/components/parameters/limit'
-        - $ref: '#/components/parameters/offset'
+        - $ref: '#/components/parameters/filter'
       responses:
         '200':
           description: OK
@@ -48,30 +47,58 @@ paths:
                 $ref: '#/components/schemas/Links'
         '404':
           $ref: '#/components/responses/NotFoundError'
+#  /cqrs:
+#    get:
+#      tags:
+#        - Link
+#      summary: Get all cqrs
+#      description: |
+#        Get all cqrs
+#      operationId: getCqrs
+#      parameters:
+#        - $ref: '#/components/parameters/limit'
+#        - $ref: '#/components/parameters/offset'
+#      responses:
+#        '200':
+#          description: OK
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/Links'
+#        '404':
+#          $ref: '#/components/responses/NotFoundError'
+#  /sitemap:
+#    get:
+#      tags:
+#        - Link
+#      summary: Get all sitemap
+#      description: |
+#        Get all sitemap
+#      operationId: getSitemap
+#      parameters:
+#        - $ref: '#/components/parameters/limit'
+#        - $ref: '#/components/parameters/offset'
+#      responses:
+#        '200':
+#          description: OK
+#          content:
+#            application/json:
+#              schema:
+#                $ref: '#/components/schemas/Links'
+#        '404':
+#          $ref: '#/components/responses/NotFoundError'
 
 components:
   parameters:
-    limit:
-      name: limit
+    filter:
+      name: filter
       in: query
-      description: Limit
+      description: Filter
       required: false
       schema:
-        type: integer
-        format: int32
-        minimum: 1
-        maximum: 100
-        default: 10
-    offset:
-      name: offset
-      in: query
-      description: Offset
-      required: false
-      schema:
-        type: integer
-        format: int32
-        minimum: 0
-        default: 0
+        type: object
+        format: json
+        default: {}
 
   responses:
     NotFoundError:

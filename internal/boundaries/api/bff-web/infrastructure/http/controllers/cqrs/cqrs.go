@@ -1,4 +1,4 @@
-package cqrs_api
+package cqrs
 
 import (
 	"errors"
@@ -8,39 +8,19 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 	link_cqrs "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
 )
 
 var jsonpb protojson.MarshalOptions
 
-type Handler struct {
+type LinkCQRSController struct {
 	LinkCommandServiceClient link_cqrs.LinkCommandServiceClient
 	LinkQueryServiceClient   link_cqrs.LinkQueryServiceClient
 }
 
-// Routes creates a REST router
-func Routes(
-	link_command link_cqrs.LinkCommandServiceClient,
-	link_query link_cqrs.LinkQueryServiceClient,
-) chi.Router {
-	r := chi.NewRouter()
-
-	h := &Handler{
-		LinkCommandServiceClient: link_command,
-		LinkQueryServiceClient:   link_query,
-	}
-
-	r.Get("/link/{hash}", h.GetByCQRS)
-	r.Get("/links", h.GetByAllCQRS)
-
-	return r
-}
-
-// GetByCQRS ...
-func (h *Handler) GetByCQRS(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
-
+// GetLinkByCQRS - get link by hash
+func (c *LinkCQRSController) GetLinkByCQRS(w http.ResponseWriter, r *http.Request, params any) {
 	hash := chi.URLParam(r, "hash")
 	if hash == "" {
 		w.WriteHeader(http.StatusBadRequest)
@@ -52,7 +32,7 @@ func (h *Handler) GetByCQRS(w http.ResponseWriter, r *http.Request) {
 	// inject spanId in response header
 	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
-	response, err := h.LinkQueryServiceClient.Get(r.Context(), &link_cqrs.GetRequest{Hash: hash})
+	response, err := c.LinkQueryServiceClient.Get(r.Context(), &link_cqrs.GetRequest{Hash: hash})
 	var errorLink *v1.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
@@ -79,15 +59,13 @@ func (h *Handler) GetByCQRS(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write(res) // nolint:errcheck
 }
 
-// GetByAllCQRS ...
-func (h *Handler) GetByAllCQRS(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
-
+// GetLinksByCQRS - get links by filter
+func (c *LinkCQRSController) GetLinksByCQRS(w http.ResponseWriter, r *http.Request, params any) {
 	// inject spanId in response header
 	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	search := r.URL.Query().Get("search")
-	response, err := h.LinkQueryServiceClient.List(r.Context(), &link_cqrs.ListRequest{Filter: search})
+	response, err := c.LinkQueryServiceClient.List(r.Context(), &link_cqrs.ListRequest{Filter: search})
 	var errorLink *v1.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)

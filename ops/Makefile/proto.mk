@@ -1,12 +1,12 @@
 # APPLICATION TASKS ====================================================================================================
 dep: ## Install dependencies for this project
 	# install protoc addons
-	@go install github.com/swaggo/swag/cmd/swag@latest
 	@go install github.com/srikrsna/protoc-gen-gotag@latest
 	@go install moul.io/protoc-gen-gotemplate@latest
 	@go install github.com/cloudflare/cfssl/cmd/...@latest
 	@go install golang.org/x/tools/cmd/goimports@latest
 	@go install github.com/vektra/mockery/v2@v2.33.3
+	@go install github.com/deepmap/oapi-codegen/v2/cmd/oapi-codegen@latest
 	@go install github.com/shortlink-org/shortlink/internal/pkg/protoc/protoc-gen-go-orm
 
 	# for NodeJS

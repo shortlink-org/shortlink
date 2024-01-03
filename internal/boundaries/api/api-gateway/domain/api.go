@@ -26,7 +26,7 @@ type API interface {
 		log logger.Logger,
 		tracer trace.TracerProvider,
 
-	// delivery
+		// delivery
 		link_rpc link_rpc.LinkServiceClient,
 		link_command link_cqrs.LinkCommandServiceClient,
 		link_query link_cqrs.LinkQueryServiceClient,

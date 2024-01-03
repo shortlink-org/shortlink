@@ -1,39 +1,34 @@
 package http
 
 import (
-	"context"
-	"fmt"
-
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	cors2 "github.com/go-chi/cors"
 	"github.com/go-chi/render"
 	"github.com/riandyrn/otelchi"
 	"github.com/spf13/viper"
-	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/protobuf/encoding/protojson"
 
+	"github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/controllers/cqrs"
+	"github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/controllers/link"
+	"github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/controllers/sitemap"
 	"github.com/shortlink-org/shortlink/internal/pkg/http/handler"
-	auth_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/auth"
 	logger_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/logger"
 	metrics_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/metrics"
 	pprof_labels_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/pprof_labels"
 
 	serverAPI "github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/api"
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 )
 
+const MAX_AGE = 300
+
 // Run HTTP-server
-func (api *Server) run(
-	// Common
-	ctx context.Context,
-	config http_server.Config,
-	log logger.Logger,
-	tracer trace.TracerProvider,
-) error {
-	api.ctx = ctx
+func (api *Server) run(config http_server.Config, params Config) error {
+	viper.SetDefault("BASE_PATH", "/api") // Base path for API endpoints
+
+	api.ctx = params.Ctx
 	api.jsonpb = protojson.MarshalOptions{
 		UseProtoNames: true,
 	}
@@ -45,9 +40,9 @@ func (api *Server) run(
 		AllowedOrigins:   []string{"*"},
 		AllowedMethods:   []string{"GET", "POST", "DELETE", "OPTIONS"},
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
-		ExposedHeaders:   []string{},
+		ExposedHeaders:   []string{""},
 		AllowCredentials: true,
-		MaxAge:           300, // nolint:gomnd
+		MaxAge:           MAX_AGE,
 	})
 
 	r.Use(cors.Handler)
@@ -65,11 +60,11 @@ func (api *Server) run(
 
 	// Additional middleware
 	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
-	r.Use(logger_middleware.Logger(log))
-	r.Use(auth_middleware.Auth())
+	r.Use(logger_middleware.Logger(params.Log))
+	// r.Use(auth_middleware.Auth())
 	r.Use(pprof_labels_middleware.Labels)
 
-	// Additional middlewares
+	// Metrics
 	metrics, err := metrics_middleware.NewMetrics()
 	if err != nil {
 		return err
@@ -79,12 +74,24 @@ func (api *Server) run(
 	r.NotFound(handler.NotFoundHandler)
 
 	// Init routes
-	r.Mount("/bff/web", serverAPI.HandlerFromMux(nil, r))
+	controller := &Controller{
+		link.LinkController{
+			LinkServiceClient: params.Link_rpc,
+		},
+		cqrs.LinkCQRSController{
+			LinkCommandServiceClient: params.Link_command,
+			LinkQueryServiceClient:   params.Link_query,
+		},
+		sitemap.SitemapController{
+			SitemapServiceClient: params.Sitemap_rpc,
+		},
+	}
+	r.Mount(viper.GetString("BASE_PATH"), serverAPI.HandlerFromMux(controller, r))
 
-	srv := http_server.New(ctx, r, config, tracer)
+	srv := http_server.New(params.Ctx, r, config, params.Tracer)
 
 	// start HTTP-server
-	log.Info(fmt.Sprintf("BFF Web run on port %d", config.Port))
+	params.Log.Info(params.I18n.Sprintf("BFF Web run on port %d", config.Port))
 	err = srv.ListenAndServe()
 	if err != nil {
 		return err
@@ -93,13 +100,8 @@ func (api *Server) run(
 	return nil
 }
 
-// API Provider for DI
-func (s *Server) Run(
-	// Common
-	ctx context.Context,
-	log logger.Logger,
-	tracer trace.TracerProvider,
-) (*Server, error) {
+// New API Provider for DI
+func New(params Config) (*Server, error) {
 	// API port
 	viper.SetDefault("API_PORT", 7070) // nolint:gomnd
 	// Request Timeout (seconds)
@@ -110,16 +112,12 @@ func (s *Server) Run(
 		Timeout: viper.GetDuration("API_TIMEOUT"),
 	}
 
+	api := &Server{}
 	g := errgroup.Group{}
 
 	g.Go(func() error {
-		return s.run(
-			ctx,
-			config,
-			log,
-			tracer,
-		)
+		return api.run(config, params)
 	})
 
-	return s, nil
+	return api, nil
 }

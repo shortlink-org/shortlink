@@ -29,22 +29,16 @@ type Link struct {
 // Links defines model for Links.
 type Links = []Link
 
-// Limit defines model for limit.
-type Limit = int32
-
-// Offset defines model for offset.
-type Offset = int32
+// Filter defines model for filter.
+type Filter = map[string]interface{}
 
 // NotFoundError defines model for NotFoundError.
 type NotFoundError = ErrorNotFound
 
 // GetLinksParams defines parameters for GetLinks.
 type GetLinksParams struct {
-	// Limit Limit
-	Limit *Limit `form:"limit,omitempty" json:"limit,omitempty"`
-
-	// Offset Offset
-	Offset *Offset `form:"offset,omitempty" json:"offset,omitempty"`
+	// Filter Filter
+	Filter *Filter `form:"filter,omitempty" json:"filter,omitempty"`
 }
 
 // ServerInterface represents all server handlers.
@@ -82,19 +76,11 @@ func (siw *ServerInterfaceWrapper) GetLinks(w http.ResponseWriter, r *http.Reque
 	// Parameter object where we will unmarshal all parameters from the context
 	var params GetLinksParams
 
-	// ------------- Optional query parameter "limit" -------------
+	// ------------- Optional query parameter "filter" -------------
 
-	err = runtime.BindQueryParameter("form", true, false, "limit", r.URL.Query(), &params.Limit)
+	err = runtime.BindQueryParameter("form", true, false, "filter", r.URL.Query(), &params.Filter)
 	if err != nil {
-		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "limit", Err: err})
-		return
-	}
-
-	// ------------- Optional query parameter "offset" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "offset", r.URL.Query(), &params.Offset)
-	if err != nil {
-		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "offset", Err: err})
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "filter", Err: err})
 		return
 	}
 

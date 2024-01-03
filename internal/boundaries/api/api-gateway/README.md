@@ -14,9 +14,6 @@
 
 ### Supported Protocols:
 
-- **HTTP REST API:** Implemented using 'chi' for optimal integration and high performance.
-    - Import [Postman link](./docs/postman/shortlink.postman_collection.json) for test HTTP API
-    - Swagger [docs](https://shortlink-org.gitlab.io/shortlink)
 - **GraphQL API:** An excellent alternative to REST APIs for handling complex, interrelated data structures.
 - **WebSocket API:** A protocol that enables two-way persistent communication channels over TCP connections.
     - [WebSocket API Docs](./gateways/ws/README.md)

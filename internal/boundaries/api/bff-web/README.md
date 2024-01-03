@@ -1,11 +1,16 @@
-## BFF: web
+## BFF: API Gateway for web clients
 
 > [!NOTE]
+> 
 > This is a BFF service for web clients
+> 
+> **HTTP REST API:** Implemented using 'chi' for optimal integration and high performance.
 
 ### Docs
 
-- [API](./docs/api.yaml) - API documentation in Swagger format
+- [API](./infrastructure/http/api/api.yaml) - API documentation in Swagger format
+- [Postman link](./docs/postman/shortlink.postman_collection.json) for test HTTP API
+- [Swagger UI](https://shortlink-org.gitlab.io/shortlink)
 
 ### ADR
 
@@ -14,31 +19,31 @@
 
 ### Architecture
 
-#### Component diagram
-
 ```plantuml
-!include https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/preset/common.puml
-!include https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/preset/c1.puml
+@startuml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
-!include actors/customer.puml
-!include services/bff-web/service.puml
-!include services/auth/ext.puml
+LAYOUT_WITH_LEGEND()
 
-title C1: BFF
+title C4: Context diagram for BFF-web
 
-System_Boundary(internalServices, "Internal Services") {
-    !include services/billing/ext.puml
-    !include services/link/ext.puml
-    
-    link -down-> permission : Permission
-    billing -down-> permission : Permission
+Person(customer, "Customer", "Uses our service")
+Container(api_gateway, "BFF-web", "Docker", "Handles incoming user requests and routes them to appropriate services.")
+Container_Ext(identity_service, "Identity & User Management", "Docker", "Manages user identities and authentication.")
+System_Boundary(bff, "Internal Services") {
+    Container_Ext(link_service, "Link", "Docker", "Provides CRUD operations for links.")
+    Container_Ext(billing_service, "Billing", "Docker", "Handles billing and payment operations.")
+    Container_Ext(rbac_service, "RBAC & ABAC", "Docker", "Manages role-based and attribute-based access control.")
 }
 
-customer -> bff_web : Request 
-bff_web -down-> auth : Proxy
-bff_web -right-> internalServices : Proxy
+Rel(customer, identity_service, "Login/Logout")
+Rel_R(customer, api_gateway, "Request /api")
+Rel_R(api_gateway, identity_service, "Check token")
+Rel(api_gateway, link_service, "Proxy")
+Rel(api_gateway, billing_service, "Proxy")
+Rel(link_service, rbac_service, "Permission")
+Rel(billing_service, rbac_service, "Permission")
+
+SHOW_LEGEND()
+@enduml
 ```
-
-### Use cases
-
-- [UC-1](./usecases/api/README.md) - API implementation

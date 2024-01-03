@@ -1,37 +1,20 @@
-package sitemap_api
+package sitemap
 
 import (
 	"net/http"
 
 	"github.com/segmentio/encoding/json"
-
-	"github.com/go-chi/chi/v5"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/sitemap/v1"
+	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/sitemap/v1"
 )
 
-type Handler struct {
+type SitemapController struct {
 	SitemapServiceClient v1.SitemapServiceClient
 }
 
-// Routes creates a REST router
-func Routes(sitemap_rpc v1.SitemapServiceClient) chi.Router {
-	r := chi.NewRouter()
-
-	h := &Handler{
-		SitemapServiceClient: sitemap_rpc,
-	}
-
-	r.Post("/", h.Parse)
-
-	return r
-}
-
-// Parse ...
-func (h *Handler) Parse(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
-
+// Parse - parse sitemap
+func (c *SitemapController) Parse(w http.ResponseWriter, r *http.Request, params any) {
 	// Parse request
 	var request v1.ParseRequest
 	decoder := json.NewDecoder(r.Body)
@@ -47,7 +30,7 @@ func (h *Handler) Parse(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	// Parse link
-	_, err = h.SitemapServiceClient.Parse(r.Context(), &request)
+	_, err = c.SitemapServiceClient.Parse(r.Context(), &request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck

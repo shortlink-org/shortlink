@@ -2748,21 +2748,6 @@ tools:
   detection_source: internal/boundaries/api/api-gateway/go.mod
   last_updated_by: renovate[bot]
   last_updated_on: 2023-08-31 10:05:14.000000000 Z
-- name: swaggo/swag
-  description: Automatically generate RESTful API documentation with Swagger 2.0 for
-    Go
-  package_url: https://pkg.go.dev/github.com/swaggo/swag
-  version: 1.16.2
-  license: MIT
-  open_source: true
-  hosted_saas: false
-  category: Libraries
-  sub_category: Go Modules Packages
-  image_url: https://img.stackshare.io/package/go-packages/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/api/api-gateway/go.sum
-  detection_source: internal/boundaries/api/api-gateway/go.mod
-  last_updated_by: renovate[bot]
-  last_updated_on: 2023-08-31 10:05:14.000000000 Z
 - name: sys
   description: Go packages for low-level interaction with the operating system
   package_url: https://pkg.go.dev/golang.org/x/sys
