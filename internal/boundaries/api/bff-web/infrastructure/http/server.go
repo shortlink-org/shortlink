@@ -10,6 +10,7 @@ import (
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/protobuf/encoding/protojson"
 
+	serverAPI "github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/api"
 	"github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/controllers/cqrs"
 	"github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/controllers/link"
 	"github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/controllers/sitemap"
@@ -19,8 +20,6 @@ import (
 	metrics_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/metrics"
 	pprof_labels_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/pprof_labels"
 	span_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/span"
-
-	serverAPI "github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/api"
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 )
 

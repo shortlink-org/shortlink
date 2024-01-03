@@ -5,9 +5,9 @@ managed:
 
 plugins:
   - plugin: buf.build/protocolbuffers/go
-    out: internal/boundaries
+    out: internal/boundaries/shortdb
     opt: paths=source_relative
 
   - plugin: buf.build/grpc/go
-    out: internal/boundaries
+    out: internal/boundaries/shortdb
     opt: paths=source_relative

@@ -23,7 +23,7 @@ const (
 	MetadataService_Set_FullMethodName = "/infrastructure.rpc.metadata.v1.MetadataService/Set"
 )
 
-// MetadataServiceClient is the client API for MetadataService parserUC.
+// MetadataServiceClient is the client API for MetadataService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type MetadataServiceClient interface {
@@ -59,7 +59,7 @@ func (c *metadataServiceClient) Set(ctx context.Context, in *MetadataServiceSetR
 	return out, nil
 }
 
-// MetadataServiceServer is the server API for MetadataService parserUC.
+// MetadataServiceServer is the server API for MetadataService service.
 // All implementations must embed UnimplementedMetadataServiceServer
 // for forward compatibility
 type MetadataServiceServer interface {
@@ -82,7 +82,7 @@ func (UnimplementedMetadataServiceServer) Set(context.Context, *MetadataServiceS
 }
 func (UnimplementedMetadataServiceServer) mustEmbedUnimplementedMetadataServiceServer() {}
 
-// UnsafeMetadataServiceServer may be embedded to opt out of forward compatibility for this parserUC.
+// UnsafeMetadataServiceServer may be embedded to opt out of forward compatibility for this service.
 // Use of this interface is not recommended, as added methods to MetadataServiceServer will
 // result in compilation errors.
 type UnsafeMetadataServiceServer interface {
@@ -129,7 +129,7 @@ func _MetadataService_Set_Handler(srv interface{}, ctx context.Context, dec func
 	return interceptor(ctx, in, info, handler)
 }
 
-// MetadataService_ServiceDesc is the grpc.ServiceDesc for MetadataService parserUC.
+// MetadataService_ServiceDesc is the grpc.ServiceDesc for MetadataService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var MetadataService_ServiceDesc = grpc.ServiceDesc{

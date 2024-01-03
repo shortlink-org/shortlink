@@ -54,7 +54,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	monitoringMonitoring, cleanup4, err := monitoring.New(context, logger)
+	monitoringMonitoring, cleanup4, err := monitoring.New(context, logger, tracerProvider)
 	if err != nil {
 		cleanup3()
 		cleanup2()

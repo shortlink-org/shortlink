@@ -5,7 +5,6 @@ import (
 	"time"
 
 	"github.com/go-chi/chi/v5/middleware"
-	"go.opentelemetry.io/otel/trace"
 
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
@@ -38,11 +37,7 @@ func (c chilogger) middleware(next http.Handler) http.Handler {
 			"method":  r.Method,
 		}
 
-		// Get span ID
-		span := trace.LinkFromContext(r.Context()).SpanContext
-		fields["traceID"] = span.TraceID().String()
-
-		c.log.Info("request completed", fields)
+		c.log.InfoWithContext(r.Context(), "request completed", fields)
 	}
 
 	return http.HandlerFunc(fn)

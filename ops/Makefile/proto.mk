@@ -71,7 +71,7 @@ proto-generate: ## Generate proto-files
 
 	# Eventsourcing service -------------------------------------------------------------------------
 	@buf generate \
-		--path=internal/pkg/eventsourcing/v1 \
+		--path=internal/pkg/eventsourcing/domain \
 		--template=ops/proto/eventsourcing/buf.gen.yaml \
 		--config=ops/proto/eventsourcing/buf.yaml
 

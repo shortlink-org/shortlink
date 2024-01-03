@@ -14,6 +14,7 @@ import (
 	"go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc"
 	promExporter "go.opentelemetry.io/otel/exporters/prometheus"
 	api "go.opentelemetry.io/otel/sdk/metric"
+	"go.opentelemetry.io/otel/trace"
 
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
@@ -28,7 +29,7 @@ type Monitoring struct {
 }
 
 // New - Monitoring endpoints
-func New(ctx context.Context, log logger.Logger) (*Monitoring, func(), error) {
+func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider) (*Monitoring, func(), error) {
 	var err error
 	monitoring := &Monitoring{}
 
@@ -50,7 +51,7 @@ func New(ctx context.Context, log logger.Logger) (*Monitoring, func(), error) {
 			Port:    9090,             //nolint:gomnd // port for Prometheus metrics
 			Timeout: 30 * time.Second, //nolint:gomnd // timeout for Prometheus metrics
 		}
-		server := http_server.New(ctx, monitoring.Handler, config, nil)
+		server := http_server.New(ctx, monitoring.Handler, config, tracer)
 
 		errListenAndServe := server.ListenAndServe()
 		if errListenAndServe != nil {

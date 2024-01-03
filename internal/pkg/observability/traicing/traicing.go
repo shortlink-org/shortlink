@@ -33,38 +33,30 @@ func Init(ctx context.Context, cnf Config, log logger.Logger) (*trace.TracerProv
 	}
 
 	cleanup := func() {
-		err := tp.Shutdown(ctx)
-		if err != nil {
+		errShutdown := tp.Shutdown(ctx)
+		if errShutdown != nil {
 			log.Error(`Tracing disable`, field.Fields{
 				"uri": cnf.URI,
-				"err": err,
+				"err": errShutdown,
 			})
 		}
 	}
 
-	// Register the global Tracer provider
-	// TODO: fix this
-	// otel.SetTracerProvider(otelpyroscope.NewTracerProvider(
-	// 	tp,
-	// 	otelpyroscope.WithAppName(cnf.ServiceName),
-	// 	otelpyroscope.WithPyroscopeURL(cnf.PyroscopeURI),
-	// 	otelpyroscope.WithRootSpanOnly(true),
-	// 	otelpyroscope.WithAddSpanName(true),
-	// 	otelpyroscope.WithProfileURL(true),
-	// 	otelpyroscope.WithProfileBaselineURL(true),
-	// ))
-
-	// Register the W3C trace context and baggage propagators so data is propagated across services/processes
-	otel.SetTextMapPropagator(
-		propagation.NewCompositeTextMapPropagator(
-			propagation.TraceContext{},
-			propagation.Baggage{},
-		),
-	)
-
 	log.Info(`Tracing enable`, field.Fields{
 		"uri": cnf.URI,
 	})
+
+	// Gracefully shutdown the trace provider on exit
+	go func() {
+		<-ctx.Done()
+
+		// Shutdown will flush any remaining spans and shut down the exporter.
+		if errShutdown := tp.Shutdown(ctx); errShutdown != nil {
+			log.Error("error shutting down trace provider", field.Fields{
+				"err": errShutdown.Error(),
+			})
+		}
+	}()
 
 	return tp, cleanup, nil
 }
@@ -91,6 +83,17 @@ func newTraceProvider(ctx context.Context, res *resource.Resource, uri string) (
 	traceProvider := trace.NewTracerProvider(
 		trace.WithBatcher(traceExporter, trace.WithBatchTimeout(viper.GetDuration("TRACING_INITIAL_INTERVAL"))),
 		trace.WithResource(res),
+		trace.WithSampler(trace.AlwaysSample()),
+	)
+
+	otel.SetTracerProvider(traceProvider)
+
+	// Register the W3C trace context and baggage propagators so data is propagated across services/processes
+	otel.SetTextMapPropagator(
+		propagation.NewCompositeTextMapPropagator(
+			propagation.TraceContext{},
+			propagation.Baggage{},
+		),
 	)
 
 	return traceProvider, nil
