@@ -10,5 +10,5 @@ type ErrorPingConnection struct {
 }
 
 func (e *ErrorPingConnection) Error() string {
-	return fmt.Sprintf("failed to ping the database: %w", e.Err)
+	return fmt.Sprintf("failed to ping the database: %s", e.Err.Error())
 }
