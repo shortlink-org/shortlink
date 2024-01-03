@@ -5,7 +5,6 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/segmentio/encoding/json"
-	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
 	payment_application "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/payment"
@@ -35,9 +34,6 @@ func (api *API) Routes(r chi.Router) {
 // open a new payment
 func (api *API) open(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
-
-	// inject spanId in response header
-	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	// Parse request
 	decoder := json.NewDecoder(r.Body)
@@ -74,9 +70,6 @@ func (api *API) open(w http.ResponseWriter, r *http.Request) {
 func (api *API) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
-	// inject spanId in response header
-	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
-
 	aggregateId := chi.URLParam(r, "id")
 	if aggregateId == "" {
 		w.WriteHeader(http.StatusBadRequest)
@@ -109,9 +102,6 @@ func (api *API) get(w http.ResponseWriter, r *http.Request) {
 func (api *API) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
-	// inject spanId in response header
-	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
-
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck // ignore
 }
@@ -119,9 +109,6 @@ func (api *API) list(w http.ResponseWriter, r *http.Request) {
 // close a payment
 func (api *API) close(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
-
-	// inject spanId in response header
-	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	aggregateId := chi.URLParam(r, "id")
 	if aggregateId == "" {

@@ -14,9 +14,11 @@ import (
 	"github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/controllers/link"
 	"github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/controllers/sitemap"
 	"github.com/shortlink-org/shortlink/internal/pkg/http/handler"
+	auth_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/auth"
 	logger_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/logger"
 	metrics_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/metrics"
 	pprof_labels_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/pprof_labels"
+	span_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/span"
 
 	serverAPI "github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/api"
 	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
@@ -61,8 +63,9 @@ func (api *Server) run(config http_server.Config, params Config) error {
 	// Additional middleware
 	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
 	r.Use(logger_middleware.Logger(params.Log))
-	// r.Use(auth_middleware.Auth())
+	r.Use(auth_middleware.Auth())
 	r.Use(pprof_labels_middleware.Labels)
+	r.Use(span_middleware.Span())
 
 	// Metrics
 	metrics, err := metrics_middleware.NewMetrics()

@@ -6,7 +6,6 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/segmentio/encoding/json"
-	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/api"
@@ -32,9 +31,6 @@ func (c *LinkController) AddLink(w http.ResponseWriter, r *http.Request, params 
 
 		return
 	}
-
-	// inject spanId in response header
-	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	// Save link
 	response, err := c.LinkServiceClient.Add(r.Context(), &link_rpc.AddRequest{Link: &request})
@@ -70,9 +66,6 @@ func (c *LinkController) UpdateLink(w http.ResponseWriter, r *http.Request, para
 		return
 	}
 
-	// inject spanId in response header
-	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
-
 	// Update link
 	response, err := c.LinkServiceClient.Update(r.Context(), &link_rpc.UpdateRequest{Link: &request})
 	if err != nil {
@@ -103,9 +96,6 @@ func (c *LinkController) GetLink(w http.ResponseWriter, r *http.Request, params 
 
 		return
 	}
-
-	// inject spanId in response header
-	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	response, err := c.LinkServiceClient.Get(r.Context(), &link_rpc.GetRequest{Hash: hash})
 	if err != nil {
@@ -144,9 +134,6 @@ func (c *LinkController) GetLinks(w http.ResponseWriter, r *http.Request, params
 		w.WriteHeader(http.StatusBadRequest)
 		return
 	}
-
-	// inject spanId in response header
-	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	response, err := c.LinkServiceClient.List(r.Context(), &link_rpc.ListRequest{Filter: string(filter)})
 	if err != nil {
@@ -187,9 +174,6 @@ func (c *LinkController) DeleteLink(w http.ResponseWriter, r *http.Request, para
 
 		return
 	}
-
-	// inject spanId in response header
-	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	_, err := c.LinkServiceClient.Delete(r.Context(), &link_rpc.DeleteRequest{Hash: hash})
 	if err != nil {

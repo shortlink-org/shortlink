@@ -5,7 +5,6 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/segmentio/encoding/json"
-	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
 	payment_application "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/payment"
@@ -32,9 +31,6 @@ func (api *API) Routes(r chi.Router) {
 // Update - update
 func (api *API) update(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
-
-	// inject spanId in response header
-	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	// Parse request
 	decoder := json.NewDecoder(r.Body)

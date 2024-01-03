@@ -4,7 +4,6 @@ import (
 	"net/http"
 
 	"github.com/segmentio/encoding/json"
-	"go.opentelemetry.io/otel/trace"
 
 	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/sitemap/v1"
 )
@@ -25,9 +24,6 @@ func (c *SitemapController) Parse(w http.ResponseWriter, r *http.Request, params
 
 		return
 	}
-
-	// inject spanId in response header
-	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	// Parse link
 	_, err = c.SitemapServiceClient.Parse(r.Context(), &request)

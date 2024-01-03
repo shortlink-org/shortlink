@@ -5,7 +5,6 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/protobuf/encoding/protojson"
 
 	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
@@ -28,9 +27,6 @@ func (c *LinkCQRSController) GetLinkByCQRS(w http.ResponseWriter, r *http.Reques
 
 		return
 	}
-
-	// inject spanId in response header
-	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
 
 	response, err := c.LinkQueryServiceClient.Get(r.Context(), &link_cqrs.GetRequest{Hash: hash})
 	var errorLink *v1.NotFoundError
@@ -61,9 +57,6 @@ func (c *LinkCQRSController) GetLinkByCQRS(w http.ResponseWriter, r *http.Reques
 
 // GetLinksByCQRS - get links by filter
 func (c *LinkCQRSController) GetLinksByCQRS(w http.ResponseWriter, r *http.Request, params any) {
-	// inject spanId in response header
-	w.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
-
 	search := r.URL.Query().Get("search")
 	response, err := c.LinkQueryServiceClient.List(r.Context(), &link_cqrs.ListRequest{Filter: search})
 	var errorLink *v1.NotFoundError
