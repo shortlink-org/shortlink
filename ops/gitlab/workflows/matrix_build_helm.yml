@@ -9,13 +9,11 @@
         HELM_CHART_PATH: ops/Helm/shortlink-api/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-api-grpc-web
         HELM_CHART_PATH: ops/Helm/shortlink-api/$HELM_CHART_NAME
-      - HELM_CHART_NAME: shortlink-api-http
-        HELM_CHART_PATH: ops/Helm/shortlink-api/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-api-ws
         HELM_CHART_PATH: ops/Helm/shortlink-api/$HELM_CHART_NAME
-      - HELM_CHART_NAME: shortlink-auth
-        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-bff-web
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-auth
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-billing
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME

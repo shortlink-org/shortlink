@@ -23,3 +23,17 @@ between servers and clients while focusing more on business logic implementation
 - **Ease of Code Generation**: Simplifies boilerplate code generation, reducing manual work and potential errors.
 - **Alignment with OpenAPI Specifications**: Ensures our services are compliant with OpenAPI specifications, facilitating communication between the web application and microservices.
 - **Dependency on oapi-codegen**: Introduces a dependency on oapi-codegen, necessitating monitoring for tool updates and potential bugs that could affect the generated code.
+
+### Alternatives
+
+### swaggo/swag
+
+**swaggo/swag** is a Go library that helps you automatically generate API documentation from your Go source code. 
+It uses comments written in a specific format to generate the documentation, ensuring that your API documentation 
+is always up-to-date with your code.
+
+> [!TIP]
+> 
+> Docs:
+>  - [link](https://github.com/swaggo/swag)
+>  - [examples](https://github.com/swaggo/swag?tab=readme-ov-file#examples)
