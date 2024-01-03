@@ -45,10 +45,14 @@ Container_Ext(s3_store, "S3 Store (Minio)", "Storage", "Stores screenshots of UR
 System_Boundary(metadata_system, "Metadata System") {
     Container(metadata_service, "Metadata Service", "Go", "Service for processing metadata of links.")
     ContainerDb(database, "Database", "Relational DBMS", "Stores metadata of links.")
-
-    Component(create_metadata, "Create Metadata", "Use Case", "Generates metadata for links.")
-    Component(create_screenshot, "Create Screenshot", "Use Case", "Generates screenshots for links.")
 }
+
+' Use Cases
+note right of metadata_service
+  Use Cases:
+  1. Manage metadata for URL
+  2. Create Screenshot from URL
+end note
 
 Rel(mq, metadata_service, "Triggers on CRUD link events", "Message/Event")
 Rel(metadata_service, database, "Stores metadata")
