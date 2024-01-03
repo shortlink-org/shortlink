@@ -5,7 +5,7 @@ import (
 
 	link "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
-	eventsourcing "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/v1"
+	eventsourcing "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/domain/eventsourcing/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/notify"
 )
 

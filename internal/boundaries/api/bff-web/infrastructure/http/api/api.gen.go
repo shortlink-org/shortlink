@@ -10,51 +10,150 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/oapi-codegen/runtime"
-	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
-// ErrorNotFound defines model for ErrorNotFound.
-type ErrorNotFound struct {
-	Error *string `json:"error,omitempty"`
+// AddRequest defines model for AddRequest.
+type AddRequest struct {
+	// Describe Optional description of the link.
+	Describe *string `json:"describe,omitempty"`
+
+	// Url The URL to be shortened.
+	Url string `json:"url"`
+}
+
+// AddResponse defines model for AddResponse.
+type AddResponse struct {
+	Link *Link `json:"link,omitempty"`
+}
+
+// ErrorResponse defines model for ErrorResponse.
+type ErrorResponse struct {
+	// Code Error code representing the type of error.
+	Code *int32 `json:"code,omitempty"`
+
+	// Message Human-readable message providing more details about the error.
+	Message *string `json:"message,omitempty"`
+}
+
+// GetResponse Response schema for a single link retrieval.
+type GetResponse struct {
+	Link *Link `json:"link,omitempty"`
 }
 
 // Link defines model for Link.
 type Link struct {
-	CreatedAt time.Time          `json:"created_at"`
-	Id        openapi_types.UUID `json:"id"`
-	UpdatedAt time.Time          `json:"updated_at"`
-	Url       string             `json:"url"`
+	// CreatedAt Timestamp when the link was created.
+	CreatedAt time.Time `json:"created_at"`
+
+	// Describe Description of the link.
+	Describe *string `json:"describe,omitempty"`
+
+	// Hash Unique hash identifier for the link.
+	Hash string `json:"hash"`
+
+	// UpdatedAt Timestamp when the link was last updated.
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+
+	// Url The original URL.
+	Url string `json:"url"`
 }
 
-// Links defines model for Links.
-type Links = []Link
-
-// Filter defines model for filter.
-type Filter = map[string]interface{}
-
-// NotFoundError defines model for NotFoundError.
-type NotFoundError = ErrorNotFound
-
-// GetLinksParams defines parameters for GetLinks.
-type GetLinksParams struct {
-	// Filter Filter
-	Filter *Filter `form:"filter,omitempty" json:"filter,omitempty"`
+// ListResponse defines model for ListResponse.
+type ListResponse struct {
+	Links *[]Link `json:"links,omitempty"`
 }
+
+// UpdateRequest defines model for UpdateRequest.
+type UpdateRequest struct {
+	// Describe Updated description of the link.
+	Describe *string `json:"describe,omitempty"`
+
+	// Url The new URL to update.
+	Url string `json:"url"`
+}
+
+// UpdateResponse defines model for UpdateResponse.
+type UpdateResponse struct {
+	Link *Link `json:"link,omitempty"`
+}
+
+// HashParam defines model for HashParam.
+type HashParam = string
+
+// BadRequest defines model for BadRequest.
+type BadRequest = ErrorResponse
+
+// InternalServerError defines model for InternalServerError.
+type InternalServerError = ErrorResponse
+
+// LinkCreated defines model for LinkCreated.
+type LinkCreated = AddResponse
+
+// LinkDetails Response schema for a single link retrieval.
+type LinkDetails = GetResponse
+
+// LinkUpdated defines model for LinkUpdated.
+type LinkUpdated = UpdateResponse
+
+// NotFound defines model for NotFound.
+type NotFound = ErrorResponse
+
+// AddLinkJSONRequestBody defines body for AddLink for application/json ContentType.
+type AddLinkJSONRequestBody = AddRequest
+
+// UpdateLinkJSONRequestBody defines body for UpdateLink for application/json ContentType.
+type UpdateLinkJSONRequestBody = UpdateRequest
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
-	// Get all links
+	// List links
 	// (GET /links)
-	GetLinks(w http.ResponseWriter, r *http.Request, params GetLinksParams)
+	ListLinks(w http.ResponseWriter, r *http.Request)
+	// Add link
+	// (POST /links)
+	AddLink(w http.ResponseWriter, r *http.Request)
+	// Delete link
+	// (DELETE /links/{hash})
+	DeleteLink(w http.ResponseWriter, r *http.Request, hash HashParam)
+	// Get link
+	// (GET /links/{hash})
+	GetLink(w http.ResponseWriter, r *http.Request, hash HashParam)
+	// Update link
+	// (PUT /links/{hash})
+	UpdateLink(w http.ResponseWriter, r *http.Request, hash HashParam)
 }
 
 // Unimplemented server implementation that returns http.StatusNotImplemented for each endpoint.
 
 type Unimplemented struct{}
 
-// Get all links
+// List links
 // (GET /links)
-func (_ Unimplemented) GetLinks(w http.ResponseWriter, r *http.Request, params GetLinksParams) {
+func (_ Unimplemented) ListLinks(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// Add link
+// (POST /links)
+func (_ Unimplemented) AddLink(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// Delete link
+// (DELETE /links/{hash})
+func (_ Unimplemented) DeleteLink(w http.ResponseWriter, r *http.Request, hash HashParam) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// Get link
+// (GET /links/{hash})
+func (_ Unimplemented) GetLink(w http.ResponseWriter, r *http.Request, hash HashParam) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// Update link
+// (PUT /links/{hash})
+func (_ Unimplemented) UpdateLink(w http.ResponseWriter, r *http.Request, hash HashParam) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
@@ -67,25 +166,105 @@ type ServerInterfaceWrapper struct {
 
 type MiddlewareFunc func(http.Handler) http.Handler
 
-// GetLinks operation middleware
-func (siw *ServerInterfaceWrapper) GetLinks(w http.ResponseWriter, r *http.Request) {
+// ListLinks operation middleware
+func (siw *ServerInterfaceWrapper) ListLinks(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.ListLinks(w, r)
+	}))
+
+	for i := len(siw.HandlerMiddlewares) - 1; i >= 0; i-- {
+		handler = siw.HandlerMiddlewares[i](handler)
+	}
+
+	handler.ServeHTTP(w, r.WithContext(ctx))
+}
+
+// AddLink operation middleware
+func (siw *ServerInterfaceWrapper) AddLink(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.AddLink(w, r)
+	}))
+
+	for i := len(siw.HandlerMiddlewares) - 1; i >= 0; i-- {
+		handler = siw.HandlerMiddlewares[i](handler)
+	}
+
+	handler.ServeHTTP(w, r.WithContext(ctx))
+}
+
+// DeleteLink operation middleware
+func (siw *ServerInterfaceWrapper) DeleteLink(w http.ResponseWriter, r *http.Request) {
 	ctx := r.Context()
 
 	var err error
 
-	// Parameter object where we will unmarshal all parameters from the context
-	var params GetLinksParams
+	// ------------- Path parameter "hash" -------------
+	var hash HashParam
 
-	// ------------- Optional query parameter "filter" -------------
-
-	err = runtime.BindQueryParameter("form", true, false, "filter", r.URL.Query(), &params.Filter)
+	err = runtime.BindStyledParameterWithLocation("simple", false, "hash", runtime.ParamLocationPath, chi.URLParam(r, "hash"), &hash)
 	if err != nil {
-		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "filter", Err: err})
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "hash", Err: err})
 		return
 	}
 
 	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		siw.Handler.GetLinks(w, r, params)
+		siw.Handler.DeleteLink(w, r, hash)
+	}))
+
+	for i := len(siw.HandlerMiddlewares) - 1; i >= 0; i-- {
+		handler = siw.HandlerMiddlewares[i](handler)
+	}
+
+	handler.ServeHTTP(w, r.WithContext(ctx))
+}
+
+// GetLink operation middleware
+func (siw *ServerInterfaceWrapper) GetLink(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+
+	var err error
+
+	// ------------- Path parameter "hash" -------------
+	var hash HashParam
+
+	err = runtime.BindStyledParameterWithLocation("simple", false, "hash", runtime.ParamLocationPath, chi.URLParam(r, "hash"), &hash)
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "hash", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.GetLink(w, r, hash)
+	}))
+
+	for i := len(siw.HandlerMiddlewares) - 1; i >= 0; i-- {
+		handler = siw.HandlerMiddlewares[i](handler)
+	}
+
+	handler.ServeHTTP(w, r.WithContext(ctx))
+}
+
+// UpdateLink operation middleware
+func (siw *ServerInterfaceWrapper) UpdateLink(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+
+	var err error
+
+	// ------------- Path parameter "hash" -------------
+	var hash HashParam
+
+	err = runtime.BindStyledParameterWithLocation("simple", false, "hash", runtime.ParamLocationPath, chi.URLParam(r, "hash"), &hash)
+	if err != nil {
+		siw.ErrorHandlerFunc(w, r, &InvalidParamFormatError{ParamName: "hash", Err: err})
+		return
+	}
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.UpdateLink(w, r, hash)
 	}))
 
 	for i := len(siw.HandlerMiddlewares) - 1; i >= 0; i-- {
@@ -209,7 +388,19 @@ func HandlerWithOptions(si ServerInterface, options ChiServerOptions) http.Handl
 	}
 
 	r.Group(func(r chi.Router) {
-		r.Get(options.BaseURL+"/links", wrapper.GetLinks)
+		r.Get(options.BaseURL+"/links", wrapper.ListLinks)
+	})
+	r.Group(func(r chi.Router) {
+		r.Post(options.BaseURL+"/links", wrapper.AddLink)
+	})
+	r.Group(func(r chi.Router) {
+		r.Delete(options.BaseURL+"/links/{hash}", wrapper.DeleteLink)
+	})
+	r.Group(func(r chi.Router) {
+		r.Get(options.BaseURL+"/links/{hash}", wrapper.GetLink)
+	})
+	r.Group(func(r chi.Router) {
+		r.Put(options.BaseURL+"/links/{hash}", wrapper.UpdateLink)
 	})
 
 	return r

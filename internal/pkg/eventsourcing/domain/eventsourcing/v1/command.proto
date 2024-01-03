@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package domain.eventsourcing.v1;
 
-option go_package = "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/v1";
+option go_package = "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/domain/eventsourcing/v1";
 
 // BaseCommand represents the basic information that all commands should have.
 message BaseCommand {

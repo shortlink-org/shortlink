@@ -10,7 +10,7 @@ import (
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/codes"
 
-	eventsourcing "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/v1"
+	eventsourcing "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/domain/eventsourcing/v1"
 )
 
 type Aggregates interface {
