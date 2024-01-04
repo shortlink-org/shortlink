@@ -77,9 +77,7 @@ func (api *Server) run(config http_server.Config, params Config) error {
 
 	// Init routes
 	controller := &Controller{
-		link.LinkController{
-			LinkServiceClient: params.Link_rpc,
-		},
+		link.NewController(params.Log, params.Link_rpc),
 		cqrs.LinkCQRSController{
 			LinkCommandServiceClient: params.Link_command,
 			LinkQueryServiceClient:   params.Link_query,

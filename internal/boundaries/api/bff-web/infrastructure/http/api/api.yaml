@@ -72,7 +72,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/AddRequest'
+              $ref: '#/components/schemas/AddLink'
       responses:
         '201':
           $ref: '#/components/responses/LinkCreated'
@@ -94,8 +94,8 @@ paths:
               properties:
                 filter:
                   $ref: '#/components/schemas/LinkFilter'
-                data:
-                  $ref: '#/components/schemas/UpdateRequest'
+                link:
+                  $ref: '#/components/schemas/Link'
       responses:
         '200':
           $ref: '#/components/responses/LinksUpdated'
@@ -174,20 +174,23 @@ components:
               next_cursor:
                 type: string
                 description: A cursor to be used to fetch the next page of results.
+            required:
+              - links
+              - next_cursor
 
     LinkCreated:
       description: Link created successfully.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/AddResponse'
+            $ref: '#/components/schemas/Link'
 
     LinkDetails:
       description: Details of the link.
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/GetResponse'
+            $ref: '#/components/schemas/Link'
 
     LinksUpdated:
       description: Links updated successfully.
@@ -199,9 +202,6 @@ components:
               updatedCount:
                 type: integer
                 description: The number of links updated.
-              message:
-                type: string
-                description: A message about the update operation.
 
     LinkDeleted:
       description: Link deleted successfully.
@@ -228,34 +228,6 @@ components:
             $ref: '#/components/schemas/ErrorResponse'
 
   schemas:
-    AddRequest:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-          description: The URL to be shortened.
-          example: 'https://example.com'
-        describe:
-          type: string
-          description: Optional description of the link.
-          example: 'Example link description'
-      required:
-        - url
-
-    AddResponse:
-      type: object
-      properties:
-        link:
-          $ref: '#/components/schemas/Link'
-
-    GetResponse:
-      type: object
-      properties:
-        link:
-          $ref: '#/components/schemas/Link'
-      description: Response schema for a single link retrieval.
-
     LinkFilter:
       type: object
       properties:
@@ -266,22 +238,34 @@ components:
         urlContains:
           type: string
           description: Filter links that contain this text in their URL.
-        createdAt:
-          type: string
-          format: date-time
-          description: Filter links created after this date and time.
       additionalProperties: false
+
+    AddLink:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          description: The URL of the link.
+        describe:
+          type: string
+          description: Description of the link.
+      required:
+        - url
 
     Link:
       type: object
       properties:
-        hash:
-          type: string
-          description: Unique hash identifier for the link.
         url:
           type: string
           format: uri
-          description: The original URL.
+          description: The URL of the link.
+        hash:
+          type: string
+          description: Unique hash, used as the short link.
+        describe:
+          type: string
+          description: Description of the link.
         created_at:
           type: string
           format: date-time
@@ -290,34 +274,18 @@ components:
           type: string
           format: date-time
           description: Timestamp when the link was last updated.
-        describe:
-          type: string
-          description: Description of the link.
       required:
+        - url
         - hash
-        - url
+        - describe
         - created_at
-
-    UpdateRequest:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-          description: The new URL to update.
-        describe:
-          type: string
-          description: Updated description of the link.
-      required:
-        - url
+        - updated_at
 
     ErrorResponse:
       type: object
       properties:
-        code:
-          type: integer
-          format: int32
-          description: Error code representing the type of error.
-        message:
-          type: string
-          description: Human-readable message providing more details about the error.
+        messages:
+          type: array
+          items:
+            type: string
+          description: An array of human-readable messages providing more details about the error.

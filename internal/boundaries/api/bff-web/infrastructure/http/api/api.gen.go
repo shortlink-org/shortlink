@@ -13,32 +13,19 @@ import (
 	openapi_types "github.com/oapi-codegen/runtime/types"
 )
 
-// AddRequest defines model for AddRequest.
-type AddRequest struct {
-	// Describe Optional description of the link.
+// AddLink defines model for AddLink.
+type AddLink struct {
+	// Describe Description of the link.
 	Describe *string `json:"describe,omitempty"`
 
-	// Url The URL to be shortened.
+	// Url The URL of the link.
 	Url string `json:"url"`
-}
-
-// AddResponse defines model for AddResponse.
-type AddResponse struct {
-	Link *Link `json:"link,omitempty"`
 }
 
 // ErrorResponse defines model for ErrorResponse.
 type ErrorResponse struct {
-	// Code Error code representing the type of error.
-	Code *int32 `json:"code,omitempty"`
-
-	// Message Human-readable message providing more details about the error.
-	Message *string `json:"message,omitempty"`
-}
-
-// GetResponse Response schema for a single link retrieval.
-type GetResponse struct {
-	Link *Link `json:"link,omitempty"`
+	// Messages An array of human-readable messages providing more details about the error.
+	Messages *[]string `json:"messages,omitempty"`
 }
 
 // Link defines model for Link.
@@ -47,37 +34,25 @@ type Link struct {
 	CreatedAt time.Time `json:"created_at"`
 
 	// Describe Description of the link.
-	Describe *string `json:"describe,omitempty"`
+	Describe string `json:"describe"`
 
-	// Hash Unique hash identifier for the link.
+	// Hash Unique hash, used as the short link.
 	Hash string `json:"hash"`
 
 	// UpdatedAt Timestamp when the link was last updated.
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt time.Time `json:"updated_at"`
 
-	// Url The original URL.
+	// Url The URL of the link.
 	Url string `json:"url"`
 }
 
 // LinkFilter defines model for LinkFilter.
 type LinkFilter struct {
-	// CreatedAt Filter links created after this date and time.
-	CreatedAt *time.Time `json:"createdAt,omitempty"`
-
 	// Id Unique identifier of the link. Use this to update a specific link.
 	Id *openapi_types.UUID `json:"id,omitempty"`
 
 	// UrlContains Filter links that contain this text in their URL.
 	UrlContains *string `json:"urlContains,omitempty"`
-}
-
-// UpdateRequest defines model for UpdateRequest.
-type UpdateRequest struct {
-	// Describe Updated description of the link.
-	Describe *string `json:"describe,omitempty"`
-
-	// Url The new URL to update.
-	Url string `json:"url"`
 }
 
 // CursorParam defines model for CursorParam.
@@ -96,16 +71,13 @@ type BadRequest = ErrorResponse
 type InternalServerError = ErrorResponse
 
 // LinkCreated defines model for LinkCreated.
-type LinkCreated = AddResponse
+type LinkCreated = Link
 
-// LinkDetails Response schema for a single link retrieval.
-type LinkDetails = GetResponse
+// LinkDetails defines model for LinkDetails.
+type LinkDetails = Link
 
 // LinksUpdated defines model for LinksUpdated.
 type LinksUpdated struct {
-	// Message A message about the update operation.
-	Message *string `json:"message,omitempty"`
-
 	// UpdatedCount The number of links updated.
 	UpdatedCount *int `json:"updatedCount,omitempty"`
 }
@@ -115,10 +87,10 @@ type NotFound = ErrorResponse
 
 // PaginatedLinksResponse defines model for PaginatedLinksResponse.
 type PaginatedLinksResponse struct {
-	Links *[]Link `json:"links,omitempty"`
+	Links []Link `json:"links"`
 
 	// NextCursor A cursor to be used to fetch the next page of results.
-	NextCursor *string `json:"next_cursor,omitempty"`
+	NextCursor string `json:"next_cursor"`
 }
 
 // GetLinksParams defines parameters for GetLinks.
@@ -141,12 +113,12 @@ type GetLinksParams struct {
 
 // UpdateLinksJSONBody defines parameters for UpdateLinks.
 type UpdateLinksJSONBody struct {
-	Data   *UpdateRequest `json:"data,omitempty"`
-	Filter *LinkFilter    `json:"filter,omitempty"`
+	Filter *LinkFilter `json:"filter,omitempty"`
+	Link   *Link       `json:"link,omitempty"`
 }
 
 // AddLinkJSONRequestBody defines body for AddLink for application/json ContentType.
-type AddLinkJSONRequestBody = AddRequest
+type AddLinkJSONRequestBody = AddLink
 
 // UpdateLinksJSONRequestBody defines body for UpdateLinks for application/json ContentType.
 type UpdateLinksJSONRequestBody UpdateLinksJSONBody

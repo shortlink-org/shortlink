@@ -35,5 +35,4 @@ func (c *SitemapController) Parse(w http.ResponseWriter, r *http.Request, params
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	_, _ = w.Write([]byte(`{}`)) // nolint:errcheck
 }

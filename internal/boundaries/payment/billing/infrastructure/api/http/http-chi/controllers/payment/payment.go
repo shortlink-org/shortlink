@@ -103,7 +103,6 @@ func (api *API) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck // ignore
 }
 
 // close a payment
@@ -127,5 +126,4 @@ func (api *API) close(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck // ignore
 }

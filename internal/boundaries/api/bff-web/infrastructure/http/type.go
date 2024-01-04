@@ -52,7 +52,7 @@ type Config struct {
 }
 
 type Controller struct {
-	link.LinkController
+	link.Controller
 	cqrs.LinkCQRSController
 	sitemap.SitemapController
 }

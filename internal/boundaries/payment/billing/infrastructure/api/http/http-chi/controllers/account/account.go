@@ -71,7 +71,6 @@ func (api *AccoutAPI) get(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck // ignore
 }
 
 // List - list
@@ -79,13 +78,11 @@ func (api *AccoutAPI) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck // ignore
 }
 
 // Delete - delete
 func (api *AccoutAPI) delete(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
-	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) //nolint:errcheck // ignore
+	w.WriteHeader(http.StatusNoContent)
 }

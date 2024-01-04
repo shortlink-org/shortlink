@@ -10,161 +10,204 @@ import (
 	"github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/api"
 	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/link/v1"
+	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 )
 
 var jsonpb protojson.MarshalOptions
 
-type LinkController struct {
-	LinkServiceClient link_rpc.LinkServiceClient
+type Controller struct {
+	log logger.Logger
+
+	linkServiceClient link_rpc.LinkServiceClient
+}
+
+// NewController - create new link controller
+func NewController(log logger.Logger, linkServiceClient link_rpc.LinkServiceClient) Controller {
+	return Controller{
+		log: log,
+
+		linkServiceClient: linkServiceClient,
+	}
+}
+
+// ErrMessages - helper for create error messages
+func ErrMessages(err error) *api.ErrorResponse {
+	messages := []string{err.Error()}
+
+	return &api.ErrorResponse{
+		Messages: &messages,
+	}
 }
 
 // AddLink - add link
-func (c *LinkController) AddLink(w http.ResponseWriter, r *http.Request) {
+func (c *Controller) AddLink(w http.ResponseWriter, r *http.Request) {
 	// Parse request
-	var request v1.Link
-	decoder := json.NewDecoder(r.Body)
-	err := decoder.Decode(&request)
+	var request api.AddLink
+	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
 
 		return
 	}
 
 	// Save link
-	response, err := c.LinkServiceClient.Add(r.Context(), &link_rpc.AddRequest{Link: &request})
+	result, err := c.linkServiceClient.Add(r.Context(), &link_rpc.AddRequest{Link: &v1.Link{
+		Describe: *request.Describe,
+		Url:      request.Url,
+	}})
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
 
 		return
 	}
 
-	res, err := jsonpb.Marshal(response.Link)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
-
-		return
+	response := &api.Link{
+		Url:       result.GetLink().GetUrl(),
+		Hash:      result.GetLink().GetHash(),
+		Describe:  result.GetLink().GetDescribe(),
+		CreatedAt: result.GetLink().GetCreatedAt().AsTime(),
+		UpdatedAt: result.GetLink().GetUpdatedAt().AsTime(),
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	_, _ = w.Write(res) // nolint:errcheck
+	err = json.NewEncoder(w).Encode(response)
+	if err != nil {
+		c.log.Error(err.Error())
+	}
 }
 
-// UpdateLink - update link
-func (c *LinkController) UpdateLinks(w http.ResponseWriter, r *http.Request) {
+// UpdateLinks - update link
+func (c *Controller) UpdateLinks(w http.ResponseWriter, r *http.Request) {
 	// Parse request
-	var request v1.Link
-	decoder := json.NewDecoder(r.Body)
-	err := decoder.Decode(&request)
+	var request api.UpdateLinksJSONBody
+	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
 
 		return
 	}
 
 	// Update link
-	response, err := c.LinkServiceClient.Update(r.Context(), &link_rpc.UpdateRequest{Link: &request})
+	_, err = c.linkServiceClient.Update(r.Context(), &link_rpc.UpdateRequest{Link: &v1.Link{
+		Url:      request.Link.Url,
+		Hash:     request.Link.Hash,
+		Describe: request.Link.Describe,
+	}})
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
 
 		return
 	}
 
-	res, err := jsonpb.Marshal(response.Link)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
-
-		return
+	count := 0
+	response := &api.LinksUpdated{
+		UpdatedCount: &count,
 	}
 
-	w.WriteHeader(http.StatusCreated)
-	_, _ = w.Write(res) // nolint:errcheck
+	w.WriteHeader(http.StatusOK)
+	err = json.NewEncoder(w).Encode(response)
+	if err != nil {
+		c.log.Error(err.Error())
+	}
 }
 
 // GetLink - get link by hash
-func (c *LinkController) GetLink(w http.ResponseWriter, r *http.Request, hash api.HashParam) {
-	response, err := c.LinkServiceClient.Get(r.Context(), &link_rpc.GetRequest{Hash: hash})
+func (c *Controller) GetLink(w http.ResponseWriter, r *http.Request, hash api.HashParam) {
+	result, err := c.linkServiceClient.Get(r.Context(), &link_rpc.GetRequest{Hash: hash})
 	if err != nil {
 		var errorLink *v1.NotFoundError
 
 		if errors.Is(err, errorLink) {
 			w.WriteHeader(http.StatusNotFound)
-			_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+			_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
 
 			return
 		}
 
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "need set hash URL"}`)) // nolint:errcheck
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
 
 		return
 	}
 
-	res, err := jsonpb.Marshal(response.GetLink())
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
-
-		return
+	response := &api.Link{
+		Url:       result.GetLink().GetUrl(),
+		Hash:      result.GetLink().GetHash(),
+		Describe:  result.GetLink().GetDescribe(),
+		CreatedAt: result.GetLink().GetCreatedAt().AsTime(),
+		UpdatedAt: result.GetLink().GetUpdatedAt().AsTime(),
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(res) // nolint:errcheck
+	err = json.NewEncoder(w).Encode(response)
+	if err != nil {
+		c.log.Error(err.Error())
+	}
 }
 
 // GetLinks - get links
-func (c *LinkController) GetLinks(w http.ResponseWriter, r *http.Request, params api.GetLinksParams) {
+func (c *Controller) GetLinks(w http.ResponseWriter, r *http.Request, params api.GetLinksParams) {
 	// Get filter
 	filter, err := json.Marshal(params.Filter)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
+
 		return
 	}
 
-	response, err := c.LinkServiceClient.List(r.Context(), &link_rpc.ListRequest{Filter: string(filter)})
+	result, err := c.linkServiceClient.List(r.Context(), &link_rpc.ListRequest{Filter: string(filter)})
 	if err != nil {
 		var errorLink *v1.NotFoundError
 
 		if errors.Is(err, errorLink) {
 			w.WriteHeader(http.StatusNotFound)
-			_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+			_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
 
 			return
 		}
 
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
 
 		return
 	}
 
-	res, err := jsonpb.Marshal(response.GetLinks())
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+	response := &api.PaginatedLinksResponse{
+		Links:      make([]api.Link, 0, len(result.GetLinks().GetLink())),
+		NextCursor: "",
+	}
 
-		return
+	for _, link := range result.GetLinks().GetLink() {
+		response.Links = append(response.Links, api.Link{
+			Url:       link.GetUrl(),
+			Hash:      link.GetHash(),
+			Describe:  link.GetDescribe(),
+			CreatedAt: link.GetCreatedAt().AsTime(),
+			UpdatedAt: link.GetUpdatedAt().AsTime(),
+		})
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(res) // nolint:errcheck
+	err = json.NewEncoder(w).Encode(response)
+	if err != nil {
+		c.log.Error(err.Error())
+	}
 }
 
 // DeleteLink - delete link
-func (c *LinkController) DeleteLink(w http.ResponseWriter, r *http.Request, hash api.HashParam) {
-	_, err := c.LinkServiceClient.Delete(r.Context(), &link_rpc.DeleteRequest{Hash: hash})
+func (c *Controller) DeleteLink(w http.ResponseWriter, r *http.Request, hash api.HashParam) {
+	_, err := c.linkServiceClient.Delete(r.Context(), &link_rpc.DeleteRequest{Hash: hash})
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
 
 		return
 	}
 
-	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte(`{}`)) // nolint:errcheck
+	w.WriteHeader(http.StatusNoContent)
 }
