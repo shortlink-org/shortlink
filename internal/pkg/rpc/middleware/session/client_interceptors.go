@@ -23,6 +23,9 @@ func SessionUnaryClientInterceptor() grpc.UnaryClientInterceptor {
 		sess := session.GetSession(ctx)
 		if sess != nil {
 			ctx = metadata.AppendToOutgoingContext(ctx, "user-id", sess.GetId())
+		} else {
+			userId := session.GetUserID(ctx)
+			ctx = metadata.AppendToOutgoingContext(ctx, "user-id", userId)
 		}
 
 		return invoker(ctx, method, req, resp, cc, opts...)

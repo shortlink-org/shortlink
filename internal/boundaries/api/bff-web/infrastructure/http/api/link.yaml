@@ -7,6 +7,22 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/AddLink'
+          examples:
+            googleExample:
+              summary: Google Example
+              value:
+                url: "https://www.google.com"
+                describe: "Google Search Engine"
+            wikipediaExample:
+              summary: Wikipedia Example
+              value:
+                url: "https://www.wikipedia.org"
+                describe: "Free Online Encyclopedia"
+            youtubeExample:
+              summary: YouTube Example
+              value:
+                url: "https://www.youtube.com"
+                describe: "Video Sharing Platform"
 
     UpdateLinkRequest:
       description: Request body for updating a link.
@@ -111,6 +127,9 @@ components:
           description: Description of the link.
       required:
         - url
+      example:
+        url: https://www.google.com
+        describe: Search engine
 
     Link:
       type: object

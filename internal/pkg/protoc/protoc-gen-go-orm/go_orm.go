@@ -111,18 +111,18 @@ func generateCommonFile(gen *protogen.Plugin, file *protogen.File) {
 
 	// Generate the StringFilterInput struct definition
 	g.P("type StringFilterInput struct { // nolint:unused")
-	g.P("    Eq           string  `json:\"eq,omitempty\"`")          // Equal
-	g.P("    Ne           string  `json:\"ne,omitempty\"`")          // Not Equal
-	g.P("    Lt           string  `json:\"lt,omitempty\"`")          // Less Than
-	g.P("    Le           string  `json:\"le,omitempty\"`")          // Less Than or Equal
-	g.P("    Gt           string  `json:\"gt,omitempty\"`")          // Greater Than
-	g.P("    Ge           string  `json:\"ge,omitempty\"`")          // Greater Than or Equal
-	g.P("    Contains     string  `json:\"contains,omitempty\"`")    // Contains
-	g.P("    NotContains  string  `json:\"notContains,omitempty\"`") // Not Contains
-	g.P("    StartsWith   string  `json:\"startsWith,omitempty\"`")  // Starts With
-	g.P("    EndsWith     string  `json:\"endsWith,omitempty\"`")    // Ends With
-	g.P("    IsEmpty      bool    `json:\"isEmpty,omitempty\"`")     // Is Empty
-	g.P("    IsNotEmpty   bool    `json:\"isNotEmpty,omitempty\"`")  // Is Not Empty
+	g.P("    Eq           string    `json:\"eq,omitempty\"`")          // Equal
+	g.P("    Ne           string    `json:\"ne,omitempty\"`")          // Not Equal
+	g.P("    Lt           string    `json:\"lt,omitempty\"`")          // Less Than
+	g.P("    Le           string    `json:\"le,omitempty\"`")          // Less Than or Equal
+	g.P("    Gt           string    `json:\"gt,omitempty\"`")          // Greater Than
+	g.P("    Ge           string    `json:\"ge,omitempty\"`")          // Greater Than or Equal
+	g.P("    Contains     []string  `json:\"contains,omitempty\"`")    // Contains
+	g.P("    NotContains  []string  `json:\"notContains,omitempty\"`") // Not Contains
+	g.P("    StartsWith   string    `json:\"startsWith,omitempty\"`")  // Starts With
+	g.P("    EndsWith     string    `json:\"endsWith,omitempty\"`")    // Ends With
+	g.P("    IsEmpty      bool      `json:\"isEmpty,omitempty\"`")     // Is Empty
+	g.P("    IsNotEmpty   bool      `json:\"isNotEmpty,omitempty\"`")  // Is Not Empty
 	g.P("}")
 	g.P()
 
@@ -161,15 +161,15 @@ func generateBuildFilterMethod(g *protogen.GeneratedFile, structName string, fie
 }
 
 func generateFieldFilterConditions(g *protogen.GeneratedFile, fieldName, dbColumnName string) {
-	conditions := []string{"Eq", "Ne", "Lt", "Le", "Gt", "Ge", "Contains", "NotContains", "StartsWith", "EndsWith"}
-	operators := []string{"=", "<>", "<", "<=", ">", ">=", "LIKE", "NOT LIKE", "LIKE", "LIKE"}
+	conditions := []string{"Eq", "Ne", "Lt", "Le", "Gt", "Ge", "StartsWith", "EndsWith"}
+	operators := []string{"=", "<>", "<", "<=", ">", ">=", "LIKE", "LIKE"}
 
 	g.P("if f.", fieldName, " != nil {") // nil pointer check
 
 	for i, cond := range conditions {
 		op := operators[i]
 		valuePlaceholder := "?"
-		if cond == "Contains" || cond == "StartsWith" {
+		if cond == "StartsWith" {
 			valuePlaceholder = "'%' || ?"
 		} else if cond == "EndsWith" {
 			valuePlaceholder = "? || '%'"
@@ -178,6 +178,20 @@ func generateFieldFilterConditions(g *protogen.GeneratedFile, fieldName, dbColum
 		g.P("query = query.Where(\"", dbColumnName, " ", op, " ", valuePlaceholder, "\", f.", fieldName, ".", cond, ")")
 		g.P("}")
 	}
+
+	// Handle Contains
+	g.P("for _, v := range f.", fieldName, ".Contains {")
+	g.P("if v != \"\" {")
+	g.P("query = query.Where(\"", dbColumnName, " LIKE '%\" || ? || \"%'\", v)")
+	g.P("}")
+	g.P("}")
+
+	// Handle NotContains
+	g.P("for _, v := range f.", fieldName, ".NotContains {")
+	g.P("if v != \"\" {")
+	g.P("query = query.Where(\"", dbColumnName, " NOT LIKE '%\" || ? || \"%'\", v)")
+	g.P("}")
+	g.P("}")
 
 	g.P("if f.", fieldName, ".IsEmpty {")
 	g.P("query = query.Where(\"", dbColumnName, " = '' OR ", dbColumnName, " IS NULL\")")

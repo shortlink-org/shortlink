@@ -8,8 +8,8 @@ type StringFilterInput struct { // nolint:unused
 	Le          string `json:"le,omitempty"`
 	Gt          string `json:"gt,omitempty"`
 	Ge          string `json:"ge,omitempty"`
-	Contains    string `json:"contains,omitempty"`
-	NotContains string `json:"notContains,omitempty"`
+	Contains    []string `json:"contains,omitempty"`
+	NotContains []string `json:"notContains,omitempty"`
 	StartsWith  string `json:"startsWith,omitempty"`
 	EndsWith    string `json:"endsWith,omitempty"`
 	IsEmpty     bool   `json:"isEmpty,omitempty"`

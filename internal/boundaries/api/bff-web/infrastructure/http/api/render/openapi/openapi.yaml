@@ -222,6 +222,22 @@ components:
     AddLinkRequest:
       content:
         application/json:
+          examples:
+            googleExample:
+              summary: Google Example
+              value:
+                url: https://www.google.com
+                describe: Google Search Engine
+            wikipediaExample:
+              summary: Wikipedia Example
+              value:
+                url: https://www.wikipedia.org
+                describe: Free Online Encyclopedia
+            youtubeExample:
+              summary: YouTube Example
+              value:
+                url: https://www.youtube.com
+                describe: Video Sharing Platform
           schema:
             $ref: '#/components/schemas/AddLink'
       description: Request body for adding a new link.
@@ -340,8 +356,8 @@ components:
       type: object
     AddLink:
       example:
-        describe: describe
-        url: https://openapi-generator.tech
+        url: https://www.google.com
+        describe: Search engine
       properties:
         url:
           description: The URL of the link.
