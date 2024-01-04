@@ -1,0 +1,419 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: support@shortlink.best
+    name: ShortLink repository
+    url: https://github.com/shortlink-org/shortlink/issues
+  description: |
+    ShortLink API for managing and retrieving short links.
+  license:
+    name: MIT
+    url: http://www.opensource.org/licenses/MIT
+  title: ShortLink API
+  version: 0.1.0
+servers:
+- description: Local server
+  url: http://127.0.0.1:7070/api
+- description: Production server
+  url: https://shortlink.best/api
+- description: Mock server
+  url: https://shortlink.best/mock
+paths:
+  /links:
+    get:
+      description: Retrieve a list of all short links with pagination.
+      operationId: getLinks
+      parameters:
+      - description: The number of links to return per page.
+        in: query
+        name: limit
+        schema:
+          default: 10
+          type: integer
+      - description: A cursor for use in pagination. This is the ID of the last item
+          in the previous page.
+        in: query
+        name: cursor
+        schema:
+          type: string
+      - explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          $ref: '#/components/schemas/LinkFilter'
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getLinks_200_response'
+          description: A page of links with pagination details.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      summary: List links
+      tags:
+      - Link
+    post:
+      description: Add a new short link.
+      operationId: addLink
+      requestBody:
+        $ref: '#/components/requestBodies/AddLinkRequest'
+      responses:
+        "201":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Link'
+          description: Link created successfully.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bad request.
+      summary: Add link
+      tags:
+      - Link
+    put:
+      description: Update existing links based on a filter. Updates a single link
+        if the 'id' field is specified in the filter.
+      operationId: updateLinks
+      requestBody:
+        $ref: '#/components/requestBodies/UpdateLinkRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/updateLinks_200_response'
+          description: Links updated successfully.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bad request.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not found.
+      summary: Update links
+      tags:
+      - Link
+  /links/{hash}:
+    delete:
+      description: Delete a specific link by its hash.
+      operationId: deleteLink
+      parameters:
+      - description: Unique hash of the link.
+        in: path
+        name: hash
+        required: true
+        schema:
+          pattern: "^[0-9a-fA-F]{32}$"
+          type: string
+      responses:
+        "204":
+          description: Link deleted successfully.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not found.
+      summary: Delete link
+      tags:
+      - Link
+    get:
+      description: Retrieve a specific link by its hash.
+      operationId: getLink
+      parameters:
+      - description: Unique hash of the link.
+        in: path
+        name: hash
+        required: true
+        schema:
+          pattern: "^[0-9a-fA-F]{32}$"
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Link'
+          description: Details of the link.
+        "404":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Not found.
+      summary: Get link
+      tags:
+      - Link
+  /sitemap:
+    post:
+      description: Add a new sitemap.
+      operationId: addSitemap
+      requestBody:
+        $ref: '#/components/requestBodies/SitemapRequest'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/addSitemap_200_response'
+          description: Sitemap processed successfully.
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Bad request.
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      summary: Add Sitemap
+      tags:
+      - Sitemap
+components:
+  parameters:
+    LinkLimitParam:
+      description: The number of links to return per page.
+      in: query
+      name: limit
+      schema:
+        default: 10
+        type: integer
+    CursorParam:
+      description: A cursor for use in pagination. This is the ID of the last item
+        in the previous page.
+      in: query
+      name: cursor
+      schema:
+        type: string
+    LinkHashParam:
+      description: Unique hash of the link.
+      in: path
+      name: hash
+      required: true
+      schema:
+        pattern: "^[0-9a-fA-F]{32}$"
+        type: string
+  requestBodies:
+    UpdateLinkRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/updateLinks_request'
+      description: Request body for updating a link.
+      required: true
+    AddLinkRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AddLink'
+      description: Request body for adding a new link.
+      required: true
+    SitemapRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/addSitemap_request'
+      required: true
+  responses:
+    PaginatedLinksResponse:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/getLinks_200_response'
+      description: A page of links with pagination details.
+    InternalServerError:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: Internal Server Error
+    LinksUpdated:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/updateLinks_200_response'
+      description: Links updated successfully.
+    BadRequest:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: Bad request.
+    NotFound:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+      description: Not found.
+    LinkCreated:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Link'
+      description: Link created successfully.
+    LinkDetails:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Link'
+      description: Details of the link.
+    LinkDeleted:
+      description: Link deleted successfully.
+    SitemapProcessed:
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/addSitemap_200_response'
+      description: Sitemap processed successfully.
+  schemas:
+    LinkFilter:
+      additionalProperties: false
+      properties:
+        id:
+          description: Unique identifier of the link. Use this to update a specific
+            link.
+          format: uuid
+          type: string
+        urlContains:
+          description: Filter links that contain this text in their URL.
+          type: string
+      type: object
+    Link:
+      example:
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        created_at: 2000-01-23T04:56:07.000+00:00
+        describe: describe
+        url: https://openapi-generator.tech
+        hash: hash
+      properties:
+        url:
+          description: The URL of the link.
+          format: uri
+          type: string
+        hash:
+          description: "Unique hash, used as the short link."
+          type: string
+        describe:
+          description: Description of the link.
+          type: string
+        created_at:
+          description: Timestamp when the link was created.
+          format: date-time
+          type: string
+        updated_at:
+          description: Timestamp when the link was last updated.
+          format: date-time
+          type: string
+      required:
+      - created_at
+      - describe
+      - hash
+      - updated_at
+      - url
+      type: object
+    ErrorResponse:
+      properties:
+        messages:
+          description: An array of human-readable messages providing more details
+            about the error.
+          items:
+            type: string
+          type: array
+      type: object
+    AddLink:
+      example:
+        describe: describe
+        url: https://openapi-generator.tech
+      properties:
+        url:
+          description: The URL of the link.
+          format: uri
+          type: string
+        describe:
+          description: Description of the link.
+          type: string
+      required:
+      - url
+      type: object
+    getLinks_200_response:
+      example:
+        next_cursor: next_cursor
+        links:
+        - updated_at: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
+          describe: describe
+          url: https://openapi-generator.tech
+          hash: hash
+        - updated_at: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
+          describe: describe
+          url: https://openapi-generator.tech
+          hash: hash
+      properties:
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          type: array
+        next_cursor:
+          description: A cursor to be used to fetch the next page of results.
+          type: string
+      required:
+      - links
+      - next_cursor
+      type: object
+    updateLinks_request:
+      properties:
+        filter:
+          $ref: '#/components/schemas/LinkFilter'
+        link:
+          $ref: '#/components/schemas/Link'
+      type: object
+    updateLinks_200_response:
+      example:
+        updatedCount: 0
+      properties:
+        updatedCount:
+          description: The number of links updated.
+          type: integer
+      type: object
+    addSitemap_request:
+      properties:
+        url:
+          description: The URL of the sitemap.
+          format: uri
+          type: string
+      required:
+      - url
+      type: object
+    addSitemap_200_response:
+      example:
+        message: message
+      properties:
+        message:
+          description: A confirmation message.
+          type: string
+      type: object
+x-json-schema-faker:
+  locale: en
+  min-items: 2
+  max-items: 5
+  resolve-json-path: true
+  useExamplesValue: true

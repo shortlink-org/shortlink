@@ -38,29 +38,17 @@ paths:
       tags:
         - Link
       parameters:
-        - $ref: '#/components/parameters/LimitParam'
-        - $ref: '#/components/parameters/CursorParam'
+        - $ref: 'link.yaml#/components/parameters/LinkLimitParam'
+        - $ref: 'base.yaml#/components/parameters/CursorParam'
         - in: query
           name: filter
           schema:
-            type: object
-            properties:
-              createdAt:
-                type: string
-                format: date-time
-                description: Filter links created at a specific date and time.
-              urlContains:
-                type: string
-                description: Filter links containing specific text in the URL.
-            additionalProperties: false
-          style: form
-          explode: true
-          description: JSON object used for filtering the results.
+            $ref: 'link.yaml#/components/schemas/LinkFilter'
       responses:
         '200':
-          $ref: '#/components/responses/PaginatedLinksResponse'
+          $ref: 'link.yaml#/components/responses/PaginatedLinksResponse'
         '500':
-          $ref: '#/components/responses/InternalServerError'
+          $ref: 'base.yaml#/components/responses/InternalServerError'
 
     post:
       summary: Add link
@@ -69,16 +57,12 @@ paths:
       tags:
         - Link
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/AddLink'
+        $ref: 'link.yaml#/components/requestBodies/AddLinkRequest'
       responses:
         '201':
-          $ref: '#/components/responses/LinkCreated'
+          $ref: 'link.yaml#/components/responses/LinkCreated'
         '400':
-          $ref: '#/components/responses/BadRequest'
+          $ref: 'base.yaml#/components/responses/BadRequest'
 
     put:
       summary: Update links
@@ -87,23 +71,14 @@ paths:
       tags:
         - Link
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                filter:
-                  $ref: '#/components/schemas/LinkFilter'
-                link:
-                  $ref: '#/components/schemas/Link'
+        $ref: 'link.yaml#/components/requestBodies/UpdateLinkRequest'
       responses:
         '200':
-          $ref: '#/components/responses/LinksUpdated'
+          $ref: 'link.yaml#/components/responses/LinksUpdated'
         '400':
-          $ref: '#/components/responses/BadRequest'
+          $ref: 'base.yaml#/components/responses/BadRequest'
         '404':
-          $ref: '#/components/responses/NotFound'
+          $ref: 'base.yaml#/components/responses/NotFound'
 
   /links/{hash}:
     get:
@@ -113,12 +88,12 @@ paths:
       tags:
         - Link
       parameters:
-        - $ref: '#/components/parameters/HashParam'
+        - $ref: 'link.yaml#/components/parameters/LinkHashParam'
       responses:
         '200':
-          $ref: '#/components/responses/LinkDetails'
+          $ref: 'link.yaml#/components/responses/LinkDetails'
         '404':
-          $ref: '#/components/responses/NotFound'
+          $ref: 'base.yaml#/components/responses/NotFound'
 
     delete:
       summary: Delete link
@@ -127,12 +102,12 @@ paths:
       tags:
         - Link
       parameters:
-        - $ref: '#/components/parameters/HashParam'
+        - $ref: 'link.yaml#/components/parameters/LinkHashParam'
       responses:
         '204':
-          $ref: '#/components/responses/LinkDeleted'
+          $ref: 'link.yaml#/components/responses/LinkDeleted'
         '404':
-          $ref: '#/components/responses/NotFound'
+          $ref: 'base.yaml#/components/responses/NotFound'
 
   /sitemap:
     post:
@@ -142,212 +117,11 @@ paths:
       tags:
         - Sitemap
       requestBody:
-        required: true
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                url:
-                  type: string
-                  format: uri
-                  description: The URL of the sitemap.
-              required:
-                - url
-              examples:
-                habrQuestion:
-                  summary: Habr Question
-                  value:
-                    url: "https://qna.habr.com/sitemap/questions.xml"
-                williamsPublishing:
-                  summary: Williams Publishing
-                  value:
-                    url: "http://www.williamspublishing.com/sitemap.xml"
-                habrTags:
-                  summary: Habr Tags
-                  value:
-                    url: "https://qna.habr.com/sitemap/tags.xml"
-                piter:
-                  summary: Piter
-                  value:
-                    url: "https://www.piter.com/sitemap.xml"
-                mannIvanovFerberBooks:
-                  summary: MIF Books
-                  value:
-                    url: "https://www.mann-ivanov-ferber.ru/sitemap/books.xml"
-                mannIvanovFerberAuthors:
-                  summary: MIF Authors
-                  value:
-                    url: "https://www.mann-ivanov-ferber.ru/sitemap/authors.xml"
+        $ref: 'sitemap.yaml#/components/requestBodies/SitemapRequest'
       responses:
-        '200': # Changed from 201 to 200
-          description: Sitemap processed successfully.
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  message:
-                    type: string
-                    description: A confirmation message.
+        '200':
+          $ref: 'sitemap.yaml#/components/responses/SitemapProcessed'
         '400':
-          $ref: '#/components/responses/BadRequest'
+          $ref: 'base.yaml#/components/responses/BadRequest'
         '500':
-          $ref: '#/components/responses/InternalServerError'
-
-components:
-  parameters:
-    LimitParam:
-      in: query
-      name: limit
-      schema:
-        type: integer
-        default: 10
-      description: The number of links to return per page.
-
-    CursorParam:
-      in: query
-      name: cursor
-      schema:
-        type: string
-      description: A cursor for use in pagination. This is the ID of the last item in the previous page.
-
-    HashParam:
-      name: hash
-      in: path
-      required: true
-      schema:
-        type: string
-        pattern: '^[0-9a-fA-F]{32}$'
-      description: Unique hash of the link.
-
-  responses:
-    PaginatedLinksResponse:
-      description: A page of links with pagination details.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              links:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Link'
-              next_cursor:
-                type: string
-                description: A cursor to be used to fetch the next page of results.
-            required:
-              - links
-              - next_cursor
-
-    LinkCreated:
-      description: Link created successfully.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Link'
-
-    LinkDetails:
-      description: Details of the link.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Link'
-
-    LinksUpdated:
-      description: Links updated successfully.
-      content:
-        application/json:
-          schema:
-            type: object
-            properties:
-              updatedCount:
-                type: integer
-                description: The number of links updated.
-
-    LinkDeleted:
-      description: Link deleted successfully.
-
-    NotFound:
-      description: Link not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-
-    BadRequest:
-      description: Bad request.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-
-    InternalServerError:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-
-  schemas:
-    LinkFilter:
-      type: object
-      properties:
-        id:
-          type: string
-          format: uuid
-          description: Unique identifier of the link. Use this to update a specific link.
-        urlContains:
-          type: string
-          description: Filter links that contain this text in their URL.
-      additionalProperties: false
-
-    AddLink:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-          description: The URL of the link.
-        describe:
-          type: string
-          description: Description of the link.
-      required:
-        - url
-
-    Link:
-      type: object
-      properties:
-        url:
-          type: string
-          format: uri
-          description: The URL of the link.
-        hash:
-          type: string
-          description: Unique hash, used as the short link.
-        describe:
-          type: string
-          description: Description of the link.
-        created_at:
-          type: string
-          format: date-time
-          description: Timestamp when the link was created.
-        updated_at:
-          type: string
-          format: date-time
-          description: Timestamp when the link was last updated.
-      required:
-        - url
-        - hash
-        - describe
-        - created_at
-        - updated_at
-
-    ErrorResponse:
-      type: object
-      properties:
-        messages:
-          type: array
-          items:
-            type: string
-          description: An array of human-readable messages providing more details about the error.
+          $ref: 'base.yaml#/components/responses/InternalServerError'

@@ -1,0 +1,141 @@
+components:
+  requestBodies:
+    AddLinkRequest:
+      description: Request body for adding a new link.
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/AddLink'
+
+    UpdateLinkRequest:
+      description: Request body for updating a link.
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              filter:
+                $ref: '#/components/schemas/LinkFilter'
+              link:
+                $ref: '#/components/schemas/Link'
+
+  parameters:
+    LinkLimitParam:
+      in: query
+      name: limit
+      schema:
+        type: integer
+        default: 10
+      description: The number of links to return per page.
+
+    LinkHashParam:
+      name: hash
+      in: path
+      required: true
+      schema:
+        type: string
+        pattern: '^[0-9a-fA-F]{32}$'
+      description: Unique hash of the link.
+
+  responses:
+    PaginatedLinksResponse:
+      description: A page of links with pagination details.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              links:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Link'
+              next_cursor:
+                type: string
+                description: A cursor to be used to fetch the next page of results.
+            required:
+              - links
+              - next_cursor
+
+    LinkCreated:
+      description: Link created successfully.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Link'
+
+    LinkDetails:
+      description: Details of the link.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Link'
+
+    LinksUpdated:
+      description: Links updated successfully.
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              updatedCount:
+                type: integer
+                description: The number of links updated.
+
+    LinkDeleted:
+      description: Link deleted successfully.
+
+  schemas:
+    LinkFilter:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: Unique identifier of the link. Use this to update a specific link.
+        urlContains:
+          type: string
+          description: Filter links that contain this text in their URL.
+      additionalProperties: false
+
+    AddLink:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          description: The URL of the link.
+        describe:
+          type: string
+          description: Description of the link.
+      required:
+        - url
+
+    Link:
+      type: object
+      properties:
+        url:
+          type: string
+          format: uri
+          description: The URL of the link.
+        hash:
+          type: string
+          description: Unique hash, used as the short link.
+        describe:
+          type: string
+          description: Description of the link.
+        created_at:
+          type: string
+          format: date-time
+          description: Timestamp when the link was created.
+        updated_at:
+          type: string
+          format: date-time
+          description: Timestamp when the link was last updated.
+      required:
+        - url
+        - hash
+        - describe
+        - created_at
+        - updated_at

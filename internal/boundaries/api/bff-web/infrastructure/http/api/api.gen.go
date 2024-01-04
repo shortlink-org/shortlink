@@ -55,82 +55,65 @@ type LinkFilter struct {
 	UrlContains *string `json:"urlContains,omitempty"`
 }
 
-// CursorParam defines model for CursorParam.
-type CursorParam = string
-
-// HashParam defines model for HashParam.
-type HashParam = string
-
-// LimitParam defines model for LimitParam.
-type LimitParam = int
-
-// BadRequest defines model for BadRequest.
-type BadRequest = ErrorResponse
-
-// InternalServerError defines model for InternalServerError.
-type InternalServerError = ErrorResponse
-
-// LinkCreated defines model for LinkCreated.
-type LinkCreated = Link
-
-// LinkDetails defines model for LinkDetails.
-type LinkDetails = Link
-
-// LinksUpdated defines model for LinksUpdated.
-type LinksUpdated struct {
-	// UpdatedCount The number of links updated.
-	UpdatedCount *int `json:"updatedCount,omitempty"`
+// AddSitemap200Response defines model for addSitemap_200_response.
+type AddSitemap200Response struct {
+	// Message A confirmation message.
+	Message *string `json:"message,omitempty"`
 }
 
-// NotFound defines model for NotFound.
-type NotFound = ErrorResponse
+// AddSitemapRequest defines model for addSitemap_request.
+type AddSitemapRequest struct {
+	// Url The URL of the sitemap.
+	Url string `json:"url"`
+}
 
-// PaginatedLinksResponse defines model for PaginatedLinksResponse.
-type PaginatedLinksResponse struct {
+// GetLinks200Response defines model for getLinks_200_response.
+type GetLinks200Response struct {
 	Links []Link `json:"links"`
 
 	// NextCursor A cursor to be used to fetch the next page of results.
 	NextCursor string `json:"next_cursor"`
 }
 
-// GetLinksParams defines parameters for GetLinks.
-type GetLinksParams struct {
-	// Limit The number of links to return per page.
-	Limit *LimitParam `form:"limit,omitempty" json:"limit,omitempty"`
-
-	// Cursor A cursor for use in pagination. This is the ID of the last item in the previous page.
-	Cursor *CursorParam `form:"cursor,omitempty" json:"cursor,omitempty"`
-
-	// Filter JSON object used for filtering the results.
-	Filter *struct {
-		// CreatedAt Filter links created at a specific date and time.
-		CreatedAt *time.Time `json:"createdAt,omitempty"`
-
-		// UrlContains Filter links containing specific text in the URL.
-		UrlContains *string `json:"urlContains,omitempty"`
-	} `form:"filter,omitempty" json:"filter,omitempty"`
+// UpdateLinks200Response defines model for updateLinks_200_response.
+type UpdateLinks200Response struct {
+	// UpdatedCount The number of links updated.
+	UpdatedCount *int `json:"updatedCount,omitempty"`
 }
 
-// UpdateLinksJSONBody defines parameters for UpdateLinks.
-type UpdateLinksJSONBody struct {
+// UpdateLinksRequest defines model for updateLinks_request.
+type UpdateLinksRequest struct {
 	Filter *LinkFilter `json:"filter,omitempty"`
 	Link   *Link       `json:"link,omitempty"`
 }
 
-// AddSitemapJSONBody defines parameters for AddSitemap.
-type AddSitemapJSONBody struct {
-	// Url The URL of the sitemap.
-	Url string `json:"url"`
+// AddLinkRequest defines model for AddLinkRequest.
+type AddLinkRequest = AddLink
+
+// SitemapRequest defines model for SitemapRequest.
+type SitemapRequest = AddSitemapRequest
+
+// UpdateLinkRequest defines model for UpdateLinkRequest.
+type UpdateLinkRequest = UpdateLinksRequest
+
+// GetLinksParams defines parameters for GetLinks.
+type GetLinksParams struct {
+	// Limit The number of links to return per page.
+	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
+
+	// Cursor A cursor for use in pagination. This is the ID of the last item in the previous page.
+	Cursor *string     `form:"cursor,omitempty" json:"cursor,omitempty"`
+	Filter *LinkFilter `form:"filter,omitempty" json:"filter,omitempty"`
 }
 
 // AddLinkJSONRequestBody defines body for AddLink for application/json ContentType.
 type AddLinkJSONRequestBody = AddLink
 
 // UpdateLinksJSONRequestBody defines body for UpdateLinks for application/json ContentType.
-type UpdateLinksJSONRequestBody UpdateLinksJSONBody
+type UpdateLinksJSONRequestBody = UpdateLinksRequest
 
 // AddSitemapJSONRequestBody defines body for AddSitemap for application/json ContentType.
-type AddSitemapJSONRequestBody AddSitemapJSONBody
+type AddSitemapJSONRequestBody = AddSitemapRequest
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
@@ -145,10 +128,10 @@ type ServerInterface interface {
 	UpdateLinks(w http.ResponseWriter, r *http.Request)
 	// Delete link
 	// (DELETE /links/{hash})
-	DeleteLink(w http.ResponseWriter, r *http.Request, hash HashParam)
+	DeleteLink(w http.ResponseWriter, r *http.Request, hash string)
 	// Get link
 	// (GET /links/{hash})
-	GetLink(w http.ResponseWriter, r *http.Request, hash HashParam)
+	GetLink(w http.ResponseWriter, r *http.Request, hash string)
 	// Add Sitemap
 	// (POST /sitemap)
 	AddSitemap(w http.ResponseWriter, r *http.Request)
@@ -178,13 +161,13 @@ func (_ Unimplemented) UpdateLinks(w http.ResponseWriter, r *http.Request) {
 
 // Delete link
 // (DELETE /links/{hash})
-func (_ Unimplemented) DeleteLink(w http.ResponseWriter, r *http.Request, hash HashParam) {
+func (_ Unimplemented) DeleteLink(w http.ResponseWriter, r *http.Request, hash string) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
 // Get link
 // (GET /links/{hash})
-func (_ Unimplemented) GetLink(w http.ResponseWriter, r *http.Request, hash HashParam) {
+func (_ Unimplemented) GetLink(w http.ResponseWriter, r *http.Request, hash string) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
@@ -284,7 +267,7 @@ func (siw *ServerInterfaceWrapper) DeleteLink(w http.ResponseWriter, r *http.Req
 	var err error
 
 	// ------------- Path parameter "hash" -------------
-	var hash HashParam
+	var hash string
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "hash", runtime.ParamLocationPath, chi.URLParam(r, "hash"), &hash)
 	if err != nil {
@@ -310,7 +293,7 @@ func (siw *ServerInterfaceWrapper) GetLink(w http.ResponseWriter, r *http.Reques
 	var err error
 
 	// ------------- Path parameter "hash" -------------
-	var hash HashParam
+	var hash string
 
 	err = runtime.BindStyledParameterWithLocation("simple", false, "hash", runtime.ParamLocationPath, chi.URLParam(r, "hash"), &hash)
 	if err != nil {

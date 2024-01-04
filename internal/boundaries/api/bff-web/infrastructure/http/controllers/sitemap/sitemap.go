@@ -5,6 +5,7 @@ import (
 
 	"github.com/segmentio/encoding/json"
 
+	"github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/api"
 	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/sitemap/v1"
 )
 
@@ -13,11 +14,10 @@ type SitemapController struct {
 }
 
 // Parse - parse sitemap
-func (c *SitemapController) Parse(w http.ResponseWriter, r *http.Request, params any) {
+func (c *SitemapController) AddSitemap(w http.ResponseWriter, r *http.Request) {
 	// Parse request
-	var request v1.ParseRequest
-	decoder := json.NewDecoder(r.Body)
-	err := decoder.Decode(&request)
+	var request api.AddSitemapRequest
+	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
@@ -26,7 +26,9 @@ func (c *SitemapController) Parse(w http.ResponseWriter, r *http.Request, params
 	}
 
 	// Parse link
-	_, err = c.SitemapServiceClient.Parse(r.Context(), &request)
+	_, err = c.SitemapServiceClient.Parse(r.Context(), &v1.ParseRequest{
+		Url: request.Url,
+	})
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck

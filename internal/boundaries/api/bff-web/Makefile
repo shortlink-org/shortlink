@@ -15,4 +15,5 @@ docs: ### Prepare k6 test
 	@docker run --rm -v ${PWD}:/local/ openapitools/openapi-generator-cli generate \
 		-i /local/infrastructure/http/api/api.yaml \
 		-g openapi-yaml \
-		-o /local/infrastructure/http/api
+		-o /local/infrastructure/http/api/render \
+		--skip-validate-spec

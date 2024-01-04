@@ -1,0 +1,40 @@
+components:
+  parameters:
+    CursorParam:
+      in: query
+      name: cursor
+      schema:
+        type: string
+      description: A cursor for use in pagination. This is the ID of the last item in the previous page.
+
+  responses:
+    NotFound:
+      description: Not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    BadRequest:
+      description: Bad request.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        messages:
+          type: array
+          items:
+            type: string
+          description: An array of human-readable messages providing more details about the error.

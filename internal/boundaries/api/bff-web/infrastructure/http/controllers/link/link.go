@@ -81,7 +81,7 @@ func (c *Controller) AddLink(w http.ResponseWriter, r *http.Request) {
 // UpdateLinks - update link
 func (c *Controller) UpdateLinks(w http.ResponseWriter, r *http.Request) {
 	// Parse request
-	var request api.UpdateLinksJSONBody
+	var request api.UpdateLinkRequest
 	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -104,7 +104,7 @@ func (c *Controller) UpdateLinks(w http.ResponseWriter, r *http.Request) {
 	}
 
 	count := 0
-	response := &api.LinksUpdated{
+	response := &api.UpdateLinks200Response{
 		UpdatedCount: &count,
 	}
 
@@ -116,7 +116,7 @@ func (c *Controller) UpdateLinks(w http.ResponseWriter, r *http.Request) {
 }
 
 // GetLink - get link by hash
-func (c *Controller) GetLink(w http.ResponseWriter, r *http.Request, hash api.HashParam) {
+func (c *Controller) GetLink(w http.ResponseWriter, r *http.Request, hash string) {
 	result, err := c.linkServiceClient.Get(r.Context(), &link_rpc.GetRequest{Hash: hash})
 	if err != nil {
 		var errorLink *v1.NotFoundError
@@ -177,7 +177,7 @@ func (c *Controller) GetLinks(w http.ResponseWriter, r *http.Request, params api
 		return
 	}
 
-	response := &api.PaginatedLinksResponse{
+	response := &api.GetLinks200Response{
 		Links:      make([]api.Link, 0, len(result.GetLinks().GetLink())),
 		NextCursor: "",
 	}
@@ -200,7 +200,7 @@ func (c *Controller) GetLinks(w http.ResponseWriter, r *http.Request, params api
 }
 
 // DeleteLink - delete link
-func (c *Controller) DeleteLink(w http.ResponseWriter, r *http.Request, hash api.HashParam) {
+func (c *Controller) DeleteLink(w http.ResponseWriter, r *http.Request, hash string) {
 	_, err := c.linkServiceClient.Delete(r.Context(), &link_rpc.DeleteRequest{Hash: hash})
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)

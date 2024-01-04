@@ -36,9 +36,8 @@ func (api *API) open(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-type", "application/json")
 
 	// Parse request
-	decoder := json.NewDecoder(r.Body)
 	var request billing.Payment
-	err := decoder.Decode(&request)
+	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck,goconst // ignore
