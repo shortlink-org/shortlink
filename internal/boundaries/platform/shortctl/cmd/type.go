@@ -1,6 +1,9 @@
 package main
 
-import "go/token"
+import (
+	"go/token"
+	"sync"
+)
 
 type ENV struct {
 	key         string
@@ -13,5 +16,12 @@ type ENV struct {
 }
 
 type Config struct {
+	mu   sync.Mutex
 	envs []ENV
+}
+
+func (c *Config) appendEnv(env ENV) {
+	c.mu.Lock()
+	c.envs = append(c.envs, env)
+	c.mu.Unlock()
 }
