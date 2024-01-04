@@ -59,12 +59,9 @@ func init() {
 }
 
 func main() {
-	err := pterm.DefaultBigText.WithLetters(
-		putils.LettersFromStringWithStyle("Short", pterm.NewStyle(pterm.FgCyan)),
-		putils.LettersFromStringWithStyle("Link", pterm.NewStyle(pterm.FgLightMagenta))).
-		Render()
+	err := displayBanner()
 	if err != nil {
-		panic(err)
+		log.Fatalf("Error displaying banner: %v", err)
 	}
 
 	config := Config{}
@@ -85,7 +82,20 @@ func main() {
 	}
 }
 
-func (*Config) setConfigDocs(basePath string, config *Config) { // nolint:gocognit
+func displayBanner() error {
+	err := pterm.DefaultBigText.WithLetters(
+		putils.LettersFromStringWithStyle("Short", pterm.NewStyle(pterm.FgCyan)),
+		putils.LettersFromStringWithStyle("Link", pterm.NewStyle(pterm.FgLightMagenta))).
+		Render()
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (*Config) setConfigDocs(basePath string, config *Config) {
 	fset := token.NewFileSet()
 	pkgs, err := parser.ParseDir(fset, basePath, nil, parser.ParseComments)
 	if err != nil {
@@ -95,72 +105,106 @@ func (*Config) setConfigDocs(basePath string, config *Config) { // nolint:gocogn
 	for _, pkg := range pkgs {
 		for fileName, file := range pkg.Files {
 			pterm.Success.Printf("working on file %v\n", fileName)
+			processFile(fset, fileName, file, config, basePath)
+		}
+	}
+}
 
-			ast.Inspect(file, func(n ast.Node) bool {
-				if stmt, ok := n.(*ast.ExprStmt); ok { // nolint:nestif
-					ast.Inspect(stmt.X, func(n ast.Node) bool {
-						if x, ok := n.(*ast.CallExpr); ok {
-							if fun, ok := x.Fun.(*ast.SelectorExpr); ok {
-								if ident, ok := fun.X.(*ast.Ident); ok {
-									if ident.Name == "viper" && fun.Sel.Name == "SetDefault" {
-										env := ENV{
-											pos:         x.Args[0].(*ast.BasicLit).Pos(),
-											fileName:    fileName, // nolint:scopelint
-											key:         x.Args[0].(*ast.BasicLit).Value,
-											fromPackage: filepath.Join(basePath, strings.TrimPrefix(fileName, basePath)),
-										}
+func processFile(fset *token.FileSet, fileName string, file *ast.File, config *Config, basePath string) {
+	ast.Inspect(file, func(n ast.Node) bool {
+		return inspectASTNode(n, fileName, config, basePath)
+	})
 
-										switch arg := x.Args[1].(type) {
-										case *ast.BasicLit:
-											env.value = tool.TrimQuotes(arg.Value)
-											env.kind = arg.Kind.String()
-										case *ast.Ident:
-											if arg.Obj != nil {
-												switch variable := arg.Obj.Decl.(type) {
-												case *ast.AssignStmt:
-													c := variable.Rhs[0].(*ast.CallExpr) // nolint:errcheck
+	processComments(fset, file, config, fileName)
+}
 
-													str := []any{}
-													for i := range c.Args {
-														str = append(str, tool.TrimQuotes(c.Args[i].(*ast.BasicLit).Value))
-													}
+func inspectASTNode(n ast.Node, fileName string, config *Config, basePath string) bool {
+	if stmt, ok := n.(*ast.ExprStmt); ok {
+		ast.Inspect(stmt.X, func(n ast.Node) bool {
+			return extractEnvVariables(n, fileName, config, basePath)
+		})
+		return true
+	}
+	return true
+}
 
-													env.value = fmt.Sprintf(str[0].(string), str[1:]...)
-												}
-											} else {
-												env.value = tool.TrimQuotes(arg.Name)
-											}
-										case *ast.SelectorExpr:
-											env.value = tool.TrimQuotes(fmt.Sprintf("%s.%s", arg.X.(*ast.Ident).Name, arg.Sel.Name))
-										}
+func extractEnvVariables(n ast.Node, fileName string, config *Config, basePath string) bool {
+	callExpr, ok := n.(*ast.CallExpr)
+	if !ok {
+		return true
+	}
 
-										config.envs = append(config.envs, env)
-									}
-								}
+	selectorExpr, ok := callExpr.Fun.(*ast.SelectorExpr)
+	if !ok {
+		return true
+	}
+
+	ident, ok := selectorExpr.X.(*ast.Ident)
+	if !ok || ident.Name != "viper" || selectorExpr.Sel.Name != "SetDefault" {
+		return true
+	}
+
+	// Ensure there are enough arguments for processing
+	if len(callExpr.Args) < 2 {
+		return true
+	}
+
+	env := ENV{
+		pos:         callExpr.Args[0].(*ast.BasicLit).Pos(),
+		fileName:    fileName,
+		key:         callExpr.Args[0].(*ast.BasicLit).Value,
+		fromPackage: filepath.Join(basePath, strings.TrimPrefix(fileName, basePath)),
+	}
+
+	switch arg := callExpr.Args[1].(type) {
+	case *ast.BasicLit:
+		env.value = tool.TrimQuotes(arg.Value)
+		env.kind = arg.Kind.String()
+	case *ast.Ident:
+		if arg.Obj != nil {
+			switch variable := arg.Obj.Decl.(type) {
+			case *ast.AssignStmt:
+				if len(variable.Rhs) > 0 {
+					if call, ok := variable.Rhs[0].(*ast.CallExpr); ok {
+						str := []any{}
+						for i := range call.Args {
+							if basicLit, ok := call.Args[i].(*ast.BasicLit); ok {
+								str = append(str, tool.TrimQuotes(basicLit.Value))
 							}
 						}
-
-						return true
-					})
-
-					return true
-				}
-
-				return true
-			})
-
-			for _, comment := range file.Comments {
-				for _, item := range comment.List {
-					line := fset.Position(item.Pos()).Line
-
-					for index, conf := range config.envs {
-						currentLine := fset.Position(conf.pos).Line
-						if line == currentLine && fileName == conf.fileName {
-							config.envs[index].describe = item.Text[3:] // skip comments symbols
+						if len(str) > 0 {
+							env.value = fmt.Sprintf(str[0].(string), str[1:]...)
 						}
 					}
 				}
 			}
+		} else {
+			env.value = tool.TrimQuotes(arg.Name)
+		}
+	case *ast.SelectorExpr:
+		if xIdent, ok := arg.X.(*ast.Ident); ok {
+			env.value = tool.TrimQuotes(fmt.Sprintf("%s.%s", xIdent.Name, arg.Sel.Name))
+		}
+	}
+
+	config.envs = append(config.envs, env)
+	return true
+}
+
+func processComments(fset *token.FileSet, file *ast.File, config *Config, fileName string) {
+	for _, comment := range file.Comments {
+		for _, item := range comment.List {
+			line := fset.Position(item.Pos()).Line
+			associateCommentsWithEnv(fset, line, item, config, fileName)
+		}
+	}
+}
+
+func associateCommentsWithEnv(fset *token.FileSet, line int, item *ast.Comment, config *Config, fileName string) {
+	for index, conf := range config.envs {
+		currentLine := fset.Position(conf.pos).Line
+		if line == currentLine && fileName == conf.fileName {
+			config.envs[index].describe = strings.TrimSpace(strings.TrimPrefix(item.Text, "//")) // remove comment symbols and trim spaces
 		}
 	}
 }
