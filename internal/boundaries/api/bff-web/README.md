@@ -6,6 +6,14 @@
 > 
 > **HTTP REST API:** Implemented using 'chi' for optimal integration and high performance.
 
+### Getting started
+
+We use Makefile for build and deploy.
+
+```bash
+$> make help # show help message with all commands and targets
+```
+
 ### Docs
 
 - [API](./infrastructure/http/api/api.yaml) - API documentation in Swagger format
