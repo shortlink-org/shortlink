@@ -117,11 +117,20 @@ type UpdateLinksJSONBody struct {
 	Link   *Link       `json:"link,omitempty"`
 }
 
+// AddSitemapJSONBody defines parameters for AddSitemap.
+type AddSitemapJSONBody struct {
+	// Url The URL of the sitemap.
+	Url string `json:"url"`
+}
+
 // AddLinkJSONRequestBody defines body for AddLink for application/json ContentType.
 type AddLinkJSONRequestBody = AddLink
 
 // UpdateLinksJSONRequestBody defines body for UpdateLinks for application/json ContentType.
 type UpdateLinksJSONRequestBody UpdateLinksJSONBody
+
+// AddSitemapJSONRequestBody defines body for AddSitemap for application/json ContentType.
+type AddSitemapJSONRequestBody AddSitemapJSONBody
 
 // ServerInterface represents all server handlers.
 type ServerInterface interface {
@@ -140,6 +149,9 @@ type ServerInterface interface {
 	// Get link
 	// (GET /links/{hash})
 	GetLink(w http.ResponseWriter, r *http.Request, hash HashParam)
+	// Add Sitemap
+	// (POST /sitemap)
+	AddSitemap(w http.ResponseWriter, r *http.Request)
 }
 
 // Unimplemented server implementation that returns http.StatusNotImplemented for each endpoint.
@@ -173,6 +185,12 @@ func (_ Unimplemented) DeleteLink(w http.ResponseWriter, r *http.Request, hash H
 // Get link
 // (GET /links/{hash})
 func (_ Unimplemented) GetLink(w http.ResponseWriter, r *http.Request, hash HashParam) {
+	w.WriteHeader(http.StatusNotImplemented)
+}
+
+// Add Sitemap
+// (POST /sitemap)
+func (_ Unimplemented) AddSitemap(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusNotImplemented)
 }
 
@@ -311,6 +329,21 @@ func (siw *ServerInterfaceWrapper) GetLink(w http.ResponseWriter, r *http.Reques
 	handler.ServeHTTP(w, r.WithContext(ctx))
 }
 
+// AddSitemap operation middleware
+func (siw *ServerInterfaceWrapper) AddSitemap(w http.ResponseWriter, r *http.Request) {
+	ctx := r.Context()
+
+	handler := http.Handler(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		siw.Handler.AddSitemap(w, r)
+	}))
+
+	for i := len(siw.HandlerMiddlewares) - 1; i >= 0; i-- {
+		handler = siw.HandlerMiddlewares[i](handler)
+	}
+
+	handler.ServeHTTP(w, r.WithContext(ctx))
+}
+
 type UnescapedCookieParamError struct {
 	ParamName string
 	Err       error
@@ -438,6 +471,9 @@ func HandlerWithOptions(si ServerInterface, options ChiServerOptions) http.Handl
 	})
 	r.Group(func(r chi.Router) {
 		r.Get(options.BaseURL+"/links/{hash}", wrapper.GetLink)
+	})
+	r.Group(func(r chi.Router) {
+		r.Post(options.BaseURL+"/sitemap", wrapper.AddSitemap)
 	})
 
 	return r

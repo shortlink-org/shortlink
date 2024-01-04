@@ -134,6 +134,67 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 
+  /sitemap:
+    post:
+      summary: Add Sitemap
+      description: Add a new sitemap.
+      operationId: addSitemap
+      tags:
+        - Sitemap
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                url:
+                  type: string
+                  format: uri
+                  description: The URL of the sitemap.
+              required:
+                - url
+              examples:
+                habrQuestion:
+                  summary: Habr Question
+                  value:
+                    url: "https://qna.habr.com/sitemap/questions.xml"
+                williamsPublishing:
+                  summary: Williams Publishing
+                  value:
+                    url: "http://www.williamspublishing.com/sitemap.xml"
+                habrTags:
+                  summary: Habr Tags
+                  value:
+                    url: "https://qna.habr.com/sitemap/tags.xml"
+                piter:
+                  summary: Piter
+                  value:
+                    url: "https://www.piter.com/sitemap.xml"
+                mannIvanovFerberBooks:
+                  summary: MIF Books
+                  value:
+                    url: "https://www.mann-ivanov-ferber.ru/sitemap/books.xml"
+                mannIvanovFerberAuthors:
+                  summary: MIF Authors
+                  value:
+                    url: "https://www.mann-ivanov-ferber.ru/sitemap/authors.xml"
+      responses:
+        '200': # Changed from 201 to 200
+          description: Sitemap processed successfully.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    description: A confirmation message.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+
 components:
   parameters:
     LimitParam:

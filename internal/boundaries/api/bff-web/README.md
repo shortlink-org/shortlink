@@ -1,7 +1,6 @@
 ## BFF: API Gateway for web clients
 
 > [!NOTE]
-> 
 > This is a BFF service for web clients
 > 
 > **HTTP REST API:** Implemented using 'chi' for optimal integration and high performance.
@@ -19,6 +18,7 @@ $> make help # show help message with all commands and targets
 - [API](./infrastructure/http/api/api.yaml) - API documentation in Swagger format
 - [Postman link](./docs/postman/shortlink.postman_collection.json) for test HTTP API
 - [Swagger UI](https://shortlink-org.gitlab.io/shortlink)
+- [ENV configuration](./docs/env.md) - ENV variables for configuration
 
 ### ADR
 
