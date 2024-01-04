@@ -1,7 +1,7 @@
 openapi: 3.0.1
 
 servers:
-  - url: http://localhost:7070/api
+  - url: http://127.0.0.1:7070/api
     description: Local server
   - url: https://shortlink.best/api
     description: Production server
@@ -22,7 +22,7 @@ info:
   description: |
     ShortLink API for managing and retrieving short links.
   contact:
-    email: support@swagger.io
+    email: support@shortlink.best
     name: ShortLink repository
     url: https://github.com/shortlink-org/shortlink/issues
   license:
