@@ -2,7 +2,7 @@
   <configuration default="false" name="shortctl" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="tools">
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$" />
-    <parameters value="--o ./docs/env.md --include-dir &quot;internal,pkg&quot; --exclude-dir &quot;vendor,node_modules,dist,ui,ops,ds&quot;" />
+    <parameters value="--o ./docs/env.md --include-dir &quot;internal/boundaries/link/link&quot; --exclude-dir &quot;vendor&quot;" />
     <envs>
       <env name="GOEXPERIMENT" value="arenas,cgocheck2,loopvar" />
     </envs>
@@ -17,7 +17,7 @@
       </ENTRIES>
     </EXTENSION>
     <kind value="PACKAGE" />
-    <package value="github.com/shortlink-org/shortlink/internal/boundaries/portal/shortctl" />
+    <package value="github.com/shortlink-org/shortlink/internal/boundaries/platform/shortctl/cmd" />
     <directory value="$PROJECT_DIR$/" />
     <filePath value="$PROJECT_DIR$/cmd/cli/ast.go" />
     <method v="2" />
