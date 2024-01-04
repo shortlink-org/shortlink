@@ -3,6 +3,14 @@
 > [!NOTE]
 > Service for work with link-domain.
 
+### Getting started
+
+We use Makefile for build and deploy.
+
+```bash
+$> make help # show help message with all commands and targets
+```
+
 ### ADR
 
 - [ADR-0001](./docs/ADR/decisions/0001-init.md) - Init project
@@ -18,3 +26,4 @@
 ### Docs
 
 - [Contributing](./docs/CONTRIBUTING.md)
+- [ENV configuration](./docs/env.md)

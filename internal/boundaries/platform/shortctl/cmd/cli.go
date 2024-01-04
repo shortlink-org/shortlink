@@ -11,6 +11,7 @@ import (
 	"go/parser"
 	"go/token"
 	"log"
+	"os"
 	"path/filepath"
 	"strings"
 	"sync"
@@ -18,7 +19,6 @@ import (
 	"github.com/pterm/pterm"
 	"github.com/pterm/pterm/putils"
 	"github.com/spf13/cobra"
-	"github.com/spf13/cobra/doc"
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/internal/boundaries/platform/shortctl/internal/tool"
@@ -53,9 +53,17 @@ func init() {
 		log.Fatal(err)
 	}
 
-	// Generate docs
-	if err := doc.GenMarkdownTree(rootCmd, "./internal/boundaries/platform/shortctl"); err != nil {
-		log.Fatal(err)
+	// Retrieve the output file path using Viper
+	outputPath := viper.GetString("o")
+
+	// Extract the directory from the output file path
+	outputDir := filepath.Dir(outputPath)
+
+	// Ensure the directory exists or create it
+	if _, err := os.Stat(outputDir); os.IsNotExist(err) {
+		if err := os.MkdirAll(outputDir, os.ModePerm); err != nil {
+			log.Fatalf("Failed to create directory: %v", err)
+		}
 	}
 }
 

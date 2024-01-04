@@ -18,3 +18,4 @@
 ### Docs
 
 - [Contributing](./docs/CONTRIBUTING.md)
+- [ENV configuration](./docs/env.md)
