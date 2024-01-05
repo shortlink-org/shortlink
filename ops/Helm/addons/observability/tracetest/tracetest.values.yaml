@@ -9,6 +9,25 @@ tracetest:
     global:
       storageClass: local-path
 
+    volumePermissions:
+      enabled: true
+
+    serviceAccount:
+      create: true
+
+    metrics:
+      enabled: true
+
+      serviceMonitor:
+        enabled: true
+        labels:
+          release: prometheus-operator
+
+      prometheusRule:
+        enabled: true
+        labels:
+          release: prometheus-operator
+
     primary:
       persistence:
         storageClass: local-path
