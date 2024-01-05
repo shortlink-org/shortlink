@@ -987,22 +987,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@axis-backstage/plugin-readme@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@axis-backstage/plugin-readme@npm:0.2.1"
+"@axis-backstage/plugin-readme@npm:^0.3.0":
+  version: 0.3.0
+  resolution: "@axis-backstage/plugin-readme@npm:0.3.0"
   dependencies:
     "@backstage/catalog-model": "npm:^1.4.3"
-    "@backstage/core-components": "npm:^0.13.8"
-    "@backstage/core-plugin-api": "npm:^1.8.0"
-    "@backstage/plugin-catalog-react": "npm:^1.9.1"
-    "@backstage/theme": "npm:^0.4.4"
-    "@material-ui/core": "npm:^4.12.2"
-    "@material-ui/icons": "npm:^4.9.1"
-    "@material-ui/lab": "npm:4.0.0-alpha.61"
+    "@backstage/core-components": "npm:^0.13.9"
+    "@backstage/core-plugin-api": "npm:^1.8.1"
+    "@backstage/plugin-catalog-react": "npm:^1.9.2"
+    "@backstage/theme": "npm:^0.5.0"
+    "@mui/icons-material": "npm:^5.15.1"
+    "@mui/material": "npm:^5.15.1"
     react-use: "npm:^17.2.4"
   peerDependencies:
+    "@emotion/react": ^11.11.1
+    "@emotion/styled": ^11.11.0
     react: ^16.13.1 || ^17.0.0
-  checksum: 9ac687c58ee84671d5e5bb9d6e1c788f9fb5c5b13bc7fe509e587729b8b757d08d5663227891135510c878e20ee5e4222b003ebf7406e5311ab04436f6a8a65a
+  checksum: 276b967638014ab9b6a7d6f05309e60ea63ad72464017349aa722164ff8b5ddca374ff867016ad343d8c663aca74b890501014c11254add63b68d45784ec48ef
   languageName: node
   linkType: hard
 
@@ -7527,7 +7528,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/icons-material@npm:^5.15.3":
+"@mui/icons-material@npm:^5.15.1, @mui/icons-material@npm:^5.15.3":
   version: 5.15.3
   resolution: "@mui/icons-material@npm:5.15.3"
   dependencies:
@@ -7576,7 +7577,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/material@npm:^5.15.3":
+"@mui/material@npm:^5.15.1, @mui/material@npm:^5.15.3":
   version: 5.15.3
   resolution: "@mui/material@npm:5.15.3"
   dependencies:
@@ -13168,7 +13169,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "app@workspace:packages/app"
   dependencies:
-    "@axis-backstage/plugin-readme": "npm:^0.2.1"
+    "@axis-backstage/plugin-readme": "npm:^0.3.0"
     "@axis-backstage/plugin-readme-backend": "npm:^0.3.0"
     "@backstage/app-defaults": "npm:^1.4.6"
     "@backstage/catalog-model": "npm:^1.4.3"
