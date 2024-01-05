@@ -21,8 +21,7 @@ func GetKeys() []string {
 }
 
 // TODO: write generator for protoc
-func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool { //nolint:gocognit,cyclop // ignore
-	// Skip empty filter
+func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool {
 	if filter == nil {
 		return true
 	}
@@ -31,110 +30,58 @@ func isFilterSuccess(link *domain.Link, filter *domain.FilterLink) bool { //noli
 	l := reflect.ValueOf(link)
 
 	for _, key := range GetKeys() {
-		val, okStringFilterInput := reflect.Indirect(r).FieldByName(key).Interface().(*domain.StringFilterInput)
-		if !okStringFilterInput {
+		val, ok := reflect.Indirect(r).FieldByName(key).Interface().(*domain.StringFilterInput)
+		if !ok || val == nil {
 			continue
 		}
 
-		// Skip empty value
-		if val == nil {
+		linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
+		if !ok {
 			continue
 		}
 
-		// Eq
-		if val.Eq != "" {
-			linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
-			if !ok {
-				continue
-			}
-
-			if linkValue != val.Eq {
-				return false
-			}
+		if !isStringFilterMatch(linkValue, val) {
+			return false
 		}
+	}
 
-		// Ne
-		if val.Ne != "" {
-			linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
-			if !ok {
-				continue
-			}
+	return true
+}
 
-			if linkValue == val.Ne {
-				return false
-			}
+func isStringFilterMatch(linkValue string, filter *domain.StringFilterInput) bool {
+	if filter.Eq != "" && linkValue != filter.Eq {
+		return false
+	}
+
+	if filter.Ne != "" && linkValue == filter.Ne {
+		return false
+	}
+
+	if filter.Lt != "" && !(linkValue < filter.Lt) {
+		return false
+	}
+
+	if filter.Le != "" && !(linkValue <= filter.Le) {
+		return false
+	}
+
+	if filter.Gt != "" && !(linkValue > filter.Gt) {
+		return false
+	}
+
+	if filter.Ge != "" && !(linkValue >= filter.Ge) {
+		return false
+	}
+
+	for _, c := range filter.Contains {
+		if c != "" && !strings.Contains(linkValue, c) {
+			return false
 		}
+	}
 
-		// Lt
-		if val.Lt != "" {
-			linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
-			if !ok {
-				continue
-			}
-
-			if linkValue > val.Lt {
-				return false
-			}
-		}
-
-		// Le
-		if val.Le != "" {
-			linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
-			if !ok {
-				continue
-			}
-
-			if linkValue >= val.Le {
-				return false
-			}
-		}
-
-		// Gt
-		if val.Gt != "" {
-			linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
-			if !ok {
-				continue
-			}
-
-			if linkValue < val.Gt {
-				return false
-			}
-		}
-
-		// Ge
-		if val.Ge != "" {
-			linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
-			if !ok {
-				continue
-			}
-
-			if linkValue <= val.Ge {
-				return false
-			}
-		}
-
-		// Contains
-		if val.Contains != "" {
-			linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
-			if !ok {
-				continue
-			}
-
-			if !strings.Contains(linkValue, val.Contains) {
-				return false
-			}
-		}
-
-		// NotContains
-		if val.Contains != "" {
-			linkValue, ok := reflect.Indirect(l).FieldByName(key).Interface().(string)
-			if !ok {
-				continue
-			}
-
-			if strings.Contains(linkValue, val.NotContains) {
-				return false
-			}
+	for _, nc := range filter.NotContains {
+		if nc != "" && strings.Contains(linkValue, nc) {
+			return false
 		}
 	}
 

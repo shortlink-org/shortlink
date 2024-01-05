@@ -8,7 +8,6 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"strings"
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"github.com/authzed/authzed-go/v1"
@@ -165,6 +164,14 @@ func (uc *UC) List(ctx context.Context, filter *domain.FilterLink) (*domain.Link
 	userID := session.GetUserID(ctx)
 	links := &domain.Links{}
 
+	if filter == nil {
+		filter = &domain.FilterLink{
+			Hash: &domain.StringFilterInput{
+				Contains: []string{},
+			},
+		}
+	}
+
 	// create a new saga for a get list of a link
 	sagaListLink, errs := saga.New(SAGA_NAME, saga.SetLogger(uc.log)).
 		WithContext(ctx).
@@ -173,7 +180,6 @@ func (uc *UC) List(ctx context.Context, filter *domain.FilterLink) (*domain.Link
 		return nil, err
 	}
 
-	myLinks := []string{}
 	_, errs = sagaListLink.AddStep(SAGA_STEP_LOOKUP).
 		Then(func(ctx context.Context) error {
 			relationship := &permission.LookupResourcesRequest{
@@ -197,7 +203,7 @@ func (uc *UC) List(ctx context.Context, filter *domain.FilterLink) (*domain.Link
 					return errRead
 				}
 
-				myLinks = append(myLinks, resp.GetResourceObjectId())
+				filter.Hash.Contains = append(filter.Hash.Contains, resp.GetResourceObjectId())
 			}
 		}).Reject(func(ctx context.Context, thenErr error) error {
 		return &domain.PermissionDeniedError{Err: thenErr}
@@ -210,12 +216,6 @@ func (uc *UC) List(ctx context.Context, filter *domain.FilterLink) (*domain.Link
 		Needs(SAGA_STEP_LOOKUP).
 		Then(func(ctx context.Context) error {
 			var err error
-
-			// use filter
-			hash := strings.Join(myLinks, ",")
-			filter.Hash = &domain.StringFilterInput{
-				Contains: hash,
-			}
 
 			links, err = uc.store.List(ctx, filter)
 			if err != nil {

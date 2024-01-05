@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	version        = "1.0.0"
+	version        = "1.1.0"
 	commonFilename = "common_types.orm.go" // Name of the file where common types are defined
 )
 
@@ -63,7 +63,7 @@ func generateFile(gen *protogen.Plugin, file *protogen.File) {
 
 	// Add import for Squirrel
 	g.P("import (")
-	g.P("\"fmt\"")
+	g.P("\"strings\"")
 	g.P("\"github.com/Masterminds/squirrel\"")
 	g.P("\"go.mongodb.org/mongo-driver/bson\"")
 	// Add any other imports your generated code needs
@@ -180,16 +180,32 @@ func generateFieldFilterConditions(g *protogen.GeneratedFile, fieldName, dbColum
 	}
 
 	// Handle Contains
+	g.P("if len(f.", fieldName, ".Contains) > 0 {")
+	g.P("containsQueries := []string{}")
+	g.P("containsArgs := []interface{}{}")
 	g.P("for _, v := range f.", fieldName, ".Contains {")
-	g.P("if v != \"\" {")
-	g.P("query = query.Where(\"", dbColumnName, " LIKE '%\" || ? || \"%'\", v)")
+	g.P("    if v != \"\" {")
+	g.P("        containsQueries = append(containsQueries, \"", dbColumnName, " LIKE ?\")")
+	g.P("        containsArgs = append(containsArgs, \"%\" + v + \"%\")")
+	g.P("    }")
+	g.P("}")
+	g.P("if len(containsQueries) > 0 {")
+	g.P("    query = query.Where(\"(\" + strings.Join(containsQueries, \" OR \") + \")\", containsArgs...)")
 	g.P("}")
 	g.P("}")
 
 	// Handle NotContains
+	g.P("if len(f.", fieldName, ".NotContains) > 0 {")
+	g.P("notContainsQueries := []string{}")
+	g.P("notContainsArgs := []interface{}{}")
 	g.P("for _, v := range f.", fieldName, ".NotContains {")
-	g.P("if v != \"\" {")
-	g.P("query = query.Where(\"", dbColumnName, " NOT LIKE '%\" || ? || \"%'\", v)")
+	g.P("    if v != \"\" {")
+	g.P("        notContainsQueries = append(notContainsQueries, \"", dbColumnName, " NOT LIKE ?\")")
+	g.P("        notContainsArgs = append(notContainsArgs, \"%\" + v + \"%\")")
+	g.P("    }")
+	g.P("}")
+	g.P("if len(notContainsQueries) > 0 {")
+	g.P("    query = query.Where(\"(\" + strings.Join(notContainsQueries, \" OR \") + \")\", notContainsArgs...)")
 	g.P("}")
 	g.P("}")
 

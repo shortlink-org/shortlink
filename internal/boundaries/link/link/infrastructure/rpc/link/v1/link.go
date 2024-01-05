@@ -2,7 +2,9 @@ package v1
 
 import (
 	"context"
+	"strings"
 
+	"github.com/segmentio/encoding/json"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
@@ -25,12 +27,11 @@ func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error)
 	// Parse args
 	filter := &v1.FilterLink{}
 
-	// TODO: update filter
-	// if in.GetFilter() != "" {
-	// 	if json.NewDecoder(strings.NewReader(in.GetFilter())).Decode(&filter) != nil {
-	// 		return nil, ErrParsePayloadAsString
-	// 	}
-	// }
+	if in.GetFilter() != "" {
+		if json.NewDecoder(strings.NewReader(in.GetFilter())).Decode(&filter) != nil {
+			return nil, ErrParsePayloadAsString
+		}
+	}
 
 	resp, err := l.service.List(ctx, filter)
 	if err != nil {

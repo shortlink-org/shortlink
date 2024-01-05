@@ -54,10 +54,10 @@ func TestFilterLink_BuildFilter(t *testing.T) {
 			name: "Equal and Contains",
 			filter: fixtures.FilterLink{
 				Url:      &fixtures.StringFilterInput{Eq: "https://example.com"},
-				Describe: &fixtures.StringFilterInput{Contains: "test"},
+				Describe: &fixtures.StringFilterInput{Contains: []string{"test", "other"}},
 			},
-			expectedSQL:  "SELECT * FROM links WHERE url = ? AND describe LIKE '%' || ?",
-			expectedArgs: []any{"https://example.com", "test"},
+			expectedSQL:  "SELECT * FROM links WHERE url = ? AND (describe LIKE ? OR describe LIKE ?)",
+			expectedArgs: []any{"https://example.com", "%test%", "%other%"},
 		},
 		{
 			name: "Not Equal and Starts With",
@@ -95,17 +95,17 @@ func TestFilterLink_BuildFilter(t *testing.T) {
 					EndsWith:   ".com",
 				},
 				Describe: &fixtures.StringFilterInput{
-					Contains:    "test",
-					NotContains: "example",
+					Contains:    []string{"test"},
+					NotContains: []string{"example"},
 					Gt:          "a",
 					Lt:          "m",
 				},
 			},
 			expectedSQL: "SELECT * FROM links WHERE url <> ? AND url LIKE '%' || ? AND url LIKE ? || '%' AND " +
-				"describe < ? AND describe > ? AND describe LIKE '%' || ? AND describe NOT LIKE ?",
+				"describe < ? AND describe > ? AND (describe LIKE ?) AND (describe NOT LIKE ?)",
 			expectedArgs: []any{
 				"https://example.org", "https", ".com",
-				"m", "a", "test", "example", // Adjusted to match actual behavior
+				"m", "a", "%test%", "%example%", // Adjusted to match actual behavior
 			},
 		},
 		{

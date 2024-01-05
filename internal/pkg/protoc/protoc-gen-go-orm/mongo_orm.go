@@ -41,12 +41,15 @@ func generateBuildMongoFilterMethod(g *protogen.GeneratedFile, structName string
 		g.P("if f.", fieldName, ".Ge != \"\" {")
 		g.P("fieldFilter[\"$gte\"] = f.", fieldName, ".Ge")
 		g.P("}")
-		g.P("if f.", fieldName, ".Contains != \"\" {")
-		g.P("fieldFilter[\"$regex\"] = bson.M{\"$regex\": f.", fieldName, ".Contains, \"$options\": \"i\"}") // Case-insensitive search
+
+		// Handle Contains as an array
+		g.P("if len(f.", fieldName, ".Contains) > 0 {")
+		g.P("fieldFilter[\"$in\"] = f.", fieldName, ".Contains")
 		g.P("}")
-		g.P("if f.", fieldName, ".NotContains != \"\" {")
-		g.P("regexPattern := fmt.Sprintf(\"^((?!%s).)*$\", f.", fieldName, ".NotContains)")
-		g.P("fieldFilter[\"$regex\"] = bson.M{\"$regex\": regexPattern, \"$options\": \"i\"}") // Case-insensitive, excluding pattern
+
+		// Handle NotContains as an array
+		g.P("if len(f.", fieldName, ".NotContains) > 0 {")
+		g.P("fieldFilter[\"$nin\"] = f.", fieldName, ".NotContains")
 		g.P("}")
 
 		g.P("if len(fieldFilter) > 0 {")

@@ -20,19 +20,19 @@ func TestFilter_BuildMongoFilter(t *testing.T) {
 		{
 			name: "Test Url Contains",
 			filter: fixtures.FilterLink{
-				Url: &fixtures.StringFilterInput{Contains: "example.com"},
+				Url: &fixtures.StringFilterInput{Contains: []string{"example.com"}},
 			},
-			expected: bson.M{"url": bson.M{"$regex": bson.M{"$regex": "example.com", "$options": "i"}}},
+			expected: bson.M{"url": bson.M{"$in": []string{"example.com"}}},
 		},
 		{
 			name: "Hash Equals and Describe NotContains",
 			filter: fixtures.FilterLink{
 				Hash:     &fixtures.StringFilterInput{Eq: "123abc"},
-				Describe: &fixtures.StringFilterInput{NotContains: "test"},
+				Describe: &fixtures.StringFilterInput{NotContains: []string{"test"}},
 			},
 			expected: bson.M{
 				"hash":     bson.M{"$eq": "123abc"},
-				"describe": bson.M{"$regex": bson.M{"$regex": "^((?!test).)*$", "$options": "i"}},
+				"describe": bson.M{"$nin": []string{"test"}},
 			},
 		},
 		// Add more test cases for other conditions...
