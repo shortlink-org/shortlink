@@ -109,12 +109,7 @@ func (s *Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
 func (s *Store) List(ctx context.Context, filter *domain.FilterLink) (*domain.Links, error) {
 	// Set default filter
 	if filter == nil {
-		filter = &domain.FilterLink{
-			Pagination: &domain.Pagination{
-				Limit: 10, //nolint:gomnd // default limit
-				Page:  0,
-			},
-		}
+		filter = &domain.FilterLink{}
 	}
 
 	request := psql.Select("url", "hash", "describe", "created_at", "updated_at").
@@ -133,7 +128,7 @@ func (s *Store) List(ctx context.Context, filter *domain.FilterLink) (*domain.Li
 	}
 	defer rows.Close()
 
-	links := make([]*domain.Link, 0, filter.Pagination.Limit)
+	links := make([]*domain.Link, 0)
 	for rows.Next() {
 		var (
 			url       string

@@ -53,6 +53,7 @@ func (api *Server) run(config http_server.Config, params Config) error {
 	r.Use(middleware.RealIP)
 	r.Use(middleware.Heartbeat("/healthz"))
 	r.Use(middleware.Recoverer)
+	r.Use(middleware.SetHeader("Content-Type", "application/json"))
 
 	// Set a timeout value on the request context (ctx), that will signal
 	// through ctx.Done() that the request has timed out and further

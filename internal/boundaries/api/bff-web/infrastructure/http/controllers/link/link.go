@@ -5,15 +5,12 @@ import (
 	"net/http"
 
 	"github.com/segmentio/encoding/json"
-	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http/api"
 	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/link/v1"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 )
-
-var jsonpb protojson.MarshalOptions
 
 type Controller struct {
 	log logger.Logger
@@ -151,16 +148,19 @@ func (c *Controller) GetLink(w http.ResponseWriter, r *http.Request, hash string
 
 // GetLinks - get links
 func (c *Controller) GetLinks(w http.ResponseWriter, r *http.Request, params api.GetLinksParams) {
-	// Get filter
-	filter, err := json.Marshal(params.Filter)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
+	// TODO: add mapper for filter
 
-		return
+	request := &link_rpc.ListRequest{}
+
+	if params.Cursor != nil {
+		request.Cursor = *params.Cursor
 	}
 
-	result, err := c.linkServiceClient.List(r.Context(), &link_rpc.ListRequest{Filter: string(filter)})
+	if params.Limit != nil {
+		request.Limit = uint32(*params.Limit)
+	}
+
+	result, err := c.linkServiceClient.List(r.Context(), request)
 	if err != nil {
 		var errorLink *v1.NotFoundError
 
@@ -179,7 +179,7 @@ func (c *Controller) GetLinks(w http.ResponseWriter, r *http.Request, params api
 
 	response := &api.GetLinks200Response{
 		Links:      make([]api.Link, 0, len(result.GetLinks().GetLink())),
-		NextCursor: "",
+		NextCursor: result.GetCursor(),
 	}
 
 	for _, link := range result.GetLinks().GetLink() {

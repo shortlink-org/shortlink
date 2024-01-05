@@ -38,7 +38,7 @@ paths:
       tags:
         - Link
       parameters:
-        - $ref: 'link.yaml#/components/parameters/LinkLimitParam'
+        - $ref: 'base.yaml#/components/parameters/LimitParam'
         - $ref: 'base.yaml#/components/parameters/CursorParam'
         - in: query
           name: filter

@@ -33,13 +33,14 @@ func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error)
 		}
 	}
 
-	resp, err := l.service.List(ctx, filter)
+	resp, cursor, err := l.service.List(ctx, filter, in.GetCursor(), in.GetLimit())
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}
 
 	return &ListResponse{
-		Links: resp,
+		Links:  resp,
+		Cursor: *cursor,
 	}, nil
 }
 

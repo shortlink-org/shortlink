@@ -69,9 +69,7 @@ func (s *Store) List(ctx context.Context, filter *v1.FilterLink) (*v12.LinksView
 	links := psql.Select("hash, describe, ts_headline(meta_description, q, 'StartSel=<em>, StopSel=</em>') as meta_description, created_at, updated_at").
 		From(fmt.Sprintf(`link.link_view, to_tsquery('%s') AS q`, filter.Url.Contains)).
 		Where("make_tsvector_link_view(meta_keywords, meta_description) @@ q").
-		OrderBy("ts_rank(make_tsvector_link_view(meta_keywords, meta_description), q) DESC").
-		Limit(uint64(filter.Pagination.Limit)).
-		Offset(uint64(filter.Pagination.Page * filter.Pagination.Limit))
+		OrderBy("ts_rank(make_tsvector_link_view(meta_keywords, meta_description), q) DESC")
 	q, args, err := links.ToSql()
 	if err != nil {
 		return nil, err

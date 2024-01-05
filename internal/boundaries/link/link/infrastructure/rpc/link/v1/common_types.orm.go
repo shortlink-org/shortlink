@@ -15,8 +15,3 @@ type StringFilterInput struct { // nolint:unused
 	IsEmpty     bool     `json:"isEmpty,omitempty"`
 	IsNotEmpty  bool     `json:"isNotEmpty,omitempty"`
 }
-
-type Pagination struct {
-	Page  int
-	Limit int
-}

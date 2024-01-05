@@ -38,12 +38,18 @@ message GetResponse {
 message ListRequest {
   // Filter is the filter of the list.
   string filter = 1;
+  // Limit is the limit of the list.
+  uint32 limit = 2;
+  // Cursor is the token of the list.
+  string cursor = 3;
 }
 
 // ListResponse is the response message for LinkService.List.
 message ListResponse {
   // Links is the list of links.
   domain.link.v1.Links links = 1;
+  // Cursor is the next token of the list.
+  string cursor = 2;
 }
 
 // AddRequest is the request message for LinkService.Add.

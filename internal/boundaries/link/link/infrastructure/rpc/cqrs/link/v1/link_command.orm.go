@@ -13,8 +13,7 @@ import (
 )
 
 type FilterAddRequest struct {
-	Link       *StringFilterInput `json:"link"`
-	Pagination *Pagination        `json:"pagination,omitempty"`
+	Link *StringFilterInput `json:"link"`
 }
 
 func (f *FilterAddRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
@@ -76,14 +75,6 @@ func (f *FilterAddRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.Se
 			query = query.Where("link <> '' AND link IS NOT NULL")
 		}
 	}
-	if f.Pagination != nil {
-		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
-			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
-			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
-		} else if f.Pagination.Limit > 0 {
-			query = query.Limit(uint64(f.Pagination.Limit))
-		}
-	}
 	return query
 }
 func (f *FilterAddRequest) BuildMongoFilter() bson.M {
@@ -125,8 +116,7 @@ func (f *FilterAddRequest) BuildMongoFilter() bson.M {
 }
 
 type FilterAddResponse struct {
-	Link       *StringFilterInput `json:"link"`
-	Pagination *Pagination        `json:"pagination,omitempty"`
+	Link *StringFilterInput `json:"link"`
 }
 
 func (f *FilterAddResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
@@ -188,14 +178,6 @@ func (f *FilterAddResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.S
 			query = query.Where("link <> '' AND link IS NOT NULL")
 		}
 	}
-	if f.Pagination != nil {
-		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
-			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
-			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
-		} else if f.Pagination.Limit > 0 {
-			query = query.Limit(uint64(f.Pagination.Limit))
-		}
-	}
 	return query
 }
 func (f *FilterAddResponse) BuildMongoFilter() bson.M {
@@ -237,8 +219,7 @@ func (f *FilterAddResponse) BuildMongoFilter() bson.M {
 }
 
 type FilterUpdateRequest struct {
-	Link       *StringFilterInput `json:"link"`
-	Pagination *Pagination        `json:"pagination,omitempty"`
+	Link *StringFilterInput `json:"link"`
 }
 
 func (f *FilterUpdateRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
@@ -300,14 +281,6 @@ func (f *FilterUpdateRequest) BuildFilter(query squirrel.SelectBuilder) squirrel
 			query = query.Where("link <> '' AND link IS NOT NULL")
 		}
 	}
-	if f.Pagination != nil {
-		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
-			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
-			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
-		} else if f.Pagination.Limit > 0 {
-			query = query.Limit(uint64(f.Pagination.Limit))
-		}
-	}
 	return query
 }
 func (f *FilterUpdateRequest) BuildMongoFilter() bson.M {
@@ -349,8 +322,7 @@ func (f *FilterUpdateRequest) BuildMongoFilter() bson.M {
 }
 
 type FilterUpdateResponse struct {
-	Link       *StringFilterInput `json:"link"`
-	Pagination *Pagination        `json:"pagination,omitempty"`
+	Link *StringFilterInput `json:"link"`
 }
 
 func (f *FilterUpdateResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
@@ -412,14 +384,6 @@ func (f *FilterUpdateResponse) BuildFilter(query squirrel.SelectBuilder) squirre
 			query = query.Where("link <> '' AND link IS NOT NULL")
 		}
 	}
-	if f.Pagination != nil {
-		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
-			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
-			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
-		} else if f.Pagination.Limit > 0 {
-			query = query.Limit(uint64(f.Pagination.Limit))
-		}
-	}
 	return query
 }
 func (f *FilterUpdateResponse) BuildMongoFilter() bson.M {
@@ -461,8 +425,7 @@ func (f *FilterUpdateResponse) BuildMongoFilter() bson.M {
 }
 
 type FilterDeleteRequest struct {
-	Hash       *StringFilterInput `json:"hash"`
-	Pagination *Pagination        `json:"pagination,omitempty"`
+	Hash *StringFilterInput `json:"hash"`
 }
 
 func (f *FilterDeleteRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
@@ -522,14 +485,6 @@ func (f *FilterDeleteRequest) BuildFilter(query squirrel.SelectBuilder) squirrel
 		}
 		if f.Hash.IsNotEmpty {
 			query = query.Where("hash <> '' AND hash IS NOT NULL")
-		}
-	}
-	if f.Pagination != nil {
-		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
-			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
-			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
-		} else if f.Pagination.Limit > 0 {
-			query = query.Limit(uint64(f.Pagination.Limit))
 		}
 	}
 	return query

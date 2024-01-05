@@ -38,14 +38,6 @@ components:
                 $ref: '#/components/schemas/Link'
 
   parameters:
-    LinkLimitParam:
-      in: query
-      name: limit
-      schema:
-        type: integer
-        default: 10
-      description: The number of links to return per page.
-
     LinkHashParam:
       name: hash
       in: path

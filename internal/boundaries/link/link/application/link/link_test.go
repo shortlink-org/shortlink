@@ -20,7 +20,7 @@ import (
 
 	mockPermission "github.com/shortlink-org/shortlink/internal/boundaries/link/link/application/link/mocks/authzed"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/application/link/mocks/crud"
-	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/application/link/mocks/metadata"
+	metadata "github.com/shortlink-org/shortlink/internal/boundaries/link/link/application/link/mocks/metadata"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/application/link/mocks/mq"
 	v1 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/domain/link/v1"
 	metadata_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/rpc/metadata/v1"

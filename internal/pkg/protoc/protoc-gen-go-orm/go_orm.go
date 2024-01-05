@@ -92,7 +92,6 @@ func generateStructForMessage(message *protogen.Message, g *protogen.GeneratedFi
 		goType := "*" + "StringFilterInput"
 		g.P(fieldName, " ", goType, " `json:\"", strings.ToLower(fieldName), "\"`")
 	}
-	g.P("Pagination ", "*Pagination", " `json:\"pagination,omitempty\"`")
 	g.P("}")
 	g.P()
 
@@ -125,13 +124,6 @@ func generateCommonFile(gen *protogen.Plugin, file *protogen.File) {
 	g.P("    IsNotEmpty   bool      `json:\"isNotEmpty,omitempty\"`")  // Is Not Empty
 	g.P("}")
 	g.P()
-
-	// Define the Pagination struct
-	g.P("type Pagination struct {")
-	g.P("    Page  int")
-	g.P("    Limit int")
-	g.P("}")
-	g.P()
 }
 
 func generateBuildFilterMethod(g *protogen.GeneratedFile, structName string, fields []*protogen.Field) {
@@ -145,16 +137,6 @@ func generateBuildFilterMethod(g *protogen.GeneratedFile, structName string, fie
 		dbColumnName := strings.ToLower(fieldName)
 		generateFieldFilterConditions(g, fieldName, dbColumnName)
 	}
-
-	// Add pagination logic
-	g.P("if f.Pagination != nil {")
-	g.P("if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {")
-	g.P("offset := (f.Pagination.Page - 1) * f.Pagination.Limit")
-	g.P("query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))")
-	g.P("} else if f.Pagination.Limit > 0 {")
-	g.P("query = query.Limit(uint64(f.Pagination.Limit))")
-	g.P("}")
-	g.P("}")
 
 	g.P("return query")
 	g.P("}")

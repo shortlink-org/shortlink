@@ -22,7 +22,6 @@ type FilterLinkView struct {
 	MetaKeywords    *StringFilterInput `json:"metakeywords"`
 	CreatedAt       *StringFilterInput `json:"createdat"`
 	UpdatedAt       *StringFilterInput `json:"updatedat"`
-	Pagination      *Pagination        `json:"pagination,omitempty"`
 }
 
 func (f *FilterLinkView) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
@@ -548,14 +547,6 @@ func (f *FilterLinkView) BuildFilter(query squirrel.SelectBuilder) squirrel.Sele
 			query = query.Where("updatedat <> '' AND updatedat IS NOT NULL")
 		}
 	}
-	if f.Pagination != nil {
-		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
-			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
-			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
-		} else if f.Pagination.Limit > 0 {
-			query = query.Limit(uint64(f.Pagination.Limit))
-		}
-	}
 	return query
 }
 func (f *FilterLinkView) BuildMongoFilter() bson.M {
@@ -837,18 +828,9 @@ func (f *FilterLinkView) BuildMongoFilter() bson.M {
 }
 
 type FilterLinksView struct {
-	Pagination *Pagination `json:"pagination,omitempty"`
 }
 
 func (f *FilterLinksView) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
-	if f.Pagination != nil {
-		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
-			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
-			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
-		} else if f.Pagination.Limit > 0 {
-			query = query.Limit(uint64(f.Pagination.Limit))
-		}
-	}
 	return query
 }
 func (f *FilterLinksView) BuildMongoFilter() bson.M {

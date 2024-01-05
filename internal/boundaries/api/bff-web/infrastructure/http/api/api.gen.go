@@ -98,7 +98,7 @@ type UpdateLinkRequest = UpdateLinksRequest
 
 // GetLinksParams defines parameters for GetLinks.
 type GetLinksParams struct {
-	// Limit The number of links to return per page.
+	// Limit The number of items to return per page.
 	Limit *int `form:"limit,omitempty" json:"limit,omitempty"`
 
 	// Cursor A cursor for use in pagination. This is the ID of the last item in the previous page.

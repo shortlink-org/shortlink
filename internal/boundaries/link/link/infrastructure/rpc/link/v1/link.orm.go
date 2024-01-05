@@ -13,8 +13,7 @@ import (
 )
 
 type FilterGetRequest struct {
-	Hash       *StringFilterInput `json:"hash"`
-	Pagination *Pagination        `json:"pagination,omitempty"`
+	Hash *StringFilterInput `json:"hash"`
 }
 
 func (f *FilterGetRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
@@ -76,14 +75,6 @@ func (f *FilterGetRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.Se
 			query = query.Where("hash <> '' AND hash IS NOT NULL")
 		}
 	}
-	if f.Pagination != nil {
-		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
-			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
-			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
-		} else if f.Pagination.Limit > 0 {
-			query = query.Limit(uint64(f.Pagination.Limit))
-		}
-	}
 	return query
 }
 func (f *FilterGetRequest) BuildMongoFilter() bson.M {
@@ -125,8 +116,7 @@ func (f *FilterGetRequest) BuildMongoFilter() bson.M {
 }
 
 type FilterGetResponse struct {
-	Link       *StringFilterInput `json:"link"`
-	Pagination *Pagination        `json:"pagination,omitempty"`
+	Link *StringFilterInput `json:"link"`
 }
 
 func (f *FilterGetResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
@@ -188,14 +178,6 @@ func (f *FilterGetResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.S
 			query = query.Where("link <> '' AND link IS NOT NULL")
 		}
 	}
-	if f.Pagination != nil {
-		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
-			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
-			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
-		} else if f.Pagination.Limit > 0 {
-			query = query.Limit(uint64(f.Pagination.Limit))
-		}
-	}
 	return query
 }
 func (f *FilterGetResponse) BuildMongoFilter() bson.M {
@@ -237,8 +219,9 @@ func (f *FilterGetResponse) BuildMongoFilter() bson.M {
 }
 
 type FilterListRequest struct {
-	Filter     *StringFilterInput `json:"filter"`
-	Pagination *Pagination        `json:"pagination,omitempty"`
+	Filter *StringFilterInput `json:"filter"`
+	Limit  *StringFilterInput `json:"limit"`
+	Cursor *StringFilterInput `json:"cursor"`
 }
 
 func (f *FilterListRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
@@ -300,12 +283,120 @@ func (f *FilterListRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.S
 			query = query.Where("filter <> '' AND filter IS NOT NULL")
 		}
 	}
-	if f.Pagination != nil {
-		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
-			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
-			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
-		} else if f.Pagination.Limit > 0 {
-			query = query.Limit(uint64(f.Pagination.Limit))
+	if f.Limit != nil {
+		if f.Limit.Eq != "" {
+			query = query.Where("limit = ?", f.Limit.Eq)
+		}
+		if f.Limit.Ne != "" {
+			query = query.Where("limit <> ?", f.Limit.Ne)
+		}
+		if f.Limit.Lt != "" {
+			query = query.Where("limit < ?", f.Limit.Lt)
+		}
+		if f.Limit.Le != "" {
+			query = query.Where("limit <= ?", f.Limit.Le)
+		}
+		if f.Limit.Gt != "" {
+			query = query.Where("limit > ?", f.Limit.Gt)
+		}
+		if f.Limit.Ge != "" {
+			query = query.Where("limit >= ?", f.Limit.Ge)
+		}
+		if f.Limit.StartsWith != "" {
+			query = query.Where("limit LIKE '%' || ?", f.Limit.StartsWith)
+		}
+		if f.Limit.EndsWith != "" {
+			query = query.Where("limit LIKE ? || '%'", f.Limit.EndsWith)
+		}
+		if len(f.Limit.Contains) > 0 {
+			containsQueries := []string{}
+			containsArgs := []interface{}{}
+			for _, v := range f.Limit.Contains {
+				if v != "" {
+					containsQueries = append(containsQueries, "limit LIKE ?")
+					containsArgs = append(containsArgs, "%"+v+"%")
+				}
+			}
+			if len(containsQueries) > 0 {
+				query = query.Where("("+strings.Join(containsQueries, " OR ")+")", containsArgs...)
+			}
+		}
+		if len(f.Limit.NotContains) > 0 {
+			notContainsQueries := []string{}
+			notContainsArgs := []interface{}{}
+			for _, v := range f.Limit.NotContains {
+				if v != "" {
+					notContainsQueries = append(notContainsQueries, "limit NOT LIKE ?")
+					notContainsArgs = append(notContainsArgs, "%"+v+"%")
+				}
+			}
+			if len(notContainsQueries) > 0 {
+				query = query.Where("("+strings.Join(notContainsQueries, " OR ")+")", notContainsArgs...)
+			}
+		}
+		if f.Limit.IsEmpty {
+			query = query.Where("limit = '' OR limit IS NULL")
+		}
+		if f.Limit.IsNotEmpty {
+			query = query.Where("limit <> '' AND limit IS NOT NULL")
+		}
+	}
+	if f.Cursor != nil {
+		if f.Cursor.Eq != "" {
+			query = query.Where("cursor = ?", f.Cursor.Eq)
+		}
+		if f.Cursor.Ne != "" {
+			query = query.Where("cursor <> ?", f.Cursor.Ne)
+		}
+		if f.Cursor.Lt != "" {
+			query = query.Where("cursor < ?", f.Cursor.Lt)
+		}
+		if f.Cursor.Le != "" {
+			query = query.Where("cursor <= ?", f.Cursor.Le)
+		}
+		if f.Cursor.Gt != "" {
+			query = query.Where("cursor > ?", f.Cursor.Gt)
+		}
+		if f.Cursor.Ge != "" {
+			query = query.Where("cursor >= ?", f.Cursor.Ge)
+		}
+		if f.Cursor.StartsWith != "" {
+			query = query.Where("cursor LIKE '%' || ?", f.Cursor.StartsWith)
+		}
+		if f.Cursor.EndsWith != "" {
+			query = query.Where("cursor LIKE ? || '%'", f.Cursor.EndsWith)
+		}
+		if len(f.Cursor.Contains) > 0 {
+			containsQueries := []string{}
+			containsArgs := []interface{}{}
+			for _, v := range f.Cursor.Contains {
+				if v != "" {
+					containsQueries = append(containsQueries, "cursor LIKE ?")
+					containsArgs = append(containsArgs, "%"+v+"%")
+				}
+			}
+			if len(containsQueries) > 0 {
+				query = query.Where("("+strings.Join(containsQueries, " OR ")+")", containsArgs...)
+			}
+		}
+		if len(f.Cursor.NotContains) > 0 {
+			notContainsQueries := []string{}
+			notContainsArgs := []interface{}{}
+			for _, v := range f.Cursor.NotContains {
+				if v != "" {
+					notContainsQueries = append(notContainsQueries, "cursor NOT LIKE ?")
+					notContainsArgs = append(notContainsArgs, "%"+v+"%")
+				}
+			}
+			if len(notContainsQueries) > 0 {
+				query = query.Where("("+strings.Join(notContainsQueries, " OR ")+")", notContainsArgs...)
+			}
+		}
+		if f.Cursor.IsEmpty {
+			query = query.Where("cursor = '' OR cursor IS NULL")
+		}
+		if f.Cursor.IsNotEmpty {
+			query = query.Where("cursor <> '' AND cursor IS NOT NULL")
 		}
 	}
 	return query
@@ -345,12 +436,72 @@ func (f *FilterListRequest) BuildMongoFilter() bson.M {
 			filter["filter"] = fieldFilter
 		}
 	}
+	if f.Limit != nil {
+		fieldFilter := bson.M{}
+		if f.Limit.Eq != "" {
+			fieldFilter["$eq"] = f.Limit.Eq
+		}
+		if f.Limit.Ne != "" {
+			fieldFilter["$ne"] = f.Limit.Ne
+		}
+		if f.Limit.Lt != "" {
+			fieldFilter["$lt"] = f.Limit.Lt
+		}
+		if f.Limit.Le != "" {
+			fieldFilter["$lte"] = f.Limit.Le
+		}
+		if f.Limit.Gt != "" {
+			fieldFilter["$gt"] = f.Limit.Gt
+		}
+		if f.Limit.Ge != "" {
+			fieldFilter["$gte"] = f.Limit.Ge
+		}
+		if len(f.Limit.Contains) > 0 {
+			fieldFilter["$in"] = f.Limit.Contains
+		}
+		if len(f.Limit.NotContains) > 0 {
+			fieldFilter["$nin"] = f.Limit.NotContains
+		}
+		if len(fieldFilter) > 0 {
+			filter["limit"] = fieldFilter
+		}
+	}
+	if f.Cursor != nil {
+		fieldFilter := bson.M{}
+		if f.Cursor.Eq != "" {
+			fieldFilter["$eq"] = f.Cursor.Eq
+		}
+		if f.Cursor.Ne != "" {
+			fieldFilter["$ne"] = f.Cursor.Ne
+		}
+		if f.Cursor.Lt != "" {
+			fieldFilter["$lt"] = f.Cursor.Lt
+		}
+		if f.Cursor.Le != "" {
+			fieldFilter["$lte"] = f.Cursor.Le
+		}
+		if f.Cursor.Gt != "" {
+			fieldFilter["$gt"] = f.Cursor.Gt
+		}
+		if f.Cursor.Ge != "" {
+			fieldFilter["$gte"] = f.Cursor.Ge
+		}
+		if len(f.Cursor.Contains) > 0 {
+			fieldFilter["$in"] = f.Cursor.Contains
+		}
+		if len(f.Cursor.NotContains) > 0 {
+			fieldFilter["$nin"] = f.Cursor.NotContains
+		}
+		if len(fieldFilter) > 0 {
+			filter["cursor"] = fieldFilter
+		}
+	}
 	return filter
 }
 
 type FilterListResponse struct {
-	Links      *StringFilterInput `json:"links"`
-	Pagination *Pagination        `json:"pagination,omitempty"`
+	Links  *StringFilterInput `json:"links"`
+	Cursor *StringFilterInput `json:"cursor"`
 }
 
 func (f *FilterListResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
@@ -412,12 +563,62 @@ func (f *FilterListResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.
 			query = query.Where("links <> '' AND links IS NOT NULL")
 		}
 	}
-	if f.Pagination != nil {
-		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
-			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
-			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
-		} else if f.Pagination.Limit > 0 {
-			query = query.Limit(uint64(f.Pagination.Limit))
+	if f.Cursor != nil {
+		if f.Cursor.Eq != "" {
+			query = query.Where("cursor = ?", f.Cursor.Eq)
+		}
+		if f.Cursor.Ne != "" {
+			query = query.Where("cursor <> ?", f.Cursor.Ne)
+		}
+		if f.Cursor.Lt != "" {
+			query = query.Where("cursor < ?", f.Cursor.Lt)
+		}
+		if f.Cursor.Le != "" {
+			query = query.Where("cursor <= ?", f.Cursor.Le)
+		}
+		if f.Cursor.Gt != "" {
+			query = query.Where("cursor > ?", f.Cursor.Gt)
+		}
+		if f.Cursor.Ge != "" {
+			query = query.Where("cursor >= ?", f.Cursor.Ge)
+		}
+		if f.Cursor.StartsWith != "" {
+			query = query.Where("cursor LIKE '%' || ?", f.Cursor.StartsWith)
+		}
+		if f.Cursor.EndsWith != "" {
+			query = query.Where("cursor LIKE ? || '%'", f.Cursor.EndsWith)
+		}
+		if len(f.Cursor.Contains) > 0 {
+			containsQueries := []string{}
+			containsArgs := []interface{}{}
+			for _, v := range f.Cursor.Contains {
+				if v != "" {
+					containsQueries = append(containsQueries, "cursor LIKE ?")
+					containsArgs = append(containsArgs, "%"+v+"%")
+				}
+			}
+			if len(containsQueries) > 0 {
+				query = query.Where("("+strings.Join(containsQueries, " OR ")+")", containsArgs...)
+			}
+		}
+		if len(f.Cursor.NotContains) > 0 {
+			notContainsQueries := []string{}
+			notContainsArgs := []interface{}{}
+			for _, v := range f.Cursor.NotContains {
+				if v != "" {
+					notContainsQueries = append(notContainsQueries, "cursor NOT LIKE ?")
+					notContainsArgs = append(notContainsArgs, "%"+v+"%")
+				}
+			}
+			if len(notContainsQueries) > 0 {
+				query = query.Where("("+strings.Join(notContainsQueries, " OR ")+")", notContainsArgs...)
+			}
+		}
+		if f.Cursor.IsEmpty {
+			query = query.Where("cursor = '' OR cursor IS NULL")
+		}
+		if f.Cursor.IsNotEmpty {
+			query = query.Where("cursor <> '' AND cursor IS NOT NULL")
 		}
 	}
 	return query
@@ -457,12 +658,41 @@ func (f *FilterListResponse) BuildMongoFilter() bson.M {
 			filter["links"] = fieldFilter
 		}
 	}
+	if f.Cursor != nil {
+		fieldFilter := bson.M{}
+		if f.Cursor.Eq != "" {
+			fieldFilter["$eq"] = f.Cursor.Eq
+		}
+		if f.Cursor.Ne != "" {
+			fieldFilter["$ne"] = f.Cursor.Ne
+		}
+		if f.Cursor.Lt != "" {
+			fieldFilter["$lt"] = f.Cursor.Lt
+		}
+		if f.Cursor.Le != "" {
+			fieldFilter["$lte"] = f.Cursor.Le
+		}
+		if f.Cursor.Gt != "" {
+			fieldFilter["$gt"] = f.Cursor.Gt
+		}
+		if f.Cursor.Ge != "" {
+			fieldFilter["$gte"] = f.Cursor.Ge
+		}
+		if len(f.Cursor.Contains) > 0 {
+			fieldFilter["$in"] = f.Cursor.Contains
+		}
+		if len(f.Cursor.NotContains) > 0 {
+			fieldFilter["$nin"] = f.Cursor.NotContains
+		}
+		if len(fieldFilter) > 0 {
+			filter["cursor"] = fieldFilter
+		}
+	}
 	return filter
 }
 
 type FilterAddRequest struct {
-	Link       *StringFilterInput `json:"link"`
-	Pagination *Pagination        `json:"pagination,omitempty"`
+	Link *StringFilterInput `json:"link"`
 }
 
 func (f *FilterAddRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
@@ -524,14 +754,6 @@ func (f *FilterAddRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.Se
 			query = query.Where("link <> '' AND link IS NOT NULL")
 		}
 	}
-	if f.Pagination != nil {
-		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
-			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
-			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
-		} else if f.Pagination.Limit > 0 {
-			query = query.Limit(uint64(f.Pagination.Limit))
-		}
-	}
 	return query
 }
 func (f *FilterAddRequest) BuildMongoFilter() bson.M {
@@ -573,8 +795,7 @@ func (f *FilterAddRequest) BuildMongoFilter() bson.M {
 }
 
 type FilterAddResponse struct {
-	Link       *StringFilterInput `json:"link"`
-	Pagination *Pagination        `json:"pagination,omitempty"`
+	Link *StringFilterInput `json:"link"`
 }
 
 func (f *FilterAddResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
@@ -636,14 +857,6 @@ func (f *FilterAddResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.S
 			query = query.Where("link <> '' AND link IS NOT NULL")
 		}
 	}
-	if f.Pagination != nil {
-		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
-			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
-			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
-		} else if f.Pagination.Limit > 0 {
-			query = query.Limit(uint64(f.Pagination.Limit))
-		}
-	}
 	return query
 }
 func (f *FilterAddResponse) BuildMongoFilter() bson.M {
@@ -685,8 +898,7 @@ func (f *FilterAddResponse) BuildMongoFilter() bson.M {
 }
 
 type FilterUpdateRequest struct {
-	Link       *StringFilterInput `json:"link"`
-	Pagination *Pagination        `json:"pagination,omitempty"`
+	Link *StringFilterInput `json:"link"`
 }
 
 func (f *FilterUpdateRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
@@ -748,14 +960,6 @@ func (f *FilterUpdateRequest) BuildFilter(query squirrel.SelectBuilder) squirrel
 			query = query.Where("link <> '' AND link IS NOT NULL")
 		}
 	}
-	if f.Pagination != nil {
-		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
-			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
-			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
-		} else if f.Pagination.Limit > 0 {
-			query = query.Limit(uint64(f.Pagination.Limit))
-		}
-	}
 	return query
 }
 func (f *FilterUpdateRequest) BuildMongoFilter() bson.M {
@@ -797,8 +1001,7 @@ func (f *FilterUpdateRequest) BuildMongoFilter() bson.M {
 }
 
 type FilterUpdateResponse struct {
-	Link       *StringFilterInput `json:"link"`
-	Pagination *Pagination        `json:"pagination,omitempty"`
+	Link *StringFilterInput `json:"link"`
 }
 
 func (f *FilterUpdateResponse) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
@@ -860,14 +1063,6 @@ func (f *FilterUpdateResponse) BuildFilter(query squirrel.SelectBuilder) squirre
 			query = query.Where("link <> '' AND link IS NOT NULL")
 		}
 	}
-	if f.Pagination != nil {
-		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
-			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
-			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
-		} else if f.Pagination.Limit > 0 {
-			query = query.Limit(uint64(f.Pagination.Limit))
-		}
-	}
 	return query
 }
 func (f *FilterUpdateResponse) BuildMongoFilter() bson.M {
@@ -909,8 +1104,7 @@ func (f *FilterUpdateResponse) BuildMongoFilter() bson.M {
 }
 
 type FilterDeleteRequest struct {
-	Hash       *StringFilterInput `json:"hash"`
-	Pagination *Pagination        `json:"pagination,omitempty"`
+	Hash *StringFilterInput `json:"hash"`
 }
 
 func (f *FilterDeleteRequest) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
@@ -970,14 +1164,6 @@ func (f *FilterDeleteRequest) BuildFilter(query squirrel.SelectBuilder) squirrel
 		}
 		if f.Hash.IsNotEmpty {
 			query = query.Where("hash <> '' AND hash IS NOT NULL")
-		}
-	}
-	if f.Pagination != nil {
-		if f.Pagination.Page > 0 && f.Pagination.Limit > 0 {
-			offset := (f.Pagination.Page - 1) * f.Pagination.Limit
-			query = query.Limit(uint64(f.Pagination.Limit)).Offset(uint64(offset))
-		} else if f.Pagination.Limit > 0 {
-			query = query.Limit(uint64(f.Pagination.Limit))
 		}
 	}
 	return query

@@ -11,6 +11,7 @@ import (
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"github.com/authzed/authzed-go/v1"
+	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/proto"
 
@@ -154,22 +155,24 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 // Saga:
 // 1. Check permission
 // 2. Get a list of links from store
-func (uc *UC) List(ctx context.Context, filter *domain.FilterLink) (*domain.Links, error) {
+func (uc *UC) List(ctx context.Context, filter *domain.FilterLink, cursor string, limit uint32) (*domain.Links, *string, error) {
 	const (
 		SAGA_NAME                     = "LIST_LINK"
 		SAGA_STEP_LOOKUP              = "SAGA_STEP_LOOKUP"
 		SAGA_STEP_GET_LIST_FROM_STORE = "SAGA_STEP_GET_LIST_FROM_STORE"
 	)
 
+	// Set default values
 	userID := session.GetUserID(ctx)
 	links := &domain.Links{}
+	nextToken := ""
 
 	if filter == nil {
-		filter = &domain.FilterLink{
-			Hash: &domain.StringFilterInput{
-				Contains: []string{},
-			},
-		}
+		filter = &domain.FilterLink{}
+	}
+
+	if filter.Hash == nil {
+		filter.Hash = &domain.StringFilterInput{}
 	}
 
 	// create a new saga for a get list of a link
@@ -177,7 +180,7 @@ func (uc *UC) List(ctx context.Context, filter *domain.FilterLink) (*domain.Link
 		WithContext(ctx).
 		Build()
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	_, errs = sagaListLink.AddStep(SAGA_STEP_LOOKUP).
@@ -186,6 +189,13 @@ func (uc *UC) List(ctx context.Context, filter *domain.FilterLink) (*domain.Link
 				ResourceObjectType: "link",
 				Permission:         "view",
 				Subject:            &permission.SubjectReference{Object: &permission.ObjectReference{ObjectType: "user", ObjectId: userID}},
+				OptionalLimit:      limit,
+			}
+
+			if cursor != "" {
+				relationship.OptionalCursor = &permission.Cursor{
+					Token: cursor,
+				}
 			}
 
 			stream, err := uc.permission.PermissionsServiceClient.LookupResources(ctx, relationship)
@@ -200,16 +210,24 @@ func (uc *UC) List(ctx context.Context, filter *domain.FilterLink) (*domain.Link
 						return nil
 					}
 
+					// add error to span
+					span := trace.SpanFromContext(ctx)
+					span.RecordError(errRead)
+
 					return errRead
 				}
 
+				// Set token for pagination
+				nextToken = resp.AfterResultCursor.GetToken()
+
+				// Add hash to filter
 				filter.Hash.Contains = append(filter.Hash.Contains, resp.GetResourceObjectId())
 			}
 		}).Reject(func(ctx context.Context, thenErr error) error {
 		return &domain.PermissionDeniedError{Err: thenErr}
 	}).Build()
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	_, errs = sagaListLink.AddStep(SAGA_STEP_GET_LIST_FROM_STORE).
@@ -225,16 +243,16 @@ func (uc *UC) List(ctx context.Context, filter *domain.FilterLink) (*domain.Link
 			return nil
 		}).Build()
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
 	// Run saga
 	err := sagaListLink.Play(nil)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 
-	return links, nil
+	return links, &nextToken, nil
 }
 
 // Add - create a new link

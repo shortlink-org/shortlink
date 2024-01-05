@@ -24,11 +24,13 @@ paths:
       description: Retrieve a list of all short links with pagination.
       operationId: getLinks
       parameters:
-      - description: The number of links to return per page.
+      - description: The number of items to return per page.
         in: query
         name: limit
         schema:
           default: 10
+          maximum: 100
+          minimum: 1
           type: integer
       - description: A cursor for use in pagination. This is the ID of the last item
           in the previous page.
@@ -189,12 +191,14 @@ paths:
       - Sitemap
 components:
   parameters:
-    LinkLimitParam:
-      description: The number of links to return per page.
+    LimitParam:
+      description: The number of items to return per page.
       in: query
       name: limit
       schema:
         default: 10
+        maximum: 100
+        minimum: 1
         type: integer
     CursorParam:
       description: A cursor for use in pagination. This is the ID of the last item

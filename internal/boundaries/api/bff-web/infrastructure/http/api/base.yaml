@@ -7,6 +7,16 @@ components:
         type: string
       description: A cursor for use in pagination. This is the ID of the last item in the previous page.
 
+    LimitParam:
+      in: query
+      name: limit
+      description: The number of items to return per page.
+      schema:
+        type: integer
+        default: 10
+        minimum: 1
+        maximum: 100
+
   responses:
     NotFound:
       description: Not found.

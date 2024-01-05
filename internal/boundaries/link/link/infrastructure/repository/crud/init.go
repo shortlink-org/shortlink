@@ -126,13 +126,6 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 }
 
 func (s *Store) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, error) {
-	if filter.Pagination == nil {
-		filter.Pagination = &v1.Pagination{
-			Page:  0,
-			Limit: 10, //nolint:gomnd // ignore
-		}
-	}
-
 	response, err := s.store.List(ctx, filter)
 	if err != nil {
 		return nil, err
