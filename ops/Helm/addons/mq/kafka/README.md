@@ -42,7 +42,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--envs--config--KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS"><a href="./values.yaml#L35">kafka-ui.envs.config.KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS</a></td>
+			<td id="kafka-ui--envs--config--KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS"><a href="./values.yaml#L46">kafka-ui.envs.config.KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS</a></td>
 			<td>
 string
 </td>
@@ -56,7 +56,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--envs--config--KAFKA_CLUSTERS_0_NAME"><a href="./values.yaml#L34">kafka-ui.envs.config.KAFKA_CLUSTERS_0_NAME</a></td>
+			<td id="kafka-ui--envs--config--KAFKA_CLUSTERS_0_NAME"><a href="./values.yaml#L45">kafka-ui.envs.config.KAFKA_CLUSTERS_0_NAME</a></td>
 			<td>
 string
 </td>
@@ -70,7 +70,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--envs--config--KAFKA_CLUSTERS_0_READONLY"><a href="./values.yaml#L37">kafka-ui.envs.config.KAFKA_CLUSTERS_0_READONLY</a></td>
+			<td id="kafka-ui--envs--config--KAFKA_CLUSTERS_0_READONLY"><a href="./values.yaml#L48">kafka-ui.envs.config.KAFKA_CLUSTERS_0_READONLY</a></td>
 			<td>
 string
 </td>
@@ -84,7 +84,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--envs--config--KAFKA_CLUSTERS_0_ZOOKEEPER"><a href="./values.yaml#L36">kafka-ui.envs.config.KAFKA_CLUSTERS_0_ZOOKEEPER</a></td>
+			<td id="kafka-ui--envs--config--KAFKA_CLUSTERS_0_ZOOKEEPER"><a href="./values.yaml#L47">kafka-ui.envs.config.KAFKA_CLUSTERS_0_ZOOKEEPER</a></td>
 			<td>
 string
 </td>
@@ -98,7 +98,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--envs--config--MANAGEMENT_HEALTH_LDAP_ENABLED"><a href="./values.yaml#L40">kafka-ui.envs.config.MANAGEMENT_HEALTH_LDAP_ENABLED</a></td>
+			<td id="kafka-ui--envs--config--MANAGEMENT_HEALTH_LDAP_ENABLED"><a href="./values.yaml#L51">kafka-ui.envs.config.MANAGEMENT_HEALTH_LDAP_ENABLED</a></td>
 			<td>
 string
 </td>
@@ -112,7 +112,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--envs--config--SERVER_SERVLET_CONTEXT_PATH"><a href="./values.yaml#L41">kafka-ui.envs.config.SERVER_SERVLET_CONTEXT_PATH</a></td>
+			<td id="kafka-ui--envs--config--SERVER_SERVLET_CONTEXT_PATH"><a href="./values.yaml#L52">kafka-ui.envs.config.SERVER_SERVLET_CONTEXT_PATH</a></td>
 			<td>
 string
 </td>
@@ -126,7 +126,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--envs--config--SPRING_SECURITY_USER_NAME"><a href="./values.yaml#L38">kafka-ui.envs.config.SPRING_SECURITY_USER_NAME</a></td>
+			<td id="kafka-ui--envs--config--SPRING_SECURITY_USER_NAME"><a href="./values.yaml#L49">kafka-ui.envs.config.SPRING_SECURITY_USER_NAME</a></td>
 			<td>
 string
 </td>
@@ -140,7 +140,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--envs--config--SPRING_SECURITY_USER_PASSWORD"><a href="./values.yaml#L39">kafka-ui.envs.config.SPRING_SECURITY_USER_PASSWORD</a></td>
+			<td id="kafka-ui--envs--config--SPRING_SECURITY_USER_PASSWORD"><a href="./values.yaml#L50">kafka-ui.envs.config.SPRING_SECURITY_USER_PASSWORD</a></td>
 			<td>
 string
 </td>
@@ -154,7 +154,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--envs--secret"><a href="./values.yaml#L32">kafka-ui.envs.secret</a></td>
+			<td id="kafka-ui--envs--secret"><a href="./values.yaml#L43">kafka-ui.envs.secret</a></td>
 			<td>
 object
 </td>
@@ -210,7 +210,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L57">kafka-ui.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td id="kafka-ui--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L67">kafka-ui.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
 			<td>
 string
 </td>
@@ -224,7 +224,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L59">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L69">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -238,7 +238,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L58">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L68">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -252,7 +252,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/rewrite-target""><a href="./values.yaml#L60">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target"</a></td>
+			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/rewrite-target""><a href="./values.yaml#L70">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/rewrite-target"</a></td>
 			<td>
 string
 </td>
@@ -266,7 +266,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/use-regex""><a href="./values.yaml#L61">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/use-regex"</a></td>
+			<td id="kafka-ui--ingress--annotations--"nginx--ingress--kubernetes--io/use-regex""><a href="./values.yaml#L71">kafka-ui.ingress.annotations."nginx.ingress.kubernetes.io/use-regex"</a></td>
 			<td>
 string
 </td>
@@ -280,7 +280,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--enabled"><a href="./values.yaml#L54">kafka-ui.ingress.enabled</a></td>
+			<td id="kafka-ui--ingress--enabled"><a href="./values.yaml#L64">kafka-ui.ingress.enabled</a></td>
 			<td>
 bool
 </td>
@@ -294,7 +294,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--host"><a href="./values.yaml#L63">kafka-ui.ingress.host</a></td>
+			<td id="kafka-ui--ingress--host"><a href="./values.yaml#L73">kafka-ui.ingress.host</a></td>
 			<td>
 string
 </td>
@@ -308,7 +308,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--ingressClassName"><a href="./values.yaml#L55">kafka-ui.ingress.ingressClassName</a></td>
+			<td id="kafka-ui--ingress--ingressClassName"><a href="./values.yaml#L65">kafka-ui.ingress.ingressClassName</a></td>
 			<td>
 string
 </td>
@@ -322,7 +322,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--path"><a href="./values.yaml#L65">kafka-ui.ingress.path</a></td>
+			<td id="kafka-ui--ingress--path"><a href="./values.yaml#L75">kafka-ui.ingress.path</a></td>
 			<td>
 string
 </td>
@@ -336,7 +336,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--tls--enabled"><a href="./values.yaml#L68">kafka-ui.ingress.tls.enabled</a></td>
+			<td id="kafka-ui--ingress--tls--enabled"><a href="./values.yaml#L78">kafka-ui.ingress.tls.enabled</a></td>
 			<td>
 bool
 </td>
@@ -350,7 +350,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--ingress--tls--secretName"><a href="./values.yaml#L69">kafka-ui.ingress.tls.secretName</a></td>
+			<td id="kafka-ui--ingress--tls--secretName"><a href="./values.yaml#L79">kafka-ui.ingress.tls.secretName</a></td>
 			<td>
 string
 </td>
@@ -364,7 +364,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kafka-ui--probes--useHttpsScheme"><a href="./values.yaml#L44">kafka-ui.probes.useHttpsScheme</a></td>
+			<td id="kafka-ui--networkPolicy--enabled"><a href="./values.yaml#L32">kafka-ui.networkPolicy.enabled</a></td>
 			<td>
 bool
 </td>
@@ -372,6 +372,76 @@ bool
 				<div style="max-width: 300px;">
 <pre lang="json">
 false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--probes--useHttpsScheme"><a href="./values.yaml#L55">kafka-ui.probes.useHttpsScheme</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--securityContext--capabilities--drop[0]"><a href="./values.yaml#L37">kafka-ui.securityContext.capabilities.drop[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"ALL"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--securityContext--readOnlyRootFilesystem"><a href="./values.yaml#L38">kafka-ui.securityContext.readOnlyRootFilesystem</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--securityContext--runAsNonRoot"><a href="./values.yaml#L39">kafka-ui.securityContext.runAsNonRoot</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kafka-ui--securityContext--runAsUser"><a href="./values.yaml#L40">kafka-ui.securityContext.runAsUser</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+1000
 </pre>
 </div>
 			</td>

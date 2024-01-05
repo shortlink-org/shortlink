@@ -22,7 +22,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-template | shortlink-template | 0.8.6 |
+| file://../shortlink-template | shortlink-template | 0.8.8 |
 
 ## Values
 
@@ -35,7 +35,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="deploy--affinity"><a href="./values.yaml#L50">deploy.affinity</a></td>
+			<td id="deploy--affinity"><a href="./values.yaml#L62">deploy.affinity</a></td>
 			<td>
 list
 </td>
@@ -49,7 +49,7 @@ list
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--annotations"><a href="./values.yaml#L33">deploy.annotations</a></td>
+			<td id="deploy--annotations"><a href="./values.yaml#L45">deploy.annotations</a></td>
 			<td>
 object
 </td>
@@ -63,7 +63,7 @@ object
 			<td>Annotations to be added to controller pods</td>
 		</tr>
 		<tr>
-			<td id="deploy--env--AUTH_URI"><a href="./values.yaml#L23">deploy.env.AUTH_URI</a></td>
+			<td id="deploy--env--AUTH_URI"><a href="./values.yaml#L35">deploy.env.AUTH_URI</a></td>
 			<td>
 string
 </td>
@@ -77,7 +77,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--GRPC_CLIENT_HOST"><a href="./values.yaml#L22">deploy.env.GRPC_CLIENT_HOST</a></td>
+			<td id="deploy--env--GRPC_CLIENT_HOST"><a href="./values.yaml#L34">deploy.env.GRPC_CLIENT_HOST</a></td>
 			<td>
 string
 </td>
@@ -91,7 +91,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--SPICE_DB_API"><a href="./values.yaml#L24">deploy.env.SPICE_DB_API</a></td>
+			<td id="deploy--env--SPICE_DB_API"><a href="./values.yaml#L36">deploy.env.SPICE_DB_API</a></td>
 			<td>
 string
 </td>
@@ -105,7 +105,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--STORE_REDIS_URI"><a href="./values.yaml#L28">deploy.env.STORE_REDIS_URI</a></td>
+			<td id="deploy--env--STORE_REDIS_URI"><a href="./values.yaml#L40">deploy.env.STORE_REDIS_URI</a></td>
 			<td>
 string
 </td>
@@ -119,7 +119,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--STORE_TYPE"><a href="./values.yaml#L27">deploy.env.STORE_TYPE</a></td>
+			<td id="deploy--env--STORE_TYPE"><a href="./values.yaml#L39">deploy.env.STORE_TYPE</a></td>
 			<td>
 string
 </td>
@@ -133,7 +133,7 @@ string
 			<td>Default store config</td>
 		</tr>
 		<tr>
-			<td id="deploy--env--TRACER_URI"><a href="./values.yaml#L21">deploy.env.TRACER_URI</a></td>
+			<td id="deploy--env--TRACER_URI"><a href="./values.yaml#L33">deploy.env.TRACER_URI</a></td>
 			<td>
 string
 </td>
@@ -147,7 +147,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L41">deploy.image.pullPolicy</a></td>
+			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L53">deploy.image.pullPolicy</a></td>
 			<td>
 string
 </td>
@@ -161,7 +161,7 @@ string
 			<td>Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images</td>
 		</tr>
 		<tr>
-			<td id="deploy--image--repository"><a href="./values.yaml#L36">deploy.image.repository</a></td>
+			<td id="deploy--image--repository"><a href="./values.yaml#L48">deploy.image.repository</a></td>
 			<td>
 string
 </td>
@@ -175,21 +175,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--tag"><a href="./values.yaml#L37">deploy.image.tag</a></td>
+			<td id="deploy--image--tag"><a href="./values.yaml#L49">deploy.image.tag</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.16.121"
+"0.17.1"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--imagePullSecrets"><a href="./values.yaml#L30">deploy.imagePullSecrets</a></td>
+			<td id="deploy--imagePullSecrets"><a href="./values.yaml#L42">deploy.imagePullSecrets</a></td>
 			<td>
 list
 </td>
@@ -203,7 +203,7 @@ list
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--livenessProbe"><a href="./values.yaml#L53">deploy.livenessProbe</a></td>
+			<td id="deploy--livenessProbe"><a href="./values.yaml#L65">deploy.livenessProbe</a></td>
 			<td>
 object
 </td>
@@ -222,7 +222,7 @@ object
 			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--nodeSelector"><a href="./values.yaml#L46">deploy.nodeSelector</a></td>
+			<td id="deploy--nodeSelector"><a href="./values.yaml#L58">deploy.nodeSelector</a></td>
 			<td>
 list
 </td>
@@ -236,7 +236,7 @@ list
 			<td>Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature</td>
 		</tr>
 		<tr>
-			<td id="deploy--podSecurityContext--fsGroup"><a href="./values.yaml#L78">deploy.podSecurityContext.fsGroup</a></td>
+			<td id="deploy--podSecurityContext--fsGroup"><a href="./values.yaml#L90">deploy.podSecurityContext.fsGroup</a></td>
 			<td>
 int
 </td>
@@ -250,7 +250,7 @@ int
 			<td>fsGroup is the group ID associated with the container</td>
 		</tr>
 		<tr>
-			<td id="deploy--readinessProbe"><a href="./values.yaml#L59">deploy.readinessProbe</a></td>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L71">deploy.readinessProbe</a></td>
 			<td>
 object
 </td>
@@ -269,7 +269,7 @@ object
 			<td>define a readiness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--replicaCount"><a href="./values.yaml#L18">deploy.replicaCount</a></td>
+			<td id="deploy--replicaCount"><a href="./values.yaml#L30">deploy.replicaCount</a></td>
 			<td>
 int
 </td>
@@ -283,7 +283,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--limits"><a href="./values.yaml#L69">deploy.resources.limits</a></td>
+			<td id="deploy--resources--limits"><a href="./values.yaml#L81">deploy.resources.limits</a></td>
 			<td>
 object
 </td>
@@ -300,7 +300,7 @@ object
 			<td>We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'.</td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L73">deploy.resources.requests.cpu</a></td>
+			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L85">deploy.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -314,7 +314,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L74">deploy.resources.requests.memory</a></td>
+			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L86">deploy.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -328,7 +328,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--securityContext"><a href="./values.yaml#L83">deploy.securityContext</a></td>
+			<td id="deploy--securityContext"><a href="./values.yaml#L95">deploy.securityContext</a></td>
 			<td>
 object
 </td>
@@ -353,7 +353,7 @@ object
 			<td>Security Context policies for controller pods See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for notes on enabling and using sysctls</td>
 		</tr>
 		<tr>
-			<td id="deploy--tolerations"><a href="./values.yaml#L48">deploy.tolerations</a></td>
+			<td id="deploy--tolerations"><a href="./values.yaml#L60">deploy.tolerations</a></td>
 			<td>
 list
 </td>
@@ -367,6 +367,48 @@ list
 			<td></td>
 		</tr>
 		<tr>
+			<td id="ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L17">ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"cert-manager-production"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L19">ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L18">ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
 			<td id="ingress--enabled"><a href="./values.yaml#L12">ingress.enabled</a></td>
 			<td>
 bool
@@ -374,14 +416,28 @@ bool
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-false
+true
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--type"><a href="./values.yaml#L14">ingress.type</a></td>
+			<td id="ingress--hostname"><a href="./values.yaml#L21">ingress.hostname</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink.best"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--ingressClassName"><a href="./values.yaml#L14">ingress.ingressClassName</a></td>
 			<td>
 string
 </td>
@@ -395,49 +451,35 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="./values.yaml#L107">monitoring.enabled</a></td>
-			<td>
-bool
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-true
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L112">podDisruptionBudget.enabled</a></td>
-			<td>
-bool
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-false
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="service--ports[0]--name"><a href="./values.yaml#L99">service.ports[0].name</a></td>
+			<td id="ingress--paths[0]--path"><a href="./values.yaml#L23">ingress.paths[0].path</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"http"
+"/api(/|$)(.*)"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--port"><a href="./values.yaml#L100">service.ports[0].port</a></td>
+			<td id="ingress--paths[0]--service--name"><a href="./values.yaml#L25">ingress.paths[0].service.name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink-bff-web"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress--paths[0]--service--port"><a href="./values.yaml#L26">ingress.paths[0].service.port</a></td>
 			<td>
 int
 </td>
@@ -451,21 +493,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--protocol"><a href="./values.yaml#L101">service.ports[0].protocol</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"TCP"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="service--ports[0]--public"><a href="./values.yaml#L102">service.ports[0].public</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L119">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -479,7 +507,175 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--type"><a href="./values.yaml#L97">service.type</a></td>
+			<td id="networkPolicy--enabled"><a href="./values.yaml#L129">networkPolicy.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="networkPolicy--ingress[0]--from[0]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L135">networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"shortlink"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="networkPolicy--ingress[0]--from[1]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L138">networkPolicy.ingress[0].from[1].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"istio-system"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="networkPolicy--ingress[0]--from[2]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L141">networkPolicy.ingress[0].from[2].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"nginx-ingress"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="networkPolicy--ingress[0]--from[3]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L144">networkPolicy.ingress[0].from[3].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"prometheus-operator"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="networkPolicy--policyTypes[0]"><a href="./values.yaml#L146">networkPolicy.policyTypes[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Ingress"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="networkPolicy--policyTypes[1]"><a href="./values.yaml#L147">networkPolicy.policyTypes[1]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Egress"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L124">podDisruptionBudget.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L111">service.ports[0].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L112">service.ports[0].port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+7070
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L113">service.ports[0].protocol</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"TCP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L114">service.ports[0].public</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--type"><a href="./values.yaml#L109">service.type</a></td>
 			<td>
 string
 </td>
