@@ -11,7 +11,7 @@ serviceAccount:
 ingress:
   enabled: true
   # type ingress-controller: nginx, istio, cilium
-  type: nginx
+  ingressClassName: nginx
   annotations:
     cert-manager.io/cluster-issuer: cert-manager-production
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
