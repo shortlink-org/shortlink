@@ -49,6 +49,7 @@ testkube:
       enabled: false
 
     mongodb:
+      dsn: "mongodb://mongodb-svc:27017"
       secretName: mongodb-testkube-testkube
       secretKey: connectionString.standard
 
