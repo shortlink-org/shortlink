@@ -126,6 +126,12 @@ testkube:
     oauth2:
       enabled: true
 
+      ingress:
+        annotations:
+          cert-manager.io/cluster-issuer: cert-manager-production
+          nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+          nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+
     resources:
       limits:
         cpu: 100m
