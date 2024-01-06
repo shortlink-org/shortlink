@@ -107,6 +107,8 @@ testkube:
     ingress:
       enabled: true
 
+      className: nginx
+
       annotations:
         cert-manager.io/cluster-issuer: cert-manager-production
 #        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
