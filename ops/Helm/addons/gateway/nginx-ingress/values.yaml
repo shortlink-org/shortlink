@@ -5,6 +5,8 @@
 ingress-nginx:
   enabled: true
 
+  revisionHistoryLimit: 3
+
   # Default 404 backend
   defaultBackend:
     enabled: true

@@ -58,7 +58,7 @@ testkube:
       className: nginx
       annotations:
         cert-manager.io/cluster-issuer: cert-manager-production
-#        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
         nginx.ingress.kubernetes.io/auth-url: "https://testkube.shortlink.best/oauth2/auth"
         nginx.ingress.kubernetes.io/auth-signin: "https://testkube.shortlink.best/oauth2/start?rd=$escaped_request_uri"
@@ -111,7 +111,7 @@ testkube:
 
       annotations:
         cert-manager.io/cluster-issuer: cert-manager-production
-#        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
         nginx.ingress.kubernetes.io/access-control-allow-origin: "*"
         nginx.ingress.kubernetes.io/auth-url: "https://testkube.shortlink.best/oauth2/auth"
