@@ -98,7 +98,7 @@ testkube:
           memory: 56Mi
 
   testkube-dashboard:
-    apiServerEndpoint: "https://testkube.shortlink.best/results/v1"
+    apiServerEndpoint: "https://testkube.shortlink.best/results"
 
     ingress:
       enabled: true
