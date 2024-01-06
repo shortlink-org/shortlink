@@ -62,6 +62,7 @@ testkube:
         nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
       hosts:
         - testkube.shortlink.best
+      path: /v1
       tlsenabled: true
       tls:
         - hosts:
@@ -98,7 +99,7 @@ testkube:
           memory: 56Mi
 
   testkube-dashboard:
-    apiServerEndpoint: "https://testkube.shortlink.best/results"
+    apiServerEndpoint: "https://testkube.shortlink.best/v1"
 
     ingress:
       enabled: true
