@@ -2,7 +2,7 @@ import http from 'k6/http';
 import tracing, { Http } from 'k6/x/tracing';
 import { check, sleep } from 'k6';
 
-const BASE_URL = 'http://localhost:7070/api';
+const BASE_URL = process.env.BASE_URL || 'http://localhost:7070/api';
 const COOKIES = {
   'ory_kratos_session': 'MTcwNDMwNzMyM3w1Uld1eHNQbXgxRFRjN0I1TUtRNklwSHZ0bkREbXVKekR3S0laQlhFQW10WW51U0pEenBrMlhFbGxWbDBxd0diOWl1Z0dpa1JkZWdRX0RQc3o1c0NCMGpkb0w1Tm1GaGRGVE1rVklSR3Y5T0c5YW9Bc1BwRGwzOE1kUmNyU3BmU3g1cHdkNmY3SjJNQkRyNk5xQzJ5Mi1UWkJiN2FNRWZXVGtXSU5Ba0tKQk1zcXI1YmxVQzFYc3dCMm5ucjREV3BqTWpjUnUxaDBVTzQwQXVnZ2stV18zeUdsaW5UZVp2VVBMeXpNdElUcnJZRVVHaXRoalFuVkxsZC1RZ0tleDVqMUlLR1hYejdoekw5N1d3WldiV3RDdz09fKBq4mA2i_s9wuF0uaRzUh8Bc0-BuVUfUOGc__-xSBzT'
 };
