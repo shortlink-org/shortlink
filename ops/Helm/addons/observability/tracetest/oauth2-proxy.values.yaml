@@ -1,11 +1,5 @@
-oauth-proxy:
+oauth2-proxy:
   enabled: true
-
-  config:
-    clientID: "XXXXXXX"
-    clientSecret: "XXXXXXXX"
-    cookieSecret: "XXXXXXXXXXXXXXXX"
-    cookieName: ""
 
   resources:
     limits:
