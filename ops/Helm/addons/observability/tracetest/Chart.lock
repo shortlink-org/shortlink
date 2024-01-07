@@ -2,5 +2,8 @@ dependencies:
 - name: tracetest
   repository: https://kubeshop.github.io/helm-charts
   version: 0.3.4
-digest: sha256:e811b5125261706b24a28a211a20b51d340b8ed42104af17e226d73093a302a3
-generated: "2024-01-05T21:22:57.027106+01:00"
+- name: oauth2-proxy
+  repository: https://oauth2-proxy.github.io/manifests
+  version: 6.23.1
+digest: sha256:5497d4a5f932b4f79bbdd92f13088945733e57929ad7779cd7ed93224180dc86
+generated: "2024-01-07T18:34:48.292949+01:00"

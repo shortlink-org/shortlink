@@ -17,3 +17,7 @@ dependencies:
     version: 0.3.4
     repository: https://kubeshop.github.io/helm-charts
     condition: tracetest.enabled
+  - name: oauth2-proxy
+    version: 6.23.1
+    repository: https://oauth2-proxy.github.io/manifests
+    condition: oauth-proxy.enabled

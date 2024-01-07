@@ -1,0 +1,40 @@
+oauth-proxy:
+  enabled: true
+
+  config:
+    clientID: "XXXXXXX"
+    clientSecret: "XXXXXXXX"
+    cookieSecret: "XXXXXXXXXXXXXXXX"
+    cookieName: ""
+
+  resources:
+    limits:
+      cpu: 250m
+      memory: 50Mi
+    requests:
+      cpu: 25m
+      memory: 50Mi
+
+  extraEnv:
+    - name: OAUTH2_PROXY_EMAIL_DOMAINS
+      value: "*"
+
+  metrics:
+    enabled: true
+    servicemonitor:
+      enabled: true
+      labels:
+          release: prometheus-operator
+
+  ingress:
+    enabled: true
+    path: /oauth2
+    pathType: Prefix
+    annotations:
+      cert-manager.io/cluster-issuer: cert-manager-production
+      nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+      nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+    tls:
+      - secretName: oauth-proxy-tls
+        hosts:
+          - tracetest.shortlink.best
