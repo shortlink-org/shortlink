@@ -53,19 +53,19 @@ made along with its context and consequences.
 
 ### Boundaries
 
-| Bounded Context       | Description              | Docs                                                 |
-|-----------------------|--------------------------|------------------------------------------------------|
-| API Gateway           | Gateway for all services | [docs](./internal/boundaries/api/README.md)          |
-| Payment Boundary      | Payment services         | [docs](./internal/boundaries/payment/README.md)      |
-| Notification Boundary | Notification services    | [docs](./internal/boundaries/notification/README.md) |
-| Chat Boundary         | Chat services            | [docs](./internal/boundaries/chat/README.md)         |
-| Extension Boundary    | Extension services       | [docs](./internal/boundaries/extension/README.md)    |
-| ShortDB Boundary      | ShortDB services         | [docs](./internal/boundaries/shortdb/README.md)      |
-| Platform Boundary     | Platform services        | [docs](./internal/boundaries/platform/README.md)     |
-| Link Boundary         | Link services            | [docs](./internal/boundaries/link/README.md)         |
-| Delivery Boundary     | Delivery services        | [docs](./internal/boundaries/delivery/README.md)     |
-| Search Boundary       | Search services          | [docs](./internal/boundaries/search/README.md)       |
-| UI Boundary           | UI services              | [docs](./internal/boundaries/ui/README.md)           |
+| Bounded Context       | Description              | Type subdomain | Docs                                                 |
+|-----------------------|--------------------------|----------------|------------------------------------------------------|
+| API Gateway           | Gateway for all services | Supporting     | [docs](./internal/boundaries/api/README.md)          |
+| Payment Boundary      | Payment services         | Generic        | [docs](./internal/boundaries/payment/README.md)      |
+| Notification Boundary | Notification services    | Generic        | [docs](./internal/boundaries/notification/README.md) |
+| Chat Boundary         | Chat services            | Supporting     | [docs](./internal/boundaries/chat/README.md)         |
+| Extension Boundary    | Extension services       | Supporting     | [docs](./internal/boundaries/extension/README.md)    |
+| ShortDB Boundary      | ShortDB services         | Supporting     | [docs](./internal/boundaries/shortdb/README.md)      |
+| Platform Boundary     | Platform services        | Supporting     | [docs](./internal/boundaries/platform/README.md)     |
+| Link Boundary         | Link services            | Core           | [docs](./internal/boundaries/link/README.md)         |
+| Delivery Boundary     | Delivery services        | Supporting     | [docs](./internal/boundaries/delivery/README.md)     |
+| Search Boundary       | Search services          | Supporting     | [docs](./internal/boundaries/search/README.md)       |
+| UI Boundary           | UI services              | Supporting     | [docs](./internal/boundaries/ui/README.md)           |
 
 
 > [!TIP]
