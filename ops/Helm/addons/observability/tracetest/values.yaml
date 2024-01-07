@@ -81,7 +81,7 @@ tracetest:
     type: Test
     spec:
       id: dSzgkfKIR
-      name: Get links
+      name: "API: get links"
       trigger:
         type: http
         httpRequest:
@@ -90,3 +90,11 @@ tracetest:
           headers:
             - key: Content-Type
               value: application/json
+    ---
+    type: TestSuite
+    spec:
+      id: 2e3YoYKSR
+      name: shortlink-link
+      description: Link boundary
+      steps:
+        - dSzgkfKIR
