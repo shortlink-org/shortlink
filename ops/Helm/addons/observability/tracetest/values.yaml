@@ -65,7 +65,7 @@ tracetest:
       cpu: 10m
       memory: 126Mi
 
-  provisioning:
+  provisioning: |-
     type: DataStore
     spec:
       name: Grafana Tempo
@@ -77,3 +77,16 @@ tracetest:
           url: http://grafana-tempo.grafana:3100
           tls:
             insecure: true
+    ---
+    type: Test
+    spec:
+      id: dSzgkfKIR
+      name: Get links
+      trigger:
+        type: http
+        httpRequest:
+          method: GET
+          url: https://shortlink.best/api/links
+          headers:
+            - key: Content-Type
+              value: application/json
