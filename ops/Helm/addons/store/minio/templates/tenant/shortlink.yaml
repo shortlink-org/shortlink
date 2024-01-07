@@ -14,21 +14,7 @@ spec:
     minio: true
   mountPath: /export
   pools:
-  - affinity:
-      podAntiAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-        - labelSelector:
-            matchExpressions:
-            - key: v1.min.io/tenant
-              operator: In
-              values:
-              - shortlink
-            - key: v1.min.io/pool
-              operator: In
-              values:
-              - pool-0
-          topologyKey: kubernetes.io/hostname
-    name: pool-0
+  - name: pool-0
     resources:
       limits:
         memory: 8Gi
