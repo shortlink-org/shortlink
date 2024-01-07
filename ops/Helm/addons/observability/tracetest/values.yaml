@@ -65,8 +65,7 @@ tracetest:
       cpu: 10m
       memory: 126Mi
 
-  provisioning: |
-    ---
+  provisioning:
     type: DataStore
     spec:
       name: Grafana Tempo

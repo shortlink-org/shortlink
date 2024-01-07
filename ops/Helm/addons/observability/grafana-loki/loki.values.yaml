@@ -78,6 +78,7 @@ loki:
         installOperator: false
 
     rules:
+      # TODO: enable
       enabled: false
       additionalGroups:
         - name: additional-loki-rules
