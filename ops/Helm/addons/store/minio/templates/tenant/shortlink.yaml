@@ -12,11 +12,6 @@ spec:
   exposeServices:
     console: true
     minio: true
-  features:
-    ## Enable S3 specific features such as Bucket DNS which would allow `buckets` to be
-    ## accessible as DNS entries of form `<bucketname>.minio.namespace.svc.cluster.local`
-    ## This feature is turned off by default
-    bucketDNS: true
   mountPath: /export
   pools:
   - name: pool-0
