@@ -7,6 +7,10 @@ tempo:
   tempo:
     reportingEnabled: false
 
+    server:
+      http_listen_port: 3100
+      grpc_listen_port: 9095
+
     metricsGenerator:
       enabled: true
       remoteWriteUrl: http://prometheus-operated.prometheus-operator:9090/api/v1/write

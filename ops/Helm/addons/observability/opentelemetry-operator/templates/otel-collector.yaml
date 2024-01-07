@@ -13,12 +13,6 @@ spec:
           grpc:
           http:
 
-      httpcheck:
-        collection_interval: 10s
-        targets:
-          - endpoint: http://shortlink-landing.shortlink:8080
-            method: GET
-
     processors:
       memory_limiter:
         check_interval: 1s
@@ -63,7 +57,6 @@ spec:
             - otlp/tracetest
         metrics:
           receivers:
-            - httpcheck
             - otlp
           processors:
             - memory_limiter
