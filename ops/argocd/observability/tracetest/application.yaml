@@ -20,7 +20,7 @@ spec:
     helm:
       releaseName: tracetest
       valueFiles:
-        - tracetest.values.yaml
+        - values.yaml
   syncPolicy:
     automated:
       prune: true

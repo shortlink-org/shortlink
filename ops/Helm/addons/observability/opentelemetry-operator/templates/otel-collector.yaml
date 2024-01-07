@@ -12,6 +12,7 @@ spec:
         protocols:
           grpc:
           http:
+
       httpcheck:
         collection_interval: 10s
         targets:
@@ -25,11 +26,17 @@ spec:
         spike_limit_percentage: 15
       batch:
         send_batch_size: 10000
-        timeout: 10s
+        timeout: 100ms
 
     exporters:
       logging:
         loglevel: info
+
+      # OTLP for Tracetest
+      otlp/tracetest:
+        endpoint: tracetest.tracetest:4317 # Send traces to Tracetest. Read more in docs here:  https://docs.tracetest.io/configuration/connecting-to-data-stores/opentelemetry-collector
+        tls:
+          insecure: true
 
       otlp:
         endpoint: grafana-tempo.grafana.svc.cluster.local:4317
@@ -53,6 +60,7 @@ spec:
           exporters:
             - logging
             - otlp
+            - otlp/tracetest
         metrics:
           receivers:
             - httpcheck
