@@ -16,7 +16,7 @@ spec:
       type: git
       uri: https://github.com/shortlink-org/shortlink.git
       branch: main
-      path: ui/nx-monorepo/packages/landing/test/e2e
+      path: internal/boundaries/ui/nx-monorepo/packages/landing/test/e2e
   executionRequest:
     activeDeadlineSeconds: 60
     variables:
