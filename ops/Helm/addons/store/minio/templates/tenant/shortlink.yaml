@@ -46,7 +46,9 @@ spec:
             storage: "2684354560"
         storageClassName: local-path
     volumesPerServer: 2
-  prometheusOperator: true
+  prometheusOperator:
+    annotations:
+      release: prometheus-operator
   requestAutoCert: false
   users:
   - name: shortlink-user-0
