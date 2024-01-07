@@ -17,6 +17,11 @@ kube-prometheus-stack:
     # disable for GKE
     enabled: true
 
+  prometheus:
+    prometheusSpec:
+      enableRemoteWriteReceiver: true
+      logFormat: json
+
   prometheusOperator:
     secretFieldSelector: "type!=kubernetes.io/dockercfg,type!=kubernetes.io/service-account-token,type!=helm.sh/release.v1"
 
