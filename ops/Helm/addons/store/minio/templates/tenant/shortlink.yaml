@@ -36,8 +36,6 @@ spec:
     annotations:
       release: prometheus-operator
   requestAutoCert: false
-  buckets:
-    - name: testkube
   users:
   - name: shortlink-user-0
   - name: testkube-user-0
