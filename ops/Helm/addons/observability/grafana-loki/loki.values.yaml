@@ -38,19 +38,6 @@ loki:
     persistence:
       storageClass: local-path
 
-    extraVolumes:
-      - name: loki-rules
-        configMap:
-          name: loki-alertinggroups
-      - name: loki-rules-generated
-        emptyDir: { }
-
-    extraVolumeMounts:
-      - name: loki-rules-generated
-        mountPath: /rules
-      - name: loki-rules
-        mountPath: /var/loki/rules
-
     resources:
       limits:
         cpu: 300m
@@ -64,6 +51,13 @@ loki:
 
     persistence:
       storageClass: local-path
+
+    extraVolumes:
+      - name: loki-rules
+        configMap:
+          name: loki-alertinggroups
+      - name: loki-rules-generated
+        emptyDir: {}
 
     extraVolumeMounts:
       - name: loki-rules-generated
