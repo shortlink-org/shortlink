@@ -16,7 +16,8 @@ tempo:
         memory: 128Mi
 
     metricsGenerator:
-      enabled: true
+      # TODO: enable
+      enabled: false
       remoteWriteUrl: http://prometheus-operated.prometheus-operator:9090/api/v1/write
 
     ingester:
