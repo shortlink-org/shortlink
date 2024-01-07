@@ -65,6 +65,12 @@ loki:
     persistence:
       storageClass: local-path
 
+    extraVolumeMounts:
+      - name: loki-rules-generated
+        mountPath: /rules
+      - name: loki-rules
+        mountPath: /var/loki/rules
+
     resources:
       limits:
         cpu: 300m
