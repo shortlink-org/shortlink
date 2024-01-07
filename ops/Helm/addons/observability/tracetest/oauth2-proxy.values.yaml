@@ -22,12 +22,20 @@ oauth2-proxy:
 
   ingress:
     enabled: true
-    path: /oauth2
-    pathType: Prefix
+
+    className: nginx
+
     annotations:
       cert-manager.io/cluster-issuer: cert-manager-production
       nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
       nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+
+    path: /oauth2
+    pathType: Prefix
+
+    hosts:
+      - tracetest.shortlink.best
+
     tls:
       - secretName: oauth-proxy-tls
         hosts:
