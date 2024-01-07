@@ -20,7 +20,7 @@ spec:
         memory: 8Gi
       requests:
         memory: 2Gi
-    servers: 2
+    servers: 4
     volumeClaimTemplate:
       metadata:
         name: data
@@ -31,7 +31,7 @@ spec:
           requests:
             storage: "2684354560"
         storageClassName: local-path
-    volumesPerServer: 2
+    volumesPerServer: 1
   prometheusOperator:
     annotations:
       release: prometheus-operator
