@@ -48,7 +48,7 @@ require (
 	github.com/prometheus/client_model v0.5.0
 	github.com/pterm/pterm v0.12.74
 	github.com/rabbitmq/amqp091-go v1.9.0
-	github.com/redis/go-redis/v9 v9.3.1
+	github.com/redis/go-redis/v9 v9.4.0
 	github.com/redis/rueidis v1.0.26
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/robfig/cron/v3 v3.0.1
