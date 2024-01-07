@@ -1,4 +1,5 @@
 const { fontFamily } = require('tailwindcss/defaultTheme')
+import { uico } from "uico"
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
@@ -41,5 +42,13 @@ module.exports = {
     require('@tailwindcss/container-queries'),
     // eslint-disable-next-line global-require
     require('tailwindcss-logical'),
+    uico({
+      // optional configuration
+      // these are the default values
+      components: true,
+      fonts: true,
+      colorFunction: "oklch",
+      colorPalette: "oklch",
+    }),
   ],
 }
