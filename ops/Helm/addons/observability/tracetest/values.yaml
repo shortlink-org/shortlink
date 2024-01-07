@@ -66,3 +66,15 @@ tracetest:
       memory: 126Mi
 
   provisioning: |
+    ---
+    type: DataStore
+    spec:
+      name: Grafana Tempo
+      type: tempo
+      default: true
+      tempo:
+        type: http
+        http:
+          url: http://grafana-tempo.grafana:3100
+          tls:
+            insecure: true

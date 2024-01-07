@@ -7,6 +7,14 @@ tempo:
   tempo:
     reportingEnabled: false
 
+    resources:
+      limits:
+        cpu: 2000m
+        memory: 2Gi
+      requests:
+        cpu: 100m
+        memory: 128Mi
+
     metricsGenerator:
       enabled: true
       remoteWriteUrl: http://prometheus-operated.prometheus-operator:9090/api/v1/write
