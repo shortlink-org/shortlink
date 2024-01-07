@@ -12,16 +12,6 @@ oauth2-proxy:
   extraEnv:
     - name: OAUTH2_PROXY_EMAIL_DOMAINS
       value: "*"
-    - name: OAUTH2_PROXY_CLIENT_ID
-      valueFrom:
-        secretKeyRef:
-        name: tracetest-oauth2-proxy
-        key: client-id
-    - name: OAUTH2_PROXY_CLIENT_SECRET
-      valueFrom:
-        secretKeyRef:
-        name: tracetest-oauth2-proxy
-        key: client-secret
     - name: OAUTH2_PROXY_PROVIDER
       value: github
 
