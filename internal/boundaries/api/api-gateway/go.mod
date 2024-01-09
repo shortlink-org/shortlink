@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway
 
-go 1.21.5
+go 1.21.6
 
 require (
 	github.com/cloudevents/sdk-go/observability/opentelemetry/v2 v2.14.0
