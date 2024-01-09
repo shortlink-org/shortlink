@@ -175,3 +175,8 @@ updates:
     directory: /internal/boundaries/notification/bot
     schedule:
       interval: daily
+
+  - package-ecosystem: gomod
+    directory: /internal/boundaries/payment/wallet
+    schedule:
+      interval: daily
