@@ -17,7 +17,7 @@ dependencies:
     version: 0.8.8
     repository: "file://../../../shortlink-template"
   - name: rabbitmq-cluster-operator
-    version: 3.10.8
+    version: 3.10.9
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: rabbitmq-cluster-operator.enabled
     tags:
