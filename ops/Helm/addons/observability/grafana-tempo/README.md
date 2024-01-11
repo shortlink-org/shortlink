@@ -41,7 +41,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--persistence--enabled"><a href="./values.yaml#L50">tempo.persistence.enabled</a></td>
+			<td id="tempo--persistence--enabled"><a href="./values.yaml#L59">tempo.persistence.enabled</a></td>
 			<td>
 bool
 </td>
@@ -55,7 +55,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--persistence--size"><a href="./values.yaml#L52">tempo.persistence.size</a></td>
+			<td id="tempo--persistence--size"><a href="./values.yaml#L61">tempo.persistence.size</a></td>
 			<td>
 string
 </td>
@@ -69,7 +69,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--persistence--storageClassName"><a href="./values.yaml#L51">tempo.persistence.storageClassName</a></td>
+			<td id="tempo--persistence--storageClassName"><a href="./values.yaml#L60">tempo.persistence.storageClassName</a></td>
 			<td>
 string
 </td>
@@ -83,7 +83,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--serviceMonitor--enabled"><a href="./values.yaml#L47">tempo.serviceMonitor.enabled</a></td>
+			<td id="tempo--serviceMonitor--enabled"><a href="./values.yaml#L56">tempo.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -97,7 +97,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--ingester--max_block_bytes"><a href="./values.yaml#L16">tempo.tempo.ingester.max_block_bytes</a></td>
+			<td id="tempo--tempo--ingester--max_block_bytes"><a href="./values.yaml#L25">tempo.tempo.ingester.max_block_bytes</a></td>
 			<td>
 int
 </td>
@@ -111,7 +111,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--ingester--max_block_duration"><a href="./values.yaml#L17">tempo.tempo.ingester.max_block_duration</a></td>
+			<td id="tempo--tempo--ingester--max_block_duration"><a href="./values.yaml#L26">tempo.tempo.ingester.max_block_duration</a></td>
 			<td>
 string
 </td>
@@ -125,7 +125,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--ingester--trace_idle_period"><a href="./values.yaml#L15">tempo.tempo.ingester.trace_idle_period</a></td>
+			<td id="tempo--tempo--ingester--trace_idle_period"><a href="./values.yaml#L24">tempo.tempo.ingester.trace_idle_period</a></td>
 			<td>
 string
 </td>
@@ -139,21 +139,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--metricsGenerator--enabled"><a href="./values.yaml#L11">tempo.tempo.metricsGenerator.enabled</a></td>
+			<td id="tempo--tempo--metricsGenerator--enabled"><a href="./values.yaml#L20">tempo.tempo.metricsGenerator.enabled</a></td>
 			<td>
 bool
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-true
+false
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--metricsGenerator--remoteWriteUrl"><a href="./values.yaml#L12">tempo.tempo.metricsGenerator.remoteWriteUrl</a></td>
+			<td id="tempo--tempo--metricsGenerator--remoteWriteUrl"><a href="./values.yaml#L21">tempo.tempo.metricsGenerator.remoteWriteUrl</a></td>
 			<td>
 string
 </td>
@@ -167,7 +167,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--querier--max_concurrent_queries"><a href="./values.yaml#L20">tempo.tempo.querier.max_concurrent_queries</a></td>
+			<td id="tempo--tempo--querier--max_concurrent_queries"><a href="./values.yaml#L29">tempo.tempo.querier.max_concurrent_queries</a></td>
 			<td>
 int
 </td>
@@ -181,7 +181,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--querier--search--prefer_self"><a href="./values.yaml#L22">tempo.tempo.querier.search.prefer_self</a></td>
+			<td id="tempo--tempo--querier--search--prefer_self"><a href="./values.yaml#L31">tempo.tempo.querier.search.prefer_self</a></td>
 			<td>
 int
 </td>
@@ -195,7 +195,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--query_frontend--max_outstanding_per_tenant"><a href="./values.yaml#L25">tempo.tempo.query_frontend.max_outstanding_per_tenant</a></td>
+			<td id="tempo--tempo--query_frontend--max_outstanding_per_tenant"><a href="./values.yaml#L34">tempo.tempo.query_frontend.max_outstanding_per_tenant</a></td>
 			<td>
 int
 </td>
@@ -209,7 +209,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--query_frontend--search--concurrent_jobs"><a href="./values.yaml#L27">tempo.tempo.query_frontend.search.concurrent_jobs</a></td>
+			<td id="tempo--tempo--query_frontend--search--concurrent_jobs"><a href="./values.yaml#L36">tempo.tempo.query_frontend.search.concurrent_jobs</a></td>
 			<td>
 int
 </td>
@@ -223,7 +223,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--query_frontend--search--target_bytes_per_job"><a href="./values.yaml#L28">tempo.tempo.query_frontend.search.target_bytes_per_job</a></td>
+			<td id="tempo--tempo--query_frontend--search--target_bytes_per_job"><a href="./values.yaml#L37">tempo.tempo.query_frontend.search.target_bytes_per_job</a></td>
 			<td>
 int
 </td>
@@ -251,7 +251,63 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--storage--trace--backend"><a href="./values.yaml#L32">tempo.tempo.storage.trace.backend</a></td>
+			<td id="tempo--tempo--resources--limits--cpu"><a href="./values.yaml#L12">tempo.tempo.resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"2000m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="tempo--tempo--resources--limits--memory"><a href="./values.yaml#L13">tempo.tempo.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"2Gi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="tempo--tempo--resources--requests--cpu"><a href="./values.yaml#L15">tempo.tempo.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"100m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="tempo--tempo--resources--requests--memory"><a href="./values.yaml#L16">tempo.tempo.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"128Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="tempo--tempo--storage--trace--backend"><a href="./values.yaml#L41">tempo.tempo.storage.trace.backend</a></td>
 			<td>
 string
 </td>
@@ -265,7 +321,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--storage--trace--block--bloom_filter_false_positive"><a href="./values.yaml#L35">tempo.tempo.storage.trace.block.bloom_filter_false_positive</a></td>
+			<td id="tempo--tempo--storage--trace--block--bloom_filter_false_positive"><a href="./values.yaml#L44">tempo.tempo.storage.trace.block.bloom_filter_false_positive</a></td>
 			<td>
 float
 </td>
@@ -279,7 +335,7 @@ float
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--storage--trace--block--v2_encoding"><a href="./values.yaml#L37">tempo.tempo.storage.trace.block.v2_encoding</a></td>
+			<td id="tempo--tempo--storage--trace--block--v2_encoding"><a href="./values.yaml#L46">tempo.tempo.storage.trace.block.v2_encoding</a></td>
 			<td>
 string
 </td>
@@ -293,7 +349,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--storage--trace--block--v2_index_downsample_bytes"><a href="./values.yaml#L36">tempo.tempo.storage.trace.block.v2_index_downsample_bytes</a></td>
+			<td id="tempo--tempo--storage--trace--block--v2_index_downsample_bytes"><a href="./values.yaml#L45">tempo.tempo.storage.trace.block.v2_index_downsample_bytes</a></td>
 			<td>
 int
 </td>
@@ -307,7 +363,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--storage--trace--block--version"><a href="./values.yaml#L34">tempo.tempo.storage.trace.block.version</a></td>
+			<td id="tempo--tempo--storage--trace--block--version"><a href="./values.yaml#L43">tempo.tempo.storage.trace.block.version</a></td>
 			<td>
 string
 </td>
@@ -321,7 +377,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--storage--trace--local--path"><a href="./values.yaml#L39">tempo.tempo.storage.trace.local.path</a></td>
+			<td id="tempo--tempo--storage--trace--local--path"><a href="./values.yaml#L48">tempo.tempo.storage.trace.local.path</a></td>
 			<td>
 string
 </td>
@@ -335,7 +391,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--storage--trace--pool--max_workers"><a href="./values.yaml#L43">tempo.tempo.storage.trace.pool.max_workers</a></td>
+			<td id="tempo--tempo--storage--trace--pool--max_workers"><a href="./values.yaml#L52">tempo.tempo.storage.trace.pool.max_workers</a></td>
 			<td>
 int
 </td>
@@ -349,7 +405,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--storage--trace--pool--queue_depth"><a href="./values.yaml#L44">tempo.tempo.storage.trace.pool.queue_depth</a></td>
+			<td id="tempo--tempo--storage--trace--pool--queue_depth"><a href="./values.yaml#L53">tempo.tempo.storage.trace.pool.queue_depth</a></td>
 			<td>
 int
 </td>
@@ -363,7 +419,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--tempo--storage--trace--wal--path"><a href="./values.yaml#L41">tempo.tempo.storage.trace.wal.path</a></td>
+			<td id="tempo--tempo--storage--trace--wal--path"><a href="./values.yaml#L50">tempo.tempo.storage.trace.wal.path</a></td>
 			<td>
 string
 </td>

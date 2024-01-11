@@ -27,7 +27,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="ingress-nginx--controller--admissionWebhooks--enabled"><a href="./values.yaml#L87">ingress-nginx.controller.admissionWebhooks.enabled</a></td>
+			<td id="ingress-nginx--controller--admissionWebhooks--enabled"><a href="./values.yaml#L89">ingress-nginx.controller.admissionWebhooks.enabled</a></td>
 			<td>
 bool
 </td>
@@ -41,7 +41,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--config--enable-opentelemetry"><a href="./values.yaml#L43">ingress-nginx.controller.config.enable-opentelemetry</a></td>
+			<td id="ingress-nginx--controller--config--enable-opentelemetry"><a href="./values.yaml#L45">ingress-nginx.controller.config.enable-opentelemetry</a></td>
 			<td>
 string
 </td>
@@ -55,7 +55,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--config--opentelemetry-config"><a href="./values.yaml#L44">ingress-nginx.controller.config.opentelemetry-config</a></td>
+			<td id="ingress-nginx--controller--config--opentelemetry-config"><a href="./values.yaml#L46">ingress-nginx.controller.config.opentelemetry-config</a></td>
 			<td>
 string
 </td>
@@ -69,7 +69,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--config--opentelemetry-operation-name"><a href="./values.yaml#L45">ingress-nginx.controller.config.opentelemetry-operation-name</a></td>
+			<td id="ingress-nginx--controller--config--opentelemetry-operation-name"><a href="./values.yaml#L47">ingress-nginx.controller.config.opentelemetry-operation-name</a></td>
 			<td>
 string
 </td>
@@ -83,7 +83,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--config--opentelemetry-trust-incoming-span"><a href="./values.yaml#L46">ingress-nginx.controller.config.opentelemetry-trust-incoming-span</a></td>
+			<td id="ingress-nginx--controller--config--opentelemetry-trust-incoming-span"><a href="./values.yaml#L48">ingress-nginx.controller.config.opentelemetry-trust-incoming-span</a></td>
 			<td>
 string
 </td>
@@ -97,7 +97,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--config--otel-max-export-batch-size"><a href="./values.yaml#L51">ingress-nginx.controller.config.otel-max-export-batch-size</a></td>
+			<td id="ingress-nginx--controller--config--otel-max-export-batch-size"><a href="./values.yaml#L53">ingress-nginx.controller.config.otel-max-export-batch-size</a></td>
 			<td>
 string
 </td>
@@ -111,7 +111,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--config--otel-max-queuesize"><a href="./values.yaml#L49">ingress-nginx.controller.config.otel-max-queuesize</a></td>
+			<td id="ingress-nginx--controller--config--otel-max-queuesize"><a href="./values.yaml#L51">ingress-nginx.controller.config.otel-max-queuesize</a></td>
 			<td>
 string
 </td>
@@ -125,7 +125,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--config--otel-sampler"><a href="./values.yaml#L53">ingress-nginx.controller.config.otel-sampler</a></td>
+			<td id="ingress-nginx--controller--config--otel-sampler"><a href="./values.yaml#L55">ingress-nginx.controller.config.otel-sampler</a></td>
 			<td>
 string
 </td>
@@ -139,7 +139,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--config--otel-sampler-parent-based"><a href="./values.yaml#L55">ingress-nginx.controller.config.otel-sampler-parent-based</a></td>
+			<td id="ingress-nginx--controller--config--otel-sampler-parent-based"><a href="./values.yaml#L57">ingress-nginx.controller.config.otel-sampler-parent-based</a></td>
 			<td>
 string
 </td>
@@ -153,7 +153,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--config--otel-sampler-ratio"><a href="./values.yaml#L54">ingress-nginx.controller.config.otel-sampler-ratio</a></td>
+			<td id="ingress-nginx--controller--config--otel-sampler-ratio"><a href="./values.yaml#L56">ingress-nginx.controller.config.otel-sampler-ratio</a></td>
 			<td>
 string
 </td>
@@ -167,7 +167,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--config--otel-schedule-delay-millis"><a href="./values.yaml#L50">ingress-nginx.controller.config.otel-schedule-delay-millis</a></td>
+			<td id="ingress-nginx--controller--config--otel-schedule-delay-millis"><a href="./values.yaml#L52">ingress-nginx.controller.config.otel-schedule-delay-millis</a></td>
 			<td>
 string
 </td>
@@ -181,7 +181,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--config--otel-service-name"><a href="./values.yaml#L52">ingress-nginx.controller.config.otel-service-name</a></td>
+			<td id="ingress-nginx--controller--config--otel-service-name"><a href="./values.yaml#L54">ingress-nginx.controller.config.otel-service-name</a></td>
 			<td>
 string
 </td>
@@ -195,7 +195,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--config--otlp-collector-host"><a href="./values.yaml#L47">ingress-nginx.controller.config.otlp-collector-host</a></td>
+			<td id="ingress-nginx--controller--config--otlp-collector-host"><a href="./values.yaml#L49">ingress-nginx.controller.config.otlp-collector-host</a></td>
 			<td>
 string
 </td>
@@ -209,7 +209,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--config--otlp-collector-port"><a href="./values.yaml#L48">ingress-nginx.controller.config.otlp-collector-port</a></td>
+			<td id="ingress-nginx--controller--config--otlp-collector-port"><a href="./values.yaml#L50">ingress-nginx.controller.config.otlp-collector-port</a></td>
 			<td>
 string
 </td>
@@ -223,7 +223,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--config--server-snippet"><a href="./values.yaml#L56">ingress-nginx.controller.config.server-snippet</a></td>
+			<td id="ingress-nginx--controller--config--server-snippet"><a href="./values.yaml#L58">ingress-nginx.controller.config.server-snippet</a></td>
 			<td>
 string
 </td>
@@ -237,7 +237,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--extraEnvs[0]--name"><a href="./values.yaml#L36">ingress-nginx.controller.extraEnvs[0].name</a></td>
+			<td id="ingress-nginx--controller--extraEnvs[0]--name"><a href="./values.yaml#L38">ingress-nginx.controller.extraEnvs[0].name</a></td>
 			<td>
 string
 </td>
@@ -251,7 +251,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--extraEnvs[0]--valueFrom--fieldRef--fieldPath"><a href="./values.yaml#L39">ingress-nginx.controller.extraEnvs[0].valueFrom.fieldRef.fieldPath</a></td>
+			<td id="ingress-nginx--controller--extraEnvs[0]--valueFrom--fieldRef--fieldPath"><a href="./values.yaml#L41">ingress-nginx.controller.extraEnvs[0].valueFrom.fieldRef.fieldPath</a></td>
 			<td>
 string
 </td>
@@ -265,7 +265,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--hostNetwork"><a href="./values.yaml#L65">ingress-nginx.controller.hostNetwork</a></td>
+			<td id="ingress-nginx--controller--hostNetwork"><a href="./values.yaml#L67">ingress-nginx.controller.hostNetwork</a></td>
 			<td>
 bool
 </td>
@@ -279,7 +279,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--ingressClassResource--default"><a href="./values.yaml#L71">ingress-nginx.controller.ingressClassResource.default</a></td>
+			<td id="ingress-nginx--controller--ingressClassResource--default"><a href="./values.yaml#L73">ingress-nginx.controller.ingressClassResource.default</a></td>
 			<td>
 bool
 </td>
@@ -293,7 +293,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--kind"><a href="./values.yaml#L75">ingress-nginx.controller.kind</a></td>
+			<td id="ingress-nginx--controller--kind"><a href="./values.yaml#L77">ingress-nginx.controller.kind</a></td>
 			<td>
 string
 </td>
@@ -307,7 +307,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--enabled"><a href="./values.yaml#L91">ingress-nginx.controller.metrics.enabled</a></td>
+			<td id="ingress-nginx--controller--metrics--enabled"><a href="./values.yaml#L93">ingress-nginx.controller.metrics.enabled</a></td>
 			<td>
 bool
 </td>
@@ -321,7 +321,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--additionalLabels--app"><a href="./values.yaml#L104">ingress-nginx.controller.metrics.prometheusRule.additionalLabels.app</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--additionalLabels--app"><a href="./values.yaml#L106">ingress-nginx.controller.metrics.prometheusRule.additionalLabels.app</a></td>
 			<td>
 string
 </td>
@@ -335,7 +335,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--additionalLabels--release"><a href="./values.yaml#L105">ingress-nginx.controller.metrics.prometheusRule.additionalLabels.release</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--additionalLabels--release"><a href="./values.yaml#L107">ingress-nginx.controller.metrics.prometheusRule.additionalLabels.release</a></td>
 			<td>
 string
 </td>
@@ -349,7 +349,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--enabled"><a href="./values.yaml#L102">ingress-nginx.controller.metrics.prometheusRule.enabled</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--enabled"><a href="./values.yaml#L104">ingress-nginx.controller.metrics.prometheusRule.enabled</a></td>
 			<td>
 bool
 </td>
@@ -363,7 +363,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[0]--alert"><a href="./values.yaml#L108">ingress-nginx.controller.metrics.prometheusRule.rules[0].alert</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[0]--alert"><a href="./values.yaml#L110">ingress-nginx.controller.metrics.prometheusRule.rules[0].alert</a></td>
 			<td>
 string
 </td>
@@ -377,7 +377,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[0]--annotations--description"><a href="./values.yaml#L114">ingress-nginx.controller.metrics.prometheusRule.rules[0].annotations.description</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[0]--annotations--description"><a href="./values.yaml#L116">ingress-nginx.controller.metrics.prometheusRule.rules[0].annotations.description</a></td>
 			<td>
 string
 </td>
@@ -391,7 +391,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[0]--annotations--summary"><a href="./values.yaml#L115">ingress-nginx.controller.metrics.prometheusRule.rules[0].annotations.summary</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[0]--annotations--summary"><a href="./values.yaml#L117">ingress-nginx.controller.metrics.prometheusRule.rules[0].annotations.summary</a></td>
 			<td>
 string
 </td>
@@ -405,7 +405,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[0]--expr"><a href="./values.yaml#L109">ingress-nginx.controller.metrics.prometheusRule.rules[0].expr</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[0]--expr"><a href="./values.yaml#L111">ingress-nginx.controller.metrics.prometheusRule.rules[0].expr</a></td>
 			<td>
 string
 </td>
@@ -419,7 +419,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[0]--for"><a href="./values.yaml#L110">ingress-nginx.controller.metrics.prometheusRule.rules[0].for</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[0]--for"><a href="./values.yaml#L112">ingress-nginx.controller.metrics.prometheusRule.rules[0].for</a></td>
 			<td>
 string
 </td>
@@ -433,7 +433,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[0]--labels--severity"><a href="./values.yaml#L112">ingress-nginx.controller.metrics.prometheusRule.rules[0].labels.severity</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[0]--labels--severity"><a href="./values.yaml#L114">ingress-nginx.controller.metrics.prometheusRule.rules[0].labels.severity</a></td>
 			<td>
 string
 </td>
@@ -447,7 +447,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[1]--alert"><a href="./values.yaml#L116">ingress-nginx.controller.metrics.prometheusRule.rules[1].alert</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[1]--alert"><a href="./values.yaml#L118">ingress-nginx.controller.metrics.prometheusRule.rules[1].alert</a></td>
 			<td>
 string
 </td>
@@ -461,7 +461,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[1]--annotations--description"><a href="./values.yaml#L122">ingress-nginx.controller.metrics.prometheusRule.rules[1].annotations.description</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[1]--annotations--description"><a href="./values.yaml#L124">ingress-nginx.controller.metrics.prometheusRule.rules[1].annotations.description</a></td>
 			<td>
 string
 </td>
@@ -475,7 +475,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[1]--annotations--summary"><a href="./values.yaml#L123">ingress-nginx.controller.metrics.prometheusRule.rules[1].annotations.summary</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[1]--annotations--summary"><a href="./values.yaml#L125">ingress-nginx.controller.metrics.prometheusRule.rules[1].annotations.summary</a></td>
 			<td>
 string
 </td>
@@ -489,7 +489,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[1]--expr"><a href="./values.yaml#L117">ingress-nginx.controller.metrics.prometheusRule.rules[1].expr</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[1]--expr"><a href="./values.yaml#L119">ingress-nginx.controller.metrics.prometheusRule.rules[1].expr</a></td>
 			<td>
 string
 </td>
@@ -503,7 +503,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[1]--for"><a href="./values.yaml#L118">ingress-nginx.controller.metrics.prometheusRule.rules[1].for</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[1]--for"><a href="./values.yaml#L120">ingress-nginx.controller.metrics.prometheusRule.rules[1].for</a></td>
 			<td>
 string
 </td>
@@ -517,7 +517,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[1]--labels--severity"><a href="./values.yaml#L120">ingress-nginx.controller.metrics.prometheusRule.rules[1].labels.severity</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[1]--labels--severity"><a href="./values.yaml#L122">ingress-nginx.controller.metrics.prometheusRule.rules[1].labels.severity</a></td>
 			<td>
 string
 </td>
@@ -531,7 +531,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[2]--alert"><a href="./values.yaml#L124">ingress-nginx.controller.metrics.prometheusRule.rules[2].alert</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[2]--alert"><a href="./values.yaml#L126">ingress-nginx.controller.metrics.prometheusRule.rules[2].alert</a></td>
 			<td>
 string
 </td>
@@ -545,7 +545,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[2]--annotations--description"><a href="./values.yaml#L130">ingress-nginx.controller.metrics.prometheusRule.rules[2].annotations.description</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[2]--annotations--description"><a href="./values.yaml#L132">ingress-nginx.controller.metrics.prometheusRule.rules[2].annotations.description</a></td>
 			<td>
 string
 </td>
@@ -559,7 +559,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[2]--annotations--summary"><a href="./values.yaml#L131">ingress-nginx.controller.metrics.prometheusRule.rules[2].annotations.summary</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[2]--annotations--summary"><a href="./values.yaml#L133">ingress-nginx.controller.metrics.prometheusRule.rules[2].annotations.summary</a></td>
 			<td>
 string
 </td>
@@ -573,7 +573,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[2]--expr"><a href="./values.yaml#L125">ingress-nginx.controller.metrics.prometheusRule.rules[2].expr</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[2]--expr"><a href="./values.yaml#L127">ingress-nginx.controller.metrics.prometheusRule.rules[2].expr</a></td>
 			<td>
 string
 </td>
@@ -587,7 +587,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[2]--for"><a href="./values.yaml#L126">ingress-nginx.controller.metrics.prometheusRule.rules[2].for</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[2]--for"><a href="./values.yaml#L128">ingress-nginx.controller.metrics.prometheusRule.rules[2].for</a></td>
 			<td>
 string
 </td>
@@ -601,7 +601,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[2]--labels--severity"><a href="./values.yaml#L128">ingress-nginx.controller.metrics.prometheusRule.rules[2].labels.severity</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[2]--labels--severity"><a href="./values.yaml#L130">ingress-nginx.controller.metrics.prometheusRule.rules[2].labels.severity</a></td>
 			<td>
 string
 </td>
@@ -615,7 +615,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[3]--alert"><a href="./values.yaml#L132">ingress-nginx.controller.metrics.prometheusRule.rules[3].alert</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[3]--alert"><a href="./values.yaml#L134">ingress-nginx.controller.metrics.prometheusRule.rules[3].alert</a></td>
 			<td>
 string
 </td>
@@ -629,7 +629,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[3]--annotations--description"><a href="./values.yaml#L138">ingress-nginx.controller.metrics.prometheusRule.rules[3].annotations.description</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[3]--annotations--description"><a href="./values.yaml#L140">ingress-nginx.controller.metrics.prometheusRule.rules[3].annotations.description</a></td>
 			<td>
 string
 </td>
@@ -643,7 +643,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[3]--annotations--summary"><a href="./values.yaml#L139">ingress-nginx.controller.metrics.prometheusRule.rules[3].annotations.summary</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[3]--annotations--summary"><a href="./values.yaml#L141">ingress-nginx.controller.metrics.prometheusRule.rules[3].annotations.summary</a></td>
 			<td>
 string
 </td>
@@ -657,7 +657,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[3]--expr"><a href="./values.yaml#L133">ingress-nginx.controller.metrics.prometheusRule.rules[3].expr</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[3]--expr"><a href="./values.yaml#L135">ingress-nginx.controller.metrics.prometheusRule.rules[3].expr</a></td>
 			<td>
 string
 </td>
@@ -671,7 +671,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[3]--for"><a href="./values.yaml#L134">ingress-nginx.controller.metrics.prometheusRule.rules[3].for</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[3]--for"><a href="./values.yaml#L136">ingress-nginx.controller.metrics.prometheusRule.rules[3].for</a></td>
 			<td>
 string
 </td>
@@ -685,7 +685,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[3]--labels--severity"><a href="./values.yaml#L136">ingress-nginx.controller.metrics.prometheusRule.rules[3].labels.severity</a></td>
+			<td id="ingress-nginx--controller--metrics--prometheusRule--rules[3]--labels--severity"><a href="./values.yaml#L138">ingress-nginx.controller.metrics.prometheusRule.rules[3].labels.severity</a></td>
 			<td>
 string
 </td>
@@ -699,7 +699,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--serviceMonitor--additionalLabels--release"><a href="./values.yaml#L96">ingress-nginx.controller.metrics.serviceMonitor.additionalLabels.release</a></td>
+			<td id="ingress-nginx--controller--metrics--serviceMonitor--additionalLabels--release"><a href="./values.yaml#L98">ingress-nginx.controller.metrics.serviceMonitor.additionalLabels.release</a></td>
 			<td>
 string
 </td>
@@ -713,7 +713,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--serviceMonitor--enabled"><a href="./values.yaml#L94">ingress-nginx.controller.metrics.serviceMonitor.enabled</a></td>
+			<td id="ingress-nginx--controller--metrics--serviceMonitor--enabled"><a href="./values.yaml#L96">ingress-nginx.controller.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -727,7 +727,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--metrics--serviceMonitor--namespaceSelector--matchNames[0]"><a href="./values.yaml#L99">ingress-nginx.controller.metrics.serviceMonitor.namespaceSelector.matchNames[0]</a></td>
+			<td id="ingress-nginx--controller--metrics--serviceMonitor--namespaceSelector--matchNames[0]"><a href="./values.yaml#L101">ingress-nginx.controller.metrics.serviceMonitor.namespaceSelector.matchNames[0]</a></td>
 			<td>
 string
 </td>
@@ -741,7 +741,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--nodeSelector--"kubernetes--io/hostname""><a href="./values.yaml#L25">ingress-nginx.controller.nodeSelector."kubernetes.io/hostname"</a></td>
+			<td id="ingress-nginx--controller--nodeSelector--"kubernetes--io/hostname""><a href="./values.yaml#L27">ingress-nginx.controller.nodeSelector."kubernetes.io/hostname"</a></td>
 			<td>
 string
 </td>
@@ -755,7 +755,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--opentelemetry--enabled"><a href="./values.yaml#L68">ingress-nginx.controller.opentelemetry.enabled</a></td>
+			<td id="ingress-nginx--controller--opentelemetry--enabled"><a href="./values.yaml#L70">ingress-nginx.controller.opentelemetry.enabled</a></td>
 			<td>
 bool
 </td>
@@ -769,7 +769,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--podSecurityContext--fsGroup"><a href="./values.yaml#L78">ingress-nginx.controller.podSecurityContext.fsGroup</a></td>
+			<td id="ingress-nginx--controller--podSecurityContext--fsGroup"><a href="./values.yaml#L80">ingress-nginx.controller.podSecurityContext.fsGroup</a></td>
 			<td>
 int
 </td>
@@ -783,7 +783,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--resources--limits--cpu"><a href="./values.yaml#L29">ingress-nginx.controller.resources.limits.cpu</a></td>
+			<td id="ingress-nginx--controller--resources--limits--cpu"><a href="./values.yaml#L31">ingress-nginx.controller.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -797,7 +797,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--resources--limits--memory"><a href="./values.yaml#L30">ingress-nginx.controller.resources.limits.memory</a></td>
+			<td id="ingress-nginx--controller--resources--limits--memory"><a href="./values.yaml#L32">ingress-nginx.controller.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -811,7 +811,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--resources--requests--cpu"><a href="./values.yaml#L32">ingress-nginx.controller.resources.requests.cpu</a></td>
+			<td id="ingress-nginx--controller--resources--requests--cpu"><a href="./values.yaml#L34">ingress-nginx.controller.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -825,7 +825,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--resources--requests--memory"><a href="./values.yaml#L33">ingress-nginx.controller.resources.requests.memory</a></td>
+			<td id="ingress-nginx--controller--resources--requests--memory"><a href="./values.yaml#L35">ingress-nginx.controller.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -839,7 +839,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--service--nodePorts--http"><a href="./values.yaml#L83">ingress-nginx.controller.service.nodePorts.http</a></td>
+			<td id="ingress-nginx--controller--service--nodePorts--http"><a href="./values.yaml#L85">ingress-nginx.controller.service.nodePorts.http</a></td>
 			<td>
 int
 </td>
@@ -853,7 +853,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--service--nodePorts--https"><a href="./values.yaml#L84">ingress-nginx.controller.service.nodePorts.https</a></td>
+			<td id="ingress-nginx--controller--service--nodePorts--https"><a href="./values.yaml#L86">ingress-nginx.controller.service.nodePorts.https</a></td>
 			<td>
 int
 </td>
@@ -867,7 +867,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--controller--service--type"><a href="./values.yaml#L81">ingress-nginx.controller.service.type</a></td>
+			<td id="ingress-nginx--controller--service--type"><a href="./values.yaml#L83">ingress-nginx.controller.service.type</a></td>
 			<td>
 string
 </td>
@@ -881,7 +881,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--defaultBackend--enabled"><a href="./values.yaml#L10">ingress-nginx.defaultBackend.enabled</a></td>
+			<td id="ingress-nginx--defaultBackend--enabled"><a href="./values.yaml#L12">ingress-nginx.defaultBackend.enabled</a></td>
 			<td>
 bool
 </td>
@@ -895,7 +895,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--defaultBackend--resources--limits--cpu"><a href="./values.yaml#L14">ingress-nginx.defaultBackend.resources.limits.cpu</a></td>
+			<td id="ingress-nginx--defaultBackend--resources--limits--cpu"><a href="./values.yaml#L16">ingress-nginx.defaultBackend.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -909,7 +909,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--defaultBackend--resources--limits--memory"><a href="./values.yaml#L15">ingress-nginx.defaultBackend.resources.limits.memory</a></td>
+			<td id="ingress-nginx--defaultBackend--resources--limits--memory"><a href="./values.yaml#L17">ingress-nginx.defaultBackend.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -923,7 +923,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--defaultBackend--resources--requests--cpu"><a href="./values.yaml#L17">ingress-nginx.defaultBackend.resources.requests.cpu</a></td>
+			<td id="ingress-nginx--defaultBackend--resources--requests--cpu"><a href="./values.yaml#L19">ingress-nginx.defaultBackend.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -937,7 +937,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress-nginx--defaultBackend--resources--requests--memory"><a href="./values.yaml#L18">ingress-nginx.defaultBackend.resources.requests.memory</a></td>
+			<td id="ingress-nginx--defaultBackend--resources--requests--memory"><a href="./values.yaml#L20">ingress-nginx.defaultBackend.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -959,6 +959,20 @@ bool
 				<div style="max-width: 300px;">
 <pre lang="json">
 true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="ingress-nginx--revisionHistoryLimit"><a href="./values.yaml#L8">ingress-nginx.revisionHistoryLimit</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+3
 </pre>
 </div>
 			</td>

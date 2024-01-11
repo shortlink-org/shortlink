@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-events | 2.4.1 |
+| https://argoproj.github.io/argo-helm | argo-events | 2.4.2 |
 
 ## Values
 

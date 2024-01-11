@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubeshop.github.io/helm-charts | testkube | 1.16.26 |
+| https://kubeshop.github.io/helm-charts | testkube | 1.16.28 |
 
 ## Values
 
@@ -251,7 +251,21 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--mongodb--secretKey"><a href="./values.yaml#L53">testkube.testkube-api.mongodb.secretKey</a></td>
+			<td id="testkube--testkube-api--mongodb--dsn"><a href="./values.yaml#L52">testkube.testkube-api.mongodb.dsn</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"mongodb://mongodb-svc:27017"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="testkube--testkube-api--mongodb--secretKey"><a href="./values.yaml#L54">testkube.testkube-api.mongodb.secretKey</a></td>
 			<td>
 string
 </td>
@@ -265,7 +279,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--mongodb--secretName"><a href="./values.yaml#L52">testkube.testkube-api.mongodb.secretName</a></td>
+			<td id="testkube--testkube-api--mongodb--secretName"><a href="./values.yaml#L53">testkube.testkube-api.mongodb.secretName</a></td>
 			<td>
 string
 </td>
@@ -307,7 +321,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--prometheus--enabled"><a href="./values.yaml#L78">testkube.testkube-api.prometheus.enabled</a></td>
+			<td id="testkube--testkube-api--prometheus--enabled"><a href="./values.yaml#L83">testkube.testkube-api.prometheus.enabled</a></td>
 			<td>
 bool
 </td>
@@ -321,7 +335,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--prometheus--monitoringLabels--release"><a href="./values.yaml#L80">testkube.testkube-api.prometheus.monitoringLabels.release</a></td>
+			<td id="testkube--testkube-api--prometheus--monitoringLabels--release"><a href="./values.yaml#L85">testkube.testkube-api.prometheus.monitoringLabels.release</a></td>
 			<td>
 string
 </td>
@@ -335,7 +349,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--resources--limits--cpu"><a href="./values.yaml#L84">testkube.testkube-api.resources.limits.cpu</a></td>
+			<td id="testkube--testkube-api--resources--limits--cpu"><a href="./values.yaml#L89">testkube.testkube-api.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -349,7 +363,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--resources--limits--memory"><a href="./values.yaml#L85">testkube.testkube-api.resources.limits.memory</a></td>
+			<td id="testkube--testkube-api--resources--limits--memory"><a href="./values.yaml#L90">testkube.testkube-api.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -363,7 +377,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--resources--requests--cpu"><a href="./values.yaml#L87">testkube.testkube-api.resources.requests.cpu</a></td>
+			<td id="testkube--testkube-api--resources--requests--cpu"><a href="./values.yaml#L92">testkube.testkube-api.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -377,7 +391,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--resources--requests--memory"><a href="./values.yaml#L88">testkube.testkube-api.resources.requests.memory</a></td>
+			<td id="testkube--testkube-api--resources--requests--memory"><a href="./values.yaml#L93">testkube.testkube-api.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -391,7 +405,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--storage--SSL"><a href="./values.yaml#L74">testkube.testkube-api.storage.SSL</a></td>
+			<td id="testkube--testkube-api--storage--SSL"><a href="./values.yaml#L79">testkube.testkube-api.storage.SSL</a></td>
 			<td>
 bool
 </td>
@@ -405,7 +419,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--storage--expiration"><a href="./values.yaml#L73">testkube.testkube-api.storage.expiration</a></td>
+			<td id="testkube--testkube-api--storage--expiration"><a href="./values.yaml#L78">testkube.testkube-api.storage.expiration</a></td>
 			<td>
 int
 </td>
@@ -419,7 +433,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--storage--region"><a href="./values.yaml#L71">testkube.testkube-api.storage.region</a></td>
+			<td id="testkube--testkube-api--storage--region"><a href="./values.yaml#L76">testkube.testkube-api.storage.region</a></td>
 			<td>
 string
 </td>
@@ -433,7 +447,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--storage--scrapperEnabled"><a href="./values.yaml#L75">testkube.testkube-api.storage.scrapperEnabled</a></td>
+			<td id="testkube--testkube-api--storage--scrapperEnabled"><a href="./values.yaml#L80">testkube.testkube-api.storage.scrapperEnabled</a></td>
 			<td>
 bool
 </td>
@@ -447,7 +461,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--storage--token"><a href="./values.yaml#L72">testkube.testkube-api.storage.token</a></td>
+			<td id="testkube--testkube-api--storage--token"><a href="./values.yaml#L77">testkube.testkube-api.storage.token</a></td>
 			<td>
 string
 </td>
@@ -461,7 +475,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--testConnection--resources--limits--cpu"><a href="./values.yaml#L93">testkube.testkube-api.testConnection.resources.limits.cpu</a></td>
+			<td id="testkube--testkube-api--testConnection--resources--limits--cpu"><a href="./values.yaml#L98">testkube.testkube-api.testConnection.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -475,7 +489,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--testConnection--resources--limits--memory"><a href="./values.yaml#L94">testkube.testkube-api.testConnection.resources.limits.memory</a></td>
+			<td id="testkube--testkube-api--testConnection--resources--limits--memory"><a href="./values.yaml#L99">testkube.testkube-api.testConnection.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -489,7 +503,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--testConnection--resources--requests--cpu"><a href="./values.yaml#L96">testkube.testkube-api.testConnection.resources.requests.cpu</a></td>
+			<td id="testkube--testkube-api--testConnection--resources--requests--cpu"><a href="./values.yaml#L101">testkube.testkube-api.testConnection.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -503,7 +517,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--testConnection--resources--requests--memory"><a href="./values.yaml#L97">testkube.testkube-api.testConnection.resources.requests.memory</a></td>
+			<td id="testkube--testkube-api--testConnection--resources--requests--memory"><a href="./values.yaml#L102">testkube.testkube-api.testConnection.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -517,7 +531,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--uiIngress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L59">testkube.testkube-api.uiIngress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td id="testkube--testkube-api--uiIngress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L60">testkube.testkube-api.uiIngress.annotations."cert-manager.io/cluster-issuer"</a></td>
 			<td>
 string
 </td>
@@ -531,7 +545,49 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--uiIngress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L61">testkube.testkube-api.uiIngress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="testkube--testkube-api--uiIngress--annotations--"nginx--ingress--kubernetes--io/access-control-allow-origin""><a href="./values.yaml#L65">testkube.testkube-api.uiIngress.annotations."nginx.ingress.kubernetes.io/access-control-allow-origin"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"*"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="testkube--testkube-api--uiIngress--annotations--"nginx--ingress--kubernetes--io/auth-signin""><a href="./values.yaml#L64">testkube.testkube-api.uiIngress.annotations."nginx.ingress.kubernetes.io/auth-signin"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://testkube.shortlink.best/oauth2/start?rd=$escaped_request_uri"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="testkube--testkube-api--uiIngress--annotations--"nginx--ingress--kubernetes--io/auth-url""><a href="./values.yaml#L63">testkube.testkube-api.uiIngress.annotations."nginx.ingress.kubernetes.io/auth-url"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://testkube.shortlink.best/oauth2/auth"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="testkube--testkube-api--uiIngress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L62">testkube.testkube-api.uiIngress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -545,7 +601,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--uiIngress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L60">testkube.testkube-api.uiIngress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="testkube--testkube-api--uiIngress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L61">testkube.testkube-api.uiIngress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -559,7 +615,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--uiIngress--className"><a href="./values.yaml#L57">testkube.testkube-api.uiIngress.className</a></td>
+			<td id="testkube--testkube-api--uiIngress--className"><a href="./values.yaml#L58">testkube.testkube-api.uiIngress.className</a></td>
 			<td>
 string
 </td>
@@ -573,7 +629,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--uiIngress--enabled"><a href="./values.yaml#L56">testkube.testkube-api.uiIngress.enabled</a></td>
+			<td id="testkube--testkube-api--uiIngress--enabled"><a href="./values.yaml#L57">testkube.testkube-api.uiIngress.enabled</a></td>
 			<td>
 bool
 </td>
@@ -587,7 +643,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--uiIngress--hosts[0]"><a href="./values.yaml#L63">testkube.testkube-api.uiIngress.hosts[0]</a></td>
+			<td id="testkube--testkube-api--uiIngress--hosts[0]"><a href="./values.yaml#L67">testkube.testkube-api.uiIngress.hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -601,7 +657,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--uiIngress--tls[0]--hosts[0]"><a href="./values.yaml#L67">testkube.testkube-api.uiIngress.tls[0].hosts[0]</a></td>
+			<td id="testkube--testkube-api--uiIngress--path"><a href="./values.yaml#L68">testkube.testkube-api.uiIngress.path</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/v1"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="testkube--testkube-api--uiIngress--tls[0]--hosts[0]"><a href="./values.yaml#L72">testkube.testkube-api.uiIngress.tls[0].hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -615,7 +685,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--uiIngress--tls[0]--secretName"><a href="./values.yaml#L68">testkube.testkube-api.uiIngress.tls[0].secretName</a></td>
+			<td id="testkube--testkube-api--uiIngress--tls[0]--secretName"><a href="./values.yaml#L73">testkube.testkube-api.uiIngress.tls[0].secretName</a></td>
 			<td>
 string
 </td>
@@ -629,7 +699,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-api--uiIngress--tlsenabled"><a href="./values.yaml#L64">testkube.testkube-api.uiIngress.tlsenabled</a></td>
+			<td id="testkube--testkube-api--uiIngress--tlsenabled"><a href="./values.yaml#L69">testkube.testkube-api.uiIngress.tlsenabled</a></td>
 			<td>
 bool
 </td>
@@ -643,21 +713,21 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--apiServerEndpoint"><a href="./values.yaml#L100">testkube.testkube-dashboard.apiServerEndpoint</a></td>
+			<td id="testkube--testkube-dashboard--apiServerEndpoint"><a href="./values.yaml#L105">testkube.testkube-dashboard.apiServerEndpoint</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"https://testkube.shortlink.best/results/v1"
+"https://testkube.shortlink.best/v1"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L106">testkube.testkube-dashboard.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td id="testkube--testkube-dashboard--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L113">testkube.testkube-dashboard.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
 			<td>
 string
 </td>
@@ -671,7 +741,49 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L108">testkube.testkube-dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="testkube--testkube-dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/access-control-allow-origin""><a href="./values.yaml#L116">testkube.testkube-dashboard.ingress.annotations."nginx.ingress.kubernetes.io/access-control-allow-origin"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"*"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="testkube--testkube-dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/auth-signin""><a href="./values.yaml#L118">testkube.testkube-dashboard.ingress.annotations."nginx.ingress.kubernetes.io/auth-signin"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://testkube.shortlink.best/oauth2/start?rd=$escaped_request_uri"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="testkube--testkube-dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/auth-url""><a href="./values.yaml#L117">testkube.testkube-dashboard.ingress.annotations."nginx.ingress.kubernetes.io/auth-url"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://testkube.shortlink.best/oauth2/auth"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="testkube--testkube-dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L115">testkube.testkube-dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -685,7 +797,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L107">testkube.testkube-dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="testkube--testkube-dashboard--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L114">testkube.testkube-dashboard.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -699,7 +811,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--ingress--enabled"><a href="./values.yaml#L103">testkube.testkube-dashboard.ingress.enabled</a></td>
+			<td id="testkube--testkube-dashboard--ingress--className"><a href="./values.yaml#L110">testkube.testkube-dashboard.ingress.className</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"nginx"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="testkube--testkube-dashboard--ingress--enabled"><a href="./values.yaml#L108">testkube.testkube-dashboard.ingress.enabled</a></td>
 			<td>
 bool
 </td>
@@ -713,7 +839,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--ingress--hosts[0]"><a href="./values.yaml#L111">testkube.testkube-dashboard.ingress.hosts[0]</a></td>
+			<td id="testkube--testkube-dashboard--ingress--hosts[0]"><a href="./values.yaml#L121">testkube.testkube-dashboard.ingress.hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -727,7 +853,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--ingress--tls[0]--hosts[0]"><a href="./values.yaml#L116">testkube.testkube-dashboard.ingress.tls[0].hosts[0]</a></td>
+			<td id="testkube--testkube-dashboard--ingress--tls[0]--hosts[0]"><a href="./values.yaml#L126">testkube.testkube-dashboard.ingress.tls[0].hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -741,7 +867,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--ingress--tls[0]--secretName"><a href="./values.yaml#L117">testkube.testkube-dashboard.ingress.tls[0].secretName</a></td>
+			<td id="testkube--testkube-dashboard--ingress--tls[0]--secretName"><a href="./values.yaml#L127">testkube.testkube-dashboard.ingress.tls[0].secretName</a></td>
 			<td>
 string
 </td>
@@ -755,7 +881,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--ingress--tlsenabled"><a href="./values.yaml#L113">testkube.testkube-dashboard.ingress.tlsenabled</a></td>
+			<td id="testkube--testkube-dashboard--ingress--tlsenabled"><a href="./values.yaml#L123">testkube.testkube-dashboard.ingress.tlsenabled</a></td>
 			<td>
 bool
 </td>
@@ -769,7 +895,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--oauth2--enabled"><a href="./values.yaml#L120">testkube.testkube-dashboard.oauth2.enabled</a></td>
+			<td id="testkube--testkube-dashboard--oauth2--enabled"><a href="./values.yaml#L130">testkube.testkube-dashboard.oauth2.enabled</a></td>
 			<td>
 bool
 </td>
@@ -783,7 +909,49 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--resources--limits--cpu"><a href="./values.yaml#L124">testkube.testkube-dashboard.resources.limits.cpu</a></td>
+			<td id="testkube--testkube-dashboard--oauth2--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L134">testkube.testkube-dashboard.oauth2.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"cert-manager-production"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="testkube--testkube-dashboard--oauth2--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L136">testkube.testkube-dashboard.oauth2.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="testkube--testkube-dashboard--oauth2--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L135">testkube.testkube-dashboard.oauth2.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="testkube--testkube-dashboard--resources--limits--cpu"><a href="./values.yaml#L140">testkube.testkube-dashboard.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -797,7 +965,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--resources--limits--memory"><a href="./values.yaml#L125">testkube.testkube-dashboard.resources.limits.memory</a></td>
+			<td id="testkube--testkube-dashboard--resources--limits--memory"><a href="./values.yaml#L141">testkube.testkube-dashboard.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -811,7 +979,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--resources--requests--cpu"><a href="./values.yaml#L127">testkube.testkube-dashboard.resources.requests.cpu</a></td>
+			<td id="testkube--testkube-dashboard--resources--requests--cpu"><a href="./values.yaml#L143">testkube.testkube-dashboard.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -825,7 +993,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--resources--requests--memory"><a href="./values.yaml#L128">testkube.testkube-dashboard.resources.requests.memory</a></td>
+			<td id="testkube--testkube-dashboard--resources--requests--memory"><a href="./values.yaml#L144">testkube.testkube-dashboard.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -839,7 +1007,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--testConnection--resources--limits--cpu"><a href="./values.yaml#L133">testkube.testkube-dashboard.testConnection.resources.limits.cpu</a></td>
+			<td id="testkube--testkube-dashboard--testConnection--resources--limits--cpu"><a href="./values.yaml#L149">testkube.testkube-dashboard.testConnection.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -853,7 +1021,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--testConnection--resources--limits--memory"><a href="./values.yaml#L134">testkube.testkube-dashboard.testConnection.resources.limits.memory</a></td>
+			<td id="testkube--testkube-dashboard--testConnection--resources--limits--memory"><a href="./values.yaml#L150">testkube.testkube-dashboard.testConnection.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -867,7 +1035,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--testConnection--resources--requests--cpu"><a href="./values.yaml#L136">testkube.testkube-dashboard.testConnection.resources.requests.cpu</a></td>
+			<td id="testkube--testkube-dashboard--testConnection--resources--requests--cpu"><a href="./values.yaml#L152">testkube.testkube-dashboard.testConnection.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -881,7 +1049,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-dashboard--testConnection--resources--requests--memory"><a href="./values.yaml#L137">testkube.testkube-dashboard.testConnection.resources.requests.memory</a></td>
+			<td id="testkube--testkube-dashboard--testConnection--resources--requests--memory"><a href="./values.yaml#L153">testkube.testkube-dashboard.testConnection.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -895,7 +1063,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-operator--enabled"><a href="./values.yaml#L140">testkube.testkube-operator.enabled</a></td>
+			<td id="testkube--testkube-operator--enabled"><a href="./values.yaml#L156">testkube.testkube-operator.enabled</a></td>
 			<td>
 bool
 </td>
@@ -909,7 +1077,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-operator--proxy--resources--limits--cpu"><a href="./values.yaml#L155">testkube.testkube-operator.proxy.resources.limits.cpu</a></td>
+			<td id="testkube--testkube-operator--proxy--resources--limits--cpu"><a href="./values.yaml#L171">testkube.testkube-operator.proxy.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -923,7 +1091,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-operator--proxy--resources--limits--memory"><a href="./values.yaml#L156">testkube.testkube-operator.proxy.resources.limits.memory</a></td>
+			<td id="testkube--testkube-operator--proxy--resources--limits--memory"><a href="./values.yaml#L172">testkube.testkube-operator.proxy.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -937,7 +1105,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-operator--proxy--resources--requests--cpu"><a href="./values.yaml#L158">testkube.testkube-operator.proxy.resources.requests.cpu</a></td>
+			<td id="testkube--testkube-operator--proxy--resources--requests--cpu"><a href="./values.yaml#L174">testkube.testkube-operator.proxy.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -951,7 +1119,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-operator--proxy--resources--requests--memory"><a href="./values.yaml#L159">testkube.testkube-operator.proxy.resources.requests.memory</a></td>
+			<td id="testkube--testkube-operator--proxy--resources--requests--memory"><a href="./values.yaml#L175">testkube.testkube-operator.proxy.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -965,7 +1133,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-operator--resources--limits--cpu"><a href="./values.yaml#L144">testkube.testkube-operator.resources.limits.cpu</a></td>
+			<td id="testkube--testkube-operator--resources--limits--cpu"><a href="./values.yaml#L160">testkube.testkube-operator.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -979,7 +1147,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-operator--resources--limits--memory"><a href="./values.yaml#L145">testkube.testkube-operator.resources.limits.memory</a></td>
+			<td id="testkube--testkube-operator--resources--limits--memory"><a href="./values.yaml#L161">testkube.testkube-operator.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -993,7 +1161,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-operator--resources--requests--cpu"><a href="./values.yaml#L147">testkube.testkube-operator.resources.requests.cpu</a></td>
+			<td id="testkube--testkube-operator--resources--requests--cpu"><a href="./values.yaml#L163">testkube.testkube-operator.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -1007,7 +1175,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-operator--resources--requests--memory"><a href="./values.yaml#L148">testkube.testkube-operator.resources.requests.memory</a></td>
+			<td id="testkube--testkube-operator--resources--requests--memory"><a href="./values.yaml#L164">testkube.testkube-operator.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -1021,7 +1189,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-operator--webhook--enabled"><a href="./values.yaml#L162">testkube.testkube-operator.webhook.enabled</a></td>
+			<td id="testkube--testkube-operator--webhook--enabled"><a href="./values.yaml#L178">testkube.testkube-operator.webhook.enabled</a></td>
 			<td>
 bool
 </td>
@@ -1035,7 +1203,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="testkube--testkube-operator--webhook--patch--enabled"><a href="./values.yaml#L165">testkube.testkube-operator.webhook.patch.enabled</a></td>
+			<td id="testkube--testkube-operator--webhook--patch--enabled"><a href="./values.yaml#L181">testkube.testkube-operator.webhook.patch.enabled</a></td>
 			<td>
 bool
 </td>

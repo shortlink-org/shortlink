@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 55.6.0 |
+| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 55.7.0 |
 
 ## Values
 
@@ -97,7 +97,35 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheusOperator--resources--limits--cpu"><a href="./values.yaml#L25">kube-prometheus-stack.prometheusOperator.resources.limits.cpu</a></td>
+			<td id="kube-prometheus-stack--prometheus--prometheusSpec--enableRemoteWriteReceiver"><a href="./values.yaml#L22">kube-prometheus-stack.prometheus.prometheusSpec.enableRemoteWriteReceiver</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kube-prometheus-stack--prometheus--prometheusSpec--logFormat"><a href="./values.yaml#L23">kube-prometheus-stack.prometheus.prometheusSpec.logFormat</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"json"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kube-prometheus-stack--prometheusOperator--resources--limits--cpu"><a href="./values.yaml#L30">kube-prometheus-stack.prometheusOperator.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -111,7 +139,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheusOperator--resources--limits--memory"><a href="./values.yaml#L26">kube-prometheus-stack.prometheusOperator.resources.limits.memory</a></td>
+			<td id="kube-prometheus-stack--prometheusOperator--resources--limits--memory"><a href="./values.yaml#L31">kube-prometheus-stack.prometheusOperator.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -125,7 +153,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheusOperator--resources--requests--cpu"><a href="./values.yaml#L28">kube-prometheus-stack.prometheusOperator.resources.requests.cpu</a></td>
+			<td id="kube-prometheus-stack--prometheusOperator--resources--requests--cpu"><a href="./values.yaml#L33">kube-prometheus-stack.prometheusOperator.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -139,7 +167,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheusOperator--resources--requests--memory"><a href="./values.yaml#L29">kube-prometheus-stack.prometheusOperator.resources.requests.memory</a></td>
+			<td id="kube-prometheus-stack--prometheusOperator--resources--requests--memory"><a href="./values.yaml#L34">kube-prometheus-stack.prometheusOperator.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -153,7 +181,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheusOperator--secretFieldSelector"><a href="./values.yaml#L21">kube-prometheus-stack.prometheusOperator.secretFieldSelector</a></td>
+			<td id="kube-prometheus-stack--prometheusOperator--secretFieldSelector"><a href="./values.yaml#L26">kube-prometheus-stack.prometheusOperator.secretFieldSelector</a></td>
 			<td>
 string
 </td>
