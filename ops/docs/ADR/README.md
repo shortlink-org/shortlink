@@ -32,6 +32,9 @@ for an information team about cases for updated ADR.
     - [ADR-0029](./decisions/0029-ids-and-ips.md) - Intrusion Detection System (IDS) and Intrusion Prevention System (IPS) for Kubernetes (k8s)
   - **DataBase**
     - [ADR-0002](./decisions/0002-cache-system.md) - Cache System
-    - [ADR-0005](./decisions/0005-postgres-optimization.md) - Postgres optimization
-    - [ADR-0020](./decisions/0020-postgresql-operator.md) - Research Summary and Decision for PostgreSQL Operators: Choosing Crunchy Postgres Operator
-    - [ADR-0007](./decisions/0007-mongodb.md) - MongoDB
+    - **Postgres**
+      - [ADR-0005](./decisions/0005-postgres-optimization.md) - Postgres optimization
+      - [ADR-0020](./decisions/0020-postgresql-operator.md) - Research Summary and Decision for PostgreSQL Operators: Choosing Crunchy Postgres Operator
+      - [ADR-0008](./decisions/0008-postgresql-scale.md) - PostgreSQL Scale
+    - **MongoDB**
+      - [ADR-0007](./decisions/0007-mongodb.md) - MongoDB
