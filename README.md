@@ -38,19 +38,6 @@ community and solve a problem for millions of people.
 _Please [star ⭐](https://github.com/shortlink-org/shortlink/stargazers) the repo if you want us to continue developing and improving ShortLink! 😀_
 
 
-### Architecture decision records (ADR)
-
-> [!IMPORTANT]
-> An architecture decision record (ADR) is a document that captures an important architecture decision 
-made along with its context and consequences.
->
->+ [Docs ADR](https://github.com/joelparkerhenderson/architecture-decision-record)
->
-> **Decisions:**
->  + [main decisions](./docs/ADR/README.md)
->  + [ops decisions](./ops/docs/ADR/README.md)
->  + [ui](./internal/boundaries/ui/nx-monorepo/docs/ADR/README.md)
-
 ### Boundaries
 
 | Bounded Context       | Description              | Type subdomain | Docs                                                 |
@@ -67,11 +54,23 @@ made along with its context and consequences.
 | Search Boundary       | Search services          | Supporting     | [docs](./internal/boundaries/search/README.md)       |
 | UI Boundary           | UI services              | Supporting     | [docs](./internal/boundaries/ui/README.md)           |
 
-
 > [!TIP]
 > ### Contributing
-> 
+>
 > - [Getting Started](./CONTRIBUTING.md#getting-started)
+
+### Architecture decision records (ADR)
+
+> [!IMPORTANT]
+> An architecture decision record (ADR) is a document that captures an important architecture decision 
+made along with its context and consequences.
+>
+>+ [Docs ADR](https://github.com/joelparkerhenderson/architecture-decision-record)
+>
+> **Decisions:**
+>  + [main decisions](./docs/ADR/README.md)
+>  + [ops decisions](./ops/docs/ADR/README.md)
+>  + [ui](./internal/boundaries/ui/nx-monorepo/docs/ADR/README.md)
 
 ### License
 
