@@ -22,3 +22,4 @@ for information team about cases for updated ADR.
 - [ADR-0002](./decisions/0002-security.md) - Implementing Security Measures in UI
 - [ADR-0003](./decisions/0003-transition-to-cloudflare-apps.md) - Transition to Cloudflare Apps
 - [ADR-0004](./decisions/0004-accessibility.md) - Accessibility UI
+- [ADR-0005](./decisions/0005-ui-kit.md) - UI Kit
