@@ -38,6 +38,11 @@ community and solve a problem for millions of people.
 _Please [star ⭐](https://github.com/shortlink-org/shortlink/stargazers) the repo if you want us to continue developing and improving ShortLink! 😀_
 
 
+> [!TIP]
+> ### Contributing
+>
+> - [Getting Started](./CONTRIBUTING.md#getting-started)
+
 ### Boundaries
 
 | Bounded Context       | Description              | Type subdomain | Docs                                                 |
@@ -53,11 +58,6 @@ _Please [star ⭐](https://github.com/shortlink-org/shortlink/stargazers) the re
 | Delivery Boundary     | Delivery services        | Supporting     | [docs](./internal/boundaries/delivery/README.md)     |
 | Search Boundary       | Search services          | Supporting     | [docs](./internal/boundaries/search/README.md)       |
 | UI Boundary           | UI services              | Supporting     | [docs](./internal/boundaries/ui/README.md)           |
-
-> [!TIP]
-> ### Contributing
->
-> - [Getting Started](./CONTRIBUTING.md#getting-started)
 
 ### Architecture decision records (ADR)
 
