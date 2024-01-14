@@ -9,6 +9,15 @@ package billing_di
 import (
 	"context"
 	"github.com/google/wire"
+	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/account"
+	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/order"
+	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/payment"
+	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/tariff"
+	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/http"
+	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/rpc/order/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/rpc/payment/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/rpc/tariff/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/store"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
@@ -22,15 +31,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
-	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/account"
-	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/order"
-	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/payment"
-	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/application/tariff"
-	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/http"
-	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/rpc/order/v1"
-	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/rpc/payment/v1"
-	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/api/rpc/tariff/v1"
-	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/infrastructure/store"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -52,13 +52,13 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	monitoringMonitoring, cleanup3, err := monitoring.New(context, logger)
+	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
+	monitoringMonitoring, cleanup4, err := monitoring.New(context, logger, tracerProvider)
 	if err != nil {
 		cleanup3()
 		cleanup2()
