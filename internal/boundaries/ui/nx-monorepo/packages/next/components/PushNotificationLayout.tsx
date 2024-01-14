@@ -66,7 +66,7 @@ function PushNotificationLayout({ children }) {
 
   return (
     <>
-      <ToastContainer key="ToastContainer" />
+      <ToastContainer key="ToastContainer" stacked draggable />
       {children}
     </>
   )

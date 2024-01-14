@@ -10,7 +10,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/di"
+	billing_di "github.com/shortlink-org/shortlink/internal/boundaries/payment/billing/di"
 	"github.com/shortlink-org/shortlink/internal/pkg/graceful_shutdown"
 )
 

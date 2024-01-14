@@ -10,7 +10,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/shortlink-org/shortlink/internal/boundaries/chat/speech-to-text/di"
+	stt_di "github.com/shortlink-org/shortlink/internal/boundaries/chat/speech-to-text/di"
 	"github.com/shortlink-org/shortlink/internal/pkg/graceful_shutdown"
 )
 

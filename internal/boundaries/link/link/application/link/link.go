@@ -218,7 +218,7 @@ func (uc *UC) List(ctx context.Context, filter *domain.FilterLink, cursor string
 				}
 
 				// Set token for pagination
-				nextToken = resp.AfterResultCursor.GetToken()
+				nextToken = resp.GetAfterResultCursor().GetToken()
 
 				// Add hash to filter
 				filter.Hash.Contains = append(filter.Hash.Contains, resp.GetResourceObjectId())
