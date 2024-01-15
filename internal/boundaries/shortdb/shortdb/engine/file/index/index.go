@@ -21,7 +21,7 @@ func New(in *index.Index, rows []*page.Row) (Index[any], error) {
 		return nil, ErrUnemployment
 	case index.Type_TYPE_BINARY_SEARCH:
 		tree = binary_tree.New(func(a, b any) int {
-			switch x, y := reflect.TypeOf(a), reflect.TypeOf(b); true {
+			switch x, y := reflect.TypeOf(a), reflect.TypeOf(b); {
 			case x.String() == "int" && y.String() == "int":
 				return a.(int) - b.(int) //nolint:forcetypeassert // simple type assertion
 			default:

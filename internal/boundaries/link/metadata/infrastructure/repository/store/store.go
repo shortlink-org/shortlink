@@ -24,9 +24,9 @@ func (s *MetaStore) Use(_ context.Context, log logger.Logger, _ db.DB) (*MetaSto
 	// Subscribe to Event
 	notify.Subscribe(v1.METHOD_ADD, s)
 	notify.Subscribe(v1.METHOD_GET, s)
-	// notify.Subscribe(api_type.METHOD_LIST, store)
-	// notify.Subscribe(api_domain.METHOD_UPDATE, store)
-	// notify.Subscribe(api_domain.METHOD_DELETE, store)
+	notify.Subscribe(v1.METHOD_LIST, s)
+	notify.Subscribe(v1.METHOD_UPDATE, s)
+	notify.Subscribe(v1.METHOD_DELETE, s)
 
 	switch s.typeStore {
 	case "ram":

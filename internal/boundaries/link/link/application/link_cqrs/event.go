@@ -26,43 +26,35 @@ func (s *Service) EventHandlers() {
 func (s *Service) Notify(ctx context.Context, event uint32, payload any) notify.Response[any] {
 	switch event {
 	case link.METHOD_ADD:
-		{
-			_, err := s.cqsStore.LinkAdd(ctx, payload.(*link.Link))
-			if err != nil {
-				s.log.ErrorWithContext(ctx, err.Error())
-			}
-
-			return notify.Response[any]{}
+		_, err := s.cqsStore.LinkAdd(ctx, payload.(*link.Link))
+		if err != nil {
+			s.log.ErrorWithContext(ctx, err.Error())
 		}
+
+		return notify.Response[any]{}
 	case link.METHOD_UPDATE:
-		{
-			_, err := s.cqsStore.LinkUpdate(ctx, payload.(*link.Link))
-			if err != nil {
-				s.log.ErrorWithContext(ctx, err.Error())
-			}
-
-			return notify.Response[any]{}
+		_, err := s.cqsStore.LinkUpdate(ctx, payload.(*link.Link))
+		if err != nil {
+			s.log.ErrorWithContext(ctx, err.Error())
 		}
+
+		return notify.Response[any]{}
 	case link.METHOD_DELETE:
-		{
-			err := s.cqsStore.LinkDelete(ctx, payload.(string)) //nolint:forcetypeassert // simple type assertion
-			if err != nil {
-				s.log.ErrorWithContext(ctx, err.Error())
-			}
-
-			return notify.Response[any]{}
+		err := s.cqsStore.LinkDelete(ctx, payload.(string)) //nolint:forcetypeassert // simple type assertion
+		if err != nil {
+			s.log.ErrorWithContext(ctx, err.Error())
 		}
+
+		return notify.Response[any]{}
 	case metadata.METHOD_ADD:
 		fallthrough
 	case metadata.METHOD_UPDATE:
-		{
-			_, err := s.cqsStore.MetadataUpdate(ctx, payload.(*metadata.Meta))
-			if err != nil {
-				s.log.ErrorWithContext(ctx, err.Error())
-			}
-
-			return notify.Response[any]{}
+		_, err := s.cqsStore.MetadataUpdate(ctx, payload.(*metadata.Meta))
+		if err != nil {
+			s.log.ErrorWithContext(ctx, err.Error())
 		}
+
+		return notify.Response[any]{}
 	default:
 		return notify.Response[any]{}
 	}

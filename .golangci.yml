@@ -85,7 +85,7 @@ linters-settings:
     # To disable the errcheck built-in exclude list.
     # See `-excludeonly` option in https://github.com/kisielk/errcheck#excluding-functions for details.
     # Default: false
-    disable-default-exclusions: true
+    disable-default-exclusions: false
 
     # List of functions to exclude from checking, where each entry is a single function to exclude.
     # See https://github.com/kisielk/errcheck#excluding-functions for details.
@@ -142,20 +142,10 @@ linters-settings:
       - opinionated
 
     disabled-checks:
-      - paramTypeCombine
-      - dynamicFmtString
-      - appendAssign
-      - ifElseChain
+      - paramTypeCombine # => a int, b int -> a,b int
       - singleCaseSwitch
-      - dupImport
       - commentedOutCode
-      - switchTrue
-      - nilValReturn
-      - deferInLoop
       - emptyFallthrough
-      - unnecessaryBlock
-      - captLocal
-      - whyNoLint
 
     # Settings passed to gocritic.
     # The settings key is the name of a supported gocritic checker.

@@ -57,20 +57,29 @@ func (f *File) CreateIndex(query *v1.Query) error {
 		}
 
 		// save date
-		openFile, err := f.createFile(fmt.Sprintf("%s_%s_%s.index.json", f.database.GetName(), query.GetTableName(), query.GetIndexs()[i].GetName()))
+		err = f.saveData(query, payload, i)
 		if err != nil {
 			return err
 		}
+	}
 
-		defer func() {
-			_ = openFile.Close() // #nosec
-		}()
+	return nil
+}
 
-		// Write something
-		err = f.writeFile(openFile.Name(), payload)
-		if err != nil {
-			return err
-		}
+func (f *File) saveData(query *v1.Query, payload []byte, i int) error {
+	openFile, err := f.createFile(fmt.Sprintf("%s_%s_%s.index.json", f.database.GetName(), query.GetTableName(), query.GetIndexs()[i].GetName()))
+	if err != nil {
+		return err
+	}
+
+	defer func() {
+		_ = openFile.Close() // #nosec
+	}()
+
+	// Write something
+	err = f.writeFile(openFile.Name(), payload)
+	if err != nil {
+		return err
 	}
 
 	return nil

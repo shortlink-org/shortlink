@@ -35,15 +35,13 @@ func (b *Bot) Init() error {
 func (b *Bot) Notify(ctx context.Context, event uint32, payload any) notify.Response[any] {
 	switch event {
 	case events.METHOD_SEND_NEW_LINK:
-		{
-			if err := b.send(payload.(string)); err != nil { //nolint:forcetypeassert // simple type assertion
-				return notify.Response[any]{
-					Error: err,
-				}
+		if err := b.send(payload.(string)); err != nil { //nolint:forcetypeassert // simple type assertion
+			return notify.Response[any]{
+				Error: err,
 			}
-
-			return notify.Response[any]{}
 		}
+
+		return notify.Response[any]{}
 	default:
 		return notify.Response[any]{}
 	}

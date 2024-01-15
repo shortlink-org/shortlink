@@ -195,15 +195,16 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			p.pop()
 
 			look := p.peek()
-			if strings.EqualFold(look, WHERE) {
+			switch {
+			case strings.EqualFold(look, WHERE):
 				p.Step = Step_STEP_WHERE
-			} else if strings.EqualFold(look, ORDER_BY) {
+			case strings.EqualFold(look, ORDER_BY):
 				p.Step = Step_STEP_ORDER
-			} else if strings.Contains(strings.ToUpper(look), JOIN) {
+			case strings.Contains(strings.ToUpper(look), JOIN):
 				p.Step = Step_STEP_JOIN
-			} else if strings.EqualFold(look, LIMIT) {
+			case strings.EqualFold(look, LIMIT):
 				p.Step = Step_STEP_LIMIT
-			} else if look == ";" {
+			case look == ";":
 				p.Step = Step_STEP_SEMICOLON
 			}
 		case Step_STEP_INSERT_TABLE:
@@ -427,13 +428,14 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			p.Query.Joins[len(p.GetQuery().GetJoins())-1] = currentJoin
 
 			nextOp := p.peek()
-			if strings.EqualFold(nextOp, "WHERE") {
+			switch {
+			case strings.EqualFold(nextOp, "WHERE"):
 				p.Step = Step_STEP_WHERE
-			} else if strings.EqualFold(nextOp, "ORDER BY") {
+			case strings.EqualFold(nextOp, "ORDER BY"):
 				p.Step = Step_STEP_ORDER
-			} else if strings.EqualFold(nextOp, "AND") {
+			case strings.EqualFold(nextOp, "AND"):
 				p.Step = Step_STEP_JOIN_CONDITION
-			} else if strings.Contains(strings.ToUpper(nextOp), "JOIN") {
+			case strings.Contains(strings.ToUpper(nextOp), "JOIN"):
 				p.Step = Step_STEP_JOIN
 			}
 		case Step_STEP_INSERT_FIELD_OPENING_PARENTS:

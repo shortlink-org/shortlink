@@ -91,7 +91,7 @@ func (t *Tree[T]) Delete(key T) error {
 
 func (t *Tree[T]) delete(key T) *Tree[T] {
 	if t == nil {
-		return t
+		return nil
 	}
 
 	switch cmp := t.cmp(key, *t.Value()); {
@@ -100,13 +100,14 @@ func (t *Tree[T]) delete(key T) *Tree[T] {
 	case cmp > 0:
 		t.Right = t.Right.delete(key)
 	default:
-		if t.Left == nil && t.Right == nil {
+		switch {
+		case t.Left == nil && t.Right == nil:
 			t = nil
-		} else if t.Left == nil {
+		case t.Left == nil:
 			t = t.Right
-		} else if t.Right == nil {
+		case t.Right == nil:
 			t = t.Left
-		} else {
+		default:
 			t.Val = t.Right.Min().Value()
 			t.Right = t.Right.delete(*t.Value())
 		}

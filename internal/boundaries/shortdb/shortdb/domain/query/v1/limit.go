@@ -45,7 +45,7 @@ func (q *Query) IsFilter(record *page.Row, fields map[string]field.Type) bool {
 
 			return FilterBool(LValue.(bool), RValue.(bool), condition.GetOperator()) //nolint:forcetypeassert // simple type assertion
 		case field.Type_TYPE_UNSPECIFIED:
-			fallthrough
+			return false
 		default:
 			return false
 		}
