@@ -1,5 +1,5 @@
 # Stage 1 - Create yarn install skeleton layer
-FROM --platform=$BUILDPLATFORM node:21.5-bookworm-slim AS packages
+FROM --platform=$BUILDPLATFORM node:21.6-bookworm-slim AS packages
 
 WORKDIR /app
 COPY ./internal/boundaries/platform/backstage/package.json ./internal/boundaries/platform/backstage/yarn.lock ./
@@ -9,7 +9,7 @@ COPY ./internal/boundaries/platform/backstage/packages packages
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -exec rm -rf {} \+
 
 # Stage 2 - Install dependencies and build packages
-FROM --platform=$BUILDPLATFORM node:21.5-bookworm-slim AS build
+FROM --platform=$BUILDPLATFORM node:21.6-bookworm-slim AS build
 
 # install sqlite3 dependencies
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
@@ -37,7 +37,7 @@ RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
     && tar xzf packages/backend/dist/bundle.tar.gz -C packages/backend/dist/bundle
 
 # Stage 3 - Build the actual backend image and install production dependencies
-FROM --platform=$TARGETPLATFORM node:21.5-bookworm-slim
+FROM --platform=$TARGETPLATFORM node:21.6-bookworm-slim
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="Backstage"
