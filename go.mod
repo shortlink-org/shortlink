@@ -11,7 +11,7 @@ require (
 	github.com/authzed/authzed-go v0.10.1
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/chromedp/chromedp v0.9.3
-	github.com/couchbase/gocb/v2 v2.7.0
+	github.com/couchbase/gocb/v2 v2.7.1
 	github.com/cucumber/godog v0.13.0
 	github.com/dgraph-io/badger/v4 v4.2.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
@@ -113,9 +113,9 @@ require (
 	github.com/containerd/continuity v0.3.0 // indirect
 	github.com/coreos/go-semver v0.3.1 // indirect
 	github.com/coreos/go-systemd/v22 v22.5.0 // indirect
-	github.com/couchbase/gocbcore/v10 v10.3.0 // indirect
-	github.com/couchbase/gocbcoreps v0.1.0 // indirect
-	github.com/couchbase/goprotostellar v1.0.0 // indirect
+	github.com/couchbase/gocbcore/v10 v10.3.1 // indirect
+	github.com/couchbase/gocbcoreps v0.1.1 // indirect
+	github.com/couchbase/goprotostellar v1.0.1 // indirect
 	github.com/couchbaselabs/gocbconnstr/v2 v2.0.0-20230515165046-68b522a21131 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.3 // indirect
 	github.com/cucumber/gherkin/go/v26 v26.2.0 // indirect
@@ -255,7 +255,7 @@ require (
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/genproto v0.0.0-20240102182953-50ed04b92917 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240116215550-a9fa1716bcac // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20240102182953-50ed04b92917 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20240108191215-35c7eff3a6b1 // indirect
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
