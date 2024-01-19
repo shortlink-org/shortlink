@@ -30,7 +30,7 @@ require (
 	github.com/google/cel-go v0.18.2
 	github.com/google/uuid v1.5.0
 	github.com/google/wire v0.5.1-0.20220620021424-0675cdc9191c
-	github.com/grafana/pyroscope-go v1.0.5-0.20240116072722-105400ca5ce2
+	github.com/grafana/pyroscope-go v1.0.5-0.20240119185849-dc747716a54c
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.6
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.0
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.0.1
