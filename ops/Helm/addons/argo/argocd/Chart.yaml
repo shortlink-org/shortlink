@@ -15,7 +15,7 @@ type: application
 deprecated: false
 dependencies:
   - name: argo-cd
-    version: 5.53.1
+    version: 5.53.2
     repository: https://argoproj.github.io/argo-helm
     condition: argo-cd.enabled
     tags:
