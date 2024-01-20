@@ -235,13 +235,17 @@ argo-cd:
       - name: download-tools
         image: alpine:latest
         command: [ sh, -ec ]
+        securityContext:
+          runAsNonRoot: true
+          seccompProfile:
+            type: RuntimeDefault
         env:
           - name: HELM_SECRETS_VERSION
             value: "4.5.1"
           - name: KUBECTL_VERSION
-            value: "1.29.0"
+            value: "1.29.1"
           - name: VALS_VERSION
-            value: "0.30.0"
+            value: "0.32.0"
           - name: SOPS_VERSION
             value: "3.8.1"
         args:
