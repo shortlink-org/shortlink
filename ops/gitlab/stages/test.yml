@@ -1,6 +1,4 @@
 include:
-  # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Jobs/License-Scanning.gitlab-ci.yml
-  - template: Jobs/License-Scanning.gitlab-ci.yml
   - component: gitlab.com/gitlab-components/sast/sast@main
     rules:
       - if: $CI_COMMIT_TAG
