@@ -4,7 +4,7 @@ go 1.21.6
 
 require (
 	github.com/cloudevents/sdk-go/observability/opentelemetry/v2 v2.14.0
-	github.com/cloudevents/sdk-go/v2 v2.14.0
+	github.com/cloudevents/sdk-go/v2 v2.15.0
 	github.com/google/wire v0.5.1-0.20220620021424-0675cdc9191c
 	github.com/graph-gophers/graphql-go v1.5.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.19.0
