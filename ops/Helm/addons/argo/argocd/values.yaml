@@ -237,6 +237,10 @@ argo-cd:
         command: [ sh, -ec ]
         securityContext:
           runAsNonRoot: true
+          allowPrivilegeEscalation: false
+          capabilities:
+            drop:
+              - ALL
           seccompProfile:
             type: RuntimeDefault
         env:
