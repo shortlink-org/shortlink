@@ -10,6 +10,7 @@ kube-prometheus-stack:
       routePrefix: /prometheus/
 
       enableRemoteWriteReceiver: true
+      logFormat: json
 
       # TODO: disabled for knative
       serviceMonitorSelectorNilUsesHelmValues: false

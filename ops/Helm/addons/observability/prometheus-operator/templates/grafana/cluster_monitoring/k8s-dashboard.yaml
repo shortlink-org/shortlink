@@ -7,6 +7,7 @@ metadata:
   annotations:
     grafana_dashboard_folder: Kubernetes
 data:
+  k8s-addons-prometheus.json.url: "https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-addons-prometheus.json"
   k8s-system-api-server.json.url: "https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-api-server.json"
   k8s-system-coredns.json.url: "https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-system-coredns.json"
   k8s-views-global.json.url: "https://raw.githubusercontent.com/dotdc/grafana-dashboards-kubernetes/master/dashboards/k8s-views-global.json"
