@@ -14,7 +14,6 @@ import (
 
 	api_di "github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/cloudevents/di"
 	"github.com/shortlink-org/shortlink/internal/pkg/graceful_shutdown"
-	_ "github.com/shortlink-org/shortlink/internal/pkg/i18n"
 )
 
 func main() {

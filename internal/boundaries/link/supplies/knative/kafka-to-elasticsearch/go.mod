@@ -1,4 +1,4 @@
-module github.com/shortlink-org/shortlink/internal/boundaries/knative/kafka-to-elasticsearch
+module github.com/shortlink-org/shortlink/internal/boundaries/link/supplies/knative/kafka-to-elasticsearch
 
 go 1.21.6
 
