@@ -223,13 +223,10 @@ argo-cd:
     #    subPath: helm
     #    name: custom-tools
 
-#    resources:
-#      limits:
-#        cpu: 300m
-#        memory: 2Gi
-#      requests:
-#        cpu: 10m
-#        memory: 64Mi
+    resources:
+      requests:
+        cpu: 10m
+        memory: 64Mi
 
     initContainers:
       - name: download-tools

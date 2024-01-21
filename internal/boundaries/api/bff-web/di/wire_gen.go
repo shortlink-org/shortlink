@@ -10,6 +10,7 @@ import (
 	"context"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/infrastructure/http"
+	"github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/internal/i18n"
 	v1_2 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
 	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/link/v1"
 	v1_3 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/sitemap/v1"
@@ -21,7 +22,6 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
-	"github.com/shortlink-org/shortlink/internal/pkg/i18n"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
@@ -163,6 +163,7 @@ type BFFWebService struct {
 	// Common
 	Log    logger.Logger
 	Config *config.Config
+	i18n   *message.Printer
 
 	// Delivery
 	httpAPIServer *http.Server
@@ -175,7 +176,7 @@ type BFFWebService struct {
 }
 
 // BFFWebService =======================================================================================================
-var BFFWebServiceSet = wire.NewSet(di.DefaultSet, rpc.InitServer, rpc.InitClient, NewLinkRPCClient,
+var BFFWebServiceSet = wire.NewSet(di.DefaultSet, i18n.New, rpc.InitServer, rpc.InitClient, NewLinkRPCClient,
 	NewLinkCommandRPCClient,
 	NewLinkQueryRPCClient,
 	NewSitemapServiceClient,

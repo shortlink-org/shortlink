@@ -102,6 +102,20 @@ export class ListRequest extends Message<ListRequest> {
    */
   filter = "";
 
+  /**
+   * Limit is the limit of the list.
+   *
+   * @generated from field: uint32 limit = 2;
+   */
+  limit = 0;
+
+  /**
+   * Cursor is the token of the list.
+   *
+   * @generated from field: string cursor = 3;
+   */
+  cursor = "";
+
   constructor(data?: PartialMessage<ListRequest>) {
     super();
     proto3.util.initPartial(data, this);
@@ -111,6 +125,8 @@ export class ListRequest extends Message<ListRequest> {
   static readonly typeName = "infrastructure.rpc.link.v1.ListRequest";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "filter", kind: "scalar", T: 9 /* ScalarType.STRING */ },
+    { no: 2, name: "limit", kind: "scalar", T: 13 /* ScalarType.UINT32 */ },
+    { no: 3, name: "cursor", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListRequest {
@@ -143,6 +159,13 @@ export class ListResponse extends Message<ListResponse> {
    */
   links?: Links;
 
+  /**
+   * Cursor is the next token of the list.
+   *
+   * @generated from field: string cursor = 2;
+   */
+  cursor = "";
+
   constructor(data?: PartialMessage<ListResponse>) {
     super();
     proto3.util.initPartial(data, this);
@@ -152,6 +175,7 @@ export class ListResponse extends Message<ListResponse> {
   static readonly typeName = "infrastructure.rpc.link.v1.ListResponse";
   static readonly fields: FieldList = proto3.util.newFieldList(() => [
     { no: 1, name: "links", kind: "message", T: Links },
+    { no: 2, name: "cursor", kind: "scalar", T: 9 /* ScalarType.STRING */ },
   ]);
 
   static fromBinary(bytes: Uint8Array, options?: Partial<BinaryReadOptions>): ListResponse {

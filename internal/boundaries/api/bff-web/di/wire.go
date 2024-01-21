@@ -16,6 +16,7 @@ import (
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
+	"github.com/shortlink-org/shortlink/internal/boundaries/api/bff-web/internal/i18n"
 	link_cqrs "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/link/v1"
 	sitemap_rpc "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/sitemap/v1"
@@ -35,6 +36,7 @@ type BFFWebService struct {
 	// Common
 	Log    logger.Logger
 	Config *config.Config
+	i18n   *message.Printer
 
 	// Delivery
 	httpAPIServer *api.Server
@@ -49,6 +51,7 @@ type BFFWebService struct {
 // BFFWebService =======================================================================================================
 var BFFWebServiceSet = wire.NewSet(
 	di.DefaultSet,
+	i18n.New,
 
 	// Delivery
 	rpc.InitServer,
@@ -128,10 +131,10 @@ func NewAPIApplication(
 		RpcServer: rpcServer,
 
 		// Infrastructure
-		Link_rpc: link_rpc,
+		Link_rpc:     link_rpc,
 		Link_command: link_command,
-		Link_query: link_query,
-		Sitemap_rpc: sitemap_rpc,
+		Link_query:   link_query,
+		Sitemap_rpc:  sitemap_rpc,
 	})
 	if err != nil {
 		return nil, err

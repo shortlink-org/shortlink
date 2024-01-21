@@ -14,7 +14,6 @@ import (
 	"github.com/spf13/viper"
 	"github.com/uptrace/opentelemetry-go-extra/otelgraphql"
 	"go.opentelemetry.io/otel/trace"
-	"golang.org/x/text/message"
 
 	"github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/graphql/infrastructure/server/resolver"
 	link_cqrs "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
@@ -77,7 +76,6 @@ func (api *API) GetHandler(traceProvider trace.TracerProvider) *relay.Handler {
 // Run ...
 func (api *API) Run(
 	ctx context.Context,
-	i18n *message.Printer,
 	config http_server.Config,
 	log logger.Logger,
 	tracer trace.TracerProvider,

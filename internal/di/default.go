@@ -10,7 +10,6 @@ import (
 	"github.com/google/wire"
 	redisCache "github.com/redis/go-redis/v9"
 	"go.opentelemetry.io/otel/trace"
-	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
@@ -25,7 +24,6 @@ import (
 	traicing_di "github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/internal/pkg/cache"
 	"github.com/shortlink-org/shortlink/internal/pkg/db"
-	short_i18n "github.com/shortlink-org/shortlink/internal/pkg/i18n"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
@@ -35,10 +33,9 @@ import (
 // Service - heplers
 type Service struct {
 	// Common
-	Ctx  context.Context
-	Cfg  *config.Config
-	Log  logger.Logger
-	I18N *message.Printer
+	Ctx context.Context
+	Cfg *config.Config
+	Log logger.Logger
 
 	// Security
 	Auth *authzed.Client
@@ -67,7 +64,6 @@ var DefaultSet = wire.NewSet(
 	traicing_di.New,
 	monitoring.New,
 	cache.New,
-	short_i18n.New,
 	profiling.New,
 	permission.New,
 )
@@ -83,20 +79,19 @@ var FullSet = wire.NewSet(
 )
 
 func NewFullService(
-	// Common
+// Common
 	ctx context.Context,
 	cfg *config.Config,
 	log logger.Logger,
-	i18n *message.Printer,
 
-	// Delivery
+// Delivery
 	serverRPC *rpc.Server,
 	clientRPC *grpc.ClientConn,
 	dataBus mq.MQ,
 	store_db db.DB,
 	shortcache redisCache.UniversalClient,
 
-	// Observability
+// Observability
 	monitor *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
@@ -104,10 +99,9 @@ func NewFullService(
 ) (*Service, error) {
 	return &Service{
 		// Common
-		Ctx:  ctx,
-		Cfg:  cfg,
-		Log:  log,
-		I18N: i18n,
+		Ctx: ctx,
+		Cfg: cfg,
+		Log: log,
 
 		// Delivery
 		MQ:        dataBus,

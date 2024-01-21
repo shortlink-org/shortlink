@@ -7,7 +7,6 @@ import (
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
 	"github.com/segmentio/encoding/json"
 	"go.opentelemetry.io/otel/trace"
-	"golang.org/x/text/message"
 	"google.golang.org/grpc/status"
 
 	link_cqrs "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
@@ -30,7 +29,6 @@ type API struct {
 // Run HTTP-server
 func (api *API) Run(
 	ctx context.Context,
-	i18n *message.Printer,
 	config http_server.Config,
 	log logger.Logger,
 	tracer trace.TracerProvider,

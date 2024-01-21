@@ -13,7 +13,6 @@ import (
 
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
-	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
 	"github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/graphql/infrastructure/server"
@@ -91,15 +90,14 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataS
 }
 
 func NewAPIApplication(
-	// Common
+// Common
 	ctx context.Context,
-	i18n *message.Printer,
 	log logger.Logger,
 	rpcServer *rpc.Server,
 	tracer trace.TracerProvider,
 	monitor *monitoring.Monitoring,
 
-	// Delivery
+// Delivery
 	link_rpc link_rpc.LinkServiceClient,
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,
@@ -109,7 +107,6 @@ func NewAPIApplication(
 	apiService, err := server.RunAPIServer(
 		// Common
 		ctx,
-		i18n,
 		log,
 		rpcServer,
 		tracer,
@@ -129,11 +126,11 @@ func NewAPIApplication(
 }
 
 func NewAPIService(
-	// Common
+// Common
 	log logger.Logger,
 	config *config.Config,
 
-	// Observability
+// Observability
 	monitoring *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,

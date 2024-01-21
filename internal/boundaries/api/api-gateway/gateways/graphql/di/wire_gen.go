@@ -9,6 +9,11 @@ package api_di
 import (
 	"context"
 	"github.com/google/wire"
+	"github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/graphql/infrastructure/server"
+	v1_2 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
+	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/link/v1"
+	v1_3 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/sitemap/v1"
+	v1_4 "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
@@ -16,17 +21,10 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
-	"github.com/shortlink-org/shortlink/internal/pkg/i18n"
 	"github.com/shortlink-org/shortlink/internal/pkg/logger"
 	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
-	"github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/graphql/infrastructure/server"
-	v1_2 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
-	"github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/link/v1"
-	v1_3 "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/sitemap/v1"
-	v1_4 "github.com/shortlink-org/shortlink/internal/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
 	"go.opentelemetry.io/otel/trace"
-	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 )
 
@@ -48,13 +46,13 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	monitoringMonitoring, cleanup3, err := monitoring.New(context, logger)
+	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
+	monitoringMonitoring, cleanup4, err := monitoring.New(context, logger, tracerProvider)
 	if err != nil {
 		cleanup3()
 		cleanup2()
@@ -77,7 +75,6 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	printer := i18n.New(context)
 	server, err := rpc.InitServer(context, logger, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup5()
@@ -136,7 +133,7 @@ func InitializeAPIService() (*APIService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	api, err := NewAPIApplication(context, printer, logger, server, tracerProvider, monitoringMonitoring, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
+	api, err := NewAPIApplication(context, logger, server, tracerProvider, monitoringMonitoring, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -219,7 +216,8 @@ func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (v1_4.MetadataServiceCl
 	return metadataRPCClient, nil
 }
 
-func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer,
+func NewAPIApplication(ctx2 context.Context,
+
 	log logger.Logger,
 	rpcServer *rpc.Server,
 	tracer trace.TracerProvider,
@@ -231,7 +229,7 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer,
 	sitemap_rpc v1_3.SitemapServiceClient,
 ) (*server.API, error) {
 
-	apiService, err := server.RunAPIServer(ctx2, i18n2, log,
+	apiService, err := server.RunAPIServer(ctx2, log,
 		rpcServer,
 		tracer,
 		monitor,

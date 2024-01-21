@@ -9,7 +9,6 @@ import (
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"go.opentelemetry.io/otel/trace"
-	"golang.org/x/text/message"
 
 	"github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/cloudevents/infrastructure/server/handlers"
 	link_cqrs "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
@@ -28,7 +27,6 @@ type API struct {
 // Run ...
 func (api *API) Run(
 	ctx context.Context,
-	i18n *message.Printer,
 	config http_server.Config,
 	log logger.Logger,
 	tracer trace.TracerProvider,

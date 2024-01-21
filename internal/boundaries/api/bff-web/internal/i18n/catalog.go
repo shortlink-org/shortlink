@@ -40,25 +40,25 @@ func init() {
 }
 
 var messageKeyToIndex = map[string]int{
-	"API run on port %d": 0,
+	"BFF Web run on port %d": 0,
 }
 
 var de_DEIndex = []uint32{ // 2 elements
+	0x00000000, 0x00000000,
+} // Size: 32 bytes
+
+const de_DEData string = ""
+
+var en_GBIndex = []uint32{ // 2 elements
 	0x00000000, 0x0000001a,
 } // Size: 32 bytes
 
-const de_DEData string = "\x02API im Hafen laufen %[1]d"
-
-var en_GBIndex = []uint32{ // 2 elements
-	0x00000000, 0x00000016,
-} // Size: 32 bytes
-
-const en_GBData string = "\x02API run on port %[1]d"
+const en_GBData string = "\x02BFF Web run on port %[1]d"
 
 var fr_CHIndex = []uint32{ // 2 elements
-	0x00000000, 0x00000020,
+	0x00000000, 0x00000000,
 } // Size: 32 bytes
 
-const fr_CHData string = "\x02API exécuter sur le port %[1]d"
+const fr_CHData string = ""
 
-// Total table size 176 bytes (0KiB); checksum: 5C6B64BC
+// Total table size 122 bytes (0KiB); checksum: 18A7B9F5

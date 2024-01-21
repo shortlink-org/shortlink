@@ -6,7 +6,6 @@ import (
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
-	"golang.org/x/text/message"
 
 	"github.com/shortlink-org/shortlink/internal/boundaries/api/api-gateway/gateways/grpc-web/infrastructure/server/v1"
 	link_cqrs "github.com/shortlink-org/shortlink/internal/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
@@ -21,13 +20,12 @@ import (
 // RunAPIServer - start HTTP-server
 func RunAPIServer(
 	ctx context.Context,
-	i18n *message.Printer,
 	log logger.Logger,
 	rpcServer *rpc.Server,
 	tracer trace.TracerProvider,
 	monitor *monitoring.Monitoring,
 
-// delivery
+	// delivery
 	link_rpc link_rpc.LinkServiceClient,
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,
@@ -51,7 +49,7 @@ func RunAPIServer(
 	g := errgroup.Group{}
 
 	g.Go(func() error {
-		return server.Run(ctx, i18n, config, log, tracer, link_rpc, link_command, link_query, sitemap_rpc)
+		return server.Run(ctx, config, log, tracer, link_rpc, link_command, link_query, sitemap_rpc)
 	})
 
 	return server, nil
