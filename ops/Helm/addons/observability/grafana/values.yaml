@@ -87,6 +87,7 @@ grafana:
       searchNamespace: ALL
     dashboards:
       enabled: true
+      defaultFolderName: "General"
       searchNamespace: ALL
       folder: /tmp/dashboards
       folderAnnotation: grafana_dashboard_folder
