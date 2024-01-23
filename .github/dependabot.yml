@@ -180,3 +180,8 @@ updates:
     directory: /internal/boundaries/payment/wallet
     schedule:
       interval: daily
+
+  - package-ecosystem: gomod
+    directory: /internal/boundaries/link/supplies/knative/kafka-to-elasticsearch
+    schedule:
+      interval: daily
