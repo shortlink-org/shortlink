@@ -43,7 +43,7 @@ func (c *Controller) AddLink(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) //nolint:errcheck
 
 		return
 	}
@@ -55,7 +55,7 @@ func (c *Controller) AddLink(w http.ResponseWriter, r *http.Request) {
 	}})
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) //nolint:errcheck
 
 		return
 	}
@@ -82,7 +82,7 @@ func (c *Controller) UpdateLinks(w http.ResponseWriter, r *http.Request) {
 	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) //nolint:errcheck
 
 		return
 	}
@@ -95,7 +95,7 @@ func (c *Controller) UpdateLinks(w http.ResponseWriter, r *http.Request) {
 	}})
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) //nolint:errcheck
 
 		return
 	}
@@ -120,13 +120,13 @@ func (c *Controller) GetLink(w http.ResponseWriter, r *http.Request, hash string
 
 		if errors.Is(err, errorLink) {
 			w.WriteHeader(http.StatusNotFound)
-			_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
+			_ = json.NewEncoder(w).Encode(ErrMessages(err)) //nolint:errcheck
 
 			return
 		}
 
 		w.WriteHeader(http.StatusBadRequest)
-		_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) //nolint:errcheck
 
 		return
 	}
@@ -166,13 +166,13 @@ func (c *Controller) GetLinks(w http.ResponseWriter, r *http.Request, params api
 
 		if errors.Is(err, errorLink) {
 			w.WriteHeader(http.StatusNotFound)
-			_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
+			_ = json.NewEncoder(w).Encode(ErrMessages(err)) //nolint:errcheck
 
 			return
 		}
 
 		w.WriteHeader(http.StatusBadRequest)
-		_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) //nolint:errcheck
 
 		return
 	}
@@ -204,7 +204,7 @@ func (c *Controller) DeleteLink(w http.ResponseWriter, r *http.Request, hash str
 	_, err := c.linkServiceClient.Delete(r.Context(), &link_rpc.DeleteRequest{Hash: hash})
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_ = json.NewEncoder(w).Encode(ErrMessages(err)) // nolint:errcheck
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) //nolint:errcheck
 
 		return
 	}

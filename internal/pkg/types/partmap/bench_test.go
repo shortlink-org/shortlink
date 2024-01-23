@@ -1,7 +1,7 @@
 package partmap
 
 import (
-	"fmt"
+	"strconv"
 	"sync"
 	"testing"
 )
@@ -18,7 +18,7 @@ func BenchmarkStd(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			wg.Add(1)
 			go func(i int) {
-				key := fmt.Sprint(i)
+				key := strconv.Itoa(i)
 				mu.Lock()
 				m[key] = i
 				mu.Unlock()
@@ -40,7 +40,7 @@ func BenchmarkSyncStd(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			wg.Add(1)
 			go func(i int) {
-				key := fmt.Sprint(i)
+				key := strconv.Itoa(i)
 				m.Store(key, i)
 				wg.Done()
 			}(i)
@@ -64,7 +64,7 @@ func BenchmarkPartitioned(b *testing.B) {
 		for i := 0; i < b.N; i++ {
 			wg.Add(1)
 			go func(i int) {
-				key := fmt.Sprint(i)
+				key := strconv.Itoa(i)
 				if err := m.Set(key, i); err != nil {
 					b.Errorf("Failed to set value in PartMap: %v", err)
 				}

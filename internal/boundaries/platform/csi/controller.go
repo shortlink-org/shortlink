@@ -67,7 +67,7 @@ func NewControllerServer(nodeID string) *controllerServer {
 }
 
 // CreateVolume creates a new volume from the given request. The function is idempotent.
-func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest) (*csi.CreateVolumeResponse, error) { // nolint:gocognit,maintidx
+func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest) (*csi.CreateVolumeResponse, error) { //nolint:gocognit,maintidx
 	if err := d.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_CREATE_DELETE_VOLUME); err != nil {
 		d.log.Error(fmt.Sprintf("invalid create snapshot req: %v", req))
 		return nil, err
@@ -129,7 +129,7 @@ func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest)
 
 	// Need to check for already existing volume name, and if found
 	// check for the requested capacity and already allocated capacity
-	if exVol, err := getVolumeByName(req.GetName()); err == nil { // nolint:nestif
+	if exVol, err := getVolumeByName(req.GetName()); err == nil { //nolint:nestif
 		// Since err is nil, it means the volume with the same name already exists
 		// need to check if the size of existing volume is the same as in new
 		// request
@@ -170,7 +170,7 @@ func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest)
 	}
 	d.log.InfoWithContext(ctx, fmt.Sprintf("created volume %s at path %s", vol.VolID, vol.VolPath))
 
-	if req.GetVolumeContentSource() != nil { // nolint:nestif
+	if req.GetVolumeContentSource() != nil { //nolint:nestif
 		path := getVolumePath(volumeID)
 		volumeSource := req.VolumeContentSource
 		switch volumeSource.Type.(type) {
@@ -342,7 +342,7 @@ func (d *driver) ListVolumes(ctx context.Context, req *csi.ListVolumesRequest) (
 	})
 
 	if req.StartingToken != "" {
-		_, err := strconv.ParseInt(req.StartingToken, 10, 32) // nolint:gomnd
+		_, err := strconv.ParseInt(req.StartingToken, 10, 32) //nolint:gomnd
 		if err != nil {
 			return nil, status.Errorf(codes.Aborted, "ListVolumes starting token %q is not valid: %s", req.StartingToken, err)
 		}
@@ -426,11 +426,11 @@ func (d *driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 	snapshot.Id = snapshotID
 	snapshot.VolID = volumeID
 	snapshot.Path = file
-	snapshot.CreationTime = *creationTime // nolint:govet
+	snapshot.CreationTime = *creationTime //nolint:govet
 	snapshot.SizeBytes = hostPathVolume.VolSize
 	snapshot.ReadyToUse = true
 
-	hostPathVolumeSnapshots[snapshotID] = snapshot // nolint:govet
+	hostPathVolumeSnapshots[snapshotID] = snapshot //nolint:govet
 
 	return &csi.CreateSnapshotResponse{
 		Snapshot: &csi.Snapshot{
@@ -479,16 +479,16 @@ func (d *driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 	// case 1: SnapshotId is not empty, return snapshots that match the snapshot id.
 	if len(req.GetSnapshotId()) != 0 {
 		snapshotID := req.SnapshotId
-		if snapshot, ok := hostPathVolumeSnapshots[snapshotID]; ok { // nolint:govet
-			return convertSnapshot(snapshot), nil // nolint:govet
+		if snapshot, ok := hostPathVolumeSnapshots[snapshotID]; ok { //nolint:govet
+			return convertSnapshot(snapshot), nil //nolint:govet
 		}
 	}
 
 	// case 2: SourceVolumeId is not empty, return snapshots that match the source volume id.
 	if len(req.GetSourceVolumeId()) != 0 {
-		for _, snapshot := range hostPathVolumeSnapshots { // nolint:govet
+		for _, snapshot := range hostPathVolumeSnapshots { //nolint:govet
 			if snapshot.VolID == req.SourceVolumeId {
-				return convertSnapshot(snapshot), nil // nolint:govet
+				return convertSnapshot(snapshot), nil //nolint:govet
 			}
 		}
 	}
@@ -502,7 +502,7 @@ func (d *driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 	sort.Strings(sortedKeys)
 
 	for _, key := range sortedKeys {
-		snap := hostPathVolumeSnapshots[key] // nolint:govet
+		snap := hostPathVolumeSnapshots[key] //nolint:govet
 		snapshot := csi.Snapshot{
 			SnapshotId:     snap.Id,
 			SourceVolumeId: snap.VolID,
@@ -520,7 +520,7 @@ func (d *driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 	)
 
 	if v := req.StartingToken; v != "" {
-		i, err := strconv.ParseUint(v, 10, 32) // nolint:gomnd
+		i, err := strconv.ParseUint(v, 10, 32) //nolint:gomnd
 		if err != nil {
 			return nil, status.Errorf(
 				codes.Aborted,
@@ -608,7 +608,7 @@ func (d *driver) ControllerExpandVolume(ctx context.Context, req *csi.Controller
 	}, nil
 }
 
-func convertSnapshot(snap hostPathSnapshot) *csi.ListSnapshotsResponse { // nolint:govet
+func convertSnapshot(snap hostPathSnapshot) *csi.ListSnapshotsResponse { //nolint:govet
 	entries := []*csi.ListSnapshotsResponse_Entry{
 		{
 			Snapshot: &csi.Snapshot{

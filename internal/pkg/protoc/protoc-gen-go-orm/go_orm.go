@@ -109,7 +109,7 @@ func generateCommonFile(gen *protogen.Plugin, file *protogen.File) {
 	g.P()
 
 	// Generate the StringFilterInput struct definition
-	g.P("type StringFilterInput struct { // nolint:unused")
+	g.P("type StringFilterInput struct { //nolint:unused")
 	g.P("    Eq           string    `json:\"eq,omitempty\"`")          // Equal
 	g.P("    Ne           string    `json:\"ne,omitempty\"`")          // Not Equal
 	g.P("    Lt           string    `json:\"lt,omitempty\"`")          // Less Than

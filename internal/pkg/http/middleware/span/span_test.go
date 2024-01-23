@@ -16,7 +16,7 @@ func TestSpanMiddleware(t *testing.T) {
 	middleware := Span()(testHandler)
 
 	// Create an HTTP request
-	req := httptest.NewRequest("GET", "/", nil)
+	req := httptest.NewRequest(http.MethodGet, "/", http.NoBody)
 
 	// Using a ResponseRecorder to capture the response
 	rr := httptest.NewRecorder()

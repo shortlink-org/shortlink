@@ -131,7 +131,7 @@ func (m *Monitoring) SetHandler() (*http.ServeMux, error) {
 
 	// Our app is not happy if we've got more than 100 goroutines running.
 	// TODO: research problem with prometheus
-	// health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100)) // nolint:gomnd
+	// health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100)) //nolint:gomnd
 
 	// Expose a liveness check on /live
 	handler.HandleFunc("/live", health.LiveEndpoint)

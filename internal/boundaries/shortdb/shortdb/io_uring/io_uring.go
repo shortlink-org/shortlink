@@ -4,7 +4,7 @@
 // file read/write operations using liburing.
 package io_uring
 
-// golint:ignore // nolint:golint // Package comment is in the file header.
+// golint:ignore //nolint:golint // Package comment is in the file header.
 /*
 #cgo LDFLAGS: -luring
 #include <fcntl.h>
@@ -21,7 +21,7 @@ extern int pop_request();
 extern int queue_submit(int);
 extern void queue_exit();
 */
-import "C" // nolint:typecheck // import "C"
+import "C" //nolint:typecheck // import "C"
 import (
 	"bytes"
 	"fmt"
@@ -111,7 +111,7 @@ func Err() <-chan error {
 	return errChan
 }
 
-func startLoop() { // nolint:gocognit
+func startLoop() { //nolint:gocognit
 	queueSize := 0
 	for {
 		select {

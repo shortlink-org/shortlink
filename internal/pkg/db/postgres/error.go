@@ -4,11 +4,11 @@ import (
 	"fmt"
 )
 
-// ErrorPingConnection - error ping connection
-type ErrorPingConnection struct {
+// PingConnectionError - error ping connection
+type PingConnectionError struct {
 	Err error
 }
 
-func (e *ErrorPingConnection) Error() string {
+func (e *PingConnectionError) Error() string {
 	return fmt.Sprintf("failed to ping the database: %s", e.Err.Error())
 }

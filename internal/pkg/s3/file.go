@@ -41,6 +41,7 @@ func (c *Client) RemoveFile(ctx context.Context, bucketName string, objectName s
 
 // ListFiles lists all files in a bucket with context
 func (c *Client) ListFiles(ctx context.Context, bucketName string) ([]string, error) {
+	//nolint:prealloc // ignore
 	var files []string
 
 	for object := range c.client.ListObjects(ctx, bucketName, minio.ListObjectsOptions{}) {
@@ -65,7 +66,7 @@ func (c *Client) FileExists(ctx context.Context, bucketName string, objectName s
 
 // GetFileURL returns a URL for a file with context
 func (c *Client) GetFileURL(ctx context.Context, bucketName string, objectName string) (*url.URL, error) {
-	// TODO: use ENV variable for duration
+	//nolint:revive,gomnd // default value
 	duration := time.Minute * 60
 
 	presignedURL, err := c.client.PresignedGetObject(ctx, bucketName, objectName, duration, url.Values{})

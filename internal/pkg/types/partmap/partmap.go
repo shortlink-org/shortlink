@@ -1,9 +1,5 @@
 package partmap
 
-import (
-	"errors"
-)
-
 // PartMap is a concurrent map with separate partitions to reduce lock contention.
 type PartMap struct {
 	partitions []*partition
@@ -13,7 +9,7 @@ type PartMap struct {
 // New creates a new PartMap with the given number of partitions and Partitioner.
 func New(partitioner Partitioner, partitions uint) (*PartMap, error) {
 	if partitions == 0 {
-		return nil, errors.New("partitions must be greater than 0")
+		return nil, ErrPartitionsMustBeGreaterThanZero
 	}
 
 	parts := make([]*partition, partitions)
@@ -64,8 +60,10 @@ func (pm *PartMap) Delete(key string) error {
 // Len returns the total number of key-value pairs in the PartMap.
 func (pm *PartMap) Len() int {
 	total := 0
+
 	for _, p := range pm.partitions {
 		total += p.len()
 	}
+
 	return total
 }

@@ -23,7 +23,7 @@ func (c *LinkCQRSController) GetLinkByCQRS(w http.ResponseWriter, r *http.Reques
 	hash := chi.URLParam(r, "hash")
 	if hash == "" {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "need set hash URL"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "need set hash URL"}`)) //nolint:errcheck
 
 		return
 	}
@@ -32,13 +32,13 @@ func (c *LinkCQRSController) GetLinkByCQRS(w http.ResponseWriter, r *http.Reques
 	var errorLink *v1.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
@@ -46,13 +46,13 @@ func (c *LinkCQRSController) GetLinkByCQRS(w http.ResponseWriter, r *http.Reques
 	res, err := jsonpb.Marshal(response.Link)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(res) // nolint:errcheck
+	_, _ = w.Write(res) //nolint:errcheck
 }
 
 // GetLinksByCQRS - get links by filter
@@ -62,13 +62,13 @@ func (c *LinkCQRSController) GetLinksByCQRS(w http.ResponseWriter, r *http.Reque
 	var errorLink *v1.NotFoundError
 	if errors.As(err, &errorLink) {
 		w.WriteHeader(http.StatusNotFound)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
@@ -76,11 +76,11 @@ func (c *LinkCQRSController) GetLinksByCQRS(w http.ResponseWriter, r *http.Reque
 	res, err := jsonpb.Marshal(response.Links)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) // nolint:errcheck
+		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
 
 		return
 	}
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(res) // nolint:errcheck
+	_, _ = w.Write(res) //nolint:errcheck
 }

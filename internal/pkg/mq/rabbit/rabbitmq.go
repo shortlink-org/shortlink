@@ -60,6 +60,7 @@ func (mq *MQ) close() error {
 		return err
 	}
 
+	//nolint:revive // ignore
 	if err := mq.ch.Close(); err != nil {
 		return err
 	}

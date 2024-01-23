@@ -23,7 +23,7 @@ func RunAPIServer(
 	tracer trace.TracerProvider,
 	monitor *monitoring.Monitoring,
 
-// delivery
+	// delivery
 	link_rpc link_rpc.LinkServiceClient,
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,
@@ -31,7 +31,7 @@ func RunAPIServer(
 ) (domain.API, error) {
 	viper.SetDefault("BASE_PATH", "/api") // Base path for API endpoints
 	// API port
-	viper.SetDefault("API_PORT", 7070) // nolint:gomnd
+	viper.SetDefault("API_PORT", 7070) //nolint:gomnd
 	// Request Timeout (seconds)
 	viper.SetDefault("API_TIMEOUT", "60s")
 

@@ -32,7 +32,7 @@ func (api *API) GetLink(ctx context.Context, req *GetLinkRequest) (*GetLinkRespo
 		if err != nil {
 			return nil, err
 		}
-		response := r.Payload.(*v1.Link) // nolint:errcheck
+		response := r.Payload.(*v1.Link) //nolint:errcheck
 
 		return &GetLinkResponse{
 			Link: response,
@@ -66,7 +66,7 @@ func (api *API) GetLinks(ctx context.Context, req *GetLinksRequest) (*GetLinksRe
 		if err != nil {
 			return nil, err
 		}
-		links := r.Payload.([]*v1.Link) // nolint:errcheck
+		links := r.Payload.([]*v1.Link) //nolint:errcheck
 
 		response := v1.Links{}
 		response.Link = append(response.Link, links...)
@@ -102,7 +102,7 @@ func (api *API) CreateLink(ctx context.Context, req *CreateLinkRequest) (*Create
 		if err != nil {
 			return nil, err
 		}
-		response := r.Payload.(*v1.Link) // nolint:errcheck
+		response := r.Payload.(*v1.Link) //nolint:errcheck
 
 		return &CreateLinkResponse{
 			Link: response,

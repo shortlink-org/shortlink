@@ -38,7 +38,7 @@ func NewNodeServer(nodeId string, maxVolumesPerNode int64) *nodeServer {
 }
 
 // NodePublishVolume mounts the volume mounted to the staging path to the target path
-func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolumeRequest) (*csi.NodePublishVolumeResponse, error) { // nolint:gocognit,maintidx
+func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolumeRequest) (*csi.NodePublishVolumeResponse, error) { //nolint:gocognit,maintidx
 	// Check arguments
 	if req.GetVolumeCapability() == nil {
 		return nil, status.Error(codes.InvalidArgument, "Volume capability must be provided")
@@ -76,7 +76,7 @@ func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 		return nil, status.Error(codes.NotFound, err.Error())
 	}
 
-	if req.GetVolumeCapability().GetBlock() != nil { // nolint:nestif
+	if req.GetVolumeCapability().GetBlock() != nil { //nolint:nestif
 		if vol.VolAccessType != blockAccess {
 			return nil, status.Error(codes.InvalidArgument, "cannot publish a non-block volume as block volume")
 		}
@@ -128,7 +128,7 @@ func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 		notMnt, err := mount.New("").IsLikelyNotMountPoint(targetPath)
 		if err != nil {
 			if os.IsNotExist(err) {
-				if err = os.MkdirAll(targetPath, 0o750); err != nil { // nolint:gomnd
+				if err = os.MkdirAll(targetPath, 0o750); err != nil { //nolint:gomnd
 					return nil, status.Error(codes.Internal, err.Error())
 				}
 				notMnt = true
@@ -166,7 +166,7 @@ func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 		err = mounter.Mount(path, targetPath, "", options)
 		if err != nil {
 			var errList strings.Builder
-			errList.WriteString(err.Error()) // nolint:errcheck
+			errList.WriteString(err.Error()) //nolint:errcheck
 
 			return nil, status.Error(codes.Internal, fmt.Sprintf("failed to mount device: %s at %s: %s", path, targetPath, errList.String()))
 		}
@@ -203,7 +203,7 @@ func (d *driver) NodeUnpublishVolume(ctx context.Context, req *csi.NodeUnpublish
 	}
 
 	// Unmount only if the target path is really a mount point.
-	notMnt, err := mount.IsNotMountPoint(mount.New(""), targetPath) // nolint:staticcheck
+	notMnt, err := mount.IsNotMountPoint(mount.New(""), targetPath) //nolint:staticcheck
 	if err != nil {
 		if !os.IsNotExist(err) {
 			return nil, status.Error(codes.Internal, err.Error())

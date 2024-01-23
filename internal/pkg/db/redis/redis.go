@@ -29,7 +29,7 @@ func (s *Store) Init(ctx context.Context) error {
 	s.setConfig()
 
 	// Connect to Redis
-	s.client, err = rueidis.NewClient(rueidis.ClientOption{
+	s.client, err = rueidisotel.NewClient(rueidis.ClientOption{
 		InitAddress: s.config.Host,
 		Username:    s.config.Username,
 		Password:    s.config.Password,
@@ -38,9 +38,6 @@ func (s *Store) Init(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-
-	// Enable tracing instrumentation.
-	s.client = rueidisotel.WithClient(s.client)
 
 	// Graceful shutdown
 	go func() {

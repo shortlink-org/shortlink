@@ -46,7 +46,7 @@ func (s *Store) Init(ctx context.Context) error {
 	if err != nil {
 		s.client.Close()
 
-		return &ErrorPingConnection{err}
+		return &PingConnectionError{err}
 	}
 
 	// Graceful shutdown

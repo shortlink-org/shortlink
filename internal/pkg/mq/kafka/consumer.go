@@ -43,19 +43,17 @@ func (consumer *Consumer) ConsumeClaim(session sarama.ConsumerGroupSession, clai
 	for {
 		select {
 		case message, ok := <-claim.Messages():
-			{
-				if !ok {
-					return nil
-				}
+			if !ok {
+				return nil
+			}
 
-				session.MarkMessage(message, "")
+			session.MarkMessage(message, "")
 
-				consumer.ch.Chan <- query.ResponseMessage{
-					Body: message.Value,
-				}
+			consumer.ch.Chan <- query.ResponseMessage{
+				Body: message.Value,
 			}
 		// Should return when `session.Context()` is done.
-		// If not, will raise `ErrRebalanceInProgress` or `read tcp <ip>:<port>: i/o timeout` when kafka rebalance. see:
+		// If not, will raise `ErrRebalanceInProgress` or `read tcp <ip>:<port>: i/o timeout` when kafka rebalance. See:
 		// https://github.com/IBM/sarama/issues/1192
 		case <-session.Context().Done():
 			return nil

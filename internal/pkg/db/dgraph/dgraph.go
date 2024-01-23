@@ -23,10 +23,7 @@ type Link struct {
 
 // LinkResponse - response from DGraph
 type LinkResponse struct {
-	Link []struct {
-		*v1.Link
-		Uid string `json:"uid,omitempty"`
-	}
+	Link []Link
 }
 
 // Config - config

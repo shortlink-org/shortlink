@@ -26,7 +26,7 @@ import (
 )
 
 //go:embed schema/*.graphqls
-var schema embed.FS // nolint:unused
+var schema embed.FS //nolint:unused
 
 // API ...
 type API struct {

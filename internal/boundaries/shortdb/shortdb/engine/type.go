@@ -28,7 +28,7 @@ type Engine interface {
 	Delete(query *v1.Query) error
 }
 
-// nolint:ireturn,nolintlint // ignore
+//nolint:ireturn,nolintlint // ignore
 func New(ctx context.Context, name string, ops ...options.Option) (Engine, error) {
 	var err error
 	var engine Engine

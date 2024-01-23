@@ -4,11 +4,11 @@ import (
 	"fmt"
 )
 
-// ErrorInitCache is an error returned when cache initialization fails.
-type ErrorInitCache struct {
+// InitCacheError is an error returned when cache initialization fails.
+type InitCacheError struct {
 	err error
 }
 
-func (e *ErrorInitCache) Error() string {
+func (e *InitCacheError) Error() string {
 	return fmt.Sprintf("error init cache: %s", e.err.Error())
 }

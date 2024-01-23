@@ -45,6 +45,7 @@ func (s *Store) GetConn() any {
 
 // Close - close
 func (s *Store) close() error {
+	//nolint:revive // ignore
 	if err := s.client.Close(); err != nil {
 		return err
 	}
