@@ -33,6 +33,7 @@ for an information team about cases for updated ADR.
   - **DataBase**
     - [ADR-0002](./decisions/0002-cache-system.md) - Cache System
     - **Postgres**
+      - [ADR-0009](./decisions/0009-postgres-tips.md) - Postgres tips
       - [ADR-0005](./decisions/0005-postgres-optimization.md) - Postgres optimization
       - [ADR-0020](./decisions/0020-postgresql-operator.md) - Research Summary and Decision for PostgreSQL Operators: Choosing Crunchy Postgres Operator
       - [ADR-0008](./decisions/0008-postgresql-scale.md) - PostgreSQL Scale
