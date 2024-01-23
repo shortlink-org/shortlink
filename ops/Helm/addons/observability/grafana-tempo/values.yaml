@@ -16,8 +16,7 @@ tempo:
         memory: 128Mi
 
     metricsGenerator:
-      # TODO: enable
-      enabled: false
+      enabled: enable
       remoteWriteUrl: http://prometheus-operated.prometheus-operator:9090/api/v1/write
 
     ingester:
@@ -37,6 +36,11 @@ tempo:
         target_bytes_per_job: 400_000_000
 
     storage:
+      parquet_dedicated_columns:
+        - scope: span
+          name: rpc.service
+          type: string
+
       trace:
         backend: local
         block:
