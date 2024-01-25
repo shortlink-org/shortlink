@@ -21,7 +21,7 @@ dependencies:
     tags:
       - ci/cd
   - name: argocd-apps
-    version: 1.4.1
+    version: 1.5.0
     repository: https://argoproj.github.io/argo-helm
     condition: argocd-apps.enabled
     tags:
