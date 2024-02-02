@@ -20,8 +20,8 @@ func init() {
 
 	rootCmd := &cobra.Command{
 		Use:   "shortctl-csi",
-		Short: "Shortlink container storage interface",
-		Long:  "Shortlink container storage interface",
+		Short: "ShortLink container storage interface",
+		Long:  "ShortLink container storage interface",
 		Run:   func(cmd *cobra.Command, args []string) {},
 	}
 
