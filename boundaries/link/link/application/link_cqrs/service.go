@@ -4,8 +4,8 @@ import (
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/cqrs/cqs"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/cqrs/query"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 
 type Service struct {

@@ -7,9 +7,9 @@ import (
 	domain "github.com/shortlink-org/shortlink/boundaries/link/metadata/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/metadata/usecases/parsers"
 	"github.com/shortlink-org/shortlink/boundaries/link/metadata/usecases/screenshot"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
-	"github.com/shortlink-org/shortlink/internal/pkg/saga"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/pkg/saga"
 )
 
 type UC struct {

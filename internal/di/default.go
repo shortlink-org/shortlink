@@ -22,12 +22,12 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	traicing_di "github.com/shortlink-org/shortlink/internal/di/pkg/traicing"
-	"github.com/shortlink-org/shortlink/internal/pkg/cache"
-	"github.com/shortlink-org/shortlink/internal/pkg/db"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq"
-	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
-	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
+	"github.com/shortlink-org/shortlink/pkg/cache"
+	"github.com/shortlink-org/shortlink/pkg/db"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/mq"
+	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
+	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 // Service - heplers
@@ -79,19 +79,19 @@ var FullSet = wire.NewSet(
 )
 
 func NewFullService(
-// Common
+	// Common
 	ctx context.Context,
 	cfg *config.Config,
 	log logger.Logger,
 
-// Delivery
+	// Delivery
 	serverRPC *rpc.Server,
 	clientRPC *grpc.ClientConn,
 	dataBus mq.MQ,
 	store_db db.DB,
 	shortcache redisCache.UniversalClient,
 
-// Observability
+	// Observability
 	monitor *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,

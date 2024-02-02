@@ -7,7 +7,7 @@ import (
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	v12 "github.com/shortlink-org/shortlink/boundaries/link/metadata/domain/metadata/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
 type Repository interface {

@@ -8,7 +8,7 @@ import (
 
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/notification/notify/domain/events"
-	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 
 type Bot struct {

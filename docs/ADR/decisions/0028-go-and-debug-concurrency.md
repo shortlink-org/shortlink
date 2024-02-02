@@ -35,7 +35,7 @@ We write a Cookbook for this.
 3. **Labeling Logic:** Within the middleware, define the logic to generate meaningful labels for each request. These labels can be based on request parameters, endpoints, or other relevant data.
 
 4. **Applying Middleware:** Attach this middleware to your HTTP/gRPC server. Ensure it wraps around the necessary handlers to capture all desired traffic. 
-    You can find the implementation of the middleware in our codebase [here](../../../internal/pkg/http/middleware/pprof_labels/pprof_labels.go) for HTTP and [here](../../../internal/pkg/rpc/middleware/pprof/server_interceptors.go) for gRPC.
+    You can find the implementation of the middleware in our codebase [here](../../../pkg/http/middleware/pprof_labels/pprof_labels.go) for HTTP and [here](../../../pkg/rpc/middleware/pprof/server_interceptors.go) for gRPC.
 
 5. **Testing:** Test your application to ensure that the middleware correctly applies labels and that pprof captures these labels as expected.
 

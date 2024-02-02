@@ -12,9 +12,9 @@ import (
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	logger_application "github.com/shortlink-org/shortlink/boundaries/platform/logger/application"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/mq"
+	"github.com/shortlink-org/shortlink/pkg/mq/query"
 )
 
 type Event struct {

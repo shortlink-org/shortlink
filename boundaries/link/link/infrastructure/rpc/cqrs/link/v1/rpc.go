@@ -6,8 +6,8 @@ package v1
 
 import (
 	"github.com/shortlink-org/shortlink/boundaries/link/link/application/link_cqrs"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 type Link struct {

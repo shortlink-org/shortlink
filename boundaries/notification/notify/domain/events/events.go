@@ -1,6 +1,6 @@
 package events
 
-import "github.com/shortlink-org/shortlink/internal/pkg/notify"
+import "github.com/shortlink-org/shortlink/pkg/notify"
 
 var (
 	METHOD_NEW_LINK      = notify.NewEventID()

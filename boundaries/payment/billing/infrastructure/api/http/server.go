@@ -12,8 +12,8 @@ import (
 	payment_application "github.com/shortlink-org/shortlink/boundaries/payment/billing/application/payment"
 	tariff_application "github.com/shortlink-org/shortlink/boundaries/payment/billing/application/tariff"
 	http_chi "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/api/http/http-chi"
-	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
 // API - general describe of API

@@ -11,7 +11,7 @@ import (
 	"github.com/authzed/authzed-go/v1"
 	"gopkg.in/yaml.v3"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
 //go:embed permissions/*

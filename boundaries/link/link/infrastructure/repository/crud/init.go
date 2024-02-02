@@ -21,9 +21,9 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/ram"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/redis"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/sqlite"
-	"github.com/shortlink-org/shortlink/internal/pkg/db"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/pkg/db"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
 )
 
 // New return implementation of db

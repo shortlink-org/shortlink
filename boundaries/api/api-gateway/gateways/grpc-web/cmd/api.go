@@ -13,7 +13,7 @@ import (
 	"github.com/spf13/viper"
 
 	api_di "github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/grpc-web/di"
-	"github.com/shortlink-org/shortlink/internal/pkg/graceful_shutdown"
+	"github.com/shortlink-org/shortlink/pkg/graceful_shutdown"
 )
 
 func main() {

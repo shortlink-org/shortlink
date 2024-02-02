@@ -14,13 +14,13 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http/controllers/cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http/controllers/link"
 	"github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http/controllers/sitemap"
-	"github.com/shortlink-org/shortlink/internal/pkg/http/handler"
-	auth_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/auth"
-	logger_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/logger"
-	metrics_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/metrics"
-	pprof_labels_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/pprof_labels"
-	span_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/span"
-	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
+	"github.com/shortlink-org/shortlink/pkg/http/handler"
+	auth_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/auth"
+	logger_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/logger"
+	metrics_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/metrics"
+	pprof_labels_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/pprof_labels"
+	span_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/span"
+	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 )
 
 const MAX_AGE = 300

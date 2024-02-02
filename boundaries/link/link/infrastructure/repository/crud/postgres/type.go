@@ -4,7 +4,7 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/postgres/schema/crud"
-	"github.com/shortlink-org/shortlink/internal/pkg/batch"
+	"github.com/shortlink-org/shortlink/pkg/batch"
 )
 
 // Config - config

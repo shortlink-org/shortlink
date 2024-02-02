@@ -16,8 +16,8 @@ import (
 	metadata_di "github.com/shortlink-org/shortlink/boundaries/link/metadata/di"
 	"github.com/shortlink-org/shortlink/boundaries/marketing/report/shared"
 	"github.com/shortlink-org/shortlink/boundaries/marketing/report/workflow"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
 )
 
 func main() {

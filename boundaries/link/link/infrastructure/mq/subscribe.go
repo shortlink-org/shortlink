@@ -8,8 +8,8 @@ import (
 
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	metadata_domain "github.com/shortlink-org/shortlink/boundaries/link/metadata/domain/metadata/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq/query"
-	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	"github.com/shortlink-org/shortlink/pkg/mq/query"
+	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 
 func (e *Event) SubscribeNewLink() error {

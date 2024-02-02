@@ -22,13 +22,13 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/api/http/http-chi/controllers/order"
 	"github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/api/http/http-chi/controllers/payment"
 	"github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/api/http/http-chi/controllers/tariff"
-	"github.com/shortlink-org/shortlink/internal/pkg/http/handler"
-	auth_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/auth"
-	logger_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/logger"
-	metrics_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/metrics"
-	pprof_labels_middleware "github.com/shortlink-org/shortlink/internal/pkg/http/middleware/pprof_labels"
-	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/http/handler"
+	auth_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/auth"
+	logger_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/logger"
+	metrics_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/metrics"
+	pprof_labels_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/pprof_labels"
+	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
 // Run HTTP-server

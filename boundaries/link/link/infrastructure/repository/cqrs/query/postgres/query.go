@@ -11,7 +11,7 @@ import (
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	v12 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link_cqrs/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/pkg/db"
 )
 
 var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)

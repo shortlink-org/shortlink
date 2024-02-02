@@ -10,9 +10,9 @@ import (
 
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/sitemap/v1"
-	http_client "github.com/shortlink-org/shortlink/internal/pkg/http/client"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq"
+	http_client "github.com/shortlink-org/shortlink/pkg/http/client"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/mq"
 )
 
 type Service struct {

@@ -13,7 +13,7 @@ import (
 	"go.uber.org/goleak"
 
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/mock"
-	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
+	"github.com/shortlink-org/shortlink/pkg/db/options"
 )
 
 func TestMain(m *testing.M) {

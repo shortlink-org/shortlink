@@ -17,10 +17,10 @@ import (
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/postgres/schema/crud"
-	"github.com/shortlink-org/shortlink/internal/pkg/batch"
-	"github.com/shortlink-org/shortlink/internal/pkg/db"
-	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
-	"github.com/shortlink-org/shortlink/internal/pkg/db/postgres/migrate"
+	"github.com/shortlink-org/shortlink/pkg/batch"
+	"github.com/shortlink-org/shortlink/pkg/db"
+	"github.com/shortlink-org/shortlink/pkg/db/options"
+	"github.com/shortlink-org/shortlink/pkg/db/postgres/migrate"
 )
 
 var (

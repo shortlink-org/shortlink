@@ -11,7 +11,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"github.com/spf13/viper"
 
-	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
+	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 )
 
 //nolint:revive // ignore

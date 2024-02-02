@@ -9,7 +9,7 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/payment/billing/domain/billing/account/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/pkg/db"
 )
 
 type Account struct {

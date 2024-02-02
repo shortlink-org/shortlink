@@ -2,8 +2,8 @@ package payment_application
 
 import (
 	billing "github.com/shortlink-org/shortlink/boundaries/payment/billing/domain/billing/payment/v1"
-	eventsourcing "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/domain/eventsourcing/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	eventsourcing "github.com/shortlink-org/shortlink/pkg/eventsourcing/domain/eventsourcing/v1"
+	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 
 type Payment struct {

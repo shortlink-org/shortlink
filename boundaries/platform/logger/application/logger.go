@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
 type Service struct {

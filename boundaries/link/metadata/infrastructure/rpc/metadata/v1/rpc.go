@@ -10,8 +10,8 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/metadata/usecases/metadata"
 	"github.com/shortlink-org/shortlink/boundaries/link/metadata/usecases/parsers"
 	"github.com/shortlink-org/shortlink/boundaries/link/metadata/usecases/screenshot"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/rpc"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 type Metadata struct {

@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="db/aerospike" type="GoTestRunConfiguration" factoryName="Go Test" folderName="database">
     <module name="shortlink" />
-    <working_directory value="$PROJECT_DIR$/internal/pkg/db/aerospike" />
+    <working_directory value="$PROJECT_DIR$/pkg/db/aerospike" />
     <go_parameters value="-race -v -tags=unit -cover" />
     <envs>
       <env name="GOEXPERIMENT" value="arenas,cgocheck2,loopvar" />
@@ -13,7 +13,7 @@
     </EXTENSION>
     <root_directory value="$PROJECT_DIR$" />
     <kind value="PACKAGE" />
-    <package value="github.com/shortlink-org/shortlink/internal/pkg/db/aerospike" />
+    <package value="github.com/shortlink-org/shortlink/pkg/db/aerospike" />
     <directory value="$PROJECT_DIR$" />
     <filePath value="$PROJECT_DIR$" />
     <framework value="gotest" />

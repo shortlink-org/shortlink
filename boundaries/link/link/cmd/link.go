@@ -11,7 +11,7 @@ import (
 	"github.com/spf13/viper"
 
 	link_di "github.com/shortlink-org/shortlink/boundaries/link/link/di"
-	"github.com/shortlink-org/shortlink/internal/pkg/graceful_shutdown"
+	"github.com/shortlink-org/shortlink/pkg/graceful_shutdown"
 )
 
 func main() {

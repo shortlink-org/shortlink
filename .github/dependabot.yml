@@ -162,7 +162,7 @@ updates:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/pkg/k8s/kube-secret-fetcher
+    directory: /pkg/k8s/kube-secret-fetcher
     schedule:
       interval: daily
 

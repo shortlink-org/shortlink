@@ -8,7 +8,7 @@ import (
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/pkg/db"
 )
 
 // Store implementation of db interface

@@ -14,9 +14,9 @@ import (
 	link_cqrs "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/link/v1"
 	sitemap_rpc "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/sitemap/v1"
-	http_client "github.com/shortlink-org/shortlink/internal/pkg/http/client"
-	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	http_client "github.com/shortlink-org/shortlink/pkg/http/client"
+	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
 // API ...

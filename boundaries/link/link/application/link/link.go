@@ -18,12 +18,12 @@ import (
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud"
 	metadata_rpc "github.com/shortlink-org/shortlink/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/auth/session"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq"
-	"github.com/shortlink-org/shortlink/internal/pkg/notify"
-	"github.com/shortlink-org/shortlink/internal/pkg/saga"
+	"github.com/shortlink-org/shortlink/pkg/auth/session"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/pkg/mq"
+	"github.com/shortlink-org/shortlink/pkg/notify"
+	"github.com/shortlink-org/shortlink/pkg/saga"
 )
 
 type UC struct {

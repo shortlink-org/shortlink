@@ -7,7 +7,7 @@ import (
 
 	billing "github.com/shortlink-org/shortlink/boundaries/payment/billing/domain/billing/account/v1"
 	billing_store "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/store"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
 type AccountService struct {

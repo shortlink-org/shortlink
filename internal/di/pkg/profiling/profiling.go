@@ -10,9 +10,9 @@ import (
 	pypprof "github.com/grafana/pyroscope-go/godeltaprof/http/pprof"
 	"github.com/spf13/viper"
 
-	http_server "github.com/shortlink-org/shortlink/internal/pkg/http/server"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
 )
 
 type PprofEndpoint *http.ServeMux

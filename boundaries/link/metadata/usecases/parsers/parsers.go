@@ -12,8 +12,8 @@ import (
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/metadata/domain/metadata/v1"
 	meta_store "github.com/shortlink-org/shortlink/boundaries/link/metadata/infrastructure/repository/store"
-	http_client "github.com/shortlink-org/shortlink/internal/pkg/http/client"
-	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	http_client "github.com/shortlink-org/shortlink/pkg/http/client"
+	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 
 type UC struct {

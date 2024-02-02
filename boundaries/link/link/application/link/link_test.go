@@ -24,8 +24,8 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/link/application/link/mocks/mq"
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	metadata_rpc "github.com/shortlink-org/shortlink/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger/config"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger/config"
 )
 
 func TestLinkService(t *testing.T) {

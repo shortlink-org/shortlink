@@ -9,7 +9,7 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http/api"
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/link/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
 type Controller struct {

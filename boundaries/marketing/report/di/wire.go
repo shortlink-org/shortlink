@@ -16,8 +16,8 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 )
 
 type ReportService struct {
@@ -40,11 +40,11 @@ var ReportSet = wire.NewSet(
 )
 
 func NewReportService(
-// Common
+	// Common
 	log logger.Logger,
 	config *config.Config,
 
-// Observability
+	// Observability
 	monitoring *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,

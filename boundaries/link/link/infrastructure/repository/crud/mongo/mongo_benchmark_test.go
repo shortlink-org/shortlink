@@ -12,8 +12,8 @@ import (
 	"github.com/ory/dockertest/v3/docker"
 	"github.com/stretchr/testify/require"
 
-	db "github.com/shortlink-org/shortlink/internal/pkg/db/mongo"
-	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
+	db "github.com/shortlink-org/shortlink/pkg/db/mongo"
+	"github.com/shortlink-org/shortlink/pkg/db/options"
 )
 
 func BenchmarkMongoSerial(b *testing.B) {

@@ -10,7 +10,7 @@ import (
 
 	v12 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	v1 "github.com/shortlink-org/shortlink/boundaries/payment/billing/domain/billing/tariff/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/db"
+	"github.com/shortlink-org/shortlink/pkg/db"
 )
 
 type Tariff struct {

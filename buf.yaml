@@ -17,8 +17,8 @@ build:
     - boundaries/link/metadata
     - boundaries/marketing/referral/src
     - boundaries/notification/newsletter/src
-    - internal/pkg/eventsourcing
-    - internal/pkg/raft
+    - pkg/eventsourcing
+    - pkg/raft
 
 lint:
   use:

@@ -8,7 +8,7 @@ packages:
       recursive: True
       dir: mocks/crud
     interface: Repository
-  github.com/shortlink-org/shortlink/internal/pkg/mq:
+  github.com/shortlink-org/shortlink/pkg/mq:
     # place your package-specific config here
     config:
       recursive: True

@@ -11,12 +11,12 @@ import (
 	account "github.com/shortlink-org/shortlink/boundaries/payment/billing/domain/billing/account/v1"
 	tariff "github.com/shortlink-org/shortlink/boundaries/payment/billing/domain/billing/tariff/v1"
 	"github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/store/postgres"
-	"github.com/shortlink-org/shortlink/internal/pkg/db"
-	"github.com/shortlink-org/shortlink/internal/pkg/db/postgres/migrate"
-	event_store "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/store"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
-	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	"github.com/shortlink-org/shortlink/pkg/db"
+	"github.com/shortlink-org/shortlink/pkg/db/postgres/migrate"
+	event_store "github.com/shortlink-org/shortlink/pkg/eventsourcing/store"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 
 // Use return implementation of db

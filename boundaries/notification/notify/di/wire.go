@@ -11,8 +11,8 @@ import (
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/mq"
-	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
+	"github.com/shortlink-org/shortlink/pkg/mq"
+	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 
 	"github.com/shortlink-org/shortlink/boundaries/notification/notify/application"
 	"github.com/shortlink-org/shortlink/boundaries/notification/notify/infrastructure/slack"
@@ -23,7 +23,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
 // Service - heplers

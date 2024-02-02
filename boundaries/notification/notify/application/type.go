@@ -1,9 +1,9 @@
 package application
 
 import (
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq"
-	"github.com/shortlink-org/shortlink/internal/pkg/notify"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/mq"
+	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 
 type Bot struct {

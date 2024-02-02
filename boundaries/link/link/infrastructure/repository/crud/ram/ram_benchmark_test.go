@@ -13,7 +13,7 @@ import (
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/mock"
-	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
+	"github.com/shortlink-org/shortlink/pkg/db/options"
 )
 
 var linkUniqId atomic.Int64

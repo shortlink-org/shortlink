@@ -4,8 +4,8 @@ import (
 	"context"
 
 	billing "github.com/shortlink-org/shortlink/boundaries/payment/billing/domain/billing/order/v1"
-	event_store "github.com/shortlink-org/shortlink/internal/pkg/eventsourcing/store"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
+	event_store "github.com/shortlink-org/shortlink/pkg/eventsourcing/store"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
 type OrderService struct {

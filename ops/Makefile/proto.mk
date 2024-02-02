@@ -7,7 +7,7 @@ dep: ## Install dependencies for this project
 	@go install golang.org/x/tools/cmd/goimports@latest
 	@go install github.com/vektra/mockery/v2@v2.33.3
 	@go install github.com/deepmap/oapi-codegen/v2/cmd/oapi-codegen@latest
-	@go install github.com/shortlink-org/shortlink/internal/pkg/protoc/protoc-gen-go-orm
+	@go install github.com/shortlink-org/shortlink/pkg/protoc/protoc-gen-go-orm
 
 	# for NodeJS
 	@npm install -g grpc-tools grpc_tools_node_protoc_ts ts-protoc-gen protoc-gen-ts @bufbuild/protobuf @bufbuild/protoc-gen-es @bufbuild/buf
@@ -71,7 +71,7 @@ proto-generate: ## Generate proto-files
 
 	# Eventsourcing service -------------------------------------------------------------------------
 	@buf generate \
-		--path=internal/pkg/eventsourcing/domain \
+		--path=pkg/eventsourcing/domain \
 		--template=ops/proto/eventsourcing/buf.gen.yaml \
 		--config=ops/proto/eventsourcing/buf.yaml
 

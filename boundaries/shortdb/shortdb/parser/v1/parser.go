@@ -8,7 +8,7 @@ import (
 	field "github.com/shortlink-org/shortlink/boundaries/shortdb/shortdb/domain/field/v1"
 	v1 "github.com/shortlink-org/shortlink/boundaries/shortdb/shortdb/domain/index/v1"
 	query "github.com/shortlink-org/shortlink/boundaries/shortdb/shortdb/domain/query/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/types/vector"
+	"github.com/shortlink-org/shortlink/pkg/types/vector"
 )
 
 const (

@@ -7,9 +7,9 @@ import (
 	"github.com/authzed/authzed-go/v1"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/auth"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/observability/monitoring"
+	"github.com/shortlink-org/shortlink/pkg/auth"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 )
 
 //go:embed permissions/*

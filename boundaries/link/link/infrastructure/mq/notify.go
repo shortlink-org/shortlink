@@ -6,8 +6,8 @@ package api_mq
 
 import (
 	link_application "github.com/shortlink-org/shortlink/boundaries/link/link/application/link"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/mq"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/mq"
 )
 
 type Event struct {

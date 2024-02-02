@@ -1,7 +1,7 @@
 package v1
 
 import (
-	"github.com/shortlink-org/shortlink/internal/pkg/types/vector"
+	"github.com/shortlink-org/shortlink/pkg/types/vector"
 )
 
 func Filter[V vector.Type](lValue V, rValue V, operator Operator) bool {

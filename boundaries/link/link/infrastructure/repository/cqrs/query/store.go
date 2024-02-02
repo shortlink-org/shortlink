@@ -12,9 +12,9 @@ import (
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	v12 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link_cqrs/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/cqrs/query/postgres"
-	"github.com/shortlink-org/shortlink/internal/pkg/db"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger"
-	"github.com/shortlink-org/shortlink/internal/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/pkg/db"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
 )
 
 // New return implementation of db

@@ -7,7 +7,7 @@ import (
 
 	"github.com/minio/minio-go/v7"
 
-	"github.com/shortlink-org/shortlink/internal/pkg/s3"
+	"github.com/shortlink-org/shortlink/pkg/s3"
 )
 
 type Service struct {

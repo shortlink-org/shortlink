@@ -48,7 +48,7 @@ jobs:
         uses: arduino/setup-protoc@c65c819552d16ad3c9b72d9dfd5ba5237b9c906b # v3.0.0
 
       - name: Install protoc-gen-go-orm
-        run: go get github.com/shortlink-org/shortlink/tree/main/internal/pkg/protoc/protoc-gen-go-orm
+        run: go get github.com/shortlink-org/shortlink/tree/main/pkg/protoc/protoc-gen-go-orm
 
       - name: Run coverage
         run: go test -coverprofile=coverage.txt -covermode atomic -race -tags=unit -v ./internal/...

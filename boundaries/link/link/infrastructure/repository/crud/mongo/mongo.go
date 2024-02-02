@@ -13,10 +13,10 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/internal/pkg/batch"
-	"github.com/shortlink-org/shortlink/internal/pkg/db"
-	"github.com/shortlink-org/shortlink/internal/pkg/db/mongo/migrate"
-	"github.com/shortlink-org/shortlink/internal/pkg/db/options"
+	"github.com/shortlink-org/shortlink/pkg/batch"
+	"github.com/shortlink-org/shortlink/pkg/db"
+	"github.com/shortlink-org/shortlink/pkg/db/mongo/migrate"
+	"github.com/shortlink-org/shortlink/pkg/db/options"
 )
 
 //go:embed migrations/*.json

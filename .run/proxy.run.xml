@@ -13,8 +13,6 @@
       <env name="SERVICE_NAME" value="shortlink-proxy" />
       <env name="STORE_POSTGRES_URI" value="postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable&amp;pool_timeout=20&amp;connect_timeout=20" />
     </envs>
-    <method v="2">
-      <option name="RunConfigurationTask" enabled="true" run_configuration_name="proxy: get secret config" run_configuration_type="NodeJSConfigurationType" />
-    </method>
+    <method v="2" />
   </configuration>
 </component>
