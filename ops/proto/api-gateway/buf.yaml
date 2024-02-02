@@ -7,8 +7,8 @@ deps:
 
 build:
   roots:
-    - internal/boundaries/link/link
-    - internal/boundaries/api/api-gateway/gateways/grpc-web/infrastructure
+    - boundaries/link/link
+    - boundaries/api/api-gateway/gateways/grpc-web/infrastructure
 
 lint:
   use:

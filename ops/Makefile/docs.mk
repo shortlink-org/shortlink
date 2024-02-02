@@ -3,6 +3,6 @@
 docs: ## Generate documentation
 	@swag init \
 		-g server.go \
-		--dir ./internal/boundaries/api/api-gateway/application/http-chi \
-		--output internal/boundaries/api/api-gateway/docs \
+		--dir ./boundaries/api/api-gateway/application/http-chi \
+		--output boundaries/api/api-gateway/docs \
 		--parseDependency

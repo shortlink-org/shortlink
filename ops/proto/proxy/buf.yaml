@@ -7,8 +7,8 @@ deps:
 
 build:
   roots:
-    - internal/boundaries/link/proxy/src/proto
-    - internal/boundaries/link/link
+    - boundaries/link/proxy/src/proto
+    - boundaries/link/link
 
 lint:
   use:

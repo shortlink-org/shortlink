@@ -45,17 +45,17 @@ _Please [star ⭐](https://github.com/shortlink-org/shortlink/stargazers) the re
 
 | Bounded Context       | Description              | Type subdomain | Docs                                                 |
 |-----------------------|--------------------------|----------------|------------------------------------------------------|
-| API Gateway           | Gateway for all services | Supporting     | [docs](./internal/boundaries/api/README.md)          |
-| Payment Boundary      | Payment services         | Generic        | [docs](./internal/boundaries/payment/README.md)      |
-| Notification Boundary | Notification services    | Generic        | [docs](./internal/boundaries/notification/README.md) |
-| Chat Boundary         | Chat services            | Supporting     | [docs](./internal/boundaries/chat/README.md)         |
-| Extension Boundary    | Extension services       | Supporting     | [docs](./internal/boundaries/extension/README.md)    |
-| ShortDB Boundary      | ShortDB services         | Supporting     | [docs](./internal/boundaries/shortdb/README.md)      |
-| Platform Boundary     | Platform services        | Supporting     | [docs](./internal/boundaries/platform/README.md)     |
-| Link Boundary         | Link services            | Core           | [docs](./internal/boundaries/link/README.md)         |
-| Delivery Boundary     | Delivery services        | Supporting     | [docs](./internal/boundaries/delivery/README.md)     |
-| Search Boundary       | Search services          | Supporting     | [docs](./internal/boundaries/search/README.md)       |
-| UI Boundary           | UI services              | Supporting     | [docs](./internal/boundaries/ui/README.md)           |
+| API Gateway           | Gateway for all services | Supporting     | [docs](./boundaries/api/README.md)          |
+| Payment Boundary      | Payment services         | Generic        | [docs](./boundaries/payment/README.md)      |
+| Notification Boundary | Notification services    | Generic        | [docs](./boundaries/notification/README.md) |
+| Chat Boundary         | Chat services            | Supporting     | [docs](./boundaries/chat/README.md)         |
+| Extension Boundary    | Extension services       | Supporting     | [docs](./boundaries/extension/README.md)    |
+| ShortDB Boundary      | ShortDB services         | Supporting     | [docs](./boundaries/shortdb/README.md)      |
+| Platform Boundary     | Platform services        | Supporting     | [docs](./boundaries/platform/README.md)     |
+| Link Boundary         | Link services            | Core           | [docs](./boundaries/link/README.md)         |
+| Delivery Boundary     | Delivery services        | Supporting     | [docs](./boundaries/delivery/README.md)     |
+| Search Boundary       | Search services          | Supporting     | [docs](./boundaries/search/README.md)       |
+| UI Boundary           | UI services              | Supporting     | [docs](./boundaries/ui/README.md)           |
 
 ### Architecture decision records (ADR)
 
@@ -68,7 +68,7 @@ made along with its context and consequences.
 > **Decisions:**
 >  + [main decisions](./docs/ADR/README.md)
 >  + [ops decisions](./ops/docs/ADR/README.md)
->  + [ui](./internal/boundaries/ui/nx-monorepo/docs/ADR/README.md)
+>  + [ui](./boundaries/ui/nx-monorepo/docs/ADR/README.md)
 
 ### License
 

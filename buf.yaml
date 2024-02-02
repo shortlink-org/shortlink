@@ -10,13 +10,13 @@ deps:
 
 build:
   roots:
-    - internal/boundaries/api/api-gateway/gateways/grpc-web/infrastructure
-    - internal/boundaries/link/proxy/src/proto
-    - internal/boundaries/payment/billing
-    - internal/boundaries/link/link
-    - internal/boundaries/link/metadata
-    - internal/boundaries/marketing/referral/src
-    - internal/boundaries/notification/newsletter/src
+    - boundaries/api/api-gateway/gateways/grpc-web/infrastructure
+    - boundaries/link/proxy/src/proto
+    - boundaries/payment/billing
+    - boundaries/link/link
+    - boundaries/link/metadata
+    - boundaries/marketing/referral/src
+    - boundaries/notification/newsletter/src
     - internal/pkg/eventsourcing
     - internal/pkg/raft
 

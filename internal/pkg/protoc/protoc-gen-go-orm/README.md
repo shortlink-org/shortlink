@@ -27,6 +27,6 @@ managed:
 plugins:
   - plugin: go-orm
     strategy: all
-    out: internal/boundaries/link/link
+    out: boundaries/link/link
     opt: paths=source_relative
 ```

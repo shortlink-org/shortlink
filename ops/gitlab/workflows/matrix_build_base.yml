@@ -10,28 +10,28 @@
       - APPLICATION: api-cloudevents
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api-cloudevents
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./internal/boundaries/api/api-gateway/gateways/cloudevents/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/api-gateway/gateways/cloudevents/cmd"
       - APPLICATION: api-graphql
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api-graphql
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./internal/boundaries/api/api-gateway/gateways/graphql/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/api-gateway/gateways/graphql/cmd"
       - APPLICATION: api-grpc-web
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api-grpc-web
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./internal/boundaries/api/api-gateway/gateways/grpc-web/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/api-gateway/gateways/grpc-web/cmd"
       - APPLICATION: bff-web
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bff-web
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./internal/boundaries/api/bff-web/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/bff-web/cmd"
       - APPLICATION: ws
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ws
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./internal/boundaries/api/api-gateway/gateways/ws/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/api-gateway/gateways/ws/cmd"
       # AUTH LANDSCAPE
       - APPLICATION: auth
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/auth
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./internal/boundaries/auth/auth/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/auth/auth/cmd"
       # INFRASTRUCTURE LANDSCAPE
       - APPLICATION: csi
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/csi
@@ -39,16 +39,16 @@
       - APPLICATION: logger
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./internal/boundaries/platform/logger/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/platform/logger/cmd"
       # LINK LANDSCAPE
       - APPLICATION: metadata
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/metadata
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./internal/boundaries/link/metadata/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/link/metadata/cmd"
       - APPLICATION: link
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/link
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./internal/boundaries/link/link/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/link/link/cmd"
       - APPLICATION: proxy
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/proxy
         DOCKERFILE_PATH: ops/dockerfile/proxy.Dockerfile
@@ -56,11 +56,11 @@
       - APPLICATION: billing
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/billing
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./internal/boundaries/payment/billing/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/payment/billing/cmd"
       - APPLICATION: wallet
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/wallet
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./internal/boundaries/payment/wallet/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/payment/wallet/cmd"
       # MARKETING LANDSCAPE
       - APPLICATION: bot
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bot
@@ -68,7 +68,7 @@
       - APPLICATION: notify
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/notify
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./internal/boundaries/notification/notify/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/notification/notify/cmd"
       - APPLICATION: referral
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/referral
         DOCKERFILE_PATH: ops/dockerfile/referral.Dockerfile
@@ -76,7 +76,7 @@
       - APPLICATION: kafka-to-elasticsearch
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/kafka-to-elasticsearch
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./internal/boundaries/knative/kafka-to-elasticsearch"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/knative/kafka-to-elasticsearch"
       # PLATFORM LANDSCAPE
       - APPLICATION: backstage
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/backstage
@@ -91,4 +91,4 @@
       - APPLICATION: speech-to-text
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/speech-to-text
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./internal/boundaries/chat/speech-to-text/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/chat/speech-to-text/cmd"

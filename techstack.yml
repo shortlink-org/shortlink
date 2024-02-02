@@ -174,7 +174,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/2271/default_068d33483bba6b81ee13fbd4dc7aab9780896a54.png
-  detection_source: internal/boundaries/link/link/infrastructure/repository/crud/mysql/migrations/000001_create_links_table.down.sql
+  detection_source: boundaries/link/link/infrastructure/repository/crud/mysql/migrations/000001_create_links_table.down.sql
   last_updated_by: Victor Login
   last_updated_on: 2023-10-27 12:35:33.000000000 Z
 - name: Scala
@@ -217,8 +217,8 @@ tools:
   category: Languages & Frameworks
   sub_category: Frameworks (Full Stack)
   image_url: https://img.stackshare.io/service/1010/m8jf0po4imu8t5eemjdd.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/mobile/flutter/shortlink/android/app/build.gradle
-  detection_source: internal/boundaries/ui/mobile/flutter/shortlink/android/app/build.gradle
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/mobile/flutter/shortlink/android/app/build.gradle
+  detection_source: boundaries/ui/mobile/flutter/shortlink/android/app/build.gradle
   last_updated_by: Victor Login
   last_updated_on: 2023-11-23 21:31:54.000000000 Z
 - name: Autoprefixer
@@ -229,7 +229,7 @@ tools:
   category: Languages & Frameworks
   sub_category: CSS Pre-processors / Extensions
   image_url: https://img.stackshare.io/service/2202/72d087642cfce6fef6f2dabec5bf49e8_400x400.png
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-09-20 22:17:52.000000000 Z
 - name: Expo
@@ -240,7 +240,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Cross-Platform Mobile Development
   image_url: https://img.stackshare.io/service/5795/default_683a3de22a6983c41f27b04348f4c7380c5e3c21.jpg
-  detection_source: internal/boundaries/ui/mobile/expo/apps/shortlink/package.json
+  detection_source: boundaries/ui/mobile/expo/apps/shortlink/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-09-12 19:47:53.000000000 Z
 - name: ExpressJS
@@ -254,8 +254,8 @@ tools:
   category: Languages & Frameworks
   sub_category: Microframeworks (Backend)
   image_url: https://img.stackshare.io/service/1163/hashtag.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/link/proxy/package-lock.json
-  detection_source: internal/boundaries/link/proxy/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/link/proxy/package-lock.json
+  detection_source: boundaries/link/proxy/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-11-07 18:58:57.000000000 Z
 - name: Flutter
@@ -267,7 +267,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Cross-Platform Mobile Development
   image_url: https://img.stackshare.io/service/7180/flutter-mark-square-100.png
-  detection_source: internal/boundaries/ui/mobile/flutter/shortlink/pubspec.yaml
+  detection_source: boundaries/ui/mobile/flutter/shortlink/pubspec.yaml
   last_updated_by: Login Victor
   last_updated_on: 2020-12-24 01:59:03.000000000 Z
 - name: Matplotlib
@@ -290,8 +290,8 @@ tools:
   category: Languages & Frameworks
   sub_category: Frameworks (Full Stack)
   image_url: https://img.stackshare.io/service/5936/nextjs.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-04-26 16:04:36.000000000 Z
 - name: Node.js
@@ -303,7 +303,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Frameworks (Full Stack)
   image_url: https://img.stackshare.io/service/1011/n1JRsFeB_400x400.png
-  detection_source: internal/boundaries/link/proxy/package.json
+  detection_source: boundaries/link/proxy/package.json
   last_updated_by: Login Victor
   last_updated_on: 2021-05-06 00:40:24.000000000 Z
 - name: PostCSS
@@ -315,7 +315,7 @@ tools:
   category: Languages & Frameworks
   sub_category: CSS Pre-processors / Extensions
   image_url: https://img.stackshare.io/service/3339/rlFcjEdI.png
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: Login Victor
   last_updated_on: 2022-09-06 15:11:05.000000000 Z
 - name: Protobuf
@@ -339,8 +339,8 @@ tools:
   category: Libraries
   sub_category: Javascript UI Libraries
   image_url: https://img.stackshare.io/service/1020/OYIaJ1KK.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/extension/argocd-extension-docs/ui/package-lock.json
-  detection_source: internal/boundaries/extension/argocd-extension-docs/ui/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/extension/argocd-extension-docs/ui/package-lock.json
+  detection_source: boundaries/extension/argocd-extension-docs/ui/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-13 04:53:31.000000000 Z
 - name: React Native
@@ -353,8 +353,8 @@ tools:
   category: Languages & Frameworks
   sub_category: Cross-Platform Mobile Development
   image_url: https://img.stackshare.io/service/2699/KoK6gHzp.jpg
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/mobile/expo/package-lock.json
-  detection_source: internal/boundaries/ui/mobile/expo/apps/shortlink/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/mobile/expo/package-lock.json
+  detection_source: boundaries/ui/mobile/expo/apps/shortlink/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-09-12 19:47:53.000000000 Z
 - name: React Router
@@ -367,8 +367,8 @@ tools:
   category: Libraries
   sub_category: JavaScript Framework Components
   image_url: https://img.stackshare.io/service/3350/8261421.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/platform/backstage/packages/app/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/packages/app/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-21 19:16:56.000000000 Z
 - name: Redux
@@ -380,8 +380,8 @@ tools:
   category: Libraries
   sub_category: State Management Library
   image_url: https://img.stackshare.io/service/4074/13142323.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-23 20:10:09.000000000 Z
 - name: Storybook
@@ -393,7 +393,7 @@ tools:
   category: Libraries
   sub_category: JavaScript Framework Components
   image_url: https://img.stackshare.io/service/9240/sOct-Txm_400x400.png
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-24 18:02:48.000000000 Z
 - name: Symfony
@@ -405,7 +405,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Frameworks (Full Stack)
   image_url: https://img.stackshare.io/service/1197/logosf_positif_03_icon.png
-  detection_source: internal/boundaries/delivery/support/composer.json
+  detection_source: boundaries/delivery/support/composer.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-11-29 11:31:14.000000000 Z
 - name: Tailwind CSS
@@ -417,7 +417,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Front-End Frameworks
   image_url: https://img.stackshare.io/service/8158/default_660b7c41c3ba489cb581eec89c04655404258c19.png
-  detection_source: internal/boundaries/ui/nx-monorepo/package.json
+  detection_source: boundaries/ui/nx-monorepo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-19 23:46:44.000000000 Z
 - name: css-loader
@@ -429,7 +429,7 @@ tools:
   category: Languages & Frameworks
   sub_category: CSS Pre-processors / Extensions
   image_url: https://img.stackshare.io/service/8074/default_d2b16fd6997fb2e164de645a34f9b8d5a880d999.png
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 17:44:24.000000000 Z
 - name: gRPC
@@ -453,7 +453,7 @@ tools:
   category: Libraries
   sub_category: State Management Library
   image_url: https://img.stackshare.io/no-img-open-source.png
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-23 20:10:09.000000000 Z
 - name: Cassandra
@@ -477,7 +477,7 @@ tools:
   category: Application Hosting
   sub_category: Realtime Backend / API
   image_url: https://img.stackshare.io/service/116/cZLxNFZS.jpg
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-06 21:11:51.000000000 Z
 - name: GraphQL
@@ -488,7 +488,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Query Languages
   image_url: https://img.stackshare.io/service/3820/12972006.png
-  detection_source: internal/boundaries/api/api-gateway/go.mod
+  detection_source: boundaries/api/api-gateway/go.mod
   last_updated_by: renovate[bot]
   last_updated_on: 2023-10-06 21:05:22.000000000 Z
 - name: MongoDB
@@ -523,7 +523,7 @@ tools:
   sub_category: Databases
   image_url: https://img.stackshare.io/service/1028/ASOhU5xJ.png
   detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/ops/Helm/addons/store/postgres-operator/Chart.yaml
-  detection_source: internal/boundaries/platform/backstage/packages/backend/package.json
+  detection_source: boundaries/platform/backstage/packages/backend/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-01-11 22:57:57.000000000 Z
 - name: Prisma
@@ -536,8 +536,8 @@ tools:
   category: Data Stores
   sub_category: Object Relational Mapper (ORM)
   image_url: https://img.stackshare.io/service/8680/Logo_Symbol_White.jpg
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/link/proxy/package-lock.json
-  detection_source: internal/boundaries/link/proxy/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/link/proxy/package-lock.json
+  detection_source: boundaries/link/proxy/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-18 22:21:04.000000000 Z
 - name: RabbitMQ
@@ -550,7 +550,7 @@ tools:
   sub_category: Message Queue
   image_url: https://img.stackshare.io/service/1061/default_df93e9a30d27519161b39d8c1d5c223c1642d187.jpg
   detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/ops/Helm/addons/mq/rabbitmq/Chart.yaml
-  detection_source: internal/boundaries/notification/bot/pom.xml
+  detection_source: boundaries/notification/bot/pom.xml
   last_updated_by: Login Victor
   last_updated_on: 2021-05-16 01:00:15.000000000 Z
 - name: Redis
@@ -564,7 +564,7 @@ tools:
   sub_category: In-Memory Databases
   image_url: https://img.stackshare.io/service/1031/default_cbce472cd134adc6688572f999e9122b9657d4ba.png
   detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/ops/Helm/addons/argo/argocd/Chart.yaml
-  detection_source: internal/boundaries/marketing/referral/requirements.txt
+  detection_source: boundaries/marketing/referral/requirements.txt
   last_updated_by: Victor Login
   last_updated_on: 2023-04-20 15:32:50.000000000 Z
 - name: SQLAlchemy
@@ -576,7 +576,7 @@ tools:
   category: Data Stores
   sub_category: Object Relational Mapper (ORM)
   image_url: https://img.stackshare.io/service/1839/q5uAkmy7.png
-  detection_source: internal/boundaries/marketing/referral/requirements.txt
+  detection_source: boundaries/marketing/referral/requirements.txt
   last_updated_by: Victor Login
   last_updated_on: 2023-05-10 08:58:32.000000000 Z
 - name: Ansible
@@ -616,8 +616,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: JavaScript Compilers
   image_url: https://img.stackshare.io/service/2739/-1wfGjNw.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/mobile/expo/apps/shortlink-e2e/.babelrc
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/mobile/expo/apps/shortlink-e2e/.babelrc
   last_updated_by: Victor Login
   last_updated_on: 2023-09-12 19:47:53.000000000 Z
 - name: Behat
@@ -630,8 +630,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Testing Frameworks
   image_url: https://img.stackshare.io/service/1650/7f2139b4b5176b422459c609be965b1e_400x400.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/delivery/support/composer.lock
-  detection_source: internal/boundaries/delivery/support/composer.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/delivery/support/composer.lock
+  detection_source: boundaries/delivery/support/composer.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-04-18 16:41:36.000000000 Z
 - name: CMake
@@ -665,8 +665,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Javascript Testing Framework
   image_url: https://img.stackshare.io/service/9231/default_66c5c1a197dcd0232e41e4ab6299d119b4e165b3.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/platform/backstage/packages/app/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/packages/app/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-26 20:51:01.000000000 Z
 - name: Detox
@@ -679,8 +679,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Testing Frameworks
   image_url: https://img.stackshare.io/service/8187/MfRcYRSi_400x400.jpg
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/mobile/expo/package-lock.json
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/mobile/expo/package-lock.json
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-24 18:02:05.000000000 Z
 - name: Docker
@@ -714,7 +714,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Server Configuration and Automation
   image_url: https://img.stackshare.io/service/8067/default_90dcb1286af7685c68df319c764b80704df1155b.png
-  detection_source: internal/boundaries/link/proxy/package.json
+  detection_source: boundaries/link/proxy/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-06-17 17:21:07.000000000 Z
 - name: ESLint
@@ -726,7 +726,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Code Review
   image_url: https://img.stackshare.io/service/3337/Q4L7Jncy.jpg
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-09-12 19:47:53.000000000 Z
 - name: Git
@@ -770,7 +770,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Java Build Tools
   image_url: https://img.stackshare.io/service/975/gradlephant-social-black-bg.png
-  detection_source: internal/boundaries/ui/mobile/flutter/shortlink/android/app/build.gradle
+  detection_source: boundaries/ui/mobile/flutter/shortlink/android/app/build.gradle
   last_updated_by: Login Victor
   last_updated_on: 2020-12-24 01:59:03.000000000 Z
 - name: Grafana
@@ -812,8 +812,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Javascript Testing Framework
   image_url: https://img.stackshare.io/service/830/jest.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-09-12 19:47:53.000000000 Z
 - name: Kubernetes
@@ -874,8 +874,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Code Review
   image_url: https://img.stackshare.io/service/7035/default_66f265943abed56bcdbfca1c866a4261b1fbb063.jpg
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/platform/backstage/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-10 17:20:34.000000000 Z
 - name: Prometheus
@@ -910,7 +910,7 @@ tools:
   category: Monitoring
   sub_category: Log Management
   image_url: https://img.stackshare.io/service/2805/05518ecaa42841e834421e9d6987b04f_400x400.png
-  detection_source: internal/boundaries/notification/bot/pom.xml
+  detection_source: boundaries/notification/bot/pom.xml
   last_updated_by: Login Victor
   last_updated_on: 2021-05-16 01:00:15.000000000 Z
 - name: Testify
@@ -960,8 +960,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: JS Build Tools / JS Task Runners
   image_url: https://img.stackshare.io/service/1682/IMG_4636.PNG
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/extension/argocd-extension-docs/ui/package-lock.json
-  detection_source: internal/boundaries/extension/argocd-extension-docs/ui/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/extension/argocd-extension-docs/ui/package-lock.json
+  detection_source: boundaries/extension/argocd-extension-docs/ui/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-10-14 08:50:41.000000000 Z
 - name: Yarn
@@ -972,7 +972,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Front End Package Manager
   image_url: https://img.stackshare.io/service/5848/44mC-kJ3.jpg
-  detection_source: internal/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/yarn.lock
 - name: npm
   description: The package manager for JavaScript.
   website_url: https://www.npmjs.com/
@@ -981,7 +981,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Front End Package Manager
   image_url: https://img.stackshare.io/service/1120/lejvzrnlpb308aftn31u.png
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: Login Victor
   last_updated_on: 2022-09-06 15:11:05.000000000 Z
 - name: pytest
@@ -993,7 +993,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Testing Frameworks
   image_url: https://img.stackshare.io/service/4586/Lu99Qe0Z_400x400.png
-  detection_source: internal/boundaries/marketing/referral/requirements.txt
+  detection_source: boundaries/marketing/referral/requirements.txt
   last_updated_by: Victor Login
   last_updated_on: 2023-05-05 14:21:08.000000000 Z
 - name: rollup
@@ -1004,7 +1004,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: JS Build Tools / JS Task Runners
   image_url: https://img.stackshare.io/service/4423/zE8RTn9E_400x400.jpg
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-17 12:01:35.000000000 Z
 - name: Apache Camel
@@ -1028,8 +1028,8 @@ tools:
   category: Languages & Frameworks
   sub_category: Operating Systems
   image_url: https://img.stackshare.io/service/9586/ZvmtaSXW_400x400.jpg
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/mobile/flutter/shortlink/android/app/build.gradle
-  detection_source: internal/boundaries/ui/mobile/flutter/shortlink/android/app/build.gradle
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/mobile/flutter/shortlink/android/app/build.gradle
+  detection_source: boundaries/ui/mobile/flutter/shortlink/android/app/build.gradle
   last_updated_by: Victor Login
   last_updated_on: 2023-11-23 21:31:54.000000000 Z
 - name: Base
@@ -1050,7 +1050,7 @@ tools:
   open_source: false
   hosted_saas: false
   image_url: https://img.stackshare.io/service/18784/empty-logo-square.png
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-22 01:34:56.000000000 Z
 - name: Jupyter
@@ -1073,8 +1073,8 @@ tools:
   category: Libraries
   sub_category: Javascript Utilities & Libraries
   image_url: https://img.stackshare.io/service/6207/OwqAUSQi_400x400.jpg
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/platform/backstage/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-15 15:30:49.000000000 Z
 - name: Lodash
@@ -1086,8 +1086,8 @@ tools:
   category: Libraries
   sub_category: Javascript Utilities & Libraries
   image_url: https://img.stackshare.io/service/2438/lodash.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/link/proxy/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/link/proxy/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-11-21 03:19:57.000000000 Z
 - name: NumPy
@@ -1114,8 +1114,8 @@ tools:
   category: Mobile
   sub_category: Mobile UI Frameworks
   image_url: https://img.stackshare.io/service/8731/17571969.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/mobile/expo/package-lock.json
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/mobile/expo/package-lock.json
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 13:55:49.000000000 Z
 - name: Shell
@@ -1134,7 +1134,7 @@ tools:
   open_source: false
   hosted_saas: false
   image_url: https://img.stackshare.io/service/6668/9682013.png
-  detection_source: internal/boundaries/platform/backstage/packages/backend/package.json
+  detection_source: boundaries/platform/backstage/packages/backend/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-10-07 22:40:08.000000000 Z
 - name: date-fns
@@ -1146,7 +1146,7 @@ tools:
   category: Libraries
   sub_category: Javascript Utilities & Libraries
   image_url: https://img.stackshare.io/service/10865/default_5551fb8853689f607a2bc0d5a09355d5a3d52bf0.png
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-22 09:29:10.000000000 Z
 - name: solidity
@@ -1260,7 +1260,7 @@ tools:
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
   detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/docs/ADR/decisions/proof/ADR-0007/go.sum
-  detection_source: internal/boundaries/api/bff-web/go.mod
+  detection_source: boundaries/api/bff-web/go.mod
   last_updated_by: Victor Login
   last_updated_on: 2023-12-20 22:53:44.000000000 Z
 - name: client-go
@@ -1273,8 +1273,8 @@ tools:
   category: Libraries
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/shortdb/shortdb-operator/go.sum
-  detection_source: internal/boundaries/shortdb/shortdb-operator/go.mod
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/shortdb/shortdb-operator/go.sum
+  detection_source: boundaries/shortdb/shortdb-operator/go.mod
   last_updated_by: Victor Login
   last_updated_on: 2023-12-14 00:07:53.000000000 Z
 - name: client_model
@@ -1301,8 +1301,8 @@ tools:
   category: Libraries
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/marketing/report/go.sum
-  detection_source: internal/boundaries/marketing/report/go.mod
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/marketing/report/go.sum
+  detection_source: boundaries/marketing/report/go.mod
   last_updated_by: Victor Login
   last_updated_on: 2023-11-03 12:16:38.000000000 Z
 - name: cobra
@@ -1399,8 +1399,8 @@ tools:
   category: Libraries
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/marketing/report/go.sum
-  detection_source: internal/boundaries/marketing/report/go.mod
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/marketing/report/go.sum
+  detection_source: boundaries/marketing/report/go.mod
   last_updated_by: Victor Login
   last_updated_on: 2023-11-03 12:16:38.000000000 Z
 - name: crypto
@@ -1434,8 +1434,8 @@ tools:
   category: Libraries
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/api/api-gateway/go.sum
-  detection_source: internal/boundaries/api/api-gateway/go.mod
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/api/api-gateway/go.sum
+  detection_source: boundaries/api/api-gateway/go.mod
   last_updated_by: Victor Login
   last_updated_on: 2023-08-25 11:40:55.000000000 Z
 - name: envoyproxy/protoc-gen-validate
@@ -1925,7 +1925,7 @@ tools:
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
   detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/go.sum
-  detection_source: internal/boundaries/shortdb/shortdb-operator/go.mod
+  detection_source: boundaries/shortdb/shortdb-operator/go.mod
   last_updated_by: Login Victor
   last_updated_on: 2022-07-17 18:05:46.000000000 Z
 - name: gogo/protobuf
@@ -1959,8 +1959,8 @@ tools:
   category: Libraries
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/marketing/report/go.sum
-  detection_source: internal/boundaries/marketing/report/go.mod
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/marketing/report/go.sum
+  detection_source: boundaries/marketing/report/go.mod
   last_updated_by: Victor Login
   last_updated_on: 2023-11-03 12:16:38.000000000 Z
 - name: goid
@@ -2157,8 +2157,8 @@ tools:
   category: Libraries
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/api/api-gateway/go.sum
-  detection_source: internal/boundaries/api/api-gateway/go.mod
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/api/api-gateway/go.sum
+  detection_source: boundaries/api/api-gateway/go.mod
   last_updated_by: renovate[bot]
   last_updated_on: 2023-10-06 21:05:22.000000000 Z
 - name: groupcache
@@ -2243,7 +2243,7 @@ tools:
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
   detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/go.sum
-  detection_source: internal/boundaries/shortdb/shortdb-operator/go.mod
+  detection_source: boundaries/shortdb/shortdb-operator/go.mod
   last_updated_by: Login Victor
   last_updated_on: 2022-07-10 19:00:09.000000000 Z
 - name: inflection
@@ -2284,8 +2284,8 @@ tools:
   category: Libraries
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/api/api-gateway/go.sum
-  detection_source: internal/boundaries/api/api-gateway/go.mod
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/api/api-gateway/go.sum
+  detection_source: boundaries/api/api-gateway/go.mod
   last_updated_by: Victor Login
   last_updated_on: 2023-09-26 21:48:30.000000000 Z
 - name: jsonpointer
@@ -2298,8 +2298,8 @@ tools:
   category: Libraries
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/api/api-gateway/go.sum
-  detection_source: internal/boundaries/api/api-gateway/go.mod
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/api/api-gateway/go.sum
+  detection_source: boundaries/api/api-gateway/go.mod
   last_updated_by: Victor Login
   last_updated_on: 2023-12-20 22:53:44.000000000 Z
 - name: jsonreference
@@ -2312,8 +2312,8 @@ tools:
   category: Libraries
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/api/api-gateway/go.sum
-  detection_source: internal/boundaries/api/api-gateway/go.mod
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/api/api-gateway/go.sum
+  detection_source: boundaries/api/api-gateway/go.mod
   last_updated_by: Victor Login
   last_updated_on: 2023-08-25 11:40:55.000000000 Z
 - name: lann/builder
@@ -2410,7 +2410,7 @@ tools:
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
   detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/go.sum
-  detection_source: internal/boundaries/marketing/report/go.mod
+  detection_source: boundaries/marketing/report/go.mod
   last_updated_by: Victor Login
   last_updated_on: 2023-11-03 12:16:38.000000000 Z
 - name: montanaflynn/stats
@@ -2632,8 +2632,8 @@ tools:
   category: Libraries
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/api/api-gateway/go.sum
-  detection_source: internal/boundaries/api/api-gateway/go.mod
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/api/api-gateway/go.sum
+  detection_source: boundaries/api/api-gateway/go.mod
   last_updated_by: Victor Login
   last_updated_on: 2023-06-17 17:01:09.000000000 Z
 - name: ristretto
@@ -2702,8 +2702,8 @@ tools:
   category: Libraries
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/api/api-gateway/go.sum
-  detection_source: internal/boundaries/api/api-gateway/go.mod
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/api/api-gateway/go.sum
+  detection_source: boundaries/api/api-gateway/go.mod
   last_updated_by: renovate[bot]
   last_updated_on: 2023-08-25 07:46:44.000000000 Z
 - name: squirrel
@@ -2744,8 +2744,8 @@ tools:
   category: Libraries
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/api/api-gateway/go.sum
-  detection_source: internal/boundaries/api/api-gateway/go.mod
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/api/api-gateway/go.sum
+  detection_source: boundaries/api/api-gateway/go.mod
   last_updated_by: renovate[bot]
   last_updated_on: 2023-08-31 10:05:14.000000000 Z
 - name: sys
@@ -2814,8 +2814,8 @@ tools:
   category: Libraries
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/marketing/report/go.sum
-  detection_source: internal/boundaries/marketing/report/go.mod
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/marketing/report/go.sum
+  detection_source: boundaries/marketing/report/go.mod
   last_updated_by: Victor Login
   last_updated_on: 2023-12-14 00:07:53.000000000 Z
 - name: viper
@@ -2934,8 +2934,8 @@ tools:
   category: Libraries
   sub_category: Go Modules Packages
   image_url: https://img.stackshare.io/package/go-packages/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/shortdb/shortdb-operator/go.sum
-  detection_source: internal/boundaries/shortdb/shortdb-operator/go.mod
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/shortdb/shortdb-operator/go.sum
+  detection_source: boundaries/shortdb/shortdb-operator/go.mod
   last_updated_by: renovate[bot]
   last_updated_on: 2023-05-23 22:30:39.000000000 Z
 - name: "@babel/preset-env"
@@ -2948,8 +2948,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15819/default_98aa227f51aa9d787815ec3fd98d0ab2bfebbb91.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-11 18:02:49.000000000 Z
 - name: "@babel/preset-react"
@@ -2962,8 +2962,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15890/default_6743ba96cf149a3c3c68a185199f9705d6eff80e.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-24 18:02:48.000000000 Z
 - name: "@babel/preset-typescript"
@@ -2976,8 +2976,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16084/default_d4e765f8a43dcfd232c8b9ee9732058bc27c727a.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-18 22:22:33.000000000 Z
 - name: "@emotion/styled"
@@ -2990,8 +2990,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16702/default_4b738bf1758d38dddd276589bbea47fca5a990df.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-12-25 22:21:53.000000000 Z
 - name: "@mdx-js/react"
@@ -3004,8 +3004,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/17624/default_61a119a7701a0e8224ca0e4dce7ff951cd67972f.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-24 18:02:48.000000000 Z
 - name: "@prisma/client"
@@ -3018,8 +3018,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Package Managers
   image_url: https://img.stackshare.io/package/npm/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/link/proxy/package-lock.json
-  detection_source: internal/boundaries/link/proxy/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/link/proxy/package-lock.json
+  detection_source: boundaries/link/proxy/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-18 22:21:04.000000000 Z
 - name: "@rollup/plugin-node-resolve"
@@ -3032,8 +3032,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/17836/default_abcc2eea82e62d338a749f334647866df76198b8.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-24 17:58:14.000000000 Z
 - name: "@storybook/addon-actions"
@@ -3046,8 +3046,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16126/default_73326c44fbfa7369fd17573edb113e5d849468bc.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-24 18:02:48.000000000 Z
 - name: "@storybook/addon-docs"
@@ -3060,8 +3060,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/17835/default_abcc2eea82e62d338a749f334647866df76198b8.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-24 18:02:48.000000000 Z
 - name: "@storybook/addon-links"
@@ -3074,8 +3074,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16204/default_41f04716a804e853d5c38a5b81ee0ea8a842ad82.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-24 18:02:48.000000000 Z
 - name: "@storybook/react"
@@ -3089,8 +3089,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16042/default_72d4237e6719b7d75d0307bf8b5718584fdc3425.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-24 18:02:48.000000000 Z
 - name: "@svgr/rollup"
@@ -3103,8 +3103,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16364/default_4cc3f31b8c64a6268fc123f0965a09d1b11180af.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-17 12:01:35.000000000 Z
 - name: "@svgr/webpack"
@@ -3117,8 +3117,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16411/default_aa91da3cee4d961f0eea8ca5de77f399ec7ec794.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-09-28 22:14:35.000000000 Z
 - name: "@tailwindcss/typography"
@@ -3131,8 +3131,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Package Managers
   image_url: https://img.stackshare.io/package/npm/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/landing/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/landing/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-11-10 20:01:14.000000000 Z
 - name: "@testing-library/jest-dom"
@@ -3145,8 +3145,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/17424/default_1cdcda15ebb7caed879f8340bc212b44c4ec9dac.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/platform/backstage/packages/app/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/packages/app/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 17:44:12.000000000 Z
 - name: "@testing-library/react"
@@ -3160,8 +3160,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16549/default_d522554c6a41cb28d922d6d3ad32ad4afa0e3bb5.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/platform/backstage/packages/app/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/packages/app/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 17:44:12.000000000 Z
 - name: "@types/cookie-parser"
@@ -3174,8 +3174,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/18195/default_5b09e8832af55b8bf88554d45d4eb65653e6ac76.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-12-25 22:21:53.000000000 Z
 - name: "@types/dotenv"
@@ -3188,8 +3188,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16809/default_9a5182350af29cb82b3344853e865051f508ac6c.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/link/proxy/package-lock.json
-  detection_source: internal/boundaries/link/proxy/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/link/proxy/package-lock.json
+  detection_source: boundaries/link/proxy/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-18 05:56:23.000000000 Z
 - name: "@types/express"
@@ -3202,8 +3202,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16100/default_d947c1690e032a288145c7e2491999eab3ea8ede.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/link/proxy/package-lock.json
-  detection_source: internal/boundaries/link/proxy/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/link/proxy/package-lock.json
+  detection_source: boundaries/link/proxy/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-18 05:56:23.000000000 Z
 - name: "@types/jest"
@@ -3216,8 +3216,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15840/default_004658cda9b38934f2871435e9dc15608c86e8be.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 17:44:12.000000000 Z
 - name: "@types/lodash"
@@ -3230,8 +3230,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15945/default_54b691c123fc8979741e800e4dcd3936c0f3b246.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-18 22:22:33.000000000 Z
 - name: "@types/node"
@@ -3244,8 +3244,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15809/default_5e5e8ac63beda29f31f1844df64d4b8247570a66.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/extension/argocd-extension-docs/ui/package-lock.json
-  detection_source: internal/boundaries/link/proxy/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/extension/argocd-extension-docs/ui/package-lock.json
+  detection_source: boundaries/link/proxy/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-18 05:56:23.000000000 Z
 - name: "@types/react"
@@ -3258,8 +3258,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15894/default_1d65e37e65b7f80761374f0202776043277d505d.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/extension/argocd-extension-docs/ui/package-lock.json
-  detection_source: internal/boundaries/extension/argocd-extension-docs/ui/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/extension/argocd-extension-docs/ui/package-lock.json
+  detection_source: boundaries/extension/argocd-extension-docs/ui/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-13 04:53:31.000000000 Z
 - name: "@types/react-dom"
@@ -3272,8 +3272,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15946/default_54b691c123fc8979741e800e4dcd3936c0f3b246.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/platform/backstage/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-16 00:54:29.000000000 Z
 - name: "@types/react-native"
@@ -3286,8 +3286,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16569/default_682ffbfa52bb1873b212151cffed5d464d6efdfb.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/mobile/expo/package-lock.json
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/mobile/expo/package-lock.json
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 13:55:49.000000000 Z
 - name: "@typescript-eslint/eslint-plugin"
@@ -3300,8 +3300,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15982/default_8b5680d4e916298d08363c291a0d6e34c07ceb15.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-22 16:44:09.000000000 Z
 - name: "@typescript-eslint/parser"
@@ -3314,8 +3314,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15980/default_732016a20524708efe7a4c77497fe9bfeea19ba6.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-22 16:44:09.000000000 Z
 - name: babel-jest
@@ -3328,8 +3328,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15839/default_4479dbac220be99e50e724b2df6cf415241d71fd.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 17:44:12.000000000 Z
 - name: babel-preset-expo
@@ -3342,8 +3342,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/18526/default_6d0416098b5583c02111044f891c8f1f8e30a97e.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/mobile/expo/package-lock.json
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/mobile/expo/package-lock.json
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-22 16:44:09.000000000 Z
 - name: concurrently
@@ -3356,8 +3356,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16041/default_5fd43aeff4d6a935abc13737de01a0355210499d.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/platform/backstage/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-10-19 07:11:56.000000000 Z
 - name: cookie-parser
@@ -3370,8 +3370,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16136/default_def3edb85d7fbd20200a5cd7d0a1679e31bc8b3d.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-04-24 15:23:52.000000000 Z
 - name: cross-env
@@ -3384,8 +3384,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15828/default_14fd11531839d935f920b6d55bd6f3528c890ad7.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/platform/backstage/packages/app/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/packages/app/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-01-22 21:13:12.000000000 Z
 - name: dockerode
@@ -3398,8 +3398,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/17460/default_2ae5beb193365eca46e337162957275ebc9c6b3b.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/platform/backstage/packages/backend/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/packages/backend/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-23 01:33:44.000000000 Z
 - name: eslint-config-airbnb
@@ -3412,8 +3412,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15857/default_7c39a83d4acd952df89b1ebfdb94c8646324fbf1.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/landing/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/landing/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-24 17:58:14.000000000 Z
 - name: eslint-config-next
@@ -3425,8 +3425,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Package Managers
   image_url: https://img.stackshare.io/package/npm/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 13:55:36.000000000 Z
 - name: eslint-config-prettier
@@ -3439,8 +3439,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15879/default_0b10af8ca19c215f781dc07442e75bdc831089d0.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-22 16:44:09.000000000 Z
 - name: eslint-plugin-cypress
@@ -3453,8 +3453,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/18548/default_0998c3a5bd64540d478b8f189bd9d22c3c17b6a0.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/platform/backstage/packages/app/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/packages/app/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-26 20:51:01.000000000 Z
 - name: eslint-plugin-import
@@ -3467,8 +3467,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15806/default_98aa227f51aa9d787815ec3fd98d0ab2bfebbb91.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-22 16:44:09.000000000 Z
 - name: eslint-plugin-jsx-a11y
@@ -3481,8 +3481,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15845/default_6743ba96cf149a3c3c68a185199f9705d6eff80e.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-22 16:44:09.000000000 Z
 - name: eslint-plugin-prettier
@@ -3495,8 +3495,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15896/default_6e6e1d6bb189c8bb26c6410618bd597979578f39.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/landing/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/landing/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-24 17:58:14.000000000 Z
 - name: eslint-plugin-react
@@ -3509,8 +3509,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15817/default_14fd11531839d935f920b6d55bd6f3528c890ad7.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 13:55:49.000000000 Z
 - name: eslint-plugin-react-hooks
@@ -3523,8 +3523,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16149/default_1f3a2fc7d882e29a43394ecdf491b8989ea3f0fa.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 13:55:49.000000000 Z
 - name: express
@@ -3537,8 +3537,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15818/default_db4a7791d2f1174547374b9b587bc10fec088a5a.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/link/proxy/package-lock.json
-  detection_source: internal/boundaries/link/proxy/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/link/proxy/package-lock.json
+  detection_source: boundaries/link/proxy/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-11-07 18:58:57.000000000 Z
 - name: fp-ts
@@ -3551,8 +3551,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/17989/default_72dbba22ca96f25f78f55f8ea5393222efca5494.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/link/proxy/package-lock.json
-  detection_source: internal/boundaries/link/proxy/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/link/proxy/package-lock.json
+  detection_source: boundaries/link/proxy/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-07-28 06:55:55.000000000 Z
 - name: google-protobuf
@@ -3565,8 +3565,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/17483/default_8c4651c288471a00b2fd6f2055b6de29cb9a049d.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/link/proxy/package-lock.json
-  detection_source: internal/boundaries/link/proxy/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/link/proxy/package-lock.json
+  detection_source: boundaries/link/proxy/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-12 22:08:38.000000000 Z
 - name: helmet
@@ -3579,8 +3579,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16584/default_7be6bee773ad8b04cf2fb7e9ff82f5d7ba648dfd.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/link/proxy/package-lock.json
-  detection_source: internal/boundaries/link/proxy/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/link/proxy/package-lock.json
+  detection_source: boundaries/link/proxy/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-11-08 10:09:40.000000000 Z
 - name: history
@@ -3593,8 +3593,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16209/default_dc80ff0a17bac19253430a4f0f586714841116db.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/platform/backstage/packages/app/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/packages/app/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-01-14 14:35:33.000000000 Z
 - name: inversify
@@ -3608,8 +3608,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/17044/default_0e6669b56ffe7d68d8118eb8e85d024215fd5906.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/link/proxy/package-lock.json
-  detection_source: internal/boundaries/link/proxy/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/link/proxy/package-lock.json
+  detection_source: boundaries/link/proxy/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-11-02 01:18:08.000000000 Z
 - name: jest-environment-jsdom
@@ -3622,8 +3622,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/18413/default_867ef7396016341fd213fa568d6de11cc98fefff.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 17:44:12.000000000 Z
 - name: jest-expo
@@ -3636,8 +3636,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/18657/default_985ff1567396ff4f07ccae167a7ed19741ef590a.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/mobile/expo/package-lock.json
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/mobile/expo/package-lock.json
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 17:44:12.000000000 Z
 - name: js-cookie
@@ -3650,8 +3650,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16441/default_89ba91277e3434b03295bb11d22736632df1d04f.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-04-24 15:23:52.000000000 Z
 - name: localforage
@@ -3664,8 +3664,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/17229/default_48f040bdc5f6c639c70bf350f8b8158ede27286c.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-06-18 09:40:10.000000000 Z
 - name: node-gyp
@@ -3678,8 +3678,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16669/default_6dad4e42e12d47cc6edfbdea036dae12f91abebb.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/platform/backstage/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-11-02 20:02:24.000000000 Z
 - name: npm
@@ -3692,8 +3692,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16105/default_5a461d436012a0c4024534aaba303dcdb0297d24.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: Login Victor
   last_updated_on: 2022-09-06 15:11:05.000000000 Z
 - name: pg
@@ -3706,8 +3706,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16197/default_3d197518f6bb529bfcc1b685e2cefbdfe83ff108.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/platform/backstage/packages/backend/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/packages/backend/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-01-11 22:57:57.000000000 Z
 - name: postcss-loader
@@ -3720,8 +3720,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15876/default_6743ba96cf149a3c3c68a185199f9705d6eff80e.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/mobile/expo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/mobile/expo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 17:44:24.000000000 Z
 - name: postcss-preset-env
@@ -3734,8 +3734,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16373/default_92302d1bbf4c0f67b862869662b4f69002c94aad.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/landing/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/landing/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-26 20:51:01.000000000 Z
 - name: prisma
@@ -3747,8 +3747,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Package Managers
   image_url: https://img.stackshare.io/package/npm/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/link/proxy/package-lock.json
-  detection_source: internal/boundaries/link/proxy/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/link/proxy/package-lock.json
+  detection_source: boundaries/link/proxy/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-18 22:21:04.000000000 Z
 - name: prop-types
@@ -3761,8 +3761,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15843/default_b71c906aeda030a5e2f1fe40bf12a93be52404ab.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-18 22:22:33.000000000 Z
 - name: raw-loader
@@ -3775,8 +3775,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16030/default_7a465bc85b23fd837cbc038fd1d504632c41a884.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/extension/argocd-extension-docs/ui/package-lock.json
-  detection_source: internal/boundaries/extension/argocd-extension-docs/ui/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/extension/argocd-extension-docs/ui/package-lock.json
+  detection_source: boundaries/extension/argocd-extension-docs/ui/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-11-15 03:13:17.000000000 Z
 - name: react-copy-to-clipboard
@@ -3789,8 +3789,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/17254/default_9aa9c9d4e491c9d2d70df74bfa33cf525babb7f5.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-18 22:24:48.000000000 Z
 - name: react-dom
@@ -3803,8 +3803,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15808/default_14fd11531839d935f920b6d55bd6f3528c890ad7.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/platform/backstage/packages/app/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/packages/app/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 17:44:12.000000000 Z
 - name: react-native
@@ -3817,8 +3817,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16064/default_5a461d436012a0c4024534aaba303dcdb0297d24.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/mobile/expo/package-lock.json
-  detection_source: internal/boundaries/ui/mobile/expo/apps/shortlink/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/mobile/expo/package-lock.json
+  detection_source: boundaries/ui/mobile/expo/apps/shortlink/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-09-12 19:47:53.000000000 Z
 - name: react-native-svg
@@ -3831,8 +3831,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/18169/default_4ad5899bf99118763f1e1098ab583aaff0340ee8.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/mobile/expo/package-lock.json
-  detection_source: internal/boundaries/ui/mobile/expo/apps/shortlink/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/mobile/expo/package-lock.json
+  detection_source: boundaries/ui/mobile/expo/apps/shortlink/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-09-12 19:47:53.000000000 Z
 - name: react-native-web
@@ -3845,8 +3845,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/17683/default_894a45ad01fa93ac472db719cb1ef1b89f2924f0.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/mobile/expo/package-lock.json
-  detection_source: internal/boundaries/ui/mobile/expo/apps/shortlink/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/mobile/expo/package-lock.json
+  detection_source: boundaries/ui/mobile/expo/apps/shortlink/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-09-12 19:47:53.000000000 Z
 - name: react-redux
@@ -3859,8 +3859,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15984/default_f49d4c116f8ea0155f4d92673b084378bba02760.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-23 20:10:09.000000000 Z
 - name: react-router-dom
@@ -3873,8 +3873,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16025/default_e25d1fbb04a118c79fb444294461417342bd03bf.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/platform/backstage/packages/app/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/platform/backstage/packages/app/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 17:44:12.000000000 Z
 - name: react-test-renderer
@@ -3887,8 +3887,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15929/default_ac622bc364a601d766b9a6f6039f191492f54d65.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/mobile/expo/package-lock.json
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/mobile/expo/package-lock.json
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 17:44:12.000000000 Z
 - name: react-toastify
@@ -3901,8 +3901,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/18461/default_5ff724c0ff89bb42698aa80ef3403008cb0d8f72.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-18 22:24:48.000000000 Z
 - name: reflect-metadata
@@ -3915,8 +3915,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16019/default_7a88bebb451873cc63bd99007de5bd3bb8ef85de.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/link/proxy/package-lock.json
-  detection_source: internal/boundaries/link/proxy/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/link/proxy/package-lock.json
+  detection_source: boundaries/link/proxy/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-15 07:11:37.000000000 Z
 - name: remark-gfm
@@ -3928,8 +3928,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Package Managers
   image_url: https://img.stackshare.io/package/npm/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-09-19 00:15:02.000000000 Z
 - name: rollup-plugin-filesize
@@ -3942,8 +3942,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16606/default_f7592cb347fae67ce7c7f221ddd5fd2cb0afc28f.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-24 17:58:14.000000000 Z
 - name: rollup-plugin-peer-deps-external
@@ -3957,8 +3957,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16508/default_0a704f5fac0bffcf529c9a61658d0b9ddbf7504e.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-24 17:58:14.000000000 Z
 - name: rollup-plugin-postcss
@@ -3971,8 +3971,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16135/default_def3edb85d7fbd20200a5cd7d0a1679e31bc8b3d.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 17:44:24.000000000 Z
 - name: sharp
@@ -3985,8 +3985,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/16806/default_31a4e0e11d348225088320f3a5c5ea6fa49c27ad.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-18 05:56:37.000000000 Z
 - name: style-loader
@@ -3999,8 +3999,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15822/default_004658cda9b38934f2871435e9dc15608c86e8be.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/ui-kit/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/nx-monorepo/packages/ui-kit/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 17:44:24.000000000 Z
 - name: tailwindcss
@@ -4013,8 +4013,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/17398/default_2cd7ed1c123f2fca074a6f4b16c4e73d5bfe82be.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-19 23:46:44.000000000 Z
 - name: ts-jest
@@ -4028,8 +4028,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15864/default_6743ba96cf149a3c3c68a185199f9705d6eff80e.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/mobile/expo/package-lock.json
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/mobile/expo/package-lock.json
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-27 17:44:12.000000000 Z
 - name: ts-loader
@@ -4042,8 +4042,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15938/default_e0a4fb1126d7400f419f0931cf1669947a5bc552.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/extension/argocd-extension-docs/ui/package-lock.json
-  detection_source: internal/boundaries/extension/argocd-extension-docs/ui/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/extension/argocd-extension-docs/ui/package-lock.json
+  detection_source: boundaries/extension/argocd-extension-docs/ui/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-11-15 03:13:17.000000000 Z
 - name: ts-node
@@ -4056,8 +4056,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15830/default_6743ba96cf149a3c3c68a185199f9705d6eff80e.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-18 05:56:23.000000000 Z
 - name: tslib
@@ -4070,8 +4070,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15853/default_97d4687bd07ff1bb963fd566c84e7cbf7c73bbee.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/platform/backstage/yarn.lock
-  detection_source: internal/boundaries/ui/mobile/expo/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/platform/backstage/yarn.lock
+  detection_source: boundaries/ui/mobile/expo/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-09-12 20:16:37.000000000 Z
 - name: uuid
@@ -4084,8 +4084,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15916/default_e0a4fb1126d7400f419f0931cf1669947a5bc552.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/link/proxy/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/link/proxy/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-09-28 15:07:36.000000000 Z
 - name: webpack-cli
@@ -4098,8 +4098,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15826/default_14fd11531839d935f920b6d55bd6f3528c890ad7.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/extension/argocd-extension-docs/ui/package-lock.json
-  detection_source: internal/boundaries/extension/argocd-extension-docs/ui/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/extension/argocd-extension-docs/ui/package-lock.json
+  detection_source: boundaries/extension/argocd-extension-docs/ui/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-10-14 08:50:41.000000000 Z
 - name: webpack-shell-plugin
@@ -4112,8 +4112,8 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/18377/default_b2c6032681a6747cfd45e1399143ed0d1db9b898.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/nx-monorepo/package-lock.json
-  detection_source: internal/boundaries/ui/nx-monorepo/packages/next/package.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/nx-monorepo/package-lock.json
+  detection_source: boundaries/ui/nx-monorepo/packages/next/package.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-24 17:58:14.000000000 Z
 - name: yargs
@@ -4126,7 +4126,7 @@ tools:
   category: Libraries
   sub_category: npm Packages
   image_url: https://img.stackshare.io/package/15887/default_3af1504b6f77c55205ba630fe08c472f43b95f6e.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/link/proxy/package-lock.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/link/proxy/package-lock.json
   detection_source: internal/pkg/k8s/kube-secret-fetcher/package.json
   last_updated_by: Victor Login
   last_updated_on: 2023-06-11 13:18:30.000000000 Z
@@ -4139,7 +4139,7 @@ tools:
   category: Libraries
   sub_category: PyPI Packages
   image_url: https://img.stackshare.io/package/pypi/image.png
-  detection_source: internal/boundaries/marketing/referral/requirements.txt
+  detection_source: boundaries/marketing/referral/requirements.txt
   last_updated_by: Victor Login
   last_updated_on: 2023-05-05 14:21:08.000000000 Z
 - name: fonttools
@@ -4165,7 +4165,7 @@ tools:
   category: Libraries
   sub_category: PyPI Packages
   image_url: https://img.stackshare.io/package/20315/default_5f4e928dbcb1c4db4050881fc2e0229785fc931c.png
-  detection_source: internal/boundaries/marketing/referral/requirements.txt
+  detection_source: boundaries/marketing/referral/requirements.txt
   last_updated_by: Victor Login
   last_updated_on: 2023-10-21 11:12:46.000000000 Z
 - name: loguru
@@ -4177,7 +4177,7 @@ tools:
   category: Libraries
   sub_category: PyPI Packages
   image_url: https://img.stackshare.io/package/20043/default_15ea2ed8281eccea374610791971ca44800f16ec.png
-  detection_source: internal/boundaries/marketing/referral/requirements.txt
+  detection_source: boundaries/marketing/referral/requirements.txt
   last_updated_by: Victor Login
   last_updated_on: 2023-04-20 15:32:50.000000000 Z
 - name: opentelemetry-api
@@ -4190,8 +4190,8 @@ tools:
   category: Libraries
   sub_category: PyPI Packages
   image_url: https://img.stackshare.io/package/pypi/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/marketing/referral/requirements.txt
-  detection_source: internal/boundaries/marketing/referral/requirements.txt
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/marketing/referral/requirements.txt
+  detection_source: boundaries/marketing/referral/requirements.txt
   last_updated_by: Victor Login
   last_updated_on: 2023-12-16 00:55:56.000000000 Z
 - name: pytest-asyncio
@@ -4203,7 +4203,7 @@ tools:
   category: Libraries
   sub_category: PyPI Packages
   image_url: https://img.stackshare.io/package/pypi/image.png
-  detection_source: internal/boundaries/marketing/referral/requirements.txt
+  detection_source: boundaries/marketing/referral/requirements.txt
   last_updated_by: Victor Login
   last_updated_on: 2023-05-05 14:21:08.000000000 Z
 - name: pytest-cov
@@ -4215,7 +4215,7 @@ tools:
   category: Libraries
   sub_category: PyPI Packages
   image_url: https://img.stackshare.io/package/19958/default_e91a78767854f0fa80aab2f13d1a25b15ca2d278.png
-  detection_source: internal/boundaries/marketing/referral/requirements.txt
+  detection_source: boundaries/marketing/referral/requirements.txt
   last_updated_by: Victor Login
   last_updated_on: 2023-05-05 14:21:08.000000000 Z
 - name: python-dotenv
@@ -4227,7 +4227,7 @@ tools:
   category: Libraries
   sub_category: PyPI Packages
   image_url: https://img.stackshare.io/package/20095/default_3141eabecdd8efa55de73a33c43f2ac0d5bbf954.png
-  detection_source: internal/boundaries/marketing/referral/requirements.txt
+  detection_source: boundaries/marketing/referral/requirements.txt
   last_updated_by: Victor Login
   last_updated_on: 2023-10-21 11:12:46.000000000 Z
 - name: scikit-learn
@@ -4254,8 +4254,8 @@ tools:
   category: Libraries
   sub_category: PyPI Packages
   image_url: https://img.stackshare.io/package/19831/default_65d1c12a133e1aa67ae96a1221c9c122ddf86c5f.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/marketing/referral/requirements.txt
-  detection_source: internal/boundaries/marketing/referral/requirements.txt
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/marketing/referral/requirements.txt
+  detection_source: boundaries/marketing/referral/requirements.txt
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-23 15:27:43.000000000 Z
 - name: sklearn
@@ -4279,7 +4279,7 @@ tools:
   category: Libraries
   sub_category: PyPI Packages
   image_url: https://img.stackshare.io/package/20431/default_f824837db22536768ec317b67275fa384fad7d47.png
-  detection_source: internal/boundaries/marketing/referral/requirements.txt
+  detection_source: boundaries/marketing/referral/requirements.txt
   last_updated_by: Victor Login
   last_updated_on: 2023-04-20 14:07:38.000000000 Z
 - name: com.google.code.gson:gson
@@ -4291,8 +4291,8 @@ tools:
   category: Libraries
   sub_category: Maven Packages
   image_url: https://img.stackshare.io/package/maven/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/notification/bot/pom.xml
-  detection_source: internal/boundaries/notification/bot/pom.xml
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/notification/bot/pom.xml
+  detection_source: boundaries/notification/bot/pom.xml
   last_updated_by: Victor Login
   last_updated_on: 2023-08-26 13:53:09.000000000 Z
 - name: com.rabbitmq:amqp-client
@@ -4305,8 +4305,8 @@ tools:
   category: Libraries
   sub_category: Maven Packages
   image_url: https://img.stackshare.io/package/maven/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/notification/bot/pom.xml
-  detection_source: internal/boundaries/notification/bot/pom.xml
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/notification/bot/pom.xml
+  detection_source: boundaries/notification/bot/pom.xml
   last_updated_by: Victor Login
   last_updated_on: 2023-08-26 13:53:09.000000000 Z
 - name: com.squareup.retrofit2:converter-gson
@@ -4316,8 +4316,8 @@ tools:
   category: Libraries
   sub_category: Maven Packages
   image_url: https://img.stackshare.io/package/maven/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/notification/bot/pom.xml
-  detection_source: internal/boundaries/notification/bot/pom.xml
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/notification/bot/pom.xml
+  detection_source: boundaries/notification/bot/pom.xml
   last_updated_by: Victor Login
   last_updated_on: 2023-08-26 13:53:09.000000000 Z
 - name: com.squareup.retrofit2:retrofit
@@ -4327,8 +4327,8 @@ tools:
   category: Libraries
   sub_category: Maven Packages
   image_url: https://img.stackshare.io/package/maven/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/notification/bot/pom.xml
-  detection_source: internal/boundaries/notification/bot/pom.xml
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/notification/bot/pom.xml
+  detection_source: boundaries/notification/bot/pom.xml
   last_updated_by: Victor Login
   last_updated_on: 2023-08-26 13:53:09.000000000 Z
 - name: org.jetbrains.kotlin:kotlin-stdlib-jdk7
@@ -4339,7 +4339,7 @@ tools:
   category: Libraries
   sub_category: Maven Packages
   image_url: https://img.stackshare.io/package/maven/image.png
-  detection_source: internal/boundaries/ui/mobile/flutter/shortlink/android/app/build.gradle
+  detection_source: boundaries/ui/mobile/flutter/shortlink/android/app/build.gradle
   last_updated_by: Login Victor
   last_updated_on: 2020-12-24 01:59:03.000000000 Z
 - name: org.slf4j:slf4j-api
@@ -4351,8 +4351,8 @@ tools:
   category: Libraries
   sub_category: Maven Packages
   image_url: https://img.stackshare.io/package/maven/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/notification/bot/pom.xml
-  detection_source: internal/boundaries/notification/bot/pom.xml
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/notification/bot/pom.xml
+  detection_source: boundaries/notification/bot/pom.xml
   last_updated_by: Victor Login
   last_updated_on: 2022-10-27 18:59:39.000000000 Z
 - name: behat/behat
@@ -4364,8 +4364,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Package Managers
   image_url: https://img.stackshare.io/package/packagist/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/delivery/support/composer.lock
-  detection_source: internal/boundaries/delivery/support/composer.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/delivery/support/composer.lock
+  detection_source: boundaries/delivery/support/composer.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-04-18 16:41:36.000000000 Z
 - name: guzzlehttp/promises
@@ -4377,8 +4377,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Package Managers
   image_url: https://img.stackshare.io/package/packagist/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/delivery/support/composer.lock
-  detection_source: internal/boundaries/delivery/support/composer.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/delivery/support/composer.lock
+  detection_source: boundaries/delivery/support/composer.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-04 13:51:23.000000000 Z
 - name: nyholm/psr7
@@ -4390,8 +4390,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Package Managers
   image_url: https://img.stackshare.io/package/packagist/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/delivery/support/composer.lock
-  detection_source: internal/boundaries/delivery/support/composer.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/delivery/support/composer.lock
+  detection_source: boundaries/delivery/support/composer.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-11-13 12:46:22.000000000 Z
 - name: php-http/message-factory
@@ -4403,8 +4403,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Package Managers
   image_url: https://img.stackshare.io/package/packagist/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/delivery/support/composer.lock
-  detection_source: internal/boundaries/delivery/support/composer.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/delivery/support/composer.lock
+  detection_source: boundaries/delivery/support/composer.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-04 13:51:23.000000000 Z
 - name: symfony/http-client
@@ -4417,8 +4417,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Package Managers
   image_url: https://img.stackshare.io/package/packagist/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/delivery/support/composer.lock
-  detection_source: internal/boundaries/delivery/support/composer.json
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/delivery/support/composer.lock
+  detection_source: boundaries/delivery/support/composer.json
   last_updated_by: renovate[bot]
   last_updated_on: 2023-12-04 13:51:23.000000000 Z
 - name: cupertino_icons
@@ -4430,8 +4430,8 @@ tools:
   category: Build, Test, Deploy
   sub_category: Package Managers
   image_url: https://img.stackshare.io/package/pub/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/mobile/flutter/shortlink/pubspec.lock
-  detection_source: internal/boundaries/ui/mobile/flutter/shortlink/pubspec.yaml
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/mobile/flutter/shortlink/pubspec.lock
+  detection_source: boundaries/ui/mobile/flutter/shortlink/pubspec.yaml
   last_updated_by: renovate[bot]
   last_updated_on: 2023-08-31 10:03:48.000000000 Z
 - name: flutter
@@ -4443,7 +4443,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Package Managers
   image_url: https://img.stackshare.io/package/pub/image.png
-  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/internal/boundaries/ui/mobile/flutter/shortlink/pubspec.lock
-  detection_source: internal/boundaries/ui/mobile/flutter/shortlink/pubspec.yaml
+  detection_source_url: https://github.com/shortlink-org/shortlink/blob/main/boundaries/ui/mobile/flutter/shortlink/pubspec.lock
+  detection_source: boundaries/ui/mobile/flutter/shortlink/pubspec.yaml
   last_updated_by: Login Victor
   last_updated_on: 2020-12-24 01:59:03.000000000 Z

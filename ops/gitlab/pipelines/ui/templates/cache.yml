@@ -2,8 +2,8 @@
   cache:
     key: nx-${CI_COMMIT_REF_SLUG}
     paths:
-      - internal/boundaries/ui/nx-monorepo/.npm/
-      - internal/boundaries/ui/nx-monorepo/packages/landing/out
-      - internal/boundaries/ui/nx-monorepo/packages/next/out
-      - internal/boundaries/ui/nx-monorepo/packages/ui-kit/dist
-      - internal/boundaries/ui/nx-monorepo/packages/ui-kit/storybook-static
+      - boundaries/ui/nx-monorepo/.npm/
+      - boundaries/ui/nx-monorepo/packages/landing/out
+      - boundaries/ui/nx-monorepo/packages/next/out
+      - boundaries/ui/nx-monorepo/packages/ui-kit/dist
+      - boundaries/ui/nx-monorepo/packages/ui-kit/storybook-static

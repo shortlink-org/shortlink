@@ -7,7 +7,7 @@ deps:
 
 build:
   roots:
-    - internal/boundaries/payment/billing
+    - boundaries/payment/billing
     - internal/pkg
 
 lint:

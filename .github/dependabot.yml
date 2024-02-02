@@ -32,132 +32,132 @@ updates:
       interval: daily
 
   - package-ecosystem: gomod
-    directory: /internal/boundaries/api/api-gateway
+    directory: /boundaries/api/api-gateway
     schedule:
       interval: daily
 
   - package-ecosystem: gomod
-    directory: /internal/boundaries/api/bff-web
+    directory: /boundaries/api/bff-web
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/extension/argocd-extension-docs/ui
+    directory: /boundaries/extension/argocd-extension-docs/ui
     schedule:
       interval: daily
 
   - package-ecosystem: gomod
-    directory: /internal/boundaries/knative/kafka-to-elasticsearch
+    directory: /boundaries/knative/kafka-to-elasticsearch
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/link/proxy
+    directory: /boundaries/link/proxy
     schedule:
       interval: daily
 
   - package-ecosystem: pip
-    directory: /internal/boundaries/marketing/referral
+    directory: /boundaries/marketing/referral
     schedule:
       interval: daily
 
   - package-ecosystem: gomod
-    directory: /internal/boundaries/marketing/report
+    directory: /boundaries/marketing/report
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/platform/backstage
+    directory: /boundaries/platform/backstage
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/platform/backstage/packages/app
+    directory: /boundaries/platform/backstage/packages/app
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/platform/backstage/packages/backend
+    directory: /boundaries/platform/backstage/packages/backend
     schedule:
       interval: daily
 
   - package-ecosystem: gomod
-    directory: /internal/boundaries/platform/csi
+    directory: /boundaries/platform/csi
     schedule:
       interval: daily
 
   - package-ecosystem: gomod
-    directory: /internal/boundaries/platform/shortctl
+    directory: /boundaries/platform/shortctl
     schedule:
       interval: daily
 
   - package-ecosystem: docker
-    directory: /internal/boundaries/shortdb/shortdb-operator
+    directory: /boundaries/shortdb/shortdb-operator
     schedule:
       interval: daily
 
   - package-ecosystem: gomod
-    directory: /internal/boundaries/shortdb/shortdb-operator
+    directory: /boundaries/shortdb/shortdb-operator
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/ui/mobile/expo/apps/shortlink
+    directory: /boundaries/ui/mobile/expo/apps/shortlink
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/ui/mobile/expo/libs/ui
+    directory: /boundaries/ui/mobile/expo/libs/ui
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/ui/mobile/expo
+    directory: /boundaries/ui/mobile/expo
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/ui/nx-monorepo
+    directory: /boundaries/ui/nx-monorepo
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/ui/nx-monorepo/packages/eslint/eslint-config-shortlink
+    directory: /boundaries/ui/nx-monorepo/packages/eslint/eslint-config-shortlink
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/ui/nx-monorepo/packages/eslint/eslint-plugin-shortlink
+    directory: /boundaries/ui/nx-monorepo/packages/eslint/eslint-plugin-shortlink
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/ui/nx-monorepo/packages/landing
+    directory: /boundaries/ui/nx-monorepo/packages/landing
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/ui/nx-monorepo/packages/next/components/Footer
+    directory: /boundaries/ui/nx-monorepo/packages/next/components/Footer
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/ui/nx-monorepo/packages/next/components/Header
+    directory: /boundaries/ui/nx-monorepo/packages/next/components/Header
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/ui/nx-monorepo/packages/next/components/Testimonials
+    directory: /boundaries/ui/nx-monorepo/packages/next/components/Testimonials
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/ui/nx-monorepo/packages/next
+    directory: /boundaries/ui/nx-monorepo/packages/next
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /internal/boundaries/ui/nx-monorepo/packages/ui-kit
+    directory: /boundaries/ui/nx-monorepo/packages/ui-kit
     schedule:
       interval: daily
 
@@ -172,16 +172,16 @@ updates:
       interval: daily
 
   - package-ecosystem: maven
-    directory: /internal/boundaries/notification/bot
+    directory: /boundaries/notification/bot
     schedule:
       interval: daily
 
   - package-ecosystem: gomod
-    directory: /internal/boundaries/payment/wallet
+    directory: /boundaries/payment/wallet
     schedule:
       interval: daily
 
   - package-ecosystem: gomod
-    directory: /internal/boundaries/link/supplies/knative/kafka-to-elasticsearch
+    directory: /boundaries/link/supplies/knative/kafka-to-elasticsearch
     schedule:
       interval: daily

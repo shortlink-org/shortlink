@@ -22,7 +22,7 @@ We will use the following structure:
 ├── ops/gitlab/workflows/matrix_build_helm.yml
 ├── ops/argocd/shortlink/{{serviceName}}/application.yaml
 ├── docs/c4/containers/services
-├── internal/boundaries/{{serviceName}}
+├── boundaries/{{serviceName}}
 │   ├── application/
 │   ├── docs/
 │   │   └── ADR/

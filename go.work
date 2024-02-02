@@ -3,14 +3,15 @@ go 1.21.6
 use (
 	.
 
-	./docs/ADR/decisions/proof/ADR-0007
-	./internal/boundaries/api/api-gateway
-	./internal/boundaries/api/bff-web
+	./boundaries/api/api-gateway
+	./boundaries/api/bff-web
 	// Supplies modules
-	./internal/boundaries/link/supplies/knative/kafka-to-elasticsearch
-	./internal/boundaries/marketing/report
-	./internal/boundaries/payment/wallet
-	./internal/boundaries/platform/csi
-	./internal/boundaries/platform/shortctl
-	./internal/boundaries/shortdb/shortdb-operator
+	./boundaries/link/supplies/knative/kafka-to-elasticsearch
+	./boundaries/marketing/report
+	./boundaries/payment/wallet
+	./boundaries/platform/csi
+	./boundaries/platform/shortctl
+	./boundaries/shortdb/shortdb-operator
+
+	./docs/ADR/decisions/proof/ADR-0007
 )

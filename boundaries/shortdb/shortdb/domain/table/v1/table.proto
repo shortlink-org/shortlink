@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package shortdb.domain.table.v1;
+
+option go_package = "github.com/shortlink-org/shortlink/boundaries/shortdb/shortdb/domain/table/v1";
+
+import "google/protobuf/field_mask.proto";
+import "shortdb/domain/page/v1/page.proto";
+import "shortdb/domain/index/v1/index.proto";
+import "shortdb/domain/table/v1/stats.proto";
+import "shortdb/domain/field/v1/field.proto";
+
+message Option {
+  int64 page_size = 1;
+}
+
+message Table {
+  google.protobuf.FieldMask field_mask = 7;
+
+  string name = 1;
+  map<string, shortdb.domain.field.v1.Type> fields = 2;
+
+  map<int32, shortdb.domain.page.v1.Page> pages = 3;
+  map<string, shortdb.domain.index.v1.Index> index = 4;
+
+  shortdb.domain.table.v1.TableStats stats = 5;
+  Option option = 6;
+}

@@ -6,7 +6,7 @@ gateway:http-chi:crud:
   variables:
     API_URL: $ENVIRONMENT_URL
   script:
-    - k6 run ./internal/boundaries/api/bff-web/tests/integrations/k6-link-crud.js
+    - k6 run ./boundaries/api/bff-web/tests/integrations/k6-link-crud.js
   needs: []
   rules:
     - if: $CI_COMMIT_TAG
