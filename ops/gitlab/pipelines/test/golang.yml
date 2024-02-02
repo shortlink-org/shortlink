@@ -48,10 +48,6 @@ golint:
   extends:
     - .go-cache
     - .job_teplate_go
-  image:
-    # We don't use the ready golangci-lint image because it doesn't support the last version of Golang.
-    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/golang:1.21-alpine
-    entrypoint: [""]
   before_script:
     - wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.55.2
     - mkdir -p .go
