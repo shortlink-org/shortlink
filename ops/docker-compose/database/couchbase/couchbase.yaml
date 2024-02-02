@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: couchbase:7.2.3
+    image: couchbase:7.2.4
     restart: on-failure
     container_name: couchbase
     ports:
