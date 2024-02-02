@@ -31,6 +31,7 @@ const ScrollToTopButton: React.FC<ScrollToTopButtonProps> = ({
   return (
     <button
       onClick={scrollToTop}
+      type="button"
       style={{ right: '3em', bottom: '3em' }}
       className={`fixed bottom-5 right-5 p-2 bg-indigo-500 dark:bg-gray-800 text-white rounded-full shadow-lg 
                   transition-opacity duration-500 ease-in-out 

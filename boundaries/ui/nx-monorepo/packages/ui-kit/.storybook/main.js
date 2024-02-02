@@ -62,7 +62,7 @@ module.exports = {
       lazyCompilation: true,
       builder: {
         useSWC: true,
-      }
+      },
     },
   },
   features: {

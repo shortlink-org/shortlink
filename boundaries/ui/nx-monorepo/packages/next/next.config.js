@@ -22,10 +22,10 @@ const PROXY_URI = process.env.PROXY_URI || 'http://127.0.0.1:3000'
 const AUTH_URI = process.env.AUTH_URI || 'http://127.0.0.1:4433'
 const API_URI = process.env.API_URI || 'http://127.0.0.1:7070'
 
-console.info('PROXY_URI', PROXY_URI)
-console.info('AUTH_URI', AUTH_URI)
-console.info('API_URI', API_URI)
-console.info('NODE_ENV', process.env.NODE_ENV)
+console.info('PROXY_URI', PROXY_URI) // eslint-disable-line no-console
+console.info('AUTH_URI', AUTH_URI) // eslint-disable-line no-console
+console.info('API_URI', API_URI) // eslint-disable-line no-console
+console.info('NODE_ENV', process.env.NODE_ENV) // eslint-disable-line no-console
 
 // PLUGINS =============================================================================================================
 const plugins = [withPWA]
@@ -77,6 +77,7 @@ let NEXT_CONFIG = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   trailingSlash: false,
+  // eslint-disable-next-line no-unused-vars
   webpack: (config, { isServer, buildId }) => {
     config.module.rules.push({
       test: /\.svg$/i,
@@ -91,6 +92,7 @@ let NEXT_CONFIG = {
       react: path.join(__dirname, '../../node_modules/react'),
       'react-dom': path.join(__dirname, '../../node_modules/react-dom'),
     }
+    // eslint-disable-next-line no-param-reassign
     config.resolve = {
       ...config.resolve,
       alias: {
@@ -121,39 +123,37 @@ if (isProd) {
 }
 
 if (!isProd) {
-  NEXT_CONFIG.rewrites = async function () {
-    return {
-      beforeFiles: [
-        // we need to define a no-op rewrite to trigger checking
-        // all pages/static files before we attempt proxying
-        {
-          source: `/api/auth/:uri*`,
-          destination: `${AUTH_URI}/:uri*`,
-          basePath: false,
-        },
-        {
-          source: `/api/links`,
-          destination: `${API_URI}/api/links`,
-          basePath: false,
-        },
-        {
-          source: `/api/links/:uri*`,
-          destination: `${API_URI}/api/links/:uri*`,
-          basePath: false,
-        },
-        {
-          source: `/s`,
-          destination: `${API_URI}/s`,
-          basePath: false,
-        },
-        {
-          source: `/s/:uri`,
-          destination: `${API_URI}/s/:uri`,
-          basePath: false,
-        },
-      ],
-    }
-  }
+  NEXT_CONFIG.rewrites = async () => ({
+    beforeFiles: [
+      // we need to define a no-op rewrite to trigger checking
+      // all pages/static files before we attempt proxying
+      {
+        source: `/api/auth/:uri*`,
+        destination: `${AUTH_URI}/:uri*`,
+        basePath: false,
+      },
+      {
+        source: `/api/links`,
+        destination: `${API_URI}/api/links`,
+        basePath: false,
+      },
+      {
+        source: `/api/links/:uri*`,
+        destination: `${API_URI}/api/links/:uri*`,
+        basePath: false,
+      },
+      {
+        source: `/s`,
+        destination: `${API_URI}/s`,
+        basePath: false,
+      },
+      {
+        source: `/s/:uri`,
+        destination: `${API_URI}/s/:uri`,
+        basePath: false,
+      },
+    ],
+  })
 }
 
 // Make sure adding Sentry options is the last code to run before exporting, to
