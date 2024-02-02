@@ -19,7 +19,7 @@ services:
     <<: *network
     depends_on:
     - coredns
-    image: oryd/keto:v0.11.1-alpha.0
+    image: oryd/keto:v0.12.0-alpha.0
     environment: {}
     command: serve -c /home/ory/keto.yml
     container_name: keto
