@@ -1,6 +1,7 @@
-import ScrollToTopButton from './ScrollToTopButton'
 import { Meta } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
+
+import ScrollToTopButton from './ScrollToTopButton'
 
 const meta: Meta = {
   title: 'UI/ScrollToTopButton',
