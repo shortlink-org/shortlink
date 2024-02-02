@@ -13,12 +13,12 @@ import (
 )
 
 // evaluateRule ...
-func evaluateRule(program *cel.Program, inputs map[string]any) (ref.Val, error) {
+func evaluateRule(program cel.Program, inputs map[string]any) (ref.Val, error) {
 	// activation, err := cel.NewEnv()
 	// if err != nil {
 	//	return nil, err
 	// }
-	out, _, err := eval(*program, inputs)
+	out, _, err := eval(program, inputs)
 	return out, err
 }
 
@@ -26,7 +26,6 @@ func evaluateRule(program *cel.Program, inputs map[string]any) (ref.Val, error) 
 func eval(prg cel.Program,
 	vars any,
 ) (out ref.Val, det *cel.EvalDetails, err error) {
-
 	varMap, isMap := vars.(map[string]any)
 	fmt.Println("------ input ------")
 	if !isMap {
@@ -35,13 +34,18 @@ func eval(prg cel.Program,
 		for k, v := range varMap {
 			switch val := v.(type) {
 			case proto.Message:
-				bytes, err := prototext.Marshal(val)
-				if err != nil {
+				bytes, errMarshal := prototext.Marshal(val)
+				if errMarshal != nil {
 					glog.Exitf("failed to marshal proto to text: %v", val)
 				}
+
 				fmt.Printf("%s = %s", k, string(bytes))
 			case map[string]any:
-				b, _ := json.MarshalIndent(v, "", "  ")
+				b, errMarshalIndent := json.MarshalIndent(v, "", "  ")
+				if errMarshalIndent != nil {
+					return nil, nil, errMarshalIndent
+				}
+
 				fmt.Printf("%s = %v\n", k, string(b))
 			case uint64:
 				fmt.Printf("%s = %vu\n", k, v)
@@ -54,7 +58,8 @@ func eval(prg cel.Program,
 	out, det, err = prg.Eval(vars)
 	report(out, det, err)
 	fmt.Println()
-	return
+
+	return out, det, err
 }
 
 // compile will parse and check an expression `expr` against a given

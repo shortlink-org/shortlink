@@ -26,13 +26,14 @@ func setupRoutes(r *chi.Mux, compiledRules map[string]*cel.Program) chi.Router {
 		results := make(map[string]any)
 
 		for ruleName, compiledRule := range compiledRules {
-			result, err := evaluateRule(compiledRule, map[string]any{
+			result, errEvalRule := evaluateRule(*compiledRule, map[string]any{
 				"claims":            map[string]any{"exp": input.Claims.Exp, "aud": input.Claims.Aud},
 				"now":               nowTimestamp,
 				"expected_audience": expectedValue,
 			})
-			if err != nil {
-				http.Error(w, fmt.Sprintf("Error evaluating rule '%s': %v", ruleName, err), http.StatusInternalServerError)
+			if errEvalRule != nil {
+				http.Error(w, fmt.Sprintf("Error evaluating rule '%s': %v", ruleName, errEvalRule), http.StatusInternalServerError)
+
 				return
 			}
 			results[ruleName] = result.Value()
@@ -44,28 +45,31 @@ func setupRoutes(r *chi.Mux, compiledRules map[string]*cel.Program) chi.Router {
 			return
 		}
 		w.Header().Set("Content-Type", "application/json")
-		w.Write(jsonResults)
+		_, _ = w.Write(jsonResults) //nolint:errcheck // ignore error
 	})
 
 	return r
 }
 
-// report prints out the result of evaluation in human-friendly terms.
+// the report prints out the result of evaluation in human-friendly terms.
 func report(result ref.Val, details *cel.EvalDetails, err error) {
 	fmt.Println("------ result ------")
+
 	if err != nil {
 		fmt.Printf("error: %s\n", err)
 	} else {
 		fmt.Printf("value: %v (%T)\n", result, result)
 	}
+
 	if details != nil {
 		fmt.Printf("\n------ eval states ------\n")
 		state := details.State()
 		stateIDs := state.IDs()
-		ids := make([]int, len(stateIDs), len(stateIDs))
+		ids := make([]int, len(stateIDs))
 		for i, id := range stateIDs {
 			ids[i] = int(id)
 		}
+
 		sort.Ints(ids)
 		for _, id := range ids {
 			v, found := state.Value(int64(id))

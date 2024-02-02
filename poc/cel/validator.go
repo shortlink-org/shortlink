@@ -12,14 +12,14 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 )
 
-// Claims ...
+// Claims - JWT claims
 type Claims struct {
 	Exp int64  `json:"exp"`
 	Aud string `json:"aud"`
 	// Add more fields as needed
 }
 
-// EvaluateInput ...
+// EvaluateInput - input for evaluating a rule
 type EvaluateInput struct {
 	Rule   string `json:"rule"`
 	Claims Claims `json:"claims"`
@@ -45,5 +45,11 @@ func main() {
 	r := chi.NewRouter()
 	r.Use(middleware.Logger)
 	r.Mount("/", setupRoutes(r, compiledRules))
-	http.ListenAndServe(":8080", r)
+
+	//nolint:gosec // ignore gosec G114
+	err = http.ListenAndServe(":8080", r)
+	if err != nil {
+		fmt.Printf("Error starting server: %v\n", err)
+		os.Exit(1)
+	}
 }

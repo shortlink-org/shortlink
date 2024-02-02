@@ -25,6 +25,7 @@ func loadRules(path string) (map[string]string, error) {
 			rules[file.Name()] = string(content)
 		}
 	}
+
 	return rules, nil
 }
 

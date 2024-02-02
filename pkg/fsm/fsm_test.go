@@ -5,12 +5,18 @@ import (
 )
 
 func TestFSM(t *testing.T) {
+	const (
+		state1 State = "state1"
+		state2 State = "state2"
+		state3 State = "state3"
+	)
+
 	// Initialize a new FSM
 	fsm := NewFSM("state1")
 
 	// Add some transition rules
-	fsm.AddTransitionRule("state1", "event1", "state2")
-	fsm.AddTransitionRule("state2", "event2", "state3")
+	fsm.AddTransitionRule(state1, "event1", state1)
+	fsm.AddTransitionRule(state2, "event2", state3)
 
 	// Variables to track callbacks
 	var entered, exited State
@@ -27,7 +33,7 @@ func TestFSM(t *testing.T) {
 	fsm.TriggerEvent("event1")
 
 	// Test the state transition and callbacks
-	if fsm.CurrentState != "state2" {
+	if fsm.CurrentState != state2 {
 		t.Errorf("Expected state2, got %s", fsm.CurrentState)
 	}
 	if entered != "state2" {
@@ -44,7 +50,7 @@ func TestFSM(t *testing.T) {
 	fsm.TriggerEvent("event2")
 
 	// Test the state transition and callbacks
-	if fsm.CurrentState != "state3" {
+	if fsm.CurrentState != state3 {
 		t.Errorf("Expected state3, got %s", fsm.CurrentState)
 	}
 	if entered != "state3" {
@@ -58,7 +64,7 @@ func TestFSM(t *testing.T) {
 	fsm.TriggerEvent("invalid")
 
 	// State should not change on invalid event
-	if fsm.CurrentState != "state3" {
+	if fsm.CurrentState != state3 {
 		t.Errorf("Expected state3, got %s", fsm.CurrentState)
 	}
 }
