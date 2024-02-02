@@ -6,22 +6,17 @@ release:
   stage: release
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   script:
-    - echo 'running release_job'
+    - |
+      release-cli create --name "Release $CI_COMMIT_TAG" \
+        --description "Created using the release-cli" \
+        --tag-name $CI_COMMIT_TAG \
+        --tag-message "Created using the release-cli" \
+        --ref $CI_COMMIT_TAG \
+        --assets-link "{\"url\":\"https://shortlink.best/\",\"name\":\"Demo\"}" \
+        --assets-link "{\"url\":\"https://shortlink-org.gitlab.io/shortlink\",\"name\":\"Swagger\"}"
   needs: []
   rules:
     - if: $CI_COMMIT_TAG
-  release:
-    name: 'Release $CI_COMMIT_TAG'
-    description: 'Created using the release-cli $EXTRA_DESCRIPTION' # $EXTRA_DESCRIPTION must be defined
-    tag_name: '$CI_COMMIT_TAG'                                      # elsewhere in the pipeline.
-    tag_message: 'Created using the release-cli $EXTRA_DESCRIPTION' # $EXTRA_DESCRIPTION must be defined elsewhere in the pipeline.
-    ref: '$CI_COMMIT_TAG'
-    assets: # Optional, multiple asset links
-      links:
-        - name: 'Demo'
-          url: 'https://shortlink.best/'
-        - name: 'Swagger'
-          url: 'https://shortlink-org.gitlab.io/shortlink'
 
 pages:
   stage: release
