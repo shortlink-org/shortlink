@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubescape.github.io/helm-charts/ | kubescape(kubescape-operator) | 1.17.3 |
+| https://kubescape.github.io/helm-charts/ | kubescape(kubescape-operator) | 1.18.1 |
 
 ## Values
 

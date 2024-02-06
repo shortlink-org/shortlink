@@ -224,7 +224,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.17.1"
+"0.17.4"
 </pre>
 </div>
 			</td>

@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | grafana | 7.2.3 |
+| https://grafana.github.io/helm-charts | grafana | 7.3.0 |
 
 ## Values
 
@@ -27,7 +27,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="grafana--"grafana--ini"--auth--anonymous--enabled"><a href="./values.yaml#L119">grafana."grafana.ini".auth.anonymous.enabled</a></td>
+			<td id="grafana--"grafana--ini"--auth--anonymous--enabled"><a href="./values.yaml#L120">grafana."grafana.ini".auth.anonymous.enabled</a></td>
 			<td>
 bool
 </td>
@@ -41,7 +41,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--"grafana--ini"--auth--anonymous--hide_version"><a href="./values.yaml#L128">grafana."grafana.ini".auth.anonymous.hide_version</a></td>
+			<td id="grafana--"grafana--ini"--auth--anonymous--hide_version"><a href="./values.yaml#L129">grafana."grafana.ini".auth.anonymous.hide_version</a></td>
 			<td>
 bool
 </td>
@@ -55,7 +55,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--"grafana--ini"--auth--anonymous--org_name"><a href="./values.yaml#L122">grafana."grafana.ini".auth.anonymous.org_name</a></td>
+			<td id="grafana--"grafana--ini"--auth--anonymous--org_name"><a href="./values.yaml#L123">grafana."grafana.ini".auth.anonymous.org_name</a></td>
 			<td>
 string
 </td>
@@ -69,7 +69,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--"grafana--ini"--auth--anonymous--org_role"><a href="./values.yaml#L125">grafana."grafana.ini".auth.anonymous.org_role</a></td>
+			<td id="grafana--"grafana--ini"--auth--anonymous--org_role"><a href="./values.yaml#L126">grafana."grafana.ini".auth.anonymous.org_role</a></td>
 			<td>
 string
 </td>
@@ -83,7 +83,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--"grafana--ini"--reporting--enabled"><a href="./values.yaml#L115">grafana."grafana.ini".reporting.enabled</a></td>
+			<td id="grafana--"grafana--ini"--reporting--enabled"><a href="./values.yaml#L116">grafana."grafana.ini".reporting.enabled</a></td>
 			<td>
 bool
 </td>
@@ -489,7 +489,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--plugins[0]"><a href="./values.yaml#L108">grafana.plugins[0]</a></td>
+			<td id="grafana--plugins[0]"><a href="./values.yaml#L109">grafana.plugins[0]</a></td>
 			<td>
 string
 </td>
@@ -503,7 +503,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--plugins[1]"><a href="./values.yaml#L109">grafana.plugins[1]</a></td>
+			<td id="grafana--plugins[1]"><a href="./values.yaml#L110">grafana.plugins[1]</a></td>
 			<td>
 string
 </td>
@@ -517,7 +517,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--plugins[2]"><a href="./values.yaml#L110">grafana.plugins[2]</a></td>
+			<td id="grafana--plugins[2]"><a href="./values.yaml#L111">grafana.plugins[2]</a></td>
 			<td>
 string
 </td>
@@ -531,7 +531,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--plugins[3]"><a href="./values.yaml#L111">grafana.plugins[3]</a></td>
+			<td id="grafana--plugins[3]"><a href="./values.yaml#L112">grafana.plugins[3]</a></td>
 			<td>
 string
 </td>
@@ -685,6 +685,20 @@ string
 			<td></td>
 		</tr>
 		<tr>
+			<td id="grafana--sidecar--dashboards--defaultFolderName"><a href="./values.yaml#L90">grafana.sidecar.dashboards.defaultFolderName</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"General"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
 			<td id="grafana--sidecar--dashboards--enabled"><a href="./values.yaml#L89">grafana.sidecar.dashboards.enabled</a></td>
 			<td>
 bool
@@ -699,7 +713,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--sidecar--dashboards--folder"><a href="./values.yaml#L91">grafana.sidecar.dashboards.folder</a></td>
+			<td id="grafana--sidecar--dashboards--folder"><a href="./values.yaml#L92">grafana.sidecar.dashboards.folder</a></td>
 			<td>
 string
 </td>
@@ -713,7 +727,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--sidecar--dashboards--folderAnnotation"><a href="./values.yaml#L92">grafana.sidecar.dashboards.folderAnnotation</a></td>
+			<td id="grafana--sidecar--dashboards--folderAnnotation"><a href="./values.yaml#L93">grafana.sidecar.dashboards.folderAnnotation</a></td>
 			<td>
 string
 </td>
@@ -727,7 +741,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--sidecar--dashboards--provider--foldersFromFilesStructure"><a href="./values.yaml#L94">grafana.sidecar.dashboards.provider.foldersFromFilesStructure</a></td>
+			<td id="grafana--sidecar--dashboards--provider--foldersFromFilesStructure"><a href="./values.yaml#L95">grafana.sidecar.dashboards.provider.foldersFromFilesStructure</a></td>
 			<td>
 bool
 </td>
@@ -741,7 +755,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--sidecar--dashboards--searchNamespace"><a href="./values.yaml#L90">grafana.sidecar.dashboards.searchNamespace</a></td>
+			<td id="grafana--sidecar--dashboards--searchNamespace"><a href="./values.yaml#L91">grafana.sidecar.dashboards.searchNamespace</a></td>
 			<td>
 string
 </td>
@@ -755,7 +769,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--sidecar--datasources--enabled"><a href="./values.yaml#L96">grafana.sidecar.datasources.enabled</a></td>
+			<td id="grafana--sidecar--datasources--enabled"><a href="./values.yaml#L97">grafana.sidecar.datasources.enabled</a></td>
 			<td>
 bool
 </td>
@@ -769,7 +783,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--sidecar--datasources--searchNamespace"><a href="./values.yaml#L97">grafana.sidecar.datasources.searchNamespace</a></td>
+			<td id="grafana--sidecar--datasources--searchNamespace"><a href="./values.yaml#L98">grafana.sidecar.datasources.searchNamespace</a></td>
 			<td>
 string
 </td>
@@ -797,7 +811,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--sidecar--notifiers--enabled"><a href="./values.yaml#L104">grafana.sidecar.notifiers.enabled</a></td>
+			<td id="grafana--sidecar--notifiers--enabled"><a href="./values.yaml#L105">grafana.sidecar.notifiers.enabled</a></td>
 			<td>
 bool
 </td>
@@ -811,7 +825,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--sidecar--notifiers--searchNamespace"><a href="./values.yaml#L105">grafana.sidecar.notifiers.searchNamespace</a></td>
+			<td id="grafana--sidecar--notifiers--searchNamespace"><a href="./values.yaml#L106">grafana.sidecar.notifiers.searchNamespace</a></td>
 			<td>
 string
 </td>
@@ -825,7 +839,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--sidecar--plugins--enabled"><a href="./values.yaml#L99">grafana.sidecar.plugins.enabled</a></td>
+			<td id="grafana--sidecar--plugins--enabled"><a href="./values.yaml#L100">grafana.sidecar.plugins.enabled</a></td>
 			<td>
 bool
 </td>
@@ -839,7 +853,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--sidecar--plugins--initPlugins"><a href="./values.yaml#L102">grafana.sidecar.plugins.initPlugins</a></td>
+			<td id="grafana--sidecar--plugins--initPlugins"><a href="./values.yaml#L103">grafana.sidecar.plugins.initPlugins</a></td>
 			<td>
 bool
 </td>
@@ -853,7 +867,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--sidecar--plugins--searchNamespace"><a href="./values.yaml#L100">grafana.sidecar.plugins.searchNamespace</a></td>
+			<td id="grafana--sidecar--plugins--searchNamespace"><a href="./values.yaml#L101">grafana.sidecar.plugins.searchNamespace</a></td>
 			<td>
 string
 </td>
@@ -867,7 +881,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--sidecar--plugins--skipReload"><a href="./values.yaml#L101">grafana.sidecar.plugins.skipReload</a></td>
+			<td id="grafana--sidecar--plugins--skipReload"><a href="./values.yaml#L102">grafana.sidecar.plugins.skipReload</a></td>
 			<td>
 bool
 </td>

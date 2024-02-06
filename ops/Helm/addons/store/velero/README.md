@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://vmware-tanzu.github.io/helm-charts | velero | 5.2.2 |
+| https://vmware-tanzu.github.io/helm-charts | velero | 5.3.0 |
 
 ## Values
 
@@ -132,7 +132,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"velero/velero-plugin-for-csi:v0.6.3"
+"velero/velero-plugin-for-csi:v0.7.0"
 </pre>
 </div>
 			</td>
