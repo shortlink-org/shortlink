@@ -60,25 +60,29 @@ loki:
         cpu: 50m
         memory: 64Mi
 
-  schemaConfig:
-    configs:
-      - from: 2022-11-30
-        store: tsdb
-        object_store: filesystem
-        schema: v12
-        index:
-          prefix: tsdb_index_
-          period: 24h
+# TODO: research this configuration
+#  schemaConfig:
+#    configs:
+#      - from: 2022-11-30
+#        store: tsdb
+#        object_store: filesystem
+#        schema: v12
+#        index:
+#          prefix: tsdb_index_
+#          period: 24h
 
-  tableManager:
-    enabled: true
-    retention_deletes_enabled: true
-    retention_period: 240h
+# TODO: research this configuration
+#  tableManager:
+#    enabled: true
+#    retention_deletes_enabled: true
+#    retention_period: 240h
 
-  compactor:
-    type: filesystem
-    retention_enabled: true
-    retention_delete_delay: 30m
+# TODO: research this configuration
+#  compactor:
+#    shared_store: filesystem
+#    working_directory: /data/loki/boltdb-shipper-compactor
+#    retention_enabled: true
+#    retention_delete_delay: 30m
 
   monitoring:
     dashboards:
