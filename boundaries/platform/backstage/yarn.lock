@@ -7544,7 +7544,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@mui/icons-material@npm:5.15.7, @mui/icons-material@npm:^5.15.7":
+"@mui/icons-material@npm:5.15.8":
+  version: 5.15.8
+  resolution: "@mui/icons-material@npm:5.15.8"
+  dependencies:
+    "@babel/runtime": "npm:^7.23.9"
+  peerDependencies:
+    "@mui/material": ^5.0.0
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10c0/b552dd4b1729b4854a3fb7a93de303e9ab3de24d5af4f90c1a0893f06f8afe397460b802de3fc5f4a49e7790dc40cdb02ea5b8f77296e085f9f55fdd6ef5690a
+  languageName: node
+  linkType: hard
+
+"@mui/icons-material@npm:^5.15.7":
   version: 5.15.7
   resolution: "@mui/icons-material@npm:5.15.7"
   dependencies:
@@ -13477,7 +13493,7 @@ __metadata:
     "@backstage/plugin-user-settings": "npm:^0.8.0"
     "@backstage/test-utils": "npm:^1.4.7"
     "@backstage/theme": "npm:^0.5.0"
-    "@mui/icons-material": "npm:5.15.7"
+    "@mui/icons-material": "npm:5.15.8"
     "@mui/material": "npm:^5.15.7"
     "@roadiehq/backstage-plugin-argo-cd": "npm:^2.5.1"
     "@roadiehq/backstage-plugin-prometheus": "npm:^2.8.2"
