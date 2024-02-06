@@ -5,6 +5,8 @@
 strimzi-kafka-operator:
   enabled: true
 
+  featureGates: "+UseKRaft"
+
   watchNamespaces:
     - shortlink
     - kafka
