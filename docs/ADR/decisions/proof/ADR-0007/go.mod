@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/docs/ADR/decisions/proof/ADR-0007
 
-go 1.21.7
+go 1.22.0
 
 require (
 	github.com/bytedance/sonic v1.10.2
