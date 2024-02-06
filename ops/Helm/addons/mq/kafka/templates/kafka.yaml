@@ -64,10 +64,10 @@ spec:
     #      key: kafka-metrics-config.yml
   # The storage field is required by the Kafka CRD schema while the KafkaNodePools feature gate is in alpha phase.
   # But it will be ignored when Kafka Node Pools are used
-  zookeeper:
-    replicas: 3
-    storage:
-      type: ephemeral
+  # zookeeper:
+  #  replicas: 3
+  #  storage:
+  #    type: ephemeral
   entityOperator:
     topicOperator: {}
     userOperator: {}
