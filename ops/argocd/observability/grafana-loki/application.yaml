@@ -21,7 +21,7 @@ spec:
       releaseName: grafana-loki
       skipCrds: true
       valueFiles:
-        - loki.values.yaml
+        - values.yaml
         - promtail.values.yaml
   syncPolicy:
     automated:
