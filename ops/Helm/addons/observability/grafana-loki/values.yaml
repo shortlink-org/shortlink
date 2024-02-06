@@ -61,7 +61,9 @@ loki:
         memory: 64Mi
 
   tableManager:
-    enabled: false
+    enabled: true
+    retention_deletes_enabled: true
+    retention_period: 10d
 
   monitoring:
     dashboards:
