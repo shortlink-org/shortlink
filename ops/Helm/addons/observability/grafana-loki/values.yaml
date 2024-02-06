@@ -27,7 +27,7 @@ loki:
     resources:
       limits:
         cpu: 300m
-        memory: 256Mi
+        memory: 1Gi
       requests:
         cpu: 50m
         memory: 64Mi
@@ -41,7 +41,7 @@ loki:
     resources:
       limits:
         cpu: 300m
-        memory: 256Mi
+        memory: 1Gi
       requests:
         cpu: 50m
         memory: 64Mi
@@ -55,7 +55,7 @@ loki:
     resources:
       limits:
         cpu: 300m
-        memory: 256Mi
+        memory: 1Gi
       requests:
         cpu: 50m
         memory: 64Mi
@@ -117,7 +117,7 @@ loki:
     resources:
       limits:
         cpu: 300m
-        memory: 256Mi
+        memory: 1Gi
       requests:
         cpu: 50m
         memory: 64Mi
@@ -126,7 +126,7 @@ loki:
     resources:
       limits:
         cpu: 300m
-        memory: 256Mi
+        memory: 1Gi
       requests:
         cpu: 50m
         memory: 64Mi
@@ -135,7 +135,7 @@ loki:
     resources:
       limits:
         cpu: 300m
-        memory: 256Mi
+        memory: 1Gi
       requests:
         cpu: 50m
         memory: 64Mi
