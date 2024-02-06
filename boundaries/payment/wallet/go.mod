@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/payment/wallet
 
-go 1.21.7
+go 1.22.0
 
 require (
 	github.com/ethereum/go-ethereum v1.13.11
