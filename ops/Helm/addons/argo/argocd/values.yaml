@@ -234,6 +234,7 @@ argo-cd:
         command: [ sh, -ec ]
         securityContext:
           runAsNonRoot: true
+          runAsUser: 1000
           allowPrivilegeEscalation: false
           capabilities:
             drop:
