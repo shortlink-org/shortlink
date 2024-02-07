@@ -8,6 +8,9 @@ use router::Router;
 use std::net::SocketAddr;
 use std::sync::Arc;
 
+use pyroscope::PyroscopeAgent;
+use pyroscope_pprofrs::{pprof_backend, PprofConfig};
+
 mod context;
 mod domain;
 mod handler;
@@ -23,6 +26,15 @@ pub async fn main() {
     // Init postgres
     let future = postgres::run_migrations();
     block_on(future);
+
+    // Create Pyroscope Agent
+    // TODO: Use env variable for Pyroscope server
+    let agent = PyroscopeAgent::builder("http://localhost:4040", "newsletter")
+        .backend(pprof_backend(PprofConfig::new().sample_rate(100)))
+        .build()?;
+
+    // Start Agent
+    let agent_running = agent.start()?;
 
     // Routing
     let mut router: Router = Router::new();
@@ -50,6 +62,10 @@ pub async fn main() {
     // Run this server for... forever!
     if let Err(e) = graceful.await {
         eprintln!("server error: {}", e);
+
+        // Stop Agent
+        let agent_ready = agent_running.stop()?;
+        agent_ready.shutdown();
     }
 }
 

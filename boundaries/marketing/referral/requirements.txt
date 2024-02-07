@@ -9,7 +9,7 @@ python-dotenv
 setuptools>=69.0.3 # not directly required, pinned by Snyk to avoid a vulnerability
 
 # Opentelemetry
-pyroscope-io
+pyroscope-io==0.8.5
 opentelemetry-api==1.22.0
 opentelemetry-sdk
 opentelemetry-exporter-otlp
