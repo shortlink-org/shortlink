@@ -1,5 +1,5 @@
 # Build the manager binary
-FROM golang:1.21-alpine@sha256:f13f4337410aa46b1a20be17a990599a260fd50cd554c9fa6b7138a76879da1a as builder
+FROM golang:1.22-alpine@sha256:298646364548cc5e1372e2612a6a2aaa53d44bed00284ecbc89b7aa8a83ad602 as builder
 
 ENV GOCACHE=/root/.cache/go-build
 
