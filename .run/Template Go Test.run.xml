@@ -4,7 +4,7 @@
     <working_directory value="$PROJECT_DIR$" />
     <go_parameters value="-race -v -tags=unit -cover" />
     <envs>
-      <env name="GOEXPERIMENT" value="arenas,cgocheck2,loopvar" />
+      <env name="GOEXPERIMENT" value="rangefunc,arenas,cgocheck2,loopvar" />
     </envs>
     <kind value="DIRECTORY" />
     <package value="github.com/shortlink-org/shortlink" />

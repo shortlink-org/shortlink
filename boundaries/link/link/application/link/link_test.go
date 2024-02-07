@@ -29,6 +29,8 @@ import (
 )
 
 func TestLinkService(t *testing.T) {
+	ctx := context.Background()
+
 	log, err := logger.New(logger.Zap, config.Configuration{
 		Level:      viper.GetInt("LOG_LEVEL"),
 		TimeFormat: viper.GetString("LOG_TIME_FORMAT"),
@@ -98,15 +100,16 @@ func TestLinkService(t *testing.T) {
 				return mockPermissionsService_LookupResourcesClient
 			}, nil).Once()
 
-			resp, err := linkService.List(context.Background(), &v1.FilterLink{})
+			resp, nextToken, err := linkService.List(ctx, nil, "", 0)
 			assert.NoError(t, err)
 			assert.NotNil(t, resp)
+			assert.NotNil(t, nextToken)
 		})
 
 		t.Run("Permission Denied", func(t *testing.T) {
 			mockPermissionsServiceClient.On("LookupResources", mock.Anything, mock.Anything).Return(nil, errors.New("permission denied")).Once()
 
-			_, err := linkService.List(context.Background(), &v1.FilterLink{})
+			_, _, err := linkService.List(ctx, nil, "", 0)
 			assert.Error(t, err)
 		})
 	})

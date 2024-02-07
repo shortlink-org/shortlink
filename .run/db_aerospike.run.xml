@@ -4,7 +4,7 @@
     <working_directory value="$PROJECT_DIR$/pkg/db/aerospike" />
     <go_parameters value="-race -v -tags=unit -cover" />
     <envs>
-      <env name="GOEXPERIMENT" value="arenas,cgocheck2,loopvar" />
+      <env name="GOEXPERIMENT" value="rangefunc,arenas,cgocheck2,loopvar" />
     </envs>
     <EXTENSION ID="software.aws.toolkits.jetbrains.core.execution.GoAwsConnectionRunConfigurationExtension">
       <option name="credential" />
