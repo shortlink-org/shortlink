@@ -19,13 +19,39 @@ stringData:
           nodeGraph:
             enabled: true
           search:
-            hide: true
+            hide: false
           spanBar:
             type: Duration
           serviceMap:
             datasourceUid: prometheus
-          tracesToLogs:
+          traceQuery:
+            timeShiftEnabled: true
+            spanStartTimeShift: '1h'
+            spanEndTimeShift: '-1h'
+          spanBar:
+            type: 'Tag'
+            tag: 'http.path'
+          tracesToLogsV2:
             datasourceUid: loki
+            spanStartTimeShift: '1h'
+            spanEndTimeShift: '-1h'
+            tags: ['job', 'instance', 'pod', 'namespace']
             filterBySpanID: true
             filterByTraceID: true
             mapTagNamesEnabled: true
+            customQuery: true
+            query: 'method="${__span.tags.method}"'
+          tracesToMetrics:
+            datasourceUid: 'prometheus'
+            spanStartTimeShift: '1h'
+            spanEndTimeShift: '-1h'
+            tags: [{ key: 'service.name', value: 'service' }, { key: 'job' }]
+            queries:
+              - name: 'Sample query'
+                query: 'sum(rate(traces_spanmetrics_latency_bucket{$$__tags}[5m]))'
+          traceToProfiles:
+            datasourceUid: pyroscope
+            tags: ['job', 'instance', 'pod', 'namespace']
+            profileTypeId: 'process_cpu:cpu:nanoseconds:cpu:nanoseconds'
+            customQuery: true
+            query: 'method="${__span.tags.method}"'
