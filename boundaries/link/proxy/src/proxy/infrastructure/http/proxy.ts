@@ -1,13 +1,11 @@
 import * as express from 'express'
 import {inject} from 'inversify'
 import {controller, httpGet, interfaces, request, response} from "inversify-express-utils"
-import { Logger, ILogObj } from "tslog"
 
 import {LinkService} from '../../service/links'
 import TYPES from '../../../types'
 import {StatsService} from "../../service/stats";
-
-const log: Logger<ILogObj> = new Logger()
+import log from '../../../logger'
 
 @controller(`/s/:hash`)
 class ProxyController implements interfaces.Controller {

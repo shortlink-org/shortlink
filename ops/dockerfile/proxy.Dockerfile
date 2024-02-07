@@ -21,6 +21,7 @@ LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlin
 # Docs: https://developer.ibm.com/languages/node-js/articles/nodejs-memory-management-in-container-environments/
 ARG MAX_OLD_SPACE_SIZE=8192
 ENV NODE_OPTIONS=--max_old_space_size=${MAX_OLD_SPACE_SIZE}
+ENV DEBUG=pyroscope
 
 # Install dependencies
 RUN \

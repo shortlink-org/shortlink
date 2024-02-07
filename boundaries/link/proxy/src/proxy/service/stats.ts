@@ -1,17 +1,15 @@
 import { inject, injectable } from 'inversify'
 // import { PrismaClient } from '@prisma/client'
 // import {Timestamp} from "google-protobuf/google/protobuf/timestamp_pb";
-import { Logger, ILogObj } from "tslog"
 import * as Amqp from "amqp-ts"
 
 import AMQPController from '../infrastructure/amqp/amqp'
-import { Stats } from "../../proto/domain/proxy/v1/proxy_pb";
-import { Link } from "../../proto/domain/link/v1/link_pb";
+import { Stats } from "../../proto/domain/proxy/v1/proxy_pb"
+import { Link } from "../../proto/domain/link/v1/link_pb"
 import TYPES from '../../types'
-import StatsRepository from "../infrastructure/store";
+import log from '../../logger'
+import StatsRepository from "../infrastructure/store"
 // import {MQ_EVENT_LINK_NEW} from "../domain/event";
-
-const log: Logger<ILogObj> = new Logger()
 
 @injectable()
 export class StatsService {
