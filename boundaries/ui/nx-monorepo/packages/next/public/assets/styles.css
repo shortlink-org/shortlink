@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+html,
+body,
+#__next {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  justify-content: center;
+}
+
 @layer base {
   body {
     @apply bg-gray-50 text-gray-900 dark:bg-gray-800 dark:text-gray-100;

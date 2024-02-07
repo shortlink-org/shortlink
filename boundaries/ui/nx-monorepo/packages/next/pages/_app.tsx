@@ -30,6 +30,53 @@ import '../public/assets/styles.css'
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache()
 
+const defaultSeo = (theme: any) => (
+  <>
+    <DefaultSeo
+      openGraph={{
+        type: 'website',
+        locale: 'en_IE',
+        url: 'https://shortlink.best/',
+        siteName: 'Shortlink',
+        images: [
+          {
+            url: 'https://shortlink.best/images/logo.png',
+            width: 600,
+            height: 600,
+            alt: 'Shortlink service',
+          },
+        ],
+      }}
+      twitter={{
+        handle: '@shortlink',
+        site: '@shortlink',
+        cardType: 'summary_large_image',
+      }}
+      titleTemplate="Shortlink | %s"
+      defaultTitle="Shortlink"
+      themeColor={theme.palette.primary.main}
+    />,
+    {/* @ts-ignore */}
+    <SiteLinksSearchBoxJsonLd
+      url="https://shortlink.best/"
+      potentialActions={[
+        {
+          target: 'https://shortlink.best/search?q',
+          queryInput: 'search_term_string',
+        },
+        {
+          target: 'android-app://com.shortlink/https/shortlink.best/search?q',
+          queryInput: 'search_term_string',
+        },
+      ]}
+    />,
+    <LogoJsonLd
+      logo="https://shortlink.best/images/logo.png"
+      url="https://shortlink.best/"
+    />
+  </>
+)
+
 // @ts-ignore
 function MyApp({ Component, ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest)
@@ -50,51 +97,8 @@ function MyApp({ Component, ...rest }) {
                   content="initial-scale=1, width=device-width"
                 />
               </Head>
-              <DefaultSeo
-                openGraph={{
-                  type: 'website',
-                  locale: 'en_IE',
-                  url: 'https://shortlink.best/',
-                  siteName: 'Shortlink',
-                  images: [
-                    {
-                      url: 'https://shortlink.best/images/logo.png',
-                      width: 600,
-                      height: 600,
-                      alt: 'Shortlink service',
-                    },
-                  ],
-                }}
-                twitter={{
-                  handle: '@shortlink',
-                  site: '@shortlink',
-                  cardType: 'summary_large_image',
-                }}
-                titleTemplate="Shortlink | %s"
-                defaultTitle="Shortlink"
-                themeColor={theme.palette.primary.main}
-              />
 
-              {/* @ts-ignore */}
-              <SiteLinksSearchBoxJsonLd
-                url="https://shortlink.best/"
-                potentialActions={[
-                  {
-                    target: 'https://shortlink.best/search?q',
-                    queryInput: 'search_term_string',
-                  },
-                  {
-                    target:
-                      'android-app://com.shortlink/https/shortlink.best/search?q',
-                    queryInput: 'search_term_string',
-                  },
-                ]}
-              />
-
-              <LogoJsonLd
-                logo="https://shortlink.best/images/logo.png"
-                url="https://shortlink.best/"
-              />
+              {defaultSeo(theme)}
 
               <StyledEngineProvider injectFirst>
                 <ThemeProvider theme={theme}>
