@@ -29,7 +29,7 @@ require (
 	github.com/golang/glog v1.2.0
 	github.com/google/cel-go v0.19.0
 	github.com/google/uuid v1.6.0
-	github.com/google/wire v0.5.1-0.20220620021424-0675cdc9191c
+	github.com/google/wire v0.6.0
 	github.com/grafana/pyroscope-go v1.1.1
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.7
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.0
@@ -252,7 +252,7 @@ require (
 	golang.org/x/sys v0.16.0 // indirect
 	golang.org/x/term v0.16.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
-	golang.org/x/tools v0.16.1 // indirect
+	golang.org/x/tools v0.17.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/genproto v0.0.0-20240125205218-1f4bbc51befe // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240205150955-31a09d347014 // indirect
