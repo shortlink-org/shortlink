@@ -37,9 +37,11 @@ spec:
         pod-security.kubernetes.io/enforce: privileged
         pod-security.kubernetes.io/enforce-version: latest
     syncOptions:
+      - PruneLast=true
       - CreateNamespace=true
       - ServerSideApply=true
       - ApplyOutOfSyncOnly=true
+      - RespectIgnoreDifferences=true
     retry:
       limit: 2
       backoff:
@@ -51,3 +53,10 @@ spec:
       kind: ClusterPolicy
       jqPathExpressions:
         - .spec.rules[] | select(.name|test("autogen-."))
+    - group: core
+      kind: ConfigMap
+      name: ks-cloud-config
+      namespace: kubescape
+      jsonPointers:
+        - /data
+        - /metadata
