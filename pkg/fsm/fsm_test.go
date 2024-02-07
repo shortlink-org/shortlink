@@ -15,7 +15,7 @@ func TestFSM(t *testing.T) {
 	fsm := NewFSM("state1")
 
 	// Add some transition rules
-	fsm.AddTransitionRule(state1, "event1", state1)
+	fsm.AddTransitionRule(state1, "event1", state2)
 	fsm.AddTransitionRule(state2, "event2", state3)
 
 	// Variables to track callbacks
@@ -36,10 +36,10 @@ func TestFSM(t *testing.T) {
 	if fsm.CurrentState != state2 {
 		t.Errorf("Expected state2, got %s", fsm.CurrentState)
 	}
-	if entered != "state2" {
+	if entered != state2 {
 		t.Errorf("Expected entered state2, got %s", entered)
 	}
-	if exited != "state1" {
+	if exited != state1 {
 		t.Errorf("Expected exited state1, got %s", exited)
 	}
 
@@ -53,10 +53,10 @@ func TestFSM(t *testing.T) {
 	if fsm.CurrentState != state3 {
 		t.Errorf("Expected state3, got %s", fsm.CurrentState)
 	}
-	if entered != "state3" {
+	if entered != state3 {
 		t.Errorf("Expected entered state3, got %s", entered)
 	}
-	if exited != "state2" {
+	if exited != state2 {
 		t.Errorf("Expected exited state2, got %s", exited)
 	}
 

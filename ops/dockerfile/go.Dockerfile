@@ -17,7 +17,7 @@ ARG TARGETOS
 ARG TARGETARCH
 
 ENV GOCACHE=/root/.cache/go-build
-ENV GOEXPERIMENT=rangefunc,newinlinerarenas,cgocheck2,loopvar
+ENV GOEXPERIMENT=rangefunc,newinliner,arenas,cgocheck2,loopvar
 ENV PGO_PATH=auto
 
 WORKDIR /go/github.com/shortlink-org/shortlink

@@ -4,7 +4,7 @@
     <working_directory value="$PROJECT_DIR$/docs/ADR/decisions/proof/ADR-0007" />
     <go_parameters value="-v -tags=unit -count 10 -run '^$'" />
     <envs>
-      <env name="GOEXPERIMENT" value="rangefunc,newinlinerarenas,loopvar" />
+      <env name="GOEXPERIMENT" value="rangefunc,newinliner,arenas,loopvar" />
     </envs>
     <kind value="PACKAGE" />
     <package value="github.com/shortlink-org/shortlink/docs/ADR/decisions/proof/ADR-0007" />

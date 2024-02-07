@@ -49,7 +49,7 @@ func TestKafka(t *testing.T) {
 	// pulls an image, creates a container based on it and runs it
 	ZOOKEEPER, err := pool.RunWithOptions(&dockertest.RunOptions{
 		Repository:   "confluentinc/cp-zookeeper",
-		Tag:          "7.5.1",
+		Tag:          "7.5.3",
 		ExposedPorts: []string{"2181"},
 		Name:         "test-kafka-zookeeper",
 		Env:          []string{"ZOOKEEPER_CLIENT_PORT=2181", "ZOOKEEPER_TICK_TIME=2000"},
@@ -59,7 +59,7 @@ func TestKafka(t *testing.T) {
 
 	KAFKA, err := pool.RunWithOptions(&dockertest.RunOptions{
 		Repository: "confluentinc/cp-kafka",
-		Tag:        "7.5.1",
+		Tag:        "7.5.3",
 		Name:       "test-kafka-server",
 		Hostname:   "kafka",
 		Env: []string{

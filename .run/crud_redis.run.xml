@@ -4,7 +4,7 @@
     <working_directory value="$PROJECT_DIR$/boundaries/link/link/infrastructure/repository/crud/redis" />
     <go_parameters value="-race -v -tags=unit -cover" />
     <envs>
-      <env name="GOEXPERIMENT" value="rangefunc,newinlinerarenas,cgocheck2,loopvar" />
+      <env name="GOEXPERIMENT" value="rangefunc,newinliner,arenas,cgocheck2,loopvar" />
     </envs>
     <root_directory value="$PROJECT_DIR$" />
     <kind value="PACKAGE" />
