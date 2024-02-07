@@ -42,7 +42,7 @@ func TestMongo(t *testing.T) {
 	// pulls an image, creates a container based on it and runs it
 	resource, err := pool.RunWithOptions(&dockertest.RunOptions{
 		Repository: "mongo",
-		Tag:        "latest",
+		Tag:        "7.0",
 	}, func(config *docker.HostConfig) {
 		config.AutoRemove = true
 		config.RestartPolicy = docker.RestartPolicy{Name: "no"}

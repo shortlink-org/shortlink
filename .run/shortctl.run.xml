@@ -4,7 +4,7 @@
     <working_directory value="$PROJECT_DIR$" />
     <parameters value="--o ./docs/env.md --include-dir &quot;boundaries/link/link&quot; --exclude-dir &quot;vendor&quot;" />
     <envs>
-      <env name="GOEXPERIMENT" value="rangefunc,arenas,cgocheck2,loopvar" />
+      <env name="GOEXPERIMENT" value="rangefunc,newinlinerarenas,cgocheck2,loopvar" />
     </envs>
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />
