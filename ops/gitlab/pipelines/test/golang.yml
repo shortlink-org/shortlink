@@ -52,7 +52,7 @@ golint:
     - wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.55.2
     - mkdir -p .go
     - apk add --no-cache jq
-    - go mod vendor
+    - go work vendor
   script:
     # Write the code coverage report to gl-code-quality-report.json
     # and print linting issues to stdout in the format: path/to/file:line description

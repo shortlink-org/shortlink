@@ -39,7 +39,7 @@ run:
   # Define the Go version limit.
   # Mainly related to generics support in go1.19.
   # Default: use Go version from the go.mod file, fallback on the env var `GOVERSION`, fallback on 1.17
-  go: '1.21'
+  go: '1.22'
 
 # output configuration options
 output:
@@ -194,7 +194,7 @@ linters-settings:
   gofumpt:
     # Select the Go version to target.
     # Default: 1.15
-    lang-version: "1.21"
+    lang-version: "1.22"
 
     # Choose whether to use the extra rules.
     # Default: false
@@ -228,7 +228,7 @@ linters-settings:
       - '1000'
 
   gosimple:
-    go: "1.21"
+    go: "1.22"
     # https://staticcheck.io/docs/options#checks
     checks: ["all"]
 
@@ -714,13 +714,13 @@ linters-settings:
   staticcheck:
     # Select the Go version to target.
     # Default: 1.13
-    go: "1.21"
+    go: "1.22"
     # https://staticcheck.io/docs/options#checks
     checks: ["all"]
 
   stylecheck:
     # Select the Go version to target.
-    go: "1.21"
+    go: "1.22"
     # https://staticcheck.io/docs/options#checks
     checks: ["all", "-ST1000", "-ST1003", "-ST1016", "-ST1020", "-ST1021", "-ST1022"]
     # https://staticcheck.io/docs/options#dot_import_whitelist
