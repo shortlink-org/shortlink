@@ -125,23 +125,6 @@ argo-cd:
           hosts:
             - argo.shortlink.best
 
-    cm:
-      url: https://argo.shortlink.best
-
-      statusbadge.enabled: "true"
-
-      controller.diff.server.side: "true"
-
-      exec.enabled: "true"
-
-      helm.valuesFileSchemes: >-
-        secrets+gpg-import, secrets+gpg-import-kubernetes,
-        secrets+age-import, secrets+age-import-kubernetes,
-        secrets,secrets+literal,
-        https
-
-    configAnnotations: {}
-
     rbac:
       policy.csv: |
         p, role:org-admin, applications, *, */*, allow
@@ -281,6 +264,20 @@ argo-cd:
 
   configs:
     cm:
+      url: https://argo.shortlink.best
+
+      statusbadge.enabled: "true"
+
+      controller.diff.server.side: "true"
+
+      exec.enabled: "true"
+
+      helm.valuesFileSchemes: >-
+        secrets+gpg-import, secrets+gpg-import-kubernetes,
+        secrets+age-import, secrets+age-import-kubernetes,
+        secrets,secrets+literal,
+        https
+
       # https://argo-cd.readthedocs.io/en/stable/user-guide/diffing/#ignoring-rbac-changes-made-by-aggregateroles
       resource.compareoptions: |
         # disables status field diffing in specified resource types
