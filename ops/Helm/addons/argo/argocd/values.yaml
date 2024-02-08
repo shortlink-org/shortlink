@@ -125,7 +125,7 @@ argo-cd:
           hosts:
             - argo.shortlink.best
 
-    config:
+    cm:
       url: https://argo.shortlink.best
 
       statusbadge.enabled: "true"
@@ -142,7 +142,7 @@ argo-cd:
 
     configAnnotations: {}
 
-    rbacConfig:
+    rbac:
       policy.csv: |
         p, role:org-admin, applications, *, */*, allow
         p, role:org-admin, clusters, get, *, allow
