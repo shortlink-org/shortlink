@@ -118,15 +118,12 @@ argo-cd:
         nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
         nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
 
-      hosts:
-        - argo.shortlink.best
+      hostname: argo.shortlink.best
 
       extraTls:
         - secretName: argo-ingress-tls
           hosts:
             - argo.shortlink.best
-
-      https: true
 
     config:
       url: https://argo.shortlink.best
