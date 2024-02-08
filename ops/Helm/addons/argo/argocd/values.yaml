@@ -121,7 +121,7 @@ argo-cd:
       hosts:
         - argo.shortlink.best
 
-      tls:
+      extraTls:
         - secretName: argo-ingress-tls
           hosts:
             - argo.shortlink.best
