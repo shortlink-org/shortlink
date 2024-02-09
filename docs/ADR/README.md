@@ -24,6 +24,7 @@ adr new Implement as Unix shell scripts
   - [ADR-0006](./decisions/0006-codeowner.md) - Codeowner
   - [ADR-0011](./decisions/0011-application-architecture-documentation.md) - Application architecture documentation
   - [ADR-0012](./decisions/0012-use-monorepository.md) - Use monorepository
+  - [ADR-0016](./decisions/0016-use-domain-driven-developer.md) - Adopting Domain-Driven Design (DDD) and Clean Architecture Principles
   - [ADR-0021](./decisions/0021-microservice-structure.md) - Microservice structure
   - [ADR-0024](./decisions/0024-selecting-a-development-tool-for-remote-machine.md) - Selecting a Development Tool for Remote Machine
 - **Naming**
