@@ -41,7 +41,7 @@ _Please [star ⭐](https://github.com/shortlink-org/shortlink/stargazers) the re
 > 
 > Our project follows Domain-Driven Design (DDD) principles, organizing code into distinct domains for clarity and easier updates.
 > 
-> ### Contributing
+> #### Contributing
 >
 > - [Getting Started](./CONTRIBUTING.md#getting-started)
 
