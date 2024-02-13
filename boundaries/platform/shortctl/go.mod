@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/boundaries/platform/shortctl
 go 1.22.0
 
 require (
-	github.com/pterm/pterm v0.12.78
+	github.com/pterm/pterm v0.12.79
 	github.com/spf13/cobra v1.8.0
 	github.com/spf13/viper v1.18.2
 )
