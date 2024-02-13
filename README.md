@@ -37,6 +37,14 @@ _Please [star ⭐](https://github.com/shortlink-org/shortlink/stargazers) the re
 
 ### Boundaries
 
+> [!TIP]
+> 
+> Our project follows Domain-Driven Design (DDD) principles, organizing code into distinct domains for clarity and easier updates.
+> 
+> ### Contributing
+>
+> - [Getting Started](./CONTRIBUTING.md#getting-started)
+
 | Bounded Context       | Description              | Type subdomain | Docs                                                 |
 |-----------------------|--------------------------|----------------|------------------------------------------------------|
 | API Gateway           | Gateway for all services | Supporting     | [docs](./boundaries/api/README.md)          |
@@ -50,11 +58,6 @@ _Please [star ⭐](https://github.com/shortlink-org/shortlink/stargazers) the re
 | Delivery Boundary     | Delivery services        | Supporting     | [docs](./boundaries/delivery/README.md)     |
 | Search Boundary       | Search services          | Supporting     | [docs](./boundaries/search/README.md)       |
 | UI Boundary           | UI services              | Supporting     | [docs](./boundaries/ui/README.md)           |
-
-> [!TIP]
-> ### Contributing
->
-> - [Getting Started](./CONTRIBUTING.md#getting-started)
 
 ### Architecture decision records (ADR)
 
