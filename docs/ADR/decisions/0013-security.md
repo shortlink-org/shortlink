@@ -42,6 +42,8 @@ graph TD
 
 To identify potential security issues within our cluster, we will use [kubescape](https://github.com/kubescape/kubescape).
 
+![kubescape](./images/ADR-0013/kubescape.png)
+
 ### Supply Chain Security
 
 To ensure the security of our supply chain, we will adopt [SLSA](https://slsa.dev/). For docker builds, the flags `--sbom=true` and `--provenance=true` will be added.
