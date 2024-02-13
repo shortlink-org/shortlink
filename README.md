@@ -72,6 +72,14 @@ made along with its context and consequences.
 
 ### License
 
+> [!WARNING]
+> 
+> This project includes dependencies licensed under the GNU Lesser General Public License (LGPL). 
+> Users must comply with LGPL terms when using or modifying these dependencies. 
+> For detailed information on each LGPL library used in this project, please refer to the respective license documentation 
+> included with each library. For comprehensive license compliance information, including dependencies and their licenses, 
+> you can read more details in our FOSSA report.
+
 [![FOSSA Status](https://app.fossa.com/api/projects/custom%2B396%2Fgithub.com%2Fshortlink-org%2Fshortlink.svg?type=large)](https://app.fossa.com/projects/custom%2B396%2Fgithub.com%2Fshortlink-org%2Fshortlink?ref=badge_large)
 
 [mergify]: https://mergify.io
