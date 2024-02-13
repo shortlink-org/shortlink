@@ -35,12 +35,6 @@ cutting-edge technologies and best practices.
 ![shortlink-architecture](./docs/shortlink-architecture.png)
 _Please [star ⭐](https://github.com/shortlink-org/shortlink/stargazers) the repo if you want us to continue developing and improving ShortLink! 😀_
 
-
-> [!TIP]
-> ### Contributing
->
-> - [Getting Started](./CONTRIBUTING.md#getting-started)
-
 ### Boundaries
 
 | Bounded Context       | Description              | Type subdomain | Docs                                                 |
@@ -56,6 +50,11 @@ _Please [star ⭐](https://github.com/shortlink-org/shortlink/stargazers) the re
 | Delivery Boundary     | Delivery services        | Supporting     | [docs](./boundaries/delivery/README.md)     |
 | Search Boundary       | Search services          | Supporting     | [docs](./boundaries/search/README.md)       |
 | UI Boundary           | UI services              | Supporting     | [docs](./boundaries/ui/README.md)           |
+
+> [!TIP]
+> ### Contributing
+>
+> - [Getting Started](./CONTRIBUTING.md#getting-started)
 
 ### Architecture decision records (ADR)
 
