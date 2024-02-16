@@ -1,4 +1,6 @@
 import { Meta } from '@storybook/react'
+import { expect } from '@storybook/test'
+import { within } from '@storybook/testing-library'
 
 import GithubRepository from './GithubRepository'
 
@@ -22,4 +24,9 @@ function Template(args: any) {
 export const Default = {
   render: Template,
   args: {},
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const link = canvas.getByRole('link');
+    await expect(link).toHaveAttribute('href', 'https://github.com/shortlink-org/shortlink');
+  },
 }

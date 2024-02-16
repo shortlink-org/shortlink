@@ -52,7 +52,9 @@ const config: StorybookConfig = {
         ],
       },
     },
-    '@chromatic-com/storybook'
+    '@chromatic-com/storybook',
+    '@storybook/addon-a11y',
+    '@storybook/addon-coverage',
   ],
   framework: {
     name: getAbsolutePath("@storybook/nextjs"),

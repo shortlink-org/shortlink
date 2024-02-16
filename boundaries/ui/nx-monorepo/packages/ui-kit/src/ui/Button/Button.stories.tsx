@@ -1,6 +1,7 @@
 import Button from '@mui/material/Button'
 import { Meta } from '@storybook/react'
-import { fn } from '@storybook/test'
+import { fn, expect } from '@storybook/test'
+import { within, userEvent } from '@storybook/testing-library'
 
 const meta: Meta<typeof Button> = {
   title: 'UI/Button',
@@ -19,4 +20,10 @@ function Template(args: any) {
 export const Default = {
   render: Template,
   args: {},
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const button = canvas.getByRole('button', { name: 'Text' });
+    await userEvent.click(button);
+    await expect(button).toBeEnabled();
+  },
 }

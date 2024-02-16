@@ -3,7 +3,7 @@ import { action } from '@storybook/addon-actions'
 
 import ScrollToTopButton from './ScrollToTopButton'
 
-const meta: Meta = {
+const meta: Meta<typeof ScrollToTopButton> = {
   title: 'UI/ScrollToTopButton',
   component: ScrollToTopButton,
   args: {
