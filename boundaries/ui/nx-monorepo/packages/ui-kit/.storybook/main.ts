@@ -1,10 +1,11 @@
+import { dirname, join } from "path";
 import type { StorybookConfig } from '@storybook/react-webpack5'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    '@storybook/addon-links',
-    '@storybook/addon-themes',
+    getAbsolutePath("@storybook/addon-links"),
+    getAbsolutePath("@storybook/addon-themes"),
     {
       name: '@storybook/addon-essentials',
       options: {
@@ -16,7 +17,7 @@ const config: StorybookConfig = {
         toolbars: true,
       },
     },
-    '@storybook/addon-interactions',
+    getAbsolutePath("@storybook/addon-interactions"),
     // '@storybook/addon-controls',
     {
       name: '@storybook/addon-styling-webpack',
@@ -53,22 +54,25 @@ const config: StorybookConfig = {
     },
   ],
   framework: {
-    name: '@storybook/react-webpack5',
+    name: getAbsolutePath("@storybook/nextjs"),
     options: {
       fsCache: true,
-      lazyCompilation: true,
-      // builder: {
-      //   useSWC: true,
-      // },
+      lazyCompilation: true
     },
   },
   features: {
   //   interactionsDebugger: true,
   },
-  docs: {},
+  docs: {
+    autodocs: true
+  },
   typescript: {
     // reactDocgen: 'react-docgen',
   },
 }
 
 export default config
+
+function getAbsolutePath(value: string): any {
+  return dirname(require.resolve(join(value, "package.json")));
+}
