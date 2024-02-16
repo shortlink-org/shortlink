@@ -41,6 +41,8 @@ settings:
     typescript: true
 rules:
   semi: ['error', 'never']
+  comma-style: ['error', 'last']
+  comma-dangle: ['error', 'always-multiline']
   react/jsx-filename-extension: [1, {extensions: ['.ts', '.tsx']}]
   import/extensions: off
   import/default: off

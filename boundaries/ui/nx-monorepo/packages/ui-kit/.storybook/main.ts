@@ -1,11 +1,11 @@
-import { dirname, join } from "path";
+import { dirname, join } from 'path'
 import type { StorybookConfig } from '@storybook/react-webpack5'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
-    getAbsolutePath("@storybook/addon-links"),
-    getAbsolutePath("@storybook/addon-themes"),
+    getAbsolutePath('@storybook/addon-links'),
+    getAbsolutePath('@storybook/addon-themes'),
     {
       name: '@storybook/addon-essentials',
       options: {
@@ -17,7 +17,7 @@ const config: StorybookConfig = {
         toolbars: true,
       },
     },
-    getAbsolutePath("@storybook/addon-interactions"),
+    getAbsolutePath('@storybook/addon-interactions'),
     '@storybook/addon-controls',
     {
       name: '@storybook/addon-styling-webpack',
@@ -57,15 +57,15 @@ const config: StorybookConfig = {
     '@storybook/addon-coverage',
   ],
   framework: {
-    name: getAbsolutePath("@storybook/nextjs"),
+    name: getAbsolutePath('@storybook/nextjs'),
     options: {
       fsCache: true,
-      lazyCompilation: true
+      lazyCompilation: true,
     },
   },
   features: {},
   docs: {
-    autodocs: true
+    autodocs: true,
   },
   typescript: {},
 }
@@ -73,5 +73,5 @@ const config: StorybookConfig = {
 export default config
 
 function getAbsolutePath(value: string): any {
-  return dirname(require.resolve(join(value, "package.json")));
+  return dirname(require.resolve(join(value, 'package.json')))
 }

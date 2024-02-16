@@ -55,8 +55,8 @@ const defaultSeo = (theme: any) => (
       titleTemplate="Shortlink | %s"
       defaultTitle="Shortlink"
       themeColor={theme.palette.primary.main}
-    />,
-    {/* @ts-ignore */}
+    />
+    ,{/* @ts-ignore */}
     <SiteLinksSearchBoxJsonLd
       url="https://shortlink.best/"
       potentialActions={[
@@ -69,7 +69,8 @@ const defaultSeo = (theme: any) => (
           queryInput: 'search_term_string',
         },
       ]}
-    />,
+    />
+    ,
     <LogoJsonLd
       logo="https://shortlink.best/images/logo.png"
       url="https://shortlink.best/"
