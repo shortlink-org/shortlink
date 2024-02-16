@@ -25,8 +25,11 @@ export const Default = {
   render: Template,
   args: {},
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const link = canvas.getByRole('link');
-    await expect(link).toHaveAttribute('href', 'https://github.com/shortlink-org/shortlink');
+    const canvas = within(canvasElement)
+    const link = canvas.getByRole('link')
+    await expect(link).toHaveAttribute(
+      'href',
+      'https://github.com/shortlink-org/shortlink',
+    )
   },
 }

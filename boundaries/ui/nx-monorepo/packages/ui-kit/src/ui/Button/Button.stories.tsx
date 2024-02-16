@@ -21,9 +21,9 @@ export const Default = {
   render: Template,
   args: {},
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
-    const button = canvas.getByRole('button', { name: 'Text' });
-    await userEvent.click(button);
-    await expect(button).toBeEnabled();
+    const canvas = within(canvasElement)
+    const button = canvas.getByRole('button', { name: 'Text' })
+    await userEvent.click(button)
+    await expect(button).toBeEnabled()
   },
 }
