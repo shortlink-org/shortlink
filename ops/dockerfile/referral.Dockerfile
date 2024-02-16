@@ -6,21 +6,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM --platform=$BUILDPLATFORM python:3.13-rc-slim AS builder
-
-WORKDIR /app
-
-ENV PYTHONDONTWRITEBYTECODE 1
-ENV PYTHONUNBUFFERED 1
-
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends make gcc git libc6-dev g++
-
-COPY boundaries/marketing/referral/requirements.txt .
-RUN pip wheel --no-cache-dir --no-deps --wheel-dir /app/wheels -r requirements.txt
-
-# Final image
-FROM --platform=$TARGETPLATFORM python:3.13-rc-slim
+FROM --platform=$BUILDPLATFORM python:3.12-slim
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-referral"
@@ -31,19 +17,29 @@ LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.url="http://shortlink.best/"
 LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
 
+ENV PYTHONPATH="$PYTHONPATH:$PWD"
+ENV PYTHONDONTWRITEBYTECODE=1
+ENV PYTHONUNBUFFERED=1
+ENV VIRTUAL_ENV=/usr/local
+
 # HTTP API
 EXPOSE 8000
 # Prometheus metrics
 EXPOSE 9090
 
-WORKDIR /app
-ENV PYTHONPATH="$PYTHONPATH:$PWD"
-ENV PYTHONUNBUFFERED=1
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends make gcc git libc6-dev g++ curl tini libffi-dev
 
-# Install dependencies
-RUN \
-  apt-get update && \
-  apt-get install -y curl tini
+WORKDIR /app
+
+# Install dependency manager
+# https://github.com/astral-sh/uv
+RUN pip install uv
+# Create a virtual environment at .venv
+RUN uv venv
+
+COPY boundaries/marketing/referral/requirements.txt .
+RUN uv pip install --no-cache -r requirements.txt
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 
@@ -52,11 +48,6 @@ HEALTHCHECK \
   --timeout=5s \
   --retries=3 \
   CMD curl -f localhost:8000/ready || exit 1
-
-COPY --from=builder /app/wheels /wheels
-COPY --from=builder /app/requirements.txt .
-
-RUN pip install --no-cache /wheels/*
 
 RUN addgroup --system referall && adduser --system --group referall
 USER referall
