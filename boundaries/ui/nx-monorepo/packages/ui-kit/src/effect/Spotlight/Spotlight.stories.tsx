@@ -2,7 +2,7 @@ import { Meta } from '@storybook/react'
 
 import Spotlight, { SpotlightCard } from './Spotlight'
 
-const meta: Meta<any> = {
+const meta: Meta<typeof Spotlight> = {
   title: 'Effect/Spotlight',
   component: Spotlight,
 }

@@ -2,7 +2,7 @@ import { Meta } from '@storybook/react'
 
 import Header from './Header'
 
-const meta: Meta<any> = {
+const meta: Meta<typeof Header> = {
   title: 'Page/Header',
   component: Header,
 }

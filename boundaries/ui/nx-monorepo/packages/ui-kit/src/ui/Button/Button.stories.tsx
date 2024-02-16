@@ -2,7 +2,7 @@ import Button from '@mui/material/Button'
 import { Meta } from '@storybook/react'
 import { fn } from '@storybook/test'
 
-const meta: Meta<any> = {
+const meta: Meta<typeof Button> = {
   title: 'UI/Button',
   component: Button,
   args: {

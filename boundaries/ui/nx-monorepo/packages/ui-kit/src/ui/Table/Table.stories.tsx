@@ -5,7 +5,7 @@ import { ContentCopy } from '@mui/icons-material'
 
 import Table from './Table'
 
-const meta: Meta<any> = {
+const meta: Meta<typeof Table> = {
   title: 'UI/Table',
   component: Table,
 }

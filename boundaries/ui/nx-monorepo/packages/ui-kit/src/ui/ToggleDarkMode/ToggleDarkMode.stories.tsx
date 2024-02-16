@@ -3,7 +3,7 @@ import { Meta } from '@storybook/react'
 import ToggleDarkMode from './ToggleDarkMode'
 import Header from '../../page/Header/Header'
 
-const meta: Meta<any> = {
+const meta: Meta<typeof ToggleDarkMode> = {
   title: 'UI/ToggleDarkMode',
   component: ToggleDarkMode,
 }
