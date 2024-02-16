@@ -1,7 +1,7 @@
 //go:build goexperiment.arenas
 
 /*
-Shortlink application
+ShortLink application
 
 API-service
 */
