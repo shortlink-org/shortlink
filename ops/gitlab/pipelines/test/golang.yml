@@ -72,11 +72,13 @@ golint:
 go_fuzz_test:
   extends: .fuzz_base
   stage: test
-  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/golang:1.21-alpine
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/golang:1.22-alpine
   variables:
-    CI_SEED_CORPUS: './seed_corpus'
+    COVFUZZ_SEED_CORPUS: './seed_corpus'
   before_script:
     - apk add --no-cache clang git
+    - go get -u github.com/dvyukov/go-fuzz/go-fuzz github.com/dvyukov/go-fuzz/go-fuzz-build
+    - go install -v github.com/dvyukov/go-fuzz/go-fuzz github.com/dvyukov/go-fuzz/go-fuzz-build
   script:
     # link package
     - GITLAB_COV_FUZZ_PATH=`pwd`
