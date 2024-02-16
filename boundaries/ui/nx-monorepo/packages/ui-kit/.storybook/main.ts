@@ -1,4 +1,6 @@
-module.exports = {
+import type { StorybookConfig } from '@storybook/react-webpack5'
+
+const config: StorybookConfig = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
@@ -14,19 +16,14 @@ module.exports = {
         toolbars: true,
       },
     },
+    '@storybook/addon-interactions',
+    // '@storybook/addon-controls',
     {
       name: '@storybook/addon-styling-webpack',
       options: {
         postCss: {
           implementation: require.resolve('postcss'),
         },
-      },
-    },
-    '@storybook/addon-interactions',
-    '@storybook/addon-controls',
-    {
-      name: '@storybook/addon-styling-webpack',
-      options: {
         rules: [
           {
             test: /\.css$/,
@@ -60,16 +57,18 @@ module.exports = {
     options: {
       fsCache: true,
       lazyCompilation: true,
-      builder: {
-        useSWC: true,
-      },
+      // builder: {
+      //   useSWC: true,
+      // },
     },
   },
   features: {
-    interactionsDebugger: true,
+  //   interactionsDebugger: true,
   },
   docs: {},
   typescript: {
-    reactDocgen: 'react-docgen',
+    // reactDocgen: 'react-docgen',
   },
 }
+
+export default config
