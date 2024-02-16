@@ -18,7 +18,7 @@ const config: StorybookConfig = {
       },
     },
     getAbsolutePath("@storybook/addon-interactions"),
-    // '@storybook/addon-controls',
+    '@storybook/addon-controls',
     {
       name: '@storybook/addon-styling-webpack',
       options: {
@@ -63,15 +63,11 @@ const config: StorybookConfig = {
       lazyCompilation: true
     },
   },
-  features: {
-  //   interactionsDebugger: true,
-  },
+  features: {},
   docs: {
     autodocs: true
   },
-  typescript: {
-    // reactDocgen: 'react-docgen',
-  },
+  typescript: {},
 }
 
 export default config
