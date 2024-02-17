@@ -18,7 +18,7 @@ require (
 	github.com/dnwe/otelsarama v0.0.0-20231212173111-631a0a53d5d4
 	github.com/edgedb/edgedb-go v0.15.0
 	github.com/exaring/otelpgx v0.5.4
-	github.com/go-chi/chi/v5 v5.0.11
+	github.com/go-chi/chi/v5 v5.0.12
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/render v1.0.3
 	github.com/go-redis/cache/v9 v9.0.0
