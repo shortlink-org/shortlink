@@ -18,6 +18,11 @@ oncall:
 
   migrate:
     enabled: true
+
+    annotations:
+      argocd.argoproj.io/hook: Sync
+      argocd.argoproj.io/hook-delete-policy: HookSucceeded
+
     resources:
       limits:
         cpu: 100m
