@@ -69,13 +69,13 @@ spec:
     - name: admin
       databases:
         - postgres
-        - link
-        - billing
+        - oncall
       options: "SUPERUSER"
     - name: grafana
       databases:
         - oncall
     - name: oncall
       databases:
+        - postgres
         - oncall
       options: "SUPERUSER"
