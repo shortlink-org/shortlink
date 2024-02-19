@@ -1,12 +1,10 @@
 .*
 docs
-internal
 ops
+boundaries/ui
+boundaries/ds
 pkg/ml
-ui
 *.yml
 
-!vendor
-!pkg
-!internal
+# Exclude
 !docs/ADR/decisions/proof
