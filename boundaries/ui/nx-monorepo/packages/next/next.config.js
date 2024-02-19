@@ -22,10 +22,10 @@ const PROXY_URI = process.env.PROXY_URI || 'http://127.0.0.1:3000'
 const AUTH_URI = process.env.AUTH_URI || 'http://127.0.0.1:4433'
 const API_URI = process.env.API_URI || 'http://127.0.0.1:7070'
 
-console.info('PROXY_URI', PROXY_URI) // eslint-disable-line no-console
-console.info('AUTH_URI', AUTH_URI) // eslint-disable-line no-console
-console.info('API_URI', API_URI) // eslint-disable-line no-console
-console.info('NODE_ENV', process.env.NODE_ENV) // eslint-disable-line no-console
+console.info('PROXY_URI', PROXY_URI)
+console.info('AUTH_URI', AUTH_URI)
+console.info('API_URI', API_URI)
+console.info('NODE_ENV', process.env.NODE_ENV)
 
 // PLUGINS =============================================================================================================
 const plugins = [withPWA]

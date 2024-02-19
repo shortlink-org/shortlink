@@ -67,14 +67,10 @@ rules:
         ['parent', 'sibling', 'index'],
         'unknown',
       ],
-      alphabetize: {
-        order: 'asc',
-        caseInsensitive: true,
-      },
     },
   ]
   no-underscore-dangle: off
-  no-console: warn
+  no-console: ["warn", { allow: ["info", "warn", "error"] }]
   no-debugger: error
   object-shorthand: error
   default-param-last: off
