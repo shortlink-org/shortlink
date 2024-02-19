@@ -4,15 +4,15 @@ import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import MuiDrawer from '@mui/material/Drawer'
 import IconButton from '@mui/material/IconButton'
+import { useTheme as useNextTheme } from 'next-themes'
 import List from '@mui/material/List'
 import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
-// @ts-ignore
-import { ToggleDarkMode } from '@shortlink-org/ui-kit'
 import { AxiosError } from 'axios'
 import Link from 'next/link'
-import { useTheme as useNextTheme } from 'next-themes'
+// @ts-ignore
+import { ToggleDarkMode } from '@shortlink-org/ui-kit' // eslint-disable-line import/order
 
 // Importing icons
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'

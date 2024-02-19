@@ -71,7 +71,7 @@ function AddUrl() {
 
       setOpen(true)
     } catch (error) {
-      console.error('An error occurred', error) // eslint-disable-line
+      console.error('An error occurred', error)
       setResponse({
         type: 'error',
         message: 'An error occured while submitting the form',

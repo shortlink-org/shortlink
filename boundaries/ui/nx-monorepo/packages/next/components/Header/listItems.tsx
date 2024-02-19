@@ -5,6 +5,7 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import Collapse from '@mui/material/Collapse'
 import ListSubheader from '@mui/material/ListSubheader'
+// eslint-disable-next-line import/order
 import Tooltip from '@mui/material/Tooltip'
 
 // Importing icons
@@ -28,16 +29,16 @@ import ActiveLink from './ActiveLink'
 
 // Define types for menu item and nested menu item -----------------------------
 interface NestedMenuItem {
-  name: string;
-  url: string;
-  icon: JSX.Element;
+  name: string
+  url: string
+  icon: JSX.Element
 }
 
 interface MenuItemProps {
-  name: string;
-  url: string;
-  icon: JSX.Element;
-  nestedList?: NestedMenuItem[];
+  name: string
+  url: string
+  icon: JSX.Element
+  nestedList?: NestedMenuItem[]
 }
 
 // ListItem component ----------------------------------------------------------
@@ -49,7 +50,7 @@ const ListItem: React.FC<MenuItemProps> = ({ url, icon, name, nestedList }) => {
   }
 
   return (
-    <React.Fragment>
+    <>
       <Tooltip title={name} followCursor enterDelay={500}>
         <ActiveLink
           href={url}
@@ -57,13 +58,13 @@ const ListItem: React.FC<MenuItemProps> = ({ url, icon, name, nestedList }) => {
           passHref
           activeClassName="md:text-blue-700"
         >
-        <ListItemButton onClick={handleClick}>
-          <ActiveIcon href={url} activeClassName="md:text-blue-700">
-            {icon}
-          </ActiveIcon>
-          <ListItemText primary={name} />
-          {nestedList && (open ? <ExpandLessIcon /> : <ExpandMoreIcon />)}
-        </ListItemButton>
+          <ListItemButton onClick={handleClick}>
+            <ActiveIcon href={url} activeClassName="md:text-blue-700">
+              {icon}
+            </ActiveIcon>
+            <ListItemText primary={name} />
+            {nestedList && (open ? <ExpandLessIcon /> : <ExpandMoreIcon />)}
+          </ListItemButton>
         </ActiveLink>
       </Tooltip>
       {nestedList && (
@@ -85,7 +86,7 @@ const ListItem: React.FC<MenuItemProps> = ({ url, icon, name, nestedList }) => {
           </List>
         </Collapse>
       )}
-    </React.Fragment>
+    </>
   )
 }
 
@@ -119,7 +120,7 @@ const mainMenuList = [
         name: 'Security',
         url: '/user/security',
         icon: <SecurityIcon />,
-      }
+      },
     ],
   },
   {
@@ -135,7 +136,7 @@ export const mainListItems: React.FC = () => (
       <ListItem key={item.url} {...item} />
     ))}
   </List>
-);
+)
 
 const otherMenuList = [
   {

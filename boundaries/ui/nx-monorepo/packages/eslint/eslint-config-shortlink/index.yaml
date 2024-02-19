@@ -51,7 +51,7 @@ rules:
   import/no-extraneous-dependencies: off
   import/prefer-default-export: off
   import/order: [
-    'error',
+    'warn',
     {
       'newlines-between': 'always',
       pathGroups: [
@@ -59,8 +59,12 @@ rules:
           pattern: '$/**',
           group: 'internal',
         },
+        {
+          pattern: '@mui/icons-material/**',
+          group: 'external',
+        }
       ],
-      pathGroupsExcludedImportTypes: ['builtin'],
+      pathGroupsExcludedImportTypes: ['builtin', 'external'],
       groups: [
         ['builtin', 'external'],
         ['internal'],

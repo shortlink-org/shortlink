@@ -50,7 +50,7 @@ const SignUp: NextPage = () => {
         returnTo: returnTo ? String(returnTo) : undefined,
       })
       .then(({ data }) => {
-        console.info("Created a new registration flow: ", data)
+        console.info('Created a new registration flow: ', data)
 
         setFlow(data)
       })
@@ -63,7 +63,7 @@ const SignUp: NextPage = () => {
       // his data when she/he reloads the page.
       .push(`/auth/registration?flow=${flow?.id}`, undefined, { shallow: true })
 
-    console.info("updateRegistrationFlow values", values)
+    console.info('updateRegistrationFlow values', values)
     ory
       .updateRegistrationFlow({
         flow: String(flow?.id),
@@ -71,7 +71,7 @@ const SignUp: NextPage = () => {
       })
       .then(async ({ data }) => {
         // If we ended up here, it means we are successfully signed up!
-        console.info("updateRegistrationFlow data", data)
+        console.info('updateRegistrationFlow data', data)
 
         // Continue_with is a list of actions that the user might need to take before the registration is complete.
         // It could, for example, contain a link to the verification form.
