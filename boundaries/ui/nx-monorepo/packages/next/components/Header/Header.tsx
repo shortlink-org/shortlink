@@ -1,6 +1,4 @@
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
-import ChevronRightIcon from '@mui/icons-material/ChevronRight'
-import MenuIcon from '@mui/icons-material/Menu'
+import { useEffect, useState, Fragment, useMemo } from 'react'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
@@ -15,7 +13,11 @@ import { ToggleDarkMode } from '@shortlink-org/ui-kit'
 import { AxiosError } from 'axios'
 import Link from 'next/link'
 import { useTheme as useNextTheme } from 'next-themes'
-import { useEffect, useState, Fragment } from 'react'
+
+// Importing icons
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
+import ChevronRightIcon from '@mui/icons-material/ChevronRight'
+import MenuIcon from '@mui/icons-material/Menu'
 
 import { mainListItems, secondaryListItems, adminListItems } from './listItems'
 import Notification from './notification'
@@ -195,13 +197,13 @@ const Header = () => {
               )}
             </IconButton>
           </DrawerHeader>
-          <Divider />
+          <Divider flexItem />
 
-          <List>{mainListItems}</List>
-          <Divider />
+          {mainListItems()}
+          <Divider flexItem />
 
           <List>{secondaryListItems}</List>
-          <Divider />
+          <Divider flexItem />
 
           <List className={'h-full'}>{adminListItems}</List>
 

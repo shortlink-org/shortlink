@@ -1,6 +1,6 @@
 // @ts-nocheck
-import _ from 'lodash'
 import * as React from 'react'
+import _ from 'lodash'
 
 export default function Personal({ session }) {
   return (
@@ -16,6 +16,7 @@ export default function Personal({ session }) {
             </p>
           </div>
         </div>
+
         <div className="mt-5 md:mt-0 md:col-span-2">
           <form action="#" method="POST">
             <div className="shadow overflow-hidden sm:rounded-md">
