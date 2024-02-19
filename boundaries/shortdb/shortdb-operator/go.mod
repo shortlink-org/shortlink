@@ -7,7 +7,7 @@ require (
 	github.com/onsi/gomega v1.31.1
 	k8s.io/api v0.30.0-alpha.2
 	k8s.io/apimachinery v0.30.0-alpha.2
-	k8s.io/client-go v0.30.0-alpha.2
+	k8s.io/client-go v11.0.0+incompatible
 	sigs.k8s.io/controller-runtime v0.17.2
 )
 
