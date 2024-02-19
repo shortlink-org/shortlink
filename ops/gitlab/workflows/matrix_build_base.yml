@@ -76,7 +76,7 @@
       - APPLICATION: kafka-to-elasticsearch
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/kafka-to-elasticsearch
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./boundaries/knative/kafka-to-elasticsearch"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/link/supplies/knative/kafka-to-elasticsearch"
       # PLATFORM LANDSCAPE
       - APPLICATION: backstage
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/backstage
