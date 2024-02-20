@@ -5,43 +5,71 @@ import (
 
 	"github.com/google/uuid"
 
-	billing "github.com/shortlink-org/shortlink/boundaries/payment/billing/domain/billing/account/v1"
-	account_repository "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository/account"
+	link "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
+	domain "github.com/shortlink-org/shortlink/boundaries/payment/billing/domain/billing/account/v1"
+	"github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository/account"
+	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
+	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 
 type AccountService struct {
 	log logger.Logger
 
+	// Subscriber
+	notify.Subscriber[link.Link]
+
 	// Repositories
 	accountRepository account_repository.Repository
 }
 
-func New(log logger.Logger, accountRepository account_repository.Repository) (*AccountService, error) {
-	return &AccountService{
+func New(ctx context.Context, log logger.Logger, db db.DB) (*AccountService, error) {
+	// Init Repository
+	accountRepository, err := account_repository.New(ctx, db)
+	if err != nil {
+		return nil, err
+	}
+
+	service := &AccountService{
 		log: log,
 
 		// Repositories
 		accountRepository: accountRepository,
-	}, nil
+	}
+
+	// Subscribe to Event ==============================================================================================
+	notify.Subscribe(uint32(domain.Event_EVENT_ACCOUNT_NEW), service)
+	notify.Subscribe(uint32(domain.Event_EVENT_ACCOUNT_DELETE), service)
+
+	log.Info("init usecase", field.Fields{
+		"name": "account",
+	})
+
+	return service, nil
 }
 
-func (acc *AccountService) Get(ctx context.Context, id string) (*billing.Account, error) {
+// Notify - implementation of notify.Subscriber interface
+func (acc *AccountService) Notify(ctx context.Context, event uint32, payload any) notify.Response[any] {
+	return notify.Response[any]{}
+}
+
+func (acc *AccountService) Get(ctx context.Context, id string) (*domain.Account, error) {
 	return acc.accountRepository.Get(ctx, id)
 }
 
-func (acc *AccountService) List(ctx context.Context, filter any) ([]*billing.Account, error) {
+func (acc *AccountService) List(ctx context.Context, filter any) ([]*domain.Account, error) {
 	return acc.accountRepository.List(ctx, filter)
 }
 
-func (acc *AccountService) Add(ctx context.Context, in *billing.Account) (*billing.Account, error) {
+func (acc *AccountService) Add(ctx context.Context, in *domain.Account) (*domain.Account, error) {
 	// generate uniq identity
 	in.Id = uuid.New().String()
 
 	return acc.accountRepository.Add(ctx, in)
 }
 
-func (acc *AccountService) Update(ctx context.Context, in *billing.Account) (*billing.Account, error) {
+func (acc *AccountService) Update(ctx context.Context, in *domain.Account) (*domain.Account, error) {
 	return acc.accountRepository.Update(ctx, in)
 }
 

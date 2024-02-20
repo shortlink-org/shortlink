@@ -22,7 +22,6 @@ import (
 	order_rpc "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/api/rpc/order/v1"
 	payment_rpc "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/api/rpc/payment/v1"
 	tariff_rpc "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/api/rpc/tariff/v1"
-	"github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository"
 	account_repository "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository/account"
 	tariff_repository "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository/tariff"
 	"github.com/shortlink-org/shortlink/internal/di"
@@ -74,7 +73,6 @@ var BillingSet = wire.NewSet(
 
 	// repository
 	eventsourcing.New,
-	NewBillingStore,
 
 	// application
 	NewTariffApplication,
@@ -85,18 +83,8 @@ var BillingSet = wire.NewSet(
 	NewBillingService,
 )
 
-func NewBillingStore(ctx context.Context, log logger.Logger, db db.DB) (*billing_store.Store, error) {
-	store := &billing_store.Store{}
-	billingStore, err := store.Use(ctx, log, db)
-	if err != nil {
-		return nil, err
-	}
-
-	return billingStore, nil
-}
-
-func NewAccountApplication(log logger.Logger, store *billing_store.Store) (*account_application.AccountService, error) {
-	accountService, err := account_application.New(log, store.Account)
+func NewAccountApplication(ctx context.Context, log logger.Logger, db db.DB) (*account_application.AccountService, error) {
+	accountService, err := account_application.New(ctx, log, db)
 	if err != nil {
 		return nil, err
 	}
@@ -122,8 +110,8 @@ func NewPaymentApplication(log logger.Logger, eventStore eventsourcing.EventSour
 	return paymentService, nil
 }
 
-func NewTariffApplication(log logger.Logger, store *billing_store.Store) (*tariff_application.TariffService, error) {
-	tariffService, err := tariff_application.New(log, store.Tariff)
+func NewTariffApplication(ctx context.Context, log logger.Logger, db db.DB) (*tariff_application.TariffService, error) {
+	tariffService, err := tariff_application.New(ctx, log, db)
 	if err != nil {
 		return nil, err
 	}

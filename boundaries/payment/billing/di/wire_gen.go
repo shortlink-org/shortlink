@@ -17,7 +17,6 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/api/rpc/order/v1"
 	"github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/api/rpc/payment/v1"
 	"github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/api/rpc/tariff/v1"
-	"github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository"
 	"github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository/account"
 	"github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository/tariff"
 	"github.com/shortlink-org/shortlink/internal/di"
@@ -92,16 +91,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	billing_storeStore, err := NewBillingStore(context, logger, db)
-	if err != nil {
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	accountService, err := NewAccountApplication(logger, billing_storeStore)
+	accountService, err := NewAccountApplication(context, logger, db)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -137,7 +127,7 @@ func InitializeBillingService() (*BillingService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	tariffService, err := NewTariffApplication(logger, billing_storeStore)
+	tariffService, err := NewTariffApplication(context, logger, db)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -199,9 +189,7 @@ type BillingService struct {
 }
 
 // BillingService ======================================================================================================
-var BillingSet = wire.NewSet(di.DefaultSet, rpc.InitServer, rpc.InitClient, store.New, NewBillingAPIServer, eventsourcing.New, NewBillingStore,
-
-	NewTariffApplication,
+var BillingSet = wire.NewSet(di.DefaultSet, rpc.InitServer, rpc.InitClient, store.New, NewBillingAPIServer, eventsourcing.New, NewTariffApplication,
 	NewAccountApplication,
 	NewOrderApplication,
 	NewPaymentApplication,
@@ -209,18 +197,8 @@ var BillingSet = wire.NewSet(di.DefaultSet, rpc.InitServer, rpc.InitClient, stor
 	NewBillingService,
 )
 
-func NewBillingStore(ctx2 context.Context, log logger.Logger, db2 db.DB) (*billing_store.Store, error) {
-	store2 := &billing_store.Store{}
-	billingStore, err := store2.Use(ctx2, log, db2)
-	if err != nil {
-		return nil, err
-	}
-
-	return billingStore, nil
-}
-
-func NewAccountApplication(log logger.Logger, store2 *billing_store.Store) (*account_application.AccountService, error) {
-	accountService, err := account_application.New(log, store2.Account)
+func NewAccountApplication(ctx2 context.Context, log logger.Logger, db2 db.DB) (*account_application.AccountService, error) {
+	accountService, err := account_application.New(ctx2, log, db2)
 	if err != nil {
 		return nil, err
 	}
@@ -246,8 +224,8 @@ func NewPaymentApplication(log logger.Logger, eventStore eventsourcing.EventSour
 	return paymentService, nil
 }
 
-func NewTariffApplication(log logger.Logger, store2 *billing_store.Store) (*tariff_application.TariffService, error) {
-	tariffService, err := tariff_application.New(log, store2.Tariff)
+func NewTariffApplication(ctx2 context.Context, log logger.Logger, db2 db.DB) (*tariff_application.TariffService, error) {
+	tariffService, err := tariff_application.New(ctx2, log, db2)
 	if err != nil {
 		return nil, err
 	}
