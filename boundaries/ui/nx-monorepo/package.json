@@ -8,7 +8,8 @@
     "export": "NX_BATCH_MODE=true npx nx run-many -t export --all --parallel",
     "prettier": "NX_BATCH_MODE=true npx nx run-many -t prettier --all --parallel",
     "lint:fix": "NX_BATCH_MODE=true npx nx run-many -t lint:fix --all --parallel",
-    "dev:ui-next": "npx nx run ui-next:start:dev"
+    "dev:ui-next": "npx nx run ui-next:start:dev",
+    "preinstall": "npx only-allow pnpm"
   },
   "private": true,
   "devDependencies": {
