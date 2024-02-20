@@ -1,7 +1,8 @@
-package postgres
+package tariff_repository
 
 import (
 	"context"
+	"embed"
 	"errors"
 
 	"github.com/Masterminds/squirrel"
@@ -11,32 +12,41 @@ import (
 	v12 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	v1 "github.com/shortlink-org/shortlink/boundaries/payment/billing/domain/billing/tariff/v1"
 	"github.com/shortlink-org/shortlink/pkg/db"
+	"github.com/shortlink-org/shortlink/pkg/db/postgres/migrate"
 )
 
-type Tariff struct {
-	client *pgxpool.Pool
-}
+var (
+	//go:embed migrations/*.sql
+	migrations embed.FS
 
-func (t *Tariff) Init(_ context.Context, store db.DB) error {
-	var ok bool
+	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
+)
 
-	t.client, ok = store.GetConn().(*pgxpool.Pool)
+func New(ctx context.Context, store db.DB) (Repository, error) {
+	client, ok := store.GetConn().(*pgxpool.Pool)
 	if !ok {
-		return db.ErrGetConnection
+		return nil, db.ErrGetConnection
 	}
 
-	return nil
+	// Migration ---------------------------------------------------------------------------------------------------
+	err := migrate.Migration(ctx, store, migrations, "repository_tariff")
+	if err != nil {
+		return nil, err
+	}
+
+	return &tariff{
+		client: client,
+	}, nil
 }
 
-func (t *Tariff) Get(ctx context.Context, id string) (*v1.Tariff, error) {
+func (t *tariff) Get(ctx context.Context, id string) (*v1.Tariff, error) {
 	resp := &v1.Tariff{}
 
-	// query builder
-	tariff := psql.Select("id", "name", "payload").
+	query := psql.Select("id", "name", "payload").
 		From("billing.tariff").
 		Where(squirrel.Eq{"id": id})
 
-	q, args, err := tariff.ToSql()
+	q, args, err := query.ToSql()
 	if err != nil {
 		return nil, err
 	}
@@ -53,11 +63,10 @@ func (t *Tariff) Get(ctx context.Context, id string) (*v1.Tariff, error) {
 	return resp, nil
 }
 
-func (t *Tariff) List(ctx context.Context, filter any) (*v1.Tariffs, error) {
-	// query builder
-	tariffs := psql.Select("id", "name", "payload").
+func (t *tariff) List(ctx context.Context, filter any) (*v1.Tariffs, error) {
+	query := psql.Select("id", "name", "payload").
 		From("billing.tariff")
-	q, args, err := tariffs.ToSql()
+	q, args, err := query.ToSql()
 	if err != nil {
 		return nil, err
 	}
@@ -82,13 +91,12 @@ func (t *Tariff) List(ctx context.Context, filter any) (*v1.Tariffs, error) {
 	return &response, nil
 }
 
-func (t *Tariff) Add(ctx context.Context, in *v1.Tariff) (*v1.Tariff, error) {
-	// query builder
-	tariff := psql.Insert("billing.tariff").
+func (t *tariff) Add(ctx context.Context, in *v1.Tariff) (*v1.Tariff, error) {
+	query := psql.Insert("billing.tariff").
 		Columns("id", "name", "payload").
 		Values(in.GetId(), in.GetName(), in.GetPayload())
 
-	q, args, err := tariff.ToSql()
+	q, args, err := query.ToSql()
 	if err != nil {
 		return nil, err
 	}
@@ -105,14 +113,13 @@ func (t *Tariff) Add(ctx context.Context, in *v1.Tariff) (*v1.Tariff, error) {
 	return in, nil
 }
 
-func (t *Tariff) Update(ctx context.Context, in *v1.Tariff) (*v1.Tariff, error) {
-	// query builder
-	tariff := psql.Update("billing.tariff").
+func (t *tariff) Update(ctx context.Context, in *v1.Tariff) (*v1.Tariff, error) {
+	query := psql.Update("billing.tariff").
 		Set("name", in.GetName()).
 		Set("payload", in.GetPayload()).
 		Where(squirrel.Eq{"id": in.GetId()})
 
-	q, args, err := tariff.ToSql()
+	q, args, err := query.ToSql()
 	if err != nil {
 		return nil, err
 	}
@@ -129,12 +136,11 @@ func (t *Tariff) Update(ctx context.Context, in *v1.Tariff) (*v1.Tariff, error) 
 	return in, nil
 }
 
-func (t *Tariff) Delete(ctx context.Context, id string) error {
-	// query builder
-	tariff := psql.Delete("billing.tariff").
+func (t *tariff) Delete(ctx context.Context, id string) error {
+	query := psql.Delete("billing.tariff").
 		Where(squirrel.Eq{"hash": id})
 
-	q, args, err := tariff.ToSql()
+	q, args, err := query.ToSql()
 	if err != nil {
 		return err
 	}

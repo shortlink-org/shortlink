@@ -16,7 +16,6 @@ func (s *Store) LinkAdd(ctx context.Context, source *v1.Link) (*v1.Link, error) 
 		return nil, err
 	}
 
-	// query builder
 	links := psql.Insert("link.link_view").
 		Columns("url", "hash", "describe").
 		Values(source.GetUrl(), source.GetHash(), source.GetDescribe())
@@ -41,7 +40,6 @@ func (s *Store) LinkAdd(ctx context.Context, source *v1.Link) (*v1.Link, error) 
 
 // LinkUpdate - update link
 func (s *Store) LinkUpdate(ctx context.Context, source *v1.Link) (*v1.Link, error) {
-	// query builder
 	links := psql.Update("link.link_view").
 		Set("url", source.GetUrl()).
 		Set("hash", source.GetHash()).
@@ -68,7 +66,6 @@ func (s *Store) LinkUpdate(ctx context.Context, source *v1.Link) (*v1.Link, erro
 
 // LinkDelete - delete link
 func (s *Store) LinkDelete(ctx context.Context, id string) error {
-	// query builder
 	request := psql.Delete("link.link_view").
 		Where(squirrel.Eq{"hash": id})
 	q, args, err := request.ToSql()

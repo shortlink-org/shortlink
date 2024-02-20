@@ -31,7 +31,6 @@ func New(_ context.Context, store db.DB) (*Store, error) {
 
 // Get - get
 func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
-	// query builder
 	links := psql.Select("url, hash, describe", "image_url", "meta_description", "meta_keywords").
 		From("link.link_view").
 		Where(squirrel.Eq{"hash": id})
@@ -65,7 +64,6 @@ func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 
 // List - list
 func (s *Store) List(ctx context.Context, filter *v1.FilterLink) (*v12.LinksView, error) {
-	// query builder
 	links := psql.Select("hash, describe, ts_headline(meta_description, q, 'StartSel=<em>, StopSel=</em>') as meta_description, created_at, updated_at").
 		From(fmt.Sprintf(`link.link_view, to_tsquery('%s') AS q`, filter.Url.Contains)).
 		Where("make_tsvector_link_view(meta_keywords, meta_description) @@ q").

@@ -11,7 +11,6 @@ import (
 )
 
 func (s *Store) MetadataUpdate(ctx context.Context, in *v1.Meta) (*v1.Meta, error) {
-	// query builder
 	metadata := psql.Update("link.link_view").
 		Set("image_url", in.GetImageUrl()).
 		Set("meta_description", in.GetDescription()).

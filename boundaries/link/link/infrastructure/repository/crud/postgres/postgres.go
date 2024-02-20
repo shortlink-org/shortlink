@@ -230,7 +230,6 @@ func (s *Store) singleWrite(ctx context.Context, in *domain.Link) (*domain.Link,
 		return nil, err
 	}
 
-	// query builder
 	links := psql.Insert("link.links").
 		Columns("url", "hash", "describe", "json").
 		Values(in.GetUrl(), in.GetHash(), in.GetDescribe(), string(dataJson))

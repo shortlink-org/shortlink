@@ -46,7 +46,6 @@ func New(_ context.Context, store db.DB) (*Store, error) {
 
 // Get - get
 func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
-	// query builder
 	links := squirrel.Select("url, hash, describe").
 		From("links").
 		Where(squirrel.Eq{"hash": id})
@@ -72,7 +71,6 @@ func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 
 // List - list
 func (lite *Store) List(ctx context.Context, _ *v1.FilterLink) (*v1.Links, error) {
-	// query builder
 	links := squirrel.Select("url, hash, describe").
 		From("links")
 	q, args, err := links.ToSql()
@@ -112,7 +110,6 @@ func (lite *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 		return nil, err
 	}
 
-	// query builder
 	links := squirrel.Insert("links").
 		Columns("url", "hash", "describe").
 		Values(source.GetUrl(), source.GetHash(), source.GetDescribe())
@@ -137,7 +134,6 @@ func (lite *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 
 // Delete - delete
 func (lite *Store) Delete(ctx context.Context, id string) error {
-	// query builder
 	links := squirrel.Delete("links").
 		Where(squirrel.Eq{"hash": id})
 	q, args, err := links.ToSql()

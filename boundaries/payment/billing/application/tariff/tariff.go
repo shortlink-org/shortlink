@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 
 	billing "github.com/shortlink-org/shortlink/boundaries/payment/billing/domain/billing/tariff/v1"
-	billing_store "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository"
+	tariff_repository "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository/tariff"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
@@ -14,10 +14,10 @@ type TariffService struct {
 	log logger.Logger
 
 	// Repositories
-	tariffRepository billing_store.TariffRepository
+	tariffRepository tariff_repository.Repository
 }
 
-func New(log logger.Logger, tariffRepository billing_store.TariffRepository) (*TariffService, error) {
+func New(log logger.Logger, tariffRepository tariff_repository.Repository) (*TariffService, error) {
 	return &TariffService{
 		log: log,
 

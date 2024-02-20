@@ -23,13 +23,15 @@ import (
 	payment_rpc "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/api/rpc/payment/v1"
 	tariff_rpc "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/api/rpc/tariff/v1"
 	"github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository"
+	account_repository "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository/account"
+	tariff_repository "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository/tariff"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/store"
 	"github.com/shortlink-org/shortlink/pkg/db"
-	event_store "github.com/shortlink-org/shortlink/pkg/eventsourcing/store"
+	"github.com/shortlink-org/shortlink/pkg/eventsourcing"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
@@ -53,9 +55,9 @@ type BillingService struct {
 	tariffRPCServer  *tariff_rpc.Tariff
 
 	// Repository
-	accountRepository    *billing_store.AccountRepository
-	tariffRepository     *billing_store.TariffRepository
-	eventStoreRepository *event_store.EventStore
+	accountRepository    account_repository.Repository
+	tariffRepository     tariff_repository.Repository
+	eventStoreRepository *eventsourcing.EventSourcing
 }
 
 // BillingService ======================================================================================================
@@ -71,6 +73,7 @@ var BillingSet = wire.NewSet(
 	NewBillingAPIServer,
 
 	// repository
+	eventsourcing.New,
 	NewBillingStore,
 
 	// application
@@ -82,8 +85,8 @@ var BillingSet = wire.NewSet(
 	NewBillingService,
 )
 
-func NewBillingStore(ctx context.Context, log logger.Logger, db db.DB) (*billing_store.BillingStore, error) {
-	store := &billing_store.BillingStore{}
+func NewBillingStore(ctx context.Context, log logger.Logger, db db.DB) (*billing_store.Store, error) {
+	store := &billing_store.Store{}
 	billingStore, err := store.Use(ctx, log, db)
 	if err != nil {
 		return nil, err
@@ -92,7 +95,7 @@ func NewBillingStore(ctx context.Context, log logger.Logger, db db.DB) (*billing
 	return billingStore, nil
 }
 
-func NewAccountApplication(log logger.Logger, store *billing_store.BillingStore) (*account_application.AccountService, error) {
+func NewAccountApplication(log logger.Logger, store *billing_store.Store) (*account_application.AccountService, error) {
 	accountService, err := account_application.New(log, store.Account)
 	if err != nil {
 		return nil, err
@@ -101,8 +104,8 @@ func NewAccountApplication(log logger.Logger, store *billing_store.BillingStore)
 	return accountService, nil
 }
 
-func NewOrderApplication(log logger.Logger, store *billing_store.BillingStore) (*order_application.OrderService, error) {
-	orderService, err := order_application.New(log, store.EventStore)
+func NewOrderApplication(log logger.Logger, eventStore eventsourcing.EventSourcing) (*order_application.OrderService, error) {
+	orderService, err := order_application.New(log, eventStore)
 	if err != nil {
 		return nil, err
 	}
@@ -110,8 +113,8 @@ func NewOrderApplication(log logger.Logger, store *billing_store.BillingStore) (
 	return orderService, nil
 }
 
-func NewPaymentApplication(log logger.Logger, store *billing_store.BillingStore) (*payment_application.PaymentService, error) {
-	paymentService, err := payment_application.New(log, store.EventStore)
+func NewPaymentApplication(log logger.Logger, eventStore eventsourcing.EventSourcing) (*payment_application.PaymentService, error) {
+	paymentService, err := payment_application.New(log, eventStore)
 	if err != nil {
 		return nil, err
 	}
@@ -119,7 +122,7 @@ func NewPaymentApplication(log logger.Logger, store *billing_store.BillingStore)
 	return paymentService, nil
 }
 
-func NewTariffApplication(log logger.Logger, store *billing_store.BillingStore) (*tariff_application.TariffService, error) {
+func NewTariffApplication(log logger.Logger, store *billing_store.Store) (*tariff_application.TariffService, error) {
 	tariffService, err := tariff_application.New(log, store.Tariff)
 	if err != nil {
 		return nil, err

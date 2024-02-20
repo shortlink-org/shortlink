@@ -9,8 +9,8 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 
 	billing "github.com/shortlink-org/shortlink/boundaries/payment/billing/domain/billing/payment/v1"
+	es "github.com/shortlink-org/shortlink/pkg/eventsourcing"
 	eventsourcing "github.com/shortlink-org/shortlink/pkg/eventsourcing/domain/eventsourcing/v1"
-	event_store "github.com/shortlink-org/shortlink/pkg/eventsourcing/store"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/notify"
@@ -24,10 +24,10 @@ type PaymentService struct {
 	eventsourcing.CommandHandle
 
 	// Repositories
-	paymentRepository event_store.EventStore
+	paymentRepository es.EventSourcing
 }
 
-func New(log logger.Logger, paymentRepository event_store.EventStore) (*PaymentService, error) {
+func New(log logger.Logger, paymentRepository es.EventSourcing) (*PaymentService, error) {
 	service := &PaymentService{
 		log: log,
 

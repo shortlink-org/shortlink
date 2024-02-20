@@ -4,7 +4,7 @@ import (
 	"context"
 
 	billing "github.com/shortlink-org/shortlink/boundaries/payment/billing/domain/billing/order/v1"
-	event_store "github.com/shortlink-org/shortlink/pkg/eventsourcing/store"
+	"github.com/shortlink-org/shortlink/pkg/eventsourcing"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
@@ -12,10 +12,10 @@ type OrderService struct {
 	log logger.Logger
 
 	// Repositories
-	orderRepository event_store.EventStore
+	orderRepository eventsourcing.EventSourcing
 }
 
-func New(log logger.Logger, orderRepository event_store.EventStore) (*OrderService, error) {
+func New(log logger.Logger, orderRepository eventsourcing.EventSourcing) (*OrderService, error) {
 	return &OrderService{
 		log: log,
 

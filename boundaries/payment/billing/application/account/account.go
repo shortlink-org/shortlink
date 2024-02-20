@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 
 	billing "github.com/shortlink-org/shortlink/boundaries/payment/billing/domain/billing/account/v1"
-	billing_store "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository"
+	account_repository "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository/account"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
@@ -14,10 +14,10 @@ type AccountService struct {
 	log logger.Logger
 
 	// Repositories
-	accountRepository billing_store.AccountRepository
+	accountRepository account_repository.Repository
 }
 
-func New(log logger.Logger, accountRepository billing_store.AccountRepository) (*AccountService, error) {
+func New(log logger.Logger, accountRepository account_repository.Repository) (*AccountService, error) {
 	return &AccountService{
 		log: log,
 
