@@ -25,11 +25,11 @@ oncall:
 
     resources:
       limits:
-        cpu: 100m
-        memory: 100Mi
+        cpu: 2000m
+        memory: 512Mi
       requests:
-        cpu: 25m
-        memory: 50Mi
+        cpu: 1000m
+        memory: 128Mi
 
   celery:
     resources:
