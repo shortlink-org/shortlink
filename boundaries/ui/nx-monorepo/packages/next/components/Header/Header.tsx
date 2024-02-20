@@ -199,7 +199,10 @@ const Header = () => {
           </DrawerHeader>
           <Divider flexItem />
 
-          {mainListItems()}
+          {
+            // @ts-ignore
+            mainListItems()
+          }
           <Divider flexItem />
 
           <List>{secondaryListItems}</List>
