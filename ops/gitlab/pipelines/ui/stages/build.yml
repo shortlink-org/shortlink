@@ -2,5 +2,5 @@ build:
   extends: .nx
   stage: build
   script:
-    - npm run build
-    - npm run build-storybook
+    - pnpm build
+    - pnpm build-storybook

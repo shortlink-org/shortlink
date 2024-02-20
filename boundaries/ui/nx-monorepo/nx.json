@@ -1,4 +1,8 @@
 {
+  "extends": "@nrwl/workspace/presets/npm.json",
+  "affected": {
+    "defaultBase": "main"
+  },
   "tasksRunnerOptions": {
     "default": {
       "runner": "nx-cloud",
@@ -13,12 +17,22 @@
       "analyzeSourceFiles": false
     }
   },
-  "extends": "nx/presets/npm.json",
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"]
+    },
+    "dev": {
+      "dependsOn": ["^build"]
     }
+  },
+  "targetDependencies": {
+    "build": [
+      {
+        "target": "build",
+        "projects": "dependencies"
+      }
+    ]
   },
   "projects": {
     "@shortlink-org/ui-kit": {
@@ -34,5 +48,14 @@
         }
       }
     }
+  },
+  "implicitDependencies": {
+    "pnpm-workspace.yaml": "*",
+    "pnpm-lock.yaml": "*",
+    "package.json": {
+      "dependencies": "*",
+      "devDependencies": "*"
+    },
+    "nx.json": "*"
   }
 }

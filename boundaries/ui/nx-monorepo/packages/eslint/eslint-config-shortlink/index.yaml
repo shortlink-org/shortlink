@@ -111,27 +111,6 @@ rules:
   react/display-name: off
   '@next/next/no-html-link-for-pages': off
   import/no-default-export: error
-  "@nx/enforce-module-boundaries": [
-    error,
-    {
-      enforceBuildableLibDependency: true,
-      allow: [],
-      depConstraints: [
-        {
-          sourceTag: '*',
-          onlyDependOnLibsWithTags: ['*'],
-        },
-        {
-          sourceTag: 'scope:landing',
-          onlyDependOnLibsWithTags: ['scope:ui-kit'],
-        },
-        {
-          sourceTag: 'scope:ui-next',
-          onlyDependOnLibsWithTags: ['scope:ui-kit'],
-        },
-      ],
-    },
-  ]
 overrides:
   - files:
       - '*.ts'
