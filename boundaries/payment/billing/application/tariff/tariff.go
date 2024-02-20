@@ -24,9 +24,9 @@ type TariffService struct {
 	tariffRepository tariff_repository.Repository
 }
 
-func New(ctx context.Context, log logger.Logger, db db.DB) (*TariffService, error) {
+func New(ctx context.Context, log logger.Logger, conn db.DB) (*TariffService, error) {
 	// Init Repository
-	tariffRepository, err := tariff_repository.New(ctx, db)
+	tariffRepository, err := tariff_repository.New(ctx, conn)
 	if err != nil {
 		return nil, err
 	}

@@ -24,9 +24,9 @@ type AccountService struct {
 	accountRepository account_repository.Repository
 }
 
-func New(ctx context.Context, log logger.Logger, db db.DB) (*AccountService, error) {
+func New(ctx context.Context, log logger.Logger, conn db.DB) (*AccountService, error) {
 	// Init Repository
-	accountRepository, err := account_repository.New(ctx, db)
+	accountRepository, err := account_repository.New(ctx, conn)
 	if err != nil {
 		return nil, err
 	}
