@@ -16,4 +16,4 @@ include:
     - echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> ./packages/landing/.npmrc
     - apk add --no-cache git || apt-get install -y git
     - npm i -g pnpm
-    - npm config set store-path .npm
+    - pnpm config set store-path .npm

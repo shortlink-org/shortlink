@@ -28,13 +28,13 @@ jobs:
         with:
           node-version: '20.x'
           registry-url: 'https://registry.npmjs.org'
-      - run: npm install -g npm
+      - run: pnpm install -g npm
         working-directory: ./boundaries/ui/nx-monorepo/packages/ui-kit
-      - run: npm ci
+      - run: pnpm ci
         working-directory: ./boundaries/ui/nx-monorepo/packages/ui-kit
       - run: sed -i 's/@shortlink-org\/ui-kit/shortlink-ui-kit/g' package.json
         working-directory: ./boundaries/ui/nx-monorepo/packages/ui-kit
-      - run: npm publish --provenance --access public --registry https://registry.npmjs.org --scope=@batazor
+      - run: pnpm publish --provenance --access public --registry https://registry.npmjs.org --scope=@batazor
         working-directory: ./boundaries/ui/nx-monorepo/packages/ui-kit
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
