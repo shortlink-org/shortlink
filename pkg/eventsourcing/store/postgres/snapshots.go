@@ -15,10 +15,10 @@ import (
 )
 
 // GetAggregateWithoutSnapshot - get aggregates without a snapshot
-func (s *Store) GetAggregateWithoutSnapshot(ctx context.Context) ([]*eventsourcing.BaseAggregate, error) {
+func (e *EventStore) GetAggregateWithoutSnapshot(ctx context.Context) ([]*eventsourcing.BaseAggregate, error) {
 	query := psql.Select("aggregates.id", "aggregates.type", "aggregates.version").
-		From("billing.aggregates AS aggregates").
-		LeftJoin("billing.snapshots AS snapshots ON aggregates.id = snapshots.aggregate_id").
+		From("aggregates AS aggregates").
+		LeftJoin("snapshots AS snapshots ON aggregates.id = snapshots.aggregate_id").
 		Where("aggregates.version > snapshots.aggregate_version OR snapshots.aggregate_version IS NULL")
 
 	q, args, err := query.ToSql()
@@ -26,7 +26,7 @@ func (s *Store) GetAggregateWithoutSnapshot(ctx context.Context) ([]*eventsourci
 		return nil, err
 	}
 
-	rows, err := s.db.Query(ctx, q, args...)
+	rows, err := e.db.Query(ctx, q, args...)
 	if err != nil || rows.Err() != nil {
 		return nil, err
 	}
@@ -64,7 +64,7 @@ func (s *Store) GetAggregateWithoutSnapshot(ctx context.Context) ([]*eventsourci
 }
 
 // SaveSnapshot - save snapshot
-func (s *Store) SaveSnapshot(ctx context.Context, snapshot *eventsourcing.Snapshot) error {
+func (e *EventStore) SaveSnapshot(ctx context.Context, snapshot *eventsourcing.Snapshot) error {
 	// TODO: use worker pool
 	//nolint:wsl // TODO: fix this
 
@@ -74,7 +74,7 @@ func (s *Store) SaveSnapshot(ctx context.Context, snapshot *eventsourcing.Snapsh
 
 	span.SetAttributes(attribute.String("aggregate id", snapshot.GetAggregateId()))
 
-	query := psql.Insert("billing.snapshots").
+	query := psql.Insert("snapshots").
 		Columns("aggregate_id", "aggregate_type", "aggregate_version", "payload").
 		Values(snapshot.GetAggregateId(), snapshot.GetAggregateType(), snapshot.GetAggregateVersion(), snapshot.GetPayload()).
 		Suffix("ON CONFLICT (aggregate_id) DO UPDATE SET aggregate_version = ?, payload = ?, updated_at = ?", snapshot.GetAggregateVersion(), snapshot.GetPayload(), time.Now())
@@ -84,7 +84,7 @@ func (s *Store) SaveSnapshot(ctx context.Context, snapshot *eventsourcing.Snapsh
 		return err
 	}
 
-	row := s.db.QueryRow(ctx, q, args...)
+	row := e.db.QueryRow(ctx, q, args...)
 	err = row.Scan()
 	if errors.Is(err, pgx.ErrNoRows) {
 		return nil

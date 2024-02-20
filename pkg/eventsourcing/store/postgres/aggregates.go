@@ -18,12 +18,12 @@ type Aggregates interface {
 	updateAggregate(ctx context.Context, event *eventsourcing.Event) error
 }
 
-func (s *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) error {
+func (e *EventStore) addAggregate(ctx context.Context, event *eventsourcing.Event) error {
 	// start tracing
 	_, span := otel.Tracer("aggregate").Start(ctx, "addAggregate")
 	defer span.End()
 
-	entities := psql.Insert("billing.aggregates").
+	entities := psql.Insert("aggregates").
 		Columns("id", "type", "version").
 		Values(event.GetAggregateId(), event.GetAggregateType(), event.GetVersion())
 
@@ -32,7 +32,7 @@ func (s *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) er
 		return err
 	}
 
-	row := s.db.QueryRow(ctx, q, args...)
+	row := e.db.QueryRow(ctx, q, args...)
 	err = row.Scan()
 	if errors.Is(err, pgx.ErrNoRows) {
 		return nil
@@ -47,12 +47,12 @@ func (s *Store) addAggregate(ctx context.Context, event *eventsourcing.Event) er
 	return nil
 }
 
-func (s *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event) error {
+func (e *EventStore) updateAggregate(ctx context.Context, event *eventsourcing.Event) error {
 	// start tracing
 	_, span := otel.Tracer("aggregate").Start(ctx, "updateAggregate")
 	defer span.End()
 
-	entities := psql.Update("billing.aggregates").
+	entities := psql.Update("aggregates").
 		Set("version", event.GetVersion()).
 		Set("updated_at", time.Now()).
 		Where(squirrel.Eq{
@@ -68,7 +68,7 @@ func (s *Store) updateAggregate(ctx context.Context, event *eventsourcing.Event)
 		return err
 	}
 
-	row, err := s.db.Exec(ctx, q, args...)
+	row, err := e.db.Exec(ctx, q, args...)
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())

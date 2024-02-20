@@ -1,18 +1,13 @@
-package event_store
+package eventsourcing
 
 import (
 	"context"
 
-	link "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
-	"github.com/shortlink-org/shortlink/pkg/db"
 	eventsourcing "github.com/shortlink-org/shortlink/pkg/eventsourcing/domain/eventsourcing/v1"
-	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 
-// EventStore saves the events from an aggregate
-type EventStore interface {
-	Init(ctx context.Context, eventStore db.DB) error
-
+// EventSourcing - interface for event store
+type EventSourcing interface {
 	Save(ctx context.Context, events []*eventsourcing.Event) error
 	SafeSave(ctx context.Context, events []*eventsourcing.Event) error
 	Load(ctx context.Context, aggregateID string) (*eventsourcing.Snapshot, []*eventsourcing.Event, error)
@@ -21,9 +16,9 @@ type EventStore interface {
 	SaveSnapshot(ctx context.Context, snapshot *eventsourcing.Snapshot) error
 }
 
-// Store abstract type
-type Repository struct {
-	EventStore
-	notify.Subscriber[link.Link]
+// eventSourcing is the implementation of the event store
+type eventSourcing struct {
+	repository EventSourcing
+
 	typeStore string
 }

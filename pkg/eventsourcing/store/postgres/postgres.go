@@ -2,6 +2,7 @@ package es_postgres
 
 import (
 	"context"
+	"embed"
 	"errors"
 
 	"github.com/Masterminds/squirrel"
@@ -10,30 +11,35 @@ import (
 	"go.opentelemetry.io/otel"
 
 	"github.com/shortlink-org/shortlink/pkg/db"
+	"github.com/shortlink-org/shortlink/pkg/db/postgres/migrate"
 	eventsourcing "github.com/shortlink-org/shortlink/pkg/eventsourcing/domain/eventsourcing/v1"
 )
 
-type Store struct {
-	db *pgxpool.Pool
+var (
+	//go:embed migrations/*.sql
+	migrations embed.FS
 
-	Aggregates
-	Events
-}
+	psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
+)
 
-var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
-
-func (s *Store) Init(ctx context.Context, store db.DB) error {
-	var ok bool
-
-	s.db, ok = store.GetConn().(*pgxpool.Pool)
+func New(ctx context.Context, store db.DB) (*EventStore, error) {
+	conn, ok := store.GetConn().(*pgxpool.Pool)
 	if !ok {
-		return db.ErrGetConnection
+		return nil, db.ErrGetConnection
 	}
 
-	return nil
+	// Migration ---------------------------------------------------------------------------------------------------
+	err := migrate.Migration(ctx, store, migrations, "eventsourcing")
+	if err != nil {
+		return nil, err
+	}
+
+	return &EventStore{
+		db: conn,
+	}, nil
 }
 
-func (s *Store) save(ctx context.Context, events []*eventsourcing.Event, _ bool) error {
+func (e *EventStore) save(ctx context.Context, events []*eventsourcing.Event, _ bool) error {
 	if len(events) == 0 {
 		return nil
 	}
@@ -42,22 +48,22 @@ func (s *Store) save(ctx context.Context, events []*eventsourcing.Event, _ bool)
 		// TODO: use transaction
 		// Either insert a new aggregate or append to an existing.
 		if event.GetVersion() == 1 { //nolint:nestif // TODO: refactor
-			err := s.addAggregate(ctx, event)
+			err := e.addAggregate(ctx, event)
 			if err != nil {
 				return err
 			}
 
-			err = s.addEvent(ctx, event)
+			err = e.addEvent(ctx, event)
 			if err != nil {
 				return err
 			}
 		} else {
-			err := s.updateAggregate(ctx, event)
+			err := e.updateAggregate(ctx, event)
 			if err != nil {
 				return err
 			}
 
-			err = s.addEvent(ctx, event)
+			err = e.addEvent(ctx, event)
 			if err != nil {
 				return err
 			}
@@ -67,30 +73,30 @@ func (s *Store) save(ctx context.Context, events []*eventsourcing.Event, _ bool)
 	return nil
 }
 
-func (s *Store) Save(ctx context.Context, events []*eventsourcing.Event) error {
+func (e *EventStore) Save(ctx context.Context, events []*eventsourcing.Event) error {
 	// start tracing
 	newCtx, span := otel.Tracer("store").Start(ctx, "Save")
 	defer span.End()
 
-	return s.save(newCtx, events, false)
+	return e.save(newCtx, events, false)
 }
 
-func (s *Store) SafeSave(ctx context.Context, events []*eventsourcing.Event) error {
+func (e *EventStore) SafeSave(ctx context.Context, events []*eventsourcing.Event) error {
 	// start tracing
 	newCtx, span := otel.Tracer("store").Start(ctx, "SafeSave")
 	defer span.End()
 
-	return s.save(newCtx, events, true)
+	return e.save(newCtx, events, true)
 }
 
-func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Snapshot, []*eventsourcing.Event, error) {
+func (e *EventStore) Load(ctx context.Context, aggregateID string) (*eventsourcing.Snapshot, []*eventsourcing.Event, error) {
 	// start tracing
 	_, span := otel.Tracer("store").Start(ctx, "Load")
 	defer span.End()
 
 	// get snapshot if exist
 	querySnaphot := psql.Select("aggregate_id", "aggregate_type", "aggregate_version", "payload").
-		From("billing.snapshots").
+		From("snapshots").
 		Where(squirrel.Eq{
 			"aggregate_id": aggregateID,
 		})
@@ -101,7 +107,7 @@ func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Sn
 
 	var snapshot eventsourcing.Snapshot
 
-	row := s.db.QueryRow(ctx, q, args...)
+	row := e.db.QueryRow(ctx, q, args...)
 
 	err = row.Scan(&snapshot.AggregateId, &snapshot.AggregateType, &snapshot.AggregateVersion, &snapshot.Payload)
 	if err != nil && !errors.Is(err, pgx.ErrNoRows) {
@@ -110,7 +116,7 @@ func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Sn
 
 	// get new events
 	queryEvents := psql.Select("aggregate_type", "id", "type", "payload", "version").
-		From("billing.events").
+		From("events").
 		Where(
 			squirrel.And{
 				squirrel.Eq{"aggregate_id": aggregateID},
@@ -124,7 +130,7 @@ func (s *Store) Load(ctx context.Context, aggregateID string) (*eventsourcing.Sn
 		return nil, nil, err
 	}
 
-	rows, err := s.db.Query(ctx, q, args...)
+	rows, err := e.db.Query(ctx, q, args...)
 	if err != nil {
 		return nil, nil, err
 	}

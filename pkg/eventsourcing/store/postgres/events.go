@@ -16,13 +16,13 @@ type Events interface {
 	addEvent(ctx context.Context, event *eventsourcing.Event) error
 }
 
-func (s *Store) addEvent(ctx context.Context, event *eventsourcing.Event) error {
+func (e *EventStore) addEvent(ctx context.Context, event *eventsourcing.Event) error {
 	// start tracing
 	_, span := otel.Tracer("aggregate").Start(ctx, "addEvent")
 	span.SetAttributes(attribute.String("event_id", event.GetId()))
 	defer span.End()
 
-	entities := psql.Insert("billing.events").
+	entities := psql.Insert("events").
 		Columns("aggregate_id", "aggregate_type", "type", "payload", "version").
 		Values(event.GetAggregateId(), event.GetAggregateType(), event.GetType(), event.GetPayload(), event.GetVersion())
 
@@ -31,7 +31,7 @@ func (s *Store) addEvent(ctx context.Context, event *eventsourcing.Event) error 
 		return err
 	}
 
-	row := s.db.QueryRow(ctx, q, args...)
+	row := e.db.QueryRow(ctx, q, args...)
 	err = row.Scan()
 	if errors.Is(err, pgx.ErrNoRows) {
 		return nil
