@@ -22,7 +22,7 @@ import (
 	order_rpc "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/api/rpc/order/v1"
 	payment_rpc "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/api/rpc/payment/v1"
 	tariff_rpc "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/api/rpc/tariff/v1"
-	"github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/store"
+	"github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"

@@ -6,7 +6,7 @@ import (
 	"github.com/google/uuid"
 
 	billing "github.com/shortlink-org/shortlink/boundaries/payment/billing/domain/billing/account/v1"
-	billing_store "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/store"
+	billing_store "github.com/shortlink-org/shortlink/boundaries/payment/billing/infrastructure/repository"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
