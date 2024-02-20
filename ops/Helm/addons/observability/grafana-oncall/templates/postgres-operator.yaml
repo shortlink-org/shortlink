@@ -76,6 +76,7 @@ spec:
         - postgres
         - oncall
       options: "SUPERUSER"
-    - name: grafana
-      databases:
-        - oncall
+    # account for grafana monitoring
+    # - name: grafana
+    #   databases:
+    #     - oncall
