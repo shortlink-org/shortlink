@@ -20,6 +20,7 @@ function Template(args: any) {
 export const Default = {
   render: Template,
   args: {},
+// @ts-ignore
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const button = canvas.getByRole('button', { name: 'Text' })

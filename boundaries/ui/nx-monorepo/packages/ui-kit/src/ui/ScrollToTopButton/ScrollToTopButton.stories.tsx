@@ -7,6 +7,7 @@ const meta: Meta<typeof ScrollToTopButton> = {
   title: 'UI/ScrollToTopButton',
   component: ScrollToTopButton,
   args: {
+    // @ts-ignore
     onClick: action('clicked'),
   },
 }

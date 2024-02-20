@@ -1,6 +1,7 @@
 import * as React from 'react'
 import _ from 'lodash'
 
+// @ts-ignore
 const Secutiry = ({ session }) => (
   <div className="md:grid md:grid-cols-3 md:gap-6">
     <div className="md:col-span-1">

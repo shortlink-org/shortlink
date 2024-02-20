@@ -24,6 +24,7 @@ function Template(args: any) {
 export const Default = {
   render: Template,
   args: {},
+  // @ts-ignore
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement)
     const link = canvas.getByRole('link')

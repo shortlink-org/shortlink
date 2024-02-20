@@ -3,7 +3,7 @@ import { Meta } from '@storybook/react'
 
 import Timeline, { TimelineProps } from './Timeline'
 
-const meta: Meta<typeof TimelineProps> = {
+const meta: Meta<typeof Timeline> = {
   title: 'UI/Timeline',
   component: Timeline,
 }
