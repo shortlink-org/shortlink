@@ -19,7 +19,7 @@ const mainReducer = (state = initialState, action) => {
     case t.LINK_FETCH_LIST_SUCCEEDED:
       return {
         ...state,
-        list: action.payload.link,
+        list: action.payload.links,
       }
     case t.LINK_ADD_SUCCEEDED:
       return {
