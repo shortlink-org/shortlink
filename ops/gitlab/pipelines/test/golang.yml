@@ -25,6 +25,7 @@ gotest:
   variables:
     GOPATH: $CI_PROJECT_DIR/.go
     CGO_CFLAGS: "-g -O2 -Wno-return-local-addr"
+    CGO_ENABLED: 1
   before_script:
     - mkdir -p .go
     - go work vendor
