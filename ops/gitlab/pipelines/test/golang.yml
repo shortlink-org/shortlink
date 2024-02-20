@@ -31,8 +31,8 @@ gotest:
     - go install github.com/boumenot/gocover-cobertura@latest
     - go install gotest.tools/gotestsum@latest
   script:
-    - gotestsum --junitfile report.xml --format testname -- -race -coverprofile=coverage.txt -covermode atomic ./...
-    - gocover-cobertura < coverage.txt > coverage.xml
+    - $GOPATH/bin/gotestsum --junitfile report.xml --format testname -- -race -coverprofile=coverage.txt -covermode atomic ./...
+    - $GOPATH/bin/gocover-cobertura < coverage.txt > coverage.xml
     - go tool cover -func coverage.txt
   allow_failure: true
   coverage: '/total:.*\d+.\d+%/'
