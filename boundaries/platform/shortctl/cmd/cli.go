@@ -112,6 +112,7 @@ func (*Config) setConfigDocs(basePath string, config *Config) {
 	}
 
 	var wg sync.WaitGroup
+
 	for _, pkg := range pkgs {
 		for fileName, file := range pkg.Files {
 			wg.Add(1)
@@ -122,6 +123,7 @@ func (*Config) setConfigDocs(basePath string, config *Config) {
 			}(fileName, file)
 		}
 	}
+
 	wg.Wait()
 }
 

@@ -25,19 +25,24 @@ gotest:
   variables:
     GOPATH: $CI_PROJECT_DIR/.go
     CGO_CFLAGS: "-g -O2 -Wno-return-local-addr"
-  script:
+  before_script:
     - mkdir -p .go
-    - go test ./... -coverprofile=coverage.txt -covermode count
-    - go get github.com/boumenot/gocover-cobertura
-    - go run github.com/boumenot/gocover-cobertura < coverage.txt > coverage.xml
+    - go work vendor
+    - go install github.com/boumenot/gocover-cobertura@latest
+    - go install gotest.tools/gotestsum@latest
+  script:
+    - gotestsum --junitfile report.xml --format testname -- -race -coverprofile=coverage.txt -covermode atomic ./...
+    - gocover-cobertura < coverage.txt > coverage.xml
+    - go tool cover -func coverage.txt
   allow_failure: true
-  coverage: /regular total:\s+\(statements\)\s+\d+.\d+\%/
+  coverage: '/total:.*\d+.\d+%/'
   artifacts:
     when: always
     reports:
       coverage_report:
         coverage_format: cobertura
         path: coverage.xml
+      junit: report.xml
     paths:
       - coverage.xml
     expire_in: 14 days
@@ -56,17 +61,16 @@ golint:
     - apk add --no-cache jq
     - go work vendor
   script:
-    # Write the code coverage report to gl-code-quality-report.json
-    # and print linting issues to stdout in the format: path/to/file:line description
-    - golangci-lint run --out-format code-climate ./... | tee gl-code-quality-report.json | jq -r '.[] | "\(.location.path):\(.location.lines.begin) \(.description)"'
+    - golangci-lint run --out-format code-climate:codequality.json,colored-line-number ./...
   # TODO: Remove allow_failure when the linting issues are fixed
   allow_failure: true
   artifacts:
+    when: always
     reports:
-      codequality: gl-code-quality-report.json
+      codequality: codequality.json
     paths:
-      - gl-code-quality-report.json
-    expire_in: 14 days
+      - codequality.json
+    expire_in: 1 month
   needs: []
   rules:
     - when: always
