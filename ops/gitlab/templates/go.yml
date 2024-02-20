@@ -15,3 +15,9 @@
     entrypoint: [ "" ]
   interruptible: true
   needs: []
+
+# This is a template for Go projects that use Go modules in private repositories.
+.go-private-repository:
+  before_script:
+    - git config --global url.https://gitlab-ci-token:${CI_JOB_TOKEN}@${CI_SERVER_HOST}.insteadOf https://${CI_SERVER_HOST}
+    - export GOPRIVATE=${CI_SERVER_HOST}
