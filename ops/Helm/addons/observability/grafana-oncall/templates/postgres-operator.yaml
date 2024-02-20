@@ -71,11 +71,11 @@ spec:
         - postgres
         - oncall
       options: "SUPERUSER"
-    - name: grafana
-      databases:
-        - oncall
     - name: oncall
       databases:
         - postgres
         - oncall
       options: "SUPERUSER"
+    - name: grafana
+      databases:
+        - oncall
