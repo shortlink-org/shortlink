@@ -97,6 +97,10 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
 
 ### Refferences
 
+> [!NOTE]
+> **Alternatives**:
+> [cff](https://uber-go.github.io/cff/) - Concurrency toolkit for Go (_uber_)
+
 - [Saga pattern](https://microservices.io/patterns/data/saga.html)
 - [DAG](https://github.com/goombaio/dag) - for build pipeline steps
 - libs:
