@@ -34,8 +34,9 @@ RUN mkdir -p /home/node/.npm/_cacache
 WORKDIR /app
 COPY ./boundaries/link/proxy /app/
 
-RUN npm ci --cache .npm --prefer-offline --force
-RUN npm run build
+# version for npm: npm ci --cache .npm --prefer-offline --force
+RUN pnpm install
+RUN pnpm build
 
 ENTRYPOINT ["/sbin/tini", "--"]
 

@@ -1,14 +1,10 @@
 .*
+*.yml
 docs
 internal
 ops
-ui
-*.yml
+vendor
+pkg
+boundaries
 
-!vendor
-!pkg
-
-boundaries/link/proxy
-!boundaries/link/proxy/prisma
-!boundaries/link/proxy/src
-!boundaries/link/proxy/*.json
+!boundaries/link/proxy
