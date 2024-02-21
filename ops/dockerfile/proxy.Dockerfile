@@ -23,10 +23,13 @@ ARG MAX_OLD_SPACE_SIZE=8192
 ENV NODE_OPTIONS=--max_old_space_size=${MAX_OLD_SPACE_SIZE}
 ENV DEBUG=pyroscope
 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
 # Install dependencies
-RUN \
-  apk update && \
-  apk add --no-cache curl tini
+RUN apk update && \
+    apk add --no-cache curl tini
 
 RUN mkdir -p /home/node/.npm/_cacache
 
@@ -34,9 +37,7 @@ WORKDIR /app
 COPY ./boundaries/link/proxy /app/
 
 # version for npm: npm ci --cache .npm --prefer-offline --force
-RUN corepack enable && corepack prepare pnpm@latest-8 --activate
-RUN pnpm config set store-path .npm
-RUN pnpm install
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm build
 
 ENTRYPOINT ["/sbin/tini", "--"]
@@ -47,4 +48,4 @@ HEALTHCHECK \
   --retries=3 \
   CMD curl -f localhost:3020/ready || exit 1
 
-CMD ["npm", "run", "prod"]
+CMD ["pnpm", "prod"]

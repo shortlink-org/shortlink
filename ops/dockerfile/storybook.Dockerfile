@@ -12,18 +12,18 @@ ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 # Install dependencies only when needed
 FROM --platform=$BUILDPLATFORM node:21.6-alpine AS development-builder
 
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN npm config set ignore-scripts false
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
 
 WORKDIR /app
 RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
 
 COPY ./boundaries/ui/nx-monorepo/ ./
 
-RUN npm i -g pnpm
-RUN pnpm config set store-path .npm
-RUN pnpm install
-RUN pnpm dlx nx run @shortlink-org/ui-kit:build-storybook
+# version for npm: npm ci --cache .npm --prefer-offline --force
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN pnpm nx run @shortlink-org/ui-kit:build-storybook
 
 # Production image, copy all the files and run next
 FROM --platform=$TARGETPLATFORM ghcr.io/nginxinc/nginx-unprivileged:1.25-alpine

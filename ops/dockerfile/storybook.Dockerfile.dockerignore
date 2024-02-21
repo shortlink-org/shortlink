@@ -1,12 +1,13 @@
 .*
+*.yml
 cmd
 docs
 ds
 internal
 ops
 pkg
-ui
-*.yml
+boundaries
+node_modules
 
 # Exclude
 !boundaries/ui/nx-monorepo

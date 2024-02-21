@@ -19,7 +19,6 @@ RUN corepack enable
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
-RUN npm config set ignore-scripts false
 
 WORKDIR /app
 RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
@@ -27,7 +26,7 @@ RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npm
 COPY ./boundaries/ui/nx-monorepo/ ./
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN pnpm dlx nx run landing:build
+RUN pnpm nx run landing:build
 
 # Production image, copy all the files and run next
 FROM --platform=$TARGETPLATFORM ghcr.io/nginxinc/nginx-unprivileged:1.25-alpine
