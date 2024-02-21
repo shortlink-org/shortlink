@@ -21,8 +21,11 @@ npm:
         echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}"
         echo "@${CI_PROJECT_ROOT_NAMESPACE}/shortlink=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
       } | tee -a ~/.npmrc
+
+    - corepack enable
+    - corepack prepare pnpm@latest-8 --activate
   script:
     - cd $PACKAGE_PATH
-    # - pnpm publish --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/ --scope=@shortlink-org --provenance --access=public
+    # TODO: add `--provenance` flag
     - pnpm publish --registry ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/ --scope=@shortlink-org --access=public
   allow_failure: true
