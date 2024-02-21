@@ -7,7 +7,7 @@ lazy val root = (project in file("."))
     inThisBuild(
       List(
         organization := "shortlink.load",
-        scalaVersion := "2.13.12",
+        scalaVersion := "2.13.13",
         version      := "0.1.0",
       ),
     ),
