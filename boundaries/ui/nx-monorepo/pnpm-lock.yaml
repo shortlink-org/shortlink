@@ -18,8 +18,8 @@ importers:
         specifier: ^1.3.9
         version: 1.3.9(react-dom@18.2.0)(react-router-dom@6.22.1)(react@18.2.0)
       '@grafana/faro-web-tracing':
-        specifier: ^1.3.8
-        version: 1.3.8
+        specifier: ^1.3.9
+        version: 1.3.9
       '@headlessui/react':
         specifier: ^1.7.18
         version: 1.7.18(react-dom@18.2.0)(react@18.2.0)
@@ -3315,13 +3315,6 @@ packages:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
     dev: true
 
-  /@grafana/faro-core@1.3.8:
-    resolution: {integrity: sha512-1bbuR906//gEyaAIUkBOee1bBMR8ZnxAfGttuNznItPKSV6R7aO4U6YhPurVXXPO7QflcZco60Ej6Ov6h8vXhw==}
-    dependencies:
-      '@opentelemetry/api': 1.7.0
-      '@opentelemetry/otlp-transformer': 0.48.0(@opentelemetry/api@1.7.0)
-    dev: false
-
   /@grafana/faro-core@1.3.9:
     resolution: {integrity: sha512-zBghaYNKwMwiyErUYEYbx/E/HTdy3tFS7Oy+1f5CiIi5+iUSYidgeQqKdd4vKB1EtDn1MI5iA2dXBavxLNYGlg==}
     dependencies:
@@ -3346,40 +3339,12 @@ packages:
       - supports-color
     dev: false
 
-  /@grafana/faro-web-sdk@1.3.8:
-    resolution: {integrity: sha512-XFMBMr8Y+GdwHfOt+I5SlAr7VPulFBmpgPlHtmJ9YitMPWKyQxGOp5HRvmptwIsGMjFXgDdMbO5H2879dpkEjw==}
-    dependencies:
-      '@grafana/faro-core': 1.3.8
-      ua-parser-js: 1.0.37
-      web-vitals: 3.5.2
-    dev: false
-
   /@grafana/faro-web-sdk@1.3.9:
     resolution: {integrity: sha512-lrUhzITfgpEtOP4I/HbhIh0UCTNpcAWveFN7bzdCJ/N/G3YULd6jXBuBoHcC25Fx3WtLChljzJ5IJ02HTA2Q9g==}
     dependencies:
       '@grafana/faro-core': 1.3.9
       ua-parser-js: 1.0.37
       web-vitals: 3.5.2
-    dev: false
-
-  /@grafana/faro-web-tracing@1.3.8:
-    resolution: {integrity: sha512-lSBg0OTXU8c86Gywv7V8dMkzH/SXkE0Px95JXiOhpWMB189f3zkbcC6UO+U+ZhGHLPGln+J1sKgW7QVbvzYvLQ==}
-    dependencies:
-      '@grafana/faro-web-sdk': 1.3.8
-      '@opentelemetry/api': 1.7.0
-      '@opentelemetry/context-zone': 1.21.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/core': 1.21.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/exporter-trace-otlp-http': 0.48.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/instrumentation': 0.48.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/instrumentation-document-load': 0.35.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/instrumentation-fetch': 0.48.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/instrumentation-xml-http-request': 0.48.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/otlp-transformer': 0.48.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/resources': 1.21.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/sdk-trace-web': 1.21.0(@opentelemetry/api@1.7.0)
-      '@opentelemetry/semantic-conventions': 1.21.0
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /@grafana/faro-web-tracing@1.3.9:
@@ -6697,7 +6662,7 @@ packages:
       magic-string: 0.30.7
       path-browserify: 1.0.1
       process: 0.11.10
-      semver: 7.5.4
+      semver: 7.6.0
       style-loader: 3.3.4(webpack@5.90.3)
       terser-webpack-plugin: 5.3.10(@swc/core@1.4.2)(esbuild@0.18.20)(webpack@5.90.3)
       ts-dedent: 2.2.0
@@ -7156,7 +7121,7 @@ packages:
       react: 18.2.0
       react-docgen: 7.0.3
       react-dom: 18.2.0(react@18.2.0)
-      semver: 7.5.4
+      semver: 7.6.0
       typescript: 5.3.3
       webpack: 5.90.3(@swc/core@1.4.2)(esbuild@0.18.20)
     transitivePeerDependencies:
@@ -10714,7 +10679,7 @@ packages:
       postcss-modules-scope: 3.1.1(postcss@8.4.35)
       postcss-modules-values: 4.0.0(postcss@8.4.35)
       postcss-value-parser: 4.2.0
-      semver: 7.5.4
+      semver: 7.6.0
       webpack: 5.90.3(@swc/core@1.4.2)(esbuild@0.18.20)
     dev: true
 
@@ -12816,7 +12781,7 @@ packages:
       minimatch: 3.1.2
       node-abort-controller: 3.1.1
       schema-utils: 3.3.0
-      semver: 7.5.4
+      semver: 7.6.0
       tapable: 2.2.1
       typescript: 5.3.3
       webpack: 5.90.3(@swc/core@1.4.2)(esbuild@0.18.20)
@@ -16225,7 +16190,7 @@ packages:
     resolution: {integrity: sha512-p7eGEiQil0YUV3ItH4/tBb781L5impVmmx2E9FRKF7d18XXzp4PGT2tdYMFY6wQqgxD0IwNZOiSJ0/K0fSi/OA==}
     engines: {node: '>=10'}
     dependencies:
-      semver: 7.5.4
+      semver: 7.6.0
     dev: true
 
   /node-abort-controller@3.1.1:
@@ -17664,7 +17629,7 @@ packages:
       cosmiconfig: 8.3.6(typescript@5.3.3)
       jiti: 1.21.0
       postcss: 8.4.35
-      semver: 7.5.4
+      semver: 7.6.0
       webpack: 5.90.3(@swc/core@1.4.2)(esbuild@0.18.20)
     transitivePeerDependencies:
       - typescript
@@ -19787,7 +19752,7 @@ packages:
       detect-libc: 2.0.2
       node-addon-api: 6.1.0
       prebuild-install: 7.1.1
-      semver: 7.5.4
+      semver: 7.6.0
       simple-get: 4.0.1
       tar-fs: 3.0.5
       tunnel-agent: 0.6.0
