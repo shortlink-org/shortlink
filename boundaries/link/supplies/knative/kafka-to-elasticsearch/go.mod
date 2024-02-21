@@ -3,8 +3,8 @@ module github.com/shortlink-org/shortlink/boundaries/link/supplies/knative/kafka
 go 1.22.0
 
 require (
-	github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.15.0
-	github.com/cloudevents/sdk-go/v2 v2.15.0
+	github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.15.1
+	github.com/cloudevents/sdk-go/v2 v2.15.1
 	github.com/elastic/go-elasticsearch/v8 v8.12.0
 )
 
