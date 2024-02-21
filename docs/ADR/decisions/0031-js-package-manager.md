@@ -18,6 +18,13 @@ After evaluating various options, we have decided to adopt `pnpm` as our primary
 `pnpm` offers significant improvements in terms of speed and disk space utilization by leveraging hard links 
 and a shared store for packages.
 
+### Alternatives
+
+#### Bun
+
+[Bun](https://bun.sh/) is a fast JS runtime, bundler, and package manager. 
+It is designed to be a drop-in replacement for `npm`, but it's a very new project, so it's not as mature as `pnpm`.
+
 ## Consequences
 
 The transition to `pnpm` is expected to result in faster build times and reduced disk space consumption 
