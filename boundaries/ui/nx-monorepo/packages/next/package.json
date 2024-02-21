@@ -22,7 +22,8 @@
     "cypress": "NODE_ENV=test npx cypress open",
     "cypress:headless": "NODE_ENV=test cypress run",
     "e2e": "NODE_ENV=test start-server-and-test start http://localhost:3000 cypress",
-    "e2e:headless": "NODE_ENV=test start-server-and-test start http://localhost:3000 cypress:headless"
+    "e2e:headless": "NODE_ENV=test start-server-and-test start http://localhost:3000 cypress:headless",
+    "preinstall": "npx only-allow pnpm"
   },
   "husky": {
     "hooks": {

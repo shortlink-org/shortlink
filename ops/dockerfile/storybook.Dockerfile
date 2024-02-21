@@ -20,8 +20,10 @@ RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npm
 
 COPY ./boundaries/ui/nx-monorepo/ ./
 
-RUN npm ci --cache .npm --prefer-offline --force
-RUN npx nx run @shortlink-org/ui-kit:build-storybook
+RUN npm i -g pnpm
+RUN pnpm config set store-path .npm
+RUN pnpm install
+RUN pnpm dlx nx run @shortlink-org/ui-kit:build-storybook
 
 FROM --platform=$BUILDPLATFORM development-builder AS cache
 

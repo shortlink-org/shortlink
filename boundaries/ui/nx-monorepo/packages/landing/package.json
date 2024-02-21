@@ -11,7 +11,8 @@
     "lint:gitlab": "pnpm lint -- --format gitlab",
     "prettier": "npx prettier -w -c .",
     "cypress": "NODE_ENV=test npx cypress open",
-    "cypress:headless": "NODE_ENV=test cypress run"
+    "cypress:headless": "NODE_ENV=test cypress run",
+    "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
     "@marsidev/react-turnstile": "0.5.3",
