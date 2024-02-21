@@ -27,15 +27,6 @@ RUN pnpm config set store-path .npm
 RUN pnpm install
 RUN pnpm dlx nx run landing:build
 
-FROM --platform=$BUILDPLATFORM development-builder AS cache
-
-COPY --from=development-builder /app/packages/landing/out /app/out
-
-FROM --platform=$BUILDPLATFORM alpine:3.19 AS ci-builder
-FROM --platform=$BUILDPLATFORM ${APP_ENV}-builder AS cache
-
-COPY ./boundaries/ui/nx-monorepo/packages/landing/out /app/out
-
 # Production image, copy all the files and run next
 FROM --platform=$TARGETPLATFORM ghcr.io/nginxinc/nginx-unprivileged:1.25-alpine
 
@@ -71,7 +62,7 @@ HEALTHCHECK \
 COPY ./ops/dockerfile/conf/ui.local /etc/nginx/conf.d/default.conf
 COPY ./ops/docker-compose/gateway/nginx/conf/nginx.conf /etc/nginx/nginx.conf
 COPY ./ops/docker-compose/gateway/nginx/conf/templates /etc/nginx/template
-COPY --from=cache /app/out ./
+COPY --from=development-builder /app/packages/landing/out ./
 
 # Setup unprivileged user 1001
 RUN chown -R 1001 /usr/share/nginx/html

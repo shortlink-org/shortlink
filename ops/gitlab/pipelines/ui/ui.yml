@@ -4,7 +4,6 @@ include:
   - local: /ops/gitlab/pipelines/ui/stages/publish.yaml
   - local: /ops/gitlab/pipelines/ui/stages/test.yml
   - local: /ops/gitlab/pipelines/ui/stages/build.yml
-  - local: /ops/gitlab/pipelines/ui/stages/artifacts.yml
   - local: /ops/gitlab/pipelines/ui/stages/accessibility.yml
 
 stages:
