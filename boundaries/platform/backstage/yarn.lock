@@ -4254,6 +4254,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@backstage/plugin-auth-node@npm:^0.4.5":
+  version: 0.4.5
+  resolution: "@backstage/plugin-auth-node@npm:0.4.5"
+  dependencies:
+    "@backstage/backend-common": "npm:^0.21.0"
+    "@backstage/backend-plugin-api": "npm:^0.6.10"
+    "@backstage/catalog-client": "npm:^1.6.0"
+    "@backstage/catalog-model": "npm:^1.4.4"
+    "@backstage/config": "npm:^1.1.1"
+    "@backstage/errors": "npm:^1.2.3"
+    "@backstage/types": "npm:^1.1.1"
+    "@types/express": "npm:*"
+    "@types/passport": "npm:^1.0.3"
+    express: "npm:^4.17.1"
+    jose: "npm:^4.6.0"
+    lodash: "npm:^4.17.21"
+    node-fetch: "npm:^2.6.7"
+    passport: "npm:^0.7.0"
+    winston: "npm:^3.2.1"
+    zod: "npm:^3.22.4"
+    zod-to-json-schema: "npm:^3.21.4"
+  checksum: 10c0/a5f51739effc2bde17fc0d65df0734cbc2c342b3f0018d0f4b2b0aedefa3d86fc0e8145db046b474e02dacdfeac39f2341ce6f19366f0ed253c0c9106d5a2811
+  languageName: node
+  linkType: hard
+
 "@backstage/plugin-catalog-backend-module-scaffolder-entity-model@npm:^0.1.7":
   version: 0.1.7
   resolution: "@backstage/plugin-catalog-backend-module-scaffolder-entity-model@npm:0.1.7"
@@ -14109,9 +14134,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@veecode-platform/backstage-plugin-gitlab-pipelines@npm:^0.2.34":
-  version: 0.2.34
-  resolution: "@veecode-platform/backstage-plugin-gitlab-pipelines@npm:0.2.34"
+"@veecode-platform/backstage-plugin-gitlab-pipelines@npm:^0.2.40":
+  version: 0.2.40
+  resolution: "@veecode-platform/backstage-plugin-gitlab-pipelines@npm:0.2.40"
   dependencies:
     "@backstage/core-components": "npm:^0.13.8"
     "@backstage/core-plugin-api": "npm:^1.8.0"
@@ -14123,7 +14148,7 @@ __metadata:
     react-use: "npm:^17.2.4"
   peerDependencies:
     react: ^16.13.1 || ^17.0.0
-  checksum: 10c0/a3429892e6fd1364f63bf4e5d99da6d0c3c23ebef57b140cb3b8433b39871a76b169b4d60c975b6755bb861b0fbbd51bfdaf2b542ec8518b662d4bbefad3a7a9
+  checksum: 10c0/1074e63d1c0b80f8e59bdf75d4859a76b3839bd5de7d0a043c2a97fa01acecc1ee804fb6169e280b6c0b1e89338cef06d247938cae338227a3ec3cc5439d12ca
   languageName: node
   linkType: hard
 
@@ -14786,9 +14811,9 @@ __metadata:
     "@testing-library/user-event": "npm:^14.5.2"
     "@types/node": "npm:^20.11.19"
     "@types/react-dom": "npm:^18.2.19"
-    "@veecode-platform/backstage-plugin-gitlab-pipelines": "npm:^0.2.34"
+    "@veecode-platform/backstage-plugin-gitlab-pipelines": "npm:^0.2.40"
     cross-env: "npm:^7.0.3"
-    cypress: "npm:^13.6.4"
+    cypress: "npm:^13.6.5"
     eslint-plugin-cypress: "npm:^2.15.1"
     history: "npm:^5.3.0"
     react: "npm:^18.2.0"
@@ -15486,7 +15511,7 @@ __metadata:
     "@backstage/config": "npm:^1.1.1"
     "@backstage/plugin-app-backend": "npm:^0.3.58"
     "@backstage/plugin-auth-backend": "npm:^0.21.0"
-    "@backstage/plugin-auth-node": "npm:^0.4.4"
+    "@backstage/plugin-auth-node": "npm:^0.4.5"
     "@backstage/plugin-catalog-backend": "npm:^1.17.0"
     "@backstage/plugin-kubernetes-backend": "npm:^0.15.0"
     "@backstage/plugin-permission-common": "npm:^0.7.12"
@@ -15947,7 +15972,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"buffer@npm:^5.5.0, buffer@npm:^5.6.0":
+"buffer@npm:^5.5.0, buffer@npm:^5.7.1":
   version: 5.7.1
   resolution: "buffer@npm:5.7.1"
   dependencies:
@@ -17733,9 +17758,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:^13.6.4":
-  version: 13.6.4
-  resolution: "cypress@npm:13.6.4"
+"cypress@npm:^13.6.5":
+  version: 13.6.5
+  resolution: "cypress@npm:13.6.5"
   dependencies:
     "@cypress/request": "npm:^3.0.0"
     "@cypress/xvfb": "npm:^1.2.4"
@@ -17744,7 +17769,7 @@ __metadata:
     arch: "npm:^2.2.0"
     blob-util: "npm:^2.0.2"
     bluebird: "npm:^3.7.2"
-    buffer: "npm:^5.6.0"
+    buffer: "npm:^5.7.1"
     cachedir: "npm:^2.3.0"
     chalk: "npm:^4.1.0"
     check-more-types: "npm:^2.24.0"
@@ -17762,7 +17787,7 @@ __metadata:
     figures: "npm:^3.2.0"
     fs-extra: "npm:^9.1.0"
     getos: "npm:^3.2.1"
-    is-ci: "npm:^3.0.0"
+    is-ci: "npm:^3.0.1"
     is-installed-globally: "npm:~0.4.0"
     lazy-ass: "npm:^1.6.0"
     listr2: "npm:^3.8.3"
@@ -17781,7 +17806,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 10c0/35278bea9a3d4ac7754cbf02f57a50839d67d142c8e84d1a97dc7cd746135cb180616793863a77cfc2cbe2f4974c9fd07f21d320818444b0f7e02bfc29f35e77
+  checksum: 10c0/a880f99be886a12874ac374e12b734ff650f542248b039e85b485501468fd2e76630086bb752b1194957a1ab97b42820213593f8abd605a0b291017b49457314
   languageName: node
   linkType: hard
 
@@ -22693,7 +22718,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"is-ci@npm:3.0.1, is-ci@npm:^3.0.0":
+"is-ci@npm:3.0.1, is-ci@npm:^3.0.1":
   version: 3.0.1
   resolution: "is-ci@npm:3.0.1"
   dependencies:
