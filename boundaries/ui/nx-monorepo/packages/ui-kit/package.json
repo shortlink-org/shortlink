@@ -8,16 +8,16 @@
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "npx rollup -c --strictDeprecations --bundleConfigAsCjs",
-    "storybook": "npx storybook dev -p 6006",
-    "build-storybook": "npx storybook build",
-    "semantic-release": "npx semantic-release",
+    "build": "pnpm rollup -c --strictDeprecations --bundleConfigAsCjs",
+    "storybook": "pnpm storybook dev -p 6006",
+    "build-storybook": "pnpm storybook build",
+    "semantic-release": "pnpm semantic-release",
     "test": "NODE_ENV=test jest",
-    "lint": "npx eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
+    "lint": "pnpm eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
     "lint:fix": "pnpm lint -- --fix",
     "lint:gitlab": "pnpm lint -- --format gitlab",
-    "prettier": "npx prettier -w -c .",
-    "chromatic": "npx chromatic --project-token=secret"
+    "prettier": "pnpm prettier -w -c .",
+    "chromatic": "pnpm chromatic --project-token=secret"
   },
   "files": [
     "src"

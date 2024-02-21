@@ -13,6 +13,10 @@ ARG API_URI
 # Install dependencies only when needed
 FROM --platform=$BUILDPLATFORM node:21.6-alpine AS development-builder
 
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+RUN corepack enable
+
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
 RUN apk add --no-cache libc6-compat
 RUN npm config set ignore-scripts false
@@ -22,9 +26,7 @@ RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npm
 
 COPY ./boundaries/ui/nx-monorepo/ ./
 
-RUN npm i -g pnpm
-RUN pnpm config set store-path .npm
-RUN pnpm install
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm dlx nx run landing:build
 
 # Production image, copy all the files and run next
