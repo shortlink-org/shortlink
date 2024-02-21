@@ -21,6 +21,7 @@ for an information team about cases for updated ADR.
   - **CI/CD**
     - [ADR-0001](./decisions/0001-ci-cd.md) - Use CI/CD
     - [ADR-0016](./decisions/0016-lifecycle-deploy.md) - Lifecycle deploy
+    - [ADR-0010](./decisions/0010-docker-tips.md) - Docker tips
     - [ADR-0028](./decisions/0028-application-lifecycle-orchestration.md) - Implementing Stage-based Promotion Mechanisms with Kargo for CD in Kubernetes
   - **Kubernetes**
     - [ADR-0003](./decisions/0003-maintaining-kubernetes.md) - Kubernetes
