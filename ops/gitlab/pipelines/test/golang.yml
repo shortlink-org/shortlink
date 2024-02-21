@@ -56,16 +56,16 @@ golint:
   extends:
     - .go-cache
     - .job_teplate_go
+  image:
+    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/golangci/golangci-lint:v1.56.2-alpine
+    entrypoint: [""]
   before_script:
-    - wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.56.2
     - apk add --no-cache jq
     - go work vendor
   script:
-    - $GOPATH/bin/golangci-lint run --out-format code-climate:codequality.json,colored-line-number ./...
-  # TODO: Remove allow_failure when the linting issues are fixed
+    - golangci-lint run --out-format code-climate:codequality.json,colored-line-number ./...
   allow_failure: true
   artifacts:
-    when: always
     reports:
       codequality: codequality.json
     paths:

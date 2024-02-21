@@ -1,6 +1,9 @@
 include:
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
   - component: gitlab.com/components/code-quality/code-quality@main
+    inputs:
+      stage: qa
+      debug: "1"
 
 # CODE QUALITY =========================================================================================================
 code_quality:
@@ -12,7 +15,6 @@ code_quality:
         ARTIFACT_NAME: gl-code-quality-report.html
   variables:
     REPORT_FORMAT: ${REPORT_FORMAT}
-    SOURCE_CODE: ./
   artifacts:
     paths:
       - ${ARTIFACT_NAME}
