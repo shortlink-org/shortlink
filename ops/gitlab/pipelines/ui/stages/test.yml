@@ -3,7 +3,7 @@ lint:
   extends: .nx
   stage: test
   script:
-    - npx nx run-many --target=lint:gitlab --all --parallel
+    - pnpm nx run-many --target=lint:gitlab --all --parallel
   allow_failure: true
   artifacts:
     reports:
@@ -14,14 +14,15 @@ lint:
 ui:landing:
   extends: .nx
   stage: test
-  image: cypress/browsers:node-20.9.0-chrome-118.0.5993.88-1-ff-118.0.2-edge-118.0.2088.46-1
+  image: cypress/browsers:node-20.11.0-chrome-121.0.6167.184-1-ff-123.0-edge-121.0.2277.128-1
   script:
     # start the server in the background
-    - npx nx run landing:dev &
+    - pnpm nx run landing:dev &
     - sleep 10
     # run Cypress tests
-    - npx nx run landing:cypress:headless
+    - pnpm nx run landing:cypress:headless
   allow_failure: true
+  retry: 2
   artifacts:
     when: always
     name: "cypress-${CI_COMMIT_REF_SLUG}"

@@ -7,7 +7,7 @@ stages:
   - test
 
 before_script:
-  - cd ui/mobile/flutter/shortlink
+  - cd boundaries/ui/mobile/flutter/shortlink
   - flutter pub get
   - flutter clean
 

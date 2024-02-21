@@ -50,6 +50,8 @@ dast:
     DAST_ZAP_USE_AJAX_SPIDER: "true" # use the ajax spider
     GITLAB_FEATURES: dast
     DAST_BROWSER_SCAN: "true"
+  before_script:
+    - echo "${DAST_WEBSITE}" > environment_url.txt
   rules:
     - if: $CI_COMMIT_TAG
       when: on_success
@@ -60,7 +62,7 @@ dast_api:
   stage: accessibility
   variables:
     DAST_API_BETA: 1
-    DAST_API_POSTMAN_COLLECTION: ./docs/postman/shortlink.postman_collection.json
+    DAST_API_POSTMAN_COLLECTION: ./boundaries/api/bff-web/docs/postman/shortlink.postman_collection.json
     # DAST_API_OPENAPI: ./docs/api.swagger.json
     DAST_API_API: $ENVIRONMENT_URL
     DAST_API_TARGET_URL: $ENVIRONMENT_URL
