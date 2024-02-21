@@ -28,13 +28,14 @@ RUN \
   apk update && \
   apk add --no-cache curl tini
 
-USER node
 RUN mkdir -p /home/node/.npm/_cacache
 
 WORKDIR /app
 COPY ./boundaries/link/proxy /app/
 
 # version for npm: npm ci --cache .npm --prefer-offline --force
+RUN corepack enable && corepack prepare pnpm@latest-8 --activate
+RUN pnpm config set store-path .npm
 RUN pnpm install
 RUN pnpm build
 
