@@ -10,6 +10,5 @@ stages:
   - publish
   - build
   - test # TODO: move after build
-  - artifacts
   - deploy
   - accessibility

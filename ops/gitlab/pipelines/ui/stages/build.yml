@@ -2,7 +2,7 @@ include:
   - local: /ops/gitlab/workflows/matrix_build_ui.yml
 
 # DOCKER ===============================================================================================================
-docker:
+build:
   extends:
     - .matrix_build_ui
   stage: artifacts
