@@ -20,7 +20,7 @@ helm-docs: ### Generate HELM docs
 		-v ${PWD}/ops/Makefile/k8s/conf/Helm/README.md.gotmpl:/helm-docs/README.md.gotmpl \
 		--workdir="/helm-docs" \
 		-u "$(id -u)" \
-		jnorwood/helm-docs:v1.11.0 --template-files=/helm-docs/README.md.gotmpl
+		jnorwood/helm-docs:v1.12.0 --template-files=/helm-docs/README.md.gotmpl
 	# TODO: remove artifact after generation docs
 	@rm ops/Helm/README.md.gotmpl
 
