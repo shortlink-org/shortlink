@@ -14,8 +14,8 @@
     "semantic-release": "pnpm semantic-release",
     "test": "NODE_ENV=test jest",
     "lint": "pnpm eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
-    "lint:fix": "pnpm lint -- --fix",
-    "lint:gitlab": "pnpm lint -- --format gitlab",
+    "lint:fix": "pnpm lint --fix",
+    "lint:gitlab": "pnpm lint --format gitlab",
     "prettier": "pnpm prettier -w -c .",
     "chromatic": "pnpm chromatic --project-token=secret"
   },
