@@ -7,7 +7,7 @@ To start the app, run:
 ```shell
 ### install yarn
 yarn set version stable
-yarn install --immutable-cache
+yarn install
 
 ### update dependencies
 yarn upgrade-interactive

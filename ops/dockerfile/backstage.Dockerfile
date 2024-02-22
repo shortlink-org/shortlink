@@ -11,12 +11,17 @@ RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -exec rm -rf {
 # Stage 2 - Install dependencies and build packages
 FROM --platform=$BUILDPLATFORM node:21.6-bookworm-slim AS build
 
+# Set Python interpreter for `node-gyp` to use
+ENV PYTHON /usr/bin/python3
+
+RUN corepack enable && \
+    corepack prepare yarn@stable --activate
+
 # install sqlite3 dependencies
 RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     --mount=type=cache,target=/var/lib/apt,sharing=locked \
     apt-get update && \
-    apt-get install -y --no-install-recommends libsqlite3-dev python3 build-essential && \
-    yarn config set python /usr/bin/python3
+    apt-get install -y --no-install-recommends libsqlite3-dev python3 build-essential
 
 WORKDIR /app
 
@@ -25,7 +30,7 @@ COPY --from=packages --chown=node:node /app .
 # Stop cypress from downloading it's massive binary.
 ENV CYPRESS_INSTALL_BINARY=0
 RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
-    yarn install --immutable-cache --network-timeout 600000
+    yarn install --network-timeout 600000
 
 COPY --chown=node:node ./boundaries/platform/backstage .
 
@@ -69,7 +74,7 @@ WORKDIR /app
 COPY --from=build --chown=node:node /app/yarn.lock /app/package.json /app/packages/backend/dist/skeleton/ ./
 
 RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
-    yarn install --immutable-cache --production --network-timeout 600000 --ignore-engines
+    yarn install --production --network-timeout 600000 --ignore-engines
 
 # Copy the built packages from the build stage
 COPY --from=build --chown=node:node /app/packages/backend/dist/bundle/ ./
