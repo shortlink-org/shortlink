@@ -11,7 +11,7 @@ gateway:http-chi:crud:
       --with github.com/grafana/xk6-distributed-tracing@latest 
       --with github.com/grafana/xk6-dashboard@master
   script:
-    - k6 run --out web-dashboard=export=tests/test-report.htm 
+    - ./k6 run --out web-dashboard=export=tests/test-report.htm 
         ./boundaries/api/bff-web/tests/integrations/k6-link-crud.js
   needs: []
   rules:

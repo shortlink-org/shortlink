@@ -1,9 +1,6 @@
 include:
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
   - component: gitlab.com/components/code-quality/code-quality@main
-    inputs:
-      stage: test
-      debug: "1"
 
 # CODE QUALITY =========================================================================================================
 code_quality:
