@@ -27,7 +27,7 @@ COPY ./boundaries/ui/nx-monorepo/ ./
 
 # version for npm: npm ci --cache .npm --prefer-offline --force
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN pnpm nx run ui-next:build
+RUN pnpm dlx nx run ui-next:build
 
 # Production image, copy all the files and run next
 FROM --platform=$TARGETPLATFORM ghcr.io/nginxinc/nginx-unprivileged:1.25-alpine

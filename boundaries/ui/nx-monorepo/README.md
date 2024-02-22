@@ -11,7 +11,7 @@ This repository is a monorepo for the nx workspace.
 ### Services
 
 > [!TIP]
-> `pnpm nx graph` to see the dependency graph. 
+> `pnpm dlx nx graph` to see the dependency graph. 
 
 
 | Service | Description               | Language/Framework | Docs                                 |

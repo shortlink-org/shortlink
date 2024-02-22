@@ -3,7 +3,7 @@ lint:
   extends: .nx
   stage: test
   script:
-    - pnpm nx run-many --target=lint:gitlab --all --parallel
+    - pnpm dlx nx run-many --target=lint:gitlab --all --parallel
   allow_failure: true
   artifacts:
     reports:
@@ -17,10 +17,10 @@ ui:landing:
   image: cypress/browsers:node-20.11.0-chrome-121.0.6167.184-1-ff-123.0-edge-121.0.2277.128-1
   script:
     # start the server in the background
-    - pnpm nx run landing:dev &
+    - pnpm dlx nx run landing:dev &
     - sleep 10
     # run Cypress tests
-    - pnpm nx run landing:cypress:headless
+    - pnpm dlx nx run landing:cypress:headless
   allow_failure: true
   retry: 2
   artifacts:

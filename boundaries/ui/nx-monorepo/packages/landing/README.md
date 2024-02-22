@@ -9,7 +9,7 @@ This service made starting page for navigation to all services our platform.
 First, run the development server:
 
 ```bash
-pnpm nx dev landing
+pnpm nx dlx dev landing
 ```
 
 ### ENV

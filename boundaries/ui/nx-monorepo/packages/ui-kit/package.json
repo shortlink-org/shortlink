@@ -10,7 +10,7 @@
   "scripts": {
     "build": "pnpm rollup -c --strictDeprecations --bundleConfigAsCjs",
     "storybook": "pnpm storybook dev -p 6006",
-    "build-storybook": "pnpm storybook build",
+    "build-storybook": "pnpm dlx storybook build",
     "semantic-release": "pnpm semantic-release",
     "test": "NODE_ENV=test jest",
     "lint": "pnpm eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
