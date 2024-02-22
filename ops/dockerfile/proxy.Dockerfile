@@ -37,7 +37,7 @@ WORKDIR /app
 COPY ./boundaries/link/proxy /app/
 
 # version for npm: npm ci --cache .npm --prefer-offline --force
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile --production
 RUN pnpm build
 
 ENTRYPOINT ["/sbin/tini", "--"]
