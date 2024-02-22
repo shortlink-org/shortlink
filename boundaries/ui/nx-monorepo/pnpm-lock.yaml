@@ -591,8 +591,8 @@ importers:
         specifier: 10.4.17
         version: 10.4.17(postcss@8.4.35)
       chromatic:
-        specifier: ^10.9.6
-        version: 10.9.6
+        specifier: ^11.0.0
+        version: 11.0.0
       css-loader:
         specifier: ^6.10.0
         version: 6.10.0(webpack@5.90.3)
@@ -10083,6 +10083,19 @@ packages:
 
   /chromatic@10.9.6:
     resolution: {integrity: sha512-1MoT+/U+vQwEiq2GuehPyStbqhxqHmM1B9pdpVU1dKh26userQg1FyOFYifkTgy+9reo2w2p7sAbc0JRd2kzlA==}
+    hasBin: true
+    peerDependencies:
+      '@chromatic-com/cypress': ^0.5.2 || ^1.0.0
+      '@chromatic-com/playwright': ^0.5.2 || ^1.0.0
+    peerDependenciesMeta:
+      '@chromatic-com/cypress':
+        optional: true
+      '@chromatic-com/playwright':
+        optional: true
+    dev: true
+
+  /chromatic@11.0.0:
+    resolution: {integrity: sha512-utzRVqdMrpzYwZNf7dHWU0z0/rx6SH/FUVNozQxYHDtQfYUdEj+Ro4OSch5+Wsk2FoUmznJyLkaC2J839z1N7A==}
     hasBin: true
     peerDependencies:
       '@chromatic-com/cypress': ^0.5.2 || ^1.0.0
