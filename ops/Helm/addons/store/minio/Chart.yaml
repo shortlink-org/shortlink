@@ -14,8 +14,8 @@ engine: gotpl
 type: application
 deprecated: false
 dependencies:
-  - name: minio-operator
+  - name: operator
     alias: minio
-    version: 4.3.7
+    version: 5.0.12
     repository: https://operator.min.io/
     condition: minio.enabled
