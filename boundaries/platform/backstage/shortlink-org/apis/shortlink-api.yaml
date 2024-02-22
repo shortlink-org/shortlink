@@ -1,17 +1,18 @@
 apiVersion: backstage.io/v1alpha1
 kind: API
 metadata:
-  name: shortlink-api
-  description: The ShortLink API
+  name: bff-web
+  description: The ShortLink BFF API
   tags:
     - shortlink
     - api
+    - bff
   annotations:
     # The annotation is deprecated, we use placeholders (see below) instead, remove it later.
-    backstage.io/definition-at-location: 'url:https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/api.swagger.json'
+    backstage.io/definition-at-location: 'url:https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/api/bff-web/infrastructure/http/api/render/openapi/openapi.yaml'
 spec:
   type: openapi
   lifecycle: production
   owner: shortlink-org
   definition:
-    $text: https://github.com/shortlink-org/shortlink/blob/main/boundaries/api/api-gateway/docs/swagger.json
+    $text: https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/api/bff-web/infrastructure/http/api/render/openapi/openapi.yaml
