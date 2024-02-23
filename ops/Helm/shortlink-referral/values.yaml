@@ -75,7 +75,15 @@ deploy:
 # ==============================================================================
 service:
   type: ClusterIP
-  ports: []
+  ports:
+    - name: http
+      port: 8000
+      protocol: TCP
+      public: true
+    - name: metrics
+      port: 9090
+      protocol: TCP
+      public: true
 
 # ==============================================================================
 # Prometheus Operator ServiceMonitor configuration
