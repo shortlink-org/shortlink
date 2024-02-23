@@ -47,7 +47,7 @@ HEALTHCHECK \
   --interval=5s \
   --timeout=5s \
   --retries=3 \
-  CMD curl -f localhost:8000/ready || exit 1
+  CMD curl -f localhost:8000/healthz/ready || exit 1
 
 RUN addgroup --system referall && adduser --system --group referall
 USER referall
