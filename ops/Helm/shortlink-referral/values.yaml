@@ -16,6 +16,20 @@ serviceAccount:
   automountServiceAccountToken: false
 
 # ==============================================================================
+# TODO: Setting route
+ingress:
+  enabled: true
+  # type ingress-controller: istio, cilium, nginx
+  ingressClassName: istio
+  istio:
+    match:
+      - uri:
+          prefix: /
+    route:
+      destination:
+        port: 8000
+
+# ==============================================================================
 deploy:
   # type: Deployment, Rollout, StatefulSet
   type: Deployment
