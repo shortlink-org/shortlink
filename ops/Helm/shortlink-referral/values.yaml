@@ -17,7 +17,8 @@ serviceAccount:
 
 # ==============================================================================
 deploy:
-  replicaCount: 1
+  # type: Deployment, Rollout, StatefulSet
+  type: Deployment
 
   env:
     DATABASE_URI: redis://shortlink-redis-master.redis:6379/1
@@ -36,20 +37,12 @@ deploy:
     httpGet:
       path: /healthz/live
       port: 8000
-    initialDelaySeconds: 5
-    periodSeconds: 5
-    successThreshold: 1
-    failureThreshold: 5
 
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
     httpGet:
       path: /healthz/ready
       port: 8000
-    initialDelaySeconds: 5
-    periodSeconds: 5
-    successThreshold: 1
-    failureThreshold: 30
 
   resources:
     # -- We usually recommend not to specify default resources and to leave this as a conscious
