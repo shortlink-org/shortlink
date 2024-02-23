@@ -34,6 +34,9 @@ deploy:
   # type: Deployment, Rollout, StatefulSet
   type: Deployment
 
+  annotations:
+    sidecar.istio.io/rewriteAppHTTPProbers: "false"
+
   env:
     DATABASE_URI: redis://shortlink-redis-master.redis:6379/1
     OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: grafana-tempo.grafana:4317
