@@ -59,6 +59,7 @@ deploy:
 
   # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
+    enabled: true
     httpGet:
       path: /live
       port: 9090
@@ -69,6 +70,7 @@ deploy:
 
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
+    enabled: true
     httpGet:
       path: /ready
       port: 9090

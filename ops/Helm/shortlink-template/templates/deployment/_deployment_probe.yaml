@@ -1,7 +1,7 @@
 {{/* vim: set filetype=mustache: */}}
 
 {{- define "shortlink-common.probe" }}
-  {{- if and .startupProbe (.startupProbe.enabled | default true) }}
+  {{- if and .startupProbe .startupProbe.enabled }}
   startupProbe:
     httpGet:
       path: {{ .startupProbe.httpGet.path | default "/healthz" }}
@@ -20,7 +20,7 @@
     timeoutSeconds: {{ .startupProbe.timeoutSeconds | default 5 }}
   {{- end }}
 
-  {{- if and .livenessProbe (.livenessProbe.enabled | default true) }}
+  {{- if and .livenessProbe .livenessProbe.enabled }}
   # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
     httpGet:
@@ -41,7 +41,7 @@
     timeoutSeconds: {{ .livenessProbe.timeoutSeconds | default 5 }}
   {{- end }}
 
-  {{- if and .readinessProbe (.readinessProbe.enabled | default true) }}
+  {{- if and .readinessProbe .readinessProbe.enabled }}
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
     httpGet:
