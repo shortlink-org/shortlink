@@ -45,7 +45,7 @@ require (
 	github.com/ory/client-go v1.6.2
 	github.com/ory/dockertest/v3 v3.10.0
 	github.com/prometheus/client_golang v1.18.0
-	github.com/prometheus/client_model v0.6.0
+	github.com/prometheus/client_model v0.5.0
 	github.com/pterm/pterm v0.12.79
 	github.com/rabbitmq/amqp091-go v1.9.0
 	github.com/redis/go-redis/v9 v9.5.1
@@ -77,7 +77,7 @@ require (
 	go.opentelemetry.io/otel v1.24.0
 	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v1.24.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.24.0
-	go.opentelemetry.io/otel/exporters/prometheus v0.46.0
+	go.opentelemetry.io/otel/exporters/prometheus v0.45.2
 	go.opentelemetry.io/otel/sdk v1.24.0
 	go.opentelemetry.io/otel/sdk/metric v1.24.0
 	go.opentelemetry.io/otel/trace v1.24.0
