@@ -1,8 +1,9 @@
 """Use Referral Use Case Module."""
 
 from src.domain.referral.v1.referral_pb2 import Referral
-from src.pkg.event_bus import EventBus
 from src.infrastructure.repository.referral.uow_redis import RedisUnitOfWork
+from src.pkg.event_bus import EventBus
+
 
 class UseReferralService:
     """Use Referral Use Case."""

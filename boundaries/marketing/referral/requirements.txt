@@ -14,6 +14,8 @@ opentelemetry-api==1.22.0
 opentelemetry-sdk
 opentelemetry-exporter-otlp
 opentelemetry-exporter-prometheus
+opentelemetry-instrumentation-redis
+opentelemetry-instrumentation-sqlalchemy
 
 # For testing:
 pytest

@@ -1,12 +1,13 @@
 """HTTP endpoint for the infrastructure."""
 
-from quart import abort, request
 from google.protobuf.json_format import MessageToJson, ParseDict
+from quart import abort, request
 
+from src.domain.referral.v1.exception import ReferralNotFoundError
+from src.domain.referral.v1.referral_pb2 import Referral, Referrals
 from src.usecases.crud_referral.crud import CRUDReferralService
 from src.usecases.use_referral.use import UseReferralService
-from src.domain.referral.v1.referral_pb2 import Referral, Referrals
-from src.domain.referral.v1.exception import ReferralNotFoundError
+
 
 def register_routes(app, referral_service: CRUDReferralService, use_service: UseReferralService):
     """Register routes."""
@@ -53,10 +54,10 @@ def register_routes(app, referral_service: CRUDReferralService, use_service: Use
         except ReferralNotFoundError:
           abort(404)
 
-    @app.route('/ready', methods=["GET"])
+    @app.route('/healthz/ready', methods=["GET"])
     async def ready():
         return 'Ready!'
 
-    @app.route('/live', methods=["GET"])
+    @app.route('/healthz/live', methods=["GET"])
     async def live():
         return 'Live!'

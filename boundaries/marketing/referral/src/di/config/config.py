@@ -2,6 +2,7 @@
 
 from dotenv import load_dotenv
 
+
 class Config:
     """Config class."""
     @staticmethod

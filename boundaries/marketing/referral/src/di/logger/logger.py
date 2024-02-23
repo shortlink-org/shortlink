@@ -1,9 +1,10 @@
 """Logger provider."""
 
-from loguru import logger
 from dependency_injector import providers
-from opentelemetry.trace import Span
+from loguru import logger
 from opentelemetry.context import Context
+from opentelemetry.trace import Span
+
 
 class LoguruJsonProvider(providers.Provider):
     """Logger provider."""

@@ -1,6 +1,7 @@
 """Unit of Work interface."""
 
 import abc
+
 from src.infrastructure.repository.referral import repository
 
 

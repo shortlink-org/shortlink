@@ -4,12 +4,12 @@ import sys
 
 from dependency_injector.wiring import Provide, inject
 
-from src.usecases.crud_referral.crud import CRUDReferralService
-from src.usecases.use_referral.use import UseReferralService
-from src.di.core import LoguruJsonProvider, PrometheusMetricsProvider
+from src.di.core import LoguruJsonProvider, PrometheusMetricsProvider, QuartProvider
 from src.di.di import Application, Core
 from src.infrastructure.http.routes import register_routes
-from src.di.core import QuartProvider
+from src.usecases.crud_referral.crud import CRUDReferralService
+from src.usecases.use_referral.use import UseReferralService
+
 
 @inject
 def main(

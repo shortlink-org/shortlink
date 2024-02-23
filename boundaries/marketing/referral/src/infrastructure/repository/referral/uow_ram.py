@@ -3,6 +3,7 @@
 from src.infrastructure.repository.referral import uow
 from src.infrastructure.repository.referral.repository_ram import Repository
 
+
 class RamUnitOfWork(uow.AbstractUnitOfWork):
     """Redis Unit of Work."""
 

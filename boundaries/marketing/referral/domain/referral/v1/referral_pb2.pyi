@@ -1,12 +1,12 @@
-from google.protobuf import field_mask_pb2 as _field_mask_pb2
-from google.protobuf import timestamp_pb2 as _timestamp_pb2
-from domain.referral.v1 import commands_pb2 as _commands_pb2
-from domain.referral.v1 import events_pb2 as _events_pb2
-from domain.referral.v1 import queries_pb2 as _queries_pb2
-from google.protobuf.internal import containers as _containers
+from collections.abc import Iterable as _Iterable
+from collections.abc import Mapping as _Mapping
+from typing import ClassVar as _ClassVar
+
 from google.protobuf import descriptor as _descriptor
+from google.protobuf import field_mask_pb2 as _field_mask_pb2
 from google.protobuf import message as _message
-from typing import ClassVar as _ClassVar, Iterable as _Iterable, Mapping as _Mapping, Optional as _Optional, Union as _Union
+from google.protobuf import timestamp_pb2 as _timestamp_pb2
+from google.protobuf.internal import containers as _containers
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
@@ -24,10 +24,10 @@ class Referral(_message.Message):
     created_at: _timestamp_pb2.Timestamp
     updated_at: _timestamp_pb2.Timestamp
     field_mask: _field_mask_pb2.FieldMask
-    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., user_id: _Optional[str] = ..., created_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ..., updated_at: _Optional[_Union[_timestamp_pb2.Timestamp, _Mapping]] = ..., field_mask: _Optional[_Union[_field_mask_pb2.FieldMask, _Mapping]] = ...) -> None: ...
+    def __init__(self, id: str | None = ..., name: str | None = ..., user_id: str | None = ..., created_at: _timestamp_pb2.Timestamp | _Mapping | None = ..., updated_at: _timestamp_pb2.Timestamp | _Mapping | None = ..., field_mask: _field_mask_pb2.FieldMask | _Mapping | None = ...) -> None: ...
 
 class Referrals(_message.Message):
     __slots__ = ("referrals",)
     REFERRALS_FIELD_NUMBER: _ClassVar[int]
     referrals: _containers.RepeatedCompositeFieldContainer[Referral]
-    def __init__(self, referrals: _Optional[_Iterable[_Union[Referral, _Mapping]]] = ...) -> None: ...
+    def __init__(self, referrals: _Iterable[Referral | _Mapping] | None = ...) -> None: ...

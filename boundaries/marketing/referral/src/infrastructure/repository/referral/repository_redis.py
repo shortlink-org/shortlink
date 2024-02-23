@@ -3,19 +3,19 @@
 import json
 import os
 from urllib.parse import urlparse
-from redis.backoff import ExponentialBackoff
-from redis.retry import Retry
-from redis.client import Redis
-from redis.exceptions import (
-   BusyLoadingError,
-   ConnectionError,
-   TimeoutError
-)
-from google.protobuf.json_format import MessageToJson, ParseDict
 
-from src.domain.referral.v1.referral_pb2 import Referral
-from .repository import AbstractRepository
+from google.protobuf.json_format import MessageToJson, ParseDict
+from opentelemetry.instrumentation.redis import RedisInstrumentor
+from redis.backoff import ExponentialBackoff
+from redis.client import Redis
+from redis.exceptions import BusyLoadingError, ConnectionError, TimeoutError
+from redis.retry import Retry
+
 from src.domain.referral.v1.exception import ReferralNotFoundError
+from src.domain.referral.v1.referral_pb2 import Referral
+
+from .repository import AbstractRepository
+
 
 class Repository(AbstractRepository):
     """Repository implementation for referral domain."""
@@ -24,6 +24,9 @@ class Repository(AbstractRepository):
         """Initialize Redis connection."""
         # Run 3 retries with exponential backoff strategy
         retry = Retry(ExponentialBackoff(), 3)
+
+        # Instrument redis
+        RedisInstrumentor().instrument()
 
         # parse DATABASE_URI as host, port, db
         uri = os.environ.get("DATABASE_URI")

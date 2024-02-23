@@ -2,11 +2,11 @@
 
 from dependency_injector import containers, providers
 
+from src.di.config.config import Config
+from src.di.http.server import QuartProvider
 from src.di.logger.logger import LoguruJsonProvider
 from src.di.observability.opentelemetry import OpenTelemetryProvider
 from src.di.observability.prometheus import PrometheusMetricsProvider
-from src.di.http.server import QuartProvider
-from src.di.config.config import Config
 from src.pkg.event_bus import EventBus
 
 

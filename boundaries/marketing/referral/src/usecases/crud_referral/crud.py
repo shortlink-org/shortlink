@@ -1,10 +1,15 @@
 """CRUD Referral use case."""
 
+from src.domain.referral.v1.events_pb2 import (
+    REFERRAL_EVENT_ADD,
+    REFERRAL_EVENT_DELETE,
+    REFERRAL_EVENT_UPDATE,
+    ReferralEvent,
+)
 from src.domain.referral.v1.referral_pb2 import Referral
-from src.domain.referral.v1.events_pb2 import REFERRAL_EVENT_ADD, REFERRAL_EVENT_UPDATE, REFERRAL_EVENT_DELETE
-from src.domain.referral.v1.events_pb2 import ReferralEvent
-from src.pkg.event_bus import EventBus
 from src.infrastructure.repository.referral.uow_redis import RedisUnitOfWork
+from src.pkg.event_bus import EventBus
+
 
 class CRUDReferralService:
     """CRUD Referral use case."""

@@ -3,6 +3,7 @@
 from dependency_injector import providers
 from quart import Quart
 
+
 class QuartProvider(providers.Provider):
     """Quart provider."""
     @staticmethod

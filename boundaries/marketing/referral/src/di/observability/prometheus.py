@@ -1,14 +1,14 @@
 """Prometheus metrics provider."""
 
 import os
-from dependency_injector.providers import Injection
 
+from dependency_injector import providers
+from dependency_injector.providers import Injection
 from opentelemetry import metrics
 from opentelemetry.exporter.prometheus import PrometheusMetricReader
 from opentelemetry.sdk.metrics import MeterProvider
 from opentelemetry.sdk.resources import SERVICE_NAME, Resource
-from prometheus_client import start_http_server, REGISTRY
-from dependency_injector import providers
+from prometheus_client import REGISTRY, start_http_server
 
 
 class PrometheusMetricsProvider(providers.Singleton):

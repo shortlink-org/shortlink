@@ -1,7 +1,7 @@
 [project]
 name = "referral"
-# Support Python 3.13+.
-requires-python = ">=3.13"
+# Support Python 3.12+.
+requires-python = ">=3.12"
 
 [tool.ruff]
 line-length = 120
@@ -11,7 +11,9 @@ extend-exclude = [
   "src/domain/referral/v1/*_pb2_grpc.py",
   "tests/*",
 ]
+exclude = [".venv", "*_pb2.py", "*_pb2_grpc.py", "*_pb2.pyi"]
 
+[tool.ruff.lint]
 select = [
   "E", "W", # pycodestyle
   "F",      # pyflakes
@@ -21,7 +23,8 @@ select = [
   "PL",     # pylint
   "RUF",    # ruff
   "TID",    # tidy
+  "I",      # isort
 ]
 
-[tool.ruff.pydocstyle]
+[tool.ruff.lint.pydocstyle]
 convention = "google"
