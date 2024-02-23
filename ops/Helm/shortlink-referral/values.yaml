@@ -34,9 +34,6 @@ deploy:
   # type: Deployment, Rollout, StatefulSet
   type: Deployment
 
-  annotations:
-    sidecar.istio.io/rewriteAppHTTPProbers: "false"
-
   env:
     DATABASE_URI: redis://shortlink-redis-master.redis:6379/1
     OTEL_EXPORTER_OTLP_TRACES_ENDPOINT: grafana-tempo.grafana:4317
@@ -51,12 +48,14 @@ deploy:
 
   # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
+    enabled: "false"
     httpGet:
       path: /healthz/live
       port: 8000
 
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
+    enabled: "false"
     httpGet:
       path: /healthz/ready
       port: 8000
