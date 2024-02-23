@@ -4,11 +4,16 @@ const { fontFamily } = require('tailwindcss/defaultTheme')
 module.exports = {
   mode: 'jit',
   darkMode: 'class',
-  content: [
-    './app/**/*.{js,ts,jsx,tsx,mdx}',
-    './components/**/*.{js,ts,jsx,tsx}',
-    './stories/**/*.{js,ts,jsx,tsx}',
-  ],
+  content: {
+    files: [
+      './app/**/*.{js,ts,jsx,tsx,mdx}',
+      './components/**/*.{js,ts,jsx,tsx}',
+      './stories/**/*.{js,ts,jsx,tsx}',
+    ],
+    options: {
+      safelist: ['dark'], // specific classes
+    },
+  },
   theme: {
     fontFamily: {
       display: ['Roboto Mono', 'Menlo', 'monospace'],

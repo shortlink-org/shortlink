@@ -8,7 +8,7 @@
     "export": "NX_BATCH_MODE=true pnpm dlx nx run-many -t export --all --parallel",
     "prettier": "NX_BATCH_MODE=true pnpm dlx nx run-many -t prettier --all --parallel",
     "lint:fix": "NX_BATCH_MODE=true pnpm dlx nx run-many -t lint:fix --all --parallel",
-    "dev:ui-next": "pnpm pnpm run ui-next:start:dev",
+    "dev:ui-next": "pnpm nx run ui-next:start:dev",
     "preinstall": "npx only-allow pnpm"
   },
   "private": true,
@@ -20,7 +20,7 @@
     "@fontsource/caveat": "^5.0.16",
     "@fontsource/inter": "^5.0.16",
     "@next/eslint-plugin-next": "^14.1.0",
-    "@nrwl/workspace": "18.0.4",
+    "@nx/workspace": "18.0.4",
     "@nx/devkit": "18.0.4",
     "@nx/eslint-plugin": "18.0.4",
     "@nx/next": "18.0.4",
