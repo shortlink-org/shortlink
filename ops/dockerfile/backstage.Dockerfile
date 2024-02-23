@@ -37,7 +37,6 @@ WORKDIR /app
 
 COPY --from=packages --chown=node:node /app .
 COPY --from=packages --chown=node:node /app/.yarn ./.yarn
-COPY --from=packages --chown=node:node /app/.yarnrc.yml  ./
 
 # Stop cypress from downloading it's massive binary.
 ENV CYPRESS_INSTALL_BINARY=0
@@ -105,7 +104,6 @@ RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid
 
 # Copy the install dependencies from the build stage and context
 COPY --from=build --chown=node:node /app/.yarn ./.yarn
-COPY --from=build --chown=node:node /app/.yarnrc.yml  ./
 COPY --from=build --chown=node:node /app/yarn.lock /app/package.json /app/packages/backend/dist/skeleton/ ./
 
 RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
