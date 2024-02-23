@@ -37,6 +37,9 @@ grafana:
     selfMonitor: true
     interval: "1m"
 
+    labels:
+      release: prometheus-operator
+
   imageRenderer:
     enabled: true
 

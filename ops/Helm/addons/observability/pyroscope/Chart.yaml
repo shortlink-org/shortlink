@@ -15,12 +15,13 @@ type: application
 deprecated: false
 dependencies:
   - name: pyroscope
-    version: 0.2.92
-    repository: https://pyroscope-io.github.io/helm-chart
+    version: 1.4.1
+    repository: https://grafana.github.io/helm-charts
     condition: pyroscope.enabled
     tags:
       - observability
       - profiling
+  # TODO: is it maintained?
   - name: pyroscope-ebpf
     version: 0.1.31
     repository: https://pyroscope-io.github.io/helm-chart

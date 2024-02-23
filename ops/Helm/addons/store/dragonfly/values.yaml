@@ -21,6 +21,9 @@ dragonfly:
   serviceMonitor:
     enabled: true
 
+    labels:
+      release: prometheus-operator
+
   prometheusRule:
     enabled: false
 

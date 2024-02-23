@@ -67,6 +67,9 @@ falco-exporter:
   serviceMonitor:
     enabled: true
 
+    labels:
+      release: prometheus-operator
+
   grafanaDashboard:
     enabled: true
     namespace: grafana

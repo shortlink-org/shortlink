@@ -59,6 +59,9 @@ tempo:
   serviceMonitor:
     enabled: true
 
+    labels:
+      release: prometheus-operator
+
   persistence:
     enabled: true
     storageClassName: local-path

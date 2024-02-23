@@ -1,6 +1,9 @@
 pyroscope:
   enabled: true
 
+  extraArgs:
+    log.level: info
+
   ingress:
     enabled: true
     className: nginx
@@ -27,6 +30,15 @@ pyroscope:
     requests:
       cpu: 20m
       memory: 64Mi
+
+  agent:
+    enabled: false
+
+  serviceMonitor:
+    enabled: true
+
+    labels:
+      release: prometheus-operator
 
 pyroscope-ebpf:
   enabled: false
