@@ -18,6 +18,3 @@ ALTER TABLE
 
 COMMENT ON COLUMN
     billing.account."user_id" IS 'Alias for GDPR';
-
-ALTER TABLE
-    billing.account ADD CONSTRAINT "account_tariff_id_foreign" FOREIGN KEY("tariff_id") REFERENCES billing.tariff("id");
