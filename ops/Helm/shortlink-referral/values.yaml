@@ -47,6 +47,14 @@ deploy:
     pullPolicy: IfNotPresent
 
   # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
+  startupProbe:
+    enabled: true
+    initialDelaySeconds: 30
+    httpGet:
+      path: /healthz/ready
+      port: 8000
+
+  # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
     enabled: true
     httpGet:
@@ -56,6 +64,7 @@ deploy:
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
     enabled: true
+    initialDelaySeconds: 30
     httpGet:
       path: /healthz/ready
       port: 8000
