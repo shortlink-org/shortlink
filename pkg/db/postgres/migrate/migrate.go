@@ -43,7 +43,10 @@ func Migration(_ context.Context, store db.DB, fs embed.FS, tableName string) er
 
 	err = m.Up()
 	if err != nil && err.Error() != "no change" {
-		return err
+		return &MigrationError{
+			error: err,
+			Table: tableName,
+		}
 	}
 
 	return nil
