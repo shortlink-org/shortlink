@@ -61,7 +61,7 @@ argo-workflows:
     logging:
       format: "json"
 
-    secure: false
+    secure: true
 
     authModes:
       - server
