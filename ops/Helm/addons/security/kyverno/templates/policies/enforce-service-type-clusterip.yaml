@@ -16,6 +16,6 @@ spec:
             type: ClusterIP
       preconditions:
         all:
-          - key: "{{ request.object.spec.type }}"
+          - key: "{{"{{"}} request.object.spec.type {{"{{"}}"
             operator: Equals
             value: "LoadBalancer"
