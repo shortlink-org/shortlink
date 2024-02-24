@@ -39,7 +39,7 @@ func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, me
 	case "mongo":
 		store.DB = &mongo.Store{}
 	case "redis":
-		store.DB = &redis.Store{}
+		store.DB = redis.New(tracer, metrics)
 	case "dgraph":
 		store.DB = dgraph.New(log)
 	case "leveldb":

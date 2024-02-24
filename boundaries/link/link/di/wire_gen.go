@@ -137,7 +137,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	cacheCache, err := cache.New(context)
+	cacheCache, err := cache.New(context, tracerProvider, monitoringMonitoring)
 	if err != nil {
 		cleanup6()
 		cleanup5()

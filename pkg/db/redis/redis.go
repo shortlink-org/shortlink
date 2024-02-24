@@ -6,6 +6,8 @@ import (
 	"github.com/redis/rueidis"
 	"github.com/redis/rueidis/rueidisotel"
 	"github.com/spf13/viper"
+	"go.opentelemetry.io/otel/sdk/metric"
+	"go.opentelemetry.io/otel/trace"
 )
 
 // Config - config
@@ -18,7 +20,18 @@ type Config struct {
 // Store implementation of db interface
 type Store struct {
 	client rueidis.Client
+
+	tracer  trace.TracerProvider
+	metrics *metric.MeterProvider
+
 	config Config
+}
+
+func New(tracer trace.TracerProvider, metrics *metric.MeterProvider) *Store {
+	return &Store{
+		tracer:  tracer,
+		metrics: metrics,
+	}
 }
 
 // Init - initialize
@@ -34,7 +47,7 @@ func (s *Store) Init(ctx context.Context) error {
 		Username:    s.config.Username,
 		Password:    s.config.Password,
 		SelectDB:    0, // use default DB
-	})
+	}, rueidisotel.WithTracerProvider(s.tracer), rueidisotel.WithMeterProvider(s.metrics))
 	if err != nil {
 		return err
 	}
@@ -42,7 +55,8 @@ func (s *Store) Init(ctx context.Context) error {
 	// Graceful shutdown
 	go func() {
 		<-ctx.Done()
-		_ = s.close()
+
+		s.client.Close()
 	}()
 
 	return nil
@@ -51,15 +65,6 @@ func (s *Store) Init(ctx context.Context) error {
 // GetConn - get connect
 func (s *Store) GetConn() any {
 	return s.client
-}
-
-// close - close connection
-//
-//nolint:unparam // ignore
-func (s *Store) close() error {
-	s.client.Close()
-
-	return nil
 }
 
 // setConfig - set configuration

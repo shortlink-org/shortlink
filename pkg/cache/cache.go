@@ -7,18 +7,20 @@ import (
 	"github.com/redis/rueidis"
 	"github.com/redis/rueidis/rueidiscompat"
 	"github.com/spf13/viper"
+	"go.opentelemetry.io/otel/trace"
 
 	db2 "github.com/shortlink-org/shortlink/pkg/db"
-	db "github.com/shortlink-org/shortlink/pkg/db/redis"
+	"github.com/shortlink-org/shortlink/pkg/db/redis"
+	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 )
 
 // New returns a new cache.Client.
-func New(ctx context.Context) (*cache.Cache, error) {
+func New(ctx context.Context, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*cache.Cache, error) {
 	viper.SetDefault("LOCAL_CACHE_TTL", "5m")
 	viper.SetDefault("LOCAL_CACHE_COUNT", 1000)
 	viper.SetDefault("LOCAL_CACHE_METRICS_ENABLED", true)
 
-	store := &db.Store{}
+	store := redis.New(tracer, monitor.Metrics)
 	err := store.Init(ctx)
 	if err != nil {
 		return nil, &InitCacheError{err}
