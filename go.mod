@@ -51,7 +51,7 @@ require (
 	github.com/redis/go-redis/v9 v9.5.1
 	github.com/redis/rueidis v1.0.29
 	github.com/redis/rueidis/rueidiscompat v1.0.29
-	github.com/redis/rueidis/rueidisotel v1.0.28
+	github.com/redis/rueidis/rueidisotel v1.0.29
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sasha-s/go-deadlock v0.3.1
@@ -194,8 +194,6 @@ require (
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect
 	github.com/nats-io/nkeys v0.4.7 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
-	github.com/onsi/ginkgo/v2 v2.15.0 // indirect
-	github.com/onsi/gomega v1.31.1 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.0-rc3 // indirect
 	github.com/opencontainers/runc v1.1.12 // indirect
