@@ -29,11 +29,21 @@ deploy:
   # livenessProbe: {}
   # readinessProbe: {}
 
+  volumes:
+    - name: tmp
+      mountPath: /tmp
+      type: emptyDir
+
 sidecars:
   - name: proxy
     image:
       repository: registry.gitlab.com/shortlink-org/shortlink/support-proxy
       tag: 0.17.34
+
+    volumes:
+      - name: tmp
+        mountPath: /tmp
+        type: emptyDir
 
 # ==============================================================================
 service:
