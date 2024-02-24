@@ -11,6 +11,7 @@ metadata:
 spec:
   subscriptions:
     - image:
+        imageSelectionStrategy: SemVer
         repoURL: registry.gitlab.com/shortlink-org/shortlink/link
         semverConstraint: ^0.17.35
 
