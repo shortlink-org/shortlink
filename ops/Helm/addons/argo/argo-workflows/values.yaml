@@ -34,9 +34,6 @@ argo-workflows:
         memory: 128Mi
 
   server:
-    # extraArgs:
-    #  - --auth-mode=sso
-
     baseHref: /
 
     ingress:
@@ -64,7 +61,7 @@ argo-workflows:
     logging:
       format: "json"
 
-    secure: true
+    secure: false
 
     authModes:
       - sso
