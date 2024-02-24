@@ -17,3 +17,9 @@ help: ## Display this help screen
 .PHONY: confirm
 confirm:
 	@echo 'Are you sure? [y/N] ' && read ans && [ $${ans:-N} = y ]
+
+# GIT SEETINGS =========================================================================================================
+git-config: ## Set git config
+	git config --global branch.sort -committerdate
+	git config --global pack.allowPackReuse multi
+	git multi-pack-index write --bitmap
