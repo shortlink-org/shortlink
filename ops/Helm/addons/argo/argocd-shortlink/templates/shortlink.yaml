@@ -12,9 +12,12 @@ spec:
         elements:
           - cluster: in-cluster
             url: https://kubernetes.default.svc
+            stage: production
   template:
     metadata:
-      name: shortlink
+      name: shortlink-{{stage}}
+      annotations:
+        kargo.akuity.io/authorized-stage: shortlink:{{stage}}
     spec:
       project: shortlink
       source:
