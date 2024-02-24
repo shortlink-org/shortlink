@@ -53,4 +53,5 @@ RUN addgroup --system referall && adduser --system --group referall
 USER referall
 
 COPY boundaries/marketing/referral/ .
-CMD ["python", "src/__main__.py"]
+CMD ["hypercorn", "src/__main__:main", "-b", "0.0.0.0:8000", "--reload"]
+
