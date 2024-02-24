@@ -64,6 +64,7 @@ argo-workflows:
     secure: false
 
     authModes:
+      - server
       - sso
 
     sso:
