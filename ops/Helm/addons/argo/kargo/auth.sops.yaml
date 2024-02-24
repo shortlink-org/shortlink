@@ -2,14 +2,15 @@ kargo:
     api:
         adminAccount:
             password: ENC[AES256_GCM,data:+RDI+dY=,iv:Za4sYkoDxKoEtGxb/wzQ+7mLMCRYHuHvjCylUYh56BM=,tag:kGfGxxoab8Xjz7KckEcxww==,type:str]
+            tokenSigningKey: ENC[AES256_GCM,data:5ptgfC0My9p59iuQoSBOgxkbmPO1ZZIN4Jz37TGBE3orWSGbyQ9I6g==,iv:gYpMPkRaRrRo9rRLZ36wk4WKyOzw9iDVmcnr6CBw8qE=,tag:/UvQVp0hVt4wdJeR2hTt9g==,type:str]
 sops:
     kms: []
     gcp_kms: []
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2024-02-24T22:18:04Z"
-    mac: ENC[AES256_GCM,data:XrD7otGWgZ0C2ozCzCxy8ZMXoqYWfMRZmwjnq2xUo03xajM3aaa9qASCUwl3Zpuef0iEGb2GjnbUum+ZgWea0eUoNtJ9pMkPQbn+94Zhh9ga+v+GS+J2eHs6+gwLPAPRF/Ufykpgu7e/Lv1D3QU/K1sqVNjP36xmLhUNtKnNrcI=,iv:VW9+fLqRiFLHyfpWvZHbev7bb28L3le2zkya0FRDBto=,tag:XN5E6p13E7m86IDymd/Dfw==,type:str]
+    lastmodified: "2024-02-24T22:39:30Z"
+    mac: ENC[AES256_GCM,data:2SlwU4QRvhXp2lF8e4ZiV4DSbK+1IH064oAAijy/KPgfol5LU9UJuEHkhCbJmXFA2Hv26X0A42Q/RXqgMo7ZV1+XwPTOb/y0CdHcdUpcrSg4e/NOpy53MwLJHpKElcfhJWpLSBqTDJktxy+sP0BN5vJ+BFBvyDjqx1SPJ/3VTeY=,iv:8sJ7c2GmcEjB47G6qYsDrnbnb7p4movAFG2qpvdPYJY=,tag:c+TELY7ndZGxNW0yYBuz8Q==,type:str]
     pgp:
         - created_at: "2024-02-24T22:17:47Z"
           enc: |-
