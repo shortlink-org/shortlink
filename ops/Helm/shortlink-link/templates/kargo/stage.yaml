@@ -11,8 +11,8 @@ metadata:
 spec:
   subscriptions:
     - image:
-        repoURL: nginx
-        semverConstraint: ^1.24.0
+        repoURL: registry.gitlab.com/shortlink-org/shortlink/link
+        semverConstraint: ^0.17.35
 
 ---
 apiVersion: kargo.akuity.io/v1alpha1
