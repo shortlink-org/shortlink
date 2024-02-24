@@ -1,0 +1,35 @@
+deploy:
+    env:
+        S3_ENDPOINT: ENC[AES256_GCM,data:bs50QWmzLGNHsklyQD8fSJfwebyb8qg=,iv:wskoPcUYvI1Tjv5QdTDF+zpYQIjarLbpXu5erxCh1Ig=,tag:hxM09RQmq3HYZE+bgXgBUg==,type:str]
+        S3_ACCESS_KEY_ID: ENC[AES256_GCM,data:ljIYUdktgkwjHKW9yrpEZpVo2fw=,iv:WcKRHnTpwOYi27U/ZtOBTu1o6MxPXwroq+MYZAxfjUo=,tag:qXrGOi+zH8ZihR5GBMo1sw==,type:str]
+        S3_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:ZzeC9n+KSz0J1CY9D2XeafAJVpG+g1Gqm2ZuAyEyrploXq49ObuZvw==,iv:RCJ8CvyfBoXFHrBzayhU2VfThccR5yx90NPQndMXhgI=,tag:NAdD6YPfizVGTMGI3V/+Vg==,type:str]
+        S3_USE_SSL: ENC[AES256_GCM,data:ud0F2XQ=,iv:qyoG93mraLjO0g/BK6d1PmzijuRyJF+6h4ZaorDF1k4=,tag:rsL57y0rhxD6YePEwaL5Uw==,type:str]
+sops:
+    kms: []
+    gcp_kms: []
+    azure_kv: []
+    hc_vault: []
+    age: []
+    lastmodified: "2024-02-24T00:42:16Z"
+    mac: ENC[AES256_GCM,data:uuUp+nvkSx03LM6o15wpfm6JoUAUb1AKUV+AI1jCkGEpvIVyaBVl1wakxmBfuMWKmoojzRdWTODVdrOt64gVQlM6HQtMUn8+mZHzQUSWF8SrIiweYr4QuhriTJvgDSTEGQt2ZhqKZhPCI81fg0J6QSnCtpOkKWe5mKmrvoA3Xyg=,iv:1VTVk1oldZ1nXO8/0rOSQ945S6jwcTu3yXo21jGzuLk=,tag:RnsUzNQ/DBpGslJb/Pvt3Q==,type:str]
+    pgp:
+        - created_at: "2024-02-24T00:41:57Z"
+          enc: |-
+            -----BEGIN PGP MESSAGE-----
+
+            hQGMAxDrDE6S/SFjAQwAl254vxRuiR9BgdfFBzv6hMeK0ZtWb/CsOZqWwHJ6Zza5
+            fT1QoiQfN2Wp3Pf1GXZYgO5Zo9dwHXpGMpcI2TTAlotX4Y9WjQKPnDgxMtlocqPN
+            UtHG7yeK4XQ9qhjsO1/4H5OblIcV1xMbsHQWjcSHCDx0KmWUl9bac4F4Ei69nbM7
+            wUWnKOaQQfT5NJq2m+UNhI2cbCxE5sc5OuQtrJYOYHmJoRoiS4xbfzQclKbI9x1W
+            7RSYial+om7+2Xza+VZ7YaIt0JmirDBlGlzFFwhMhZ4QDCMMF6rzuV7iVLE0iG9r
+            8urkQgIXbx2e38Pi827WTsjJ0+NiYM26PbElQzUDXIAN4CBbEHRS5dRRBYx/hmyp
+            qV5qLyqJf5zOD0AcvaGihLJpfwN5uLr3XodNY35IctdxnZlkA+qgSL/0SbQ7wluI
+            LSKl50q1KSZaOAuMxdUt3/c4HDhiKKyaKL7la/73Y8K28tGBYTTZ4Q7x5GwSAMJI
+            80eHEMyVtSg3sF5ehN5L1GgBCQIQidRx8zdYmOWsz/M37iDr5kT5kBuKhQYXYkoL
+            kvilTGua5OQ3ggZbwicHLq0SMq5cnkxP+/DZBrYcaX1+vyK4WgYlieKdBiUvAO1X
+            39DjvxVQmVJm+s9/QGUifZqO8z7+wG2LIg==
+            =OWb5
+            -----END PGP MESSAGE-----
+          fp: C92AE33AF20998F8CA09E819A842078E859DE4F1
+    unencrypted_suffix: _unencrypted
+    version: 3.8.1
