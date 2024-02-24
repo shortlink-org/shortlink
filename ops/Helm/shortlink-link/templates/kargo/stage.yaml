@@ -1,7 +1,7 @@
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
 metadata:
-  name: {{ .name | default (include "helpers.fullname" .) }}-test
+  name: {{ .name | default (include "helpers.fullname" .) }}-stage
 spec:
   subscriptions:
     repos:
@@ -20,7 +20,7 @@ spec:
 apiVersion: kargo.akuity.io/v1alpha1
 kind: Stage
 metadata:
-  name: {{ .name | default (include "helpers.fullname" .) }}-prod
+  name: {{ .name | default (include "helpers.fullname" .) }}-production
 spec:
   subscriptions:
     upstreamStages:
@@ -32,11 +32,3 @@ spec:
     argoCDAppUpdates:
       - appName: {{ .name | default (include "helpers.fullname" .) }}-prod
         appNamespace: shortlink
-
----
-apiVersion: kargo.akuity.io/v1alpha1
-kind: PromotionPolicy
-metadata:
-  name: {{ .name | default (include "helpers.fullname" .) }}-promotion
-stage: test
-enableAutoPromotion: true
