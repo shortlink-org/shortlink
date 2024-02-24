@@ -34,8 +34,8 @@ argo-workflows:
         memory: 128Mi
 
   server:
-    extraArgs:
-      - --auth-mode=sso
+    # extraArgs:
+    #  - --auth-mode=sso
 
     baseHref: /
 
