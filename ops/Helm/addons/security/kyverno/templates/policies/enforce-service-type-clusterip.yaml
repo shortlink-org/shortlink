@@ -1,0 +1,21 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: enforce-service-type-clusterip
+spec:
+  rules:
+    - name: change-loadbalancer-to-clusterip
+      match:
+        resources:
+          kinds:
+            - Service
+      mutate:
+        patchStrategicMerge:
+          spec:
+            # This will change the service type to ClusterIP if it is set to LoadBalancer
+            type: ClusterIP
+      preconditions:
+        all:
+          - key: "{{ request.object.spec.type }}"
+            operator: Equals
+            value: "LoadBalancer"
