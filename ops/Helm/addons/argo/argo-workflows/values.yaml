@@ -64,6 +64,11 @@ argo-workflows:
     logging:
       format: "json"
 
+    secure: true
+
+    authModes:
+      - sso
+
     sso:
       enabled: true
       issuer: https://argo.shortlink.best/api/dex
