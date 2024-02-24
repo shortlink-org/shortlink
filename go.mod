@@ -49,9 +49,9 @@ require (
 	github.com/pterm/pterm v0.12.79
 	github.com/rabbitmq/amqp091-go v1.9.0
 	github.com/redis/go-redis/v9 v9.5.1
-	github.com/redis/rueidis v1.0.29
-	github.com/redis/rueidis/rueidiscompat v1.0.29
-	github.com/redis/rueidis/rueidisotel v1.0.29
+	github.com/redis/rueidis v1.0.30-0.20240224222815-152800b84f6d
+	github.com/redis/rueidis/rueidiscompat v1.0.30-0.20240224222815-152800b84f6d
+	github.com/redis/rueidis/rueidisotel v1.0.30-0.20240224222815-152800b84f6d
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/sasha-s/go-deadlock v0.3.1
