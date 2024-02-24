@@ -34,6 +34,8 @@ argo-workflows:
         memory: 128Mi
 
   server:
+    revisionHistoryLimit: 4
+
     baseHref: /
 
     ingress:
