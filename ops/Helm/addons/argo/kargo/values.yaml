@@ -29,8 +29,6 @@ kargo:
         memory: 64Mi
 
   webhooksServer:
-    enabled: false
-
     resources:
       limits:
         cpu: 100m
