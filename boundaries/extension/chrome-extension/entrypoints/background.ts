@@ -14,8 +14,13 @@ export default defineBackground(() => {
               function: grabURL,
             },
             (results) => {
-              // Send the links back to the popup
-              sendResponse({ links: results[0].result });
+              // Check for errors
+              if (chrome.runtime.lastError) {
+                sendResponse({ error: chrome.runtime.lastError.message });
+              } else {
+                // Send the links back to the popup
+                sendResponse({ links: results[0].result });
+              }
             }
           );
         }
@@ -29,7 +34,7 @@ export default defineBackground(() => {
 
 // This function will be stringified and injected into the current tab
 function grabURL() {
-  const links = Array.from(document.querySelectorAll('a')).map((link) => ({
+  const links = [...document.querySelectorAll('a')].map((link) => ({
     href: link.href,
     text: link.textContent,
   }));
