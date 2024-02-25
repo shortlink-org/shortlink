@@ -13,10 +13,7 @@ pyroscope:
       nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
 
     hosts:
-      - host: pyroscope.shortlink.best
-        paths:
-          - path: /
-            pathType: Prefix
+      - pyroscope.shortlink.best
 
     tls:
       - secretName: shortlink-ingress-tls
