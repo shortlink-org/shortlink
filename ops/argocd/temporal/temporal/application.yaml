@@ -1,0 +1,94 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: temporal
+  namespace: temporal
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: shortlink
+  destination:
+    name: ''
+    namespace: temporal
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: charts/temporal
+    repoURL: 'https://github.com/temporalio/helm-charts'
+    targetRevision: HEAD
+    helm:
+      releaseName: temporal
+      valuesObject:
+        nameOverride: temporal
+
+        serviceAccount:
+          create: true
+
+        server:
+          metrics:
+            serviceMonitor:
+              enabled: true
+
+          frontend:
+            metrics:
+              serviceMonitor:
+                enabled: true
+
+          history:
+            metrics:
+              serviceMonitor:
+                enabled: true
+
+          matching:
+            metrics:
+              serviceMonitor:
+                enabled: true
+
+          worker:
+            metrics:
+              serviceMonitor:
+                enabled: true
+
+        web:
+          ingress:
+            enabled: true
+            annotations:
+              cert-manager.io/cluster-issuer: cert-manager-production
+              nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+              nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+
+            hosts:
+              - "temporal.shortlink.best"
+
+            tls:
+              - secretName: temporal-tls
+                hosts:
+                  - "temporal.shortlink.best"
+
+        prometheus:
+          enabled: false
+
+        grafana:
+          enabled: false
+
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+      - ApplyOutOfSyncOnly=true
+    retry:
+      limit: 2
+      backoff:
+        duration: 10s
+        maxDuration: 3m0s
+        factor: 2
+  ignoreDifferences:
+    - group: kyverno.io
+      kind: ClusterPolicy
+      jqPathExpressions:
+        - .spec.rules[] | select(.name|test("autogen-."))
