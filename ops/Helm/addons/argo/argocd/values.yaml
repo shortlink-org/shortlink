@@ -299,6 +299,7 @@ argo-cd:
 
     params:
       otlp.address: grafana-tempo.grafana:4317
+      # https://github.com/argoproj/argo-cd/issues/11071
       dexserver.disable.tls: true
 
   notifications:
