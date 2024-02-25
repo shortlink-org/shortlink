@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: grafana/pyroscope:weekly-f40-cc5acee3
+    image: grafana/pyroscope:latest
     command:
       - '-config.file=/etc/pyroscope.yml'
     container_name: pyroscope

@@ -103,9 +103,11 @@ datasources:
       esVersion: "7.10.0"
 
   - name: Pyroscope
-    type: phlare
+    type: grafana-pyroscope-datasource
     access: proxy
     uid: pyroscope
     url: http://pyroscope:4040
+    jsonData:
+      minStep: '15s'
 
 
