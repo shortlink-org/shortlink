@@ -14,10 +14,10 @@ dependencies:
 
 devDependencies:
   '@types/react':
-    specifier: ^18.2.46
+    specifier: ^18.2.58
     version: 18.2.58
   '@types/react-dom':
-    specifier: ^18.2.18
+    specifier: ^18.2.19
     version: 18.2.19
   '@vitejs/plugin-react':
     specifier: ^4.2.1
@@ -3690,6 +3690,7 @@ packages:
 
   /undici-types@5.26.5:
     resolution: {integrity: sha512-JlCMO+ehdEIKqlFxk6IfVoAUVmgz7cU7zD/h9XZ0qzeosSHmUJVOzSQvvYSYWXkFXC+IfLKSIffhv0sVZup6pA==}
+    requiresBuild: true
     dev: true
 
   /unimport@3.7.1:
