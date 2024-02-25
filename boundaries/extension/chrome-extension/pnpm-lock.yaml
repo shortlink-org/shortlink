@@ -14,10 +14,10 @@ dependencies:
 
 devDependencies:
   '@types/react':
-    specifier: ^18.2.46
+    specifier: ^18.2.58
     version: 18.2.58
   '@types/react-dom':
-    specifier: ^18.2.18
+    specifier: ^18.2.19
     version: 18.2.19
   '@vitejs/plugin-react':
     specifier: ^4.2.1
@@ -35,7 +35,7 @@ devDependencies:
     specifier: ^5.3.3
     version: 5.3.3
   wxt:
-    specifier: ^0.16.0
+    specifier: ^0.16.11
     version: 0.16.11
 
 packages:
@@ -1907,7 +1907,7 @@ packages:
       foreground-child: 3.1.1
       jackspeak: 2.3.6
       minimatch: 9.0.3
-      minipass: 5.0.0
+      minipass: 7.0.4
       path-scurry: 1.10.1
     dev: true
 
@@ -2563,6 +2563,11 @@ packages:
     engines: {node: '>=8'}
     dev: true
 
+  /minipass@7.0.4:
+    resolution: {integrity: sha512-jYofLM5Dam9279rdkWzqHozUo4ybjdZmCsDHePy5V/PbBcVMiSZR97gmAy45aqi8CK1lG2ECd356FU86avfwUQ==}
+    engines: {node: '>=16 || 14 >=14.17'}
+    dev: true
+
   /minizlib@2.1.2:
     resolution: {integrity: sha512-bAxsR8BVfj60DWXHE3u30oHzfl4G7khkSuPW+qvpd7jFRHm7dLxOjUk1EHACJ/hxLY8phGJ0YhYHZo7jil7Qdg==}
     engines: {node: '>= 8'}
@@ -2895,7 +2900,7 @@ packages:
     engines: {node: '>=16 || 14 >=14.17'}
     dependencies:
       lru-cache: 10.2.0
-      minipass: 5.0.0
+      minipass: 7.0.4
     dev: true
 
   /pathe@1.1.2:
