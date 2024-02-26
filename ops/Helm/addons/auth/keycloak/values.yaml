@@ -72,7 +72,7 @@ keycloak:
     enabled: false
 
   postgresql:
-    image:
+    image: {}
       # TODO: drop if Keycloak will support postgresql 16
       # Keycloak support only postgresql 15
       # tag: 15.4.0-debian-11-r54
