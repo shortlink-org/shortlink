@@ -21,11 +21,11 @@ kube-prometheus-stack:
     prometheusSpec:
       resources:
         limits:
-          cpu: 300m
-          memory: 512Mi
+          cpu: 1000m
+          memory: 2Gi
         requests:
-          cpu: 100m
-          memory: 128Mi
+          cpu: 500m
+          memory: 256Mi
 
   prometheusOperator:
     secretFieldSelector: "type!=kubernetes.io/dockercfg,type!=kubernetes.io/service-account-token,type!=helm.sh/release.v1"
