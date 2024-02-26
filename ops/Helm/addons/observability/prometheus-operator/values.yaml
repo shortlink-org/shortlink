@@ -17,13 +17,23 @@ kube-prometheus-stack:
     # disable for GKE
     enabled: true
 
+  prometheus:
+    prometheusSpec:
+      resources:
+        limits:
+          cpu: 300m
+          memory: 512Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+
   prometheusOperator:
     secretFieldSelector: "type!=kubernetes.io/dockercfg,type!=kubernetes.io/service-account-token,type!=helm.sh/release.v1"
 
     resources:
       limits:
         cpu: 300m
-        memory: 200Mi
+        memory: 512Mi
       requests:
         cpu: 30m
         memory: 50Mi
