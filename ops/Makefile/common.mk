@@ -20,6 +20,8 @@ confirm:
 
 # GIT SEETINGS =========================================================================================================
 git-config: ## Set git config
-	git config --global branch.sort -committerdate
-	git config --global pack.allowPackReuse multi
-	git multi-pack-index write --bitmap
+	@git config --global branch.sort -committerdate
+	@git config --global pack.allowPackReuse multi
+	@git multi-pack-index write --bitmap
+	@git maintenance start
+	@git config core.fsmonitor true
