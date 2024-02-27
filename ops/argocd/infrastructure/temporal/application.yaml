@@ -14,9 +14,9 @@ spec:
     namespace: temporal
     server: 'https://kubernetes.default.svc'
   source:
-    path: charts/temporal
-    repoURL: 'https://github.com/temporalio/helm-charts'
-    targetRevision: HEAD
+    chart: temporal
+    repoURL: 'https://go.temporal.io/helm-charts'
+    targetRevision: 0.33.0
     helm:
       releaseName: temporal
       valuesObject:
