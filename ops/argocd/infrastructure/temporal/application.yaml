@@ -19,58 +19,58 @@ spec:
     targetRevision: 0.33.0
     helm:
       releaseName: temporal
-      valuesObject:
-        nameOverride: temporal
-
-        serviceAccount:
-          create: true
-
-        server:
-          metrics:
-            serviceMonitor:
-              enabled: true
-
-          frontend:
-            metrics:
-              serviceMonitor:
-                enabled: true
-
-          history:
-            metrics:
-              serviceMonitor:
-                enabled: true
-
-          matching:
-            metrics:
-              serviceMonitor:
-                enabled: true
-
-          worker:
-            metrics:
-              serviceMonitor:
-                enabled: true
-
-        web:
-          ingress:
-            enabled: true
-            annotations:
-              cert-manager.io/cluster-issuer: cert-manager-production
-              nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-              nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
-
-            hosts:
-              - "temporal.shortlink.best"
-
-            tls:
-              - secretName: temporal-tls
-                hosts:
-                  - "temporal.shortlink.best"
-
-        prometheus:
-          enabled: false
-
-        grafana:
-          enabled: false
+#      valuesObject:
+#        nameOverride: temporal
+#
+#        serviceAccount:
+#          create: true
+#
+#        server:
+#          metrics:
+#            serviceMonitor:
+#              enabled: true
+#
+#          frontend:
+#            metrics:
+#              serviceMonitor:
+#                enabled: true
+#
+#          history:
+#            metrics:
+#              serviceMonitor:
+#                enabled: true
+#
+#          matching:
+#            metrics:
+#              serviceMonitor:
+#                enabled: true
+#
+#          worker:
+#            metrics:
+#              serviceMonitor:
+#                enabled: true
+#
+#        web:
+#          ingress:
+#            enabled: true
+#            annotations:
+#              cert-manager.io/cluster-issuer: cert-manager-production
+#              nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+#              nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+#
+#            hosts:
+#              - "temporal.shortlink.best"
+#
+#            tls:
+#              - secretName: temporal-tls
+#                hosts:
+#                  - "temporal.shortlink.best"
+#
+#        prometheus:
+#          enabled: false
+#
+#        grafana:
+#          enabled: false
 
   syncPolicy:
     automated:
