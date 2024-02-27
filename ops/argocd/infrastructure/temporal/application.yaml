@@ -2,7 +2,7 @@ apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
   name: temporal
-  namespace: temporal
+  namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
   finalizers:
