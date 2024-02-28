@@ -51,8 +51,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       '@vercel/otel':
-        specifier: ^1.4.0
-        version: 1.4.0(@opentelemetry/api-logs@0.46.0)(@opentelemetry/api@1.7.0)
+        specifier: ^1.5.0
+        version: 1.5.0(@opentelemetry/api-logs@0.46.0)(@opentelemetry/api@1.7.0)
       axios:
         specifier: ^1.6.7
         version: 1.6.7
@@ -8729,8 +8729,8 @@ packages:
   /@ungap/structured-clone@1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
-  /@vercel/otel@1.4.0(@opentelemetry/api-logs@0.46.0)(@opentelemetry/api@1.7.0):
-    resolution: {integrity: sha512-4A96TXBNFb9vkKdNH0NN1KexYQgnjIA4JE9ymxAqccOlSjSTrU9DsNQf/dNz1YdtyuzIF3gs02CV9ptEfSe3bw==}
+  /@vercel/otel@1.5.0(@opentelemetry/api-logs@0.46.0)(@opentelemetry/api@1.7.0):
+    resolution: {integrity: sha512-dpGNiGQo/uZ8czFaxKaffqZUUBWBqwbhP/Esv2Vzh8pemh3ZQaPu6jyjN+8Eb8Nnix+RrlsfJISeyVayJl+k+Q==}
     engines: {node: '>=18'}
     peerDependencies:
       '@opentelemetry/api': ^1.7.0
