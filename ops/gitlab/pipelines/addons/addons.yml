@@ -8,7 +8,7 @@ cilium:
     PROVIDER: $PROVIDER
     RELEASE_NAME: cilium
     HELM_PATH: ops/Helm/addons/cni/cilium
-    HELM_NAMESPACE: cilium
+    HELM_NAMESPACE: kube-system
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/helm_deploy.yml'
