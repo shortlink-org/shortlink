@@ -3637,24 +3637,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/core-plugin-api@npm:^1.8.2":
-  version: 1.8.2
-  resolution: "@backstage/core-plugin-api@npm:1.8.2"
-  dependencies:
-    "@backstage/config": "npm:^1.1.1"
-    "@backstage/types": "npm:^1.1.1"
-    "@backstage/version-bridge": "npm:^1.0.7"
-    "@types/react": "npm:^16.13.1 || ^17.0.0"
-    history: "npm:^5.0.0"
-  peerDependencies:
-    react: ^16.13.1 || ^17.0.0 || ^18.0.0
-    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
-    react-router-dom: 6.0.0-beta.0 || ^6.3.0
-  checksum: 10c0/e6aad9a114ba50775c10667fe81b26b37b16cca7d327286f657e0ebb202ab1d34f226fcfecdab6522729c6e79d28e8697fbc0392d4813a5566b8675ad172017a
-  languageName: node
-  linkType: hard
-
-"@backstage/core-plugin-api@npm:^1.9.0":
+"@backstage/core-plugin-api@npm:^1.8.1, @backstage/core-plugin-api@npm:^1.9.0":
   version: 1.9.0
   resolution: "@backstage/core-plugin-api@npm:1.9.0"
   dependencies:
@@ -3669,6 +3652,23 @@ __metadata:
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
   checksum: 10c0/197898973a4284f8b428db5274880ef4ae59b0675d8400505d52a0b922e2c824bfa25ebd62b48562bc97aaf652dbeb37dc083a8fe3eb74a2f50f868f0cf1fb72
+  languageName: node
+  linkType: hard
+
+"@backstage/core-plugin-api@npm:^1.8.2":
+  version: 1.8.2
+  resolution: "@backstage/core-plugin-api@npm:1.8.2"
+  dependencies:
+    "@backstage/config": "npm:^1.1.1"
+    "@backstage/types": "npm:^1.1.1"
+    "@backstage/version-bridge": "npm:^1.0.7"
+    "@types/react": "npm:^16.13.1 || ^17.0.0"
+    history: "npm:^5.0.0"
+  peerDependencies:
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
+    react-router-dom: 6.0.0-beta.0 || ^6.3.0
+  checksum: 10c0/e6aad9a114ba50775c10667fe81b26b37b16cca7d327286f657e0ebb202ab1d34f226fcfecdab6522729c6e79d28e8697fbc0392d4813a5566b8675ad172017a
   languageName: node
   linkType: hard
 
@@ -4427,7 +4427,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-catalog-react@npm:^1.10.0":
+"@backstage/plugin-catalog-react@npm:^1.10.0, @backstage/plugin-catalog-react@npm:^1.9.2":
   version: 1.10.0
   resolution: "@backstage/plugin-catalog-react@npm:1.10.0"
   dependencies:
@@ -10628,16 +10628,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@roadiehq/backstage-plugin-argo-cd@npm:^2.5.1":
-  version: 2.5.1
-  resolution: "@roadiehq/backstage-plugin-argo-cd@npm:2.5.1"
+"@roadiehq/backstage-plugin-argo-cd@npm:^2.5.4":
+  version: 2.5.4
+  resolution: "@roadiehq/backstage-plugin-argo-cd@npm:2.5.4"
   dependencies:
     "@backstage/catalog-model": "npm:^1.4.3"
-    "@backstage/core-components": "npm:^0.13.8"
-    "@backstage/core-plugin-api": "npm:^1.8.0"
-    "@backstage/plugin-catalog-react": "npm:^1.9.1"
-    "@backstage/theme": "npm:^0.4.4"
-    "@material-ui/core": "npm:^4.11.0"
+    "@backstage/core-components": "npm:^0.14.0"
+    "@backstage/core-plugin-api": "npm:^1.8.1"
+    "@backstage/plugin-catalog-react": "npm:^1.9.2"
+    "@backstage/theme": "npm:^0.5.0"
+    "@material-ui/core": "npm:^4.12.2"
     "@material-ui/icons": "npm:^4.9.1"
     "@material-ui/lab": "npm:4.0.0-alpha.45"
     cross-fetch: "npm:^3.1.4"
@@ -10650,11 +10650,11 @@ __metadata:
     moment: "npm:^2.29.1"
     react-use: "npm:^17.2.4"
   peerDependencies:
-    react: ^16.13.1 || ^17.0.0
-    react-dom: ^16.13.1 || ^17.0.0
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router: 6.0.0-beta.0  || ^6.3.0
     react-router-dom: 6.0.0-beta.0  || ^6.3.0
-  checksum: 10c0/ed4183b7b0a3dbe90a45ec09613e35cc8f7c205f4c61c305d5633aef24b1099dd6d159a9c9cf2b1b3d34135db5c09c347fdba7dd517481c9705726f8d06e7227
+  checksum: 10c0/3740c08d471529dd68685a110a92a0658170237983b859539b96c63ff8aef8a6f647c45f8b6a83fde1d8435d1d25d23dfd49a25a29cb60450bfc5ea2446ef934
   languageName: node
   linkType: hard
 
@@ -14843,7 +14843,7 @@ __metadata:
     "@backstage/theme": "npm:^0.5.1"
     "@mui/icons-material": "npm:5.15.11"
     "@mui/material": "npm:^5.15.11"
-    "@roadiehq/backstage-plugin-argo-cd": "npm:^2.5.1"
+    "@roadiehq/backstage-plugin-argo-cd": "npm:^2.5.4"
     "@roadiehq/backstage-plugin-prometheus": "npm:^2.8.2"
     "@testing-library/jest-dom": "npm:^6.4.2"
     "@testing-library/react": "npm:^14.2.1"
