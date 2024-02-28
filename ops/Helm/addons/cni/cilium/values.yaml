@@ -10,7 +10,8 @@ cilium:
     qps: 50
     burst: 100
 
-  autoDirectNodeRoutes: true
+  # auto-direct-node-routes cannot be used with tunneling. Packets must be routed through the tunnel device.
+  autoDirectNodeRoutes: false
   annotateK8sNode: false
 
   # Roll out cilium agent pods automatically when ConfigMap is updated.
