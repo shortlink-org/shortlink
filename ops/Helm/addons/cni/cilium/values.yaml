@@ -1,35 +1,95 @@
 cilium:
   enabled: true
 
-  kubeProxyReplacement: strict
-  k8sServiceHost: 127.0.0.1
-  k8sServicePort: 6443
+  kubeProxyReplacement: true
+  k8sServiceHost: localhost
+  k8sServicePort: 7445
 
   autoDirectNodeRoutes: true
   annotateK8sNode: false
 
-  containerRuntime:
-    integration: auto
+  socketLB:
+    enabled: true
+
+    hostNamespaceOnly: true
 
   enableCiliumEndpointSlice: true
 
+  ipam:
+    mode: kubernetes
+
+  gatewayAPI:
+    enabled: true
+
+  securityContext:
+    capabilities:
+      ciliumAgent: "{CHOWN,KILL,NET_ADMIN,NET_RAW,IPC_LOCK,SYS_ADMIN,SYS_RESOURCE,DAC_OVERRIDE,FOWNER,SETGID,SETUID}"
+      cleanCiliumState: "{NET_ADMIN,SYS_ADMIN,SYS_RESOURCE}"
+
+  cgroup:
+    autoMount:
+        enabled: false
+    hostRoot: "/sys/fs/cgroup"
+
+  prometheus:
+    enabled: true
+
+    serviceMonitor:
+      enabled: true
+
+      labels:
+        release: prometheus-operator
+
+  operator:
+    dashboards:
+      enabled: true
+
+      annotations:
+        grafana_dashboard_folder: Cilium
+
+    prometheus:
+      enabled: true
+
+    serviceMonitor:
+      enabled: true
+
+      labels:
+        release: prometheus-operator
+
+  envoy:
+    serviceMonitor:
+      enabled: true
+
+    labels:
+      release: prometheus-operator
+
+  dashboards:
+    enabled: true
+
+    annotations:
+      grafana_dashboard_folder: Cilium
+
   hubble:
+    enabled: true
+
     listenAddress: ":4244"
 
     metrics:
-      enabled:
-        - dns
-        - tcp
-        - flow
-        - dns
-        - drop
-        - icmp
-        - http
-        - port-distribution
+      enabled: "{dns,drop,tcp,flow,port-distribution,icmp,httpV2:exemplars=true;labelsContext=source_ip\,source_namespace\,source_workload\,destination_ip\,destination_namespace\,destination_workload\,traffic_direction}"
 
       enableOpenMetrics: true
+
+      dashboards:
+        enabled: true
+
+        annotations:
+          grafana_dashboard_folder: Cilium
+
       serviceMonitor:
         enabled: true
+
+        labels:
+          release: prometheus-operator
 
     relay:
       enabled: true
