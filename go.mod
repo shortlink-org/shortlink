@@ -44,7 +44,7 @@ require (
 	github.com/neo4j/neo4j-go-driver/v5 v5.17.0
 	github.com/ory/client-go v1.6.2
 	github.com/ory/dockertest/v3 v3.10.0
-	github.com/prometheus/client_golang v1.18.0
+	github.com/prometheus/client_golang v1.19.0
 	github.com/prometheus/client_model v0.5.0
 	github.com/pterm/pterm v0.12.79
 	github.com/rabbitmq/amqp091-go v1.9.0
@@ -203,7 +203,7 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkg/term v1.2.0-beta.2 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
-	github.com/prometheus/common v0.45.0 // indirect
+	github.com/prometheus/common v0.48.0 // indirect
 	github.com/prometheus/procfs v0.12.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
