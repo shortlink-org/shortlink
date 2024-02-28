@@ -71,6 +71,8 @@ cilium:
         release: prometheus-operator
 
   operator:
+    rollOutPods: true
+
     dashboards:
       enabled: true
 
@@ -129,6 +131,8 @@ cilium:
 
     relay:
       enabled: true
+      rollOutPods: true
 
     ui:
       enabled: true
+      rollOutPods: true
