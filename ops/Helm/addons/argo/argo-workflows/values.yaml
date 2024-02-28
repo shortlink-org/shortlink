@@ -39,7 +39,9 @@ argo-workflows:
     baseHref: /
 
     ingress:
-      enabled: true
+      # TODO: enable when fix SSO
+      # -> ofr sso  need open and setting dex handler /api/dex
+      enabled: false
 
       ingressClassName: nginx
 
@@ -70,7 +72,7 @@ argo-workflows:
       - sso
 
     sso:
-      enabled: true
+      enabled: false
       issuer: https://argo.shortlink.best/api/dex
       sessionExpiry: 240h
       rbac:
