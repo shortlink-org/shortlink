@@ -185,3 +185,8 @@ updates:
     directory: /boundaries/link/supplies/knative/kafka-to-elasticsearch
     schedule:
       interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/extension/chrome-extension
+    schedule:
+      interval: daily
