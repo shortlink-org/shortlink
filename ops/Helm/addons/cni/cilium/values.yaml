@@ -5,8 +5,24 @@ cilium:
   k8sServiceHost: localhost
   k8sServicePort: 7445
 
+  # Increase rate limit when doing L2 announcements
+  k8sClientRateLimit:
+    qps: 50
+    burst: 100
+
   autoDirectNodeRoutes: true
   annotateK8sNode: false
+
+  # Roll out cilium agent pods automatically when ConfigMap is updated.
+  rollOutCiliumPods: true
+
+  # Announce IPs from services' `.status.loadbalancer.ingress` field (automatically assigned by LB-IPAM).
+  l2announcements:
+    enabled: true
+
+  # Announce manually assigned IPs from services' `.spec.externalIPs` field
+  externalIPs:
+    enabled: true
 
   socketLB:
     enabled: true
