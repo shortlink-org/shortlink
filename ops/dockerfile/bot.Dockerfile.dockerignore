@@ -1,12 +1,9 @@
 .*
+*.yml
 docs
 internal
 ops
-pkg/csi
-pkg/ml
-ui
-*.yml
+pkg
+boundaries
 
-!vendor
-!pkg
-!internal
+!boundaries/notification/bot

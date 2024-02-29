@@ -6,7 +6,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM --platform=$BUILDPLATFORM maven:3.8.6-jdk-11-slim AS builder
+FROM --platform=$BUILDPLATFORM maven:3-eclipse-temurin-21-alpine AS builder
 
 ARG CI_COMMIT_TAG
 WORKDIR /app
@@ -31,7 +31,7 @@ RUN \
   apt update && \
   apt install -y curl tini
 
-ENTRYPOINT ["/sbin/tini", "--"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
 HEALTHCHECK \
   --interval=5s \
@@ -39,6 +39,8 @@ HEALTHCHECK \
   --retries=3 \
   CMD curl -f localhost:9090/ready || exit 1
 
-COPY --from=builder /app/target/shortlink-bot-1.0-SNAPSHOT.jar /usr/local/lib/shortlink-bot-1.0-SNAPSHOT.jar
+WORKDIR /usr/local/lib/
+
+COPY --from=builder /app/target/shortlink-bot-1.0-SNAPSHOT.jar ./shortlink-bot-1.0-SNAPSHOT.jar
 
 CMD ["java", "-jar", "/usr/local/lib/shortlink-bot-1.0-SNAPSHOT.jar"]
