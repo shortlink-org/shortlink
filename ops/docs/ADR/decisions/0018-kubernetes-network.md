@@ -36,6 +36,7 @@ We made this decision based on the following factors:
 
 - [Cilium](https://cilium.io/)
 - [Cilium for Kubernetes networking: Why we use it and why we love it](https://blog.palark.com/why-cilium-for-kubernetes-networking/)
+- [Labs](https://isovalent.com/resource-library/labs/)
 
 ## Consequences
 
