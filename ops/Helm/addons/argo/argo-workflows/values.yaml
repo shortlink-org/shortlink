@@ -69,9 +69,11 @@ argo-workflows:
 
     authModes:
       - server
+      # TODO: enable when fix SSO
       # - sso
 
     sso:
+      # TODO: enable when fix SSO
       enabled: false
       issuer: https://argo.shortlink.best/api/dex
       sessionExpiry: 240h
