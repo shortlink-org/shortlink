@@ -4,6 +4,7 @@ name = "referral"
 requires-python = ">=3.12"
 
 [tool.ruff]
+unsafe-fixes = true
 line-length = 120
 extend-exclude = [
   "src/domain/referral/v1/*.pyi",
@@ -15,6 +16,8 @@ exclude = [".venv", "*_pb2.py", "*_pb2_grpc.py", "*_pb2.pyi"]
 
 [tool.ruff.lint]
 select = [
+  # TODO: enable all checks
+  #  "ALL",
   "E", "W", # pycodestyle
   "F",      # pyflakes
   "UP",     # pyupgrade
@@ -25,6 +28,11 @@ select = [
   "TID",    # tidy
   "I",      # isort
 ]
+
+[tool.ruff.lint.isort]
+no-lines-before = ["standard-library", "local-folder"]
+known-third-party = []
+known-local-folder = ["src"]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"

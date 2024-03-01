@@ -11,10 +11,9 @@ from redis.client import Redis
 from redis.exceptions import BusyLoadingError, ConnectionError, TimeoutError
 from redis.retry import Retry
 
+from .repository import AbstractRepository
 from src.domain.referral.v1.exception import ReferralNotFoundError
 from src.domain.referral.v1.referral_pb2 import Referral
-
-from .repository import AbstractRepository
 
 
 class Repository(AbstractRepository):
