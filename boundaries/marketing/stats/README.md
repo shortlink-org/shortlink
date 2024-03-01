@@ -24,29 +24,19 @@ a reliable and flexible way to manage and use data about the performance of a la
 system, enabling users to make data-driven decisions and improve the system's
 performance over time.
 
-### Build
+### Getting started
 
-#### Makefile
-
-```bash
-$> mkdir build && cd build
-$> conan install ..
-$> cmake .. -DCMAKE_EXPORT_COMPILE_COMMANDS=1 # generates compile_commands.json
-$> ln -s compile_commands.json ../compile_commands.json # link compile_commands.json to home dir
-```
-
-#### Bazel
+We use Makefile for build and deploy.
 
 ```bash
-$> conan install --install-folder=deps --build=missing .
-$> bazel build //...
+$> make help # show help message with all commands and targets
 ```
 
 ### Stack
 
 - [C++](https://isocpp.org/)
 - DataBase
-    - InfluxDB
+    - TimeSeries
 - Tooling
     - [CMake](https://cmake.org/)
     - [Bazel](https://bazel.build/)

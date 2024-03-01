@@ -18,8 +18,3 @@ help: ## Display this help screen
 confirm:
 	@echo 'Are you sure? [y/N] ' && read ans && [ $${ans:-N} = y ]
 
-# GIT SEETINGS =========================================================================================================
-git-config: ## Set git config
-	@git config --global branch.sort -committerdate
-	@git maintenance start
-	@git config core.fsmonitor true
