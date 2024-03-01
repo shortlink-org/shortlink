@@ -16,4 +16,5 @@ test: ## Run tests
 	@pytest --fixtures tests
 
 lint: ## Run linter
+	@ruff format
 	@ruff check --fix .
