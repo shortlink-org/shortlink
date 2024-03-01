@@ -11,11 +11,14 @@ from opentelemetry.sdk.trace.export import BatchSpanProcessor
 
 class OpenTelemetryProvider(providers.Provider):
     """OpenTelemetry provider."""
+
     @staticmethod
     def _provide(*args, **kwargs):
-        resource = Resource.create(attributes={
-            "service.name": "referral-service",
-        })
+        resource = Resource.create(
+            attributes={
+                "service.name": "referral-service",
+            }
+        )
 
         trace.set_tracer_provider(TracerProvider(resource=resource))
         tracer = trace.get_tracer(__name__)

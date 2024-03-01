@@ -12,6 +12,7 @@ from src.pkg.event_bus import EventBus
 
 class Core(containers.DeclarativeContainer):
     """Core container."""
+
     config = providers.Singleton(Config)
 
     logger = LoguruJsonProvider()

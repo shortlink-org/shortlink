@@ -1,5 +1,6 @@
 """Exception for referral domain."""
 
+
 class ReferralNotFoundError(Exception):
     """Exception raised when a referral is not found in the repository."""
 

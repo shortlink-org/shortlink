@@ -22,10 +22,10 @@ def main(
     """Application entrypoint."""
     register_routes(app, referral_service, use_service)
     logger.info("Starting application")
-    app.run(host='0.0.0.0', port=8000, debug=True, use_reloader=False)
+    app.run(host="0.0.0.0", port=8000, debug=True, use_reloader=False)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     application = Application()
     application.core.init_resources()
     application.init_resources()

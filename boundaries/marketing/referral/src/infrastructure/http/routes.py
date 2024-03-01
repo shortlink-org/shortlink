@@ -21,9 +21,9 @@ def register_routes(app, referral_service: CRUDReferralService, use_service: Use
     @app.route("/<id>", methods=["GET"])
     async def get(id: str) -> Referral:
         try:
-          return MessageToJson(referral_service.get(id))
+            return MessageToJson(referral_service.get(id))
         except ReferralNotFoundError:
-          abort(404)
+            abort(404)
         except Exception as e:
             raise e
 
@@ -45,19 +45,19 @@ def register_routes(app, referral_service: CRUDReferralService, use_service: Use
     @app.route("/<id>", methods=["DELETE"])
     def delete(id: str):
         referral_service.delete(id)
-        return ('', 204)
+        return ("", 204)
 
     @app.route("/use/<id>", methods=["GET"])
     async def use(id: str) -> Referral:
         try:
-          return MessageToJson(use_service.use(id))
+            return MessageToJson(use_service.use(id))
         except ReferralNotFoundError:
-          abort(404)
+            abort(404)
 
-    @app.route('/healthz/ready', methods=["GET"])
+    @app.route("/healthz/ready", methods=["GET"])
     async def ready():
-        return 'Ready!'
+        return "Ready!"
 
-    @app.route('/healthz/live', methods=["GET"])
+    @app.route("/healthz/live", methods=["GET"])
     async def live():
-        return 'Live!'
+        return "Live!"

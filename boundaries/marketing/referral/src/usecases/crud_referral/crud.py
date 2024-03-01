@@ -13,6 +13,7 @@ from src.pkg.event_bus import EventBus
 
 class CRUDReferralService:
     """CRUD Referral use case."""
+
     def __init__(self, uow: RedisUnitOfWork, event_bus: EventBus) -> None:
         """Initialize CRUD Referral use case."""
         self._uow = uow

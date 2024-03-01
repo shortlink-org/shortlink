@@ -27,4 +27,3 @@ class RamUnitOfWork(uow.AbstractUnitOfWork):
     def rollback(self):
         """Rollback transaction."""
         pass
-

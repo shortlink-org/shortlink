@@ -36,7 +36,8 @@ class Repository(AbstractRepository):
             host=parsed_uri.hostname,
             port=parsed_uri.port,
             retry=retry,
-            retry_on_error=[BusyLoadingError, ConnectionError, TimeoutError])
+            retry_on_error=[BusyLoadingError, ConnectionError, TimeoutError],
+        )
 
         # ping to check if redis is up
         self._redis.ping()
@@ -72,7 +73,7 @@ class Repository(AbstractRepository):
     def list(self) -> list[Referral]:
         """List all referrals."""
         referrals = []
-        for referral_id in self._redis.scan_iter('*'):
+        for referral_id in self._redis.scan_iter("*"):
             referral = Referral()
             payload = json.loads(self._redis.get(referral_id))
             ParseDict(payload, referral)

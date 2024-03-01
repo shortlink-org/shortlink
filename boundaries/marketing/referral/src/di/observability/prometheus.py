@@ -34,7 +34,7 @@ class PrometheusMetricsProvider(providers.Singleton):
         else:
             port = int(port)
 
-        start_http_server(port, addr='0.0.0.0', registry=REGISTRY)
+        start_http_server(port, addr="0.0.0.0", registry=REGISTRY)
 
     def get_meter(self):
         """Get meter."""

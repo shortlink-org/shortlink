@@ -10,10 +10,12 @@ class PprofProvider:
     profiling of specific parts of the application.
     """
 
-    def provide_profiling(self,
-                          application_name="referral.marketing.shortlink",
-                          server_address="http://localhost:4040",
-                          enable_logging=True):
+    def provide_profiling(
+        self,
+        application_name="referral.marketing.shortlink",
+        server_address="http://localhost:4040",
+        enable_logging=True,
+    ):
         """Configures and initializes Pyroscope for profiling.
 
         Args:
