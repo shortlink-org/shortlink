@@ -1,4 +1,4 @@
-## eslint-config-shortlink
+## @shortlink-org/eslint
 
 This package provides ShortLink's `.eslintrc` as an extensible shared config.
 

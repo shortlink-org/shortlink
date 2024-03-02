@@ -1,5 +1,5 @@
 {
-  "name": "eslint-config-shortlink",
+  "name": "@shortlink-org/eslint",
   "version": "1.0.0",
   "description": "Shared ESLint configuration for ShortLink",
   "main": "index.yaml",
@@ -20,6 +20,6 @@
   "homepage": "https://github.com/shortlink-org/shortlink#readme",
   "peerDependencies": {
     "eslint": "^8.57.0",
-    "eslint-plugin-shortlink": "*"
+    "@shortlink-org/eslint-plugin": "*"
   }
 }
