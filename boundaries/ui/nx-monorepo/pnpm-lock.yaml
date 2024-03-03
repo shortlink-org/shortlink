@@ -62,6 +62,9 @@ importers:
       eslint-formatter-gitlab:
         specifier: ^5.1.0
         version: 5.1.0(eslint@8.57.0)
+      eslint-plugin-shortlink:
+        specifier: ^1.0.0
+        version: link:packages/eslint/eslint-plugin-shortlink
       express:
         specifier: ^4.18.3
         version: 4.18.3
@@ -126,9 +129,6 @@ importers:
       '@rollup/plugin-terser':
         specifier: ^0.4.4
         version: 0.4.4(rollup@2.79.1)
-      '@shortlink-org/eslint':
-        specifier: workspace:^
-        version: link:packages/eslint/eslint-config-shortlink
       '@surma/rollup-plugin-off-main-thread':
         specifier: 2.2.3
         version: 2.2.3
@@ -171,6 +171,9 @@ importers:
       eslint-config-next:
         specifier: ^14.1.1
         version: 14.1.1(eslint@8.57.0)(typescript@5.3.3)
+      eslint-config-shortlink:
+        specifier: workspace:^
+        version: link:packages/eslint/eslint-config-shortlink
       eslint-plugin-cypress:
         specifier: ^2.15.1
         version: 2.15.1(eslint@8.57.0)
@@ -213,12 +216,12 @@ importers:
 
   packages/eslint/eslint-config-shortlink:
     dependencies:
-      '@shortlink-org/eslint-plugin':
-        specifier: '*'
-        version: link:../eslint-plugin-shortlink
       eslint:
         specifier: ^8.57.0
         version: 8.57.0
+      eslint-plugin-shortlink:
+        specifier: '*'
+        version: link:../eslint-plugin-shortlink
 
   packages/eslint/eslint-plugin-shortlink: {}
 
@@ -227,11 +230,8 @@ importers:
       '@marsidev/react-turnstile':
         specifier: 0.5.3
         version: 0.5.3(react-dom@18.2.0)(react@18.2.0)
-      '@shortlink-org/eslint':
-        specifier: workspace:^
-        version: link:../eslint/eslint-config-shortlink
       '@shortlink-org/ui-kit':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../ui-kit
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
@@ -245,6 +245,9 @@ importers:
       '@tailwindcss/typography':
         specifier: ^0.5.10
         version: 0.5.10(tailwindcss@3.4.1)
+      eslint-config-shortlink:
+        specifier: '*'
+        version: link:../eslint/eslint-config-shortlink
       postcss-preset-env:
         specifier: ^9.4.0
         version: 9.4.0(postcss@8.4.35)
@@ -303,11 +306,8 @@ importers:
       '@sentry/nextjs':
         specifier: ^7.104.0
         version: 7.104.0(next@14.1.1)(react@18.2.0)(webpack@5.90.3)
-      '@shortlink-org/eslint':
-        specifier: workspace:^
-        version: link:../eslint/eslint-config-shortlink
       '@shortlink-org/ui-kit':
-        specifier: workspace:^
+        specifier: '*'
         version: link:../ui-kit
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
@@ -324,6 +324,9 @@ importers:
       date-fns:
         specifier: ^3.3.1
         version: 3.3.1
+      eslint-config-shortlink:
+        specifier: '*'
+        version: link:../eslint/eslint-config-shortlink
       express:
         specifier: ^4.18.3
         version: 4.18.3
@@ -518,9 +521,6 @@ importers:
       '@rollup/rollup-darwin-x64':
         specifier: ^4.12.0
         version: 4.12.0
-      '@shortlink-org/eslint':
-        specifier: workspace:^
-        version: link:../eslint/eslint-config-shortlink
       '@storybook/addon-a11y':
         specifier: 8.0.0-rc.1
         version: 8.0.0-rc.1
@@ -593,6 +593,9 @@ importers:
       eslint-config-prettier:
         specifier: ^9.1.0
         version: 9.1.0(eslint@8.57.0)
+      eslint-config-shortlink:
+        specifier: '*'
+        version: link:../eslint/eslint-config-shortlink
       eslint-plugin-prettier:
         specifier: ^5.1.3
         version: 5.1.3(eslint-config-prettier@9.1.0)(eslint@8.57.0)(prettier@3.2.5)
