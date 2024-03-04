@@ -13,6 +13,8 @@ run:
 
   skip-dirs:
     - "boundaries/shortdb/shortdb/io_uring"
+    - "boundaries/ui"
+    - "ops"
 
   skip-files:
     - ".*mocks.+"
@@ -84,7 +86,7 @@ linters-settings:
     # To disable the errcheck built-in exclude list.
     # See `-excludeonly` option in https://github.com/kisielk/errcheck#excluding-functions for details.
     # Default: false
-    disable-default-exclusions: true
+    disable-default-exclusions: false
 
     # List of functions to exclude from checking, where each entry is a single function to exclude.
     # See https://github.com/kisielk/errcheck#excluding-functions for details.
@@ -141,20 +143,10 @@ linters-settings:
       - opinionated
 
     disabled-checks:
-      - paramTypeCombine
-      - dynamicFmtString
-      - appendAssign
-      - ifElseChain
+      - paramTypeCombine # => a int, b int -> a,b int
       - singleCaseSwitch
-      - dupImport
       - commentedOutCode
-      - switchTrue
-      - nilValReturn
-      - deferInLoop
       - emptyFallthrough
-      - unnecessaryBlock
-      - captLocal
-      - whyNoLint
 
     # Settings passed to gocritic.
     # The settings key is the name of a supported gocritic checker.
@@ -254,6 +246,7 @@ linters-settings:
       - G108
       - G109
       - G110
+      - G111
       - G112
       - G113
       - G114
@@ -278,6 +271,7 @@ linters-settings:
       - G504
       - G505
       - G601
+      - G602
 
     # To specify the configuration of rules.
     # The configuration of rules is not fully documented by gosec:
@@ -482,7 +476,7 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#duplicated-imports
       - name: duplicated-imports
         severity: warning
-        disabled: true
+        disabled: false
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#early-return
       - name: early-return
         severity: warning
@@ -549,7 +543,7 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#if-return
       - name: if-return
         severity: warning
-        disabled: true
+        disabled: false
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#increment-decrement
       - name: increment-decrement
         severity: warning
@@ -590,7 +584,7 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#nested-structs
       - name: nested-structs
         severity: warning
-        disabled: true
+        disabled: false
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#optimize-operands-order
       - name: optimize-operands-order
         severity: warning
@@ -681,7 +675,6 @@ linters-settings:
         disabled: true
         arguments:
           - "fmt.Printf"
-          - "myFunction"
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#unnecessary-stmt
       - name: unnecessary-stmt
         severity: warning
@@ -801,7 +794,7 @@ linters-settings:
     multi-if: true
     # Enforces newlines (or comments) after every multi-line function signature.
     # Default: false
-    multi-func: true
+    multi-func: false
 
   wsl:
     allow-cuddle-declarations: false
@@ -826,6 +819,8 @@ linters:
     - deadcode # deprecated
     - varcheck # deprecated
     - structcheck # deprecated
+    - interfacebloat # we don't use limit of methods in interfaces
+    - ireturn # return interface{} is allowed
     - musttag
     - gochecknoinits
     - inamedparam
@@ -835,7 +830,6 @@ linters:
     - forbidigo
     - gochecknoglobals
     - testpackage
-    - ireturn
     - testifylint
     - depguard
     - importas
@@ -845,12 +839,10 @@ linters:
     - wsl
     - tagliatelle
     - nilnil
-    - interfacebloat
-    - exhaustive
     - maintidx
     - dupl
-    - whitespace
     - gofumpt
+    - perfsprint # maybe enable in the future
 
 issues:
 
