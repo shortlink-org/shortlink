@@ -1,0 +1,15 @@
+stages:
+  - test
+  - build
+
+test:
+  image: python:${PYTHON_MAJOR}.${PYTHON_MINOR}
+  variables:
+    TOX_ENV: "py${PYTHON_MAJOR}${PYTHON_MINOR}"
+  parallel:
+    matrix:
+      - TOX_ENV: [pyproject]
+        PYTHON_MAJOR: 3
+        PYTHON_MINOR: 12
+  script:
+    - tox -e "${TOX_ENV}"

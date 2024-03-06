@@ -1,7 +1,22 @@
 [project]
 name = "referral"
-# Support Python 3.12+.
+description = "This service is responsible for the referral program."
+readme = "README.md"
 requires-python = ">=3.12"
+dynamic = ["version"]
+
+[build-system]
+requires = ["setuptools~=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = {attr = "src._version.__version__"}
+
+[tool.setuptools.package-data]
+"src" = ["py.typed"]
+
+[tool.pytest.ini_options]
+addopts = "-ra -q --cov-report term-missing --cov libname --fixtures tests"
 
 [tool.ruff]
 unsafe-fixes = true
