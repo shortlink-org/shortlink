@@ -10,6 +10,10 @@ kube-prometheus-stack:
   grafana:
     enabled: false
 
+    sidecar:
+      dashboards:
+        enableNewTablePanelSyntax: true
+
   kubeDns:
     enabled: false
 
