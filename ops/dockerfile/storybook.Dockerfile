@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.6
+# syntax=docker/dockerfile:1.7
 
 # Defining environment
 ARG APP_ENV=development
