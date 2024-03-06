@@ -35,8 +35,8 @@ devDependencies:
     specifier: ^5.3.3
     version: 5.3.3
   wxt:
-    specifier: ^0.17.4
-    version: 0.17.4
+    specifier: ^0.17.7
+    version: 0.17.7
 
 packages:
 
@@ -3965,8 +3965,8 @@ packages:
         optional: true
     dev: true
 
-  /wxt@0.17.4:
-    resolution: {integrity: sha512-SsJI8N34MbLAWZm6s48NgGzu8+NlOpIm9NS0jwtKJi8FeNITfKLJlUd1UKRUFCtXecndDBVt4eszBVkyaa+M+w==}
+  /wxt@0.17.7:
+    resolution: {integrity: sha512-RSjn65tYUNhoHBtDwLjNmWrGtmQ62qLldekWCOtekl+Gzq1n/KcHm/M7QKhbJe7pxP8v5UvqcQEToW5oA9nwuA==}
     engines: {node: '>=18', pnpm: '>=8'}
     hasBin: true
     dependencies:
@@ -3992,10 +3992,12 @@ packages:
       is-wsl: 3.1.0
       jiti: 1.21.0
       json5: 2.2.3
+      jszip: 3.10.1
       linkedom: 0.16.8
       minimatch: 9.0.3
       natural-compare: 1.4.0
       normalize-path: 3.0.0
+      nypm: 0.3.6
       ora: 7.0.1
       picocolors: 1.0.0
       prompts: 2.4.2
@@ -4004,7 +4006,6 @@ packages:
       vite: 5.1.4
       web-ext-run: 0.2.0
       webextension-polyfill: 0.10.0
-      zip-dir: 2.0.0
     transitivePeerDependencies:
       - '@types/node'
       - bufferutil
