@@ -60,7 +60,6 @@ export default [
       '@mui/material',
       '@emotion/react',
       '@mui/x-date-pickers',
-      '@mui/styled-engine',
       '@mui/icons-material',
     ],
   },

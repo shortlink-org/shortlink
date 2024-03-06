@@ -10,7 +10,7 @@ type Tier = {
   subheader: string
   price: number
   description: string[]
-  buttonVariant: 'outlined' | 'contained'
+  buttonVariant: string
   buttonText: string
 }
 

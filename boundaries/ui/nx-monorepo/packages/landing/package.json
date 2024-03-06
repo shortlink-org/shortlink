@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "pnpm next dev -p 3001",
-    "build": "pnpm next build",
+    "build": "NODE_ENV=production pnpm next build",
     "start": "pnpm next start",
     "lint": "pnpm eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
     "lint:fix": "pnpm lint --fix",
@@ -15,14 +15,19 @@
     "preinstall": "npx only-allow pnpm"
   },
   "dependencies": {
+    "@emotion/cache": "^11.11.0",
     "@marsidev/react-turnstile": "0.5.3",
-    "eslint-config-shortlink": "*",
-    "@shortlink-org/ui-kit": "*",
+    "@mui/icons-material": "^5.15.11",
+    "@mui/material": "^5.15.11",
+    "@mui/material-nextjs": "^5.15.11",
+    "@shortlink-org/ui-kit": "workspace:^",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/forms": "^0.5.7",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.10",
-    "postcss-preset-env": "^9.4.0"
+    "eslint-config-shortlink": "workspace:^",
+    "postcss-preset-env": "^9.4.0",
+    "typescript": "^5.3.3"
   },
   "devDependencies": {
     "@mdx-js/loader": "3.0.1",

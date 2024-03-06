@@ -3,7 +3,6 @@ import { CacheProvider } from '@emotion/react'
 import CssBaseline from '@mui/material/CssBaseline'
 import {
   getInitColorSchemeScript,
-  StyledEngineProvider,
   ThemeProvider,
 } from '@mui/material/styles'
 import { LocalizationProvider } from '@mui/x-date-pickers'
@@ -101,19 +100,17 @@ function MyApp({ Component, ...rest }) {
 
               {defaultSeo(theme)}
 
-              <StyledEngineProvider injectFirst>
-                <ThemeProvider theme={theme}>
-                  <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
-                    {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                    <CssBaseline />
-                    {getInitColorSchemeScript()}
+              <ThemeProvider theme={theme}>
+                <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
+                  {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                  <CssBaseline />
+                  {getInitColorSchemeScript()}
 
-                    <BalancerProvider>
-                      <Component {...pageProps} />
-                    </BalancerProvider>
-                  </ColorModeContext.Provider>
-                </ThemeProvider>
-              </StyledEngineProvider>
+                  <BalancerProvider>
+                    <Component {...pageProps} />
+                  </BalancerProvider>
+                </ColorModeContext.Provider>
+              </ThemeProvider>
             </CacheProvider>
           </Provider>
         </NextThemeProvider>

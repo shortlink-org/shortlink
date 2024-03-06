@@ -164,7 +164,7 @@ const Header = () => {
           </Button>
         </Link>
 
-        <ToggleDarkMode onChange={onChangeTheme} />
+        <ToggleDarkMode id="toggleDarkMode" onChange={onChangeTheme} />
 
         {secondMenu()}
 
