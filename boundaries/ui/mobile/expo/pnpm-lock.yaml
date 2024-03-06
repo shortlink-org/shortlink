@@ -98,8 +98,8 @@ devDependencies:
     specifier: ^20.11.24
     version: 20.11.24
   '@types/react':
-    specifier: ~18.2.60
-    version: 18.2.60
+    specifier: ~18.2.63
+    version: 18.2.63
   '@types/react-native':
     specifier: 0.72.8
     version: 0.72.8(react-native@0.73.5)
@@ -4240,13 +4240,13 @@ packages:
     resolution: {integrity: sha512-St6xA7+EoHN5mEYfdWnfYt0e8u6k2FR0P9s2arYgakQGFgU1f9FlPrIEcj0X24pLCF5c5i3WVuLCUdiCYHmOoA==}
     dependencies:
       '@react-native/virtualized-lists': 0.72.8(react-native@0.73.5)
-      '@types/react': 18.2.60
+      '@types/react': 18.2.63
     transitivePeerDependencies:
       - react-native
     dev: true
 
-  /@types/react@18.2.60:
-    resolution: {integrity: sha512-dfiPj9+k20jJrLGOu9Nf6eqxm2EyJRrq2NvwOFsfbb7sFExZ9WELPs67UImHj3Ayxg8ruTtKtNnbjaF8olPq0A==}
+  /@types/react@18.2.63:
+    resolution: {integrity: sha512-ppaqODhs15PYL2nGUOaOu2RSCCB4Difu4UFrP4I3NHLloXC/ESQzQMi9nvjfT1+rudd0d2L3fQPJxRSey+rGlQ==}
     dependencies:
       '@types/prop-types': 15.7.11
       '@types/scheduler': 0.16.8
