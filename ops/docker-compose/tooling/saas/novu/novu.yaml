@@ -91,7 +91,7 @@ services:
 
   novu-web:
     <<: *network
-    image: ghcr.io/novuhq/novu/web:0.23.0
+    image: ghcr.io/novuhq/novu/web:0.24.0
     container_name: novu-web
     restart: unless-stopped
     ports:
