@@ -22,7 +22,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-template | shortlink-template | 0.8.9 |
+| file://../shortlink-template | shortlink-template | 0.8.11 |
 
 ## Values
 
@@ -168,7 +168,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.17.24"
+"0.17.36"
 </pre>
 </div>
 			</td>
@@ -197,6 +197,7 @@ object
 				<div style="max-width: 300px;">
 <pre lang="json">
 {
+  "enabled": true,
   "httpGet": {
     "path": "/live",
     "port": 9090
@@ -222,7 +223,7 @@ list
 			<td>Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature</td>
 		</tr>
 		<tr>
-			<td id="deploy--podSecurityContext--fsGroup"><a href="./values.yaml#L102">deploy.podSecurityContext.fsGroup</a></td>
+			<td id="deploy--podSecurityContext--fsGroup"><a href="./values.yaml#L104">deploy.podSecurityContext.fsGroup</a></td>
 			<td>
 int
 </td>
@@ -236,7 +237,7 @@ int
 			<td>fsGroup is the group ID associated with the container</td>
 		</tr>
 		<tr>
-			<td id="deploy--readinessProbe"><a href="./values.yaml#L83">deploy.readinessProbe</a></td>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L84">deploy.readinessProbe</a></td>
 			<td>
 object
 </td>
@@ -244,6 +245,7 @@ object
 				<div style="max-width: 300px;">
 <pre lang="json">
 {
+  "enabled": true,
   "httpGet": {
     "path": "/ready",
     "port": 9090
@@ -269,7 +271,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--limits"><a href="./values.yaml#L93">deploy.resources.limits</a></td>
+			<td id="deploy--resources--limits"><a href="./values.yaml#L95">deploy.resources.limits</a></td>
 			<td>
 object
 </td>
@@ -286,7 +288,7 @@ object
 			<td>We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'.</td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L97">deploy.resources.requests.cpu</a></td>
+			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L99">deploy.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -300,7 +302,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L98">deploy.resources.requests.memory</a></td>
+			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L100">deploy.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -314,7 +316,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--securityContext"><a href="./values.yaml#L107">deploy.securityContext</a></td>
+			<td id="deploy--securityContext"><a href="./values.yaml#L109">deploy.securityContext</a></td>
 			<td>
 object
 </td>
@@ -409,7 +411,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="./values.yaml#L133">monitoring.enabled</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L135">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -423,7 +425,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--enabled"><a href="./values.yaml#L143">networkPolicy.enabled</a></td>
+			<td id="networkPolicy--enabled"><a href="./values.yaml#L145">networkPolicy.enabled</a></td>
 			<td>
 bool
 </td>
@@ -437,7 +439,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[0]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L149">networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[0]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L151">networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -451,7 +453,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[1]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L152">networkPolicy.ingress[0].from[1].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[1]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L154">networkPolicy.ingress[0].from[1].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -465,7 +467,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[2]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L155">networkPolicy.ingress[0].from[2].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[2]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L157">networkPolicy.ingress[0].from[2].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -479,7 +481,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[3]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L158">networkPolicy.ingress[0].from[3].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[3]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L160">networkPolicy.ingress[0].from[3].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -493,7 +495,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[4]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L161">networkPolicy.ingress[0].from[4].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[4]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L163">networkPolicy.ingress[0].from[4].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -507,7 +509,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--policyTypes[0]"><a href="./values.yaml#L163">networkPolicy.policyTypes[0]</a></td>
+			<td id="networkPolicy--policyTypes[0]"><a href="./values.yaml#L165">networkPolicy.policyTypes[0]</a></td>
 			<td>
 string
 </td>
@@ -521,7 +523,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--policyTypes[1]"><a href="./values.yaml#L164">networkPolicy.policyTypes[1]</a></td>
+			<td id="networkPolicy--policyTypes[1]"><a href="./values.yaml#L166">networkPolicy.policyTypes[1]</a></td>
 			<td>
 string
 </td>
@@ -535,7 +537,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L138">podDisruptionBudget.enabled</a></td>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L140">podDisruptionBudget.enabled</a></td>
 			<td>
 bool
 </td>
@@ -605,7 +607,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--name"><a href="./values.yaml#L125">service.ports[0].name</a></td>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L127">service.ports[0].name</a></td>
 			<td>
 string
 </td>
@@ -619,7 +621,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--port"><a href="./values.yaml#L126">service.ports[0].port</a></td>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L128">service.ports[0].port</a></td>
 			<td>
 int
 </td>
@@ -633,7 +635,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--protocol"><a href="./values.yaml#L127">service.ports[0].protocol</a></td>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L129">service.ports[0].protocol</a></td>
 			<td>
 string
 </td>
@@ -647,7 +649,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--public"><a href="./values.yaml#L128">service.ports[0].public</a></td>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L130">service.ports[0].public</a></td>
 			<td>
 bool
 </td>
@@ -661,7 +663,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--type"><a href="./values.yaml#L123">service.type</a></td>
+			<td id="service--type"><a href="./values.yaml#L125">service.type</a></td>
 			<td>
 string
 </td>

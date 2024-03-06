@@ -41,7 +41,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--persistence--enabled"><a href="./values.yaml#L63">tempo.persistence.enabled</a></td>
+			<td id="tempo--persistence--enabled"><a href="./values.yaml#L66">tempo.persistence.enabled</a></td>
 			<td>
 bool
 </td>
@@ -55,7 +55,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--persistence--size"><a href="./values.yaml#L65">tempo.persistence.size</a></td>
+			<td id="tempo--persistence--size"><a href="./values.yaml#L68">tempo.persistence.size</a></td>
 			<td>
 string
 </td>
@@ -69,7 +69,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="tempo--persistence--storageClassName"><a href="./values.yaml#L64">tempo.persistence.storageClassName</a></td>
+			<td id="tempo--persistence--storageClassName"><a href="./values.yaml#L67">tempo.persistence.storageClassName</a></td>
 			<td>
 string
 </td>
@@ -91,6 +91,20 @@ bool
 				<div style="max-width: 300px;">
 <pre lang="json">
 true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="tempo--serviceMonitor--labels--release"><a href="./values.yaml#L63">tempo.serviceMonitor.labels.release</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"prometheus-operator"
 </pre>
 </div>
 			</td>

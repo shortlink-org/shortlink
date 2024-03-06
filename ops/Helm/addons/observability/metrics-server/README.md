@@ -68,6 +68,20 @@ true
 			</td>
 			<td></td>
 		</tr>
+		<tr>
+			<td id="metrics-server--serviceMonitor--labels--release"><a href="./values.yaml#L11">metrics-server.serviceMonitor.labels.release</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"prometheus-operator"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
 	</tbody>
 </table>
 

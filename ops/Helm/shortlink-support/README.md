@@ -22,7 +22,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-template | shortlink-template | 0.8.9 |
+| file://../shortlink-template | shortlink-template | 0.8.11 |
 
 ## Values
 
@@ -70,14 +70,56 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.17.27"
+"0.17.36"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="./values.yaml#L54">monitoring.enabled</a></td>
+			<td id="deploy--volumes[0]--mountPath"><a href="./values.yaml#L34">deploy.volumes[0].mountPath</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/tmp"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--volumes[0]--name"><a href="./values.yaml#L33">deploy.volumes[0].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"tmp"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--volumes[0]--type"><a href="./values.yaml#L35">deploy.volumes[0].type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"emptyDir"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="monitoring--enabled"><a href="./values.yaml#L64">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -91,7 +133,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--enabled"><a href="./values.yaml#L64">networkPolicy.enabled</a></td>
+			<td id="networkPolicy--enabled"><a href="./values.yaml#L74">networkPolicy.enabled</a></td>
 			<td>
 bool
 </td>
@@ -105,7 +147,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[0]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L70">networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[0]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L80">networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -119,7 +161,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[1]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L73">networkPolicy.ingress[0].from[1].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[1]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L83">networkPolicy.ingress[0].from[1].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -133,7 +175,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[2]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L76">networkPolicy.ingress[0].from[2].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[2]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L86">networkPolicy.ingress[0].from[2].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -147,7 +189,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[3]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L79">networkPolicy.ingress[0].from[3].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[3]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L89">networkPolicy.ingress[0].from[3].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -161,7 +203,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[4]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L82">networkPolicy.ingress[0].from[4].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[4]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L92">networkPolicy.ingress[0].from[4].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -175,7 +217,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--policyTypes[0]"><a href="./values.yaml#L84">networkPolicy.policyTypes[0]</a></td>
+			<td id="networkPolicy--policyTypes[0]"><a href="./values.yaml#L94">networkPolicy.policyTypes[0]</a></td>
 			<td>
 string
 </td>
@@ -189,7 +231,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--policyTypes[1]"><a href="./values.yaml#L85">networkPolicy.policyTypes[1]</a></td>
+			<td id="networkPolicy--policyTypes[1]"><a href="./values.yaml#L95">networkPolicy.policyTypes[1]</a></td>
 			<td>
 string
 </td>
@@ -203,7 +245,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L59">podDisruptionBudget.enabled</a></td>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L69">podDisruptionBudget.enabled</a></td>
 			<td>
 bool
 </td>
@@ -217,7 +259,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--name"><a href="./values.yaml#L42">service.ports[0].name</a></td>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L52">service.ports[0].name</a></td>
 			<td>
 string
 </td>
@@ -231,7 +273,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--port"><a href="./values.yaml#L43">service.ports[0].port</a></td>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L53">service.ports[0].port</a></td>
 			<td>
 int
 </td>
@@ -245,7 +287,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--protocol"><a href="./values.yaml#L44">service.ports[0].protocol</a></td>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L54">service.ports[0].protocol</a></td>
 			<td>
 string
 </td>
@@ -259,7 +301,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--public"><a href="./values.yaml#L45">service.ports[0].public</a></td>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L55">service.ports[0].public</a></td>
 			<td>
 bool
 </td>
@@ -273,7 +315,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--name"><a href="./values.yaml#L46">service.ports[1].name</a></td>
+			<td id="service--ports[1]--name"><a href="./values.yaml#L56">service.ports[1].name</a></td>
 			<td>
 string
 </td>
@@ -287,7 +329,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--port"><a href="./values.yaml#L47">service.ports[1].port</a></td>
+			<td id="service--ports[1]--port"><a href="./values.yaml#L57">service.ports[1].port</a></td>
 			<td>
 int
 </td>
@@ -301,7 +343,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--protocol"><a href="./values.yaml#L48">service.ports[1].protocol</a></td>
+			<td id="service--ports[1]--protocol"><a href="./values.yaml#L58">service.ports[1].protocol</a></td>
 			<td>
 string
 </td>
@@ -315,7 +357,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--public"><a href="./values.yaml#L49">service.ports[1].public</a></td>
+			<td id="service--ports[1]--public"><a href="./values.yaml#L59">service.ports[1].public</a></td>
 			<td>
 bool
 </td>
@@ -329,7 +371,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--type"><a href="./values.yaml#L40">service.type</a></td>
+			<td id="service--type"><a href="./values.yaml#L50">service.type</a></td>
 			<td>
 string
 </td>
@@ -343,7 +385,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="sidecars[0]--image--repository"><a href="./values.yaml#L35">sidecars[0].image.repository</a></td>
+			<td id="sidecars[0]--image--repository"><a href="./values.yaml#L40">sidecars[0].image.repository</a></td>
 			<td>
 string
 </td>
@@ -357,21 +399,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="sidecars[0]--image--tag"><a href="./values.yaml#L36">sidecars[0].image.tag</a></td>
+			<td id="sidecars[0]--image--tag"><a href="./values.yaml#L41">sidecars[0].image.tag</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.17.27"
+"0.17.36"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="sidecars[0]--name"><a href="./values.yaml#L33">sidecars[0].name</a></td>
+			<td id="sidecars[0]--name"><a href="./values.yaml#L38">sidecars[0].name</a></td>
 			<td>
 string
 </td>
@@ -379,6 +421,48 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "proxy"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="sidecars[0]--volumes[0]--mountPath"><a href="./values.yaml#L45">sidecars[0].volumes[0].mountPath</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"/tmp"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="sidecars[0]--volumes[0]--name"><a href="./values.yaml#L44">sidecars[0].volumes[0].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"tmp"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="sidecars[0]--volumes[0]--type"><a href="./values.yaml#L46">sidecars[0].volumes[0].type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"emptyDir"
 </pre>
 </div>
 			</td>

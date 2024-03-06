@@ -10,7 +10,6 @@ require (
 	github.com/oapi-codegen/runtime v1.1.1
 	github.com/riandyrn/otelchi v0.5.1
 	github.com/segmentio/encoding v0.4.0
-	github.com/shortlink-org/shortlink v0.0.0-20240306110726-56486e0e0216
 	github.com/spf13/viper v1.18.2
 	go.opentelemetry.io/otel/trace v1.24.0
 	golang.org/x/sync v0.6.0
@@ -176,7 +175,6 @@ require (
 	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa // indirect
 	golang.org/x/net v0.21.0 // indirect
 	golang.org/x/oauth2 v0.17.0 // indirect
-	golang.org/x/sys v0.17.0 // indirect
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/genproto v0.0.0-20240221002015-b0ce06bbee7c // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240221002015-b0ce06bbee7c // indirect

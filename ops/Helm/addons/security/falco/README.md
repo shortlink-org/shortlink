@@ -70,7 +70,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--grafanaDashboard--enabled"><a href="./values.yaml#L71">falco-exporter.grafanaDashboard.enabled</a></td>
+			<td id="falco-exporter--grafanaDashboard--enabled"><a href="./values.yaml#L74">falco-exporter.grafanaDashboard.enabled</a></td>
 			<td>
 bool
 </td>
@@ -84,7 +84,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--grafanaDashboard--folder"><a href="./values.yaml#L73">falco-exporter.grafanaDashboard.folder</a></td>
+			<td id="falco-exporter--grafanaDashboard--folder"><a href="./values.yaml#L76">falco-exporter.grafanaDashboard.folder</a></td>
 			<td>
 string
 </td>
@@ -98,7 +98,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--grafanaDashboard--namespace"><a href="./values.yaml#L72">falco-exporter.grafanaDashboard.namespace</a></td>
+			<td id="falco-exporter--grafanaDashboard--namespace"><a href="./values.yaml#L75">falco-exporter.grafanaDashboard.namespace</a></td>
 			<td>
 string
 </td>
@@ -112,7 +112,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--prometheusRules--enabled"><a href="./values.yaml#L76">falco-exporter.prometheusRules.enabled</a></td>
+			<td id="falco-exporter--prometheusRules--enabled"><a href="./values.yaml#L79">falco-exporter.prometheusRules.enabled</a></td>
 			<td>
 bool
 </td>
@@ -126,7 +126,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--resources--limits--cpu"><a href="./values.yaml#L80">falco-exporter.resources.limits.cpu</a></td>
+			<td id="falco-exporter--resources--limits--cpu"><a href="./values.yaml#L83">falco-exporter.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -140,7 +140,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--resources--limits--memory"><a href="./values.yaml#L81">falco-exporter.resources.limits.memory</a></td>
+			<td id="falco-exporter--resources--limits--memory"><a href="./values.yaml#L84">falco-exporter.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -154,7 +154,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--resources--requests--cpu"><a href="./values.yaml#L83">falco-exporter.resources.requests.cpu</a></td>
+			<td id="falco-exporter--resources--requests--cpu"><a href="./values.yaml#L86">falco-exporter.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -168,7 +168,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--resources--requests--memory"><a href="./values.yaml#L84">falco-exporter.resources.requests.memory</a></td>
+			<td id="falco-exporter--resources--requests--memory"><a href="./values.yaml#L87">falco-exporter.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -190,6 +190,20 @@ bool
 				<div style="max-width: 300px;">
 <pre lang="json">
 true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco-exporter--serviceMonitor--labels--release"><a href="./values.yaml#L71">falco-exporter.serviceMonitor.labels.release</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"prometheus-operator"
 </pre>
 </div>
 			</td>

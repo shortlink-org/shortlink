@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://ghcr.io/dragonflydb/dragonfly/helm | dragonfly | v1.14.5 |
+| oci://ghcr.io/dragonflydb/dragonfly/helm | dragonfly | v1.15.0 |
 
 ## Values
 
@@ -69,7 +69,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="dragonfly--prometheusRule--enabled"><a href="./values.yaml#L25">dragonfly.prometheusRule.enabled</a></td>
+			<td id="dragonfly--prometheusRule--enabled"><a href="./values.yaml#L28">dragonfly.prometheusRule.enabled</a></td>
 			<td>
 bool
 </td>
@@ -83,7 +83,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="dragonfly--resources--limits--cpu"><a href="./values.yaml#L34">dragonfly.resources.limits.cpu</a></td>
+			<td id="dragonfly--resources--limits--cpu"><a href="./values.yaml#L37">dragonfly.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -97,7 +97,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="dragonfly--resources--limits--memory"><a href="./values.yaml#L35">dragonfly.resources.limits.memory</a></td>
+			<td id="dragonfly--resources--limits--memory"><a href="./values.yaml#L38">dragonfly.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -111,7 +111,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="dragonfly--resources--requests--cpu"><a href="./values.yaml#L37">dragonfly.resources.requests.cpu</a></td>
+			<td id="dragonfly--resources--requests--cpu"><a href="./values.yaml#L40">dragonfly.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -125,7 +125,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="dragonfly--resources--requests--memory"><a href="./values.yaml#L38">dragonfly.resources.requests.memory</a></td>
+			<td id="dragonfly--resources--requests--memory"><a href="./values.yaml#L41">dragonfly.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -209,7 +209,21 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="dragonfly--storage--enabled"><a href="./values.yaml#L28">dragonfly.storage.enabled</a></td>
+			<td id="dragonfly--serviceMonitor--labels--release"><a href="./values.yaml#L25">dragonfly.serviceMonitor.labels.release</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"prometheus-operator"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="dragonfly--storage--enabled"><a href="./values.yaml#L31">dragonfly.storage.enabled</a></td>
 			<td>
 bool
 </td>
@@ -223,7 +237,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="dragonfly--storage--requests"><a href="./values.yaml#L30">dragonfly.storage.requests</a></td>
+			<td id="dragonfly--storage--requests"><a href="./values.yaml#L33">dragonfly.storage.requests</a></td>
 			<td>
 string
 </td>
@@ -237,7 +251,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="dragonfly--storage--storageClassName"><a href="./values.yaml#L29">dragonfly.storage.storageClassName</a></td>
+			<td id="dragonfly--storage--storageClassName"><a href="./values.yaml#L32">dragonfly.storage.storageClassName</a></td>
 			<td>
 string
 </td>

@@ -22,7 +22,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-template | shortlink-template | 0.8.9 |
+| file://../shortlink-template | shortlink-template | 0.8.11 |
 
 ## Values
 
@@ -84,7 +84,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.17.24"
+"0.17.36"
 </pre>
 </div>
 			</td>
@@ -113,6 +113,7 @@ object
 				<div style="max-width: 300px;">
 <pre lang="json">
 {
+  "enabled": true,
   "httpGet": {
     "path": "/live",
     "port": 8080
@@ -124,7 +125,7 @@ object
 			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--readinessProbe"><a href="./values.yaml#L65">deploy.readinessProbe</a></td>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L66">deploy.readinessProbe</a></td>
 			<td>
 object
 </td>
@@ -132,6 +133,7 @@ object
 				<div style="max-width: 300px;">
 <pre lang="json">
 {
+  "enabled": true,
   "httpGet": {
     "path": "/ready",
     "port": 8080
@@ -213,7 +215,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--volumes[0]--mountPath"><a href="./values.yaml#L72">deploy.volumes[0].mountPath</a></td>
+			<td id="deploy--volumes[0]--mountPath"><a href="./values.yaml#L74">deploy.volumes[0].mountPath</a></td>
 			<td>
 string
 </td>
@@ -227,7 +229,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--volumes[0]--name"><a href="./values.yaml#L71">deploy.volumes[0].name</a></td>
+			<td id="deploy--volumes[0]--name"><a href="./values.yaml#L73">deploy.volumes[0].name</a></td>
 			<td>
 string
 </td>
@@ -241,7 +243,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--volumes[0]--type"><a href="./values.yaml#L73">deploy.volumes[0].type</a></td>
+			<td id="deploy--volumes[0]--type"><a href="./values.yaml#L75">deploy.volumes[0].type</a></td>
 			<td>
 string
 </td>
@@ -409,7 +411,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="./values.yaml#L86">monitoring.enabled</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L88">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -423,7 +425,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--enabled"><a href="./values.yaml#L96">networkPolicy.enabled</a></td>
+			<td id="networkPolicy--enabled"><a href="./values.yaml#L98">networkPolicy.enabled</a></td>
 			<td>
 bool
 </td>
@@ -437,7 +439,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress--from[0]--podSelector--matchLabels--"app--kubernetes--io/name""><a href="./values.yaml#L103">networkPolicy.ingress.from[0].podSelector.matchLabels."app.kubernetes.io/name"</a></td>
+			<td id="networkPolicy--ingress--from[0]--podSelector--matchLabels--"app--kubernetes--io/name""><a href="./values.yaml#L105">networkPolicy.ingress.from[0].podSelector.matchLabels."app.kubernetes.io/name"</a></td>
 			<td>
 string
 </td>
@@ -451,7 +453,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress--ports[0]--port"><a href="./values.yaml#L106">networkPolicy.ingress.ports[0].port</a></td>
+			<td id="networkPolicy--ingress--ports[0]--port"><a href="./values.yaml#L108">networkPolicy.ingress.ports[0].port</a></td>
 			<td>
 int
 </td>
@@ -465,7 +467,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress--ports[0]--protocol"><a href="./values.yaml#L105">networkPolicy.ingress.ports[0].protocol</a></td>
+			<td id="networkPolicy--ingress--ports[0]--protocol"><a href="./values.yaml#L107">networkPolicy.ingress.ports[0].protocol</a></td>
 			<td>
 string
 </td>
@@ -479,7 +481,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--policyTypes[0]"><a href="./values.yaml#L98">networkPolicy.policyTypes[0]</a></td>
+			<td id="networkPolicy--policyTypes[0]"><a href="./values.yaml#L100">networkPolicy.policyTypes[0]</a></td>
 			<td>
 string
 </td>
@@ -493,7 +495,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L91">podDisruptionBudget.enabled</a></td>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L93">podDisruptionBudget.enabled</a></td>
 			<td>
 bool
 </td>
@@ -507,7 +509,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--name"><a href="./values.yaml#L78">service.ports[0].name</a></td>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L80">service.ports[0].name</a></td>
 			<td>
 string
 </td>
@@ -521,7 +523,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--port"><a href="./values.yaml#L79">service.ports[0].port</a></td>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L81">service.ports[0].port</a></td>
 			<td>
 int
 </td>
@@ -535,7 +537,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--protocol"><a href="./values.yaml#L80">service.ports[0].protocol</a></td>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L82">service.ports[0].protocol</a></td>
 			<td>
 string
 </td>
@@ -549,7 +551,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--public"><a href="./values.yaml#L81">service.ports[0].public</a></td>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L83">service.ports[0].public</a></td>
 			<td>
 bool
 </td>
@@ -563,7 +565,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--type"><a href="./values.yaml#L76">service.type</a></td>
+			<td id="service--type"><a href="./values.yaml#L78">service.type</a></td>
 			<td>
 string
 </td>

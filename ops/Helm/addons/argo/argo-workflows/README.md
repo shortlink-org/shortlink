@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-workflows | 0.40.11 |
+| https://argoproj.github.io/argo-helm | argo-workflows | 0.40.14 |
 
 ## Values
 
@@ -197,7 +197,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--baseHref"><a href="./values.yaml#L40">argo-workflows.server.baseHref</a></td>
+			<td id="argo-workflows--server--authModes[0]"><a href="./values.yaml#L71">argo-workflows.server.authModes[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"server"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-workflows--server--baseHref"><a href="./values.yaml#L39">argo-workflows.server.baseHref</a></td>
 			<td>
 string
 </td>
@@ -211,21 +225,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--extraArgs[0]"><a href="./values.yaml#L38">argo-workflows.server.extraArgs[0]</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"--auth-mode=sso"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="argo-workflows--server--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L48">argo-workflows.server.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td id="argo-workflows--server--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L49">argo-workflows.server.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
 			<td>
 string
 </td>
@@ -239,7 +239,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--ingress--annotations--"nginx--ingress--kubernetes--io/backend-protocol""><a href="./values.yaml#L49">argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol"</a></td>
+			<td id="argo-workflows--server--ingress--annotations--"nginx--ingress--kubernetes--io/backend-protocol""><a href="./values.yaml#L50">argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol"</a></td>
 			<td>
 string
 </td>
@@ -253,7 +253,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L51">argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="argo-workflows--server--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L52">argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -267,7 +267,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L50">argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="argo-workflows--server--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L51">argo-workflows.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -281,21 +281,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--ingress--enabled"><a href="./values.yaml#L43">argo-workflows.server.ingress.enabled</a></td>
+			<td id="argo-workflows--server--ingress--enabled"><a href="./values.yaml#L44">argo-workflows.server.ingress.enabled</a></td>
 			<td>
 bool
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-true
+false
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--ingress--hosts[0]"><a href="./values.yaml#L54">argo-workflows.server.ingress.hosts[0]</a></td>
+			<td id="argo-workflows--server--ingress--hosts[0]"><a href="./values.yaml#L55">argo-workflows.server.ingress.hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -309,7 +309,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--ingress--ingressClassName"><a href="./values.yaml#L45">argo-workflows.server.ingress.ingressClassName</a></td>
+			<td id="argo-workflows--server--ingress--ingressClassName"><a href="./values.yaml#L46">argo-workflows.server.ingress.ingressClassName</a></td>
 			<td>
 string
 </td>
@@ -323,7 +323,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--ingress--paths[0]"><a href="./values.yaml#L57">argo-workflows.server.ingress.paths[0]</a></td>
+			<td id="argo-workflows--server--ingress--paths[0]"><a href="./values.yaml#L58">argo-workflows.server.ingress.paths[0]</a></td>
 			<td>
 string
 </td>
@@ -337,7 +337,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--ingress--tls[0]--hosts[0]"><a href="./values.yaml#L62">argo-workflows.server.ingress.tls[0].hosts[0]</a></td>
+			<td id="argo-workflows--server--ingress--tls[0]--hosts[0]"><a href="./values.yaml#L63">argo-workflows.server.ingress.tls[0].hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -351,7 +351,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--ingress--tls[0]--secretName"><a href="./values.yaml#L60">argo-workflows.server.ingress.tls[0].secretName</a></td>
+			<td id="argo-workflows--server--ingress--tls[0]--secretName"><a href="./values.yaml#L61">argo-workflows.server.ingress.tls[0].secretName</a></td>
 			<td>
 string
 </td>
@@ -365,7 +365,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--logging--format"><a href="./values.yaml#L65">argo-workflows.server.logging.format</a></td>
+			<td id="argo-workflows--server--logging--format"><a href="./values.yaml#L66">argo-workflows.server.logging.format</a></td>
 			<td>
 string
 </td>
@@ -379,7 +379,35 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--sso--clientId--key"><a href="./values.yaml#L77">argo-workflows.server.sso.clientId.key</a></td>
+			<td id="argo-workflows--server--revisionHistoryLimit"><a href="./values.yaml#L37">argo-workflows.server.revisionHistoryLimit</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+4
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-workflows--server--secure"><a href="./values.yaml#L68">argo-workflows.server.secure</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-workflows--server--sso--clientId--key"><a href="./values.yaml#L86">argo-workflows.server.sso.clientId.key</a></td>
 			<td>
 string
 </td>
@@ -393,7 +421,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--sso--clientId--name"><a href="./values.yaml#L76">argo-workflows.server.sso.clientId.name</a></td>
+			<td id="argo-workflows--server--sso--clientId--name"><a href="./values.yaml#L85">argo-workflows.server.sso.clientId.name</a></td>
 			<td>
 string
 </td>
@@ -407,7 +435,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--sso--clientSecret--key"><a href="./values.yaml#L80">argo-workflows.server.sso.clientSecret.key</a></td>
+			<td id="argo-workflows--server--sso--clientSecret--key"><a href="./values.yaml#L89">argo-workflows.server.sso.clientSecret.key</a></td>
 			<td>
 string
 </td>
@@ -421,7 +449,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--sso--clientSecret--name"><a href="./values.yaml#L79">argo-workflows.server.sso.clientSecret.name</a></td>
+			<td id="argo-workflows--server--sso--clientSecret--name"><a href="./values.yaml#L88">argo-workflows.server.sso.clientSecret.name</a></td>
 			<td>
 string
 </td>
@@ -435,21 +463,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--sso--enabled"><a href="./values.yaml#L68">argo-workflows.server.sso.enabled</a></td>
+			<td id="argo-workflows--server--sso--enabled"><a href="./values.yaml#L77">argo-workflows.server.sso.enabled</a></td>
 			<td>
 bool
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-true
+false
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--sso--issuer"><a href="./values.yaml#L69">argo-workflows.server.sso.issuer</a></td>
+			<td id="argo-workflows--server--sso--issuer"><a href="./values.yaml#L78">argo-workflows.server.sso.issuer</a></td>
 			<td>
 string
 </td>
@@ -463,7 +491,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--sso--rbac--enabled"><a href="./values.yaml#L72">argo-workflows.server.sso.rbac.enabled</a></td>
+			<td id="argo-workflows--server--sso--rbac--enabled"><a href="./values.yaml#L81">argo-workflows.server.sso.rbac.enabled</a></td>
 			<td>
 bool
 </td>
@@ -477,7 +505,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--sso--redirectUrl"><a href="./values.yaml#L81">argo-workflows.server.sso.redirectUrl</a></td>
+			<td id="argo-workflows--server--sso--redirectUrl"><a href="./values.yaml#L90">argo-workflows.server.sso.redirectUrl</a></td>
 			<td>
 string
 </td>
@@ -491,7 +519,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--sso--scopes[0]"><a href="./values.yaml#L74">argo-workflows.server.sso.scopes[0]</a></td>
+			<td id="argo-workflows--server--sso--scopes[0]"><a href="./values.yaml#L83">argo-workflows.server.sso.scopes[0]</a></td>
 			<td>
 string
 </td>
@@ -505,7 +533,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-workflows--server--sso--sessionExpiry"><a href="./values.yaml#L70">argo-workflows.server.sso.sessionExpiry</a></td>
+			<td id="argo-workflows--server--sso--sessionExpiry"><a href="./values.yaml#L79">argo-workflows.server.sso.sessionExpiry</a></td>
 			<td>
 string
 </td>

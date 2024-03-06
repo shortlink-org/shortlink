@@ -14,10 +14,10 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 6.2.3 |
-| https://argoproj.github.io/argo-helm | argocd-apps | 1.6.1 |
-| https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.4 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 18.16.1 |
+| https://argoproj.github.io/argo-helm | argo-cd | 6.6.0 |
+| https://argoproj.github.io/argo-helm | argocd-apps | 1.6.2 |
+| https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.5 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 18.18.0 |
 
 ## Values
 
@@ -206,6 +206,20 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "https://argo.shortlink.best"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-cd--configs--params--"dexserver--disable--tls""><a href="./values.yaml#L303">argo-cd.configs.params."dexserver.disable.tls"</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
 </pre>
 </div>
 			</td>
@@ -800,7 +814,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--metrics--enabled"><a href="./values.yaml#L313">argo-cd.notifications.metrics.enabled</a></td>
+			<td id="argo-cd--notifications--metrics--enabled"><a href="./values.yaml#L315">argo-cd.notifications.metrics.enabled</a></td>
 			<td>
 bool
 </td>
@@ -814,7 +828,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--metrics--serviceMonitor--enabled"><a href="./values.yaml#L315">argo-cd.notifications.metrics.serviceMonitor.enabled</a></td>
+			<td id="argo-cd--notifications--metrics--serviceMonitor--enabled"><a href="./values.yaml#L317">argo-cd.notifications.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -828,7 +842,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--resources--limits--cpu"><a href="./values.yaml#L306">argo-cd.notifications.resources.limits.cpu</a></td>
+			<td id="argo-cd--notifications--resources--limits--cpu"><a href="./values.yaml#L308">argo-cd.notifications.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -842,7 +856,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--resources--limits--memory"><a href="./values.yaml#L307">argo-cd.notifications.resources.limits.memory</a></td>
+			<td id="argo-cd--notifications--resources--limits--memory"><a href="./values.yaml#L309">argo-cd.notifications.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -856,7 +870,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--resources--requests--cpu"><a href="./values.yaml#L309">argo-cd.notifications.resources.requests.cpu</a></td>
+			<td id="argo-cd--notifications--resources--requests--cpu"><a href="./values.yaml#L311">argo-cd.notifications.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -870,7 +884,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--resources--requests--memory"><a href="./values.yaml#L310">argo-cd.notifications.resources.requests.memory</a></td>
+			<td id="argo-cd--notifications--resources--requests--memory"><a href="./values.yaml#L312">argo-cd.notifications.resources.requests.memory</a></td>
 			<td>
 string
 </td>

@@ -6102,7 +6102,7 @@ packages:
       rollup: 2.79.1
       serialize-javascript: 6.0.2
       smob: 1.4.1
-      terser: 5.29.0
+      terser: 5.29.1
     dev: true
 
   /@rollup/plugin-typescript@11.1.6(rollup@4.12.1)(typescript@5.3.3):
@@ -11993,7 +11993,7 @@ packages:
     dependencies:
       chalk: 4.1.2
       eslint: 8.57.0
-      yaml: 2.4.0
+      yaml: 2.4.1
     dev: false
 
   /eslint-import-resolver-node@0.3.9:
@@ -13604,7 +13604,7 @@ packages:
       he: 1.2.0
       param-case: 3.0.4
       relateurl: 0.2.7
-      terser: 5.29.0
+      terser: 5.29.1
     dev: true
 
   /html-tags@3.3.1:
@@ -16875,7 +16875,7 @@ packages:
       bl: 4.1.0
       chalk: 4.1.2
       cli-cursor: 3.1.0
-      cli-spinners: 2.9.2
+      cli-spinners: 2.6.1
       is-interactive: 1.0.0
       log-symbols: 4.1.0
       strip-ansi: 6.0.1
@@ -17701,7 +17701,7 @@ packages:
       lilconfig: 3.1.1
       postcss: 8.4.35
       ts-node: 10.9.2(@swc/core@1.4.5)(@types/node@20.11.24)(typescript@5.3.3)
-      yaml: 2.4.0
+      yaml: 2.4.1
 
   /postcss-loader@6.2.1(postcss@8.4.35)(webpack@5.90.3):
     resolution: {integrity: sha512-WbbYpmAaKcux/P66bZ40bpWsBucjx/TTgVVzRZ9yUO8yQfVBlameJ0ZGVaPfH64hNSBh63a+ICP5nqOpBA0w+Q==}
@@ -19431,7 +19431,7 @@ packages:
       filesize: 6.4.0
       gzip-size: 6.0.0
       pacote: 15.2.0
-      terser: 5.29.0
+      terser: 5.29.1
     transitivePeerDependencies:
       - bluebird
       - supports-color
@@ -19487,7 +19487,7 @@ packages:
       jest-worker: 26.6.2
       rollup: 2.79.1
       serialize-javascript: 4.0.0
-      terser: 5.29.0
+      terser: 5.29.1
     dev: false
 
   /rollup-plugin-typescript2@0.36.0(rollup@2.79.1)(typescript@5.3.3):
@@ -20853,11 +20853,11 @@ packages:
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.2
-      terser: 5.29.0
+      terser: 5.29.1
       webpack: 5.90.3(@swc/core@1.4.5)(esbuild@0.18.20)
 
-  /terser@5.29.0:
-    resolution: {integrity: sha512-RXY80V6CBOVdZhyVwqsUHxOGcdFYSU1pCHTEF9UcQ2OWsacZiSyykd7CfAKfZFI6yfbRntv9EaoMW2TQNpyXjg==}
+  /terser@5.29.1:
+    resolution: {integrity: sha512-lZQ/fyaIGxsbGxApKmoPTODIzELy3++mXhS5hOqaAWZjQtpq/hFHAc+rm29NND1rYRxRWKcjuARNwULNXa5RtQ==}
     engines: {node: '>=10'}
     hasBin: true
     dependencies:
@@ -22274,8 +22274,8 @@ packages:
     resolution: {integrity: sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==}
     engines: {node: '>= 6'}
 
-  /yaml@2.4.0:
-    resolution: {integrity: sha512-j9iR8g+/t0lArF4V6NE/QCfT+CO7iLqrXAHZbJdo+LfjqP1vR8Fg5bSiaq6Q2lOD1AUEVrEVIgABvBFYojJVYQ==}
+  /yaml@2.4.1:
+    resolution: {integrity: sha512-pIXzoImaqmfOrL7teGUBt/T7ZDnyeGBWyXQBvOVhLkWLN37GXv8NMLK406UY6dS51JfcQHsmcW5cJ441bHg6Lg==}
     engines: {node: '>= 14'}
     hasBin: true
 

@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://pyroscope-io.github.io/helm-chart | pyroscope | 0.2.92 |
+| https://grafana.github.io/helm-charts | pyroscope | 1.4.1 |
 | https://pyroscope-io.github.io/helm-chart | pyroscope-ebpf | 0.1.31 |
 
 ## Values
@@ -28,7 +28,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="pyroscope-ebpf--args[0]"><a href="./values.yaml#L35">pyroscope-ebpf.args[0]</a></td>
+			<td id="pyroscope-ebpf--args[0]"><a href="./values.yaml#L44">pyroscope-ebpf.args[0]</a></td>
 			<td>
 string
 </td>
@@ -42,7 +42,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope-ebpf--args[1]"><a href="./values.yaml#L36">pyroscope-ebpf.args[1]</a></td>
+			<td id="pyroscope-ebpf--args[1]"><a href="./values.yaml#L45">pyroscope-ebpf.args[1]</a></td>
 			<td>
 string
 </td>
@@ -56,7 +56,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope-ebpf--args[2]"><a href="./values.yaml#L37">pyroscope-ebpf.args[2]</a></td>
+			<td id="pyroscope-ebpf--args[2]"><a href="./values.yaml#L46">pyroscope-ebpf.args[2]</a></td>
 			<td>
 string
 </td>
@@ -70,7 +70,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope-ebpf--args[3]"><a href="./values.yaml#L38">pyroscope-ebpf.args[3]</a></td>
+			<td id="pyroscope-ebpf--args[3]"><a href="./values.yaml#L47">pyroscope-ebpf.args[3]</a></td>
 			<td>
 string
 </td>
@@ -84,7 +84,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope-ebpf--args[4]"><a href="./values.yaml#L39">pyroscope-ebpf.args[4]</a></td>
+			<td id="pyroscope-ebpf--args[4]"><a href="./values.yaml#L48">pyroscope-ebpf.args[4]</a></td>
 			<td>
 string
 </td>
@@ -98,7 +98,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope-ebpf--enabled"><a href="./values.yaml#L32">pyroscope-ebpf.enabled</a></td>
+			<td id="pyroscope-ebpf--enabled"><a href="./values.yaml#L41">pyroscope-ebpf.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="pyroscope--agent--enabled"><a href="./values.yaml#L32">pyroscope.agent.enabled</a></td>
 			<td>
 bool
 </td>
@@ -126,7 +140,21 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L8">pyroscope.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td id="pyroscope--extraArgs--"log--level""><a href="./values.yaml#L5">pyroscope.extraArgs."log.level"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"info"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="pyroscope--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L11">pyroscope.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
 			<td>
 string
 </td>
@@ -140,7 +168,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L10">pyroscope.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="pyroscope--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L13">pyroscope.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -154,7 +182,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L9">pyroscope.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="pyroscope--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L12">pyroscope.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -168,7 +196,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--ingress--className"><a href="./values.yaml#L6">pyroscope.ingress.className</a></td>
+			<td id="pyroscope--ingress--className"><a href="./values.yaml#L9">pyroscope.ingress.className</a></td>
 			<td>
 string
 </td>
@@ -182,7 +210,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--ingress--enabled"><a href="./values.yaml#L5">pyroscope.ingress.enabled</a></td>
+			<td id="pyroscope--ingress--enabled"><a href="./values.yaml#L8">pyroscope.ingress.enabled</a></td>
 			<td>
 bool
 </td>
@@ -196,7 +224,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope--ingress--hosts[0]--host"><a href="./values.yaml#L13">pyroscope.ingress.hosts[0].host</a></td>
+			<td id="pyroscope--ingress--hosts[0]"><a href="./values.yaml#L16">pyroscope.ingress.hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -204,34 +232,6 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "pyroscope.shortlink.best"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="pyroscope--ingress--hosts[0]--paths[0]--path"><a href="./values.yaml#L15">pyroscope.ingress.hosts[0].paths[0].path</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"/"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="pyroscope--ingress--hosts[0]--paths[0]--pathType"><a href="./values.yaml#L16">pyroscope.ingress.hosts[0].paths[0].pathType</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"Prefix"
 </pre>
 </div>
 			</td>
@@ -316,6 +316,34 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "64Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="pyroscope--serviceMonitor--enabled"><a href="./values.yaml#L35">pyroscope.serviceMonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="pyroscope--serviceMonitor--labels--release"><a href="./values.yaml#L38">pyroscope.serviceMonitor.labels.release</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"prometheus-operator"
 </pre>
 </div>
 			</td>
