@@ -117,7 +117,7 @@ services:
 
   novu-embed:
     <<: *network
-    image: ghcr.io/novuhq/novu/embed:0.23.0
+    image: ghcr.io/novuhq/novu/embed:0.24.0
     container_name: novu-embed
     restart: unless-stopped
     ports:
