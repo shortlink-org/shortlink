@@ -15,8 +15,8 @@ importers:
         specifier: ^11.11.2
         version: 11.11.2
       '@grafana/faro-react':
-        specifier: ^1.4.1
-        version: 1.4.1(react-dom@18.2.0)(react-router-dom@6.22.2)(react@18.2.0)
+        specifier: ^1.4.2
+        version: 1.4.2(react-dom@18.2.0)(react-router-dom@6.22.2)(react@18.2.0)
       '@grafana/faro-web-tracing':
         specifier: ^1.4.2
         version: 1.4.2
@@ -3323,13 +3323,6 @@ packages:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
     dev: true
 
-  /@grafana/faro-core@1.4.1:
-    resolution: {integrity: sha512-9akwZL41Jhzlh4V8qyHuQEsll5Pkh6EiLO1dqulVWlh24zYDuw8B43vYcaNe+nqwyqXbw0GIlyxHVtjZONZLCg==}
-    dependencies:
-      '@opentelemetry/api': 1.8.0
-      '@opentelemetry/otlp-transformer': 0.48.0(@opentelemetry/api@1.8.0)
-    dev: false
-
   /@grafana/faro-core@1.4.2:
     resolution: {integrity: sha512-gbEXApUNvgUSTuYtvO+8ZlMKyZCF/lSHT5jWhjPVIgPzbPXx0OJn6TEPCq7wrENHnYhh3LXpkSca6WtcqcxouA==}
     dependencies:
@@ -3337,14 +3330,14 @@ packages:
       '@opentelemetry/otlp-transformer': 0.48.0(@opentelemetry/api@1.8.0)
     dev: false
 
-  /@grafana/faro-react@1.4.1(react-dom@18.2.0)(react-router-dom@6.22.2)(react@18.2.0):
-    resolution: {integrity: sha512-kTZBnM+dV0FZ+rXq9Fm3BYjE0QxFl46INYX4QVoJ+q3010FR5mGRfuchvbX+BF2LRYrYAQ6WPlNd3FTGhk9fUQ==}
+  /@grafana/faro-react@1.4.2(react-dom@18.2.0)(react-router-dom@6.22.2)(react@18.2.0):
+    resolution: {integrity: sha512-HRKye81iWw8q+oGoq/IHjIg8I+QVYMtFbsTW5uC+c4MEfsfLDz29et1K3kCT6WEVD8DxYZ9wFeJBFb7ktU+6vA==}
     peerDependencies:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-router-dom: ^4.0.0 || ^5.0.0 || ^6.0.0
     dependencies:
-      '@grafana/faro-web-sdk': 1.4.1
+      '@grafana/faro-web-sdk': 1.4.2
       '@grafana/faro-web-tracing': 1.4.2
       hoist-non-react-statics: 3.3.2
       react: 18.2.0
@@ -3352,14 +3345,6 @@ packages:
       react-router-dom: 6.22.2(react-dom@18.2.0)(react@18.2.0)
     transitivePeerDependencies:
       - supports-color
-    dev: false
-
-  /@grafana/faro-web-sdk@1.4.1:
-    resolution: {integrity: sha512-VkMnJ5IYu9pJ8a4nMrKVCL7nkKQZQextHVHt+3fkxR5tbZWWgaTmDW49kU6oopvNBIw4AHmZdpXrAFSzWofFIQ==}
-    dependencies:
-      '@grafana/faro-core': 1.4.1
-      ua-parser-js: 1.0.37
-      web-vitals: 3.5.2
     dev: false
 
   /@grafana/faro-web-sdk@1.4.2:
