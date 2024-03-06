@@ -7,7 +7,9 @@ const withPWA = require('@ducanh2912/next-pwa').default({
 const { composePlugins } = require('@nx/next')
 
 // PLUGINS =============================================================================================================
-const plugins = [withPWA]
+const plugins = [
+  withPWA,
+]
 
 // ENVIRONMENT VARIABLE ================================================================================================
 const isProd = process.env.NODE_ENV === 'production'
@@ -33,7 +35,7 @@ const nextConfig = {
   transpilePackages: ['@shortlink-org/ui-kit'],
   compiler: {
     // ssr and displayName are configured by default
-    emotion: false,
+    emotion: true,
   },
   images: {
     loader: 'custom',
@@ -61,7 +63,7 @@ const nextConfig = {
     forceSwcTransforms: true,
     swcTraceProfiling: true,
     instrumentationHook: true,
-    // webVitalsAttribution: ["CLS", "FCP", "FID", "INP", "LCP", "TTFB"],
+    webVitalsAttribution: ["CLS", "FCP", "FID", "INP", "LCP", "TTFB"],
     turbo: {},
     // for Vercel deployment
     useDeploymentId: true,

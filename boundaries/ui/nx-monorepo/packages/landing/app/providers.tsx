@@ -12,6 +12,7 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { ThemeProvider, getInitColorSchemeScript } from '@mui/material/styles'
 import {
   ColorModeContext,
+  createEmotionCache,
   darkTheme,
   lightTheme, // @ts-ignore
 } from '@shortlink-org/ui-kit'
@@ -19,7 +20,8 @@ import Script from 'next/script'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import React, { useState } from 'react'
 
-const cache = createCache({ key: 'next' })
+// Client-side cache, shared for the whole session of the user in the browser.
+const clientSideEmotionCache = createEmotionCache()
 
 // TODO: research problem with faro
 // initializeFaro({
@@ -40,17 +42,19 @@ const cache = createCache({ key: 'next' })
 // })
 
 // @ts-ignore
-export function Providers({ children }) {
+export function Providers({ children, ...props }) {
   const CLOUDFLARE_SITE_KEY = process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY
 
   const [darkMode, setDarkMode] = useState(false)
   const theme = darkMode ? darkTheme : lightTheme
 
+  const { emotionCache = clientSideEmotionCache, pageProps } = props
+
   const [isCaptcha, setIsCaptcha] = useState(false)
 
   return (
     <ThemeProvider theme={theme}>
-      <CacheProvider value={cache}>
+      <CacheProvider value={emotionCache}>
         <NextThemeProvider enableSystem attribute="class">
           <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
             <Script
