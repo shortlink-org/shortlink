@@ -7,8 +7,8 @@ import (
 	"github.com/segmentio/encoding/json"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	account_application "github.com/shortlink-org/shortlink/boundaries/billing/billing/application/account"
 	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/domain/billing/account/v1"
+	account_application "github.com/shortlink-org/shortlink/boundaries/billing/billing/usecases/account"
 )
 
 type AccoutAPI struct {

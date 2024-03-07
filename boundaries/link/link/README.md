@@ -20,7 +20,7 @@ $> make help # show help message with all commands and targets
 ### Use Cases
 
 - [UC-1](./usecases/link/README.md) Manage link
-- [UC-2](./usecases/sqrs/README.md) SQRS operations for link
+- [UC-2](./usecases/link_sqrs/README.md) SQRS operations for link
 - [UC-3](./usecases/sitemap/README.md) Parse sitemap and save links
 
 ### Docs

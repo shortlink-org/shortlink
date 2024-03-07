@@ -5,7 +5,7 @@ MQ Endpoint
 package api_mq
 
 import (
-	link_application "github.com/shortlink-org/shortlink/boundaries/link/link/application/link"
+	link_application "github.com/shortlink-org/shortlink/boundaries/link/link/usecases/link"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/mq"
 )

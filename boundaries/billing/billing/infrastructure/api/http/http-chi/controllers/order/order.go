@@ -7,8 +7,8 @@ import (
 	"github.com/segmentio/encoding/json"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	order_application "github.com/shortlink-org/shortlink/boundaries/billing/billing/application/order"
 	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/domain/billing/order/v1"
+	order_application "github.com/shortlink-org/shortlink/boundaries/billing/billing/usecases/order"
 )
 
 type API struct {

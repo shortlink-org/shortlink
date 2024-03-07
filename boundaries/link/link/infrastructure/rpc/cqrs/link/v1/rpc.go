@@ -5,7 +5,7 @@ Link Service. Infrastructure layer. RPC EndpointRPC Endpoint
 package v1
 
 import (
-	"github.com/shortlink-org/shortlink/boundaries/link/link/application/link_cqrs"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/usecases/link_cqrs"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 )

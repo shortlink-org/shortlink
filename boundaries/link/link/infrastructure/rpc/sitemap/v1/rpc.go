@@ -5,7 +5,7 @@ Link Service. Infrastructure layer. RPC EndpointRPC Endpoint
 package v1
 
 import (
-	sitemap_application "github.com/shortlink-org/shortlink/boundaries/link/link/application/sitemap"
+	sitemap_application "github.com/shortlink-org/shortlink/boundaries/link/link/usecases/sitemap"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
