@@ -27,7 +27,7 @@ require (
 	github.com/gogo/protobuf v1.3.2
 	github.com/golang-migrate/migrate/v4 v4.17.0
 	github.com/golang/glog v1.2.0
-	github.com/google/cel-go v0.20.0
+	github.com/google/cel-go v0.20.1
 	github.com/google/uuid v1.6.0
 	github.com/google/wire v0.6.0
 	github.com/grafana/pyroscope-go v1.1.1
