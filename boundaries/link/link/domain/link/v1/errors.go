@@ -13,6 +13,7 @@ func (e *NotFoundError) Error() string {
 	return fmt.Sprintf("Not found link: %s", e.Link.GetHash())
 }
 
+// NotUniqError - not uniq link
 type NotUniqError struct {
 	Link *Link
 }
@@ -21,6 +22,7 @@ func (e *NotUniqError) Error() string {
 	return fmt.Sprintf("Not uniq link: %s", e.Link.GetUrl())
 }
 
+// CreateLinkError - failed create link
 type CreateLinkError struct {
 	Link *Link
 }
@@ -29,6 +31,7 @@ func (e *CreateLinkError) Error() string {
 	return fmt.Sprintf("Failed create link: %s", e.Link.GetUrl())
 }
 
+// PermissionDeniedError - permission denied
 type PermissionDeniedError struct {
 	Err error
 }
