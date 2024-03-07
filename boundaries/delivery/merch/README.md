@@ -17,7 +17,7 @@
 !include https://raw.githubusercontent.com/shortlink-org/shortlink/main/docs/c4/containers/preset/c1.puml
 
 !include actors/customer.puml
-!include boundaries/payment.puml
+!include boundaries/billing.puml
 
 customer --> paymentBoundary : Builds a shopping basket
 ```

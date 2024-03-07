@@ -58,8 +58,8 @@ proto-generate: ## Generate proto-files
 
 	# Billing service -------------------------------------------------------------------------------
 	@buf generate \
-		--path=boundaries/payment/billing/domain \
-		--path=boundaries/payment/billing/infrastructure \
+		--path=boundaries/billing/billing/domain \
+		--path=boundaries/billing/billing/infrastructure \
 		--template=ops/proto/billing/buf.gen.yaml \
 		--config=ops/proto/billing/buf.yaml
 

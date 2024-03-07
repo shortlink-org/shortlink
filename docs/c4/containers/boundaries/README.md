@@ -9,7 +9,7 @@
 !include boundaries/link.puml
 !include boundaries/marketing.puml
 !include boundaries/notification.puml
-!include boundaries/payment.puml
+!include boundaries/billing.puml
 !include boundaries/platform.puml
 !include boundaries/search.puml
 !include boundaries/shortdb.puml

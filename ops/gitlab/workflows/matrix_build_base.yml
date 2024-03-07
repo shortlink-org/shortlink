@@ -56,11 +56,11 @@
       - APPLICATION: billing
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/billing
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./boundaries/payment/billing/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/billing/billing/cmd"
       - APPLICATION: wallet
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/wallet
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./boundaries/payment/wallet/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/billing/wallet/cmd"
       # MARKETING LANDSCAPE
       - APPLICATION: bot
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bot

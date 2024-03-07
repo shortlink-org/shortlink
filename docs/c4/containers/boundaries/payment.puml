@@ -1,4 +1,4 @@
-System_Boundary(paymentBoundary, "Payment Boundary") {
+System_Boundary(paymentBoundary, "Billing Boundary") {
     !include services/billing/service.puml
     !include services/wallet/service.puml
 }

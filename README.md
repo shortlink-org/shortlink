@@ -48,7 +48,7 @@ _Please [star ⭐](https://github.com/shortlink-org/shortlink/stargazers) the re
 | Bounded Context       | Description              | Type subdomain | Docs                                                 |
 |-----------------------|--------------------------|----------------|------------------------------------------------------|
 | API Gateway           | Gateway for all services | Supporting     | [docs](./boundaries/api/README.md)          |
-| Payment Boundary      | Payment services         | Generic        | [docs](./boundaries/payment/README.md)      |
+| Billing Boundary      | Payment services         | Generic        | [docs](./boundaries/billing/README.md)      |
 | Notification Boundary | Notification services    | Generic        | [docs](./boundaries/notification/README.md) |
 | Chat Boundary         | Chat services            | Supporting     | [docs](./boundaries/chat/README.md)         |
 | Extension Boundary    | Extension services       | Supporting     | [docs](./boundaries/extension/README.md)    |
