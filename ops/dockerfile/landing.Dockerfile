@@ -11,7 +11,7 @@ ARG APP_ENV=development
 ARG API_URI
 
 # Install dependencies only when needed
-FROM --platform=$BUILDPLATFORM node:21.6-alpine AS development-builder
+FROM --platform=$BUILDPLATFORM node:21.7-alpine AS development-builder
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
