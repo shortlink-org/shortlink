@@ -4,6 +4,7 @@ import (
 	"errors"
 )
 
+// AndSpecification is a composite specification that represents the logical AND of two other specifications.
 type AndSpecification[T any] struct {
 	specs []Specification[T]
 }

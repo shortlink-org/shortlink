@@ -4,6 +4,7 @@ import (
 	"errors"
 )
 
+// OrSpecification is a composite specification that represents the logical OR of two other specifications.
 type OrSpecification[T any] struct {
 	specs []Specification[T]
 }
