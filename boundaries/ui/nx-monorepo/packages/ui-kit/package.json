@@ -9,9 +9,9 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "pnpm rollup -c --strictDeprecations --bundleConfigAsCjs",
-    "storybook": "pnpm dlx storybook dev -p 6006",
-    "build-storybook": "pnpm dlx storybook build",
-    "semantic-release": "pnpm semantic-release",
+    "storybook": "pnpm dlx storybook@next dev -p 6006",
+    "build-storybook": "pnpm dlx storybook@next build",
+    "semantic-release": "pnpm dlx semantic-release",
     "test": "NODE_ENV=test jest",
     "lint": "pnpm eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
     "lint:fix": "pnpm lint --fix",
@@ -98,7 +98,7 @@
   "dependencies": {
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.0",
-    "@storybook/addon-styling-webpack": "^0.0.6",
+    "@storybook/addon-styling-webpack": "^1.0.0-next.1",
     "@tailwindcss/aspect-ratio": "0.4.2",
     "@tailwindcss/forms": "0.5.7",
     "@tailwindcss/line-clamp": "0.4.4",

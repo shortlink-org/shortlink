@@ -1,4 +1,5 @@
 import { dirname, join } from 'path'
+// @ts-ignore
 import type { StorybookConfig } from '@storybook/react-webpack5'
 
 const config: StorybookConfig = {
@@ -7,7 +8,7 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-links'),
     getAbsolutePath('@storybook/addon-themes'),
     {
-      name: '@storybook/addon-essentials',
+      name: getAbsolutePath('@storybook/addon-essentials'),
       options: {
         actions: true,
         backgrounds: true,
@@ -18,9 +19,9 @@ const config: StorybookConfig = {
       },
     },
     getAbsolutePath('@storybook/addon-interactions'),
-    // '@storybook/addon-controls',
+    getAbsolutePath('@storybook/addon-controls'),
     {
-      name: '@storybook/addon-styling-webpack',
+      name: getAbsolutePath('@storybook/addon-styling-webpack'),
       options: {
         postCss: {
           implementation: require.resolve('postcss'),
@@ -52,13 +53,14 @@ const config: StorybookConfig = {
         ],
       },
     },
-    '@chromatic-com/storybook',
-    '@storybook/addon-a11y',
-    '@storybook/addon-coverage',
+    getAbsolutePath('@chromatic-com/storybook'),
+    getAbsolutePath('@storybook/addon-a11y'),
+    getAbsolutePath('@storybook/addon-coverage'),
   ],
   framework: {
     name: getAbsolutePath('@storybook/nextjs'),
     options: {
+      useSWC: true,
       fsCache: true,
       lazyCompilation: true,
     },
