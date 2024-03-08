@@ -30,7 +30,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
-// Service - heplers
+// Service - helpers
 type Service struct {
 	// Common
 	Ctx context.Context
