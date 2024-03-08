@@ -11,6 +11,7 @@ import (
 
 	csi_di "github.com/shortlink-org/shortlink/boundaries/platform/csi/di"
 	"github.com/shortlink-org/shortlink/pkg/graceful_shutdown"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
 
 	csi_driver "github.com/shortlink-org/shortlink/boundaries/platform/csi"
 )
@@ -52,34 +53,37 @@ func init() {
 
 func main() {
 	// Init a new service
-	s, cleanup, err := csi_di.InitializeSCIDriver()
+	service, cleanup, err := csi_di.InitializeSCIDriver()
 	if err != nil { // TODO: use as helpers
 		panic(err)
 	}
 
 	// Run CSI Driver
 	driver, err := csi_driver.NewDriver(
-		s.Log,
+		service.Log,
 		csi_driver.DefaultDriverName,
 		viper.GetString("nodeid"),
 		viper.GetString("endpoint"),
 		viper.GetInt64("maxvolumespernode"),
 	)
 	if err != nil {
-		s.Log.Fatal(fmt.Sprintf("Failed to initialize driver: %s", err.Error()))
+		service.Log.Fatal(fmt.Sprintf("Failed to initialize driver: %s", err.Error()))
 	}
-	if err := driver.Run(s.Ctx); err != nil {
-		s.Log.Fatal(err.Error())
+	if err := driver.Run(service.Ctx); err != nil {
+		service.Log.Fatal(err.Error())
 	}
 
-	s.Log.Info("success run CSI plugin")
+	service.Log.Info("success run CSI plugin")
 
 	// Handle SIGINT, SIGQUIT and SIGTERM.
-	graceful_shutdown.GracefulShutdown()
+	signal := graceful_shutdown.GracefulShutdown()
 
-	// Stop the service gracefully.
 	cleanup()
 
+	service.Log.Info("Service stopped", field.Fields{
+		"signal": signal.String(),
+	})
+
 	// Exit Code 143: Graceful Termination (SIGTERM)
-	os.Exit(143) //nolint:gocritic // TODO: research
+	os.Exit(143) //nolint:gocritic // exit code 143 is used to indicate graceful termination
 }

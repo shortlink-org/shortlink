@@ -14,6 +14,7 @@ import (
 
 	api_di "github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/grpc-web/di"
 	"github.com/shortlink-org/shortlink/pkg/graceful_shutdown"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
 )
 
 func main() {
@@ -32,10 +33,14 @@ func main() {
 	}()
 
 	// Handle SIGINT, SIGQUIT and SIGTERM.
-	graceful_shutdown.GracefulShutdown()
+	signal := graceful_shutdown.GracefulShutdown()
 
 	cleanup()
 
+	service.Log.Info("Service stopped", field.Fields{
+		"signal": signal.String(),
+	})
+
 	// Exit Code 143: Graceful Termination (SIGTERM)
-	os.Exit(143) //nolint:gocritic // TODO: research
+	os.Exit(143) //nolint:gocritic // exit code 143 is used to indicate graceful termination
 }
