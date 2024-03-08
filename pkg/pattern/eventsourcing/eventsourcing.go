@@ -9,9 +9,9 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/pkg/db"
-	es_postgres "github.com/shortlink-org/shortlink/pkg/eventsourcing/store/postgres"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
+	es_postgres "github.com/shortlink-org/shortlink/pkg/pattern/eventsourcing/store/postgres"
 )
 
 // New - create new EventStore

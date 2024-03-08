@@ -3,7 +3,7 @@ package saga
 import (
 	"context"
 
-	"github.com/shortlink-org/shortlink/pkg/saga/dag"
+	"github.com/shortlink-org/shortlink/pkg/pattern/saga/dag"
 )
 
 type Builder struct {

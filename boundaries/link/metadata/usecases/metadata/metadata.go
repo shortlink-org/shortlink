@@ -9,7 +9,7 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/metadata/usecases/screenshot"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
-	"github.com/shortlink-org/shortlink/pkg/saga"
+	"github.com/shortlink-org/shortlink/pkg/pattern/saga"
 )
 
 type UC struct {

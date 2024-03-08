@@ -23,7 +23,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/notify"
-	"github.com/shortlink-org/shortlink/pkg/saga"
+	"github.com/shortlink-org/shortlink/pkg/pattern/saga"
 )
 
 type UC struct {

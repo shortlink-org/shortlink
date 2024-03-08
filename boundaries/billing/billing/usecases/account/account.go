@@ -13,7 +13,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/notify"
-	"github.com/shortlink-org/shortlink/pkg/specification"
+	"github.com/shortlink-org/shortlink/pkg/pattern/specification"
 )
 
 type AccountService struct {

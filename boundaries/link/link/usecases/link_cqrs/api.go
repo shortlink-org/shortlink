@@ -8,7 +8,7 @@ import (
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link_cqrs/v1"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
-	"github.com/shortlink-org/shortlink/pkg/saga"
+	"github.com/shortlink-org/shortlink/pkg/pattern/saga"
 )
 
 func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {

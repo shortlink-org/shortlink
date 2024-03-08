@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/shortlink-org/shortlink/pkg/specification"
+	"github.com/shortlink-org/shortlink/pkg/pattern/specification"
 )
 
 type User struct {

@@ -9,12 +9,12 @@ import (
 	"google.golang.org/protobuf/encoding/protojson"
 
 	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/domain/billing/payment/v1"
-	es "github.com/shortlink-org/shortlink/pkg/eventsourcing"
-	eventsourcing "github.com/shortlink-org/shortlink/pkg/eventsourcing/domain/eventsourcing/v1"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/notify"
-	"github.com/shortlink-org/shortlink/pkg/saga"
+	es "github.com/shortlink-org/shortlink/pkg/pattern/eventsourcing"
+	eventsourcing "github.com/shortlink-org/shortlink/pkg/pattern/eventsourcing/domain/eventsourcing/v1"
+	"github.com/shortlink-org/shortlink/pkg/pattern/saga"
 )
 
 type PaymentService struct {

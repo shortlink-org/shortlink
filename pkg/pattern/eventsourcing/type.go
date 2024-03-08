@@ -3,7 +3,7 @@ package eventsourcing
 import (
 	"context"
 
-	eventsourcing "github.com/shortlink-org/shortlink/pkg/eventsourcing/domain/eventsourcing/v1"
+	eventsourcing "github.com/shortlink-org/shortlink/pkg/pattern/eventsourcing/domain/eventsourcing/v1"
 )
 
 // EventSourcing - interface for event store
