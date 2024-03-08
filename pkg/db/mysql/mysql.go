@@ -2,12 +2,22 @@ package mysql
 
 import (
 	"context"
-	"database/sql"
 	"net/url"
 
+	"github.com/XSAM/otelsql"
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/spf13/viper"
+	"go.opentelemetry.io/otel/sdk/metric"
+	semconv "go.opentelemetry.io/otel/semconv/v1.24.0"
+	"go.opentelemetry.io/otel/trace"
 )
+
+func New(tracer trace.TracerProvider, metrics *metric.MeterProvider) *Store {
+	return &Store{
+		tracer:  tracer,
+		metrics: metrics,
+	}
+}
 
 // Init - initialize
 func (s *Store) Init(ctx context.Context) error {
@@ -17,8 +27,14 @@ func (s *Store) Init(ctx context.Context) error {
 		return err
 	}
 
+	options := []otelsql.Option{
+		otelsql.WithTracerProvider(s.tracer),
+		otelsql.WithMeterProvider(s.metrics),
+		otelsql.WithSQLCommenter(true),
+	}
+
 	// Connect to MySQL
-	if s.client, err = sql.Open("mysql", s.config.URI); err != nil {
+	if s.client, err = otelsql.Open("mysql", s.config.URI, options...); err != nil {
 		return err
 	}
 
@@ -28,6 +44,11 @@ func (s *Store) Init(ctx context.Context) error {
 
 		return errPing
 	}
+
+	// Register DB stats to meter
+	err = otelsql.RegisterDBStatsMetrics(s.client, otelsql.WithAttributes(
+		semconv.DBSystemMySQL,
+	))
 
 	// Graceful shutdown
 	go func() {

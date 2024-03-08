@@ -10,23 +10,6 @@ import (
 	"go.opentelemetry.io/otel/trace"
 )
 
-// Config - config
-type Config struct {
-	Username string
-	Password string
-	Host     []string
-}
-
-// Store implementation of db interface
-type Store struct {
-	client rueidis.Client
-
-	tracer  trace.TracerProvider
-	metrics *metric.MeterProvider
-
-	config Config
-}
-
 func New(tracer trace.TracerProvider, metrics *metric.MeterProvider) *Store {
 	return &Store{
 		tracer:  tracer,

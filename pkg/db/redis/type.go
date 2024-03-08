@@ -1,20 +1,21 @@
-package mysql
+package redis
 
 import (
-	"database/sql"
-
+	"github.com/redis/rueidis"
 	"go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 )
 
-// Config - configuration
+// Config - config
 type Config struct {
-	URI string
+	Username string
+	Password string
+	Host     []string
 }
 
 // Store implementation of db interface
 type Store struct {
-	client *sql.DB
+	client rueidis.Client
 
 	tracer  trace.TracerProvider
 	metrics *metric.MeterProvider
