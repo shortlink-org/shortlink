@@ -1,10 +1,7 @@
 // @ts-ignore
 import { CacheProvider } from '@emotion/react'
 import CssBaseline from '@mui/material/CssBaseline'
-import {
-  getInitColorSchemeScript,
-  ThemeProvider,
-} from '@mui/material/styles'
+import { getInitColorSchemeScript, ThemeProvider } from '@mui/material/styles'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import {

@@ -8,15 +8,15 @@
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "pnpm rollup -c --strictDeprecations --bundleConfigAsCjs",
+    "build": "pnpm dlx rollup -c --strictDeprecations --bundleConfigAsCjs",
     "storybook": "pnpm dlx storybook@next dev -p 6006",
     "build-storybook": "pnpm dlx storybook@next build",
     "semantic-release": "pnpm dlx semantic-release",
     "test": "NODE_ENV=test jest",
-    "lint": "pnpm eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
-    "lint:fix": "pnpm lint --fix",
-    "lint:gitlab": "pnpm lint --format gitlab",
-    "prettier": "pnpm prettier -w -c .",
+    "lint": "pnpm dlx eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
+    "lint:fix": "pnpm dlx lint --fix",
+    "lint:gitlab": "pnpm dlx lint --format gitlab",
+    "prettier": "pnpm dlx prettier -w -c .",
     "chromatic": "pnpm chromatic --project-token=secret"
   },
   "files": [
