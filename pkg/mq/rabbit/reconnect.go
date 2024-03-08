@@ -18,7 +18,7 @@ type Connection struct {
 	delay int
 }
 
-// Channel wrap amqp.Connection.Channel, get a auto reconnect channel
+// Channel wraps amqp.Connection.Channel to provide an auto-reconnecting channel.
 func (c *Connection) Channel() (*Channel, error) {
 	ch, err := c.Connection.Channel()
 	if err != nil {
@@ -53,15 +53,15 @@ func (c *Connection) Channel() (*Channel, error) {
 				// wait 1s for connection reconnect
 				time.Sleep(time.Duration(c.delay) * time.Second)
 
-				ch, err := c.Connection.Channel()
-				if err == nil {
+				newCh, errConnectToChannel := c.Connection.Channel()
+				if errConnectToChannel == nil {
 					c.log.Info("channel recreate success")
-					channel.Channel = ch
+					channel.Channel = newCh
 
 					break
 				}
 
-				c.log.Error(fmt.Sprintf("channel recreate failed, err: %v", err))
+				c.log.Error(fmt.Sprintf("channel recreate failed, err: %v", errConnectToChannel))
 			}
 		}
 	}()
@@ -69,7 +69,8 @@ func (c *Connection) Channel() (*Channel, error) {
 	return channel, nil
 }
 
-// Dial wrap amqp.Dial, dial and get a reconnected connection
+// Dial wraps amqp.Dial to establish a connection and set up automatic reconnection
+// in case the connection is lost.
 func (mq *MQ) Dial() error {
 	conn, err := amqp.Dial(mq.config.URI)
 	if err != nil {

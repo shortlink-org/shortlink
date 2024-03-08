@@ -27,6 +27,9 @@ func New(log logger.Logger) *MQ {
 	}
 }
 
+// Init initializes the RabbitMQ connection and sets up the channel.
+// It also sets up a graceful shutdown mechanism to close the connection and channel
+// when the context is done.
 func (mq *MQ) Init(ctx context.Context, log logger.Logger) error {
 	// connect to RabbitMQ server
 	err := mq.Dial()
@@ -54,7 +57,7 @@ func (mq *MQ) Init(ctx context.Context, log logger.Logger) error {
 	return nil
 }
 
-// close - close connection
+// close gracefully closes the connection and channel.
 func (mq *MQ) close() error {
 	if err := mq.conn.Close(); err != nil {
 		return err
@@ -68,6 +71,7 @@ func (mq *MQ) close() error {
 	return nil
 }
 
+// Check verifies the connection status.
 func (mq *MQ) Check(_ context.Context) error {
 	if mq.conn.IsClosed() {
 		return amqp.ErrClosed
