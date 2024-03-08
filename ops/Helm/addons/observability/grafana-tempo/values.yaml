@@ -9,11 +9,11 @@ tempo:
 
     resources:
       limits:
-        cpu: 2000m
-        memory: 2Gi
+        cpu: 2
+        memory: 3Gi
       requests:
-        cpu: 100m
-        memory: 128Mi
+        cpu: 500m
+        memory: 256Mi
 
     metricsGenerator:
       enabled: enable
@@ -28,6 +28,8 @@ tempo:
       max_concurrent_queries: 100
       search:
         prefer_self: 50   # only if you're using external endpoints
+
+    retention: 12h
 
     query_frontend:
       max_outstanding_per_tenant: 2000
