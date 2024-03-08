@@ -6,13 +6,14 @@ import (
 	"github.com/google/uuid"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/billing/billing/domain/billing/account/v1"
-	"github.com/shortlink-org/shortlink/boundaries/billing/billing/domain/billing/account/v1/specification"
+	"github.com/shortlink-org/shortlink/boundaries/billing/billing/domain/billing/account/v1/rules"
 	"github.com/shortlink-org/shortlink/boundaries/billing/billing/infrastructure/repository/account"
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/notify"
+	"github.com/shortlink-org/shortlink/pkg/specification"
 )
 
 type AccountService struct {
@@ -68,9 +69,9 @@ func (acc *AccountService) Add(ctx context.Context, in *domain.Account) (*domain
 	in.Id = uuid.New().String()
 
 	// create specification
-	spec := specification.NewAndAccount(
-		specification.NewUserId(),
-		specification.NewTariffId(),
+	spec := specification.NewAndSpecification[domain.Account](
+		rules.NewUserId(),
+		rules.NewTariffId(),
 	)
 
 	err := spec.IsSatisfiedBy(in)
