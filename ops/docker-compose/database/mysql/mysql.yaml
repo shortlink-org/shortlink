@@ -1,8 +1,16 @@
 version: '2.4'
 
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
 services:
 
   mysql:
+    <<: *network
     depends_on:
       - coredns
     image: mysql:8
@@ -16,12 +24,13 @@ services:
       MYSQL_USER: 'shortlink'
       MYSQL_PASSWORD: 'shortlink'
       MYSQL_ROOT_PASSWORD: 'shortlink'
-    networks:
-      simple:
-        ipv4_address: ${DATABASE_IP}
-    dns:
-      - ${DNS_IP}
-    dns_search: ${DNS_SEARCH}
+    healthcheck:
+      test:
+        mysqladmin ping -h 127.0.0.1 -u root --password=$$MYSQL_ROOT_PASSWORD
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 10
 #    logging:
 #      driver: fluent-bit
 #      options:
