@@ -9,13 +9,18 @@ type OrSpecification[T any] struct {
 }
 
 func (o *OrSpecification[T]) IsSatisfiedBy(account *T) error {
+	var errs error
+
 	for _, spec := range o.specs {
-		if err := spec.IsSatisfiedBy(account); err == nil {
+		err := spec.IsSatisfiedBy(account)
+		if err == nil {
 			return nil
 		}
+
+		errs = errors.Join(errs, err)
 	}
 
-	return errors.New("no specification is satisfied")
+	return errs
 }
 
 func NewOrSpecification[T any](specs ...Specification[T]) *OrSpecification[T] {

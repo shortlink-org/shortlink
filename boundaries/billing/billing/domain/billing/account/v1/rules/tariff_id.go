@@ -15,7 +15,7 @@ func NewTariffId() *TariffId {
 }
 
 func (t *TariffId) IsSatisfiedBy(account *v1.Account) error {
-	if len(account.GetTariffId()) > 0 {
+	if account.GetTariffId() != "" {
 		return nil
 	}
 

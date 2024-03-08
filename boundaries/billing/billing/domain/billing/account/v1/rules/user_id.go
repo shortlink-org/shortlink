@@ -15,7 +15,7 @@ func NewUserId() *UserId {
 }
 
 func (u *UserId) IsSatisfiedBy(account *v1.Account) error {
-	if len(account.GetUserId()) > 0 {
+	if account.GetUserId() != "" {
 		return nil
 	}
 

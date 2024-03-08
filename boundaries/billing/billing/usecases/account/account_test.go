@@ -65,7 +65,7 @@ func TestAccountService_Get(t *testing.T) {
 
 	// Create a mock repository
 	mockRepo := account_repository.NewRepository(t)
-	mockRepo.On("Get", mock.Anything, account.Id).Return(account, nil)
+	mockRepo.On("Get", mock.Anything, account.GetId()).Return(account, nil)
 
 	// Create the service with the mock repository
 	service := &AccountService{
@@ -74,14 +74,14 @@ func TestAccountService_Get(t *testing.T) {
 	}
 
 	// Call the Get method
-	result, err := service.Get(context.Background(), account.Id)
+	result, err := service.Get(context.Background(), account.GetId())
 
 	// Assert that the returned account is the one we expected
 	assert.NoError(t, err)
 	assert.Equal(t, account, result)
 
 	// Assert that the Get method was called with the correct account id
-	mockRepo.AssertCalled(t, "Get", mock.Anything, account.Id)
+	mockRepo.AssertCalled(t, "Get", mock.Anything, account.GetId())
 }
 
 func TestAccountService_List(t *testing.T) {
@@ -167,7 +167,7 @@ func TestAccountService_Delete(t *testing.T) {
 
 	// Create a mock repository
 	mockRepo := account_repository.NewRepository(t)
-	mockRepo.On("Delete", mock.Anything, account.Id).Return(nil)
+	mockRepo.On("Delete", mock.Anything, account.GetId()).Return(nil)
 
 	// Create the service with the mock repository
 	service := &AccountService{
@@ -176,9 +176,9 @@ func TestAccountService_Delete(t *testing.T) {
 	}
 
 	// Call the Delete method
-	err = service.Delete(context.Background(), account.Id)
+	err = service.Delete(context.Background(), account.GetId())
 	assert.NoError(t, err)
 
 	// Assert that the Delete method was called with the correct account id
-	mockRepo.AssertCalled(t, "Delete", mock.Anything, account.Id)
+	mockRepo.AssertCalled(t, "Delete", mock.Anything, account.GetId())
 }
