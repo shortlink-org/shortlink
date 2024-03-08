@@ -9,7 +9,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "pnpm rollup -c --strictDeprecations --bundleConfigAsCjs",
-    "storybook": "pnpm storybook dev -p 6006",
+    "storybook": "pnpm dlx storybook dev -p 6006",
     "build-storybook": "pnpm dlx storybook build",
     "semantic-release": "pnpm semantic-release",
     "test": "NODE_ENV=test jest",

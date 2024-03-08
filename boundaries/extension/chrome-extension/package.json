@@ -15,10 +15,12 @@
     "postinstall": "wxt prepare"
   },
   "dependencies": {
+    "@tailwindcss/cli": "4.0.0-alpha.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
   },
   "devDependencies": {
+    "@tailwindcss/postcss": "4.0.0-alpha.6",
     "@types/react": "^18.2.64",
     "@types/react-dom": "^18.2.21",
     "@vitejs/plugin-react": "^4.2.1",

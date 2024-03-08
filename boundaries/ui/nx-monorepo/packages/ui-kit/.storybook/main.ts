@@ -18,7 +18,7 @@ const config: StorybookConfig = {
       },
     },
     getAbsolutePath('@storybook/addon-interactions'),
-    '@storybook/addon-controls',
+    // '@storybook/addon-controls',
     {
       name: '@storybook/addon-styling-webpack',
       options: {
