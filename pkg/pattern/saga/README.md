@@ -95,7 +95,7 @@ func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {
 
 ![OpenTracing](./docs/tracing.png)
 
-### Refferences
+### References
 
 > [!NOTE]
 > **Alternatives**:
