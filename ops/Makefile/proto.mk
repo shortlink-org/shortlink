@@ -69,11 +69,17 @@ proto-generate: ## Generate proto-files
 		--template=ops/proto/referral/buf.gen.yaml \
 		--config=ops/proto/referral/buf.yaml
 
-	# Eventsourcing service -------------------------------------------------------------------------
+	# Eventsourcing package -------------------------------------------------------------------------
 	@buf generate \
 		--path=pkg/pattern/eventsourcing/domain \
 		--template=ops/proto/eventsourcing/buf.gen.yaml \
 		--config=ops/proto/eventsourcing/buf.yaml
+
+	# Transactional Outbox package ------------------------------------------------------------------
+	@buf generate \
+		--path=pkg/pattern/transactional_outbox/domain \
+		--template=ops/proto/transactional_outbox/buf.gen.yaml \
+		--config=ops/proto/transactional_outbox/buf.yaml
 
 	# Shortdb service -------------------------------------------------------------------------------
 	@buf generate \

@@ -18,6 +18,7 @@ build:
     - boundaries/marketing/referral/src
     - boundaries/notification/newsletter/src
     - pkg/pattern/eventsourcing
+    - pkg/pattern/transactional_outbox
     - pkg/raft
 
 lint:
