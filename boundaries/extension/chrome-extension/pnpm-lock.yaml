@@ -35,8 +35,8 @@ devDependencies:
     specifier: ^8.4.35
     version: 8.4.35
   tailwindcss:
-    specifier: ^4.0.0-alpha.6
-    version: 4.0.0-alpha.6
+    specifier: ^4.0.0-alpha.7
+    version: 4.0.0-alpha.7
   typescript:
     specifier: ^5.4.2
     version: 5.4.2
@@ -3724,6 +3724,12 @@ packages:
     resolution: {integrity: sha512-DE58UVlsxSVWwutkd8Mlo56AwlvK77qHU9xxa08PHvyZhCUBs+Go3ugIkRjq/YdosnVxUONJPusvj4MZPGeWrg==}
     dependencies:
       lightningcss: 1.24.0
+
+  /tailwindcss@4.0.0-alpha.7:
+    resolution: {integrity: sha512-Y91+cS79h3+CdFT8Y8zgUWSZvjLASd0nGnnxhZextBDZGl7GGqcy9QLly2Sw4TcPuPryS7/nJr8pRjp9lQazIA==}
+    dependencies:
+      lightningcss: 1.24.0
+    dev: true
 
   /tar@6.2.0:
     resolution: {integrity: sha512-/Wo7DcT0u5HUV486xg675HtjNd3BXZ6xDbzsCUZPt5iw8bTQ63bP0Raut3mvro9u+CUyq7YQd8Cx55fsZXxqLQ==}
