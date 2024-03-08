@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 56.21.1 |
+| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 56.21.3 |
 
 ## Values
 
@@ -27,7 +27,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="kube-prometheus-stack--coreDns--enabled"><a href="./values.yaml#L18">kube-prometheus-stack.coreDns.enabled</a></td>
+			<td id="kube-prometheus-stack--coreDns--enabled"><a href="./values.yaml#L22">kube-prometheus-stack.coreDns.enabled</a></td>
 			<td>
 bool
 </td>
@@ -83,7 +83,21 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--kubeDns--enabled"><a href="./values.yaml#L14">kube-prometheus-stack.kubeDns.enabled</a></td>
+			<td id="kube-prometheus-stack--grafana--sidecar--dashboards--enableNewTablePanelSyntax"><a href="./values.yaml#L15">kube-prometheus-stack.grafana.sidecar.dashboards.enableNewTablePanelSyntax</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kube-prometheus-stack--kubeDns--enabled"><a href="./values.yaml#L18">kube-prometheus-stack.kubeDns.enabled</a></td>
 			<td>
 bool
 </td>
@@ -97,7 +111,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheus--prometheusSpec--enforcedKeepDroppedTargets"><a href="./values.yaml#L22">kube-prometheus-stack.prometheus.prometheusSpec.enforcedKeepDroppedTargets</a></td>
+			<td id="kube-prometheus-stack--prometheus--prometheusSpec--enforcedKeepDroppedTargets"><a href="./values.yaml#L26">kube-prometheus-stack.prometheus.prometheusSpec.enforcedKeepDroppedTargets</a></td>
 			<td>
 int
 </td>
@@ -111,7 +125,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheus--prometheusSpec--resources--limits--cpu"><a href="./values.yaml#L26">kube-prometheus-stack.prometheus.prometheusSpec.resources.limits.cpu</a></td>
+			<td id="kube-prometheus-stack--prometheus--prometheusSpec--resources--limits--cpu"><a href="./values.yaml#L30">kube-prometheus-stack.prometheus.prometheusSpec.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -125,7 +139,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheus--prometheusSpec--resources--limits--memory"><a href="./values.yaml#L27">kube-prometheus-stack.prometheus.prometheusSpec.resources.limits.memory</a></td>
+			<td id="kube-prometheus-stack--prometheus--prometheusSpec--resources--limits--memory"><a href="./values.yaml#L31">kube-prometheus-stack.prometheus.prometheusSpec.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -139,7 +153,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheus--prometheusSpec--resources--requests--cpu"><a href="./values.yaml#L29">kube-prometheus-stack.prometheus.prometheusSpec.resources.requests.cpu</a></td>
+			<td id="kube-prometheus-stack--prometheus--prometheusSpec--resources--requests--cpu"><a href="./values.yaml#L33">kube-prometheus-stack.prometheus.prometheusSpec.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -153,7 +167,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheus--prometheusSpec--resources--requests--memory"><a href="./values.yaml#L30">kube-prometheus-stack.prometheus.prometheusSpec.resources.requests.memory</a></td>
+			<td id="kube-prometheus-stack--prometheus--prometheusSpec--resources--requests--memory"><a href="./values.yaml#L34">kube-prometheus-stack.prometheus.prometheusSpec.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -167,7 +181,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheusOperator--resources--limits--cpu"><a href="./values.yaml#L37">kube-prometheus-stack.prometheusOperator.resources.limits.cpu</a></td>
+			<td id="kube-prometheus-stack--prometheusOperator--resources--limits--cpu"><a href="./values.yaml#L41">kube-prometheus-stack.prometheusOperator.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -181,7 +195,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheusOperator--resources--limits--memory"><a href="./values.yaml#L38">kube-prometheus-stack.prometheusOperator.resources.limits.memory</a></td>
+			<td id="kube-prometheus-stack--prometheusOperator--resources--limits--memory"><a href="./values.yaml#L42">kube-prometheus-stack.prometheusOperator.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -195,7 +209,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheusOperator--resources--requests--cpu"><a href="./values.yaml#L40">kube-prometheus-stack.prometheusOperator.resources.requests.cpu</a></td>
+			<td id="kube-prometheus-stack--prometheusOperator--resources--requests--cpu"><a href="./values.yaml#L44">kube-prometheus-stack.prometheusOperator.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -209,7 +223,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheusOperator--resources--requests--memory"><a href="./values.yaml#L41">kube-prometheus-stack.prometheusOperator.resources.requests.memory</a></td>
+			<td id="kube-prometheus-stack--prometheusOperator--resources--requests--memory"><a href="./values.yaml#L45">kube-prometheus-stack.prometheusOperator.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -223,7 +237,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheusOperator--secretFieldSelector"><a href="./values.yaml#L33">kube-prometheus-stack.prometheusOperator.secretFieldSelector</a></td>
+			<td id="kube-prometheus-stack--prometheusOperator--secretFieldSelector"><a href="./values.yaml#L37">kube-prometheus-stack.prometheusOperator.secretFieldSelector</a></td>
 			<td>
 string
 </td>

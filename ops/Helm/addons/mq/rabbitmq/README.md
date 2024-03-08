@@ -15,7 +15,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | file://../../../shortlink-template | shortlink-template | 0.8.11 |
-| oci://registry-1.docker.io/bitnamicharts | rabbitmq-cluster-operator | 3.20.0 |
+| oci://registry-1.docker.io/bitnamicharts | rabbitmq-cluster-operator | 3.20.1 |
 
 ## Values
 
