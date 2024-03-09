@@ -7,6 +7,7 @@
 |---------|------------------|--------------------|-------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|
 | merch   | Merch store      | Go (Dapr)          | [docs](./boundaries/shop/merch/README.md) | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-merch&revision=true)](https://argo.shortlink.best/applications/shortlink-merch) |                                                                   
 | cart    | Shopping cart    | C#                 | [docs](./boundaries/shop/cart/README.md)  | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-cart&revision=true)](https://argo.shortlink.best/applications/shortlink-cart)   |
+| admin   | Shop admin       | Python (Django)    | [docs](./boundaries/shop/admin/README.md) | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-admin&revision=true)](https://argo.shortlink.best/applications/shortlink-admin) |
 
 ### Docs
 
