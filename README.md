@@ -59,6 +59,7 @@ _Please [star ⭐](https://github.com/shortlink-org/shortlink/stargazers) the re
 | Notification Boundary | Notification services    | Generic        | [docs](./boundaries/notification/README.md) |
 | Platform Boundary     | Platform services        | Supporting     | [docs](./boundaries/platform/README.md)     |
 | Search Boundary       | Search services          | Supporting     | [docs](./boundaries/search/README.md)       |
+| Shop Boundary         | Shop services            | Supporting     | [docs](./boundaries/shop/README.md)         |
 | ShortDB Boundary      | ShortDB services         | Supporting     | [docs](./boundaries/shortdb/README.md)      |
 | UI Boundary           | UI services              | Supporting     | [docs](./boundaries/ui/README.md)           |
 

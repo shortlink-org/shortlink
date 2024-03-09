@@ -8,9 +8,8 @@
 > to address any issues or inquiries related to the delivery process. It integrates various aspects of logistics, 
 > order management, and customer feedback to enhance the overall delivery experience.
 
-| Service     | Description         | Language/Framework | Docs                                              | Status                                                                                                                                                          |
-|-------------|---------------------|--------------------|---------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| merch       | Merch store         | Go (Dapr)          | [docs](./boundaries/delivery/merch/README.md)       | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-merch&revision=true)](https://argo.shortlink.best/applications/shortlink-merch)             |                                                                   
+| Service     | Description         | Language/Framework | Docs                                                | Status                                                                                                                                                          |
+|-------------|---------------------|--------------------|-----------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | support     | Support service     | PHP                | [docs](./boundaries/delivery/support/README.md)     | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-support&revision=true)](https://argo.shortlink.best/applications/shortlink-support)         |                                                                 
 | geolocation | Geolocation service | Go                 | [docs](./boundaries/delivery/geolocation/README.md) | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-geolocation&revision=true)](https://argo.shortlink.best/applications/shortlink-geolocation) |
 
