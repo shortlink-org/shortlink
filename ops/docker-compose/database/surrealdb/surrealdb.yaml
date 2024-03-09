@@ -1,0 +1,27 @@
+version: '2.4'
+
+x-network: &network
+  networks:
+    - simple
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  surrealdb:
+    <<: *network
+    depends_on:
+      - coredns
+    image: surrealdb/surrealdb:latest
+    command: start --user INSERT_USERNAME_HERE --pass INSERT_PASSWORD_HERE file:/data/database.db
+    init: true
+    restart: on-failure
+    container_name: surrealdb
+    ports:
+      - "8000:8000"
+    environment: {}
+#    logging:
+#      driver: fluent-bit
+#      options:
+#        tag: surrealdb

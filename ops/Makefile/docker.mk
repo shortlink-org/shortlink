@@ -93,6 +93,7 @@ down: confirm ## Down docker compose
 		-f ops/docker-compose/database/ignite/ignite.yaml \
 		-f ops/docker-compose/database/mongo/mongo.yaml \
 		-f ops/docker-compose/database/neo4j/neo4j.yaml \
+		-f ops/docker-compose/database/surrealdb/surrealdb.yaml \
 		-f ops/docker-compose/database/postgres/postgres.yaml \
 		-f ops/docker-compose/database/postgres/pgbouncer.yaml \
 		-f ops/docker-compose/database/postgres/patroni.yaml \
