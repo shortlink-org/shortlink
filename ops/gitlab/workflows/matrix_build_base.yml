@@ -80,13 +80,13 @@
       # PLATFORM LANDSCAPE
       - APPLICATION: backstage
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/backstage
-        DOCKERFILE_PATH: ops/dockerfile/backstage.Dockerfile
+        DOCKERFILE_PATH: ops/dockerfile/boundary_platform/backstage.Dockerfile
       - APPLICATION: support
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/support
-        DOCKERFILE_PATH: ops/dockerfile/support/support.Dockerfile
+        DOCKERFILE_PATH: ops/dockerfile/boundary_platform/support/support.Dockerfile
       - APPLICATION: support-proxy
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/support-proxy
-        DOCKERFILE_PATH: ops/dockerfile/support/support-proxy.Dockerfile
+        DOCKERFILE_PATH: ops/dockerfile/boundary_platform/support/support-proxy.Dockerfile
       # CHAT LANDSCAPE
       - APPLICATION: speech-to-text
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/speech-to-text
