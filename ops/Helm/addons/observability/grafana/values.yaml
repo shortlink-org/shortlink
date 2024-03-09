@@ -113,8 +113,6 @@ grafana:
     - grafana-oncall-app
     - cloudflare-app
     - hamedkarbasi93-kafka-datasource
-    # infinity: datasource for work with GraphQL, JSON, CSV, XML, HTML formats
-    - yesoreyeram-infinity-datasource
 
   grafana.ini:
     reporting:
