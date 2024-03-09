@@ -7,6 +7,9 @@ grafana:
   enabled: true
   namespaceOverride: ""
 
+  # TODO: disable after fix https://github.com/grafana/helm-charts/issues/2899
+  assertNoLeakedSecrets: false
+
   # Deploy default dashboards.
   ##
   defaultDashboardsEnabled: true
