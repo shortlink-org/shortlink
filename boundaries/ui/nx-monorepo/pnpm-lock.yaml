@@ -511,7 +511,7 @@ importers:
         version: 7.23.3(@babel/core@7.24.0)
       '@chromatic-com/storybook':
         specifier: ^1.2.10
-        version: 1.2.10(react@18.2.0)
+        version: 1.2.12(react@18.2.0)
       '@emotion/css':
         specifier: ^11.11.2
         version: 11.11.2
@@ -1971,8 +1971,8 @@ packages:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
     dev: true
 
-  /@chromatic-com/storybook@1.2.10(react@18.2.0):
-    resolution: {integrity: sha512-cXCf50FvEUk7RiAZauPN+Ozkz700x66EpDioSLk2tb0OyHwmBdRMClA+LV4Nf+fsq0QKqQwTDSJN2YJnN/9/tw==}
+  /@chromatic-com/storybook@1.2.12(react@18.2.0):
+    resolution: {integrity: sha512-E05bShdVAQQYaLhrDw+onZLKOo9o8E00MKqaFJhXaRKKZOyyqU6oInf9HQ2v9K5twlSz+pxYshh7+Iz3kaNByg==}
     engines: {node: '>=16.0.0', yarn: '>=1.22.18'}
     dependencies:
       chromatic: 11.0.7
@@ -21043,22 +21043,10 @@ packages:
       - ts-node
     dev: true
 
-  /tailwindcss@4.0.0-alpha.6:
-    resolution: {integrity: sha512-DE58UVlsxSVWwutkd8Mlo56AwlvK77qHU9xxa08PHvyZhCUBs+Go3ugIkRjq/YdosnVxUONJPusvj4MZPGeWrg==}
-    dependencies:
-      lightningcss: 1.24.0
-    dev: true
-
   /tailwindcss@4.0.0-alpha.7:
     resolution: {integrity: sha512-Y91+cS79h3+CdFT8Y8zgUWSZvjLASd0nGnnxhZextBDZGl7GGqcy9QLly2Sw4TcPuPryS7/nJr8pRjp9lQazIA==}
     dependencies:
       lightningcss: 1.24.0
-
-  /tailwindcss@4.0.0-alpha.7:
-    resolution: {integrity: sha512-Y91+cS79h3+CdFT8Y8zgUWSZvjLASd0nGnnxhZextBDZGl7GGqcy9QLly2Sw4TcPuPryS7/nJr8pRjp9lQazIA==}
-    dependencies:
-      lightningcss: 1.24.0
-    dev: true
 
   /tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
