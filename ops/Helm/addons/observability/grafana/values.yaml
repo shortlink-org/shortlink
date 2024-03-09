@@ -7,9 +7,6 @@ grafana:
   enabled: true
   namespaceOverride: ""
 
-  # TODO: disable after fix https://github.com/grafana/helm-charts/issues/2899
-  assertNoLeakedSecrets: false
-
   # Deploy default dashboards.
   ##
   defaultDashboardsEnabled: true
@@ -84,7 +81,7 @@ grafana:
 
   sidecar:
     image:
-      tag: 1.25.3
+      tag: 1.26.1
     alerts:
       enabled: true
       searchNamespace: ALL
@@ -113,6 +110,8 @@ grafana:
     - grafana-oncall-app
     - cloudflare-app
     - hamedkarbasi93-kafka-datasource
+    # infinity: datasource for work with GraphQL, JSON, CSV, XML, HTML formats
+    - yesoreyeram-infinity-datasource
 
   grafana.ini:
     reporting:
