@@ -20,7 +20,7 @@ services:
       - coredns
     build:
       context: .
-      dockerfile: ops/dockerfile/ui-next.Dockerfile
+      dockerfile: ops/dockerfile/boundary_ui/ui-next.Dockerfile
       shm_size: 1gb
       cache_from:
         - ui-next

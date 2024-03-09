@@ -9,7 +9,7 @@ build:
   - image: shortlink-landing
     context: ../../
     docker:
-      dockerfile: ops/dockerfile/landing.Dockerfile
+      dockerfile: ops/dockerfile/boundary_ui/landing.Dockerfile
     sync:
       infer:
         - 'ui/landing/**'

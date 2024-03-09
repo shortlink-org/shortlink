@@ -8,13 +8,13 @@
     matrix:
       - APPLICATION: landing
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/landing
-        DOCKERFILE_PATH: ops/dockerfile/landing.Dockerfile
+        DOCKERFILE_PATH: ops/dockerfile/boundary_ui/landing.Dockerfile
         DOCKERFILE_ARGS: "--build-arg API_URI=https://shortlink.best"
       - APPLICATION: ui-next
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-next
-        DOCKERFILE_PATH: ops/dockerfile/ui-next.Dockerfile
+        DOCKERFILE_PATH: ops/dockerfile/boundary_ui/ui-next.Dockerfile
         DOCKERFILE_ARGS: "--build-arg API_URI=https://shortlink.best"
       - APPLICATION: storybook
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-kit
-        DOCKERFILE_PATH: ops/dockerfile/storybook.Dockerfile
+        DOCKERFILE_PATH: ops/dockerfile/boundary_ui/storybook.Dockerfile
         DOCKERFILE_ARGS: "--build-arg API_URI=https://shortlink.best"

@@ -9,7 +9,7 @@ build:
   - image: shortlink-next
     context: ../../
     docker:
-      dockerfile: ops/dockerfile/ui-next.Dockerfile
+      dockerfile: ops/dockerfile/boundary_ui/ui-next.Dockerfile
     sync:
       infer:
         - 'ui/next/**'
