@@ -119,8 +119,8 @@ devDependencies:
     specifier: ^20.18.5
     version: 20.18.5(jest-environment-jsdom@29.7.0)(jest@29.7.0)
   eas-cli:
-    specifier: ^7.3.0
-    version: 7.3.0(@types/node@20.11.25)(expo-modules-autolinking@1.10.3)(typescript@5.4.2)
+    specifier: ^7.4.0
+    version: 7.4.0(@types/node@20.11.25)(expo-modules-autolinking@1.10.3)(typescript@5.4.2)
   eslint:
     specifier: ^8.57.0
     version: 8.57.0
@@ -1664,8 +1664,8 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@expo/apple-utils@1.4.0:
-    resolution: {integrity: sha512-tbSWy10f/xdfUb3TZkshRLk4zIuG2wNIyuypUX1jvDrOt0bokSbwmIVYkkLRazZ+mOR0ZRcDUuBHKkZmyGuegQ==}
+  /@expo/apple-utils@1.5.0:
+    resolution: {integrity: sha512-4IxSx4KlS9AughFvUOVC6d22y0fXtLpzDvlqxoPX+wf3ZCxtpg/dbVbitxU7Pcpj+hLIBm6xg2gAmK8asOMqjg==}
     hasBin: true
     dev: true
 
@@ -1835,19 +1835,19 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@expo/eas-build-job@1.0.71:
-    resolution: {integrity: sha512-FeArnHOxzK4vppATHscihhXeLW7IeIu4iP4lsJIiVVbPwuuAJaLkVwwASNM6YepV5cwLXhpOP5R1JWi2Frrt0g==}
+  /@expo/eas-build-job@1.0.78:
+    resolution: {integrity: sha512-Kio2p7NDAk9pi8Isi4D2CLdv/a0X4ybRImllzYWavC9NsPYA5TcRQ5S9odRNMSlrKmjUc+cBsF8rLYR8FUjjUw==}
     dependencies:
-      joi: 17.11.0
+      joi: 17.12.2
       semver: 7.6.0
     dev: true
 
-  /@expo/eas-json@7.3.0:
-    resolution: {integrity: sha512-enmMU3vEzRnKC4YsM9+xaeZ6V3UHtmuvN9imTIdbRuOEFX/Kb0wtz1gE2uuW1TAjdloHisZjOllVvlHmGSJT0g==}
+  /@expo/eas-json@7.4.0:
+    resolution: {integrity: sha512-KIpGIwJ6rpBdNBoxzM5Nqx/PGRmIYeOHYScmeLflh56jiAUx7SMcQDlm4fMJcda5ZcYRQUkIsh3cqK6jRYLN4A==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@babel/code-frame': 7.23.5
-      '@expo/eas-build-job': 1.0.71
+      '@expo/eas-build-job': 1.0.78
       chalk: 4.1.2
       env-string: 1.0.1
       fs-extra: 11.2.0
@@ -2141,15 +2141,16 @@ packages:
     dependencies:
       cross-spawn: 7.0.3
 
-  /@expo/steps@1.0.70:
-    resolution: {integrity: sha512-Na2m9Scll5TWtm/MF2/mPDGRDWEI6NFpYR2W9jvjbJNOtidYxNjLvq+o4Jy8j9KXo8ofm201w3c9ckfkuvdu1w==}
+  /@expo/steps@1.0.81:
+    resolution: {integrity: sha512-1hQkZkNBH91L2aqz0HTf3uZYZ3KQGu1NeQboTuGNKhf8DNoT5RCcmymKsQoQ1AzmwVmduW2vaBkatqqEtnVamA==}
     engines: {node: '>=16.0.0'}
     dependencies:
+      '@expo/eas-build-job': 1.0.78
       '@expo/logger': 1.0.57
       '@expo/spawn-async': 1.7.2
       arg: 5.0.2
       fs-extra: 11.2.0
-      joi: 17.11.0
+      joi: 17.12.2
       lodash.clonedeep: 4.5.0
       lodash.get: 4.4.2
       this-file: 2.0.3
@@ -6911,18 +6912,18 @@ packages:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
     dev: true
 
-  /eas-cli@7.3.0(@types/node@20.11.25)(expo-modules-autolinking@1.10.3)(typescript@5.4.2):
-    resolution: {integrity: sha512-TVRri8+IXvmQjDiiL/bk6tyeBpxQAkjYSnLyy9lNm1NTQtnFOMYq8NgmPBoaJg2fqyr1ybBN7mTJDzla59tQwQ==}
+  /eas-cli@7.4.0(@types/node@20.11.25)(expo-modules-autolinking@1.10.3)(typescript@5.4.2):
+    resolution: {integrity: sha512-0Z5F/b66ZTaRo5KHfb95+tVl/gPma97XUXEv9Mckl7Z8TJAfCOTX4xTeiSMUpZB3Vl60rZylbDOZk8k3yiiU6A==}
     engines: {node: '>=16.0.0'}
     hasBin: true
     dependencies:
-      '@expo/apple-utils': 1.4.0
+      '@expo/apple-utils': 1.5.0
       '@expo/code-signing-certificates': 0.0.5
       '@expo/config': 8.5.4
       '@expo/config-plugins': 7.8.4
       '@expo/config-types': 50.0.0
-      '@expo/eas-build-job': 1.0.71
-      '@expo/eas-json': 7.3.0
+      '@expo/eas-build-job': 1.0.78
+      '@expo/eas-json': 7.4.0
       '@expo/json-file': 8.2.37
       '@expo/multipart-body-parser': 1.1.0
       '@expo/osascript': 2.0.33
@@ -6935,7 +6936,7 @@ packages:
       '@expo/results': 1.0.0
       '@expo/rudder-sdk-node': 1.1.1
       '@expo/spawn-async': 1.7.0
-      '@expo/steps': 1.0.70
+      '@expo/steps': 1.0.81
       '@expo/timeago.js': 1.0.0
       '@oclif/core': 1.26.2
       '@oclif/plugin-autocomplete': 2.3.10(@types/node@20.11.25)(typescript@5.4.2)
