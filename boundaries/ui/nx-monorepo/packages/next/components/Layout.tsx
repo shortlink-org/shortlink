@@ -7,7 +7,6 @@ import {
 } from '@shortlink-org/ui-kit'
 
 import PushNotificationLayout from 'components/PushNotificationLayout'
-
 import Footer from 'components/Footer'
 import Header from 'components/Header'
 

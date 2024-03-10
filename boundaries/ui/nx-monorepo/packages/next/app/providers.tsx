@@ -64,9 +64,7 @@ function Providers({ children, ...props }) {
                 <CssBaseline />
 
                 <BalancerProvider>
-                  <Provider store={storeRef.current}>
-                    {children}
-                  </Provider>
+                  <Provider store={storeRef.current}>{children}</Provider>
                 </BalancerProvider>
               </div>
             </Layout>

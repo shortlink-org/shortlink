@@ -1,6 +1,6 @@
 'use client'
 
-// @ts-nocheck
+// @ts-ignore
 import { Header } from '@shortlink-org/ui-kit'
 import { NextSeo } from 'next-seo'
 

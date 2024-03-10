@@ -32,6 +32,7 @@ export type Methods =
   | 'profile'
   | 'totp'
   | 'webauthn'
+  | 'passkey'
   | 'link'
   | 'lookup_secret'
 
@@ -46,7 +47,7 @@ export type Props<T> = {
   // Only show certain nodes. We will always render the default nodes for CSRF tokens.
   only?: Methods
   // Is triggered on submission
-  onSubmit: (values: T) => Promise<void>
+  onSubmit: (values: T) => Promise<void> | void
   // Do not show the global messages. Useful when rendering them elsewhere.
   hideGlobalMessages?: boolean
 }
@@ -159,16 +160,15 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
       isLoading: true,
     }))
 
-    return this.props
-      .onSubmit({ ...body, ...this.state.values })
-      .finally(() => {
-        // We wait for reconciliation and update the state after 50ms
-        // Done submitting - update loading status
-        this.setState((state) => ({
-          ...state,
-          isLoading: false,
-        }))
-      })
+    return this.props.onSubmit({ ...body, ...this.state.values })
+    // .finally(() => {
+    //   // We wait for reconciliation and update the state after 50ms
+    //   // Done submitting - update loading status
+    //   this.setState((state) => ({
+    //     ...state,
+    //     isLoading: false,
+    //   }))
+    // })
   }
 
   render() {

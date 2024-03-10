@@ -18,7 +18,7 @@ export default function Notification(): JSX.Element {
   return (
     <>
       <IconButton
-        color="inherit"
+        color="secondary"
         aria-controls="simple-menu"
         aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}

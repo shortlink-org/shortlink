@@ -20,13 +20,13 @@ import { ToggleDarkMode } from '@shortlink-org/ui-kit' // eslint-disable-line im
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import MenuIcon from '@mui/icons-material/Menu'
+import ory from 'pkg/sdk'
+import SearchForm from 'components/SearchForm'
 
 import { mainListItems, secondaryListItems, adminListItems } from './listItems'
 import Notification from './notification'
 import Profile from './profile'
 import secondMenu from './secondMenu'
-import ory from 'pkg/sdk'
-import SearchForm from 'components/SearchForm'
 
 const drawerWidth = 290
 
@@ -100,7 +100,7 @@ const AppBar = styled(MuiAppBar, {
   }),
 }))
 
-const Header = () => {
+export default function Header() {
   const [session, setSession] = useState<string>(
     'No valid Ory Session was found.\nPlease sign in to receive one.',
   )
@@ -136,138 +136,145 @@ const Header = () => {
     setTheme(theme)
   }
 
-  return [
-    <AppBar key="appbar" position="fixed" open={open}>
-      <Toolbar>
-        <IconButton
-          color="inherit"
-          aria-label="menu"
-          onClick={handleDrawerOpen}
-          edge="start"
-          sx={{
-            marginRight: 5,
-            ...(open && { display: 'none' }),
-          }}
-          disabled={!hasSession}
-        >
-          <MenuIcon />
-        </IconButton>
+  return (
+    <Fragment>
+      <AppBar key="appbar" position="fixed" open={open}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="menu"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={{
+              marginRight: 5,
+              ...(open && { display: 'none' }),
+            }}
+            disabled={!hasSession}
+          >
+            <MenuIcon />
+          </IconButton>
 
-        <Button
-          href="/"
-          component={Link}
-          color="inherit"
-          sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-        >
-          <Typography component="h1" variant="h6" color="inherit" noWrap>
-            Shortlink
-          </Typography>
-        </Button>
-
-        <ToggleDarkMode id="toggleDarkMode" onChange={onChangeTheme} />
-
-        {secondMenu()}
-
-        <SearchForm />
-
-        {hasSession ? (
-          <Fragment>
-            <Profile />
-
-            <Notification />
-          </Fragment>
-        ) : (
-          <Button component={Link} href="/auth/login" type="submit" variant="outlined" color="inherit">
-            Log in
+          <Button
+            href="/"
+            component={Link}
+            color="secondary"
+            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+          >
+            <Typography component="h1" variant="h6" color="inherit" noWrap>
+              Shortlink
+            </Typography>
           </Button>
-        )}
-      </Toolbar>
-    </AppBar>,
-    <Fragment key="menu">
-      {hasSession && (
-        <Drawer key="drawer" variant="permanent" open={open}>
-          <DrawerHeader>
-            <IconButton onClick={handleDrawerClose}>
-              {theme.direction === 'rtl' ? (
-                <ChevronRightIcon />
-              ) : (
-                <ChevronLeftIcon />
-              )}
-            </IconButton>
-          </DrawerHeader>
-          <Divider flexItem />
 
-          {
-            // @ts-ignore
-            mainListItems()
-          }
-          <Divider flexItem />
+          <ToggleDarkMode id="toggleDarkMode" onChange={onChangeTheme} />
 
-          <List>{secondaryListItems}</List>
-          <Divider flexItem />
+          {secondMenu()}
 
-          <List className={'h-full'}>{adminListItems}</List>
+          <SearchForm />
 
-          <div className="flex bg-blue-800 justify-start space-x-2 items-center py-4 px-3.5">
-            <div>
-              <img
-                src="https://i.ibb.co/fxrbS6p/Ellipse-2-2.png"
-                alt="avatar"
-              />
-            </div>
-            {open && (
-              <Fragment>
-                <div className="flex flex-col justify-start items-start space-y-2">
-                  <p className="cursor-pointer text-base leading-4 text-white">
-                    Alexis Enache
-                  </p>
-                  <p className="cursor-pointer text-xs leading-3 text-gray-200">
-                    alexis _enache@gmail.com
-                  </p>
-                </div>
-                <Link href="/user/profile">
-                  <button
-                    aria-label="visit"
-                    className=" focus:ring-2 focus:outline-none hover:bg-blue-900 p-2.5 bg-blue-600 rounded-full"
-                  >
-                    <svg
-                      width={20}
-                      height={20}
-                      viewBox="0 0 20 20"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
+          {hasSession ? (
+            <Fragment>
+              <Profile />
+
+              <Notification />
+            </Fragment>
+          ) : (
+            <Button
+              component={Link}
+              href="/auth/login"
+              type="submit"
+              variant="outlined"
+              color="secondary"
+            >
+              Log in
+            </Button>
+          )}
+        </Toolbar>
+      </AppBar>
+
+      <Fragment key="menu">
+        {hasSession && (
+          <Drawer key="drawer" variant="permanent" open={open}>
+            <DrawerHeader>
+              <IconButton onClick={handleDrawerClose}>
+                {theme.direction === 'rtl' ? (
+                  <ChevronRightIcon />
+                ) : (
+                  <ChevronLeftIcon />
+                )}
+              </IconButton>
+            </DrawerHeader>
+            <Divider flexItem />
+
+            {
+              // @ts-ignore
+              mainListItems()
+            }
+            <Divider flexItem />
+
+            <List>{secondaryListItems}</List>
+            <Divider flexItem />
+
+            <List className={'h-full'}>{adminListItems}</List>
+
+            <div className="flex bg-blue-800 justify-start space-x-2 items-center py-4 px-3.5">
+              <div>
+                <img
+                  src="https://i.ibb.co/fxrbS6p/Ellipse-2-2.png"
+                  alt="avatar"
+                />
+              </div>
+              {open && (
+                <Fragment>
+                  <div className="flex flex-col justify-start items-start space-y-2">
+                    <p className="cursor-pointer text-base leading-4 text-white">
+                      Alexis Enache
+                    </p>
+                    <p className="cursor-pointer text-xs leading-3 text-gray-200">
+                      alexis _enache@gmail.com
+                    </p>
+                  </div>
+                  <Link href="/user/profile">
+                    <button
+                      aria-label="visit"
+                      className=" focus:ring-2 focus:outline-none hover:bg-blue-900 p-2.5 bg-blue-600 rounded-full"
                     >
-                      <path
-                        d="M4.16666 10H15.8333"
-                        stroke="white"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M10.8333 15L15.8333 10"
-                        stroke="white"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M10.8333 5L15.8333 10"
-                        stroke="white"
-                        strokeWidth="1.5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                  </button>
-                </Link>
-              </Fragment>
-            )}
-          </div>
-        </Drawer>
-      )}
-    </Fragment>,
-  ]
+                      <svg
+                        width={20}
+                        height={20}
+                        viewBox="0 0 20 20"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M4.16666 10H15.8333"
+                          stroke="white"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M10.8333 15L15.8333 10"
+                          stroke="white"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                        <path
+                          d="M10.8333 5L15.8333 10"
+                          stroke="white"
+                          strokeWidth="1.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        />
+                      </svg>
+                    </button>
+                  </Link>
+                </Fragment>
+              )}
+            </div>
+          </Drawer>
+        )}
+      </Fragment>
+    </Fragment>
+  )
 }
-
-export default Header

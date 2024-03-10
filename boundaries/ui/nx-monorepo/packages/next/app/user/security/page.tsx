@@ -1,18 +1,20 @@
 'use client'
 
-// @ts-nocheck
+// @ts-ignore
 import { Header } from '@shortlink-org/ui-kit'
 import { AxiosError } from 'axios'
 import { NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 import Security from 'components/Profile/Security'
-
 import ory from 'pkg/sdk'
 
 function SecurityContent() {
+  const router = useRouter()
+
   const [session, setSession] = useState<string>(
     'No valid Ory Session was found.\nPlease sign in to receive one.',
   )

@@ -11,7 +11,6 @@ import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
 
 import { Flow } from 'components/ui/Flow'
-
 import { handleFlowError } from 'pkg/errors'
 import ory from 'pkg/sdk'
 
@@ -167,12 +166,7 @@ const SignUp: NextPage = () => {
 
               <Grid container justifyContent="flex-end">
                 <Grid item>
-                  <Link
-                    href="/auth/login"
-                    variant="body2"
-                    underline="hover"
-                    legacyBehavior
-                  >
+                  <Link href="/auth/login">
                     <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                       Already have an account? Log in
                     </p>

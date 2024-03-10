@@ -21,7 +21,6 @@ import Header from 'components/Page/Header'
 
 function Page() {
   const [open, setOpen] = useState(false)
-  const classes = {}
 
   const [url, setURL] = useState({
     url: '',
@@ -33,10 +32,10 @@ function Page() {
     hash: '',
   })
 
-  const handleChange = (e) =>
+  const handleChange = (e: { target: { name: any; value: any } }) =>
     setURL({ ...url, [e.target.name]: e.target.value })
 
-  const handleClose = (event, reason) => {
+  const handleClose = (event: any, reason: string) => {
     if (reason === 'clickaway') {
       return
     }
@@ -44,7 +43,7 @@ function Page() {
     setOpen(false)
   }
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
     try {
       // TODO: use store.actions
@@ -73,6 +72,7 @@ function Page() {
     } catch (error) {
       console.error('An error occurred', error)
       setResponse({
+        hash: '',
         type: 'error',
         message: 'An error occured while submitting the form',
       })
@@ -88,7 +88,6 @@ function Page() {
         direction="column"
         justifyContent="space-around"
         alignItems="center"
-        className={classes.root}
       >
         <div className="container mx-auto w-5/6 sm:w-2/3 h-full">
           <Header title="Add link" />
@@ -133,7 +132,7 @@ function Page() {
               />
 
               <Button
-                variant="contained"
+                variant="filled"
                 className="bg-sky-600 hover:bg-sky-700"
                 type="submit"
               >
@@ -144,7 +143,6 @@ function Page() {
             {response.type !== '' && response.type !== 'error' && (
               <div className="mb-4 sm:mb-0 md:mb-0 lg:mb-0 xl:mb-0 lg:w-1/2">
                 <Typography
-                  variant="p"
                   component="p"
                   className="text-gray-800 dark:text-gray-100 text-lg font-bold"
                 >
@@ -191,7 +189,8 @@ function Page() {
           autoHideDuration={6000}
           onClose={handleClose}
         >
-          <Alert onClose={handleClose} severity={response.type}>
+          {/* @ts-ignore */}
+          <Alert onClose={() => handleClose} severity={response.type}>
             {response.message}
           </Alert>
         </Snackbar>

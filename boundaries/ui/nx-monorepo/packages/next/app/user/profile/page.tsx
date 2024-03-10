@@ -1,14 +1,14 @@
 'use client'
 
-// @ts-nocheck
-import { Header } from '@shortlink-org/ui-kit'
 import { AxiosError } from 'axios'
 import get from 'lodash/get'
 import { NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import ory from 'pkg/sdk'
+// @ts-ignore
+import { Header } from '@shortlink-org/ui-kit'
 
+import ory from 'pkg/sdk'
 import withAuthSync from 'components/Private'
 import Notifications from 'components/Profile/Notifications'
 import Personal from 'components/Profile/Personal'
