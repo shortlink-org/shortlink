@@ -1,9 +1,8 @@
 'use client'
 
-import type { NextPage } from 'next'
+import { Metadata, NextPage } from 'next'
 import { SoftwareAppJsonLd, NextSeo } from 'next-seo'
 
-import { Layout } from 'components'
 import Feature from 'components/Landing/feature'
 import Header from 'components/Landing/header'
 import Mobile from 'components/Landing/mobile'
@@ -11,7 +10,7 @@ import Subscribe from 'components/Landing/subscribe'
 import Testimonials from 'components/Testimonials'
 
 const Home: NextPage = () => (
-  <Layout>
+  <>
     <NextSeo
       title="Landing Page Service"
       description="Shortlink is your go-to source for all things URL. We offer a wide range of services, including shortening, tracking, and protecting links. Visit our website today to learn more!"
@@ -43,7 +42,7 @@ const Home: NextPage = () => (
     <Feature />
     <Testimonials />
     <Subscribe />
-  </Layout>
+  </>
 )
 
 export default Home

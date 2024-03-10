@@ -1,8 +1,8 @@
+import * as React from 'react'
 import { Metadata } from 'next'
 // eslint-disable-next-line camelcase
 import { Roboto_Mono } from 'next/font/google'
 import Script from 'next/script'
-import * as React from 'react'
 import { Organization, WithContext } from 'schema-dts'
 
 import { Providers } from './providers'
@@ -22,8 +22,7 @@ export async function generateMetadata(): Promise<Metadata> {
     alternates: {
       canonical: '/',
       languages: {
-        // example:
-        // en: '/',
+        en: '/',
         // ru: '/ru',
       },
     },

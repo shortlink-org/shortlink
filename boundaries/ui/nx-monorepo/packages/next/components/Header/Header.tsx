@@ -1,4 +1,6 @@
-import { useEffect, useState, Fragment, useMemo } from 'react'
+'use client'
+
+import { useEffect, useState, Fragment } from 'react'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import Button from '@mui/material-next/Button'
 import Divider from '@mui/material/Divider'

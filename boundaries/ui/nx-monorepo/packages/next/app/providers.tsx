@@ -13,6 +13,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Provider as BalancerProvider } from 'react-wrap-balancer'
 import { Provider } from 'react-redux'
+import { Layout } from 'components'
 
 import 'react-toastify/dist/ReactToastify.css'
 import '@shortlink-org/ui-kit/dist/cjs/index.css'
@@ -48,14 +49,16 @@ export function Providers({ children, ...props }) {
           <NextThemeProvider enableSystem attribute="class" defaultTheme="light">
             {getInitColorSchemeScript()}
 
-            <div className="text-black dark:bg-gray-800 dark:text-white">
-              {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-              <CssBaseline />
+            <Layout>
+              <div className="text-black dark:bg-gray-800 dark:text-white">
+                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                <CssBaseline />
 
-              <BalancerProvider>
-                {children}
-              </BalancerProvider>
-            </div>
+                <BalancerProvider>
+                  {children}
+                </BalancerProvider>
+              </div>
+            </Layout>
           </NextThemeProvider>
         </LocalizationProvider>
       </CssVarsProvider>

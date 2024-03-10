@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import Box from '@mui/material/Box'
 import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -43,7 +41,10 @@ export function Layout({ children }) {
               gridTemplateRows: '1fr auto',
             }}
           >
-            <Container>{children}</Container>
+            <div className="content-center max-w-7xl m-auto">
+              {children}
+            </div>
+
             <Footer />
 
             <ScrollToTopButton />

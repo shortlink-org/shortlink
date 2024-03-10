@@ -83,6 +83,9 @@ importers:
       react-dom:
         specifier: ^18.2.0
         version: 18.2.0(react@18.2.0)
+      schema-dts:
+        specifier: 1.1.2
+        version: 1.1.2(typescript@5.4.2)
     devDependencies:
       '@emotion/cache':
         specifier: ^11.11.0
@@ -20016,7 +20019,6 @@ packages:
       typescript: '>=4.1.0'
     dependencies:
       typescript: 5.4.2
-    dev: true
 
   /schema-utils@2.7.1:
     resolution: {integrity: sha512-SHiNtMOUGWBQJwzISiVYKu82GiV4QYGePp3odlY1tuKO7gPtphAT5R/py0fA6xtbgLL/RvtJZnU9b8s0F1q0Xg==}

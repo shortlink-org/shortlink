@@ -1,3 +1,5 @@
+'use client'
+
 import { getMessaging, onMessage } from 'firebase/messaging'
 import React, { useEffect } from 'react'
 import 'firebase/compat/messaging'
