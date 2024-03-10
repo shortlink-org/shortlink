@@ -4,7 +4,7 @@ import { ArticleJsonLd, NextSeo, FAQPageJsonLd } from 'next-seo'
 
 import { Layout } from 'components'
 
-export function Page() {
+function Page() {
   return (
     <Layout>
       <NextSeo

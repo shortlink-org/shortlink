@@ -6,15 +6,15 @@ import { RegistrationFlow, UpdateRegistrationFlowBody } from '@ory/client'
 import { AxiosError } from 'axios'
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
 
 import { Layout } from 'components'
+import { Flow } from 'components/ui/Flow'
 
-import { Flow } from '../../components/ui/Flow'
-import { handleFlowError } from '../../pkg/errors'
-import ory from '../../pkg/sdk'
+import { handleFlowError } from '../../../pkg/errors'
+import ory from '../../../pkg/sdk'
 
 // Renders the registration page
 const SignUp: NextPage = () => {

@@ -15,7 +15,7 @@
     "next-lint": "pnpm dlx next lint",
     "prettier": "pnpm dlx prettier -w -c .",
     "lint": "pnpm dlx eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
-    "lint:fix": "pnpm dlx lint --fix",
+    "lint:fix": "pnpm dlx eslint --fix",
     "lint:gitlab": "pnpm dlx lint --format gitlab",
     "swagger": "pnpm dlx swagger-typescript-api -p ../../api/swagger.json -o ./store/api -d -r --modular --axios",
     "sitemap": "pnpm dlx next-sitemap --config config/sitemap.config.js",

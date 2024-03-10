@@ -4,15 +4,15 @@
 import { VerificationFlow, UpdateVerificationFlowBody } from '@ory/client'
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
 
 import { Layout } from 'components'
 
-import { Flow } from '../../components/ui/Flow'
-import { handleGetFlowError, handleFlowError } from '../../pkg/errors'
-import ory from '../../pkg/sdk'
+import { Flow } from 'components/ui/Flow'
+import { handleGetFlowError, handleFlowError } from '../../../pkg/errors'
+import ory from '../../../pkg/sdk'
 
 const Page: NextPage = () => {
   const [flow, setFlow] = useState<VerificationFlow>()

@@ -1,5 +1,4 @@
 import Box from '@mui/material/Box'
-import Container from '@mui/material/Container'
 import CssBaseline from '@mui/material/CssBaseline'
 import { styled } from '@mui/material/styles'
 import * as React from 'react'
@@ -9,8 +8,8 @@ import {
 
 import PushNotificationLayout from 'components/PushNotificationLayout'
 
-import Footer from './Footer'
-import Header from './Header'
+import Footer from 'components/Footer'
+import Header from 'components/Header'
 
 const DrawerHeader = styled('div')(({ theme }) => ({
   display: 'flex',
@@ -41,9 +40,7 @@ export function Layout({ children }) {
               gridTemplateRows: '1fr auto',
             }}
           >
-            <div className="content-center max-w-7xl m-auto">
-              {children}
-            </div>
+            <div className="content-center max-w-7xl m-auto">{children}</div>
 
             <Footer />
 

@@ -6,8 +6,7 @@ import { NextSeo } from 'next-seo'
 
 import { Layout } from 'components'
 import withAuthSync from 'components/Private'
-
-import Header from '../../components/Page/Header'
+import Header from 'components/Page/Header'
 
 const people = [
   {
@@ -67,7 +66,7 @@ const people = [
   // More people...
 ]
 
-export function GroupContent() {
+function GroupContent() {
   return (
     <Layout>
       <NextSeo title="Groups" description="Admin groups" />

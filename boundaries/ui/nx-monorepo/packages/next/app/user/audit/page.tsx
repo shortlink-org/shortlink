@@ -7,9 +7,9 @@ import { Layout } from 'components'
 import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
 
-import Header from '../../components/Page/Header'
+import Header from 'components/Page/Header'
 
-export function Page() {
+function Page() {
   return (
     <Layout>
       <NextSeo title="Audit" description="Audit your account" />

@@ -8,7 +8,7 @@ import { Layout } from 'components'
 import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
 
-export function Page() {
+function Page() {
   return (
     <Layout>
       <NextSeo title="Reports" description="Reports page for your account." />

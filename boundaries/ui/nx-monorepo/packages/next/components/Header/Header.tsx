@@ -24,10 +24,9 @@ import MenuIcon from '@mui/icons-material/Menu'
 import { mainListItems, secondaryListItems, adminListItems } from './listItems'
 import Notification from './notification'
 import Profile from './profile'
-// @ts-ignore
 import secondMenu from './secondMenu'
-import ory from '../../pkg/sdk'
-import SearchForm from '../SearchForm'
+import ory from 'pkg/sdk'
+import SearchForm from 'components/SearchForm'
 
 const drawerWidth = 290
 
@@ -154,17 +153,16 @@ const Header = () => {
           <MenuIcon />
         </IconButton>
 
-        <Link href="/" legacyBehavior>
-          <Button
-            href="/"
-            color="inherit"
-            sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
-          >
-            <Typography component="h1" variant="h6" color="inherit" noWrap>
-              Shortlink
-            </Typography>
-          </Button>
-        </Link>
+        <Button
+          href="/"
+          component={Link}
+          color="inherit"
+          sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+        >
+          <Typography component="h1" variant="h6" color="inherit" noWrap>
+            Shortlink
+          </Typography>
+        </Button>
 
         <ToggleDarkMode id="toggleDarkMode" onChange={onChangeTheme} />
 
@@ -179,11 +177,9 @@ const Header = () => {
             <Notification />
           </Fragment>
         ) : (
-          <Link href="/auth/login" legacyBehavior>
-            <Button type="submit" variant="outlined" color="inherit">
-              Log in
-            </Button>
-          </Link>
+          <Button component={Link} href="/auth/login" type="submit" variant="outlined" color="inherit">
+            Log in
+          </Button>
         )}
       </Toolbar>
     </AppBar>,
@@ -229,7 +225,7 @@ const Header = () => {
                     alexis _enache@gmail.com
                   </p>
                 </div>
-                <Link href="/user/profile" legacyBehavior>
+                <Link href="/user/profile">
                   <button
                     aria-label="visit"
                     className=" focus:ring-2 focus:outline-none hover:bg-blue-900 p-2.5 bg-blue-600 rounded-full"

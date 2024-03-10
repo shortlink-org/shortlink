@@ -1,7 +1,7 @@
 import { Menu, Transition } from '@headlessui/react'
 import { AxiosError } from 'axios'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import { useState, useEffect, Fragment } from 'react'
 
 import ory from '../../pkg/sdk'
@@ -94,7 +94,7 @@ export default function Profile() {
                       {item.onClick ? (
                         <p>{item.name}</p>
                       ) : (
-                        <Link href={item.link} passHref legacyBehavior>
+                        <Link href={item.link} passHref>
                           <p>{item.name}</p>
                         </Link>
                       )}

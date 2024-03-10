@@ -1,6 +1,6 @@
 // @ts-ignore
 import ListItemIcon, { ListItemIconProps } from '@mui/material/ListItemIcon'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 import React, { useState, useEffect, ReactElement, Children } from 'react'
 import { UrlObject } from 'url'
 

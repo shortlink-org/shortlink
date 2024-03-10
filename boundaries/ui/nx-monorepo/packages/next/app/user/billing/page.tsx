@@ -8,9 +8,9 @@ import Discounted from 'components/Billing/Discounted'
 import PaymentMethod from 'components/Billing/PaymentMethod'
 import withAuthSync from 'components/Private'
 
-import Header from '../../components/Page/Header'
+import Header from 'components/Page/Header'
 
-export function Page() {
+function Page() {
   return (
     <Layout>
       <NextSeo title="Billing" description="Billing page for your account." />

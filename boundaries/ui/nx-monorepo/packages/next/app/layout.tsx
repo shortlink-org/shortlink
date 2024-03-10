@@ -5,7 +5,7 @@ import { Roboto_Mono } from 'next/font/google'
 import Script from 'next/script'
 import { Organization, WithContext } from 'schema-dts'
 
-import { Providers } from './providers'
+import Providers from './providers'
 import '../public/assets/styles.css'
 
 const robotoMono = Roboto_Mono({
@@ -115,9 +115,7 @@ export default function RootLayout({
       />
 
       <body className="bg-white text-black dark:bg-black dark:text-white">
-        <Providers>
-          {children}
-        </Providers>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

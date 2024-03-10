@@ -4,42 +4,41 @@
 import { LoginFlow, UpdateLoginFlowBody } from '@ory/client'
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
 
 import { Layout } from 'components'
+import { Flow } from 'components/ui/Flow'
 
-import { Flow } from '../../components/ui/Flow'
-import { handleGetFlowError, handleFlowError } from '../../pkg/errors'
-import ory from '../../pkg/sdk'
+import { handleGetFlowError, handleFlowError } from '../../../pkg/errors'
+import ory from '../../../pkg/sdk'
 
 const SignIn: NextPage = () => {
   const [flow, setFlow] = useState<LoginFlow>()
 
   // Get ?flow=... from the URL
   const router = useRouter()
-  const {
-    return_to: returnTo,
-    flow: flowId,
-    // Refresh means we want to refresh the session. This is needed, for example, when we want to update the password
-    // of a user.
-    refresh,
-    // AAL = Authorization Assurance Level. This implies that we want to upgrade the AAL, meaning that we want
-    // to perform two-factor authentication/verification.
-    aal,
-  } = router.query
+  const searchParams = useSearchParams()
+  const flowId = searchParams.get('flow')
+  const returnTo = searchParams.get('return_to')
+  // Refresh means we want to refresh the session. This is needed, for example, when we want to update the password
+  // of a user.
+  const refresh = searchParams.get('refresh')
+  // AAL = Authorization Assurance Level. This implies that we want to upgrade the AAL, meaning that we want
+  // to perform two-factor authentication/verification.
+  const aal = searchParams.get('aal')
 
   useEffect(() => {
     // If the router is not ready yet, or we already have a flow, do nothing.
-    if (!router.isReady || flow) {
+    if (flow) {
       return
     }
 
     // If ?flow=.. was in the URL, we fetch it
     if (flowId) {
-      ory
-        .getLoginFlow(String(flowId))
+      ory // @ts-ignore
+        .getLoginFlow(flowId)
         .then(({ data }) => {
           setFlow(data)
         })
@@ -58,40 +57,40 @@ const SignIn: NextPage = () => {
         setFlow(data)
       })
       .catch(handleFlowError(router, 'login', setFlow))
-  }, [flowId, router, router.isReady, aal, refresh, returnTo, flow])
+  }, [flowId, router, aal, refresh, returnTo, flow])
 
   const onSubmit = (values: UpdateLoginFlowBody) =>
     router
       // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
       // his data when she/he reloads the page.
-      .push(`/auth/login?flow=${flow?.id}`, undefined, { shallow: true })
-      .then(() =>
-        ory
-          .updateLoginFlow({
-            flow: String(flow?.id),
-            updateLoginFlowBody: values,
-          })
-          // We logged in successfully! Let's bring the user home.
-          .then(() => {
-            if (flow?.return_to) {
-              window.location.href = flow?.return_to
-              return
-            }
-            router.push('/')
-          })
-          .then(() => {})
-          .catch(handleFlowError(router, 'login', setFlow))
-          .catch((err: AxiosError) => {
-            // If the previous handler did not catch the error it's most likely a form validation error
-            if (err.response?.status === 400) {
-              // Yup, it is!
-              setFlow(err.response?.data)
-              return
-            }
-
-            return Promise.reject(err)
-          }),
-      )
+      .push(`/auth/login?flow=${flow?.id}`)
+      // .then(() =>
+      //   ory
+      //     .updateLoginFlow({
+      //       flow: String(flow?.id),
+      //       updateLoginFlowBody: values,
+      //     })
+      //     // We logged in successfully! Let's bring the user home.
+      //     .then(() => {
+      //       if (flow?.return_to) {
+      //         window.location.href = flow?.return_to
+      //         return
+      //       }
+      //       router.push('/')
+      //     })
+      //     .then(() => {})
+      //     .catch(handleFlowError(router, 'login', setFlow))
+      //     .catch((err: AxiosError) => {
+      //       // If the previous handler did not catch the error it's most likely a form validation error
+      //       if (err.response?.status === 400) {
+      //         // Yup, it is!
+      //         setFlow(err.response?.data)
+      //         return
+      //       }
+      //
+      //       return Promise.reject(err)
+      //     }),
+      // )
 
   return (
     <Layout>

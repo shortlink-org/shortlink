@@ -54,7 +54,7 @@ const tiers = [
   },
 ]
 
-export function Page() {
+function Page() {
   return (
     <Layout>
       <NextSeo

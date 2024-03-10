@@ -50,7 +50,7 @@ export default function Example() {
                 <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
                   <div className="relative grid gap-8 bg-white dark:bg-gray-800 p-7 lg:grid-cols-2">
                     {solutions.map((item) => (
-                      <Link key={item.href} href={item.href} legacyBehavior>
+                      <Link key={item.href} href={item.href}>
                         <div className="-m-3 cursor-pointer flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-gray-50 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 dark:focus-visible:ring-gray-400">
                           <div className="flex h-10 w-10 shrink-0 items-center justify-center text-white sm:h-12 sm:w-12 dark:text-gray-300">
                             <item.icon aria-hidden="true" />
@@ -68,7 +68,7 @@ export default function Example() {
                     ))}
                   </div>
                   <div className="bg-gray-50 dark:bg-gray-800 p-4">
-                    <Link href="/faq" legacyBehavior>
+                    <Link href="/faq">
                       <span className="flow-root cursor-pointer rounded-md px-2 py-2 transition duration-150 ease-in-out hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus-visible:ring focus-visible:ring-indigo-500 dark:focus-visible:ring-gray-400">
                         <span className="flex items-center">
                           <span className="text-sm font-medium text-gray-900 dark:text-gray-200">

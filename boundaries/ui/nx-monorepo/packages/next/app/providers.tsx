@@ -12,11 +12,11 @@ import React from 'react'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Provider as BalancerProvider } from 'react-wrap-balancer'
-import { Provider } from 'react-redux'
-import { Layout } from 'components'
 
 import 'react-toastify/dist/ReactToastify.css'
 import '@shortlink-org/ui-kit/dist/cjs/index.css'
+
+import { Layout } from 'components'
 
 import { wrapper } from 'store/store'
 
@@ -39,14 +39,18 @@ import { wrapper } from 'store/store'
 // })
 
 // @ts-ignore
-export function Providers({ children, ...props }) {
+function Providers({ children, ...props }) {
   // const { store, props } = wrapper.useWrappedStore(rest)
 
   return (
     <AppRouterCacheProvider options={{ key: 'css' }}>
       <CssVarsProvider theme={theme} defaultMode="light">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <NextThemeProvider enableSystem attribute="class" defaultTheme="light">
+          <NextThemeProvider
+            enableSystem
+            attribute="class"
+            defaultTheme="light"
+          >
             {getInitColorSchemeScript()}
 
             <Layout>
@@ -54,9 +58,7 @@ export function Providers({ children, ...props }) {
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline />
 
-                <BalancerProvider>
-                  {children}
-                </BalancerProvider>
+                <BalancerProvider>{children}</BalancerProvider>
               </div>
             </Layout>
           </NextThemeProvider>
@@ -65,3 +67,5 @@ export function Providers({ children, ...props }) {
     </AppRouterCacheProvider>
   )
 }
+
+export default Providers

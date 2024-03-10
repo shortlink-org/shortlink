@@ -4,7 +4,7 @@ import { ArticleJsonLd, NextSeo, CorporateContactJsonLd } from 'next-seo'
 
 import { Layout } from 'components'
 
-export function ContactContent() {
+function ContactContent() {
   return (
     <Layout>
       <NextSeo

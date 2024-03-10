@@ -14,7 +14,7 @@ import Personal from 'components/Profile/Personal'
 import Profile from 'components/Profile/Profile'
 import Welcome from 'components/Profile/Welcome'
 
-import ory from '../../pkg/sdk'
+import ory from '../../../pkg/sdk'
 
 function ProfileContent() {
   const [session, setSession] = useState<string>(

@@ -1,5 +1,5 @@
 import Link, { LinkProps } from 'next/link'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 // @ts-ignore
 import React, { useState, useEffect, ReactElement, Children } from 'react'
 
@@ -49,7 +49,7 @@ function ActiveLink({ children, activeClassName, ...props }: ActiveLinkProps) {
   ])
 
   return (
-    <Link {...props} legacyBehavior>
+    <Link {...props}>
       {React.cloneElement(child, {
         className: className || null,
       })}

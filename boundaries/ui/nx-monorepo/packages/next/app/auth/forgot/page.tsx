@@ -5,26 +5,27 @@ import { RecoveryFlow, UpdateRecoveryFlowBody } from '@ory/client'
 import { AxiosError } from 'axios'
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import { useRouter } from 'next/router'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
 
 import { Layout } from 'components'
-
-import { Flow } from '../../components/ui/Flow'
-import { handleFlowError } from '../../pkg/errors'
-import ory from '../../pkg/sdk'
+import { Flow } from 'components/ui/Flow'
+import { handleFlowError } from 'pkg/errors'
+import ory from 'pkg/sdk'
 
 const Page: NextPage = () => {
   const [flow, setFlow] = useState<RecoveryFlow>()
 
   // Get ?flow=... from the URL
   const router = useRouter()
-  const { flow: flowId, return_to: returnTo } = router.query
+  const searchParams = useSearchParams()
+  const flowId = searchParams.get('flow')
+  const returnTo = searchParams.get('return_to')
 
   useEffect(() => {
     // If the router is not ready yet, or we already have a flow, do nothing.
-    if (!router.isReady || flow) {
+    if (flow) {
       return
     }
 
@@ -52,43 +53,44 @@ const Page: NextPage = () => {
         // If the previous handler did not catch the error it's most likely a form validation error
         if (err.response?.status === 400) {
           // Yup, it is!
+          // @ts-ignore
           setFlow(err.response?.data)
           return
         }
 
         return Promise.reject(err)
       })
-  }, [flowId, router, router.isReady, returnTo, flow])
+  }, [flowId, router, returnTo, flow])
 
   const onSubmit = (values: UpdateRecoveryFlowBody) =>
     router
       // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
       // his data when she/he reloads the page.
-      .push(`/auth/forget?flow=${flow?.id}`, undefined, { shallow: true })
-      .then(() =>
-        ory
-          .updateRecoveryFlow({
-            flow: String(flow?.id),
-            updateRecoveryFlowBody: values,
-          })
-          .then(({ data }) => {
-            // Form submission was successful, show the message to the user!
-            setFlow(data)
-          })
-          .catch(handleFlowError(router, 'recovery', setFlow))
-          .catch((err: AxiosError) => {
-            switch (err.response?.status) {
-              case 400:
-                // Status code 400 implies the form validation had an error
-                setFlow(err.response?.data)
-                return
-              default:
-              // Otherwise, we nothitng - the error will be handled by the Flow component
-            }
-
-            throw err
-          }),
-      )
+      .push(`/auth/forget?flow=${flow?.id}`)
+      // .then(() =>
+      //   ory
+      //     .updateRecoveryFlow({
+      //       flow: String(flow?.id),
+      //       updateRecoveryFlowBody: values,
+      //     })
+      //     .then(({ data }) => {
+      //       // Form submission was successful, show the message to the user!
+      //       setFlow(data)
+      //     })
+      //     .catch(handleFlowError(navigation, 'recovery', setFlow))
+      //     .catch((err: AxiosError) => {
+      //       switch (err.response?.status) {
+      //         case 400:
+      //           // Status code 400 implies the form validation had an error
+      //           setFlow(err.response?.data)
+      //           return
+      //         default:
+      //         // Otherwise, we nothitng - the error will be handled by the Flow component
+      //       }
+      //
+      //       throw err
+      //     }),
+      // )
 
   return (
     <Layout>

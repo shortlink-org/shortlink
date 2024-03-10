@@ -19,7 +19,7 @@ import { CopyToClipboard } from 'react-copy-to-clipboard'
 import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 
-import Header from '../../components/Page/Header'
+import Header from 'components/Page/Header'
 
 function Page() {
   const [open, setOpen] = useState(false)

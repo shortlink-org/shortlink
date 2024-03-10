@@ -15,6 +15,7 @@ const { composePlugins } = require('@nx/next')
 const { withSentryConfig } = require('@sentry/nextjs')
 
 // ENVIRONMENT VARIABLE ================================================================================================
+const isPWA = process.env.PWA_ENABLE === 'true'
 const isProd = process.env.NODE_ENV === 'production'
 const isEnableSentry = process.env.SENTRY_ENABLE === 'true'
 const PROXY_URI = process.env.PROXY_URI || 'http://127.0.0.1:3000'
@@ -27,7 +28,11 @@ console.info('API_URI', API_URI)
 console.info('NODE_ENV', process.env.NODE_ENV)
 
 // PLUGINS =============================================================================================================
-const plugins = [withPWA]
+const plugins = []
+
+if (isPWA) {
+  plugins.push(withPWA)
+}
 
 /** @type {import('@nx/next/plugins/with-nx').WithNxOptions} * */
 let NEXT_CONFIG = {

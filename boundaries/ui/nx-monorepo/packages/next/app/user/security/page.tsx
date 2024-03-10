@@ -10,7 +10,7 @@ import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 import Security from 'components/Profile/Security'
 
-import ory from '../../pkg/sdk'
+import ory from '../../../pkg/sdk'
 
 function SecurityContent() {
   const [session, setSession] = useState<string>(
