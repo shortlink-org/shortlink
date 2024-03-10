@@ -1,6 +1,6 @@
 const withPWA = require('@ducanh2912/next-pwa').default({
   dest: 'public',
-  swcMinify: true,
+  swcMinify: process.env.NODE_ENV === 'production',
   cacheOnFrontendNav: true,
   aggressiveFrontEndNavCaching: true,
 })
