@@ -1,4 +1,4 @@
-import Button from '@mui/material/Button'
+import Button from '@mui/material-next/Button'
 import { UiNode, UiNodeAnchorAttributes } from '@ory/client'
 
 interface Props {

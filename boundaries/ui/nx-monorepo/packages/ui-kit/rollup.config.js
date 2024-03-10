@@ -55,6 +55,7 @@ export default [
       'react',
       'react-dom',
       'prop-types',
+      'next-themes',
       '@emotion/react',
       '@mui/system',
       '@mui/material',

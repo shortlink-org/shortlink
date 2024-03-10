@@ -40,7 +40,7 @@ const Home = () => {
         justifyContent="center"
         alignItems="center"
       >
-        <Box sx={{ width: '100%', maxWidth: 700, px: { xs: 2, md: 0 } }}>
+        <Box sx={{ width: '100%', maxWidth: 800, px: { xs: 2, md: 0 } }}>
           <AppBar
             position="static"
             id="menu"

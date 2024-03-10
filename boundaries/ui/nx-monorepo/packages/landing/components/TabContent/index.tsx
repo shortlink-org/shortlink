@@ -1,4 +1,5 @@
-import { Button, Divider, Stack, Typography, useTheme } from '@mui/material'
+import { Divider, Stack, Typography, useTheme } from '@mui/material'
+import Button from '@mui/material-next/Button'
 import Link from 'next/link'
 import * as React from 'react'
 
@@ -18,8 +19,9 @@ const TabContent: React.FC<TabContentProps> = ({ title, cards }) => {
   return (
     <div className="my-5">
       <Typography
-        variant="h5"
+        variant="h2"
         align="center"
+        // @ts-ignore
         color={theme.palette.mode === 'dark' ? 'primary' : 'inherit'}
       >
         {title}
@@ -46,6 +48,7 @@ function getCard(name: string, url: string, theme) {
     <Link href={url} key={url} passHref>
       <Button
         variant="outlined"
+        // @ts-ignore
         color={theme.palette.mode === 'dark' ? 'primary' : 'inherit'}
         size="large"
       >

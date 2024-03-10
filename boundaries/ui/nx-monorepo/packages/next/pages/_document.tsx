@@ -1,7 +1,6 @@
-// @ts-ignore
-import { lightTheme } from '@shortlink-org/ui-kit'
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 import * as React from 'react'
+import { useTheme } from '@mui/material'
 
 import { renderStatic } from '../pkg/renderer'
 
@@ -43,13 +42,16 @@ class MyDocument extends Document {
   }
 
   render() {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    const theme = useTheme()
+
     return (
       <Html lang="en" suppressHydrationWarning>
         {/* @ts-ignore */}
         <Head>
           <meta charSet="utf-8" />
           {/* PWA primary color */}
-          <meta name="theme-color" content={lightTheme.palette.primary.main} />
+          <meta name="theme-color" content={theme.palette.primary.main} />
           <link rel="shortcut icon" href="/next/favicon.ico" />
           <link
             rel="stylesheet"

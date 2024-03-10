@@ -1,15 +1,13 @@
-// @ts-ignore
-import { CacheProvider } from '@emotion/react'
 import CssBaseline from '@mui/material/CssBaseline'
-import { getInitColorSchemeScript, ThemeProvider } from '@mui/material/styles'
+import {
+  getInitColorSchemeScript,
+  Experimental_CssVarsProvider as CssVarsProvider,
+} from '@mui/material/styles'
+// @ts-ignore
+import { AppCacheProvider } from '@mui/material-nextjs/v14-pagesRouter'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
-import {
-  ColorModeContext,
-  createEmotionCache,
-  darkTheme,
-  lightTheme, // @ts-ignore
-} from '@shortlink-org/ui-kit'
+import { theme } from '@shortlink-org/ui-kit/src/theme/theme'
 import Head from 'next/head'
 import { DefaultSeo, LogoJsonLd, SiteLinksSearchBoxJsonLd } from 'next-seo'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
@@ -17,14 +15,12 @@ import { StrictMode, useState } from 'react'
 import 'react-toastify/dist/ReactToastify.css'
 import { Provider } from 'react-redux'
 import { Provider as BalancerProvider } from 'react-wrap-balancer'
+import { useTheme } from '@mui/material'
 
 import { wrapper } from 'store/store'
 import '@shortlink-org/ui-kit/dist/cjs/index.css'
 
 import '../public/assets/styles.css'
-
-// Client-side cache, shared for the whole session of the user in the browser.
-const clientSideEmotionCache = createEmotionCache()
 
 const defaultSeo = (theme: any) => (
   <>
@@ -77,17 +73,14 @@ const defaultSeo = (theme: any) => (
 // @ts-ignore
 function MyApp({ Component, ...rest }) {
   const { store, props } = wrapper.useWrappedStore(rest)
-  const { emotionCache = clientSideEmotionCache, pageProps } = props
-
-  const [darkMode, setDarkMode] = useState(false)
-  const theme = darkMode ? darkTheme : lightTheme
+  const currentTheme = useTheme()
 
   return (
     <StrictMode>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
-        <NextThemeProvider enableSystem attribute="class">
-          <Provider store={store}>
-            <CacheProvider value={emotionCache}>
+        <AppCacheProvider options={{ key: 'css' }}>
+          <NextThemeProvider enableSystem attribute="class">
+            <Provider store={store}>
               <Head>
                 <meta
                   name="viewport"
@@ -95,22 +88,20 @@ function MyApp({ Component, ...rest }) {
                 />
               </Head>
 
-              {defaultSeo(theme)}
+              <CssVarsProvider theme={theme}>
+                {defaultSeo(currentTheme)}
 
-              <ThemeProvider theme={theme}>
-                <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
-                  {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                  <CssBaseline />
-                  {getInitColorSchemeScript()}
+                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+                <CssBaseline />
+                {getInitColorSchemeScript()}
 
-                  <BalancerProvider>
-                    <Component {...pageProps} />
-                  </BalancerProvider>
-                </ColorModeContext.Provider>
-              </ThemeProvider>
-            </CacheProvider>
-          </Provider>
-        </NextThemeProvider>
+                <BalancerProvider>
+                  <Component {...props} />
+                </BalancerProvider>
+              </CssVarsProvider>
+            </Provider>
+          </NextThemeProvider>
+        </AppCacheProvider>
       </LocalizationProvider>
     </StrictMode>
   )

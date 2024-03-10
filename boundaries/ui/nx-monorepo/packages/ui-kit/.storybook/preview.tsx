@@ -20,7 +20,11 @@ const preview: Preview = {
     (Story) => {
       return (
         <CssVarsProvider theme={theme} defaultMode="light">
-          <NextThemeProvider enableSystem attribute="class" defaultTheme={"light"}>
+          <NextThemeProvider
+            enableSystem
+            attribute="class"
+            defaultTheme={'light'}
+          >
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Provider>
                 <Story />

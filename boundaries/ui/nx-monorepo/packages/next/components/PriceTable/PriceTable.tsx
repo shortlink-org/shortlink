@@ -1,5 +1,5 @@
 import StarIcon from '@mui/icons-material/StarBorder'
-import Button from '@mui/material/Button'
+import Button from '@mui/material-next/Button'
 import Typography from '@mui/material/Typography'
 import React, { useState } from 'react'
 import Balancer from 'react-wrap-balancer'

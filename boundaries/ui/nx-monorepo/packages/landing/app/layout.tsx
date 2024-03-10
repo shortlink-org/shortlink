@@ -4,9 +4,9 @@ import { Roboto_Mono } from 'next/font/google'
 import Script from 'next/script'
 import * as React from 'react'
 import { Organization, WithContext } from 'schema-dts'
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v13-appRouter'
 
 import { Providers } from './providers'
+
 import '../public/assets/styles.css'
 
 const robotoMono = Roboto_Mono({
@@ -88,9 +88,7 @@ export default function RootLayout({
       />
 
       <body>
-        <AppRouterCacheProvider>
-          <Providers>{children}</Providers>
-        </AppRouterCacheProvider>
+        <Providers>{children}</Providers>
       </body>
     </html>
   )

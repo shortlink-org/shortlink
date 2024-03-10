@@ -1,6 +1,5 @@
 // theme exports
 export { theme } from './theme/theme'
-export { createEmotionCache } from './theme/createEmotionCache'
 
 // Components exports
 export { ToggleDarkMode } from './ui/ToggleDarkMode/ToggleDarkMode'
