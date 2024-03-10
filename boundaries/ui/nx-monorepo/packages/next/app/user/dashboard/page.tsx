@@ -8,7 +8,6 @@ import Grid from '@mui/material/Grid'
 import Paper from '@mui/material/Paper'
 import { NextSeo } from 'next-seo'
 
-import { Layout } from 'components'
 import Profile from 'components/Dashboard/profile'
 import withAuthSync from 'components/Private'
 import Orders from 'components/widgets/Orders'
@@ -17,7 +16,7 @@ import Header from 'components/Page/Header'
 
 function Page() {
   return (
-    <Layout>
+    <>
       <NextSeo
         title="Dashboard"
         description="Dashboard page for your account."
@@ -55,7 +54,7 @@ function Page() {
           </Container>
         </Box>
       </Box>
-    </Layout>
+    </>
   )
 }
 

@@ -4,7 +4,6 @@ import { NextSeo } from 'next-seo'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { Layout } from 'components'
 import Statistic from 'components/Dashboard/stats'
 import withAuthSync from 'components/Private'
 import { fetchLinkList } from 'store'
@@ -21,7 +20,7 @@ function LinkTable() {
   }, [dispatch])
 
   return (
-    <Layout>
+    <>
       <NextSeo title="Links" description="Admin links page" />
 
       <Header title="Admin links" />
@@ -29,7 +28,7 @@ function LinkTable() {
       <Statistic count={state.list.length} />
 
       <AdminUserLinksTable data={state.list || []} />
-    </Layout>
+    </>
   )
 }
 

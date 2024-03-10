@@ -3,7 +3,6 @@
 // @ts-nocheck
 import { NextSeo } from 'next-seo'
 
-import { Layout } from 'components'
 import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
 
@@ -11,7 +10,7 @@ import Header from 'components/Page/Header'
 
 function Page() {
   return (
-    <Layout>
+    <>
       <NextSeo title="Audit" description="Audit your account" />
 
       <Header title="Audit" />
@@ -126,7 +125,7 @@ function Page() {
           </article>
         </li>
       </ul>
-    </Layout>
+    </>
   )
 }
 

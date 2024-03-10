@@ -2,13 +2,11 @@
 
 import { ArticleJsonLd, NextSeo } from 'next-seo'
 
-import { Layout } from 'components'
-
 import UndrawCoworkers from '../../public/assets/images/undraw_back_in_the_day_knsh.svg'
 
 function Page() {
   return (
-    <Layout>
+    <>
       <NextSeo
         title="Page"
         description="Page page for shortlink."
@@ -100,7 +98,7 @@ function Page() {
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   )
 }
 

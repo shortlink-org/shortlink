@@ -3,7 +3,6 @@
 // @ts-nocheck
 import { NextSeo } from 'next-seo'
 
-import { Layout } from 'components'
 import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
 
@@ -11,7 +10,7 @@ import Header from 'components/Page/Header'
 
 function Intargrations() {
   return (
-    <Layout>
+    <>
       <NextSeo
         title="Intargrations"
         description="Intargrations page for your account."
@@ -61,7 +60,7 @@ function Intargrations() {
       </div>
 
       <Ready />
-    </Layout>
+    </>
   )
 }
 

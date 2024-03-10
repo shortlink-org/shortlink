@@ -16,9 +16,7 @@ import { NextSeo } from 'next-seo'
 import React, { useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
-import { Layout } from 'components'
 import withAuthSync from 'components/Private'
-
 import Header from 'components/Page/Header'
 
 function Page() {
@@ -83,7 +81,7 @@ function Page() {
   }
 
   return (
-    <Layout>
+    <>
       <NextSeo title="Add link" description="Add a new link" />
       <Grid
         container
@@ -198,7 +196,7 @@ function Page() {
           </Alert>
         </Snackbar>
       </Grid>
-    </Layout>
+    </>
   )
 }
 

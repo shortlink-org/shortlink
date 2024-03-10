@@ -2,11 +2,9 @@
 
 import { ArticleJsonLd, NextSeo, CorporateContactJsonLd } from 'next-seo'
 
-import { Layout } from 'components'
-
 function ContactContent() {
   return (
-    <Layout>
+    <>
       <NextSeo
         title="A Better Way to Connect"
         description="We provide an easy way for you to contact us. You can either fill out the form on this page or use one of the other methods listed below. We will get back to you as soon as possible!"
@@ -158,7 +156,7 @@ function ContactContent() {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   )
 }
 

@@ -7,12 +7,11 @@ import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
+import { AxiosError } from 'axios'
 
-import { Layout } from 'components'
 import { Flow } from 'components/ui/Flow'
-
-import { handleGetFlowError, handleFlowError } from '../../../pkg/errors'
-import ory from '../../../pkg/sdk'
+import { handleGetFlowError, handleFlowError } from 'pkg/errors'
+import ory from 'pkg/sdk'
 
 const SignIn: NextPage = () => {
   const [flow, setFlow] = useState<LoginFlow>()
@@ -59,41 +58,42 @@ const SignIn: NextPage = () => {
       .catch(handleFlowError(router, 'login', setFlow))
   }, [flowId, router, aal, refresh, returnTo, flow])
 
-  const onSubmit = (values: UpdateLoginFlowBody) =>
+  const onSubmit = (values: UpdateLoginFlowBody) => {
     router
       // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
       // his data when she/he reloads the page.
       .push(`/auth/login?flow=${flow?.id}`)
-      // .then(() =>
-      //   ory
-      //     .updateLoginFlow({
-      //       flow: String(flow?.id),
-      //       updateLoginFlowBody: values,
-      //     })
-      //     // We logged in successfully! Let's bring the user home.
-      //     .then(() => {
-      //       if (flow?.return_to) {
-      //         window.location.href = flow?.return_to
-      //         return
-      //       }
-      //       router.push('/')
-      //     })
-      //     .then(() => {})
-      //     .catch(handleFlowError(router, 'login', setFlow))
-      //     .catch((err: AxiosError) => {
-      //       // If the previous handler did not catch the error it's most likely a form validation error
-      //       if (err.response?.status === 400) {
-      //         // Yup, it is!
-      //         setFlow(err.response?.data)
-      //         return
-      //       }
-      //
-      //       return Promise.reject(err)
-      //     }),
-      // )
+
+    ory
+      .updateLoginFlow({
+        flow: String(flow?.id),
+        updateLoginFlowBody: values,
+      })
+      // We logged in successfully! Let's bring the user home.
+      .then(() => {
+        if (flow?.return_to) {
+          window.location.href = flow?.return_to
+          return
+        }
+        router.push('/')
+      })
+      .then(() => {})
+      .catch(handleFlowError(router, 'login', setFlow))
+      .catch((err: AxiosError) => {
+        // If the previous handler did not catch the error it's most likely a form validation error
+        if (err.response?.status === 400) {
+          // Yup, it is!
+          // @ts-ignore
+          setFlow(err.response?.data)
+          return
+        }
+
+        return Promise.reject(err)
+      })
+  }
 
   return (
-    <Layout>
+    <>
       <NextSeo title="Login" description="Login to your account" />
       <BreadcrumbJsonLd
         itemListElements={[
@@ -168,7 +168,7 @@ const SignIn: NextPage = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   )
 }
 

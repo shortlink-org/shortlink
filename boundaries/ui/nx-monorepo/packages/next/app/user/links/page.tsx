@@ -5,7 +5,6 @@ import { NextSeo } from 'next-seo'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
-import { Layout } from 'components'
 import Statistic from 'components/Dashboard/stats'
 import withAuthSync from 'components/Private'
 import { fetchLinkList } from 'store'
@@ -23,7 +22,7 @@ function LinkTable() {
   }, [dispatch])
 
   return (
-    <Layout>
+    <>
       <NextSeo title="Links" description="Links page for your account." />
 
       <Header title="Links" />
@@ -34,7 +33,7 @@ function LinkTable() {
         data={state.list}
         onRefresh={() => dispatch(fetchLinkList())}
       />
-    </Layout>
+    </>
   )
 }
 

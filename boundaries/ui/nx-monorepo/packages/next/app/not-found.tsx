@@ -4,13 +4,11 @@
 import { NextSeo } from 'next-seo'
 import Balancer from 'react-wrap-balancer'
 
-import { Layout } from 'components'
-
 import UndrawBackInTheDay from '../public/assets/images/undraw_back_in_the_day_knsh.svg'
 
 export default function Error() {
   return (
-    <Layout>
+    <>
       <NextSeo
         title="Error"
         description="Error page for the shortlink service"
@@ -42,6 +40,6 @@ export default function Error() {
         <div className="w-64 md:w-96 h-96 md:h-full bg-blue-200 dark:bg-blue-900 bg-opacity-30 dark:bg-opacity-60 absolute -top-64 md:-top-96 right-20 md:right-32 rounded-full pointer-events-none -rotate-45 transform" />
         <div className="w-96 h-full bg-yellow-200 dark:bg-yellow-900 bg-opacity-20 dark:bg-opacity-60 absolute -bottom-96 right-64 rounded-full pointer-events-none -rotate-45 transform" />
       </div>
-    </Layout>
+    </>
   )
 }

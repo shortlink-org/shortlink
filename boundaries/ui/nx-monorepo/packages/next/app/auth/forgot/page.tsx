@@ -9,7 +9,6 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
 
-import { Layout } from 'components'
 import { Flow } from 'components/ui/Flow'
 import { handleFlowError } from 'pkg/errors'
 import ory from 'pkg/sdk'
@@ -62,38 +61,39 @@ const Page: NextPage = () => {
       })
   }, [flowId, router, returnTo, flow])
 
-  const onSubmit = (values: UpdateRecoveryFlowBody) =>
+  const onSubmit = (values: UpdateRecoveryFlowBody) => {
     router
       // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
       // his data when she/he reloads the page.
       .push(`/auth/forget?flow=${flow?.id}`)
-      // .then(() =>
-      //   ory
-      //     .updateRecoveryFlow({
-      //       flow: String(flow?.id),
-      //       updateRecoveryFlowBody: values,
-      //     })
-      //     .then(({ data }) => {
-      //       // Form submission was successful, show the message to the user!
-      //       setFlow(data)
-      //     })
-      //     .catch(handleFlowError(navigation, 'recovery', setFlow))
-      //     .catch((err: AxiosError) => {
-      //       switch (err.response?.status) {
-      //         case 400:
-      //           // Status code 400 implies the form validation had an error
-      //           setFlow(err.response?.data)
-      //           return
-      //         default:
-      //         // Otherwise, we nothitng - the error will be handled by the Flow component
-      //       }
-      //
-      //       throw err
-      //     }),
-      // )
+
+    ory
+      .updateRecoveryFlow({
+        flow: String(flow?.id),
+        updateRecoveryFlowBody: values,
+      })
+      .then(({ data }) => {
+        // Form submission was successful, show the message to the user!
+        setFlow(data)
+      })
+      .catch(handleFlowError(router, 'recovery', setFlow))
+      .catch((err: AxiosError) => {
+        switch (err.response?.status) {
+          case 400:
+            // Status code 400 implies the form validation had an error
+            // @ts-ignore
+            setFlow(err.response?.data)
+            return
+          default:
+          // Otherwise, we nothitng - the error will be handled by the Flow component
+        }
+
+        throw err
+      })
+  }
 
   return (
-    <Layout>
+    <>
       <NextSeo title="Forgot Password" description="Forgot Password" />
       <BreadcrumbJsonLd
         itemListElements={[
@@ -170,7 +170,7 @@ const Page: NextPage = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   )
 }
 

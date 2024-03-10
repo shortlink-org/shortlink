@@ -4,26 +4,26 @@
 import { VerificationFlow, UpdateVerificationFlowBody } from '@ory/client'
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
-
-import { Layout } from 'components'
+import { AxiosError } from 'axios'
 
 import { Flow } from 'components/ui/Flow'
-import { handleGetFlowError, handleFlowError } from '../../../pkg/errors'
-import ory from '../../../pkg/sdk'
+import ory from 'pkg/sdk'
 
 const Page: NextPage = () => {
   const [flow, setFlow] = useState<VerificationFlow>()
 
   // Get ?flow=... from the URL
   const router = useRouter()
-  const { flow: flowId, return_to: returnTo } = router.query
+  const searchParams = useSearchParams()
+  const flowId = searchParams.get('flow')
+  const returnTo = searchParams.get('return_to')
 
   useEffect(() => {
     // If the router is not ready yet, or we already have a flow, do nothing.
-    if (!router.isReady || flow) {
+    if (flow) {
       return
     }
 
@@ -69,13 +69,13 @@ const Page: NextPage = () => {
 
         throw err
       })
-  }, [flowId, router, router.isReady, returnTo, flow])
+  }, [flowId, router, returnTo, flow])
 
   const onSubmit = async (values: UpdateVerificationFlowBody) => {
-    await router
+    router
       // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
       // their data when they reload the page.
-      .push(`/auth/verification?flow=${flow?.id}`, undefined, { shallow: true })
+      .push(`/auth/verification?flow=${flow?.id}`)
 
     ory
       .updateVerificationFlow({
@@ -90,21 +90,23 @@ const Page: NextPage = () => {
         switch (err.response?.status) {
           case 400:
             // Status code 400 implies the form validation had an error
+            // @ts-ignore
             setFlow(err.response?.data)
             return
           case 410:
+            // eslint-disable-next-line no-case-declarations
+            // @ts-ignore
             // eslint-disable-next-line no-case-declarations
             const newFlowID = err.response.data.use_flow_id
             router
               // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
               // their data when they reload the page.
-              .push(`/auth/verification?flow=${newFlowID}`, undefined, {
-                shallow: true,
-              })
+              .push(`/auth/verification?flow=${newFlowID}`)
 
             ory
               .getVerificationFlow({ id: newFlowID })
               .then(({ data }) => setFlow(data))
+
             return
           default:
           // Otherwise, we nothitng - the error will be handled by the Flow component
@@ -115,7 +117,7 @@ const Page: NextPage = () => {
   }
 
   return (
-    <Layout>
+    <>
       <NextSeo title="Verification" description="Verify your account" />
       <BreadcrumbJsonLd
         itemListElements={[
@@ -190,7 +192,7 @@ const Page: NextPage = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   )
 }
 

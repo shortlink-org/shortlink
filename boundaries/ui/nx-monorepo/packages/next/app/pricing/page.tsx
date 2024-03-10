@@ -6,7 +6,6 @@ import Typography from '@mui/material/Typography'
 import { PriceTable } from '@shortlink-org/ui-kit'
 import { ArticleJsonLd, NextSeo } from 'next-seo'
 
-import { Layout } from 'components'
 import Discounted from 'components/Billing/Discounted'
 
 const tiers = [
@@ -56,7 +55,7 @@ const tiers = [
 
 function Page() {
   return (
-    <Layout>
+    <>
       <NextSeo
         title="Page Policy"
         description="Shortlink offers fair, upfront pricing for all of our services. We never charge hidden fees or use bait-and-switch tactics. You'll know exactly what you're getting before your start working on your project."
@@ -169,7 +168,7 @@ function Page() {
       <Discounted />
 
       <PriceTable tiers={tiers} />
-    </Layout>
+    </>
   )
 }
 

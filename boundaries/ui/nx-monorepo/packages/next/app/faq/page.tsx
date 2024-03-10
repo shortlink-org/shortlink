@@ -2,11 +2,9 @@
 
 import { ArticleJsonLd, NextSeo, FAQPageJsonLd } from 'next-seo'
 
-import { Layout } from 'components'
-
 function Page() {
   return (
-    <Layout>
+    <>
       <NextSeo
         title="FAQ"
         description="Do you have questions about shortlinks? This page provides answers to the most common questions we receive. If you need more help, please contact us!"
@@ -186,7 +184,7 @@ function Page() {
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   )
 }
 

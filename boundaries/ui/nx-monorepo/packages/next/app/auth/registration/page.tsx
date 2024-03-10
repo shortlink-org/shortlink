@@ -6,31 +6,31 @@ import { RegistrationFlow, UpdateRegistrationFlowBody } from '@ory/client'
 import { AxiosError } from 'axios'
 import type { NextPage } from 'next'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
 
-import { Layout } from 'components'
 import { Flow } from 'components/ui/Flow'
 
-import { handleFlowError } from '../../../pkg/errors'
-import ory from '../../../pkg/sdk'
+import { handleFlowError } from 'pkg/errors'
+import ory from 'pkg/sdk'
 
 // Renders the registration page
 const SignUp: NextPage = () => {
-  const router = useRouter()
-
   // The "flow" represents a registration process and contains
   // information about the form we need to render (e.g. username + password)
   const [flow, setFlow] = useState<RegistrationFlow>()
 
   // Get ?flow=... from the URL
-  const { flow: flowId, return_to: returnTo } = router.query
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const flowId = searchParams.get('flow')
+  const returnTo = searchParams.get('return_to')
 
   // In this effect, we either initiate a new registration flow, or we fetch an existing registration flow.
   useEffect(() => {
     // If the router is not ready yet, or we already have a flow, do nothing.
-    if (!router.isReady || flow) {
+    if (flow) {
       return
     }
 
@@ -57,13 +57,13 @@ const SignUp: NextPage = () => {
         setFlow(data)
       })
       .catch(handleFlowError(router, 'registration', setFlow))
-  }, [flowId, router, router.isReady, returnTo, flow])
+  }, [flowId, router, returnTo, flow])
 
   const onSubmit = async (values: UpdateRegistrationFlowBody) => {
-    await router
+    router
       // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
       // his data when she/he reloads the page.
-      .push(`/auth/registration?flow=${flow?.id}`, undefined, { shallow: true })
+      .push(`/auth/registration?flow=${flow?.id}`)
 
     console.info('updateRegistrationFlow values', values)
     ory
@@ -83,7 +83,8 @@ const SignUp: NextPage = () => {
             switch (item.action) {
               case 'show_verification_ui':
                 // eslint-disable-next-line no-await-in-loop
-                await router.push(`/auth/verification?flow=${item.flow.id}`)
+                router.push(`/auth/verification?flow=${item.flow.id}`)
+
                 return
               default:
               // Otherwise, we nothitng - the error will be handled by the Flow component
@@ -92,13 +93,14 @@ const SignUp: NextPage = () => {
         }
 
         // If continue_with did not contain anything, we can just return to the home page.
-        await router.push(flow?.return_to || '/')
+        router.push(flow?.return_to || '/')
       })
       .catch(handleFlowError(router, 'registration', setFlow))
       .catch((err: AxiosError) => {
         // If the previous handler did not catch the error it's most likely a form validation error
         if (err.response?.status === 400) {
           // Yup, it is!
+          // @ts-ignore
           setFlow(err.response?.data)
           return
         }
@@ -108,7 +110,7 @@ const SignUp: NextPage = () => {
   }
 
   return (
-    <Layout>
+    <>
       <NextSeo title="Registration" description="Registration a new account" />
       <BreadcrumbJsonLd
         itemListElements={[
@@ -181,7 +183,7 @@ const SignUp: NextPage = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   )
 }
 

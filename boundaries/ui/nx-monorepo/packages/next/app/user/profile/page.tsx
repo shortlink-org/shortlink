@@ -6,17 +6,18 @@ import { AxiosError } from 'axios'
 import get from 'lodash/get'
 import { NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
+import { useRouter } from 'next/navigation'
+import ory from 'pkg/sdk'
 
-import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 import Notifications from 'components/Profile/Notifications'
 import Personal from 'components/Profile/Personal'
 import Profile from 'components/Profile/Profile'
 import Welcome from 'components/Profile/Welcome'
 
-import ory from '../../../pkg/sdk'
-
 function ProfileContent() {
+  const router = useRouter()
+
   const [session, setSession] = useState<string>(
     'No valid Ory Session was found.\nPlease sign in to receive one.',
   )
@@ -52,7 +53,7 @@ function ProfileContent() {
   }, [])
 
   return (
-    <Layout>
+    <>
       <NextSeo
         title="Profile"
         description="Profile page for your account."
@@ -91,7 +92,7 @@ function ProfileContent() {
       </div>
 
       <Notifications />
-    </Layout>
+    </>
   )
 }
 

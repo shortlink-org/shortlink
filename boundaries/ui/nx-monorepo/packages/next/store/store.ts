@@ -10,7 +10,7 @@ export interface SagaStore extends Store {
   sagaTask?: Task
 }
 
-const makeStore = (context: Context) => {
+export const makeStore = (context: Context) => {
   // Create the middleware
   const sagaMiddleware = createSagaMiddleware()
 
@@ -29,5 +29,8 @@ const makeStore = (context: Context) => {
   return store
 }
 
-// export an assembled wrapper
-export const wrapper = createWrapper<Store<any>>(makeStore, { debug: false })
+// Infer the type of makeStore
+export type AppStore = ReturnType<typeof makeStore>
+// Infer the `RootState` and `AppDispatch` types from the store itself
+export type RootState = ReturnType<AppStore['getState']>
+export type AppDispatch = AppStore['dispatch']

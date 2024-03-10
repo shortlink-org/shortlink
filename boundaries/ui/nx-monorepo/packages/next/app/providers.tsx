@@ -1,5 +1,6 @@
 'use client'
 
+import React, { useRef } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
 import {
@@ -8,17 +9,16 @@ import {
 } from '@mui/material/styles'
 import { theme } from '@shortlink-org/ui-kit/src/theme/theme'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
-import React from 'react'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Provider as BalancerProvider } from 'react-wrap-balancer'
+import { Provider } from 'react-redux'
 
 import 'react-toastify/dist/ReactToastify.css'
 import '@shortlink-org/ui-kit/dist/cjs/index.css'
 
 import { Layout } from 'components'
-
-import { wrapper } from 'store/store'
+import { makeStore, AppStore } from 'store/store'
 
 // TODO: research problem with faro
 // initializeFaro({
@@ -40,7 +40,12 @@ import { wrapper } from 'store/store'
 
 // @ts-ignore
 function Providers({ children, ...props }) {
-  // const { store, props } = wrapper.useWrappedStore(rest)
+  const storeRef = useRef<AppStore>()
+  if (!storeRef.current) {
+    // Create the store instance the first time this renders
+    // @ts-ignore
+    storeRef.current = makeStore()
+  }
 
   return (
     <AppRouterCacheProvider options={{ key: 'css' }}>
@@ -58,7 +63,11 @@ function Providers({ children, ...props }) {
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline />
 
-                <BalancerProvider>{children}</BalancerProvider>
+                <BalancerProvider>
+                  <Provider store={storeRef.current}>
+                    {children}
+                  </Provider>
+                </BalancerProvider>
               </div>
             </Layout>
           </NextThemeProvider>

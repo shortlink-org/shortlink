@@ -2,11 +2,9 @@
 
 import { ArticleJsonLd, NextSeo } from 'next-seo'
 
-import { Layout } from 'components'
-
 function PrivacyContent() {
   return (
-    <Layout>
+    <>
       <NextSeo
         title="Privacy Policy"
         description="At shortlink, we take your privacy seriously. This is why we have a comprehensive privacy policy in place to ensure that your data is protected at all times. Visit our website to learn more about how we keep your information safe and secure."
@@ -423,7 +421,7 @@ function PrivacyContent() {
           </p>
         </div>
       </section>
-    </Layout>
+    </>
   )
 }
 

@@ -4,7 +4,6 @@
 import { BeakerIcon } from '@heroicons/react/24/solid'
 import { NextSeo } from 'next-seo'
 
-import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 import Header from 'components/Page/Header'
 
@@ -68,7 +67,7 @@ const people = [
 
 function Page() {
   return (
-    <Layout>
+    <>
       <NextSeo title="Users" description="Admin users page" />
 
       <Header title="Admin users" />
@@ -180,7 +179,7 @@ function Page() {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   )
 }
 
