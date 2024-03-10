@@ -1,7 +1,6 @@
 import { useTheme } from 'next-themes'
-import React, { useState, useEffect, useContext } from 'react'
-
-import { ColorModeContext } from '../../theme/ColorModeContext'
+import React, { useEffect } from 'react'
+import { useColorScheme } from '@mui/material/styles'
 
 // @ts-ignore
 import './styles.css'
@@ -15,28 +14,27 @@ export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({
   id,
   onChange,
 }) => {
-  // @ts-ignore
+  const { mode, setMode } = useColorScheme()
   const { setTheme, resolvedTheme } = useTheme()
-  const [mounted, setMounted] = useState(false)
+  const [mounted, setMounted] = React.useState(false)
 
   useEffect(() => {
     setMounted(true)
   }, [])
 
-  // @ts-ignore
-  const { darkMode, setDarkMode } = useContext(ColorModeContext)
-
-  // @ts-ignore
-  const onChangeTheme = () => {
-    setDarkMode(!darkMode)
-    const newTheme = darkMode ? 'light' : 'dark'
-    setTheme(newTheme)
-    onChange?.(newTheme)
+  if (!mounted) {
+    // for server-side rendering
+    // learn more at https://github.com/pacocoursey/next-themes#avoid-hydration-mismatch
+    return null
   }
 
-  if (!mounted) return null
+  const onToggle = () => {
+    setMode(mode === 'light' ? 'dark' : 'light')
+    setTheme(mode === 'light' ? 'dark' : 'light')
+  }
 
-  const labelText = darkMode ? 'Switch to light mode' : 'Switch to dark mode'
+  const labelText =
+    mode === 'light' ? 'Switch to light mode' : 'Switch to dark mode'
 
   return (
     <div id={id} className="toggleWrapper">
@@ -44,8 +42,8 @@ export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({
         type="checkbox"
         className="dn"
         id="dn"
-        onChange={onChangeTheme}
-        checked={!darkMode}
+        onChange={onToggle}
+        checked={mode === 'light'}
         aria-label={labelText}
       />
       <label htmlFor="dn" className="toggle">

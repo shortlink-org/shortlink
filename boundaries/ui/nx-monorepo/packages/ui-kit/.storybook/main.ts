@@ -67,7 +67,7 @@ const config: StorybookConfig = {
   },
   features: {},
   docs: {
-    autodocs: true,
+    autodocs: false,
   },
   typescript: {},
 }

@@ -1,6 +1,5 @@
 // theme exports
-export { ColorModeContext } from './theme/ColorModeContext'
-export { lightTheme, darkTheme } from './theme/theme'
+export { theme } from './theme/theme'
 export { createEmotionCache } from './theme/createEmotionCache'
 
 // Components exports

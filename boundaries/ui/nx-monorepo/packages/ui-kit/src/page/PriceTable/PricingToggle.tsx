@@ -24,7 +24,9 @@ const PricingToggle: React.FC<PricingToggleProps> = ({
       <button
         type="button"
         className={`relative flex-1 text-sm font-medium h-8 rounded-full focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150 ease-in-out ${
-          isAnnual ? 'text-white' : 'text-slate-500 dark:text-slate-400'
+          isAnnual
+            ? 'text-white'
+            : 'text-slate-500 dark:text-slate-400 hover:cursor-pointer'
         }`}
         onClick={() => setIsAnnual(true)}
       >
@@ -40,7 +42,9 @@ const PricingToggle: React.FC<PricingToggleProps> = ({
       <button
         type="button"
         className={`relative flex-1 text-sm font-medium h-8 rounded-full focus-visible:outline-none focus-visible:ring focus-visible:ring-indigo-300 dark:focus-visible:ring-slate-600 transition-colors duration-150 ease-in-out ${
-          isAnnual ? 'text-slate-500 dark:text-slate-400' : 'text-white'
+          isAnnual
+            ? 'text-slate-500 dark:text-slate-400 hover:cursor-pointer'
+            : 'text-white'
         }`}
         onClick={() => setIsAnnual(false)}
       >

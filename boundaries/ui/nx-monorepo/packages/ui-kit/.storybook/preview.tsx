@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import { Preview } from '@storybook/react'
 import { Provider } from 'react-wrap-balancer'
 
@@ -8,32 +7,27 @@ import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import '@fontsource/caveat'
 import '@fontsource/material-icons'
-import { ThemeProvider } from '@mui/material/styles'
-import { ThemeProvider as TailWindProvider } from 'next-themes'
+import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles'
+import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 import '../src/theme/styles.css'
-import { ColorModeContext, darkTheme, lightTheme } from '../src'
+import { theme } from '../src'
 
 const preview: Preview = {
   decorators: [
     (Story) => {
-      const [darkMode, setDarkMode] = useState(false)
-      const theme = darkMode ? darkTheme : lightTheme
-
       return (
-        <TailWindProvider enableSystem attribute="class">
-          <ThemeProvider theme={theme}>
-            <ColorModeContext.Provider value={{ darkMode, setDarkMode }}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <Provider>
-                  <Story />
-                </Provider>
-              </LocalizationProvider>
-            </ColorModeContext.Provider>
-          </ThemeProvider>
-        </TailWindProvider>
+        <CssVarsProvider theme={theme} defaultMode="light">
+          <NextThemeProvider enableSystem attribute="class" defaultTheme={"light"}>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Provider>
+                <Story />
+              </Provider>
+            </LocalizationProvider>
+          </NextThemeProvider>
+        </CssVarsProvider>
       )
     },
   ],

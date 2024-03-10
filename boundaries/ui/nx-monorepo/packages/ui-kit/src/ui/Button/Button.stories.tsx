@@ -1,4 +1,4 @@
-import Button from '@mui/material/Button'
+import Button from '@mui/material-next/Button'
 import { Meta } from '@storybook/react'
 import { fn, expect } from '@storybook/test'
 import { within, userEvent } from '@storybook/testing-library'
