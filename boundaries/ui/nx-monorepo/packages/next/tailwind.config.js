@@ -6,9 +6,8 @@ module.exports = {
   darkMode: 'selector',
   content: {
     files: [
-      './pages/**/*.{js,ts,jsx,tsx}',
+      './app/**/*.{js,ts,jsx,tsx,mdx}',
       './components/**/*.{js,ts,jsx,tsx}',
-      './stories/**/*.{js,ts,jsx,tsx}',
     ],
     options: {
       safelist: ['dark'], // specific classes
@@ -27,9 +26,9 @@ module.exports = {
           css: {
             color: 'white',
           },
-          fontFamily: {
-            sans: ['var(--font-inter)', ...fontFamily.sans],
-          },
+        },
+        fontFamily: {
+          sans: ['var(--font-inter)', ...fontFamily.sans],
         },
       }),
     },

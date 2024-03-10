@@ -2,7 +2,7 @@ import { getMessaging, onMessage } from 'firebase/messaging'
 import React, { useEffect } from 'react'
 import 'firebase/compat/messaging'
 import { ToastContainer, toast } from 'react-toastify'
-import { useRouter } from 'next/router'
+import { useRouter } from 'next/navigation'
 
 import { firebaseCloudMessaging } from '../config/firebase.config'
 

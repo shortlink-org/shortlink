@@ -17,6 +17,8 @@ module.exports = {
     fontFamily: {
       display: ['Roboto Mono', 'Menlo', 'monospace'],
       body: ['Roboto Mono', 'Menlo', 'monospace'],
+      inter: ['Inter', 'sans-serif'],
+      caveat: ['Caveat', 'cursive'],
     },
     extend: {
       typography: () => ({
@@ -30,6 +32,9 @@ module.exports = {
         },
       }),
     },
+  },
+  variants: {
+    typography: ['light', 'dark'],
   },
   plugins: [
     // eslint-disable-next-line global-require

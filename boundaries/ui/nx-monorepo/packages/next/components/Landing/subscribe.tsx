@@ -1,6 +1,3 @@
-// @ts-nocheck
-import Image from 'next/image'
-
 import UndrawDesigner from '../../public/assets/images/undraw_designer_re_5v95.svg'
 
 export default function Subscribe() {

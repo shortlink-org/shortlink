@@ -13,7 +13,6 @@ const withPWA = require('@ducanh2912/next-pwa').default({
 })
 const { composePlugins } = require('@nx/next')
 const { withSentryConfig } = require('@sentry/nextjs')
-const path = require('path')
 
 // ENVIRONMENT VARIABLE ================================================================================================
 const isProd = process.env.NODE_ENV === 'production'
@@ -33,7 +32,8 @@ const plugins = [withPWA]
 /** @type {import('@nx/next/plugins/with-nx').WithNxOptions} * */
 let NEXT_CONFIG = {
   basePath: '/next',
-  generateEtags: true,
+  reactStrictMode: true,
+  generateEtags: false,
   env: {
     // ShortLink API
     NEXT_PUBLIC_SERVICE_NAME: 'shortlink-next',
@@ -60,6 +60,10 @@ let NEXT_CONFIG = {
   swcMinify: true,
   productionBrowserSourceMaps: true,
   transpilePackages: ['@shortlink-org/ui-kit'],
+  compiler: {
+    // ssr and displayName are configured by default
+    emotion: true,
+  },
   images: {
     loader: 'custom',
     domains: ['images.unsplash.com'],
@@ -77,6 +81,11 @@ let NEXT_CONFIG = {
     contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
   },
   trailingSlash: false,
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
   // eslint-disable-next-line no-unused-vars
   webpack: (config, { isServer, buildId }) => {
     config.module.rules.push({
@@ -85,33 +94,13 @@ let NEXT_CONFIG = {
       use: ['@svgr/webpack'],
     })
 
-    // This fixes the invalid hook React error which
-    // will occur when multiple versions of React are detected
-    // This can happen since a common project is also using Next (which is using React)
-    const reactPaths = {
-      react: path.join(__dirname, '../../node_modules/react'),
-      'react-dom': path.join(__dirname, '../../node_modules/react-dom'),
-    }
-    // eslint-disable-next-line no-param-reassign
-    config.resolve = {
-      ...config.resolve,
-      alias: {
-        ...config.resolve.alias,
-        ...reactPaths,
-      },
-    }
-
     return config
-  },
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
   },
   experimental: {
     forceSwcTransforms: true,
     swcTraceProfiling: true,
-    instrumentationHook: false,
+    instrumentationHook: true,
+    webVitalsAttribution: ['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'],
     turbo: {},
   },
 }

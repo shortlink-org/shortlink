@@ -15,7 +15,7 @@ const isProd = process.env.NODE_ENV === 'production'
 /** @type {import('@nx/next/plugins/with-nx').WithNxOptions} * */
 const nextConfig = {
   reactStrictMode: true,
-  generateEtags: true,
+  generateEtags: false,
   output: 'export',
   env: {
     // ShortLink API
