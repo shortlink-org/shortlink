@@ -46,7 +46,7 @@ importers:
         version: 8.0.0(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.2)
       '@tailwindcss/container-queries':
         specifier: ^0.1.1
-        version: 0.1.1(tailwindcss@4.0.0-alpha.7)
+        version: 0.1.1(tailwindcss@4.0.0-alpha.8)
       '@types/express':
         specifier: ^4.17.21
         version: 4.17.21
@@ -223,8 +223,8 @@ importers:
         specifier: ^1.1.0
         version: 1.1.0(react@18.2.0)
       tailwindcss:
-        specifier: 4.0.0-alpha.7
-        version: 4.0.0-alpha.7
+        specifier: 4.0.0-alpha.8
+        version: 4.0.0-alpha.8
       tailwindcss-logical:
         specifier: ^3.0.1
         version: 3.0.1(postcss@8.4.35)
@@ -265,16 +265,16 @@ importers:
         version: link:../ui-kit
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
-        version: 0.4.2(tailwindcss@4.0.0-alpha.7)
+        version: 0.4.2(tailwindcss@4.0.0-alpha.8)
       '@tailwindcss/forms':
         specifier: ^0.5.7
-        version: 0.5.7(tailwindcss@4.0.0-alpha.7)
+        version: 0.5.7(tailwindcss@4.0.0-alpha.8)
       '@tailwindcss/line-clamp':
         specifier: ^0.4.4
-        version: 0.4.4(tailwindcss@4.0.0-alpha.7)
+        version: 0.4.4(tailwindcss@4.0.0-alpha.8)
       '@tailwindcss/typography':
         specifier: ^0.5.10
-        version: 0.5.10(tailwindcss@4.0.0-alpha.7)
+        version: 0.5.10(tailwindcss@4.0.0-alpha.8)
       eslint-config-shortlink:
         specifier: workspace:^
         version: link:../eslint/eslint-config-shortlink
@@ -344,10 +344,10 @@ importers:
         version: link:../ui-kit
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
-        version: 0.4.2(tailwindcss@4.0.0-alpha.7)
+        version: 0.4.2(tailwindcss@4.0.0-alpha.8)
       '@tailwindcss/line-clamp':
         specifier: 0.4.4
-        version: 0.4.4(tailwindcss@4.0.0-alpha.7)
+        version: 0.4.4(tailwindcss@4.0.0-alpha.8)
       clsx:
         specifier: ^2.1.0
         version: 2.1.0
@@ -420,10 +420,10 @@ importers:
         version: 8.1.0(typescript@5.4.2)
       '@tailwindcss/forms':
         specifier: ^0.5.7
-        version: 0.5.7(tailwindcss@4.0.0-alpha.7)
+        version: 0.5.7(tailwindcss@4.0.0-alpha.8)
       '@tailwindcss/typography':
         specifier: ^0.5.10
-        version: 0.5.10(tailwindcss@4.0.0-alpha.7)
+        version: 0.5.10(tailwindcss@4.0.0-alpha.8)
       '@types/lodash':
         specifier: ^4.14.202
         version: 4.14.202
@@ -467,8 +467,8 @@ importers:
         specifier: ^0.33.2
         version: 0.33.2
       tailwindcss:
-        specifier: 4.0.0-alpha.7
-        version: 4.0.0-alpha.7
+        specifier: 4.0.0-alpha.8
+        version: 4.0.0-alpha.8
       ts-node:
         specifier: ^10.9.2
         version: 10.9.2(@swc/core@1.4.6)(@types/node@20.11.25)(typescript@5.4.2)
@@ -498,16 +498,16 @@ importers:
         version: 1.0.0-next.1(webpack@5.90.3)
       '@tailwindcss/aspect-ratio':
         specifier: 0.4.2
-        version: 0.4.2(tailwindcss@4.0.0-alpha.7)
+        version: 0.4.2(tailwindcss@4.0.0-alpha.8)
       '@tailwindcss/forms':
         specifier: 0.5.7
-        version: 0.5.7(tailwindcss@4.0.0-alpha.7)
+        version: 0.5.7(tailwindcss@4.0.0-alpha.8)
       '@tailwindcss/line-clamp':
         specifier: 0.4.4
-        version: 0.4.4(tailwindcss@4.0.0-alpha.7)
+        version: 0.4.4(tailwindcss@4.0.0-alpha.8)
       '@tailwindcss/typography':
         specifier: 0.5.10
-        version: 0.5.10(tailwindcss@4.0.0-alpha.7)
+        version: 0.5.10(tailwindcss@4.0.0-alpha.8)
       export-to-csv:
         specifier: ^1.2.4
         version: 1.2.4
@@ -7903,36 +7903,36 @@ packages:
       defer-to-connect: 2.0.1
     dev: true
 
-  /@tailwindcss/aspect-ratio@0.4.2(tailwindcss@4.0.0-alpha.7):
+  /@tailwindcss/aspect-ratio@0.4.2(tailwindcss@4.0.0-alpha.8):
     resolution: {integrity: sha512-8QPrypskfBa7QIMuKHg2TA7BqES6vhBrDLOv8Unb6FcFyd3TjKbc6lcmb9UPQHxfl24sXoJ41ux/H7qQQvfaSQ==}
     peerDependencies:
       tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
     dependencies:
-      tailwindcss: 4.0.0-alpha.7
+      tailwindcss: 4.0.0-alpha.8
     dev: false
 
-  /@tailwindcss/container-queries@0.1.1(tailwindcss@4.0.0-alpha.7):
+  /@tailwindcss/container-queries@0.1.1(tailwindcss@4.0.0-alpha.8):
     resolution: {integrity: sha512-p18dswChx6WnTSaJCSGx6lTmrGzNNvm2FtXmiO6AuA1V4U5REyoqwmT6kgAsIMdjo07QdAfYXHJ4hnMtfHzWgA==}
     peerDependencies:
       tailwindcss: '>=3.2.0'
     dependencies:
-      tailwindcss: 4.0.0-alpha.7
+      tailwindcss: 4.0.0-alpha.8
     dev: false
 
-  /@tailwindcss/forms@0.5.7(tailwindcss@4.0.0-alpha.7):
+  /@tailwindcss/forms@0.5.7(tailwindcss@4.0.0-alpha.8):
     resolution: {integrity: sha512-QE7X69iQI+ZXwldE+rzasvbJiyV/ju1FGHH0Qn2W3FKbuYtqp8LKcy6iSw79fVUT5/Vvf+0XgLCeYVG+UV6hOw==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 4.0.0-alpha.7
+      tailwindcss: 4.0.0-alpha.8
 
-  /@tailwindcss/line-clamp@0.4.4(tailwindcss@4.0.0-alpha.7):
+  /@tailwindcss/line-clamp@0.4.4(tailwindcss@4.0.0-alpha.8):
     resolution: {integrity: sha512-5U6SY5z8N42VtrCrKlsTAA35gy2VSyYtHWCsg1H87NU1SXnEfekTVlrga9fzUDrrHcGi2Lb5KenUWb4lRQT5/g==}
     peerDependencies:
       tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
     dependencies:
-      tailwindcss: 4.0.0-alpha.7
+      tailwindcss: 4.0.0-alpha.8
     dev: false
 
   /@tailwindcss/oxide-android-arm64@4.0.0-alpha.7:
@@ -8051,7 +8051,7 @@ packages:
       - postcss
     dev: true
 
-  /@tailwindcss/typography@0.5.10(tailwindcss@4.0.0-alpha.7):
+  /@tailwindcss/typography@0.5.10(tailwindcss@4.0.0-alpha.8):
     resolution: {integrity: sha512-Pe8BuPJQJd3FfRnm6H0ulKIGoMEQS+Vq01R6M5aCrFB/ccR/shT+0kXLjouGC1gFLm9hopTFN+DMP0pfwRWzPw==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
@@ -8060,7 +8060,7 @@ packages:
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 4.0.0-alpha.7
+      tailwindcss: 4.0.0-alpha.8
 
   /@tanstack/match-sorter-utils@8.11.8:
     resolution: {integrity: sha512-3VPh0SYMGCa5dWQEqNab87UpCMk+ANWHDP4ALs5PeEW9EpfTAbrezzaOk/OiM52IESViefkoAOYuxdoa04p6aA==}
@@ -21069,6 +21069,12 @@ packages:
 
   /tailwindcss@4.0.0-alpha.7:
     resolution: {integrity: sha512-Y91+cS79h3+CdFT8Y8zgUWSZvjLASd0nGnnxhZextBDZGl7GGqcy9QLly2Sw4TcPuPryS7/nJr8pRjp9lQazIA==}
+    dependencies:
+      lightningcss: 1.24.0
+    dev: true
+
+  /tailwindcss@4.0.0-alpha.8:
+    resolution: {integrity: sha512-s7RsnLUep6SQnmYgCVCTj9D/P2tiubPZi/Ae1m58dG4Y3NWgXWo+C0L/95Qf8VNNsD76Qv8Srb4LojyTzqbE7A==}
     dependencies:
       lightningcss: 1.24.0
 
