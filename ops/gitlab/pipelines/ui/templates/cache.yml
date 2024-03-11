@@ -1,6 +1,7 @@
 .cache:
   cache:
-    files:
-      - pnpm-lock.yaml
+    key:
+      files:
+        - pnpm-lock.yaml
     paths:
       - .pnpm-store
