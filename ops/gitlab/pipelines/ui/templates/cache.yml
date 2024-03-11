@@ -1,9 +1,6 @@
 .cache:
   cache:
-    key: nx-${CI_COMMIT_REF_SLUG}
+    files:
+      - pnpm-lock.yaml
     paths:
-      - boundaries/ui/nx-monorepo/.npm/
-      - boundaries/ui/nx-monorepo/packages/landing/out
-      - boundaries/ui/nx-monorepo/packages/next/out
-      - boundaries/ui/nx-monorepo/packages/ui-kit/dist
-      - boundaries/ui/nx-monorepo/packages/ui-kit/storybook-static
+      - .pnpm-store
