@@ -618,8 +618,8 @@ importers:
         specifier: 10.4.18
         version: 10.4.18(postcss@8.4.35)
       chromatic:
-        specifier: ^11.0.7
-        version: 11.0.7
+        specifier: ^11.0.8
+        version: 11.0.8
       css-loader:
         specifier: ^6.10.0
         version: 6.10.0(webpack@5.90.3)
@@ -1993,7 +1993,7 @@ packages:
     resolution: {integrity: sha512-5WaMChILaWC5JIDFBBaQYvltwGGpe9XpO1Hr1e4VaPewASJ6VKsE4PhtzWZfW4AC6N5dZg36S8hKLdqFnE51Dg==}
     engines: {node: '>=16.0.0', yarn: '>=1.22.18'}
     dependencies:
-      chromatic: 11.0.7
+      chromatic: 11.0.8
       filesize: 10.1.0
       jsonfile: 6.1.0
       react-confetti: 6.1.0(react@18.2.0)
@@ -10498,12 +10498,12 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /chromatic@11.0.7:
-    resolution: {integrity: sha512-Fa6LpfinKTgv31eo7rFTNcaSSCPgzuUtBjdkJVgeD3ZixxFEHPYv0lsJTs2kBaIltejqsIy2PpQ9zWQqEEQAEQ==}
+  /chromatic@11.0.8:
+    resolution: {integrity: sha512-+zJ5h0/Eu5z26KCNLIw2tknbK69gUO8q3Jsew4oU0Q/i/NPhIwcXhvPP7u75aLJgX1EI61+ndiGJA/yeQZQcgw==}
     hasBin: true
     peerDependencies:
-      '@chromatic-com/cypress': ^0.5.2 || ^1.0.0
-      '@chromatic-com/playwright': ^0.5.2 || ^1.0.0
+      '@chromatic-com/cypress': ^0.*.* || ^1.0.0
+      '@chromatic-com/playwright': ^0.*.* || ^1.0.0
     peerDependenciesMeta:
       '@chromatic-com/cypress':
         optional: true
