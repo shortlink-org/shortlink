@@ -50,7 +50,7 @@ function ProfileContent() {
         // Something else happened!
         Promise.reject(err)
       })
-  }, [])
+  }, [router])
 
   return (
     <>

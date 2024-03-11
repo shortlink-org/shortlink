@@ -14,7 +14,7 @@ export function NodeInputSubmit<T>({
   return (
     <Button
       name={attributes.name}
-      variant="contained"
+      variant="filled"
       color="primary"
       type="submit"
       className="bg-sky-600 hover:bg-sky-700"

@@ -12,7 +12,6 @@ export { default as ScrollToTopButton } from './ui/ScrollToTopButton/ScrollToTop
 // Input
 export { default as SearchForm } from './ui/SearchForm/SearchForm'
 
-
 // Layout exports
 export { Header } from './page/Header/Header'
 export { PriceTable } from './page/PriceTable/PriceTable'

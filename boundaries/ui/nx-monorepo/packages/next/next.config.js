@@ -107,6 +107,7 @@ let NEXT_CONFIG = {
     instrumentationHook: true,
     webVitalsAttribution: ['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'],
     turbo: {},
+    // typedRoutes: true,
   },
 }
 

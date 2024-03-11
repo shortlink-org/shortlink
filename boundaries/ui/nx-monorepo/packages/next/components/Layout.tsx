@@ -2,9 +2,8 @@ import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
 import { styled } from '@mui/material/styles'
 import * as React from 'react'
-import {
-  ScrollToTopButton, // @ts-ignore
-} from '@shortlink-org/ui-kit'
+// @ts-ignore
+import { ScrollToTopButton } from '@shortlink-org/ui-kit'
 
 import PushNotificationLayout from 'components/PushNotificationLayout'
 import Footer from 'components/Footer'
@@ -41,7 +40,7 @@ export function Layout({ children }) {
           >
             <div className="content-center max-w-7xl m-auto">{children}</div>
 
-            <Footer />
+            <Footer className="content-center max-w-7xl m-auto" />
 
             <ScrollToTopButton />
           </Box>

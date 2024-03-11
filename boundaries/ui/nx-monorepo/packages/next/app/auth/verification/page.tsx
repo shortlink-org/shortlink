@@ -94,7 +94,6 @@ const Page: NextPage = () => {
             setFlow(err.response?.data)
             return
           case 410:
-            // eslint-disable-next-line no-case-declarations
             // @ts-ignore
             // eslint-disable-next-line no-case-declarations
             const newFlowID = err.response.data.use_flow_id

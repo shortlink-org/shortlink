@@ -111,6 +111,7 @@ rules:
   react/display-name: off
   '@next/next/no-html-link-for-pages': off
   import/no-default-export: error
+  '@typescript-eslint/no-redundant-type-constituents': off
 overrides:
   - files:
       - '*.ts'

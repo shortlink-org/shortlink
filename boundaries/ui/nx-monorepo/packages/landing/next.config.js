@@ -6,11 +6,16 @@ const withPWA = require('@ducanh2912/next-pwa').default({
 })
 const { composePlugins } = require('@nx/next')
 
-// PLUGINS =============================================================================================================
-const plugins = [withPWA]
-
 // ENVIRONMENT VARIABLE ================================================================================================
 const isProd = process.env.NODE_ENV === 'production'
+const isPWA = process.env.PWA_ENABLE === 'true'
+
+// PLUGINS =============================================================================================================
+const plugins = []
+
+if (isPWA) {
+  plugins.push(withPWA)
+}
 
 /** @type {import('@nx/next/plugins/with-nx').WithNxOptions} * */
 const nextConfig = {
@@ -63,6 +68,7 @@ const nextConfig = {
     instrumentationHook: true,
     webVitalsAttribution: ['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'],
     turbo: {},
+    // typedRoutes: true,
     // for Vercel deployment
     useDeploymentId: true,
     useDeploymentIdServerActions: true,

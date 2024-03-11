@@ -5,7 +5,6 @@ import { NextSeo } from 'next-seo'
 
 import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
-
 import Header from 'components/Page/Header'
 
 function Intargrations() {

@@ -1,5 +1,7 @@
 'use client'
 
+// @ts-ignore // eslint-disable-next-line import/order
+import { ToggleDarkMode, SearchForm } from '@shortlink-org/ui-kit'
 import { useEffect, useState, Fragment } from 'react'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
 import Button from '@mui/material-next/Button'
@@ -12,8 +14,8 @@ import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { AxiosError } from 'axios'
+// eslint-disable-next-line import/order
 import Link from 'next/link'
-import { ToggleDarkMode, SearchForm } from '@shortlink-org/ui-kit' // @ts-ignore
 
 // Importing icons
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'

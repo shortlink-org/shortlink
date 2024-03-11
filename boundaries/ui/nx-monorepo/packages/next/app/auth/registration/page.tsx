@@ -81,7 +81,6 @@ const SignUp: NextPage = () => {
           for (const item of data.continue_with) {
             switch (item.action) {
               case 'show_verification_ui':
-                // eslint-disable-next-line no-await-in-loop
                 router.push(`/auth/verification?flow=${item.flow.id}`)
 
                 return

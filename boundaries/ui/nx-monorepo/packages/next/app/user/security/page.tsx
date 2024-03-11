@@ -47,7 +47,7 @@ function SecurityContent() {
         // Something else happened!
         Promise.reject(err)
       })
-  }, [])
+  }, [router])
 
   return (
     <Layout>

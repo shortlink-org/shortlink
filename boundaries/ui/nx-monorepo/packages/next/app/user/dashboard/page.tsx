@@ -11,7 +11,6 @@ import { NextSeo } from 'next-seo'
 import Profile from 'components/Dashboard/profile'
 import withAuthSync from 'components/Private'
 import Orders from 'components/widgets/Orders'
-
 import Header from 'components/Page/Header'
 
 function Page() {

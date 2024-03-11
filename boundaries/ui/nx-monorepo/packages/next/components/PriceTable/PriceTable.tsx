@@ -60,7 +60,17 @@ export const PriceTable: React.FC<TiersProps> = ({ tiers }) => {
                   <Balancer>{tier.subheader}</Balancer>
                 </div>
 
-                <Button fullWidth variant={tier.buttonVariant}>
+                <Button
+                  fullWidth
+                  variant={
+                    tier.buttonVariant as
+                      | 'text'
+                      | 'outlined'
+                      | 'filled'
+                      | 'filledTonal'
+                      | 'elevated'
+                  }
+                >
                   {tier.buttonText}
                 </Button>
               </div>
