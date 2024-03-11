@@ -7,7 +7,7 @@
     "build": "NODE_ENV=production pnpm next build",
     "start": "pnpm dlx next start",
     "lint": "pnpm dlx eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
-    "lint:fix": "pnpm dlx lint --fix",
+    "lint:fix": "pnpm run lint --fix",
     "lint:gitlab": "pnpm dlx lint --format gitlab",
     "prettier": "pnpm dlx prettier -w -c .",
     "cypress": "NODE_ENV=test pnpm cypress open",
