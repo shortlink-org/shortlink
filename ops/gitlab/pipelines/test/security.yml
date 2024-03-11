@@ -16,6 +16,9 @@ code_quality:
     paths:
       - ${ARTIFACT_NAME}
     expire_in: 14 days
+  rules:
+    # NOTE: don't work
+    - when: never
 
 # DEPENDENCY ===========================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/

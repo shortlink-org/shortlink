@@ -7,7 +7,7 @@ FROM --platform=$BUILDPLATFORM node:21.7-bookworm-slim AS packages
 ARG ENVIRONMENT_CONFIG
 
 WORKDIR /app
-COPY ./boundaries/platform/backstage/package.json ./boundaries/platform/backstage/yarn.lock ./
+COPY ./boundaries/platform/backstage/package.json ./boundaries/platform/backstage/yarn.lock ./boundaries/platform/backstage/.yarn ./
 
 COPY ./boundaries/platform/backstage/packages packages
 
