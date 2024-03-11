@@ -13,15 +13,13 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { AxiosError } from 'axios'
 import Link from 'next/link'
-// @ts-ignore
-import { ToggleDarkMode } from '@shortlink-org/ui-kit' // eslint-disable-line import/order
+import { ToggleDarkMode, SearchForm } from '@shortlink-org/ui-kit' // @ts-ignore
 
 // Importing icons
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft'
 import ChevronRightIcon from '@mui/icons-material/ChevronRight'
 import MenuIcon from '@mui/icons-material/Menu'
 import ory from 'pkg/sdk'
-import SearchForm from 'components/SearchForm'
 
 import { mainListItems, secondaryListItems, adminListItems } from './listItems'
 import Notification from './notification'

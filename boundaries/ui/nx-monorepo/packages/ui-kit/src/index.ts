@@ -9,6 +9,10 @@ export { Spotlight } from './effect/Spotlight/Spotlight'
 export { default as Table } from './ui/Table/Table'
 export { default as ScrollToTopButton } from './ui/ScrollToTopButton/ScrollToTopButton'
 
+// Input
+export { default as SearchForm } from './ui/SearchForm/SearchForm'
+
+
 // Layout exports
 export { Header } from './page/Header/Header'
 export { PriceTable } from './page/PriceTable/PriceTable'
