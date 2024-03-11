@@ -7,11 +7,12 @@ FROM --platform=$BUILDPLATFORM node:21.7-bookworm-slim AS packages
 ARG ENVIRONMENT_CONFIG
 
 WORKDIR /app
-COPY ./boundaries/platform/backstage/package.json ./boundaries/platform/backstage/yarn.lock ./boundaries/platform/backstage/.yarn ./
+COPY ./boundaries/platform/backstage/package.json ./boundaries/platform/backstage/yarn.lock ./
+COPY ./boundaries/platform/backstage/.yarn ./.yarn
 
 COPY ./boundaries/platform/backstage/packages packages
 
-RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -exec rm -rf {} \+
+RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
 
 # Stage 2 - Install dependencies and build packages
 FROM --platform=$BUILDPLATFORM node:21.7-bookworm-slim AS build
@@ -20,9 +21,6 @@ ARG ENVIRONMENT_CONFIG
 
 # Set Python interpreter for `node-gyp` to use
 ENV PYTHON /usr/bin/python3
-
-RUN corepack enable && \
-    corepack prepare yarn@stable --activate
 
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.
@@ -36,12 +34,12 @@ USER node
 WORKDIR /app
 
 COPY --from=packages --chown=node:node /app .
-COPY ./boundaries/platform/backstage/.yarn ./.yarn
+COPY --from=packages --chown=node:node /app/.yarn ./.yarn
 
 # Stop cypress from downloading it's massive binary.
 ENV CYPRESS_INSTALL_BINARY=0
 RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
-    yarn install --immutable --network-timeout 600000
+    yarn install --immutable
 
 COPY --chown=node:node ./boundaries/platform/backstage .
 
@@ -66,6 +64,8 @@ LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.url="http://shortlink.best/"
 LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
 
+# Set Python interpreter for `node-gyp` to use
+ENV PYTHON /usr/bin/python3
 
 # Install sqlite3 dependencies. You can skip this if you don't use sqlite3 in the image,
 # in which case you should also move better-sqlite3 to "devDependencies" in package.json.
@@ -97,13 +97,8 @@ USER node
 WORKDIR /app
 
 # Copy the install dependencies from the build stage and context
-COPY --from=build --chown=node:node /app/yarn.lock /app/package.json /app/packages/backend/dist/skeleton/ ./
-
-RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
-    yarn install --production --network-timeout 600000 --ignore-engines
-
-# Copy the install dependencies from the build stage and context
 COPY --from=build --chown=node:node /app/.yarn ./.yarn
+COPY --from=build --chown=node:node /app/.yarnrc.yml  ./
 COPY --from=build --chown=node:node /app/yarn.lock /app/package.json /app/packages/backend/dist/skeleton/ ./
 
 RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
@@ -144,4 +139,4 @@ ENV NODE_OPTIONS "--max-old-space-size=1000 --no-node-snapshot"
 # Default is 'production', for local testing pass in 'local'
 ENV ENVIRONMENT_CONFIG=${ENVIRONMENT_CONFIG}
 
-CMD ["node", "packages/backend", "--config", "app-config.yaml", "--config", "app-config.${ENVIRONMENT_CONFIG}.yaml"]
+CMD ["sh", "-c", "node packages/backend --config app-config.yaml --config app-config.${ENVIRONMENT_CONFIG}.yaml"]
