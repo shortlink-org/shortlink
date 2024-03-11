@@ -22,7 +22,7 @@ RUN docker-php-ext-install \
 COPY --from=pyroscope/pyroscope:latest /usr/bin/pyroscope /usr/bin/pyroscope
 
 # Setting module
-COPY ./ops/dockerfile/support/conf/php /usr/local/etc/php/conf.d
+COPY ./ops/dockerfile/boundary_platform/support/conf/php /usr/local/etc/php/conf.d
 
 # Set the working directory
 WORKDIR /usr/share/nginx/html

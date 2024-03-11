@@ -21,7 +21,7 @@ build: ## Build the CSI container
 			--sbom=true \
 			--no-cache \
 			-t ${CI_REGISTRY_IMAGE}-csi \
-			-f ops/dockerfile/csi.Dockerfile .
+			-f ops/dockerfile/boundary_platform/csi.Dockerfile .
 
 up: ## Deploy CSI plugin
 		@kubectl apply -n default --prune --applyset=external-snapshotter \

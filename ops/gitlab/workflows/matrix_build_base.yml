@@ -35,7 +35,7 @@
       # INFRASTRUCTURE LANDSCAPE
       - APPLICATION: csi
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/csi
-        DOCKERFILE_PATH: ops/dockerfile/csi.Dockerfile
+        DOCKERFILE_PATH: ops/dockerfile/boundary_platform/csi.Dockerfile
       - APPLICATION: logger
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile

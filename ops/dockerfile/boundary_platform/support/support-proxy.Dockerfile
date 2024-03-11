@@ -21,7 +21,7 @@ HEALTHCHECK \
   CMD curl -f localhost:8080/ready || exit 1
 
 # Copy application and custom NGINX configuration
-COPY ./ops/dockerfile/support/conf/nginx/default.conf /etc/nginx/conf.d/default.conf
+COPY ./ops/dockerfile/boundary_platform/support/conf/nginx/default.conf /etc/nginx/conf.d/default.conf
 COPY ./ops/docker-compose/gateway/nginx/conf/nginx.conf /etc/nginx/nginx.conf
 COPY ./ops/docker-compose/gateway/nginx/conf/templates /etc/nginx/template
 
