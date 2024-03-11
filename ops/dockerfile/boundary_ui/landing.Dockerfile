@@ -25,7 +25,7 @@ RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npm
 
 COPY ./boundaries/ui/nx-monorepo/ ./
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm fetch
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm dlx nx run landing:build
 
 # Production image, copy all the files and run next
