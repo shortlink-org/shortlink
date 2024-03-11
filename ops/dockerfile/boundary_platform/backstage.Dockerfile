@@ -36,7 +36,7 @@ USER node
 WORKDIR /app
 
 COPY --from=packages --chown=node:node /app .
-COPY --from=packages --chown=node:node /app/.yarn ./.yarn
+COPY ./boundaries/platform/backstage/.yarn ./.yarn
 
 # Stop cypress from downloading it's massive binary.
 ENV CYPRESS_INSTALL_BINARY=0

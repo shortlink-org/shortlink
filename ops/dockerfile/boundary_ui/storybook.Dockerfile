@@ -22,7 +22,7 @@ RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npm
 COPY ./boundaries/ui/nx-monorepo/ ./
 
 # version for npm: npm ci --cache .npm --prefer-offline --force
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm fetch
 RUN pnpm dlx nx run @shortlink-org/ui-kit:build-storybook
 
 # Production image, copy all the files and run next
@@ -57,7 +57,7 @@ HEALTHCHECK \
   CMD curl -f localhost:8080 || exit 1
 
 # Copy application and custom NGINX configuration
-COPY ./ops/dockerfile/conf/ui.local /etc/nginx/conf.d/default.conf
+COPY ./ops/dockerfile/boundary_ui/conf/ui.local /etc/nginx/conf.d/default.conf
 COPY ./ops/docker-compose/gateway/nginx/conf/nginx.conf /etc/nginx/nginx.conf
 COPY ./ops/docker-compose/gateway/nginx/conf/templates /etc/nginx/template
 COPY --from=development-builder /app/packages/ui-kit/storybook-static ./

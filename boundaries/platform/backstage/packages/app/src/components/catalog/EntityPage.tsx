@@ -93,7 +93,7 @@ const cicdContent = (
         description="You need to add an annotation to your component if you want to enable CI/CD for it. You can read more about annotations in Backstage by clicking the button below."
         action={
           <Button
-            variant="contained"
+            variant="filled"
             color="primary"
             href="https://backstage.io/docs/features/software-catalog/well-known-annotations"
           >

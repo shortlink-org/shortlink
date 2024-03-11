@@ -6,7 +6,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/gogo/protobuf/proto"
+	"google.golang.org/protobuf/proto"
 
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/sitemap/v1"
