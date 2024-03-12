@@ -1,8 +1,7 @@
 const { composePlugins } = require('@nx/next')
 
 // ENVIRONMENT VARIABLE ================================================================================================
-const isProd = false
-// const isProd = process.env.NODE_ENV === 'production'
+const isProd = process.env.NODE_ENV === 'production'
 const isEnablePWA = process.env.PWA_ENABLE === 'true'
 const isEnableSentry = process.env.SENTRY_ENABLE === 'true'
 
