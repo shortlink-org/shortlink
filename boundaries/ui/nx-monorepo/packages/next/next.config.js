@@ -22,7 +22,7 @@ if (isEnablePWA) {
   const withPWA = require('@ducanh2912/next-pwa').default({
     dest: 'public',
     maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // Set the limit to 10 MB
-    swcMinify: process.env.NODE_ENV === 'production',
+    swcMinify: isProd,
     cacheOnFrontendNav: true,
     aggressiveFrontEndNavCaching: true,
     publicExcludes: ['!robots.txt', '!sitemap.xml'],

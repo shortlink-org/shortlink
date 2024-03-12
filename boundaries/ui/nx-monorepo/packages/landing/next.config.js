@@ -11,7 +11,7 @@ if (isEnablePWA) {
   // eslint-disable-next-line global-require
   const withPWA = require('@ducanh2912/next-pwa').default({
     dest: 'public',
-    swcMinify: process.env.NODE_ENV === 'production',
+    swcMinify: isProd,
     cacheOnFrontendNav: true,
     aggressiveFrontEndNavCaching: true,
   })
