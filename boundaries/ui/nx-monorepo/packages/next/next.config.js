@@ -1,42 +1,68 @@
-// @ts-check
-const withPWA = require('@ducanh2912/next-pwa').default({
-  dest: 'public',
-  maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // Set the limit to 10 MB
-  swcMinify: process.env.NODE_ENV === 'production',
-  cacheOnFrontendNav: true,
-  aggressiveFrontEndNavCaching: true,
-  publicExcludes: ['!robots.txt', '!sitemap.xml'],
-  extendDefaultRuntimeCaching: false,
-  workboxOptions: {
-    dontCacheBustURLsMatching: /\/api/,
-  },
-})
 const { composePlugins } = require('@nx/next')
-const { withSentryConfig } = require('@sentry/nextjs')
 
 // ENVIRONMENT VARIABLE ================================================================================================
-const isPWA = process.env.PWA_ENABLE === 'true'
-const isProd = process.env.NODE_ENV === 'production'
+const isProd = false
+// const isProd = process.env.NODE_ENV === 'production'
+const isEnablePWA = process.env.PWA_ENABLE === 'true'
 const isEnableSentry = process.env.SENTRY_ENABLE === 'true'
+
 const PROXY_URI = process.env.PROXY_URI || 'http://127.0.0.1:3000'
 const AUTH_URI = process.env.AUTH_URI || 'http://127.0.0.1:4433'
 const API_URI = process.env.API_URI || 'http://127.0.0.1:7070'
 
+console.info('NODE_ENV', process.env.NODE_ENV)
 console.info('PROXY_URI', PROXY_URI)
 console.info('AUTH_URI', AUTH_URI)
 console.info('API_URI', API_URI)
-console.info('NODE_ENV', process.env.NODE_ENV)
 
 // PLUGINS =============================================================================================================
 const plugins = []
 
-if (isPWA) {
+if (isEnablePWA) {
+  // eslint-disable-next-line global-require
+  const withPWA = require('@ducanh2912/next-pwa').default({
+    dest: 'public',
+    maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // Set the limit to 10 MB
+    swcMinify: process.env.NODE_ENV === 'production',
+    cacheOnFrontendNav: true,
+    aggressiveFrontEndNavCaching: true,
+    publicExcludes: ['!robots.txt', '!sitemap.xml'],
+    extendDefaultRuntimeCaching: false,
+    workboxOptions: {
+      dontCacheBustURLsMatching: /\/api/,
+    },
+  })
+
   plugins.push(withPWA)
 }
 
+// Make sure adding Sentry options is the last code to run before exporting, to
+// ensure that your source maps include changes from all other Webpack plugins
+if (isEnableSentry) {
+  // eslint-disable-next-line global-require
+  const { withSentryConfig } = require('@sentry/nextjs')
+
+  const config = {
+    // For all available options, see:
+    // https://github.com/getsentry/sentry-webpack-plugin#options
+
+    // Suppresses source map uploading logs during build
+    silent: true,
+
+    org: 'batazor',
+    project: 'shortlink-next',
+  }
+
+  plugins.push(() => withSentryConfig(config))
+}
+
 /** @type {import('@nx/next/plugins/with-nx').WithNxOptions} * */
-let NEXT_CONFIG = {
+const NEXT_CONFIG = {
   basePath: '/next',
+  output: 'export',
+  swcMinify: isProd,
+  compress: isProd,
+  productionBrowserSourceMaps: isProd,
   reactStrictMode: true,
   generateEtags: false,
   env: {
@@ -62,8 +88,6 @@ let NEXT_CONFIG = {
     // Faro
     NEXT_PUBLIC_FARO_URI: process.env.FARO_URI,
   },
-  swcMinify: true,
-  productionBrowserSourceMaps: true,
   transpilePackages: ['@shortlink-org/ui-kit'],
   compiler: {
     // ssr and displayName are configured by default
@@ -108,13 +132,15 @@ let NEXT_CONFIG = {
     webVitalsAttribution: ['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'],
     turbo: {},
     // typedRoutes: true,
+    modularizeImports: {
+      '@mui/material': {
+        transform: '@mui/material/{{member}}',
+      },
+      '@mui/icons-material': {
+        transform: '@mui/icons-material/{{member}}',
+      },
+    },
   },
-}
-
-if (isProd) {
-  NEXT_CONFIG.output = 'export'
-  NEXT_CONFIG.compress = true
-  NEXT_CONFIG.productionBrowserSourceMaps = true
 }
 
 if (!isProd) {
@@ -149,23 +175,6 @@ if (!isProd) {
       },
     ],
   })
-}
-
-// Make sure adding Sentry options is the last code to run before exporting, to
-// ensure that your source maps include changes from all other Webpack plugins
-if (isEnableSentry) {
-  const SentryWebpackPluginOptions = {
-    // For all available options, see:
-    // https://github.com/getsentry/sentry-webpack-plugin#options
-
-    // Suppresses source map uploading logs during build
-    silent: true,
-
-    org: 'batazor',
-    project: 'shortlink-next',
-  }
-
-  NEXT_CONFIG = withSentryConfig(NEXT_CONFIG, SentryWebpackPluginOptions)
 }
 
 module.exports = composePlugins(...plugins)(NEXT_CONFIG)

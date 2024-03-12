@@ -48,7 +48,7 @@ function Providers({ children, ...props }) {
   }
 
   return (
-    <AppRouterCacheProvider options={{ key: 'css' }}>
+    <AppRouterCacheProvider options={{ key: 'css', enableCssLayer: true }}>
       <CssVarsProvider theme={theme} defaultMode="light">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <NextThemeProvider
