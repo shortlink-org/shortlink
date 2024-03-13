@@ -99,8 +99,8 @@ importers:
         specifier: ^0.3.0
         version: 0.3.0(react-dom@18.2.0)(react@18.2.0)
       nx:
-        specifier: 18.1.0-beta.9
-        version: 18.1.0-beta.9(@swc/core@1.4.7)
+        specifier: 18.1.0-canary.20240313-81df848
+        version: 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)
       nx-cloud:
         specifier: 18.0.0
         version: 18.0.0
@@ -140,16 +140,16 @@ importers:
         version: 14.2.0-canary.19
       '@nx/devkit':
         specifier: 18.1.0-canary.20240313-81df848
-        version: 18.1.0-canary.20240313-81df848(nx@18.1.0-beta.9)
+        version: 18.1.0-canary.20240313-81df848(nx@18.1.0-canary.20240313-81df848)
       '@nx/eslint-plugin':
         specifier: 18.1.0-canary.20240313-81df848
-        version: 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(@typescript-eslint/parser@7.2.0)(eslint@8.57.0)(nx@18.1.0-beta.9)(typescript@5.4.2)
+        version: 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(@typescript-eslint/parser@7.2.0)(eslint@8.57.0)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
       '@nx/next':
         specifier: 18.1.0-canary.20240313-81df848
-        version: 18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(next@14.2.0-canary.19)(nx@18.1.0-beta.9)(typescript@5.4.2)(webpack@5.90.3)
+        version: 18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(next@14.2.0-canary.19)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)(webpack@5.90.3)
       '@nx/rollup':
         specifier: 18.1.0-canary.20240313-81df848
-        version: 18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
+        version: 18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
       '@nx/workspace':
         specifier: 18.1.0-canary.20240313-81df848
         version: 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)
@@ -4532,18 +4532,18 @@ packages:
       - supports-color
     dev: true
 
-  /@nrwl/devkit@18.1.0-canary.20240313-81df848(nx@18.1.0-beta.9):
+  /@nrwl/devkit@18.1.0-canary.20240313-81df848(nx@18.1.0-canary.20240313-81df848):
     resolution: {integrity: sha512-cne8/9D8ZmhyUUweoTfKiJF/vggeGkEfHXkTjxgETFvqKm+S3mNjoRF/KCb4LxhqNvUvZv42kg3mLBlcbz0cbA==}
     dependencies:
-      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-beta.9)
+      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-canary.20240313-81df848)
     transitivePeerDependencies:
       - nx
     dev: true
 
-  /@nrwl/eslint-plugin-nx@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(@typescript-eslint/parser@7.2.0)(eslint@8.57.0)(nx@18.1.0-beta.9)(typescript@5.4.2):
+  /@nrwl/eslint-plugin-nx@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(@typescript-eslint/parser@7.2.0)(eslint@8.57.0)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2):
     resolution: {integrity: sha512-o6uu1EfWSihfN4ydWmOUSoPdSX9yUOKd7jX5NVI4x+9d9tlsRtnQxaCAjANnPlInamDs70ebTwV3oD1nJbBttw==}
     dependencies:
-      '@nx/eslint-plugin': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(@typescript-eslint/parser@7.2.0)(eslint@8.57.0)(nx@18.1.0-beta.9)(typescript@5.4.2)
+      '@nx/eslint-plugin': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(@typescript-eslint/parser@7.2.0)(eslint@8.57.0)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -4560,10 +4560,10 @@ packages:
       - verdaccio
     dev: true
 
-  /@nrwl/js@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.3.3):
+  /@nrwl/js@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.3.3):
     resolution: {integrity: sha512-LUTVwyZ9uqbUEppskgRU3LxDSzG0J/WDYCFvG3oaqJlDLqA5H3yop9bL7l2Z2MJEXr5gmcxoIAej7jUnmhCxMw==}
     dependencies:
-      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.3.3)
+      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.3.3)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -4577,10 +4577,10 @@ packages:
       - verdaccio
     dev: true
 
-  /@nrwl/js@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2):
+  /@nrwl/js@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2):
     resolution: {integrity: sha512-LUTVwyZ9uqbUEppskgRU3LxDSzG0J/WDYCFvG3oaqJlDLqA5H3yop9bL7l2Z2MJEXr5gmcxoIAej7jUnmhCxMw==}
     dependencies:
-      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
+      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -4594,10 +4594,10 @@ packages:
       - verdaccio
     dev: true
 
-  /@nrwl/next@18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(next@14.2.0-canary.19)(nx@18.1.0-beta.9)(typescript@5.4.2)(webpack@5.90.3):
+  /@nrwl/next@18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(next@14.2.0-canary.19)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)(webpack@5.90.3):
     resolution: {integrity: sha512-W2eaPFnohwhyQNNJ7LEV5j94K8eMbeOrMefC7aHuab52AToMXlBLVAUovU/vsI7opeuhWaqJHLoBvwyp5JTmVw==}
     dependencies:
-      '@nx/next': 18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(next@14.2.0-canary.19)(nx@18.1.0-beta.9)(typescript@5.4.2)(webpack@5.90.3)
+      '@nx/next': 18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(next@14.2.0-canary.19)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)(webpack@5.90.3)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/traverse'
@@ -4640,10 +4640,10 @@ packages:
       - debug
     dev: false
 
-  /@nrwl/react@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2):
+  /@nrwl/react@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2):
     resolution: {integrity: sha512-bco+dzpZm6l4QdN874y/nqny5Qyw96N3rFJLj7Zq9G4fx1k7y7zwQkJ4ebnkhf3BfcyrwGDqIOx6KcFmNvnquQ==}
     dependencies:
-      '@nx/react': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
+      '@nx/react': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -4658,10 +4658,10 @@ packages:
       - verdaccio
     dev: true
 
-  /@nrwl/rollup@18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2):
+  /@nrwl/rollup@18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2):
     resolution: {integrity: sha512-6KEzJvDp+8JyceFb/vumxDR532+JWqdXrPO78zPLsfdG8ZlczpG5KqlS0Z+SVvcXIZl7k1JEaSLrhXSUenZJKg==}
     dependencies:
-      '@nx/rollup': 18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
+      '@nx/rollup': 18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/traverse'
@@ -4678,17 +4678,6 @@ packages:
       - verdaccio
     dev: true
 
-  /@nrwl/tao@18.1.0-beta.9(@swc/core@1.4.7):
-    resolution: {integrity: sha512-T4aXtamFxojp0pRyx3RHnb6s+5GBmrQr/+fCkSpVPrhbj+pQX2qK/Y9E08jYQ6CEXkqAQ6zjqf7IiXSjvrptFA==}
-    hasBin: true
-    dependencies:
-      nx: 18.1.0-beta.9(@swc/core@1.4.7)
-      tslib: 2.6.2
-    transitivePeerDependencies:
-      - '@swc-node/register'
-      - '@swc/core'
-      - debug
-
   /@nrwl/tao@18.1.0-canary.20240313-81df848(@swc/core@1.4.7):
     resolution: {integrity: sha512-4hhyX2BQffNVmXN7GqiR3pwg6gEPB/osmXklWtro8Qb4CUS54SVBBDnoMZCuNBqvXR2dQ0WXHwO613CmZQhSHQ==}
     hasBin: true
@@ -4699,12 +4688,11 @@ packages:
       - '@swc-node/register'
       - '@swc/core'
       - debug
-    dev: true
 
-  /@nrwl/web@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2):
+  /@nrwl/web@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2):
     resolution: {integrity: sha512-kUJvgBuXnd9+7ZD833Ld4B6En9AHtDsAHJEKLfCGIP6vrCqDyvB2EH1HHU21vFe/3AJ4bE18KG/ewSGllD2ZPA==}
     dependencies:
-      '@nx/web': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
+      '@nx/web': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -4718,10 +4706,10 @@ packages:
       - verdaccio
     dev: true
 
-  /@nrwl/webpack@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(nx@18.1.0-beta.9)(typescript@5.4.2):
+  /@nrwl/webpack@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2):
     resolution: {integrity: sha512-HxYteUYj7Hk5hk7Blm3fdkAZS4rjrdNPK9adfdtBXPUvMd1vy5YUuuRYv0UzrslQ61YxvwC/4uia+MhWap5+gA==}
     dependencies:
-      '@nx/webpack': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(nx@18.1.0-beta.9)(typescript@5.4.2)
+      '@nx/webpack': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@parcel/css'
@@ -4761,28 +4749,12 @@ packages:
       - debug
     dev: true
 
-  /@nx/devkit@18.1.0-canary.20240313-81df848(nx@18.1.0-beta.9):
-    resolution: {integrity: sha512-RfAiNGf+XVLG6l24vbKmUfO0ITBV7CVjqUN2JmmS9ozpBbFz8ovreIhwoEnUYIE6WKS20G4ol4RrwAB+h2tyCg==}
-    peerDependencies:
-      nx: '>= 16 <= 18'
-    dependencies:
-      '@nrwl/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-beta.9)
-      ejs: 3.1.9
-      enquirer: 2.3.6
-      ignore: 5.3.1
-      nx: 18.1.0-beta.9(@swc/core@1.4.7)
-      semver: 7.6.0
-      tmp: 0.2.3
-      tslib: 2.6.2
-      yargs-parser: 21.1.1
-    dev: true
-
   /@nx/devkit@18.1.0-canary.20240313-81df848(nx@18.1.0-canary.20240313-81df848):
     resolution: {integrity: sha512-RfAiNGf+XVLG6l24vbKmUfO0ITBV7CVjqUN2JmmS9ozpBbFz8ovreIhwoEnUYIE6WKS20G4ol4RrwAB+h2tyCg==}
     peerDependencies:
       nx: '>= 16 <= 18'
     dependencies:
-      '@nrwl/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-beta.9)
+      '@nrwl/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-canary.20240313-81df848)
       ejs: 3.1.9
       enquirer: 2.3.6
       ignore: 5.3.1
@@ -4793,7 +4765,7 @@ packages:
       yargs-parser: 21.1.1
     dev: true
 
-  /@nx/eslint-plugin@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(@typescript-eslint/parser@7.2.0)(eslint@8.57.0)(nx@18.1.0-beta.9)(typescript@5.4.2):
+  /@nx/eslint-plugin@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(@typescript-eslint/parser@7.2.0)(eslint@8.57.0)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2):
     resolution: {integrity: sha512-JQz8E4qZRMoQndOAfy49r/jDKCce34pJtyiLuXV2DmvS4j6J8Fc58mKtX+6mbCBgadBo4Hf3FT/m73qgVBubCg==}
     peerDependencies:
       '@typescript-eslint/parser': ^6.13.2 || ^7.0.0
@@ -4802,9 +4774,9 @@ packages:
       eslint-config-prettier:
         optional: true
     dependencies:
-      '@nrwl/eslint-plugin-nx': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(@typescript-eslint/parser@7.2.0)(eslint@8.57.0)(nx@18.1.0-beta.9)(typescript@5.4.2)
-      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-beta.9)
-      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
+      '@nrwl/eslint-plugin-nx': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(@typescript-eslint/parser@7.2.0)(eslint@8.57.0)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
+      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-canary.20240313-81df848)
+      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
       '@typescript-eslint/parser': 7.2.0(eslint@8.57.0)(typescript@5.4.2)
       '@typescript-eslint/type-utils': 6.21.0(eslint@8.57.0)(typescript@5.4.2)
       '@typescript-eslint/utils': 6.21.0(eslint@8.57.0)(typescript@5.4.2)
@@ -4827,7 +4799,7 @@ packages:
       - verdaccio
     dev: true
 
-  /@nx/eslint@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9):
+  /@nx/eslint@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848):
     resolution: {integrity: sha512-slLLy0vZYKfND3A1q0HeX4iMbFBN+UdNKIkcATXe2zf6OQFGTi2wmhpvPBGU+WjJOSRfLUFYWIt8xd3uSdt0pQ==}
     peerDependencies:
       js-yaml: 4.1.0
@@ -4835,9 +4807,9 @@ packages:
       js-yaml:
         optional: true
     dependencies:
-      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-beta.9)
-      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.3.3)
-      '@nx/linter': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)
+      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-canary.20240313-81df848)
+      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.3.3)
+      '@nx/linter': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)
       eslint: 8.57.0
       tslib: 2.6.2
       typescript: 5.3.3
@@ -4853,7 +4825,7 @@ packages:
       - verdaccio
     dev: true
 
-  /@nx/js@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.3.3):
+  /@nx/js@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.3.3):
     resolution: {integrity: sha512-ihK+9IJ9Q7awiaVK0VNl9O9WGdqsXisSefz6wgh3SfG6auS2uQOIkHKflOt8CT7YPjFdz5htN9YQYab1Vsa6Ww==}
     peerDependencies:
       verdaccio: ^5.0.4
@@ -4868,8 +4840,8 @@ packages:
       '@babel/preset-env': 7.24.0(@babel/core@7.24.0)
       '@babel/preset-typescript': 7.23.3(@babel/core@7.24.0)
       '@babel/runtime': 7.24.0
-      '@nrwl/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.3.3)
-      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-beta.9)
+      '@nrwl/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.3.3)
+      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-canary.20240313-81df848)
       '@nx/workspace': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)
       '@phenomnomnominal/tsquery': 5.0.1(typescript@5.3.3)
       babel-plugin-const-enum: 1.2.0(@babel/core@7.24.0)
@@ -4903,7 +4875,7 @@ packages:
       - typescript
     dev: true
 
-  /@nx/js@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2):
+  /@nx/js@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2):
     resolution: {integrity: sha512-ihK+9IJ9Q7awiaVK0VNl9O9WGdqsXisSefz6wgh3SfG6auS2uQOIkHKflOt8CT7YPjFdz5htN9YQYab1Vsa6Ww==}
     peerDependencies:
       verdaccio: ^5.0.4
@@ -4918,8 +4890,8 @@ packages:
       '@babel/preset-env': 7.24.0(@babel/core@7.24.0)
       '@babel/preset-typescript': 7.23.3(@babel/core@7.24.0)
       '@babel/runtime': 7.24.0
-      '@nrwl/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
-      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-beta.9)
+      '@nrwl/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
+      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-canary.20240313-81df848)
       '@nx/workspace': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)
       '@phenomnomnominal/tsquery': 5.0.1(typescript@5.4.2)
       babel-plugin-const-enum: 1.2.0(@babel/core@7.24.0)
@@ -4953,10 +4925,10 @@ packages:
       - typescript
     dev: true
 
-  /@nx/linter@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9):
+  /@nx/linter@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848):
     resolution: {integrity: sha512-XnCDtuzkf3PROXVkgNg4W59kdvnOf3x/0I3N8dVMvNaMpm9qsjBsP/K1G9svX1K6bI+/ZrgeXMhgBANthfsqpw==}
     dependencies:
-      '@nx/eslint': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)
+      '@nx/eslint': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -4970,19 +4942,19 @@ packages:
       - verdaccio
     dev: true
 
-  /@nx/next@18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(next@14.2.0-canary.19)(nx@18.1.0-beta.9)(typescript@5.4.2)(webpack@5.90.3):
+  /@nx/next@18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(next@14.2.0-canary.19)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)(webpack@5.90.3):
     resolution: {integrity: sha512-9kxfVDuBCOWFkZEBzBrB7amv0tcXmbaZvO7XgxzmXsOf2DPdE8Pjzq1dh8RU9++BJaZsGCiSy7TcSMNZ7T4zmA==}
     peerDependencies:
       next: '>=14.0.0'
     dependencies:
       '@babel/plugin-proposal-decorators': 7.24.0(@babel/core@7.24.0)
-      '@nrwl/next': 18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(next@14.2.0-canary.19)(nx@18.1.0-beta.9)(typescript@5.4.2)(webpack@5.90.3)
-      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-beta.9)
-      '@nx/eslint': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)
-      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
-      '@nx/react': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
-      '@nx/web': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
-      '@nx/webpack': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(nx@18.1.0-beta.9)(typescript@5.4.2)
+      '@nrwl/next': 18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(next@14.2.0-canary.19)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)(webpack@5.90.3)
+      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-canary.20240313-81df848)
+      '@nx/eslint': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)
+      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
+      '@nx/react': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
+      '@nx/web': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
+      '@nx/webpack': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
       '@nx/workspace': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)
       '@svgr/webpack': 8.1.0(typescript@5.4.2)
       chalk: 4.1.2
@@ -5027,27 +4999,10 @@ packages:
       - webpack-cli
     dev: true
 
-  /@nx/nx-darwin-arm64@18.1.0-beta.9:
-    resolution: {integrity: sha512-8KJ5gT6r+KuWb+9WdHGAYVinpNeGLWrMTMYC+EEqPMP04p6CbFHvxmgkXm2l73Ebt5mIeUwO/RIA3EGiqkyP3A==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [darwin]
-    requiresBuild: true
-    optional: true
-
   /@nx/nx-darwin-arm64@18.1.0-canary.20240313-81df848:
     resolution: {integrity: sha512-aXSrUJ/xh4BoXiNxRw8GYll3MtzleWySCgE85vkquu2JmThfFtX+1xXV3SWwptsE5T158gMpKl5y0Gg1pcXclg==}
     engines: {node: '>= 10'}
     cpu: [arm64]
-    os: [darwin]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@nx/nx-darwin-x64@18.1.0-beta.9:
-    resolution: {integrity: sha512-dKtQheGf91dLQEdy0eaeT55ZKtfxEsREEp8BE7moJDHKsVzdzkrPXcjyRjqeWOBnkRiyud37swDs0rLDRbAIig==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
     os: [darwin]
     requiresBuild: true
     optional: true
@@ -5058,15 +5013,6 @@ packages:
     cpu: [x64]
     os: [darwin]
     requiresBuild: true
-    dev: true
-    optional: true
-
-  /@nx/nx-freebsd-x64@18.1.0-beta.9:
-    resolution: {integrity: sha512-M7F6iMkT8iEKNEwr2UoLALZvidRYMbfPFc1A9YoKpk0YeoR3BcIyBoeJz0Mr3XplQnFaCauwzsZeGovcTUwZGA==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [freebsd]
-    requiresBuild: true
     optional: true
 
   /@nx/nx-freebsd-x64@18.1.0-canary.20240313-81df848:
@@ -5074,15 +5020,6 @@ packages:
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [freebsd]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@nx/nx-linux-arm-gnueabihf@18.1.0-beta.9:
-    resolution: {integrity: sha512-2ax8kJCRLSjKUmzgnfxCSypE9q1oGJHCRpWC9UY4Xx95XVVVejIPRgZMfabpSeWP5avBVeFMmagrC4eCKPmA/g==}
-    engines: {node: '>= 10'}
-    cpu: [arm]
-    os: [linux]
     requiresBuild: true
     optional: true
 
@@ -5092,28 +5029,10 @@ packages:
     cpu: [arm]
     os: [linux]
     requiresBuild: true
-    dev: true
-    optional: true
-
-  /@nx/nx-linux-arm64-gnu@18.1.0-beta.9:
-    resolution: {integrity: sha512-vehDpmthgUv7whr4dV2OTKzJv/9oG8ke4nNwgfz9KWr20f9dixTutShDQH0K5727dJ1vui7QktSj3ezKhy52Eg==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [linux]
-    requiresBuild: true
     optional: true
 
   /@nx/nx-linux-arm64-gnu@18.1.0-canary.20240313-81df848:
     resolution: {integrity: sha512-+7qhSzJgYGjiV1xysbQAmdiVKuKD5cdrVNx1UZxAeqUEk39oIH460RJsooyY3QUVbV4D2SW7lPwT6GjCzja4sA==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@nx/nx-linux-arm64-musl@18.1.0-beta.9:
-    resolution: {integrity: sha512-iqSFJfId3beW8iEgwIxJSmrKcC2vutvEfN3XOii5JPVxLS0RvI3jMNXQUfBUKueEHQ9fniNjOG5OPGBK6yK4pw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
     os: [linux]
@@ -5126,28 +5045,10 @@ packages:
     cpu: [arm64]
     os: [linux]
     requiresBuild: true
-    dev: true
-    optional: true
-
-  /@nx/nx-linux-x64-gnu@18.1.0-beta.9:
-    resolution: {integrity: sha512-BRhjf0wRW1q4lPGFsfhpqwAn+54AZhC01DEm2gihAAv7Bd82h1WDauTIA3247WFv0nh0qYB+0wkKdvWLzxvZfQ==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [linux]
-    requiresBuild: true
     optional: true
 
   /@nx/nx-linux-x64-gnu@18.1.0-canary.20240313-81df848:
     resolution: {integrity: sha512-tkB5SSElrMSs9wwt8PgYAfTqiY4apSfKPFFhleXD8L01PjB3nKWFf22FiL7+9qsdAOiLIMN28zjB//K7R8T8gQ==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
-    os: [linux]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@nx/nx-linux-x64-musl@18.1.0-beta.9:
-    resolution: {integrity: sha512-Q+fx0omyu+PtPZaU4twjpA1ZeDjH2NJudq6nMA0Yl+pYQRcNHeQ9F2RZkz2iJevCkbX0/qlbopJD78TtOWNJyQ==}
     engines: {node: '>= 10'}
     cpu: [x64]
     os: [linux]
@@ -5160,30 +5061,12 @@ packages:
     cpu: [x64]
     os: [linux]
     requiresBuild: true
-    dev: true
-    optional: true
-
-  /@nx/nx-win32-arm64-msvc@18.1.0-beta.9:
-    resolution: {integrity: sha512-WX96NUW6kCTMVNs/Be8ryhrX7K0aKflmC0XTQEfuu58J+8FbyDhwkAsi84F9W4tH+2blmDKbXwwsBecgtn79jw==}
-    engines: {node: '>= 10'}
-    cpu: [arm64]
-    os: [win32]
-    requiresBuild: true
     optional: true
 
   /@nx/nx-win32-arm64-msvc@18.1.0-canary.20240313-81df848:
     resolution: {integrity: sha512-hGnQNfmMIwd4Y08jCGC03zbzkHMHJGRgNH2lsSVj9mH8aPI/n8IXCZefd5QQjNe5xEpFa2Cy90mySDWEuFfcLw==}
     engines: {node: '>= 10'}
     cpu: [arm64]
-    os: [win32]
-    requiresBuild: true
-    dev: true
-    optional: true
-
-  /@nx/nx-win32-x64-msvc@18.1.0-beta.9:
-    resolution: {integrity: sha512-OPtPgaWPa4NMmfd986zSo3IznoCbyOTtZ8x/BHvpAvgtutPNv67x5EUy5g+FQf+Ojsf2lgkN3JfClWvrakJsUg==}
-    engines: {node: '>= 10'}
-    cpu: [x64]
     os: [win32]
     requiresBuild: true
     optional: true
@@ -5194,17 +5077,16 @@ packages:
     cpu: [x64]
     os: [win32]
     requiresBuild: true
-    dev: true
     optional: true
 
-  /@nx/react@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2):
+  /@nx/react@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2):
     resolution: {integrity: sha512-pjNnlcCy6z543h8wUAzYBMOF/v5nbCYQX4cUAuVYBRZTSgVWE5fM6RenM0nn7JWyLQwk+I3QuSXrUeGsMfrFaQ==}
     dependencies:
-      '@nrwl/react': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
-      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-beta.9)
-      '@nx/eslint': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)
-      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
-      '@nx/web': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
+      '@nrwl/react': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
+      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-canary.20240313-81df848)
+      '@nx/eslint': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)
+      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
+      '@nx/web': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
       '@phenomnomnominal/tsquery': 5.0.1(typescript@5.4.2)
       '@svgr/webpack': 8.1.0(typescript@5.4.2)
       chalk: 4.1.2
@@ -5224,12 +5106,12 @@ packages:
       - verdaccio
     dev: true
 
-  /@nx/rollup@18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2):
+  /@nx/rollup@18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2):
     resolution: {integrity: sha512-pnUe41pXgCzZ71uSM7ibm54zNUDEw5nf6giWoVMtlhqk1GQVM6V0OuCji/cmkIgLSvHdqqI3eQ5IJjf1oglxpw==}
     dependencies:
-      '@nrwl/rollup': 18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
-      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-beta.9)
-      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
+      '@nrwl/rollup': 18.1.0-canary.20240313-81df848(@babel/core@7.24.0)(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
+      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-canary.20240313-81df848)
+      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
       '@rollup/plugin-babel': 5.3.1(@babel/core@7.24.0)(rollup@2.79.1)
       '@rollup/plugin-commonjs': 20.0.0(rollup@2.79.1)
       '@rollup/plugin-image': 2.1.1(rollup@2.79.1)
@@ -5262,12 +5144,12 @@ packages:
       - verdaccio
     dev: true
 
-  /@nx/web@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2):
+  /@nx/web@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2):
     resolution: {integrity: sha512-/9Y/2TOv97J4yWg/aWUs3JWK52cUT9CHtgkdqWkgmpXjHFJlmVnfqAo48ojiZAkPEjXEVZg+XEMC9ac1DZjLWQ==}
     dependencies:
-      '@nrwl/web': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
-      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-beta.9)
-      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
+      '@nrwl/web': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
+      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-canary.20240313-81df848)
+      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
       chalk: 4.1.2
       detect-port: 1.5.1
       http-server: 14.1.1
@@ -5285,13 +5167,13 @@ packages:
       - verdaccio
     dev: true
 
-  /@nx/webpack@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(nx@18.1.0-beta.9)(typescript@5.4.2):
+  /@nx/webpack@18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2):
     resolution: {integrity: sha512-lM2UmAmn4rqD94jnODzZ+8BHZoVKoFCbpT5q1GCq3z1Oo1n4HiDRgLLDlRaQzH5H7WG0GUg4oIgMU1XKhnD13Q==}
     dependencies:
       '@babel/core': 7.24.0
-      '@nrwl/webpack': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(nx@18.1.0-beta.9)(typescript@5.4.2)
-      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-beta.9)
-      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-beta.9)(typescript@5.4.2)
+      '@nrwl/webpack': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(esbuild@0.20.1)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
+      '@nx/devkit': 18.1.0-canary.20240313-81df848(nx@18.1.0-canary.20240313-81df848)
+      '@nx/js': 18.1.0-canary.20240313-81df848(@swc/core@1.4.7)(@types/node@20.11.26)(nx@18.1.0-canary.20240313-81df848)(typescript@5.4.2)
       ajv: 8.12.0
       autoprefixer: 10.4.18(postcss@8.4.35)
       babel-loader: 9.1.3(@babel/core@7.24.0)(webpack@5.90.3)
@@ -17104,68 +16986,6 @@ packages:
       - debug
     dev: false
 
-  /nx@18.1.0-beta.9(@swc/core@1.4.7):
-    resolution: {integrity: sha512-SwicygKHVVvltXKqsiUDV3df9yYwwz1qBQVFxEKI0Q9i1MnC/kOvAosl8/vlrnDPhbDsuoMP6tJvDVBqw2Hz7w==}
-    hasBin: true
-    requiresBuild: true
-    peerDependencies:
-      '@swc-node/register': ^1.8.0
-      '@swc/core': ^1.3.85
-    peerDependenciesMeta:
-      '@swc-node/register':
-        optional: true
-      '@swc/core':
-        optional: true
-    dependencies:
-      '@nrwl/tao': 18.1.0-beta.9(@swc/core@1.4.7)
-      '@swc/core': 1.4.7
-      '@yarnpkg/lockfile': 1.1.0
-      '@yarnpkg/parsers': 3.0.0-rc.46
-      '@zkochan/js-yaml': 0.0.6
-      axios: 1.6.7
-      chalk: 4.1.2
-      cli-cursor: 3.1.0
-      cli-spinners: 2.6.1
-      cliui: 8.0.1
-      dotenv: 16.3.2
-      dotenv-expand: 10.0.0
-      enquirer: 2.3.6
-      figures: 3.2.0
-      flat: 5.0.2
-      fs-extra: 11.2.0
-      ignore: 5.3.1
-      jest-diff: 29.7.0
-      js-yaml: 4.1.0
-      jsonc-parser: 3.2.0
-      lines-and-columns: 2.0.4
-      minimatch: 9.0.3
-      node-machine-id: 1.1.12
-      npm-run-path: 4.0.1
-      open: 8.4.2
-      ora: 5.3.0
-      semver: 7.6.0
-      string-width: 4.2.3
-      strong-log-transformer: 2.1.0
-      tar-stream: 2.2.0
-      tmp: 0.2.3
-      tsconfig-paths: 4.2.0
-      tslib: 2.6.2
-      yargs: 17.7.2
-      yargs-parser: 21.1.1
-    optionalDependencies:
-      '@nx/nx-darwin-arm64': 18.1.0-beta.9
-      '@nx/nx-darwin-x64': 18.1.0-beta.9
-      '@nx/nx-freebsd-x64': 18.1.0-beta.9
-      '@nx/nx-linux-arm-gnueabihf': 18.1.0-beta.9
-      '@nx/nx-linux-arm64-gnu': 18.1.0-beta.9
-      '@nx/nx-linux-arm64-musl': 18.1.0-beta.9
-      '@nx/nx-linux-x64-gnu': 18.1.0-beta.9
-      '@nx/nx-linux-x64-musl': 18.1.0-beta.9
-      '@nx/nx-win32-arm64-msvc': 18.1.0-beta.9
-      '@nx/nx-win32-x64-msvc': 18.1.0-beta.9
-    transitivePeerDependencies:
-      - debug
-
   /nx@18.1.0-canary.20240313-81df848(@swc/core@1.4.7):
     resolution: {integrity: sha512-ufYfiLmYK99NYPCBaZFB4K9mMJDJYiJhZj1q3Bab8RPkKLQh902zCVgFjPmdnP8bcTOBqEz9Cw5nCMnUI7kUag==}
     hasBin: true
@@ -17227,7 +17047,6 @@ packages:
       '@nx/nx-win32-x64-msvc': 18.1.0-canary.20240313-81df848
     transitivePeerDependencies:
       - debug
-    dev: true
 
   /nypm@0.3.8:
     resolution: {integrity: sha512-IGWlC6So2xv6V4cIDmoV0SwwWx7zLG086gyqkyumteH2fIgCAM4nDVFB2iDRszDvmdSVW9xb1N+2KjQ6C7d4og==}
