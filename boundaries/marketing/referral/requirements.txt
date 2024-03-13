@@ -7,7 +7,7 @@ quart
 sqlalchemy
 python-dotenv
 hypercorn
-setuptools>=69.1.1 # not directly required, pinned by Snyk to avoid a vulnerability
+setuptools>=69.2.0 # not directly required, pinned by Snyk to avoid a vulnerability
 
 # Opentelemetry
 pyroscope-io==0.8.5
