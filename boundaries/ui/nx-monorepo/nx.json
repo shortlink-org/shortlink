@@ -34,19 +34,5 @@
       }
     ]
   },
-  "projects": {
-    "@shortlink-org/ui-kit": {
-      "architect": {
-        "build": {
-          "builder": "@nx/react/plugins/bundle-rollup",
-          "options": {
-            "configuration": "production"
-          }
-        },
-        "build-storybook": {
-          "builder": "@nx/storybook:build-storybook"
-        }
-      }
-    }
-  }
+  "projects": {}
 }

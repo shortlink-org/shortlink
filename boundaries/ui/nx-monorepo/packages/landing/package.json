@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "pnpm dlx next dev -p 3001",
-    "build": "NODE_ENV=production pnpm next build",
+    "build": "NODE_ENV=production pnpm dlx next@canary build",
     "start": "pnpm dlx next start",
     "lint": "pnpm dlx eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
     "lint:fix": "pnpm run lint --fix",
@@ -20,11 +20,11 @@
     "@mui/icons-material": "^5.15.12",
     "@mui/material": "^5.15.12",
     "@mui/material-nextjs": "^5.15.11",
-    "@shortlink-org/ui-kit": "workspace:^",
+    "@shortlink-org/ui-kit": "*",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.10",
-    "eslint-config-shortlink": "workspace:^",
+    "eslint-config-shortlink": "*",
     "postcss-preset-env": "^9.5.0",
     "typescript": "^5.4.2"
   },
