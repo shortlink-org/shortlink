@@ -190,3 +190,8 @@ updates:
     directory: /boundaries/extension/chrome-extension
     schedule:
       interval: daily
+
+  - package-ecosystem: pip
+    directory: /boundaries/shop/admin
+    schedule:
+      interval: daily
