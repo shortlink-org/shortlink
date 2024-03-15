@@ -52,7 +52,7 @@ importers:
         version: 6.0.0-alpha.126(@emotion/react@11.11.4)(@emotion/styled@11.11.0)(@types/react@18.2.66)(react-dom@18.2.0)(react@18.2.0)
       '@mui/x-date-pickers':
         specifier: ^6.19.7
-        version: 6.19.7(@emotion/react@11.11.4)(@emotion/styled@11.11.0)(@mui/material@5.15.13)(@mui/system@5.15.13)(@types/react@18.2.66)(date-fns@3.4.0)(react-dom@18.2.0)(react@18.2.0)
+        version: 6.19.7(@emotion/react@11.11.4)(@emotion/styled@11.11.0)(@mui/material@5.15.13)(@mui/system@5.15.13)(@types/react@18.2.66)(date-fns@3.5.0)(react-dom@18.2.0)(react@18.2.0)
       '@next/env':
         specifier: 14.2.0-canary.23
         version: 14.2.0-canary.23
@@ -81,8 +81,8 @@ importers:
         specifier: ^1.6.7
         version: 1.6.7
       date-fns:
-        specifier: ^3.4.0
-        version: 3.4.0
+        specifier: ^3.5.0
+        version: 3.5.0
       eslint-formatter-gitlab:
         specifier: ^5.1.0
         version: 5.1.0(eslint@8.57.0)
@@ -340,8 +340,8 @@ importers:
         specifier: ^1.4.6
         version: 1.4.6
       date-fns:
-        specifier: ^3.4.0
-        version: 3.4.0
+        specifier: ^3.5.0
+        version: 3.5.0
       eslint-config-shortlink:
         specifier: '*'
         version: link:../eslint/eslint-config-shortlink
@@ -4402,7 +4402,7 @@ packages:
       react: 18.2.0
       react-is: 18.2.0
 
-  /@mui/x-date-pickers@6.19.7(@emotion/react@11.11.4)(@emotion/styled@11.11.0)(@mui/material@5.15.13)(@mui/system@5.15.13)(@types/react@18.2.66)(date-fns@3.4.0)(react-dom@18.2.0)(react@18.2.0):
+  /@mui/x-date-pickers@6.19.7(@emotion/react@11.11.4)(@emotion/styled@11.11.0)(@mui/material@5.15.13)(@mui/system@5.15.13)(@types/react@18.2.66)(date-fns@3.5.0)(react-dom@18.2.0)(react@18.2.0):
     resolution: {integrity: sha512-BCTOQjAuyU29Ymd2FJrHHdRh0U6Qve7MsthdrD2jjaMaR8ou455JuxsNTQUGSpiMkGHWOMVq+B8N1EBcSYH63g==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -4448,7 +4448,7 @@ packages:
       '@mui/utils': 5.15.13(@types/react@18.2.66)(react@18.2.0)
       '@types/react-transition-group': 4.4.10
       clsx: 2.1.0
-      date-fns: 3.4.0
+      date-fns: 3.5.0
       prop-types: 15.8.1
       react: 18.2.0
       react-dom: 18.2.0(react@18.2.0)
@@ -11387,8 +11387,8 @@ packages:
     dependencies:
       assert-plus: 1.0.0
 
-  /date-fns@3.4.0:
-    resolution: {integrity: sha512-Akz4R8J9MXBsOgF1QeWeCsbv6pntT5KCPjU0Q9prBxVmWJYPLhwAIsNg3b0QAdr0ttiozYLD3L/af7Ra0jqYXw==}
+  /date-fns@3.5.0:
+    resolution: {integrity: sha512-a+DwyXn7NOfdJireCzAA0B9p7jIXEu/Q9JKCyMYvH6+0vPUNbQceA0neXrdfJ/xzl3mhOh5vibQQ3936Tssm6A==}
     dev: false
 
   /dayjs@1.11.10:
@@ -15991,7 +15991,7 @@ packages:
       '@emotion/styled': 11.11.0(@emotion/react@11.11.4)(@types/react@18.2.66)(react@18.2.0)
       '@mui/icons-material': 5.15.13(@mui/material@5.15.13)(@types/react@18.2.66)(react@18.2.0)
       '@mui/material': 5.15.13(@emotion/react@11.11.4)(@emotion/styled@11.11.0)(@types/react@18.2.66)(react-dom@18.2.0)(react@18.2.0)
-      '@mui/x-date-pickers': 6.19.7(@emotion/react@11.11.4)(@emotion/styled@11.11.0)(@mui/material@5.15.13)(@mui/system@5.15.13)(@types/react@18.2.66)(date-fns@3.4.0)(react-dom@18.2.0)(react@18.2.0)
+      '@mui/x-date-pickers': 6.19.7(@emotion/react@11.11.4)(@emotion/styled@11.11.0)(@mui/material@5.15.13)(@mui/system@5.15.13)(@types/react@18.2.66)(date-fns@3.5.0)(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/match-sorter-utils': 8.11.8
       '@tanstack/react-table': 8.13.2(react-dom@18.2.0)(react@18.2.0)
       '@tanstack/react-virtual': 3.1.3(react-dom@18.2.0)(react@18.2.0)
