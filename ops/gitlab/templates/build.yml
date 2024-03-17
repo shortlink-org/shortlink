@@ -44,6 +44,11 @@
       --provenance=true
       --sbom=true
       --build-arg APP_ENV=ci
+      --build-arg CI_COMMIT_TAG=$CI_COMMIT_TAG
+      --build-arg CI_COMMIT_SHA=$CI_COMMIT_SHA
+      --build-arg CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME
+      --build-arg CI_PIPELINE_ID=$CI_PIPELINE_ID
+      --build-arg CI_PIPELINE_URL=$CI_PIPELINE_URL
       --push $CMD_PATH $DOCKERFILE_ARGS
       -t ${REGISTRY_IMAGE}:latest
       -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}

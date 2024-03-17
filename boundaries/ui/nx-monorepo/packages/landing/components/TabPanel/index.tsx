@@ -12,22 +12,11 @@ interface TabPanelProps {
 function TabPanel(props: TabPanelProps) {
   const { children, value, index, ...other } = props
 
-  return (
-    <Box
-      role="tabpanel"
-      hidden={value !== index}
-      id={`full-width-tabpanel-${index}`}
-      key={`full-width-tabpanel-${index}`}
-      aria-labelledby={`full-width-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography component="div">{children}</Typography>
-        </Box>
-      )}
-    </Box>
-  )
+  if (value === index) {
+    return <div className="w-4xl m-auto">{children}</div>
+  }
+
+  return null
 }
 
 export default TabPanel

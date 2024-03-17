@@ -30,7 +30,12 @@ const nextConfig = {
   env: {
     // ShortLink API
     NEXT_PUBLIC_SERVICE_NAME: 'shortlink-landing',
-    NEXT_PUBLIC_GIT_TAG: process.env.CI_COMMIT_TAG,
+
+    // Build info
+    NEXT_PUBLIC_GIT_TAG:
+      process.env.CI_COMMIT_TAG || process.env.CI_COMMIT_REF_NAME || 'local',
+    NEXT_PUBLIC_PIPELINE_ID: process.env.CI_PIPELINE_ID || 'local',
+    NEXT_PUBLIC_CI_PIPELINE_URL: process.env.CI_PIPELINE_URL || '#',
 
     // Sentry
     NEXT_PUBLIC_SENTRY_DSN: process.env.SENTRY_DSN,

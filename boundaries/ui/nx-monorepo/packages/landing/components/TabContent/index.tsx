@@ -17,15 +17,11 @@ const TabContent: React.FC<TabContentProps> = ({ title, cards }) => {
   const theme = useTheme()
 
   return (
-    <div className="my-5">
-      <Typography
-        variant="h2"
-        align="center"
-        // @ts-ignore
-        color={theme.palette.mode === 'dark' ? 'primary' : 'inherit'}
-      >
+    <div className="my-5 max-w-4xl">
+      <h2 className="prose text-center my-5 dark:text-white">
         {title}
-      </Typography>
+      </h2>
+
       <Stack
         spacing={{ xs: 1, sm: 1, md: 2 }}
         direction={{ xs: 'column', sm: 'row' }}

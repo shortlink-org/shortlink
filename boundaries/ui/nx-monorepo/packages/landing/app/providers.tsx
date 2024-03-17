@@ -43,8 +43,8 @@ export function Providers({ children, ...props }) {
 
   return (
     <AppRouterCacheProvider options={{ key: 'css' }}>
-      <CssVarsProvider theme={theme} defaultMode="light">
-        <NextThemeProvider enableSystem attribute="class" defaultTheme="light">
+      <CssVarsProvider theme={theme} defaultMode="dark">
+        <NextThemeProvider enableSystem attribute="class" defaultTheme="dark">
           <Script
             id={DEFAULT_SCRIPT_ID}
             src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`}
@@ -52,7 +52,7 @@ export function Providers({ children, ...props }) {
           />
           {getInitColorSchemeScript()}
 
-          <div className="text-black dark:bg-gray-800 dark:text-white">
+          <div className="flex m-auto text-black dark:bg-gray-800 dark:text-white flex-col">
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
             <CssBaseline />
 
