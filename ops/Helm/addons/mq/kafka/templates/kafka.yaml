@@ -24,8 +24,6 @@ spec:
   kafka:
     version: 3.7.0
     metadataVersion: 3.7-IV4
-    # The replicas field is required by the Kafka CRD schema while the KafkaNodePools feature gate is in alpha phase.
-    # But it will be ignored when Kafka Node Pools are used
     replicas: 3
     listeners:
       - name: plain
@@ -45,8 +43,6 @@ spec:
       default.replication.factor: 3
       min.insync.replicas: 2
       inter.broker.protocol.version: "3.7"
-    # The storage field is required by the Kafka CRD schema while the KafkaNodePools feature gate is in alpha phase.
-    # But it will be ignored when Kafka Node Pools are used
     storage:
       type: ephemeral
     resources:
@@ -62,13 +58,6 @@ spec:
     #    configMapKeyRef:
     #      name: kafka-metrics
     #      key: kafka-metrics-config.yml
-  # The storage field is required by the Kafka CRD schema while the KafkaNodePools feature gate is in alpha phase.
-  # But it will be ignored when Kafka Node Pools are used
-  # TODO: drop after full support for Kafka Node Pools
-  # zookeeper:
-  #   replicas: 3
-  #   storage:
-  #     type: ephemeral
   entityOperator:
     topicOperator: {}
     userOperator: {}
