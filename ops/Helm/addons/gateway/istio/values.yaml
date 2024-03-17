@@ -47,6 +47,3 @@ istiod:
       prometheus:
         enabled: true
         wasmEnabled: true
-        configOverride:
-          scrapeInterval: 15s
-          scrapeTimeout: 10s
