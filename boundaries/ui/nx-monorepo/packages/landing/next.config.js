@@ -31,9 +31,12 @@ const nextConfig = {
     // ShortLink API
     NEXT_PUBLIC_SERVICE_NAME: 'shortlink-landing',
 
+    // Captcha
+    NEXT_PUBLIC_CLOUDFLARE_SITE_KEY: process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY,
+    NEXT_PUBLIC_GOOGLE_ANALYTICS_ID: process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS_ID,
+
     // Build info
-    NEXT_PUBLIC_GIT_TAG:
-      process.env.CI_COMMIT_TAG || process.env.CI_COMMIT_REF_NAME || 'local',
+    NEXT_PUBLIC_GIT_TAG: process.env.CI_COMMIT_TAG || process.env.CI_COMMIT_REF_NAME || 'local',
     NEXT_PUBLIC_PIPELINE_ID: process.env.CI_PIPELINE_ID || 'local',
     NEXT_PUBLIC_CI_PIPELINE_URL: process.env.CI_PIPELINE_URL || '#',
 
@@ -77,17 +80,6 @@ const nextConfig = {
     webVitalsAttribution: ['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'],
     turbo: {},
     // typedRoutes: true,
-    // for Vercel deployment
-    useDeploymentId: true,
-    useDeploymentIdServerActions: true,
-    modularizeImports: {
-      '@mui/material': {
-        transform: '@mui/material/{{member}}',
-      },
-      '@mui/icons-material': {
-        transform: '@mui/icons-material/{{member}}',
-      },
-    },
   },
 }
 

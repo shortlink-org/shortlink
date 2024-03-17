@@ -36,12 +36,7 @@ const Home = () => {
       <ToggleDarkMode id="ToggleDarkMode" />
 
       <div className="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl min-h-60">
-        <AppBar
-          position="static"
-          id="menu"
-          color={appBarColor}
-          className="mt-[10em] md:mt-0"
-        >
+        <AppBar position="static" id="menu" color={appBarColor} className="mt-[10em] md:mt-0">
           <Tabs
             value={value}
             onChange={handleChange}

@@ -5,6 +5,7 @@ declare global {
     interface ProcessEnv {
       NEXT_PUBLIC_PIPELINE_ID: string
       NEXT_PUBLIC_CI_PIPELINE_URL: string
+      NEXT_PUBLIC_CLOUDFLARE_SITE_KEY: string
     }
   }
 }

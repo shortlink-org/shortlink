@@ -5,10 +5,7 @@ module.exports = {
   mode: 'jit',
   darkMode: 'selector',
   content: {
-    files: [
-      './app/**/*.{js,ts,jsx,tsx,mdx}',
-      './components/**/*.{js,ts,jsx,tsx}',
-    ],
+    files: ['./app/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx}'],
     options: {
       safelist: ['dark'], // specific classes
     },

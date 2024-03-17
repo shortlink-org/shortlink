@@ -69,22 +69,10 @@ const jsonLd: WithContext<Organization> = {
   description: 'ShortLink service',
 }
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${robotoMono.className} font-sans`}
-      suppressHydrationWarning
-    >
-      <Script
-        id="json-ld"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <html lang="en" className={`${robotoMono.className} font-sans`} suppressHydrationWarning>
+      <Script id="json-ld" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <body>
         <Providers>{children}</Providers>

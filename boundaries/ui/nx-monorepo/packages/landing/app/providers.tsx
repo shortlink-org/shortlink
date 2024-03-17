@@ -1,17 +1,10 @@
 'use client'
 
-import {
-  DEFAULT_ONLOAD_NAME,
-  DEFAULT_SCRIPT_ID,
-  SCRIPT_URL,
-} from '@marsidev/react-turnstile'
+import { DEFAULT_ONLOAD_NAME, DEFAULT_SCRIPT_ID, SCRIPT_URL } from '@marsidev/react-turnstile'
 import { Turnstile } from '@marsidev/react-turnstile'
 import CssBaseline from '@mui/material/CssBaseline'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
-import {
-  Experimental_CssVarsProvider as CssVarsProvider,
-  getInitColorSchemeScript,
-} from '@mui/material/styles'
+import { Experimental_CssVarsProvider as CssVarsProvider, getInitColorSchemeScript } from '@mui/material/styles'
 import { theme } from '@shortlink-org/ui-kit/src/theme/theme'
 import Script from 'next/script'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
@@ -37,19 +30,13 @@ import React, { useState } from 'react'
 
 // @ts-ignore
 export function Providers({ children, ...props }) {
-  const CLOUDFLARE_SITE_KEY = process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY
-
   const [isCaptcha, setIsCaptcha] = useState(false)
 
   return (
     <AppRouterCacheProvider options={{ key: 'css' }}>
       <CssVarsProvider theme={theme} defaultMode="dark">
         <NextThemeProvider enableSystem attribute="class" defaultTheme="dark">
-          <Script
-            id={DEFAULT_SCRIPT_ID}
-            src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`}
-            strategy="afterInteractive"
-          />
+          <Script id={DEFAULT_SCRIPT_ID} src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`} strategy="afterInteractive" />
           {getInitColorSchemeScript()}
 
           <div className="flex m-auto text-black dark:bg-gray-800 dark:text-white flex-col">
@@ -59,8 +46,7 @@ export function Providers({ children, ...props }) {
             {isCaptcha && children}
 
             <Turnstile
-              // @ts-ignore
-              siteKey={CLOUDFLARE_SITE_KEY}
+              siteKey={process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY}
               injectScript={false}
               className="captcha"
               onSuccess={() => setIsCaptcha(true)}
