@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useRef, Suspense } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
 import {
@@ -48,7 +48,7 @@ function Providers({ children, ...props }) {
   }
 
   return (
-    <AppRouterCacheProvider options={{ key: 'css', enableCssLayer: true }}>
+    <AppRouterCacheProvider options={{ key: 'css' }}>
       <CssVarsProvider theme={theme} defaultMode="light">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
           <NextThemeProvider
@@ -64,7 +64,9 @@ function Providers({ children, ...props }) {
                 <CssBaseline />
 
                 <BalancerProvider>
-                  <Provider store={storeRef.current}>{children}</Provider>
+                  <Suspense fallback={<div>Loading...</div>}>
+                    <Provider store={storeRef.current}>{children}</Provider>
+                  </Suspense>
                 </BalancerProvider>
               </div>
             </Layout>

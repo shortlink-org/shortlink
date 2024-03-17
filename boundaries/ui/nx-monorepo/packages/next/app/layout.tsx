@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { Metadata, Viewport } from 'next'
 // eslint-disable-next-line camelcase
 import { Roboto_Mono } from 'next/font/google'

@@ -42,7 +42,7 @@ export function Providers({ children, ...props }) {
   const [isCaptcha, setIsCaptcha] = useState(false)
 
   return (
-    <AppRouterCacheProvider options={{ key: 'css', enableCssLayer: true }}>
+    <AppRouterCacheProvider options={{ key: 'css' }}>
       <CssVarsProvider theme={theme} defaultMode="light">
         <NextThemeProvider enableSystem attribute="class" defaultTheme="light">
           <Script
