@@ -22,7 +22,6 @@ ui:landing:
     # run Cypress tests
     - pnpm dlx nx run landing:cypress:headless
   allow_failure: true
-  retry: 2
   artifacts:
     when: always
     name: "cypress-${CI_COMMIT_REF_SLUG}"
