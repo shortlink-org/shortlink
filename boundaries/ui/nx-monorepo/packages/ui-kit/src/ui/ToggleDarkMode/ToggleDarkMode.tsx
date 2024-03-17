@@ -34,7 +34,7 @@ export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({
   }
 
   const labelText =
-    mode === 'light' ? 'Switch to light mode' : 'Switch to dark mode'
+    mode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'
 
   return (
     <div id={id} className="toggleWrapper">
