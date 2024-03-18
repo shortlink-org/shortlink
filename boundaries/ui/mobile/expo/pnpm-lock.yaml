@@ -119,8 +119,8 @@ devDependencies:
     specifier: ^20.19.3
     version: 20.19.3(jest-environment-jsdom@29.7.0)(jest@29.7.0)
   eas-cli:
-    specifier: ^7.5.0
-    version: 7.5.0(@types/node@20.11.28)(expo-modules-autolinking@1.10.3)(typescript@5.4.2)
+    specifier: ^7.6.0
+    version: 7.6.0(@types/node@20.11.28)(expo-modules-autolinking@1.10.3)(typescript@5.4.2)
   eslint:
     specifier: ^8.57.0
     version: 8.57.0
@@ -1664,8 +1664,8 @@ packages:
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
     dev: true
 
-  /@expo/apple-utils@1.5.0:
-    resolution: {integrity: sha512-4IxSx4KlS9AughFvUOVC6d22y0fXtLpzDvlqxoPX+wf3ZCxtpg/dbVbitxU7Pcpj+hLIBm6xg2gAmK8asOMqjg==}
+  /@expo/apple-utils@1.7.0:
+    resolution: {integrity: sha512-RVzZTiOeuNT04fE5V4f536XmIyxbRFOJ3m/rE6kImbIZ65upOS7xdIQpihEdYOiHB5uZAcD3JClUEsMfFhTv4w==}
     hasBin: true
     dev: true
 
@@ -2141,8 +2141,8 @@ packages:
     dependencies:
       cross-spawn: 7.0.3
 
-  /@expo/steps@1.0.83:
-    resolution: {integrity: sha512-00ZpxMMr67lhhuDNOF//tgOlfH0dm/PeCGt4XzlLqRjpl84DX56Mdc8EL+OKlFFSBfdSd/MQwQmP/7LcrevOSA==}
+  /@expo/steps@1.0.85:
+    resolution: {integrity: sha512-l0W2YfC8uNUICfkFrnsLdhAwQhnkSlj2JB5OpYoHTI1vI6D3hrVkXlDgz+DDruI7ZoYyJkiBVU3opQ5uIZDjhg==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@expo/eas-build-job': 1.0.83
@@ -6913,12 +6913,12 @@ packages:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
     dev: true
 
-  /eas-cli@7.5.0(@types/node@20.11.28)(expo-modules-autolinking@1.10.3)(typescript@5.4.2):
-    resolution: {integrity: sha512-GA1kK0fPKMJ2r1y0CCJjMLObzvynEpg0T0CZi+vKxmQnqGueSAeQ8AuhE2NkQBN8HDJiJgQKQ86rn27y/VjOvQ==}
+  /eas-cli@7.6.0(@types/node@20.11.28)(expo-modules-autolinking@1.10.3)(typescript@5.4.2):
+    resolution: {integrity: sha512-Czizaa4bUl4VQC8dQEVFKGfNAguKZBEsUL8Sy4Wgn2uojPQbpB8kp1rTAGf0fgGTJ2GZquf7dpjwXtfKrKqpDw==}
     engines: {node: '>=16.0.0'}
     hasBin: true
     dependencies:
-      '@expo/apple-utils': 1.5.0
+      '@expo/apple-utils': 1.7.0
       '@expo/code-signing-certificates': 0.0.5
       '@expo/config': 8.5.4
       '@expo/config-plugins': 7.8.4
@@ -6937,7 +6937,7 @@ packages:
       '@expo/results': 1.0.0
       '@expo/rudder-sdk-node': 1.1.1
       '@expo/spawn-async': 1.7.0
-      '@expo/steps': 1.0.83
+      '@expo/steps': 1.0.85
       '@expo/timeago.js': 1.0.0
       '@oclif/core': 1.26.2
       '@oclif/plugin-autocomplete': 2.3.10(@types/node@20.11.28)(typescript@5.4.2)
