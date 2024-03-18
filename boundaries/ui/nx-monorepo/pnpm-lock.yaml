@@ -461,8 +461,8 @@ importers:
   packages/ui-kit:
     dependencies:
       '@storybook/addon-styling-webpack':
-        specifier: ^1.0.0-next.1
-        version: 1.0.0-next.1(webpack@5.90.3)
+        specifier: ^1.0.0
+        version: 1.0.0(webpack@5.90.3)
       '@tailwindcss/aspect-ratio':
         specifier: 0.4.2
         version: 0.4.2(tailwindcss@4.0.0-alpha.9)
@@ -6389,8 +6389,8 @@ packages:
       ts-dedent: 2.2.0
     dev: true
 
-  /@storybook/addon-styling-webpack@1.0.0-next.1(webpack@5.90.3):
-    resolution: {integrity: sha512-EFkWbkDewoeedAyZ7yY0JSTLW648Tud4rxRL0Z6kd6wpFjzfU1nxxwJPV05qtUXUFXTHvMRmDgVippTMb0kjWA==}
+  /@storybook/addon-styling-webpack@1.0.0(webpack@5.90.3):
+    resolution: {integrity: sha512-jo1kzn7pi+NA+LZxrWoRvW6w7dXIKY/BjTG80XX2uU92lIKT+X1k/9vYk/0KPVK3Bsf4tO6ToAuqIRyOk7MHtg==}
     peerDependencies:
       webpack: ^5.0.0
     dependencies:
