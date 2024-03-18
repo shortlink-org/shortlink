@@ -29,3 +29,14 @@ flags:
   backend:
     paths:
       - internal/
+      - pkg/
+      - boundaries/
+
+  shortlink:
+    paths:
+      - boundaries/link
+
+  frontend:
+    paths:
+      - boundaries/ui
+
