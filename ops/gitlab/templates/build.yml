@@ -9,7 +9,7 @@
     COSIGN_YES: "true"  # Used by Cosign to skip confirmation prompts for non-destructive operations
     DOCKER_BUILDKIT: 1
     DOCKER_CONTENT_TRUST: 1
-    DOCKER_BUILDX_VERSION: v0.13.0
+    DOCKER_BUILDX_VERSION: v0.13.1
     BUILDX_GIT_LABELS: 1
   id_tokens:
     SIGSTORE_ID_TOKEN: # Used by Cosign to get certificate from Fulcio
