@@ -4,7 +4,7 @@ go 1.22.1
 
 require (
 	github.com/onsi/ginkgo/v2 v2.16.0
-	github.com/onsi/gomega v1.31.1
+	github.com/onsi/gomega v1.32.0
 	k8s.io/api v0.30.0-beta.0
 	k8s.io/apimachinery v0.30.0-beta.0
 	k8s.io/client-go v0.30.0-beta.0
