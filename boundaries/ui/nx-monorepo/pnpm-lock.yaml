@@ -573,8 +573,8 @@ importers:
         specifier: ^7.3.1
         version: 7.3.1(@typescript-eslint/parser@7.3.1)(eslint@8.57.0)(typescript@5.4.2)
       chromatic:
-        specifier: ^11.1.0
-        version: 11.1.0
+        specifier: ^11.1.1
+        version: 11.1.1
       css-loader:
         specifier: ^6.10.0
         version: 6.10.0(webpack@5.90.3)
@@ -2746,7 +2746,7 @@ packages:
     resolution: {integrity: sha512-We0knVd0x8M998jDOvNgesN+wqzvGuYA6Q8oNRAhGhTcIjd9AsPGEpPo9glqZb/wot9nioiz3bnFQH50M/FtXQ==}
     engines: {node: '>=16.0.0', yarn: '>=1.22.18'}
     dependencies:
-      chromatic: 11.1.0
+      chromatic: 11.1.1
       filesize: 10.1.0
       jsonfile: 6.1.0
       react-confetti: 6.1.0(react@18.2.0)
@@ -11022,8 +11022,8 @@ packages:
     resolution: {integrity: sha512-bIomtDF5KGpdogkLd9VspvFzk9KfpyyGlS8YFVZl7TGPBHL5snIOnxeshwVgPteQ9b4Eydl+pVbIyE1DcvCWgQ==}
     engines: {node: '>=10'}
 
-  /chromatic@11.1.0:
-    resolution: {integrity: sha512-0fGXzWqz7PTXmjYf+aSYB4jOUgDN/b8zkl6i8Syt+qGdhqqeW8Q1tHnHToC+eSuMxDLNVAVq28cMeYnRxL3MOA==}
+  /chromatic@11.1.1:
+    resolution: {integrity: sha512-wccDzwik2se0h6Fsr72M5xM8opbToZHa0PbybUieHfbjI1GoRROHoolLhwVARpBmCOUgRcrU0O0+6RL0sLGelQ==}
     hasBin: true
     peerDependencies:
       '@chromatic-com/cypress': ^0.*.* || ^1.0.0
