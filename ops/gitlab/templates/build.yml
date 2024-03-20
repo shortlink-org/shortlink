@@ -39,6 +39,10 @@
     # - IMAGE_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' ${REGISTRY_IMAGE}:${CI_COMMIT_TAG})
     # - cosign sign $IMAGE_DIGEST
   script:
+    # TODO: improve this code
+    - cp ${UI_ENV} .env.local
+    - cat .env.local
+    - ls
     - docker buildx build 
       --platform=linux/amd64,linux/arm64
       --provenance=true
@@ -49,9 +53,6 @@
       --build-arg CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME
       --build-arg CI_PIPELINE_ID=$CI_PIPELINE_ID
       --build-arg CI_PIPELINE_URL=$CI_PIPELINE_URL
-      --build-arg NEXT_PUBLIC_CLOUDFLARE_SITE_KEY=$NEXT_PUBLIC_CLOUDFLARE_SITE_KEY
-      --build-arg NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=$NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
-      --build-arg NX_CLOUD_ACCESS_TOKEN=$NX_CLOUD_ACCESS_TOKEN
       --push $CMD_PATH $DOCKERFILE_ARGS
       -t ${REGISTRY_IMAGE}:latest
       -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}

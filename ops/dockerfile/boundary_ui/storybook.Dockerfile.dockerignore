@@ -10,6 +10,7 @@ boundaries
 node_modules
 
 # Exclude
+!.env.local
 !boundaries/ui/nx-monorepo
 !ops/dockerfile/boundary_ui/conf/landing.local
 !ops/dockerfile/boundary_ui/conf/ui.local

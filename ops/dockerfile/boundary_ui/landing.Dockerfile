@@ -24,6 +24,7 @@ WORKDIR /app
 RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
 
 COPY ./boundaries/ui/nx-monorepo/ ./
+COPY .env.local .env.local
 
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm dlx nx run landing:build

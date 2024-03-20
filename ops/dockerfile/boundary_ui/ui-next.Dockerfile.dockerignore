@@ -11,6 +11,7 @@ boundaries
 node_modules
 
 # Exclude
+!.env.local
 !boundaries/ui/nx-monorepo
 !ops/dockerfile/boundary_ui/conf/nextjs.local
 !ops/docker-compose/gateway/nginx/conf
