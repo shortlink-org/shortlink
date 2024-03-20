@@ -5,7 +5,7 @@ go 1.22.1
 require (
 	github.com/IBM/sarama v1.43.0
 	github.com/Masterminds/squirrel v1.5.4
-	github.com/PuerkitoBio/goquery v1.8.2-0.20240114144559-b6c76443952e
+	github.com/PuerkitoBio/goquery v1.9.1
 	github.com/Unleash/unleash-client-go/v4 v4.1.0
 	github.com/XSAM/otelsql v0.29.0
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
@@ -102,7 +102,7 @@ require (
 	github.com/Microsoft/go-winio v0.6.1 // indirect
 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
 	github.com/ajg/form v1.5.1 // indirect
-	github.com/andybalholm/cascadia v1.3.1 // indirect
+	github.com/andybalholm/cascadia v1.3.2 // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
@@ -195,7 +195,8 @@ require (
 	github.com/montanaflynn/stats v0.0.0-20171201202039-1bf9dbcd8cbe // indirect
 	github.com/nats-io/nkeys v0.4.7 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
-	github.com/onsi/ginkgo/v2 v2.16.0 // indirect
+	github.com/onsi/ginkgo/v2 v2.17.0 // indirect
+	github.com/onsi/gomega v1.32.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.0-rc3 // indirect
 	github.com/opencontainers/runc v1.1.12 // indirect
