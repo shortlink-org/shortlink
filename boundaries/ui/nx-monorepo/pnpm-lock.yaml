@@ -72,8 +72,8 @@ importers:
         specifier: 4.0.0-alpha.9
         version: 4.0.0-alpha.9(postcss@8.4.37)
       '@vercel/otel':
-        specifier: ^1.6.1
-        version: 1.6.1(@opentelemetry/api-logs@0.46.0)(@opentelemetry/api@1.8.0)(@opentelemetry/instrumentation@0.46.0)(@opentelemetry/resources@1.22.0)(@opentelemetry/sdk-logs@0.46.0)(@opentelemetry/sdk-metrics@1.22.0)(@opentelemetry/sdk-trace-base@1.22.0)
+        specifier: ^1.6.2
+        version: 1.6.2(@opentelemetry/api-logs@0.46.0)(@opentelemetry/api@1.8.0)(@opentelemetry/instrumentation@0.46.0)(@opentelemetry/resources@1.22.0)(@opentelemetry/sdk-logs@0.46.0)(@opentelemetry/sdk-metrics@1.22.0)(@opentelemetry/sdk-trace-base@1.22.0)
       autoprefixer:
         specifier: 10.4.18
         version: 10.4.18(postcss@8.4.37)
@@ -10624,8 +10624,8 @@ packages:
   /@ungap/structured-clone@1.2.0:
     resolution: {integrity: sha512-zuVdFrMJiuCDQUMCzQaD6KL28MjnqqN8XnAqiEq9PNm/hCPTSGfrXCOfwj1ow4LFb/tNymJPwsNbVePc1xFqrQ==}
 
-  /@vercel/otel@1.6.1(@opentelemetry/api-logs@0.46.0)(@opentelemetry/api@1.8.0)(@opentelemetry/instrumentation@0.46.0)(@opentelemetry/resources@1.22.0)(@opentelemetry/sdk-logs@0.46.0)(@opentelemetry/sdk-metrics@1.22.0)(@opentelemetry/sdk-trace-base@1.22.0):
-    resolution: {integrity: sha512-dCfH9FqOXeYJgiZoUMhW0RcUjasvK/JKRS2PPUO8BuPVjGV0XEN5HsEMfYrcXmxaGT4UZbmu2O+Q0i63k2V5Uw==}
+  /@vercel/otel@1.6.2(@opentelemetry/api-logs@0.46.0)(@opentelemetry/api@1.8.0)(@opentelemetry/instrumentation@0.46.0)(@opentelemetry/resources@1.22.0)(@opentelemetry/sdk-logs@0.46.0)(@opentelemetry/sdk-metrics@1.22.0)(@opentelemetry/sdk-trace-base@1.22.0):
+    resolution: {integrity: sha512-+n49/tgxq/3ptxn7Q3ln0k0uuuZOcPXK5w5u6OGq2O/MbJtMtXa5C4BzXE3TBhaORWIsuCIUYpZjic9yQbz21g==}
     engines: {node: '>=18'}
     peerDependencies:
       '@opentelemetry/api': ^1.7.0
