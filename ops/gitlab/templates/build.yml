@@ -39,10 +39,8 @@
     # - IMAGE_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' ${REGISTRY_IMAGE}:${CI_COMMIT_TAG})
     # - cosign sign $IMAGE_DIGEST
   script:
-    # TODO: improve this code
-    - cp ${UI_ENV} .env.local
-    - cat .env.local
-    - ls
+    # TODO: improve work with ENV
+    - cp ${UI_ENV} .env.prod
     - docker buildx build 
       --platform=linux/amd64,linux/arm64
       --provenance=true
