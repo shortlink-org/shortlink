@@ -202,8 +202,8 @@ importers:
         specifier: ^2.15.1
         version: 2.15.1(eslint@8.57.0)
       eslint-plugin-jest-dom:
-        specifier: ^5.1.0
-        version: 5.1.0(eslint@8.57.0)
+        specifier: ^5.1.1
+        version: 5.2.0(eslint@8.57.0)
       eslint-plugin-jsx-a11y:
         specifier: ^6.8.0
         version: 6.8.0(eslint@8.57.0)
@@ -14191,8 +14191,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-jest-dom@5.1.0(eslint@8.57.0):
-    resolution: {integrity: sha512-JIXZp+E/h/aGlP/rQc4tuOejiHlZXg65qw8JAJMIJA5VsdjOkss/SYcRSqBrQuEOytEM8JvngUjcz31d1RrCrA==}
+  /eslint-plugin-jest-dom@5.2.0(eslint@8.57.0):
+    resolution: {integrity: sha512-ctnCP0MsLmUvbCyhnOQ+/1OmsZj+e7V6kFunazIx5728Yq7TQnuKI8HOsgPTStB+9iYEpiEa+VfKB09Lq7/3fA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0, npm: '>=6', yarn: '>=1'}
     peerDependencies:
       '@testing-library/dom': ^8.0.0 || ^9.0.0
