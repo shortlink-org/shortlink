@@ -6,16 +6,15 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
+# Install dependencies only when needed
+FROM --platform=$BUILDPLATFORM node:21.7-alpine AS development-builder
+
 # Defining environment
-ARG APP_ENV=development
 ARG API_URI
 ARG CI_COMMIT_TAG
 ARG CI_COMMIT_REF_NAME
 ARG CI_PIPELINE_ID
 ARG CI_PIPELINE_URL
-
-# Install dependencies only when needed
-FROM --platform=$BUILDPLATFORM node:21.7-alpine AS development-builder
 
 # Set environment variables
 ENV CI_COMMIT_TAG=$CI_COMMIT_TAG

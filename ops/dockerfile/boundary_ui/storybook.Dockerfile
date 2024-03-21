@@ -1,12 +1,5 @@
 # syntax=docker/dockerfile:1.7
 
-# Defining environment
-ARG APP_ENV=development
-ARG CI_COMMIT_TAG
-ARG CI_COMMIT_REF_NAME
-ARG CI_PIPELINE_ID
-ARG CI_PIPELINE_URL
-
 # Link: https://github.com/moby/buildkit/blob/master/docs/attestations/sbom.md
 # enable scanning for the intermediate build stage
 ARG BUILDKIT_SBOM_SCAN_STAGE=true
@@ -15,6 +8,12 @@ ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
 # Install dependencies only when needed
 FROM --platform=$BUILDPLATFORM node:21.7-alpine AS development-builder
+
+# Defining environment
+ARG CI_COMMIT_TAG
+ARG CI_COMMIT_REF_NAME
+ARG CI_PIPELINE_ID
+ARG CI_PIPELINE_URL
 
 # Set environment variables
 ENV CI_COMMIT_TAG=$CI_COMMIT_TAG
