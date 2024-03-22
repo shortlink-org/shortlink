@@ -39,8 +39,8 @@ importers:
         specifier: ^1.7.18
         version: 1.7.18(react-dom@18.2.0)(react@18.2.0)
       '@heroicons/react':
-        specifier: 2.1.2
-        version: 2.1.2(react@18.2.0)
+        specifier: 2.1.3
+        version: 2.1.3(react@18.2.0)
       '@mui/icons-material':
         specifier: ^5.15.14
         version: 5.15.14(@mui/material@5.15.14)(@types/react@18.2.69)(react@18.2.0)
@@ -301,8 +301,8 @@ importers:
   packages/next:
     dependencies:
       '@heroicons/react':
-        specifier: 2.1.2
-        version: 2.1.2(react@18.2.0)
+        specifier: 2.1.3
+        version: 2.1.3(react@18.2.0)
       '@mui/icons-material':
         specifier: ^5.15.14
         version: 5.15.14(@mui/material@5.15.14)(@types/react@18.2.69)(react@18.2.0)
@@ -5265,8 +5265,8 @@ packages:
       react-dom: 18.2.0(react@18.2.0)
     dev: false
 
-  /@heroicons/react@2.1.2(react@18.2.0):
-    resolution: {integrity: sha512-tjNtOBRYEd7zCQLi6fFfcCm1L+62a+qu0hMlcRAyF0zV1os8ftenH7TVmUsR/x4yavGB8sOK/b/ojbMqI5DTFA==}
+  /@heroicons/react@2.1.3(react@18.2.0):
+    resolution: {integrity: sha512-fEcPfo4oN345SoqdlCDdSa4ivjaKbk0jTd+oubcgNxnNgAfzysfwWfQUr+51wigiWHQQRiZNd1Ao0M5Y3M2EGg==}
     peerDependencies:
       react: '>= 16'
     dependencies:
