@@ -6,3 +6,7 @@
 package-lock.json -diff
 yarn.lock -diff
 go.sum -diff
+
+# config for Gitlab 16.10+ --------------------------------------------------------------------------------
+# Collapse all files with a .txt extension
+*.txt gitlab-generated
