@@ -36,7 +36,7 @@ services:
     depends_on:
       - coredns
       - temporal
-    image: temporalio/admin-tools:1.22.6
+    image: temporalio/admin-tools:1.23.0
     restart: on-failure
     container_name: temporal-admin-tools
     environment:
