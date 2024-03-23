@@ -28,7 +28,7 @@ export function NodeInputDefault<T>(props: NodeInputProps) {
       type={attributes.type}
       required
       fullWidth
-      // variant={value}
+      margin="normal"
       label={node.meta.label?.text}
       value={value}
       disabled={attributes.disabled || disabled}

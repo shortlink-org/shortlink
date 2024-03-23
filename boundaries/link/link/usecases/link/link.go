@@ -249,6 +249,7 @@ func (uc *UC) List(ctx context.Context, filter *domain.FilterLink, cursor string
 	// Run saga
 	err := sagaListLink.Play(nil)
 	if err != nil {
+		uc.log.ErrorWithContext(ctx, "Error get list of links", field.Fields{"error": err})
 		return nil, nil, err
 	}
 

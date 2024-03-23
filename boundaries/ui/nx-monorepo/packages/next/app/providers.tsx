@@ -3,10 +3,7 @@
 import React, { useRef, Suspense } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
-import {
-  Experimental_CssVarsProvider as CssVarsProvider,
-  getInitColorSchemeScript,
-} from '@mui/material/styles'
+import { Experimental_CssVarsProvider as CssVarsProvider, getInitColorSchemeScript } from '@mui/material/styles'
 import { theme } from '@shortlink-org/ui-kit/src/theme/theme'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import { LocalizationProvider } from '@mui/x-date-pickers'

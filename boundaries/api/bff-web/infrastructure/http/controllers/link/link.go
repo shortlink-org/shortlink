@@ -7,6 +7,7 @@ import (
 	"github.com/segmentio/encoding/json"
 
 	"github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http/api"
+	"github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http/controllers/link/dto"
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/logger"
@@ -49,10 +50,7 @@ func (c *Controller) AddLink(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Save link
-	result, err := c.linkServiceClient.Add(r.Context(), &link_rpc.AddRequest{Link: &v1.Link{
-		Describe: *request.Describe,
-		Url:      request.Url,
-	}})
+	result, err := c.linkServiceClient.Add(r.Context(), &link_rpc.AddRequest{Link: dto.MakeAddLinkRequest(request)})
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_ = json.NewEncoder(w).Encode(ErrMessages(err)) //nolint:errcheck

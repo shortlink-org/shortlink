@@ -16,7 +16,7 @@ services:
       - coredns
     image: redis:7.2-alpine
     init: true
-    restart: on-failure
+    restart: always
     container_name: redis
     ports:
       - "6379:6379"

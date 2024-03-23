@@ -185,7 +185,6 @@ func (s *Saga) Reject(rejectSteps map[string]*Step) error {
 	// ignore error and continue reject parent func
 	err := g.Wait()
 	if err != nil {
-		s.log.ErrorWithContext(s.ctx, err.Error())
 		return err
 	}
 
