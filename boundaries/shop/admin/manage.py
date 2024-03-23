@@ -4,6 +4,8 @@ import os
 import sys
 
 from opentelemetry.instrumentation.django import DjangoInstrumentor
+from opentelemetry.instrumentation.logging import LoggingInstrumentor
+from opentelemetry.instrumentation.requests import RequestsInstrumentor
 
 def main():
     """Run administrative tasks."""
@@ -20,6 +22,8 @@ def main():
     execute_from_command_line(sys.argv)
 
     DjangoInstrumentor().instrument()
+    LoggingInstrumentor().instrument()
+    RequestsInstrumentor().instrument()
 
 
 if __name__ == '__main__':

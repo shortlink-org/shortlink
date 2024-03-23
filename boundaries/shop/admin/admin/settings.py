@@ -136,27 +136,30 @@ LOGGING = {
         "json": {
             "()": "json_log_formatter.JSONFormatter",
         },
+        'trace_formatter': {
+            'format': '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] [trace_id=%(otelTraceID)s span_id=%(otelSpanID)s] [%(funcName)s] %(message)s',  # optional, default is logging.BASIC_FORMAT
+            'datefmt': '%Y-%m-%d %H:%M:%S',  # optional, default is '%Y-%m-%d %H:%M:%S'
+        },
     },
     "handlers": {
         "stdout": {
             "class": "logging.StreamHandler",
             "formatter": "json",
         },
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'trace_formatter',
+        },
     },
     "root": {
-        "handlers": ["stdout"],
+        "handlers": ["stdout", "console"],
         "level": "INFO",
     },
     "loggers": {
         "django": {
             "level": "ERROR",
-            "handlers": ["stdout"],
+            "handlers": ["stdout", "console"],
             "propagate": False,
         },
-        "": {
-            "level": "INFO",
-            "handlers": ["stdout"],
-            "propagate": False,
-        }
     },
 }
