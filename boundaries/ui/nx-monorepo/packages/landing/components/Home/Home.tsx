@@ -63,6 +63,7 @@ const Home = () => {
             cards={[
               { name: 'Next', url: '/next' },
               { name: 'ui-kit', url: '/storybook/' },
+              { name: 'shop', url: 'https://shop.shortlink.best' },
             ]}
           />
 
