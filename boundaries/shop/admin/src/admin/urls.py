@@ -25,6 +25,7 @@ urlpatterns = [
     path("__debug__/", include("debug_toolbar.urls")),
     path("admin/", admin.site.urls),
     path("hello/", views.hello, name="hello"),
+    path("healthz/", include("health_check.urls")),
     path("", TemplateView.as_view(template_name="base.html"), name="home"),
     path("", include("django_prometheus.urls")),
 ]
