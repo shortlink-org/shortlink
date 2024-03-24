@@ -18,9 +18,7 @@ import Welcome from 'components/Profile/Welcome'
 function ProfileContent() {
   const router = useRouter()
 
-  const [session, setSession] = useState<string>(
-    'No valid Ory Session was found.\nPlease sign in to receive one.',
-  )
+  const [session, setSession] = useState<string>('No valid Ory Session was found.\nPlease sign in to receive one.')
   const [hasSession, setHasSession] = useState<boolean>(false)
 
   useEffect(() => {
@@ -71,9 +69,7 @@ function ProfileContent() {
 
       <Header title="Profile" />
 
-      <Welcome
-        nickname={get(session, 'kratos.identity.traits.name.first', 'default')}
-      />
+      <Welcome nickname={get(session, 'kratos.identity.traits.name.first', 'default')} />
 
       <Profile />
 

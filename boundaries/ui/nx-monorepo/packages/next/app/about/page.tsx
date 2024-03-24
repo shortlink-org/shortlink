@@ -48,51 +48,38 @@ function Page() {
         </div>
         <div className="sm:w-1/2 p-5">
           <div className="text">
-            <span className="text-gray-500 border-b-2 border-indigo-600 uppercase">
-              Page us
-            </span>
+            <span className="text-gray-500 border-b-2 border-indigo-600 uppercase">Page us</span>
             <h2 className="my-4 font-bold text-3xl  sm:text-4xl ">
               Page <span className="text-indigo-600">Shortlink</span>
             </h2>
 
             <article className="prose dark:prose-invert">
               <p className="text-gray-700">
-                At shortlink, we're all about making it easy for people to
-                connect and share. Our product is designed to work effectively
-                with links, making it simple and convenient for people to share
-                content and collaborate online. We believe that communication
-                should be easy and accessible for everyone, and our mission is
-                to make sure that's always the case. With shortlink, sharing
-                content and collaborating with others is more convenient than
-                ever before.
+                At shortlink, we're all about making it easy for people to connect and share. Our product is designed to work effectively
+                with links, making it simple and convenient for people to share content and collaborate online. We believe that
+                communication should be easy and accessible for everyone, and our mission is to make sure that's always the case. With
+                shortlink, sharing content and collaborating with others is more convenient than ever before.
               </p>
 
               <p className="text-gray-700">
-                We're on a mission to provide the best possible solution for
-                software developers. We want to make it easy for developers to
-                find the best practices and follow them. That's why we created
-                shortlink.
+                We're on a mission to provide the best possible solution for software developers. We want to make it easy for developers to
+                find the best practices and follow them. That's why we created shortlink.
               </p>
 
               <p className="text-gray-700">
-                Shortlink is an open source project that provides a pretty user
-                interface and respects GDPR. We use edge technologies and have
-                many years of experience. We're constantly researching the best
-                solutions on the market so that we can benefit our community and
-                solve a problem for millions of people.
+                Shortlink is an open source project that provides a pretty user interface and respects GDPR. We use edge technologies and
+                have many years of experience. We're constantly researching the best solutions on the market so that we can benefit our
+                community and solve a problem for millions of people.
               </p>
 
               <p className="text-gray-700">
-                We know that there are not enough advanced and flexible
-                solutions out there. That's why we're offering our product for
-                free. We want to help as many people as possible and become
-                market leaders in the process.
+                We know that there are not enough advanced and flexible solutions out there. That's why we're offering our product for free.
+                We want to help as many people as possible and become market leaders in the process.
               </p>
 
               <p className="text-gray-700">
-                If you're looking for the best possible solution, look no
-                further than shortlink. Try it today and see for yourself how
-                easy it is to find the best practices and follow them.
+                If you're looking for the best possible solution, look no further than shortlink. Try it today and see for yourself how easy
+                it is to find the best practices and follow them.
               </p>
             </article>
           </div>

@@ -32,8 +32,7 @@ function Page() {
     hash: '',
   })
 
-  const handleChange = (e: { target: { name: any; value: any } }) =>
-    setURL({ ...url, [e.target.name]: e.target.value })
+  const handleChange = (e: { target: { name: any; value: any } }) => setURL({ ...url, [e.target.name]: e.target.value })
 
   const handleClose = (event: any, reason: string) => {
     if (reason === 'clickaway') {
@@ -83,24 +82,16 @@ function Page() {
   return (
     <>
       <NextSeo title="Add link" description="Add a new link" />
-      <Grid
-        container
-        direction="column"
-        justifyContent="space-around"
-        alignItems="center"
-      >
+      <Grid container direction="column" justifyContent="space-around" alignItems="center">
         <div className="container mx-auto w-5/6 sm:w-2/3 h-full">
           <Header title="Add link" />
 
           {/* Code block starts */}
           <div className="w-full bg-white dark:bg-gray-800 py-5 flex flex-col xl:flex-row items-start xl:items-center justify-between px-5 xl:px-10 shadow rounded-t">
             <div className="mb-4 sm:mb-0 md:mb-0 lg:mb-0 xl:mb-0 lg:w-1/2">
-              <h2 className="text-gray-800 dark:text-gray-100 text-lg font-bold">
-                Add link
-              </h2>
+              <h2 className="text-gray-800 dark:text-gray-100 text-lg font-bold">Add link</h2>
               <p className="font-normal text-sm text-gray-600 dark:text-gray-100 mt-1">
-                This is a great place to add a short, friendly link that goes
-                somewhere interesting.
+                This is a great place to add a short, friendly link that goes somewhere interesting.
               </p>
             </div>
 
@@ -114,46 +105,20 @@ function Page() {
               autoComplete="off"
               onSubmit={handleSubmit}
             >
-              <TextField
-                variant="outlined"
-                label="Your URL"
-                name="url"
-                required
-                fullWidth
-                onChange={handleChange}
-              />
+              <TextField variant="outlined" label="Your URL" name="url" required fullWidth onChange={handleChange} />
 
-              <TextField
-                variant="outlined"
-                label="Describe"
-                name="describe"
-                fullWidth
-                onChange={handleChange}
-              />
+              <TextField variant="outlined" label="Describe" name="describe" fullWidth onChange={handleChange} />
 
-              <Button
-                variant="filled"
-                className="bg-sky-600 hover:bg-sky-700"
-                type="submit"
-              >
+              <Button variant="filled" className="bg-sky-600 hover:bg-sky-700" type="submit">
                 Add
               </Button>
             </Box>
 
             {response.type !== '' && response.type !== 'error' && (
               <div className="mb-4 sm:mb-0 md:mb-0 lg:mb-0 xl:mb-0 lg:w-1/2">
-                <Typography
-                  component="p"
-                  className="text-gray-800 dark:text-gray-100 text-lg font-bold"
-                >
+                <Typography component="p" className="text-gray-800 dark:text-gray-100 text-lg font-bold">
                   Your link: &nbsp;
-                  <Link
-                    href={`/s/${response.hash}`}
-                    target="_blank"
-                    rel="noopener"
-                    variant="body2"
-                    underline="hover"
-                  >
+                  <Link href={`/s/${response.hash}`} target="_blank" rel="noopener" variant="body2" underline="hover">
                     {window.location.host}/s/{response.hash}
                   </Link>
                   <CopyToClipboard
@@ -166,11 +131,7 @@ function Page() {
                       })
                     }}
                   >
-                    <IconButton
-                      aria-label="copy"
-                      color="secondary"
-                      size="large"
-                    >
+                    <IconButton aria-label="copy" color="secondary" size="large">
                       <FileCopyIcon />
                     </IconButton>
                   </CopyToClipboard>

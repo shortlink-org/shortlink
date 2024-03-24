@@ -28,10 +28,7 @@ function LinkTable() {
 
       <Statistic count={state.list.length} />
 
-      <UserLinksTable
-        data={state.list}
-        onRefresh={() => dispatch(fetchLinkList())}
-      />
+      <UserLinksTable data={state.list} onRefresh={() => dispatch(fetchLinkList())} />
     </>
   )
 }

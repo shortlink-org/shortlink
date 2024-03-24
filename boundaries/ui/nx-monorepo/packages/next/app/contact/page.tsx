@@ -54,12 +54,9 @@ function ContactContent() {
 
       <section className="bg-white dark:bg-gray-900 rounded-md relative p-8">
         <div className="mx-auto max-w-screen-md">
-          <h1 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">
-            Contact Us
-          </h1>
+          <h1 className="mb-4 text-4xl tracking-tight font-extrabold text-center text-gray-900 dark:text-white">Contact Us</h1>
           <p className="mb-8 font-light text-center text-gray-500 dark:text-gray-400 sm:text-xl">
-            Got a technical issue? Want to send feedback about a beta feature?
-            Need details about our Business plan? Let us know.
+            Got a technical issue? Want to send feedback about a beta feature? Need details about our Business plan? Let us know.
           </p>
         </div>
 
@@ -75,24 +72,13 @@ function ContactContent() {
             />
             <div className="bg-white relative flex flex-wrap py-6 rounded shadow-md">
               <div className="lg:w-1/2 px-6">
-                <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs">
-                  ADDRESS
-                </h2>
-                <p className="mt-1">
-                  Photo booth tattooed prism, portland taiyaki hoodie neutra
-                  typewriter
-                </p>
+                <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs">ADDRESS</h2>
+                <p className="mt-1">Photo booth tattooed prism, portland taiyaki hoodie neutra typewriter</p>
               </div>
               <div className="lg:w-1/2 px-6 mt-4 lg:mt-0">
-                <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs">
-                  EMAIL
-                </h2>
-                <a className="text-indigo-500 leading-relaxed">
-                  contact@shortlink.best
-                </a>
-                <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">
-                  PHONE
-                </h2>
+                <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs">EMAIL</h2>
+                <a className="text-indigo-500 leading-relaxed">contact@shortlink.best</a>
+                <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">PHONE</h2>
                 <p className="leading-relaxed">123-456-7890</p>
               </div>
             </div>
@@ -101,10 +87,7 @@ function ContactContent() {
           <div className="lg:w-1/3 md:w-1/2 flex flex-col md:ml-auto w-full md:py-8 mt-8 md:mt-0">
             <form action="#" className="space-y-8">
               <div>
-                <label
-                  htmlFor="email"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >
+                <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Your email
                 </label>
                 <input
@@ -116,10 +99,7 @@ function ContactContent() {
                 />
               </div>
               <div>
-                <label
-                  htmlFor="subject"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                >
+                <label htmlFor="subject" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                   Subject
                 </label>
                 <input
@@ -131,10 +111,7 @@ function ContactContent() {
                 />
               </div>
               <div className="sm:col-span-2">
-                <label
-                  htmlFor="message"
-                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400"
-                >
+                <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">
                   Your message
                 </label>
                 <textarea

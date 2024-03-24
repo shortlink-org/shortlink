@@ -20,9 +20,7 @@ export default function Header() {
               <h1 className="text-4xl tracking-tight font-extrabold text-gray-900 dark:text-gray-100 sm:text-5xl md:text-6xl">
                 <Balancer>
                   <span className="block xl:inline">Shorten your links</span>{' '}
-                  <span className="block text-indigo-600 xl:inline dark:text-indigo-300">
-                    in one click
-                  </span>
+                  <span className="block text-indigo-600 xl:inline dark:text-indigo-300">in one click</span>
                 </Balancer>
               </h1>
               <p className="mt-3 text-base text-gray-500 dark:text-gray-400 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0">

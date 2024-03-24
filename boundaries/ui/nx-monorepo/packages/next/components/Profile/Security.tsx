@@ -6,12 +6,8 @@ const Secutiry = ({ session }) => (
   <div className="md:grid md:grid-cols-3 md:gap-6">
     <div className="md:col-span-1">
       <div className="px-4 sm:px-0">
-        <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">
-          Password
-        </h3>
-        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-          Change your password.
-        </p>
+        <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">Password</h3>
+        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">Change your password.</p>
       </div>
     </div>
 
@@ -21,10 +17,7 @@ const Secutiry = ({ session }) => (
           <div className="px-4 py-5 bg-white dark:bg-gray-800 sm:p-6">
             <div className="grid grid-cols-6 gap-6">
               <div className="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="old_password"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="old_password" className="block text-sm font-medium text-gray-700">
                   Old Password
                 </label>
                 <input
@@ -38,10 +31,7 @@ const Secutiry = ({ session }) => (
               </div>
 
               <div className="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="new_password"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="new_password" className="block text-sm font-medium text-gray-700">
                   New Password
                 </label>
                 <input
@@ -55,10 +45,7 @@ const Secutiry = ({ session }) => (
               </div>
 
               <div className="col-span-6 sm:col-span-3">
-                <label
-                  htmlFor="confirm_new_password"
-                  className="block text-sm font-medium text-gray-700"
-                >
+                <label htmlFor="confirm_new_password" className="block text-sm font-medium text-gray-700">
                   Confirm New Password
                 </label>
                 <input

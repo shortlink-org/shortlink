@@ -4,13 +4,7 @@ import { getNodeLabel } from '@ory/integrations/ui'
 import { NodeInputProps } from './helpers'
 
 // @ts-ignore
-export function NodeInputSubmit<T>({
-  node,
-  attributes,
-  setValue,
-  disabled,
-  dispatchSubmit,
-}: NodeInputProps) {
+export function NodeInputSubmit<T>({ node, attributes, setValue, disabled, dispatchSubmit }: NodeInputProps) {
   return (
     <Button
       name={attributes.name}

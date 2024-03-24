@@ -29,8 +29,7 @@ function Page() {
           {
             author: 'Jim',
             datePublished: '2017-01-06T03:37:40Z',
-            reviewBody:
-              'This is my favorite product yet! Thanks Nate for the example products and reviews.',
+            reviewBody: 'This is my favorite product yet! Thanks Nate for the example products and reviews.',
             name: 'So awesome!!!',
             reviewRating: {
               bestRating: '5',

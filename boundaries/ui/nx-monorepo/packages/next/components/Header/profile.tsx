@@ -85,10 +85,7 @@ export default function Profile() {
                 <Menu.Item key={item.name}>
                   {({ active }) => (
                     <span
-                      className={classNames(
-                        active ? 'bg-gray-100' : '',
-                        'block px-4 py-2 text-sm text-gray-700',
-                      )}
+                      className={classNames(active ? 'bg-gray-100' : '', 'block px-4 py-2 text-sm text-gray-700')}
                       onClick={item.onClick}
                     >
                       {item.onClick ? (

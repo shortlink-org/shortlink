@@ -10,6 +10,8 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Provider as BalancerProvider } from 'react-wrap-balancer'
 import { Provider } from 'react-redux'
+import { TracingInstrumentation } from '@grafana/faro-web-tracing'
+import { getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk'
 
 import 'react-toastify/dist/ReactToastify.css'
 import '@shortlink-org/ui-kit/dist/cjs/index.css'
@@ -17,23 +19,22 @@ import '@shortlink-org/ui-kit/dist/cjs/index.css'
 import { Layout } from 'components'
 import { makeStore, AppStore } from 'store/store'
 
-// TODO: research problem with faro
-// initializeFaro({
-//   url: process.env.NEXT_PUBLIC_FARO_URI,
-//   app: {
-//     name: process.env.NEXT_PUBLIC_SERVICE_NAME,
-//     version: process.env.NEXT_PUBLIC_GIT_TAG,
-//     environment: 'production',
-//   },
-//   instrumentations: [
-//     // Mandatory, overwriting the instrumentations array would cause the default instrumentations to be omitted
-//     ...getWebInstrumentations(),
-//
-//     // Initialization of the tracing package.
-//     // This package is optional because it increases the bundle size noticeably. Only add it if you want tracing data.
-//     new TracingInstrumentation(),
-//   ],
-// })
+initializeFaro({
+  url: process.env.NEXT_PUBLIC_FARO_URI,
+  app: {
+    name: process.env.NEXT_PUBLIC_SERVICE_NAME,
+    version: process.env.NEXT_PUBLIC_GIT_TAG,
+    environment: 'production',
+  },
+  instrumentations: [
+    // Mandatory, overwriting the instrumentations array would cause the default instrumentations to be omitted
+    ...getWebInstrumentations(),
+
+    // Initialization of the tracing package.
+    // This package is optional because it increases the bundle size noticeably. Only add it if you want tracing data.
+    new TracingInstrumentation(),
+  ],
+})
 
 // @ts-ignore
 function Providers({ children, ...props }) {
@@ -48,11 +49,7 @@ function Providers({ children, ...props }) {
     <AppRouterCacheProvider options={{ key: 'css' }}>
       <CssVarsProvider theme={theme} defaultMode="light">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <NextThemeProvider
-            enableSystem
-            attribute="class"
-            defaultTheme="light"
-          >
+          <NextThemeProvider enableSystem attribute="class" defaultTheme="light">
             {getInitColorSchemeScript()}
 
             <Layout>

@@ -72,8 +72,6 @@ const columns = [
   },
 ]
 
-export const AdminUserLinksTable = ({ data }: AppProps) => (
-  <Table data={data} columns={columns} />
-)
+export const AdminUserLinksTable = ({ data }: AppProps) => <Table data={data} columns={columns} />
 
 export default AdminUserLinksTable

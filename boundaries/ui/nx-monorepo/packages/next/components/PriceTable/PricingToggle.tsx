@@ -5,16 +5,10 @@ type PricingToggleProps = {
   setIsAnnual: (isAnnual: boolean) => void
 }
 
-const PricingToggle: React.FC<PricingToggleProps> = ({
-  isAnnual,
-  setIsAnnual,
-}) => (
+const PricingToggle: React.FC<PricingToggleProps> = ({ isAnnual, setIsAnnual }) => (
   <div className="flex justify-center max-w-[14rem] m-auto mb-8 lg:mb-16">
     <div className="relative flex w-full p-1 bg-white dark:bg-slate-900 rounded-full">
-      <span
-        className="absolute inset-0 m-1 pointer-events-none"
-        aria-hidden="true"
-      >
+      <span className="absolute inset-0 m-1 pointer-events-none" aria-hidden="true">
         <span
           className={`absolute inset-0 w-1/2 bg-indigo-500 rounded-full shadow-sm shadow-indigo-950/10 transform transition-transform duration-150 ease-in-out ${
             isAnnual ? 'translate-x-0' : 'translate-x-full'
@@ -29,13 +23,7 @@ const PricingToggle: React.FC<PricingToggleProps> = ({
         onClick={() => setIsAnnual(true)}
       >
         Yearly
-        <span
-          className={
-            isAnnual ? 'text-indigo-200' : 'text-slate-400 dark:text-slate-500'
-          }
-        >
-          -20%
-        </span>
+        <span className={isAnnual ? 'text-indigo-200' : 'text-slate-400 dark:text-slate-500'}>-20%</span>
       </button>
       <button
         type="button"

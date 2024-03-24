@@ -52,12 +52,7 @@ const ListItem: React.FC<MenuItemProps> = ({ url, icon, name, nestedList }) => {
   return (
     <>
       <Tooltip title={name} followCursor enterDelay={500}>
-        <ActiveLink
-          href={url}
-          key={url}
-          passHref
-          activeClassName="md:text-blue-700"
-        >
+        <ActiveLink href={url} key={url} passHref activeClassName="md:text-blue-700">
           <ListItemButton onClick={handleClick}>
             <ActiveIcon href={url} activeClassName="md:text-blue-700">
               {icon}
@@ -71,12 +66,7 @@ const ListItem: React.FC<MenuItemProps> = ({ url, icon, name, nestedList }) => {
         <Collapse in={open} timeout="auto" unmountOnExit>
           <List component="div" disablePadding>
             {nestedList.map((item: NestedMenuItem) => (
-              <ActiveLink
-                href={item.url}
-                key={item.url}
-                passHref
-                activeClassName="md:text-blue-700"
-              >
+              <ActiveLink href={item.url} key={item.url} passHref activeClassName="md:text-blue-700">
                 <ListItemButton sx={{ pl: 4 }}>
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.name} />

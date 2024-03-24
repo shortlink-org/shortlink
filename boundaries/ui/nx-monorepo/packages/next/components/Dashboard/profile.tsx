@@ -16,9 +16,7 @@ function Index() {
                   alt="avatar"
                 />
               </div>
-              <h2 className="text-gray-800 dark:text-gray-100 text-xl tracking-normal font-medium mb-1">
-                Timothy Jon Oliphant
-              </h2>
+              <h2 className="text-gray-800 dark:text-gray-100 text-xl tracking-normal font-medium mb-1">Timothy Jon Oliphant</h2>
               <p className="flex text-gray-600 dark:text-gray-100 text-sm tracking-normal font-normal mb-3 text-center">
                 <span className="cursor-pointer mr-1 text-gray-600 dark:text-gray-100">
                   <svg
@@ -41,44 +39,28 @@ function Index() {
                 Las Vegas, Nevada
               </p>
               <p className="text-gray-600 dark:text-gray-100 text-sm tracking-normal font-normal mb-8 text-center w-10/12">
-                Hi, I'm Tim. I was born and raised in Las Vegas, Nevada. I love
-                the city and all it has to offer, but I'm always looking for new
-                adventures.
+                Hi, I'm Tim. I was born and raised in Las Vegas, Nevada. I love the city and all it has to offer, but I'm always looking for
+                new adventures.
                 <br />
                 <br />
-                I work in sales and enjoy working with people. I've been in the
-                military, so I know how to take orders (and give them). But more
-                importantly, I know how to lead people and get the best out of
-                them.
+                I work in sales and enjoy working with people. I've been in the military, so I know how to take orders (and give them). But
+                more importantly, I know how to lead people and get the best out of them.
                 <br />
                 <br />
-                In my free time, I like to play basketball and golf. And of
-                course, spend time with family and friends.
+                In my free time, I like to play basketball and golf. And of course, spend time with family and friends.
               </p>
               <div className="flex items-start">
                 <div>
-                  <h2 className="text-gray-600 dark:text-gray-100 text-2xl leading-6 mb-2 text-center">
-                    82
-                  </h2>
-                  <p className="text-gray-800 dark:text-gray-100 text-sm leading-5">
-                    Reviews
-                  </p>
+                  <h2 className="text-gray-600 dark:text-gray-100 text-2xl leading-6 mb-2 text-center">82</h2>
+                  <p className="text-gray-800 dark:text-gray-100 text-sm leading-5">Reviews</p>
                 </div>
                 <div className="mx-6 lg:mx-3 xl:mx-6 px-8 lg:px-4 xl:px-8 border-l border-r">
-                  <h2 className="text-gray-600 dark:text-gray-100 text-2xl leading-6 mb-2 text-center">
-                    28
-                  </h2>
-                  <p className="text-gray-800 dark:text-gray-100 text-sm leading-5">
-                    Projects
-                  </p>
+                  <h2 className="text-gray-600 dark:text-gray-100 text-2xl leading-6 mb-2 text-center">28</h2>
+                  <p className="text-gray-800 dark:text-gray-100 text-sm leading-5">Projects</p>
                 </div>
                 <div>
-                  <h2 className="text-gray-600 dark:text-gray-100 text-2xl leading-6 mb-2 text-center">
-                    42
-                  </h2>
-                  <p className="text-gray-800 dark:text-gray-100 text-sm leading-5">
-                    Approved
-                  </p>
+                  <h2 className="text-gray-600 dark:text-gray-100 text-2xl leading-6 mb-2 text-center">42</h2>
+                  <p className="text-gray-800 dark:text-gray-100 text-sm leading-5">Approved</p>
                 </div>
               </div>
             </div>
@@ -105,12 +87,9 @@ function Index() {
               <h2 className="text-gray-800 dark:text-gray-100 text-xl tracking-normal text-center font-medium mb-1">
                 Senior Product Designer
               </h2>
-              <p className="text-gray-600 dark:text-gray-100 text-sm tracking-normal font-normal mb-3 text-center">
-                Freelance
-              </p>
+              <p className="text-gray-600 dark:text-gray-100 text-sm tracking-normal font-normal mb-3 text-center">Freelance</p>
               <p className="text-gray-600 dark:text-gray-100 text-sm tracking-normal font-normal mb-8 text-center w-10/12">
-                John is a true asset to us, providing advanced designing skills
-                from years of experience as UX designer.
+                John is a true asset to us, providing advanced designing skills from years of experience as UX designer.
               </p>
               <div className="flex items-start">
                 <div className="bg-gray-200 text-gray-600 dark:text-gray-100 dark:bg-gray-700 rounded text-xs leading-3 py-2 px-3">
@@ -136,30 +115,14 @@ function Index() {
               </div>
             </div>
             <div className="w-full lg:w-1/3 flex-col flex justify-center items-center px-12 py-8">
-              <h2 className="text-center text-2xl text-gray-800 dark:text-gray-100 font-medium tracking-normal">
-                $90
-              </h2>
-              <h2 className="text-center text-sm text-gray-600 dark:text-gray-100 font-normal mt-2 mb-4 tracking-normal">
-                Hourly Rate
-              </h2>
-              <h2 className="text-center text-2xl text-gray-800 dark:text-gray-100 font-medium tracking-normal">
-                $32,000
-              </h2>
-              <h2 className="text-center text-sm text-gray-600 dark:text-gray-100 font-normal mt-2 mb-4 tracking-normal">
-                Total Earned
-              </h2>
-              <h2 className="text-center text-2xl text-gray-800 dark:text-gray-100 font-medium tracking-normal">
-                2000
-              </h2>
-              <h2 className="text-center text-sm text-gray-600 dark:text-gray-100 font-normal mt-2 mb-4 tracking-normal">
-                Hours Worked
-              </h2>
-              <h2 className="text-center text-2xl text-gray-800 dark:text-gray-100 font-medium tracking-normal">
-                95%
-              </h2>
-              <h2 className="text-center text-sm text-gray-600 dark:text-gray-100 font-normal mt-2 mb-4 tracking-normal">
-                Success Rate
-              </h2>
+              <h2 className="text-center text-2xl text-gray-800 dark:text-gray-100 font-medium tracking-normal">$90</h2>
+              <h2 className="text-center text-sm text-gray-600 dark:text-gray-100 font-normal mt-2 mb-4 tracking-normal">Hourly Rate</h2>
+              <h2 className="text-center text-2xl text-gray-800 dark:text-gray-100 font-medium tracking-normal">$32,000</h2>
+              <h2 className="text-center text-sm text-gray-600 dark:text-gray-100 font-normal mt-2 mb-4 tracking-normal">Total Earned</h2>
+              <h2 className="text-center text-2xl text-gray-800 dark:text-gray-100 font-medium tracking-normal">2000</h2>
+              <h2 className="text-center text-sm text-gray-600 dark:text-gray-100 font-normal mt-2 mb-4 tracking-normal">Hours Worked</h2>
+              <h2 className="text-center text-2xl text-gray-800 dark:text-gray-100 font-medium tracking-normal">95%</h2>
+              <h2 className="text-center text-sm text-gray-600 dark:text-gray-100 font-normal mt-2 mb-4 tracking-normal">Success Rate</h2>
               <div className="flex items-center">
                 <svg
                   className="cursor-pointer w-4 mr-1 text-yellow-400 icon icon-tabler icon-tabler-star"

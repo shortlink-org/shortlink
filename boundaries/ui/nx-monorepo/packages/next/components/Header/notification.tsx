@@ -49,8 +49,7 @@ export default function Notification(): JSX.Element {
                 alt="avatar"
               />
               <p className="mx-2 text-sm text-gray-600 dark:text-white">
-                <span className="font-bold">Sara Salah</span> replied on the{' '}
-                <span className="font-bold text-blue-500">Upload Image</span>{' '}
+                <span className="font-bold">Sara Salah</span> replied on the <span className="font-bold text-blue-500">Upload Image</span>{' '}
                 artical . 2m
               </p>
             </a>
@@ -61,8 +60,7 @@ export default function Notification(): JSX.Element {
                 alt="avatar"
               />
               <p className="mx-2 text-sm text-gray-600 dark:text-white">
-                <span className="font-bold">Slick Net</span> start following you
-                . 45m
+                <span className="font-bold">Slick Net</span> start following you . 45m
               </p>
             </a>
             <a className="flex items-center px-4 py-3 -mx-2 transition-colors duration-200 transform border-b hover:bg-gray-100 dark:hover:bg-gray-700 dark:border-gray-700">
@@ -73,8 +71,7 @@ export default function Notification(): JSX.Element {
               />
               <p className="mx-2 text-sm text-gray-600 dark:text-white">
                 <span className="font-bold">Jane Doe</span> Like Your reply on{' '}
-                <span className="font-bold text-blue-500">Test with TDD</span>{' '}
-                artical . 1h
+                <span className="font-bold text-blue-500">Test with TDD</span> artical . 1h
               </p>
             </a>
             <a className="flex items-center px-4 py-3 -mx-2 transition-colors duration-200 transform hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -84,14 +81,11 @@ export default function Notification(): JSX.Element {
                 alt="avatar"
               />
               <p className="mx-2 text-sm text-gray-600 dark:text-white">
-                <span className="font-bold">Abigail Bennett</span> start
-                following you . 3h
+                <span className="font-bold">Abigail Bennett</span> start following you . 3h
               </p>
             </a>
           </div>
-          <a className="block py-2 font-bold text-center text-white bg-gray-800 dark:bg-gray-700 hover:underline">
-            See all notifications
-          </a>
+          <a className="block py-2 font-bold text-center text-white bg-gray-800 dark:bg-gray-700 hover:underline">See all notifications</a>
         </div>
       </Menu>
     </>

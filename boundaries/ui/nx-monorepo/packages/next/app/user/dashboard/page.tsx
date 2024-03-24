@@ -16,10 +16,7 @@ import Header from 'components/Page/Header'
 function Page() {
   return (
     <>
-      <NextSeo
-        title="Dashboard"
-        description="Dashboard page for your account."
-      />
+      <NextSeo title="Dashboard" description="Dashboard page for your account." />
 
       <Box sx={{ display: 'flex' }}>
         <CssBaseline />
@@ -27,10 +24,7 @@ function Page() {
         <Box
           component="main"
           sx={{
-            backgroundColor: (theme) =>
-              theme.palette.mode === 'light'
-                ? theme.palette.grey[100]
-                : theme.palette.grey[900],
+            backgroundColor: (theme) => (theme.palette.mode === 'light' ? theme.palette.grey[100] : theme.palette.grey[900]),
             flexGrow: 1,
             overflow: 'auto',
           }}
@@ -43,9 +37,7 @@ function Page() {
             <Grid container spacing={3}>
               {/* Recent Orders */}
               <Grid item xs={12}>
-                <Paper
-                  sx={{ p: 2, my: 2, display: 'flex', flexDirection: 'column' }}
-                >
+                <Paper sx={{ p: 2, my: 2, display: 'flex', flexDirection: 'column' }}>
                   <Orders />
                 </Paper>
               </Grid>

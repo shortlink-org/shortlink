@@ -142,9 +142,7 @@ const SignUp: NextPage = () => {
             >
               <div className="flex-1 absolute bottom-0 text-white p-10">
                 <h3 className="text-4xl font-bold inline-block">Register</h3>
-                <p className="text-gray-500 whitespace-no-wrap">
-                  Signup for an Account
-                </p>
+                <p className="text-gray-500 whitespace-no-wrap">Signup for an Account</p>
               </div>
               <svg
                 className="absolute animate h-full w-4/12 sm:w-2/12 right-0 inset-y-0 fill-current text-white"
@@ -157,8 +155,7 @@ const SignUp: NextPage = () => {
             </div>
             <div className="flex-1 p-6 sm:p-10 sm:py-12">
               <h3 className="text-xl text-gray-700 font-bold mb-6">
-                Register{' '}
-                <span className="text-gray-400 font-light">for an account</span>
+                Register <span className="text-gray-400 font-light">for an account</span>
               </h3>
 
               <Flow onSubmit={onSubmit} flow={flow} />

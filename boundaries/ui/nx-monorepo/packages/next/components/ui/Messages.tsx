@@ -6,11 +6,7 @@ interface MessageProps {
 
 export function Message({ message }: MessageProps) {
   return (
-    <div
-      className={`alert ${
-        message.type === 'error' ? 'bg-red-500' : 'bg-blue-500'
-      }`}
-    >
+    <div className={`alert ${message.type === 'error' ? 'bg-red-500' : 'bg-blue-500'}`}>
       <p className="text-white" data-testid={`ui/message/${message.id}`}>
         {message.text}
       </p>

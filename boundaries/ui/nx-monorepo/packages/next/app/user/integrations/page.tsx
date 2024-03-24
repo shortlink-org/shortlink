@@ -10,10 +10,7 @@ import Header from 'components/Page/Header'
 function Intargrations() {
   return (
     <>
-      <NextSeo
-        title="Intargrations"
-        description="Intargrations page for your account."
-      />
+      <NextSeo title="Intargrations" description="Intargrations page for your account." />
       <Header title="Integration" />
 
       <div

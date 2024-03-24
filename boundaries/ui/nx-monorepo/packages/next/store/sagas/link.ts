@@ -104,10 +104,7 @@ function* watchDeleteLink() {
 function* updateLink(action) {
   try {
     // @ts-ignore
-    const response = yield API.links.updateLink(
-      action.payload._id,
-      action.payload,
-    )
+    const response = yield API.links.updateLink(action.payload._id, action.payload)
 
     yield put({
       type: t.LINK_UPDATE_SUCCEEDED,
@@ -125,10 +122,4 @@ function* watchUpdateLink() {
   yield takeLatest(t.LINK_UPDATE_REQUESTED, updateLink)
 }
 
-export default [
-  watchFetchLinkById(),
-  watchFetchLinkList(),
-  watchAddLink(),
-  watchDeleteLink(),
-  watchUpdateLink(),
-]
+export default [watchFetchLinkById(), watchFetchLinkList(), watchAddLink(), watchDeleteLink(), watchUpdateLink()]

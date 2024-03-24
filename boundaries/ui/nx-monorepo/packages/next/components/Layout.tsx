@@ -25,10 +25,7 @@ export function Layout({ children }) {
         <CssBaseline />
         <Header />
 
-        <Box
-          component="main"
-          sx={{ flexGrow: 1, p: 3, gridTemplateRows: 'auto 1fr' }}
-        >
+        <Box component="main" sx={{ flexGrow: 1, p: 3, gridTemplateRows: 'auto 1fr' }}>
           <DrawerHeader />
           <Box
             pt={4}

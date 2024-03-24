@@ -19,31 +19,14 @@ import { Messages } from './Messages'
 import { Node } from './Node'
 
 export type Values = Partial<
-  | UpdateLoginFlowBody
-  | UpdateRegistrationFlowBody
-  | UpdateRecoveryFlowBody
-  | UpdateSettingsFlowBody
-  | UpdateVerificationFlowBody
+  UpdateLoginFlowBody | UpdateRegistrationFlowBody | UpdateRecoveryFlowBody | UpdateSettingsFlowBody | UpdateVerificationFlowBody
 >
 
-export type Methods =
-  | 'oidc'
-  | 'password'
-  | 'profile'
-  | 'totp'
-  | 'webauthn'
-  | 'passkey'
-  | 'link'
-  | 'lookup_secret'
+export type Methods = 'oidc' | 'password' | 'profile' | 'totp' | 'webauthn' | 'passkey' | 'link' | 'lookup_secret'
 
 export type Props<T> = {
   // The flow
-  flow?:
-    | LoginFlow
-    | RegistrationFlow
-    | SettingsFlow
-    | VerificationFlow
-    | RecoveryFlow
+  flow?: LoginFlow | RegistrationFlow | SettingsFlow | VerificationFlow | RecoveryFlow
   // Only show certain nodes. We will always render the default nodes for CSRF tokens.
   only?: Methods
   // Is triggered on submission
@@ -88,10 +71,7 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
       // This only makes sense for text nodes
       // @ts-ignore
       if (isUiNodeInputAttributes(node.attributes)) {
-        if (
-          node.attributes.type === 'button' ||
-          node.attributes.type === 'submit'
-        ) {
+        if (node.attributes.type === 'button' || node.attributes.type === 'submit') {
           // In order to mimic real HTML forms, we need to skip setting the value
           // for buttons as the button value will (in normal HTML forms) only trigger
           // if the user clicks it.
@@ -139,8 +119,7 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
       // map the entire form data to JSON for the request body
       body = Object.fromEntries(formData) as T
 
-      const hasSubmitter = (evt: any): evt is { submitter: HTMLInputElement } =>
-        'submitter' in evt
+      const hasSubmitter = (evt: any): evt is { submitter: HTMLInputElement } => 'submitter' in evt
 
       // We need the method specified from the name and value of the submit button.
       // when multiple submit buttons are present, the clicked one's value is used.
@@ -187,11 +166,7 @@ export class Flow<T extends Values> extends Component<Props<T>, State<T>> {
     }
 
     return (
-      <form
-        action={flow.ui.action}
-        method={flow.ui.method}
-        onSubmit={this.handleSubmit}
-      >
+      <form action={flow.ui.action} method={flow.ui.method} onSubmit={this.handleSubmit}>
         {!hideGlobalMessages ? <Messages messages={flow.ui.messages} /> : null}
 
         {nodes.map((node, k) => {

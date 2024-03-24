@@ -18,31 +18,17 @@ function ActiveLink({ children, activeClassName, ...props }: ActiveLinkProps) {
   useEffect(() => {
     // Dynamic route will be matched via props.as
     // Static route will be matched via props.href
-    const linkPathname = new URL(
-      (props.as || props.href) as string,
-      location.href,
-    ).pathname
+    const linkPathname = new URL((props.as || props.href) as string, location.href).pathname
 
     // Using URL().pathname to get rid of query and hash
     const activePathname = new URL(currentPath, location.href).pathname
 
-    const newClassName =
-      linkPathname === activePathname
-        ? `${childClassName} ${activeClassName}`.trim()
-        : childClassName
+    const newClassName = linkPathname === activePathname ? `${childClassName} ${activeClassName}`.trim() : childClassName
 
     if (newClassName !== className) {
       setClassName(newClassName)
     }
-  }, [
-    currentPath,
-    props.as,
-    props.href,
-    childClassName,
-    activeClassName,
-    setClassName,
-    className,
-  ])
+  }, [currentPath, props.as, props.href, childClassName, activeClassName, setClassName, className])
 
   return (
     <Link {...props}>

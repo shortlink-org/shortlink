@@ -16,8 +16,7 @@ export function NodeScript({ attributes }: Props) {
     script.async = attributes.async
     script.crossOrigin = attributes.crossorigin
     script.integrity = attributes.integrity
-    script.referrerPolicy =
-      attributes.referrerpolicy as HTMLAttributeReferrerPolicy
+    script.referrerPolicy = attributes.referrerpolicy as HTMLAttributeReferrerPolicy
     script.type = attributes.type
 
     document.body.appendChild(script)

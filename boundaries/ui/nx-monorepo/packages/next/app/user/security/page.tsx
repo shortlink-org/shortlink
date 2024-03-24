@@ -15,9 +15,7 @@ import ory from 'pkg/sdk'
 function SecurityContent() {
   const router = useRouter()
 
-  const [session, setSession] = useState<string>(
-    'No valid Ory Session was found.\nPlease sign in to receive one.',
-  )
+  const [session, setSession] = useState<string>('No valid Ory Session was found.\nPlease sign in to receive one.')
   const [hasSession, setHasSession] = useState<boolean>(false)
 
   useEffect(() => {

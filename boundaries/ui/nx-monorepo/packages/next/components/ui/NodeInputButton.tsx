@@ -5,13 +5,7 @@ import { FormEvent } from 'react'
 import { NodeInputProps } from './helpers'
 
 // @ts-ignore
-export function NodeInputButton<T>({
-  node,
-  attributes,
-  setValue,
-  disabled,
-  dispatchSubmit,
-}: NodeInputProps) {
+export function NodeInputButton<T>({ node, attributes, setValue, disabled, dispatchSubmit }: NodeInputProps) {
   // Some attributes have dynamic JavaScript - this is for example required for WebAuthn.
   const onClick = (e: React.MouseEvent | React.FormEvent<HTMLFormElement>) => {
     // This section is only used for WebAuthn. The script is loaded via a <script> node

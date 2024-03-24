@@ -8,14 +8,11 @@ export default function Subscribe() {
           <div className="w-full lg:w-1/2">
             <div className="lg:max-w-lg">
               <h1 className="text-2xl font-semibold text-gray-800 dark:text-white lg:text-3xl">
-                Subscribe To The{' '}
-                <span className="text-indigo-500">Newsletter</span>
+                Subscribe To The <span className="text-indigo-500">Newsletter</span>
               </h1>
 
               <p className="mt-4 text-gray-600 dark:text-gray-400">
-                be the first to knows when our{' '}
-                <span className="font-medium text-indigo-500">Brand</span> is
-                live
+                be the first to knows when our <span className="font-medium text-indigo-500">Brand</span> is live
               </p>
 
               <div className="flex flex-col mt-8 space-y-3 lg:space-y-0 lg:flex-row">

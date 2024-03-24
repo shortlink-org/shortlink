@@ -13,13 +13,7 @@ const tiers = [
     title: 'Free',
     subheader: 'Best option for personal use & for your next project.',
     price: 0,
-    description: [
-      'Consectetur adipiscing elit',
-      '10 users included',
-      '2 GB of storage',
-      'Help center access',
-      'Email support',
-    ],
+    description: ['Consectetur adipiscing elit', '10 users included', '2 GB of storage', 'Help center access', 'Email support'],
     buttonText: 'Sign up for free',
     buttonVariant: 'outlined',
   },
@@ -27,13 +21,7 @@ const tiers = [
     title: 'Pro',
     subheader: 'Most popular choice for small teams.',
     price: 15,
-    description: [
-      'Consectetur adipiscing elit',
-      '20 users included',
-      '10 GB of storage',
-      'Help center access',
-      'Priority email support',
-    ],
+    description: ['Consectetur adipiscing elit', '20 users included', '10 GB of storage', 'Help center access', 'Priority email support'],
     buttonText: 'Get started',
     buttonVariant: 'outlined',
   },
@@ -41,13 +29,7 @@ const tiers = [
     title: 'Enterprise',
     subheader: 'Best for large scale uses and extended redistribution rights.',
     price: 30,
-    description: [
-      'Consectetur adipiscing elit',
-      '50 users included',
-      '30 GB of storage',
-      'Help center access',
-      'Phone & email support',
-    ],
+    description: ['Consectetur adipiscing elit', '50 users included', '30 GB of storage', 'Help center access', 'Phone & email support'],
     buttonText: 'Contact us',
     buttonVariant: 'outlined',
   },
@@ -91,39 +73,18 @@ function Page() {
         description="Shortlink offers fair, upfront pricing for all of our services. We never charge hidden fees or use bait-and-switch tactics. You'll know exactly what you're getting before your start working on your project."
       />
 
-      <Container
-        disableGutters
-        maxWidth="sm"
-        component="main"
-        sx={{ pt: 8, pb: 6 }}
-      >
-        <Typography
-          component="h1"
-          variant="h2"
-          align="center"
-          color="text.primary"
-          gutterBottom
-        >
+      <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
+        <Typography component="h1" variant="h2" align="center" color="text.primary" gutterBottom>
           Page
         </Typography>
-        <Typography
-          variant="h5"
-          align="center"
-          color="text.secondary"
-          component="p"
-        >
-          Quickly build an effective pricing table for your potential customers
-          with this layout. It&apos;s built with default Material-UI components
-          with little customization.
+        <Typography variant="h5" align="center" color="text.secondary" component="p">
+          Quickly build an effective pricing table for your potential customers with this layout. It&apos;s built with default Material-UI
+          components with little customization.
         </Typography>
 
         <div className="flex flex-col justify-center text-xs text-gray-600 md:flex-row">
           <div className="flex items-center p-4">
-            <svg
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="w-4 h-4 mr-1 text-green-600"
-            >
+            <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 mr-1 text-green-600">
               <path
                 fillRule="evenodd"
                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -134,11 +95,7 @@ function Page() {
           </div>
 
           <div className="flex items-center p-4">
-            <svg
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="w-4 h-4 mr-1 text-green-600"
-            >
+            <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 mr-1 text-green-600">
               <path
                 fillRule="evenodd"
                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -149,11 +106,7 @@ function Page() {
           </div>
 
           <div className="flex items-center p-4">
-            <svg
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="w-4 h-4 mr-1 text-green-600"
-            >
+            <svg viewBox="0 0 20 20" fill="currentColor" className="w-4 h-4 mr-1 text-green-600">
               <path
                 fillRule="evenodd"
                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"

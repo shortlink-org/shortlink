@@ -6,11 +6,5 @@ interface Props {
 }
 
 export function NodeImage({ node, attributes }: Props) {
-  return (
-    <img
-      data-testid={`node/image/${attributes.id}`}
-      src={attributes.src}
-      alt={node.meta.label?.text}
-    />
-  )
+  return <img data-testid={`node/image/${attributes.id}`} src={attributes.src} alt={node.meta.label?.text} />
 }

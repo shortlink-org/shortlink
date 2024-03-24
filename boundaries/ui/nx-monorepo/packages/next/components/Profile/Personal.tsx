@@ -8,12 +8,8 @@ export default function Personal({ session }) {
       <div className="md:grid md:grid-cols-3 md:gap-6">
         <div className="md:col-span-1">
           <div className="px-4 sm:px-0">
-            <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">
-              Personal Information
-            </h3>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-              Use a permanent address where you can receive mail.
-            </p>
+            <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">Personal Information</h3>
+            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">Use a permanent address where you can receive mail.</p>
           </div>
         </div>
 
@@ -23,10 +19,7 @@ export default function Personal({ session }) {
               <div className="px-4 py-5 bg-white dark:bg-gray-800 sm:p-6">
                 <div className="grid grid-cols-6 gap-6">
                   <div className="col-span-6 sm:col-span-3">
-                    <label
-                      htmlFor="first_name"
-                      className="block text-sm font-medium text-gray-700"
-                    >
+                    <label htmlFor="first_name" className="block text-sm font-medium text-gray-700">
                       First name
                     </label>
                     <input
@@ -34,19 +27,13 @@ export default function Personal({ session }) {
                       name="first_name"
                       id="first_name"
                       autoComplete="given-name"
-                      value={_.get(
-                        session,
-                        'kratos.identity.traits.name.first',
-                      )}
+                      value={_.get(session, 'kratos.identity.traits.name.first')}
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md"
                     />
                   </div>
 
                   <div className="col-span-6 sm:col-span-3">
-                    <label
-                      htmlFor="last_name"
-                      className="block text-sm font-medium text-gray-700"
-                    >
+                    <label htmlFor="last_name" className="block text-sm font-medium text-gray-700">
                       Last name
                     </label>
                     <input
@@ -60,10 +47,7 @@ export default function Personal({ session }) {
                   </div>
 
                   <div className="col-span-6 sm:col-span-4">
-                    <label
-                      htmlFor="email_address"
-                      className="block text-sm font-medium text-gray-700"
-                    >
+                    <label htmlFor="email_address" className="block text-sm font-medium text-gray-700">
                       Email address
                     </label>
                     <input
@@ -77,10 +61,7 @@ export default function Personal({ session }) {
                   </div>
 
                   <div className="col-span-6 sm:col-span-3">
-                    <label
-                      htmlFor="country"
-                      className="block text-sm font-medium text-gray-700"
-                    >
+                    <label htmlFor="country" className="block text-sm font-medium text-gray-700">
                       Country / Region
                     </label>
                     <select
@@ -96,10 +77,7 @@ export default function Personal({ session }) {
                   </div>
 
                   <div className="col-span-6">
-                    <label
-                      htmlFor="street_address"
-                      className="block text-sm font-medium text-gray-700"
-                    >
+                    <label htmlFor="street_address" className="block text-sm font-medium text-gray-700">
                       Street address
                     </label>
                     <input
@@ -112,10 +90,7 @@ export default function Personal({ session }) {
                   </div>
 
                   <div className="col-span-6 sm:col-span-6 lg:col-span-2">
-                    <label
-                      htmlFor="city"
-                      className="block text-sm font-medium text-gray-700"
-                    >
+                    <label htmlFor="city" className="block text-sm font-medium text-gray-700">
                       City
                     </label>
                     <input
@@ -128,10 +103,7 @@ export default function Personal({ session }) {
                   </div>
 
                   <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label
-                      htmlFor="state"
-                      className="block text-sm font-medium text-gray-700"
-                    >
+                    <label htmlFor="state" className="block text-sm font-medium text-gray-700">
                       State / Province
                     </label>
                     <input
@@ -144,10 +116,7 @@ export default function Personal({ session }) {
                   </div>
 
                   <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label
-                      htmlFor="postal_code"
-                      className="block text-sm font-medium text-gray-700"
-                    >
+                    <label htmlFor="postal_code" className="block text-sm font-medium text-gray-700">
                       ZIP / Postal
                     </label>
                     <input

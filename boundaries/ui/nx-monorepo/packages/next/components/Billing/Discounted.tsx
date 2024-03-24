@@ -8,12 +8,8 @@ export default function Discounted() {
               Discounted
             </span>
             <div className="mt-4 text-lg leading-7 text-gray-500 dark:text-gray-300">
-              Get full access to all of standard license features for solo
-              projects that make less than $20k gross revenue for &nbsp;
-              <strong className="font-semibold text-white dark:text-gray-200">
-                $29
-              </strong>
-              .
+              Get full access to all of standard license features for solo projects that make less than $20k gross revenue for &nbsp;
+              <strong className="font-semibold text-white dark:text-gray-200">$29</strong>.
             </div>
           </div>
           <div className="mt-6 rounded-md shadow lg:mt-0 lg:ml-10 lg:flex-shrink-0">

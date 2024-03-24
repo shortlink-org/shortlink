@@ -74,8 +74,6 @@ const columns = [
   },
 ]
 
-export const UserLinksTable = ({ data, onRefresh }: AppProps) => (
-  <Table data={data} columns={columns} onRefresh={onRefresh} />
-)
+export const UserLinksTable = ({ data, onRefresh }: AppProps) => <Table data={data} columns={columns} onRefresh={onRefresh} />
 
 export default UserLinksTable

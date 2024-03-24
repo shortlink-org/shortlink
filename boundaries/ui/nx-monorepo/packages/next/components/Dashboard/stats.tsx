@@ -22,17 +22,13 @@ export default function Statistic({ count }: StatisticProps) {
               />
             </svg>
           </div>
-          <h3 className="text-4xl font-extrabold text-gray-800 dark:text-white sm:text-5xl xl:text-6xl">
-            {count}
-          </h3>
+          <h3 className="text-4xl font-extrabold text-gray-800 dark:text-white sm:text-5xl xl:text-6xl">{count}</h3>
         </div>
         <div className="lg:w-1/2">
           <p className="text-gray-800 dark:text-gray-300">
-            A table can be a great way to keep track of links. You can add links
-            to the table, delete links from the table, and update links in the
-            table. This can be a great way to organize your links and keep track
-            of them. You can also use the table to share links with others. This
-            can be a great way to share links with friends or family.
+            A table can be a great way to keep track of links. You can add links to the table, delete links from the table, and update links
+            in the table. This can be a great way to organize your links and keep track of them. You can also use the table to share links
+            with others. This can be a great way to share links with friends or family.
           </p>
         </div>
       </div>

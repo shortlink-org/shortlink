@@ -53,9 +53,7 @@ export function handleGetFlowError<S>(
         return
       case 'security_csrf_violation':
         // A CSRF violation occurred. Best to just refresh the flow!
-        toast.error(
-          'A security violation was detected, please fill out the form again.',
-        )
+        toast.error('A security violation was detected, please fill out the form again.')
         resetFlow(undefined)
         router.push(`/auth/${flowType}`)
         return

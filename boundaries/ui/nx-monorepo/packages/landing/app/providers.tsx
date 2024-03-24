@@ -9,24 +9,25 @@ import { theme } from '@shortlink-org/ui-kit/src/theme/theme'
 import Script from 'next/script'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import React, { useState } from 'react'
+import { TracingInstrumentation } from '@grafana/faro-web-tracing'
+import { getWebInstrumentations, initializeFaro } from '@grafana/faro-web-sdk'
 
-// TODO: research problem with faro
-// initializeFaro({
-//   url: process.env.NEXT_PUBLIC_FARO_URI,
-//   app: {
-//     name: process.env.NEXT_PUBLIC_SERVICE_NAME,
-//     version: process.env.NEXT_PUBLIC_GIT_TAG,
-//     environment: 'production',
-//   },
-//   instrumentations: [
-//     // Mandatory, overwriting the instrumentations array would cause the default instrumentations to be omitted
-//     ...getWebInstrumentations(),
-//
-//     // Initialization of the tracing package.
-//     // This package is optional because it increases the bundle size noticeably. Only add it if you want tracing data.
-//     new TracingInstrumentation(),
-//   ],
-// })
+initializeFaro({
+  url: process.env.NEXT_PUBLIC_FARO_URI,
+  app: {
+    name: process.env.NEXT_PUBLIC_SERVICE_NAME,
+    version: process.env.NEXT_PUBLIC_GIT_TAG,
+    environment: 'production',
+  },
+  instrumentations: [
+    // Mandatory, overwriting the instrumentations array would cause the default instrumentations to be omitted
+    ...getWebInstrumentations(),
+
+    // Initialization of the tracing package.
+    // This package is optional because it increases the bundle size noticeably. Only add it if you want tracing data.
+    new TracingInstrumentation(),
+  ],
+})
 
 // @ts-ignore
 export function Providers({ children, ...props }) {

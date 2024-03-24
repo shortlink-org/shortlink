@@ -19,8 +19,7 @@ export const makeStore = (context: Context) => {
   // Mount it on the Store
   const store = configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) =>
-      getDefaultMiddleware().concat(middleware),
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(middleware),
   })
 
   // Run your sagas on server

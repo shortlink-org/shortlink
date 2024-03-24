@@ -3,18 +3,11 @@ import * as React from 'react'
 function Index() {
   return (
     <div className="xl:w-5/12 w-11/12 mx-auto mb-4 my-6 md:w-2/3 shadow sm:px-10 px-4 py-6 bg-white dark:bg-gray-800 rounded-md">
-      <p className="text-lg text-gray-800 dark:text-gray-100 font-semibold mb-4">
-        Your Payment Method
-      </p>
+      <p className="text-lg text-gray-800 dark:text-gray-100 font-semibold mb-4">Your Payment Method</p>
       <div className="flex bg-gray-100 dark:bg-gray-700 rounded-md relative">
         <div className="flex">
           <div className="px-4 py-6 border-r border-gray-200 dark:border-gray-800">
-            <svg
-              width={49}
-              height={38}
-              xmlns="http://www.w3.org/2000/svg"
-              xmlnsXlink="http://www.w3.org/1999/xlink"
-            >
+            <svg width={49} height={38} xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink">
               <image
                 x={55}
                 y={80}

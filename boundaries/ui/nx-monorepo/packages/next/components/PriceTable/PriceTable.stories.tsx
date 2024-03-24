@@ -18,13 +18,7 @@ export const Default = {
         title: 'Free',
         subheader: 'Best option for personal use & for your next project.',
         price: 0,
-        description: [
-          'Consectetur adipiscing elit',
-          '10 users included',
-          '2 GB of storage',
-          'Help center access',
-          'Email support',
-        ],
+        description: ['Consectetur adipiscing elit', '10 users included', '2 GB of storage', 'Help center access', 'Email support'],
         buttonText: 'Sign up for free',
         buttonVariant: 'outlined',
       },
@@ -44,8 +38,7 @@ export const Default = {
       },
       {
         title: 'Enterprise',
-        subheader:
-          'Best for large scale uses and extended redistribution rights.',
+        subheader: 'Best for large scale uses and extended redistribution rights.',
         price: 30,
         description: [
           'Consectetur adipiscing elit',

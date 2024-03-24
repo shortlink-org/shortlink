@@ -27,22 +27,12 @@ function ActiveLink({ children, activeClassName, ...props }: ActiveLinkProps) {
     // Using URL().pathname to get rid of query and hash
     const activePathname = new URL(currentPath, location.href).pathname
 
-    const newClassName =
-      linkPathname === activePathname
-        ? `${childClassName} ${activeClassName}`.trim()
-        : childClassName
+    const newClassName = linkPathname === activePathname ? `${childClassName} ${activeClassName}`.trim() : childClassName
 
     if (newClassName !== className) {
       setClassName(newClassName)
     }
-  }, [
-    currentPath,
-    props.href,
-    childClassName,
-    activeClassName,
-    setClassName,
-    className,
-  ])
+  }, [currentPath, props.href, childClassName, activeClassName, setClassName, className])
 
   return (
     <ListItemIcon {...props}>

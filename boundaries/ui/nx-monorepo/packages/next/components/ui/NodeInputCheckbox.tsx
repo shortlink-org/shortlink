@@ -3,15 +3,8 @@ import React, { ChangeEvent } from 'react'
 
 import { NodeInputProps } from './helpers'
 
-export function NodeInputCheckbox<T>({
-  node,
-  attributes,
-  setValue,
-  disabled,
-}: NodeInputProps) {
-  const errorState = node.messages.find(({ type }) => type === 'error')
-    ? 'border-red-500'
-    : ''
+export function NodeInputCheckbox<T>({ node, attributes, setValue, disabled }: NodeInputProps) {
+  const errorState = node.messages.find(({ type }) => type === 'error') ? 'border-red-500' : ''
 
   const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.checked)
@@ -31,9 +24,7 @@ export function NodeInputCheckbox<T>({
         {/* @ts-ignore */}
         {getNodeLabel(node)}
       </span>
-      <p className="text-red-500">
-        {node.messages.map(({ text }) => text).join('\n')}
-      </p>
+      <p className="text-red-500">{node.messages.map(({ text }) => text).join('\n')}</p>
     </label>
   )
 }

@@ -96,22 +96,10 @@ const jsonLd: WithContext<Organization> = {
 //   ],
 // })
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html
-      lang="en"
-      className={`${robotoMono.className} font-sans`}
-      suppressHydrationWarning
-    >
-      <Script
-        id="json-ld"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-      />
+    <html lang="en" className={`${robotoMono.className} font-sans`} suppressHydrationWarning>
+      <Script id="json-ld" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
       <body className="bg-white text-black dark:bg-black dark:text-white">
         <Providers>{children}</Providers>
