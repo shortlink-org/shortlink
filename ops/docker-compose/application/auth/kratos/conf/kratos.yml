@@ -21,7 +21,8 @@ serve:
       enabled: true
       debug: true
       allowed_origins:
-        - http://127.0.0.1:3000
+        - http://127.0.0.1:3000 # NextUI
+        - http://127.0.0.1:8000 # Shop admin
       allowed_methods:
         - POST
         - GET

@@ -1,4 +1,10 @@
 [project]
+name = "shop admin"
+description = "This service is responsible for the administration of the shop."
+readme = "README.md"
+requires-python = ">=3.12"
+dynamic = ["version"]
+
 dependencies = [
   "asgiref==3.8.1",
   "django==5.0.3",
@@ -6,4 +12,50 @@ dependencies = [
   "pip==24.0",
   "setuptools==69.2.0",
   "sqlparse==0.4.4",
+  "opentelemetry-api==1.23.0",
 ]
+
+[build-system]
+requires = ["setuptools~=69.2"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.dynamic]
+version = {attr = "src._version.__version__"}
+
+[tool.setuptools.package-data]
+"src" = ["py.typed"]
+
+[tool.pytest.ini_options]
+addopts = "-ra -q --cov-report term-missing --cov libname --fixtures tests"
+
+[tool.ruff]
+unsafe-fixes = true
+line-length = 120
+extend-exclude = [
+  "src/domain/goods/migrations/*",
+  "tests/*",
+]
+exclude = [".venv", "*_pb2.py", "*_pb2_grpc.py", "*_pb2.pyi"]
+
+[tool.ruff.lint]
+select = [
+  # TODO: enable all checks
+  #  "ALL",
+  "E", "W", # pycodestyle
+  "F",      # pyflakes
+  "UP",     # pyupgrade
+  "D",      # pydocstyle
+  "N",      # pylint
+  "PL",     # pylint
+  "RUF",    # ruff
+  "TID",    # tidy
+  "I",      # isort
+]
+
+[tool.ruff.lint.isort]
+no-lines-before = ["standard-library", "local-folder"]
+known-third-party = []
+known-local-folder = ["src"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

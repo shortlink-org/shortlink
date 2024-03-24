@@ -1,18 +1,20 @@
 #!/usr/bin/env python
 """Django's command-line utility for administrative tasks."""
+
+import logging
 import os
 import sys
-import logging
 
+from admin.otel_logging import CustomLogRecord
 from opentelemetry.instrumentation.django import DjangoInstrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
-from admin.otel_logging import CustomLogRecord
 
 logging.setLogRecordFactory(CustomLogRecord)
 
+
 def main():
     """Run administrative tasks."""
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'admin.settings')
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "admin.settings")
 
     try:
         from django.core.management import execute_from_command_line
@@ -28,5 +30,5 @@ def main():
     RequestsInstrumentor().instrument()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

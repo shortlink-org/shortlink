@@ -12,6 +12,9 @@ dep: ## Install dependencies
 	# Install dependencies
 	uv pip install --no-cache -r requirements.txt
 
+run: ## Run server
+	@python src/manage.py runserver
+
 test: ## Run tests
 	@pytest --fixtures tests
 
@@ -21,4 +24,4 @@ lint: ## Run linter
 
 # MIGRATION TASKS ======================================================================================================
 migrate: ## Run migrations
-	@python manage.py migrate
+	@python src/manage.py migrate

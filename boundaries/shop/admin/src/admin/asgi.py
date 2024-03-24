@@ -1,5 +1,4 @@
-"""
-ASGI config for admin project.
+"""ASGI config for admin project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -19,7 +18,7 @@ from opentelemetry.sdk.trace.export import (
     ConsoleSpanExporter,
 )
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'admin.settings')
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "admin.settings")
 
 application = get_asgi_application()
 
