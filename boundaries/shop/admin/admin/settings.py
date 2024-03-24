@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'admin.json_log_middleware.JsonLogMiddleware',
     'django_prometheus.middleware.PrometheusBeforeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -136,29 +137,21 @@ LOGGING = {
         "json": {
             "()": "json_log_formatter.JSONFormatter",
         },
-        'trace_formatter': {
-            'format': '[%(asctime)s] %(levelname)s [%(name)s:%(lineno)s] [trace_id=%(otelTraceID)s span_id=%(otelSpanID)s] [%(funcName)s] %(message)s',  # optional, default is logging.BASIC_FORMAT
-            'datefmt': '%Y-%m-%d %H:%M:%S',  # optional, default is '%Y-%m-%d %H:%M:%S'
-        },
     },
     "handlers": {
         "stdout": {
             "class": "logging.StreamHandler",
             "formatter": "json",
         },
-        'console': {
-            'class': 'logging.StreamHandler',
-            'formatter': 'trace_formatter',
-        },
     },
     "root": {
-        "handlers": ["stdout", "console"],
+        "handlers": ["stdout"],
         "level": "INFO",
     },
     "loggers": {
         "django": {
             "level": "ERROR",
-            "handlers": ["stdout", "console"],
+            "handlers": ["stdout"],
             "propagate": False,
         },
     },

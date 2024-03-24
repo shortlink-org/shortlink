@@ -2,10 +2,13 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
+import logging
 
 from opentelemetry.instrumentation.django import DjangoInstrumentor
-from opentelemetry.instrumentation.logging import LoggingInstrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
+from admin.otel_logging import CustomLogRecord
+
+logging.setLogRecordFactory(CustomLogRecord)
 
 def main():
     """Run administrative tasks."""
@@ -22,7 +25,6 @@ def main():
     execute_from_command_line(sys.argv)
 
     DjangoInstrumentor().instrument()
-    LoggingInstrumentor().instrument()
     RequestsInstrumentor().instrument()
 
 
