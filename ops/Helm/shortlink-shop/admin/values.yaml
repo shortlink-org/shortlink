@@ -1,0 +1,135 @@
+# Common default values for shortlink.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# -- Pods Service Account
+# @ignored ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+serviceAccount:
+  # -- Specifies whether a service account should be created
+  create: false
+
+  # -- The name of the ServiceAccount to use.
+  # If not set and create is true, a name is generated using the `helpers.fullname` template
+  # name: shortlink
+
+  # -- Auto-mount the service account token in the pod
+  automountServiceAccountToken: false
+
+# ==============================================================================
+ingress:
+  enabled: true
+  # type ingress-controller: nginx, istio, cilium
+  ingressClassName: nginx
+
+  annotations:
+    cert-manager.io/cluster-issuer: cert-manager-production
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+    nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+
+  hostname: shop.shortlink.best
+  paths:
+    - path: /
+      service:
+        name: shortlink-shop-admin
+        port: 8000
+
+# ==============================================================================
+deploy:
+  # type: Deployment, Rollout, StatefulSet
+  type: Deployment
+
+  env:
+    ORY_SDK_URL: https://shortlink.best/api/auth
+    ORY_UI_URL: https://shortlink.best/next/auth
+    LOGIN_URL: https://shortlink.best/next/auth/login
+
+  image:
+    repository: registry.gitlab.com/shortlink-org/shortlink/shop_admin
+    tag: 0.17.60
+    # -- Global imagePullPolicy
+    # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
+    # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    pullPolicy: IfNotPresent
+
+  # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
+  startupProbe:
+    enabled: true
+    initialDelaySeconds: 30
+    httpGet:
+      path: /healthz
+      port: 8000
+
+  # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
+  livenessProbe:
+    enabled: true
+    httpGet:
+      path: /healthz
+      port: 8000
+
+  # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
+  readinessProbe:
+    enabled: true
+    initialDelaySeconds: 30
+    httpGet:
+      path: /healthz
+      port: 8000
+
+  resources:
+    # -- We usually recommend not to specify default resources and to leave this as a conscious
+    # choice for the user. This also increases chances charts run on environments with little
+    # resources, such as Minikube. If you do want to specify resources, uncomment the following
+    # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 10m
+      memory: 32Mi
+
+  # -- Security Context policies for controller pods
+  # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
+  # notes on enabling and using sysctls
+  securityContext:
+    allowPrivilegeEscalation: false
+    runAsNonRoot: true
+    # runAsUser is the user ID used to run the container
+    runAsUser: 1000
+    # runAsGroup is the primary group ID used to run all processes within any container of the pod
+    runAsGroup: 1000
+    # readOnlyRootFilesystem is a flag to enable readOnlyRootFilesystem for the Hazelcast security context
+    readOnlyRootFilesystem: "true"
+    capabilities:
+      drop:
+        - ALL
+
+# ==============================================================================
+service:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 8000
+      protocol: TCP
+      public: true
+    - name: metrics
+      port: 8000
+      protocol: TCP
+      public: true
+
+# ==============================================================================
+# Jobs
+jobs:
+  - name: migration
+    image:
+      repository: registry.gitlab.com/shortlink-org/shortlink/shop_admin
+      tag: 0.17.60
+    command: ["python", "src/manage.py", "migrate"]
+
+# ==============================================================================
+# Prometheus Operator ServiceMonitor configuration
+monitoring:
+  enabled: true
+
+# ==============================================================================
+# NetworkPolicy
+networkPolicy:
+  enabled: false
