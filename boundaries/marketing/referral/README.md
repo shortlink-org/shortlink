@@ -11,10 +11,6 @@
 - [ADR-0004](./docs/ADR/decisions/0004-how-we-write-test.md) - How We Approach Testing
 - [ADR-0005](./docs/ADR/decisions/0005-code-style.md) - Code Style Selection
 
-**Functionality**:
-
-  * CRUD operations for referral
-
 ### Architecture
 
 We use the C4 model to describe architecture.
@@ -58,16 +54,6 @@ manager --> UC1
 - [UC-1](src/usecases/crud_referral/README.md) - CRUD referral
 - [UC-2](src/usecases/use_referral/README.md) - Use referral
 
-### Getting started
+### Contributing
 
-We use Makefile for build and deploy.
-
-```bash
-$> make help # show help message with all commands and targets
-```
-
-#### Config
-
-| Name           | Description   | Default value |
-|----------------|---------------|---------------|
-| DATABASE_URI   | Database URI  | -             |
+- [CONTRIBUTING.md](./CONTRIBUTING.md)
