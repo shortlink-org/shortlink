@@ -8,10 +8,10 @@ type NotSpecification[T any] struct {
 func (n *NotSpecification[T]) IsSatisfiedBy(account *T) error {
 	err := n.spec.IsSatisfiedBy(account)
 	if err != nil {
-		return nil
+		return err
 	}
 
-	return err
+	return nil
 }
 
 func NewNotSpecification[T any](spec Specification[T]) *NotSpecification[T] {

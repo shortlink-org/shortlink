@@ -11,15 +11,6 @@ run:
   # Default: true
   tests: true
 
-  skip-dirs:
-    - "boundaries/shortdb/shortdb/io_uring"
-    - "boundaries/ui"
-    - "ops"
-
-  skip-files:
-    - ".*mocks.+"
-    - "wire_gen.go"
-
   # If set we pass it to "go list -mod={option}". From "go help modules":
   # If invoked with -mod=readonly, the go command is disallowed from the implicit
   # automatic updating of go.mod described above. Instead, it fails when any changes
@@ -282,10 +273,6 @@ linters-settings:
         truncate: "32"
 
   govet:
-    # Report about shadowed variables.
-    # Default: false
-    check-shadowing: true
-
     # Enable all analyzers.
     # Default: false
     enable-all: true
@@ -817,6 +804,7 @@ linters:
     - structcheck # deprecated
     - interfacebloat # we don't use limit of methods in interfaces
     - ireturn # return interface{} is allowed
+    - copyloopvar # no actual after go 1.22
     - musttag
     - gochecknoinits
     - inamedparam
@@ -841,6 +829,15 @@ linters:
     - perfsprint # maybe enable in the future
 
 issues:
+
+  skip-dirs:
+    - "boundaries/shortdb/shortdb/io_uring"
+    - "boundaries/ui"
+    - "ops"
+
+  skip-files:
+    - ".*mocks.+"
+    - "wire_gen.go"
 
   # The list of ids of default excludes to include or disable.
   # Default: []

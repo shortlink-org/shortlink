@@ -49,6 +49,9 @@ func (s *Store) Init(ctx context.Context) error {
 	err = otelsql.RegisterDBStatsMetrics(s.client, otelsql.WithAttributes(
 		semconv.DBSystemMySQL,
 	))
+	if err != nil {
+		return err
+	}
 
 	// Graceful shutdown
 	go func() {
