@@ -1,0 +1,54 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{/*
+# `shortlink.jobs` Helm Template
+#
+# Overview:
+# This template dynamically generates Kubernetes Job resources based on configurations
+# specified in the chart's `values.yaml` file. It is designed for batch processing tasks
+# such as data migrations, batch processing, and automated tasks.
+#
+# Configuration (`values.yaml`):
+# To use this template, define job specifications under the `jobs` key in `values.yaml`.
+# Each job specification should include a unique name, Docker image, and command.
+#
+# Example `values.yaml` configuration:
+# jobs:
+#   - name: migration
+#     image:
+#       repository: registry.example.com/myapp/migrate
+#       tag: "1.2.3"
+#     command: ["python", "manage.py", "migrate"]
+#   - name: data-import
+#     image:
+#       repository: registry.example.com/myapp/data-import
+#       tag: "latest"
+#     command: ["sh", "-c", "import_data.sh"]
+#
+# Usage:
+# Include this template in a YAML file within the `templates` directory of your Helm chart
+# by using the `include` directive:
+# {{ include "shortlink-common.Jobs" . }}
+#
+# This will generate Kubernetes Job resources as per the configurations in `values.yaml`.
+*/}}
+
+{{- define "shortlink-common.Jobs" -}}
+{{- $root := . }}
+{{- range .Values.jobs }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  {{- $metadata := dict "name" .name "Values" $root.Values "Chart" $root.Chart "Release" $root.Release }}
+  {{- template "shortlink-common.metadata" $metadata }}
+spec:
+  template:
+    spec:
+      containers:
+        - name: {{ .name }}
+          image: "{{ .image.repository }}:{{ .image.tag }}"
+          command: {{ .command | toYaml | nindent 10 }}
+      restartPolicy: OnFailure
+{{- end }}
+{{- end }}

@@ -1,13 +1,51 @@
 {{/* vim: set filetype=mustache: */}}
 
 {{/*
-Common labels
+# `helpers.labels` Helm Template
+#
+# Overview:
+# This template generates a set of common labels for Kubernetes resources within the chart.
+# It includes standard labels from a predefined "common.labels.standard" template and
+# adds specific labels indicating the part of the application and the deployment track.
+#
+# Usage:
+# Include this template in the metadata section of Kubernetes resources to ensure consistent
+# labeling across your Helm chart. It helps with resource tracking, management, and filtering
+# based on labels.
+#
+# Example Usage in a Resource Template:
+# metadata:
+#   name: my-resource-name
+#   labels:
+#     {{- include "helpers.labels" . | nindent 4 }}
 */}}
+
 {{- define "helpers.labels" -}}
 {{- include "common.labels.standard" . }}
 app.kubernetes.io/part-of: shortlink
 track: stable
 {{- end -}}
+
+{{/*
+# `shortlink-common.matchLabels` Helm Template
+#
+# Overview:
+# This template generates selector labels for Kubernetes resources, ensuring they match
+# the labels defined by "common.labels.matchLabels". It's primarily used in spec.selector
+# fields of resources like Deployments, StatefulSets, and Services to select the correct
+# pods or other resources.
+#
+# Usage:
+# Apply this template within the spec.selector.matchLabels section of a resource definition
+# to ensure the resource targets the correct pods or resources based on label matching.
+# This approach promotes consistency in how resources are linked and managed.
+#
+# Example Usage in a Deployment Template:
+# spec:
+#   selector:
+#     matchLabels:
+#       {{- include "shortlink-common.matchLabels" . | nindent 6 }}
+*/}}
 
 {{- define "shortlink-common.matchLabels" }}
 {{ include "common.labels.matchLabels" . }}

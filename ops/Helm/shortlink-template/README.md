@@ -1,6 +1,6 @@
 # shortlink-template
 
-![Version: 0.8.11](https://img.shields.io/badge/Version-0.8.11-informational?style=flat-square) ![Type: library](https://img.shields.io/badge/Type-library-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.8.13](https://img.shields.io/badge/Version-0.8.13-informational?style=flat-square) ![Type: library](https://img.shields.io/badge/Type-library-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ShortLink templates
 
@@ -22,7 +22,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | common | 2.18.0 |
+| oci://registry-1.docker.io/bitnamicharts | common | 2.19.0 |
 
 ## Values
 
