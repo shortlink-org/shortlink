@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://ghcr.io/akuity/kargo-charts | kargo | 0.4.3 |
+| oci://ghcr.io/akuity/kargo-charts | kargo | 0.4.4 |
 
 ## Values
 

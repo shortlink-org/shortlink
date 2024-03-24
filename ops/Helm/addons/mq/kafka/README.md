@@ -1,6 +1,6 @@
 # kafka
 
-![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -15,7 +15,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | https://provectus.github.io/kafka-ui-charts | kafka-ui | 0.7.5 |
-| https://strimzi.io/charts/ | strimzi-kafka-operator | 0.39.0 |
+| https://strimzi.io/charts/ | strimzi-kafka-operator | 0.40.0 |
 
 ## Values
 

@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 56.21.3 |
+| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 57.1.1 |
 
 ## Values
 
@@ -127,12 +127,12 @@ int
 		<tr>
 			<td id="kube-prometheus-stack--prometheus--prometheusSpec--resources--limits--cpu"><a href="./values.yaml#L30">kube-prometheus-stack.prometheus.prometheusSpec.resources.limits.cpu</a></td>
 			<td>
-string
+int
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"1000m"
+2
 </pre>
 </div>
 			</td>
@@ -183,12 +183,12 @@ string
 		<tr>
 			<td id="kube-prometheus-stack--prometheusOperator--resources--limits--cpu"><a href="./values.yaml#L41">kube-prometheus-stack.prometheusOperator.resources.limits.cpu</a></td>
 			<td>
-string
+int
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"300m"
+1
 </pre>
 </div>
 			</td>

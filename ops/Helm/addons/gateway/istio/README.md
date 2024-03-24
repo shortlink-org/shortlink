@@ -14,8 +14,8 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://istio-release.storage.googleapis.com/charts | base | 1.20.3 |
-| https://istio-release.storage.googleapis.com/charts | istiod | 1.20.3 |
+| https://istio-release.storage.googleapis.com/charts | base | 1.21.0 |
+| https://istio-release.storage.googleapis.com/charts | istiod | 1.21.0 |
 
 ## Values
 
@@ -274,34 +274,6 @@ bool
 				<div style="max-width: 300px;">
 <pre lang="json">
 true
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="istiod--telemetry--v2--prometheus--configOverride--scrapeInterval"><a href="./values.yaml#L51">istiod.telemetry.v2.prometheus.configOverride.scrapeInterval</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"15s"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="istiod--telemetry--v2--prometheus--configOverride--scrapeTimeout"><a href="./values.yaml#L52">istiod.telemetry.v2.prometheus.configOverride.scrapeTimeout</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"10s"
 </pre>
 </div>
 			</td>

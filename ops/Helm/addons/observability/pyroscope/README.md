@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | pyroscope | 1.4.1 |
+| https://grafana.github.io/helm-charts | pyroscope | 1.5.0 |
 | https://pyroscope-io.github.io/helm-chart | pyroscope-ebpf | 0.1.31 |
 
 ## Values

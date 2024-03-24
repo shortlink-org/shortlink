@@ -1,6 +1,6 @@
 # kubescape
 
-![Version: 1.18.0](https://img.shields.io/badge/Version-1.18.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 1.18.6](https://img.shields.io/badge/Version-1.18.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -34,7 +34,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"enable"
+"disable"
 </pre>
 </div>
 			</td>
@@ -42,6 +42,34 @@ string
 		</tr>
 		<tr>
 			<td id="kubescape--capabilities--continuousScan"><a href="./values.yaml#L14">kubescape.capabilities.continuousScan</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"enable"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--capabilities--prometheusExporter"><a href="./values.yaml#L19">kubescape.capabilities.prometheusExporter</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"enable"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kubescape--capabilities--runtimeObservability"><a href="./values.yaml#L18">kubescape.capabilities.runtimeObservability</a></td>
 			<td>
 string
 </td>
@@ -83,7 +111,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--clusterName"><a href="./values.yaml#L22">kubescape.clusterName</a></td>
+			<td id="kubescape--clusterName"><a href="./values.yaml#L24">kubescape.clusterName</a></td>
 			<td>
 string
 </td>
@@ -97,7 +125,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--configurations--persistence"><a href="./values.yaml#L20">kubescape.configurations.persistence</a></td>
+			<td id="kubescape--configurations--persistence"><a href="./values.yaml#L22">kubescape.configurations.persistence</a></td>
 			<td>
 string
 </td>
@@ -153,7 +181,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--kubescape--labels--release"><a href="./values.yaml#L29">kubescape.kubescape.labels.release</a></td>
+			<td id="kubescape--kubescape--labels--release"><a href="./values.yaml#L28">kubescape.kubescape.labels.release</a></td>
 			<td>
 string
 </td>
@@ -167,7 +195,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--kubescape--prometheusAnnotation--enabled"><a href="./values.yaml#L26">kubescape.kubescape.prometheusAnnotation.enabled</a></td>
+			<td id="kubescape--kubescape--serviceMonitor--enabled"><a href="./values.yaml#L31">kubescape.kubescape.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -181,21 +209,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--kubescape--serviceMonitor--enabled"><a href="./values.yaml#L32">kubescape.kubescape.serviceMonitor.enabled</a></td>
-			<td>
-bool
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-true
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="kubescape--operator--resources--requests--cpu"><a href="./values.yaml#L40">kubescape.operator.resources.requests.cpu</a></td>
+			<td id="kubescape--operator--resources--requests--cpu"><a href="./values.yaml#L39">kubescape.operator.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -209,7 +223,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--operator--resources--requests--memory"><a href="./values.yaml#L41">kubescape.operator.resources.requests.memory</a></td>
+			<td id="kubescape--operator--resources--requests--memory"><a href="./values.yaml#L40">kubescape.operator.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -223,7 +237,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kubescape--persistence--storageClass"><a href="./values.yaml#L35">kubescape.persistence.storageClass</a></td>
+			<td id="kubescape--persistence--storageClass"><a href="./values.yaml#L34">kubescape.persistence.storageClass</a></td>
 			<td>
 string
 </td>

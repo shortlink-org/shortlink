@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | grafana | 7.3.3 |
+| https://grafana.github.io/helm-charts | grafana | 7.3.7 |
 
 ## Values
 
@@ -818,7 +818,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"1.25.3"
+"1.26.1"
 </pre>
 </div>
 			</td>

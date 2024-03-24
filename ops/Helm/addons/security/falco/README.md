@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://falcosecurity.github.io/charts | falco | 4.2.2 |
+| https://falcosecurity.github.io/charts | falco | 4.2.5 |
 | https://falcosecurity.github.io/charts | falco-exporter | 0.9.11 |
 
 ## Values
@@ -42,7 +42,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--enabled"><a href="./values.yaml#L63">falco-exporter.enabled</a></td>
+			<td id="falco-exporter--enabled"><a href="./values.yaml#L72">falco-exporter.enabled</a></td>
 			<td>
 bool
 </td>
@@ -56,7 +56,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--fullnameOverride"><a href="./values.yaml#L65">falco-exporter.fullnameOverride</a></td>
+			<td id="falco-exporter--fullnameOverride"><a href="./values.yaml#L74">falco-exporter.fullnameOverride</a></td>
 			<td>
 string
 </td>
@@ -70,7 +70,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--grafanaDashboard--enabled"><a href="./values.yaml#L74">falco-exporter.grafanaDashboard.enabled</a></td>
+			<td id="falco-exporter--grafanaDashboard--enabled"><a href="./values.yaml#L83">falco-exporter.grafanaDashboard.enabled</a></td>
 			<td>
 bool
 </td>
@@ -84,7 +84,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--grafanaDashboard--folder"><a href="./values.yaml#L76">falco-exporter.grafanaDashboard.folder</a></td>
+			<td id="falco-exporter--grafanaDashboard--folder"><a href="./values.yaml#L85">falco-exporter.grafanaDashboard.folder</a></td>
 			<td>
 string
 </td>
@@ -98,7 +98,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--grafanaDashboard--namespace"><a href="./values.yaml#L75">falco-exporter.grafanaDashboard.namespace</a></td>
+			<td id="falco-exporter--grafanaDashboard--namespace"><a href="./values.yaml#L84">falco-exporter.grafanaDashboard.namespace</a></td>
 			<td>
 string
 </td>
@@ -112,7 +112,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--prometheusRules--enabled"><a href="./values.yaml#L79">falco-exporter.prometheusRules.enabled</a></td>
+			<td id="falco-exporter--prometheusRules--enabled"><a href="./values.yaml#L88">falco-exporter.prometheusRules.enabled</a></td>
 			<td>
 bool
 </td>
@@ -126,7 +126,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--resources--limits--cpu"><a href="./values.yaml#L83">falco-exporter.resources.limits.cpu</a></td>
+			<td id="falco-exporter--resources--limits--cpu"><a href="./values.yaml#L92">falco-exporter.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -140,7 +140,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--resources--limits--memory"><a href="./values.yaml#L84">falco-exporter.resources.limits.memory</a></td>
+			<td id="falco-exporter--resources--limits--memory"><a href="./values.yaml#L93">falco-exporter.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -154,7 +154,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--resources--requests--cpu"><a href="./values.yaml#L86">falco-exporter.resources.requests.cpu</a></td>
+			<td id="falco-exporter--resources--requests--cpu"><a href="./values.yaml#L95">falco-exporter.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -168,7 +168,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--resources--requests--memory"><a href="./values.yaml#L87">falco-exporter.resources.requests.memory</a></td>
+			<td id="falco-exporter--resources--requests--memory"><a href="./values.yaml#L96">falco-exporter.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -182,7 +182,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--serviceMonitor--enabled"><a href="./values.yaml#L68">falco-exporter.serviceMonitor.enabled</a></td>
+			<td id="falco-exporter--serviceMonitor--enabled"><a href="./values.yaml#L77">falco-exporter.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -196,7 +196,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="falco-exporter--serviceMonitor--labels--release"><a href="./values.yaml#L71">falco-exporter.serviceMonitor.labels.release</a></td>
+			<td id="falco-exporter--serviceMonitor--labels--release"><a href="./values.yaml#L80">falco-exporter.serviceMonitor.labels.release</a></td>
 			<td>
 string
 </td>
@@ -442,6 +442,62 @@ bool
 				<div style="max-width: 300px;">
 <pre lang="json">
 true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falcosidekick--webui--redis--resources--limits--cpu"><a href="./values.yaml#L65">falco.falcosidekick.webui.redis.resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"100m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falcosidekick--webui--redis--resources--limits--memory"><a href="./values.yaml#L66">falco.falcosidekick.webui.redis.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"256Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falcosidekick--webui--redis--resources--requests--cpu"><a href="./values.yaml#L68">falco.falcosidekick.webui.redis.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"20m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="falco--falcosidekick--webui--redis--resources--requests--memory"><a href="./values.yaml#L69">falco.falcosidekick.webui.redis.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"64Mi"
 </pre>
 </div>
 			</td>
