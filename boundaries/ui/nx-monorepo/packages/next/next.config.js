@@ -84,7 +84,7 @@ const NEXT_CONFIG = {
     NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID: process.env.FIREBASE_MEASUREMENT_ID,
 
     // Faro
-    NEXT_PUBLIC_FARO_URI: process.env.FARO_URI,
+    NEXT_PUBLIC_FARO_URI: process.env.FARO_URI || 'http://localhost:3030',
   },
   transpilePackages: ['@shortlink-org/ui-kit'],
   compiler: {
@@ -126,7 +126,7 @@ const NEXT_CONFIG = {
   experimental: {
     forceSwcTransforms: true,
     swcTraceProfiling: true,
-    instrumentationHook: true,
+    instrumentationHook: false,
     webVitalsAttribution: ['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'],
     turbo: {},
     // typedRoutes: true,

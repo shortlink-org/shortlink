@@ -44,7 +44,7 @@ const nextConfig = {
     NEXT_PUBLIC_SENTRY_DSN: process.env.SENTRY_DSN,
 
     // Faro
-    NEXT_PUBLIC_FARO_URI: process.env.FARO_URI,
+    NEXT_PUBLIC_FARO_URI: process.env.FARO_URI || 'http://localhost:3030',
   },
   transpilePackages: ['@shortlink-org/ui-kit'],
   compiler: {
@@ -76,7 +76,7 @@ const nextConfig = {
   experimental: {
     forceSwcTransforms: true,
     swcTraceProfiling: true,
-    instrumentationHook: true,
+    instrumentationHook: false,
     webVitalsAttribution: ['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'],
     turbo: {},
     // typedRoutes: true,
