@@ -11,7 +11,14 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 import os
+import environ
 from pathlib import Path
+
+env = environ.Env()
+
+ORY_SDK_URL=env("ORY_SDK_URL", default='http://127.0.0.1:4433')
+ORY_UI_URL=env("ORY_UI_URL", default='http://127.0.0.1:3000/next/auth')
+LOGIN_URL=env("LOGIN_URL", default='http://127.0.0.1:3000/next/auth/login')
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -41,6 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_prometheus',
     "debug_toolbar",
+    'django_ory_auth',
     'domain.goods',
 ]
 
@@ -55,6 +63,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     "debug_toolbar.middleware.DebugToolbarMiddleware",
+    "django_ory_auth.middleware.AuthenticationMiddleware",
     'django_prometheus.middleware.PrometheusAfterMiddleware',
 ]
 
@@ -63,7 +72,7 @@ ROOT_URLCONF = 'admin.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -71,6 +80,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django_ory_auth.context.processor',
             ],
         },
     },
@@ -106,6 +116,10 @@ AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
+]
+
+AUTHENTICATION_BACKENDS = [
+    "django_ory_auth.backend.OryBackend",
 ]
 
 
