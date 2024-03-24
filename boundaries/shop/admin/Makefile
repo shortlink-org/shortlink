@@ -12,6 +12,9 @@ dep: ## Install dependencies
 	# Install dependencies
 	uv pip install --no-cache -r requirements.txt
 
+lock: ## Lock dependencies
+	@uv pip compile pyproject.toml -o requirements.txt
+
 run: ## Run server
 	@python src/manage.py runserver
 
