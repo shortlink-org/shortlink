@@ -5,7 +5,7 @@ import (
 
 	"github.com/segmentio/encoding/json"
 
-	"github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http/api"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff-link/infrastructure/http/api"
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/sitemap/v1"
 )
 

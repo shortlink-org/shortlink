@@ -1,14 +1,14 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="bff-web" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="api-gateway">
+  <configuration default="false" name="bff-link" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="api-gateway">
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$" />
     <envs>
       <env name="GOEXPERIMENT" value="rangefunc,newinliner,arenas,cgocheck2,loopvar" />
     </envs>
     <kind value="PACKAGE" />
-    <package value="github.com/shortlink-org/shortlink/boundaries/api/bff-web/cmd" />
+    <package value="github.com/shortlink-org/shortlink/boundaries/link/bff-link/cmd" />
     <directory value="$PROJECT_DIR$" />
-    <filePath value="$PROJECT_DIR$/boundaries/api/bff-web/cmd/bff_web.go" />
+    <filePath value="$PROJECT_DIR$/boundaries/link/bff-link/cmd/bff_web.go" />
     <method v="2" />
   </configuration>
 </component>

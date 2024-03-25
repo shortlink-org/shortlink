@@ -1,5 +1,5 @@
 System_Boundary(gatewayBoundary, "Gateway Boundary") {
     !include services/api-gateway/service.puml
-    !include services/bff-web/service.puml
+    !include services/bff-link/service.puml
     !include services/ws/service.puml
 }

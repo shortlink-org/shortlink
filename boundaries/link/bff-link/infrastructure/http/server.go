@@ -1,7 +1,6 @@
 package http
 
 import (
-	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	cors2 "github.com/go-chi/cors"
 	"github.com/go-chi/render"
@@ -10,10 +9,10 @@ import (
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	serverAPI "github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http/api"
-	"github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http/controllers/cqrs"
-	"github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http/controllers/link"
-	"github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http/controllers/sitemap"
+	serverAPI "github.com/shortlink-org/shortlink/boundaries/link/bff-link/infrastructure/http/api"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff-link/infrastructure/http/controllers/cqrs"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff-link/infrastructure/http/controllers/link"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff-link/infrastructure/http/controllers/sitemap"
 	"github.com/shortlink-org/shortlink/pkg/http/handler"
 	auth_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/auth"
 	logger_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/logger"

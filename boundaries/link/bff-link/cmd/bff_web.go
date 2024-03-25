@@ -12,13 +12,13 @@ import (
 
 	"github.com/spf13/viper"
 
-	bff_web_di "github.com/shortlink-org/shortlink/boundaries/api/bff-web/di"
+	bff_web_di "github.com/shortlink-org/shortlink/boundaries/link/bff-link/di"
 	"github.com/shortlink-org/shortlink/pkg/graceful_shutdown"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
 )
 
 func main() {
-	viper.SetDefault("SERVICE_NAME", "shortlink-bff-web")
+	viper.SetDefault("SERVICE_NAME", "shortlink-bff-link")
 
 	// Init a new service
 	service, cleanup, err := bff_web_di.InitializeBFFWebService()

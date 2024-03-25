@@ -6,8 +6,8 @@ import (
 
 	"github.com/segmentio/encoding/json"
 
-	"github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http/api"
-	"github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http/controllers/link/dto"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff-link/infrastructure/http/api"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff-link/infrastructure/http/controllers/link/dto"
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/logger"

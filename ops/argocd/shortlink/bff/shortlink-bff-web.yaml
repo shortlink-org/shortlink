@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: shortlink-bff-web
+  name: shortlink-bff-link
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
-    argocd-image-updater.argoproj.io/image-list: shortlink-bff-web=registry.gitlab.com/shortlink-org/shortlink/bff-web:0.x.x
+    argocd-image-updater.argoproj.io/image-list: shortlink-bff-link=registry.gitlab.com/shortlink-org/shortlink/bff-link:0.x.x
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
     argocd-image-updater.argoproj.io/git-repository: git@github.com:shortlink-org/shortlink.git
   finalizers:
@@ -16,7 +16,7 @@ spec:
     namespace: shortlink
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/shortlink-bff-web
+    path: ops/Helm/shortlink-bff-link
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:

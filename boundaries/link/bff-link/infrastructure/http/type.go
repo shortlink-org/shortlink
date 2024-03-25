@@ -7,9 +7,9 @@ import (
 	"golang.org/x/text/message"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	"github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http/controllers/cqrs"
-	"github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http/controllers/link"
-	"github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http/controllers/sitemap"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff-link/infrastructure/http/controllers/cqrs"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff-link/infrastructure/http/controllers/link"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff-link/infrastructure/http/controllers/sitemap"
 	link_cqrs "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/link/v1"
 	sitemap_rpc "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/sitemap/v1"

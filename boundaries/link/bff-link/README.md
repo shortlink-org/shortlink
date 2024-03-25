@@ -33,10 +33,10 @@ $> make help # show help message with all commands and targets
 
 LAYOUT_WITH_LEGEND()
 
-title C4: Context diagram for BFF-web
+title C4: Context diagram for bff-link
 
 Person(customer, "Customer", "Uses our service")
-Container(api_gateway, "BFF-web", "Docker", "Handles incoming user requests and routes them to appropriate services.")
+Container(api_gateway, "bff-link", "Docker", "Handles incoming user requests and routes them to appropriate services.")
 Container_Ext(identity_service, "Identity & User Management", "Docker", "Manages user identities and authentication.")
 System_Boundary(bff, "Internal Services") {
     Container_Ext(link_service, "Link", "Docker", "Provides CRUD operations for links.")

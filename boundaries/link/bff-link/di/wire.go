@@ -16,7 +16,7 @@ import (
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
-	"github.com/shortlink-org/shortlink/boundaries/api/bff-web/internal/i18n"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff-link/internal/i18n"
 	link_cqrs "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/link/v1"
 	sitemap_rpc "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/sitemap/v1"
@@ -29,7 +29,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 
-	api "github.com/shortlink-org/shortlink/boundaries/api/bff-web/infrastructure/http"
+	api "github.com/shortlink-org/shortlink/boundaries/link/bff-link/infrastructure/http"
 )
 
 type BFFWebService struct {

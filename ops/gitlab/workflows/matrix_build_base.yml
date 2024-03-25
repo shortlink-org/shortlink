@@ -19,10 +19,10 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api-grpc-web
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/api-gateway/gateways/grpc-web/cmd"
-      - APPLICATION: bff-web
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bff-web
+      - APPLICATION: bff-link
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bff-link
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/bff-web/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/link/bff-link/cmd"
       - APPLICATION: ws
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ws
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile

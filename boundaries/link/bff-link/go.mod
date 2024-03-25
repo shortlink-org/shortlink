@@ -1,4 +1,4 @@
-module github.com/shortlink-org/shortlink/boundaries/api/bff-web
+module github.com/shortlink-org/shortlink/boundaries/link/bff-link
 
 go 1.22.1
 
