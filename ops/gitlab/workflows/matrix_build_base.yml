@@ -19,10 +19,6 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api-grpc-web
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/api-gateway/gateways/grpc-web/cmd"
-      - APPLICATION: bff-link
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bff-link
-        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./boundaries/link/bff-link/cmd"
       - APPLICATION: ws
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ws
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
@@ -41,14 +37,18 @@
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./boundaries/platform/logger/cmd"
       # LINK LANDSCAPE
-      - APPLICATION: metadata
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/metadata
+      - APPLICATION: bff-link
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bff-link
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./boundaries/link/metadata/cmd"
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/link/bff-link/cmd"
       - APPLICATION: link
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/link
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./boundaries/link/link/cmd"
+      - APPLICATION: metadata
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/metadata
+        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
+        CMD_PATH: "--build-arg CMD_PATH=./boundaries/link/metadata/cmd"
       - APPLICATION: proxy
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/proxy
         DOCKERFILE_PATH: ops/dockerfile/proxy.Dockerfile

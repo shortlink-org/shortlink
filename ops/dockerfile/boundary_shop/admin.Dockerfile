@@ -41,7 +41,7 @@ RUN pip install uv
 RUN uv venv
 
 COPY boundaries/shop/admin/requirements.txt .
-RUN uv pip install --no-cache -r requirements.txt
+RUN uv pip install --no-cache -r requirements.txt --no-deps
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 

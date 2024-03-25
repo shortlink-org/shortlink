@@ -3,7 +3,7 @@
 /*
 ShortLink application
 
-BFF Web Service
+BFF Link Service
 */
 package main
 
