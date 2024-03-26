@@ -110,10 +110,11 @@ service:
       port: 8000
       protocol: TCP
       public: true
-    - name: metrics
-      port: 8000
-      protocol: TCP
-      public: true
+    # TODO: set port for metrics
+    # - name: metrics
+    #  port: 8000
+    #  protocol: TCP
+    #  public: true
 
 # ==============================================================================
 # Jobs
