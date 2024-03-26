@@ -5,6 +5,41 @@ readme = "README.md"
 requires-python = ">=3.12"
 dynamic = ["version"]
 
+dependencies = [
+#  Main dependencies
+    "dependency-injector @ git+https://github.com/shortlink-org/python-dependency-injector@master",
+    "uvicorn",
+    "redis",
+    "protobuf",
+    "loguru",
+    "quart",
+    "sqlalchemy",
+    "python-dotenv",
+    "hypercorn",
+    "setuptools>=69.2.0", # not directly required, pinned by Snyk to avoid a vulnerability
+# Opentelemetry dependencies
+    "pyroscope-io==0.8.5",
+    "opentelemetry-api==1.23.0",
+    "opentelemetry-sdk",
+    "opentelemetry-exporter-otlp",
+    "opentelemetry-exporter-prometheus",
+    "opentelemetry-instrumentation-redis",
+    "opentelemetry-instrumentation-sqlalchemy",
+# For testing dependencies
+    "pytest",
+    "allure-pytest",
+    "pytest-asyncio",
+    "pytest-cov",
+    "pytest-factoryboy",
+    "httpx",
+    "testcontainers",
+# For code quality dependencies
+    "ruff>=0.3.4",
+# For profiling dependencies
+    "scalene",
+    "werkzeug>=3.0.1" # not directly required, pinned by Snyk to avoid a vulnerability
+]
+
 [build-system]
 requires = ["setuptools~=69.2"]
 build-backend = "setuptools.build_meta"

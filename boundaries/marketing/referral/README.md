@@ -9,7 +9,6 @@
 - [ADR-0002](./docs/ADR/decisions/0002-adoption-of-scalene-for-profiling.md) - Adoption of Scalene for Profiling
 - [ADR-0003](./docs/ADR/decisions/0003-adoption-of-allure-for-test-reporting.md) - Adoption of Allure for Test Reporting
 - [ADR-0004](./docs/ADR/decisions/0004-how-we-write-test.md) - How We Approach Testing
-- [ADR-0005](./docs/ADR/decisions/0005-code-style.md) - Code Style Selection
 
 ### Architecture
 

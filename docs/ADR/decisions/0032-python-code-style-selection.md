@@ -1,4 +1,4 @@
-# ADR 5: Code Style Selection
+# 32. Python: Code Style Selection
 
 Date: 2024-03-03
 
@@ -15,3 +15,7 @@ After evaluating Flake8 and Ruff, we have decided to adopt Ruff as our code styl
 ## Consequences
 
 Adopting Ruff simplifies and accelerates our code review process.
+
+### References
+
+- [Ruff](https://docs.astral.sh/ruff/) - Ruff documentation
