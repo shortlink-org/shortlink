@@ -1,52 +1,18 @@
 redis:
-  fullnameOverride: redis
+  enabled: true
 
-  master:
-    kind: Deployment
+  serviceMonitor:
+    enabled: true
+    labels:
+      release: prometheus-operator
 
-    persistence:
-      enabled: false
-      storageClass: local-path
-
-    resources:
-      limits:
-        cpu: 500m
-        memory: 500Mi
-      requests:
-        cpu: 50m
-        memory: 126Mi
-
-  auth:
-    enabled: false
-    password: ""
-
-  metrics:
+  prometheusRule:
     enabled: true
 
-    resources:
-      limits:
-        cpu: 50m
-        memory: 512Mi
-      requests:
-        cpu: 10m
-        memory: 64Mi
-
-    serviceMonitor:
-      enabled: true
-
-    prometheusRule:
-      enabled: true
-
-  replica:
-    replicaCount: 0
-
-    resources:
-      limits:
-        cpu: 500m
-        memory: 256Mi
-      requests:
-        cpu: 10m
-        memory: 64Mi
-
-    persistence:
-      enabled: false
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi

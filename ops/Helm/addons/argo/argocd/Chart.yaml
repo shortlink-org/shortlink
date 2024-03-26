@@ -32,10 +32,11 @@ dependencies:
     condition: argocd-image-updater.enabled
     tags:
       - ci/cd
-  - name: redis
-    version: 19.0.1
-    repository: oci://registry-1.docker.io/bitnamicharts
+  - name: dragonfly
+    version: v1.15.1
+    repository: oci://ghcr.io/dragonflydb/dragonfly/helm
     condition: redis.enabled
     tags:
       - redis
       - store
+      - dragonfly
