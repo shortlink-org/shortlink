@@ -16,7 +16,7 @@ services:
       - coredns
       - elasticsearch
       - kafka-connect
-    image: curlimages/curl:8.6.0
+    image: curlimages/curl:8.7.1
     restart: on-failure
     container_name: kafka-connector-elasticsearch
     init: true
