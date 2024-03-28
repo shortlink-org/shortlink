@@ -6,6 +6,7 @@
 ### ADR
 
 - [ADR-0001](./docs/ADR/decisions/0001-init.md) - Init project
+- [ADR-0002](./docs/ADR/decisions/0002-auth-mode.md) - Auth mode
 
 ### Architecture
 
