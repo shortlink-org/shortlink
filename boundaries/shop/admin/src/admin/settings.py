@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "django_prometheus",
     "debug_toolbar",
-    "django_ory_auth",
     "health_check",
     "health_check.db",
     "health_check.cache",
@@ -68,7 +67,6 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "debug_toolbar.middleware.DebugToolbarMiddleware",
-    "django_ory_auth.middleware.AuthenticationMiddleware",
     "django_prometheus.middleware.PrometheusAfterMiddleware",
 ]
 
@@ -85,7 +83,6 @@ TEMPLATES = [
                 "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 "django.contrib.messages.context_processors.messages",
-                "django_ory_auth.context.processor",
             ],
         },
     },
@@ -126,11 +123,6 @@ AUTH_PASSWORD_VALIDATORS = [
         "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
     },
 ]
-
-AUTHENTICATION_BACKENDS = [
-    "django_ory_auth.backend.OryBackend",
-]
-
 
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/

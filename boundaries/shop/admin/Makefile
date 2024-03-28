@@ -28,3 +28,6 @@ lint: ## Run linter
 # MIGRATION TASKS ======================================================================================================
 migrate: ## Run migrations
 	@python src/manage.py migrate
+
+add_user: ## Add user
+	@python src/manage.py createsuperuser
