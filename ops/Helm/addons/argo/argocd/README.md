@@ -1,6 +1,6 @@
 # argo
 
-![Version: 0.4.3](https://img.shields.io/badge/Version-0.4.3-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.10.0](https://img.shields.io/badge/AppVersion-2.10.0-informational?style=flat-square)
+![Version: 0.4.4](https://img.shields.io/badge/Version-0.4.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.10.0](https://img.shields.io/badge/AppVersion-2.10.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -17,7 +17,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 | https://argoproj.github.io/argo-helm | argo-cd | 6.7.3 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 2.0.0 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.6 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 19.0.1 |
+| oci://ghcr.io/dragonflydb/dragonfly/helm | dragonfly | v1.15.1 |
 
 ## Values
 
@@ -765,7 +765,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"redis-master.argocd"
+"argocd-dragonfly.argocd"
 </pre>
 </div>
 			</td>
@@ -1199,7 +1199,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"4.5.1"
+"4.6.0"
 </pre>
 </div>
 			</td>
@@ -1255,7 +1255,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.32.0"
+"0.36.0"
 </pre>
 </div>
 			</td>

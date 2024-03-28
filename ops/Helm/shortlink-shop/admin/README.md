@@ -391,7 +391,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--command[0]"><a href="./values.yaml#L125">jobs[0].command[0]</a></td>
+			<td id="jobs[0]--command[0]"><a href="./values.yaml#L126">jobs[0].command[0]</a></td>
 			<td>
 string
 </td>
@@ -405,7 +405,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--command[1]"><a href="./values.yaml#L125">jobs[0].command[1]</a></td>
+			<td id="jobs[0]--command[1]"><a href="./values.yaml#L126">jobs[0].command[1]</a></td>
 			<td>
 string
 </td>
@@ -419,7 +419,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--command[2]"><a href="./values.yaml#L125">jobs[0].command[2]</a></td>
+			<td id="jobs[0]--command[2]"><a href="./values.yaml#L126">jobs[0].command[2]</a></td>
 			<td>
 string
 </td>
@@ -433,7 +433,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--image--repository"><a href="./values.yaml#L123">jobs[0].image.repository</a></td>
+			<td id="jobs[0]--image--repository"><a href="./values.yaml#L124">jobs[0].image.repository</a></td>
 			<td>
 string
 </td>
@@ -447,7 +447,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--image--tag"><a href="./values.yaml#L124">jobs[0].image.tag</a></td>
+			<td id="jobs[0]--image--tag"><a href="./values.yaml#L125">jobs[0].image.tag</a></td>
 			<td>
 string
 </td>
@@ -461,7 +461,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--name"><a href="./values.yaml#L121">jobs[0].name</a></td>
+			<td id="jobs[0]--name"><a href="./values.yaml#L122">jobs[0].name</a></td>
 			<td>
 string
 </td>
@@ -475,7 +475,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="./values.yaml#L130">monitoring.enabled</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L131">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -489,7 +489,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--enabled"><a href="./values.yaml#L135">networkPolicy.enabled</a></td>
+			<td id="networkPolicy--enabled"><a href="./values.yaml#L136">networkPolicy.enabled</a></td>
 			<td>
 bool
 </td>
@@ -546,62 +546,6 @@ string
 		</tr>
 		<tr>
 			<td id="service--ports[0]--public"><a href="./values.yaml#L112">service.ports[0].public</a></td>
-			<td>
-bool
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-true
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="service--ports[1]--name"><a href="./values.yaml#L113">service.ports[1].name</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"metrics"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="service--ports[1]--port"><a href="./values.yaml#L114">service.ports[1].port</a></td>
-			<td>
-int
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-8000
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="service--ports[1]--protocol"><a href="./values.yaml#L115">service.ports[1].protocol</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"TCP"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="service--ports[1]--public"><a href="./values.yaml#L116">service.ports[1].public</a></td>
 			<td>
 bool
 </td>

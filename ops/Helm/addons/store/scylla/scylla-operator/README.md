@@ -14,7 +14,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://scylla-operator-charts.storage.googleapis.com/stable | scylla-operator | v1.11.3 |
+| https://scylla-operator-charts.storage.googleapis.com/stable | scylla-operator | v1.12.0 |
 
 ## Values
 
