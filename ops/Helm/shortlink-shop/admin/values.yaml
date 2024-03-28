@@ -41,6 +41,24 @@ deploy:
   env:
     REDIS_URL: redis://shortlink-redis:6379/0
 
+    envSecret:
+      - name: POSTGRES_DB
+        secretKeyRef:
+          name: shop-postgres-pguser-shop
+          key: dbname
+      - name: POSTGRES_USER
+        secretKeyRef:
+          name: shop-postgres-pguser-shop
+          key: user
+      - name: POSTGRES_PASSWORD
+        secretKeyRef:
+          name: shop-postgres-pguser-shop
+          key: password
+      - name: POSTGRES_HOST
+        secretKeyRef:
+          name: shop-postgres-pguser-shop
+          key: host
+
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/shop_admin
     tag: 0.17.65
