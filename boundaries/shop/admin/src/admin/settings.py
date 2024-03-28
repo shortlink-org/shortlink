@@ -16,6 +16,10 @@ import environ
 
 env = environ.Env()
 
+ORY_SDK_URL = env("ORY_SDK_URL", default="http://127.0.0.1:4433")
+ORY_UI_URL = env("ORY_UI_URL", default="http://127.0.0.1:3000/next/auth")
+LOGIN_URL = env("LOGIN_URL", default="http://127.0.0.1:3000/next/auth/login")
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 

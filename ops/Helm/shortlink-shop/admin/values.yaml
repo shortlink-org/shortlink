@@ -39,6 +39,12 @@ deploy:
   type: Deployment
 
   env:
+    # Auth ------------------------------
+    ORY_SDK_URL: https://shortlink.best/api/auth
+    ORY_UI_URL: https://shortlink.best/next/auth
+    LOGIN_URL: https://shortlink.best/next/auth/login
+
+    # Cache -----------------------------
     REDIS_URL: redis://shortlink-redis:6379/0
 
     envSecret:
