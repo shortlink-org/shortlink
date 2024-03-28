@@ -32,7 +32,7 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-template | shortlink-template | 0.8.13 |
+| file://../shortlink-template | shortlink-template | 0.8.14 |
 
 ## Values
 

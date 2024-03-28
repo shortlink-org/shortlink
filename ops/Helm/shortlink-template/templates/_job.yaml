@@ -49,6 +49,7 @@ spec:
         - name: {{ .name }}
           image: "{{ .image.repository }}:{{ .image.tag }}"
           command: {{ .command | toYaml | nindent 10 }}
+          {{- include "shortlink-common.env" . | nindent 8 }}
       restartPolicy: OnFailure
 {{- end }}
 {{- end }}
