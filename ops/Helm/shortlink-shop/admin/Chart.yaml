@@ -21,3 +21,11 @@ dependencies:
   - name: shortlink-template
     version: 0.8.13
     repository: "file://../../shortlink-template"
+  - name: dragonfly
+    version: v1.15.1
+    repository: oci://ghcr.io/dragonflydb/dragonfly/helm
+    condition: redis.enabled
+    tags:
+      - redis
+      - store
+      - dragonfly

@@ -2,5 +2,8 @@ dependencies:
 - name: shortlink-template
   repository: file://../../shortlink-template
   version: 0.8.13
-digest: sha256:da866fb323a7a6a156af21de228945bb726635ef633942b7a2ac3c4a7a216ee8
-generated: "2024-03-28T13:17:22.467184+01:00"
+- name: dragonfly
+  repository: oci://ghcr.io/dragonflydb/dragonfly/helm
+  version: v1.15.1
+digest: sha256:856ab4f19c600ab12582b6f9639e3085de5f4ffec30cdbba719635330612a253
+generated: "2024-03-28T14:50:04.863691+01:00"

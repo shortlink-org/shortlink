@@ -22,6 +22,7 @@ spec:
     helm:
       valueFiles:
         - values.yaml
+        - redis.values.yaml
   project: shortlink
   syncPolicy:
     automated:

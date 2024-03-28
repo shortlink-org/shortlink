@@ -16,10 +16,6 @@ import environ
 
 env = environ.Env()
 
-ORY_SDK_URL = env("ORY_SDK_URL", default="http://127.0.0.1:4433")
-ORY_UI_URL = env("ORY_UI_URL", default="http://127.0.0.1:3000/next/auth")
-LOGIN_URL = env("LOGIN_URL", default="http://127.0.0.1:3000/next/auth/login")
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -102,6 +98,20 @@ DATABASES = {
         "PASSWORD": env("POSTGRES_PASSWORD", default="shortlink"),
         "HOST": env("POSTGRES_HOST", default="localhost"),
         "PORT": env("POSTGRES_PORT", default="5432"),
+    }
+}
+
+# Cache
+# https://github.com/jazzband/django-redis
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        "LOCATION": env("REDIS_URL", default="redis://localhost:6379/1"),
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "COMPRESSOR": "django_redis.compressors.zlib.ZlibCompressor",
+        },
     }
 }
 

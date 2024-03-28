@@ -22,10 +22,6 @@ ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 ENV VIRTUAL_ENV=/usr/local
 
-# Kratos ENV
-ENV ORY_SDK_URL="http://host.docker.internal:4433"
-ENV ORY_UI_URL="http://host.docker.internal:3000/next/auth"
-
 # HTTP API && Prometheus metrics
 EXPOSE 8000
 

@@ -63,6 +63,8 @@ dependencies = [
   'wrapt==1.16.0',
   'zipp==3.18.1',
   'psycopg2',
+  'redis',
+  'django-redis'
 ]
 
 [build-system]

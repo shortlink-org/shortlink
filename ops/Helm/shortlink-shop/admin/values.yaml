@@ -39,9 +39,7 @@ deploy:
   type: Deployment
 
   env:
-    ORY_SDK_URL: https://shortlink.best/api/auth
-    ORY_UI_URL: https://shortlink.best/next/auth
-    LOGIN_URL: https://shortlink.best/next/auth/login
+    REDIS_URL: redis://shortlink-redis:6379/0
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/shop_admin
