@@ -56,7 +56,7 @@ falco:
         address: http://webhook-falco-eventsource-svc.argocd.svc.cluster.local:12000/falco
 
     webui:
-      enabled: true
+      enabled: false
       replicaCount: 1
 
       redis:
