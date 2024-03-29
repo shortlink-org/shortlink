@@ -9,10 +9,6 @@ anyio==4.3.0
     # via httpx
 attrs==23.2.0
     # via allure-python-commons
-backoff==2.2.1
-    # via
-    #   opentelemetry-exporter-otlp-proto-grpc
-    #   opentelemetry-exporter-otlp-proto-http
 blinker==1.7.0
     # via
     #   flask
@@ -37,7 +33,10 @@ coverage==7.4.4
     # via pytest-cov
 dependency-injector @ git+https://github.com/shortlink-org/python-dependency-injector@6aae04eae3fd6ab5bf7a6b24627534a937ca184e
 deprecated==1.2.14
-    # via opentelemetry-api
+    # via
+    #   opentelemetry-api
+    #   opentelemetry-exporter-otlp-proto-grpc
+    #   opentelemetry-exporter-otlp-proto-http
 docker==7.0.0
     # via testcontainers
 factory-boy==3.3.0
@@ -76,7 +75,7 @@ idna==3.6
     #   anyio
     #   httpx
     #   requests
-importlib-metadata==7.1.0
+importlib-metadata==7.0.0
     # via opentelemetry-api
 inflection==0.5.1
     # via pytest-factoryboy
@@ -111,19 +110,24 @@ opentelemetry-api==1.24.0
     #   opentelemetry-instrumentation-sqlalchemy
     #   opentelemetry-sdk
 opentelemetry-exporter-otlp==1.24.0
+opentelemetry-exporter-otlp-proto-common==1.24.0
+    # via
+    #   opentelemetry-exporter-otlp-proto-grpc
+    #   opentelemetry-exporter-otlp-proto-http
 opentelemetry-exporter-otlp-proto-grpc==1.24.0
     # via opentelemetry-exporter-otlp
 opentelemetry-exporter-otlp-proto-http==1.24.0
     # via opentelemetry-exporter-otlp
-opentelemetry-exporter-prometheus==0.44b0
-opentelemetry-instrumentation==0.44b0
+opentelemetry-exporter-prometheus==0.45b0
+opentelemetry-instrumentation==0.45b0
     # via
     #   opentelemetry-instrumentation-redis
     #   opentelemetry-instrumentation-sqlalchemy
-opentelemetry-instrumentation-redis==0.44b0
-opentelemetry-instrumentation-sqlalchemy==0.44b0
+opentelemetry-instrumentation-redis==0.45b0
+opentelemetry-instrumentation-sqlalchemy==0.45b0
 opentelemetry-proto==1.24.0
     # via
+    #   opentelemetry-exporter-otlp-proto-common
     #   opentelemetry-exporter-otlp-proto-grpc
     #   opentelemetry-exporter-otlp-proto-http
 opentelemetry-sdk==1.24.0
@@ -131,7 +135,7 @@ opentelemetry-sdk==1.24.0
     #   opentelemetry-exporter-otlp-proto-grpc
     #   opentelemetry-exporter-otlp-proto-http
     #   opentelemetry-exporter-prometheus
-opentelemetry-semantic-conventions==0.44b0
+opentelemetry-semantic-conventions==0.45b0
     # via
     #   opentelemetry-instrumentation-redis
     #   opentelemetry-instrumentation-sqlalchemy
@@ -150,7 +154,7 @@ priority==2.0.0
     # via hypercorn
 prometheus-client==0.20.0
     # via opentelemetry-exporter-prometheus
-protobuf==5.26.1
+protobuf==4.25.3
     # via
     #   googleapis-common-protos
     #   opentelemetry-proto

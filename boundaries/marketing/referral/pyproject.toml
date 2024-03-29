@@ -21,8 +21,11 @@ dependencies = [
     "pyroscope-io==0.8.5",
     "opentelemetry-api==1.24.0",
     "opentelemetry-sdk",
-    "opentelemetry-exporter-otlp",
     "opentelemetry-exporter-prometheus",
+    'opentelemetry-exporter-otlp==1.24.0',
+    'opentelemetry-exporter-otlp-proto-common==1.24.0',
+    'opentelemetry-exporter-otlp-proto-grpc==1.24.0',
+    'opentelemetry-exporter-otlp-proto-http==1.24.0',
     "opentelemetry-instrumentation-redis",
     "opentelemetry-instrumentation-sqlalchemy",
 # For testing dependencies
