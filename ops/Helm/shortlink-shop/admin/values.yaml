@@ -85,7 +85,7 @@ deploy:
   livenessProbe:
     enabled: true
     httpGet:
-      path: /healthz
+      path: /healthz/
       port: 8000
 
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
@@ -93,7 +93,7 @@ deploy:
     enabled: true
     initialDelaySeconds: 30
     httpGet:
-      path: /healthz
+      path: /healthz/
       port: 8000
 
   resources:
