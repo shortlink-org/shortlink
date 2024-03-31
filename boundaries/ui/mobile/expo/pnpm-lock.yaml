@@ -63,7 +63,7 @@ devDependencies:
     version: 0.17.8(@react-native/babel-preset@0.73.21)(expo-modules-autolinking@1.10.3)
   '@nx/detox':
     specifier: 18.2.1
-    version: 18.2.1(@types/node@20.12.2)(detox@20.19.4)(nx@18.2.1)(ts-node@10.9.2)(typescript@5.4.3)
+    version: 18.2.1(@types/node@20.12.2)(detox@20.19.5)(nx@18.2.1)(ts-node@10.9.2)(typescript@5.4.3)
   '@nx/eslint-plugin':
     specifier: 18.2.1
     version: 18.2.1(@types/node@20.12.2)(@typescript-eslint/parser@7.4.0)(eslint-config-prettier@9.1.0)(eslint@8.57.0)(nx@18.2.1)(typescript@5.4.3)
@@ -116,8 +116,8 @@ devDependencies:
     specifier: ~10.0.1
     version: 10.0.1(@babel/core@7.24.3)
   detox:
-    specifier: ^20.19.4
-    version: 20.19.4(jest-environment-jsdom@29.7.0)(jest@29.7.0)
+    specifier: ^20.19.5
+    version: 20.19.5(jest-environment-jsdom@29.7.0)(jest@29.7.0)
   eas-cli:
     specifier: ^7.6.2
     version: 7.6.2(@types/node@20.12.2)(expo-modules-autolinking@1.10.3)(typescript@5.4.3)
@@ -3032,10 +3032,10 @@ packages:
       mkdirp: 1.0.4
       rimraf: 3.0.2
 
-  /@nrwl/detox@18.2.1(@types/node@20.12.2)(detox@20.19.4)(nx@18.2.1)(ts-node@10.9.2)(typescript@5.4.3):
+  /@nrwl/detox@18.2.1(@types/node@20.12.2)(detox@20.19.5)(nx@18.2.1)(ts-node@10.9.2)(typescript@5.4.3):
     resolution: {integrity: sha512-vPaKo6wk1YTZVJrsHhDPqSR/To8M3q4ni/LxstHxk0jpnm3zqRSc675A5VNwNFRRPLZnMqgrhVVQaAwRy+5mjw==}
     dependencies:
-      '@nx/detox': 18.2.1(@types/node@20.12.2)(detox@20.19.4)(nx@18.2.1)(ts-node@10.9.2)(typescript@5.4.3)
+      '@nx/detox': 18.2.1(@types/node@20.12.2)(detox@20.19.5)(nx@18.2.1)(ts-node@10.9.2)(typescript@5.4.3)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -3255,18 +3255,18 @@ packages:
       - debug
     dev: true
 
-  /@nx/detox@18.2.1(@types/node@20.12.2)(detox@20.19.4)(nx@18.2.1)(ts-node@10.9.2)(typescript@5.4.3):
+  /@nx/detox@18.2.1(@types/node@20.12.2)(detox@20.19.5)(nx@18.2.1)(ts-node@10.9.2)(typescript@5.4.3):
     resolution: {integrity: sha512-qSytWB1RELj5gsUmQ6JQIwZdz9/Sts+XPWiul5q4sXEVIRJUCZAf4kUt/jY6AU6bH4AijUpOKEY5VdvvBDt+iA==}
     peerDependencies:
       detox: ^20.9.0
     dependencies:
-      '@nrwl/detox': 18.2.1(@types/node@20.12.2)(detox@20.19.4)(nx@18.2.1)(ts-node@10.9.2)(typescript@5.4.3)
+      '@nrwl/detox': 18.2.1(@types/node@20.12.2)(detox@20.19.5)(nx@18.2.1)(ts-node@10.9.2)(typescript@5.4.3)
       '@nx/devkit': 18.2.1(nx@18.2.1)
       '@nx/eslint': 18.2.1(@types/node@20.12.2)(nx@18.2.1)
       '@nx/jest': 18.2.1(@types/node@20.12.2)(nx@18.2.1)(ts-node@10.9.2)(typescript@5.4.3)
       '@nx/js': 18.2.1(@types/node@20.12.2)(nx@18.2.1)(typescript@5.4.3)
       '@nx/react': 18.2.1(@types/node@20.12.2)(nx@18.2.1)(typescript@5.4.3)
-      detox: 20.19.4(jest-environment-jsdom@29.7.0)(jest@29.7.0)
+      detox: 20.19.5(jest-environment-jsdom@29.7.0)(jest@29.7.0)
       tslib: 2.6.2
     transitivePeerDependencies:
       - '@babel/traverse'
@@ -7141,8 +7141,8 @@ packages:
       - supports-color
     dev: true
 
-  /detox@20.19.4(jest-environment-jsdom@29.7.0)(jest@29.7.0):
-    resolution: {integrity: sha512-frlWR+6oSrVhyr2xXqnSUbOwxBl1Yl7cdayIErVcHYIxfWIMYOH9o4csuIso3HRCUpJUwZkQrg0IsZUzWe08IA==}
+  /detox@20.19.5(jest-environment-jsdom@29.7.0)(jest@29.7.0):
+    resolution: {integrity: sha512-gLNp2rGLMSjrCpY6Xx3drK8jEkhUqrwRCbn27Q5AayFUGHeN7702wU1hLjWEdmJzRCmFUOmOeHR+j+l5N7xEDw==}
     engines: {node: '>=14'}
     hasBin: true
     requiresBuild: true
