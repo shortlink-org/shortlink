@@ -312,7 +312,7 @@ object
 {
   "enabled": true,
   "httpGet": {
-    "path": "/healthz",
+    "path": "/healthz/",
     "port": 8000
   }
 }
@@ -332,7 +332,7 @@ object
 {
   "enabled": true,
   "httpGet": {
-    "path": "/healthz",
+    "path": "/healthz/",
     "port": 8000
   },
   "initialDelaySeconds": 30
