@@ -27,4 +27,4 @@ lint: ## Run linter
 
 # MIGRATION TASKS ======================================================================================================
 migrate: ## Run migrations
-	@python src/manage.py migrate
+	@python src/migration.py migrate
