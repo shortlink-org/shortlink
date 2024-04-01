@@ -51,10 +51,12 @@ vector:
         address: 0.0.0.0:9090
       loki:
         type: loki
-        inputs: ["kubernetes_logs"]
+        inputs: ["logs_json"]
         encoding:
-          codec: native_json
+          codec: json
         # compression: snappy
+        remove_label_fields: true
+        remove_timestamp: true
         endpoint: http://grafana-loki.grafana:3100
         labels:
           "pod_labels_*": |-
