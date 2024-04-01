@@ -28,36 +28,36 @@ vector:
       kubernetes_logs:
         type: kubernetes_logs
         # use_apiserver_cache: true
-#      host_metrics:
-#        filesystem:
-#          devices:
-#            excludes: [ binfmt_misc ]
-#          filesystems:
-#            excludes: [ binfmt_misc ]
-#          mountpoints:
-#            excludes: [ "*/proc/sys/fs/binfmt_misc" ]
-#        type: host_metrics
-#      internal_metrics:
-#        type: internal_metrics
-    transforms:
-      kubernetes_format:
-        type: remap
-        inputs: ["kubernetes_logs"]
-        source: |-
-          . = .message
+      host_metrics:
+        filesystem:
+          devices:
+            excludes: [ binfmt_misc ]
+          filesystems:
+            excludes: [ binfmt_misc ]
+          mountpoints:
+            excludes: [ "*/proc/sys/fs/binfmt_misc" ]
+        type: host_metrics
+      internal_metrics:
+        type: internal_metrics
+#    transforms:
+#      kubernetes_format:
+#        type: remap
+#        inputs: ["kubernetes_logs"]
+#        source: |-
+#          . = .message
     sinks:
-#      prom_exporter:
-#        type: prometheus_exporter
-#        inputs: [ host_metrics, internal_metrics ]
-#        address: 0.0.0.0:9090
+      prom_exporter:
+        type: prometheus_exporter
+        inputs: [ host_metrics, internal_metrics ]
+        address: 0.0.0.0:9090
       loki:
         type: loki
         inputs: ["kubernetes_format"]
         encoding:
           codec: native_json
-        # compression: snappy
-        # remove_label_fields: true
-        # remove_timestamp: true
+        compression: snappy
+        remove_label_fields: true
+        remove_timestamp: true
         endpoint: http://grafana-loki.grafana:3100
         labels:
           "pod_labels_*": |-
