@@ -1,4 +1,4 @@
-CREATE DOMAIN link AS jsonb CHECK (
+CREATE DOMAIN public.link AS jsonb CHECK (
     CASE jsonb_typeof(value->'url')::text
         WHEN 'string' THEN
             length(to_json(value->'url')::text) > 0
