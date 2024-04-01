@@ -15,9 +15,9 @@ spec:
             stage: production
   template:
     metadata:
-      name: 'shortlink-{{"{{"}}stage{{"}}"}}"'
-      annotations:
-        kargo.akuity.io/authorized-stage: 'shortlink:{{"{{"}}stage{{"}}"}}"'
+      name: shortlink
+      # annotations:
+      #  kargo.akuity.io/authorized-stage: 'shortlink:{{"{{"}}stage{{"}}"}}"'
     spec:
       project: shortlink
       source:
