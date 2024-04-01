@@ -28,22 +28,22 @@ vector:
       kubernetes_logs:
         type: kubernetes_logs
         # use_apiserver_cache: true
-      host_metrics:
-        filesystem:
-          devices:
-            excludes: [ binfmt_misc ]
-          filesystems:
-            excludes: [ binfmt_misc ]
-          mountpoints:
-            excludes: [ "*/proc/sys/fs/binfmt_misc" ]
-        type: host_metrics
-      internal_metrics:
-        type: internal_metrics
+#      host_metrics:
+#        filesystem:
+#          devices:
+#            excludes: [ binfmt_misc ]
+#          filesystems:
+#            excludes: [ binfmt_misc ]
+#          mountpoints:
+#            excludes: [ "*/proc/sys/fs/binfmt_misc" ]
+#        type: host_metrics
+#      internal_metrics:
+#        type: internal_metrics
     sinks:
-      prom_exporter:
-        type: prometheus_exporter
-        inputs: [ host_metrics, internal_metrics ]
-        address: 0.0.0.0:9090
+#      prom_exporter:
+#        type: prometheus_exporter
+#        inputs: [ host_metrics, internal_metrics ]
+#        address: 0.0.0.0:9090
       loki:
         type: loki
         inputs: ["kubernetes_logs"]
