@@ -48,10 +48,10 @@ vector:
         type: loki
         inputs: ["kubernetes_logs"]
         encoding:
-          codec: json
+          codec: native_json
         # compression: snappy
-        remove_label_fields: true
-        remove_timestamp: true
+        # remove_label_fields: true
+        # remove_timestamp: true
         endpoint: http://grafana-loki.grafana:3100
         labels:
           "pod_labels_*": |-
