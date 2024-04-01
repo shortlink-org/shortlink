@@ -146,24 +146,24 @@ jobs:
       tag: 0.17.70
     command: ["python", "src/manage.py", "migrate"]
 
-    env:
-      envSecret:
-        - name: POSTGRES_DB
-          secretKeyRef:
-            name: shop-postgres-pguser-shop
-            key: dbname
-        - name: POSTGRES_USER
-          secretKeyRef:
-            name: shop-postgres-pguser-shop
-            key: user
-        - name: POSTGRES_PASSWORD
-          secretKeyRef:
-            name: shop-postgres-pguser-shop
-            key: password
-        - name: POSTGRES_HOST
-          secretKeyRef:
-            name: shop-postgres-pguser-shop
-            key: host
+    env: {}
+    envSecret:
+      - name: POSTGRES_DB
+        secretKeyRef:
+          name: shop-postgres-pguser-shop
+          key: dbname
+      - name: POSTGRES_USER
+        secretKeyRef:
+          name: shop-postgres-pguser-shop
+          key: user
+      - name: POSTGRES_PASSWORD
+        secretKeyRef:
+          name: shop-postgres-pguser-shop
+          key: password
+      - name: POSTGRES_HOST
+        secretKeyRef:
+          name: shop-postgres-pguser-shop
+          key: host
 
 # ==============================================================================
 # Prometheus Operator ServiceMonitor configuration
