@@ -3,7 +3,7 @@ kind: PostgresCluster
 metadata:
   name: kratos-postgres
   annotations:
-    argocd.argoproj.io/sync-wave: "2"
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   postgresVersion: 16
   metadata:
