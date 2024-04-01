@@ -39,11 +39,6 @@ vector:
         type: host_metrics
       internal_metrics:
         type: internal_metrics
-    transforms:
-      logs_json:
-        type: remap
-        inputs: [ kubernetes_logs ]
-        source: ". = parse_json!(.message)"
     sinks:
       prom_exporter:
         type: prometheus_exporter
@@ -51,7 +46,7 @@ vector:
         address: 0.0.0.0:9090
       loki:
         type: loki
-        inputs: ["logs_json"]
+        inputs: ["kubernetes_logs"]
         encoding:
           codec: json
         # compression: snappy
