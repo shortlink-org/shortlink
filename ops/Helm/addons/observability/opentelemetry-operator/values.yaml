@@ -11,5 +11,8 @@ opentelemetry-operator:
     prometheusRule:
       enabled: true
 
+      annotations:
+        app: opentelemetry-operator
+
       defaultRules:
         enabled: true
