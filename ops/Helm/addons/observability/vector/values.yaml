@@ -59,8 +59,8 @@ vector:
         remove_label_fields: true
         remove_timestamp: true
         endpoint: http://grafana-loki.grafana:3100
-        labels:
-          "pod_labels_*": |-
-            {{ print "{{ kubernetes.pod_labels }}" }}
-          "*": |-
-            {{ print "{{ metadata }}" }}
+#        labels:
+#          "pod_labels_*": |-
+#            {{ print "{{ kubernetes.pod_labels }}" }}
+#          "*": |-
+#            {{ print "{{ metadata }}" }}
