@@ -44,7 +44,7 @@ vector:
         type: remap
         inputs: ["kubernetes_logs"]
         source: |
-          . = parse_json(.message)
+          ., err = parse_json(.message)
     sinks:
       prom_exporter:
         type: prometheus_exporter
