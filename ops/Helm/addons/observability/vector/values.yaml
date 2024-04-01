@@ -27,7 +27,7 @@ vector:
     sources:
       kubernetes_logs:
         type: kubernetes_logs
-        use_apiserver_cache: true
+        # use_apiserver_cache: true
       host_metrics:
         filesystem:
           devices:
