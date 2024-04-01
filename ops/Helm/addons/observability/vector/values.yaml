@@ -52,7 +52,7 @@ vector:
         address: 0.0.0.0:9090
       loki:
         type: loki
-        inputs: ["kubernetes_format"]
+        inputs: ["kubernetes_logs"]
         encoding:
           codec: native_json
         compression: snappy
