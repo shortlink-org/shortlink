@@ -1,5 +1,5 @@
 promtail:
-  enabled: false
+  enabled: true
 
   # this is required so that the promtail process can read the kube-apiserver audit logs written as `nobody` user
   containerSecurityContext:

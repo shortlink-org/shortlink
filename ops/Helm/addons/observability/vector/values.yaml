@@ -39,12 +39,12 @@ vector:
         type: host_metrics
       internal_metrics:
         type: internal_metrics
-    transforms:
-      kubernetes_format:
-        type: remap
-        inputs: ["kubernetes_logs"]
-        source: |
-          ., err = parse_json(.message)
+#    transforms:
+#      kubernetes_format:
+#        type: remap
+#        inputs: ["kubernetes_logs"]
+#        source: |
+#          ., err = parse_json(.message)
     sinks:
       prom_exporter:
         type: prometheus_exporter
@@ -52,7 +52,7 @@ vector:
         address: 0.0.0.0:9090
       loki:
         type: loki
-        inputs: ["kubernetes_format"]
+        inputs: ["kubernetes_logs"]
         encoding:
           codec: native_json
         compression: snappy
@@ -60,7 +60,6 @@ vector:
         remove_timestamp: true
         endpoint: http://grafana-loki.grafana:3100
         labels:
-          "test": "test"
           "pod_labels_*": |-
             {{ print "{{ kubernetes.pod_labels }}" }}
           "*": |-
