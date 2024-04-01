@@ -43,7 +43,7 @@ vector:
       kubernetes_format:
         type: remap
         inputs: ["kubernetes_logs"]
-        source: |
+        source: |-
           . = .message
     sinks:
 #      prom_exporter:
