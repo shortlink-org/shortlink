@@ -47,6 +47,9 @@ deploy:
     # Cache -----------------------------
     REDIS_URL: redis://shortlink-redis:6379/0
 
+    # Security --------------------------
+    DEBUG: false
+
   envSecret:
     - name: POSTGRES_DB
       secretKeyRef:
