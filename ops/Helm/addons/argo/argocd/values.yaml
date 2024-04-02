@@ -127,6 +127,7 @@ argo-cd:
 
     rbac:
       policy.csv: |
+        p, role:readonly, extensions, invoke, httpbin, allow
         p, role:org-admin, applications, *, */*, allow
         p, role:org-admin, clusters, get, *, allow
         p, role:org-admin, repositories, get, *, allow
@@ -139,6 +140,22 @@ argo-cd:
 
     extensions:
       enabled: true
+
+      extensionList:
+        - name: rollout-extension
+          env:
+            - name: EXTENSION_URL
+              value: https://github.com/argoproj-labs/rollout-extension/releases/download/v0.3.4/extension.tar
+        - name: extension-metrics
+          env:
+            - name: EXTENSION_URL
+              value: https://github.com/argoproj-labs/argocd-extension-metrics/releases/download/v1.0.1/extension.tar.gz
+            - name: EXTENSION_CHECKSUM_URL
+              value: https://github.com/argoproj-labs/argocd-extension-metrics/releases/download/v1.0.1/extension_checksums.txt
+        - name: shortlink-extension-docs
+          env:
+            - name: EXTENSION_URL
+              value: https://github.com/shortlink-org/shortlink/raw/main/internal/extension/argocd-extension-docs/ui/dist/extension.tar
 
   repoServer:
     serviceAccount:
@@ -271,6 +288,8 @@ argo-cd:
       controller.diff.server.side: "true"
 
       exec.enabled: "true"
+
+      server.enable.proxy.extension: "true"
 
       helm.valuesFileSchemes: >-
         secrets+gpg-import, secrets+gpg-import-kubernetes,
