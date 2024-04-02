@@ -102,8 +102,8 @@ importers:
         specifier: 18.0.0
         version: 18.0.0
       postcss-preset-env:
-        specifier: ^9.5.3
-        version: 9.5.3(postcss@8.4.38)
+        specifier: ^9.5.4
+        version: 9.5.4(postcss@8.4.38)
       prop-types:
         specifier: ^15.8.1
         version: 15.8.1
@@ -258,8 +258,8 @@ importers:
         specifier: '*'
         version: link:../eslint/eslint-config-shortlink
       postcss-preset-env:
-        specifier: ^9.5.3
-        version: 9.5.3(postcss@8.4.38)
+        specifier: ^9.5.4
+        version: 9.5.4(postcss@8.4.38)
       typescript:
         specifier: ^5.4.3
         version: 5.4.3
@@ -11761,13 +11761,9 @@ packages:
     resolution: {integrity: sha512-bsTwuIg/BZZK/vreVTYYbSWoe2F+71P7K5QGEX+pT250DZbfU1MQ5prOKpPR+LL6uWKK3KMwMCAS74QB3Um1uw==}
     dependencies:
       browserslist: 4.23.0
-      caniuse-lite: 1.0.30001600
+      caniuse-lite: 1.0.30001603
       lodash.memoize: 4.1.2
       lodash.uniq: 4.5.0
-    dev: true
-
-  /caniuse-lite@1.0.30001600:
-    resolution: {integrity: sha512-+2S9/2JFhYmYaDpZvo0lKkfvuKIglrx68MwOBqMGHhQsNkLjB5xtc/TGoEPs+MxjSyN/72qer2g97nzR641mOQ==}
     dev: true
 
   /caniuse-lite@1.0.30001603:
@@ -20131,8 +20127,8 @@ packages:
       postcss-value-parser: 4.2.0
     dev: false
 
-  /postcss-preset-env@9.5.3(postcss@8.4.38):
-    resolution: {integrity: sha512-uOBG5kvYMxZGuepbAKr563PCB+syENPa1C9kPA8IvDGraVkrEUk//31oaO06oj9VtuujVtsgXHI7qbQynCuaVQ==}
+  /postcss-preset-env@9.5.4(postcss@8.4.38):
+    resolution: {integrity: sha512-o/jOlJjhm4f6rI5q1f+4Og3tz1cjaO50er9ndk7ZdcXHjWOH49kMAhqDC/nQifypQkOAiAmF46dPt3pZM+Cwbg==}
     engines: {node: ^14 || ^16 || >=18}
     peerDependencies:
       postcss: ^8.4
