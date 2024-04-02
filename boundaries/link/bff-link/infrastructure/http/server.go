@@ -19,10 +19,10 @@ import (
 	logger_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/logger"
 	metrics_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/metrics"
 	pprof_labels_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/pprof_labels"
-	span_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/span"
 	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 )
 
+// MAX_AGE CORS - 5 minutes
 const MAX_AGE = 300
 
 // Run HTTP-server
@@ -61,11 +61,10 @@ func (api *Server) run(config http_server.Config, params Config) error {
 	r.Use(middleware.Timeout(config.Timeout))
 
 	// Additional middleware
-	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
+	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME"), otelchi.WithTracerProvider(params.Tracer)))
 	r.Use(logger_middleware.Logger(params.Log))
 	r.Use(auth_middleware.Auth())
 	r.Use(pprof_labels_middleware.Labels)
-	r.Use(span_middleware.Span())
 
 	// Metrics
 	metrics, err := metrics_middleware.NewMetrics()
