@@ -2,7 +2,7 @@ include:
   - local: /ops/gitlab/pipelines/ui/templates/cache.yml
 
 .nx:
-  extends: .cache
+  # extends: .cache
   image: node:21.7-alpine
   interruptible: true
   variables:
