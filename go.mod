@@ -242,7 +242,6 @@ require (
 	go.etcd.io/etcd/api/v3 v3.5.13 // indirect
 	go.etcd.io/etcd/client/pkg/v3 v3.5.13 // indirect
 	go.opencensus.io v0.24.0 // indirect
-	go.opentelemetry.io/contrib v1.24.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.24.0 // indirect
 	go.opentelemetry.io/otel/metric v1.24.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.1.0 // indirect
