@@ -70,12 +70,12 @@
 .template_build_kit:
   stage: build
   services:
-    - name: moby/buildkit:v0.13.0
+    - name: moby/buildkit:v0.13.1
       alias: buildkitd
       command:
         - --addr=tcp://0.0.0.0:1234
   image:
-    name: moby/buildkit:v0.13.0
+    name: moby/buildkit:v0.13.1
     entrypoint: [ "" ]
   variables:
     # GIT_STRATEGY: none # Set `none` if we use git sparse-checkout
