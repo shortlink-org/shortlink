@@ -67,8 +67,9 @@
   rules:
     - when: always
 
+# TODO: fix this job
 .template_build_kit:
-  stage: build
+  extends: .template_build
   services:
     - name: moby/buildkit:v0.13.1
       alias: buildkitd
@@ -80,6 +81,8 @@
   variables:
     # GIT_STRATEGY: none # Set `none` if we use git sparse-checkout
     BUILDKIT_HOST: tcp://buildkitd:1234
+  before_script:
+    - date
   script:
     - buildctl build
         --frontend dockerfile.v0
