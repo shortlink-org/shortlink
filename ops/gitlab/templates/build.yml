@@ -66,3 +66,33 @@
       - cosign.bundle
   rules:
     - when: always
+
+.template_build_kit:
+  stage: build
+  services:
+    - name: moby/buildkit:v0.13.0
+      alias: buildkitd
+      command:
+        - --addr=tcp://0.0.0.0:1234
+  image:
+    name: moby/buildkit:v0.13.0
+    entrypoint: [ "" ]
+  variables:
+    # GIT_STRATEGY: none # Set `none` if we use git sparse-checkout
+    BUILDKIT_HOST: tcp://buildkitd:1234
+  script:
+    - buildctl build
+        --frontend dockerfile.v0
+        --local context=.
+        --local dockerfile=${DOCKERFILE_PATH}
+        --opt build-arg:APP_ENV=ci
+        --opt build-arg:CI_COMMIT_TAG=$CI_COMMIT_TAG
+        --opt build-arg:CI_COMMIT_SHA=$CI_COMMIT_SHA
+        --opt build-arg:CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME
+        --opt build-arg:CI_PIPELINE_ID=$CI_PIPELINE_ID
+        --opt build-arg:CI_PIPELINE_URL=$CI_PIPELINE_URL
+        --opt platform=linux/amd64,linux/arm64
+        --output type=oci,oci-mediatypes=true,compression=estargz,dest=${REGISTRY_IMAGE}:latest,push=true
+        --output type=oci,oci-mediatypes=true,compression=estargz,dest=${REGISTRY_IMAGE}:${CI_COMMIT_TAG},push=true
+
+
