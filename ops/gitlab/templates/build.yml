@@ -84,7 +84,7 @@
     - buildctl build
         --frontend dockerfile.v0
         --local context=.
-        --local dockerfile=${DOCKERFILE_PATH}
+        --frontend-opt filename=${DOCKERFILE_PATH}
         --opt build-arg:APP_ENV=ci
         --opt build-arg:CI_COMMIT_TAG=$CI_COMMIT_TAG
         --opt build-arg:CI_COMMIT_SHA=$CI_COMMIT_SHA
