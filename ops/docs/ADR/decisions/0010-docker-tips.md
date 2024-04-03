@@ -45,3 +45,7 @@ COPY ./boundaries/ui/nx-monorepo/packages/next/out /app/out
 FROM --platform=$TARGETPLATFORM ghcr.io/nginxinc/nginx-unprivileged:1.25-alpine
 COPY --from=cache /app/out ./next
 ```
+
+### Recipe 2: Lazy pulling stargz/eStargz base images
+
+- [Docs](https://github.com/moby/buildkit/blob/master/docs/stargz-estargz.md)
