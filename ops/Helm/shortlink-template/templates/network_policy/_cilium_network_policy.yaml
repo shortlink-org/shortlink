@@ -1,0 +1,31 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{- define "shortlink-common.NetworkPolicy" }}
+{{- if and .Values.networkPolicy .Values.networkPolicy.enabled (eq .Values.networkPolicy.type "cilium") }}
+---
+apiVersion: cilium.io/v2
+kind: CiliumNetworkPolicy
+metadata:
+  {{- include "shortlink-common.metadata" . }}
+spec:
+  endpointSelector:
+    matchLabels:
+      {{- include "shortlink-common.matchLabels" . | indent 6 }}
+  ingress:
+    {{- range .Values.networkPolicy.ingress }}
+    - fromEndpoints:
+        {{- if .matchLabels }}
+        - matchLabels:
+            {{- toYaml .matchLabels | nindent 12 }}
+        {{- end }}
+    {{- end }}
+  egress:
+    {{- range .Values.networkPolicy.egress }}
+    - toEndpoints:
+        {{- if .matchLabels }}
+        - matchLabels:
+            {{- toYaml .matchLabels | nindent 12 }}
+        {{- end }}
+    {{- end }}
+{{- end }}
+{{- end }}
