@@ -40,7 +40,7 @@ require (
 	github.com/lib/pq v1.10.9
 	github.com/mattn/go-sqlite3 v1.14.22
 	github.com/minio/minio-go/v7 v7.0.69
-	github.com/nats-io/nats.go v1.34.0
+	github.com/nats-io/nats.go v1.34.1
 	github.com/neo4j/neo4j-go-driver/v5 v5.19.0
 	github.com/ory/client-go v1.9.0
 	github.com/ory/dockertest/v3 v3.10.0
