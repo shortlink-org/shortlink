@@ -33,3 +33,20 @@ $> make help # show help message with all commands and targets
 | Name       | Description | Default value            |
 |------------|-------------|--------------------------|
 | REDIS_URL  | Redis URL   | redis://localhost:6379/1 |
+
+
+### Debug mode
+
+- [Plugin readme](https://django-debug-toolbar.readthedocs.io/en/latest/installation.html)
+
+#### How enable debug mode?
+
+For enable debug mode you need to set cookie `debug_enable=true` in your browser and was authenticated.
+
+```
+# Enable debug mode
+document.cookie = "debug_enable=true; path=/";
+
+# Disable debug mode
+document.cookie = "debug_enable=false; path=/";
+```

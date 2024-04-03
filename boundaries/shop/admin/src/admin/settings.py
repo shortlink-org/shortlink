@@ -170,6 +170,18 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# Debug toolbar settings
+def show_toolbar(request):
+    if 'debug_enable' in request.COOKIES and request.user.is_authenticated:
+        cookie_value = request.COOKIES['debug_enable']
+        if cookie_value == 'true':
+            return True
+    return False
+
+DEBUG_TOOLBAR_CONFIG = {
+    'SHOW_TOOLBAR_CALLBACK': 'adminavia.settings.show_toolbar',
+}
+
 # Prometheus
 PROMETHEUS_METRICS_EXPORT_PORT = 9090
 PROMETHEUS_METRICS_EXPORT_ADDRESS = '0.0.0.0'  # all addresses
