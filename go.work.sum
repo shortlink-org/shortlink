@@ -872,6 +872,7 @@ github.com/go-logfmt/logfmt v0.5.1 h1:otpy5pqBCBZ1ng9RQ0dPu4PN7ba75Y/aA+UpowDyNV
 github.com/go-logfmt/logfmt v0.5.1/go.mod h1:WYhtIu8zTZfxdn5+rREduYbwxfcBr/Vr6KEVveWlfTs=
 github.com/go-logr/logr v0.1.0/go.mod h1:ixOQHD9gLJUVQQ2ZOR7zLEifBX6tGkNJF4QyIY7sIas=
 github.com/go-logr/logr v0.2.0/go.mod h1:z6/tIYblkpsD+a4lm/fGIIU9mZ+XfAiaFtq7xTgseGU=
+github.com/go-logr/logr v1.2.0/go.mod h1:jdQByPbusPIv2/zmleS9BjJVeZ6kBagPoEUsqbVz/1A=
 github.com/go-logr/logr v1.2.4/go.mod h1:jdQByPbusPIv2/zmleS9BjJVeZ6kBagPoEUsqbVz/1A=
 github.com/go-logr/logr v1.3.0/go.mod h1:9T104GzyrTigFIr8wt5mBrctHMim0Nb2HLGrmQ40KvY=
 github.com/go-logr/zapr v1.2.3/go.mod h1:eIauM6P8qSvTw5o2ez6UEAfGjQKrxQTl5EoK+Qa2oG4=
@@ -1019,6 +1020,7 @@ github.com/iancoleman/strcase v0.3.0 h1:nTXanmYxhfFAMjZL34Ov6gkzEsSJZ5DbhxWjvSAS
 github.com/iancoleman/strcase v0.3.0/go.mod h1:iwCmte+B7n89clKwxIoIXy/HfoL7AsD47ZCWhYzw7ho=
 github.com/ianlancetaylor/demangle v0.0.0-20220517205856-0058ec4f073c h1:rwmN+hgiyp8QyBqzdEX43lTjKAxaqCrYHaU5op5P9J8=
 github.com/ianlancetaylor/demangle v0.0.0-20220517205856-0058ec4f073c/go.mod h1:aYm2/VgdVmcIU8iMfdMvDMsRAQjcfZSKFby6HOFvi/w=
+github.com/imdario/mergo v0.3.6/go.mod h1:2EnlNZ0deacrJVfApfmtdGgDfMuh/nq6Ok1EcJh5FfA=
 github.com/influxdata/influxdb-client-go/v2 v2.4.0 h1:HGBfZYStlx3Kqvsv1h2pJixbCl/jhnFtxpKFAv9Tu5k=
 github.com/influxdata/influxdb-client-go/v2 v2.4.0/go.mod h1:vLNHdxTJkIf2mSLvGrpj8TCcISApPoXkaxP8g9uRlW8=
 github.com/influxdata/influxdb1-client v0.0.0-20220302092344-a9ab5670611c h1:qSHzRbhzK8RdXOsAdfDgO49TtqC1oZ+acxPrkfTxcCs=
@@ -1614,6 +1616,8 @@ gopkg.in/warnings.v0 v0.1.2/go.mod h1:jksf8JmL6Qr/oQM2OXTHunEvvTAsrWBLb6OOjuVWRN
 honnef.co/go/tools v0.0.1-2020.1.4 h1:UoveltGrhghAA7ePc+e+QYDHXrBps2PqFZiHkGR/xK8=
 honnef.co/go/tools v0.4.6/go.mod h1:+rnGS1THNh8zMwnd2oVOTL9QF6vmfyG6ZXBULae2uc0=
 k8s.io/api v0.30.0-alpha.2/go.mod h1:xyrt5SWiJP/5Lj6VkeIQd7e9rLQ/FRU5SaZE5D3YenM=
+k8s.io/api v0.30.0-rc.0 h1:0vwjCf5U6lj1sM24wdjdQCXBFsINbJauMex+XDH++E8=
+k8s.io/api v0.30.0-rc.0/go.mod h1:4CLPX+Dd3RifXMc9OTqzn/t0aCRsJ5suJYNLhQiKlfw=
 k8s.io/apiextensions-apiserver v0.30.0-alpha.2 h1:pxLDgQ/sxUsxtIdOmuGfw+JhdyLAxmuQJqSLKBPX0hM=
 k8s.io/apiextensions-apiserver v0.30.0-alpha.2/go.mod h1:crz2hLevYTzaDZuqEbMAczcCV3rBTRvh9oqLkkL+Ipg=
 k8s.io/apiextensions-apiserver v0.30.0-alpha.3 h1:yclPVUCBc/EACEVQhVdKGWzMhF3nqrbhytE0LqcjnXc=
@@ -1622,6 +1626,8 @@ k8s.io/apiextensions-apiserver v0.30.0-beta.0 h1:jQQjaL42qHYqpERMmgWMk6R6mTle3DV
 k8s.io/apiextensions-apiserver v0.30.0-beta.0/go.mod h1:vQzYpGPmkfiBCjHoZii1qlmJXkTEA2oi/Q/HFD/JJRA=
 k8s.io/apiextensions-apiserver v0.30.0-rc.0 h1:llFsji/OE/Mc0cTBqWF9sXLclECLWCq1E4dDbrmXxbM=
 k8s.io/apiextensions-apiserver v0.30.0-rc.0/go.mod h1:Sr1ZeumxTOXdujShDnKFAm/aM5KYiAS8CzphrKlst4Y=
+k8s.io/apiextensions-apiserver v0.30.0-rc.1 h1:RNfnKYPwdIZ+nBTUTeprdBzL2WVH0xn5BsLVeaUuHDA=
+k8s.io/apiextensions-apiserver v0.30.0-rc.1/go.mod h1:8bhW7JKTNgvFkBrTbqyBQq3Sme1CwWjyEkt4pxf01Nc=
 k8s.io/apiserver v0.30.0-alpha.2 h1:dOoEijSMgTfpy+rm3W/p7h1KuSLgT20kM6v3NDMGxx8=
 k8s.io/apiserver v0.30.0-alpha.2/go.mod h1:KcPItgbscof3zv7LuE8XhJCuxF6wCcU1ZfeAjzKvI0E=
 k8s.io/apiserver v0.30.0-alpha.3 h1:Z73kgqfxr9XQmV11LCwWhHe7HXDArWLFkH8M2aOL+sI=
@@ -1635,6 +1641,8 @@ k8s.io/cli-runtime v0.30.0-alpha.3/go.mod h1:sxkGJnbgXoSQfQRbETKDzPvGkgxpTDGiHht
 k8s.io/cli-runtime v0.30.0-beta.0/go.mod h1:klkgNydtg5/ZrthDwyxPfgvCw6b/n9HaxJMsQHCVA2Y=
 k8s.io/cli-runtime v0.30.0-rc.0/go.mod h1:QUn+K5h5YPFCptIE++InTqDM89ifPM1XLn9fDC4LmBE=
 k8s.io/client-go v0.30.0-alpha.2/go.mod h1:ggOVaLmJOEjl9vmdoAnxL+pBfrLP4+h6dP4L9QNTpcU=
+k8s.io/client-go v0.30.0-rc.0 h1:m+Tpjp1LxKQRrB6iL9MM1CIzGyTtICfVCZU1IVip9Ks=
+k8s.io/client-go v0.30.0-rc.0/go.mod h1:FB4lJjgcJ7F1JlFphqgb7mdMWq4iKcEeTXk7Mg3cR8Y=
 k8s.io/cloud-provider v0.30.0-alpha.2 h1:YKmt2sTP6M5BcOg+7aLnI3CajUVrbbuc7ZPLzOpuitk=
 k8s.io/cloud-provider v0.30.0-alpha.2/go.mod h1:YJMtQ/EtX2Cdnn0HRl0+a66o95+oNRckwTQ7NZgHRh4=
 k8s.io/cloud-provider v0.30.0-alpha.3 h1:btC1xBaX7PfJZ2E9MnAOUkiddCxnwjLEXKUlcXPFQDM=
@@ -1653,6 +1661,7 @@ k8s.io/code-generator v0.30.0-alpha.3 h1:fECwF/f8ua0xti5GfgpWP8dqOcwD1IJUEXQhM6f
 k8s.io/code-generator v0.30.0-alpha.3/go.mod h1:MuEqSZ4rgFkc0pmyi//QD/K26uzYwND/mgs/bJC+6HQ=
 k8s.io/code-generator v0.30.0-beta.0/go.mod h1:kvx3eylE/Y/Z2dj8ncw3CR/zjQ37ou9lc3A0Pt8xX54=
 k8s.io/code-generator v0.30.0-rc.0/go.mod h1:DS57fsUSwhX3GzsOM3aJBo8IO0INDn7YK3sHU9oaVvo=
+k8s.io/component-base v0.30.0-rc.0 h1:3jELVJbdw8qwribGIv4PTBei/yhcy8o80DgbEUhNXXU=
 k8s.io/component-base v0.30.0-rc.0/go.mod h1:3EK7nuweF0xEIfeEaXfKe9HhCIlrXTXweEkL5w/xS1Q=
 k8s.io/component-helpers v0.30.0-alpha.2 h1:x71Yfl1MTyfGOOqh1se6TLv6vl4rRd6FnNX7TMEZC0g=
 k8s.io/component-helpers v0.30.0-alpha.2/go.mod h1:U9fT5ypidX511QrE9WXbiWpm7RF7NXyaY3WHkhvzQPA=
@@ -1660,6 +1669,7 @@ k8s.io/component-helpers v0.30.0-alpha.3 h1:pY0mKQCKG7O6tSZWb87dI7GnD0IcO7FRyrfR
 k8s.io/component-helpers v0.30.0-alpha.3/go.mod h1:Ga/4AXsetMojfkZRlKT4129GTMCDw2oJustjtuWbuP8=
 k8s.io/component-helpers v0.30.0-beta.0/go.mod h1:cNJli12QzwDpWsDRDuhVFdjODKPhA6O+OuqLV1F13PE=
 k8s.io/component-helpers v0.30.0-rc.0/go.mod h1:rmoOFUQQG+jYZdfSRTN2g+z18pYP+bFMmF0cVwt9tzo=
+k8s.io/component-helpers v0.30.0-rc.1/go.mod h1:nLnsuify8fstazMzeibG2wBjrDQ0uX6FtojjOrfvX9g=
 k8s.io/controller-manager v0.30.0-alpha.2 h1:/XUSvi+mjWz68ws41WnfiSsiCe8P5xHszhb4fe8j3Pg=
 k8s.io/controller-manager v0.30.0-alpha.2/go.mod h1:/mmy8LMR13fqFtlomfmJ71JU3ZJ6UVbpdztIBn34exo=
 k8s.io/controller-manager v0.30.0-alpha.3 h1:Sw1s7OyfStNnfnnri67m6n3FkXVt53geBDcnXQ8IKLE=
@@ -1738,6 +1748,7 @@ k8s.io/kubelet v0.30.0-alpha.3 h1:nrmox2gdhnohIBoxKNUtEcK8VxoqVvRZ0zxzzr4RtA8=
 k8s.io/kubelet v0.30.0-alpha.3/go.mod h1:TRGTE7NP4eW6ejZTTJhki9sKKplQ2FmRcdWCvsH3u3o=
 k8s.io/kubelet v0.30.0-beta.0/go.mod h1:Et2tP9MEV91X8V+1oKS/QKa07U4gYivm/l+DBrRjJxw=
 k8s.io/kubelet v0.30.0-rc.0/go.mod h1:SUg1oqNU+hqviqf0pvsTMRogonpvPQuT4S2sUGfCWC8=
+k8s.io/kubelet v0.30.0-rc.1/go.mod h1:T6p2fE038tUe//Zzw/K6IdeQbB8cFifiNZHbGjgWFU0=
 k8s.io/kubernetes v1.29.0/go.mod h1:9kztbUQf9stVDcIYXx+BX3nuGCsAQDsuClkGMpPs3pA=
 k8s.io/legacy-cloud-providers v0.30.0-alpha.2 h1:uTD4GK1uxi8F6Zq0miTj/RuKb5ZcgLVWEBGJKHsolUI=
 k8s.io/legacy-cloud-providers v0.30.0-alpha.2/go.mod h1:4UF1TkU3+A3sBZC7MYH+4AsG+bRoWuHPkODo2d5MbBw=
