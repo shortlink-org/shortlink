@@ -18,6 +18,12 @@
       drop:
         - ALL
   image: "{{ .Values.deploy.image.repository }}:{{ .Values.deploy.image.tag | default .Chart.AppVersion }}"
+  {{- with .Values.deploy.command }}
+  command: {{ . | toYaml | nindent 4 }}
+  {{- end }}
+  {{- with .Values.deploy.args }}
+  args: {{ . | toYaml | nindent 4 }}
+  {{- end }}
   # -- Global imagePullPolicy
   # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
   # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images

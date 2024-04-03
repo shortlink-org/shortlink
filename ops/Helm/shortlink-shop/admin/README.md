@@ -22,7 +22,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../shortlink-template | shortlink-template | 0.8.15 |
+| file://../../shortlink-template | shortlink-template | 0.8.16 |
 | oci://ghcr.io/dragonflydb/dragonfly/helm | dragonfly | v1.16.0 |
 
 ## Values
@@ -309,7 +309,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.17.81"
+"0.17.83"
 </pre>
 </div>
 			</td>
@@ -588,7 +588,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--command[0]"><a href="./values.yaml#L150">jobs[0].command[0]</a></td>
+			<td id="initContainers[0]--command[0]"><a href="./values.yaml#L149">initContainers[0].command[0]</a></td>
 			<td>
 string
 </td>
@@ -602,7 +602,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--command[1]"><a href="./values.yaml#L150">jobs[0].command[1]</a></td>
+			<td id="initContainers[0]--command[1]"><a href="./values.yaml#L149">initContainers[0].command[1]</a></td>
 			<td>
 string
 </td>
@@ -616,7 +616,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--command[2]"><a href="./values.yaml#L150">jobs[0].command[2]</a></td>
+			<td id="initContainers[0]--command[2]"><a href="./values.yaml#L149">initContainers[0].command[2]</a></td>
 			<td>
 string
 </td>
@@ -630,21 +630,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--env"><a href="./values.yaml#L152">jobs[0].env</a></td>
-			<td>
-object
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-{}
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="jobs[0]--envSecret[0]--name"><a href="./values.yaml#L154">jobs[0].envSecret[0].name</a></td>
+			<td id="initContainers[0]--envSecret[0]--name"><a href="./values.yaml#L152">initContainers[0].envSecret[0].name</a></td>
 			<td>
 string
 </td>
@@ -658,7 +644,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--envSecret[0]--secretKeyRef--key"><a href="./values.yaml#L157">jobs[0].envSecret[0].secretKeyRef.key</a></td>
+			<td id="initContainers[0]--envSecret[0]--secretKeyRef--key"><a href="./values.yaml#L155">initContainers[0].envSecret[0].secretKeyRef.key</a></td>
 			<td>
 string
 </td>
@@ -672,7 +658,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--envSecret[0]--secretKeyRef--name"><a href="./values.yaml#L156">jobs[0].envSecret[0].secretKeyRef.name</a></td>
+			<td id="initContainers[0]--envSecret[0]--secretKeyRef--name"><a href="./values.yaml#L154">initContainers[0].envSecret[0].secretKeyRef.name</a></td>
 			<td>
 string
 </td>
@@ -686,7 +672,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--envSecret[1]--name"><a href="./values.yaml#L158">jobs[0].envSecret[1].name</a></td>
+			<td id="initContainers[0]--envSecret[1]--name"><a href="./values.yaml#L156">initContainers[0].envSecret[1].name</a></td>
 			<td>
 string
 </td>
@@ -700,7 +686,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--envSecret[1]--secretKeyRef--key"><a href="./values.yaml#L161">jobs[0].envSecret[1].secretKeyRef.key</a></td>
+			<td id="initContainers[0]--envSecret[1]--secretKeyRef--key"><a href="./values.yaml#L159">initContainers[0].envSecret[1].secretKeyRef.key</a></td>
 			<td>
 string
 </td>
@@ -714,7 +700,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--envSecret[1]--secretKeyRef--name"><a href="./values.yaml#L160">jobs[0].envSecret[1].secretKeyRef.name</a></td>
+			<td id="initContainers[0]--envSecret[1]--secretKeyRef--name"><a href="./values.yaml#L158">initContainers[0].envSecret[1].secretKeyRef.name</a></td>
 			<td>
 string
 </td>
@@ -728,7 +714,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--envSecret[2]--name"><a href="./values.yaml#L162">jobs[0].envSecret[2].name</a></td>
+			<td id="initContainers[0]--envSecret[2]--name"><a href="./values.yaml#L160">initContainers[0].envSecret[2].name</a></td>
 			<td>
 string
 </td>
@@ -742,7 +728,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--envSecret[2]--secretKeyRef--key"><a href="./values.yaml#L165">jobs[0].envSecret[2].secretKeyRef.key</a></td>
+			<td id="initContainers[0]--envSecret[2]--secretKeyRef--key"><a href="./values.yaml#L163">initContainers[0].envSecret[2].secretKeyRef.key</a></td>
 			<td>
 string
 </td>
@@ -756,7 +742,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--envSecret[2]--secretKeyRef--name"><a href="./values.yaml#L164">jobs[0].envSecret[2].secretKeyRef.name</a></td>
+			<td id="initContainers[0]--envSecret[2]--secretKeyRef--name"><a href="./values.yaml#L162">initContainers[0].envSecret[2].secretKeyRef.name</a></td>
 			<td>
 string
 </td>
@@ -770,7 +756,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--envSecret[3]--name"><a href="./values.yaml#L166">jobs[0].envSecret[3].name</a></td>
+			<td id="initContainers[0]--envSecret[3]--name"><a href="./values.yaml#L164">initContainers[0].envSecret[3].name</a></td>
 			<td>
 string
 </td>
@@ -784,7 +770,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--envSecret[3]--secretKeyRef--key"><a href="./values.yaml#L169">jobs[0].envSecret[3].secretKeyRef.key</a></td>
+			<td id="initContainers[0]--envSecret[3]--secretKeyRef--key"><a href="./values.yaml#L167">initContainers[0].envSecret[3].secretKeyRef.key</a></td>
 			<td>
 string
 </td>
@@ -798,7 +784,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--envSecret[3]--secretKeyRef--name"><a href="./values.yaml#L168">jobs[0].envSecret[3].secretKeyRef.name</a></td>
+			<td id="initContainers[0]--envSecret[3]--secretKeyRef--name"><a href="./values.yaml#L166">initContainers[0].envSecret[3].secretKeyRef.name</a></td>
 			<td>
 string
 </td>
@@ -812,7 +798,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--image--repository"><a href="./values.yaml#L148">jobs[0].image.repository</a></td>
+			<td id="initContainers[0]--image--repository"><a href="./values.yaml#L147">initContainers[0].image.repository</a></td>
 			<td>
 string
 </td>
@@ -826,21 +812,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--image--tag"><a href="./values.yaml#L149">jobs[0].image.tag</a></td>
+			<td id="initContainers[0]--image--tag"><a href="./values.yaml#L148">initContainers[0].image.tag</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.17.81"
+"0.17.83"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--name"><a href="./values.yaml#L146">jobs[0].name</a></td>
+			<td id="initContainers[0]--name"><a href="./values.yaml#L145">initContainers[0].name</a></td>
 			<td>
 string
 </td>
@@ -854,7 +840,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="./values.yaml#L174">monitoring.enabled</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L172">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -868,7 +854,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--enabled"><a href="./values.yaml#L179">networkPolicy.enabled</a></td>
+			<td id="networkPolicy--enabled"><a href="./values.yaml#L177">networkPolicy.enabled</a></td>
 			<td>
 bool
 </td>
