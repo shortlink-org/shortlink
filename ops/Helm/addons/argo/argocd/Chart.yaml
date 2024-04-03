@@ -33,7 +33,7 @@ dependencies:
     tags:
       - ci/cd
   - name: dragonfly
-    version: v1.15.1
+    version: v1.16.0
     repository: oci://ghcr.io/dragonflydb/dragonfly/helm
     condition: redis.enabled
     tags:
