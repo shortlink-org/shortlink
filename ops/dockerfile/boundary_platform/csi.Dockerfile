@@ -20,7 +20,9 @@ WORKDIR /go/github.com/shortlink-org/shortlink
 
 # Load dependencies
 COPY go.mod go.sum ./
-RUN go mod download
+
+# will cache go packages while downloading packages
+RUN --mount=type=cache,target=/go/pkg/mod go mod download
 
 # COPY the source code AS the last step
 COPY . .

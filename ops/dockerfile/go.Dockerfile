@@ -24,7 +24,9 @@ WORKDIR /go/github.com/shortlink-org/shortlink
 
 # Load dependencies
 COPY go.mod go.sum ./
-RUN go mod download
+
+# will cache go packages while downloading packages
+RUN --mount=type=cache,target=/go/pkg/mod go mod download
 
 # COPY the source code AS the last step
 COPY . .
@@ -34,7 +36,7 @@ RUN go run golang.org/x/tools/go/analysis/passes/fieldalignment/cmd/fieldalignme
 
 # Build project
 RUN --mount=type=cache,target=/root/.cache/go-build \
-  --mount=type=cache,target=/go/pkg \
+  --mount=type=cache,target=/go/pkg/mod \
   CGO_ENABLED=0 GOOS=$TARGETOS GOARCH=$TARGETARCH \
   go build \
   -a \
