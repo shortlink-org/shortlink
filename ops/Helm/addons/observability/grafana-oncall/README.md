@@ -10,12 +10,12 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
+Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | oncall | 1.3.115 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 19.0.1 |
+| https://grafana.github.io/helm-charts | oncall | 1.3.116 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 19.0.2 |
 
 ## Values
 

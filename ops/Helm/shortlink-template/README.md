@@ -1,6 +1,6 @@
 # shortlink-template
 
-![Version: 0.8.14](https://img.shields.io/badge/Version-0.8.14-informational?style=flat-square) ![Type: library](https://img.shields.io/badge/Type-library-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.8.15](https://img.shields.io/badge/Version-0.8.15-informational?style=flat-square) ![Type: library](https://img.shields.io/badge/Type-library-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ShortLink templates
 
@@ -18,7 +18,7 @@ ShortLink templates
 
 ## Requirements
 
-Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
+Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|

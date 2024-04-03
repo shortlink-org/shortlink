@@ -10,11 +10,11 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
+Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-workflows | 0.41.0 |
+| https://argoproj.github.io/argo-helm | argo-workflows | 0.41.1 |
 
 ## Values
 

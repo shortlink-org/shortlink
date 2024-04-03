@@ -10,11 +10,11 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
+Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://ghcr.io/dragonflydb/dragonfly/helm | dragonfly | v1.15.1 |
+| oci://ghcr.io/dragonflydb/dragonfly/helm | dragonfly | v1.16.0 |
 
 ## Values
 

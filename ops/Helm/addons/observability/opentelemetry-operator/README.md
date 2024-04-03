@@ -10,11 +10,11 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
+Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://open-telemetry.github.io/opentelemetry-helm-charts | opentelemetry-operator | 0.52.4 |
+| https://open-telemetry.github.io/opentelemetry-helm-charts | opentelemetry-operator | 0.53.0 |
 
 ## Values
 
@@ -55,7 +55,21 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="opentelemetry-operator--manager--prometheusRule--defaultRules--enabled"><a href="./values.yaml#L15">opentelemetry-operator.manager.prometheusRule.defaultRules.enabled</a></td>
+			<td id="opentelemetry-operator--manager--prometheusRule--annotations--app"><a href="./values.yaml#L15">opentelemetry-operator.manager.prometheusRule.annotations.app</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"opentelemetry-operator"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="opentelemetry-operator--manager--prometheusRule--defaultRules--enabled"><a href="./values.yaml#L18">opentelemetry-operator.manager.prometheusRule.defaultRules.enabled</a></td>
 			<td>
 bool
 </td>

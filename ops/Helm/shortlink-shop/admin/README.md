@@ -18,12 +18,12 @@ ShortLink Shop Admin
 
 ## Requirements
 
-Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
+Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../shortlink-template | shortlink-template | 0.8.14 |
-| oci://ghcr.io/dragonflydb/dragonfly/helm | dragonfly | v1.15.1 |
+| file://../../shortlink-template | shortlink-template | 0.8.15 |
+| oci://ghcr.io/dragonflydb/dragonfly/helm | dragonfly | v1.16.0 |
 
 ## Values
 
@@ -35,6 +35,20 @@ Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
 		<th>Description</th>
 	</thead>
 	<tbody>
+		<tr>
+			<td id="deploy--env--DEBUG"><a href="./values.yaml#L51">deploy.env.DEBUG</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
 		<tr>
 			<td id="deploy--env--LOGIN_URL"><a href="./values.yaml#L45">deploy.env.LOGIN_URL</a></td>
 			<td>
@@ -92,7 +106,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--envSecret[0]--name"><a href="./values.yaml#L51">deploy.env.envSecret[0].name</a></td>
+			<td id="deploy--envSecret[0]--name"><a href="./values.yaml#L54">deploy.envSecret[0].name</a></td>
 			<td>
 string
 </td>
@@ -106,7 +120,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--envSecret[0]--secretKeyRef--key"><a href="./values.yaml#L54">deploy.env.envSecret[0].secretKeyRef.key</a></td>
+			<td id="deploy--envSecret[0]--secretKeyRef--key"><a href="./values.yaml#L57">deploy.envSecret[0].secretKeyRef.key</a></td>
 			<td>
 string
 </td>
@@ -120,7 +134,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--envSecret[0]--secretKeyRef--name"><a href="./values.yaml#L53">deploy.env.envSecret[0].secretKeyRef.name</a></td>
+			<td id="deploy--envSecret[0]--secretKeyRef--name"><a href="./values.yaml#L56">deploy.envSecret[0].secretKeyRef.name</a></td>
 			<td>
 string
 </td>
@@ -134,7 +148,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--envSecret[1]--name"><a href="./values.yaml#L55">deploy.env.envSecret[1].name</a></td>
+			<td id="deploy--envSecret[1]--name"><a href="./values.yaml#L58">deploy.envSecret[1].name</a></td>
 			<td>
 string
 </td>
@@ -148,7 +162,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--envSecret[1]--secretKeyRef--key"><a href="./values.yaml#L58">deploy.env.envSecret[1].secretKeyRef.key</a></td>
+			<td id="deploy--envSecret[1]--secretKeyRef--key"><a href="./values.yaml#L61">deploy.envSecret[1].secretKeyRef.key</a></td>
 			<td>
 string
 </td>
@@ -162,7 +176,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--envSecret[1]--secretKeyRef--name"><a href="./values.yaml#L57">deploy.env.envSecret[1].secretKeyRef.name</a></td>
+			<td id="deploy--envSecret[1]--secretKeyRef--name"><a href="./values.yaml#L60">deploy.envSecret[1].secretKeyRef.name</a></td>
 			<td>
 string
 </td>
@@ -176,7 +190,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--envSecret[2]--name"><a href="./values.yaml#L59">deploy.env.envSecret[2].name</a></td>
+			<td id="deploy--envSecret[2]--name"><a href="./values.yaml#L62">deploy.envSecret[2].name</a></td>
 			<td>
 string
 </td>
@@ -190,7 +204,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--envSecret[2]--secretKeyRef--key"><a href="./values.yaml#L62">deploy.env.envSecret[2].secretKeyRef.key</a></td>
+			<td id="deploy--envSecret[2]--secretKeyRef--key"><a href="./values.yaml#L65">deploy.envSecret[2].secretKeyRef.key</a></td>
 			<td>
 string
 </td>
@@ -204,7 +218,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--envSecret[2]--secretKeyRef--name"><a href="./values.yaml#L61">deploy.env.envSecret[2].secretKeyRef.name</a></td>
+			<td id="deploy--envSecret[2]--secretKeyRef--name"><a href="./values.yaml#L64">deploy.envSecret[2].secretKeyRef.name</a></td>
 			<td>
 string
 </td>
@@ -218,7 +232,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--envSecret[3]--name"><a href="./values.yaml#L63">deploy.env.envSecret[3].name</a></td>
+			<td id="deploy--envSecret[3]--name"><a href="./values.yaml#L66">deploy.envSecret[3].name</a></td>
 			<td>
 string
 </td>
@@ -232,7 +246,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--envSecret[3]--secretKeyRef--key"><a href="./values.yaml#L66">deploy.env.envSecret[3].secretKeyRef.key</a></td>
+			<td id="deploy--envSecret[3]--secretKeyRef--key"><a href="./values.yaml#L69">deploy.envSecret[3].secretKeyRef.key</a></td>
 			<td>
 string
 </td>
@@ -246,7 +260,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--envSecret[3]--secretKeyRef--name"><a href="./values.yaml#L65">deploy.env.envSecret[3].secretKeyRef.name</a></td>
+			<td id="deploy--envSecret[3]--secretKeyRef--name"><a href="./values.yaml#L68">deploy.envSecret[3].secretKeyRef.name</a></td>
 			<td>
 string
 </td>
@@ -260,7 +274,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L74">deploy.image.pullPolicy</a></td>
+			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L77">deploy.image.pullPolicy</a></td>
 			<td>
 string
 </td>
@@ -274,7 +288,7 @@ string
 			<td>Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images</td>
 		</tr>
 		<tr>
-			<td id="deploy--image--repository"><a href="./values.yaml#L69">deploy.image.repository</a></td>
+			<td id="deploy--image--repository"><a href="./values.yaml#L72">deploy.image.repository</a></td>
 			<td>
 string
 </td>
@@ -288,7 +302,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--tag"><a href="./values.yaml#L70">deploy.image.tag</a></td>
+			<td id="deploy--image--tag"><a href="./values.yaml#L73">deploy.image.tag</a></td>
 			<td>
 string
 </td>
@@ -302,7 +316,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--livenessProbe"><a href="./values.yaml#L85">deploy.livenessProbe</a></td>
+			<td id="deploy--livenessProbe"><a href="./values.yaml#L88">deploy.livenessProbe</a></td>
 			<td>
 object
 </td>
@@ -322,7 +336,7 @@ object
 			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--readinessProbe"><a href="./values.yaml#L92">deploy.readinessProbe</a></td>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L95">deploy.readinessProbe</a></td>
 			<td>
 object
 </td>
@@ -343,7 +357,7 @@ object
 			<td>define a readiness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--limits"><a href="./values.yaml#L104">deploy.resources.limits</a></td>
+			<td id="deploy--resources--limits"><a href="./values.yaml#L107">deploy.resources.limits</a></td>
 			<td>
 object
 </td>
@@ -360,7 +374,7 @@ object
 			<td>We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'.</td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L108">deploy.resources.requests.cpu</a></td>
+			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L111">deploy.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -374,7 +388,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L109">deploy.resources.requests.memory</a></td>
+			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L112">deploy.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -388,7 +402,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--securityContext"><a href="./values.yaml#L114">deploy.securityContext</a></td>
+			<td id="deploy--securityContext"><a href="./values.yaml#L117">deploy.securityContext</a></td>
 			<td>
 object
 </td>
@@ -413,7 +427,7 @@ object
 			<td>Security Context policies for controller pods See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for notes on enabling and using sysctls</td>
 		</tr>
 		<tr>
-			<td id="deploy--startupProbe"><a href="./values.yaml#L77">deploy.startupProbe</a></td>
+			<td id="deploy--startupProbe"><a href="./values.yaml#L80">deploy.startupProbe</a></td>
 			<td>
 object
 </td>
@@ -423,7 +437,7 @@ object
 {
   "enabled": true,
   "httpGet": {
-    "path": "/healthz",
+    "path": "/healthz/",
     "port": 8000
   },
   "initialDelaySeconds": 30
@@ -574,7 +588,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--command[0]"><a href="./values.yaml#L147">jobs[0].command[0]</a></td>
+			<td id="jobs[0]--command[0]"><a href="./values.yaml#L150">jobs[0].command[0]</a></td>
 			<td>
 string
 </td>
@@ -588,21 +602,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--command[1]"><a href="./values.yaml#L147">jobs[0].command[1]</a></td>
+			<td id="jobs[0]--command[1]"><a href="./values.yaml#L150">jobs[0].command[1]</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"src/manage.py"
+"src/migration.py"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--command[2]"><a href="./values.yaml#L147">jobs[0].command[2]</a></td>
+			<td id="jobs[0]--command[2]"><a href="./values.yaml#L150">jobs[0].command[2]</a></td>
 			<td>
 string
 </td>
@@ -616,7 +630,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--env--envSecret[0]--name"><a href="./values.yaml#L151">jobs[0].env.envSecret[0].name</a></td>
+			<td id="jobs[0]--env"><a href="./values.yaml#L152">jobs[0].env</a></td>
+			<td>
+object
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+{}
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="jobs[0]--envSecret[0]--name"><a href="./values.yaml#L154">jobs[0].envSecret[0].name</a></td>
 			<td>
 string
 </td>
@@ -630,7 +658,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--env--envSecret[0]--secretKeyRef--key"><a href="./values.yaml#L154">jobs[0].env.envSecret[0].secretKeyRef.key</a></td>
+			<td id="jobs[0]--envSecret[0]--secretKeyRef--key"><a href="./values.yaml#L157">jobs[0].envSecret[0].secretKeyRef.key</a></td>
 			<td>
 string
 </td>
@@ -644,7 +672,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--env--envSecret[0]--secretKeyRef--name"><a href="./values.yaml#L153">jobs[0].env.envSecret[0].secretKeyRef.name</a></td>
+			<td id="jobs[0]--envSecret[0]--secretKeyRef--name"><a href="./values.yaml#L156">jobs[0].envSecret[0].secretKeyRef.name</a></td>
 			<td>
 string
 </td>
@@ -658,7 +686,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--env--envSecret[1]--name"><a href="./values.yaml#L155">jobs[0].env.envSecret[1].name</a></td>
+			<td id="jobs[0]--envSecret[1]--name"><a href="./values.yaml#L158">jobs[0].envSecret[1].name</a></td>
 			<td>
 string
 </td>
@@ -672,7 +700,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--env--envSecret[1]--secretKeyRef--key"><a href="./values.yaml#L158">jobs[0].env.envSecret[1].secretKeyRef.key</a></td>
+			<td id="jobs[0]--envSecret[1]--secretKeyRef--key"><a href="./values.yaml#L161">jobs[0].envSecret[1].secretKeyRef.key</a></td>
 			<td>
 string
 </td>
@@ -686,7 +714,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--env--envSecret[1]--secretKeyRef--name"><a href="./values.yaml#L157">jobs[0].env.envSecret[1].secretKeyRef.name</a></td>
+			<td id="jobs[0]--envSecret[1]--secretKeyRef--name"><a href="./values.yaml#L160">jobs[0].envSecret[1].secretKeyRef.name</a></td>
 			<td>
 string
 </td>
@@ -700,7 +728,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--env--envSecret[2]--name"><a href="./values.yaml#L159">jobs[0].env.envSecret[2].name</a></td>
+			<td id="jobs[0]--envSecret[2]--name"><a href="./values.yaml#L162">jobs[0].envSecret[2].name</a></td>
 			<td>
 string
 </td>
@@ -714,7 +742,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--env--envSecret[2]--secretKeyRef--key"><a href="./values.yaml#L162">jobs[0].env.envSecret[2].secretKeyRef.key</a></td>
+			<td id="jobs[0]--envSecret[2]--secretKeyRef--key"><a href="./values.yaml#L165">jobs[0].envSecret[2].secretKeyRef.key</a></td>
 			<td>
 string
 </td>
@@ -728,7 +756,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--env--envSecret[2]--secretKeyRef--name"><a href="./values.yaml#L161">jobs[0].env.envSecret[2].secretKeyRef.name</a></td>
+			<td id="jobs[0]--envSecret[2]--secretKeyRef--name"><a href="./values.yaml#L164">jobs[0].envSecret[2].secretKeyRef.name</a></td>
 			<td>
 string
 </td>
@@ -742,7 +770,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--env--envSecret[3]--name"><a href="./values.yaml#L163">jobs[0].env.envSecret[3].name</a></td>
+			<td id="jobs[0]--envSecret[3]--name"><a href="./values.yaml#L166">jobs[0].envSecret[3].name</a></td>
 			<td>
 string
 </td>
@@ -756,7 +784,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--env--envSecret[3]--secretKeyRef--key"><a href="./values.yaml#L166">jobs[0].env.envSecret[3].secretKeyRef.key</a></td>
+			<td id="jobs[0]--envSecret[3]--secretKeyRef--key"><a href="./values.yaml#L169">jobs[0].envSecret[3].secretKeyRef.key</a></td>
 			<td>
 string
 </td>
@@ -770,7 +798,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--env--envSecret[3]--secretKeyRef--name"><a href="./values.yaml#L165">jobs[0].env.envSecret[3].secretKeyRef.name</a></td>
+			<td id="jobs[0]--envSecret[3]--secretKeyRef--name"><a href="./values.yaml#L168">jobs[0].envSecret[3].secretKeyRef.name</a></td>
 			<td>
 string
 </td>
@@ -784,7 +812,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--image--repository"><a href="./values.yaml#L145">jobs[0].image.repository</a></td>
+			<td id="jobs[0]--image--repository"><a href="./values.yaml#L148">jobs[0].image.repository</a></td>
 			<td>
 string
 </td>
@@ -798,7 +826,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--image--tag"><a href="./values.yaml#L146">jobs[0].image.tag</a></td>
+			<td id="jobs[0]--image--tag"><a href="./values.yaml#L149">jobs[0].image.tag</a></td>
 			<td>
 string
 </td>
@@ -812,7 +840,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="jobs[0]--name"><a href="./values.yaml#L143">jobs[0].name</a></td>
+			<td id="jobs[0]--name"><a href="./values.yaml#L146">jobs[0].name</a></td>
 			<td>
 string
 </td>
@@ -826,7 +854,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="./values.yaml#L171">monitoring.enabled</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L174">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -840,7 +868,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--enabled"><a href="./values.yaml#L176">networkPolicy.enabled</a></td>
+			<td id="networkPolicy--enabled"><a href="./values.yaml#L179">networkPolicy.enabled</a></td>
 			<td>
 bool
 </td>
@@ -854,7 +882,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--name"><a href="./values.yaml#L131">service.ports[0].name</a></td>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L134">service.ports[0].name</a></td>
 			<td>
 string
 </td>
@@ -868,7 +896,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--port"><a href="./values.yaml#L132">service.ports[0].port</a></td>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L135">service.ports[0].port</a></td>
 			<td>
 int
 </td>
@@ -882,7 +910,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--protocol"><a href="./values.yaml#L133">service.ports[0].protocol</a></td>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L136">service.ports[0].protocol</a></td>
 			<td>
 string
 </td>
@@ -896,7 +924,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--public"><a href="./values.yaml#L134">service.ports[0].public</a></td>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L137">service.ports[0].public</a></td>
 			<td>
 bool
 </td>
@@ -910,7 +938,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--name"><a href="./values.yaml#L135">service.ports[1].name</a></td>
+			<td id="service--ports[1]--name"><a href="./values.yaml#L138">service.ports[1].name</a></td>
 			<td>
 string
 </td>
@@ -924,7 +952,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--port"><a href="./values.yaml#L136">service.ports[1].port</a></td>
+			<td id="service--ports[1]--port"><a href="./values.yaml#L139">service.ports[1].port</a></td>
 			<td>
 int
 </td>
@@ -938,7 +966,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--protocol"><a href="./values.yaml#L137">service.ports[1].protocol</a></td>
+			<td id="service--ports[1]--protocol"><a href="./values.yaml#L140">service.ports[1].protocol</a></td>
 			<td>
 string
 </td>
@@ -952,7 +980,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--public"><a href="./values.yaml#L138">service.ports[1].public</a></td>
+			<td id="service--ports[1]--public"><a href="./values.yaml#L141">service.ports[1].public</a></td>
 			<td>
 bool
 </td>
@@ -966,7 +994,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--type"><a href="./values.yaml#L129">service.type</a></td>
+			<td id="service--type"><a href="./values.yaml#L132">service.type</a></td>
 			<td>
 string
 </td>

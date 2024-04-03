@@ -10,11 +10,11 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
+Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | keycloak | 19.3.4 |
+| oci://registry-1.docker.io/bitnamicharts | keycloak | 19.4.1 |
 
 ## Values
 

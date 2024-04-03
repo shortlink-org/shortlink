@@ -10,11 +10,11 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
+Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | k8s-monitoring | 0.12.3 |
+| https://grafana.github.io/helm-charts | k8s-monitoring | 0.12.5 |
 
 ## Values
 

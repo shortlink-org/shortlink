@@ -18,11 +18,11 @@ ShortLink landing service
 
 ## Requirements
 
-Kubernetes: `>= 1.28.0 || >= v1.28.0-0`
+Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-template | shortlink-template | 0.8.14 |
+| file://../shortlink-template | shortlink-template | 0.8.15 |
 
 ## Values
 
@@ -84,7 +84,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.17.37"
+"0.17.81"
 </pre>
 </div>
 			</td>
