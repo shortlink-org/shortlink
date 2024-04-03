@@ -58,7 +58,7 @@
       -f ${DOCKERFILE_PATH} .
   tags:
     - docker
-  retry: 2
+  retry: 1
   artifacts:
     expire_in: 3 week
     paths:

@@ -26,7 +26,7 @@ prometheus-operator:crd:
         APPLYSET: servicemonitors
       - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml
         APPLYSET: thanosrulers
-  retry: 2
+  retry: 1
   environment:
     name: ${PROVIDER}/prometheus-operator-crd
     deployment_tier: production

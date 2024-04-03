@@ -38,7 +38,7 @@ helm-run-chart:
     - sed -i -E -e 's/localhost|0\.0\.0\.0/docker/g' "$HOME/.kube/config"
   script:
     - ct install --all --config ct.yaml
-  retry: 2
+  retry: 1
   interruptible: true
   rules:
     # TODO: enabled
