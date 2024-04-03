@@ -126,7 +126,6 @@ require (
 	github.com/redis/rueidis v1.0.30-0.20240224222815-152800b84f6d // indirect
 	github.com/redis/rueidis/rueidiscompat v1.0.30-0.20240224222815-152800b84f6d // indirect
 	github.com/redis/rueidis/rueidisotel v1.0.30-0.20240224222815-152800b84f6d // indirect
-	github.com/rogpeppe/go-internal v1.11.0 // indirect
 	github.com/rs/xid v1.5.0 // indirect
 	github.com/sagikazarmark/locafero v0.4.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect
@@ -182,7 +181,6 @@ require (
 	google.golang.org/appengine v1.6.8 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240318140521-94a12d6c2237 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240318140521-94a12d6c2237 // indirect
-	gopkg.in/check.v1 v1.0.0-20201130134442-10cb98267c6c // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
