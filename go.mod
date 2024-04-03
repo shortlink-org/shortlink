@@ -265,7 +265,7 @@ require (
 
 replace (
 	k8s.io/api => k8s.io/api v0.30.0-rc.0
-	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.30.0-rc.0
+	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.30.0-rc.1
 	k8s.io/apimachinery => k8s.io/apimachinery v0.30.0-rc.0
 	k8s.io/apiserver => k8s.io/apiserver v0.30.0-rc.0
 	k8s.io/cli-runtime => k8s.io/cli-runtime v0.30.0-rc.0
@@ -286,7 +286,7 @@ replace (
 	k8s.io/kube-proxy => k8s.io/kube-proxy v0.30.0-rc.0
 	k8s.io/kube-scheduler => k8s.io/kube-scheduler v0.30.0-rc.0
 	k8s.io/kubectl => k8s.io/kubectl v0.30.0-rc.0
-	k8s.io/kubelet => k8s.io/kubelet v0.30.0-rc.0
+	k8s.io/kubelet => k8s.io/kubelet v0.30.0-rc.1
 	k8s.io/legacy-cloud-providers => k8s.io/legacy-cloud-providers v0.30.0-rc.0
 	k8s.io/metrics => k8s.io/metrics v0.30.0-rc.0
 	k8s.io/mount-utils => k8s.io/mount-utils v0.30.0-rc.0
