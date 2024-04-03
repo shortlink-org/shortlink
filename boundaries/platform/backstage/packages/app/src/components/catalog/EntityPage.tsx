@@ -26,7 +26,6 @@ import {
   hasCatalogProcessingErrors,
   isOrphan,
 } from '@backstage/plugin-catalog';
-import { ReadmeCard } from '@axis-backstage/plugin-readme';
 import {
   EntityPrometheusContent,
 } from '@roadiehq/backstage-plugin-prometheus'
@@ -64,7 +63,6 @@ import { EntityLighthouseContent } from '@backstage/plugin-lighthouse';
 
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
-import { EntityKubernetesContent } from '@backstage/plugin-kubernetes';
 import { EntityAdrContent, isAdrAvailable } from '@backstage/plugin-adr';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { EntityTodoContent } from '@backstage/plugin-todo';
@@ -93,7 +91,6 @@ const cicdContent = (
         description="You need to add an annotation to your component if you want to enable CI/CD for it. You can read more about annotations in Backstage by clicking the button below."
         action={
           <Button
-            variant="filled"
             color="primary"
             href="https://backstage.io/docs/features/software-catalog/well-known-annotations"
           >
@@ -134,9 +131,9 @@ const overviewContent = (
     <Grid item md={6} xs={12}>
       <EntityCatalogGraphCard variant="gridItem" height={400} />
     </Grid>
-    <Grid item md={12} sx={12}>
-      <ReadmeCard />
-    </Grid>
+    {/*<Grid item md={12} sx={12}>*/}
+    {/*  <ReadmeCard />*/}
+    {/*</Grid>*/}
 
     <EntitySwitch>
       <EntitySwitch.Case if={e => Boolean(isArgocdAvailable(e))}>
@@ -166,12 +163,8 @@ const serviceEntityPage = (
     </EntityLayout.Route>
 
     {/* @ts-ignore */}
-    <EntityLayout.Route if={e => e.metadata.annotations['lighthouse.com/website-url'] != null} path="/lighthouse" title="Lighthouse">
+    <EntityLayout.Route if={e => e.metadata.annotations['lighthouse.com/website-url'] !== null} path="/lighthouse" title="Lighthouse">
       <EntityLighthouseContent />
-    </EntityLayout.Route>
-
-    <EntityLayout.Route path="/kubernetes" title="Kubernetes">
-      <EntityKubernetesContent refreshIntervalMs={30000} />
     </EntityLayout.Route>
 
     <EntityLayout.Route path="/todo" title="Todo">
