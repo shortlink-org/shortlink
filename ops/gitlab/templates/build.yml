@@ -92,7 +92,5 @@
         --opt build-arg:CI_PIPELINE_ID=$CI_PIPELINE_ID
         --opt build-arg:CI_PIPELINE_URL=$CI_PIPELINE_URL
         --opt platform=linux/amd64,linux/arm64
-        --output type=oci,oci-mediatypes=true,compression=estargz,dest=${REGISTRY_IMAGE}:latest,push=true
-        --output type=oci,oci-mediatypes=true,compression=estargz,dest=${REGISTRY_IMAGE}:${CI_COMMIT_TAG},push=true
-
-
+        --output type=image,oci-mediatypes=true,compression=estargz,name=${REGISTRY_IMAGE}:latest,push=true
+        --output type=image,oci-mediatypes=true,compression=estargz,name=${REGISTRY_IMAGE}:${CI_COMMIT_TAG},push=true
