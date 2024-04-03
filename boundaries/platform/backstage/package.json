@@ -29,7 +29,6 @@
   },
   "devDependencies": {
     "@backstage/cli": "^0.26.2",
-    "@spotify/prettier-config": "^15.0.0",
     "concurrently": "^8.2.2",
     "lerna": "^8.1.2",
     "node-gyp": "^10.1.0",
@@ -40,7 +39,6 @@
     "@types/react": "^18.2.74",
     "@types/react-dom": "^18.2.23"
   },
-  "prettier": "@spotify/prettier-config",
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mjs,cjs}": [
       "eslint --fix",

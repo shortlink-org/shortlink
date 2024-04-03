@@ -9,6 +9,7 @@ ARG ENVIRONMENT_CONFIG
 WORKDIR /app
 COPY ./boundaries/platform/backstage/package.json ./boundaries/platform/backstage/yarn.lock ./
 COPY ./boundaries/platform/backstage/.yarn ./.yarn
+COPY ./boundaries/platform/backstage/.yarnrc.yml ./
 
 COPY ./boundaries/platform/backstage/packages packages
 
@@ -35,6 +36,7 @@ WORKDIR /app
 
 COPY --from=packages --chown=node:node /app .
 COPY --from=packages --chown=node:node /app/.yarn ./.yarn
+COPY --from=packages --chown=node:node /app/.yarnrc.yml  ./
 
 # Stop cypress from downloading it's massive binary.
 ENV CYPRESS_INSTALL_BINARY=0
@@ -43,7 +45,7 @@ RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid
 
 COPY --chown=node:node ./boundaries/platform/backstage .
 
-RUN yarn run tsc
+RUN yarn tsc
 RUN yarn --cwd packages/backend build
 
 RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
@@ -84,7 +86,7 @@ ENV PATH="$VIRTUAL_ENV/bin:$PATH"
 
 RUN pip3 install mkdocs-techdocs-core mkdocs-kroki-plugin
 
-RUN curl -o plantuml.jar -L https://github.com/plantuml/plantuml/releases/download/v1.2023.10/plantuml-1.2023.10.jar && echo "527d28af080ae91a455e7023e1a726c7714dc98e plantuml.jar" | sha1sum -c - && mv plantuml.jar /opt/plantuml.jar
+RUN curl -o plantuml.jar -L https://github.com/plantuml/plantuml/releases/download/v1.2024.3/plantuml-1.2024.3.jar
 RUN echo '#!/bin/sh\n\njava -jar '/opt/plantuml.jar' ${@}' >> /usr/local/bin/plantuml
 RUN chmod 755 /usr/local/bin/plantuml
 
