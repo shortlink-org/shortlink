@@ -179,7 +179,7 @@ def show_toolbar(request):
     return False
 
 DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': 'adminavia.settings.show_toolbar',
+    'SHOW_TOOLBAR_CALLBACK': 'admin.settings.show_toolbar',
 }
 
 # Prometheus
