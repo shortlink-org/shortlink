@@ -4,7 +4,7 @@ SELF_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 # Include Makefile
 include $(SELF_DIR)/../../../ops/Makefile/common.mk
 
-# REFERRAL TASKS =======================================================================================================
+# ADMIN TASKS ==========================================================================================================
 dep: ## Install dependencies
 	# Create a virtual environment at .venv
 	uv venv

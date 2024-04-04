@@ -1,0 +1,46 @@
+[project]
+name = "ml"
+readme = "README.md"
+requires-python = ">=3.12"
+
+dependencies = [
+  'asgiref==3.8.1',
+  'setuptools',
+  'matplotlib',
+  'numpy >= 1.26.4',
+  'scikit-learn',
+  'pillow >= 10.3.0',
+  'fonttools >= 4.50.0',
+]
+
+[tool.ruff]
+unsafe-fixes = true
+line-length = 120
+extend-exclude = [
+  "src/domain/goods/migrations/*",
+  "tests/*",
+]
+exclude = [".venv", "*_pb2.py", "*_pb2_grpc.py", "*_pb2.pyi"]
+
+[tool.ruff.lint]
+select = [
+  # TODO: enable all checks
+  #  "ALL",
+  "E", "W", # pycodestyle
+  "F",      # pyflakes
+  "UP",     # pyupgrade
+  "D",      # pydocstyle
+  "N",      # pylint
+  "PL",     # pylint
+  "RUF",    # ruff
+  "TID",    # tidy
+  "I",      # isort
+]
+
+[tool.ruff.lint.isort]
+no-lines-before = ["standard-library", "local-folder"]
+known-third-party = []
+known-local-folder = ["src"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"

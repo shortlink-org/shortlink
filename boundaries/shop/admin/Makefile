@@ -10,10 +10,11 @@ dep: ## Install dependencies
 	uv venv
 
 	# Install dependencies
-	uv pip install --no-cache -r requirements.txt --no-deps
+	uv pip install -r pyproject.toml --no-deps
 
 lock: ## Lock dependencies
-	@uv pip compile pyproject.toml -o requirements.txt --no-deps
+	-rm requirements.txt
+	@uv pip compile pyproject.toml --generate-hashes -o requirements.txt --no-deps
 
 run: ## Run server
 	@python src/manage.py runserver

@@ -38,8 +38,7 @@ RUN pip install uv
 # Create a virtual environment at .venv
 RUN uv venv
 
-COPY boundaries/marketing/referral/requirements.txt .
-RUN uv pip install --no-cache -r requirements.txt --no-deps
+RUN uv pip install -r pyproject.toml --no-deps
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 

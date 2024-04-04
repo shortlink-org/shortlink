@@ -1,7 +1,7 @@
-from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import plot_confusion_matrix
 import matplotlib.pyplot as plt
 import numpy as np
+from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import plot_confusion_matrix
 
 # Read in data
 X_train = np.genfromtxt("./data/data_train_features.csv")
@@ -13,15 +13,14 @@ y_test = np.genfromtxt("./data/data_test_labels.csv")
 # Fit a model
 depth = 10
 clf = RandomForestClassifier(max_depth=depth)
-clf.fit(X_train,y_train)
+clf.fit(X_train, y_train)
 
 acc = clf.score(X_test, y_test)
 print(acc)
-with open("metrics.txt", 'w') as outfile:
-        outfile.write(f"Accuracy: {str(acc)}" + "\n")
+with open("metrics.txt", "w") as outfile:
+    outfile.write(f"Accuracy: {acc!s}" + "\n")
 
 
 # Plot it
-disp = plot_confusion_matrix(clf, X_test, y_test, normalize='true',cmap=plt.cm.Blues)
-plt.savefig('confusion_matrix.png')
-
+disp = plot_confusion_matrix(clf, X_test, y_test, normalize="true", cmap=plt.cm.Blues)
+plt.savefig("confusion_matrix.png")

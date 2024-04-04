@@ -7,10 +7,14 @@ stages:
 cml:
   stage: release
   image: dvcorg/cml-py3:latest
-  script:
+  before_script:
     - cd pkg/ml/
 
-    - pip3 install -r requirements.txt
+    # Install dependencies
+    - pip3 install uv
+    - uv venv
+    - uv pip install -r pyproject.toml --no-deps
+  script:
     - python train.py
 
     - cat metrics.txt >> report.md
