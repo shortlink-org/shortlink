@@ -1,0 +1,268 @@
+# Landscape2 settings
+#
+# This settings file allows customizing some aspects of the landscape.
+
+# Foundation (required)
+#
+# Name of the foundation. This value is used in some labels, so we recommended
+# to keep it as short as possible.
+#
+# foundation: <FOUNDATION_NAME>
+#
+foundation: DEMO
+
+# Url (required)
+#
+# Url where the landscape will be hosted.
+#
+# url: <LANDSCAPE_URL>
+#
+url: http://127.0.0.1:8000
+
+# Analytics (optional)
+#
+# Analytics providers configuration. When an analytics provider is set up, some
+# additional code from the provider will be injected into the web application.
+#
+# analytics:
+#   gtm:                            # Google Tag Manager configuration
+#     container_id: <CONTAINER_ID>  # Landscape web application container ID
+
+# Categories (optional)
+#
+# Categories information is read from the `landscape.yml` data file. The way
+# categories are displayed in the web application is computed dynamically based
+# on the number of categories and subcategories, as well as the number of items
+# on each. Sometimes, however, we may want subcategories to be displayed in a
+# specific order within a category (this happens often in the Members category).
+# In those cases, it is possible to define that order by overriding a category.
+#
+# This option can also be used to not display one or more subcategories in the
+# landscape. To achieve that, we only need to exclude the subcategory from the
+# subcategories list when overriding a category.
+#
+# categories:
+#   - name: <CATEGORY_NAME>
+#     subcategories:
+#       - <SUBCATEGORY1_NAME>
+#       - <SUBCATEGORY2_NAME>
+#
+
+# Colors (optional)
+#
+# Colors used across the landscape UI. The colors section is optional but, when
+# provided, *all colors must be provided*. Colors must be specified using the
+# following format: "rgba(<RED>, <GREEN>, <BLUE>, <ALPHA>)".
+#
+# colors:
+#   color1: <COLOR1>  # Buttons, groups, links
+#   color2: <COLOR2>  # Some highlighted items like filters button, search icon
+#   color3: <COLOR3>  # Participation stats bars, spinners, modal titles
+#   color4: <COLOR4>  # Categories titles in filters, fieldset in filters modal
+#   color4: <COLOR5>  # Categories and subcategories frames (odd)
+#   color5: <COLOR6>  # Categories and subcategories frames (even)
+#
+colors:
+  color1: "rgba(0, 107, 204, 1)"
+  color2: "rgba(255, 0, 170, 1)"
+  color3: "rgba(96, 149, 214, 1)"
+  color4: "rgba(0, 42, 81, 0.7)"
+  color5: "rgba(1, 107, 204, 0.7)"
+  color6: "rgba(0, 42, 81, 0.7)"
+
+# Featured items (optional)
+#
+# This section allows highlighting items that match certain criteria. You can
+# define a list of rules and the matching items will be featured in a special
+# way in the landscape.
+#
+# Each rule must define a field for the check as well as the values that will
+# trigger a match. At the moment the fields supported are:
+#
+#   - maturity
+#   - subcategory
+#
+# When a given item's field matches any of the values provided, it will be
+# considered a featured item. For each option, it is possible to also define an
+# order (which item would be displayed first) and a label for the item.
+#
+# featured_items:
+#   - field: subcategory
+#     options:
+#       - value: <SUBCATEGORY1_NAME>
+#       - value: <SUBCATEGORY2_NAME>
+#
+featured_items:
+  - field: maturity
+    options:
+      - value: graduated
+        order: 1
+        label: Graduated
+
+# Footer (optional)
+#
+# This section allows customizing some aspects of the footer.
+#
+# footer:
+#   links:
+#     facebook: <FACEBOOK_URL>
+#     flickr: <FLICKR_URL>
+#     github: <GITHUB_URL>
+#     homepage: <HOMEPAGE_URL>
+#     instagram: <INSTAGRAM_URL>
+#     linkedin: <LINKEDIN_URL>
+#     slack: <SLACK_URL>
+#     twitch: <TWITCH_URL>
+#     twitter: <TWITTER_URL>
+#     wechat: <WECHAT_URL>
+#     youtube: <YOUTUBE_URL>
+#   logo: <LOGO_URL>  # Foundation logo featured on the footer
+#   text: <TEXT>      # Copyright notice, for example
+#
+footer:
+  links:
+    facebook: "https://www.facebook.com/CloudNativeComputingFoundation/"
+    flickr: "https://www.flickr.com/photos/143247548@N03/albums"
+    github: "https://github.com/cncf"
+    homepage: "https://cncf.io"
+    instagram: "https://www.instagram.com/humans.of.cloudnative/"
+    linkedin: "https://www.linkedin.com/company/cloud-native-computing-foundation/"
+    slack: "https://slack.cncf.io/"
+    twitch: "https://www.twitch.tv/cloudnativefdn"
+    twitter: "https://twitter.com/cloudnativefdn"
+    wechat: "https://www.cncf.io/wechat/"
+    youtube: "https://www.youtube.com/c/cloudnativefdn"
+  logo: "https://raw.githubusercontent.com/cncf/artwork/master/other/cncf/horizontal/white/cncf-white.svg"
+
+# Grid items size (optional)
+#
+# Defines the preferred size of the landscape items in the grid mode. When the
+# landscape contains many items, it is recommended to use the `small` size.
+# However, if there aren't many items, choosing `medium` or `large` may make
+# the landscape look nicer. Users will still be able to adjust the items size
+# from the UI using the zoom controls.
+#
+# grid_items_size: <small|medium|large>
+#
+grid_items_size: large
+
+# Groups (optional)
+#
+# In some cases, specially when a landscape contains lots of items, it may be
+# interesting to organize them in groups. Each group will be displayed on a
+# different tab in the landscape web application. Each entry must contain the
+# name of the group (it will be displayed as is) and a list with the categories
+# (as defined in the landscape.yml data file) that will be part of this group.
+#
+# groups:
+#   - name: <GROUP_NAME>
+#     categories:
+#       - <CATEGORY1_NAME>
+#       - <CATEGORY2_NAME>
+#
+groups:
+  - name: All categories
+    categories:
+      - Category 1
+      - Category 2
+  - name: Only category 2
+    categories:
+      - Category 2
+
+# Header (optional)
+#
+# This section allows customizing some aspects of the header.
+#
+# header:
+#   links:
+#     github: <GITHUB_URL>
+#   logo: <LOGO_URL>  # Foundation logo featured on the header
+#
+header:
+  links:
+    github: "https://github.com/cncf/landscape2"
+  logo: "https://raw.githubusercontent.com/cncf/artwork/master/other/cncf-landscape/horizontal/color/cncf-landscape-horizontal-color.svg"
+
+# Images (optional)
+#
+# Urls of some images used in the landscape UI.
+#
+# images:
+#   favicon: <FAVICON_URL>
+#   open_graph: <OPEN_GRAPH_IMAGE_URL>
+#
+
+# Name of the members category (optional)
+#
+# Landscapes usually have a special category dedicated to the members of the
+# corresponding foundation. It is possible to use any name for that category,
+# but it is important that we define it here as there are some special
+# operations that depend on it.
+#
+# members_category: <CATEGORY_NAME>
+#
+
+# Osano (optional)
+#
+# Osano cookies consent form configuration. When the Osano configuration is
+# provided, some additional code will be injected into the web application.
+#
+# The `customer_id` and `customer_configuration_id` fields values can be
+# obtained from the url in the configuration script code available on the Osano
+# site:
+#
+#   https://cmp.osano.com/<CUSTOMER_ID>/<CUSTOMER_CONFIGURATION_ID>/osano.js
+#
+# osano:
+#   customer_id: <CUSTOMER_ID>
+#   customer_configuration_id: <CUSTOMER_CONFIGURATION_ID>
+#
+
+# Screenshot width (optional)
+#
+# Width of the landscape screenshots automatically generated (in pixels).
+# Screenshots won't be taken if this value is not provided.
+#
+# screenshot_width: <WIDTH_IN_PIXELS>
+#
+screenshot_width: 1500
+
+# TAGs (optional)
+#
+# Projects items can specify which TAG owns them in the `landscape.yml` file
+# (by using the `tag` field in the `extra` item's section). However, sometimes
+# this information is not available at the item level. This configuration
+# section provides a mechanism to automatically asign a TAG to projects items
+# based on the categories and subcategories they belong to.
+#
+# For example, we can define that all projects in the category <CATEGORY1> are
+# owned by <TAG1>. When the items are processed, the corresponding TAG will be
+# set in the items that match the rule defined. The TAG defined at the item
+# level always takes precedence, so when it's present it won't be replaced.
+#
+# NOTE: TAGs names should only use lowercase case letters and hyphens (no
+# spaces or other characters), and should not be prefixed with "tag". The
+# subcategories field is optional and, when omitted, all of them will be
+# included.
+#
+# tags:
+#   <TAG1>:
+#     - category: <CATEGORY1>
+#       subcategories:
+#         - <SUBCATEGORY1>
+#         - <SUBCATEGORY2>
+#   <TAG2>:
+#     - category: <CATEGORY2>
+#
+
+# Upcoming event (optional)
+#
+# This section allows configuring an upcoming event that will be featured on
+# the landscape web application. Expired events won't be displayed.
+#
+# upcoming_event:
+#   name: <NAME>         # Event name (required)
+#   start: <START_DATE>  # Start date: (required, format: YYYY-MM-DD)
+#   end: <END_DATE>      # End date: (required, format: YYYY-MM-DD)
+#   banner_url: <URL>    # Event banner image url (required, recommended dimensions: 2400x300)
+#   details_url: <URL>   # Event details URL (required)
