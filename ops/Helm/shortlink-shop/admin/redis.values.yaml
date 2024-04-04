@@ -1,6 +1,8 @@
 redis:
   enabled: true
 
+  fullnameOverride: redis
+
   serviceMonitor:
     enabled: true
     labels:
