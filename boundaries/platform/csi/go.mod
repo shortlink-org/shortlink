@@ -14,7 +14,7 @@ require (
 	github.com/stretchr/testify v1.9.0
 	go.opentelemetry.io/otel/trace v1.24.0
 	golang.org/x/net v0.23.0
-	golang.org/x/sync v0.6.0
+	golang.org/x/sync v0.7.0
 	google.golang.org/grpc v1.63.0
 	google.golang.org/protobuf v1.33.0
 	k8s.io/kubernetes v1.30.0-rc.1
