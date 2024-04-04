@@ -45,7 +45,7 @@ deploy:
     LOGIN_URL: https://shortlink.best/next/auth/login
 
     # Cache -----------------------------
-    REDIS_URL: redis://shortlink-redis:6379/0
+    REDIS_URL: redis://shortlink-shop-admin-dragonfly:6379/0
 
     # Security --------------------------
     DEBUG: false
