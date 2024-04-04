@@ -12443,13 +12443,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/dockerode@npm:^3.3.27":
-  version: 3.3.27
-  resolution: "@types/dockerode@npm:3.3.27"
+"@types/dockerode@npm:^3.3.28":
+  version: 3.3.28
+  resolution: "@types/dockerode@npm:3.3.28"
   dependencies:
     "@types/docker-modem": "npm:*"
     "@types/node": "npm:*"
-  checksum: 10c0/bb581716d8605aa0dc4b5cc25e6b131186287d1e90d3ffc0b556c02916ed17f7e3edf635359f043ae8d96bd80fd1800e4b030ad8c86c630d51f8f2b7490de403
+    "@types/ssh2": "npm:*"
+  checksum: 10c0/ce43da3cd269e11e999366aa9019a067d97dc012d7c460b560dfe75d4ccacc618077f2dfc5f34da2c915d4d86ed883d00d3bb741fd8440ef4ca1136afbc29b9f
   languageName: node
   linkType: hard
 
@@ -14850,7 +14851,7 @@ __metadata:
     "@backstage/plugin-search-backend-node": "npm:^1.2.20"
     "@backstage/plugin-techdocs-backend": "npm:^1.10.3"
     "@backstage/plugin-todo-backend": "npm:^0.3.15"
-    "@types/dockerode": "npm:^3.3.27"
+    "@types/dockerode": "npm:^3.3.28"
     "@types/express": "npm:^4.17.21"
     "@types/express-serve-static-core": "npm:^4.17.43"
     "@types/luxon": "npm:^3.4.2"
