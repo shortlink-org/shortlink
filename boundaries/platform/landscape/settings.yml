@@ -9,7 +9,7 @@
 #
 # foundation: <FOUNDATION_NAME>
 #
-foundation: DEMO
+foundation: ShortLink
 
 # Url (required)
 #
@@ -41,7 +41,16 @@ url: http://127.0.0.1:8000
 # landscape. To achieve that, we only need to exclude the subcategory from the
 # subcategories list when overriding a category.
 #
-# categories:
+categories:
+  - name: ShortLink
+    subcategories:
+      - link
+      - shop
+      - platform
+  - name: Marketing
+    subcategories:
+      - gamification
+      - referral
 #   - name: <CATEGORY_NAME>
 #     subcategories:
 #       - <SUBCATEGORY1_NAME>
@@ -121,17 +130,8 @@ featured_items:
 #
 footer:
   links:
-    facebook: "https://www.facebook.com/CloudNativeComputingFoundation/"
-    flickr: "https://www.flickr.com/photos/143247548@N03/albums"
-    github: "https://github.com/cncf"
-    homepage: "https://cncf.io"
-    instagram: "https://www.instagram.com/humans.of.cloudnative/"
-    linkedin: "https://www.linkedin.com/company/cloud-native-computing-foundation/"
-    slack: "https://slack.cncf.io/"
-    twitch: "https://www.twitch.tv/cloudnativefdn"
-    twitter: "https://twitter.com/cloudnativefdn"
-    wechat: "https://www.cncf.io/wechat/"
-    youtube: "https://www.youtube.com/c/cloudnativefdn"
+    github: "https://github.com/shortlink-org"
+    homepage: "https://shortlink.best/"
   logo: "https://raw.githubusercontent.com/cncf/artwork/master/other/cncf/horizontal/white/cncf-white.svg"
 
 # Grid items size (optional)
@@ -163,11 +163,19 @@ grid_items_size: large
 groups:
   - name: All categories
     categories:
-      - Category 1
-      - Category 2
-  - name: Only category 2
+      - ShortLink
+      - Marketing
+  - name: ShortLink
     categories:
-      - Category 2
+      - link
+      - shop
+  - name: Marketing
+    categories:
+      - gamification
+      - referral
+  - name: Security
+    categories:
+      - platform
 
 # Header (optional)
 #
@@ -180,7 +188,7 @@ groups:
 #
 header:
   links:
-    github: "https://github.com/cncf/landscape2"
+    github: "https://github.com/shortlink-org"
   logo: "https://raw.githubusercontent.com/cncf/artwork/master/other/cncf-landscape/horizontal/color/cncf-landscape-horizontal-color.svg"
 
 # Images (optional)
