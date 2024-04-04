@@ -4,7 +4,7 @@ go 1.22.2
 
 require (
 	github.com/container-storage-interface/spec v1.9.0
-	github.com/golang/glog v1.2.0
+	github.com/golang/glog v1.2.1
 	github.com/google/uuid v1.6.0
 	github.com/google/wire v0.6.0
 	github.com/kubernetes-csi/csi-test/v5 v5.2.0
