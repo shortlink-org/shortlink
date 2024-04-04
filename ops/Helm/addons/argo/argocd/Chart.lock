@@ -1,7 +1,7 @@
 dependencies:
 - name: argo-cd
   repository: https://argoproj.github.io/argo-helm
-  version: 6.7.8
+  version: 6.7.9
 - name: argocd-apps
   repository: https://argoproj.github.io/argo-helm
   version: 2.0.0
@@ -11,5 +11,5 @@ dependencies:
 - name: dragonfly
   repository: oci://ghcr.io/dragonflydb/dragonfly/helm
   version: v1.16.0
-digest: sha256:078eb5c968c29a06f9e8bf2068b8a44a2e8eb05acc874adfe96cddd6aa74ab33
-generated: "2024-04-04T01:45:57.403545+02:00"
+digest: sha256:28b0781f32c7486eb9340fe9675bd7db721c4803a595f577c85a0bb62988bf85
+generated: "2024-04-04T21:43:11.686080688Z"
