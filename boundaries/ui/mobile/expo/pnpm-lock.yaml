@@ -119,8 +119,8 @@ devDependencies:
     specifier: ^20.20.0
     version: 20.20.0(jest-environment-jsdom@29.7.0)(jest@29.7.0)
   eas-cli:
-    specifier: ^7.6.2
-    version: 7.6.2(@types/node@20.12.5)(expo-modules-autolinking@1.10.3)(typescript@5.4.4)
+    specifier: ^7.7.0
+    version: 7.7.0(@types/node@20.12.5)(expo-modules-autolinking@1.10.3)(typescript@5.4.4)
   eslint:
     specifier: ^9.0.0
     version: 9.0.0
@@ -2349,20 +2349,20 @@ packages:
     transitivePeerDependencies:
       - supports-color
 
-  /@expo/eas-build-job@1.0.88:
-    resolution: {integrity: sha512-r9t0G5ck/4ueWL5BZu9ZGRVZlGi03jPyBwq1tyXpJRHGokLAYPqw4TPcK92qZlKUUwMcBRk4/DpWjG2y4Cydlw==}
+  /@expo/eas-build-job@1.0.92:
+    resolution: {integrity: sha512-IcXt41YGN1Teo16PGCAHim745969jXKUTroQhZJiFAkam56xLoZeefvMBQUqS4bpustBkU1RBDU7bud5So/WQQ==}
     dependencies:
       joi: 17.12.2
       semver: 7.6.0
       zod: 3.22.4
     dev: true
 
-  /@expo/eas-json@7.6.1:
-    resolution: {integrity: sha512-uV7mbGxSBu2xLJ6NHNdSik5W8XJTsB8lfOnm9VBlfF2c8rbDLPSof6ekzK6xr5s5GlIAg6cHL0KgepFCRqwZDw==}
+  /@expo/eas-json@7.7.0:
+    resolution: {integrity: sha512-3fA6QAdDLj+Rific/Y+o89Ks6CBZHRQ7NvF9bp2hu1jEyLZf2C+axMWLGx0p9zAlq4eUjVggW5/t/EWlBJhMCg==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@babel/code-frame': 7.23.5
-      '@expo/eas-build-job': 1.0.88
+      '@expo/eas-build-job': 1.0.92
       chalk: 4.1.2
       env-string: 1.0.1
       fs-extra: 11.2.0
@@ -2656,11 +2656,11 @@ packages:
     dependencies:
       cross-spawn: 7.0.3
 
-  /@expo/steps@1.0.91:
-    resolution: {integrity: sha512-I1Rdt7w4EIgXo1uB693kw8CFeQGVlfUapIHZv9vuspNQfVPUl1I5s7EMku3EhtVkalcdXRN6Hximvvnwguhpqg==}
+  /@expo/steps@1.0.92:
+    resolution: {integrity: sha512-A/J6EGnqpw1928BPVMHwFyW+4UyCkdTYVAyCsHPTg4Pi76P0XFfhMdU5YQcgnZSWgum+CMMaN3AorDV52Mf11Q==}
     engines: {node: '>=16.0.0'}
     dependencies:
-      '@expo/eas-build-job': 1.0.88
+      '@expo/eas-build-job': 1.0.92
       '@expo/logger': 1.0.57
       '@expo/spawn-async': 1.7.2
       arg: 5.0.2
@@ -7376,8 +7376,8 @@ packages:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
     dev: true
 
-  /eas-cli@7.6.2(@types/node@20.12.5)(expo-modules-autolinking@1.10.3)(typescript@5.4.4):
-    resolution: {integrity: sha512-Nntwczql1O384rxemWQy+UYOtw3kT/USlwRCf5XfXDE5Yd9WLAw42JpnWXQW0lvrLzztWlElOBdIQzfkIjYeoA==}
+  /eas-cli@7.7.0(@types/node@20.12.5)(expo-modules-autolinking@1.10.3)(typescript@5.4.4):
+    resolution: {integrity: sha512-t6PaVD1WAq3VcMfJLZEeDvVBmH8n/1j0tkJeyxhtTLnVKRhjlup/7kXtUeWM/QE5cfoIzW7CauUvDaEM9oEnww==}
     engines: {node: '>=16.0.0'}
     hasBin: true
     dependencies:
@@ -7386,8 +7386,8 @@ packages:
       '@expo/config': 8.5.4
       '@expo/config-plugins': 7.8.4
       '@expo/config-types': 50.0.0
-      '@expo/eas-build-job': 1.0.88
-      '@expo/eas-json': 7.6.1
+      '@expo/eas-build-job': 1.0.92
+      '@expo/eas-json': 7.7.0
       '@expo/json-file': 8.2.37
       '@expo/multipart-body-parser': 1.1.0
       '@expo/osascript': 2.0.33
@@ -7400,7 +7400,7 @@ packages:
       '@expo/results': 1.0.0
       '@expo/rudder-sdk-node': 1.1.1
       '@expo/spawn-async': 1.7.0
-      '@expo/steps': 1.0.91
+      '@expo/steps': 1.0.92
       '@expo/timeago.js': 1.0.0
       '@oclif/core': 1.26.2
       '@oclif/plugin-autocomplete': 2.3.10(@types/node@20.12.5)(typescript@5.4.4)
