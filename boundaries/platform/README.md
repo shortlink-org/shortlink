@@ -16,9 +16,10 @@
 
 ### Third-party Service
 
-| Service   | Description                                                   | Language/Framework | Docs                                         | Status                                                                                                                                                |
-|-----------|---------------------------------------------------------------|--------------------|----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
-| backstage | Backstage is an open platform for building developer portals. | TypeScript         | [docs](https://backstage.io/docs/)           | [![App Status](https://argo.shortlink.best/api/badge?name=backstage&revision=true)](https://argo.shortlink.best/applications/backstage)               |    
+| Service   | Description                                                         | Language/Framework | Docs                                       | Status                                                                                                                                  |
+|-----------|---------------------------------------------------------------------|--------------------|--------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| backstage | Backstage is an open platform for building developer portals.       | TypeScript         | [docs](https://backstage.io/docs/)         | [![App Status](https://argo.shortlink.best/api/badge?name=backstage&revision=true)](https://argo.shortlink.best/applications/backstage) |    
+| landscape | Landscape2 is a tool that generates interactive landscapes websites | Rust               | [docs](https://github.com/cncf/landscape2) | [![App Status](https://argo.shortlink.best/api/badge?name=landscape&revision=true)](https://argo.shortlink.best/applications/landscape) |
 
 ### Docs
 
