@@ -6,7 +6,7 @@
 .matrix_build_base:
   parallel:
     matrix:
-      # API LANDSCAPE
+      # API Boundary
       - APPLICATION: api-cloudevents
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/api-cloudevents
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
@@ -23,12 +23,12 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ws
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/api-gateway/gateways/ws/cmd"
-      # AUTH LANDSCAPE
+      # AUTH Boundary
       - APPLICATION: auth
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/auth
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./boundaries/auth/auth/cmd"
-      # INFRASTRUCTURE LANDSCAPE
+      # INFRASTRUCTURE Boundary
       - APPLICATION: csi
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/csi
         DOCKERFILE_PATH: ops/dockerfile/boundary_platform/csi.Dockerfile
@@ -36,7 +36,7 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/logger
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./boundaries/platform/logger/cmd"
-      # LINK LANDSCAPE
+      # LINK Boundary
       - APPLICATION: bff-link
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bff-link
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
@@ -52,7 +52,7 @@
       - APPLICATION: proxy
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/proxy
         DOCKERFILE_PATH: ops/dockerfile/proxy.Dockerfile
-      # PAYMENT LANDSCAPE
+      # PAYMENT Boundary
       - APPLICATION: billing
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/billing
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
@@ -61,7 +61,7 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/wallet
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./boundaries/billing/wallet/cmd"
-      # MARKETING LANDSCAPE
+      # MARKETING Boundary
       - APPLICATION: bot
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bot
         DOCKERFILE_PATH: ops/dockerfile/bot.Dockerfile
@@ -72,12 +72,12 @@
       - APPLICATION: referral
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/referral
         DOCKERFILE_PATH: ops/dockerfile/referral.Dockerfile
-      # WORKFLOW LANDSCAPE
+      # WORKFLOW Boundary
       - APPLICATION: kafka-to-elasticsearch
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/kafka-to-elasticsearch
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./boundaries/link/supplies/knative/kafka-to-elasticsearch"
-      # PLATFORM LANDSCAPE
+      # PLATFORM Boundary
       - APPLICATION: backstage
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/backstage
         DOCKERFILE_PATH: ops/dockerfile/boundary_platform/backstage.Dockerfile
@@ -87,12 +87,16 @@
       - APPLICATION: support-proxy
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/support-proxy
         DOCKERFILE_PATH: ops/dockerfile/boundary_platform/support/support-proxy.Dockerfile
-      # CHAT LANDSCAPE
+      - APPLICATION: landscape
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/landscape
+        DOCKERFILE_PATH: ops/dockerfile/boundary_platform/landscape.Dockerfile
+        CMD_PATH: "--build-arg GITHUB_TOKEN=${GITHUB_TOKEN}"
+      # CHAT Boundary
       - APPLICATION: speech-to-text
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/speech-to-text
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./boundaries/chat/speech-to-text/cmd"
-      # SHOP LANDSCAPE
+      # SHOP Boundary
       - APPLICATION: shop_admin
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/shop_admin
         DOCKERFILE_PATH: ops/dockerfile/boundary_shop/admin.Dockerfile

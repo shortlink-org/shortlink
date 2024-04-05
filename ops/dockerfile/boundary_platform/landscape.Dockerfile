@@ -9,6 +9,9 @@ ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 # Install dependencies only when needed
 FROM --platform=$BUILDPLATFORM public.ecr.aws/g6m3a0y9/landscape2:latest as builder
 
+ARG GITHUB_TOKEN
+ENV GITHUB_TOKEN=$GITHUB_TOKEN
+
 WORKDIR /app
 
 COPY ./boundaries/platform/landscape ./
