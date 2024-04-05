@@ -19,4 +19,4 @@ run: ## Run landscape
 dev: clean build run ## Run landscape in dev mode
 
 clean: ## Clean landscape
-	@rm -rf build
+	-rm -rf build

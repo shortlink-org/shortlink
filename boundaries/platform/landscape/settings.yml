@@ -44,18 +44,26 @@ url: http://127.0.0.1:8000
 categories:
   - name: ShortLink
     subcategories:
+      - api
+      - auth
+      - billing
+      - chat
+      - delivery
+      - ds
+      - extension
       - link
-      - shop
+      - marketing
+      - notification
       - platform
-  - name: Marketing
+      - search
+      - shop
+      - shortdb
+      - ui
+  - name: Kubernetes
     subcategories:
-      - gamification
-      - referral
-#   - name: <CATEGORY_NAME>
-#     subcategories:
-#       - <SUBCATEGORY1_NAME>
-#       - <SUBCATEGORY2_NAME>
-#
+      - network
+      - security
+      - gitops
 
 # Colors (optional)
 #
@@ -164,28 +172,10 @@ groups:
   - name: All categories
     categories:
       - ShortLink
-      - Marketing
-  - name: ShortLink
-    categories:
-      - link
-      - shop
-  - name: Marketing
-    categories:
-      - gamification
-      - referral
-  - name: Security
-    categories:
-      - platform
 
 # Header (optional)
 #
 # This section allows customizing some aspects of the header.
-#
-# header:
-#   links:
-#     github: <GITHUB_URL>
-#   logo: <LOGO_URL>  # Foundation logo featured on the header
-#
 header:
   links:
     github: "https://github.com/shortlink-org"
