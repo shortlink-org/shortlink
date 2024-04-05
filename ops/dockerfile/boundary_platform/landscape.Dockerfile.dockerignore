@@ -1,0 +1,11 @@
+.*
+docs
+ops
+boundaries
+pkg/ml
+*.yml
+
+# Exclude
+!ops/docker-compose/gateway
+!ops/dockerfile/boundary_platform
+!boundaries/platform/landscape

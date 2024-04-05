@@ -1,0 +1,33 @@
+server {
+    listen      8080;
+    listen [::]:8080;
+    server_name _;
+
+    gzip on;
+    gzip_proxied any;
+    gzip_comp_level 4;
+    gzip_types text/css application/javascript image/svg+xml;
+
+    root   /usr/share/nginx/html;
+
+    location ~* \.(?:ico|gif|jpe?g|png|woff2?|eot|otf|ttf|svg|js|css)$ {
+      try_files $uri $uri/;
+    }
+
+    location / {
+      index index.html;
+      try_files $uri $uri/ /index.html =404;
+    }
+
+    location /live {
+        access_log off;
+        default_type text/plain;
+        return 200 "healthy\n";
+    }
+
+    location /ready {
+        access_log off;
+        default_type text/plain;
+        return 200 "healthy\n";
+    }
+}
