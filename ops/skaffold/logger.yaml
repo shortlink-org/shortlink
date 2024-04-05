@@ -22,7 +22,7 @@ deploy:
     releases:
     - name: shortlink-logger
       namespace: shortlink
-      chartPath: ../Helm/shortlink-logger
+      chartPath: ../Helm/shortlink-platform/shortlink-logger
       wait: true
       artifactOverrides:
         image: shortlink-logger

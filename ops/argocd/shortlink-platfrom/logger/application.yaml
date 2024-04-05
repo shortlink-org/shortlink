@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: backstage
+  name: shortlink-logger
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
-    argocd-image-updater.argoproj.io/image-list: backstage=registry.gitlab.com/shortlink-org/shortlink/backstage:0.x.x
+    argocd-image-updater.argoproj.io/image-list: shortlink-logger=registry.gitlab.com/shortlink-org/shortlink/logger:0.x.x
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
     argocd-image-updater.argoproj.io/git-repository: git@github.com:shortlink-org/shortlink.git
   finalizers:
@@ -13,10 +13,10 @@ metadata:
 spec:
   destination:
     name: ''
-    namespace: shortlink
+    namespace: shortlink-platform
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/backstage
+    path: ops/Helm/shortlink-platform/shortlink-logger
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
