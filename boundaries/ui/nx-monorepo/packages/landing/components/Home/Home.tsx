@@ -157,6 +157,7 @@ const Home = () => {
                 url: 'https://shortlink-org.gitlab.io/shortlink/',
               },
               { name: 'Backstage', url: 'https://backstage.shortlink.best/' },
+              { name: 'LandScape', url: 'https://landscape.shortlink.best/' },
             ]}
           />
         </TabPanel>
