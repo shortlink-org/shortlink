@@ -1,0 +1,120 @@
+# Common default values for shortlink.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+# -- Pods Service Account
+# @ignored ref: https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
+serviceAccount:
+  create: true
+
+# ==============================================================================
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations:
+    cert-manager.io/cluster-issuer: cert-manager-production
+    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+    nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+
+  hostname: backstage.shortlink.best
+  paths:
+    - path: /
+      service:
+        name: backstage
+        port: 7007
+
+  tls:
+    - secretName: backstage-tls
+      hosts:
+        - backstage.shortlink.best
+
+# ==============================================================================
+deploy:
+  replicaCount: 1
+
+  imagePullSecrets: []
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+
+  # -- Annotations to be added to controller pods
+  annotations: {}
+
+  image:
+    repository: registry.gitlab.com/shortlink-org/shortlink/backstage
+    tag: 0.17.85
+    # -- Global imagePullPolicy
+    # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
+    # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    pullPolicy: Always
+
+  # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
+  livenessProbe:
+    failureThreshold: 30
+    initialDelaySeconds: 300
+    timeoutSeconds: 60
+    httpGet:
+      path: /healthcheck
+      port: 7007
+    httpHeaders:
+      - name: Host
+        value: shortlink.best
+
+  # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
+  readinessProbe:
+    initialDelaySeconds: 120
+    timeoutSeconds: 15
+    httpGet:
+      path: /healthcheck
+      port: 7007
+    httpHeaders:
+      - name: Host
+        value: shortlink.best
+
+  # -- Security Context policies for controller pods
+  # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
+  # notes on enabling and using sysctls
+  securityContext:
+    allowPrivilegeEscalation: false
+    readOnlyRootFilesystem: "false"
+
+  volumes:
+    - name: tmp
+      mountPath: /tmp
+      type: emptyDir
+
+service:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 7007
+      protocol: TCP
+      public: true
+
+# Prometheus Operator ServiceMonitor configuration
+monitoring:
+  enabled: true
+
+# ==============================================================================
+# NetworkPolicy
+networkPolicy:
+  enabled: false
+
+  ingress:
+    - from:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: nginx-ingress  # Allow ingress from 'nginx-ingress' namespace
+  policyTypes:
+    - Ingress
