@@ -54,8 +54,8 @@ importers:
         specifier: ^7.1.0
         version: 7.1.0(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/material@5.15.15)(@types/react@18.2.74)(date-fns@3.6.0)(react-dom@18.2.0)(react@18.2.0)
       '@next/env':
-        specifier: 14.2.0-canary.56
-        version: 14.2.0-canary.56
+        specifier: 14.2.0-canary.57
+        version: 14.2.0-canary.57
       '@storybook/react':
         specifier: 8.1.0-alpha.5
         version: 8.1.0-alpha.5(react-dom@18.2.0)(react@18.2.0)(typescript@5.4.4)
@@ -133,8 +133,8 @@ importers:
         specifier: ^5.15.15
         version: 5.15.15(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@types/react@18.2.74)(react@18.2.0)
       '@next/eslint-plugin-next':
-        specifier: 14.2.0-canary.56
-        version: 14.2.0-canary.56
+        specifier: 14.2.0-canary.57
+        version: 14.2.0-canary.57
       '@nx/devkit':
         specifier: 18.2.2
         version: 18.2.2(nx@18.2.2)
@@ -190,8 +190,8 @@ importers:
         specifier: ^8.57.0
         version: 8.57.0
       eslint-config-next:
-        specifier: 14.2.0-canary.56
-        version: 14.2.0-canary.56(eslint@8.57.0)(typescript@5.4.4)
+        specifier: 14.2.0-canary.57
+        version: 14.2.0-canary.57(eslint@8.57.0)(typescript@5.4.4)
       eslint-config-shortlink:
         specifier: workspace:^
         version: link:packages/eslint/eslint-config-shortlink
@@ -7390,12 +7390,12 @@ packages:
   /@next/env@14.1.4:
     resolution: {integrity: sha512-e7X7bbn3Z6DWnDi75UWn+REgAbLEqxI8Tq2pkFOFAMpWAWApz/YCUhtWMWn410h8Q2fYiYL7Yg5OlxMOCfFjJQ==}
 
-  /@next/env@14.2.0-canary.56:
-    resolution: {integrity: sha512-slHTSLx6xovPaNJd6j+SAgK3IZz0D4Go5Vj6hb7/UCYXii1G7xeVgO2EIHdwcuzNaeuug8iN6wvpqS9qjH67cA==}
+  /@next/env@14.2.0-canary.57:
+    resolution: {integrity: sha512-Qsei/6TBgNjmGN9sRtQoOyRhmPaa8lp2vdMMq8+4l0oNdrGk10doFJTOz2yH6UIKol6fK2mnwnqinE58yMiwKQ==}
     dev: false
 
-  /@next/eslint-plugin-next@14.2.0-canary.56:
-    resolution: {integrity: sha512-8mfRYL/UFpPt8rRh469tP5IbRZr3neW8aPMEi6RTEJKarz5E6BHM2ZkejW/+R7BHLvXQNAIhUFVerDrE+Ayw9Q==}
+  /@next/eslint-plugin-next@14.2.0-canary.57:
+    resolution: {integrity: sha512-P1eBWfVK3vmpbVdu9/hor+8HlJeNCLlWH7gHlSDwjYA0M1uLSpXra+HqgDZpHuV7xByZOD85Zc29j4FXE+ityA==}
     dependencies:
       glob: 10.3.10
     dev: true
@@ -15097,8 +15097,8 @@ packages:
       object.entries: 1.1.7
     dev: true
 
-  /eslint-config-next@14.2.0-canary.56(eslint@8.57.0)(typescript@5.4.4):
-    resolution: {integrity: sha512-wQgSF4jAUwa4MTedPCriGHEqUf4jNy21obJKJExJo00Z+a62wTFM5bMHFBeNM+lxrxHgteSq/Qs17FsT8EOZnA==}
+  /eslint-config-next@14.2.0-canary.57(eslint@8.57.0)(typescript@5.4.4):
+    resolution: {integrity: sha512-+nKY1aKu/A5a4Tp4JzvbPtmcf076zfqnWuXwdzmee6nM4uu+6Mm79N3JAKLFs1rYKwUg9B/KzSw4xSIgzMmkIg==}
     peerDependencies:
       eslint: ^7.23.0 || ^8.0.0
       typescript: '>=3.3.1'
@@ -15106,7 +15106,7 @@ packages:
       typescript:
         optional: true
     dependencies:
-      '@next/eslint-plugin-next': 14.2.0-canary.56
+      '@next/eslint-plugin-next': 14.2.0-canary.57
       '@rushstack/eslint-patch': 1.10.1
       '@typescript-eslint/parser': 7.2.0(eslint@8.57.0)(typescript@5.4.4)
       eslint: 8.57.0
