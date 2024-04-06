@@ -7,8 +7,13 @@ kargo:
   enabled: true
 
   api:
-    secret:
-      name: "kargo-secret"
+    adminAccount:
+      enabled: false
+
+    oidc:
+      enabled: false
+      issuerURL:
+      clientID:
 
     argocd:
       urls:
