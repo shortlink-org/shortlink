@@ -7,6 +7,9 @@ kargo:
   enabled: true
 
   api:
+    secret:
+      name: "kargo-secret"
+
     argocd:
       urls:
         - https://argocd.shortlink.best
