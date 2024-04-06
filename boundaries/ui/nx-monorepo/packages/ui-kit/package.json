@@ -13,6 +13,7 @@
     "build-storybook": "pnpm dlx storybook@next build",
     "semantic-release": "pnpm dlx semantic-release",
     "test": "NODE_ENV=test jest",
+    "inspector": "pnpm dlx @eslint/config-inspector",
     "lint": "pnpm dlx eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
     "lint:fix": "pnpm run lint --fix",
     "lint:gitlab": "pnpm dlx lint --format gitlab",

@@ -5,7 +5,6 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import Collapse from '@mui/material/Collapse'
 import ListSubheader from '@mui/material/ListSubheader'
-// eslint-disable-next-line import/order
 import Tooltip from '@mui/material/Tooltip'
 
 // Importing icons

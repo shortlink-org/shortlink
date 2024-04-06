@@ -2,14 +2,7 @@ env:
   browser: true
   node: true
   es2021: true
-parser: '@typescript-eslint/parser'
-parserOptions:
-  ecmaVersion: latest
-  sourceType: module
-  ecmaFeatures:
-    jsx: true
 extends:
-  - eslint:recommended
   - airbnb
   - airbnb/hooks
   - plugin:react/recommended
@@ -29,9 +22,7 @@ plugins:
   - import
   - jsx-a11y
   - shortlink
-  - "@nx"
-ignorePatterns:
-  - '!.storybook'
+  - '@nx'
 settings:
   react:
     version: 'detect'
@@ -42,45 +33,31 @@ rules:
   semi: ['error', 'never']
   comma-style: ['error', 'last']
   comma-dangle: ['error', 'always-multiline']
-  react/jsx-filename-extension: [1, {extensions: ['.ts', '.tsx']}]
+  react/jsx-filename-extension: [1, { extensions: ['.ts', '.tsx'] }]
   import/extensions: off
   import/default: off
   no-alert: off
   consistent-return: off
   import/no-extraneous-dependencies: off
   import/prefer-default-export: off
-  import/order: [
-    'warn',
-    {
-      'newlines-between': 'always',
-      pathGroups: [
-        {
-          pattern: '$/**',
-          group: 'internal',
-        },
-        {
-          pattern: '@mui/icons-material/**',
-          group: 'external',
-        }
-      ],
-      pathGroupsExcludedImportTypes: ['builtin', 'external'],
-      groups: [
-        ['builtin', 'external'],
-        ['internal'],
-        ['parent', 'sibling', 'index'],
-        'unknown',
-      ],
-    },
-  ]
+  import/order:
+    [
+      'warn',
+      {
+        'newlines-between': 'always',
+        pathGroups: [{ pattern: '$/**', group: 'internal' }, { pattern: '@mui/icons-material/**', group: 'external' }],
+        pathGroupsExcludedImportTypes: ['builtin', 'external'],
+        groups: [['builtin', 'external'], ['internal'], ['parent', 'sibling', 'index'], 'unknown'],
+      },
+    ]
   no-underscore-dangle: off
-  no-console: ["warn", { allow: ["info", "warn", "error"] }]
+  no-console: ['warn', { allow: ['info', 'warn', 'error'] }]
   no-debugger: error
   object-shorthand: error
   default-param-last: off
   import/no-self-import: off
   jsx-a11y/click-events-have-key-events: off
   jsx-a11y/no-static-element-interactions: off
-  no-fallthrough: off
   import/no-unresolved: off
   import/no-duplicates: off
   import/export: off
@@ -93,7 +70,7 @@ rules:
   react/no-array-index-key: off
   react/prop-types: off
   prettier/prettier: warn
-  import/no-cycle: [0, {ignoreExternal: true}]
+  import/no-cycle: [0, { ignoreExternal: true }]
   react/no-unescaped-entities: off
   react/jsx-props-no-spreading: off
   react/function-component-definition: off
@@ -122,8 +99,8 @@ overrides:
       - plugin:import/typescript
     parserOptions:
       project: true
-#        - tsconfig.json
-#        - cypress/tsconfig.json
+    #        - tsconfig.json
+    #        - cypress/tsconfig.json
     plugins:
       - '@typescript-eslint'
     rules:
@@ -140,7 +117,6 @@ overrides:
       '@typescript-eslint/no-misused-promises': off
       '@typescript-eslint/require-await': off
       '@typescript-eslint/restrict-template-expressions': off
-      '@typescript-eslint/no-extra-semi': off
       '@typescript-eslint/no-implied-eval': off
       '@typescript-eslint/unbound-method': off
       '@typescript-eslint/no-unnecessary-type-assertion': off

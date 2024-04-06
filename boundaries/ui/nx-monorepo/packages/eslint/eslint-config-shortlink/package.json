@@ -1,8 +1,15 @@
 {
   "name": "eslint-config-shortlink",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "description": "Shared ESLint configuration for ShortLink",
-  "main": "index.yaml",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "npx swc index.ts -o ./dist/index.js",
+    "inspector": "pnpm dlx @eslint/config-inspector",
+    "lint": "pnpm dlx eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
+    "lint:fix": "pnpm run lint --fix",
+    "prettier": "pnpm dlx prettier -w -c ."
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/shortlink-org/shortlink.git"

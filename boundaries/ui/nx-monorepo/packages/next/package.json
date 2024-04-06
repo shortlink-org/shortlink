@@ -14,6 +14,7 @@
     "type-check": "tsc",
     "next-lint": "pnpm dlx next lint",
     "prettier": "pnpm dlx prettier -w -c .",
+    "inspector": "pnpm dlx @eslint/config-inspector",
     "lint": "pnpm dlx eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
     "lint:fix": "pnpm dlx eslint --fix",
     "lint:gitlab": "pnpm dlx lint --format gitlab",

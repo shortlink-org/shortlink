@@ -18,7 +18,6 @@ console.info('API_URI', API_URI)
 const plugins = []
 
 if (isEnablePWA) {
-  // eslint-disable-next-line global-require
   const withPWA = require('@ducanh2912/next-pwa').default({
     dest: 'public',
     maximumFileSizeToCacheInBytes: 10 * 1024 * 1024, // Set the limit to 10 MB
@@ -38,7 +37,6 @@ if (isEnablePWA) {
 // Make sure adding Sentry options is the last code to run before exporting, to
 // ensure that your source maps include changes from all other Webpack plugins
 if (isEnableSentry) {
-  // eslint-disable-next-line global-require
   const { withSentryConfig } = require('@sentry/nextjs')
 
   const config = {
@@ -113,7 +111,6 @@ const NEXT_CONFIG = {
       fullUrl: true,
     },
   },
-  // eslint-disable-next-line no-unused-vars
   webpack: (config, { isServer, buildId }) => {
     config.module.rules.push({
       test: /\.svg$/i,

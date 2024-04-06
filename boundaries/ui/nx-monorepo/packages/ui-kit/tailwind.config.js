@@ -31,13 +31,9 @@ module.exports = {
     },
   },
   plugins: [
-    // eslint-disable-next-line global-require
     require('@tailwindcss/typography'),
-    // eslint-disable-next-line global-require
     require('@tailwindcss/forms'),
-    // eslint-disable-next-line global-require
     require('@tailwindcss/aspect-ratio'),
-    // eslint-disable-next-line global-require
     require('@tailwindcss/container-queries'),
   ],
 }

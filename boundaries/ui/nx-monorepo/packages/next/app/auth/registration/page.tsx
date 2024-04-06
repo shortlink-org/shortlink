@@ -77,7 +77,6 @@ const SignUp: NextPage = () => {
         // Continue_with is a list of actions that the user might need to take before the registration is complete.
         // It could, for example, contain a link to the verification form.
         if (data.continue_with) {
-          // eslint-disable-next-line no-restricted-syntax
           for (const item of data.continue_with) {
             switch (item.action) {
               case 'show_verification_ui':

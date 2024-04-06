@@ -17,7 +17,6 @@ export function NodeInputButton<T>({ node, attributes, setValue, disabled, dispa
       e.stopPropagation()
       e.preventDefault()
 
-      // eslint-disable-next-line no-new-func
       const run = new Function(attributes.onclick)
       run()
       return

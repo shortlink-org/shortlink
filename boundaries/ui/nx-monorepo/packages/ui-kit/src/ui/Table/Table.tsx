@@ -4,16 +4,11 @@ import { mkConfig, generateCsv, download } from 'export-to-csv'
 import {
   MaterialReactTable,
   useMaterialReactTable,
-  // eslint-disable-next-line camelcase
   MRT_ToggleDensePaddingButton,
-  // eslint-disable-next-line camelcase
   MRT_ToggleFullScreenButton,
-  // eslint-disable-next-line camelcase
   MRT_ShowHideColumnsButton,
-  // eslint-disable-next-line camelcase
   MRT_ToggleFiltersButton,
   type MaterialReactTable as MaterialReactTableProps,
-  // eslint-disable-next-line camelcase
   type MRT_Row,
 } from 'material-react-table'
 import React, { useState, useCallback } from 'react'
@@ -43,7 +38,6 @@ export const Table: React.FC<TableProps> = ({ columns, data, onRefresh }) => {
     download(csvConfig)(csv)
   }
 
-  // eslint-disable-next-line camelcase
   const handleExportRows = (rows: MRT_Row<any>[]) => {
     const rowData = rows.map((row) => row.original)
     const csv = generateCsv(csvConfig)(rowData)
@@ -78,7 +72,6 @@ export const Table: React.FC<TableProps> = ({ columns, data, onRefresh }) => {
   }
 
   const handleDeleteRow = useCallback(
-    // eslint-disable-next-line camelcase
     (row: MRT_Row<any>) => {
       if (!confirm(`Are you sure you want to delete row ${row.index + 1}?`)) {
         return
@@ -105,7 +98,6 @@ export const Table: React.FC<TableProps> = ({ columns, data, onRefresh }) => {
     enableRowActions: true,
     paginationDisplayMode: 'pages',
 
-    // eslint-disable-next-line no-shadow
     renderTopToolbarCustomActions: ({ table }) => (
       <Box sx={{ display: 'flex', gap: '1rem', p: '4px' }}>
         <Button onClick={() => setCreateModalOpen(true)} variant="outlined">
@@ -126,24 +118,18 @@ export const Table: React.FC<TableProps> = ({ columns, data, onRefresh }) => {
       </Box>
     ),
 
-    // eslint-disable-next-line no-shadow
     renderToolbarInternalActions: ({ table }) => (
       <Box>
         <IconButton onClick={onRefresh}>
           <Update />
         </IconButton>
-        {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
         <MRT_ToggleFiltersButton table={table} />
-        {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
         <MRT_ShowHideColumnsButton table={table} />
-        {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
         <MRT_ToggleDensePaddingButton table={table} />
-        {/* eslint-disable-next-line react/jsx-pascal-case, camelcase */}
         <MRT_ToggleFullScreenButton table={table} />
       </Box>
     ),
 
-    // eslint-disable-next-line no-shadow
     renderRowActions: ({ row, table }) => (
       <Box sx={{ display: 'flex', gap: '1rem' }}>
         <Tooltip arrow placement="left" title="Edit">
@@ -159,7 +145,6 @@ export const Table: React.FC<TableProps> = ({ columns, data, onRefresh }) => {
       </Box>
     ),
 
-    // eslint-disable-next-line no-shadow
     renderBottomToolbarCustomActions: ({ table }) => (
       <Box
         sx={{

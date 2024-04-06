@@ -13,7 +13,6 @@ export function NodeInputDefault<T>(props: NodeInputProps) {
     // Unfortunately, there
     // is currently no better way than executing eval / function here at this moment.
     if (attributes.onclick) {
-      // eslint-disable-next-line no-new-func
       const run = new Function(attributes.onclick)
       run()
     }

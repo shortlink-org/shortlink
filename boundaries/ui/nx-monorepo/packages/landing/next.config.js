@@ -8,7 +8,6 @@ const isEnablePWA = process.env.PWA_ENABLE === 'true'
 const plugins = []
 
 if (isEnablePWA) {
-  // eslint-disable-next-line global-require
   const withPWA = require('@ducanh2912/next-pwa').default({
     dest: 'public',
     swcMinify: isProd,

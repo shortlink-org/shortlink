@@ -1,6 +1,5 @@
 'use client'
 
-// @ts-ignore // eslint-disable-next-line import/order
 import { ToggleDarkMode, SearchForm } from '@shortlink-org/ui-kit'
 import { useEffect, useState, Fragment } from 'react'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
@@ -14,7 +13,6 @@ import { styled, useTheme, Theme, CSSObject } from '@mui/material/styles'
 import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { AxiosError } from 'axios'
-// eslint-disable-next-line import/order
 import Link from 'next/link'
 
 // Importing icons
@@ -34,7 +32,6 @@ interface AppBarProps extends MuiAppBarProps {
   open?: boolean
 }
 
-/* eslint-disable */
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({

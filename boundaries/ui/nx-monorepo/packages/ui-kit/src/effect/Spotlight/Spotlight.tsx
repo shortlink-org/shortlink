@@ -33,7 +33,7 @@ export function Spotlight({ children, className = '' }: SpotlightProps) {
 
   useEffect(() => {
     onMouseMove()
-  }, [mousePosition]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [mousePosition])
 
   const initContainer = () => {
     if (containerRef.current) {

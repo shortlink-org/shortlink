@@ -1,6 +1,5 @@
 import * as React from 'react'
 import { Metadata } from 'next'
-// eslint-disable-next-line camelcase
 import { Roboto_Mono } from 'next/font/google'
 import Script from 'next/script'
 import { Organization, WithContext } from 'schema-dts'
