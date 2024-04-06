@@ -25,50 +25,94 @@ categories:
       - subcategory: "api"
         content: |
           The API subcategory includes the API Gateway which handles incoming requests and routes them to the appropriate services.
+        keywords:
+          - "API Gateway"
+          - "Request Handling"
+          - "Routing"
 
       - subcategory: "auth"
         content: |
           The Auth subcategory is dedicated to the Authentication Service that ensures only authorized users can access our platform.
+        keywords:
+          - "Authentication"
+          - "Security"
+          - "Access Control"
 
       - subcategory: "billing"
         content: |
           The Billing subcategory includes services related to billing and wallet management.
+        keywords:
+          - "Billing"
+          - "Wallet Management"
 
       - subcategory: "chat"
         content: |
           The Chat subcategory includes services related to chat functionality and speech-to-text conversion.
+        keywords:
+          - "Chat"
+          - "Speech-to-Text"
 
       - subcategory: "delivery"
         content: |
           The Delivery subcategory includes services related to delivery and support.
+        keywords:
+          - "Delivery"
+          - "Support"
 
       - subcategory: "ds"
         content: |
           The DS subcategory includes services related to Data Science.
+        keywords:
+          - "Data Science"
+          - "Data Analysis"
+          - "Data Visualization"
 
       - subcategory: "link"
         content: |
           The Link subcategory includes services related to link management and metadata handling.
+        keywords:
+          - "Link Management"
+          - "Metadata Handling"
 
       - subcategory: "marketing"
         content: |
           The Marketing subcategory includes services related to gamification, referral, report generation, and stats.
+        keywords:
+          - "Gamification"
+          - "Referral"
+          - "Report Generation"
+          - "Stats"
 
       - subcategory: "notification"
         content: |
           The Notification subcategory includes services related to bot, newsletter, and notify functionalities.
+        keywords:
+          - "Bot"
+          - "Newsletter"
+          - "Notify"
 
       - subcategory: "search"
         content: |
           The Search subcategory includes services related to search functionality.
+        keywords:
+          - "Search"
+          - "Search Engine"
 
       - subcategory: "shop"
         content: |
           The Shop subcategory includes services related to admin, cart, and merch functionalities.
+        keywords:
+          - "Admin"
+          - "Cart"
+          - "Merch"
 
       - subcategory: "ui"
         content: |
           The UI subcategory includes services related to landing, next, and ui-kit functionalities.
+        keywords:
+          - "Landing"
+          - "Next"
+          - "UI-Kit"
 
   - category: "Infrastructure"
     content: |
@@ -78,7 +122,18 @@ categories:
       - subcategory: "platform"
         content: |
           The Platform subcategory includes services related to backstage, csi, landscape, logger, shortctl, and ArgoCD extension.
+        keywords:
+          - "Platform Services"
+          - "Backstage"
+          - "CSI"
+          - "Landscape"
+          - "Logger"
+          - "Shortctl"
+          - "ArgoCD Extension"
 
       - subcategory: "shortdb"
         content: |
           The ShortDB subcategory includes services related to shortdb and shortdb-operator functionalities.
+        keywords:
+          - "ShortDB"
+          - "ShortDB-Operator"
