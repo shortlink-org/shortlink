@@ -1,6 +1,10 @@
-# shortlink
+# Billing Client
 
-ShortLink application.
+<img width='200' height='200' src="./docs/public/logo.svg">
+
+> [!NOTE]
+> This project is a Flutter application that is part of the ShortLink project. 
+> It is responsible for managing the billing of the ShortLink application.
 
 ## Getting Started
 

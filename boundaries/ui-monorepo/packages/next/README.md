@@ -1,6 +1,9 @@
 ## NEXT-UI Application
 
-This UI for shortlink application
+<img width='200' height='200' src="./docs/public/logo.svg">
+
+> [!NOTE]
+> This UI for shortlink application
 
 #### Feature/Require
 

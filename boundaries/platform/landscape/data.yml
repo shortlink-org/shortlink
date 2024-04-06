@@ -37,14 +37,14 @@ landscape:
             homepage_url: https://shortlink.com/next
             logo: wallet.svg
             name: wallet
-            project: graduated
+            project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/billing/wallet
           - item:
             description: Mobile client
             homepage_url: https://shortlink.com/next
-            logo: logo.svg
+            logo: next.svg
             name: flutter
-            project: graduated
+            project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/billing/flutter
       - subcategory:
         name: chat
@@ -54,7 +54,7 @@ landscape:
             homepage_url: https://shortlink.com/next
             logo: chat.svg
             name: chat
-            project: graduated
+            project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/chat/chat
           - item:
             description: speech-to-text
@@ -71,14 +71,14 @@ landscape:
             homepage_url: https://shortlink.com/next
             logo: geolocation.svg
             name: geolocation
-            project: graduated
+            project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/delivery/geolocation
           - item:
             description: Support service
             homepage_url: https://shortlink.com/next
             logo: support.svg
             name: support
-            project: graduated
+            project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/delivery/support
       - subcategory:
         name: ds
@@ -86,9 +86,9 @@ landscape:
           - item:
             description: Data Science service
             homepage_url: https://shortlink.com/next
-            logo: logo.svg
+            logo: colab.svg
             name: colab
-            project: graduated
+            project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/ds/colab
       - subcategory:
         name: link
@@ -110,9 +110,9 @@ landscape:
           - item:
             description: Mobile client
             homepage_url: https://shortlink.com/next
-            logo: logo.svg
+            logo: expo.svg
             name: expo
-            project: graduated
+            project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/link/expo
           - item:
             description: Link service
@@ -143,7 +143,7 @@ landscape:
             homepage_url: https://shortlink.com/next
             logo: gamification.svg
             name: Gamification
-            project: graduated
+            project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/marketing/gamification
           - item:
             description: referral
@@ -157,14 +157,14 @@ landscape:
             homepage_url: https://shortlink.com/next
             logo: report.svg
             name: Report
-            project: graduated
+            project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/marketing/report
           - item:
             description: stats
             homepage_url: https://shortlink.com/next
             logo: stats.svg
             name: Stats
-            project: graduated
+            project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/marketing/stats
       - subcategory:
         name: notification
@@ -179,71 +179,26 @@ landscape:
           - item:
             description: newsletter
             homepage_url: https://shortlink.com/next
-            logo: logo.svg
+            logo: newsletter.svg
             name: newsletter
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/notification/newsletter
           - item:
             description: notify
             homepage_url: https://shortlink.com/next
-            logo: logo.svg
+            logo: notify.svg
             name: notify
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/notification/notify
-      - subcategory:
-        name: platform
-        items:
-          - item:
-            description: backstage
-            homepage_url: https://shortlink.com/next
-            logo: logo.svg
-            name: backstage
-            project: graduated
-            repo_url: https://github.com/shortlink-org/shortlink/boundaries/platform/backstage
-          - item:
-            description: csi
-            homepage_url: https://shortlink.com/next
-            logo: logo.svg
-            name: csi
-            project: graduated
-            repo_url: https://github.com/shortlink-org/shortlink/boundaries/platform/csi
-          - item:
-            description: landscape
-            homepage_url: https://shortlink.com/next
-            logo: logo.svg
-            name: landscape
-            project: graduated
-            repo_url: https://github.com/shortlink-org/shortlink/boundaries/platform/landscape
-          - item:
-            description: logger
-            homepage_url: https://shortlink.com/next
-            logo: logo.svg
-            name: logger
-            project: graduated
-            repo_url: https://github.com/shortlink-org/shortlink/boundaries/platform/logger
-          - item:
-            description: shortctl
-            homepage_url: https://shortlink.com/next
-            logo: logo.svg
-            name: shortctl
-            project: graduated
-            repo_url: https://github.com/shortlink-org/shortlink/boundaries/platform/shortctl
-          - item:
-            description: ArgoCD extension
-            homepage_url: https://shortlink.com/next
-            logo: logo.svg
-            name: argocd-extension-docs
-            project: graduated
-            repo_url: https://github.com/shortlink-org/shortlink/boundaries/platform/argocd-extension-docs
       - subcategory:
         name: search
         items:
           - item:
             description: search
             homepage_url: https://shortlink.com/next
-            logo: logo.svg
+            logo: search.svg
             name: search
-            project: graduated
+            project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/search/search
       - subcategory:
         name: shop
@@ -251,62 +206,110 @@ landscape:
           - item:
             description: admin
             homepage_url: https://shortlink.com/next
-            logo: logo.svg
+            logo: admin.svg
             name: admin
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/shop/admin
           - item:
             description: cart
             homepage_url: https://shortlink.com/next
-            logo: logo.svg
+            logo: cart.svg
             name: cart
-            project: graduated
+            project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/shop/cart
           - item:
             description: merch
             homepage_url: https://shortlink.com/next
-            logo: logo.svg
+            logo: merch.svg
             name: merch
-            project: graduated
+            project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/shop/merch
-      - subcategory:
-        name: shortdb
-        items:
-          - item:
-            description: shortdb
-            homepage_url: https://shortlink.com/next
-            logo: logo.svg
-            name: shortdb
-            project: graduated
-            repo_url: https://github.com/shortlink-org/shortlink/boundaries/shortdb/shortdb
-          - item:
-            description: shortdb-operator
-            homepage_url: https://shortlink.com/next
-            logo: logo.svg
-            name: shortdb-operator
-            project: graduated
-            repo_url: https://github.com/shortlink-org/shortlink/boundaries/shortdb/shortdb-operator
       - subcategory:
         name: ui
         items:
           - item:
             description: landing
             homepage_url: https://shortlink.com/next
-            logo: logo.svg
+            logo: landing.svg
             name: landing
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/ui-monorepo/packages/landing
           - item:
             description: next
             homepage_url: https://shortlink.com/next
-            logo: logo.svg
+            logo: next.svg
             name: next
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/ui-monorepo/packages/next
           - item:
             description: ui-kit
             homepage_url: https://shortlink.com/next
-            logo: logo.svg
+            logo: ui-kit.svg
             name: ui-kit
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/ui-monorepo/packages/ui-kit
+  - category:
+    name: Infrastructure
+    subcategories:
+      - subcategory:
+        name: platform
+        items:
+          - item:
+            description: backstage
+            homepage_url: https://shortlink.com/next
+            logo: backstage.svg
+            name: backstage
+            project: graduated
+            repo_url: https://github.com/shortlink-org/shortlink/boundaries/platform/backstage
+          - item:
+            description: csi
+            homepage_url: https://shortlink.com/next
+            logo: csi.svg
+            name: csi
+            project: graduated
+            repo_url: https://github.com/shortlink-org/shortlink/boundaries/platform/csi
+          - item:
+            description: landscape
+            homepage_url: https://shortlink.com/next
+            logo: landscape.svg
+            name: landscape
+            project: graduated
+            repo_url: https://github.com/shortlink-org/shortlink/boundaries/platform/landscape
+          - item:
+            description: logger
+            homepage_url: https://shortlink.com/next
+            logo: logger.svg
+            name: logger
+            project: graduated
+            repo_url: https://github.com/shortlink-org/shortlink/boundaries/platform/logger
+          - item:
+            description: shortctl
+            homepage_url: https://shortlink.com/next
+            logo: shortctl.svg
+            name: shortctl
+            project: graduated
+            repo_url: https://github.com/shortlink-org/shortlink/boundaries/platform/shortctl
+          - item:
+            description: ArgoCD extension
+            homepage_url: https://shortlink.com/next
+            logo: argocd-extension-docs.svg
+            name: argocd-extension-docs
+            project: graduated
+            repo_url: https://github.com/shortlink-org/shortlink/boundaries/platform/argocd-extension-docs
+      - subcategory:
+        name: shortdb
+        items:
+          - item:
+            description: shortdb
+            homepage_url: https://shortlink.com/next
+            logo: shortdb.svg
+            name: shortdb
+            project: graduated
+            repo_url: https://github.com/shortlink-org/shortlink/boundaries/shortdb/shortdb
+          - item:
+            description: shortdb-operator
+            homepage_url: https://shortlink.com/next
+            logo: shortdb-operator.svg
+            name: shortdb-operator
+            project: incubating
+            repo_url: https://github.com/shortlink-org/shortlink/boundaries/shortdb/shortdb-operator

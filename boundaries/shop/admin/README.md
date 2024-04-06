@@ -1,5 +1,7 @@
 ## Shop admin
 
+<img width='200' height='200' src="./docs/public/logo.svg">
+
 > [!NOTE]
 > The Shop admin in this software system is primarily concerned with the management of goods and services.
 

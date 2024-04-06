@@ -1,6 +1,9 @@
 ## @shortlink/ui-kit
 
-The UI Kit is a collection of React components that are used in the ShortLink app.
+<img width='200' height='200' src="./docs/public/logo.svg">
+
+> [!NOTE]
+> The UI Kit is a collection of React components that are used in the ShortLink app.
 
 ### Installation
 

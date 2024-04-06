@@ -1,6 +1,9 @@
 ## CSI driver
 
-Driver for Container Storage Interface (CSI) for Kubernetes.
+<img width='200' height='200' src="./docs/public/logo.svg">
+
+> [!NOTE]
+> Driver for Container Storage Interface (CSI) for Kubernetes.
 
 | name     | value            |
 |----------|------------------|

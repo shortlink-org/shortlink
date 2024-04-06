@@ -1,8 +1,9 @@
 ## Landing
 
-### Goal
+<img width='200' height='200' src="./docs/public/logo.svg">
 
-This service made starting page for navigation to all services our platform.
+> [!NOTE]
+> This service made starting page for navigation to all services our platform.
 
 ### Getting Started
 

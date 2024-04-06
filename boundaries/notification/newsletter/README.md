@@ -1,6 +1,9 @@
 ### Newsletter
 
-The service sends messages to everyone who has subscribed to the newsletter.
+<img width='200' height='200' src="./docs/public/logo.svg">
+
+> [!NOTE]
+> The service sends messages to everyone who has subscribed to the newsletter.
 
 ### Use
 

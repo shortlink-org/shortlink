@@ -1,6 +1,9 @@
 ## shortctl
 
-ShortLink it's sandbox for experiments
+<img width='200' height='200' src="./docs/public/logo.svg">
+
+> [!NOTE]
+> ShortLink it's sandbox for experiments
 
 ### Getting started
 

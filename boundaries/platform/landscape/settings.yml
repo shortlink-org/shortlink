@@ -17,7 +17,7 @@ foundation: ShortLink
 #
 # url: <LANDSCAPE_URL>
 #
-url: http://127.0.0.1:8000
+url: https://landscape.shortlink.best/
 
 # Analytics (optional)
 #
@@ -54,16 +54,14 @@ categories:
       - link
       - marketing
       - notification
-      - platform
       - search
       - shop
       - shortdb
       - ui
-  - name: Kubernetes
+  - name: Infrastructure
     subcategories:
-      - network
-      - security
-      - gitops
+      - platform
+      - shortdb
 
 # Colors (optional)
 #
@@ -81,7 +79,7 @@ categories:
 #
 colors:
   color1: "rgba(0, 107, 204, 1)"
-  color2: "rgba(255, 0, 170, 1)"
+  color2: "rgba(214, 34, 147, 1)"
   color3: "rgba(96, 149, 214, 1)"
   color4: "rgba(0, 42, 81, 0.7)"
   color5: "rgba(1, 107, 204, 0.7)"
@@ -115,6 +113,9 @@ featured_items:
       - value: graduated
         order: 1
         label: Graduated
+      - value: incubating
+        order: 2
+        label: Coming soon
 
 # Footer (optional)
 #
@@ -152,7 +153,7 @@ footer:
 #
 # grid_items_size: <small|medium|large>
 #
-grid_items_size: large
+grid_items_size: medium
 
 # Groups (optional)
 #
@@ -172,6 +173,7 @@ groups:
   - name: All categories
     categories:
       - ShortLink
+      - Infrastructure
 
 # Header (optional)
 #
@@ -197,8 +199,7 @@ header:
 # but it is important that we define it here as there are some special
 # operations that depend on it.
 #
-# members_category: <CATEGORY_NAME>
-#
+members_category: ShortLink
 
 # Osano (optional)
 #
@@ -252,6 +253,12 @@ screenshot_width: 1500
 #   <TAG2>:
 #     - category: <CATEGORY2>
 #
+tags:
+  language:
+    - category: Golang
+    - category: JavaScript
+    - category: Python
+    - category: Rust
 
 # Upcoming event (optional)
 #

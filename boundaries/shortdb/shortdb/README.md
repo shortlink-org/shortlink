@@ -1,6 +1,9 @@
 ## Database `ShortDB`
 
-This database with support SQL language.
+<img width='200' height='200' src="./docs/public/logo.svg">
+
+> [!NOTE]
+> This database with support SQL language.
 
 #### Docs
 

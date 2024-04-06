@@ -1,5 +1,7 @@
 ## Search
 
+<img width='200' height='200' src="./docs/public/logo.svg">
+
 > [!NOTE]
 > Service for work with search requests
 

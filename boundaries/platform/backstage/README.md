@@ -1,6 +1,9 @@
 # [Backstage](https://backstage.io)
 
-This is your newly scaffolded Backstage App, Good Luck!
+<img width='200' height='200' src="./docs/public/logo.svg">
+
+> [!NOTE]
+> This is your newly scaffolded Backstage App, Good Luck!
 
 To start the app, run:
 

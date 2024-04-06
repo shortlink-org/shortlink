@@ -13,28 +13,72 @@
 # 1-3 are reserved to illustrate the hierarchy of categories and subcategories.
 
 categories:
-  - category: "Category 1"
+  - category: "Introduction"
     content: |
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      Welcome to the ShortLink landscape. This landscape is a comprehensive overview of the services and tools that make up the ShortLink platform. Each category and subcategory represents a unique aspect of our platform, providing a detailed look into our infrastructure and operations.
+
+  - category: "ShortLink"
+    content: |
+      This section provides an overview of the ShortLink category. It includes various subcategories that are integral parts of the ShortLink platform.
 
     subcategories:
-      - subcategory: "Subcategory 1-1"
+      - subcategory: "api"
         content: |
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          The API subcategory includes the API Gateway which handles incoming requests and routes them to the appropriate services.
 
-      - subcategory: "Subcategory 1-2"
+      - subcategory: "auth"
         content: |
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          The Auth subcategory is dedicated to the Authentication Service that ensures only authorized users can access our platform.
 
-  - category: "Category 2"
+      - subcategory: "billing"
+        content: |
+          The Billing subcategory includes services related to billing and wallet management.
+
+      - subcategory: "chat"
+        content: |
+          The Chat subcategory includes services related to chat functionality and speech-to-text conversion.
+
+      - subcategory: "delivery"
+        content: |
+          The Delivery subcategory includes services related to delivery and support.
+
+      - subcategory: "ds"
+        content: |
+          The DS subcategory includes services related to Data Science.
+
+      - subcategory: "link"
+        content: |
+          The Link subcategory includes services related to link management and metadata handling.
+
+      - subcategory: "marketing"
+        content: |
+          The Marketing subcategory includes services related to gamification, referral, report generation, and stats.
+
+      - subcategory: "notification"
+        content: |
+          The Notification subcategory includes services related to bot, newsletter, and notify functionalities.
+
+      - subcategory: "search"
+        content: |
+          The Search subcategory includes services related to search functionality.
+
+      - subcategory: "shop"
+        content: |
+          The Shop subcategory includes services related to admin, cart, and merch functionalities.
+
+      - subcategory: "ui"
+        content: |
+          The UI subcategory includes services related to landing, next, and ui-kit functionalities.
+
+  - category: "Infrastructure"
     content: |
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+      This section provides an overview of the Infrastructure category. It includes various subcategories that are integral parts of the ShortLink platform.
 
     subcategories:
-      - subcategory: "Subcategory 2-1"
+      - subcategory: "platform"
         content: |
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          The Platform subcategory includes services related to backstage, csi, landscape, logger, shortctl, and ArgoCD extension.
 
-      - subcategory: "Subcategory 2-2"
+      - subcategory: "shortdb"
         content: |
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          The ShortDB subcategory includes services related to shortdb and shortdb-operator functionalities.

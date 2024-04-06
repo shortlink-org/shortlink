@@ -1,4 +1,9 @@
-# ShortLink
+# ShortLink mobile client
+
+<img width='200' height='200' src="./docs/public/logo.svg">
+
+> [!NOTE]
+> This project is a mobile client that is part of the ShortLink project.
 
 ### ADR
 
