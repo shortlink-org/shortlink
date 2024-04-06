@@ -1,6 +1,6 @@
 # API Gateway Service
 
-<img width='200' height='200' src="./docs/public/logo.webp">
+<img width='200' height='200' src="./docs/public/logo.svg">
 
 > [!NOTE]
 > This is the gateway service that serves as an interface for external clients, 

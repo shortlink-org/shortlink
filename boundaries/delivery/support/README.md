@@ -1,6 +1,6 @@
 ## Support Services
 
-<img width='200' height='200' src="./docs/public/logo.webp">
+<img width='200' height='200' src="./docs/public/logo.svg">
 
 > [!NOTE]
 > This service implements the support services for our customers.

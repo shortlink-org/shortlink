@@ -1,6 +1,6 @@
 ## Chrome Extension - ShortLink
 
-<img width='200' height='200' src="./docs/public/logo.webp">
+<img width='200' height='200' src="./docs/public/logo.svg">
 
 ShortLink is a Chrome extension that allows you to parse the current page and create a short link automatically.
 

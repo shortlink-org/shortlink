@@ -1,6 +1,6 @@
 ### Proxy
 
-<img width='200' height='200' src="./docs/public/logo.webp">
+<img width='200' height='200' src="./docs/public/logo.svg">
 
 > [!NOTE]
 > Proxy service for redirect to original URL
