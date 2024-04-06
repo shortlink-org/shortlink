@@ -22,7 +22,7 @@ deploy:
     releases:
     - name: shortlink-metadata
       namespace: shortlink
-      chartPath: ../Helm/shortlink-metadata
+      chartPath: ../Helm/shortlink-link/shortlink-metadata
       wait: true
       artifactOverrides:
         image: shortlink-metadata
