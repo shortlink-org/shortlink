@@ -37,6 +37,8 @@ LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.url="http://shortlink.best/"
 LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
 
+EXPOSE 8080
+
 # Delete default config
 RUN rm /etc/nginx/conf.d/default.conf
 

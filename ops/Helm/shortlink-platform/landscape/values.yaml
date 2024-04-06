@@ -16,12 +16,12 @@ ingress:
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
     nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
 
-  hostname: backstage.shortlink.best
+  hostname: landscape.shortlink.best
   paths:
     - path: /
       service:
-        name: backstage
-        port: 7007
+        name: landscape
+        port: 8080
 
   tls:
     - secretName: backstage-tls
@@ -52,7 +52,7 @@ deploy:
   annotations: {}
 
   image:
-    repository: registry.gitlab.com/shortlink-org/shortlink/backstage
+    repository: registry.gitlab.com/shortlink-org/shortlink/landscape
     tag: 0.17.87
     # -- Global imagePullPolicy
     # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
@@ -65,8 +65,8 @@ deploy:
     initialDelaySeconds: 300
     timeoutSeconds: 60
     httpGet:
-      path: /healthcheck
-      port: 7007
+      path: /
+      port: 8080
     httpHeaders:
       - name: Host
         value: shortlink.best
@@ -76,8 +76,8 @@ deploy:
     initialDelaySeconds: 120
     timeoutSeconds: 15
     httpGet:
-      path: /healthcheck
-      port: 7007
+      path: /
+      port: 8080
     httpHeaders:
       - name: Host
         value: shortlink.best
@@ -98,7 +98,7 @@ service:
   type: ClusterIP
   ports:
     - name: http
-      port: 7007
+      port: 8080
       protocol: TCP
       public: true
 
