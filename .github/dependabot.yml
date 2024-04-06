@@ -185,3 +185,13 @@ updates:
     directory: /boundaries/shop/admin
     schedule:
       interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/link/chrome-extension
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/platform/argocd-extension-docs/ui
+    schedule:
+      interval: daily
