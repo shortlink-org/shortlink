@@ -16,7 +16,10 @@ build: ## Build landscape
 run: ## Run landscape
 	@landscape2 serve --landscape-dir build
 
-dev: clean build run ## Run landscape in dev mode
+dev: build run ## Run landscape in dev mode
 
 clean: ## Clean landscape
 	-rm -rf build
+
+build-logo: ## Build landscape logo
+	@bash scripts/build-logo.sh
