@@ -1,5 +1,6 @@
 'use client'
 
+// @ts-ignore
 import { ToggleDarkMode, SearchForm } from '@shortlink-org/ui-kit'
 import { useEffect, useState, Fragment } from 'react'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'

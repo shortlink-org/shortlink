@@ -32,6 +32,8 @@ RUN apt-get update && \
 
 WORKDIR /app
 
+COPY boundaries/shop/admin/pyproject.toml .
+
 # Install dependency manager
 # https://github.com/astral-sh/uv
 RUN pip install uv
