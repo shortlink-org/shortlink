@@ -16,7 +16,7 @@ build: ## Build landscape
 run: ## Run landscape
 	@landscape2 serve --landscape-dir build
 
-dev: build run ## Run landscape in dev mode
+dev: clean build run ## Run landscape in dev mode
 
 clean: ## Clean landscape
 	-rm -rf build

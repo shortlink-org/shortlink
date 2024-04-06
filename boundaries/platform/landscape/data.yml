@@ -39,6 +39,13 @@ landscape:
             name: wallet
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/billing/wallet
+          - item:
+            description: Mobile client
+            homepage_url: https://shortlink.com/next
+            logo: logo.svg
+            name: flutter
+            project: graduated
+            repo_url: https://github.com/shortlink-org/shortlink/boundaries/billing/flutter
       - subcategory:
         name: chat
         items:
@@ -94,6 +101,20 @@ landscape:
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/link/bff-link
           - item:
+            description: chrome-extension
+            homepage_url: https://shortlink.com/next
+            logo: chrome-extension.svg
+            name: chrome-extension
+            project: graduated
+            repo_url: https://github.com/shortlink-org/shortlink/boundaries/link/chrome-extension
+          - item:
+            description: Mobile client
+            homepage_url: https://shortlink.com/next
+            logo: logo.svg
+            name: expo
+            project: graduated
+            repo_url: https://github.com/shortlink-org/shortlink/boundaries/link/expo
+          - item:
             description: Link service
             homepage_url: https://shortlink.com/next
             logo: link.svg
@@ -114,13 +135,6 @@ landscape:
             name: Proxy
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/link/proxy
-          - item:
-            description: chrome-extension
-            homepage_url: https://shortlink.com/next
-            logo: chrome-extension.svg
-            name: chrome-extension
-            project: graduated
-            repo_url: https://github.com/shortlink-org/shortlink/boundaries/link/chrome-extension
       - subcategory:
         name: marketing
         items:
@@ -296,20 +310,3 @@ landscape:
             name: ui-kit
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/ui-monorepo/packages/ui-kit
-      - subcategory:
-        name: mobile
-        items:
-          - item:
-            description: expo
-            homepage_url: https://shortlink.com/next
-            logo: logo.svg
-            name: expo
-            project: graduated
-            repo_url: https://github.com/shortlink-org/shortlink/boundaries/ui/mobile/expo
-          - item:
-            description: flutter
-            homepage_url: https://shortlink.com/next
-            logo: logo.svg
-            name: flutter
-            project: graduated
-            repo_url: https://github.com/shortlink-org/shortlink/boundaries/ui/mobile/flutter
