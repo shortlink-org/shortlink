@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 6.7.8 |
+| https://argoproj.github.io/argo-helm | argo-cd | 6.7.10 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 2.0.0 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.6 |
 | oci://ghcr.io/dragonflydb/dragonfly/helm | dragonfly | v1.16.0 |
@@ -1857,7 +1857,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"https://github.com/shortlink-org/shortlink/raw/main/internal/extension/argocd-extension-docs/ui/dist/extension.tar"
+"https://github.com/shortlink-org/shortlink/raw/main/boundaries/platform/argocd-extension-docs/ui/dist/extension.tar"
 </pre>
 </div>
 			</td>

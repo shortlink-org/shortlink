@@ -1,8 +1,14 @@
 .matrix_build_helm:
   parallel:
     matrix:
+      # shortlink-platform
       - HELM_CHART_NAME: backstage
-        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+        HELM_CHART_PATH: ops/Helm/shortlink-platform/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-logger
+        HELM_CHART_PATH: ops/Helm/shortlink-platform/$HELM_CHART_NAME
+      - HELM_CHART_NAME: landscape
+        HELM_CHART_PATH: ops/Helm/shortlink-platform/$HELM_CHART_NAME
+      # API
       - HELM_CHART_NAME: shortlink-api-cloudevents
         HELM_CHART_PATH: ops/Helm/shortlink-api/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-api-graphql
@@ -11,37 +17,45 @@
         HELM_CHART_PATH: ops/Helm/shortlink-api/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-api-ws
         HELM_CHART_PATH: ops/Helm/shortlink-api/$HELM_CHART_NAME
+      # Link
       - HELM_CHART_NAME: shortlink-bff-link
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-link
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-metadata
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-proxy
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      # Auth
       - HELM_CHART_NAME: shortlink-auth
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      # Billing
       - HELM_CHART_NAME: shortlink-billing
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      # Notify
       - HELM_CHART_NAME: shortlink-bot
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-notify
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      # Common
       - HELM_CHART_NAME: shortlink-common
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-template
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-workflows
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      # UI
       - HELM_CHART_NAME: shortlink-landing
-        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
-      - HELM_CHART_NAME: shortlink-link
-        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
-      - HELM_CHART_NAME: shortlink-logger
-        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
-      - HELM_CHART_NAME: shortlink-metadata
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-next
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
-      - HELM_CHART_NAME: shortlink-notify
+      - HELM_CHART_NAME: ui-kit
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
-      - HELM_CHART_NAME: shortlink-proxy
-        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      # Marketing
       - HELM_CHART_NAME: shortlink-referral
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-support
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
-      - HELM_CHART_NAME: shortlink-workflows
-        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
-      - HELM_CHART_NAME: ui-kit
-        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      # Shop
+      - HELM_CHART_NAME: admin
+        HELM_CHART_PATH: ops/Helm/shortlink-shop/$HELM_CHART_NAME

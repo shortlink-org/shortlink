@@ -99,7 +99,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"redis://shortlink-redis:6379/0"
+"redis://shortlink-shop-admin-dragonfly:6379/0"
 </pre>
 </div>
 			</td>

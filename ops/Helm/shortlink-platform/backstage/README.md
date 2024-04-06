@@ -2,7 +2,7 @@
 
 ![Version: 0.3.1](https://img.shields.io/badge/Version-0.3.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
-ShortLink landing service
+Backstage service
 
 **Homepage:** <https://batazor.github.io/shortlink/>
 
@@ -70,7 +70,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"registry.gitlab.com/shortlink-org/shortlink/backstage"
+"registry.gitlab.com/shortlink-org/shortlink/landscape"
 </pre>
 </div>
 			</td>
@@ -115,15 +115,9 @@ object
 {
   "failureThreshold": 30,
   "httpGet": {
-    "path": "/healthcheck",
-    "port": 7007
+    "path": "/",
+    "port": 8080
   },
-  "httpHeaders": [
-    {
-      "name": "Host",
-      "value": "shortlink.best"
-    }
-  ],
   "initialDelaySeconds": 300,
   "timeoutSeconds": 60
 }
@@ -133,7 +127,7 @@ object
 			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--readinessProbe"><a href="./values.yaml#L75">deploy.readinessProbe</a></td>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L72">deploy.readinessProbe</a></td>
 			<td>
 object
 </td>
@@ -142,15 +136,9 @@ object
 <pre lang="json">
 {
   "httpGet": {
-    "path": "/healthcheck",
-    "port": 7007
+    "path": "/",
+    "port": 8080
   },
-  "httpHeaders": [
-    {
-      "name": "Host",
-      "value": "shortlink.best"
-    }
-  ],
   "initialDelaySeconds": 120,
   "timeoutSeconds": 15
 }
@@ -209,7 +197,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"100m"
+"20m"
 </pre>
 </div>
 			</td>
@@ -223,14 +211,14 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"256Mi"
+"64Mi"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--securityContext"><a href="./values.yaml#L88">deploy.securityContext</a></td>
+			<td id="deploy--securityContext"><a href="./values.yaml#L82">deploy.securityContext</a></td>
 			<td>
 object
 </td>
@@ -289,7 +277,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--volumes[0]--mountPath"><a href="./values.yaml#L94">deploy.volumes[0].mountPath</a></td>
+			<td id="deploy--volumes[0]--mountPath"><a href="./values.yaml#L88">deploy.volumes[0].mountPath</a></td>
 			<td>
 string
 </td>
@@ -303,7 +291,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--volumes[0]--name"><a href="./values.yaml#L93">deploy.volumes[0].name</a></td>
+			<td id="deploy--volumes[0]--name"><a href="./values.yaml#L87">deploy.volumes[0].name</a></td>
 			<td>
 string
 </td>
@@ -317,7 +305,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--volumes[0]--type"><a href="./values.yaml#L95">deploy.volumes[0].type</a></td>
+			<td id="deploy--volumes[0]--type"><a href="./values.yaml#L89">deploy.volumes[0].type</a></td>
 			<td>
 string
 </td>
@@ -394,7 +382,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"backstage.shortlink.best"
+"landscape.shortlink.best"
 </pre>
 </div>
 			</td>
@@ -436,7 +424,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"backstage"
+"landscape"
 </pre>
 </div>
 			</td>
@@ -450,7 +438,7 @@ int
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-7007
+8080
 </pre>
 </div>
 			</td>
@@ -464,7 +452,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"backstage.shortlink.best"
+"landscape.shortlink.best"
 </pre>
 </div>
 			</td>
@@ -478,28 +466,14 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"backstage-tls"
+"landscape-tls"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="./values.yaml#L107">monitoring.enabled</a></td>
-			<td>
-bool
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-true
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="networkPolicy--enabled"><a href="./values.yaml#L112">networkPolicy.enabled</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L101">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -513,7 +487,21 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[0]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L118">networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--enabled"><a href="./values.yaml#L106">networkPolicy.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="networkPolicy--ingress[0]--from[0]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L112">networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -527,7 +515,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--policyTypes[0]"><a href="./values.yaml#L120">networkPolicy.policyTypes[0]</a></td>
+			<td id="networkPolicy--policyTypes[0]"><a href="./values.yaml#L114">networkPolicy.policyTypes[0]</a></td>
 			<td>
 string
 </td>
@@ -541,7 +529,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--name"><a href="./values.yaml#L100">service.ports[0].name</a></td>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L94">service.ports[0].name</a></td>
 			<td>
 string
 </td>
@@ -555,21 +543,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--port"><a href="./values.yaml#L101">service.ports[0].port</a></td>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L95">service.ports[0].port</a></td>
 			<td>
 int
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-7007
+8080
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--protocol"><a href="./values.yaml#L102">service.ports[0].protocol</a></td>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L96">service.ports[0].protocol</a></td>
 			<td>
 string
 </td>
@@ -583,7 +571,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--public"><a href="./values.yaml#L103">service.ports[0].public</a></td>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L97">service.ports[0].public</a></td>
 			<td>
 bool
 </td>
@@ -597,7 +585,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--type"><a href="./values.yaml#L98">service.type</a></td>
+			<td id="service--type"><a href="./values.yaml#L92">service.type</a></td>
 			<td>
 string
 </td>
