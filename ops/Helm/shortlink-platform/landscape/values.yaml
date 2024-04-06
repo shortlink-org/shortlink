@@ -24,9 +24,9 @@ ingress:
         port: 8080
 
   tls:
-    - secretName: backstage-tls
+    - secretName: landscape-tls
       hosts:
-        - backstage.shortlink.best
+        - landscape.shortlink.best
 
 # ==============================================================================
 deploy:
