@@ -1,10 +1,6 @@
 redis:
   enabled: true
 
-  # TODO: delete after fix v1.16.1+
-  image:
-    tag: v1.15.1
-
   serviceMonitor:
     enabled: true
     labels:
@@ -16,7 +12,7 @@ redis:
   resources:
     limits:
       cpu: 100m
-      memory: 512Mi
+      memory: 320Mi
     requests:
       cpu: 100m
       memory: 128Mi
