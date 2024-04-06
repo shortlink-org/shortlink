@@ -1,0 +1,29 @@
+apiVersion: v1
+kind: Secret
+metadata:
+  name: shortlink-postgres-datasource
+  labels:
+    grafana_datasource: 'true'
+stringData:
+  postgres.yaml: |-
+    apiVersion: 1
+    datasources:
+      - name: PostgreSQL (shortlink)
+        type: postgres
+        uid: shortlink-postgres-datasource
+        url: shortlink-postgres-pgbouncer.shortlink:5432
+        user: grafana
+        database: link
+        access: proxy
+        basicAuth: false
+        editable: false
+        jsonData:
+          connMaxLifetime: 14400
+          maxIdleConns: 100
+          maxIdleConnsAuto: true
+          maxOpenConns: 100
+          postgresVersion: 1600
+          sslmode: require
+          timescaledb: true
+        secureJsonData:
+          password: 'grafana-password'
