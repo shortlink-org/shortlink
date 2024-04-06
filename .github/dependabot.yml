@@ -195,3 +195,18 @@ updates:
     directory: /boundaries/platform/argocd-extension-docs/ui
     schedule:
       interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/link/expo/apps/shortlink
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/link/expo/libs/ui
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/link/expo
+    schedule:
+      interval: daily
