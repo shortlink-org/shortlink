@@ -19,19 +19,19 @@
         HELM_CHART_PATH: ops/Helm/shortlink-api/$HELM_CHART_NAME
       # Link
       - HELM_CHART_NAME: shortlink-bff-link
-        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+        HELM_CHART_PATH: ops/Helm/shortlink-link/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-link
-        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+        HELM_CHART_PATH: ops/Helm/shortlink-link/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-metadata
-        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+        HELM_CHART_PATH: ops/Helm/shortlink-link/$HELM_CHART_NAME
       - HELM_CHART_NAME: shortlink-proxy
-        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+        HELM_CHART_PATH: ops/Helm/shortlink-link/$HELM_CHART_NAME
       # Auth
       - HELM_CHART_NAME: shortlink-auth
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
       # Billing
       - HELM_CHART_NAME: shortlink-billing
-        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+        HELM_CHART_PATH: ops/Helm/shortlink-billing/$HELM_CHART_NAME
       # Notify
       - HELM_CHART_NAME: shortlink-bot
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
