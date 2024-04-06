@@ -33,7 +33,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
 
-COPY ./boundaries/ui/nx-monorepo/ ./
+COPY ./boundaries/ui-monorepo/ ./
 COPY .env.prod .env
 
 # version for npm: npm ci --cache .npm --prefer-offline --force

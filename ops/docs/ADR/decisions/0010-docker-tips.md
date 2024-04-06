@@ -39,7 +39,7 @@ COPY --from=development-builder /app/packages/next/out /app/out
 FROM --platform=$BUILDPLATFORM alpine:3.19 AS ci-builder
 FROM --platform=$BUILDPLATFORM ${APP_ENV}-builder AS cache
 
-COPY ./boundaries/ui/nx-monorepo/packages/next/out /app/out
+COPY ./boundaries/ui-monorepo/packages/next/out /app/out
 
 # Production image: use cache from development or CI layers
 FROM --platform=$TARGETPLATFORM ghcr.io/nginxinc/nginx-unprivileged:1.25-alpine

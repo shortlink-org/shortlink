@@ -112,47 +112,47 @@ updates:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /boundaries/ui/nx-monorepo
+    directory: /boundaries/ui-monorepo
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /boundaries/ui/nx-monorepo/packages/eslint/eslint-config-shortlink
+    directory: /boundaries/ui-monorepo/packages/eslint/eslint-config-shortlink
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /boundaries/ui/nx-monorepo/packages/eslint/eslint-plugin-shortlink
+    directory: /boundaries/ui-monorepo/packages/eslint/eslint-plugin-shortlink
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /boundaries/ui/nx-monorepo/packages/landing
+    directory: /boundaries/ui-monorepo/packages/landing
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /boundaries/ui/nx-monorepo/packages/next/components/Footer
+    directory: /boundaries/ui-monorepo/packages/next/components/Footer
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /boundaries/ui/nx-monorepo/packages/next/components/Header
+    directory: /boundaries/ui-monorepo/packages/next/components/Header
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /boundaries/ui/nx-monorepo/packages/next/components/Testimonials
+    directory: /boundaries/ui-monorepo/packages/next/components/Testimonials
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /boundaries/ui/nx-monorepo/packages/next
+    directory: /boundaries/ui-monorepo/packages/next
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /boundaries/ui/nx-monorepo/packages/ui-kit
+    directory: /boundaries/ui-monorepo/packages/ui-kit
     schedule:
       interval: daily
 

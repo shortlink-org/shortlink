@@ -14,7 +14,7 @@ include:
     - corepack enable
     - corepack prepare pnpm@latest-8 --activate
 
-    - cd boundaries/ui/nx-monorepo
+    - cd boundaries/ui-monorepo
     - echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
     - echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> ./packages/landing/.npmrc
 
