@@ -10,9 +10,9 @@ redis:
     enabled: true
 
   resources:
-    requests:
-      cpu: 100m
-      memory: 128Mi
     limits:
+      cpu: 100m
+      memory: 512Mi
+    requests:
       cpu: 100m
       memory: 128Mi
