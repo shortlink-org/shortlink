@@ -1,6 +1,9 @@
 # stats
 
-ShortLink stats-server
+<img width='200' height='200' src="./docs/public/logo.webp">
+
+> [!NOTE]
+> ShortLink stats-server
 
 ### Goal
 

@@ -1,5 +1,7 @@
 ## Report Service
 
+<img width='200' height='200' src="./docs/public/logo.webp">
+
 > [!NOTE]
 > The report service is responsible for generating reports for the user.
 

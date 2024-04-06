@@ -1,10 +1,12 @@
 # Bot
 
-Integraion with a chat-message platform
+<img width='200' height='200' src="./docs/public/logo.webp">
 
-Bot for:
-
-  - Telegram
+> [!NOTE]
+> Integraion with a chat-message platform
+>
+> Bot for:
+>   - Telegram
 
 ### Getting Started
 

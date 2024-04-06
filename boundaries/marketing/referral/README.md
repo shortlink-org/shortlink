@@ -1,5 +1,7 @@
 ## Referral Service
 
+<img width='200' height='200' src="./docs/public/logo.webp">
+
 > [!NOTE]
 > This service is responsible for the referral program.
 

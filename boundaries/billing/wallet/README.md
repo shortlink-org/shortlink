@@ -1,6 +1,9 @@
 # Wallet
 
-This service is responsible for managing the user's wallet.
+<img width='200' height='200' src="./docs/public/logo.webp">
+
+> [!NOTE]
+> This service is responsible for managing the user's wallet.
 
 ### Requirements
 

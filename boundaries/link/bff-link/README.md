@@ -1,5 +1,7 @@
 ## BFF: API Gateway for web clients
 
+<img width='200' height='200' src="./docs/public/logo.webp">
+
 > [!NOTE]
 > This is a BFF service for web clients
 > 

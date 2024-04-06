@@ -1,14 +1,10 @@
 ## Geolocation service
 
-<table>
-  <tr>
-    <td><img src="./docs/logo.png" alt='Geolocation service logo' width="500"/></td>
-    <td>
-      The Geolocation service is a part of the Delivery Boundary in the ShortLink project. 
-      This service is responsible for handling various location-based functionalities.
-    </td>
-  </tr>
-</table>
+<img width='200' height='200' src="./docs/public/logo.webp">
+
+> [!NOTE]
+> The Geolocation service is a part of the Delivery Boundary in the ShortLink project.
+> This service is responsible for handling various location-based functionalities.
 
 ### Usecases
 

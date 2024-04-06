@@ -1,5 +1,7 @@
 # Metadata
 
+<img width='200' height='200' src="./docs/public/logo.webp">
+
 > [!NOTE]
 > This service to the ShortLink system, designed to enrich link information.
 > Upon the creation of a new link, this service fetches metadata and generates screenshots,

@@ -1,5 +1,7 @@
 ## Auth service
 
+<img width='200' height='200' src="./docs/public/logo.webp">
+
 > [!WARNING]
 > This service is under development.
 
