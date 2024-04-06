@@ -23,8 +23,9 @@ dependencies:
     repository: "file://../../shortlink-template"
   - name: dragonfly
     version: v1.16.0
+    alias: cache
     repository: oci://ghcr.io/dragonflydb/dragonfly/helm
-    condition: redis.enabled
+    condition: cache.enabled
     tags:
       - redis
       - store

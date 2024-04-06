@@ -1,7 +1,7 @@
-redis:
+cache:
   enabled: true
 
-  fullnameOverride: redis
+  fullnameOverride: cache
 
   serviceMonitor:
     enabled: true
