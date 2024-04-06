@@ -84,30 +84,6 @@ landscape:
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/ds/colab
       - subcategory:
-        name: extension
-        items:
-          - item:
-            description: AI plugin
-            homepage_url: https://shortlink.com/next
-            logo: logo.svg
-            name: ai-plugin
-            project: graduated
-            repo_url: https://github.com/shortlink-org/shortlink/boundaries/extension/ai-plugin
-          - item:
-            description: ArgoCD extension
-            homepage_url: https://shortlink.com/next
-            logo: logo.svg
-            name: argocd-extension-docs
-            project: graduated
-            repo_url: https://github.com/shortlink-org/shortlink/boundaries/extension/argocd-extension-docs
-          - item:
-            description: chrome-extension
-            homepage_url: https://shortlink.com/next
-            logo: logo.svg
-            name: chrome-extension
-            project: graduated
-            repo_url: https://github.com/shortlink-org/shortlink/boundaries/extension/chrome-extension
-      - subcategory:
         name: link
         items:
           - item:
@@ -138,6 +114,13 @@ landscape:
             name: Proxy
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/link/proxy
+          - item:
+            description: chrome-extension
+            homepage_url: https://shortlink.com/next
+            logo: logo.svg
+            name: chrome-extension
+            project: graduated
+            repo_url: https://github.com/shortlink-org/shortlink/boundaries/link/chrome-extension
       - subcategory:
         name: marketing
         items:
@@ -231,6 +214,13 @@ landscape:
             name: shortctl
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/boundaries/platform/shortctl
+          - item:
+            description: ArgoCD extension
+            homepage_url: https://shortlink.com/next
+            logo: logo.svg
+            name: argocd-extension-docs
+            project: graduated
+            repo_url: https://github.com/shortlink-org/shortlink/boundaries/platform/argocd-extension-docs
       - subcategory:
         name: search
         items:

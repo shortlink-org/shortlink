@@ -155,7 +155,7 @@ argo-cd:
         - name: shortlink-extension-docs
           env:
             - name: EXTENSION_URL
-              value: https://github.com/shortlink-org/shortlink/raw/main/internal/extension/argocd-extension-docs/ui/dist/extension.tar
+              value: https://github.com/shortlink-org/shortlink/raw/main/boundaries/platform/argocd-extension-docs/ui/dist/extension.tar
 
   repoServer:
     serviceAccount:

@@ -4,14 +4,14 @@ metadata:
   name: chrome-extension
   description: Chrome extension for ShortLink
   links:
-    - url: https://github.com/shortlink-org/shortlink/tree/main/internal/extension/chrome-extension
+    - url: https://github.com/shortlink-org/shortlink/tree/main/boundaries/link/chrome-extension
       title: GitHub Repo
       icon: github
   tags:
     - extension
   annotations:
-    backstage.io/source-location: url:https://github.com/shortlink-org/shortlink/tree/main/internal/extension/chrome-extension
-    backstage.io/techdocs-ref: url:url:https://github.com/shortlink-org/shortlink/tree/main/internal/extension/chrome-extension
+    backstage.io/source-location: url:https://github.com/shortlink-org/shortlink/tree/main/boundaries/link/chrome-extension
+    backstage.io/techdocs-ref: url:url:https://github.com/shortlink-org/shortlink/tree/main/boundaries/link/chrome-extension
 spec:
   type: service
   lifecycle: production

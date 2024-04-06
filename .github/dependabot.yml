@@ -41,11 +41,6 @@ updates:
     schedule:
       interval: daily
 
-  - package-ecosystem: npm
-    directory: /boundaries/extension/argocd-extension-docs/ui
-    schedule:
-      interval: daily
-
   - package-ecosystem: gomod
     directory: /boundaries/link/supplies/knative/kafka-to-elasticsearch
     schedule:
@@ -183,11 +178,6 @@ updates:
 
   - package-ecosystem: gomod
     directory: /boundaries/link/supplies/knative/kafka-to-elasticsearch
-    schedule:
-      interval: daily
-
-  - package-ecosystem: npm
-    directory: /boundaries/extension/chrome-extension
     schedule:
       interval: daily
 
