@@ -33,6 +33,11 @@ ingress:
         name: shortlink-shop-admin
         port: 8000
 
+  tls:
+    - secretName: shop-admin-tls
+      hosts:
+        - shop.shortlink.best
+
 # ==============================================================================
 deploy:
   # type: Deployment, Rollout, StatefulSet
