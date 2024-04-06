@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shortlink-init-sql
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+data:
+  init.sql: |
+    -- billing database
+    \c billing;
+    CREATE SCHEMA AUTHORIZATION billing;
+    GRANT ALL PRIVILEGES ON DATABASE billing TO billing;
+    ALTER DATABASE billing OWNER TO billing;
+
+    GRANT CONNECT ON DATABASE billing TO grafana;
+    GRANT USAGE ON SCHEMA billing TO grafana;
+    ALTER DEFAULT PRIVILEGES IN SCHEMA billing GRANT SELECT ON TABLES TO grafana;
+
+    ALTER DATABASE billing SET statement_timeout = '600s';
+
+    -- Grant grafana access to pg_statio_user_tables via pg_read_all_stats role
+    GRANT pg_read_all_stats TO grafana;
+    GRANT pg_read_all_settings TO grafana;

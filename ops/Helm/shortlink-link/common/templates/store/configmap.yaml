@@ -18,18 +18,6 @@ data:
 
     ALTER DATABASE link SET statement_timeout = '180s';
 
-    -- billing database
-    \c billing;
-    CREATE SCHEMA AUTHORIZATION billing;
-    GRANT ALL PRIVILEGES ON DATABASE billing TO billing;
-    ALTER DATABASE billing OWNER TO billing;
-
-    GRANT CONNECT ON DATABASE billing TO grafana;
-    GRANT USAGE ON SCHEMA billing TO grafana;
-    ALTER DEFAULT PRIVILEGES IN SCHEMA billing GRANT SELECT ON TABLES TO grafana;
-
-    ALTER DATABASE billing SET statement_timeout = '600s';
-
     -- proxy database
     \c proxy;
     CREATE SCHEMA AUTHORIZATION proxy;

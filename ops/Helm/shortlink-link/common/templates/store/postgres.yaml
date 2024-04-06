@@ -120,7 +120,6 @@ spec:
         - postgres
         - partman
         - link
-        - billing
 
     - name: link
       databases:
@@ -129,6 +128,3 @@ spec:
     - name: proxy
       databases:
         - proxy
-    - name: billing
-      databases:
-        - billing
