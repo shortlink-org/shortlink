@@ -8,8 +8,8 @@ dependencies:
 - name: argocd-image-updater
   repository: https://argoproj.github.io/argo-helm
   version: 0.9.6
-- name: dragonfly
-  repository: oci://ghcr.io/dragonflydb/dragonfly/helm
-  version: v1.16.0
-digest: sha256:3e4184c780197e615dc985f85c6c8bd68fb2300155af256022a02fbe702f70fb
-generated: "2024-04-06T23:32:21.073054+02:00"
+- name: redis
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 19.0.2
+digest: sha256:275d7ff0b9730d5f87dd6a672f022cab585bec9204188378ccfbf2a585580d59
+generated: "2024-04-07T01:43:00.679752+02:00"
