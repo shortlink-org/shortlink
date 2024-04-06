@@ -1,6 +1,10 @@
 cache:
   enabled: true
 
+  # TODO: delete after fix v1.16.1+
+  image:
+    tag: v1.15.1
+
   fullnameOverride: cache
 
   serviceMonitor:
