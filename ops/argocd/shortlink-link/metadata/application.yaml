@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: shortlink-metadata
+  name: metadata
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
@@ -16,7 +16,7 @@ spec:
     namespace: shortlink-link
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/shortlink-link/shortlink-metadata
+    path: ops/Helm/shortlink-link/metadata
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:

@@ -1,11 +1,11 @@
 apiVersion: v2
 appVersion: "1.0.0"
-name: shortlink-proxy
-description: ShortLink service for get proxy by URL
-version: 0.3.2
+name: link
+description: ShortLink link service
+version: 0.7.2
 kubeVersion: ">= 1.29.0 || >= v1.29.0-0"
 keywords:
-  - proxy
+  - link
   - shortlink
 home: https://batazor.github.io/shortlink/
 sources:

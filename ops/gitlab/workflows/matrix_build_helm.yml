@@ -20,11 +20,11 @@
       # Link
       - HELM_CHART_NAME: shortlink-bff-link
         HELM_CHART_PATH: ops/Helm/shortlink-link/$HELM_CHART_NAME
-      - HELM_CHART_NAME: shortlink-link
+      - HELM_CHART_NAME: link
         HELM_CHART_PATH: ops/Helm/shortlink-link/$HELM_CHART_NAME
-      - HELM_CHART_NAME: shortlink-metadata
+      - HELM_CHART_NAME: metadata
         HELM_CHART_PATH: ops/Helm/shortlink-link/$HELM_CHART_NAME
-      - HELM_CHART_NAME: shortlink-proxy
+      - HELM_CHART_NAME: proxy
         HELM_CHART_PATH: ops/Helm/shortlink-link/$HELM_CHART_NAME
       # Auth
       - HELM_CHART_NAME: shortlink-auth
