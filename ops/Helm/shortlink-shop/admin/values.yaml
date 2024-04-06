@@ -50,7 +50,7 @@ deploy:
     LOGIN_URL: https://shortlink.best/next/auth/login
 
     # Cache -----------------------------
-    REDIS_URL: redis://cache:6379/0
+    REDIS_URL: redis://cache.shortlink-shop:6379/0
 
     # Security --------------------------
     DEBUG: false
