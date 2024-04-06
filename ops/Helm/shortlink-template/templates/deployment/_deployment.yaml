@@ -46,14 +46,14 @@ spec:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
-      {{- if gt (len .Values.initContainers) 0 -}}
+      {{ if gt (len .Values.initContainers) 0 -}}
       initContainers:
       {{- $initDeploy := . | deepCopy -}}
       {{- range $a := .Values.initContainers }}
         {{- $r := set $initDeploy.Values "deploy" $a -}}
         {{- include "shortlink-common.deployment_sidecar" $initDeploy | indent 6 }}
       {{- end }}
-      {{- end -}}
+      {{- end }}
       containers:
       {{- include "shortlink-common.deployment_sidecar" . | indent 6 }}
       {{- $deploy := . | deepCopy -}}
