@@ -46,7 +46,7 @@ spec:
       securityContext:
         seccompProfile:
           type: RuntimeDefault
-      {{ if gt (len .Values.initContainers) 0 -}}
+      {{ if and (.Values.initContainers) (gt (len .Values.initContainers) 0) -}}
       initContainers:
       {{- $initDeploy := . | deepCopy -}}
       {{- range $a := .Values.initContainers }}
