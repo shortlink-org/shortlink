@@ -2,8 +2,8 @@ dependencies:
 - name: shortlink-template
   repository: file://../../shortlink-template
   version: 0.8.17
-- name: dragonfly
-  repository: oci://ghcr.io/dragonflydb/dragonfly/helm
-  version: v1.16.0
-digest: sha256:fd72e282e4d7f0903add6abbde19c9950357640295b8fbda53ce2ef47349a255
-generated: "2024-04-06T23:29:41.413882+02:00"
+- name: redis
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 19.0.2
+digest: sha256:1e6d4f0a6228239b93ee3d7217a8e323a8562f3aaded093fd5e4dff0ffcc287f
+generated: "2024-04-07T01:55:44.654838+02:00"

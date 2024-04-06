@@ -21,12 +21,10 @@ dependencies:
   - name: shortlink-template
     version: 0.8.17
     repository: "file://../../shortlink-template"
-  - name: dragonfly
-    version: v1.16.0
-    alias: cache
-    repository: oci://ghcr.io/dragonflydb/dragonfly/helm
-    condition: cache.enabled
+  - name: redis
+    version: 19.0.2
+    repository: oci://registry-1.docker.io/bitnamicharts
+    condition: redis.enabled
     tags:
       - redis
       - store
-      - dragonfly
