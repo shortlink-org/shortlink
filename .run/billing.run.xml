@@ -4,7 +4,7 @@
     <working_directory value="$PROJECT_DIR$" />
     <envs>
       <env name="API_PORT" value="7090" />
-      <env name="GOEXPERIMENT" value="rangefunc,newinliner,arenas,cgocheck2,loopvar" />
+      <env name="GOEXPERIMENT" value="rangefunc,newinliner,arenas,cgocheck2" />
       <env name="GRPC_SERVER_PORT" value="50054" />
       <env name="STORE_TYPE" value="postgres" />
     </envs>

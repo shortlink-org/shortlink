@@ -5,7 +5,7 @@
     <envs>
       <env name="GRPC_CLIENT_PORT" value="443" />
       <env name="API_TYPE" value="graphql" />
-      <env name="GOEXPERIMENT" value="rangefunc,newinliner,arenas,cgocheck2,loopvar" />
+      <env name="GOEXPERIMENT" value="rangefunc,newinliner,arenas,cgocheck2" />
     </envs>
     <EXTENSION ID="net.ashald.envfile">
       <option name="IS_ENABLED" value="false" />

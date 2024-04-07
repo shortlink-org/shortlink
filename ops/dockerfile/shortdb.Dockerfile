@@ -14,7 +14,7 @@ ARG SKAFFOLD_GO_GCFLAGS
 ARG TARGETOS
 ARG TARGETARCH
 
-ENV GOEXPERIMENT=rangefunc,newinliner,arenas,cgocheck2,loopvar
+ENV GOEXPERIMENT=rangefunc,newinliner,arenas,cgocheck2
 
 WORKDIR /go/github.com/shortlink-org/shortlink
 

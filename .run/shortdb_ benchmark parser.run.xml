@@ -3,7 +3,7 @@
     <module name="shortlink" />
     <working_directory value="$PROJECT_DIR$/boundaries/shortdb/shortdb/parser/v1/tests" />
     <envs>
-      <env name="GOEXPERIMENT" value="rangefunc,newinliner,arenas,cgocheck2,loopvar" />
+      <env name="GOEXPERIMENT" value="rangefunc,newinliner,arenas,cgocheck2" />
     </envs>
     <root_directory value="$PROJECT_DIR$" />
     <kind value="PACKAGE" />

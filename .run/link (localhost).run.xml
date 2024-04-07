@@ -6,7 +6,7 @@
       <env name="GRPC_SERVER_PORT" value="50053" />
       <env name="STORE_POSTGRES_URI" value="postgres://postgres:shortlink@localhost:5432/shortlink?sslmode=disable" />
       <env name="STORE_TYPE" value="postgres" />
-      <env name="GOEXPERIMENT" value="rangefunc,newinliner,arenas,cgocheck2,loopvar" />
+      <env name="GOEXPERIMENT" value="rangefunc,newinliner,arenas,cgocheck2" />
     </envs>
     <EXTENSION ID="software.aws.toolkits.jetbrains.core.execution.GoAwsConnectionRunConfigurationExtension">
       <option name="credential" />

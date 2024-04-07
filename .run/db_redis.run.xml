@@ -4,7 +4,7 @@
     <working_directory value="$PROJECT_DIR$/pkg/db/redis" />
     <go_parameters value="-race -v -tags=unit -cover" />
     <envs>
-      <env name="GOEXPERIMENT" value="rangefunc,newinliner,arenas,cgocheck2,loopvar" />
+      <env name="GOEXPERIMENT" value="rangefunc,newinliner,arenas,cgocheck2" />
     </envs>
     <EXTENSION ID="software.aws.toolkits.jetbrains.core.execution.GoAwsConnectionRunConfigurationExtension">
       <option name="credential" />
