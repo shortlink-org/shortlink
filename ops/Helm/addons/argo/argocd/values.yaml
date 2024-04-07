@@ -94,7 +94,7 @@ argo-cd:
     enabled: false
 
   externalRedis:
-    host: argocd-dragonfly.argocd
+    host: redis-master.argocd
 
   server:
     metrics:
