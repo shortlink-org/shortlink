@@ -49,4 +49,4 @@ We continue to use Redis as our cache system.
 - Redis documentation: https://redis.io/docs
 - Dragonfly documentation: https://markevans.github.io/dragonfly
 - KeyDB documentation: https://docs.keydb.dev
- - KeyDB Multi-Master and Active Replica: https://blog.palark.com/keydb-multi-master-and-active-replica/
+  - KeyDB Multi-Master and Active Replica: https://blog.palark.com/keydb-multi-master-and-active-replica/

@@ -20,6 +20,7 @@ spec:
     helm:
       valueFiles:
         - values.yaml
+        - redis.values.yaml
   syncPolicy:
     automated:
       prune: true

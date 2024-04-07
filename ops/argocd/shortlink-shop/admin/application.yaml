@@ -22,7 +22,6 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-        - cache.values.yaml
   project: shortlink
   syncPolicy:
     automated:
