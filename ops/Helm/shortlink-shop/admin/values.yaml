@@ -92,6 +92,7 @@ deploy:
   # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
     enabled: true
+    initialDelaySeconds: 30
     httpGet:
       path: /healthz/
       port: 8000
