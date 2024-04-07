@@ -111,7 +111,7 @@ export const Table: React.FC<TableProps> = ({ columns, data, onRefresh }) => {
           onClick={() => {
             alert('Delete Selected Rows')
           }}
-          variant="filled"
+          variant="contained"
         >
           Delete Selected Rows
         </Button>

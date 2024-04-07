@@ -58,7 +58,6 @@ export default [
       '@emotion/react',
       '@mui/system',
       '@mui/material',
-      '@mui/material-next',
       '@mui/material/styles',
       '@mui/x-date-pickers',
       '@mui/icons-material',

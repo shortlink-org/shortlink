@@ -4,7 +4,7 @@
 import { ToggleDarkMode, SearchForm } from '@shortlink-org/ui-kit'
 import { useEffect, useState, Fragment } from 'react'
 import MuiAppBar, { AppBarProps as MuiAppBarProps } from '@mui/material/AppBar'
-import Button from '@mui/material-next/Button'
+import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import MuiDrawer from '@mui/material/Drawer'
 import IconButton from '@mui/material/IconButton'

@@ -1,5 +1,5 @@
 import StarIcon from '@mui/icons-material/StarBorder'
-import Button from '@mui/material-next/Button'
+import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import React, { useState } from 'react'
 import Balancer from 'react-wrap-balancer'
@@ -54,7 +54,7 @@ export const PriceTable: React.FC<TiersProps> = ({ tiers }) => {
                   <Balancer>{tier.subheader}</Balancer>
                 </div>
 
-                <Button fullWidth variant={tier.buttonVariant as 'text' | 'outlined' | 'filled' | 'filledTonal' | 'elevated'}>
+                <Button fullWidth variant={tier.buttonVariant}>
                   {tier.buttonText}
                 </Button>
               </div>

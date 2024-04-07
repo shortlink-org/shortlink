@@ -5,7 +5,7 @@
 import FileCopyIcon from '@mui/icons-material/FileCopy'
 import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
-import Button from '@mui/material-next/Button'
+import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
 import IconButton from '@mui/material/IconButton'
 import Link from '@mui/material/Link'
@@ -109,7 +109,7 @@ function Page() {
 
               <TextField variant="outlined" label="Describe" name="describe" fullWidth onChange={handleChange} />
 
-              <Button variant="filled" className="bg-sky-600 hover:bg-sky-700" type="submit">
+              <Button variant="contained" className="bg-sky-600 hover:bg-sky-700" type="submit">
                 Add
               </Button>
             </Box>

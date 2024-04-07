@@ -1,4 +1,4 @@
-import Button from '@mui/material-next/Button'
+import Button from '@mui/material/Button'
 import { getNodeLabel } from '@ory/integrations/ui'
 import { FormEvent } from 'react'
 

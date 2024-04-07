@@ -1,4 +1,4 @@
-import Button from '@mui/material-next/Button'
+import Button from '@mui/material/Button'
 import { getNodeLabel } from '@ory/integrations/ui'
 
 import { NodeInputProps } from './helpers'
@@ -8,7 +8,7 @@ export function NodeInputSubmit<T>({ node, attributes, setValue, disabled, dispa
   return (
     <Button
       name={attributes.name}
-      variant="filled"
+      variant="contained"
       color="primary"
       type="submit"
       className="bg-sky-600 hover:bg-sky-700"

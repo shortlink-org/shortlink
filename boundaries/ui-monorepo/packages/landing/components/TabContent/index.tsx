@@ -1,5 +1,5 @@
 import { Divider, Stack, Typography, useTheme } from '@mui/material'
-import Button from '@mui/material-next/Button'
+import Button from '@mui/material/Button'
 import Link from 'next/link'
 import * as React from 'react'
 
