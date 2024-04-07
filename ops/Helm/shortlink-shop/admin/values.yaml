@@ -83,7 +83,7 @@ deploy:
 
   # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   startupProbe:
-    enabled: true
+    enabled: false
     initialDelaySeconds: 30
     httpGet:
       path: /healthz/
@@ -91,7 +91,7 @@ deploy:
 
   # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
-    enabled: true
+    enabled: false
     initialDelaySeconds: 30
     httpGet:
       path: /healthz/
@@ -99,7 +99,7 @@ deploy:
 
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
-    enabled: true
+    enabled: false
     initialDelaySeconds: 30
     httpGet:
       path: /healthz/
