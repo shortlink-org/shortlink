@@ -119,8 +119,8 @@ devDependencies:
     specifier: ^20.20.0
     version: 20.20.0(jest-environment-jsdom@29.7.0)(jest@29.7.0)
   eas-cli:
-    specifier: ^7.7.0
-    version: 7.7.0(@types/node@20.12.5)(expo-modules-autolinking@1.10.3)(typescript@5.4.4)
+    specifier: ^7.8.0
+    version: 7.8.0(@types/node@20.12.5)(expo-modules-autolinking@1.10.3)(typescript@5.4.4)
   eslint:
     specifier: ^9.0.0
     version: 9.0.0
@@ -2357,12 +2357,21 @@ packages:
       zod: 3.22.4
     dev: true
 
-  /@expo/eas-json@7.7.0:
-    resolution: {integrity: sha512-3fA6QAdDLj+Rific/Y+o89Ks6CBZHRQ7NvF9bp2hu1jEyLZf2C+axMWLGx0p9zAlq4eUjVggW5/t/EWlBJhMCg==}
+  /@expo/eas-build-job@1.0.95:
+    resolution: {integrity: sha512-IsigaF7VEcg8+/jt2Hn7qJ2UYZqTl/70DfHwLO6g7UPw6LbWtrAbpMjIRj1ZgnbSA3QZRRxRspFXLqOkpxVR+w==}
+    dependencies:
+      '@expo/logger': 1.0.57
+      joi: 17.12.2
+      semver: 7.6.0
+      zod: 3.22.4
+    dev: true
+
+  /@expo/eas-json@7.8.0:
+    resolution: {integrity: sha512-Fq4hvFeB84Z8LZe8AjzEKjrm+y0BAMztg1EJBxomkAFsnbZT13zDXr0J203EHeCXC0vQ0+U9Pp5c7UVW4mjqJA==}
     engines: {node: '>=16.0.0'}
     dependencies:
       '@babel/code-frame': 7.23.5
-      '@expo/eas-build-job': 1.0.92
+      '@expo/eas-build-job': 1.0.95
       chalk: 4.1.2
       env-string: 1.0.1
       fs-extra: 11.2.0
@@ -7379,8 +7388,8 @@ packages:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
     dev: true
 
-  /eas-cli@7.7.0(@types/node@20.12.5)(expo-modules-autolinking@1.10.3)(typescript@5.4.4):
-    resolution: {integrity: sha512-t6PaVD1WAq3VcMfJLZEeDvVBmH8n/1j0tkJeyxhtTLnVKRhjlup/7kXtUeWM/QE5cfoIzW7CauUvDaEM9oEnww==}
+  /eas-cli@7.8.0(@types/node@20.12.5)(expo-modules-autolinking@1.10.3)(typescript@5.4.4):
+    resolution: {integrity: sha512-c42hklO+cJwCAieQz6oIeKeE0c8aP3WRBb5/b+3MCNgbfVCEUdGmf5GhDD3eDPS9eAvTNgVv23Xdw1Cu8AhFHg==}
     engines: {node: '>=16.0.0'}
     hasBin: true
     dependencies:
@@ -7389,9 +7398,10 @@ packages:
       '@expo/config': 8.5.4
       '@expo/config-plugins': 7.8.4
       '@expo/config-types': 50.0.0
-      '@expo/eas-build-job': 1.0.92
-      '@expo/eas-json': 7.7.0
+      '@expo/eas-build-job': 1.0.95
+      '@expo/eas-json': 7.8.0
       '@expo/json-file': 8.2.37
+      '@expo/logger': 1.0.57
       '@expo/multipart-body-parser': 1.1.0
       '@expo/osascript': 2.0.33
       '@expo/package-manager': 1.1.2
