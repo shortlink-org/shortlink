@@ -955,9 +955,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@axis-backstage/plugin-readme@npm:^0.5.4":
-  version: 0.5.4
-  resolution: "@axis-backstage/plugin-readme@npm:0.5.4"
+"@axis-backstage/plugin-readme@npm:^0.6.0":
+  version: 0.6.0
+  resolution: "@axis-backstage/plugin-readme@npm:0.6.0"
   dependencies:
     "@backstage/catalog-model": "npm:^1.4.3"
     "@backstage/core-components": "npm:^0.13.10"
@@ -971,7 +971,7 @@ __metadata:
     "@emotion/react": ^11.11.3
     "@emotion/styled": ^11.11.0
     react: ^17.0.0 || ^18.0.0
-  checksum: 10c0/ac0df53d07ffadcb56269ce03ce72f719b6bf6a68e4a44fa0ab18e38a1108068823bba4316ee5c1447abc0408183126f83a2268eea93617c8a932d4e8d183d2a
+  checksum: 10c0/2ddcfac335c767a9b1ab3347e06517837695a241c2530d1bffb19fbfea67b22355463837ecd90d0337adc2fca63c7e3a07afbf0d427522598cfa1c4174e0d86d
   languageName: node
   linkType: hard
 
@@ -14129,7 +14129,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "app@workspace:packages/app"
   dependencies:
-    "@axis-backstage/plugin-readme": "npm:^0.5.4"
+    "@axis-backstage/plugin-readme": "npm:^0.6.0"
     "@axis-backstage/plugin-readme-backend": "npm:^0.4.0"
     "@backstage/app-defaults": "npm:^1.5.3"
     "@backstage/catalog-model": "npm:^1.4.5"
