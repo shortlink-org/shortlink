@@ -11,6 +11,7 @@ import { firebaseCloudMessaging } from '../config/firebase.config'
 // @ts-ignore
 function PushNotificationLayout({ children }) {
   const router = useRouter()
+
   // @ts-ignore
   useEffect(() => {
     if (process.env.FIREBASE_API_KEY === undefined) {

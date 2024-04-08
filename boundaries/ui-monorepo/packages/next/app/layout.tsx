@@ -63,7 +63,7 @@ export async function generateMetadata(): Promise<Metadata> {
       description: 'ShortLink service',
       images: 'https://shortlink.best/images/logo.png',
     },
-    manifest: '/manifest.json',
+    manifest: '/next/manifest.json',
     icons: ['/favicon.ico'],
   }
 }

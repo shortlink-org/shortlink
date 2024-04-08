@@ -9,14 +9,6 @@ import PushNotificationLayout from 'components/PushNotificationLayout'
 import Footer from 'components/Footer'
 import Header from 'components/Header'
 
-const DrawerHeader = styled('div')(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'flex-end',
-  padding: theme.spacing(0, 1),
-  ...theme.mixins.toolbar,
-}))
-
 // @ts-ignore
 export function Layout({ children }) {
   return (
@@ -26,7 +18,6 @@ export function Layout({ children }) {
         <Header />
 
         <Box component="main" sx={{ flexGrow: 1, p: 3, gridTemplateRows: 'auto 1fr' }}>
-          <DrawerHeader />
           <Box
             pt={4}
             sx={{
