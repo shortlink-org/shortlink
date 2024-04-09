@@ -1,0 +1,13 @@
+apiVersion: extensions.istio.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: istio-plugin-shortlink
+  namespace: shortlink
+spec:
+  imagePullPolicy: Always
+  match:
+    - mode: SERVER
+  selector:
+    matchLabels:
+      app: shortlink
+  url: oci://registry.gitlab.com/shortlink-org/shortlink/landscape:latest

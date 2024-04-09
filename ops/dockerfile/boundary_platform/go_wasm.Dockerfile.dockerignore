@@ -1,0 +1,20 @@
+.*
+docs
+ops
+boundaries
+pkg/ml
+*.yml
+
+# Exclude
+!boundaries/platform/istio-extension
+
+# Exclude other go work directory
+!docs/ADR/decisions/proof
+!boundaries/api/api-gateway/go.mod
+!boundaries/billing/wallet/go.mod
+!boundaries/link/bff-link/go.mod
+!boundaries/link/supplies/knative/kafka-to-elasticsearch/go.mod
+!boundaries/marketing/report/go.mod
+!boundaries/platform/csi/go.mod
+!boundaries/platform/shortctl/go.mod
+!boundaries/shortdb/shortdb-operator/go.mod
