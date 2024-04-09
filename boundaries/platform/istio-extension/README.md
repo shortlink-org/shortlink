@@ -1,4 +1,6 @@
-## Istio extensionы
+## Istio extension
+
+<img width='200' height='200' src="./docs/public/logo.svg">
 
 > [!NOTE]
 > It's plugins for Istio that are written in Go and compiled to WebAssembly.

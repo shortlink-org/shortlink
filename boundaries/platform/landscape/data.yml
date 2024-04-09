@@ -2,6 +2,7 @@ landscape:
   - category:
     name: ShortLink
     subcategories:
+      # API
       - subcategory:
         name: api
         items:
@@ -12,6 +13,8 @@ landscape:
             name: api-gateway
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/tree/main/boundaries/api/api-gateway
+
+      # Auth
       - subcategory:
         name: auth
         items:
@@ -22,6 +25,8 @@ landscape:
             name: auth
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/tree/main/boundaries/auth/auth
+
+      # Billing
       - subcategory:
         name: billing
         items:
@@ -46,6 +51,8 @@ landscape:
             name: flutter
             project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/tree/main/boundaries/billing/flutter
+
+      # Chat
       - subcategory:
         name: chat
         items:
@@ -63,6 +70,8 @@ landscape:
             name: speech-to-text
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/tree/main/boundaries/chat/speech-to-text
+
+      # Delivery
       - subcategory:
         name: delivery
         items:
@@ -80,6 +89,8 @@ landscape:
             name: support
             project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/tree/main/boundaries/delivery/support
+
+      # DS
       - subcategory:
         name: ds
         items:
@@ -90,6 +101,8 @@ landscape:
             name: colab
             project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/tree/main/boundaries/ds/colab
+
+      # Link
       - subcategory:
         name: link
         items:
@@ -135,6 +148,8 @@ landscape:
             name: Proxy
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/tree/main/boundaries/link/proxy
+
+      # Marketing
       - subcategory:
         name: marketing
         items:
@@ -166,6 +181,8 @@ landscape:
             name: Stats
             project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/tree/main/boundaries/marketing/stats
+
+      # Notification
       - subcategory:
         name: notification
         items:
@@ -190,6 +207,8 @@ landscape:
             name: notify
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/tree/main/boundaries/notification/notify
+
+      # Search
       - subcategory:
         name: search
         items:
@@ -200,6 +219,8 @@ landscape:
             name: search
             project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/tree/main/boundaries/search/search
+
+      # Shop
       - subcategory:
         name: shop
         items:
@@ -224,6 +245,8 @@ landscape:
             name: merch
             project: incubating
             repo_url: https://github.com/shortlink-org/shortlink/tree/main/boundaries/shop/merch
+
+      # UI
       - subcategory:
         name: ui
         items:
@@ -251,6 +274,7 @@ landscape:
   - category:
     name: Infrastructure
     subcategories:
+      # Platform
       - subcategory:
         name: platform
         items:
@@ -296,6 +320,15 @@ landscape:
             name: argocd-extension-docs
             project: graduated
             repo_url: https://github.com/shortlink-org/shortlink/tree/main/boundaries/platform/argocd-extension-docs
+          - item:
+            description: Istio extension
+            homepage_url: https://shortlink.com/next
+            logo: istio-extension.svg
+            name: istio-extension
+            project: graduated
+            repo_url: https://github.com/shortlink-org/shortlink/tree/main/boundaries/platform/istio-extension
+
+      # ShortDB
       - subcategory:
         name: shortdb
         items:
