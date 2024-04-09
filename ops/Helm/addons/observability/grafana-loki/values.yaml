@@ -3,6 +3,8 @@ loki:
 
   nameOverride: grafana-loki
 
+  deploymentMode: SimpleScalable
+
   loki:
     revisionHistoryLimit: 3
 
@@ -46,7 +48,7 @@ loki:
         memory: 64Mi
 
   singleBinary:
-    replicas: 1
+    replicas: 0
 
     persistence:
       storageClass: local-path
