@@ -16,6 +16,23 @@ loki:
     storage:
       type: filesystem
 
+    schemaConfig:
+      configs:
+        - from: 2024-04-01
+          store: tsdb
+          object_store: filesystem
+          schema: v13
+          index:
+            prefix: index_
+            period: 24h
+
+    structuredConfig:
+      query_range:
+        align_queries_with_step: true
+
+      memberlist:
+        bind_addr: []
+
   test:
     enabled: false
 
@@ -60,16 +77,6 @@ loki:
       requests:
         cpu: 50m
         memory: 64Mi
-
-  schemaConfig:
-    configs:
-      - from: 2023-01-05
-        store: tsdb
-        object_store: filesystem
-        schema: v13
-        index:
-          prefix: index_
-          period: 24h
 
   monitoring:
     dashboards:
@@ -122,7 +129,7 @@ loki:
         memory: 64Mi
 
   backend:
-    replicas: 1
+    replicas: 0
 
     resources:
       limits:
