@@ -210,3 +210,8 @@ updates:
     directory: /boundaries/link/expo
     schedule:
       interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/platform/istio-extension
+    schedule:
+      interval: daily
