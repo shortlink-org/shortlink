@@ -5,6 +5,6 @@ metadata:
   labels:
     grafana_dashboard: "true"
   annotations:
-    grafana_dashboard_folder: Network/Istio
+    grafana_dashboard_folder: Istio
 data:
   istio-service-dashboard.json.url: "https://raw.githubusercontent.com/istio/istio/master/manifests/addons/dashboards/istio-service-dashboard.json"
