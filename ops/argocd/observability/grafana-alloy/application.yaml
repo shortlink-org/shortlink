@@ -19,6 +19,7 @@ spec:
     targetRevision: HEAD
     helm:
       releaseName: grafana-alloy
+      skipCrds: true
       valueFiles:
         - values.yaml
   syncPolicy:
