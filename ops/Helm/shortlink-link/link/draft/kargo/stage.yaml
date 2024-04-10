@@ -13,7 +13,7 @@ spec:
     - image:
         imageSelectionStrategy: SemVer
         repoURL: registry.gitlab.com/shortlink-org/shortlink/link
-        semverConstraint: ^0.17.91
+        semverConstraint: ^0.17.93
 
 ---
 apiVersion: kargo.akuity.io/v1alpha1
