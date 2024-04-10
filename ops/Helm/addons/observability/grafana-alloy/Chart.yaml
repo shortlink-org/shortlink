@@ -1,0 +1,23 @@
+apiVersion: v2
+appVersion: "1.0.0"
+name: grafana-alloy
+version: 0.1.0
+kubeVersion: ">= 1.29.0 || >= v1.29.0-0"
+keywords:
+  - grafana
+  - observability
+maintainers:
+  - email: batazor111@gmail.com
+    name: batazor
+    url: batazor.ru
+engine: gotpl
+type: application
+deprecated: false
+dependencies:
+  - name: alloy
+    version: 0.1.0
+    repository: https://grafana.github.io/helm-charts
+    condition: alloy.enabled
+    tags:
+      - monitoring
+

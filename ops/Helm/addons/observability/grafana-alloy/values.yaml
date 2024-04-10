@@ -1,0 +1,11 @@
+alloy:
+  fullnameOverride: grafana-alloy
+
+  stabilityLevel: experimental
+
+  serviceMonitor:
+    enabled: true
+
+    additionalLabels:
+      release: prometheus-operator
+
