@@ -1,0 +1,13 @@
+apiVersion: extensions.istio.io/v1alpha1
+kind: WasmPlugin
+metadata:
+  name: istio-plugin-shortlink
+  namespace: shortlink-link
+spec:
+  imagePullPolicy: Always
+  match:
+    - mode: SERVER
+  selector:
+    matchLabels:
+      app.kubernetes.io/part-of: shortlink
+  url: oci://registry.gitlab.com/shortlink-org/shortlink/istio-plugin-shortlink:0.17.90
