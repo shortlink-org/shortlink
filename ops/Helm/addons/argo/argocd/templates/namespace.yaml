@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Namespace
 metadata:
-  name: local-path-storage
+  name: argocd
   labels:
     istio-injection: enabled
     # TODO: tuning https://kubernetes.io/docs/concepts/security/pod-security-admission/
