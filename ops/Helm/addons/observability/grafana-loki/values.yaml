@@ -67,6 +67,8 @@ loki:
   singleBinary:
     replicas: 1
 
+    extraArgs: --pattern-ingester.enabled=true
+
     persistence:
       storageClass: local-path
 
