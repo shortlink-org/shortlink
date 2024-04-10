@@ -26,6 +26,12 @@ spec:
       prune: false
       allowEmpty: true
       selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        istio-injection: enabled
+        # TODO: tuning https://kubernetes.io/docs/concepts/security/pod-security-admission/
+        pod-security.kubernetes.io/enforce: privileged
+        pod-security.kubernetes.io/enforce-version: latest
     syncOptions:
       - CreateNamespace=true
       - ServerSideApply=true
