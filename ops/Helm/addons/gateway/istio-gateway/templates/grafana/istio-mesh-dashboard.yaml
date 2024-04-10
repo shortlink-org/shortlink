@@ -5,6 +5,6 @@ metadata:
   labels:
     grafana_dashboard: "true"
   annotations:
-    grafana_dashboard_folder: Istio
+    grafana_dashboard_folder: Network/Istio
 data:
   istio-mesh-dashboard.json.url: "https://raw.githubusercontent.com/istio/istio/master/manifests/addons/dashboards/istio-mesh-dashboard.json"
