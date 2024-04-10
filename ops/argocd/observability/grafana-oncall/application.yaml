@@ -19,7 +19,6 @@ spec:
     targetRevision: HEAD
     helm:
       releaseName: grafana-oncall
-      skipCrds: true
       valueFiles:
         - values.yaml
         - redis.values.yaml
