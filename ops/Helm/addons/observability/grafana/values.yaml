@@ -117,7 +117,7 @@ grafana:
     - grafana-oncall-app
     - cloudflare-app
     - hamedkarbasi93-kafka-datasource
-    - https://storage.googleapis.com/integration-artifacts/grafana-lokiexplore-app/grafana-lokiexplore-app-latest.zip
+    - https://storage.googleapis.com/integration-artifacts/grafana-lokiexplore-app/grafana-lokiexplore-app-latest.zip;grafana-lokiexplore-app
 
   extraInitContainers:
     - name: plugin-init
