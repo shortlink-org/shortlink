@@ -11,7 +11,7 @@ type RequestHandler struct {
 	// Bring in the callback functions
 	types.DefaultHttpContext
 
-	ContextID uint32
+	Metrics *Metrics
 }
 
 func (r *RequestHandler) OnHttpRequestHeaders(numHeaders int, endOfStream bool) types.Action {
@@ -28,6 +28,7 @@ func (r *RequestHandler) OnHttpResponseHeaders(numHeaders int, endOfStream bool)
 	}
 
 	_ = proxywasm.AddHttpResponseHeader("injected-by-istio-plugin-shortlink", version)
+	r.Metrics.Increment("requests_intercepted")
 
 	proxywasm.LogInfo("WASM plugin Handling response")
 
