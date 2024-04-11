@@ -1,6 +1,8 @@
 package internal
 
 import (
+	"os"
+
 	"github.com/tetratelabs/proxy-wasm-go-sdk/proxywasm"
 	"github.com/tetratelabs/proxy-wasm-go-sdk/proxywasm/types"
 )
@@ -19,15 +21,13 @@ func (r *RequestHandler) OnHttpRequestHeaders(numHeaders int, endOfStream bool) 
 	return types.ActionContinue
 }
 
-// Additional headers supposed to be injected to response headers.
-var additionalHeaders = map[string]string{
-	"injected-by": "istio-plugin-shortlink",
-}
-
 func (r *RequestHandler) OnHttpResponseHeaders(numHeaders int, endOfStream bool) types.Action {
-	for key, value := range additionalHeaders {
-		proxywasm.AddHttpResponseHeader(key, value)
+	version, ok := os.LookupEnv("PLUGIN_VERSION")
+	if !ok {
+		version = "unknown"
 	}
+
+	_ = proxywasm.AddHttpResponseHeader("injected-by-istio-plugin-shortlink", version)
 
 	// Ger response headers
 	responseHeaders, _ := proxywasm.GetHttpResponseHeaders()

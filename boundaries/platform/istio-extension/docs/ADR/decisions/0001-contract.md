@@ -15,7 +15,7 @@ for extending the functionality of the service mesh.
 
 For successful integration of the plugin into the service mesh, the plugin must implement the following contract:
 
-1. Add header to response `injected-by: <plugin-name>` if we change the response.
+1. Add header to response `injected-by-<plugin-name>: <plugin-version>` if we change the response.
 
 ## Consequences
 
