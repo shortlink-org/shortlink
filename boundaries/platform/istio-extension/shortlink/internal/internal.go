@@ -21,8 +21,7 @@ func (r *RequestHandler) OnHttpRequestHeaders(numHeaders int, endOfStream bool) 
 
 // Additional headers supposed to be injected to response headers.
 var additionalHeaders = map[string]string{
-	"who-am-i":    "wasm-extension",
-	"injected-by": "istio-api!",
+	"injected-by": "istio-plugin-shortlink",
 }
 
 func (r *RequestHandler) OnHttpResponseHeaders(numHeaders int, endOfStream bool) types.Action {
@@ -30,7 +29,24 @@ func (r *RequestHandler) OnHttpResponseHeaders(numHeaders int, endOfStream bool)
 		proxywasm.AddHttpResponseHeader(key, value)
 	}
 
+	// Ger response headers
+	responseHeaders, _ := proxywasm.GetHttpResponseHeaders()
+
+	// Print response headers
+	proxywasm.LogWarnf("Response headers: %v \n", responseHeaders)
+
 	proxywasm.LogWarn("WASM plugin Handling response")
 
 	return types.ActionContinue
+}
+
+// headerArrayToMap is a simple function to convert from an array of headers to a Map
+func headerArrayToMap(requestHeaders [][2]string) map[string]string {
+	headerMap := make(map[string]string)
+
+	for _, header := range requestHeaders {
+		headerMap[header[0]] = header[1]
+	}
+
+	return headerMap
 }

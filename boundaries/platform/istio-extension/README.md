@@ -9,6 +9,10 @@
 |--------------------------|---------------------------------------------------------------|
 | [shortlink](./shortlink) | A simple example of an Istio extension that shortens the URL. |
 
+### ADR
+
+- [ADR-0001](./docs/ADR/decisions/0001-contract.md) - Contract for Istio extension.
+
 ### References
 
 - [TinyGo](https://tinygo.org/)

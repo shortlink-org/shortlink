@@ -55,7 +55,7 @@ spec:
       port: {{ .port }}
       targetPort: {{ .name }}
       protocol: {{ .protocol }}
-      # https://gateway-api.sigs.k8s.io/guides/backend-protocol/
+      # kubectl explain Service.spec.ports.appProtocol
       appProtocol: {{ .appProtocol }}
       {{- if (and (eq $.Values.service.type "NodePort") (not (empty .nodePort))) }}
       nodePort: {{.nodePort}}
