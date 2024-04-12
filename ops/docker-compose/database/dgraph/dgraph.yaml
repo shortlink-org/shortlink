@@ -13,7 +13,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: dgraph/dgraph:v23.1.0
+    image: dgraph/dgraph:v23.1.1
     volumes:
       - type: volume
         source: database
@@ -30,7 +30,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: dgraph/dgraph:v23.1.0
+    image: dgraph/dgraph:v23.1.1
     volumes:
       - type: volume
         source: database
@@ -47,7 +47,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: dgraph/dgraph:v23.1.0
+    image: dgraph/dgraph:v23.1.1
     volumes:
       - type: volume
         source: database
