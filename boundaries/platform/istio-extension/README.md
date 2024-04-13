@@ -5,20 +5,11 @@
 > [!NOTE]
 > It's plugins for Istio that are written in Go and compiled to WebAssembly.
 
-| Name                     | Description                                                   |
-|--------------------------|---------------------------------------------------------------|
-| [shortlink](./shortlink) | A simple example of an Istio extension that shortens the URL. |
+| Name                                         | Description                                                   | Language        |
+|----------------------------------------------|---------------------------------------------------------------|-----------------|
+| [shortlink-go](./shortlink_go/README.md)     | A simple example of an Istio extension that shortens the URL. | Go (TinyGo)     |
+| [shortlink-rust](./shortlink_rust/README.md) | A simple example of an Istio extension that shortens the URL. | Rust (Wasmtime) |                              
 
 ### ADR
 
 - [ADR-0001](./docs/ADR/decisions/0001-contract.md) - Contract for Istio extension.
-
-### References
-
-- [TinyGo](https://tinygo.org/)
-- [Istio: wasm-plugin](https://istio.io/latest/docs/reference/config/proxy_extensions/wasm-plugin/)
-- [proxy-wasm-go-sdk](https://github.com/tetratelabs/proxy-wasm-go-sdk)
-- Tutorial:
-  - [Writing an Istio WASM Plugin in Go for migrating 100s of services to new auth strategy (Part 1)](https://zendesk.engineering/writing-an-istio-wasm-plugin-in-go-for-migrating-100s-of-services-to-new-auth-strategy-part-1-cd551e1455d7)
-    - [github](https://github.com/henders/writing-an-envoy-wasm-plugin)
-  - [Example using with EnvoyFilter](https://gitverse.ru/kozlov.a.e/wasm-gofunc/content/master/conf/envoy_filter.yml)

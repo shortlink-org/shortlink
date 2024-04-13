@@ -4,7 +4,7 @@ import (
 	"github.com/tetratelabs/proxy-wasm-go-sdk/proxywasm"
 	"github.com/tetratelabs/proxy-wasm-go-sdk/proxywasm/types"
 
-	"github.com/shortlink-org/shortlink/boundaries/platform/istio-extension/shortlink/internal"
+	"github.com/shortlink-org/shortlink/boundaries/platform/istio-extension/shortlink_go/internal"
 )
 
 func main() {

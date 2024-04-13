@@ -20,7 +20,7 @@ RUN --mount=type=cache,target=/go/pkg/mod go mod download
 COPY . .
 
 # Build project
-RUN tinygo build -o main.wasm -scheduler=none -target=wasi ./boundaries/platform/istio-extension/shortlink/main.go
+RUN tinygo build -o main.wasm -scheduler=none -target=wasi ./boundaries/platform/istio-extension/shortlink_go/main.go
 
 FROM scratch
 
