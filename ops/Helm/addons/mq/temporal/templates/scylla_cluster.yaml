@@ -9,9 +9,9 @@ spec:
   version: 5.4.3
   developerMode: true
   datacenter:
-    name: us-east-1
+    name: shortlink-dc
     racks:
-      - name: shortlink
+      - name: shortlink-rack
         scyllaConfig: "scylla-config"
         scyllaAgentConfig: "scylla-agent-config"
         members: 1
