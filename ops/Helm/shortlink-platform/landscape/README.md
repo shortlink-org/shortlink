@@ -22,7 +22,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-template | shortlink-template | 0.8.17 |
+| file://../../shortlink-template | shortlink-template | 0.8.17 |
 
 ## Values
 
@@ -70,7 +70,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"registry.gitlab.com/shortlink-org/shortlink/backstage"
+"registry.gitlab.com/shortlink-org/shortlink/landscape"
 </pre>
 </div>
 			</td>
@@ -115,8 +115,8 @@ object
 {
   "failureThreshold": 30,
   "httpGet": {
-    "path": "/healthcheck",
-    "port": 7007
+    "path": "/",
+    "port": 8080
   },
   "httpHeaders": [
     {
@@ -142,8 +142,8 @@ object
 <pre lang="json">
 {
   "httpGet": {
-    "path": "/healthcheck",
-    "port": 7007
+    "path": "/",
+    "port": 8080
   },
   "httpHeaders": [
     {
@@ -394,7 +394,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"backstage.shortlink.best"
+"landscape.shortlink.best"
 </pre>
 </div>
 			</td>
@@ -436,7 +436,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"backstage"
+"landscape"
 </pre>
 </div>
 			</td>
@@ -450,7 +450,7 @@ int
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-7007
+8080
 </pre>
 </div>
 			</td>
@@ -464,7 +464,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"backstage.shortlink.best"
+"landscape.shortlink.best"
 </pre>
 </div>
 			</td>
@@ -478,7 +478,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"backstage-tls"
+"landscape-tls"
 </pre>
 </div>
 			</td>
@@ -562,7 +562,7 @@ int
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-7007
+8080
 </pre>
 </div>
 			</td>

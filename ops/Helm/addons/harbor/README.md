@@ -22,7 +22,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://helm.goharbor.io | harbor | 1.14.1 |
+| https://helm.goharbor.io | harbor | 1.14.2 |
 
 ## Values
 

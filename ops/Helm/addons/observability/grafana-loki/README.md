@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | loki | 5.47.2 |
+| https://grafana.github.io/helm-charts | loki | 6.2.0 |
 | https://grafana.github.io/helm-charts | promtail | 6.15.5 |
 
 ## Values
@@ -28,7 +28,21 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="loki--backend--resources--limits--cpu"><a href="./values.yaml#L137">loki.backend.resources.limits.cpu</a></td>
+			<td id="loki--backend--replicas"><a href="./values.yaml#L138">loki.backend.replicas</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+0
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--backend--resources--limits--cpu"><a href="./values.yaml#L142">loki.backend.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -42,7 +56,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--backend--resources--limits--memory"><a href="./values.yaml#L138">loki.backend.resources.limits.memory</a></td>
+			<td id="loki--backend--resources--limits--memory"><a href="./values.yaml#L143">loki.backend.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -56,7 +70,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--backend--resources--requests--cpu"><a href="./values.yaml#L140">loki.backend.resources.requests.cpu</a></td>
+			<td id="loki--backend--resources--requests--cpu"><a href="./values.yaml#L145">loki.backend.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -70,7 +84,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--backend--resources--requests--memory"><a href="./values.yaml#L141">loki.backend.resources.requests.memory</a></td>
+			<td id="loki--backend--resources--requests--memory"><a href="./values.yaml#L146">loki.backend.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -78,6 +92,20 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "64Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--deploymentMode"><a href="./values.yaml#L6">loki.deploymentMode</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"SingleBinary"
 </pre>
 </div>
 			</td>
@@ -98,77 +126,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--gateway--resources--limits--cpu"><a href="./values.yaml#L119">loki.gateway.resources.limits.cpu</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"300m"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="loki--gateway--resources--limits--memory"><a href="./values.yaml#L120">loki.gateway.resources.limits.memory</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"1Gi"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="loki--gateway--resources--requests--cpu"><a href="./values.yaml#L122">loki.gateway.resources.requests.cpu</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"50m"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="loki--gateway--resources--requests--memory"><a href="./values.yaml#L123">loki.gateway.resources.requests.memory</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"64Mi"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="loki--global--dnsService"><a href="./values.yaml#L5">loki.global.dnsService</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"kube-dns"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="loki--loki--auth_enabled"><a href="./values.yaml#L10">loki.loki.auth_enabled</a></td>
+			<td id="loki--gateway--enabled"><a href="./values.yaml#L118">loki.gateway.enabled</a></td>
 			<td>
 bool
 </td>
@@ -182,7 +140,77 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--loki--commonConfig--replication_factor"><a href="./values.yaml#L13">loki.loki.commonConfig.replication_factor</a></td>
+			<td id="loki--gateway--resources--limits--cpu"><a href="./values.yaml#L122">loki.gateway.resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"300m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--gateway--resources--limits--memory"><a href="./values.yaml#L123">loki.gateway.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"1Gi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--gateway--resources--requests--cpu"><a href="./values.yaml#L125">loki.gateway.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"50m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--gateway--resources--requests--memory"><a href="./values.yaml#L126">loki.gateway.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"64Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--loki--auth_enabled"><a href="./values.yaml#L11">loki.loki.auth_enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--loki--commonConfig--replication_factor"><a href="./values.yaml#L14">loki.loki.commonConfig.replication_factor</a></td>
 			<td>
 int
 </td>
@@ -196,7 +224,77 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--loki--storage--type"><a href="./values.yaml#L16">loki.loki.storage.type</a></td>
+			<td id="loki--loki--limits_config--volume_enabled"><a href="./values.yaml#L17">loki.loki.limits_config.volume_enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--loki--revisionHistoryLimit"><a href="./values.yaml#L9">loki.loki.revisionHistoryLimit</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+3
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--loki--schemaConfig--configs[0]--from"><a href="./values.yaml#L24">loki.loki.schemaConfig.configs[0].from</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"2024-04-01"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--loki--schemaConfig--configs[0]--index--period"><a href="./values.yaml#L30">loki.loki.schemaConfig.configs[0].index.period</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"24h"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--loki--schemaConfig--configs[0]--index--prefix"><a href="./values.yaml#L29">loki.loki.schemaConfig.configs[0].index.prefix</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"index_"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--loki--schemaConfig--configs[0]--object_store"><a href="./values.yaml#L26">loki.loki.schemaConfig.configs[0].object_store</a></td>
 			<td>
 string
 </td>
@@ -210,7 +308,77 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--lokiCanary--enabled"><a href="./values.yaml#L114">loki.lokiCanary.enabled</a></td>
+			<td id="loki--loki--schemaConfig--configs[0]--schema"><a href="./values.yaml#L27">loki.loki.schemaConfig.configs[0].schema</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"v13"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--loki--schemaConfig--configs[0]--store"><a href="./values.yaml#L25">loki.loki.schemaConfig.configs[0].store</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"tsdb"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--loki--storage--type"><a href="./values.yaml#L20">loki.loki.storage.type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"filesystem"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--loki--structuredConfig--memberlist--bind_addr"><a href="./values.yaml#L37">loki.loki.structuredConfig.memberlist.bind_addr</a></td>
+			<td>
+list
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+[]
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--loki--structuredConfig--query_range--align_queries_with_step"><a href="./values.yaml#L34">loki.loki.structuredConfig.query_range.align_queries_with_step</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--lokiCanary--enabled"><a href="./values.yaml#L115">loki.lokiCanary.enabled</a></td>
 			<td>
 bool
 </td>
@@ -252,7 +420,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--monitoring--rules--additionalGroups[0]--name"><a href="./values.yaml#L104">loki.monitoring.rules.additionalGroups[0].name</a></td>
+			<td id="loki--monitoring--rules--additionalGroups[0]--name"><a href="./values.yaml#L105">loki.monitoring.rules.additionalGroups[0].name</a></td>
 			<td>
 string
 </td>
@@ -266,7 +434,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--monitoring--rules--additionalGroups[0]--rules[0]--expr"><a href="./values.yaml#L107">loki.monitoring.rules.additionalGroups[0].rules[0].expr</a></td>
+			<td id="loki--monitoring--rules--additionalGroups[0]--rules[0]--expr"><a href="./values.yaml#L108">loki.monitoring.rules.additionalGroups[0].rules[0].expr</a></td>
 			<td>
 string
 </td>
@@ -280,7 +448,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--monitoring--rules--additionalGroups[0]--rules[0]--record"><a href="./values.yaml#L106">loki.monitoring.rules.additionalGroups[0].rules[0].record</a></td>
+			<td id="loki--monitoring--rules--additionalGroups[0]--rules[0]--record"><a href="./values.yaml#L107">loki.monitoring.rules.additionalGroups[0].rules[0].record</a></td>
 			<td>
 string
 </td>
@@ -294,7 +462,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--monitoring--rules--additionalGroups[0]--rules[1]--expr"><a href="./values.yaml#L109">loki.monitoring.rules.additionalGroups[0].rules[1].expr</a></td>
+			<td id="loki--monitoring--rules--additionalGroups[0]--rules[1]--expr"><a href="./values.yaml#L110">loki.monitoring.rules.additionalGroups[0].rules[1].expr</a></td>
 			<td>
 string
 </td>
@@ -308,7 +476,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--monitoring--rules--additionalGroups[0]--rules[1]--record"><a href="./values.yaml#L108">loki.monitoring.rules.additionalGroups[0].rules[1].record</a></td>
+			<td id="loki--monitoring--rules--additionalGroups[0]--rules[1]--record"><a href="./values.yaml#L109">loki.monitoring.rules.additionalGroups[0].rules[1].record</a></td>
 			<td>
 string
 </td>
@@ -322,7 +490,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--monitoring--rules--additionalGroups[0]--rules[2]--expr"><a href="./values.yaml#L111">loki.monitoring.rules.additionalGroups[0].rules[2].expr</a></td>
+			<td id="loki--monitoring--rules--additionalGroups[0]--rules[2]--expr"><a href="./values.yaml#L112">loki.monitoring.rules.additionalGroups[0].rules[2].expr</a></td>
 			<td>
 string
 </td>
@@ -336,7 +504,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--monitoring--rules--additionalGroups[0]--rules[2]--record"><a href="./values.yaml#L110">loki.monitoring.rules.additionalGroups[0].rules[2].record</a></td>
+			<td id="loki--monitoring--rules--additionalGroups[0]--rules[2]--record"><a href="./values.yaml#L111">loki.monitoring.rules.additionalGroups[0].rules[2].record</a></td>
 			<td>
 string
 </td>
@@ -350,7 +518,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--monitoring--rules--enabled"><a href="./values.yaml#L102">loki.monitoring.rules.enabled</a></td>
+			<td id="loki--monitoring--rules--enabled"><a href="./values.yaml#L103">loki.monitoring.rules.enabled</a></td>
 			<td>
 bool
 </td>
@@ -364,7 +532,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--monitoring--selfMonitoring--grafanaAgent--installOperator"><a href="./values.yaml#L99">loki.monitoring.selfMonitoring.grafanaAgent.installOperator</a></td>
+			<td id="loki--monitoring--selfMonitoring--grafanaAgent--installOperator"><a href="./values.yaml#L100">loki.monitoring.selfMonitoring.grafanaAgent.installOperator</a></td>
 			<td>
 bool
 </td>
@@ -378,7 +546,21 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--monitoring--serviceMonitor--labels--release"><a href="./values.yaml#L95">loki.monitoring.serviceMonitor.labels.release</a></td>
+			<td id="loki--monitoring--serviceMonitor--enabled"><a href="./values.yaml#L94">loki.monitoring.serviceMonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--monitoring--serviceMonitor--labels--release"><a href="./values.yaml#L96">loki.monitoring.serviceMonitor.labels.release</a></td>
 			<td>
 string
 </td>
@@ -392,7 +574,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--nameOverride"><a href="./values.yaml#L7">loki.nameOverride</a></td>
+			<td id="loki--nameOverride"><a href="./values.yaml#L4">loki.nameOverride</a></td>
 			<td>
 string
 </td>
@@ -406,7 +588,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--read--persistence--storageClass"><a href="./values.yaml#L39">loki.read.persistence.storageClass</a></td>
+			<td id="loki--read--persistence--storageClass"><a href="./values.yaml#L60">loki.read.persistence.storageClass</a></td>
 			<td>
 string
 </td>
@@ -420,21 +602,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--read--replicas"><a href="./values.yaml#L36">loki.read.replicas</a></td>
+			<td id="loki--read--replicas"><a href="./values.yaml#L57">loki.read.replicas</a></td>
 			<td>
 int
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-1
+0
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--read--resources--limits--cpu"><a href="./values.yaml#L43">loki.read.resources.limits.cpu</a></td>
+			<td id="loki--read--resources--limits--cpu"><a href="./values.yaml#L64">loki.read.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -448,7 +630,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--read--resources--limits--memory"><a href="./values.yaml#L44">loki.read.resources.limits.memory</a></td>
+			<td id="loki--read--resources--limits--memory"><a href="./values.yaml#L65">loki.read.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -462,7 +644,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--read--resources--requests--cpu"><a href="./values.yaml#L46">loki.read.resources.requests.cpu</a></td>
+			<td id="loki--read--resources--requests--cpu"><a href="./values.yaml#L67">loki.read.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -476,7 +658,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--read--resources--requests--memory"><a href="./values.yaml#L47">loki.read.resources.requests.memory</a></td>
+			<td id="loki--read--resources--requests--memory"><a href="./values.yaml#L68">loki.read.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -490,7 +672,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--sidecar--resources--limits--cpu"><a href="./values.yaml#L128">loki.sidecar.resources.limits.cpu</a></td>
+			<td id="loki--sidecar--resources--limits--cpu"><a href="./values.yaml#L131">loki.sidecar.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -504,7 +686,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--sidecar--resources--limits--memory"><a href="./values.yaml#L129">loki.sidecar.resources.limits.memory</a></td>
+			<td id="loki--sidecar--resources--limits--memory"><a href="./values.yaml#L132">loki.sidecar.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -518,7 +700,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--sidecar--resources--requests--cpu"><a href="./values.yaml#L131">loki.sidecar.resources.requests.cpu</a></td>
+			<td id="loki--sidecar--resources--requests--cpu"><a href="./values.yaml#L134">loki.sidecar.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -532,7 +714,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--sidecar--resources--requests--memory"><a href="./values.yaml#L132">loki.sidecar.resources.requests.memory</a></td>
+			<td id="loki--sidecar--resources--requests--memory"><a href="./values.yaml#L135">loki.sidecar.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -546,7 +728,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--singleBinary--persistence--storageClass"><a href="./values.yaml#L53">loki.singleBinary.persistence.storageClass</a></td>
+			<td id="loki--singleBinary--extraArgs[0]"><a href="./values.yaml#L74">loki.singleBinary.extraArgs[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"--pattern-ingester.enabled=true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--singleBinary--persistence--storageClass"><a href="./values.yaml#L77">loki.singleBinary.persistence.storageClass</a></td>
 			<td>
 string
 </td>
@@ -560,7 +756,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--singleBinary--replicas"><a href="./values.yaml#L50">loki.singleBinary.replicas</a></td>
+			<td id="loki--singleBinary--replicas"><a href="./values.yaml#L71">loki.singleBinary.replicas</a></td>
 			<td>
 int
 </td>
@@ -574,7 +770,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--singleBinary--resources--limits--cpu"><a href="./values.yaml#L57">loki.singleBinary.resources.limits.cpu</a></td>
+			<td id="loki--singleBinary--resources--limits--cpu"><a href="./values.yaml#L81">loki.singleBinary.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -588,7 +784,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--singleBinary--resources--limits--memory"><a href="./values.yaml#L58">loki.singleBinary.resources.limits.memory</a></td>
+			<td id="loki--singleBinary--resources--limits--memory"><a href="./values.yaml#L82">loki.singleBinary.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -602,7 +798,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--singleBinary--resources--requests--cpu"><a href="./values.yaml#L60">loki.singleBinary.resources.requests.cpu</a></td>
+			<td id="loki--singleBinary--resources--requests--cpu"><a href="./values.yaml#L84">loki.singleBinary.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -616,7 +812,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--singleBinary--resources--requests--memory"><a href="./values.yaml#L61">loki.singleBinary.resources.requests.memory</a></td>
+			<td id="loki--singleBinary--resources--requests--memory"><a href="./values.yaml#L85">loki.singleBinary.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -630,7 +826,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--test--enabled"><a href="./values.yaml#L19">loki.test.enabled</a></td>
+			<td id="loki--test--enabled"><a href="./values.yaml#L40">loki.test.enabled</a></td>
 			<td>
 bool
 </td>
@@ -644,7 +840,21 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--tracing--jaegerAgentHost"><a href="./values.yaml#L144">loki.tracing.jaegerAgentHost</a></td>
+			<td id="loki--tracing--enabled"><a href="./values.yaml#L149">loki.tracing.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="loki--tracing--jaegerAgentHost"><a href="./values.yaml#L150">loki.tracing.jaegerAgentHost</a></td>
 			<td>
 string
 </td>
@@ -658,7 +868,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--write--persistence--storageClass"><a href="./values.yaml#L25">loki.write.persistence.storageClass</a></td>
+			<td id="loki--write--persistence--storageClass"><a href="./values.yaml#L46">loki.write.persistence.storageClass</a></td>
 			<td>
 string
 </td>
@@ -672,21 +882,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--write--replicas"><a href="./values.yaml#L22">loki.write.replicas</a></td>
+			<td id="loki--write--replicas"><a href="./values.yaml#L43">loki.write.replicas</a></td>
 			<td>
 int
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-1
+0
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--write--resources--limits--cpu"><a href="./values.yaml#L29">loki.write.resources.limits.cpu</a></td>
+			<td id="loki--write--resources--limits--cpu"><a href="./values.yaml#L50">loki.write.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -700,7 +910,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--write--resources--limits--memory"><a href="./values.yaml#L30">loki.write.resources.limits.memory</a></td>
+			<td id="loki--write--resources--limits--memory"><a href="./values.yaml#L51">loki.write.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -714,7 +924,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--write--resources--requests--cpu"><a href="./values.yaml#L32">loki.write.resources.requests.cpu</a></td>
+			<td id="loki--write--resources--requests--cpu"><a href="./values.yaml#L53">loki.write.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -728,7 +938,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="loki--write--resources--requests--memory"><a href="./values.yaml#L33">loki.write.resources.requests.memory</a></td>
+			<td id="loki--write--resources--requests--memory"><a href="./values.yaml#L54">loki.write.resources.requests.memory</a></td>
 			<td>
 string
 </td>

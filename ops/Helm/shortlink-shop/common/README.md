@@ -6,16 +6,6 @@ ShortLink common services
 
 **Homepage:** <https://batazor.github.io/shortlink/>
 
-## General manifests for ArgoCD
-
-This directory contains manifests that are not specific to any environment.
-
-### PriorityClass
-
-| Name     | Value      |
-|----------|------------|
-| standard | 1000000000 |
-
 ## Maintainers
 
 | Name | Email | Url |
@@ -32,7 +22,8 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../shortlink-template | shortlink-template | 0.8.17 |
+| file://../../shortlink-template | shortlink-template | 0.8.17 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 19.1.0 |
 
 ## Values
 
