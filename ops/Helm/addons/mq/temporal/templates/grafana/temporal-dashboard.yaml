@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-dashboard
+  labels:
+    grafana_dashboard: "true"
+  annotations:
+    grafana_dashboard_folder: Temporal
+data:
+  server-general-github.json.url: "https://raw.githubusercontent.com/temporalio/dashboards/helm/server/server-general.json"
+  sdk-general-github.json.url: "https://raw.githubusercontent.com/temporalio/dashboards/helm/sdk/sdk-general.json"
+  misc-advanced-visibility-specific-github.json.url: "https://raw.githubusercontent.com/temporalio/dashboards/helm/misc/advanced-visibility-specific.json"
+  misc-clustermonitoring-kubernetes-github.json.url: "https://raw.githubusercontent.com/temporalio/dashboards/helm/misc/clustermonitoring-kubernetes.json"
+  misc-frontend-service-specific-github.json.url: "https://raw.githubusercontent.com/temporalio/dashboards/helm/misc/frontend-service-specific.json"
+  misc-history-service-specific-github.json.url: "https://raw.githubusercontent.com/temporalio/dashboards/helm/misc/history-service-specific.json"
+  misc-matching-service-specific-github.json.url: "https://raw.githubusercontent.com/temporalio/dashboards/helm/misc/matching-service-specific.json"
+  misc-worker-service-specific-github.json.url: "https://raw.githubusercontent.com/temporalio/dashboards/helm/misc/worker-service-specific.json"

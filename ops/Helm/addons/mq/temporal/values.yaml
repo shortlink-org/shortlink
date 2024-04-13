@@ -1,0 +1,65 @@
+# Common default values for temporal.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+temporal:
+  enabled: true
+
+  fullnameOverride: temporal
+
+  serviceAccount:
+    create: true
+
+  server:
+    metrics:
+      serviceMonitor:
+        enabled: true
+
+        additionalLabels:
+          release: prometheus-operator
+
+    frontend:
+      metrics:
+        serviceMonitor:
+          enabled: true
+
+    history:
+      metrics:
+        serviceMonitor:
+          enabled: true
+
+    matching:
+      metrics:
+        serviceMonitor:
+          enabled: true
+
+    worker:
+      metrics:
+        serviceMonitor:
+          enabled: true
+
+  web:
+    ingress:
+      enabled: true
+      annotations:
+        cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+
+      hosts:
+        - "temporal.shortlink.best"
+
+      tls:
+        - secretName: temporal-tls
+          hosts:
+            - "temporal.shortlink.best"
+
+  elasticsearch:
+    enabled: true
+    replicas: 1
+
+  prometheus:
+    enabled: false
+
+  grafana:
+    enabled: false
