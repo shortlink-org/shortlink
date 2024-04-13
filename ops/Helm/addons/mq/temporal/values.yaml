@@ -58,6 +58,12 @@ temporal:
     enabled: true
     replicas: 1
 
+  cassandra:
+    config:
+      cluster_size: 1
+      max_heap_size: 256M
+      heap_new_size: 64M
+
   prometheus:
     enabled: false
 
