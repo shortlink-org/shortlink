@@ -14,7 +14,7 @@ spec:
     namespace: scylla-operator
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/store/scylla/scylla-operator
+    path: ops/Helm/addons/store/scylla-operator
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
