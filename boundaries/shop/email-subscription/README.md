@@ -7,3 +7,6 @@
 
 - [UC-1](./usecases/goods/README.md) Notify about new goods
 
+### References
+
+- [email-subscription-project-go](https://github.com/temporalio/email-subscription-project-go)
