@@ -64,3 +64,5 @@ adr new Implement as Unix shell scripts
   - [ADR-0020](./decisions/0020-k6.md) - k6 
 - **Python**
   - [ADR-0032](./decisions/0032-python-code-style-selection.md) - Python: Code Style Selection
+- **Patterns**
+  - [ADR-0033](./decisions/0033-background-job.md) - Background job processing
