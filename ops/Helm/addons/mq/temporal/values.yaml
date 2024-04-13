@@ -11,6 +11,20 @@ temporal:
     create: true
 
   server:
+    config:
+      persistence:
+        default:
+          cassandra:
+            port: 9042
+            hosts:
+              - scylla-cluster.temporal
+
+        visibility:
+          cassandra:
+            port: 9042
+            hosts:
+              - scylla-cluster.temporal
+
     metrics:
       serviceMonitor:
         enabled: true

@@ -1,9 +1,9 @@
 apiVersion: scylla.scylladb.com/v1
 kind: ScyllaCluster
 metadata:
+  name: scylla-cluster
   labels:
     controller-tools.k8s.io: "1.0"
-  name: simple-cluster
 spec:
   agentVersion: 3.2.6
   version: 5.4.3
