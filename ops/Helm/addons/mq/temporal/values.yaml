@@ -18,12 +18,14 @@ temporal:
             port: 9042
             hosts:
               - scylla-cluster.temporal
+            existingSecret: scylla-cluster-auth-token
 
         visibility:
           cassandra:
             port: 9042
             hosts:
               - scylla-cluster.temporal
+            existingSecret: scylla-cluster-auth-token
 
     metrics:
       serviceMonitor:
