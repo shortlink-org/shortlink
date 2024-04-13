@@ -1,0 +1,33 @@
+apiVersion: scylla.scylladb.com/v1
+kind: ScyllaCluster
+metadata:
+  labels:
+    controller-tools.k8s.io: "1.0"
+  name: simple-cluster
+spec:
+  agentVersion: 3.2.6
+  version: 5.4.3
+  developerMode: true
+  datacenter:
+    name: us-east-1
+    racks:
+      - name: shortlink
+        scyllaConfig: "scylla-config"
+        scyllaAgentConfig: "scylla-agent-config"
+        members: 1
+        storage:
+          capacity: 5Gi
+        resources:
+          requests:
+            cpu: 1
+            memory: 1Gi
+          limits:
+            cpu: 1
+            memory: 1Gi
+        volumes:
+          - name: coredumpfs
+            hostPath:
+              path: /tmp/coredumps
+        volumeMounts:
+          - mountPath: /tmp/coredumps
+            name: coredumpfs
