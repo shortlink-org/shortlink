@@ -7,7 +7,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
 # Install dependencies only when needed
-FROM --platform=$BUILDPLATFORM node:21.7-alpine AS development-builder
+FROM --platform=$BUILDPLATFORM node:21.7.3-alpine AS development-builder
 
 # Defining environment
 ARG CI_COMMIT_TAG
