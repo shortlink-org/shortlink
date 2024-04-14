@@ -8,7 +8,7 @@ npm:
     - .matrix_build_npm
     - .cache
   stage: publish
-  image: node:21-alpine
+  image: node:21.7.3-alpine
   # TODO: Research how to use SIGSTORE_ID_TOKEN
   # id_tokens:
   #  SIGSTORE_ID_TOKEN:

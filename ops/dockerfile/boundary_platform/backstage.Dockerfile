@@ -2,7 +2,7 @@
 ARG ENVIRONMENT_CONFIG=production
 
 # Stage 1 - Create yarn install skeleton layer
-FROM --platform=$BUILDPLATFORM node:21.7-bookworm-slim AS packages
+FROM --platform=$BUILDPLATFORM node:21.7.3-bookworm-slim AS packages
 
 ARG ENVIRONMENT_CONFIG
 
@@ -16,7 +16,7 @@ COPY ./boundaries/platform/backstage/packages packages
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
 
 # Stage 2 - Install dependencies and build packages
-FROM --platform=$BUILDPLATFORM node:21.7-bookworm-slim AS build
+FROM --platform=$BUILDPLATFORM node:21.7.3-bookworm-slim AS build
 
 ARG ENVIRONMENT_CONFIG
 
@@ -53,7 +53,7 @@ RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
     && tar xzf packages/backend/dist/bundle.tar.gz -C packages/backend/dist/bundle
 
 # Stage 3 - Build the actual backend image and install production dependencies
-FROM --platform=$TARGETPLATFORM node:21.7-bookworm-slim
+FROM --platform=$TARGETPLATFORM node:21.7.3-bookworm-slim
 
 ARG ENVIRONMENT_CONFIG
 
