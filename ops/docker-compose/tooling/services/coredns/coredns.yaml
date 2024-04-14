@@ -1,6 +1,5 @@
-version: '2.4'
-
 services:
+
   coredns:
     image: coredns/coredns:1.11.1
     profiles:
@@ -16,8 +15,8 @@ services:
         ipv4_address: 10.5.0.2
     volumes:
       - ./ops/docker-compose/tooling/services/coredns/config/:/etc/coredns
-    logging:
-      driver: ${LOGGER_DRIVER}
-      options:
-        loki-url: ${LOGGER_DRIVER_URL}
-        max-size: ${LOGGER_MAX_SIZE}
+#    logging:
+#      driver: ${LOGGER_DRIVER}
+#      options:
+#        loki-url: ${LOGGER_DRIVER_URL}
+#        max-size: ${LOGGER_MAX_SIZE}

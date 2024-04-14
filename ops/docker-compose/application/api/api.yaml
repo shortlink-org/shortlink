@@ -1,10 +1,8 @@
-version: '2.4'
-
 x-network: &network
   depends_on:
     - coredns
   networks:
-    - simple
+    - ${DOCKER_NETWORK}
   dns:
     - ${DNS_IP}
   dns_search: ${DNS_SEARCH}

@@ -1,8 +1,8 @@
 # define a snippet
 (snip) {
-  errors
-  health
-  prometheus 0.0.0.0:9153
+  # Prometheus metrics.
+  # prometheus 0.0.0.0:9153
+
   log {
     class all
   }
@@ -10,8 +10,8 @@
 
 . {
   whoami
-  import snip
-  minimal
+  errors
+  health
 
   # any gives a minimal response to ANY queries.
   any
@@ -30,7 +30,7 @@
   # nsid adds an identifier of this server to each reply.
   nsid Use The Force and shortlink ;-)
 
-  forward . 8.8.8.8 8.8.4.4 {
+  forward . 8.8.8.8 {
     tls_servername dns.google
   }
 
@@ -40,11 +40,12 @@
   # loop detects simple forwarding loops and halts the server.
   loop
 
-  trace zipkin jaeger-agent:9411 {
-    every 1
-    service coredns
-    client_server
-  }
+  # Tracing is configured to use the Jaeger backend
+  # trace zipkin jaeger-agent:9411 {
+  #  every 1
+  #  service coredns
+  #  client_server
+  #}
 
   # If you wish to use a standard ZONE File format, uncomment the following line and customize the specified file
   # file /etc/coredns/db.example.com example.com
