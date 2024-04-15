@@ -1,10 +1,8 @@
-from collections.abc import Mapping as _Mapping
-from typing import ClassVar as _ClassVar
-
-from google.protobuf import descriptor as _descriptor
 from google.protobuf import field_mask_pb2 as _field_mask_pb2
-from google.protobuf import message as _message
 from google.protobuf.internal import enum_type_wrapper as _enum_type_wrapper
+from google.protobuf import descriptor as _descriptor
+from google.protobuf import message as _message
+from typing import ClassVar as _ClassVar, Mapping as _Mapping, Optional as _Optional, Union as _Union
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
@@ -25,7 +23,7 @@ class ReferralAddCommand(_message.Message):
     USER_ID_FIELD_NUMBER: _ClassVar[int]
     name: str
     user_id: str
-    def __init__(self, name: str | None = ..., user_id: str | None = ...) -> None: ...
+    def __init__(self, name: _Optional[str] = ..., user_id: _Optional[str] = ...) -> None: ...
 
 class ReferralUpdateCommand(_message.Message):
     __slots__ = ("id", "name", "user_id", "field_mask")
@@ -37,10 +35,10 @@ class ReferralUpdateCommand(_message.Message):
     name: str
     user_id: str
     field_mask: _field_mask_pb2.FieldMask
-    def __init__(self, id: str | None = ..., name: str | None = ..., user_id: str | None = ..., field_mask: _field_mask_pb2.FieldMask | _Mapping | None = ...) -> None: ...
+    def __init__(self, id: _Optional[str] = ..., name: _Optional[str] = ..., user_id: _Optional[str] = ..., field_mask: _Optional[_Union[_field_mask_pb2.FieldMask, _Mapping]] = ...) -> None: ...
 
 class ReferralDeleteCommand(_message.Message):
     __slots__ = ("id",)
     ID_FIELD_NUMBER: _ClassVar[int]
     id: str
-    def __init__(self, id: str | None = ...) -> None: ...
+    def __init__(self, id: _Optional[str] = ...) -> None: ...

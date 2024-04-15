@@ -8,10 +8,17 @@ import "google/protobuf/timestamp.proto";
 
 // Status represents the status of a message in the outbox.
 enum Status {
-  UNKNOWN = 0;
-  PENDING = 1;
-  PROCESSED = 2;
-  FAILED = 3;
+  // Unspecified status.
+  STATUS_UNSPECIFIED = 0;
+
+  // The message is pending.
+  STATUS_PENDING = 1;
+
+  // The message has been processed.
+  STATUS_PROCESSED = 2;
+
+  // The message has failed.
+  STATUS_FAILED = 3;
 }
 
 // OutboxMessage represents a message in the outbox.
