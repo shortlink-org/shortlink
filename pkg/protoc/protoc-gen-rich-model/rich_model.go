@@ -61,6 +61,21 @@ func generateRichModel(gen *protogen.Plugin, file *protogen.File, message *proto
 	g.P("package ", file.GoPackageName)
 	g.P()
 
+	importManager := newImportManager()
+
+	// Preprocess to collect necessary imports
+	for _, message := range file.Messages {
+		for _, field := range message.Fields {
+			if field.GoName == "" {
+				continue
+			}
+			_, usedImports := protobufToGoType(field)
+			importManager.addImports(usedImports)
+		}
+	}
+
+	importManager.writeImports(g)
+
 	// Define a titler for the English language
 	titler := cases.Title(language.English)
 
@@ -70,41 +85,63 @@ func generateRichModel(gen *protogen.Plugin, file *protogen.File, message *proto
 	g.P(message.GoIdent.GoName)
 
 	for _, field := range message.Fields {
-		fieldName := titler.String(field.GoName)
-		goType := protobufToGoType(field)
-
-		if field.Desc.IsList() {
-			goType = "[]" + goType
+		if field.GoName == "" {
+			continue // Skip unnamed fields
 		}
 
+		goType, usedImports := protobufToGoType(field)
+		if goType == "" {
+			continue // Skip fields if a type cannot be determined
+		}
+
+		importManager.addImports(usedImports)
+
+		fieldName := titler.String(field.GoName)
 		g.P(fieldName, " ", goType)
 	}
 
-	// Example of adding a custom field
-	g.P("CustomField string // an example of a custom field")
 	g.P("}")
-	g.P()
 }
 
-func protobufToGoType(field *protogen.Field) string {
+func protobufToGoType(field *protogen.Field) (string, map[string]bool) {
+	if field.Desc.IsList() {
+		innerType, innerImports := protobufToGoTypeSingle(field)
+		if innerType != "" {
+			return "[]" + innerType, innerImports
+		}
+		return "", nil
+	}
+
+	return protobufToGoTypeSingle(field)
+}
+
+func protobufToGoTypeSingle(field *protogen.Field) (string, map[string]bool) {
+	imports := make(map[string]bool)
 	switch field.Desc.Kind() {
 	case protoreflect.BoolKind:
-		return "bool"
+		return "bool", nil
 	case protoreflect.Int32Kind, protoreflect.Sint32Kind, protoreflect.Uint32Kind:
-		return "int"
+		return "int", nil
 	case protoreflect.Int64Kind, protoreflect.Sint64Kind, protoreflect.Uint64Kind:
-		return "int64"
+		return "int64", nil
 	case protoreflect.StringKind:
-		return "string"
+		return "string", nil
 	case protoreflect.BytesKind:
-		return "[]byte"
+		return "[]byte", nil
 	case protoreflect.EnumKind:
-		return "int32" // Enums are represented as int32 in Go
+		return "int32", nil // Enums are represented as int32 in Go
 	case protoreflect.MessageKind, protoreflect.GroupKind:
-		// For message types, we normally use the message's Go type,
-		// but you can customize this if you want just a string representation or similar
-		return "*" + field.GoIdent.GoName // Pointer to the type
+		if field.Message != nil && field.Message.GoIdent.GoImportPath != "" {
+			if field.Message.GoIdent.GoName == "Timestamp" {
+				imports["time"] = true
+				return "time.Time", imports
+			} else if field.Message.GoIdent.GoName == "FieldMask" {
+				imports["google.golang.org/protobuf/types/known/fieldmaskpb"] = true
+				return "fieldmaskpb.FieldMask", imports
+			}
+		}
+		return "*" + field.Message.GoIdent.GoName, nil // Pointer to the type
 	default:
-		return "interface{}" // Fallback for unknown types
+		return "", nil
 	}
 }
