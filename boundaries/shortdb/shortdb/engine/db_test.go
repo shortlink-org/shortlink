@@ -70,7 +70,7 @@ func TestDatabase(t *testing.T) {
 	})
 
 	t.Run("INSERT INTO USERS", func(t *testing.T) {
-		for i := 0; i < 1000; i++ {
+		for i := range 1000 {
 			qInsertUsers, errParserNew := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
 			require.NoError(t, errParserNew)
 
@@ -84,7 +84,7 @@ func TestDatabase(t *testing.T) {
 	})
 
 	t.Run("INSERT INTO USERS +173", func(t *testing.T) {
-		for i := 0; i < 173; i++ {
+		for i := range 173 {
 			qInsertUsers, errParserNew := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
 			require.NoError(t, errParserNew)
 
@@ -98,7 +98,7 @@ func TestDatabase(t *testing.T) {
 	})
 
 	t.Run("INSERT INTO USERS +207", func(t *testing.T) {
-		for i := 0; i < 207; i++ {
+		for i := range 207 {
 			qInsertUsers, errParserNew := parser.New(fmt.Sprintf("insert into users ('id', 'name', 'active') VALUES ('%d', 'Ivan', 'false')", i))
 			require.NoError(t, errParserNew)
 

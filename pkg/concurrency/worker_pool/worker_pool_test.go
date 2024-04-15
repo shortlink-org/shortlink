@@ -26,7 +26,7 @@ func Test_WorkerPool(t *testing.T) {
 	done := make(chan struct{})
 
 	go func() {
-		for i := 0; i < 1000; i++ {
+		for range 1000 {
 			wg.Add(1)
 			wp.Push(f)
 		}

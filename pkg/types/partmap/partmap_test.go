@@ -76,7 +76,7 @@ func TestPartitionedMapLen(t *testing.T) {
 	}
 
 	// Add some elements
-	for i := 0; i < 5; i++ {
+	for i := range 5 {
 		if err := m.Set(fmt.Sprintf("key%d", i), fmt.Sprintf("value%d", i)); err != nil {
 			t.Errorf("Failed to set value: %v", err)
 		}

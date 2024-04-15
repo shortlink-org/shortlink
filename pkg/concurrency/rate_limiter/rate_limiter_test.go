@@ -22,7 +22,7 @@ func TestRateLimiter(t *testing.T) {
 
 	var wg errgroup.Group
 
-	for i := 0; i < 10000; i++ {
+	for range 10000 {
 		wg.Go(func() error {
 			errWait := rl.Wait()
 			if errWait != nil {

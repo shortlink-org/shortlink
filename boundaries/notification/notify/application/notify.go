@@ -40,7 +40,7 @@ func (b *Bot) Use(ctx context.Context) {
 	// Subscribe to MQ Event
 	g.Go(func() error {
 		if b.mq != nil {
-			if errSubscribe := b.mq.Subscribe(context.Background(), link.MQ_EVENT_LINK_CREATED, getEventNewLink); errSubscribe != nil {
+			if errSubscribe := b.mq.Subscribe(ctx, link.MQ_EVENT_LINK_CREATED, getEventNewLink); errSubscribe != nil {
 				return errSubscribe
 			}
 		}

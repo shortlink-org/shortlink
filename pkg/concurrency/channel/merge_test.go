@@ -22,7 +22,7 @@ func TestMerge(t *testing.T) {
 	ch2 := make(chan any, 5)
 
 	// Populate channels with some data
-	for i := 0; i < 5; i++ {
+	for i := range 5 {
 		ch1 <- i
 		ch2 <- i + 5
 	}
@@ -39,7 +39,7 @@ func TestMerge(t *testing.T) {
 	defer cancel()
 
 	// We're expecting 10 elements
-	for i := 0; i < 10; i++ {
+	for range 10 {
 		select {
 		case result, ok := <-chMerged:
 			require.True(t, ok, "channel was closed prematurely")

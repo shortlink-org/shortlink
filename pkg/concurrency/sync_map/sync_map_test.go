@@ -9,7 +9,7 @@ import (
 func Test_SyncMap(t *testing.T) {
 	sm := New()
 
-	for i := 0; i < 1000; i++ {
+	for i := range 1000 {
 		sm.Set(i, "value")
 	}
 

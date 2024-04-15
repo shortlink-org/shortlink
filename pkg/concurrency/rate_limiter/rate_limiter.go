@@ -54,7 +54,7 @@ func (r *RateLimiter) refill() {
 	for {
 		select {
 		case <-r.ticker.C:
-			for i := int64(0); i < r.limit; i++ {
+			for range r.limit {
 				select {
 				case r.limiter <- struct{}{}:
 				default:

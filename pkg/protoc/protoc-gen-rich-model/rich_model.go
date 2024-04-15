@@ -39,10 +39,12 @@ func protocVersion(gen *protogen.Plugin) string {
 	if v == nil {
 		return "(unknown)"
 	}
+
 	var suffix string
 	if s := v.GetSuffix(); s != "" {
 		suffix = "-" + s
 	}
+
 	return fmt.Sprintf("v%d.%d.%d%s", v.GetMajor(), v.GetMinor(), v.GetPatch(), suffix)
 }
 
@@ -101,6 +103,7 @@ func protobufToGoType(field *protogen.Field) (string, map[string]bool) {
 		if innerType != "" {
 			return "[]" + innerType, innerImports
 		}
+
 		return "", nil
 	}
 
@@ -132,6 +135,7 @@ func protobufToGoTypeSingle(field *protogen.Field) (string, map[string]bool) {
 				return "fieldmaskpb.FieldMask", imports
 			}
 		}
+
 		return "*" + strings.ToLower(field.Message.GoIdent.GoName), nil // Pointer to the type, but lowercase
 	default:
 		return "", nil

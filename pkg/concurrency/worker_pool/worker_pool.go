@@ -15,7 +15,7 @@ func New(workerNum int) *WorkerPool {
 		Result:    make(chan Result, workerNum),
 	}
 
-	for i := 0; i < workerNum; i++ {
+	for range workerNum {
 		go NewWorker(wp.taskQueue, wp.Result)
 	}
 
