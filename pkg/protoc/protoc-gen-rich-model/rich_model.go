@@ -8,6 +8,7 @@ import (
 	"golang.org/x/text/cases"
 	"golang.org/x/text/language"
 	"google.golang.org/protobuf/compiler/protogen"
+	"google.golang.org/protobuf/reflect/protoreflect"
 )
 
 const (
@@ -67,16 +68,43 @@ func generateRichModel(gen *protogen.Plugin, file *protogen.File, message *proto
 	structName := strings.ToLower(message.GoIdent.GoName[:1]) + message.GoIdent.GoName[1:]
 	g.P("type ", structName, " struct {")
 	g.P(message.GoIdent.GoName)
+
 	for _, field := range message.Fields {
 		fieldName := titler.String(field.GoName)
-		goType := field.GoIdent.GoName
+		goType := protobufToGoType(field)
+
 		if field.Desc.IsList() {
 			goType = "[]" + goType
 		}
+
 		g.P(fieldName, " ", goType)
 	}
+
 	// Example of adding a custom field
 	g.P("CustomField string // an example of a custom field")
 	g.P("}")
 	g.P()
+}
+
+func protobufToGoType(field *protogen.Field) string {
+	switch field.Desc.Kind() {
+	case protoreflect.BoolKind:
+		return "bool"
+	case protoreflect.Int32Kind, protoreflect.Sint32Kind, protoreflect.Uint32Kind:
+		return "int"
+	case protoreflect.Int64Kind, protoreflect.Sint64Kind, protoreflect.Uint64Kind:
+		return "int64"
+	case protoreflect.StringKind:
+		return "string"
+	case protoreflect.BytesKind:
+		return "[]byte"
+	case protoreflect.EnumKind:
+		return "int32" // Enums are represented as int32 in Go
+	case protoreflect.MessageKind, protoreflect.GroupKind:
+		// For message types, we normally use the message's Go type,
+		// but you can customize this if you want just a string representation or similar
+		return "*" + field.GoIdent.GoName // Pointer to the type
+	default:
+		return "interface{}" // Fallback for unknown types
+	}
 }
