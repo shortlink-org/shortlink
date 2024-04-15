@@ -12,6 +12,9 @@ by automatically generating rich model-like structures based on your protobuf de
 
 ```bash
 go install github.com/shortlink-org/shortlink/pkg/protoc/protoc-gen-rich-model
+
+# for development
+go install ./pkg/protoc/protoc-gen-rich-model
 ```
 
 ### Usage with buf

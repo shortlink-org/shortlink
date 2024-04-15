@@ -5,8 +5,6 @@ import (
 	"log"
 	"strings"
 
-	"golang.org/x/text/cases"
-	"golang.org/x/text/language"
 	"google.golang.org/protobuf/compiler/protogen"
 	"google.golang.org/protobuf/reflect/protoreflect"
 )
@@ -76,27 +74,23 @@ func generateRichModel(gen *protogen.Plugin, file *protogen.File, message *proto
 
 	importManager.writeImports(g)
 
-	// Define a titler for the English language
-	titler := cases.Title(language.English)
-
 	// Generate a rich model struct
-	structName := strings.ToLower(message.GoIdent.GoName[:1]) + message.GoIdent.GoName[1:]
+	structName := strings.ToLower(message.GoIdent.GoName)
 	g.P("type ", structName, " struct {")
-	g.P(message.GoIdent.GoName)
 
 	for _, field := range message.Fields {
 		if field.GoName == "" {
-			continue // Skip unnamed fields
+			continue
 		}
 
 		goType, usedImports := protobufToGoType(field)
 		if goType == "" {
-			continue // Skip fields if a type cannot be determined
+			continue
 		}
 
 		importManager.addImports(usedImports)
 
-		fieldName := titler.String(field.GoName)
+		fieldName := strings.ToLower(field.GoName)
 		g.P(fieldName, " ", goType)
 	}
 
@@ -140,7 +134,7 @@ func protobufToGoTypeSingle(field *protogen.Field) (string, map[string]bool) {
 				return "fieldmaskpb.FieldMask", imports
 			}
 		}
-		return "*" + field.Message.GoIdent.GoName, nil // Pointer to the type
+		return "*" + strings.ToLower(field.Message.GoIdent.GoName), nil // Pointer to the type, but lowercase
 	default:
 		return "", nil
 	}
