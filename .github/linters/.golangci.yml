@@ -7,6 +7,8 @@ run:
   # Default: 1m
   timeout: 15m
 
+  go: 1.22
+
   # Include test files or not.
   # Default: true
   tests: true
@@ -179,10 +181,6 @@ linters-settings:
       - HACK # marks hack-around that should be removed before merging
 
   gofumpt:
-    # Select the Go version to target.
-    # Default: 1.15
-    lang-version: "1.22"
-
     # Choose whether to use the extra rules.
     # Default: false
     extra-rules: true
@@ -215,7 +213,6 @@ linters-settings:
       - '1000'
 
   gosimple:
-    go: "1.22"
     # https://staticcheck.io/docs/options#checks
     checks: ["all"]
 
@@ -696,15 +693,10 @@ linters-settings:
         disabled: true
 
   staticcheck:
-    # Select the Go version to target.
-    # Default: 1.13
-    go: "1.22"
     # https://staticcheck.io/docs/options#checks
     checks: ["all"]
 
   stylecheck:
-    # Select the Go version to target.
-    go: "1.22"
     # https://staticcheck.io/docs/options#checks
     checks: ["all", "-ST1000", "-ST1003", "-ST1016", "-ST1020", "-ST1021", "-ST1022"]
     # https://staticcheck.io/docs/options#dot_import_whitelist
