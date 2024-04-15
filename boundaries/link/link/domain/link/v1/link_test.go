@@ -30,7 +30,7 @@ func TestNewURL(t *testing.T) {
 
 	t.Run("create hash", func(t *testing.T) {
 		success := "99699cbfa9614160a94114f527f5501fd97edeaa767db24bb8581789e18a9c1f0f671ee525a9404abc4a8d015315f773dd214175a9c50ac6cda1d934f75fc1e8"
-		response := CreateHash([]byte("hello world"), []byte("solt"))
+		response := createHash([]byte("hello world"), []byte("solt"))
 		assert.Equal(t, success, response)
 	})
 }

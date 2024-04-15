@@ -13,7 +13,7 @@ import (
 
 // NewURL return new link
 func NewURL(link *Link) error {
-	link.Hash = NewHash(link.GetUrl())
+	link.Hash = newHash(link.GetUrl())
 
 	// Add timestamp
 	link.CreatedAt = timestamppb.Now()
@@ -22,12 +22,12 @@ func NewURL(link *Link) error {
 	return nil
 }
 
-func NewHash(url string) string {
-	return CreateHash([]byte(url), []byte("secret"))[:6] //nolint:revive // ignore
+func newHash(url string) string {
+	return createHash([]byte(url), []byte("secret"))[:6] //nolint:revive // ignore
 }
 
-// CreateHash return hash by getting link
-func CreateHash(str, secret []byte) string {
+// createHash return hash by getting link
+func createHash(str, secret []byte) string {
 	h := hmac.New(sha512.New, secret)
 	_, _ = h.Write(str) //nolint:errcheck // ignore
 	sha := hex.EncodeToString(h.Sum(nil))
