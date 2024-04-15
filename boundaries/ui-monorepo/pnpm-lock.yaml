@@ -504,8 +504,8 @@ importers:
         specifier: ^11.1.6
         version: 11.1.6(rollup@4.14.2)(typescript@5.4.5)
       '@rollup/rollup-darwin-x64':
-        specifier: ^4.14.2
-        version: 4.14.2
+        specifier: ^4.14.3
+        version: 4.14.3
       '@storybook/addon-a11y':
         specifier: 8.0.8
         version: 8.0.8
@@ -5956,6 +5956,14 @@ packages:
 
   /@rollup/rollup-darwin-x64@4.14.2:
     resolution: {integrity: sha512-o/HAIrQq0jIxJAhgtIvV5FWviYK4WB0WwV91SLUnsliw1lSAoLsmgEEgRWzDguAFeUEUUoIWXiJrPqU7vGiVkA==}
+    cpu: [x64]
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
+  /@rollup/rollup-darwin-x64@4.14.3:
+    resolution: {integrity: sha512-0IMAO21axJeNIrvS9lSe/PGthc8ZUS+zC53O0VhF5gMxfmcKAP4ESkKOCwEi6u2asUrt4mQv2rjY8QseIEb1aw==}
     cpu: [x64]
     os: [darwin]
     dev: true
