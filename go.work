@@ -6,14 +6,14 @@ use (
 	./boundaries/api/api-gateway
 	./boundaries/billing/wallet
 	./boundaries/link/bff-link
+
+	./boundaries/link/supplies/knative/kafka-to-elasticsearch
 	./boundaries/marketing/report
 	./boundaries/platform/csi
 	./boundaries/platform/istio-extension
 	./boundaries/platform/shortctl
 	./boundaries/shop/email-subscription
 	./boundaries/shortdb/shortdb-operator
-
-	./boundaries/link/supplies/knative/kafka-to-elasticsearch
 
 	./docs/ADR/decisions/proof/ADR-0007
 )
