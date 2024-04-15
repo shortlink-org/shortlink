@@ -62,14 +62,12 @@ func generateRichModel(gen *protogen.Plugin, file *protogen.File, message *proto
 	importManager := newImportManager()
 
 	// Preprocess to collect necessary imports
-	for _, message := range file.Messages {
-		for _, field := range message.Fields {
-			if field.GoName == "" {
-				continue
-			}
-			_, usedImports := protobufToGoType(field)
-			importManager.addImports(usedImports)
+	for _, field := range message.Fields {
+		if field.GoName == "" {
+			continue
 		}
+		_, usedImports := protobufToGoType(field)
+		importManager.addImports(usedImports)
 	}
 
 	importManager.writeImports(g)

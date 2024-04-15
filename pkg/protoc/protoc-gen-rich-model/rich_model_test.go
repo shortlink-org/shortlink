@@ -31,13 +31,19 @@ func TestGenerateRichModel(t *testing.T) {
 	require.NoError(t, err, "protoc failed with output:\n%s", output)
 
 	// Read the generated file for Link
-	linkGeneratedFileName := filepath.Join(outputDir, "Link.ddd.go") // Correct file name based on your plugin's output
+	linkGeneratedFileName := filepath.Join(outputDir, "Link.ddd.go")
 	linkContent, err := os.ReadFile(linkGeneratedFileName)
 	require.NoError(t, err, "Failed to read generated file for Link")
 
-	// Check if the content of the generated file is as expected for Link
-	expectedLinkContent := "type LinkRich struct {" // This should match the specific output of your plugin
-	require.Contains(t, string(linkContent), expectedLinkContent, "Generated file for Link does not contain expected content")
-
-	// Optionally, repeat for other message types like Links if needed
+	// Check if the content of the generated file is as expected
+	expectedContent := []string{
+		"package fixtures",   // Check for correct package name
+		"import (",           // Check for import block
+		"\"time\"",           // Check for specific imports
+		"type link struct {", // Check for correct struct definition
+		"url       string",   // Check for correct field definition
+	}
+	for _, exp := range expectedContent {
+		require.Contains(t, string(linkContent), exp, "Generated file does not contain expected content: "+exp)
+	}
 }
