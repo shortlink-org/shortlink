@@ -18,7 +18,7 @@ func generateMongoFile(gen *protogen.Plugin, file *protogen.File) {
 	g.P("// - protoc             ", protocVersion(gen))
 	g.P("// source: ", file.Desc.Path())
 	g.P()
-	g.P("package ", file.GoPackageName)
+	g.P("package ", *packageName)
 	g.P()
 
 	g.P("import (")

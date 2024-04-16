@@ -1,9 +1,9 @@
 //go:build unit
 
-package main
+package main_test
 
 import (
-	"io/ioutil"
+	"os"
 	"os/exec"
 	"strings"
 	"testing"
@@ -21,7 +21,7 @@ func TestMongoORMGeneration(t *testing.T) {
 	// Running protoc with the go-orm plugin and postgres flag
 	cmd := exec.Command("protoc",
 		"--go-orm_out=./output",
-		"--go-orm_opt=orm=mongo",
+		"--go-orm_opt=orm=mongo,pkg=example",
 		"--proto_path=.",
 		protoPath,
 	)
@@ -33,8 +33,8 @@ func TestMongoORMGeneration(t *testing.T) {
 
 	// Check if the output file exists and contains PostgreSQL-specific ORM code
 	// You would specify the expected output filename based on your plugin's file naming scheme
-	expectedFile := "./fixtures/link.mongo.orm.go"
-	data, err := ioutil.ReadFile(expectedFile)
+	expectedFile := "./output/link.mongo.orm.go"
+	data, err := os.ReadFile(expectedFile)
 	if err != nil {
 		t.Fatalf("Failed to read generated file: %v", err)
 	}
@@ -55,21 +55,21 @@ func TestMongoORMGeneration(t *testing.T) {
 func TestFilter_BuildMongoFilter(t *testing.T) {
 	tests := []struct {
 		name     string
-		filter   fixtures.FilterLink
+		filter   example.FilterLink
 		expected bson.M
 	}{
 		{
 			name: "Test Url Contains",
-			filter: fixtures.FilterLink{
-				Url: &fixtures.StringFilterInput{Contains: []string{"example.com"}},
+			filter: example.FilterLink{
+				Url: &example.StringFilterInput{Contains: []string{"example.com"}},
 			},
 			expected: bson.M{"url": bson.M{"$in": []string{"example.com"}}},
 		},
 		{
 			name: "Hash Equals and Describe NotContains",
-			filter: fixtures.FilterLink{
-				Hash:     &fixtures.StringFilterInput{Eq: "123abc"},
-				Describe: &fixtures.StringFilterInput{NotContains: []string{"test"}},
+			filter: example.FilterLink{
+				Hash:     &example.StringFilterInput{Eq: "123abc"},
+				Describe: &example.StringFilterInput{NotContains: []string{"test"}},
 			},
 			expected: bson.M{
 				"hash":     bson.M{"$eq": "123abc"},

@@ -4,7 +4,7 @@
 // - protoc             v5.26.1
 // source: fixtures/link.proto
 
-package fixtures
+package example
 
 import (
 	"strings"

@@ -14,7 +14,8 @@ const (
 )
 
 var (
-	dbType = flag.String("orm", "postgres", "Specify the ORM type (postgres, mongo, both)")
+	dbType      = flag.String("orm", "postgres", "Specify the ORM type (postgres, mongo)")
+	packageName = flag.String("pkg", "", "Specify the Go package name for the generated files")
 )
 
 func main() {
@@ -35,7 +36,11 @@ func main() {
 			}
 
 			generateCommonFile(gen, f) // Generate the common types file
-			generateFile(gen, f)       // Generate ORM
+
+			// Generate ORM
+			if err := generateFile(gen, f); err != nil {
+				log.Fatal(err)
+			}
 		}
 
 		return nil
@@ -55,13 +60,15 @@ func protocVersion(gen *protogen.Plugin) string {
 	return fmt.Sprintf("v%d.%d.%d%s", v.GetMajor(), v.GetMinor(), v.GetPatch(), suffix)
 }
 
-func generateFile(gen *protogen.Plugin, file *protogen.File) {
+func generateFile(gen *protogen.Plugin, file *protogen.File) error {
 	switch *dbType {
 	case "postgres":
 		generatePostgresFile(gen, file)
 	case "mongo":
 		generateMongoFile(gen, file)
 	default:
-		log.Fatalf("Unsupported database type: %s", *dbType)
+		return NotSupportDatabaseError{DbType: *dbType}
 	}
+
+	return nil
 }

@@ -1,7 +1,9 @@
-package main
+//go:build unit
+
+package main_test
 
 import (
-	"io/ioutil"
+	"os"
 	"os/exec"
 	"strings"
 	"testing"
@@ -19,7 +21,7 @@ func TestPostgresORMGeneration(t *testing.T) {
 	// Running protoc with the go-orm plugin and postgres flag
 	cmd := exec.Command("protoc",
 		"--go-orm_out=./output",
-		"--go-orm_opt=orm=postgres",
+		"--go-orm_opt=orm=postgres,pkg=example",
 		"--proto_path=.",
 		protoPath,
 	)
@@ -31,8 +33,8 @@ func TestPostgresORMGeneration(t *testing.T) {
 
 	// Check if the output file exists and contains PostgreSQL-specific ORM code
 	// You would specify the expected output filename based on your plugin's file naming scheme
-	expectedFile := "./fixtures/link.postgres.orm.go"
-	data, err := ioutil.ReadFile(expectedFile)
+	expectedFile := "./output/link.postgres.orm.go"
+	data, err := os.ReadFile(expectedFile)
 	if err != nil {
 		t.Fatalf("Failed to read generated file: %v", err)
 	}
@@ -53,55 +55,55 @@ func TestPostgresORMGeneration(t *testing.T) {
 func TestFilterLink_BuildFilter(t *testing.T) {
 	tests := []struct {
 		name         string
-		filter       fixtures.FilterLink
+		filter       example.FilterLink
 		expectedSQL  string
 		expectedArgs []any
 	}{
 		{
 			name: "Equal and Contains",
-			filter: fixtures.FilterLink{
-				Url:      &fixtures.StringFilterInput{Eq: "https://example.com"},
-				Describe: &fixtures.StringFilterInput{Contains: []string{"test", "other"}},
+			filter: example.FilterLink{
+				Url:      &example.StringFilterInput{Eq: "https://example.com"},
+				Describe: &example.StringFilterInput{Contains: []string{"test", "other"}},
 			},
 			expectedSQL:  "SELECT * FROM links WHERE url = ? AND (describe LIKE ? OR describe LIKE ?)",
 			expectedArgs: []any{"https://example.com", "%test%", "%other%"},
 		},
 		{
 			name: "Not Equal and Starts With",
-			filter: fixtures.FilterLink{
-				Url:      &fixtures.StringFilterInput{Ne: "https://example.org"},
-				Describe: &fixtures.StringFilterInput{StartsWith: "start"},
+			filter: example.FilterLink{
+				Url:      &example.StringFilterInput{Ne: "https://example.org"},
+				Describe: &example.StringFilterInput{StartsWith: "start"},
 			},
 			expectedSQL:  "SELECT * FROM links WHERE url <> ? AND describe LIKE '%' || ?",
 			expectedArgs: []any{"https://example.org", "start"},
 		},
 		{
 			name: "Greater Than and Ends With",
-			filter: fixtures.FilterLink{
-				Url:      &fixtures.StringFilterInput{Gt: "https://example.com/a"},
-				Describe: &fixtures.StringFilterInput{EndsWith: "end"},
+			filter: example.FilterLink{
+				Url:      &example.StringFilterInput{Gt: "https://example.com/a"},
+				Describe: &example.StringFilterInput{EndsWith: "end"},
 			},
 			expectedSQL:  "SELECT * FROM links WHERE url > ? AND describe LIKE ? || '%'",
 			expectedArgs: []any{"https://example.com/a", "end"},
 		},
 		{
 			name: "Less Than and Is Empty",
-			filter: fixtures.FilterLink{
-				Url:      &fixtures.StringFilterInput{Lt: "https://example.com/z"},
-				Describe: &fixtures.StringFilterInput{IsEmpty: true},
+			filter: example.FilterLink{
+				Url:      &example.StringFilterInput{Lt: "https://example.com/z"},
+				Describe: &example.StringFilterInput{IsEmpty: true},
 			},
 			expectedSQL:  "SELECT * FROM links WHERE url < ? AND describe = '' OR describe IS NULL",
 			expectedArgs: []any{"https://example.com/z"},
 		},
 		{
 			name: "Complex - Multiple Conditions",
-			filter: fixtures.FilterLink{
-				Url: &fixtures.StringFilterInput{
+			filter: example.FilterLink{
+				Url: &example.StringFilterInput{
 					Ne:         "https://example.org",
 					StartsWith: "https",
 					EndsWith:   ".com",
 				},
-				Describe: &fixtures.StringFilterInput{
+				Describe: &example.StringFilterInput{
 					Contains:    []string{"test"},
 					NotContains: []string{"example"},
 					Gt:          "a",
