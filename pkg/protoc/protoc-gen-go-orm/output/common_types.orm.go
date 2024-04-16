@@ -24,6 +24,3 @@ type FilterLink struct {
 	CreatedAt *StringFilterInput `json:"createdat"`
 	UpdatedAt *StringFilterInput `json:"updatedat"`
 }
-
-type FilterLinks struct {
-}

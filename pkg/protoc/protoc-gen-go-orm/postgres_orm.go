@@ -31,7 +31,10 @@ func generatePostgresFile(gen *protogen.Plugin, file *protogen.File) {
 
 func processPostgresFile(file *protogen.File, g *protogen.GeneratedFile) {
 	for _, message := range file.Messages {
-		generatePostgresStructForMessage(message, g)
+		// Check if the message should be processed
+		if _, ok := filterMap[message.GoIdent.GoName]; ok || len(filterMap) == 0 {
+			generatePostgresStructForMessage(message, g)
+		}
 	}
 }
 

@@ -9,6 +9,7 @@ by automatically generating ORM-like structures based on your protobuf definitio
 - **Go Struct Generation**: Automatically generates Go structs with embedded ORM functionality tailored to specific databases (PostgreSQL, MongoDB).
 - **Filter and Pagination**: Supports generating code for filtering and pagination to enhance database operations.
 - **Multiple Database Support**: Includes options for generating ORM code for PostgreSQL, MongoDB, allowing flexibility based on project requirements.
+- **Whitelist Types**: Allows specifying which types to generate ORM code for, enabling selective generation of ORM code.
 
 ### Installation
 
@@ -28,6 +29,6 @@ plugins:
   - plugin: go-orm
     out: boundaries/link/link
     opt:
-      - "orm=postgres,pkg=package_name"
+      - "orm=postgres,pkg=package_name,filter=Link"
       - "paths=source_relative"
 ```

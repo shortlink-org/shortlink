@@ -4,24 +4,29 @@ import (
 	"flag"
 	"fmt"
 	"log"
+	"strings"
 
 	"google.golang.org/protobuf/compiler/protogen"
 )
 
 const (
-	version        = "1.2.0"
+	version        = "1.3.0"
 	commonFilename = "common_types.orm.go" // Name of the file where common types are defined
 )
 
 var (
 	dbType      = flag.String("orm", "postgres", "Specify the ORM type (postgres, mongo)")
 	packageName = flag.String("pkg", "", "Specify the Go package name for the generated files")
+	filter      = flag.String("filter", "", "Specify the filter type for the ORM (optional)")
+	test        = flag.Bool("test", false, "Generate test files")
+
+	filterMap = map[string]struct{}{}
 )
 
 func main() {
-	flag.Parse()
-
 	log.Println("protoc-go-orm version", version, "is called")
+
+	flag.Parse()
 
 	// The main function runs the plugin.
 	protogen.Options{
@@ -29,6 +34,13 @@ func main() {
 	}.Run(func(gen *protogen.Plugin) error {
 		log.Println("Running with protoc version:", protocVersion(gen))
 		log.Printf("Generating ORM for: %s", *dbType)
+
+		// Convert the filter string into a map for quick lookup
+		if *filter != "" {
+			for _, name := range strings.Split(*filter, ";") {
+				filterMap[name] = struct{}{}
+			}
+		}
 
 		for _, f := range gen.Files {
 			if !f.Generate {

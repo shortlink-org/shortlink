@@ -30,7 +30,10 @@ func generateMongoFile(gen *protogen.Plugin, file *protogen.File) {
 
 func processMongoFile(file *protogen.File, g *protogen.GeneratedFile) {
 	for _, message := range file.Messages {
-		generateMongoStructForMessage(message, g)
+		// Check if the message should be processed
+		if _, ok := filterMap[message.GoIdent.GoName]; ok || len(filterMap) == 0 {
+			generateMongoStructForMessage(message, g)
+		}
 	}
 }
 

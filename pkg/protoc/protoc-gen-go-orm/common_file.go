@@ -32,6 +32,10 @@ func generateCommonFile(gen *protogen.Plugin, file *protogen.File) {
 	g.P()
 
 	for _, message := range file.Messages {
+		if _, ok := filterMap[message.GoIdent.GoName]; !ok && len(filterMap) > 0 {
+			continue
+		}
+
 		// Generate the BuildFilter method
 		structName := "Filter" + message.GoIdent.GoName
 		g.P("type ", structName, " struct {")

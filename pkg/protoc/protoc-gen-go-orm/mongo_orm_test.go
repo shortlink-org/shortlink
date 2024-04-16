@@ -21,7 +21,7 @@ func TestMongoORMGeneration(t *testing.T) {
 	// Running protoc with the go-orm plugin and postgres flag
 	cmd := exec.Command("protoc",
 		"--go-orm_out=./output",
-		"--go-orm_opt=orm=mongo,pkg=example",
+		"--go-orm_opt=orm=mongo,pkg=example,filter=Link;Car;Bus",
 		"--proto_path=.",
 		protoPath,
 	)
