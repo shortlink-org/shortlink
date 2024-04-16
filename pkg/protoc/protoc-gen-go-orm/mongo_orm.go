@@ -34,18 +34,6 @@ func processMongoFile(file *protogen.File, g *protogen.GeneratedFile) {
 func generateMongoStructForMessage(message *protogen.Message, g *protogen.GeneratedFile) {
 	// Generate the BuildFilter method
 	structName := "Filter" + message.GoIdent.GoName
-	g.P("type ", structName, " struct {")
-	for _, field := range message.Fields {
-		if field.Desc.IsList() || field.Desc.IsMap() {
-			continue
-		}
-
-		fieldName := field.GoName
-		goType := "*" + "StringFilterInput"
-		g.P(fieldName, " ", goType, " `json:\"", strings.ToLower(fieldName), "\"`")
-	}
-	g.P("}")
-	g.P()
 
 	generateBuildMongoFilterMethod(g, structName, message.Fields)
 }

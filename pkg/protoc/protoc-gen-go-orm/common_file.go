@@ -31,4 +31,21 @@ func generateCommonFile(gen *protogen.Plugin, file *protogen.File) {
 	g.P("    IsNotEmpty   bool      `json:\"isNotEmpty,omitempty\"`")  // Is Not Empty
 	g.P("}")
 	g.P()
+
+	for _, message := range file.Messages {
+		// Generate the BuildFilter method
+		structName := "Filter" + message.GoIdent.GoName
+		g.P("type ", structName, " struct {")
+		for _, field := range message.Fields {
+			if field.Desc.IsList() || field.Desc.IsMap() {
+				continue
+			}
+
+			fieldName := field.GoName
+			goType := "*" + "StringFilterInput"
+			g.P(fieldName, " ", goType, " `json:\"", strings.ToLower(fieldName), "\"`")
+		}
+		g.P("}")
+		g.P()
+	}
 }

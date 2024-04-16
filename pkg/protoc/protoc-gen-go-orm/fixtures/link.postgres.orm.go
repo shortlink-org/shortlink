@@ -11,15 +11,6 @@ import (
 	"github.com/Masterminds/squirrel"
 )
 
-type FilterLink struct {
-	FieldMask *StringFilterInput `json:"fieldmask"`
-	Url       *StringFilterInput `json:"url"`
-	Hash      *StringFilterInput `json:"hash"`
-	Describe  *StringFilterInput `json:"describe"`
-	CreatedAt *StringFilterInput `json:"createdat"`
-	UpdatedAt *StringFilterInput `json:"updatedat"`
-}
-
 func (f *FilterLink) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
 	if f.FieldMask != nil {
 		if f.FieldMask.Eq != "" {
@@ -371,10 +362,6 @@ func (f *FilterLink) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBu
 	}
 	return query
 }
-
-type FilterLinks struct {
-}
-
 func (f *FilterLinks) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
 	return query
 }

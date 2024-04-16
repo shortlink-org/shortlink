@@ -8,17 +8,7 @@ package fixtures
 
 import (
 	"go.mongodb.org/mongo-driver/bson"
-	"go.mongodb.org/mongo-driver/mongo"
 )
-
-type FilterLink struct {
-	FieldMask *StringFilterInput `json:"fieldmask"`
-	Url       *StringFilterInput `json:"url"`
-	Hash      *StringFilterInput `json:"hash"`
-	Describe  *StringFilterInput `json:"describe"`
-	CreatedAt *StringFilterInput `json:"createdat"`
-	UpdatedAt *StringFilterInput `json:"updatedat"`
-}
 
 func (f *FilterLink) BuildMongoFilter() bson.M {
 	if f == nil {
@@ -207,10 +197,6 @@ func (f *FilterLink) BuildMongoFilter() bson.M {
 	}
 	return filter
 }
-
-type FilterLinks struct {
-}
-
 func (f *FilterLinks) BuildMongoFilter() bson.M {
 	if f == nil {
 		return nil
