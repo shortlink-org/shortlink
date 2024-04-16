@@ -3,6 +3,9 @@
 package main
 
 import (
+	"io/ioutil"
+	"os/exec"
+	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -10,6 +13,43 @@ import (
 
 	"github.com/shortlink-org/shortlink/pkg/protoc/protoc-gen-go-orm/fixtures"
 )
+
+func TestMongoORMGeneration(t *testing.T) {
+	// Path to the proto file
+	protoPath := "fixtures/link.proto"
+
+	// Running protoc with the go-orm plugin and postgres flag
+	cmd := exec.Command("protoc",
+		"--go-orm_out=orm=mongo:.",
+		"--proto_path=.",
+		protoPath,
+	)
+
+	output, err := cmd.CombinedOutput()
+	if err != nil {
+		t.Fatalf("protoc failed: %s, %v", string(output), err)
+	}
+
+	// Check if the output file exists and contains PostgreSQL-specific ORM code
+	// You would specify the expected output filename based on your plugin's file naming scheme
+	expectedFile := "./fixtures/link.mongo.orm.go"
+	data, err := ioutil.ReadFile(expectedFile)
+	if err != nil {
+		t.Fatalf("Failed to read generated file: %v", err)
+	}
+
+	// Examples of PostgreSQL-specific checks you might perform
+	expectedContents := []string{
+		"\"go.mongodb.org/mongo-driver/bson\"", // Check for PostgreSQL specific library import
+		// Add more PostgreSQL-specific code snippets to check for
+	}
+
+	for _, content := range expectedContents {
+		if !strings.Contains(string(data), content) {
+			t.Errorf("Generated file does not contain expected PostgreSQL content: %s", content)
+		}
+	}
+}
 
 func TestFilter_BuildMongoFilter(t *testing.T) {
 	tests := []struct {
