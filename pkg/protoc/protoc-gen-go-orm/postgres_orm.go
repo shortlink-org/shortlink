@@ -12,7 +12,7 @@ func generatePostgresFile(gen *protogen.Plugin, file *protogen.File) {
 
 		// if we have filter and after checking the filter map, we don't have the message name, skip generating ORM
 		if *filter != "" {
-			if _, ok := filterMap[filename]; !ok {
+			if _, ok := filterMap[message.GoIdent.GoName]; !ok {
 				return
 			}
 		}

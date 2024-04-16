@@ -16,6 +16,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/postgres/filter"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/postgres/schema/crud"
 	"github.com/shortlink-org/shortlink/pkg/batch"
 	"github.com/shortlink-org/shortlink/pkg/db"
@@ -106,16 +107,16 @@ func (s *Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
 }
 
 // List - return list links
-func (s *Store) List(ctx context.Context, filter *domain.FilterLink) (*domain.Links, error) {
+func (s *Store) List(ctx context.Context, params *filter.FilterLink) (*domain.Links, error) {
 	// Set default filter
-	if filter == nil {
-		filter = &domain.FilterLink{}
+	if params == nil {
+		params = &filter.FilterLink{}
 	}
 
 	request := psql.Select("url", "hash", "describe", "created_at", "updated_at").
 		From("link.links")
 
-	request = filter.BuildFilter(request)
+	request = params.BuildFilter(request)
 
 	q, args, err := request.ToSql()
 	if err != nil {
