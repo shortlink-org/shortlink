@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/viper"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/ram/filter"
 	"github.com/shortlink-org/shortlink/pkg/batch"
 	"github.com/shortlink-org/shortlink/pkg/db/options"
 )
@@ -80,7 +81,7 @@ func (s *Store) Get(_ context.Context, id string) (*domain.Link, error) {
 }
 
 // List - list
-func (s *Store) List(_ context.Context, filter *domain.FilterLink) (*domain.Links, error) {
+func (s *Store) List(_ context.Context, params *filter.FilterLink) (*domain.Links, error) {
 	links := &domain.Links{
 		Link: []*domain.Link{},
 	}
@@ -92,7 +93,7 @@ func (s *Store) List(_ context.Context, filter *domain.FilterLink) (*domain.Link
 		}
 
 		// Apply Filter
-		if isFilterSuccess(link, filter) {
+		if params == nil || params.BuildRAMFilter(link) {
 			links.Link = append(links.GetLink(), link)
 		}
 

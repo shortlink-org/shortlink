@@ -29,3 +29,12 @@ plugins:
       - orm=mongo
       - pkg=filter
       - filter=Link
+
+  - plugin: go-orm
+    strategy: all
+    out: boundaries/link/link/infrastructure/repository/crud/ram/filter
+    opt:
+      - paths=source_relative
+      - orm=ram
+      - pkg=filter
+      - filter=Link

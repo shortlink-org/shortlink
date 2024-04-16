@@ -72,7 +72,7 @@ func TestRAM(t *testing.T) {
 
 		links, err := store.List(ctx, nil)
 		require.NoError(t, err)
-		assert.Equal(t, len(links.Link), 1)
+		assert.Equal(t, 1, len(links.Link))
 	})
 
 	t.Run("Delete", func(t *testing.T) {

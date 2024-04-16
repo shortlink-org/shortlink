@@ -10,12 +10,12 @@ import (
 )
 
 const (
-	version        = "1.4.0"
+	version        = "1.5.0"
 	commonFilename = "common_types.orm.go" // Name of the file where common types are defined
 )
 
 var (
-	dbType      = flag.String("orm", "postgres", "Specify the ORM type (postgres, mongo)")
+	dbType      = flag.String("orm", "postgres", "Specify the ORM type (postgres, mongo, ram)")
 	packageName = flag.String("pkg", "", "Specify the Go package name for the generated files")
 	filter      = flag.String("filter", "", "Specify the filter type for the ORM (optional)")
 
@@ -77,6 +77,8 @@ func generateFile(gen *protogen.Plugin, file *protogen.File) error {
 		generatePostgresFile(gen, file)
 	case "mongo":
 		generateMongoFile(gen, file)
+	case "ram":
+		generateRamFile(gen, file)
 	default:
 		return NotSupportDatabaseError{DbType: *dbType}
 	}
