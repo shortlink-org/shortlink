@@ -6,9 +6,10 @@ by automatically generating ORM-like structures based on your protobuf definitio
 
 ### Features
 
-- Generates Go structs with filter and pagination capabilities based on protobuf messages.
-- Integrate with existing Protocol Buffer and Go projects.
-- Supports filter and pagination for PostgreSQL, MongoDB.
+- **Go Struct Generation**: Automatically generates Go structs with embedded ORM functionality tailored to specific databases (PostgreSQL, MongoDB).
+- **Filter and Pagination**: Supports generating code for filtering and pagination to enhance database operations.
+- **Multiple Database Support**: Includes options for generating ORM code for PostgreSQL, MongoDB, or both, allowing flexibility based on project requirements.
+
 
 ### Installation
 
@@ -26,7 +27,8 @@ managed:
 
 plugins:
   - plugin: go-orm
-    strategy: all
     out: boundaries/link/link
-    opt: paths=source_relative
+    opt:
+      - "orm=postgres" # Adjust this line to specify the database type (postgres, mongo)
+      - "paths=source_relative"
 ```
