@@ -29,13 +29,13 @@ type Url struct {
 	unknownFields protoimpl.UnknownFields
 
 	// loc is a structure of <loc> in <url>
-	Loc string `protobuf:"bytes,1,opt,name=loc,proto3" json:"loc,omitempty" xml:"loc"`
+	Loc string `protobuf:"bytes,1,opt,name=loc,proto3" json:"loc,omitempty"`
 	// lastmod is a structure of <lastmod> in <url>
-	LastMod string `protobuf:"bytes,2,opt,name=last_mod,json=lastMod,proto3" json:"last_mod,omitempty" xml:"lastmod"`
+	LastMod string `protobuf:"bytes,2,opt,name=last_mod,json=lastMod,proto3" json:"last_mod,omitempty"`
 	// changefreq is a structure of <changefreq> in <url>
-	ChangeFreq string `protobuf:"bytes,3,opt,name=change_freq,json=changeFreq,proto3" json:"change_freq,omitempty" xml:"changefreq"`
+	ChangeFreq string `protobuf:"bytes,3,opt,name=change_freq,json=changeFreq,proto3" json:"change_freq,omitempty"`
 	// priority is a structure of <priority> in <url>
-	Priority float32 `protobuf:"fixed32,4,opt,name=priority,proto3" json:"priority,omitempty" xml:"priority"`
+	Priority float32 `protobuf:"fixed32,4,opt,name=priority,proto3" json:"priority,omitempty"`
 }
 
 func (x *Url) Reset() {
@@ -105,7 +105,7 @@ type Sitemap struct {
 	unknownFields protoimpl.UnknownFields
 
 	// Url is a structure of <url> in <sitemap>
-	Url []*Url `protobuf:"bytes,1,rep,name=url,proto3" json:"url,omitempty" xml:"url"`
+	Url []*Url `protobuf:"bytes,1,rep,name=url,proto3" json:"url,omitempty"`
 }
 
 func (x *Sitemap) Reset() {

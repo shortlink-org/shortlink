@@ -15,7 +15,7 @@ const (
 )
 
 var (
-	dbType      = flag.String("orm", "postgres", "Specify the ORM type (postgres, mongo, ram)")
+	dbType      = flag.String("orm", "postgres", "Specify the ORM type (postgres, mongo, ram, skip)")
 	packageName = flag.String("pkg", "", "Specify the Go package name for the generated files")
 	filter      = flag.String("filter", "", "Specify the filter type for the ORM (optional)")
 
@@ -79,6 +79,8 @@ func generateFile(gen *protogen.Plugin, file *protogen.File) error {
 		generateMongoFile(gen, file)
 	case "ram":
 		generateRamFile(gen, file)
+	case "skip":
+		return nil
 	default:
 		return NotSupportDatabaseError{DbType: *dbType}
 	}

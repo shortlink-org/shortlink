@@ -14,6 +14,15 @@ plugins:
 
   - plugin: go-orm
     strategy: all
+    out: boundaries/link/link/domain/v1
+    opt:
+      - paths=source_relative
+      - orm=skip
+      - pkg=v1
+      - filter=Link
+
+  - plugin: go-orm
+    strategy: all
     out: boundaries/link/link/infrastructure/repository/crud/postgres/filter
     opt:
       - paths=source_relative
