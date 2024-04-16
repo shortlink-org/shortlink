@@ -9,7 +9,7 @@ import (
 	"github.com/Masterminds/squirrel"
 	"github.com/stretchr/testify/require"
 
-	"github.com/shortlink-org/shortlink/pkg/protoc/protoc-gen-go-orm/fixtures"
+	"github.com/shortlink-org/shortlink/pkg/protoc/protoc-gen-go-orm/output"
 )
 
 func TestPostgresORMGeneration(t *testing.T) {
@@ -18,7 +18,8 @@ func TestPostgresORMGeneration(t *testing.T) {
 
 	// Running protoc with the go-orm plugin and postgres flag
 	cmd := exec.Command("protoc",
-		"--go-orm_out=orm=postgres:.",
+		"--go-orm_out=./output",
+		"--go-orm_opt=orm=postgres",
 		"--proto_path=.",
 		protoPath,
 	)

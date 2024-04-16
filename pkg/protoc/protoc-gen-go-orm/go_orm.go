@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"log"
 
@@ -8,45 +9,33 @@ import (
 )
 
 const (
-	version         = "1.2.0"
-	commonFilename  = "common_types.orm.go" // Name of the file where common types are defined
-	defaultDatabase = "postgres"            // Default database type to generate ORM for (e.g. postgres, mongo)
+	version        = "1.2.0"
+	commonFilename = "common_types.orm.go" // Name of the file where common types are defined
 )
 
 var (
-	// Optional parameter to generate ORM types, e.g. --orm=postgres
-	generateFor string
+	dbType = flag.String("orm", "postgres", "Specify the ORM type (postgres, mongo, both)")
 )
 
 func main() {
+	flag.Parse()
+
 	log.Println("protoc-go-orm version", version, "is called")
 
 	// The main function runs the plugin.
 	protogen.Options{
-		ParamFunc: func(name, value string) error {
-			switch name {
-			case "orm":
-				generateFor = value
-			default:
-				log.Printf("unknown parameter %q", name)
-			}
-			return nil
-		},
+		ParamFunc: flag.CommandLine.Set,
 	}.Run(func(gen *protogen.Plugin) error {
 		log.Println("Running with protoc version:", protocVersion(gen))
-
-		if generateFor == "" {
-			generateFor = defaultDatabase
-		}
-		log.Printf("Generating ORM for: %s", generateFor)
+		log.Printf("Generating ORM for: %s", *dbType)
 
 		for _, f := range gen.Files {
 			if !f.Generate {
 				continue
 			}
 
-			generateCommonFile(gen, f)        // Generate the common types file
-			generateFile(gen, f, generateFor) // Generate ORM
+			generateCommonFile(gen, f) // Generate the common types file
+			generateFile(gen, f)       // Generate ORM
 		}
 
 		return nil
@@ -66,13 +55,13 @@ func protocVersion(gen *protogen.Plugin) string {
 	return fmt.Sprintf("v%d.%d.%d%s", v.GetMajor(), v.GetMinor(), v.GetPatch(), suffix)
 }
 
-func generateFile(gen *protogen.Plugin, file *protogen.File, dbType string) {
-	switch dbType {
+func generateFile(gen *protogen.Plugin, file *protogen.File) {
+	switch *dbType {
 	case "postgres":
 		generatePostgresFile(gen, file)
 	case "mongo":
 		generateMongoFile(gen, file)
 	default:
-		log.Printf("Unsupported database type: %s", dbType)
+		log.Fatalf("Unsupported database type: %s", *dbType)
 	}
 }

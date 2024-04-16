@@ -11,7 +11,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.mongodb.org/mongo-driver/bson"
 
-	"github.com/shortlink-org/shortlink/pkg/protoc/protoc-gen-go-orm/fixtures"
+	"github.com/shortlink-org/shortlink/pkg/protoc/protoc-gen-go-orm/output"
 )
 
 func TestMongoORMGeneration(t *testing.T) {
@@ -20,7 +20,8 @@ func TestMongoORMGeneration(t *testing.T) {
 
 	// Running protoc with the go-orm plugin and postgres flag
 	cmd := exec.Command("protoc",
-		"--go-orm_out=orm=mongo:.",
+		"--go-orm_out=./output",
+		"--go-orm_opt=orm=mongo",
 		"--proto_path=.",
 		protoPath,
 	)
