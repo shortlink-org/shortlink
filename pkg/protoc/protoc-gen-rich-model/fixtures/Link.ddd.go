@@ -7,13 +7,14 @@
 package fixtures
 
 import (
-	"google.golang.org/protobuf/types/known/fieldmaskpb"
 	"time"
+	"google.golang.org/protobuf/types/known/fieldmaskpb"
+	"net/url"
 )
 
 type link struct {
 	fieldmask fieldmaskpb.FieldMask
-	url       string
+	url       url.URL
 	hash      string
 	describe  string
 	createdat time.Time

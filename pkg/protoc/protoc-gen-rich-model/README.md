@@ -7,7 +7,9 @@ by automatically generating rich model-like structures based on your protobuf de
 ### Features
 
 - Generate DDD-like Go structs with rich model capabilities based on protobuf messages.
-- **Whitelist Types**: Allows specifying which types to generate ORM code for, enabling selective generation of ORM code.
+- **Whitelist Types**: Allows specifying a list of types to generate rich models for.
+- **Support additional types**:
+  - **url.URL**
 
 ### Installation
 

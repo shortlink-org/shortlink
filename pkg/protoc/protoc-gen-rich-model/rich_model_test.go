@@ -28,6 +28,7 @@ func TestGenerateRichModel(t *testing.T) {
 		"protoc",
 		"--rich-model_out="+outputDir,
 		"--rich-model_opt=filter=Link;Links",
+		"-I.",
 		"--proto_path=.", protoPath,
 	)
 
@@ -46,7 +47,7 @@ func TestGenerateRichModel(t *testing.T) {
 		"import (",           // Check for import block
 		"\"time\"",           // Check for specific imports
 		"type link struct {", // Check for correct struct definition
-		"url       string",   // Check for correct field definition
+		"url       url.URL",  // Check for correct field definition
 	}
 	for _, exp := range expectedContent {
 		require.Contains(t, string(linkContent), exp, "Generated file does not contain expected content: "+exp)

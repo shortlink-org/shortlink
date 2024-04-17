@@ -75,12 +75,6 @@ proto-generate: ## Generate proto-files
 		--template=ops/proto/eventsourcing/buf.gen.yaml \
 		--config=ops/proto/eventsourcing/buf.yaml
 
-	# Transactional Outbox package ------------------------------------------------------------------
-	@buf generate \
-		--path=pkg/pattern/transactional_outbox/domain \
-		--template=ops/proto/transactional_outbox/buf.gen.yaml \
-		--config=ops/proto/transactional_outbox/buf.yaml
-
 	# Shortdb service -------------------------------------------------------------------------------
 	@buf generate \
 		--path=boundaries/shortdb/shortdb/parser/v1 \
@@ -99,3 +93,15 @@ proto-generate: ## Generate proto-files
 		--path=boundaries/api/api-gateway/gateways/grpc-web/infrastructure/server/v1 \
 		--template=ops/proto/api-gateway/buf.gen.yaml \
 		--config=ops/proto/api-gateway/buf.yaml
+
+	# Transactional Outbox package ------------------------------------------------------------------
+	@buf generate \
+		--path=pkg/pattern/transactional_outbox/domain \
+		--template=ops/proto/transactional_outbox/buf.gen.yaml \
+		--config=ops/proto/transactional_outbox/buf.yaml
+
+	# Protoc plugins package ------------------------------------------------------------------
+	@buf generate \
+		--path=pkg/protoc/protoc-gen-rich-model \
+		--template=ops/proto/protoc_plugin/buf.gen.yaml \
+		--config=ops/proto/protoc_plugin/buf.yaml
