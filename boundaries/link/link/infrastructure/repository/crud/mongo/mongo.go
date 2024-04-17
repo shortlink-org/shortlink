@@ -129,15 +129,8 @@ func (s *Store) List(ctx context.Context, params *v1.FilterLink) (*v1.Links, err
 	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:gomnd // ignore
 	defer cancel()
 
-	// build Filter
-	search := filter.FilterLink{
-		Url:       params.Url,
-		Hash:      params.Hash,
-		Describe:  params.Describe,
-		CreatedAt: params.CreatedAt,
-		UpdatedAt: params.UpdatedAt,
-	}
-	filterQuery := search.BuildMongoFilter()
+	// Build filter
+	filterQuery := filter.NewFilter(params).BuildMongoFilter()
 
 	// Passing bson.D{{}} as the filter matches all documents in the collection
 	cur, err := collection.Find(ctx, filterQuery)

@@ -87,13 +87,7 @@ func (s *Store) List(_ context.Context, params *domain.FilterLink) (*domain.Link
 	}
 
 	// Set default filter
-	search := &filter.FilterLink{
-		Url:       (*filter.StringFilterInput)(params.Url),
-		Hash:      (*filter.StringFilterInput)(params.Hash),
-		Describe:  (*filter.StringFilterInput)(params.Describe),
-		CreatedAt: (*filter.StringFilterInput)(params.CreatedAt),
-		UpdatedAt: (*filter.StringFilterInput)(params.UpdatedAt),
-	}
+	search := filter.NewFilter(params)
 
 	s.links.Range(func(key, value any) bool {
 		link, ok := value.(*domain.Link)

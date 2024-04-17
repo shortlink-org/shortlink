@@ -108,19 +108,11 @@ func (s *Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
 
 // List - return list links
 func (s *Store) List(ctx context.Context, params *domain.FilterLink) (*domain.Links, error) {
-	// Set default filter
-	search := &filter.FilterLink{
-		Url:       (*filter.StringFilterInput)(params.Url),
-		Hash:      (*filter.StringFilterInput)(params.Hash),
-		Describe:  (*filter.StringFilterInput)(params.Describe),
-		CreatedAt: (*filter.StringFilterInput)(params.CreatedAt),
-		UpdatedAt: (*filter.StringFilterInput)(params.UpdatedAt),
-	}
-
 	request := psql.Select("url", "hash", "describe", "created_at", "updated_at").
 		From("link.links")
 
-	request = search.BuildFilter(request)
+	// Build filter
+	request = filter.NewFilter(params).BuildFilter(request)
 
 	q, args, err := request.ToSql()
 	if err != nil {

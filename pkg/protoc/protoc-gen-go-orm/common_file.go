@@ -70,6 +70,13 @@ func useCommonFile(gen *protogen.Plugin, file *protogen.File) {
 
 		// Construct the NewFilter function
 		g.P("func NewFilter(params *domain.", structName, ") *", structName, " {")
+
+		// check if the filter is nil
+		g.P("    if params == nil {")
+		g.P("        return nil")
+		g.P("    }")
+		g.P()
+
 		g.P("    return &", structName, "{")
 		for _, message := range file.Messages {
 			if _, ok := filterMap[message.GoIdent.GoName]; !ok && len(filterMap) > 0 {
