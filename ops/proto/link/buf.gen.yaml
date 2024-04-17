@@ -51,3 +51,10 @@ plugins:
       - pkg=filter
       - filter=Link
       - common_path=github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1
+
+  - plugin: rich-model
+    strategy: all
+    out: boundaries/link/link
+    opt:
+      - paths=source_relative
+      - filter=Link

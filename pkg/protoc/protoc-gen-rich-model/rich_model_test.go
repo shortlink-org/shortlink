@@ -24,7 +24,12 @@ func TestGenerateRichModel(t *testing.T) {
 
 	// Define the command to run protoc with your plugin
 	// The output is directed to the fixtures directory
-	cmd := exec.Command("protoc", "--rich-model_out="+outputDir, "--proto_path=.", protoPath)
+	cmd := exec.Command(
+		"protoc",
+		"--rich-model_out="+outputDir,
+		"--rich-model_opt=filter=Link",
+		"--proto_path=.", protoPath,
+	)
 
 	// Run the command
 	output, err := cmd.CombinedOutput()
