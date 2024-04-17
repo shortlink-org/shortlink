@@ -14,7 +14,7 @@ plugins:
 
   - plugin: go-orm
     strategy: all
-    out: boundaries/link/link/domain/v1
+    out: boundaries/link/link/domain/link/v1
     opt:
       - paths=source_relative
       - orm=skip

@@ -123,14 +123,21 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 }
 
 // List - list
-func (s *Store) List(ctx context.Context, params *filter.FilterLink) (*v1.Links, error) {
+func (s *Store) List(ctx context.Context, params *v1.FilterLink) (*v1.Links, error) {
 	collection := s.client.Database("shortlink").Collection("links")
 
 	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:gomnd // ignore
 	defer cancel()
 
 	// build Filter
-	filterQuery := params.BuildMongoFilter()
+	search := filter.FilterLink{
+		Url:       (*filter.StringFilterInput)(params.Url),
+		Hash:      (*filter.StringFilterInput)(params.Hash),
+		Describe:  (*filter.StringFilterInput)(params.Describe),
+		CreatedAt: (*filter.StringFilterInput)(params.CreatedAt),
+		UpdatedAt: (*filter.StringFilterInput)(params.UpdatedAt),
+	}
+	filterQuery := search.BuildMongoFilter()
 
 	// Passing bson.D{{}} as the filter matches all documents in the collection
 	cur, err := collection.Find(ctx, filterQuery)

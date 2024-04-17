@@ -81,9 +81,18 @@ func (s *Store) Get(_ context.Context, id string) (*domain.Link, error) {
 }
 
 // List - list
-func (s *Store) List(_ context.Context, params *filter.FilterLink) (*domain.Links, error) {
+func (s *Store) List(_ context.Context, params *domain.FilterLink) (*domain.Links, error) {
 	links := &domain.Links{
 		Link: []*domain.Link{},
+	}
+
+	// Set default filter
+	search := &filter.FilterLink{
+		Url:       (*filter.StringFilterInput)(params.Url),
+		Hash:      (*filter.StringFilterInput)(params.Hash),
+		Describe:  (*filter.StringFilterInput)(params.Describe),
+		CreatedAt: (*filter.StringFilterInput)(params.CreatedAt),
+		UpdatedAt: (*filter.StringFilterInput)(params.UpdatedAt),
 	}
 
 	s.links.Range(func(key, value any) bool {
@@ -93,7 +102,7 @@ func (s *Store) List(_ context.Context, params *filter.FilterLink) (*domain.Link
 		}
 
 		// Apply Filter
-		if params == nil || params.BuildRAMFilter(link) {
+		if params == nil || search.BuildRAMFilter(link) {
 			links.Link = append(links.GetLink(), link)
 		}
 
