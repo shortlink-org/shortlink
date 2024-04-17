@@ -12,7 +12,7 @@ import (
 
 type FilterLink domain.FilterLink
 
-func NewFilter(params *domain.FilterLink) *FilterLink {
+func NewFilter(params *types.FilterLink) *FilterLink {
 	if params == nil {
 		return nil
 	}

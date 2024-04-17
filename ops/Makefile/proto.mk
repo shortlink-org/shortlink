@@ -32,15 +32,25 @@ proto-generate: ## Generate proto-files
 	# Link service --------------------------------------------------------------------------------
 	@buf generate \
 		--path=boundaries/link/link/domain \
+		--template=ops/proto/link/domain.buf.gen.yaml \
+		--config=ops/proto/link/buf.yaml
+
+	@buf generate \
 		--path=boundaries/link/link/infrastructure \
-		--template=ops/proto/link/buf.gen.yaml \
+		--template=ops/proto/link/infrastructure.buf.gen.yaml \
 		--config=ops/proto/link/buf.yaml
 
 	@buf generate \
 		--path=boundaries/link/link/domain \
 		--path=boundaries/link/link/infrastructure \
-		--template=ops/proto/link/buf.gen.tag.yaml \
+		--template=ops/proto/link/repository.buf.gen.yaml \
 		--config=ops/proto/link/buf.yaml
+
+	#@buf generate \
+	#	--path=boundaries/link/link/domain \
+	#	--path=boundaries/link/link/infrastructure \
+	#	--template=ops/proto/link/buf.gen.tag.yaml \
+	#	--config=ops/proto/link/buf.yaml
 
 	# Metadata service -----------------------------------------------------------------------------
 	@buf generate \

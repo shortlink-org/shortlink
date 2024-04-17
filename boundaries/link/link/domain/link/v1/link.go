@@ -13,10 +13,10 @@ import (
 )
 
 // NewURL return new link
-func NewURL(newURL *url.URL) (*link, error) {
-	item := &link{
-		url:  *newURL,
-		hash: newHash(*newURL),
+func NewURL(newURL url.URL) (*Link, error) {
+	item := &Link{
+		url:  newURL,
+		hash: newHash(newURL),
 
 		// Add timestamp
 		createdat: timestamppb.Now(),

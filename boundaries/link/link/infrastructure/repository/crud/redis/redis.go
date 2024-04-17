@@ -40,12 +40,12 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	val, err := s.client.Do(ctx, s.client.B().Get().Key(id).Build()).ToString()
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	var response v1.Link
 	if err = protojson.Unmarshal([]byte(val), &response); err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	return &response, nil
@@ -114,7 +114,7 @@ func (s *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 func (s *Store) Delete(ctx context.Context, id string) error {
 	err := s.client.Do(ctx, s.client.B().Del().Key(id).Build()).Error()
 	if err != nil {
-		return &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return &types.NotFoundByHashError{Hash: id}
 	}
 
 	return nil

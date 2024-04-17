@@ -2,11 +2,12 @@ package badger
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/dgraph-io/badger/v4"
-	"google.golang.org/protobuf/encoding/protojson"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 )
 
 // Store implementation of db interface
@@ -20,7 +21,7 @@ func New(_ context.Context) (*Store, error) {
 }
 
 // Get - get
-func (b *Store) Get(ctx context.Context, id string) (*domain.Link, error) {
+func (b *Store) Get(_ context.Context, id string) (*domain.Link, error) {
 	var valCopy []byte
 
 	err := b.client.View(func(txn *badger.Txn) error {
@@ -48,25 +49,20 @@ func (b *Store) Get(ctx context.Context, id string) (*domain.Link, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	var response domain.Link
-
-	err = protojson.Unmarshal(valCopy, &response)
+	err = json.Unmarshal(valCopy, &response)
 	if err != nil {
 		return nil, err
-	}
-
-	if response.GetUrl() == "" {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}}
 	}
 
 	return &response, nil
 }
 
 // List - list
-func (b *Store) List(_ context.Context, _ *domain.FilterLink) (*domain.Links, error) {
+func (b *Store) List(_ context.Context, _ *types.FilterLink) (*domain.Links, error) {
 	var list [][]byte
 
 	err := b.client.View(func(txn *badger.Txn) error {
@@ -102,31 +98,24 @@ func (b *Store) List(_ context.Context, _ *domain.FilterLink) (*domain.Links, er
 		return nil, &domain.NotFoundError{Link: &domain.Link{}}
 	}
 
-	response := &domain.Links{
-		Link: []*domain.Link{},
-	}
+	response := domain.NewLinks()
 
 	for _, item := range list {
 		l := &domain.Link{}
-		err = protojson.Unmarshal(item, l)
+		err = json.Unmarshal(item, l)
 		if err != nil {
 			return nil, err
 		}
 
-		response.Link = append(response.GetLink(), l)
+		response.Push(l)
 	}
 
 	return response, nil
 }
 
 // Add - add
-func (b *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, error) {
-	err := domain.NewURL(source)
-	if err != nil {
-		return nil, err
-	}
-
-	payload, err := protojson.Marshal(source)
+func (b *Store) Add(_ context.Context, source *domain.Link) (*domain.Link, error) {
+	payload, err := json.Marshal(source)
 	if err != nil {
 		return nil, err
 	}

@@ -107,7 +107,7 @@ func (s *Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
 }
 
 // List - return list links
-func (s *Store) List(ctx context.Context, params *domain.FilterLink) (*domain.Links, error) {
+func (s *Store) List(ctx context.Context, params *types.FilterLink) (*domain.Links, error) {
 	request := psql.Select("url", "hash", "describe", "created_at", "updated_at").
 		From("link.links")
 

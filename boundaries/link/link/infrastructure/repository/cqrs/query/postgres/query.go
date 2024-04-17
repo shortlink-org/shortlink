@@ -41,22 +41,22 @@ func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 
 	rows, err := s.client.Query(ctx, q, args...)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 	if rows.Err() != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	var response v12.LinkView
 	for rows.Next() {
 		err = rows.Scan(&response.Url, &response.Hash, &response.Describe, &response.ImageUrl, &response.MetaDescription, &response.MetaKeywords)
 		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+			return nil, &types.NotFoundByHashError{Hash: id}
 		}
 	}
 
 	if response.GetHash() == "" {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	return &response, nil

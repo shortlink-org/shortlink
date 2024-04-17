@@ -7,12 +7,12 @@
 package filter
 
 import (
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 )
 
 type FilterLink domain.FilterLink
 
-func NewFilter(params *domain.FilterLink) *FilterLink {
+func NewFilter(params *types.FilterLink) *FilterLink {
 	if params == nil {
 		return nil
 	}

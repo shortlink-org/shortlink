@@ -110,13 +110,13 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	val := collection.FindOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
 
 	if val.Err() != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	var response v1.Link
 
 	if err := val.Decode(&response); err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	return &response, nil
@@ -182,7 +182,7 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 
 	_, err := collection.DeleteOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
 	if err != nil {
-		return &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return &types.NotFoundByHashError{Hash: id}
 	}
 
 	return nil

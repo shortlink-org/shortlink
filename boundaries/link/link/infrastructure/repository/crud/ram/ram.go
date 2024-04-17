@@ -8,6 +8,7 @@ import (
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/ram/filter"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 	"github.com/shortlink-org/shortlink/pkg/batch"
 	"github.com/shortlink-org/shortlink/pkg/db/options"
 )
@@ -69,22 +70,20 @@ func New(ctx context.Context) (*Store, error) {
 func (s *Store) Get(_ context.Context, id string) (*domain.Link, error) {
 	response, ok := s.links.Load(id)
 	if !ok {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	v, ok := response.(*domain.Link)
 	if !ok {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	return v, nil
 }
 
 // List - list
-func (s *Store) List(_ context.Context, params *domain.FilterLink) (*domain.Links, error) {
-	links := &domain.Links{
-		Link: []*domain.Link{},
-	}
+func (s *Store) List(_ context.Context, params *types.FilterLink) (*domain.Links, error) {
+	links := domain.NewLinks()
 
 	// Set default filter
 	search := filter.NewFilter(params)
@@ -97,7 +96,7 @@ func (s *Store) List(_ context.Context, params *domain.FilterLink) (*domain.Link
 
 		// Apply Filter
 		if params == nil || search.BuildRAMFilter(link) {
-			links.Link = append(links.GetLink(), link)
+			links.Push(link)
 		}
 
 		return true
@@ -141,11 +140,6 @@ func (s *Store) Delete(_ context.Context, id string) error {
 }
 
 func (s *Store) singleWrite(_ context.Context, source *domain.Link) (*domain.Link, error) {
-	err := domain.NewURL(source) // Create a new link
-	if err != nil {
-		return nil, err
-	}
-
 	s.links.Store(source.GetHash(), source)
 
 	return source, nil

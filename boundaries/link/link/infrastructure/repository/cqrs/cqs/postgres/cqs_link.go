@@ -75,7 +75,7 @@ func (s *Store) LinkDelete(ctx context.Context, id string) error {
 
 	_, err = s.client.Exec(ctx, q, args...)
 	if err != nil {
-		return &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return &types.NotFoundByHashError{Hash: id}
 	}
 
 	return nil

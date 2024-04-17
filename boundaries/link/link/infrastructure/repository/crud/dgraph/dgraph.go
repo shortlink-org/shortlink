@@ -78,12 +78,12 @@ query all($a: string) {
 
 	val, err := txn.QueryWithVars(ctx, q, map[string]string{"$a": id})
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	var response LinkResponse
 	if err = json.NewDecoder(bytes.NewReader(val.Json)).Decode(&response); err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	return &response, nil
@@ -100,11 +100,11 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 
 	response, err := s.get(ctx, id)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	if len(response.Link) == 0 {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	return response.Link[0].Link, nil
@@ -231,7 +231,7 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 
 	links, err := s.get(ctx, id)
 	if err != nil {
-		return &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return &types.NotFoundByHashError{Hash: id}
 	}
 
 	if len(links.Link) == 0 {

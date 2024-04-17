@@ -3,11 +3,13 @@ package sqlite
 import (
 	"context"
 	"database/sql"
+	"net/url"
 
 	"github.com/Masterminds/squirrel"
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 	"github.com/shortlink-org/shortlink/pkg/db"
 )
 
@@ -56,14 +58,24 @@ func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 
 	stmt, err := lite.client.Prepare(q)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 	defer stmt.Close() //nolint:errcheck // ignore
 
-	var response v1.Link
-	err = stmt.QueryRowContext(ctx, args...).Scan(&response.Url, &response.Hash, &response.Describe)
+	var (
+		link     string
+		hash     string
+		describe string
+	)
+
+	err = stmt.QueryRowContext(ctx, args...).Scan(&link, &hash, &describe)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
+	}
+
+	response, err := v1.NewURL(url.Parse(link))
+	if err != nil {
+		return nil, err
 	}
 
 	return &response, nil
@@ -143,7 +155,7 @@ func (lite *Store) Delete(ctx context.Context, id string) error {
 
 	_, err = lite.client.ExecContext(ctx, q, args...)
 	if err != nil {
-		return &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return &types.NotFoundByHashError{Hash: id}
 	}
 
 	return nil

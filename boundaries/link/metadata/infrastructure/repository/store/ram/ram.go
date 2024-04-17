@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 	rpc "github.com/shortlink-org/shortlink/boundaries/link/metadata/domain/metadata/v1"
 )
 
@@ -17,18 +17,18 @@ type Store struct {
 func (s *Store) Get(_ context.Context, id string) (*rpc.Meta, error) {
 	response, ok := s.metadata.Load(id)
 	if !ok {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	v, ok := response.(*rpc.Meta)
 	if !ok {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	return v, nil
 }
 
-// Set - write new metadata for link
+// Add - write new metadata for a link
 func (s *Store) Add(_ context.Context, source *rpc.Meta) error {
 	s.metadata.Store(source.GetId(), source)
 

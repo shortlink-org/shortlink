@@ -64,7 +64,7 @@ func (l *Store) Add(_ context.Context, source *v1.Link) (*v1.Link, error) {
 func (l *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	value, err := l.client.Get([]byte(id), nil)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	var response v1.Link
@@ -74,7 +74,7 @@ func (l *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	}
 
 	if response.GetUrl() == "" {
-		return nil, &v1.NotFoundError{Link: &v1.Link{Hash: id}}
+		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	return &response, nil

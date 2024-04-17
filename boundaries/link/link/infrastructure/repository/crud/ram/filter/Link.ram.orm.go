@@ -10,7 +10,7 @@ import (
 	"reflect"
 	"strings"
 
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 )
 
 func (f *FilterLink) BuildRAMFilter(item any) bool {

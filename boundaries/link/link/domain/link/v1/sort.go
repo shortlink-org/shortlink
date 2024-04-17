@@ -9,5 +9,5 @@ func (l *Links) Less(i, j int) bool {
 }
 
 func (l *Links) Swap(i, j int) {
-	l.Link[i], l.Link[j] = l.GetLink()[j], l.GetLink()[i]
+	l.link[i], l.link[j] = l.GetLink()[j], l.GetLink()[i]
 }
