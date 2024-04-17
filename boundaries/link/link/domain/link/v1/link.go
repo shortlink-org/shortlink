@@ -7,23 +7,27 @@ import (
 	"crypto/hmac"
 	"crypto/sha512"
 	"encoding/hex"
+	"net/url"
 
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // NewURL return new link
-func NewURL(link *Link) error {
-	link.Hash = newHash(link.GetUrl())
+func NewURL(newURL url.URL) (*link, error) {
+	item := &link{
+		url:  newURL,
+		hash: newHash(newURL),
 
-	// Add timestamp
-	link.CreatedAt = timestamppb.Now()
-	link.UpdatedAt = timestamppb.Now()
+		// Add timestamp
+		createdat: timestamppb.Now(),
+		updatedat: timestamppb.Now(),
+	}
 
-	return nil
+	return item, nil
 }
 
-func newHash(url string) string {
-	return createHash([]byte(url), []byte("secret"))[:15] //nolint:revive // ignore
+func newHash(link url.URL) string {
+	return createHash([]byte(link.String()), []byte("secret"))[:15] //nolint:revive // ignore
 }
 
 // createHash return hash by getting link

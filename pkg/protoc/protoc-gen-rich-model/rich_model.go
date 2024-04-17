@@ -164,8 +164,8 @@ func protobufToGoTypeSingle(field *protogen.Field) (string, map[string]bool) {
 	case protoreflect.MessageKind, protoreflect.GroupKind:
 		if field.Message != nil && field.Message.GoIdent.GoImportPath != "" {
 			if field.Message.GoIdent.GoName == "Timestamp" {
-				imports["time"] = true
-				return "time.Time", imports
+				imports["google.golang.org/protobuf/types/known/timestamppb"] = true
+				return "*timestamppb.Timestamp", imports
 			} else if field.Message.GoIdent.GoName == "FieldMask" {
 				imports["google.golang.org/protobuf/types/known/fieldmaskpb"] = true
 				return "fieldmaskpb.FieldMask", imports

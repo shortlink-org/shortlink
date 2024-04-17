@@ -43,11 +43,11 @@ func TestGenerateRichModel(t *testing.T) {
 
 	// Check if the content of the generated file is as expected
 	expectedContent := []string{
-		"package fixtures",   // Check for correct package name
+		"package fixtures",   // Check for the correct package name
 		"import (",           // Check for import block
-		"\"time\"",           // Check for specific imports
 		"type link struct {", // Check for correct struct definition
 		"url       url.URL",  // Check for correct field definition
+		"\"google.golang.org/protobuf/types/known/timestamppb\"", // Check for specific imports
 	}
 	for _, exp := range expectedContent {
 		require.Contains(t, string(linkContent), exp, "Generated file does not contain expected content: "+exp)

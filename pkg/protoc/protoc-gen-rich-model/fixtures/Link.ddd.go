@@ -7,9 +7,9 @@
 package fixtures
 
 import (
-	"time"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 	"net/url"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 type link struct {
@@ -17,6 +17,6 @@ type link struct {
 	url       url.URL
 	hash      string
 	describe  string
-	createdat time.Time
-	updatedat time.Time
+	createdat *timestamppb.Timestamp
+	updatedat *timestamppb.Timestamp
 }

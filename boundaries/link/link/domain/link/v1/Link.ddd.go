@@ -8,14 +8,15 @@ package v1
 
 import (
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
-	"time"
+	"net/url"
+	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 type link struct {
 	fieldmask fieldmaskpb.FieldMask
-	url       string
+	url       url.URL
 	hash      string
 	describe  string
-	createdat time.Time
-	updatedat time.Time
+	createdat *timestamppb.Timestamp
+	updatedat *timestamppb.Timestamp
 }
