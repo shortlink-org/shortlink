@@ -10,14 +10,16 @@ import (
 )
 
 const (
-	version        = "1.5.0"
-	commonFilename = "common_types.orm.go" // Name of the file where common types are defined
+	version        = "1.6.0"
+	commonFilename = "common_types.orm.go"
 )
 
 var (
-	dbType      = flag.String("orm", "postgres", "Specify the ORM type (postgres, mongo, ram, skip)")
-	packageName = flag.String("pkg", "", "Specify the Go package name for the generated files")
-	filter      = flag.String("filter", "", "Specify the filter type for the ORM (optional)")
+	dbType       = flag.String("orm", "postgres", "Specify the ORM type (postgres, mongo, ram, skip)")
+	packageName  = flag.String("pkg", "", "Specify the Go package name for the generated files")
+	filter       = flag.String("filter", "", "Specify the filter type for the ORM (optional)")
+	commonEnable = flag.Bool("common", false, "Enable the common types file")
+	commonPath   = flag.String("common_path", "", "Specify the path for the common types file")
 
 	filterMap = map[string]struct{}{}
 )
@@ -46,7 +48,12 @@ func main() {
 				continue
 			}
 
-			generateCommonFile(gen, f) // Generate the common types file
+			// We can generate the common types file or use domain types
+			if *commonEnable {
+				generateCommonFile(gen, f) // Generate the common types file
+			} else {
+				useCommonFile(gen, f) // Use the common types file
+			}
 
 			// Generate ORM
 			if err := generateFile(gen, f); err != nil {

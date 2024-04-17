@@ -7,9 +7,7 @@ import (
 )
 
 func generateCommonFile(gen *protogen.Plugin, file *protogen.File) {
-	filename := commonFilename
-
-	g := gen.NewGeneratedFile(filename, file.GoImportPath)
+	g := gen.NewGeneratedFile(commonFilename, file.GoImportPath)
 	printHeader(gen, g, file)
 
 	// Generate the StringFilterInput struct definition
@@ -46,6 +44,48 @@ func generateCommonFile(gen *protogen.Plugin, file *protogen.File) {
 			goType := "*" + "StringFilterInput"
 			g.P(fieldName, " ", goType, " `json:\"", strings.ToLower(fieldName), "\"`")
 		}
+		g.P("}")
+		g.P()
+	}
+}
+
+func useCommonFile(gen *protogen.Plugin, file *protogen.File) {
+	g := gen.NewGeneratedFile(commonFilename, file.GoImportPath)
+	printHeader(gen, g, file)
+
+	g.P("import (")
+	g.P("    domain \"", *commonPath, "\"")
+	g.P(")")
+
+	for _, message := range file.Messages {
+		if _, ok := filterMap[message.GoIdent.GoName]; !ok && len(filterMap) > 0 {
+			continue
+		}
+
+		// Generate the BuildFilter method
+		structName := "Filter" + message.GoIdent.GoName
+
+		// use commonPath as alias
+		g.P("type ", structName, " domain.", structName)
+
+		// Construct the NewFilter function
+		g.P("func NewFilter(params *domain.", structName, ") *", structName, " {")
+		g.P("    return &", structName, "{")
+		for _, message := range file.Messages {
+			if _, ok := filterMap[message.GoIdent.GoName]; !ok && len(filterMap) > 0 {
+				continue
+			}
+
+			for _, field := range message.Fields {
+				if field.Desc.IsList() || field.Desc.IsMap() {
+					continue
+				}
+
+				fieldName := field.GoName
+				g.P(fieldName, ": params.", fieldName, ",")
+			}
+		}
+		g.P("    }")
 		g.P("}")
 		g.P()
 	}

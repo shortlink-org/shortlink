@@ -11,6 +11,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.mongodb.org/mongo-driver/bson"
 
+	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/protoc/protoc-gen-go-orm/output"
 )
 
@@ -21,7 +22,7 @@ func TestMongoORMGeneration(t *testing.T) {
 	// Running protoc with the go-orm plugin and postgres flag
 	cmd := exec.Command("protoc",
 		"--go-orm_out=./output",
-		"--go-orm_opt=orm=mongo,pkg=example,filter=Link;Car;Bus",
+		"--go-orm_opt=orm=mongo,pkg=example,filter=Link;Car;Bus,common_path=github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1",
 		"--proto_path=.",
 		protoPath,
 	)
@@ -55,22 +56,22 @@ func TestMongoORMGeneration(t *testing.T) {
 func TestFilter_BuildMongoFilter(t *testing.T) {
 	tests := []struct {
 		name     string
-		filter   example.FilterLink
+		filter   *example.FilterLink
 		expected bson.M
 	}{
 		{
 			name: "Test Url Contains",
-			filter: example.FilterLink{
-				Url: &example.StringFilterInput{Contains: []string{"example.com"}},
-			},
+			filter: example.NewFilter(&domain.FilterLink{
+				Url: &domain.StringFilterInput{Contains: []string{"example.com"}},
+			}),
 			expected: bson.M{"url": bson.M{"$in": []string{"example.com"}}},
 		},
 		{
 			name: "Hash Equals and Describe NotContains",
-			filter: example.FilterLink{
-				Hash:     &example.StringFilterInput{Eq: "123abc"},
-				Describe: &example.StringFilterInput{NotContains: []string{"test"}},
-			},
+			filter: example.NewFilter(&domain.FilterLink{
+				Hash:     &domain.StringFilterInput{Eq: "123abc"},
+				Describe: &domain.StringFilterInput{NotContains: []string{"test"}},
+			}),
 			expected: bson.M{
 				"hash":     bson.M{"$eq": "123abc"},
 				"describe": bson.M{"$nin": []string{"test"}},

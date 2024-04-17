@@ -6,26 +6,18 @@
 
 package filter
 
-type StringFilterInput struct { //nolint:unused
-	Eq          string   `json:"eq,omitempty"`
-	Ne          string   `json:"ne,omitempty"`
-	Lt          string   `json:"lt,omitempty"`
-	Le          string   `json:"le,omitempty"`
-	Gt          string   `json:"gt,omitempty"`
-	Ge          string   `json:"ge,omitempty"`
-	Contains    []string `json:"contains,omitempty"`
-	NotContains []string `json:"notContains,omitempty"`
-	StartsWith  string   `json:"startsWith,omitempty"`
-	EndsWith    string   `json:"endsWith,omitempty"`
-	IsEmpty     bool     `json:"isEmpty,omitempty"`
-	IsNotEmpty  bool     `json:"isNotEmpty,omitempty"`
-}
+import (
+	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
+)
 
-type FilterLink struct {
-	FieldMask *StringFilterInput `json:"fieldmask"`
-	Url       *StringFilterInput `json:"url"`
-	Hash      *StringFilterInput `json:"hash"`
-	Describe  *StringFilterInput `json:"describe"`
-	CreatedAt *StringFilterInput `json:"createdat"`
-	UpdatedAt *StringFilterInput `json:"updatedat"`
+type FilterLink domain.FilterLink
+
+func NewFilter(params *domain.FilterLink) *FilterLink {
+	return &FilterLink{
+		Url:       params.Url,
+		Hash:      params.Hash,
+		Describe:  params.Describe,
+		CreatedAt: params.CreatedAt,
+		UpdatedAt: params.UpdatedAt,
+	}
 }

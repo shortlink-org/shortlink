@@ -131,11 +131,11 @@ func (s *Store) List(ctx context.Context, params *v1.FilterLink) (*v1.Links, err
 
 	// build Filter
 	search := filter.FilterLink{
-		Url:       (*filter.StringFilterInput)(params.Url),
-		Hash:      (*filter.StringFilterInput)(params.Hash),
-		Describe:  (*filter.StringFilterInput)(params.Describe),
-		CreatedAt: (*filter.StringFilterInput)(params.CreatedAt),
-		UpdatedAt: (*filter.StringFilterInput)(params.UpdatedAt),
+		Url:       params.Url,
+		Hash:      params.Hash,
+		Describe:  params.Describe,
+		CreatedAt: params.CreatedAt,
+		UpdatedAt: params.UpdatedAt,
 	}
 	filterQuery := search.BuildMongoFilter()
 

@@ -16,7 +16,7 @@ func TestRAMORMGeneration(t *testing.T) {
 	// Running protoc with the go-orm plugin and postgres flag
 	cmd := exec.Command("protoc",
 		"--go-orm_out=./output",
-		"--go-orm_opt=orm=ram,pkg=example,filter=Link",
+		"--go-orm_opt=orm=ram,pkg=example,filter=Link,common_path=github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1",
 		"--proto_path=.",
 		protoPath,
 	)

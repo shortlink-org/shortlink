@@ -23,6 +23,12 @@ func generateRamFile(gen *protogen.Plugin, file *protogen.File) {
 		g.P("import (")
 		g.P("\"reflect\"")
 		g.P("\"strings\"")
+		g.P()
+
+		if !*commonEnable {
+			g.P("    domain \"", *commonPath, "\"")
+		}
+
 		g.P(")")
 		g.P()
 
@@ -35,7 +41,13 @@ func generateRamFile(gen *protogen.Plugin, file *protogen.File) {
 
 func generateBuildRamFilterMethod(g *protogen.GeneratedFile, structName string, fields []*protogen.Field) {
 	g.P("func (f *", structName, ") BuildRAMFilter(item any) bool {")
-	g.P("var fieldVal *StringFilterInput")
+
+	if *commonEnable {
+		g.P("var fieldVal *StringFilterInput")
+	} else {
+		g.P("var fieldVal *domain.StringFilterInput")
+	}
+
 	g.P("var ok bool")
 	g.P("var v reflect.Value")
 	g.P()
@@ -53,7 +65,14 @@ func generateBuildRamFilterMethod(g *protogen.GeneratedFile, structName string, 
 }
 
 func generateBuildRamFieldFilterConditions(g *protogen.GeneratedFile, fieldName string) {
-	g.P("fieldVal, ok = reflect.ValueOf(f).Elem().FieldByName(", strconv.Quote(fieldName), ").Interface().(*StringFilterInput)")
+	var stringFilterInput string
+	if *commonEnable {
+		stringFilterInput = "StringFilterInput"
+	} else {
+		stringFilterInput = "domain.StringFilterInput"
+	}
+
+	g.P("fieldVal, ok = reflect.ValueOf(f).Elem().FieldByName(", strconv.Quote(fieldName), ").Interface().(*", stringFilterInput, ")")
 	g.P("if !ok || fieldVal == nil { return true } // If field is not found or nil, no filtering is applied")
 	g.P("v = reflect.ValueOf(item).Elem().FieldByName(", strconv.Quote(fieldName), ")")
 	g.P("if !v.IsValid() { return false } // If the link does not have this field, fail the filter")

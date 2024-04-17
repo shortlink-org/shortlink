@@ -11,6 +11,7 @@ import (
 	"github.com/Masterminds/squirrel"
 	"github.com/stretchr/testify/require"
 
+	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/protoc/protoc-gen-go-orm/output"
 )
 
@@ -21,7 +22,7 @@ func TestPostgresORMGeneration(t *testing.T) {
 	// Running protoc with the go-orm plugin and postgres flag
 	cmd := exec.Command("protoc",
 		"--go-orm_out=./output",
-		"--go-orm_opt=orm=postgres,pkg=example,filter=Link",
+		"--go-orm_opt=orm=postgres,pkg=example,filter=Link,common_path=github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1",
 		"--proto_path=.",
 		protoPath,
 	)
@@ -55,61 +56,77 @@ func TestPostgresORMGeneration(t *testing.T) {
 func TestFilterLink_BuildFilter(t *testing.T) {
 	tests := []struct {
 		name         string
-		filter       example.FilterLink
+		filter       *example.FilterLink
 		expectedSQL  string
 		expectedArgs []any
 	}{
 		{
 			name: "Equal and Contains",
-			filter: example.FilterLink{
-				Url:      &example.StringFilterInput{Eq: "https://example.com"},
-				Describe: &example.StringFilterInput{Contains: []string{"test", "other"}},
-			},
+			filter: example.NewFilter(&domain.FilterLink{
+				Url: &domain.StringFilterInput{
+					Eq: "https://example.com",
+				},
+				Describe: &domain.StringFilterInput{
+					Contains: []string{"test", "other"},
+				},
+			}),
 			expectedSQL:  "SELECT * FROM links WHERE url = ? AND (describe LIKE ? OR describe LIKE ?)",
 			expectedArgs: []any{"https://example.com", "%test%", "%other%"},
 		},
 		{
 			name: "Not Equal and Starts With",
-			filter: example.FilterLink{
-				Url:      &example.StringFilterInput{Ne: "https://example.org"},
-				Describe: &example.StringFilterInput{StartsWith: "start"},
-			},
+			filter: example.NewFilter(&domain.FilterLink{
+				Url: &domain.StringFilterInput{
+					Ne: "https://example.org",
+				},
+				Describe: &domain.StringFilterInput{
+					StartsWith: "start",
+				},
+			}),
 			expectedSQL:  "SELECT * FROM links WHERE url <> ? AND describe LIKE '%' || ?",
 			expectedArgs: []any{"https://example.org", "start"},
 		},
 		{
 			name: "Greater Than and Ends With",
-			filter: example.FilterLink{
-				Url:      &example.StringFilterInput{Gt: "https://example.com/a"},
-				Describe: &example.StringFilterInput{EndsWith: "end"},
-			},
+			filter: example.NewFilter(&domain.FilterLink{
+				Url: &domain.StringFilterInput{
+					Gt: "https://example.com/a",
+				},
+				Describe: &domain.StringFilterInput{
+					EndsWith: "end",
+				},
+			}),
 			expectedSQL:  "SELECT * FROM links WHERE url > ? AND describe LIKE ? || '%'",
 			expectedArgs: []any{"https://example.com/a", "end"},
 		},
 		{
 			name: "Less Than and Is Empty",
-			filter: example.FilterLink{
-				Url:      &example.StringFilterInput{Lt: "https://example.com/z"},
-				Describe: &example.StringFilterInput{IsEmpty: true},
-			},
+			filter: example.NewFilter(&domain.FilterLink{
+				Url: &domain.StringFilterInput{
+					Lt: "https://example.com/z",
+				},
+				Describe: &domain.StringFilterInput{
+					IsEmpty: true,
+				},
+			}),
 			expectedSQL:  "SELECT * FROM links WHERE url < ? AND describe = '' OR describe IS NULL",
 			expectedArgs: []any{"https://example.com/z"},
 		},
 		{
 			name: "Complex - Multiple Conditions",
-			filter: example.FilterLink{
-				Url: &example.StringFilterInput{
+			filter: example.NewFilter(&domain.FilterLink{
+				Url: &domain.StringFilterInput{
 					Ne:         "https://example.org",
 					StartsWith: "https",
 					EndsWith:   ".com",
 				},
-				Describe: &example.StringFilterInput{
+				Describe: &domain.StringFilterInput{
 					Contains:    []string{"test"},
 					NotContains: []string{"example"},
 					Gt:          "a",
 					Lt:          "m",
 				},
-			},
+			}),
 			expectedSQL: "SELECT * FROM links WHERE url <> ? AND url LIKE '%' || ? AND url LIKE ? || '%' AND " +
 				"describe < ? AND describe > ? AND (describe LIKE ?) AND (describe NOT LIKE ?)",
 			expectedArgs: []any{
