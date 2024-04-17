@@ -2,13 +2,18 @@
 
 package v1
 
+import (
+	"net/url"
+)
+
 func Fuzz(link []byte) int {
-	data := &Link{
-		Url: string(link),
+	payload, err := url.Parse(string(link))
+	if err != nil {
+		return -1
 	}
 
-	err := NewURL(data)
-	if err != nil || len(data.Hash) != 7 {
+	resp, err := NewURL(payload)
+	if err != nil || len(resp.GetHash()) != 7 {
 		return -1
 	}
 

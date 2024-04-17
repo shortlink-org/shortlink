@@ -102,7 +102,7 @@ func generateRichModel(gen *protogen.Plugin, file *protogen.File, message *proto
 	importManager.writeImports(g)
 
 	// Generate a rich model struct
-	structName := strings.ToLower(message.GoIdent.GoName)
+	structName := strings.ToUpper(message.GoIdent.GoName[:1]) + message.GoIdent.GoName[1:] // Capitalize the first letter
 	g.P("type ", structName, " struct {")
 
 	for _, field := range message.Fields {
@@ -210,7 +210,7 @@ func protobufToGoTypeSingle(field *protogen.Field) (string, map[string]bool) {
 			}
 		}
 
-		return "*" + strings.ToLower(field.Message.GoIdent.GoName), nil // Pointer to the type, but lowercase
+		return "*" + strings.ToUpper(field.Message.GoIdent.GoName[:1]) + field.Message.GoIdent.GoName[1:], nil // Pointer to the type, but lowercase
 	default:
 		return "", nil
 	}
