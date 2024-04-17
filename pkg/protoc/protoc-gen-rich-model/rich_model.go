@@ -67,6 +67,13 @@ func protocVersion(gen *protogen.Plugin) string {
 }
 
 func generateRichModel(gen *protogen.Plugin, file *protogen.File, message *protogen.Message) {
+	// Filter by the specified type
+	if *filter != "" {
+		if _, ok := filterMap[message.GoIdent.GoName]; !ok {
+			return
+		}
+	}
+
 	// Adjust the filename to follow the '<typeName>.ddd.go' pattern
 	filename := fmt.Sprintf("%s.ddd.go", message.GoIdent.GoName)
 

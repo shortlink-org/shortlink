@@ -7,6 +7,7 @@ by automatically generating rich model-like structures based on your protobuf de
 ### Features
 
 - Generate DDD-like Go structs with rich model capabilities based on protobuf messages.
+- **Whitelist Types**: Allows specifying which types to generate ORM code for, enabling selective generation of ORM code.
 
 ### Installation
 
@@ -29,5 +30,7 @@ plugins:
   - plugin: rich-model
     strategy: all
     out: boundaries/link/link
-    opt: paths=source_relative
+    opt:
+      - "paths=source_relative"
+      - "filter=Link;Links"
 ```

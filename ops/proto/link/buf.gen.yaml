@@ -54,7 +54,7 @@ plugins:
 
   - plugin: rich-model
     strategy: all
-    out: boundaries/link/link
+    out: boundaries/link/link/domain/link/v1
     opt:
       - paths=source_relative
       - filter=Link

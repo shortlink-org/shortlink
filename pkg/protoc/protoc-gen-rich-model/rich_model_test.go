@@ -27,7 +27,7 @@ func TestGenerateRichModel(t *testing.T) {
 	cmd := exec.Command(
 		"protoc",
 		"--rich-model_out="+outputDir,
-		"--rich-model_opt=filter=Link",
+		"--rich-model_opt=filter=Link;Links",
 		"--proto_path=.", protoPath,
 	)
 
