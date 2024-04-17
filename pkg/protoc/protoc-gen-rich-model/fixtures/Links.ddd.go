@@ -6,6 +6,8 @@
 
 package fixtures
 
+// Link list
 type links struct {
+	// Links
 	link []*link
 }

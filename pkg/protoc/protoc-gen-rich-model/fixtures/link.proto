@@ -25,7 +25,7 @@ enum LinkEvent {
   LINK_EVENT_DELETE = 5;
 }
 
-// Link
+// Link domain
 message Link {
   // Field mask
   google.protobuf.FieldMask field_mask = 6;

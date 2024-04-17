@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	version = "1.1.0"
+	version = "1.1.1"
 )
 
 var (
@@ -85,6 +85,11 @@ func generateRichModel(gen *protogen.Plugin, file *protogen.File, message *proto
 
 	importManager := newImportManager()
 
+	// Add comment for the message if available
+	if message.Comments.Leading != "" {
+		g.P(strings.TrimSpace(message.Comments.Leading.String()))
+	}
+
 	// Preprocess to collect necessary imports
 	for _, field := range message.Fields {
 		if field.GoName == "" {
@@ -113,6 +118,12 @@ func generateRichModel(gen *protogen.Plugin, file *protogen.File, message *proto
 		importManager.addImports(usedImports)
 
 		fieldName := strings.ToLower(field.GoName)
+
+		// Add comment for the field if available
+		if field.Comments.Leading != "" {
+			g.P(strings.TrimSpace(field.Comments.Leading.String()))
+		}
+
 		g.P(fieldName, " ", goType)
 	}
 

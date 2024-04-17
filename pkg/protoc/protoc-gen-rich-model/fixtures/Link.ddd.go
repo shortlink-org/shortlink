@@ -6,6 +6,7 @@
 
 package fixtures
 
+// Link domain
 import (
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 	"net/url"
@@ -13,10 +14,16 @@ import (
 )
 
 type link struct {
+	// Field mask
 	fieldmask fieldmaskpb.FieldMask
-	url       url.URL
-	hash      string
-	describe  string
+	// URL
+	url url.URL
+	// Hash by URL + salt
+	hash string
+	// Describe of link
+	describe string
+	// Create at
 	createdat *timestamppb.Timestamp
+	// Update at
 	updatedat *timestamppb.Timestamp
 }

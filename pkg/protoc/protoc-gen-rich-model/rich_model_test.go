@@ -46,7 +46,7 @@ func TestGenerateRichModel(t *testing.T) {
 		"package fixtures",   // Check for the correct package name
 		"import (",           // Check for import block
 		"type link struct {", // Check for correct struct definition
-		"url       url.URL",  // Check for correct field definition
+		"url url.URL",        // Check for correct field definition
 		"\"google.golang.org/protobuf/types/known/timestamppb\"", // Check for specific imports
 	}
 	for _, exp := range expectedContent {
