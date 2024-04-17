@@ -14,6 +14,7 @@ by automatically generating ORM-like structures based on your protobuf definitio
   - **RAM**: Generates code for in-memory operations.
   - **skip**: Skips generating ORM code.
 - **Whitelist Types**: Allows specifying which types to generate ORM code for, enabling selective generation of ORM code.
+- **Common Options**: Supports common options like `common` and `common_path` to specify common code generation options.
 
 ### Installation
 
