@@ -6,7 +6,7 @@ managed:
 plugins:
   - plugin: go-orm
     strategy: all
-    out: boundaries/link/link/infrastructure/repository/crud/types
+    out: infrastructure/repository/crud/types
     opt:
       - paths=source_relative
       - orm=skip
@@ -16,7 +16,7 @@ plugins:
 
   - plugin: go-orm
     strategy: all
-    out: boundaries/link/link/infrastructure/repository/crud/postgres/filter
+    out: infrastructure/repository/crud/postgres/filter
     opt:
       - paths=source_relative
       - orm=postgres
@@ -26,7 +26,7 @@ plugins:
 
   - plugin: go-orm
     strategy: all
-    out: boundaries/link/link/infrastructure/repository/crud/mongo/filter
+    out: infrastructure/repository/crud/mongo/filter
     opt:
       - paths=source_relative
       - orm=mongo
@@ -36,7 +36,7 @@ plugins:
 
   - plugin: go-orm
     strategy: all
-    out: boundaries/link/link/infrastructure/repository/crud/ram/filter
+    out: infrastructure/repository/crud/ram/filter
     opt:
       - paths=source_relative
       - orm=ram
