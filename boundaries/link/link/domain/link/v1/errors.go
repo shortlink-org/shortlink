@@ -13,6 +13,15 @@ func (e *NotFoundError) Error() string {
 	return fmt.Sprintf("Not found link: %s", e.Link.GetHash())
 }
 
+// NotFoundByHashError - not found link by hash
+type NotFoundByHashError struct {
+	Hash string
+}
+
+func (e *NotFoundByHashError) Error() string {
+	return fmt.Sprintf("Not found link by hash: %s", e.Hash)
+}
+
 // NotUniqError - not uniq link
 type NotUniqError struct {
 	Link *Link

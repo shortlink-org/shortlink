@@ -2,11 +2,10 @@ package sitemap
 
 import (
 	"context"
+	"encoding/json"
 	"encoding/xml"
 	"io"
 	"net/http"
-
-	"google.golang.org/protobuf/proto"
 
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/sitemap/v1"
@@ -68,7 +67,14 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 
 	// send to link_rpc.add
 	for key := range payload.GetUrl() {
-		data, errMarshal := proto.Marshal(&link.Link{Url: payload.GetUrl()[key].GetLoc()})
+		newLink, err := link.NewLinkBuilder().
+			SetURL(payload.GetUrl()[key].GetLoc()).
+			Build()
+		if err != nil {
+			return err
+		}
+
+		data, errMarshal := json.Marshal(newLink)
 		if errMarshal != nil {
 			return errMarshal
 		}

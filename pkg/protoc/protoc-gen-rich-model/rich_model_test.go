@@ -37,7 +37,7 @@ func TestGenerateRichModel(t *testing.T) {
 	require.NoError(t, err, "protoc failed with output:\n%s", output)
 
 	// Read the generated file for Link
-	linkGeneratedFileName := filepath.Join(outputDir, "Link.ddd.go")
+	linkGeneratedFileName := filepath.Join(outputDir, "link_ddd.go")
 	linkContent, err := os.ReadFile(linkGeneratedFileName)
 	require.NoError(t, err, "Failed to read generated file for Link")
 
@@ -45,7 +45,7 @@ func TestGenerateRichModel(t *testing.T) {
 	expectedContent := []string{
 		"package fixtures",   // Check for the correct package name
 		"import (",           // Check for import block
-		"type link struct {", // Check for correct struct definition
+		"type Link struct {", // Check for correct struct definition
 		"url url.URL",        // Check for correct field definition
 		"\"google.golang.org/protobuf/types/known/timestamppb\"", // Check for specific imports
 	}

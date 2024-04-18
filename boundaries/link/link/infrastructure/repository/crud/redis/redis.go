@@ -2,11 +2,12 @@ package redis
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/redis/rueidis"
-	"google.golang.org/protobuf/encoding/protojson"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 	"github.com/shortlink-org/shortlink/pkg/db"
 )
 
@@ -44,7 +45,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	}
 
 	var response v1.Link
-	if err = protojson.Unmarshal([]byte(val), &response); err != nil {
+	if err = json.Unmarshal([]byte(val), &response); err != nil {
 		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
@@ -52,7 +53,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 }
 
 // List - list
-func (s *Store) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, error) {
+func (s *Store) List(ctx context.Context, filter *types.FilterLink) (*v1.Links, error) {
 	list, err := s.client.Do(ctx, s.client.B().Scan().Cursor(0).Match("*").Count(100).Build()).AsScanEntry()
 	if err != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{}}
@@ -63,9 +64,7 @@ func (s *Store) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, err
 		return nil, &v1.NotFoundError{Link: &v1.Link{}}
 	}
 
-	links := &v1.Links{
-		Link: []*v1.Link{},
-	}
+	links := v1.NewLinks()
 
 	for _, item := range values {
 		var response v1.Link
@@ -75,24 +74,19 @@ func (s *Store) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, err
 			return nil, &v1.NotFoundError{Link: &v1.Link{}}
 		}
 
-		if err = protojson.Unmarshal(value, &response); err != nil {
+		if err = json.Unmarshal(value, &response); err != nil {
 			return nil, &v1.NotFoundError{Link: &v1.Link{}}
 		}
 
-		links.Link = append(links.GetLink(), &response)
+		links.Push(&response)
 	}
 
 	return links, nil
 }
 
-// Add - add
+// Add - add new link
 func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
-	err := v1.NewURL(source)
-	if err != nil {
-		return nil, err
-	}
-
-	val, err := protojson.Marshal(source)
+	val, err := json.Marshal(source)
 	if err != nil {
 		return nil, &v1.NotFoundError{Link: source}
 	}

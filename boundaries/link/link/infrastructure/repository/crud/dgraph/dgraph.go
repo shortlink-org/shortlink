@@ -8,9 +8,9 @@ import (
 	"github.com/dgraph-io/dgo/v2"
 	"github.com/dgraph-io/dgo/v2/protos/api"
 	"github.com/segmentio/encoding/json"
-	"google.golang.org/protobuf/encoding/protojson"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
@@ -145,7 +145,7 @@ query all {
 }
 
 // List - list
-func (s *Store) List(ctx context.Context, _ *v1.FilterLink) (*v1.Links, error) {
+func (s *Store) List(ctx context.Context, _ *types.FilterLink) (*v1.Links, error) {
 	txn := s.client.NewTxn()
 	defer func() {
 		if err := txn.Discard(ctx); err != nil {
@@ -158,15 +158,18 @@ func (s *Store) List(ctx context.Context, _ *v1.FilterLink) (*v1.Links, error) {
 		return nil, &v1.NotFoundError{Link: &v1.Link{}}
 	}
 
-	links := &v1.Links{
-		Link: []*v1.Link{},
-	}
+	links := v1.NewLinks()
 	for _, response := range responses.Link {
-		links.Link = append(links.GetLink(), &v1.Link{
-			Url:      response.Url,
-			Hash:     response.Hash,
-			Describe: response.Describe,
-		})
+		link := response.GetUrl()
+		item, err := v1.NewLinkBuilder().
+			SetURL(link.String()).
+			SetDescribe(response.GetDescribe()).
+			Build()
+		if err != nil {
+			return nil, err
+		}
+
+		links.Push(item)
 	}
 
 	return links, nil
@@ -174,15 +177,10 @@ func (s *Store) List(ctx context.Context, _ *v1.FilterLink) (*v1.Links, error) {
 
 // Add - add
 func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
-	err := v1.NewURL(source)
-	if err != nil {
-		return nil, err
-	}
-
 	txn := s.client.NewTxn()
 	defer func() {
 		if errTxn := txn.Discard(ctx); errTxn != nil {
-			s.log.ErrorWithContext(ctx, err.Error())
+			s.log.ErrorWithContext(ctx, errTxn.Error())
 		}
 	}()
 
@@ -192,10 +190,7 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 		DType: []string{"Link"},
 	}
 
-	item.Link.CreatedAt = nil
-	item.Link.UpdatedAt = nil
-
-	pb, err := protojson.Marshal(item)
+	pb, err := json.Marshal(item)
 	if err != nil {
 		return nil, err
 	}

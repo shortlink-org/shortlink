@@ -10,10 +10,10 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/segmentio/encoding/json"
-	"google.golang.org/protobuf/types/known/timestamppb"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/mysql/schema/crud"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/db/mysql/migrate"
 )
@@ -54,35 +54,29 @@ func (s Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
 		return nil, err
 	}
 
-	return &domain.Link{
-		Url:       link.Url,
-		Hash:      link.Hash,
-		Describe:  link.Describe.String,
-		CreatedAt: timestamppb.New(link.CreatedAt),
-		UpdatedAt: timestamppb.New(link.UpdatedAt),
-	}, nil
+	return &payload, nil
 }
 
-func (s Store) List(ctx context.Context, filter *domain.FilterLink) (*domain.Links, error) {
+func (s Store) List(ctx context.Context, filter *types.FilterLink) (*domain.Links, error) {
 	links, err := s.client.GetLinks(ctx)
 	if err != nil {
 		return nil, err
 	}
 
-	resp := make([]*domain.Link, 0, len(links))
+	resp := domain.NewLinks()
 	for item := range links {
-		resp = append(resp, &domain.Link{
-			Url:       links[item].Url,
-			Hash:      links[item].Hash,
-			Describe:  links[item].Describe.String,
-			CreatedAt: timestamppb.New(links[item].CreatedAt),
-			UpdatedAt: timestamppb.New(links[item].UpdatedAt),
-		})
+		link, err := domain.NewLinkBuilder().
+			SetURL(links[item].Url).
+			SetDescribe(links[item].Describe.String).
+			Build()
+		if err != nil {
+			return nil, err
+		}
+
+		resp.Push(link)
 	}
 
-	return &domain.Links{
-		Link: resp,
-	}, nil
+	return resp, nil
 }
 
 func (s Store) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
@@ -91,9 +85,10 @@ func (s Store) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 		return nil, err
 	}
 
+	link := in.GetUrl()
 	_, err = s.client.CreateLink(ctx, crud.CreateLinkParams{
 		ID:       uuid.New(),
-		Url:      in.GetUrl(),
+		Url:      link.String(),
 		Hash:     in.GetHash(),
 		Describe: sql.NullString{String: in.GetDescribe(), Valid: true},
 		Json:     payload,
@@ -111,8 +106,9 @@ func (s Store) Update(ctx context.Context, in *domain.Link) (*domain.Link, error
 		return nil, err
 	}
 
+	link := in.GetUrl()
 	_, err = s.client.UpdateLink(ctx, crud.UpdateLinkParams{
-		Url:      in.GetUrl(),
+		Url:      link.String(),
 		Hash:     in.GetHash(),
 		Describe: sql.NullString{String: in.GetDescribe(), Valid: true},
 		Json:     payload,

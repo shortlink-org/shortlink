@@ -2,6 +2,7 @@ package api_mq
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 
 	"google.golang.org/protobuf/proto"
@@ -31,7 +32,7 @@ func (e *Event) SubscribeNewLink() error {
 
 			// Convert: []byte to link.Link
 			myLink := &link.Link{}
-			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
+			if err := json.Unmarshal(msg.Body, myLink); err != nil {
 				e.log.ErrorWithContext(msg.Context, fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
 				msg.Context.Done()
 
@@ -66,7 +67,7 @@ func (e *Event) SubscribeCQRSNewLink() error {
 
 			// Convert: []byte to link.Link
 			myLink := &link.Link{}
-			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
+			if err := json.Unmarshal(msg.Body, myLink); err != nil {
 				e.log.ErrorWithContext(msg.Context, fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
 				msg.Context.Done()
 

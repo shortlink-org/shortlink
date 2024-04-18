@@ -14,6 +14,7 @@ import (
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/mongo/filter"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 	"github.com/shortlink-org/shortlink/pkg/batch"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/db/mongo/migrate"
@@ -123,7 +124,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 }
 
 // List - list
-func (s *Store) List(ctx context.Context, params *v1.FilterLink) (*v1.Links, error) {
+func (s *Store) List(ctx context.Context, params *types.FilterLink) (*v1.Links, error) {
 	collection := s.client.Database("shortlink").Collection("links")
 
 	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:gomnd // ignore
@@ -143,9 +144,7 @@ func (s *Store) List(ctx context.Context, params *v1.FilterLink) (*v1.Links, err
 	}
 
 	// Here's an array in which you can db the decoded documents
-	links := &v1.Links{
-		Link: []*v1.Link{},
-	}
+	links := v1.NewLinks()
 
 	// Finding multiple documents returns a cursor
 	// Iterating through the cursor allows us to decode document one at a time
@@ -156,7 +155,7 @@ func (s *Store) List(ctx context.Context, params *v1.FilterLink) (*v1.Links, err
 			return nil, &v1.NotFoundError{Link: &v1.Link{}}
 		}
 
-		links.Link = append(links.GetLink(), &elem)
+		links.Push(&elem)
 	}
 
 	// Close the cursor once finished
@@ -189,17 +188,12 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 }
 
 func (s *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, error) {
-	err := v1.NewURL(source)
-	if err != nil {
-		return nil, err
-	}
-
 	collection := s.client.Database("shortlink").Collection("links")
 
 	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:gomnd // ignore
 	defer cancel()
 
-	_, err = collection.InsertOne(ctx, &source)
+	_, err := collection.InsertOne(ctx, &source)
 	if err != nil {
 		var typeErr mongo.WriteException
 		errors.As(err, &typeErr)
@@ -224,11 +218,6 @@ func (s *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, 
 
 	// Create a new link
 	for key := range sources {
-		err := v1.NewURL(sources[key])
-		if err != nil {
-			return nil, err
-		}
-
 		docs[key] = sources[key]
 	}
 
@@ -242,11 +231,8 @@ func (s *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, 
 		return nil, err
 	}
 
-	links := &v1.Links{
-		Link: []*v1.Link{},
-	}
-
-	links.Link = append(links.GetLink(), sources...)
+	links := v1.NewLinks()
+	links.Push(sources...)
 
 	return links, nil
 }
@@ -254,7 +240,7 @@ func (s *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, 
 // setConfig - set configuration
 func (s *Store) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode write to db. Select: 0 (MODE_SINGLE_WRITE), 1 (MODE_BATCH_WRITE)
+	viper.SetDefault("STORE_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode writes to db. Select: 0 (MODE_SINGLE_WRITE), 1 (MODE_BATCH_WRITE)
 
 	s.config = Config{
 		mode: viper.GetInt("STORE_MODE_WRITE"),

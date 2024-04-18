@@ -23,3 +23,12 @@ type NotFoundByHashError struct {
 func (e *NotFoundByHashError) Error() string {
 	return fmt.Sprintf("Not found link by hash: %s", e.Hash)
 }
+
+// CreateLinkError - create link error
+type CreateLinkError struct {
+	Link v1.Link
+}
+
+func (e *CreateLinkError) Error() string {
+	return fmt.Sprintf("Create link error: %s", e.Link.GetHash())
+}

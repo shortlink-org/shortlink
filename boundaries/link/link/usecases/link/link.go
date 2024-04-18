@@ -5,6 +5,7 @@ package link
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"io"
@@ -13,10 +14,10 @@ import (
 	"github.com/authzed/authzed-go/v1"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc/status"
-	"google.golang.org/protobuf/proto"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 	metadata_rpc "github.com/shortlink-org/shortlink/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/pkg/auth/session"
 	"github.com/shortlink-org/shortlink/pkg/logger"
@@ -144,7 +145,7 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 	}
 
 	if resp == nil {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: hash}}
+		return nil, NotFoundByHash{Hash: hash}
 	}
 
 	return resp, nil
@@ -155,7 +156,7 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 // Saga:
 // 1. Check permission
 // 2. Get a list of links from store
-func (uc *UC) List(ctx context.Context, filter *domain.FilterLink, cursor string, limit uint32) (*domain.Links, *string, error) {
+func (uc *UC) List(ctx context.Context, filter *types.FilterLink, cursor string, limit uint32) (*domain.Links, *string, error) {
 	const (
 		SAGA_NAME                     = "LIST_LINK"
 		SAGA_STEP_LOOKUP              = "SAGA_STEP_LOOKUP"
@@ -168,11 +169,11 @@ func (uc *UC) List(ctx context.Context, filter *domain.FilterLink, cursor string
 	nextToken := ""
 
 	if filter == nil {
-		filter = &domain.FilterLink{}
+		filter = &types.FilterLink{}
 	}
 
 	if filter.Hash == nil {
-		filter.Hash = &domain.StringFilterInput{}
+		filter.Hash = &types.StringFilterInput{}
 	}
 
 	// create a new saga for a get list of a link
@@ -347,8 +348,9 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_GET_METADATA).
 		Needs(SAGA_STEP_ADD_PERMISSION).
 		Then(func(ctx context.Context) error {
+			link := in.GetUrl()
 			_, err := uc.MetadataClient.Set(ctx, &metadata_rpc.MetadataServiceSetRequest{
-				Url: in.GetUrl(),
+				Url: link.String(),
 			})
 			if err != nil {
 				// TODO:
@@ -366,12 +368,12 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_PUBLISH_EVENT_NEW_LINK).
 		Then(func(ctx context.Context) error {
-			// If mq is nil, then we don't need to publish event
+			// If mq is a nil, then we don't need to publish event
 			if uc.mq == nil {
 				return nil
 			}
 
-			data, err := proto.Marshal(in)
+			data, err := json.Marshal(in)
 			if err != nil {
 				return err
 			}

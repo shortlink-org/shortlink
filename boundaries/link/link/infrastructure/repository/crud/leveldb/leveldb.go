@@ -2,11 +2,12 @@ package leveldb
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/syndtr/goleveldb/leveldb"
-	"google.golang.org/protobuf/encoding/protojson"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
@@ -42,12 +43,7 @@ func New(ctx context.Context, store db.DB, log logger.Logger) (*Store, error) {
 
 // Add - add new link
 func (l *Store) Add(_ context.Context, source *v1.Link) (*v1.Link, error) {
-	err := v1.NewURL(source)
-	if err != nil {
-		return nil, err
-	}
-
-	payload, err := protojson.Marshal(source)
+	payload, err := json.Marshal(source)
 	if err != nil {
 		return nil, err
 	}
@@ -68,23 +64,17 @@ func (l *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	}
 
 	var response v1.Link
-	err = protojson.Unmarshal(value, &response)
+	err = json.Unmarshal(value, &response)
 	if err != nil {
 		return nil, err
-	}
-
-	if response.GetUrl() == "" {
-		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
 	return &response, nil
 }
 
 // List - list links
-func (l *Store) List(_ context.Context, _ *v1.FilterLink) (*v1.Links, error) {
-	links := &v1.Links{
-		Link: []*v1.Link{},
-	}
+func (l *Store) List(_ context.Context, _ *types.FilterLink) (*v1.Links, error) {
+	links := v1.NewLinks()
 	iterator := l.client.NewIterator(nil, nil)
 
 	for iterator.Next() {
@@ -93,12 +83,12 @@ func (l *Store) List(_ context.Context, _ *v1.FilterLink) (*v1.Links, error) {
 		value := iterator.Value()
 
 		var response v1.Link
-		err := protojson.Unmarshal(value, &response)
+		err := json.Unmarshal(value, &response)
 		if err != nil {
 			return nil, &v1.NotFoundError{Link: &v1.Link{}}
 		}
 
-		links.Link = append(links.GetLink(), &response)
+		links.Push(&response)
 	}
 
 	iterator.Release()

@@ -5,6 +5,7 @@ package postgres
 import (
 	"context"
 	"embed"
+	"encoding/json"
 	"errors"
 
 	"github.com/Masterminds/squirrel"
@@ -12,12 +13,12 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/lib/pq"
 	"github.com/spf13/viper"
-	"google.golang.org/protobuf/encoding/protojson"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/postgres/filter"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/postgres/schema/crud"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 	"github.com/shortlink-org/shortlink/pkg/batch"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/db/options"
@@ -54,13 +55,15 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 	// Create a batch job ----------------------------------------------------------------------------------------------
 	if s.config.mode == options.MODE_BATCH_WRITE {
 		cb := func(args []*batch.Item) any { //nolint:errcheck // ignore
-			sources := make([]*domain.Link, len(args))
+			sources := domain.NewLinks()
 
 			for key := range args {
-				sources[key], ok = args[key].Item.(*domain.Link)
+				link, ok := args[key].Item.(*domain.Link)
 				if !ok {
 					args[key].CallbackChannel <- batch.ErrInvalidType
 				}
+
+				sources.Push(link)
 			}
 
 			dataList, errBatchWrite := s.batchWrite(ctx, sources)
@@ -94,16 +97,15 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 func (s *Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
 	link, err := s.query.GetLinkByHash(ctx, hash)
 	if err != nil {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: hash}}
+		return nil, &types.NotFoundByHashError{Hash: hash}
 	}
 
-	return &domain.Link{
-		Url:       link.Url,
-		Hash:      link.Hash,
-		Describe:  link.Describe,
-		CreatedAt: timestamppb.New(link.CreatedAt.Time),
-		UpdatedAt: timestamppb.New(link.UpdatedAt.Time),
-	}, nil
+	resp, err := domain.NewLinkBuilder().
+		SetURL(link.Url).
+		SetDescribe(link.Describe).
+		Build()
+
+	return resp, nil
 }
 
 // List - return list links
@@ -125,7 +127,7 @@ func (s *Store) List(ctx context.Context, params *types.FilterLink) (*domain.Lin
 	}
 	defer rows.Close()
 
-	links := make([]*domain.Link, 0)
+	links := domain.NewLinks()
 	for rows.Next() {
 		var (
 			url       string
@@ -140,22 +142,25 @@ func (s *Store) List(ctx context.Context, params *types.FilterLink) (*domain.Lin
 			return nil, err
 		}
 
-		links = append(links, &domain.Link{
-			Url:       url,
-			Hash:      hash,
-			Describe:  describe,
-			CreatedAt: timestamppb.New(createdAt.Time),
-			UpdatedAt: timestamppb.New(updatedAt.Time),
-		})
+		link, err := domain.NewLinkBuilder().
+			SetURL(url).
+			SetDescribe(describe).
+			SetCreatedAt(timestamppb.New(createdAt.Time)).
+			SetUpdatedAt(timestamppb.New(updatedAt.Time)).
+			Build()
+
+		if err != nil {
+			return nil, err
+		}
+
+		links.Push(link)
 	}
 
 	if rows.Err() != nil {
 		return nil, rows.Err()
 	}
 
-	return &domain.Links{
-		Link: links,
-	}, nil
+	return links, nil
 }
 
 // Add - an add link
@@ -187,16 +192,12 @@ func (s *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, err
 
 // Update - update link
 func (s *Store) Update(ctx context.Context, in *domain.Link) (*domain.Link, error) {
+	link := in.GetUrl()
 	_, err := s.query.UpdateLink(ctx, crud.UpdateLinkParams{
-		Url:      in.GetUrl(),
+		Url:      link.String(),
 		Hash:     in.GetHash(),
 		Describe: in.GetDescribe(),
-		Json: domain.Link{
-			Url:       in.GetUrl(),
-			Hash:      in.GetHash(),
-			Describe:  in.GetDescribe(),
-			CreatedAt: in.GetCreatedAt(),
-		},
+		Json:     *in,
 	})
 	if err != nil {
 		return nil, err
@@ -216,13 +217,8 @@ func (s *Store) Delete(ctx context.Context, hash string) error {
 }
 
 func (s *Store) singleWrite(ctx context.Context, in *domain.Link) (*domain.Link, error) {
-	err := domain.NewURL(in)
-	if err != nil {
-		return nil, err
-	}
-
 	// save as JSON. it doesn't make sense
-	dataJson, err := protojson.Marshal(in)
+	dataJson, err := json.Marshal(in)
 	if err != nil {
 		return nil, err
 	}
@@ -238,47 +234,38 @@ func (s *Store) singleWrite(ctx context.Context, in *domain.Link) (*domain.Link,
 
 	_, err = s.client.Exec(ctx, q, args...)
 	if err != nil {
-		return nil, &domain.NotFoundError{Link: &domain.Link{Hash: in.GetHash()}}
+		return nil, &types.NotFoundByHashError{Hash: in.GetHash()}
 	}
 
 	return in, nil
 }
 
-func (s *Store) batchWrite(ctx context.Context, in []*domain.Link) (*domain.Links, error) {
-	links := make([]crud.CreateLinksParams, 0, len(in))
+func (s *Store) batchWrite(ctx context.Context, in *domain.Links) (*domain.Links, error) {
+	links := make([]crud.CreateLinksParams, 0, len(in.GetLink()))
 
 	// Create a new link
-	for key := range in {
-		err := domain.NewURL(in[key])
-		if err != nil {
-			return nil, err
-		}
-
+	list := in.GetLink()
+	for key := range list {
+		link := list[key].GetUrl()
 		links = append(links, crud.CreateLinksParams{
-			Url:      in[key].GetUrl(),
-			Hash:     in[key].GetHash(),
-			Describe: in[key].GetDescribe(),
-			Json: domain.Link{
-				Url:      in[key].GetUrl(),
-				Hash:     in[key].GetHash(),
-				Describe: in[key].GetDescribe(),
-			},
+			Url:      link.String(),
+			Hash:     list[key].GetHash(),
+			Describe: list[key].GetDescribe(),
+			Json:     *list[key],
 		})
 	}
 
 	_, err := s.query.CreateLinks(ctx, links)
 	if err != nil {
-		errs := make([]error, 0, len(in))
-		for key := range in {
-			errs = append(errs, &domain.CreateLinkError{Link: &domain.Link{Hash: in[key].GetHash()}})
+		errs := make([]error, 0, len(list))
+		for key := range list {
+			errs = append(errs, &types.CreateLinkError{Link: *list[key]})
 		}
 
 		return nil, errors.Join(errs...)
 	}
 
-	return &domain.Links{
-		Link: in,
-	}, nil
+	return in, nil
 }
 
 // setConfig - set configuration

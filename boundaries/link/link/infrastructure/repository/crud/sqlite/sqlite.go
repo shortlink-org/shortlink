@@ -3,7 +3,6 @@ package sqlite
 import (
 	"context"
 	"database/sql"
-	"net/url"
 
 	"github.com/Masterminds/squirrel"
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
@@ -73,16 +72,16 @@ func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 		return nil, &types.NotFoundByHashError{Hash: id}
 	}
 
-	response, err := v1.NewURL(url.Parse(link))
+	response, err := v1.NewLinkBuilder().SetURL(link).Build()
 	if err != nil {
 		return nil, err
 	}
 
-	return &response, nil
+	return response, nil
 }
 
 // List - list
-func (lite *Store) List(ctx context.Context, _ *v1.FilterLink) (*v1.Links, error) {
+func (lite *Store) List(ctx context.Context, _ *types.FilterLink) (*v1.Links, error) {
 	links := squirrel.Select("url, hash, describe").
 		From("links")
 	q, args, err := links.ToSql()
@@ -98,18 +97,26 @@ func (lite *Store) List(ctx context.Context, _ *v1.FilterLink) (*v1.Links, error
 		_ = rows.Close()
 	}()
 
-	response := &v1.Links{
-		Link: []*v1.Link{},
-	}
+	response := v1.NewLinks()
 
 	for rows.Next() {
-		var result v1.Link
-		err = rows.Scan(&result.Url, &result.Hash, &result.Describe)
+		var (
+			link string
+			hash string
+			desc string
+		)
+
+		err = rows.Scan(&link, &hash, &desc)
 		if err != nil {
 			return nil, &v1.NotFoundError{Link: &v1.Link{}}
 		}
 
-		response.Link = append(response.GetLink(), &result)
+		result, err := v1.NewLinkBuilder().SetURL(link).SetDescribe(desc).Build()
+		if err != nil {
+			return nil, err
+		}
+
+		response.Push(result)
 	}
 
 	return response, nil
@@ -117,11 +124,6 @@ func (lite *Store) List(ctx context.Context, _ *v1.FilterLink) (*v1.Links, error
 
 // Add - add
 func (lite *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
-	err := v1.NewURL(source)
-	if err != nil {
-		return nil, err
-	}
-
 	links := squirrel.Insert("links").
 		Columns("url", "hash", "describe").
 		Values(source.GetUrl(), source.GetHash(), source.GetDescribe())

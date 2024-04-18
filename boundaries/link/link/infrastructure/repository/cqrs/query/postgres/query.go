@@ -11,6 +11,7 @@ import (
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	v12 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link_cqrs/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 	"github.com/shortlink-org/shortlink/pkg/db"
 )
 
@@ -63,7 +64,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 }
 
 // List - list
-func (s *Store) List(ctx context.Context, filter *v1.FilterLink) (*v12.LinksView, error) {
+func (s *Store) List(ctx context.Context, filter *types.FilterLink) (*v12.LinksView, error) {
 	links := psql.Select("hash, describe, ts_headline(meta_description, q, 'StartSel=<em>, StopSel=</em>') as meta_description, created_at, updated_at").
 		From(fmt.Sprintf(`link.link_view, to_tsquery('%s') AS q`, filter.Url.Contains)).
 		Where("make_tsvector_link_view(meta_keywords, meta_description) @@ q").

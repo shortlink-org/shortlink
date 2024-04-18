@@ -8,14 +8,10 @@ import (
 	"github.com/jackc/pgx/v5"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 )
 
 func (s *Store) LinkAdd(ctx context.Context, source *v1.Link) (*v1.Link, error) {
-	err := v1.NewURL(source)
-	if err != nil {
-		return nil, err
-	}
-
 	links := psql.Insert("link.link_view").
 		Columns("url", "hash", "describe").
 		Values(source.GetUrl(), source.GetHash(), source.GetDescribe())
@@ -27,15 +23,29 @@ func (s *Store) LinkAdd(ctx context.Context, source *v1.Link) (*v1.Link, error) 
 
 	row := s.client.QueryRow(ctx, q, args...)
 
-	errScan := row.Scan(&source.Url, &source.Hash, &source.Describe)
+	var (
+		link     string
+		hash     string
+		describe string
+	)
+	errScan := row.Scan(&link, &hash, &describe)
 	if errors.Is(errScan, pgx.ErrNoRows) {
 		return source, nil
 	}
+
 	if errScan.Error() != "" {
 		return nil, &v1.NotFoundError{Link: source}
 	}
 
-	return source, nil
+	resp, err := v1.NewLinkBuilder().
+		SetURL(link).
+		SetDescribe(describe).
+		Build()
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
 }
 
 // LinkUpdate - update link
@@ -53,7 +63,12 @@ func (s *Store) LinkUpdate(ctx context.Context, source *v1.Link) (*v1.Link, erro
 
 	row := s.client.QueryRow(ctx, q, args...)
 
-	errScan := row.Scan(&source.Url, &source.Hash, &source.Describe)
+	var (
+		link     string
+		hash     string
+		describe string
+	)
+	errScan := row.Scan(&link, &hash, &describe)
 	if errors.Is(errScan, pgx.ErrNoRows) {
 		return source, nil
 	}
@@ -61,7 +76,15 @@ func (s *Store) LinkUpdate(ctx context.Context, source *v1.Link) (*v1.Link, erro
 		return nil, &v1.NotFoundError{Link: source}
 	}
 
-	return source, nil
+	resp, err := v1.NewLinkBuilder().
+		SetURL(link).
+		SetDescribe(describe).
+		Build()
+	if err != nil {
+		return nil, err
+	}
+
+	return resp, nil
 }
 
 // LinkDelete - delete link

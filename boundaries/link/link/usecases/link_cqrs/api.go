@@ -6,6 +6,7 @@ import (
 
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link_cqrs/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/pattern/saga"
@@ -62,13 +63,13 @@ func (s *Service) Get(ctx context.Context, hash string) (*domain.LinkView, error
 	}
 
 	if resp == nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: hash}}
+		return nil, &link.NotFoundByHashError{Hash: hash}
 	}
 
 	return resp, nil
 }
 
-func (s *Service) List(ctx context.Context, filter *link.FilterLink) (*domain.LinksView, error) {
+func (s *Service) List(ctx context.Context, filter *types.FilterLink) (*domain.LinksView, error) {
 	const (
 		SAGA_NAME           = "GET_LINKS_CQRS"
 		SAGA_STEP_STORE_GET = "SAGA_STEP_STORE_GET_CQRS"
@@ -104,7 +105,7 @@ func (s *Service) List(ctx context.Context, filter *link.FilterLink) (*domain.Li
 	}
 
 	if resp == nil {
-		return nil, &link.NotFoundError{Link: &link.Link{Hash: ""}}
+		return nil, ErrNotFound
 	}
 
 	return resp, nil

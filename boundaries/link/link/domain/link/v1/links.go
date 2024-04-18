@@ -4,7 +4,7 @@ func NewLinks() *Links {
 	return &Links{}
 }
 
-// Push - push link to list
-func (l *Links) Push(link *Link) {
-	l.link = append(l.GetLink(), link)
+// Push adds a new Link to the link slice
+func (l *Links) Push(link ...*Link) {
+	l.link = append(l.link, link...)
 }

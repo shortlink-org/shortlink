@@ -6,7 +6,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 )
 
 func (l *Link) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
@@ -22,8 +22,8 @@ func (l *Link) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
 
 func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error) {
 	// Parse args
-	filter := v1.FilterLink{
-		Url: &v1.StringFilterInput{Contains: []string{in.GetFilter()}},
+	filter := types.FilterLink{
+		Url: &types.StringFilterInput{Contains: []string{in.GetFilter()}},
 	}
 
 	resp, err := l.service.List(ctx, &filter)

@@ -21,6 +21,7 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/ram"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/redis"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/sqlite"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
@@ -125,7 +126,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	return response, err
 }
 
-func (s *Store) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, error) {
+func (s *Store) List(ctx context.Context, filter *types.FilterLink) (*v1.Links, error) {
 	response, err := s.store.List(ctx, filter)
 	if err != nil {
 		return nil, err
