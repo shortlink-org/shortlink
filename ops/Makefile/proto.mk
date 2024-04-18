@@ -19,7 +19,6 @@ dep: ## Install dependencies for this project
 	@go install golang.org/x/text/cmd/gotext@latest
 
 # PROTO TASKS ==========================================================================================================
-
 proto-lint: ## Check lint
 	@buf ls-files
 	@buf lint
@@ -29,29 +28,6 @@ proto-lock: ## Lock proto dependencies
 	@buf build -o ops/proto-lock.json
 
 proto-generate: ## Generate proto-files
-	# Link service --------------------------------------------------------------------------------
-	@buf generate \
-		--path=boundaries/link/link/domain \
-		--template=ops/proto/link/domain.buf.gen.yaml \
-		--config=ops/proto/link/buf.yaml
-
-	@buf generate \
-		--path=boundaries/link/link/infrastructure \
-		--template=ops/proto/link/infrastructure.buf.gen.yaml \
-		--config=ops/proto/link/buf.yaml
-
-	@buf generate \
-		--path=boundaries/link/link/domain \
-		--path=boundaries/link/link/infrastructure \
-		--template=ops/proto/link/repository.buf.gen.yaml \
-		--config=ops/proto/link/buf.yaml
-
-	#@buf generate \
-	#	--path=boundaries/link/link/domain \
-	#	--path=boundaries/link/link/infrastructure \
-	#	--template=ops/proto/link/buf.gen.tag.yaml \
-	#	--config=ops/proto/link/buf.yaml
-
 	# Metadata service -----------------------------------------------------------------------------
 	@buf generate \
 		--path=boundaries/link/metadata/domain \
