@@ -85,11 +85,6 @@ func generateRichModel(gen *protogen.Plugin, file *protogen.File, message *proto
 
 	importManager := newImportManager()
 
-	// Add comment for the message if available
-	if message.Comments.Leading != "" {
-		g.P(strings.TrimSpace(message.Comments.Leading.String()))
-	}
-
 	// Preprocess to collect necessary imports
 	for _, field := range message.Fields {
 		if field.GoName == "" {
@@ -100,6 +95,11 @@ func generateRichModel(gen *protogen.Plugin, file *protogen.File, message *proto
 	}
 
 	importManager.writeImports(g)
+
+	// Add comment for the message if available
+	if message.Comments.Leading != "" {
+		g.P(strings.TrimSpace(message.Comments.Leading.String()))
+	}
 
 	// Generate a rich model struct
 	structName := strings.ToUpper(message.GoIdent.GoName[:1]) + message.GoIdent.GoName[1:] // Capitalize the first letter

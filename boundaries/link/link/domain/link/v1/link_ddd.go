@@ -6,13 +6,13 @@
 
 package v1
 
-// Link
 import (
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 	"net/url"
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
+// Link
 type Link struct {
 	// Field mask
 	fieldmask fieldmaskpb.FieldMask

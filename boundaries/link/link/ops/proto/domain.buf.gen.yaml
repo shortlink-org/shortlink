@@ -6,7 +6,7 @@ managed:
 plugins:
   - plugin: rich-model
     strategy: all
-    out: .
+    out: domain/link/v1
     opt:
       - paths=source_relative
       - filter=Link;Links
