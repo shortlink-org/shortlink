@@ -12,8 +12,14 @@ func MakeAddLinkRequest(in api.AddLink) *v1.Link {
 		describe = *in.Describe
 	}
 
-	return &v1.Link{
-		Describe: describe,
-		Url:      in.Url,
+	link, err := v1.NewLinkBuilder().
+		SetURL(in.Url).
+		SetDescribe(describe).
+		Build()
+
+	if err != nil {
+		return nil
 	}
+
+	return link
 }

@@ -328,6 +328,7 @@ components:
           description: The URL of the link.
           format: uri
           type: string
+          x-go-type: url.URL
         hash:
           description: "Unique hash, used as the short link."
           type: string
@@ -350,6 +351,10 @@ components:
       - url
       type: object
     ErrorResponse:
+      example:
+        messages:
+        - messages
+        - messages
       properties:
         messages:
           description: An array of human-readable messages providing more details

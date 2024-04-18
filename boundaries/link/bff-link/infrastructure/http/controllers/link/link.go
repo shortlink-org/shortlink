@@ -85,12 +85,20 @@ func (c *Controller) UpdateLinks(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	// Create link
+	link, err := v1.NewLinkBuilder().
+		SetURL(request.Link.Url.String()).
+		SetDescribe(request.Link.Describe).
+		Build()
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) //nolint:errcheck
+
+		return
+	}
+
 	// Update link
-	_, err = c.linkServiceClient.Update(r.Context(), &link_rpc.UpdateRequest{Link: &v1.Link{
-		Url:      request.Link.Url,
-		Hash:     request.Link.Hash,
-		Describe: request.Link.Describe,
-	}})
+	_, err = c.linkServiceClient.Update(r.Context(), &link_rpc.UpdateRequest{Link: link})
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_ = json.NewEncoder(w).Encode(ErrMessages(err)) //nolint:errcheck
