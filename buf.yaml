@@ -19,7 +19,11 @@ build:
     - boundaries/notification/newsletter/src
     - pkg/pattern/eventsourcing
     - pkg/pattern/transactional_outbox
+    - pkg/protoc
     - pkg/raft
+
+  excludes:
+    - pkg/protoc/protoc-gen-rich-model/fixtures
 
 lint:
   use:

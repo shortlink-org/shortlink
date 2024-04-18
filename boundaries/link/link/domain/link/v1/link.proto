@@ -6,7 +6,7 @@ option go_package = "github.com/shortlink-org/shortlink/boundaries/link/link/dom
 
 import "google/protobuf/field_mask.proto";
 import "google/protobuf/timestamp.proto";
-import "protoc/protoc-gen-rich-model/options/v1/custom_options.proto";
+import "protoc-gen-rich-model/options/v1/custom_options.proto";
 
 // Link event
 enum LinkEvent {
