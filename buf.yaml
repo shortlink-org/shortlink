@@ -24,6 +24,7 @@ build:
 
   excludes:
     - pkg/protoc/protoc-gen-rich-model/fixtures
+    - pkg/protoc/protoc-gen-go-orm/fixtures
 
 lint:
   use:

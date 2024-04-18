@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-package domain.link.v1;
+package domain.example.v1;
 
 option go_package = "../fixtures";
 
@@ -9,7 +9,7 @@ import "google/protobuf/timestamp.proto";
 import "options/v1/custom_options.proto";
 
 // Link event
-enum LinkEvent {
+enum ExampleEvent {
   // Unspecified
   LINK_EVENT_UNSPECIFIED = 0;
 
@@ -26,7 +26,7 @@ enum LinkEvent {
 }
 
 // Link domain
-message Link {
+message Example {
   // Field mask
   google.protobuf.FieldMask field_mask = 6;
 
@@ -44,7 +44,7 @@ message Link {
 }
 
 // Link list
-message Links {
+message ExampleList {
   // Links
-  repeated Link link = 1;
+  repeated Example link = 1;
 }

@@ -7,12 +7,12 @@
 package fixtures
 
 // Link list
-type Links struct {
+type ExampleList struct {
 	// Links
-	link []*Link
+	link []*Example
 }
 
 // GetLink returns the value of the link field.
-func (m *Links) GetLink() []*Link {
+func (m *ExampleList) GetLink() []*Example {
 	return m.link
 }
