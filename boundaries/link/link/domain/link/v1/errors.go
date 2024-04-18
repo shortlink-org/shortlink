@@ -28,7 +28,9 @@ type NotUniqError struct {
 }
 
 func (e *NotUniqError) Error() string {
-	return fmt.Sprintf("Not uniq link: %s", e.Link.GetUrl())
+	link := e.Link.GetUrl()
+
+	return fmt.Sprintf("Not uniq link: %s", link.String())
 }
 
 // CreateLinkError - failed create link
@@ -37,7 +39,9 @@ type CreateLinkError struct {
 }
 
 func (e *CreateLinkError) Error() string {
-	return fmt.Sprintf("Failed create link: %s", e.Link.GetUrl())
+	link := e.Link.GetUrl()
+
+	return fmt.Sprintf("Failed create link: %s", link.String())
 }
 
 // PermissionDeniedError - permission denied

@@ -18,19 +18,18 @@ func TestMain(m *testing.M) {
 }
 
 func TestNewURL(t *testing.T) {
-	URL := "http://test.com"
+	source := "http://test.com"
 
 	t.Run("create new", func(t *testing.T) {
-		link := &Link{Url: URL}
-		err := NewURL(&Link{Url: URL})
+		link, err := NewLinkBuilder().SetURL(source).Build()
 
 		require.NoError(t, err, "Assert nil. Got: %s", err)
-		assert.Equal(t, link.Url, URL)
+		assert.Equal(t, "test.com", link.GetUrl().Host)
 	})
 
 	t.Run("create hash", func(t *testing.T) {
-		success := "99699cbfa9614160a94114f527f5501fd97edeaa767db24bb8581789e18a9c1f0f671ee525a9404abc4a8d015315f773dd214175a9c50ac6cda1d934f75fc1e8"
-		response := createHash([]byte("hello world"), []byte("solt"))
+		success := "e59277e699090366a7751e5c0c5aceaa89379c6ab65f0cf08ef9f62f133c8d07bd2eb6740f5fd65f816b103e2242b7a54a1c1fbb23749609613def7cc6a335d3"
+		response := createHash([]byte("hello world"), []byte("salt"))
 		assert.Equal(t, success, response)
 	})
 }
