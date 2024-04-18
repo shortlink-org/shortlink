@@ -8,5 +8,16 @@ plugins:
     strategy: all
     out: domain/link/v1
     opt:
-      - paths=source_relative
       - filter=Link;Links
+
+  - plugin: rich-model
+    strategy: all
+    out: domain/link_cqrs/v1
+    opt:
+      - filter=LinkView;LinksView
+
+  - plugin: rich-model
+    strategy: all
+    out: domain/sitemap/v1
+    opt:
+      - filter=Url;Sitemap

@@ -199,6 +199,10 @@ func protobufToGoTypeSingle(field *protogen.Field) (string, map[string]bool) {
 		return "[]byte", nil
 	case protoreflect.EnumKind:
 		return "int32", nil // Enums are represented as int32 in Go
+	case protoreflect.FloatKind:
+		return "float32", nil
+	case protoreflect.DoubleKind:
+		return "float64", nil
 	case protoreflect.MessageKind, protoreflect.GroupKind:
 		if field.Message != nil && field.Message.GoIdent.GoImportPath != "" {
 			if field.Message.GoIdent.GoName == "Timestamp" {

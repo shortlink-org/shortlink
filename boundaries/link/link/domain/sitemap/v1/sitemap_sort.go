@@ -9,5 +9,5 @@ func (l *Sitemap) Less(i, j int) bool {
 }
 
 func (l *Sitemap) Swap(i, j int) {
-	l.Url[i], l.Url[j] = l.GetUrl()[j], l.GetUrl()[i]
+	l.url[i], l.url[j] = l.GetUrl()[j], l.GetUrl()[i]
 }

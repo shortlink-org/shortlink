@@ -7,9 +7,9 @@
 package v1
 
 import (
+	"google.golang.org/protobuf/types/known/timestamppb"
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
 	"net/url"
-	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
 // Link
