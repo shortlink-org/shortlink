@@ -13,7 +13,7 @@ import (
 	"google.golang.org/protobuf/types/known/timestamppb"
 )
 
-type Example struct {
+type Link struct {
 	// Field mask
 	fieldmask fieldmaskpb.FieldMask
 	// URL
@@ -29,31 +29,31 @@ type Example struct {
 }
 
 // GetFieldMask returns the value of the fieldmask field.
-func (m *Example) GetFieldMask() fieldmaskpb.FieldMask {
+func (m *Link) GetFieldMask() fieldmaskpb.FieldMask {
 	return m.fieldmask
 }
 
 // GetUrl returns the value of the url field.
-func (m *Example) GetUrl() url.URL {
+func (m *Link) GetUrl() url.URL {
 	return m.url
 }
 
 // GetHash returns the value of the hash field.
-func (m *Example) GetHash() string {
+func (m *Link) GetHash() string {
 	return m.hash
 }
 
 // GetDescribe returns the value of the describe field.
-func (m *Example) GetDescribe() string {
+func (m *Link) GetDescribe() string {
 	return m.describe
 }
 
 // GetCreatedAt returns the value of the createdat field.
-func (m *Example) GetCreatedAt() *timestamppb.Timestamp {
+func (m *Link) GetCreatedAt() *timestamppb.Timestamp {
 	return m.createdat
 }
 
 // GetUpdatedAt returns the value of the updatedat field.
-func (m *Example) GetUpdatedAt() *timestamppb.Timestamp {
+func (m *Link) GetUpdatedAt() *timestamppb.Timestamp {
 	return m.updatedat
 }
