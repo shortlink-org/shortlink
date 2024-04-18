@@ -22,5 +22,5 @@ cert-down: ## Delete generated cert-files
 
 cert-dep: ## Install tooling
 	# CFSSL: Cloudflare's PKI and TLS toolkit
-	@go get -u github.com/cloudflare/cfssl/cmd/cfssl
-	@go get -u github.com/cloudflare/cfssl/cmd/cfssljson
+	@go install github.com/cloudflare/cfssl/cmd/cfssl@latest
+	@go install github.com/cloudflare/cfssl/cmd/cfssljson@latest
