@@ -9,11 +9,11 @@ import (
 	"github.com/spf13/cobra/doc"
 	"github.com/spf13/viper"
 
-	csi_di "github.com/shortlink-org/shortlink/boundaries/platform/csi/di"
+	csi_di "github.com/shortlink-org/shortlink/boundaries/platform/csi/internal/di"
 	"github.com/shortlink-org/shortlink/pkg/graceful_shutdown"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
 
-	csi_driver "github.com/shortlink-org/shortlink/boundaries/platform/csi"
+	csi_driver "github.com/shortlink-org/shortlink/boundaries/platform/csi/internal"
 )
 
 func init() {

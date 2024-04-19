@@ -18,7 +18,6 @@ import (
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types"
-	metadata_rpc "github.com/shortlink-org/shortlink/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/pkg/auth/session"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
@@ -35,8 +34,8 @@ type UC struct {
 	permission *authzed.Client
 
 	// Delivery
-	mq             mq.MQ
-	MetadataClient metadata_rpc.MetadataServiceClient
+	mq mq.MQ
+	// MetadataClient metadata_rpc.MetadataServiceClient
 
 	// Repository
 	store crud.Repository
@@ -44,7 +43,7 @@ type UC struct {
 	log logger.Logger
 }
 
-func New(log logger.Logger, dataBus mq.MQ, metadataService metadata_rpc.MetadataServiceClient, store crud.Repository, permissionClient *authzed.Client) (*UC, error) {
+func New(log logger.Logger, dataBus mq.MQ, metadataService any, store crud.Repository, permissionClient *authzed.Client) (*UC, error) {
 	service := &UC{
 		log: log,
 
@@ -52,8 +51,8 @@ func New(log logger.Logger, dataBus mq.MQ, metadataService metadata_rpc.Metadata
 		permission: permissionClient,
 
 		// Delivery
-		mq:             dataBus,
-		MetadataClient: metadataService,
+		mq: dataBus,
+		// MetadataClient: metadataService,
 
 		// Repository
 		store: store,
@@ -348,17 +347,17 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_GET_METADATA).
 		Needs(SAGA_STEP_ADD_PERMISSION).
 		Then(func(ctx context.Context) error {
-			link := in.GetUrl()
-			_, err := uc.MetadataClient.Set(ctx, &metadata_rpc.MetadataServiceSetRequest{
-				Url: link.String(),
-			})
-			if err != nil {
-				// TODO:
-				// 1. Move to metadata service
-				// 2. Listen MQ event
-
-				return nil //nolint:nilerr // ignore
-			}
+			// link := in.GetUrl()
+			// _, err := uc.MetadataClient.Set(ctx, &metadata_rpc.MetadataServiceSetRequest{
+			// 	Url: link.String(),
+			// })
+			// if err != nil {
+			// 	// TODO:
+			// 	// 1. Move to metadata service
+			// 	// 2. Listen MQ event
+			//
+			// 	return nil //nolint:nilerr // ignore
+			// }
 
 			return nil
 		}).Build()

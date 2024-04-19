@@ -44,8 +44,8 @@ proto-generate: ## Generate proto-files
 
 	# Billing service -------------------------------------------------------------------------------
 	@buf generate \
-		--path=boundaries/billing/billing/domain \
-		--path=boundaries/billing/billing/infrastructure \
+		--path=boundaries/billing/billing/internal/domain \
+		--path=boundaries/billing/billing/internal/infrastructure \
 		--template=ops/proto/billing/buf.gen.yaml \
 		--config=ops/proto/billing/buf.yaml
 

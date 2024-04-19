@@ -12,7 +12,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	bff_web_di "github.com/shortlink-org/shortlink/boundaries/link/bff/di"
+	bff_web_di "github.com/shortlink-org/shortlink/boundaries/link/bff/internal/di"
 	"github.com/shortlink-org/shortlink/pkg/graceful_shutdown"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
 )

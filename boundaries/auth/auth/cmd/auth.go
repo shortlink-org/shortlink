@@ -10,7 +10,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	auth_di "github.com/shortlink-org/shortlink/boundaries/auth/auth/di"
+	auth_di "github.com/shortlink-org/shortlink/boundaries/auth/auth/internal/di"
 	"github.com/shortlink-org/shortlink/pkg/graceful_shutdown"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
 )

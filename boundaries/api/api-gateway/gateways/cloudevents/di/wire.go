@@ -20,7 +20,6 @@ import (
 
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/domain"
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/cloudevents/infrastructure/server"
-	metadata_rpc "github.com/shortlink-org/shortlink/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
@@ -57,7 +56,7 @@ var APISet = wire.NewSet(
 	NewLinkCommandRPCClient,
 	NewLinkQueryRPCClient,
 	NewSitemapServiceClient,
-	NewMetadataRPCClient,
+	// NewMetadataRPCClient,
 
 	// Applications
 	NewAPIApplication,
@@ -84,10 +83,10 @@ func NewSitemapServiceClient(runRPCClient *grpc.ClientConn) (sitemap_rpc.Sitemap
 	return sitemapRPCClient, nil
 }
 
-func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataServiceClient, error) {
-	metadataRPCClient := metadata_rpc.NewMetadataServiceClient(runRPCClient)
-	return metadataRPCClient, nil
-}
+// func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataServiceClient, error) {
+// 	metadataRPCClient := metadata_rpc.NewMetadataServiceClient(runRPCClient)
+// 	return metadataRPCClient, nil
+// }
 
 func NewAPIApplication(
 	// Common

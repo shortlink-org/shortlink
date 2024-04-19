@@ -11,7 +11,6 @@ import (
 
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/cqrs/cqs/postgres"
-	metadata "github.com/shortlink-org/shortlink/boundaries/link/metadata/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
@@ -58,9 +57,9 @@ func (s *Store) LinkDelete(ctx context.Context, id string) error {
 	return s.store.LinkDelete(ctx, id)
 }
 
-func (s *Store) MetadataUpdate(ctx context.Context, data *metadata.Meta) (*metadata.Meta, error) {
-	return s.store.MetadataUpdate(ctx, data)
-}
+// func (s *Store) MetadataUpdate(ctx context.Context, data *metadata.Meta) (*metadata.Meta, error) {
+// 	return s.store.MetadataUpdate(ctx, data)
+// }
 
 // setConfig - set configuration
 func (s *Store) setConfig() {

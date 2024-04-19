@@ -24,8 +24,6 @@ type API interface {
 		log logger.Logger,
 		tracer trace.TracerProvider,
 
-		test linkClient.LinkServiceClient,
-
 		// delivery
 		link_rpc link_rpc.LinkServiceClient,
 		link_command link_cqrs.LinkCommandServiceClient,

@@ -13,7 +13,7 @@ import (
 	"go.temporal.io/api/workflowservice/v1"
 	"go.temporal.io/sdk/client"
 
-	metadata_di "github.com/shortlink-org/shortlink/boundaries/link/metadata/di"
+	report_di "github.com/shortlink-org/shortlink/boundaries/marketing/report/di"
 	"github.com/shortlink-org/shortlink/boundaries/marketing/report/shared"
 	"github.com/shortlink-org/shortlink/boundaries/marketing/report/workflow"
 	"github.com/shortlink-org/shortlink/pkg/logger"
@@ -24,7 +24,7 @@ func main() {
 	viper.SetDefault("SERVICE_NAME", "shortlink-report")
 
 	// Init a new service
-	service, cleanup, err := metadata_di.InitializeMetaDataService()
+	service, cleanup, err := report_di.InitializeReportService()
 	if err != nil { // TODO: use as helpers
 		panic(err)
 	}
@@ -51,7 +51,7 @@ func main() {
 	duration := time.Since(t) + time.Hour*24*1
 	err = c1.Register(context.Background(), &workflowservice.RegisterNamespaceRequest{
 		Namespace:                        client.DefaultNamespace,
-		WorkflowExecutionRetentionPeriod: &duration,
+		WorkflowExecutionRetentionPeriod: duration,
 	})
 	if err != nil {
 		service.Log.Warn("unable to create Temporal namespace", field.Fields{

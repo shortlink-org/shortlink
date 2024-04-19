@@ -28,7 +28,6 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/link"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/link_cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/sitemap"
-	metadata_rpc "github.com/shortlink-org/shortlink/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
@@ -93,7 +92,7 @@ var LinkSet = wire.NewSet(
 	NewRunRPCServer,
 
 	NewLinkRPCClient,
-	NewMetadataRPCClient,
+	// NewMetadataRPCClient,
 
 	// Applications
 	NewLinkApplication,
@@ -144,8 +143,9 @@ func NewQueryLinkStore(ctx context.Context, log logger.Logger, db db.DB, cache *
 	return store, nil
 }
 
-func NewLinkApplication(log logger.Logger, mq mq.MQ, metadataService metadata_rpc.MetadataServiceClient, store crud.Repository, authPermission *authzed.Client) (*link.UC, error) {
-	linkService, err := link.New(log, mq, metadataService, store, authPermission)
+// func NewLinkApplication(log logger.Logger, mq mq.MQ, metadataService metadata_rpc.MetadataServiceClient, store crud.Repository, authPermission *authzed.Client) (*link.UC, error) {
+func NewLinkApplication(log logger.Logger, mq mq.MQ, store crud.Repository, authPermission *authzed.Client) (*link.UC, error) {
+	linkService, err := link.New(log, mq, nil, store, authPermission)
 	if err != nil {
 		return nil, err
 	}
@@ -207,10 +207,10 @@ func NewRunRPCServer(runRPCServer *rpc.Server, _ *cqrs.Link, _ *link_rpc.Link) (
 	return run.Run(runRPCServer)
 }
 
-func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataServiceClient, error) {
-	metadataRPCClient := metadata_rpc.NewMetadataServiceClient(runRPCClient)
-	return metadataRPCClient, nil
-}
+// func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataServiceClient, error) {
+// 	metadataRPCClient := metadata_rpc.NewMetadataServiceClient(runRPCClient)
+// 	return metadataRPCClient, nil
+// }
 
 func NewLinkService(
 	// Common

@@ -21,7 +21,6 @@ import (
 
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/grpc-web/infrastructure/server"
 	api_application "github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/grpc-web/infrastructure/server/v1"
-	metadata_rpc "github.com/shortlink-org/shortlink/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
@@ -59,7 +58,7 @@ var APISet = wire.NewSet(
 	NewLinkCommandRPCClient,
 	NewLinkQueryRPCClient,
 	NewSitemapServiceClient,
-	NewMetadataRPCClient,
+	// NewMetadataRPCClient,
 
 	// Applications
 	NewAPIApplication,
@@ -86,20 +85,20 @@ func NewSitemapServiceClient(runRPCClient *grpc.ClientConn) (sitemap_rpc.Sitemap
 	return sitemapRPCClient, nil
 }
 
-func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataServiceClient, error) {
-	metadataRPCClient := metadata_rpc.NewMetadataServiceClient(runRPCClient)
-	return metadataRPCClient, nil
-}
+// func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataServiceClient, error) {
+// 	metadataRPCClient := metadata_rpc.NewMetadataServiceClient(runRPCClient)
+// 	return metadataRPCClient, nil
+// }
 
 func NewAPIApplication(
-	// Common
+// Common
 	ctx context.Context,
 	log logger.Logger,
 	rpcServer *rpc.Server,
 	tracer trace.TracerProvider,
 	monitor *monitoring.Monitoring,
 
-	// Delivery
+// Delivery
 	link_rpc link_rpc.LinkServiceClient,
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,
@@ -128,11 +127,11 @@ func NewAPIApplication(
 }
 
 func NewAPIService(
-	// Common
+// Common
 	log logger.Logger,
 	config *config.Config,
 
-	// Observability
+// Observability
 	monitoring *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,

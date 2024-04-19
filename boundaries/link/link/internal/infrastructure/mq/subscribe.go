@@ -5,10 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 
-	"google.golang.org/protobuf/proto"
-
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	metadata_domain "github.com/shortlink-org/shortlink/boundaries/link/metadata/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/pkg/mq/query"
 	"github.com/shortlink-org/shortlink/pkg/notify"
 )
@@ -89,9 +86,9 @@ func (e *Event) SubscribeCQRSGetMetadata() {
 	}
 
 	go func() {
-		if err := e.mq.Subscribe(context.Background(), metadata_domain.MQ_EVENT_CQRS_NEW, getCQRSGetMetadata); err != nil {
-			e.log.Error(err.Error())
-		}
+		// if err := e.mq.Subscribe(context.Background(), metadata_domain.MQ_EVENT_CQRS_NEW, getCQRSGetMetadata); err != nil {
+		// 	e.log.Error(err.Error())
+		// }
 	}()
 
 	go func() {
@@ -99,15 +96,15 @@ func (e *Event) SubscribeCQRSGetMetadata() {
 			msg := <-getCQRSGetMetadata.Chan
 
 			// Convert: []byte to link.Link
-			myLink := &metadata_domain.Meta{}
-			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
-				e.log.ErrorWithContext(msg.Context, fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
-				msg.Context.Done()
+			// myLink := &metadata_domain.Meta{}
+			// if err := proto.Unmarshal(msg.Body, myLink); err != nil {
+			// 	e.log.ErrorWithContext(msg.Context, fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
+			// 	msg.Context.Done()
+			//
+			// 	continue
+			// }
 
-				continue
-			}
-
-			go notify.Publish(msg.Context, metadata_domain.METHOD_ADD, myLink, nil)
+			// go notify.Publish(msg.Context, metadata_domain.METHOD_ADD, myLink, nil)
 			msg.Context.Done()
 		}
 	}()

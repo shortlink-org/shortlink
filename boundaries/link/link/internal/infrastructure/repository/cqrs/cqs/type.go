@@ -6,7 +6,6 @@ import (
 	"github.com/go-redis/cache/v9"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	v12 "github.com/shortlink-org/shortlink/boundaries/link/metadata/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
@@ -15,7 +14,7 @@ type Repository interface {
 	LinkUpdate(ctx context.Context, data *v1.Link) (*v1.Link, error)
 	LinkDelete(ctx context.Context, id string) error
 
-	MetadataUpdate(ctx context.Context, data *v12.Meta) (*v12.Meta, error)
+	// MetadataUpdate(ctx context.Context, data *v12.Meta) (*v12.Meta, error)
 }
 
 // Store abstract type

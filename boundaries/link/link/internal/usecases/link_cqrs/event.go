@@ -4,7 +4,6 @@ import (
 	"context"
 
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	metadata "github.com/shortlink-org/shortlink/boundaries/link/metadata/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 
@@ -16,9 +15,9 @@ func (s *Service) EventHandlers() {
 	notify.Subscribe(link.METHOD_DELETE, s)
 
 	// Metadata
-	notify.Subscribe(metadata.METHOD_ADD, s)
-	notify.Subscribe(metadata.METHOD_UPDATE, s)
-	notify.Subscribe(metadata.METHOD_DELETE, s)
+	// notify.Subscribe(metadata.METHOD_ADD, s)
+	// notify.Subscribe(metadata.METHOD_UPDATE, s)
+	// notify.Subscribe(metadata.METHOD_DELETE, s)
 
 	// Proxy
 }
@@ -46,15 +45,15 @@ func (s *Service) Notify(ctx context.Context, event uint32, payload any) notify.
 		}
 
 		return notify.Response[any]{}
-	case metadata.METHOD_ADD:
-		fallthrough
-	case metadata.METHOD_UPDATE:
-		_, err := s.cqsStore.MetadataUpdate(ctx, payload.(*metadata.Meta))
-		if err != nil {
-			s.log.ErrorWithContext(ctx, err.Error())
-		}
-
-		return notify.Response[any]{}
+	// case metadata.METHOD_ADD:
+	// 	fallthrough
+	// case metadata.METHOD_UPDATE:
+	// 	_, err := s.cqsStore.MetadataUpdate(ctx, payload.(*metadata.Meta))
+	// 	if err != nil {
+	// 		s.log.ErrorWithContext(ctx, err.Error())
+	// 	}
+	//
+	// 	return notify.Response[any]{}
 	default:
 		return notify.Response[any]{}
 	}
