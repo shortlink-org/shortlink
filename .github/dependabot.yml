@@ -197,17 +197,17 @@ updates:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /boundaries/link/expo/apps/shortlink
+    directory: /boundaries/link/mobile/apps/shortlink
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /boundaries/link/expo/libs/ui
+    directory: /boundaries/link/mobile/libs/ui
     schedule:
       interval: daily
 
   - package-ecosystem: npm
-    directory: /boundaries/link/expo
+    directory: /boundaries/link/mobile
     schedule:
       interval: daily
 
