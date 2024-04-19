@@ -1,7 +1,7 @@
 package dto
 
 import (
-	"github.com/shortlink-org/shortlink/boundaries/link/bff-link/infrastructure/http/api"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff/infrastructure/http/api"
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 )
 

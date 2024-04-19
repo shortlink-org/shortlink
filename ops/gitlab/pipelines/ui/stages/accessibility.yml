@@ -62,7 +62,7 @@ dast_api:
   stage: accessibility
   variables:
     DAST_API_BETA: 1
-    DAST_API_POSTMAN_COLLECTION: ./boundaries/link/bff-link/docs/postman/shortlink.postman_collection.json
+    DAST_API_POSTMAN_COLLECTION: ./boundaries/link/bff/docs/postman/shortlink.postman_collection.json
     # DAST_API_OPENAPI: ./docs/api.swagger.json
     DAST_API_API: $ENVIRONMENT_URL
     DAST_API_TARGET_URL: $ENVIRONMENT_URL

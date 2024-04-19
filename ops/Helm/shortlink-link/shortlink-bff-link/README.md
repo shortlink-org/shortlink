@@ -168,7 +168,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"registry.gitlab.com/shortlink-org/shortlink/bff-link"
+"registry.gitlab.com/shortlink-org/shortlink/bff"
 </pre>
 </div>
 			</td>

@@ -16,10 +16,10 @@ import (
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
 
-	"github.com/shortlink-org/shortlink/boundaries/link/bff-link/internal/i18n"
-	link_cqrs "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
-	link_rpc "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/link/v1"
-	sitemap_rpc "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/sitemap/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/i18n"
+	link_cqrs "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/cqrs/link/v1"
+	link_rpc "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/link/v1"
+	sitemap_rpc "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/sitemap/v1"
 	metadata_rpc "github.com/shortlink-org/shortlink/boundaries/link/metadata/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/internal/di"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
@@ -29,7 +29,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 
-	api "github.com/shortlink-org/shortlink/boundaries/link/bff-link/infrastructure/http"
+	api "github.com/shortlink-org/shortlink/boundaries/link/bff/infrastructure/http"
 )
 
 type BFFWebService struct {
@@ -71,6 +71,8 @@ var BFFWebServiceSet = wire.NewSet(
 
 func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (link_rpc.LinkServiceClient, error) {
 	LinkServiceClient := link_rpc.NewLinkServiceClient(runRPCClient)
+
+	linkService.LinkServiceClient = LinkServiceClient
 	return LinkServiceClient, nil
 }
 

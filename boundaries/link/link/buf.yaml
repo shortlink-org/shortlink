@@ -1,6 +1,6 @@
 version: v1beta1
 
-name: buf.build/shortlink-org/shortlink-lint.lint
+name: buf.build/shortlink-org/shortlink-lint-lint
 
 deps:
   - buf.build/googleapis/googleapis
@@ -10,7 +10,7 @@ deps:
 
 build:
   roots:
-    - .
+    - ./internal
 
 lint:
   use:

@@ -9,8 +9,8 @@ package bff_web_di
 import (
 	"context"
 	"github.com/google/wire"
-	"github.com/shortlink-org/shortlink/boundaries/link/bff-link/infrastructure/http"
-	"github.com/shortlink-org/shortlink/boundaries/link/bff-link/internal/i18n"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff/infrastructure/http"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/i18n"
 	v1_2 "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/link/v1"
 	v1_3 "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/sitemap/v1"
