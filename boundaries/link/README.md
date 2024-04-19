@@ -16,7 +16,7 @@
 | metadata         | Parser site by API                         | Go                 | [docs](./metadata/README.md)                 | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-metadata&revision=true)](https://argo.shortlink.best/applications/shortlink-metadata) |                                                                
 | chrome-extension | Chrome extension                           | JavaScript         | [docs](./chrome-extension/README.md)         | -                                                                                                                                                         |
 | supplies         | Supplies service                           | Go                 | [docs](./supplies/README.md)                 | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-supplies&revision=true)](https://argo.shortlink.best/applications/shortlink-supplies) |
-| expo             | Mobile UI                                  | JS/React           | [docs](./expo/README.md)                     | -                                                                                                                                                         |
+| mobile           | Mobile UI (expo)                           | JS/React           | [docs](./expo/README.md)                     | -                                                                                                                                                         |
 
 ### Docs
 
