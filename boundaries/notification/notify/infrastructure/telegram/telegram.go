@@ -6,14 +6,13 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 	"github.com/spf13/viper"
 
-	link "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/notification/notify/domain/events"
 	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 
 type Bot struct {
 	// Observer interface for subscribe on system event
-	notify.Subscriber[link.Link]
+	// notify.Subscriber[link.Link]
 
 	client *tgbotapi.BotAPI
 

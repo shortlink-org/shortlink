@@ -6,7 +6,6 @@ import (
 
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 
@@ -14,7 +13,7 @@ import (
 func (api *API) GetLink(ctx context.Context, req *GetLinkRequest) (*GetLinkResponse, error) {
 	responseCh := make(chan any)
 
-	go notify.Publish(ctx, v1.METHOD_GET, req.Link.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_GET"})
+	// go notify.Publish(ctx, v1.METHOD_GET, req.Link.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_GET"})
 
 	// inject spanId in response header
 	errSendHeader := RegisterSpan(ctx)
@@ -32,10 +31,10 @@ func (api *API) GetLink(ctx context.Context, req *GetLinkRequest) (*GetLinkRespo
 		if err != nil {
 			return nil, err
 		}
-		response := r.Payload.(*v1.Link) //nolint:errcheck
+		// response := r.Payload.(*v1.Link) //nolint:errcheck
 
 		return &GetLinkResponse{
-			Link: response,
+			// Link: response,
 		}, nil
 	default:
 		err := fmt.Errorf("not found subscribe to event %s", "METHOD_GET")
@@ -48,7 +47,7 @@ func (api *API) GetLink(ctx context.Context, req *GetLinkRequest) (*GetLinkRespo
 func (api *API) GetLinks(ctx context.Context, req *GetLinksRequest) (*GetLinksResponse, error) {
 	responseCh := make(chan any)
 
-	go notify.Publish(ctx, v1.METHOD_LIST, req.Filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})
+	// go notify.Publish(ctx, v1.METHOD_LIST, req.Filter, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_LIST"})
 
 	// inject spanId in response header
 	errSendHeader := RegisterSpan(ctx)
@@ -66,13 +65,13 @@ func (api *API) GetLinks(ctx context.Context, req *GetLinksRequest) (*GetLinksRe
 		if err != nil {
 			return nil, err
 		}
-		links := r.Payload.([]*v1.Link) //nolint:errcheck
-
-		response := v1.Links{}
-		response.Link = append(response.Link, links...)
+		// links := r.Payload.([]*v1.Link) //nolint:errcheck
+		//
+		// response := v1.Links{}
+		// response.Link = append(response.Link, links...)
 
 		return &GetLinksResponse{
-			Links: response.Link,
+			// Links: response.Link,
 		}, nil
 	default:
 		err := fmt.Errorf("not found subscribe to event %s", "METHOD_GET")
@@ -84,7 +83,7 @@ func (api *API) GetLinks(ctx context.Context, req *GetLinksRequest) (*GetLinksRe
 func (api *API) CreateLink(ctx context.Context, req *CreateLinkRequest) (*CreateLinkResponse, error) {
 	responseCh := make(chan any)
 
-	go notify.Publish(ctx, v1.METHOD_ADD, req, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
+	// go notify.Publish(ctx, v1.METHOD_ADD, req, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_ADD"})
 
 	// inject spanId in response header
 	errSendHeader := RegisterSpan(ctx)
@@ -102,10 +101,10 @@ func (api *API) CreateLink(ctx context.Context, req *CreateLinkRequest) (*Create
 		if err != nil {
 			return nil, err
 		}
-		response := r.Payload.(*v1.Link) //nolint:errcheck
+		// response := r.Payload.(*v1.Link) //nolint:errcheck
 
 		return &CreateLinkResponse{
-			Link: response,
+			// Link: response,
 		}, nil
 	default:
 		err := fmt.Errorf("not found subscribe to event %s", "METHOD_ADD")
@@ -118,7 +117,7 @@ func (api *API) CreateLink(ctx context.Context, req *CreateLinkRequest) (*Create
 func (api *API) DeleteLink(ctx context.Context, req *DeleteLinkRequest) (*emptypb.Empty, error) {
 	responseCh := make(chan any)
 
-	go notify.Publish(ctx, v1.METHOD_DELETE, req.Link.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
+	// go notify.Publish(ctx, v1.METHOD_DELETE, req.Link.Hash, &notify.Callback{CB: responseCh, ResponseFilter: "RESPONSE_STORE_DELETE"})
 
 	// inject spanId in response header
 	errSendHeader := RegisterSpan(ctx)

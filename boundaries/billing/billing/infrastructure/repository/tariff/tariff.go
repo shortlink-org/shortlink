@@ -6,11 +6,9 @@ import (
 	"errors"
 
 	"github.com/Masterminds/squirrel"
-	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/billing/billing/domain/billing/tariff/v1"
-	v12 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/db/postgres/migrate"
 )
@@ -82,7 +80,7 @@ func (t *tariff) List(ctx context.Context, filter any) (*v1.Tariffs, error) {
 		var result v1.Tariff
 		err = rows.Scan(&result.Id, &result.Name, &result.Payload)
 		if err != nil {
-			return nil, &v12.NotFoundError{Link: &v12.Link{}}
+			return nil, err
 		}
 
 		response.List = append(response.GetList(), &result)

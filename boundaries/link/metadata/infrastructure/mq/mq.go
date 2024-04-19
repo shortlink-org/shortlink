@@ -10,7 +10,6 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
 
-	link "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	metadata "github.com/shortlink-org/shortlink/boundaries/link/metadata/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/notify"
@@ -20,7 +19,7 @@ type Event struct {
 	mq mq.MQ
 
 	// Observer interface for subscribe on system event
-	notify.Subscriber[link.Link]
+	// notify.Subscriber[link.Link]
 }
 
 func New(dataBus mq.MQ) (*Event, error) {

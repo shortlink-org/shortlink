@@ -5,12 +5,6 @@ MQ Endpoint
 package logger_mq
 
 import (
-	"context"
-	"fmt"
-
-	"google.golang.org/protobuf/proto"
-
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	logger_application "github.com/shortlink-org/shortlink/boundaries/platform/logger/application"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/mq"
@@ -48,9 +42,9 @@ func (e *Event) Subscribe() {
 	}
 
 	go func() {
-		if err := e.mq.Subscribe(context.Background(), v1.MQ_EVENT_LINK_CREATED, getEventNewLink); err != nil {
-			e.log.Error(err.Error())
-		}
+		// if err := e.mq.Subscribe(context.Background(), v1.MQ_EVENT_LINK_CREATED, getEventNewLink); err != nil {
+		// 	e.log.Error(err.Error())
+		// }
 	}()
 
 	go func() {
@@ -58,15 +52,15 @@ func (e *Event) Subscribe() {
 			msg := <-getEventNewLink.Chan
 
 			// Convert: []byte to link.Link
-			myLink := &v1.Link{}
-			if err := proto.Unmarshal(msg.Body, myLink); err != nil {
-				e.log.Error(fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
-				msg.Context.Done()
-
-				continue
-			}
-
-			e.service.Log(msg.Context, myLink)
+			// myLink := &v1.Link{}
+			// if err := proto.Unmarshal(msg.Body, myLink); err != nil {
+			// 	e.log.Error(fmt.Sprintf("Error unmarsharing event new link: %s", err.Error()))
+			// 	msg.Context.Done()
+			//
+			// 	continue
+			// }
+			//
+			// e.service.Log(msg.Context, myLink)
 			msg.Context.Done()
 		}
 	}()

@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
@@ -20,6 +19,6 @@ func New(log logger.Logger) (*Service, error) {
 	return service, nil
 }
 
-func (s *Service) Log(ctx context.Context, link *domain.Link) {
-	s.log.InfoWithContext(ctx, fmt.Sprintf("GET URL: %s", link.GetUrl()))
+func (s *Service) Log(ctx context.Context, payload any) {
+	s.log.InfoWithContext(ctx, fmt.Sprintf("GET URL: %s", payload))
 }

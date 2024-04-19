@@ -7,8 +7,6 @@ import (
 
 	domain "github.com/shortlink-org/shortlink/boundaries/billing/billing/domain/billing/account/v1"
 	"github.com/shortlink-org/shortlink/boundaries/billing/billing/domain/billing/account/v1/rules"
-	"github.com/shortlink-org/shortlink/boundaries/billing/billing/infrastructure/repository/account"
-	link "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
@@ -20,7 +18,7 @@ type AccountService struct {
 	log logger.Logger
 
 	// Subscriber
-	notify.Subscriber[link.Link]
+	// notify.Subscriber[link.Link]
 
 	// Repositories
 	accountRepository account_repository.Repository

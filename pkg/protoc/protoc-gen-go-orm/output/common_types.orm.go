@@ -7,7 +7,7 @@
 package example
 
 import (
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
+	domain "github.com/shortlink-org/shortlink/pkg/protoc/protoc-gen-rich-model/fixtures"
 )
 
 type FilterLink domain.FilterLink

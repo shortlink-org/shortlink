@@ -7,7 +7,6 @@ import (
 
 	domain "github.com/shortlink-org/shortlink/boundaries/billing/billing/domain/billing/tariff/v1"
 	tariff_repository "github.com/shortlink-org/shortlink/boundaries/billing/billing/infrastructure/repository/tariff"
-	link "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
@@ -18,7 +17,7 @@ type TariffService struct {
 	log logger.Logger
 
 	// Subscriber
-	notify.Subscriber[link.Link]
+	// notify.Subscriber[link.Link]
 
 	// Repositories
 	tariffRepository tariff_repository.Repository

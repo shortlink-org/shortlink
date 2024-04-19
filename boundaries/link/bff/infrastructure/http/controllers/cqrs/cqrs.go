@@ -1,14 +1,12 @@
 package cqrs
 
 import (
-	"errors"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
-	link_cqrs "github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/rpc/cqrs/link/v1"
+	link_cqrs "buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
 )
 
 var jsonpb protojson.MarshalOptions
@@ -29,58 +27,58 @@ func (c *LinkCQRSController) GetLinkByCQRS(w http.ResponseWriter, r *http.Reques
 	}
 
 	response, err := c.LinkQueryServiceClient.Get(r.Context(), &link_cqrs.GetRequest{Hash: hash})
-	var errorLink *v1.NotFoundError
-	if errors.As(err, &errorLink) {
-		w.WriteHeader(http.StatusNotFound)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+	// var errorLink *v1.NotFoundError
+	// if errors.As(err, &errorLink) {
+	// 	w.WriteHeader(http.StatusNotFound)
+	// 	_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+	//
+	// 	return
+	// }
+	// if err != nil {
+	// 	w.WriteHeader(http.StatusBadRequest)
+	// 	_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+	//
+	// 	return
+	// }
 
-		return
-	}
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
-
-		return
-	}
-
-	res, err := jsonpb.Marshal(response.Link)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
-
-		return
-	}
+	// res, err := jsonpb.Marshal(response.Link)
+	// if err != nil {
+	// 	w.WriteHeader(http.StatusBadRequest)
+	// 	_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+	//
+	// 	return
+	// }
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(res) //nolint:errcheck
+	_, _ = w.Write(nil) //nolint:errcheck
 }
 
 // GetLinksByCQRS - get links by filter
 func (c *LinkCQRSController) GetLinksByCQRS(w http.ResponseWriter, r *http.Request, params any) {
-	search := r.URL.Query().Get("search")
-	response, err := c.LinkQueryServiceClient.List(r.Context(), &link_cqrs.ListRequest{Filter: search})
-	var errorLink *v1.NotFoundError
-	if errors.As(err, &errorLink) {
-		w.WriteHeader(http.StatusNotFound)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
-
-		return
-	}
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
-
-		return
-	}
-
-	res, err := jsonpb.Marshal(response.Links)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
-
-		return
-	}
+	// search := r.URL.Query().Get("search")
+	// response, err := c.LinkQueryServiceClient.List(r.Context(), &link_cqrs.ListRequest{Filter: search})
+	// var errorLink *v1.NotFoundError
+	// if errors.As(err, &errorLink) {
+	// 	w.WriteHeader(http.StatusNotFound)
+	// 	_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+	//
+	// 	return
+	// }
+	// if err != nil {
+	// 	w.WriteHeader(http.StatusBadRequest)
+	// 	_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+	//
+	// 	return
+	// }
+	//
+	// res, err := jsonpb.Marshal(response.Links)
+	// if err != nil {
+	// 	w.WriteHeader(http.StatusBadRequest)
+	// 	_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck
+	//
+	// 	return
+	// }
 
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write(res) //nolint:errcheck
+	_, _ = w.Write(nil) //nolint:errcheck
 }

@@ -8,7 +8,6 @@ import (
 	"github.com/segmentio/encoding/json"
 	"github.com/spf13/viper"
 
-	link "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/notification/notify/domain/events"
 	"github.com/shortlink-org/shortlink/boundaries/notification/notify/infrastructure"
 	http_client "github.com/shortlink-org/shortlink/pkg/http/client"
@@ -17,7 +16,7 @@ import (
 
 type Bot struct {
 	// Observer interface for subscribe on system event
-	notify.Subscriber[link.Link]
+	// notify.Subscriber[link.Link]
 
 	webhook string
 }

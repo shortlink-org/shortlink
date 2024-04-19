@@ -1,16 +1,14 @@
 package link_cqrs
 
 import (
-	link "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/cqrs/cqs"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/cqrs/query"
 	"github.com/shortlink-org/shortlink/pkg/logger"
-	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 
 type Service struct {
 	// Observer interface for subscribe on system event
-	notify.Subscriber[link.Link]
+	// notify.Subscriber[link.Link]
 
 	// Repository
 	cqsStore   *cqs.Store
