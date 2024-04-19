@@ -2,12 +2,10 @@ package postgres
 
 import (
 	"context"
-	"database/sql"
 	"fmt"
 
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"google.golang.org/protobuf/types/known/timestamppb"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	v12 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link_cqrs/v1"
@@ -50,10 +48,10 @@ func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 
 	var response v12.LinkView
 	for rows.Next() {
-		err = rows.Scan(&response.Url, &response.Hash, &response.Describe, &response.ImageUrl, &response.MetaDescription, &response.MetaKeywords)
-		if err != nil {
-			return nil, &types.NotFoundByHashError{Hash: id}
-		}
+		// err = rows.Scan(&response.Url, &response.Hash, &response.Describe, &response.ImageUrl, &response.MetaDescription, &response.MetaKeywords)
+		// if err != nil {
+		// 	return nil, &types.NotFoundByHashError{Hash: id}
+		// }
 	}
 
 	if response.GetHash() == "" {
@@ -80,23 +78,23 @@ func (s *Store) List(ctx context.Context, filter *types.FilterLink) (*v12.LinksV
 	}
 
 	response := &v12.LinksView{
-		Links: []*v12.LinkView{},
+		// Links: []*v12.LinkView{},
 	}
 
 	for rows.Next() {
-		var result v12.LinkView
-		var (
-			created_ad sql.NullTime
-			updated_at sql.NullTime
-		)
-		err = rows.Scan(&result.Hash, &result.Describe, &result.MetaDescription, &created_ad, &updated_at)
-		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}}
-		}
-		result.CreatedAt = &timestamppb.Timestamp{Seconds: created_ad.Time.Unix(), Nanos: int32(created_ad.Time.Nanosecond())}
-		result.UpdatedAt = &timestamppb.Timestamp{Seconds: updated_at.Time.Unix(), Nanos: int32(updated_at.Time.Nanosecond())}
-
-		response.Links = append(response.GetLinks(), &result)
+		// var result v12.LinkView
+		// var (
+		// 	created_ad sql.NullTime
+		// 	updated_at sql.NullTime
+		// )
+		// err = rows.Scan(&result.Hash, &result.Describe, &result.MetaDescription, &created_ad, &updated_at)
+		// if err != nil {
+		// 	return nil, &v1.NotFoundError{Link: &v1.Link{}}
+		// }
+		// result.CreatedAt = &timestamppb.Timestamp{Seconds: created_ad.Time.Unix(), Nanos: int32(created_ad.Time.Nanosecond())}
+		// result.UpdatedAt = &timestamppb.Timestamp{Seconds: updated_at.Time.Unix(), Nanos: int32(updated_at.Time.Nanosecond())}
+		//
+		// response.Links = append(response.GetLinks(), &result)
 	}
 
 	return response, nil

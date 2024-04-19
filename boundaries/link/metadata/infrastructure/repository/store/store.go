@@ -8,7 +8,6 @@ import (
 
 	"github.com/spf13/viper"
 
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/metadata/infrastructure/repository/store/ram"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/logger"
@@ -22,11 +21,11 @@ func (s *MetaStore) Use(_ context.Context, log logger.Logger, _ db.DB) (*MetaSto
 	s.setConfig()
 
 	// Subscribe to Event
-	notify.Subscribe(v1.METHOD_ADD, s)
-	notify.Subscribe(v1.METHOD_GET, s)
-	notify.Subscribe(v1.METHOD_LIST, s)
-	notify.Subscribe(v1.METHOD_UPDATE, s)
-	notify.Subscribe(v1.METHOD_DELETE, s)
+	// notify.Subscribe(v1.METHOD_ADD, s)
+	// notify.Subscribe(v1.METHOD_GET, s)
+	// notify.Subscribe(v1.METHOD_LIST, s)
+	// notify.Subscribe(v1.METHOD_UPDATE, s)
+	// notify.Subscribe(v1.METHOD_DELETE, s)
 
 	switch s.typeStore {
 	case "ram":
