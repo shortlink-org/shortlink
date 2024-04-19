@@ -4,7 +4,7 @@ import (
 	"context"
 	"sync"
 
-	"github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types"
 	rpc "github.com/shortlink-org/shortlink/boundaries/link/metadata/domain/metadata/v1"
 )
 

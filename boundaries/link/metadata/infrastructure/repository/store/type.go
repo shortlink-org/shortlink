@@ -3,7 +3,7 @@ package storeRepository
 import (
 	"context"
 
-	link "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
+	link "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	rpc "github.com/shortlink-org/shortlink/boundaries/link/metadata/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/pkg/notify"
 )

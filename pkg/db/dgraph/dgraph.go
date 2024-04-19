@@ -10,21 +10,8 @@ import (
 	"google.golang.org/grpc/credentials/insecure"
 	"google.golang.org/grpc/encoding/gzip"
 
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/domain/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
-
-// Link implementation of db interface
-type Link struct {
-	Uid      string `json:"uid,omitempty"`
-	*v1.Link `json:"link,omitempty"`
-	DType    []string `json:"dgraph.type,omitempty"`
-}
-
-// LinkResponse - response from DGraph
-type LinkResponse struct {
-	Link []Link
-}
 
 // Config - config
 type Config struct {
