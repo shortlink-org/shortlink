@@ -5,7 +5,32 @@ package infrastructure.rpc.link.v1;
 option go_package = "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/link/v1";
 
 import "google/protobuf/empty.proto";
-import "infrastructure/rpc/link/v1/link.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+
+// Link
+message Link {
+  // Field mask
+  google.protobuf.FieldMask field_mask = 6;
+
+  // URL
+  string url = 1;
+  // Hash by URL + salt
+  string hash = 2;
+  // Describe of link
+  string describe = 3;
+
+  // Create at
+  google.protobuf.Timestamp created_at = 4;
+  // Update at
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+// Link list
+message Links {
+  // Links
+  repeated Link link = 1;
+}
 
 // LinkService is the service that provides link operations.
 service LinkService {

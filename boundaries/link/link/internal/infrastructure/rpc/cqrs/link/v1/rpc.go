@@ -10,18 +10,18 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
-type Link struct {
+type LinkRPC struct {
 	LinkCommandServiceServer
 	LinkQueryServiceServer
 
-	service *link_cqrs.Service
-	log     logger.Logger
+	cqrs *link_cqrs.Service
+	log  logger.Logger
 }
 
-func New(runRPCServer *rpc.Server, application *link_cqrs.Service, log logger.Logger) (*Link, error) {
-	server := &Link{
+func New(runRPCServer *rpc.Server, application *link_cqrs.Service, log logger.Logger) (*LinkRPC, error) {
+	server := &LinkRPC{
 		// Create Service Application
-		service: application,
+		cqrs: application,
 
 		log: log,
 	}

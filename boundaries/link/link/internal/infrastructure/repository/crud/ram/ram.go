@@ -8,7 +8,7 @@ import (
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/ram/filter"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types"
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
 	"github.com/shortlink-org/shortlink/pkg/batch"
 	"github.com/shortlink-org/shortlink/pkg/db/options"
 )
@@ -70,19 +70,19 @@ func New(ctx context.Context) (*Store, error) {
 func (s *Store) Get(_ context.Context, id string) (*domain.Link, error) {
 	response, ok := s.links.Load(id)
 	if !ok {
-		return nil, &types.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundByHashError{Hash: id}
 	}
 
 	v, ok := response.(*domain.Link)
 	if !ok {
-		return nil, &types.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundByHashError{Hash: id}
 	}
 
 	return v, nil
 }
 
 // List - list
-func (s *Store) List(_ context.Context, params *types.FilterLink) (*domain.Links, error) {
+func (s *Store) List(_ context.Context, params *v1.FilterLink) (*domain.Links, error) {
 	links := domain.NewLinks()
 
 	// Set default filter

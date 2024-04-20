@@ -58,8 +58,8 @@ type LinkService struct {
 	// Delivery
 	linkMQ            *api_mq.Event
 	run               *run.Response
-	linkRPCServer     *link_rpc.Link
-	linkCQRSRPCServer *cqrs.Link
+	linkRPCServer     *link_rpc.LinkRPC
+	linkCQRSRPCServer *cqrs.LinkRPC
 	sitemapRPCServer  *sitemap_rpc.Sitemap
 
 	// Application
@@ -176,7 +176,7 @@ func NewSitemapApplication(log logger.Logger, dataBus mq.MQ) (*sitemap.Service, 
 	return sitemapService, nil
 }
 
-func NewLinkCQRSRPCServer(runRPCServer *rpc.Server, application *link_cqrs.Service, log logger.Logger) (*cqrs.Link, error) {
+func NewLinkCQRSRPCServer(runRPCServer *rpc.Server, application *link_cqrs.Service, log logger.Logger) (*cqrs.LinkRPC, error) {
 	linkRPCServer, err := cqrs.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err
@@ -185,7 +185,7 @@ func NewLinkCQRSRPCServer(runRPCServer *rpc.Server, application *link_cqrs.Servi
 	return linkRPCServer, nil
 }
 
-func NewLinkRPCServer(runRPCServer *rpc.Server, application *link.UC, log logger.Logger) (*link_rpc.Link, error) {
+func NewLinkRPCServer(runRPCServer *rpc.Server, application *link.UC, log logger.Logger) (*link_rpc.LinkRPC, error) {
 	linkRPCServer, err := link_rpc.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err
@@ -204,7 +204,7 @@ func NewSitemapRPCServer(runRPCServer *rpc.Server, application *sitemap.Service,
 }
 
 // TODO: refactoring. maybe drop this function
-func NewRunRPCServer(runRPCServer *rpc.Server, _ *cqrs.Link, _ *link_rpc.Link) (*run.Response, error) {
+func NewRunRPCServer(runRPCServer *rpc.Server, _ *cqrs.LinkRPC, _ *link_rpc.LinkRPC) (*run.Response, error) {
 	return run.Run(runRPCServer)
 }
 
@@ -235,8 +235,8 @@ func NewLinkService(
 	// Delivery
 	linkMQ *api_mq.Event,
 	run *run.Response,
-	linkRPCServer *link_rpc.Link,
-	linkCQRSRPCServer *cqrs.Link,
+	linkRPCServer *link_rpc.LinkRPC,
+	linkCQRSRPCServer *cqrs.LinkRPC,
 	sitemapRPCServer *sitemap_rpc.Sitemap,
 
 	// Repository

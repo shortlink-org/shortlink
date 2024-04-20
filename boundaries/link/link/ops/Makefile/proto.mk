@@ -18,7 +18,7 @@ proto-generate: ## Generate proto-files
     # rpc -----------------------------------------------------------------------------------------
 	@buf generate \
 		--path=internal/infrastructure \
-		--template=ops/proto/infrastructure.buf.gen.yaml
+		--template=ops/proto/rpc.buf.gen.yaml
 
 	# repository ----------------------------------------------------------------------------------
 	@buf generate \

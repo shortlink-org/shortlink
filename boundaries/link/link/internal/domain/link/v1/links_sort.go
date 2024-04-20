@@ -5,7 +5,7 @@ func (l *Links) Len() int {
 }
 
 func (l *Links) Less(i, j int) bool {
-	return l.GetLink()[i].GetCreatedAt().AsTime().Before(l.GetLink()[j].GetCreatedAt().AsTime())
+	return l.GetLink()[i].GetCreatedAt().Before(l.GetLink()[j].GetCreatedAt())
 }
 
 func (l *Links) Swap(i, j int) {

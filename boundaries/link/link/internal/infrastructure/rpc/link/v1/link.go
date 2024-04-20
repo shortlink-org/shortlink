@@ -9,21 +9,21 @@ import (
 	"google.golang.org/grpc/status"
 	"google.golang.org/protobuf/types/known/emptypb"
 
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types"
+	types "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
 )
 
-func (l *Link) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
-	resp, err := l.service.Get(ctx, in.GetHash())
+func (l *LinkRPC) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
+	_, err := l.service.Get(ctx, in.GetHash())
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}
 
 	return &GetResponse{
-		Link: resp,
+		// Link: resp,
 	}, nil
 }
 
-func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error) {
+func (l *LinkRPC) List(ctx context.Context, in *ListRequest) (*ListResponse, error) {
 	// Parse args
 	filter := &types.FilterLink{}
 
@@ -33,44 +33,44 @@ func (l *Link) List(ctx context.Context, in *ListRequest) (*ListResponse, error)
 		}
 	}
 
-	resp, cursor, err := l.service.List(ctx, filter, in.GetCursor(), in.GetLimit())
+	_, cursor, err := l.service.List(ctx, filter, in.GetCursor(), in.GetLimit())
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}
 
 	return &ListResponse{
-		Links:  resp,
+		// Links:  resp,
 		Cursor: *cursor,
 	}, nil
 }
 
-func (l *Link) Add(ctx context.Context, in *AddRequest) (*AddResponse, error) {
+func (l *LinkRPC) Add(ctx context.Context, in *AddRequest) (*AddResponse, error) {
 	if in.GetLink() == nil {
 		return nil, ErrEmptyPayload
 	}
 
-	resp, err := l.service.Add(ctx, in.GetLink())
-	if err != nil {
-		return nil, status.Error(codes.InvalidArgument, err.Error())
-	}
+	// _, err := l.service.Add(ctx, in.GetLink())
+	// if err != nil {
+	// 	return nil, status.Error(codes.InvalidArgument, err.Error())
+	// }
 
 	return &AddResponse{
-		Link: resp,
+		// Link: resp,
 	}, nil
 }
 
-func (l *Link) Update(ctx context.Context, in *UpdateRequest) (*UpdateResponse, error) {
-	resp, err := l.service.Update(ctx, in.GetLink())
-	if err != nil {
-		return nil, status.Error(codes.InvalidArgument, err.Error())
-	}
+func (l *LinkRPC) Update(ctx context.Context, in *UpdateRequest) (*UpdateResponse, error) {
+	// resp, err := l.service.Update(ctx, in.GetLink())
+	// if err != nil {
+	// 	return nil, status.Error(codes.InvalidArgument, err.Error())
+	// }
 
 	return &UpdateResponse{
-		Link: resp,
+		// Link: resp,
 	}, nil
 }
 
-func (l *Link) Delete(ctx context.Context, in *DeleteRequest) (*emptypb.Empty, error) {
+func (l *LinkRPC) Delete(ctx context.Context, in *DeleteRequest) (*emptypb.Empty, error) {
 	_, err := l.service.Delete(ctx, in.GetHash())
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())

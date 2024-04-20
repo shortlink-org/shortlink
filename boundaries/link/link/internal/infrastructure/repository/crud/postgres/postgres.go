@@ -13,12 +13,11 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/lib/pq"
 	"github.com/spf13/viper"
-	"google.golang.org/protobuf/types/known/timestamppb"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/postgres/filter"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/postgres/schema/crud"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types"
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
 	"github.com/shortlink-org/shortlink/pkg/batch"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/db/options"
@@ -97,7 +96,7 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 func (s *Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
 	link, err := s.query.GetLinkByHash(ctx, hash)
 	if err != nil {
-		return nil, &types.NotFoundByHashError{Hash: hash}
+		return nil, &v1.NotFoundByHashError{Hash: hash}
 	}
 
 	resp, err := domain.NewLinkBuilder().
@@ -109,7 +108,7 @@ func (s *Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
 }
 
 // List - return list links
-func (s *Store) List(ctx context.Context, params *types.FilterLink) (*domain.Links, error) {
+func (s *Store) List(ctx context.Context, params *v1.FilterLink) (*domain.Links, error) {
 	request := psql.Select("url", "hash", "describe", "created_at", "updated_at").
 		From("link.links")
 
@@ -142,15 +141,15 @@ func (s *Store) List(ctx context.Context, params *types.FilterLink) (*domain.Lin
 			return nil, err
 		}
 
-		link, err := domain.NewLinkBuilder().
+		link, errBuilder := domain.NewLinkBuilder().
 			SetURL(url).
 			SetDescribe(describe).
-			SetCreatedAt(timestamppb.New(createdAt.Time)).
-			SetUpdatedAt(timestamppb.New(updatedAt.Time)).
+			SetCreatedAt(createdAt.Time).
+			SetUpdatedAt(updatedAt.Time).
 			Build()
 
-		if err != nil {
-			return nil, err
+		if errBuilder != nil {
+			return nil, errBuilder
 		}
 
 		links.Push(link)
@@ -234,7 +233,7 @@ func (s *Store) singleWrite(ctx context.Context, in *domain.Link) (*domain.Link,
 
 	_, err = s.client.Exec(ctx, q, args...)
 	if err != nil {
-		return nil, &types.NotFoundByHashError{Hash: in.GetHash()}
+		return nil, &v1.NotFoundByHashError{Hash: in.GetHash()}
 	}
 
 	return in, nil
@@ -259,7 +258,7 @@ func (s *Store) batchWrite(ctx context.Context, in *domain.Links) (*domain.Links
 	if err != nil {
 		errs := make([]error, 0, len(list))
 		for key := range list {
-			errs = append(errs, &types.CreateLinkError{Link: *list[key]})
+			errs = append(errs, &v1.CreateLinkError{Link: *list[key]})
 		}
 
 		return nil, errors.Join(errs...)

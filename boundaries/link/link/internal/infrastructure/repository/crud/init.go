@@ -21,7 +21,7 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/ram"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/redis"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/sqlite"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types"
+	types "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"

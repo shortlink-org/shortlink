@@ -10,7 +10,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
-type Link struct {
+type LinkRPC struct {
 	LinkServiceServer
 
 	log logger.Logger
@@ -19,8 +19,8 @@ type Link struct {
 	service *link_application.UC
 }
 
-func New(runRPCServer *rpc.Server, application *link_application.UC, log logger.Logger) (*Link, error) {
-	server := &Link{
+func New(runRPCServer *rpc.Server, application *link_application.UC, log logger.Logger) (*LinkRPC, error) {
+	server := &LinkRPC{
 		// Create UC Application
 		service: application,
 

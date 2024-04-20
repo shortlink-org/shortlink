@@ -13,7 +13,7 @@ import (
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/mysql/schema/crud"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types"
+	types "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/db/mysql/migrate"
 )
@@ -57,7 +57,7 @@ func (s Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
 	return &payload, nil
 }
 
-func (s Store) List(ctx context.Context, filter *types.FilterLink) (*domain.Links, error) {
+func (s Store) List(ctx context.Context, _ *types.FilterLink) (*domain.Links, error) {
 	links, err := s.client.GetLinks(ctx)
 	if err != nil {
 		return nil, err

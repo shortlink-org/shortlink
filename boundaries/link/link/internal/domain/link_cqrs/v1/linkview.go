@@ -1,14 +1,9 @@
 package v1
 
-import (
-	"net/url"
-	"time"
-)
-
 // Link view
 type LinkView struct {
 	// URL
-	url url.URL
+	url Url
 	// Hash by URL + salt
 	hash string
 	// Describe of a link
@@ -21,13 +16,13 @@ type LinkView struct {
 	metaKeywords string
 
 	// Create at
-	createdAt time.Time
+	createdAt Time
 	// Update at
-	updatedAt time.Time
+	updatedAt Time
 }
 
 // GetUrl returns the value of the url field.
-func (m *LinkView) GetUrl() url.URL {
+func (m *LinkView) GetUrl() Url {
 	return m.url
 }
 
@@ -57,11 +52,11 @@ func (m *LinkView) GetMetaKeywords() string {
 }
 
 // GetCreatedAt returns the value of the createdAt field.
-func (m *LinkView) GetCreatedAt() time.Time {
+func (m *LinkView) GetCreatedAt() Time {
 	return m.createdAt
 }
 
 // GetUpdatedAt returns the value of the updatedAt field.
-func (m *LinkView) GetUpdatedAt() time.Time {
+func (m *LinkView) GetUpdatedAt() Time {
 	return m.updatedAt
 }

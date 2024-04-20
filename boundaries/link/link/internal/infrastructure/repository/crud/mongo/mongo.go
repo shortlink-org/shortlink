@@ -14,7 +14,7 @@ import (
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/mongo/filter"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types"
+	types "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
 	"github.com/shortlink-org/shortlink/pkg/batch"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/db/mongo/migrate"
@@ -111,13 +111,13 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	val := collection.FindOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
 
 	if val.Err() != nil {
-		return nil, &types.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundByHashError{Hash: id}
 	}
 
 	var response v1.Link
 
 	if err := val.Decode(&response); err != nil {
-		return nil, &types.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundByHashError{Hash: id}
 	}
 
 	return &response, nil
@@ -181,7 +181,7 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 
 	_, err := collection.DeleteOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
 	if err != nil {
-		return &types.NotFoundByHashError{Hash: id}
+		return &v1.NotFoundByHashError{Hash: id}
 	}
 
 	return nil

@@ -8,7 +8,7 @@ import (
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types"
+	types "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
 	"github.com/shortlink-org/shortlink/pkg/db"
 )
 
@@ -57,7 +57,7 @@ func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 
 	stmt, err := lite.client.Prepare(q)
 	if err != nil {
-		return nil, &types.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundByHashError{Hash: id}
 	}
 	defer stmt.Close() //nolint:errcheck // ignore
 
@@ -69,7 +69,7 @@ func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 
 	err = stmt.QueryRowContext(ctx, args...).Scan(&link, &hash, &describe)
 	if err != nil {
-		return nil, &types.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundByHashError{Hash: id}
 	}
 
 	response, err := v1.NewLinkBuilder().SetURL(link).Build()
@@ -157,7 +157,7 @@ func (lite *Store) Delete(ctx context.Context, id string) error {
 
 	_, err = lite.client.ExecContext(ctx, q, args...)
 	if err != nil {
-		return &types.NotFoundByHashError{Hash: id}
+		return &v1.NotFoundByHashError{Hash: id}
 	}
 
 	return nil

@@ -10,7 +10,7 @@ import (
 	"github.com/segmentio/encoding/json"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types"
+	types "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
@@ -78,12 +78,12 @@ query all($a: string) {
 
 	val, err := txn.QueryWithVars(ctx, q, map[string]string{"$a": id})
 	if err != nil {
-		return nil, &types.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundByHashError{Hash: id}
 	}
 
 	var response LinkResponse
 	if err = json.NewDecoder(bytes.NewReader(val.Json)).Decode(&response); err != nil {
-		return nil, &types.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundByHashError{Hash: id}
 	}
 
 	return &response, nil
@@ -100,11 +100,11 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 
 	response, err := s.get(ctx, id)
 	if err != nil {
-		return nil, &types.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundByHashError{Hash: id}
 	}
 
 	if len(response.Link) == 0 {
-		return nil, &types.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundByHashError{Hash: id}
 	}
 
 	return response.Link[0].Link, nil
@@ -226,7 +226,7 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 
 	links, err := s.get(ctx, id)
 	if err != nil {
-		return &types.NotFoundByHashError{Hash: id}
+		return &v1.NotFoundByHashError{Hash: id}
 	}
 
 	if len(links.Link) == 0 {

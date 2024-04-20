@@ -7,7 +7,7 @@ import (
 	"github.com/syndtr/goleveldb/leveldb"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types"
+	types "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
@@ -60,7 +60,7 @@ func (l *Store) Add(_ context.Context, source *v1.Link) (*v1.Link, error) {
 func (l *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	value, err := l.client.Get([]byte(id), nil)
 	if err != nil {
-		return nil, &types.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundByHashError{Hash: id}
 	}
 
 	var response v1.Link

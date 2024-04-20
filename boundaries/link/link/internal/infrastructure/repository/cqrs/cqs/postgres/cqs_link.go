@@ -8,7 +8,6 @@ import (
 	"github.com/jackc/pgx/v5"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types"
 )
 
 func (s *Store) LinkAdd(ctx context.Context, source *v1.Link) (*v1.Link, error) {
@@ -98,7 +97,7 @@ func (s *Store) LinkDelete(ctx context.Context, id string) error {
 
 	_, err = s.client.Exec(ctx, q, args...)
 	if err != nil {
-		return &types.NotFoundByHashError{Hash: id}
+		return &v1.NotFoundByHashError{Hash: id}
 	}
 
 	return nil

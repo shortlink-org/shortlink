@@ -197,7 +197,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	link, err := NewLinkCQRSRPCServer(server, service, logger)
+	linkRPC, err := NewLinkCQRSRPCServer(server, service, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -206,7 +206,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	v1Link, err := NewLinkRPCServer(server, uc, logger)
+	v1LinkRPC, err := NewLinkRPCServer(server, uc, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -215,7 +215,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	response, err := NewRunRPCServer(server, link, v1Link)
+	response, err := NewRunRPCServer(server, linkRPC, v1LinkRPC)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -233,7 +233,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, client, uc, service, sitemapService, event, response, v1Link, link, sitemap, repository, cqsStore, queryStore)
+	linkService, err := NewLinkService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, client, uc, service, sitemapService, event, response, v1LinkRPC, linkRPC, sitemap, repository, cqsStore, queryStore)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -270,8 +270,8 @@ type LinkService struct {
 	// Delivery
 	linkMQ            *api_mq.Event
 	run               *run.Response
-	linkRPCServer     *v1.Link
-	linkCQRSRPCServer *v1_2.Link
+	linkRPCServer     *v1.LinkRPC
+	linkCQRSRPCServer *v1_2.LinkRPC
 	sitemapRPCServer  *v1_3.Sitemap
 
 	// Application
@@ -377,7 +377,7 @@ func NewSitemapApplication(log logger.Logger, dataBus mq.MQ) (*sitemap.Service, 
 	return sitemapService, nil
 }
 
-func NewLinkCQRSRPCServer(runRPCServer *rpc.Server, application *link_cqrs.Service, log logger.Logger) (*v1_2.Link, error) {
+func NewLinkCQRSRPCServer(runRPCServer *rpc.Server, application *link_cqrs.Service, log logger.Logger) (*v1_2.LinkRPC, error) {
 	linkRPCServer, err := v1_2.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err
@@ -386,7 +386,7 @@ func NewLinkCQRSRPCServer(runRPCServer *rpc.Server, application *link_cqrs.Servi
 	return linkRPCServer, nil
 }
 
-func NewLinkRPCServer(runRPCServer *rpc.Server, application *link.UC, log logger.Logger) (*v1.Link, error) {
+func NewLinkRPCServer(runRPCServer *rpc.Server, application *link.UC, log logger.Logger) (*v1.LinkRPC, error) {
 	linkRPCServer, err := v1.New(runRPCServer, application, log)
 	if err != nil {
 		return nil, err
@@ -404,7 +404,8 @@ func NewSitemapRPCServer(runRPCServer *rpc.Server, application *sitemap.Service,
 	return sitemapRPCServer, nil
 }
 
-func NewRunRPCServer(runRPCServer *rpc.Server, _ *v1_2.Link, _ *v1.Link) (*run.Response, error) {
+// TODO: refactoring. maybe drop this function
+func NewRunRPCServer(runRPCServer *rpc.Server, _ *v1_2.LinkRPC, _ *v1.LinkRPC) (*run.Response, error) {
 	return run.Run(runRPCServer)
 }
 
@@ -422,8 +423,8 @@ func NewLinkService(
 	sitemapService *sitemap.Service,
 
 	linkMQ *api_mq.Event, run2 *run.Response,
-	linkRPCServer *v1.Link,
-	linkCQRSRPCServer *v1_2.Link,
+	linkRPCServer *v1.LinkRPC,
+	linkCQRSRPCServer *v1_2.LinkRPC,
 	sitemapRPCServer *v1_3.Sitemap,
 
 	linkStore crud.Repository,

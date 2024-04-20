@@ -7,7 +7,7 @@ import (
 	"github.com/dgraph-io/badger/v4"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types"
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 // Store implementation of db interface
@@ -49,7 +49,7 @@ func (b *Store) Get(_ context.Context, id string) (*domain.Link, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, &types.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundByHashError{Hash: id}
 	}
 
 	var response domain.Link
@@ -62,7 +62,7 @@ func (b *Store) Get(_ context.Context, id string) (*domain.Link, error) {
 }
 
 // List - list
-func (b *Store) List(_ context.Context, _ *types.FilterLink) (*domain.Links, error) {
+func (b *Store) List(_ context.Context, _ *v1.FilterLink) (*domain.Links, error) {
 	var list [][]byte
 
 	err := b.client.View(func(txn *badger.Txn) error {
