@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+package infrastructure.rpc.link.v1;
+
+option go_package = "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/link/v1";
+
+import "google/protobuf/empty.proto";
+import "infrastructure/rpc/link/v1/link.proto";
+
+// LinkService is the service that provides link operations.
+service LinkService {
+  // Get returns a link by hash.
+  rpc Get(GetRequest) returns(GetResponse) {}
+  // List returns a list of links.
+  rpc List(ListRequest) returns(ListResponse) {}
+
+  // Add adds a link.
+  rpc Add(AddRequest) returns(AddResponse) {}
+  // Update updates a link.
+  rpc Update(UpdateRequest) returns(UpdateResponse) {}
+  // Delete deletes a link by hash.
+  rpc Delete(DeleteRequest) returns(google.protobuf.Empty) {}
+}
+
+// GetRequest is the request message for LinkService.Get.
+message GetRequest {
+  // Hash is the hash of the link.
+  string hash = 1;
+}
+
+// GetResponse is the response message for LinkService.Get.
+message GetResponse {
+  // Link is the link.
+  Link link = 1;
+}
+
+// ListRequest is the request message for LinkService.List.
+message ListRequest {
+  // Filter is the filter of the list.
+  string filter = 1;
+  // Limit is the limit of the list.
+  uint32 limit = 2;
+  // Cursor is the token of the list.
+  string cursor = 3;
+}
+
+// ListResponse is the response message for LinkService.List.
+message ListResponse {
+  // Links is the list of links.
+  Links links = 1;
+  // Cursor is the next token of the list.
+  string cursor = 2;
+}
+
+// AddRequest is the request message for LinkService.Add.
+message AddRequest {
+  // Link is the link.
+  Link link = 1;
+}
+
+// AddResponse is the response message for LinkService.Add.
+message AddResponse {
+  // Link is the link.
+  Link link = 1;
+}
+
+// UpdateRequest is the request message for LinkService.Update.
+message UpdateRequest {
+  // Link is the link.
+  Link link = 1;
+}
+
+// UpdateResponse is the response message for LinkService.Update.
+message UpdateResponse {
+  // Link is the link.
+  Link link = 1;
+}
+
+// DeleteRequest is the request message for LinkService.Delete.
+message DeleteRequest {
+  // Hash is the hash of the link.
+  string hash = 1;
+}

@@ -1,7 +1,6 @@
 # APPLICATION TASKS ====================================================================================================
 dep: ## Install dependencies for this project
 	# install protoc addons
-	@go install github.com/srikrsna/protoc-gen-gotag@latest
 	@go install moul.io/protoc-gen-gotemplate@latest
 	@go install github.com/cloudflare/cfssl/cmd/...@latest
 	@go install golang.org/x/tools/cmd/goimports@latest

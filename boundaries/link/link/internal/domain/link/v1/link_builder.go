@@ -3,8 +3,7 @@ package v1
 import (
 	"errors"
 	"net/url"
-
-	"google.golang.org/protobuf/types/known/timestamppb"
+	"time"
 )
 
 // LinkBuilder is used to build a new Link
@@ -41,25 +40,25 @@ func (b *LinkBuilder) SetDescribe(describe string) *LinkBuilder {
 }
 
 // SetCreatedAt sets the creation timestamp of the link
-func (b *LinkBuilder) SetCreatedAt(createdAt *timestamppb.Timestamp) *LinkBuilder {
-	if createdAt == nil {
+func (b *LinkBuilder) SetCreatedAt(createdAt time.Time) *LinkBuilder {
+	if createdAt.IsZero() {
 		b.errors = errors.Join(b.errors, errors.New("invalid timestamp: created at is nil"))
 		return b
 	}
 
-	b.link.createdat = createdAt
+	b.link.createdAt = createdAt
 
 	return b
 }
 
 // SetUpdatedAt sets the update timestamp of the link
-func (b *LinkBuilder) SetUpdatedAt(updatedAt *timestamppb.Timestamp) *LinkBuilder {
-	if updatedAt == nil {
+func (b *LinkBuilder) SetUpdatedAt(updatedAt time.Time) *LinkBuilder {
+	if updatedAt.IsZero() {
 		b.errors = errors.Join(b.errors, errors.New("invalid timestamp: updated at is nil"))
 		return b
 	}
 
-	b.link.updatedat = updatedAt
+	b.link.updatedAt = updatedAt
 
 	return b
 }
@@ -70,12 +69,12 @@ func (b *LinkBuilder) Build() (*Link, error) {
 		return nil, b.errors
 	}
 
-	if b.link.createdat == nil {
-		b.link.createdat = timestamppb.Now()
+	if b.link.createdAt.IsZero() {
+		b.link.createdAt = time.Now()
 	}
 
-	if b.link.updatedat == nil {
-		b.link.updatedat = timestamppb.Now()
+	if b.link.updatedAt.IsZero() {
+		b.link.updatedAt = time.Now()
 	}
 
 	return b.link, nil

@@ -4,7 +4,7 @@ package infrastructure.rpc.cqrs.link.v1;
 
 option go_package = "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/link/v1";
 
-import "domain/link_cqrs/v1/link.proto";
+import "infrastructure/rpc/cqrs/link/v1/link.proto";
 
 // LinkQueryService is the service that provides the query methods for the Link aggregate.
 service LinkQueryService {
@@ -23,7 +23,7 @@ message GetRequest {
 // GetResponse is the response message for the Get method.
 message GetResponse {
   // Link is the LinkView for the given hash.
-  domain.link_cqrs.v1.LinkView link = 1;
+  LinkView link = 1;
 }
 
 // ListRequest is the request message for the List method.
@@ -35,6 +35,6 @@ message ListRequest {
 // ListResponse is the response message for the List method.
 message ListResponse {
   // Links is the LinksView for the given filter.
-  domain.link_cqrs.v1.LinksView links = 1;
+  LinksView links = 1;
 }
 
