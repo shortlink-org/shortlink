@@ -5,5 +5,5 @@ managed:
 
 plugins:
   - plugin: buf.build/protocolbuffers/go
-    out: .
+    out: internal
     opt: paths=source_relative

@@ -12,12 +12,8 @@ proto-generate: ## Generate proto-files
 	# Link service ================================================================================
 	# domain --------------------------------------------------------------------------------------
 	@buf generate \
-		--path=domain \
+		--path=internal/domain \
 		--template=ops/proto/domain.buf.gen.yaml
-
-	@buf generate \
-		--path=domain \
-		--template=ops/proto/buf.gen.tag.yaml
 
 	# repository ----------------------------------------------------------------------------------
 	@buf generate \
