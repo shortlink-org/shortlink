@@ -9,7 +9,7 @@ type Url struct {
 	*url.URL
 }
 
-func NewUrl(in string) (Url, error) {
+func newUrl(in string) (Url, error) {
 	resp, err := url.ParseRequestURI(in)
 	if err != nil {
 		return Url{}, err

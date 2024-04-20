@@ -20,7 +20,7 @@ func NewLinkBuilder() *LinkBuilder {
 func (b *LinkBuilder) SetURL(newURL string) *LinkBuilder {
 	var err error
 
-	link, err := NewUrl(newURL)
+	link, err := newUrl(newURL)
 	if err != nil {
 		b.errors = errors.Join(b.errors, errors.New("invalid URL"))
 		return b
