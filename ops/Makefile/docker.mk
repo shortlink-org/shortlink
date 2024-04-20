@@ -32,6 +32,8 @@ dev: ## Run for development mode
 		-f ops/docker-compose/database/redis/redis.yaml \
 		-f ops/docker-compose/gateway/traefik/traefik.yaml \
 		-f ops/docker-compose/application/auth/kratos/kratos.yaml \
+		-f ops/docker-compose/database/postgres/postgres.yaml \
+		-f ops/docker-compose/tooling/minio/minio.yaml \
 		up -d --remove-orphans --build
 
 watch: ## Run for development mode with watch

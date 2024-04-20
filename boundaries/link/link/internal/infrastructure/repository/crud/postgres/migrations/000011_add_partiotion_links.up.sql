@@ -14,15 +14,15 @@ CREATE TABLE link.links_partitioned_by_created_at
 CREATE SCHEMA IF NOT EXISTS partman;
 CREATE EXTENSION IF NOT EXISTS pg_partman SCHEMA partman;
 
-SELECT partman.create_parent('link.links_partitioned_by_created_at', 'created_at', '1 days', 'range');
+--SELECT partman.create_parent('link.links_partitioned_by_created_at', 'created_at', '1 days', 'range');
 -- TODO: wait version 5.1 https://github.com/pgpartman/pg_partman/issues/265
--- SELECT partman.create_parent(
---          p_parent_table => 'link.links_partitioned_by_created_at',
---          p_control => 'created_at'::text,
---          p_type =>'native',
---          p_interval => 'day',
---          p_template_table := 'link.links_partitioned_by_created_at'
---        );
+SELECT partman.create_parent(
+        p_parent_table => 'link.links_partitioned_by_created_at',
+        p_control => 'created_at'::text,
+        p_type =>'native',
+        p_interval => '1 day',
+        p_template_table := 'link.links_partitioned_by_created_at'
+      );
 UPDATE partman.part_config SET retention = '10 days' WHERE parent_table = 'link.links_partitioned_by_created_at';
 
 SELECT partman.run_maintenance();

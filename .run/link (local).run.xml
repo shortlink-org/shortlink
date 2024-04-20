@@ -1,0 +1,21 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="link (local)" type="GoApplicationRunConfiguration" factoryName="Go Application" folderName="link boundary">
+    <module name="shortlink" />
+    <working_directory value="$PROJECT_DIR$" />
+    <envs>
+      <env name="GOEXPERIMENT" value="rangefunc,newinliner,arenas,cgocheck2" />
+      <env name="GRPC_SERVER_PORT" value="50053" />
+      <env name="STORE_TYPE" value="postgres" />
+    </envs>
+    <EXTENSION ID="software.aws.toolkits.jetbrains.core.execution.GoAwsConnectionRunConfigurationExtension">
+      <option name="credential" />
+      <option name="region" />
+      <option name="useCurrentConnection" value="false" />
+    </EXTENSION>
+    <kind value="PACKAGE" />
+    <package value="github.com/shortlink-org/shortlink/boundaries/link/link/cmd" />
+    <directory value="$PROJECT_DIR$" />
+    <filePath value="$PROJECT_DIR$/cmd/link/link.go" />
+    <method v="2" />
+  </configuration>
+</component>
