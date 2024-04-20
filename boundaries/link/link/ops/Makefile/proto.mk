@@ -15,13 +15,13 @@ proto-generate: ## Generate proto-files
 		--path=internal/domain \
 		--template=ops/proto/domain.buf.gen.yaml
 
-	# repository ----------------------------------------------------------------------------------
-	@buf generate \
-		--path=domain \
-		--path=infrastructure \
-		--template=ops/proto/repository.buf.gen.yaml
-
     # rpc -----------------------------------------------------------------------------------------
 	@buf generate \
-		--path=infrastructure \
+		--path=internal/infrastructure \
 		--template=ops/proto/infrastructure.buf.gen.yaml
+
+	# repository ----------------------------------------------------------------------------------
+	@buf generate \
+		--path=internal/domain \
+		--path=internal/infrastructure \
+		--template=ops/proto/repository.buf.gen.yaml

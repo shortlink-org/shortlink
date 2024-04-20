@@ -203,6 +203,7 @@ func NewSitemapRPCServer(runRPCServer *rpc.Server, application *sitemap.Service,
 	return sitemapRPCServer, nil
 }
 
+// TODO: refactoring. maybe drop this function
 func NewRunRPCServer(runRPCServer *rpc.Server, _ *cqrs.Link, _ *link_rpc.Link) (*run.Response, error) {
 	return run.Run(runRPCServer)
 }
