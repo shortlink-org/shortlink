@@ -2,9 +2,9 @@
 // versions:
 // - protoc-gen-go-orm v1.6.0
 // - protoc             (unknown)
-// source: domain/link/v1/link.proto
+// source: infrastructure/repository/crud/types/v1/link.proto
 
-package types
+package v1
 
 type StringFilterInput struct { //nolint:unused
 	Eq          string   `json:"eq,omitempty"`
@@ -22,7 +22,6 @@ type StringFilterInput struct { //nolint:unused
 }
 
 type FilterLink struct {
-	FieldMask *StringFilterInput `json:"fieldmask"`
 	Url       *StringFilterInput `json:"url"`
 	Hash      *StringFilterInput `json:"hash"`
 	Describe  *StringFilterInput `json:"describe"`

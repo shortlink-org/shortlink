@@ -6,40 +6,40 @@ managed:
 plugins:
   - plugin: go-orm
     strategy: all
-    out: infrastructure/repository/crud/types
+    out: internal/infrastructure/repository/crud/types/v1
     opt:
       - paths=source_relative
       - orm=skip
-      - pkg=types
+      - pkg=v1
       - filter=Link
       - common=true
 
   - plugin: go-orm
     strategy: all
-    out: infrastructure/repository/crud/postgres/filter
+    out: internal/infrastructure/repository/crud/postgres/filter
     opt:
       - paths=source_relative
       - orm=postgres
       - pkg=filter
       - filter=Link
-      - common_path=github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types
+      - common_path=github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1
 
   - plugin: go-orm
     strategy: all
-    out: infrastructure/repository/crud/mongo/filter
+    out: internal/infrastructure/repository/crud/mongo/filter
     opt:
       - paths=source_relative
       - orm=mongo
       - pkg=filter
       - filter=Link
-      - common_path=github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types
+      - common_path=github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1
 
   - plugin: go-orm
     strategy: all
-    out: infrastructure/repository/crud/ram/filter
+    out: internal/infrastructure/repository/crud/ram/filter
     opt:
       - paths=source_relative
       - orm=ram
       - pkg=filter
       - filter=Link
-      - common_path=github.com/shortlink-org/shortlink/boundaries/link/link/infrastructure/repository/crud/types
+      - common_path=github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1

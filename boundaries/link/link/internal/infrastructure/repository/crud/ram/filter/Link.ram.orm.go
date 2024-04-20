@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-orm v1.6.0
 // - protoc             (unknown)
-// source: domain/link/v1/link.proto
+// source: infrastructure/repository/crud/types/v1/link.proto
 
 package filter
 
@@ -10,7 +10,7 @@ import (
 	"reflect"
 	"strings"
 
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 func (f *FilterLink) BuildRAMFilter(item any) bool {
@@ -18,55 +18,6 @@ func (f *FilterLink) BuildRAMFilter(item any) bool {
 	var ok bool
 	var v reflect.Value
 
-	fieldVal, ok = reflect.ValueOf(f).Elem().FieldByName("FieldMask").Interface().(*domain.StringFilterInput)
-	if !ok || fieldVal == nil {
-		return true
-	} // If field is not found or nil, no filtering is applied
-	v = reflect.ValueOf(item).Elem().FieldByName("FieldMask")
-	if !v.IsValid() {
-		return false
-	} // If the link does not have this field, fail the filter
-	if fieldVal.Eq != "" && v.String() != fieldVal.Eq {
-		return false
-	}
-	if fieldVal.Ne != "" && v.String() == fieldVal.Ne {
-		return false
-	}
-	if fieldVal.Lt != "" && !(v.String() < fieldVal.Lt) {
-		return false
-	}
-	if fieldVal.Le != "" && !(v.String() <= fieldVal.Le) {
-		return false
-	}
-	if fieldVal.Gt != "" && !(v.String() > fieldVal.Gt) {
-		return false
-	}
-	if fieldVal.Ge != "" && !(v.String() >= fieldVal.Ge) {
-		return false
-	}
-	if fieldVal.StartsWith != "" && !strings.HasPrefix(v.String(), fieldVal.StartsWith) {
-		return false
-	}
-	if fieldVal.EndsWith != "" && !strings.HasSuffix(v.String(), fieldVal.EndsWith) {
-		return false
-	}
-	for _, contain := range fieldVal.Contains {
-		if !strings.Contains(v.String(), contain) {
-			return false
-		}
-	}
-	for _, notContain := range fieldVal.NotContains {
-		if strings.Contains(v.String(), notContain) {
-			return false
-		}
-	}
-
-	if fieldVal.IsEmpty && v.String() != "" {
-		return false
-	}
-	if fieldVal.IsNotEmpty && v.String() == "" {
-		return false
-	}
 	fieldVal, ok = reflect.ValueOf(f).Elem().FieldByName("Url").Interface().(*domain.StringFilterInput)
 	if !ok || fieldVal == nil {
 		return true

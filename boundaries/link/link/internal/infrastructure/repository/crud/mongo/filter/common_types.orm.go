@@ -2,12 +2,12 @@
 // versions:
 // - protoc-gen-go-orm v1.6.0
 // - protoc             (unknown)
-// source: domain/link/v1/link.proto
+// source: infrastructure/repository/crud/types/v1/link.proto
 
 package filter
 
 import (
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 type FilterLink domain.FilterLink
@@ -18,7 +18,6 @@ func NewFilter(params *domain.FilterLink) *FilterLink {
 	}
 
 	return &FilterLink{
-		FieldMask: params.FieldMask,
 		Url:       params.Url,
 		Hash:      params.Hash,
 		Describe:  params.Describe,

@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-orm v1.6.0
 // - protoc             (unknown)
-// source: domain/link/v1/link.proto
+// source: infrastructure/repository/crud/types/v1/link.proto
 
 package filter
 
@@ -15,36 +15,6 @@ func (f *FilterLink) BuildMongoFilter() bson.M {
 		return nil
 	}
 	filter := bson.M{}
-	if f.FieldMask != nil {
-		fieldFilter := bson.M{}
-		if f.FieldMask.Eq != "" {
-			fieldFilter["$eq"] = f.FieldMask.Eq
-		}
-		if f.FieldMask.Ne != "" {
-			fieldFilter["$ne"] = f.FieldMask.Ne
-		}
-		if f.FieldMask.Lt != "" {
-			fieldFilter["$lt"] = f.FieldMask.Lt
-		}
-		if f.FieldMask.Le != "" {
-			fieldFilter["$lte"] = f.FieldMask.Le
-		}
-		if f.FieldMask.Gt != "" {
-			fieldFilter["$gt"] = f.FieldMask.Gt
-		}
-		if f.FieldMask.Ge != "" {
-			fieldFilter["$gte"] = f.FieldMask.Ge
-		}
-		if len(f.FieldMask.Contains) > 0 {
-			fieldFilter["$in"] = f.FieldMask.Contains
-		}
-		if len(f.FieldMask.NotContains) > 0 {
-			fieldFilter["$nin"] = f.FieldMask.NotContains
-		}
-		if len(fieldFilter) > 0 {
-			filter["fieldmask"] = fieldFilter
-		}
-	}
 	if f.Url != nil {
 		fieldFilter := bson.M{}
 		if f.Url.Eq != "" {

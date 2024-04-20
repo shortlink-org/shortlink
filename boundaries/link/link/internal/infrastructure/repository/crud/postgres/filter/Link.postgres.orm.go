@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-orm v1.6.0
 // - protoc             (unknown)
-// source: domain/link/v1/link.proto
+// source: infrastructure/repository/crud/types/v1/link.proto
 
 package filter
 
@@ -12,64 +12,6 @@ import (
 )
 
 func (f *FilterLink) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
-	if f.FieldMask != nil {
-		if f.FieldMask.Eq != "" {
-			query = query.Where("fieldmask = ?", f.FieldMask.Eq)
-		}
-		if f.FieldMask.Ne != "" {
-			query = query.Where("fieldmask <> ?", f.FieldMask.Ne)
-		}
-		if f.FieldMask.Lt != "" {
-			query = query.Where("fieldmask < ?", f.FieldMask.Lt)
-		}
-		if f.FieldMask.Le != "" {
-			query = query.Where("fieldmask <= ?", f.FieldMask.Le)
-		}
-		if f.FieldMask.Gt != "" {
-			query = query.Where("fieldmask > ?", f.FieldMask.Gt)
-		}
-		if f.FieldMask.Ge != "" {
-			query = query.Where("fieldmask >= ?", f.FieldMask.Ge)
-		}
-		if f.FieldMask.StartsWith != "" {
-			query = query.Where("fieldmask LIKE '%' || ?", f.FieldMask.StartsWith)
-		}
-		if f.FieldMask.EndsWith != "" {
-			query = query.Where("fieldmask LIKE ? || '%'", f.FieldMask.EndsWith)
-		}
-		if len(f.FieldMask.Contains) > 0 {
-			containsQueries := []string{}
-			containsArgs := []interface{}{}
-			for _, v := range f.FieldMask.Contains {
-				if v != "" {
-					containsQueries = append(containsQueries, "fieldmask LIKE ?")
-					containsArgs = append(containsArgs, "%"+v+"%")
-				}
-			}
-			if len(containsQueries) > 0 {
-				query = query.Where("("+strings.Join(containsQueries, " OR ")+")", containsArgs...)
-			}
-		}
-		if len(f.FieldMask.NotContains) > 0 {
-			notContainsQueries := []string{}
-			notContainsArgs := []interface{}{}
-			for _, v := range f.FieldMask.NotContains {
-				if v != "" {
-					notContainsQueries = append(notContainsQueries, "fieldmask NOT LIKE ?")
-					notContainsArgs = append(notContainsArgs, "%"+v+"%")
-				}
-			}
-			if len(notContainsQueries) > 0 {
-				query = query.Where("("+strings.Join(notContainsQueries, " OR ")+")", notContainsArgs...)
-			}
-		}
-		if f.FieldMask.IsEmpty {
-			query = query.Where("fieldmask = '' OR fieldmask IS NULL")
-		}
-		if f.FieldMask.IsNotEmpty {
-			query = query.Where("fieldmask <> '' AND fieldmask IS NOT NULL")
-		}
-	}
 	if f.Url != nil {
 		if f.Url.Eq != "" {
 			query = query.Where("url = ?", f.Url.Eq)

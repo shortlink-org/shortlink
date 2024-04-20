@@ -22,6 +22,5 @@ proto-generate: ## Generate proto-files
 
 	# repository ----------------------------------------------------------------------------------
 	@buf generate \
-		--path=internal/domain \
 		--path=internal/infrastructure \
 		--template=ops/proto/repository.buf.gen.yaml
