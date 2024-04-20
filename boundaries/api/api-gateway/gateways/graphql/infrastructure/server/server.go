@@ -10,9 +10,9 @@ import (
 	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 
-	link_cqrs "buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
-	link_rpc "buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
-	sitemap_rpc "buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
+	link_cqrs "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
+	link_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
+	sitemap_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
 
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/rpc"

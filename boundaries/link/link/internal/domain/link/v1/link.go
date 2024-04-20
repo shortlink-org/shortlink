@@ -1,14 +1,13 @@
 package v1
 
 import (
-	"net/url"
 	"time"
 )
 
 // Link is a domain model.
 type Link struct {
 	// URL
-	url url.URL
+	url Url
 	// Hash by URL + salt
 	hash string
 	// Describe of a link
@@ -21,8 +20,8 @@ type Link struct {
 }
 
 // GetUrl returns the value of the url field.
-func (m *Link) GetUrl() url.URL {
-	return m.url
+func (m *Link) GetUrl() *Url {
+	return &m.url
 }
 
 // GetHash returns the value of the hash field.

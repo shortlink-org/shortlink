@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/boundaries/link/bff
 go 1.22.2
 
 require (
-	buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go v1.3.0-20240419001457-89ad6fc14c46.2
+	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.3.0-20240420204150-bbba30c24796.2
 	github.com/go-chi/chi/v5 v5.0.12
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/render v1.0.3
@@ -20,8 +20,7 @@ require (
 )
 
 require (
-	buf.build/gen/go/shortlink-org/protoc-gen-rich-model/protocolbuffers/go v1.28.1-20240418202605-62abd71359c1.4 // indirect
-	buf.build/gen/go/shortlink-org/shortlink-lint-lint/protocolbuffers/go v1.28.1-20240419001457-89ad6fc14c46.4 // indirect
+	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.28.1-20240420204150-bbba30c24796.4 // indirect
 	github.com/ajg/form v1.5.1 // indirect
 	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect

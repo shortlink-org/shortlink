@@ -7,9 +7,9 @@ import (
 	"golang.org/x/text/message"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	link_cqrs "buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
-	link_rpc "buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
-	sitemap_rpc "buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
+	link_cqrs "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
+	link_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
+	sitemap_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
 
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/link"
@@ -17,6 +17,7 @@ import (
 	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
 	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
+	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
@@ -35,6 +36,7 @@ type Config struct {
 	I18n   *message.Printer
 	Log    logger.Logger
 	Config *config.Config
+	Http   http_server.Config
 
 	// Observability
 	Tracer        trace.TracerProvider

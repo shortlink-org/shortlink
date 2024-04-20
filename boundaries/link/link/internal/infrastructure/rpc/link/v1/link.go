@@ -49,13 +49,24 @@ func (l *LinkRPC) Add(ctx context.Context, in *AddRequest) (*AddResponse, error)
 		return nil, ErrEmptyPayload
 	}
 
-	// _, err := l.service.Add(ctx, in.GetLink())
-	// if err != nil {
-	// 	return nil, status.Error(codes.InvalidArgument, err.Error())
-	// }
+	entity, err := in.ToEntity()
+	if err != nil {
+		return nil, status.Error(codes.InvalidArgument, err.Error())
+	}
+
+	resp, err := l.service.Add(ctx, entity)
+	if err != nil {
+		return nil, status.Error(codes.InvalidArgument, err.Error())
+	}
 
 	return &AddResponse{
-		// Link: resp,
+		Link: &Link{
+			Url:       resp.GetUrl().String(),
+			Hash:      "",
+			Describe:  "",
+			CreatedAt: nil,
+			UpdatedAt: nil,
+		},
 	}, nil
 }
 

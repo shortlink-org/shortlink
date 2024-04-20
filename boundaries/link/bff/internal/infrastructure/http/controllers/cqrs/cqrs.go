@@ -6,7 +6,7 @@ import (
 	"github.com/go-chi/chi/v5"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	link_cqrs "buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
+	link_cqrs "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
 )
 
 var jsonpb protojson.MarshalOptions

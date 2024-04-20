@@ -15,9 +15,9 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 
-	link_cqrs "buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
-	link_rpc "buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
-	sitemap_rpc "buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
+	link_cqrs "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
+	link_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
+	sitemap_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
 
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/grpc-web/infrastructure/server"
 	api_application "github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/grpc-web/infrastructure/server/v1"
@@ -91,14 +91,14 @@ func NewSitemapServiceClient(runRPCClient *grpc.ClientConn) (sitemap_rpc.Sitemap
 // }
 
 func NewAPIApplication(
-// Common
+	// Common
 	ctx context.Context,
 	log logger.Logger,
 	rpcServer *rpc.Server,
 	tracer trace.TracerProvider,
 	monitor *monitoring.Monitoring,
 
-// Delivery
+	// Delivery
 	link_rpc link_rpc.LinkServiceClient,
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,
@@ -127,11 +127,11 @@ func NewAPIApplication(
 }
 
 func NewAPIService(
-// Common
+	// Common
 	log logger.Logger,
 	config *config.Config,
 
-// Observability
+	// Observability
 	monitoring *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,

@@ -19,6 +19,7 @@ import (
 	logger_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/logger"
 	metrics_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/metrics"
 	pprof_labels_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/pprof_labels"
+	span_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/span"
 	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 )
 
@@ -26,10 +27,10 @@ import (
 const MAX_AGE = 300
 
 // Run HTTP-server
-func (api *Server) run(config http_server.Config, params Config) error {
+func (api *Server) run(config Config) error {
 	viper.SetDefault("BASE_PATH", "/api") // Base path for API endpoints
 
-	api.ctx = params.Ctx
+	api.ctx = config.Ctx
 	api.jsonpb = protojson.MarshalOptions{
 		UseProtoNames: true,
 	}
@@ -58,11 +59,12 @@ func (api *Server) run(config http_server.Config, params Config) error {
 	// Set a timeout value on the request context (ctx), that will signal
 	// through ctx.Done() that the request has timed out and further
 	// processing should be stopped.
-	r.Use(middleware.Timeout(config.Timeout))
+	r.Use(middleware.Timeout(config.Http.Timeout))
 
 	// Additional middleware
-	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME"), otelchi.WithTracerProvider(params.Tracer)))
-	r.Use(logger_middleware.Logger(params.Log))
+	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
+	r.Use(logger_middleware.Logger(config.Log))
+	r.Use(span_middleware.Span())
 	r.Use(auth_middleware.Auth())
 	r.Use(pprof_labels_middleware.Labels)
 
@@ -77,22 +79,22 @@ func (api *Server) run(config http_server.Config, params Config) error {
 
 	// Init routes
 	controller := &Controller{
-		link.NewController(params.Log, params.Link_rpc),
+		link.NewController(config.Log, config.Link_rpc),
 		cqrs.LinkCQRSController{
-			LinkCommandServiceClient: params.Link_command,
-			LinkQueryServiceClient:   params.Link_query,
+			LinkCommandServiceClient: config.Link_command,
+			LinkQueryServiceClient:   config.Link_query,
 		},
 		sitemap.SitemapController{
-			// SitemapServiceClient: params.Sitemap_rpc,
+			// SitemapServiceClient: config.Sitemap_rpc,
 		},
 	}
 
 	r.Mount(viper.GetString("BASE_PATH"), serverAPI.HandlerFromMux(controller, r))
 
-	srv := http_server.New(params.Ctx, r, config, params.Tracer)
+	srv := http_server.New(config.Ctx, r, config.Http, config.Tracer)
 
 	// start HTTP-server
-	params.Log.Info(params.I18n.Sprintf("BFF Web run on port %d", config.Port))
+	config.Log.Info(config.I18n.Sprintf("BFF Web run on port %d", config.Http.Port))
 	err = srv.ListenAndServe()
 	if err != nil {
 		return err
@@ -108,7 +110,7 @@ func New(params Config) (*Server, error) {
 	// Request Timeout (seconds)
 	viper.SetDefault("API_TIMEOUT", "60s")
 
-	config := http_server.Config{
+	params.Http = http_server.Config{
 		Port:    viper.GetInt("API_PORT"),
 		Timeout: viper.GetDuration("API_TIMEOUT"),
 	}
@@ -117,7 +119,7 @@ func New(params Config) (*Server, error) {
 	g := errgroup.Group{}
 
 	g.Go(func() error {
-		return api.run(config, params)
+		return api.run(params)
 	})
 
 	return api, nil

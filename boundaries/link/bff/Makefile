@@ -19,7 +19,15 @@ docs: ### Generate OpenAPI documentation
 	@go run github.com/shortlink-org/shortlink/boundaries/platform/shortctl/cmd --o ./docs/env.md --include-dir "." --exclude-dir "vendor"
 
 	@docker run --rm -v ${PWD}:/local/ openapitools/openapi-generator-cli generate \
-		-i /local/infrastructure/http/api/api.yaml \
+		-i /local/internal/infrastructure/http/api/api.yaml \
 		-g openapi-yaml \
-		-o /local/infrastructure/http/api/render \
+		-o /local/internal/infrastructure/http/api/render \
 		--skip-validate-spec
+
+# BFF ==================================================================================================================
+dep: ### Get the dependencies
+	@go install github.com/deepmap/oapi-codegen/v2/cmd/oapi-codegen@latest
+	@go install golang.org/x/text/cmd/gotext@latest
+
+generate: dep ### Generate BFF
+	@go generate -tags=wireinject ./...

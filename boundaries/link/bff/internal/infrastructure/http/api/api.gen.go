@@ -6,7 +6,6 @@ package api
 import (
 	"fmt"
 	"net/http"
-	"net/url"
 	"time"
 
 	"github.com/go-chi/chi/v5"
@@ -44,7 +43,7 @@ type Link struct {
 	UpdatedAt time.Time `json:"updated_at"`
 
 	// Url The URL of the link.
-	Url url.URL `json:"url"`
+	Url string `json:"url"`
 }
 
 // LinkFilter defines model for LinkFilter.

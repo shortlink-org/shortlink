@@ -18,8 +18,12 @@ func (s span) middleware(next http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		ww := middleware.NewWrapResponseWriter(w, r.ProtoMajor)
 
-		// Inject spanId in response header
-		ww.Header().Add("trace_id", trace.LinkFromContext(r.Context()).SpanContext.TraceID().String())
+		// Check if "trace_id" already exists in the header
+		if ww.Header().Get("trace_id") == "" {
+			// Inject spanId in response header
+			ww.Header().Add("trace_id", trace.SpanFromContext(r.Context()).SpanContext().TraceID().String())
+		}
+
 		next.ServeHTTP(ww, r)
 	}
 

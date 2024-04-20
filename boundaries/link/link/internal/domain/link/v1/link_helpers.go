@@ -10,7 +10,7 @@ import (
 	"net/url"
 )
 
-func newHash(link url.URL) string {
+func newHash(link *url.URL) string {
 	return createHash([]byte(link.String()), []byte("secret"))[:15] //nolint:revive // ignore
 }
 

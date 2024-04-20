@@ -7,9 +7,9 @@
 package api_di
 
 import (
-	linkv1grpc2 "buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
-	"buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
-	"buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
+	linkv1grpc2 "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
+	"buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
+	"buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
 	"context"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/domain"

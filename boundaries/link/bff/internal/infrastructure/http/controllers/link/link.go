@@ -5,9 +5,11 @@ import (
 
 	"github.com/segmentio/encoding/json"
 
-	link_rpc "buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
+	link_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
+	v1 "buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go/infrastructure/rpc/link/v1"
 
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/api"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/link/dto"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
@@ -48,20 +50,20 @@ func (c *Controller) AddLink(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Save link
-	// result, err := c.linkServiceClient.Add(r.Context(), &link_rpc.AddRequest{Link: dto.MakeAddLinkRequest(request)})
-	// if err != nil {
-	// 	w.WriteHeader(http.StatusBadRequest)
-	// 	_ = json.NewEncoder(w).Encode(ErrMessages(err)) //nolint:errcheck
-	//
-	// 	return
-	// }
+	result, err := c.linkServiceClient.Add(r.Context(), &v1.AddRequest{Link: dto.MakeAddLinkRequest(request)})
+	if err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		_ = json.NewEncoder(w).Encode(ErrMessages(err)) //nolint:errcheck
+
+		return
+	}
 
 	response := &api.Link{
-		// Url:       result.GetLink().GetUrl(),
-		// Hash:      result.GetLink().GetHash(),
-		// Describe:  result.GetLink().GetDescribe(),
-		// CreatedAt: result.GetLink().GetCreatedAt().AsTime(),
-		// UpdatedAt: result.GetLink().GetUpdatedAt().AsTime(),
+		Url:       result.GetLink().GetUrl(),
+		Hash:      result.GetLink().GetHash(),
+		Describe:  result.GetLink().GetDescribe(),
+		CreatedAt: result.GetLink().GetCreatedAt().AsTime(),
+		UpdatedAt: result.GetLink().GetUpdatedAt().AsTime(),
 	}
 
 	w.WriteHeader(http.StatusCreated)

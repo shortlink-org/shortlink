@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/boundaries/api/api-gateway
 go 1.22.2
 
 require (
-	buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go v1.3.0-20240419001457-89ad6fc14c46.2
+	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.3.0-20240420204150-bbba30c24796.2
 	github.com/cloudevents/sdk-go/observability/opentelemetry/v2 v2.15.2
 	github.com/cloudevents/sdk-go/v2 v2.15.2
 	github.com/google/wire v0.6.0
@@ -20,8 +20,7 @@ require (
 )
 
 require (
-	buf.build/gen/go/shortlink-org/protoc-gen-rich-model/protocolbuffers/go v1.28.1-20240418202605-62abd71359c1.4 // indirect
-	buf.build/gen/go/shortlink-org/shortlink-lint-lint/protocolbuffers/go v1.28.1-20240419001457-89ad6fc14c46.4 // indirect
+	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.28.1-20240420204150-bbba30c24796.4 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect

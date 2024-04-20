@@ -25,19 +25,22 @@ func (c chilogger) middleware(next http.Handler) http.Handler {
 	fn := func(w http.ResponseWriter, r *http.Request) {
 		start := time.Now()
 		ww := middleware.NewWrapResponseWriter(w, r.ProtoMajor)
+
+		defer func() {
+			latency := time.Since(start)
+
+			fields := field.Fields{
+				"status":  ww.Status(),
+				"took":    latency,
+				"remote":  r.RemoteAddr,
+				"request": r.RequestURI,
+				"method":  r.Method,
+			}
+
+			c.log.InfoWithContext(r.Context(), "request completed", fields)
+		}()
+
 		next.ServeHTTP(ww, r)
-
-		latency := time.Since(start)
-
-		fields := field.Fields{
-			"status":  ww.Status(),
-			"took":    latency,
-			"remote":  r.RemoteAddr,
-			"request": r.RequestURI,
-			"method":  r.Method,
-		}
-
-		c.log.InfoWithContext(r.Context(), "request completed", fields)
 	}
 
 	return http.HandlerFunc(fn)

@@ -130,7 +130,6 @@ components:
           type: string
           format: uri
           description: The URL of the link.
-          x-go-type: url.URL
         hash:
           type: string
           description: Unique hash, used as the short link.

@@ -9,4 +9,4 @@ We support reflection for request. You can use [Postman](https://www.postman.com
 ### Buf schema
 
 > [!TIP]
-> Buf Schema Registry [link](https://buf.build/shortlink-org/shortlink-lint-lint)
+> Buf Schema Registry [link](https://buf.build/shortlink-org/shortlink-link-link)

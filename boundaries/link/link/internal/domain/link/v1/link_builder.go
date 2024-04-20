@@ -2,7 +2,6 @@ package v1
 
 import (
 	"errors"
-	"net/url"
 	"time"
 )
 
@@ -19,14 +18,16 @@ func NewLinkBuilder() *LinkBuilder {
 
 // SetURL sets the URL of the link and calculates the hash
 func (b *LinkBuilder) SetURL(newURL string) *LinkBuilder {
-	url, err := url.Parse(newURL)
+	var err error
+
+	link, err := NewUrl(newURL)
 	if err != nil {
 		b.errors = errors.Join(b.errors, errors.New("invalid URL"))
 		return b
 	}
 
-	b.link.url = *url
-	b.link.hash = newHash(*url)
+	b.link.url = link
+	b.link.hash = newHash(link.GetUrl())
 
 	return b
 }

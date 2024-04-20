@@ -7,16 +7,9 @@
 > 
 > **HTTP REST API:** Implemented using 'chi' for optimal integration and high performance.
 
-### Getting started
-
-We use Makefile for build and deploy.
-
-```bash
-$> make help # show help message with all commands and targets
-```
-
 ### Docs
 
+- [CONTRIBUTING.md](./docs/CONTRIBUTING.md) - How to contribute?
 - [API](./infrastructure/http/api/api.yaml) - API documentation in Swagger format
 - [Postman link](./docs/postman/shortlink.postman_collection.json) for test HTTP API
 - [Swagger UI](https://shortlink-org.gitlab.io/shortlink)

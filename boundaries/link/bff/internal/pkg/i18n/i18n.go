@@ -1,4 +1,4 @@
-//go:generate gotext -srclang=en-GB update -out=catalog.go -lang=en-GB,de-DE,fr-CH github.com/shortlink-org/shortlink/boundaries/link/bff/infrastructure/http
+//go:generate gotext -srclang=en-GB update -out=catalog.go -lang=en-GB,de-DE,fr-CH github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http
 
 package i18n
 

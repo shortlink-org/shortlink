@@ -11,9 +11,9 @@ package api_di
 import (
 	"context"
 
-	link_cqrs "buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
-	link_rpc "buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
-	sitemap_rpc "buf.build/gen/go/shortlink-org/shortlink-lint-lint/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
+	link_cqrs "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
+	link_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
+	sitemap_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
@@ -89,14 +89,14 @@ func NewSitemapServiceClient(runRPCClient *grpc.ClientConn) (sitemap_rpc.Sitemap
 // }
 
 func NewAPIApplication(
-// Common
+	// Common
 	ctx context.Context,
 	log logger.Logger,
 	rpcServer *rpc.Server,
 	tracer trace.TracerProvider,
 	monitor *monitoring.Monitoring,
 
-// Delivery
+	// Delivery
 	link_rpc link_rpc.LinkServiceClient,
 	link_command link_cqrs.LinkCommandServiceClient,
 	link_query link_cqrs.LinkQueryServiceClient,
@@ -125,11 +125,11 @@ func NewAPIApplication(
 }
 
 func NewAPIService(
-// Common
+	// Common
 	log logger.Logger,
 	config *config.Config,
 
-// Observability
+	// Observability
 	monitoring *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
