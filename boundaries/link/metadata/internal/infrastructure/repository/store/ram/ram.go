@@ -2,10 +2,10 @@ package ram
 
 import (
 	"context"
-	"fmt"
 	"sync"
 
 	rpc "github.com/shortlink-org/shortlink/boundaries/link/metadata/internal/domain/metadata/v1"
+	errors "github.com/shortlink-org/shortlink/boundaries/link/metadata/internal/infrastructure/repository/store/error"
 )
 
 type Store struct {
@@ -17,12 +17,12 @@ type Store struct {
 func (s *Store) Get(_ context.Context, id string) (*rpc.Meta, error) {
 	response, ok := s.metadata.Load(id)
 	if !ok {
-		return nil, fmt.Errorf("metadata not found by id: %s", id)
+		return nil, &errors.MetadataNotFoundByIdError{ID: id}
 	}
 
 	v, ok := response.(*rpc.Meta)
 	if !ok {
-		return nil, fmt.Errorf("metadata not found by id: %s", id)
+		return nil, &errors.MetadataNotFoundByIdError{ID: id}
 	}
 
 	return v, nil

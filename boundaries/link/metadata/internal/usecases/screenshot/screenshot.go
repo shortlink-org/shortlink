@@ -6,7 +6,6 @@ package screenshot
 
 import (
 	"context"
-	"fmt"
 	"net/url"
 
 	"github.com/chromedp/chromedp"
@@ -22,7 +21,7 @@ func New(ctx context.Context, media *s3Repository.Service) (*UC, error) {
 
 func (s *UC) Get(ctx context.Context, linkURL string) (*url.URL, error) {
 	// return s.media.Get(ctx, linkURL)
-	return nil, fmt.Errorf("not implemented")
+	panic("not implemented")
 }
 
 func (s *UC) Set(ctx context.Context, linkURL string) error {

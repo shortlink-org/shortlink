@@ -6,6 +6,7 @@ import (
 	"errors"
 
 	"github.com/Masterminds/squirrel"
+	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/tariff/v1"

@@ -175,7 +175,11 @@ func protobufToGoTypeSingle(field *protogen.Field) (string, map[string]bool) {
 
 	if opts := field.Desc.Options(); opts != nil {
 		if proto.HasExtension(opts, v1.E_GoType) {
-			customType := proto.GetExtension(opts, v1.E_GoType).(string)
+			customType, ok := proto.GetExtension(opts, v1.E_GoType).(string)
+			if !ok {
+				log.Println("invalid GoType extension for field:", field.GoName)
+				return "", nil
+			}
 
 			// Determine if imports are needed for the custom type and add them.
 			if strings.Contains(customType, "url.URL") {
