@@ -28,9 +28,10 @@ services:
       SPICEDB_DISPATCH_CLUSTER_METRICS: true
       SPICEDB_NS_CACHE_METRICS: true
       SPICEDB_METRICS_ENABLED: true
-      # SPICEDB_OTEL_PROVIDER: jaeger
+      SPICEDB_OTEL_PROVIDER: otlpgrpc
       SPICEDB_OTEL_SAMPLE_RATIO: 1
-      OTEL_EXPORTER_OTLP_ENDPOINT: jaeger-agent:4317
+      SPICEDB_OTEL_ENDPOINT: jaeger-agent:4317
+      OTEL_EXPORTER_OTLP_ENDPOINT: http://jaeger-agent:4317
       SPICEDB_LOG_LEVEL: trace
     labels:
       - "traefik.enable=false"

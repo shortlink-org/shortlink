@@ -47,7 +47,7 @@ func (b *LinkBuilder) SetCreatedAt(createdAt time.Time) *LinkBuilder {
 		return b
 	}
 
-	b.link.createdAt = createdAt
+	b.link.createdAt = Time(createdAt)
 
 	return b
 }
@@ -59,7 +59,7 @@ func (b *LinkBuilder) SetUpdatedAt(updatedAt time.Time) *LinkBuilder {
 		return b
 	}
 
-	b.link.updatedAt = updatedAt
+	b.link.updatedAt = Time(updatedAt)
 
 	return b
 }
@@ -70,12 +70,12 @@ func (b *LinkBuilder) Build() (*Link, error) {
 		return nil, b.errors
 	}
 
-	if b.link.createdAt.IsZero() {
-		b.link.createdAt = time.Now()
+	if b.link.createdAt.GetTime().IsZero() {
+		b.link.createdAt = Time(time.Now())
 	}
 
-	if b.link.updatedAt.IsZero() {
-		b.link.updatedAt = time.Now()
+	if b.link.updatedAt.GetTime().IsZero() {
+		b.link.updatedAt = Time(time.Now())
 	}
 
 	return b.link, nil

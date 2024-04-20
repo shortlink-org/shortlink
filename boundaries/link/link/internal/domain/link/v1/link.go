@@ -1,9 +1,5 @@
 package v1
 
-import (
-	"time"
-)
-
 // Link is a domain model.
 type Link struct {
 	// URL
@@ -14,9 +10,9 @@ type Link struct {
 	describe string
 
 	// Create at
-	createdAt time.Time
+	createdAt Time
 	// Update at
-	updatedAt time.Time
+	updatedAt Time
 }
 
 // GetUrl returns the value of the url field.
@@ -35,11 +31,11 @@ func (m *Link) GetDescribe() string {
 }
 
 // GetCreatedAt returns the value of the createdAt field.
-func (m *Link) GetCreatedAt() time.Time {
+func (m *Link) GetCreatedAt() Time {
 	return m.createdAt
 }
 
 // GetUpdatedAt returns the value of the updatedAt field.
-func (m *Link) GetUpdatedAt() time.Time {
+func (m *Link) GetUpdatedAt() Time {
 	return m.updatedAt
 }
