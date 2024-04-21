@@ -10,7 +10,7 @@ argo-cd:
 
   global:
     image:
-      tag: "v2.11.0-rc2"
+      tag: "v2.11.0-rc1"
 
     logging:
       format: json
@@ -18,10 +18,6 @@ argo-cd:
 
   controller:
     replicas: 1
-
-    env:
-      - name: ARGOCD_CONTROLLER_SHARD
-        value: "-1"
 
     resources:
       limits:
