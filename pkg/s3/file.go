@@ -66,7 +66,7 @@ func (c *Client) FileExists(ctx context.Context, bucketName string, objectName s
 
 // GetFileURL returns a URL for a file with context
 func (c *Client) GetFileURL(ctx context.Context, bucketName string, objectName string) (*url.URL, error) {
-	//nolint:revive,gomnd // default value
+	//nolint:revive,mnd // default value
 	duration := time.Minute * 60
 
 	presignedURL, err := c.client.PresignedGetObject(ctx, bucketName, objectName, duration, url.Values{})

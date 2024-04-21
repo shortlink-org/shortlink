@@ -18,7 +18,7 @@ import (
 type PprofEndpoint *http.ServeMux
 
 func New(ctx context.Context, log logger.Logger) (PprofEndpoint, error) {
-	viper.SetDefault("PROFILING_PORT", 7071) //nolint:revive,gomnd // ignore
+	viper.SetDefault("PROFILING_PORT", 7071) //nolint:revive,mnd // ignore
 	viper.SetDefault("PROFILING_TIMEOUT", "30s")
 	viper.SetDefault("PYROSCOPE_ADDRESS", "http://127.0.0.1:4040")
 

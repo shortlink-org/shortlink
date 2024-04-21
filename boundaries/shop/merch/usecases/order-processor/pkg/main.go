@@ -46,7 +46,7 @@ func main() {
 	ctx := context.Background()
 
 	viper.SetDefault("HTTP_SERVER_TIMEOUT", "30s")
-	viper.SetDefault("HTTP_SERVER_PORT", 6006) //nolint:revive,gomnd // ignore
+	viper.SetDefault("HTTP_SERVER_PORT", 6006) //nolint:revive,mnd // ignore
 
 	// Create a new router and respond to POST /orders requests
 	r := chi.NewMux()

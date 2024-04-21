@@ -120,7 +120,7 @@ func (mq *MQ) UnSubscribe(name string) error {
 func (mq *MQ) setConfig() error {
 	viper.AutomaticEnv()
 	viper.SetDefault("MQ_NATS_URI", "nats://localhost:4222") // NATS_URI
-	//nolint:revive,gomnd // ignore magics numbers
+	//nolint:revive,mnd // ignore magics numbers
 	viper.SetDefault("MQ_NATS_CHANNEL_SIZE", 64) // NATS_CHANNEL_SIZE
 
 	// parse uri

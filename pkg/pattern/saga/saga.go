@@ -79,7 +79,7 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 	span.SetAttributes(attribute.String("saga", s.name))
 
 	for _, step := range initSteps {
-		step.ctx = newCtx
+		step.ctx = newCtx //nolint:fatcontext // false positive?
 		g.Go(step.Run)
 	}
 

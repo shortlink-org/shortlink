@@ -24,7 +24,7 @@ func (e *SpecificationError) Error() string {
 type IsAdult struct{}
 
 func (a *IsAdult) IsSatisfiedBy(user *User) error {
-	if user.Age >= 18 { //nolint:revive,gomnd // This is an example
+	if user.Age >= 18 { //nolint:revive,mnd // This is an example
 		return nil
 	}
 
@@ -44,9 +44,9 @@ func (n *NameStartsWithA) IsSatisfiedBy(user *User) error {
 func main() {
 	// Create a list of users
 	users := []*User{
-		{ID: "1", Name: "Alice", Age: 25},   //nolint:revive,gomnd // This is an example
-		{ID: "2", Name: "Bob", Age: 30},     //nolint:revive,gomnd // This is an example
-		{ID: "3", Name: "Charlie", Age: 35}, //nolint:revive,gomnd // This is an example
+		{ID: "1", Name: "Alice", Age: 25},   //nolint:revive,mnd // This is an example
+		{ID: "2", Name: "Bob", Age: 30},     //nolint:revive,mnd // This is an example
+		{ID: "3", Name: "Charlie", Age: 35}, //nolint:revive,mnd // This is an example
 	}
 
 	// Create a specification that checks if the user is an adult
