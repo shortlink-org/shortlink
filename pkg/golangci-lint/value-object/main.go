@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"go/ast"
 	"strings"
 
@@ -10,18 +9,11 @@ import (
 
 var TodoAnalyzer = &analysis.Analyzer{
 	Name: "todo",
-	Doc:  "finds todos without author",
+	Doc:  "ensures setter methods in types ending with 'Object' are private",
 	Run:  run,
 }
 
 func New(conf any) ([]*analysis.Analyzer, error) {
-	// TODO: This must be implemented
-
-	fmt.Printf("My configuration (%[1]T): %#[1]v\n", conf)
-
-	// The configuration type will be map[string]any or []interface, it depends on your configuration.
-	// You can use https://github.com/go-viper/mapstructure to convert map to struct.
-
 	return []*analysis.Analyzer{TodoAnalyzer}, nil
 }
 

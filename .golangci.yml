@@ -778,18 +778,11 @@ linters-settings:
     allow-separated-leading-comment: false
     force-case-trailing-whitespace: 0
 
-  custom:
-    value-object:
-      path: pkg/golangci-lint/value-object/bin/value-object.so
-      description: "Check that a struct is a value object."
-      original-url: github.com/shortlink-org/shortlink/pkg/golangci-lint/value-object
-      settings:
-        one: Foo
-        two:
-            - name: Bar
-        three:
-          name: Bar
-
+  custom: {}
+#    value-object:
+#      path: pkg/golangci-lint/value-object/bin/value-object.so
+#      description: "Check that a struct is a value object."
+#      original-url: github.com/shortlink-org/shortlink/pkg/golangci-lint/value-object
 
 linters:
   # Enable all available linters.
