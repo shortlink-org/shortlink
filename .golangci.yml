@@ -190,7 +190,7 @@ linters-settings:
     # It's a comma-separated list of prefixes.
     local-prefixes: github.com/shortlink-org/shortlink
 
-  gomnd:
+  mnd:
     # List of enabled checks, see https://github.com/tommy-muehle/go-mnd/#checks for description.
     checks:
       - argument
@@ -778,6 +778,19 @@ linters-settings:
     allow-separated-leading-comment: false
     force-case-trailing-whitespace: 0
 
+  custom:
+    value-object:
+      path: pkg/golangci-lint/value-object/bin/value-object.so
+      description: "Check that a struct is a value object."
+      original-url: github.com/shortlink-org/shortlink/pkg/golangci-lint/value-object
+      settings:
+        one: Foo
+        two:
+            - name: Bar
+        three:
+          name: Bar
+
+
 linters:
   # Enable all available linters.
   # Default: false
@@ -789,11 +802,13 @@ linters:
     - maligned # replaced by fieldalignment
     - scopelint # replaced by exportloopref
     - golint # replaced by revive(lint)
+    - gomnd # replaced by mnd
     - ifshort # deprecated
     - interfacer # deprecated
     - deadcode # deprecated
     - varcheck # deprecated
     - structcheck # deprecated
+    - execinquery # deprecated
     - interfacebloat # we don't use limit of methods in interfaces
     - ireturn # return interface{} is allowed
     - copyloopvar # no actual after go 1.22

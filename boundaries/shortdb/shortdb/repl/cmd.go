@@ -91,7 +91,7 @@ func (r *Repl) close() error {
 
 func (r *Repl) open(t string) error {
 	s := strings.Split(t, " ")
-	if len(s) != 2 { //nolint:gomnd,goerr113 // ignore
+	if len(s) != 2 { //nolint:mnd,goerr113 // ignore
 		return ErrStatus
 	}
 

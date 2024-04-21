@@ -70,7 +70,7 @@ func (mq *Kafka) Init(ctx context.Context, log logger.Logger) error {
 		}
 
 		return sarama.ErrOutOfBrokers
-	}, 5*time.Second) //nolint:gomnd // 5s
+	}, 5*time.Second) //nolint:mnd // 5s
 
 	// Graceful shutdown
 	go func() {

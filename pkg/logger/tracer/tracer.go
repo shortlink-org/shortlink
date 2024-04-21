@@ -41,8 +41,8 @@ func NewTraceFromContext(
 
 func getNameFunc() string {
 	// at least one entry needed
-	pc := make([]uintptr, 10) //nolint:gomnd,revive // 10
-	runtime.Callers(4, pc)    //nolint:gomnd,revive // 4
+	pc := make([]uintptr, 10) //nolint:mnd,revive // 10
+	runtime.Callers(4, pc)    //nolint:mnd,revive // 4
 
 	f := runtime.FuncForPC(pc[0])
 

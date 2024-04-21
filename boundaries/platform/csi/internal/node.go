@@ -128,7 +128,7 @@ func (d *driver) NodePublishVolume(ctx context.Context, req *csi.NodePublishVolu
 		notMnt, err := mount.New("").IsLikelyNotMountPoint(targetPath)
 		if err != nil {
 			if os.IsNotExist(err) {
-				if err = os.MkdirAll(targetPath, 0o750); err != nil { //nolint:gomnd
+				if err = os.MkdirAll(targetPath, 0o750); err != nil { //nolint:mnd
 					return nil, status.Error(codes.Internal, err.Error())
 				}
 				notMnt = true

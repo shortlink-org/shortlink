@@ -87,7 +87,7 @@ func init() {
 }
 
 func getSnapshotID(file string) (bool, string) {
-	glog.V(4).Infof("file: %s", file) //nolint:gomnd
+	glog.V(4).Infof("file: %s", file) //nolint:mnd
 	// Files with .snap extension are volumesnapshot files.
 	// e.g. foo.snap, foo.bar.snap
 	if filepath.Ext(file) == snapshotExt {
@@ -98,7 +98,7 @@ func getSnapshotID(file string) (bool, string) {
 }
 
 func discoverExistingSnapshots() {
-	glog.V(4).Infof("discovering existing snapshots in %s", dataRoot) //nolint:gomnd
+	glog.V(4).Infof("discovering existing snapshots in %s", dataRoot) //nolint:mnd
 	files, err := os.ReadDir(dataRoot)
 	if err != nil {
 		glog.Errorf("failed to discover snapshots under %s: %v", dataRoot, err)
@@ -106,7 +106,7 @@ func discoverExistingSnapshots() {
 	for _, file := range files {
 		isSnapshot, snapshotID := getSnapshotID(file.Name())
 		if isSnapshot {
-			glog.V(4).Infof("adding snapshot %s from file %s", snapshotID, getSnapshotPath(snapshotID)) //nolint:gomnd
+			glog.V(4).Infof("adding snapshot %s from file %s", snapshotID, getSnapshotPath(snapshotID)) //nolint:mnd
 			hostPathVolumeSnapshots[snapshotID] = hostPathSnapshot{
 				Id:         snapshotID,
 				Path:       getSnapshotPath(snapshotID),
@@ -234,7 +234,7 @@ func createHostpathVolume(volID, name string, cap int64, volAccessType accessTyp
 
 	switch volAccessType {
 	case mountAccess:
-		//nolint:gomnd
+		//nolint:mnd
 		err := os.MkdirAll(path, 0o777) // #nosec
 		if err != nil {
 			return nil, err
@@ -277,7 +277,7 @@ func createHostpathVolume(volID, name string, cap int64, volAccessType accessTyp
 
 // updateVolume updates the existing hostpath volume.
 func updateHostpathVolume(volID string, volume hostPathVolume) error {
-	glog.V(4).Infof("updating hostpath volume: %s", volID) //nolint:gomnd
+	glog.V(4).Infof("updating hostpath volume: %s", volID) //nolint:mnd
 
 	if _, err := getVolumeByID(volID); err != nil {
 		return err
@@ -290,7 +290,7 @@ func updateHostpathVolume(volID string, volume hostPathVolume) error {
 
 // deleteVolume deletes the directory for the hostpath volume.
 func deleteHostpathVolume(volID string) error {
-	glog.V(4).Infof("deleting hostpath volume: %s", volID) //nolint:gomnd
+	glog.V(4).Infof("deleting hostpath volume: %s", volID) //nolint:mnd
 
 	vol, err := getVolumeByID(volID)
 	if err != nil {
@@ -308,7 +308,7 @@ func deleteHostpathVolume(volID string) error {
 
 		if device != "" {
 			// Remove any associated loop device.
-			glog.V(4).Infof("deleting loop device %s", device) //nolint:gomnd
+			glog.V(4).Infof("deleting loop device %s", device) //nolint:mnd
 			err = volPathHandler.RemoveMapPath(device)
 			if err != nil {
 				return fmt.Errorf("failed to remove loop device %v: %w", device, err)

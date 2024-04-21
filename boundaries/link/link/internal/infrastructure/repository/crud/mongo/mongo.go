@@ -105,7 +105,7 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	collection := s.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:gomnd // ignore
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:mnd // ignore
 	defer cancel()
 
 	val := collection.FindOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
@@ -127,7 +127,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 func (s *Store) List(ctx context.Context, params *types.FilterLink) (*v1.Links, error) {
 	collection := s.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:gomnd // ignore
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:mnd // ignore
 	defer cancel()
 
 	// Build filter
@@ -176,7 +176,7 @@ func (s *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 func (s *Store) Delete(ctx context.Context, id string) error {
 	collection := s.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:gomnd // ignore
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:mnd // ignore
 	defer cancel()
 
 	_, err := collection.DeleteOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
@@ -190,7 +190,7 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 func (s *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	collection := s.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:gomnd // ignore
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:mnd // ignore
 	defer cancel()
 
 	_, err := collection.InsertOne(ctx, &source)
@@ -200,7 +200,7 @@ func (s *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, err
 
 		if errors.As(err, &typeErr) {
 			switch typeErr.WriteErrors[0].Code {
-			case 11000: //nolint:gomnd,revive // ignore
+			case 11000: //nolint:mnd,revive // ignore
 				return nil, &v1.NotUniqError{Link: source}
 			default:
 				return nil, &v1.NotFoundError{Link: source}
@@ -223,7 +223,7 @@ func (s *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, 
 
 	collection := s.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:gomnd // ignore
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:mnd // ignore
 	defer cancel()
 
 	_, err := collection.InsertMany(ctx, docs)

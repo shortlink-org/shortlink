@@ -403,7 +403,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			p.pop()
 			op1 := p.pop()
 			op1split := strings.Split(op1, ".")
-			if len(op1split) != 2 { //nolint:gomnd // ignore
+			if len(op1split) != 2 { //nolint:mnd // ignore
 				return p.GetQuery(), ErrExpectedQuotedTableNameAndFieldNameToJoin
 			}
 			currentCondition := &query.JoinCondition{LTable: op1split[0], LOperand: op1split[1]}
@@ -417,7 +417,7 @@ func (p *Parser) doParse() (*query.Query, error) { //nolint:gocyclo,gocognit,mai
 			p.pop()
 			op2 := p.pop()
 			op2split := strings.Split(op2, ".")
-			if len(op2split) != 2 { //nolint:gomnd // ignore
+			if len(op2split) != 2 { //nolint:mnd // ignore
 				return p.GetQuery(), ErrExpectedQuotedTableNameAndFieldNameToJoin
 			}
 
@@ -734,7 +734,7 @@ func (p *Parser) peekQuotedStringWithLength() (string, int32) {
 
 	for i := p.GetI() + 1; i < int32(len(p.GetSql())); i++ {
 		if p.GetSql()[i] == '\'' && p.GetSql()[i-1] != '\\' {
-			//nolint:gomnd // ignore
+			//nolint:mnd // ignore
 			return p.GetSql()[p.GetI()+1 : i], int32(len(p.GetSql()[p.GetI()+1:i]) + 2) // +2 for the two quotes
 		}
 	}
@@ -816,14 +816,6 @@ func isIdentifier(s string) bool {
 
 func isIdentifierOrAsterisk(s string) bool {
 	return isIdentifier(s) || s == "*"
-}
-
-func min(a, b int) int {
-	if a < b {
-		return a
-	}
-
-	return b
 }
 
 func getOperator(operator string) query.Operator {

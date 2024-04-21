@@ -106,7 +106,7 @@ func (api *Server) run(config Config) error {
 // New API Provider for DI
 func New(params Config) (*Server, error) {
 	// API port
-	viper.SetDefault("API_PORT", 7070) //nolint:gomnd
+	viper.SetDefault("API_PORT", 7070) //nolint:mnd
 	// Request Timeout (seconds)
 	viper.SetDefault("API_TIMEOUT", "60s")
 

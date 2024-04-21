@@ -342,7 +342,7 @@ func (d *driver) ListVolumes(ctx context.Context, req *csi.ListVolumesRequest) (
 	})
 
 	if req.StartingToken != "" {
-		_, err := strconv.ParseInt(req.StartingToken, 10, 32) //nolint:gomnd
+		_, err := strconv.ParseInt(req.StartingToken, 10, 32) //nolint:mnd
 		if err != nil {
 			return nil, status.Errorf(codes.Aborted, "ListVolumes starting token %q is not valid: %s", req.StartingToken, err)
 		}
@@ -520,7 +520,7 @@ func (d *driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsReques
 	)
 
 	if v := req.StartingToken; v != "" {
-		i, err := strconv.ParseUint(v, 10, 32) //nolint:gomnd
+		i, err := strconv.ParseUint(v, 10, 32) //nolint:mnd
 		if err != nil {
 			return nil, status.Errorf(
 				codes.Aborted,

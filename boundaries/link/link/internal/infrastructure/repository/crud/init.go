@@ -117,7 +117,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 		Ctx:   ctx,
 		Key:   fmt.Sprintf(`link:%s`, id),
 		Value: &response,
-		TTL:   5 * time.Minute, //nolint:gomnd // ignore
+		TTL:   5 * time.Minute, //nolint:mnd // ignore
 	})
 	if err != nil {
 		s.log.ErrorWithContext(ctx, err.Error())
@@ -155,7 +155,7 @@ func (s *Store) Update(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 		Ctx:   ctx,
 		Key:   fmt.Sprintf(`link:%s`, in.GetHash()),
 		Value: &response,
-		TTL:   5 * time.Minute, //nolint:gomnd // ignore
+		TTL:   5 * time.Minute, //nolint:mnd // ignore
 	})
 	if err != nil {
 		s.log.ErrorWithContext(ctx, err.Error())

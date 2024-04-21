@@ -59,7 +59,7 @@ func (api *API) Run(
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
 		ExposedHeaders:   []string{"Link"},
 		AllowCredentials: true,
-		MaxAge:           300, //nolint:gomnd // ignore
+		MaxAge:           300, //nolint:mnd // ignore
 		// Debug:            true,
 	})
 

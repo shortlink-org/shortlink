@@ -16,7 +16,7 @@ func isExist(s []string, e string) bool {
 }
 
 func TrimQuotes(s string) string {
-	if len(s) >= 2 { //nolint:gomnd
+	if len(s) >= 2 { //nolint:mnd
 		if s[0] == '"' && s[len(s)-1] == '"' {
 			return s[1 : len(s)-1]
 		}

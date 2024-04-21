@@ -48,8 +48,8 @@ func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider) (*
 	go func() {
 		// Create a new HTTP server for Prometheus metrics
 		config := http_server.Config{
-			Port:    9090,             //nolint:gomnd // port for Prometheus metrics
-			Timeout: 30 * time.Second, //nolint:gomnd // timeout for Prometheus metrics
+			Port:    9090,             //nolint:mnd // port for Prometheus metrics
+			Timeout: 30 * time.Second, //nolint:mnd // timeout for Prometheus metrics
 		}
 		server := http_server.New(ctx, monitoring.Handler, config, tracer)
 
@@ -131,7 +131,7 @@ func (m *Monitoring) SetHandler() (*http.ServeMux, error) {
 
 	// Our app is not happy if we've got more than 100 goroutines running.
 	// TODO: research problem with prometheus
-	// health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100)) //nolint:gomnd
+	// health.AddLivenessCheck("goroutine-threshold", healthcheck.GoroutineCountCheck(100)) //nolint:mnd
 
 	// Expose a liveness check on /live
 	handler.HandleFunc("/live", health.LiveEndpoint)

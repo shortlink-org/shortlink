@@ -188,7 +188,7 @@ func (f *File) Close() error {
 	}
 
 	// save database
-	err = io_uring.WriteFile(databaseFile.Name(), payload, 0o644, func(n int) { //nolint:gomnd,revive // #nosec
+	err = io_uring.WriteFile(databaseFile.Name(), payload, 0o644, func(n int) { //nolint:mnd,revive // #nosec
 		wg.Go(func() {})
 		// handle n
 	})
@@ -209,7 +209,7 @@ func (f *File) createFile(name string) (*os.File, error) {
 }
 
 func (f *File) writeFile(name string, payload []byte) error {
-	err := os.WriteFile(name, payload, 0o600) //nolint:gomnd,revive // #nosec
+	err := os.WriteFile(name, payload, 0o600) //nolint:mnd,revive // #nosec
 	if err != nil {
 		return err
 	}

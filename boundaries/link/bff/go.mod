@@ -4,6 +4,7 @@ go 1.22.2
 
 require (
 	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.3.0-20240420204150-bbba30c24796.2
+	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.28.1-20240420204150-bbba30c24796.4
 	github.com/go-chi/chi/v5 v5.0.12
 	github.com/go-chi/cors v1.2.1
 	github.com/go-chi/render v1.0.3
@@ -20,7 +21,6 @@ require (
 )
 
 require (
-	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.28.1-20240420204150-bbba30c24796.4 // indirect
 	github.com/ajg/form v1.5.1 // indirect
 	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
