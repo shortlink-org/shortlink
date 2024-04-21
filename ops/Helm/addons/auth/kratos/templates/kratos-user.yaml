@@ -4,7 +4,7 @@ metadata:
   name: kratos-postgres-pguser-kratos
   annotations:
     argocd.argoproj.io/compare-options: IgnoreExtraneous
-    argocd.argoproj.io/sync-wave: "1"
+    argocd.argoproj.io/sync-wave: "0"
 stringData:
   password: "{{ .Values.db.password }}"
   verifier: ""
