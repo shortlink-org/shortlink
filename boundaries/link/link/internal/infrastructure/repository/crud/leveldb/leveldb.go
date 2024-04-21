@@ -2,7 +2,8 @@ package leveldb
 
 import (
 	"context"
-	"encoding/json"
+
+	"github.com/segmentio/encoding/json"
 
 	"github.com/syndtr/goleveldb/leveldb"
 

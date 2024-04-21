@@ -2,8 +2,9 @@ package api_mq
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
+
+	"github.com/segmentio/encoding/json"
 
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/mq/query"

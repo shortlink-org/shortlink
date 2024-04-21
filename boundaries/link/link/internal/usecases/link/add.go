@@ -2,8 +2,9 @@ package link
 
 import (
 	"context"
-	"encoding/json"
 	"errors"
+
+	"github.com/segmentio/encoding/json"
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"google.golang.org/grpc/status"

@@ -2,10 +2,11 @@ package sitemap
 
 import (
 	"context"
-	"encoding/json"
 	"encoding/xml"
 	"io"
 	"net/http"
+
+	"github.com/segmentio/encoding/json"
 
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/sitemap/v1"

@@ -2,7 +2,8 @@ package redis
 
 import (
 	"context"
-	"encoding/json"
+
+	"github.com/segmentio/encoding/json"
 
 	"github.com/redis/rueidis"
 

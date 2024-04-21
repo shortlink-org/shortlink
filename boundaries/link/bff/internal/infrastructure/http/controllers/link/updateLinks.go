@@ -1,8 +1,9 @@
 package link
 
 import (
-	"encoding/json"
 	"net/http"
+
+	"github.com/segmentio/encoding/json"
 
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/api"
 )

@@ -1,8 +1,9 @@
 package v1
 
 import (
-	"encoding/json"
 	"net/url"
+
+	"github.com/segmentio/encoding/json"
 )
 
 type Url struct {

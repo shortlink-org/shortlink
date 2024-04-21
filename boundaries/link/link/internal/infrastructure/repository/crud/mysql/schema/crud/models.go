@@ -6,7 +6,7 @@ package crud
 
 import (
 	"database/sql"
-	"encoding/json"
+	"github.com/segmentio/encoding/json"
 	"time"
 
 	"github.com/google/uuid"

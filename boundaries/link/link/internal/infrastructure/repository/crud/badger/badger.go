@@ -2,7 +2,8 @@ package badger
 
 import (
 	"context"
-	"encoding/json"
+
+	"github.com/segmentio/encoding/json"
 
 	"github.com/dgraph-io/badger/v4"
 
