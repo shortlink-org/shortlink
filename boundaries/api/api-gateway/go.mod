@@ -20,7 +20,7 @@ require (
 )
 
 require (
-	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.28.1-20240420204150-bbba30c24796.4 // indirect
+	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.33.0-20240420204150-bbba30c24796.1 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/go-logr/logr v1.4.1 // indirect

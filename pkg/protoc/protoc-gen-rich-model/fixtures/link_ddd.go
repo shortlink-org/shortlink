@@ -9,8 +9,8 @@ package fixtures
 // Link domain
 import (
 	"google.golang.org/protobuf/types/known/fieldmaskpb"
-	"net/url"
 	"google.golang.org/protobuf/types/known/timestamppb"
+	"net/url"
 )
 
 type Link struct {
