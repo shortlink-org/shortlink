@@ -19,6 +19,9 @@ argo-cd:
   controller:
     replicas: 1
 
+    env:
+      ARGOCD_CONTROLLER_SHARD: -1
+
     resources:
       limits:
         cpu: 1000m
