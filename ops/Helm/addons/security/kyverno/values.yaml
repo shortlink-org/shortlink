@@ -5,6 +5,11 @@
 kyverno:
   enabled: true
 
+  config:
+    resourceFiltersExcludeNamespaces:
+      - argocd
+      - kube-system
+
   admissionController:
     hostNetwork: false
 
