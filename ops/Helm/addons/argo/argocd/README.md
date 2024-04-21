@@ -14,10 +14,10 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 6.7.11 |
+| https://argoproj.github.io/argo-helm | argo-cd | 6.7.13 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 2.0.0 |
-| https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.6 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 19.1.0 |
+| https://argoproj.github.io/argo-helm | argocd-image-updater | 0.9.7 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 19.1.2 |
 
 ## Values
 
@@ -807,7 +807,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"v2.11.0-rc1"
+"v2.11.0-rc2"
 </pre>
 </div>
 			</td>

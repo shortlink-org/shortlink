@@ -132,7 +132,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"velero/velero-plugin-for-csi:v0.7.0"
+"velero/velero-plugin-for-csi:v0.7.1"
 </pre>
 </div>
 			</td>

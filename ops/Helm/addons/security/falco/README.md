@@ -15,7 +15,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | https://falcosecurity.github.io/charts | falco | 4.3.0 |
-| https://falcosecurity.github.io/charts | falco-exporter | 0.9.11 |
+| https://falcosecurity.github.io/charts | falco-exporter | 0.10.0 |
 
 ## Values
 
