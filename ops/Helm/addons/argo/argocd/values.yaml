@@ -20,7 +20,8 @@ argo-cd:
     replicas: 1
 
     env:
-      ARGOCD_CONTROLLER_SHARD: -1
+      - name: ARGOCD_CONTROLLER_SHARD
+        value: -1
 
     resources:
       limits:
