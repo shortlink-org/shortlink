@@ -24,10 +24,14 @@ and Clean Architecture principles into our development and architectural practic
 
 To improve communication and collaboration across teams and to more closely align our software design with the business domain.
 
-##### Golang
-
+##### 1.1 Use Rich Domain Models:
+ 
 - Use rich domain models to encapsulate business logic and behavior.
   - [protoc-gen-rich-model](../pkg/protoc/protoc-gen-rich-model/README.md) is a code generator that creates rich domain models from protobuf definitions.
+
+##### 1.2. Value Objects:
+
+Value objects are only private setters and public getters.
 
 #### 2. **Incorporating Clean Architecture Principles:** Structuring our system to ensure:
 
@@ -47,5 +51,9 @@ What becomes easier or more difficult to do and any risks introduced by the chan
 
 ### References
 
-- [The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
-- 📖 [Learning Domain-Driven Design](https://www.oreilly.com/library/view/learning-domain-driven-design/9781098100124/)
+- **DDD:**
+  - 📖 [Learning Domain-Driven Design](https://www.oreilly.com/library/view/learning-domain-driven-design/9781098100124/)
+  - 🎥🇷🇺[Денис Цветцих — Rich Model и Anemic Model: враги или друзья](https://youtu.be/kVO2OcsWFXs?si=PjqV1793Gh_LDJ3N)
+  - 🎥🇷🇺[Domain-Driven Design. Практический минимум](https://gofunc.ru/talks/3f7283f58edb4f0291e683b2afb25d36/?referer=/schedule/days/)
+- **Clean Architecture:**
+  - [The Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
