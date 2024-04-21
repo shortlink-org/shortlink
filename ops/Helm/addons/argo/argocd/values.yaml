@@ -21,7 +21,7 @@ argo-cd:
 
     env:
       - name: ARGOCD_CONTROLLER_SHARD
-        value: -1
+        value: "-1"
 
     resources:
       limits:
