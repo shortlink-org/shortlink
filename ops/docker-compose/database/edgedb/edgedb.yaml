@@ -3,7 +3,7 @@ services:
   edgedb:
     depends_on:
       - coredns
-    image: edgedb/edgedb:4
+    image: edgedb/edgedb:5
     restart: on-failure
     container_name: edgedb
     init: true
