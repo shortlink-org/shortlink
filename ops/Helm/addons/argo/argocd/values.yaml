@@ -244,9 +244,9 @@ argo-cd:
           - name: HELM_SECRETS_VERSION
             value: "4.6.0"
           - name: KUBECTL_VERSION
-            value: "1.29.1"
+            value: "1.30.0"
           - name: VALS_VERSION
-            value: "0.36.0"
+            value: "0.37.0"
           - name: SOPS_VERSION
             value: "3.8.1"
         args:
