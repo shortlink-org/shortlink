@@ -15260,7 +15260,7 @@ __metadata:
     "@veecode-platform/backstage-plugin-gitlab-pipelines": "npm:^0.2.70"
     cross-env: "npm:^7.0.3"
     cypress: "npm:^13.8.0"
-    eslint-plugin-cypress: "npm:^2.15.2"
+    eslint-plugin-cypress: "npm:^3.0.0"
     history: "npm:^5.3.0"
     react: "npm:^18.2.0"
     react-dom: "npm:^18.2.0"
@@ -19891,14 +19891,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-cypress@npm:^2.15.2":
-  version: 2.15.2
-  resolution: "eslint-plugin-cypress@npm:2.15.2"
+"eslint-plugin-cypress@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "eslint-plugin-cypress@npm:3.0.0"
   dependencies:
     globals: "npm:^13.20.0"
   peerDependencies:
-    eslint: ">= 3.2.1"
-  checksum: 10c0/bcc521633251a852dc3c115455ddda931435bb61c0895e5ad1abe43acb3a15fc0b0e79bf73b7aa078794a2b1084232f1b74ffe39d631a3f312265f97941cd290
+    eslint: ">=7 <9"
+  checksum: 10c0/0241f65a36ee7ee4ec5e7b5803e2c9032cfabddaf08ccaab4bbed5a635e14b492ee33d80da18bd770fac7636c67cda39db9d38749fa9e30d99ebaec5667f11ad
   languageName: node
   linkType: hard
 
