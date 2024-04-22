@@ -17,7 +17,9 @@ argo-cd:
       level: warn
 
   controller:
-    replicas: 1
+    replicas: 2
+
+    dynamicClusterDistribution: true
 
     resources:
       limits:
