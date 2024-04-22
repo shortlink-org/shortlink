@@ -1,7 +1,7 @@
 .crd_templates:
   stage: .pre
   image:
-    name: alpine/k8s:1.29.2
+    name: alpine/k8s:1.30.0
     entrypoint: [ "" ]
   script:
     - export KUBECTL_APPLYSET=true
