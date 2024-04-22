@@ -1,5 +1,5 @@
 db:
-    password: ENC[AES256_GCM,data:E5OUMLPeq9HvBFY=,iv:0IhTuKDuslutFGJmjOxfP/uRFiip5qp9yFcC5NM/pEs=,tag:Sesn9W572gFYIm6H3b20cg==,type:str]
+    password: ENC[AES256_GCM,data:BY+wPWlvZL40w31OWuf6EA==,iv:0bFieDYgnJXZQlGe3Ak+TNypEvh5aXX4o3t1JqjqxFA=,tag:4IoF8EqeH7p1Zx7JN57EYQ==,type:str]
 kratos:
     kratos:
         config:
@@ -10,8 +10,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2023-10-03T23:08:46Z"
-    mac: ENC[AES256_GCM,data:WPIdKaZwBvd14el5Sar7LhQxV0qsJvbMCzQqixwib/A25Ak8RHOLcLvboX7UjqpeMTLjtgfmqYhS24U8ITot8/EiIf3yig8h2WrpogZ5WUGW+tIhm8gGhfjgExFSwG0AaSmVeKOgnnX3wWoOQfXKdT33NbfHNsLpt4Cs8tErxhI=,iv:4byv01K7+AU6SuaQip4DLyKKki+qYov2rR1i54ADTng=,tag:4zP1jsfxick7uul1L18eZQ==,type:str]
+    lastmodified: "2024-04-22T12:48:43Z"
+    mac: ENC[AES256_GCM,data:9fvSgmLL4KX4GXEYbM+xEAluHYZ9Bvz6LCBrRXPqEb5HRiA1oLp5A7Ps4oq7G/Q5rd9xBB7ATIO3UOmZZUe6fDwKfXFdErf78ArAsxqHOY0NZC5xE5WsxJNtYwDqJE/2It+VvcMeN8fzvOF2BM7/n3ChK+zQLZ86jhJhUVsTfrc=,iv:n/vY/dO6KRc0G8tpC5xUulw6MzLIqf/9C8wieDt05l0=,tag:opm7rDKENG1oC+JStBoMmA==,type:str]
     pgp:
         - created_at: "2023-10-03T17:09:20Z"
           enc: |
@@ -32,4 +32,4 @@ sops:
             -----END PGP MESSAGE-----
           fp: C92AE33AF20998F8CA09E819A842078E859DE4F1
     unencrypted_suffix: _unencrypted
-    version: 3.7.3
+    version: 3.8.1
