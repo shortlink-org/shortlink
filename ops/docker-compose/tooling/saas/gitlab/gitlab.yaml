@@ -9,7 +9,7 @@ services:
 
   nginx:
     <<: *network
-    image: nginx:1.25.5-alpine
+    image: nginx:1.26.0-alpine
     container_name: nginx
     restart: always
     ports:

@@ -4,7 +4,7 @@ services:
     depends_on:
       - coredns
       - default_backend
-    image: nginx:1.25-alpine
+    image: nginx:1.26-alpine
     container_name: nginx
     init: true
     ports:
@@ -23,7 +23,7 @@ services:
   default_backend:
     depends_on:
       - coredns
-    image: nginx:1.25-alpine
+    image: nginx:1.26-alpine
     container_name: default_backend
     init: true
     networks:
