@@ -55,7 +55,7 @@ services:
 
   kafka-connect-debezium:
     <<: *network
-    image: debezium/connect:2.6
+    image: debezium/connect:2.7
     container_name: kafka-connect-debezium
     init: true
     restart: always
