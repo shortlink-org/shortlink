@@ -1,5 +1,4 @@
 import * as React from 'react'
-import CollapsibleMenu from './CollapsibleMenu/CollapsibleMenu'
 
 // Importing icons
 import AddLinkIcon from '@mui/icons-material/AddLink'
@@ -20,14 +19,37 @@ import GroupAddIcon from '@mui/icons-material/GroupAdd'
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 
+// Components
+import ActiveLink from './ActiveLink'
+import CollapsibleMenu from './CollapsibleMenu'
+import Footer from './Footer'
+
 type AppProps = {
-  mode: 'full' | 'compact'
+  mode: 'full' | 'mini'
 }
 
 const iconClassName =
   'w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white'
 const linkClassName =
   'flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group'
+
+function getLink(url: string, icon: JSX.Element, name: string) {
+  return (
+    <li>
+      <ActiveLink
+        href={url}
+        key={url}
+        passHref
+        activeClassName="md:text-blue-700"
+      >
+        <div className={linkClassName}>
+          {React.cloneElement(icon, { className: iconClassName })}
+          <span className="ms-3">{name}</span>
+        </div>
+      </ActiveLink>
+    </li>
+  )
+}
 
 export function Sidebar({ mode }: AppProps) {
   return (
@@ -38,112 +60,36 @@ export function Sidebar({ mode }: AppProps) {
     >
       <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
         <ul className="space-y-2 font-medium">
-          <li>
-            <a href="/user/addUrl" className={linkClassName}>
-              <AddLinkIcon className={iconClassName} />
-              <span className="ms-3">Add URL</span>
-            </a>
-          </li>
+          {getLink('/user/addUrl', <AddLinkIcon />, 'Add URL')}
 
-          <CollapsibleMenu icon={ListIcon} title="Links">
-            <li>
-              <a href="/user/dashboard" className={linkClassName}>
-                <DashboardIcon className={iconClassName} />
-                <span className="ms-3">Dashboard</span>
-              </a>
-            </li>
-
-            <li>
-              <a href="/user/links" className={linkClassName}>
-                <HttpIcon className={iconClassName} />
-                <span className="ms-3">Links</span>
-              </a>
-            </li>
-
-            <li>
-              <a href="/user/reports" className={linkClassName}>
-                <BarChartIcon className={iconClassName} />
-                <span className="ms-3">Reports</span>
-              </a>
-            </li>
+          <CollapsibleMenu icon={HttpIcon} title="Links">
+            {getLink('/user/dashboard', <DashboardIcon />, 'Dashboard')}
+            {getLink('/user/links', <ListIcon />, 'Links')}
+            {getLink('/user/reports', <BarChartIcon />, 'Reports')}
           </CollapsibleMenu>
 
           <CollapsibleMenu icon={SettingsIcon} title="Setting">
-            <li>
-              <a href="/user/profile" className={linkClassName}>
-                <PersonIcon className={iconClassName} />
-                <span className="ms-3">Profile</span>
-              </a>
-            </li>
-
-            <li>
-              <a href="/user/security" className={linkClassName}>
-                <SecurityIcon className={iconClassName} />
-                <span className="ms-3">Security</span>
-              </a>
-            </li>
-
-            <li>
-              <a href="/user/integrations" className={linkClassName}>
-                <LayersIcon className={iconClassName} />
-                <span className="ms-3">Integrations</span>
-              </a>
-            </li>
-
-            <li>
-              <a href="/user/audit" className={linkClassName}>
-                <AssessmentIcon className={iconClassName} />
-                <span className="ms-3">Audit</span>
-              </a>
-            </li>
+            {getLink('/user/profile', <PersonIcon />, 'Profile')}
+            {getLink('/user/security', <SecurityIcon />, 'Security')}
+            {getLink('/user/integrations', <LayersIcon />, 'Integrations')}
+            {getLink('/user/audit', <AssessmentIcon />, 'Audit')}
           </CollapsibleMenu>
 
           <CollapsibleMenu icon={ShoppingCartIcon} title="E-commerce">
-            <li>
-              <a href="/user/billing" className={linkClassName + ' m-2'}>
-                <AccountBalanceWalletIcon className={iconClassName} />
-                <span className="ms-3">Billing</span>
-              </a>
-            </li>
-
-            <li>
-              <a href="/user/invoice" className={linkClassName + ' m-2'}>
-                <ReceiptIcon className={iconClassName} />
-                <span className="ms-3">Invoice</span>
-              </a>
-            </li>
+            {getLink('/user/billing', <AccountBalanceWalletIcon />, 'Billing')}
+            {getLink('/user/invoice', <ReceiptIcon />, 'Invoice')}
           </CollapsibleMenu>
 
           <CollapsibleMenu icon={AdminPanelSettingsIcon} title="Admin">
-            <li>
-              <a href="/admin/links" className={linkClassName}>
-                <ListIcon className={iconClassName} />
-                <span className="ms-3">Links</span>
-              </a>
-            </li>
-
-            <li className={'border-t border-gray-200 dark:border-gray-70'}>
-              <a href="/admin/users" className={linkClassName}>
-                <GroupAddIcon className={iconClassName} />
-                <span className="ms-3">Users</span>
-              </a>
-            </li>
-
-            <li className={'border-b border-gray-200 dark:border-gray-70'}>
-              <a href="/admin/groups" className={linkClassName}>
-                <PeopleIcon className={iconClassName} />
-                <span className="ms-3">Groups</span>
-              </a>
-            </li>
+            {getLink('/admin/links', <ListIcon />, 'Links')}
+            {getLink('/admin/users', <GroupAddIcon />, 'Users')}
+            {getLink('/admin/groups', <PeopleIcon />, 'Groups')}
           </CollapsibleMenu>
 
-          <li>
-            <a href="/about" className={linkClassName}>
-              <AssignmentIcon className={iconClassName} />
-              <span className="ms-3">About As</span>
-            </a>
-          </li>
+          {getLink('/about', <AssignmentIcon />, 'About As')}
         </ul>
+
+        <Footer />
       </div>
     </aside>
   )

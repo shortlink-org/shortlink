@@ -9,11 +9,14 @@ const meta: Meta<typeof Sidebar> = {
 
 export default meta
 
-function Template(args: any) {
-  return <Sidebar mode={'full'} {...args} />
-}
-
 export const Default = {
-  render: Template,
-  args: {},
+  render: (args: any) => <Sidebar {...args} />,
+  argTypes: {
+    mode: {
+      control: {
+        type: 'select',
+        options: ['full', 'mini'],
+      },
+    },
+  },
 }

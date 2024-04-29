@@ -1,4 +1,7 @@
-import Button from '@mui/material/Button'
+import { OverridableStringUnion } from '@mui/types'
+import Button, {
+  ButtonPropsVariantOverrides,
+} from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import React, { useState } from 'react'
 import Balancer from 'react-wrap-balancer'
@@ -10,7 +13,10 @@ type Tier = {
   subheader: string
   price: number
   description: string[]
-  buttonVariant: string
+  buttonVariant: OverridableStringUnion<
+    'text' | 'outlined' | 'contained',
+    ButtonPropsVariantOverrides
+  >
   buttonText: string
 }
 
@@ -58,17 +64,7 @@ export const PriceTable: React.FC<TiersProps> = ({ tiers }) => {
                 <Balancer>{tier.subheader}</Balancer>
               </div>
 
-              <Button
-                fullWidth
-                variant={
-                  tier.buttonVariant as
-                    | 'text'
-                    | 'outlined'
-                    | 'filled'
-                    | 'filledTonal'
-                    | 'elevated'
-                }
-              >
+              <Button fullWidth variant={tier.buttonVariant}>
                 {tier.buttonText}
               </Button>
             </div>
