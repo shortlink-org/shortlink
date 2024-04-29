@@ -25,7 +25,7 @@ import Notification from './notification'
 import Profile from './profile'
 import secondMenu from './secondMenu'
 
-const drawerWidth = 290
+const drawerWidth = 320
 
 interface AppBarProps extends MuiAppBarProps {
   open?: boolean
@@ -35,7 +35,6 @@ const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== 'open',
 })(({ theme, open }) => ({
   width: drawerWidth,
-  flexShrink: 0,
   whiteSpace: 'nowrap',
   boxSizing: 'border-box',
   ...(open && {
@@ -182,7 +181,7 @@ export default function Header() {
             </DrawerHeader>
             <Divider flexItem />
 
-            <Sidebar />
+            <Sidebar mode={open ? 'full' : 'mini'} />
           </Drawer>
         )}
       </Fragment>

@@ -4,13 +4,13 @@ import Collapse from '@mui/material/Collapse'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 
-const iconClassName =
-  'text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white'
-let bodyClassName =
-  'flex items-center cursor-pointer w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
-
 // @ts-ignore
 const CollapsibleMenu = ({ mode, icon, title, children }) => {
+  const iconClassName =
+    'text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white'
+  let bodyClassName =
+    'flex items-center cursor-pointer w-full p-2 text-base text-gray-900 transition duration-75 rounded-lg group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700'
+
   const [isOpen, setIsOpen] = React.useState(false)
 
   const toggleCollapse = () => setIsOpen(!isOpen)

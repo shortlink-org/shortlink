@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 // Importing icons
+import AddLinkIcon from '@mui/icons-material/AddLink'
 import SettingsIcon from '@mui/icons-material/Settings'
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import HttpIcon from '@mui/icons-material/Http'
@@ -31,16 +32,16 @@ export function Sidebar({ mode }: AppProps) {
   return (
     <aside
       id="default-sidebar"
-      className="w-full h-screen transition-transform -translate-x-full sm:translate-x-0"
+      className="w-full h-full transition-transform -translate-x-full sm:translate-x-0"
       aria-label="Sidebar"
     >
       <div className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-800 flex flex-col w-full">
         <ul className="space-y-2 font-medium w-full px-3 py-4">
           {getItem({
             mode,
-            url: '/user/dashboard',
-            icon: <DashboardIcon />,
-            name: 'Dashboard',
+            url: '/user/addUrl',
+            icon: <AddLinkIcon />,
+            name: 'Add URL',
           })}
 
           <CollapsibleMenu icon={HttpIcon} title="Links" mode={mode}>

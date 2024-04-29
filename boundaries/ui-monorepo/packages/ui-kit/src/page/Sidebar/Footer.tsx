@@ -45,7 +45,7 @@ const ProfileLink = () => {
 // @ts-ignore
 function Footer({ mode }) {
   return (
-    <div className="flex bg-blue-800 items-center justify-center space-x-2 items-center py-4 px-3.5 w-full h-16 mt-auto">
+    <div className="flex bg-blue-800 items-center justify-center space-x-2 py-4 px-3.5 w-full h-16 mt-auto">
       {mode === 'full' ? (
         <React.Fragment>
           <div>
