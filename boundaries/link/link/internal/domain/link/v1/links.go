@@ -11,6 +11,11 @@ func (m *Links) GetLink() []*Link {
 	return m.link
 }
 
+// Count returns the number of links
+func (m *Links) Count() int {
+	return len(m.link)
+}
+
 func NewLinks() *Links {
 	return &Links{}
 }

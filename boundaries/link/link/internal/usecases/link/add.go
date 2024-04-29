@@ -26,7 +26,6 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 		SAGA_NAME                        = "ADD_LINK"
 		SAGA_STEP_ADD_PERMISSION         = "SAGA_STEP_ADD_PERMISSION"
 		SAGA_STEP_SAVE_TO_STORE          = "SAGA_STEP_SAVE_TO_STORE"
-		SAGA_STEP_GET_METADATA           = "SAGA_STEP_GET_METADATA"
 		SAGA_STEP_PUBLISH_EVENT_NEW_LINK = "SAGA_STEP_PUBLISH_EVENT_NEW_LINK"
 	)
 
@@ -98,27 +97,6 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 
 		return thenErr
 	}).Build()
-	if err := errorHelper(ctx, uc.log, errs); err != nil {
-		return nil, err
-	}
-
-	_, errs = sagaAddLink.AddStep(SAGA_STEP_GET_METADATA).
-		Needs(SAGA_STEP_ADD_PERMISSION).
-		Then(func(ctx context.Context) error {
-			// link := in.GetUrl()
-			// _, err := uc.MetadataClient.Set(ctx, &metadata_rpc.MetadataServiceSetRequest{
-			// 	Url: link.String(),
-			// })
-			// if err != nil {
-			// 	// TODO:
-			// 	// 1. Move to metadata service
-			// 	// 2. Listen MQ event
-			//
-			// 	return nil //nolint:nilerr // ignore
-			// }
-
-			return nil
-		}).Build()
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}

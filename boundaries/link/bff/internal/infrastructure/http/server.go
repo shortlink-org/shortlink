@@ -53,7 +53,6 @@ func (api *Server) run(config Config) error {
 	// A good base middleware stack
 	r.Use(middleware.RealIP)
 	r.Use(middleware.Heartbeat("/healthz"))
-	r.Use(middleware.Recoverer)
 	r.Use(middleware.SetHeader("Content-Type", "application/json"))
 
 	// Set a timeout value on the request context (ctx), that will signal
@@ -64,6 +63,7 @@ func (api *Server) run(config Config) error {
 	// Additional middleware
 	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
 	r.Use(logger_middleware.Logger(config.Log))
+	r.Use(middleware.Recoverer)
 	r.Use(span_middleware.Span())
 	r.Use(auth_middleware.Auth())
 	r.Use(pprof_labels_middleware.Labels)

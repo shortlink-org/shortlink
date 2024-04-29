@@ -21,13 +21,26 @@ func (l *LinkRPC) List(ctx context.Context, in *ListRequest) (*ListResponse, err
 		}
 	}
 
-	_, cursor, err := l.service.List(ctx, filter, in.GetCursor(), in.GetLimit())
+	resp, cursor, err := l.service.List(ctx, filter, in.GetCursor(), in.GetLimit())
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}
 
+	links := &Links{
+		Link: make([]*Link, 0, len(resp.GetLink())),
+	}
+	for _, link := range resp.GetLink() {
+		links.Link = append(links.Link, &Link{
+			Url:       link.GetUrl().String(),
+			Hash:      link.GetHash(),
+			Describe:  link.GetDescribe(),
+			CreatedAt: link.GetCreatedAt().GetTimestamp(),
+			UpdatedAt: link.GetUpdatedAt().GetTimestamp(),
+		})
+	}
+
 	return &ListResponse{
-		// Links:  resp,
+		Links:  links,
 		Cursor: *cursor,
 	}, nil
 }
