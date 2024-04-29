@@ -10,7 +10,19 @@ const meta: Meta<typeof Sidebar> = {
 export default meta
 
 export const Default = {
-  render: (args: any) => <Sidebar {...args} />,
+  render: (args: any) => {
+    let className = 'h-screen grid grid-cols-4 gap-4'
+
+    if (args.mode === 'mini') {
+      className = 'h-screen grid grid-cols-12 gap-4'
+    }
+
+    return (
+      <div className={className}>
+        <Sidebar {...args} />
+      </div>
+    )
+  },
   argTypes: {
     mode: {
       control: {

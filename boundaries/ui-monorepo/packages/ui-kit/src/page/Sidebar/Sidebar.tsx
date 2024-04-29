@@ -1,7 +1,6 @@
 import * as React from 'react'
 
 // Importing icons
-import AddLinkIcon from '@mui/icons-material/AddLink'
 import SettingsIcon from '@mui/icons-material/Settings'
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import HttpIcon from '@mui/icons-material/Http'
@@ -20,76 +19,131 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 
 // Components
-import ActiveLink from './ActiveLink'
 import CollapsibleMenu from './CollapsibleMenu'
 import Footer from './Footer'
+import getItem from './Item'
 
 type AppProps = {
   mode: 'full' | 'mini'
-}
-
-const iconClassName =
-  'w-5 h-5 text-gray-500 transition duration-75 dark:text-gray-400 group-hover:text-gray-900 dark:group-hover:text-white'
-const linkClassName =
-  'flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group'
-
-function getLink(url: string, icon: JSX.Element, name: string) {
-  return (
-    <li>
-      <ActiveLink
-        href={url}
-        key={url}
-        passHref
-        activeClassName="md:text-blue-700"
-      >
-        <div className={linkClassName}>
-          {React.cloneElement(icon, { className: iconClassName })}
-          <span className="ms-3">{name}</span>
-        </div>
-      </ActiveLink>
-    </li>
-  )
 }
 
 export function Sidebar({ mode }: AppProps) {
   return (
     <aside
       id="default-sidebar"
-      className="fixed top-0 left-0 z-40 w-64 h-screen transition-transform -translate-x-full sm:translate-x-0"
+      className="w-full h-screen transition-transform -translate-x-full sm:translate-x-0"
       aria-label="Sidebar"
     >
-      <div className="h-full px-3 py-4 overflow-y-auto bg-gray-50 dark:bg-gray-800">
-        <ul className="space-y-2 font-medium">
-          {getLink('/user/addUrl', <AddLinkIcon />, 'Add URL')}
+      <div className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-800 flex flex-col w-full">
+        <ul className="space-y-2 font-medium w-full px-3 py-4">
+          {getItem({
+            mode,
+            url: '/user/dashboard',
+            icon: <DashboardIcon />,
+            name: 'Dashboard',
+          })}
 
-          <CollapsibleMenu icon={HttpIcon} title="Links">
-            {getLink('/user/dashboard', <DashboardIcon />, 'Dashboard')}
-            {getLink('/user/links', <ListIcon />, 'Links')}
-            {getLink('/user/reports', <BarChartIcon />, 'Reports')}
+          <CollapsibleMenu icon={HttpIcon} title="Links" mode={mode}>
+            {getItem({
+              mode,
+              url: '/user/dashboard',
+              icon: <DashboardIcon />,
+              name: 'Dashboard',
+            })}
+            {getItem({
+              mode,
+              url: '/user/links',
+              icon: <ListIcon />,
+              name: 'Links',
+            })}
+            {getItem({
+              mode,
+              url: '/user/reports',
+              icon: <BarChartIcon />,
+              name: 'Reports',
+            })}
           </CollapsibleMenu>
 
-          <CollapsibleMenu icon={SettingsIcon} title="Setting">
-            {getLink('/user/profile', <PersonIcon />, 'Profile')}
-            {getLink('/user/security', <SecurityIcon />, 'Security')}
-            {getLink('/user/integrations', <LayersIcon />, 'Integrations')}
-            {getLink('/user/audit', <AssessmentIcon />, 'Audit')}
+          <CollapsibleMenu icon={SettingsIcon} title="Setting" mode={mode}>
+            {getItem({
+              mode,
+              url: '/user/profile',
+              icon: <PersonIcon />,
+              name: 'Profile',
+            })}
+            {getItem({
+              mode,
+              url: '/user/security',
+              icon: <SecurityIcon />,
+              name: 'Security',
+            })}
+            {getItem({
+              mode,
+              url: '/user/integrations',
+              icon: <LayersIcon />,
+              name: 'Integrations',
+            })}
+            {getItem({
+              mode,
+              url: '/user/audit',
+              icon: <AssessmentIcon />,
+              name: 'Audit',
+            })}
           </CollapsibleMenu>
 
-          <CollapsibleMenu icon={ShoppingCartIcon} title="E-commerce">
-            {getLink('/user/billing', <AccountBalanceWalletIcon />, 'Billing')}
-            {getLink('/user/invoice', <ReceiptIcon />, 'Invoice')}
+          <CollapsibleMenu
+            icon={ShoppingCartIcon}
+            title="E-commerce"
+            mode={mode}
+          >
+            {getItem({
+              mode,
+              url: '/user/billing',
+              icon: <AccountBalanceWalletIcon />,
+              name: 'Billing',
+            })}
+            {getItem({
+              mode,
+              url: '/user/invoice',
+              icon: <ReceiptIcon />,
+              name: 'Invoice',
+            })}
           </CollapsibleMenu>
 
-          <CollapsibleMenu icon={AdminPanelSettingsIcon} title="Admin">
-            {getLink('/admin/links', <ListIcon />, 'Links')}
-            {getLink('/admin/users', <GroupAddIcon />, 'Users')}
-            {getLink('/admin/groups', <PeopleIcon />, 'Groups')}
+          <CollapsibleMenu
+            icon={AdminPanelSettingsIcon}
+            title="Admin"
+            mode={mode}
+          >
+            {getItem({
+              mode,
+              url: '/admin/links',
+              icon: <ListIcon />,
+              name: 'Links',
+            })}
+            {getItem({
+              mode,
+              url: '/admin/users',
+              icon: <GroupAddIcon />,
+              name: 'Users',
+            })}
+            {getItem({
+              mode,
+              url: '/admin/groups',
+              icon: <PeopleIcon />,
+              name: 'Groups',
+            })}
           </CollapsibleMenu>
 
-          {getLink('/about', <AssignmentIcon />, 'About As')}
+          {getItem({
+            mode,
+            url: '/about',
+            icon: <AssignmentIcon />,
+            name: 'About As',
+          })}
         </ul>
 
-        <Footer />
+        <Footer mode={mode} />
       </div>
     </aside>
   )
