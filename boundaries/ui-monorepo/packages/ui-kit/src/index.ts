@@ -14,4 +14,5 @@ export { default as SearchForm } from './ui/SearchForm/SearchForm'
 
 // Layout exports
 export { Header } from './page/Header/Header'
+export { Sidebar } from './page/Sidebar/Sidebar'
 export { PriceTable } from './page/PriceTable/PriceTable'
