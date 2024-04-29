@@ -225,3 +225,13 @@ updates:
     directory: /boundaries/shop/email-subscription
     schedule:
       interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/notification/notify
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /pkg/golangci-lint/value-object
+    schedule:
+      interval: daily
