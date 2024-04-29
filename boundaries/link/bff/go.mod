@@ -10,7 +10,7 @@ require (
 	github.com/go-chi/render v1.0.3
 	github.com/google/wire v0.6.0
 	github.com/oapi-codegen/runtime v1.1.1
-	github.com/riandyrn/otelchi v0.7.0
+	github.com/riandyrn/otelchi v0.8.0
 	github.com/segmentio/encoding v0.4.0
 	github.com/shortlink-org/shortlink v0.0.0-20240424154442-435e4d53a5d3
 	github.com/spf13/viper v1.18.2
