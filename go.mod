@@ -5,7 +5,7 @@ go 1.22.2
 require (
 	github.com/IBM/sarama v1.43.2
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
-	github.com/PuerkitoBio/goquery v1.9.1
+	github.com/PuerkitoBio/goquery v1.9.2
 	github.com/Unleash/unleash-client-go/v4 v4.1.0
 	github.com/XSAM/otelsql v0.30.0
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
