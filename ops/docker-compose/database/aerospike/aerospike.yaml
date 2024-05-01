@@ -11,7 +11,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: aerospike/aerospike-server:7.0.0.7
+    image: aerospike/aerospike-server:7.0.0.8
     restart: on-failure
     container_name: aerospikedb
     init: true
