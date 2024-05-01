@@ -1,6 +1,5 @@
 import Box from '@mui/material/Box'
 import CssBaseline from '@mui/material/CssBaseline'
-import { styled } from '@mui/material/styles'
 import * as React from 'react'
 // @ts-ignore
 import { ScrollToTopButton } from '@shortlink-org/ui-kit'
@@ -13,27 +12,19 @@ import Header from 'components/Header'
 export function Layout({ children }) {
   return (
     <PushNotificationLayout>
-      <Box sx={{ display: 'flex', height: '100vh' }}>
-        <CssBaseline />
+      <CssBaseline />
+
+      <div className="flex flex-row h-full mt-8">
         <Header />
 
-        <Box component="main" sx={{ flexGrow: 1, p: 3, gridTemplateRows: 'auto 1fr' }}>
-          <Box
-            pt={4}
-            sx={{
-              display: 'grid',
-              height: '100%',
-              gridTemplateRows: '1fr auto',
-            }}
-          >
-            <div className="content-center max-w-7xl m-auto">{children}</div>
+        <main className={'flex-auto'}>
+          <div>{children}</div>
 
-            <Footer className="content-center max-w-7xl m-auto" />
+          <Footer />
 
-            <ScrollToTopButton />
-          </Box>
-        </Box>
-      </Box>
+          <ScrollToTopButton />
+        </main>
+      </div>
     </PushNotificationLayout>
   )
 }

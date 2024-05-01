@@ -10,7 +10,7 @@ interface FooterProps {
 }
 
 const Footer: React.FC<FooterProps> = ({ className = '' }) => (
-  <footer className={`bg-white dark:bg-gray-800 w-full py-8 mt-5 rounded-t-lg ${className}`}>
+  <footer className={`bg-white dark:bg-gray-800 w-full py-8 mt-5 rounded-t-lg content-center max-w-7xl m-auto ${className}`}>
     <div className="max-w-screen-xl mx-auto px-4">
       <ul className="max-w-screen-md mx-auto text-lg font-light flex flex-wrap justify-between dark:prose-dark dark:md:prose-xl-dark items-center">
         <li className="my-2 cursor-pointer">
