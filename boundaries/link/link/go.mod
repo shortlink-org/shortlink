@@ -18,7 +18,6 @@ require (
 	github.com/prometheus/client_golang v1.19.0
 	github.com/redis/rueidis v1.0.30-0.20240224222815-152800b84f6d
 	github.com/segmentio/encoding v0.4.0
-	github.com/shortlink-org/shortlink v0.0.0-20240430102310-661f568b669e
 	github.com/spf13/viper v1.18.2
 	github.com/stretchr/testify v1.9.0
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
