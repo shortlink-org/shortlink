@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://helm.cilium.io | tetragon | 1.0.3 |
+| https://helm.cilium.io | tetragon | 1.1.0 |
 
 ## Values
 
