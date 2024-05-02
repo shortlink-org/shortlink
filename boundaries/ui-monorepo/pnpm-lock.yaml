@@ -54,8 +54,8 @@ importers:
         specifier: ^7.2.14
         version: 7.2.14(@types/react@18.3.1)
       '@mui/x-date-pickers':
-        specifier: ^7.3.1
-        version: 7.3.1(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/material@6.0.0-dev.240424162023-9968b4889d)(@types/react@18.3.1)(date-fns@3.6.0)(react-dom@18.3.1)(react@18.3.1)
+        specifier: ^7.3.2
+        version: 7.3.2(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/material@6.0.0-dev.240424162023-9968b4889d)(@types/react@18.3.1)(date-fns@3.6.0)(react-dom@18.3.1)(react@18.3.1)
       '@next/env':
         specifier: 14.2.3
         version: 14.2.3
@@ -106,7 +106,7 @@ importers:
         version: 15.1.0
       material-react-table:
         specifier: ^2.13.0
-        version: 2.13.0(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/icons-material@6.0.0-dev.240424162023-9968b4889d)(@mui/material@6.0.0-dev.240424162023-9968b4889d)(@mui/x-date-pickers@7.3.1)(react-dom@18.3.1)(react@18.3.1)
+        version: 2.13.0(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/icons-material@6.0.0-dev.240424162023-9968b4889d)(@mui/material@6.0.0-dev.240424162023-9968b4889d)(@mui/x-date-pickers@7.3.2)(react-dom@18.3.1)(react@18.3.1)
       next:
         specifier: ^14.2.3
         version: 14.2.3(@babel/core@7.24.5)(react-dom@18.3.1)(react@18.3.1)
@@ -5705,8 +5705,8 @@ packages:
       react: 18.3.1
       react-is: 18.3.1
 
-  /@mui/x-date-pickers@7.3.1(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/material@6.0.0-dev.240424162023-9968b4889d)(@types/react@18.3.1)(date-fns@3.6.0)(react-dom@18.3.1)(react@18.3.1):
-    resolution: {integrity: sha512-ZIZC+/L5ch3+J6EWRWd/rzz1z/9KPZli8sO1g7t30uFgyjpRuMK4GuazRMqDDFq1KIUtk31qJV0sKKvUsVrKRw==}
+  /@mui/x-date-pickers@7.3.2(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/material@6.0.0-dev.240424162023-9968b4889d)(@types/react@18.3.1)(date-fns@3.6.0)(react-dom@18.3.1)(react@18.3.1):
+    resolution: {integrity: sha512-i7JaDs1eXSZWyJihfszUHVV0t/C2HvtdMv5tHwv3E3enMx5Hup1vkJ64vZAH2fgGrTHQH8mjxvVsmI6jhDXIUg==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@emotion/react': ^11.9.0
@@ -6738,7 +6738,7 @@ packages:
       '@types/react':
         optional: true
     dependencies:
-      '@babel/runtime': 7.24.4
+      '@babel/runtime': 7.24.5
       '@types/react': 18.3.1
       react: 18.3.1
     dev: true
@@ -17184,7 +17184,7 @@ packages:
       react: 18.3.1
     dev: true
 
-  /material-react-table@2.13.0(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/icons-material@6.0.0-dev.240424162023-9968b4889d)(@mui/material@6.0.0-dev.240424162023-9968b4889d)(@mui/x-date-pickers@7.3.1)(react-dom@18.3.1)(react@18.3.1):
+  /material-react-table@2.13.0(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/icons-material@6.0.0-dev.240424162023-9968b4889d)(@mui/material@6.0.0-dev.240424162023-9968b4889d)(@mui/x-date-pickers@7.3.2)(react-dom@18.3.1)(react@18.3.1):
     resolution: {integrity: sha512-ds4/cupDsXvoz8K8OpM3UqUyqKoAMkVdvmvP/+ovuWA23fPcjYvFFkUpBxtnZq5GKWM0+SZWzr14KQ1DgKCaFQ==}
     engines: {node: '>=16'}
     peerDependencies:
@@ -17200,7 +17200,7 @@ packages:
       '@emotion/styled': 11.11.5(@emotion/react@11.11.4)(@types/react@18.3.1)(react@18.3.1)
       '@mui/icons-material': 6.0.0-dev.240424162023-9968b4889d(@mui/material@6.0.0-dev.240424162023-9968b4889d)(@types/react@18.3.1)(react@18.3.1)
       '@mui/material': 6.0.0-dev.240424162023-9968b4889d(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@types/react@18.3.1)(react-dom@18.3.1)(react@18.3.1)
-      '@mui/x-date-pickers': 7.3.1(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/material@6.0.0-dev.240424162023-9968b4889d)(@types/react@18.3.1)(date-fns@3.6.0)(react-dom@18.3.1)(react@18.3.1)
+      '@mui/x-date-pickers': 7.3.2(@emotion/react@11.11.4)(@emotion/styled@11.11.5)(@mui/material@6.0.0-dev.240424162023-9968b4889d)(@types/react@18.3.1)(date-fns@3.6.0)(react-dom@18.3.1)(react@18.3.1)
       '@tanstack/match-sorter-utils': 8.15.1
       '@tanstack/react-table': 8.16.0(react-dom@18.3.1)(react@18.3.1)
       '@tanstack/react-virtual': 3.3.0(react-dom@18.3.1)(react@18.3.1)
