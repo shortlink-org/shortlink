@@ -1,7 +1,7 @@
 apiVersion: v2
 appVersion: "1.0.0"
 name: prometheus-operator
-version: 0.7.3
+version: 0.7.4
 kubeVersion: ">= 1.29.0 || >= v1.29.0-0"
 keywords:
   - prometheus-operator
@@ -15,7 +15,7 @@ type: application
 deprecated: false
 dependencies:
   - name: kube-prometheus-stack
-    version: 58.3.2
+    version: 58.3.3
     repository: https://prometheus-community.github.io/helm-charts
     condition: kube-prometheus-stack.enabled
     tags:
