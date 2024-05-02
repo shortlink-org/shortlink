@@ -28,7 +28,7 @@ env_logger = "0.11.3"
 dotenv = "0.15.0"
 postgres = "0.19.7"
 tokio-postgres = { version = "^0.7.10" }
-refinery = { version = "0.8", features = ["tokio-postgres"] }
+refinery = { version = "0.8.14", features = ["tokio-postgres"] }
 
 [dependencies.uuid]
 features = ["serde", "v4"]
