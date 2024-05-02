@@ -41,7 +41,7 @@ debug = 0
 debug = 0
 
 [target.'cfg(unix)'.dependencies]
-rlimit = "0.10"
+rlimit = "0.10.1"
 
 [profile.release]
 lto = "fat"
