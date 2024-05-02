@@ -11,24 +11,24 @@ edition = "2021"
 repository = "https://github.com/shortlink-org/shortlink"
 
 [dependencies]
-pyroscope = "0.5"
-pyroscope_pprofrs = "0.2"
+pyroscope = "0.5.7"
+pyroscope_pprofrs = "0.2.7"
 futures = { version = "0.3.30", default-features = true, features = ["async-await"] }
-hyper = { version = "1.3", features = ["full"] }
+hyper = { version = "1.3.1", features = ["full"] }
 tokio = { version = "1", features = ["full"] }
-serde = {version = "1.0.199", features = ["derive"] }
-serde_json = "1.0"
-serde_derive = "1.0"
-route-recognizer = "0.3"
+serde = {version = "1.0.200", features = ["derive"] }
+serde_json = "1.0.116"
+serde_derive = "1.0.200"
+route-recognizer = "0.3.1"
 bytes = "1.6"
-async-trait = "0.1"
+async-trait = "0.1.80"
 pretty_env_logger = "0.5"
-tera = "1.19"
+tera = "1.19.1"
 env_logger = "0.11.3"
 dotenv = "0.15.0"
 postgres = "0.19.7"
 tokio-postgres = { version = "^0.7.10" }
-refinery = { version = "0.8", features = ["tokio-postgres"] }
+refinery = { version = "0.8.14", features = ["tokio-postgres"] }
 
 [dependencies.uuid]
 features = ["serde", "v4"]
@@ -41,7 +41,7 @@ debug = 0
 debug = 0
 
 [target.'cfg(unix)'.dependencies]
-rlimit = "0.10"
+rlimit = "0.10.1"
 
 [profile.release]
 lto = "fat"
