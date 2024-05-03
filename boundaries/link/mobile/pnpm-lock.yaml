@@ -85,8 +85,8 @@ importers:
         specifier: 18.3.4
         version: 18.3.4
       '@testing-library/jest-dom':
-        specifier: ^6.4.2
-        version: 6.4.2(@jest/globals@29.7.0)(@types/jest@29.5.12)(jest@29.7.0(@types/node@20.12.8)(babel-plugin-macros@2.8.0)(ts-node@10.9.2(@types/node@20.12.8)(typescript@5.4.5)))
+        specifier: ^6.4.3
+        version: 6.4.3(@jest/globals@29.7.0)(@types/jest@29.5.12)(jest@29.7.0(@types/node@20.12.8)(babel-plugin-macros@2.8.0)(ts-node@10.9.2(@types/node@20.12.8)(typescript@5.4.5)))
       '@testing-library/jest-native':
         specifier: 5.4.3
         version: 5.4.3(react-native@0.74.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.1)(react@18.3.1))(react-test-renderer@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1790,8 +1790,8 @@ packages:
     resolution: {integrity: sha512-LnhVjMWyMQV9ZmeEy26maJk+8HTIbd59cH4F2MJ439k9DqejRisfFNGAPvRYlKETuh9LrImlS8aKsBgKjMA8WA==}
     engines: {node: '>=14'}
 
-  '@testing-library/jest-dom@6.4.2':
-    resolution: {integrity: sha512-CzqH0AFymEMG48CpzXFriYYkOjk6ZGPCLMhW9e9jg3KMCn5OfJecF8GtGW7yGfR/IgCe3SX8BSwjdzI6BBbZLw==}
+  '@testing-library/jest-dom@6.4.3':
+    resolution: {integrity: sha512-d1NUtNEN0hSUB/XWdF1GgdlD5S2tS0huQb2tkFL2usXRatR/EiHS6AhLtDcCb/iD9CS7kRmbAHt2O5JadkKyuA==}
     engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
     peerDependencies:
       '@jest/globals': '>= 28'
@@ -10708,7 +10708,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@testing-library/jest-dom@6.4.2(@jest/globals@29.7.0)(@types/jest@29.5.12)(jest@29.7.0(@types/node@20.12.8)(babel-plugin-macros@2.8.0)(ts-node@10.9.2(@types/node@20.12.8)(typescript@5.4.5)))':
+  '@testing-library/jest-dom@6.4.3(@jest/globals@29.7.0)(@types/jest@29.5.12)(jest@29.7.0(@types/node@20.12.8)(babel-plugin-macros@2.8.0)(ts-node@10.9.2(@types/node@20.12.8)(typescript@5.4.5)))':
     dependencies:
       '@adobe/css-tools': 4.3.3
       '@babel/runtime': 7.24.0
