@@ -3799,9 +3799,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/core-components@npm:^0.14.5":
-  version: 0.14.5
-  resolution: "@backstage/core-components@npm:0.14.5"
+"@backstage/core-components@npm:^0.14.6":
+  version: 0.14.6
+  resolution: "@backstage/core-components@npm:0.14.6"
   dependencies:
     "@backstage/config": "npm:^1.2.0"
     "@backstage/core-plugin-api": "npm:^1.9.2"
@@ -3846,7 +3846,7 @@ __metadata:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
-  checksum: 10c0/3555e5e6585de0ce39e6844a926078058f70e757c01bfa8daa58db914abf5b8f7e4d8598d96cd37320c9f0401036dcbb6748ac69c9b6f5edb194a2cc3365ffb4
+  checksum: 10c0/d62336f8ab81c6eb57e27cf237ae6893921bdaf4c2ac36f97df24788ebfc759e16671fd3aea2f0e281fcb91cab95bfb8e443679e6e027317afc69e7571a1a60c
   languageName: node
   linkType: hard
 
@@ -5250,9 +5250,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-scaffolder-backend@npm:^1.22.4":
-  version: 1.22.4
-  resolution: "@backstage/plugin-scaffolder-backend@npm:1.22.4"
+"@backstage/plugin-scaffolder-backend@npm:^1.22.5":
+  version: 1.22.5
+  resolution: "@backstage/plugin-scaffolder-backend@npm:1.22.5"
   dependencies:
     "@backstage/backend-common": "npm:^0.21.7"
     "@backstage/backend-plugin-api": "npm:^0.6.17"
@@ -5297,10 +5297,11 @@ __metadata:
     prom-client: "npm:^15.0.0"
     uuid: "npm:^9.0.0"
     winston: "npm:^3.2.1"
+    winston-transport: "npm:^4.7.0"
     yaml: "npm:^2.0.0"
     zen-observable: "npm:^0.10.0"
     zod: "npm:^3.22.4"
-  checksum: 10c0/12291d33be9ecf4a91d79ffbd1cf814f1b9d94854c364bb3ee0ad1641bae364ab6eefdc816cd0a08ebbd7b001298029e552db663a009ca0e99bf0655092e78e7
+  checksum: 10c0/b4c9f42f6bbd7512a724688894409e82c541dbcaf8123b9a42538b34c2f2e40f6a3b63e6749a39e24d7c733b9691be4e2aacb2cfdbca04ef8ae0b1737571e988
   languageName: node
   linkType: hard
 
@@ -15276,7 +15277,7 @@ __metadata:
     "@backstage/catalog-model": "npm:^1.4.5"
     "@backstage/cli": "npm:^0.26.4"
     "@backstage/core-app-api": "npm:^1.12.4"
-    "@backstage/core-components": "npm:^0.14.5"
+    "@backstage/core-components": "npm:^0.14.6"
     "@backstage/core-plugin-api": "npm:^1.9.2"
     "@backstage/integration-react": "npm:^1.1.26"
     "@backstage/plugin-adr": "npm:^0.6.18"
@@ -15990,7 +15991,7 @@ __metadata:
     "@backstage/plugin-permission-common": "npm:^0.7.13"
     "@backstage/plugin-permission-node": "npm:^0.7.28"
     "@backstage/plugin-proxy-backend": "npm:^0.4.15"
-    "@backstage/plugin-scaffolder-backend": "npm:^1.22.4"
+    "@backstage/plugin-scaffolder-backend": "npm:^1.22.5"
     "@backstage/plugin-search-backend": "npm:^1.5.7"
     "@backstage/plugin-search-backend-module-pg": "npm:^0.5.26"
     "@backstage/plugin-search-backend-node": "npm:^1.2.21"
