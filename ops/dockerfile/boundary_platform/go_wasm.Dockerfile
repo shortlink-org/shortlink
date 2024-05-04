@@ -6,7 +6,10 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM --platform=$BUILDPLATFORM tinygo/tinygo:0.31.2 as builder
+FROM --platform=$BUILDPLATFORM golang:1.22-alpine AS builder
+
+ENV GOOS=wasip1
+ENV GOARCH=wasm
 
 WORKDIR /go/github.com/shortlink-org/shortlink
 
@@ -20,7 +23,7 @@ RUN --mount=type=cache,target=/go/pkg/mod go mod download
 COPY . .
 
 # Build project
-RUN tinygo build -o main.wasm -scheduler=none -target=wasi ./boundaries/platform/istio-extension/shortlink_go/main.go
+RUN go build -o main.wasm ./boundaries/platform/istio-extension/shortlink_go/main.go
 
 FROM scratch
 

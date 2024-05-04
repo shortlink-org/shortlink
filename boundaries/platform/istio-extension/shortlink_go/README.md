@@ -1,8 +1,10 @@
 ## ShortLink plugin for Istio
 
+Go 1.21 support build to WebAssembly. So we can write a plugin for Istio using Go without tinygo.
+
 ### References
 
-- [TinyGo](https://tinygo.org/)
+- [WASI support in Go](https://go.dev/blog/wasi)
 - [Istio: wasm-plugin](https://istio.io/latest/docs/reference/config/proxy_extensions/wasm-plugin/)
 - [proxy-wasm-go-sdk](https://github.com/tetratelabs/proxy-wasm-go-sdk)
 - Tutorial:

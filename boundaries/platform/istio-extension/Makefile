@@ -6,4 +6,4 @@ include ../../../ops/Makefile/common.mk
 
 # PLUGINS ==============================================================================================================
 build: ## Build Istio Extension
-	@tinygo build -o main.wasm -scheduler=none -target=wasi ./shortlink/main.go
+	@GOOS=wasip1 GOARCH=wasm go build -o main.wasm ./shortlink_go/main.go
