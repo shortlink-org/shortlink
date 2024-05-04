@@ -3,9 +3,9 @@
 import React, { useRef, Suspense } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
-import { Experimental_CssVarsProvider as CssVarsProvider, getInitColorSchemeScript } from '@mui/material/styles'
+import { Experimental_CssVarsProvider as CssVarsProvider, useColorScheme } from '@mui/material/styles'
 import { theme } from '@shortlink-org/ui-kit/src/theme/theme'
-import { ThemeProvider as NextThemeProvider } from 'next-themes'
+import { ThemeProvider } from 'next-themes'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Provider as BalancerProvider } from 'react-wrap-balancer'
@@ -49,25 +49,23 @@ function Providers({ children, ...props }) {
   }
 
   return (
-    <AppRouterCacheProvider options={{ enableCssLayer: true }}>
+    <AppRouterCacheProvider options={{ enableCssLayer: false }}>
       <CssVarsProvider theme={theme} defaultMode="light">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <NextThemeProvider enableSystem attribute="class" defaultTheme="light">
-            {getInitColorSchemeScript()}
-
+          <ThemeProvider enableSystem attribute="class" defaultTheme="light">
             <Layout>
               <div className="text-black dark:bg-gray-800 dark:text-white">
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
                 <CssBaseline />
 
                 <BalancerProvider>
-                  <Suspense fallback={<div>Loading...</div>}>
+                  <Suspense fallback={<div className={'h-full'}>Loading...</div>}>
                     <Provider store={storeRef.current}>{children}</Provider>
                   </Suspense>
                 </BalancerProvider>
               </div>
             </Layout>
-          </NextThemeProvider>
+          </ThemeProvider>
         </LocalizationProvider>
       </CssVarsProvider>
     </AppRouterCacheProvider>

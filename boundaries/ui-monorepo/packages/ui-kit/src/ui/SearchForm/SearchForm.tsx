@@ -1,60 +1,29 @@
-import * as React from 'react'
 import SearchIcon from '@mui/icons-material/Search'
-import InputBase from '@mui/material/InputBase'
-import { styled, alpha } from '@mui/material/styles'
+import MicIcon from '@mui/icons-material/Mic'
 
-const Search = styled('div')(({ theme }) => ({
-  position: 'relative',
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: alpha(theme.palette.common.white, 0.15),
-  '&:hover': {
-    backgroundColor: alpha(theme.palette.common.white, 0.25),
-  },
-  marginLeft: 0,
-  width: '100%',
-  [theme.breakpoints.up('sm')]: {
-    marginLeft: theme.spacing(1),
-    width: 'auto',
-  },
-}))
-
-const SearchIconWrapper = styled('div')(({ theme }) => ({
-  padding: theme.spacing(0, 2),
-  height: '100%',
-  position: 'absolute',
-  pointerEvents: 'none',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-}))
-
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
-  color: 'inherit',
-  width: '100%',
-  '& .MuiInputBase-input': {
-    padding: theme.spacing(1, 1, 1, 0),
-    // vertical padding + font size from searchIcon
-    paddingLeft: `calc(1em + ${theme.spacing(4)})`,
-    transition: theme.transitions.create('width'),
-    [theme.breakpoints.up('sm')]: {
-      width: '12ch',
-      '&:focus': {
-        width: '20ch',
-      },
-    },
-  },
-}))
-
-export default function SearchForm() {
+function SearchForm() {
   return (
-    <Search sx={{ mr: 2 }}>
-      <SearchIconWrapper>
-        <SearchIcon />
-      </SearchIconWrapper>
-      <StyledInputBase
-        placeholder="Search…"
-        inputProps={{ 'aria-label': 'search' }}
+    <div className="relative flex-grow">
+      <button
+        type="button"
+        className="absolute left-2 top-1/2 transform -translate-y-1/2 p-1 text-gray-500 hover:text-gray-700"
+      >
+        <SearchIcon className="h-5 w-5" />
+      </button>
+      <input
+        id="search"
+        type="search"
+        className="w-full pl-10 p-2 text-sm text-gray-700 form-input bg-white border border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+        placeholder="Search..."
       />
-    </Search>
+      <button
+        type="submit"
+        className="absolute right-2 top-1/2 transform -translate-y-1/2 p-1 text-gray-500 hover:text-gray-700"
+      >
+        <MicIcon />
+      </button>
+    </div>
   )
 }
+
+export default SearchForm

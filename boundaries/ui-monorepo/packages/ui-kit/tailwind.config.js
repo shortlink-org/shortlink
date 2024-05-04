@@ -4,6 +4,10 @@ const { fontFamily } = require('tailwindcss/defaultTheme')
 module.exports = {
   mode: 'jit',
   darkMode: 'selector',
+  corePlugins: {
+    preflight: false,
+  },
+  important: '#__next',
   content: {
     files: ['./src/**/*.{js,ts,jsx,tsx}'],
     options: {

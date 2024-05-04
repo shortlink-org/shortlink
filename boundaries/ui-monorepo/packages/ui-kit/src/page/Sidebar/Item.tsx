@@ -1,4 +1,5 @@
 import * as React from 'react'
+import Tooltip from '@mui/material/Tooltip'
 import ActiveLink from './ActiveLink'
 
 type AppProps = {
@@ -21,11 +22,13 @@ function getItem({ mode, url, icon, name }: AppProps) {
   return (
     <li key={url} className={'w-full'}>
       <ActiveLink href={url} passHref activeClassName="md:text-blue-700">
-        <div className={linkClassName}>
-          {React.cloneElement(icon, { className: iconClassName })}
+        <Tooltip title={name} placement={'right'}>
+          <div className={linkClassName}>
+            {React.cloneElement(icon, { className: iconClassName })}
 
-          {mode === 'full' && <span className="ms-3">{name}</span>}
-        </div>
+            {mode === 'full' && <span className="ms-3">{name}</span>}
+          </div>
+        </Tooltip>
       </ActiveLink>
     </li>
   )

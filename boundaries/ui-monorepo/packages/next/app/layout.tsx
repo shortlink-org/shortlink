@@ -100,7 +100,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="en" className={`${robotoMono.className} font-sans`} suppressHydrationWarning>
       <Script id="json-ld" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-      <body className="bg-white text-black dark:bg-black dark:text-white">
+      <body className="bg-white text-black dark:bg-black dark:text-white h-screen w-screen">
         <Providers>{children}</Providers>
       </body>
     </html>

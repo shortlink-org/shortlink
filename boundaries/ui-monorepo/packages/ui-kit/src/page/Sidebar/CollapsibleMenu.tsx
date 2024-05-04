@@ -1,5 +1,6 @@
 import * as React from 'react'
 import Collapse from '@mui/material/Collapse'
+import Tooltip from '@mui/material/Tooltip'
 
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
@@ -21,19 +22,21 @@ const CollapsibleMenu = ({ mode, icon, title, children }) => {
 
   return (
     <li className={'w-full'}>
-      <div className={bodyClassName} onClick={toggleCollapse}>
-        {React.createElement(icon, { className: iconClassName })}
+      <Tooltip title={title} placement={'right'}>
+        <div className={bodyClassName} onClick={toggleCollapse}>
+          {React.createElement(icon, { className: iconClassName })}
 
-        {mode === 'full' && (
-          <React.Fragment>
-            <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
-              {title}
-            </span>
+          {mode === 'full' && (
+            <React.Fragment>
+              <span className="flex-1 ms-3 text-left rtl:text-right whitespace-nowrap">
+                {title}
+              </span>
 
-            {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </React.Fragment>
-        )}
-      </div>
+              {isOpen ? <ExpandLessIcon /> : <ExpandMoreIcon />}
+            </React.Fragment>
+          )}
+        </div>
+      </Tooltip>
 
       <Collapse in={isOpen} timeout="auto" unmountOnExit>
         <ul className="py-2 px-4 space-y-2">{children}</ul>

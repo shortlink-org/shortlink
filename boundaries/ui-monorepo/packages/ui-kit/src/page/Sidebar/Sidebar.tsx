@@ -31,121 +31,118 @@ type AppProps = {
 export function Sidebar({ mode }: AppProps) {
   return (
     <aside
-      id="default-sidebar"
-      className="w-full h-full transition-transform -translate-x-full sm:translate-x-0"
+      className="w-full h-full bg-gray-50 dark:bg-gray-800 flex justify-between flex-col min-h-0"
       aria-label="Sidebar"
     >
-      <div className="h-full overflow-y-auto bg-gray-50 dark:bg-gray-800 flex flex-col w-full">
-        <ul className="space-y-2 font-medium w-full px-3 py-4">
+      <ul className="space-y-2 font-medium flex-grow w-full h-full px-2 py-4 overflow-y-auto">
+        {getItem({
+          mode,
+          url: '/user/addUrl',
+          icon: <AddLinkIcon />,
+          name: 'Add URL',
+        })}
+
+        <CollapsibleMenu icon={HttpIcon} title="Links" mode={mode}>
           {getItem({
             mode,
-            url: '/user/addUrl',
-            icon: <AddLinkIcon />,
-            name: 'Add URL',
+            url: '/user/dashboard',
+            icon: <DashboardIcon />,
+            name: 'Dashboard',
           })}
-
-          <CollapsibleMenu icon={HttpIcon} title="Links" mode={mode}>
-            {getItem({
-              mode,
-              url: '/user/dashboard',
-              icon: <DashboardIcon />,
-              name: 'Dashboard',
-            })}
-            {getItem({
-              mode,
-              url: '/user/links',
-              icon: <ListIcon />,
-              name: 'Links',
-            })}
-            {getItem({
-              mode,
-              url: '/user/reports',
-              icon: <BarChartIcon />,
-              name: 'Reports',
-            })}
-          </CollapsibleMenu>
-
-          <CollapsibleMenu icon={SettingsIcon} title="Setting" mode={mode}>
-            {getItem({
-              mode,
-              url: '/user/profile',
-              icon: <PersonIcon />,
-              name: 'Profile',
-            })}
-            {getItem({
-              mode,
-              url: '/user/security',
-              icon: <SecurityIcon />,
-              name: 'Security',
-            })}
-            {getItem({
-              mode,
-              url: '/user/integrations',
-              icon: <LayersIcon />,
-              name: 'Integrations',
-            })}
-            {getItem({
-              mode,
-              url: '/user/audit',
-              icon: <AssessmentIcon />,
-              name: 'Audit',
-            })}
-          </CollapsibleMenu>
-
-          <CollapsibleMenu
-            icon={ShoppingCartIcon}
-            title="E-commerce"
-            mode={mode}
-          >
-            {getItem({
-              mode,
-              url: '/user/billing',
-              icon: <AccountBalanceWalletIcon />,
-              name: 'Billing',
-            })}
-            {getItem({
-              mode,
-              url: '/user/invoice',
-              icon: <ReceiptIcon />,
-              name: 'Invoice',
-            })}
-          </CollapsibleMenu>
-
-          <CollapsibleMenu
-            icon={AdminPanelSettingsIcon}
-            title="Admin"
-            mode={mode}
-          >
-            {getItem({
-              mode,
-              url: '/admin/links',
-              icon: <ListIcon />,
-              name: 'Links',
-            })}
-            {getItem({
-              mode,
-              url: '/admin/users',
-              icon: <GroupAddIcon />,
-              name: 'Users',
-            })}
-            {getItem({
-              mode,
-              url: '/admin/groups',
-              icon: <PeopleIcon />,
-              name: 'Groups',
-            })}
-          </CollapsibleMenu>
-
           {getItem({
             mode,
-            url: '/about',
-            icon: <AssignmentIcon />,
-            name: 'About As',
+            url: '/user/links',
+            icon: <ListIcon />,
+            name: 'Links',
           })}
-        </ul>
+          {getItem({
+            mode,
+            url: '/user/reports',
+            icon: <BarChartIcon />,
+            name: 'Reports',
+          })}
+        </CollapsibleMenu>
 
-        <Footer mode={mode} />
-      </div>
+        <CollapsibleMenu icon={SettingsIcon} title="Setting" mode={mode}>
+          {getItem({
+            mode,
+            url: '/user/profile',
+            icon: <PersonIcon />,
+            name: 'Profile',
+          })}
+          {getItem({
+            mode,
+            url: '/user/security',
+            icon: <SecurityIcon />,
+            name: 'Security',
+          })}
+          {getItem({
+            mode,
+            url: '/user/integrations',
+            icon: <LayersIcon />,
+            name: 'Integrations',
+          })}
+          {getItem({
+            mode,
+            url: '/user/audit',
+            icon: <AssessmentIcon />,
+            name: 'Audit',
+          })}
+        </CollapsibleMenu>
+
+        <CollapsibleMenu
+          icon={ShoppingCartIcon}
+          title="E-commerce"
+          mode={mode}
+        >
+          {getItem({
+            mode,
+            url: '/user/billing',
+            icon: <AccountBalanceWalletIcon />,
+            name: 'Billing',
+          })}
+          {getItem({
+            mode,
+            url: '/user/invoice',
+            icon: <ReceiptIcon />,
+            name: 'Invoice',
+          })}
+        </CollapsibleMenu>
+
+        <CollapsibleMenu
+          icon={AdminPanelSettingsIcon}
+          title="Admin"
+          mode={mode}
+        >
+          {getItem({
+            mode,
+            url: '/admin/links',
+            icon: <ListIcon />,
+            name: 'Links',
+          })}
+          {getItem({
+            mode,
+            url: '/admin/users',
+            icon: <GroupAddIcon />,
+            name: 'Users',
+          })}
+          {getItem({
+            mode,
+            url: '/admin/groups',
+            icon: <PeopleIcon />,
+            name: 'Groups',
+          })}
+        </CollapsibleMenu>
+
+        {getItem({
+          mode,
+          url: '/about',
+          icon: <AssignmentIcon />,
+          name: 'About As',
+        })}
+      </ul>
+
+      <Footer mode={mode} />
     </aside>
   )
 }

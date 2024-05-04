@@ -11,10 +11,10 @@ export default meta
 
 export const Default = {
   render: (args: any) => {
-    let className = 'h-screen grid grid-cols-4 gap-4'
+    let className = 'h-screen w-96'
 
     if (args.mode === 'mini') {
-      className = 'h-screen grid grid-cols-12 gap-4'
+      className = 'h-screen w-14'
     }
 
     return (
