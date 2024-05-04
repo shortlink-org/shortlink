@@ -1,0 +1,18 @@
+# Common default values for grafana-operator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+grafana-operator:
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  serviceMonitor:
+    enabled: true
+
+    additionalLabels:
+      release: prometheus-operator

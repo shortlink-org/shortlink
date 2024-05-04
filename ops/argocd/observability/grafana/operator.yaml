@@ -1,0 +1,49 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: grafana-operator
+  namespace: argocd
+  annotations:
+    notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: shortlink
+  destination:
+    name: ''
+    namespace: grafana-operator
+    server: 'https://kubernetes.default.svc'
+  source:
+    path: ops/Helm/addons/observability/grafana-operator
+    repoURL: 'https://github.com/shortlink-org/shortlink'
+    targetRevision: HEAD
+    helm:
+      releaseName: grafana-operator
+      valueFiles:
+        - values.yaml
+  syncPolicy:
+    automated:
+      prune: true
+      allowEmpty: true
+      selfHeal: true
+    managedNamespaceMetadata:
+      labels:
+        istio-injection: enabled
+        # TODO: tuning https://kubernetes.io/docs/concepts/security/pod-security-admission/
+        pod-security.kubernetes.io/enforce: privileged
+        pod-security.kubernetes.io/enforce-version: latest
+    syncOptions:
+      - CreateNamespace=true
+      - ServerSideApply=true
+      - ApplyOutOfSyncOnly=true
+    retry:
+      limit: 2
+      backoff:
+        duration: 10s
+        maxDuration: 3m0s
+        factor: 2
+  ignoreDifferences:
+    - group: kyverno.io
+      kind: ClusterPolicy
+      jqPathExpressions:
+        - .spec.rules[] | select(.name|test("autogen-."))
