@@ -6,12 +6,16 @@ include:
 
 # GOLANG ===============================================================================================================
 GOLANG:
-  extends: .rules_tag
   stage: test
   trigger:
     include:
       - local: 'ops/gitlab/pipelines/test/golang.yml'
     strategy: depend
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+    - if: $CI_COMMIT_TAG
+      when: on_success
 
 # HELM =================================================================================================================
 HELM:
