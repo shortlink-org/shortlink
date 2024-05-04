@@ -12,7 +12,7 @@ docker:
       - local: 'ops/gitlab/pipelines/build/docker_base.yml'
     strategy: depend
   needs:
-    - job: GOLANG
+    - job: golint
     - job: HELM
   rules:
     - if: $CI_COMMIT_TAG
