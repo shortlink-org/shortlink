@@ -2,7 +2,6 @@ include:
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
   - component: gitlab.com/components/secret-detection/secret-detection@main
   - component: gitlab.com/components/code-quality/code-quality@main
-  - local: ops/gitlab/pipelines/test/sast.yml
 
 # GOLANG ===============================================================================================================
 GOLANG:
