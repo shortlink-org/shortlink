@@ -30,7 +30,7 @@ func (api *API) Routes(r chi.Router) {
 
 // Update - update
 func (api *API) update(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
+	w.Header().Add("Content-Type", "application/json")
 
 	// Parse request
 	var request billing.Payment

@@ -33,7 +33,7 @@ func (api *API) Routes(r chi.Router) {
 
 // open a new payment
 func (api *API) open(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
+	w.Header().Add("Content-Type", "application/json")
 
 	// Parse request
 	var request billing.Payment
@@ -67,7 +67,7 @@ func (api *API) open(w http.ResponseWriter, r *http.Request) {
 
 // get payment by identity
 func (api *API) get(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
+	w.Header().Add("Content-Type", "application/json")
 
 	aggregateId := chi.URLParam(r, "id")
 	if aggregateId == "" {
@@ -99,14 +99,14 @@ func (api *API) get(w http.ResponseWriter, r *http.Request) {
 
 // list - get all payments of users
 func (api *API) list(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
+	w.Header().Add("Content-Type", "application/json")
 
 	w.WriteHeader(http.StatusOK)
 }
 
 // close a payment
 func (api *API) close(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
+	w.Header().Add("Content-Type", "application/json")
 
 	aggregateId := chi.URLParam(r, "id")
 	if aggregateId == "" {

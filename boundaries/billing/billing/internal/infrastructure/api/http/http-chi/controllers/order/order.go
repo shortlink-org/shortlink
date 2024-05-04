@@ -33,7 +33,7 @@ func (api *API) Routes(r chi.Router) {
 
 // Add - add
 func (api *API) add(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
+	w.Header().Add("Content-Type", "application/json")
 
 	// Parse request
 	var request billing.Order
@@ -67,21 +67,21 @@ func (api *API) add(w http.ResponseWriter, r *http.Request) {
 
 // Get - get
 func (api *API) get(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
+	w.Header().Add("Content-Type", "application/json")
 
 	w.WriteHeader(http.StatusOK)
 }
 
 // List - list
 func (api *API) list(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
+	w.Header().Add("Content-Type", "application/json")
 
 	w.WriteHeader(http.StatusOK)
 }
 
 // Delete - delete
 func (api *API) delete(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
+	w.Header().Add("Content-Type", "application/json")
 
 	w.WriteHeader(http.StatusNoContent)
 }

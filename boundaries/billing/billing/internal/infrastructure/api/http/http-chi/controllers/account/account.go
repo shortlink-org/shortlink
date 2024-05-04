@@ -33,7 +33,7 @@ func (api *AccoutAPI) Routes(r chi.Router) {
 
 // Add - add
 func (api *AccoutAPI) add(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
+	w.Header().Add("Content-Type", "application/json")
 
 	// Parse request
 	var request billing.Account
@@ -67,21 +67,21 @@ func (api *AccoutAPI) add(w http.ResponseWriter, r *http.Request) {
 
 // Get - get
 func (api *AccoutAPI) get(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
+	w.Header().Add("Content-Type", "application/json")
 
 	w.WriteHeader(http.StatusOK)
 }
 
 // List - list
 func (api *AccoutAPI) list(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
+	w.Header().Add("Content-Type", "application/json")
 
 	w.WriteHeader(http.StatusOK)
 }
 
 // Delete - delete
 func (api *AccoutAPI) delete(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("Content-type", "application/json")
+	w.Header().Add("Content-Type", "application/json")
 
 	w.WriteHeader(http.StatusNoContent)
 }

@@ -25,6 +25,6 @@ func TestSpanMiddleware(t *testing.T) {
 	middleware.ServeHTTP(rr, req)
 
 	// Assert the trace_id is in the response header
-	traceID := rr.Header().Get("trace_id")
+	traceID := rr.Header().Get(TraceIDHeader)
 	require.NotEmpty(t, traceID)
 }

@@ -41,7 +41,7 @@ func main() {
 		}
 
 		// Adding app id as part of the header
-		req.Header.Add("dapr-app-id", "order-processor")
+		req.Header.Add("Dapr-App-Id", "order-processor")
 
 		// Invoking a service
 		response, err := client.Do(req)
