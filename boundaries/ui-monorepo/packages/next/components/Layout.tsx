@@ -36,9 +36,7 @@ export function Layout({ children }) {
         <Header hasSession={hasSession} setOpen={() => setOpen(!open)} />
 
         <main className={'grid grid-cols-[auto_1fr] min-h-0'}>
-          <div className={'h-full overflow-auto'}>
-            {hasSession && <Sidebar mode={open ? 'full' : 'mini'} />}
-          </div>
+          <div className={'h-full overflow-auto'}>{hasSession && <Sidebar mode={open ? 'full' : 'mini'} />}</div>
 
           <div className="overflow-auto h-full">
             {children}

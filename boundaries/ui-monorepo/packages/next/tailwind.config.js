@@ -7,7 +7,6 @@ module.exports = {
   corePlugins: {
     preflight: false,
   },
-  important: '#__next',
   content: {
     files: ['./app/**/*.{js,ts,jsx,tsx,mdx}', './components/**/*.{js,ts,jsx,tsx}'],
     options: {
@@ -20,6 +19,9 @@ module.exports = {
       body: ['Roboto Mono', 'Menlo', 'monospace'],
       inter: ['Inter', 'sans-serif'],
       caveat: ['Caveat', 'cursive'],
+    },
+    container: {
+      center: true,
     },
     extend: {
       typography: () => ({

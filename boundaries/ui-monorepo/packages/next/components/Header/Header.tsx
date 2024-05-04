@@ -25,23 +25,14 @@ export default function Header({ hasSession, setOpen }) {
   }
 
   return (
-    <nav className={'bg-indigo-500 text-white grid grid-cols-[auto_1fr_auto] z-100 p-2 justify-center items-center dark:bg-gray-700'}>
-      <div className={'flex flex-row'}>
-        <IconButton
-          color="inherit"
-          aria-label="menu"
-          onClick={setOpen}
-          edge="start"
-          sx={{
-            marginRight: 5,
-          }}
-          disabled={!hasSession}
-        >
+    <nav className={'bg-indigo-500 text-white grid grid-cols-[auto_1fr_auto] z-100 p-2 justify-center items-center dark:bg-slate-800'}>
+      <div className={'flex flex-row mx-2'}>
+        <IconButton color="inherit" aria-label="menu" onClick={setOpen} edge="start" disabled={!hasSession}>
           <MenuIcon />
         </IconButton>
 
         <Button href="/" component={Link} color="secondary">
-          <Typography component="h1" variant="h6" color="inherit" noWrap>
+          <Typography className={'mx-5'} component="h1" variant="h6" color="inherit" noWrap>
             Shortlink
           </Typography>
         </Button>

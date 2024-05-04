@@ -38,10 +38,13 @@ const Home: NextPage = () => (
     />
 
     <Header />
-    <Mobile />
-    <Feature />
-    <Testimonials />
-    <Subscribe />
+
+    <div className="container mx-auto w-2/3">
+      <Mobile />
+      <Feature />
+      <Testimonials />
+      <Subscribe />
+    </div>
   </>
 )
 

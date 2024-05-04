@@ -7,7 +7,6 @@ module.exports = {
   corePlugins: {
     preflight: false,
   },
-  important: '#__next',
   content: {
     files: ['./src/**/*.{js,ts,jsx,tsx}'],
     options: {

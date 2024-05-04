@@ -3,7 +3,7 @@
 import React, { useRef, Suspense } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
-import { Experimental_CssVarsProvider as CssVarsProvider, useColorScheme } from '@mui/material/styles'
+import { Experimental_CssVarsProvider as CssVarsProvider, getInitColorSchemeScript } from '@mui/material/styles'
 import { theme } from '@shortlink-org/ui-kit/src/theme/theme'
 import { ThemeProvider } from 'next-themes'
 import { LocalizationProvider } from '@mui/x-date-pickers'
@@ -49,10 +49,12 @@ function Providers({ children, ...props }) {
   }
 
   return (
-    <AppRouterCacheProvider options={{ enableCssLayer: false }}>
+    <AppRouterCacheProvider>
       <CssVarsProvider theme={theme} defaultMode="light">
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <ThemeProvider enableSystem attribute="class" defaultTheme="light">
+          <ThemeProvider enableSystem attribute="selector" defaultTheme="dark">
+            {getInitColorSchemeScript()}
+
             <Layout>
               <div className="text-black dark:bg-gray-800 dark:text-white">
                 {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
