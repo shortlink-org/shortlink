@@ -10,7 +10,7 @@ argo-cd:
 
   global:
     image:
-      tag: "v2.11.0-rc1"
+      tag: "v2.11.0-rc3"
 
     logging:
       format: json
@@ -285,7 +285,7 @@ argo-cd:
     cm:
       url: https://argo.shortlink.best
 
-      statusbadge.enabled: "true"
+      statusbadge.enabled: true
 
       controller.diff.server.side: "true"
 
