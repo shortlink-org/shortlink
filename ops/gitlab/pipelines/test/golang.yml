@@ -78,7 +78,7 @@ golint:
 go_fuzz_test:
   extends: .fuzz_base
   stage: test
-  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/golang:1.22.1-alpine
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/golang:1.22.2-alpine
   variables:
     COVFUZZ_SEED_CORPUS: './seed_corpus'
   before_script:
