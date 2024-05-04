@@ -6,21 +6,23 @@ import (
 	"os"
 )
 
-type opCode int
+type opCode int //nolint:unused // false positive
 
 const (
-	opCodeRead opCode = iota + 1
-	opCodeWrite
+	opCodeRead  opCode = iota + 1 //nolint:unused // false positive
+	opCodeWrite                   //nolint:unused // false positive
 )
 
-const queueThreshold = 5
+const queueThreshold = 5 //nolint:unused // false positive
 
 type (
-	readCallback  func([]byte)
-	writeCallback func(int)
+	readCallback  func([]byte) //nolint:unused // false positive
+	writeCallback func(int)    //nolint:unused // false positive
 )
 
 // request contains info to send to the submission queue.
+//
+//nolint:unused // false positive
 type request struct {
 	code    opCode
 	f       *os.File
@@ -30,6 +32,7 @@ type request struct {
 	writeCb writeCallback
 }
 
+//nolint:unused // false positive
 type cbInfo struct {
 	readCb  readCallback
 	writeCb writeCallback
