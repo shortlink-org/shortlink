@@ -9,10 +9,10 @@ metadata:
     - bff
   annotations:
     # The annotation is deprecated, we use placeholders (see below) instead, remove it later.
-    backstage.io/definition-at-location: 'url:https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/link/bff/infrastructure/http/api/render/openapi/openapi.yaml'
+    backstage.io/definition-at-location: 'url:https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/link/bff/internal/infrastructure/http/api/render/openapi/openapi.yaml'
 spec:
   type: openapi
   lifecycle: production
   owner: shortlink-org
   definition:
-    $text: https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/link/bff/infrastructure/http/api/render/openapi/openapi.yaml
+    $text: https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/link/bff/internal/infrastructure/http/api/render/openapi/openapi.yaml

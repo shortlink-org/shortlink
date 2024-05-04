@@ -23,10 +23,10 @@ release:
 pages:
   stage: release
   variables:
-    DOCS_FOLDER: "boundaries/link/bff/infrastructure/http/api/render/openapi"
+    DOCS_FOLDER: "boundaries/link/bff/internal/infrastructure/http/api/render/openapi"
     SPEC_TO_DISPLAY: "openapi.yaml"
   needs: []
   rules:
     - if: $CI_COMMIT_TAG
     - changes:
-        - "boundaries/link/bff/infrastructure/http/api/render/openapi/openapi.yaml"
+        - "boundaries/link/bff/internal/infrastructure/http/api/render/openapi/openapi.yaml"
