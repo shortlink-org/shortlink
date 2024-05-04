@@ -17,26 +17,5 @@ code_quality:
       - ${ARTIFACT_NAME}
     expire_in: 14 days
   rules:
-    # NOTE: don't work
-    - when: never
-
-# DEPENDENCY ===========================================================================================================
-# Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/
-#
-# Configure dependency scanning with CI/CD variables (https://docs.gitlab.com/ee/ci/variables/index.html).
-# List of available variables: https://docs.gitlab.com/ee/user/application_security/dependency_scanning/index.html#available-variables
-
-gemnasium-dependency_scanning:
-  rules:
-    - when: always
-      exists: !reference [.gemnasium-shared-rule, exists]
-
-gemnasium-maven-dependency_scanning:
-  rules:
-    - when: always
-      exists: !reference [.gemnasium-maven-shared-rule, exists]
-
-gemnasium-python-dependency_scanning:
-  rules:
-    - when: always
-      exists: !reference [.gemnasium-python-shared-rule, exists]
+    - if: $CI_COMMIT_TAG
+      when: on_success
