@@ -1,4 +1,6 @@
 include:
+  # https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/Jobs/SAST-IaC.latest.gitlab-ci.yml
+  - template: Jobs/SAST-IaC.latest.gitlab-ci.yml
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
   - component: gitlab.com/components/secret-detection/secret-detection@main
   - component: gitlab.com/components/code-quality/code-quality@main
@@ -6,12 +8,6 @@ include:
     inputs:
       run_kubesec_sast: "true"
       include_experimental: "true"
-    rules:
-      - if: $CI_COMMIT_TAG
-  # https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/Jobs/SAST-IaC.latest.gitlab-ci.yml
-  - template: Jobs/SAST-IaC.latest.gitlab-ci.yml
-    rules:
-      - if: $CI_COMMIT_TAG
 
 # SAST =================================================================================================================
 # Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/sast/
@@ -40,3 +36,8 @@ code_quality:
   rules:
     # NOTE: don't work
     - when: never
+
+# SAST =================================================================================================================
+kics-iac-sast:
+  rules:
+    - when: always
