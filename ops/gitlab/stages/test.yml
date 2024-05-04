@@ -2,9 +2,16 @@ include:
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
   - component: gitlab.com/components/secret-detection/secret-detection@main
   - component: gitlab.com/components/code-quality/code-quality@main
-  - local: /ops/gitlab/pipelines/test/golang.yml
-  - local: ops/gitlab/pipelines/test/security.yml
   - local: ops/gitlab/pipelines/test/sast.yml
+
+# GOLANG ===============================================================================================================
+GOLANG:
+  extends: .rules_tag
+  stage: test
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/test/golang.yml'
+    strategy: depend
 
 # HELM =================================================================================================================
 HELM:
@@ -19,5 +26,19 @@ HELM:
       when: never
     - changes:
         - ops/Helm/*/*
+    - if: $CI_COMMIT_TAG
+      when: on_success
+
+# DEPENDENCY ===========================================================================================================
+DEPENDENCY:
+  stage: test
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/test/security.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "schedule"
+      when: never
     - if: $CI_COMMIT_TAG
       when: on_success

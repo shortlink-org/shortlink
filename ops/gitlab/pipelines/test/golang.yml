@@ -50,11 +50,7 @@ gotest:
     expose_as: 'Code Coverage'
   needs: []
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - changes:
-        - '**/*.go'
-      when: always
+    - when: always
 
 golint:
   extends:
@@ -77,11 +73,7 @@ golint:
     expire_in: 1 month
   needs: []
   rules:
-    - if: $CI_COMMIT_TAG
-      when: on_success
-    - changes:
-        - '**/*.go'
-      when: always
+    - when: always
 
 go_fuzz_test:
   extends: .fuzz_base
