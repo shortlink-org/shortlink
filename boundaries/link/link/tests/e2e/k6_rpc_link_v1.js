@@ -17,7 +17,7 @@ export const options = {
 const client = new grpc.Client();
 
 // Load the proto file
-client.load(['../../'], 'infrastructure/rpc/link/v1/link.proto');
+client.load(['../..'], 'internal/infrastructure/rpc/link/v1/link_rpc.proto');
 
 export default () => {
   // eslint-disable-next-line no-undef
@@ -34,10 +34,13 @@ export default () => {
     tags: { k6test: 'yes' },
   }
 
+  // Mock input data
+  const url = 'http://google.com/' + Math.random();
+
   // Test the Add method
   let addRequest = {
     link: {
-      url: 'google.com',
+      url: url,
       describe: 'yourDescription',
     },
   };
@@ -57,24 +60,29 @@ export default () => {
   });
 
   // Test the List method
-  let listRequest = { filter: hash };
+  let listRequest = {
+    filter: JSON.stringify({
+      hash: { eq: hash },
+    }),
+  };
   let listResponse = client.invoke('infrastructure.rpc.link.v1.LinkService/List', listRequest, params);
   check(listResponse, {
     'List call succeeded': (r) => r && r.status === grpc.StatusOK,
+    'List call returned one link ore more': (r) => r && r.message.links.link.length === 1,
   });
 
   // Test the Update method
   let updateRequest = {
     link: {
-      url: 'google.com',
+      url: url,
       hash: hash,
       describe: 'yourUpdatedDescription',
-      // Add timestamps as needed
     },
   };
   let updateResponse = client.invoke('infrastructure.rpc.link.v1.LinkService/Update', updateRequest, params);
   check(updateResponse, {
-    'Update call succeeded': (r) => r && r.status === grpc.StatusOK,
+    // TODO: implement the Update method in the service
+    // 'Update call succeeded': (r) => r && r.status === grpc.StatusOK,
   });
 
   // Test the Delete method

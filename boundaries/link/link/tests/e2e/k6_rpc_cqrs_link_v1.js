@@ -2,6 +2,7 @@ import grpc from 'k6/net/grpc';
 import { check } from 'k6';
 
 export const options = {
+  insecureSkipTLSVerify: true,
   ext: {
     loadimpact: {
       // eslint-disable-next-line no-undef
@@ -16,14 +17,14 @@ export const options = {
 const client = new grpc.Client();
 
 // Load the proto files
-client.load(['definitions'], [
-  './infrastructure/rpc/cqrs/link/v1/link.proto',
-  './infrastructure/rpc/cqrs/link/v1/link_query.proto'
+client.load(['../..'], [
+  'internal/infrastructure/rpc/cqrs/link/v1/link.proto',
+  'internal/infrastructure/rpc/cqrs/link/v1/link_query.proto'
 ]);
 
 export default () => {
   // eslint-disable-next-line no-undef
-  const TARGET_HOSTNAME = __ENV.TARGET_HOSTNAME || 'localhost:50051'
+  const TARGET_HOSTNAME = __ENV.TARGET_HOSTNAME || '127.0.0.1:443'
 
   // Connect to the gRPC server
   client.connect(TARGET_HOSTNAME, { timeout: "5s" });
@@ -63,7 +64,6 @@ export default () => {
       url: 'google.com',
       hash: hash,
       describe: 'yourUpdatedDescription',
-      // Add timestamps as needed
     },
   };
   let updateResponse = client.invoke('LinkCommandService/Update', updateRequest);

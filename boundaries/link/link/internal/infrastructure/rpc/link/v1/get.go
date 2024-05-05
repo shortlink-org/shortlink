@@ -8,12 +8,18 @@ import (
 )
 
 func (l *LinkRPC) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
-	_, err := l.service.Get(ctx, in.GetHash())
+	resp, err := l.service.Get(ctx, in.GetHash())
 	if err != nil {
 		return nil, status.Error(codes.InvalidArgument, err.Error())
 	}
 
 	return &GetResponse{
-		// Link: resp,
+		Link: &Link{
+			Url:       resp.GetUrl().String(),
+			Hash:      resp.GetHash(),
+			Describe:  resp.GetDescribe(),
+			CreatedAt: resp.GetCreatedAt().GetTimestamp(),
+			UpdatedAt: resp.GetUpdatedAt().GetTimestamp(),
+		},
 	}, nil
 }

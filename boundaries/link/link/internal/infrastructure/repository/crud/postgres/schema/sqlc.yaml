@@ -1,21 +1,22 @@
 version: 2
+plugins:
+- name: golang
+  wasm:
+    url: https://downloads.sqlc.dev/plugin/sqlc-gen-go_1.3.0.wasm
+    sha256: e8206081686f95b461daf91a307e108a761526c6768d6f3eca9781b0726b7ec8
 sql:
   - engine: postgresql
     queries: query.sql
     schema: ../migrations
-    gen:
-      go:
-        package: crud
+    codegen:
+      - plugin: golang
         out: crud
-        sql_package: pgx/v5
-        emit_interface: true
-        overrides:
-          - column: "*.*.hash"
-            go_type: "string"
-          - column: "*.*.describe"
-            go_type: "string"
-          - column: "*.links.json"
-            go_type:
-              import: "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-              package: "v1"
-              type: "Link"
+        options:
+          package: crud
+          emit_interface: true
+          sql_package: pgx/v5
+          overrides:
+            - column: "*.links.hash"
+              go_type: "string"
+            - column: "*.links.describe"
+              go_type: "string"

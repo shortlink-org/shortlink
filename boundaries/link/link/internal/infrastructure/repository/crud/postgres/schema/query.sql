@@ -16,7 +16,7 @@ LIMIT $1 OFFSET $2;
 
 -- name: UpdateLink :execresult
 UPDATE link.links
-SET url = $1, hash = $2, describe = $3, json = $4
+SET url = $1, hash = $2, describe = $3, json = $4::jsonb
 WHERE id = $5;
 
 -- name: DeleteLink :exec

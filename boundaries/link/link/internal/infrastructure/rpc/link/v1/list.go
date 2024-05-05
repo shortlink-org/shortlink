@@ -16,8 +16,8 @@ func (l *LinkRPC) List(ctx context.Context, in *ListRequest) (*ListResponse, err
 	filter := &types.FilterLink{}
 
 	if in.GetFilter() != "" {
-		if json.NewDecoder(strings.NewReader(in.GetFilter())).Decode(&filter) != nil {
-			return nil, ErrParsePayloadAsString
+		if errDecode := json.NewDecoder(strings.NewReader(in.GetFilter())).Decode(&filter); errDecode != nil {
+			return nil, errDecode
 		}
 	}
 

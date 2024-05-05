@@ -1,4 +1,4 @@
-package err
+package repository_err
 
 import "errors"
 

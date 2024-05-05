@@ -1,4 +1,4 @@
-//go:generate go run github.com/sqlc-dev/sqlc/cmd/sqlc generate -f ./schema/sqlc.yaml
+//go:generate sqlc generate -f ./schema/sqlc.yaml
 
 package postgres
 

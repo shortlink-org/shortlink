@@ -77,9 +77,8 @@ func (s *Store) batchWrite(ctx context.Context, in *domain.Links) (*domain.Links
 	// Create a new link
 	list := in.GetLink()
 	for key := range list {
-		link := list[key].GetUrl()
 		links = append(links, crud.CreateLinksParams{
-			Url:      link.String(),
+			Url:      list[key].GetUrl().String(),
 			Hash:     list[key].GetHash(),
 			Describe: list[key].GetDescribe(),
 			Json:     *list[key],
