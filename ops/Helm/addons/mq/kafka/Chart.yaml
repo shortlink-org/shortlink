@@ -19,7 +19,7 @@ dependencies:
     repository: https://strimzi.io/charts/
     condition: strimzi-kafka-operator.enabled
     tags:
-      - rabbitmq
+      - kafka
       - mq
   - name: kafka-ui
     version: 0.7.6
