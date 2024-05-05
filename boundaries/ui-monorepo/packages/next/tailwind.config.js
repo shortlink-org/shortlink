@@ -3,7 +3,7 @@ const { fontFamily } = require('tailwindcss/defaultTheme')
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   mode: 'jit',
-  darkMode: 'selector',
+  darkMode: ['selector', '[data-mui-color-scheme="dark"]'],
   corePlugins: {
     preflight: false,
   },

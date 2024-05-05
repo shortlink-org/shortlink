@@ -4,7 +4,6 @@
   "description": "This UI for shortlink application",
   "repository": "https://github.com/shortlink-org/shortlink.git",
   "private": true,
-  "main": "server/index.js",
   "scripts": {
     "build": "NODE_ENV=production pnpm next build",
     "start": "NODE_OPTIONS='--max-http-header-size=131072' pnpm dlx next dev",
