@@ -90,11 +90,7 @@ export function Sidebar({ mode }: AppProps) {
           })}
         </CollapsibleMenu>
 
-        <CollapsibleMenu
-          icon={ShoppingCartIcon}
-          title="E-commerce"
-          mode={mode}
-        >
+        <CollapsibleMenu icon={ShoppingCartIcon} title="E-commerce" mode={mode}>
           {getItem({
             mode,
             url: '/user/billing',

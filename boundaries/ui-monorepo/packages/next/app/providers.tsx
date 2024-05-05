@@ -5,7 +5,6 @@ import CssBaseline from '@mui/material/CssBaseline'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
 import { Experimental_CssVarsProvider as CssVarsProvider, getInitColorSchemeScript } from '@mui/material/styles'
 import { theme } from '@shortlink-org/ui-kit/src/theme/theme'
-import { ThemeProvider } from 'next-themes'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Provider as BalancerProvider } from 'react-wrap-balancer'
@@ -51,23 +50,21 @@ function Providers({ children, ...props }) {
   return (
     <AppRouterCacheProvider>
       <CssVarsProvider theme={theme} defaultMode="light">
+        {getInitColorSchemeScript()}
+
+        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+        <CssBaseline />
+
         <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <ThemeProvider enableSystem attribute="selector" defaultTheme="dark">
-            {getInitColorSchemeScript()}
-
-            <Layout>
-              <div className="text-black dark:bg-gray-800 dark:text-white">
-                {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-                <CssBaseline />
-
-                <BalancerProvider>
-                  <Suspense fallback={<div className={'h-full'}>Loading...</div>}>
-                    <Provider store={storeRef.current}>{children}</Provider>
-                  </Suspense>
-                </BalancerProvider>
-              </div>
-            </Layout>
-          </ThemeProvider>
+          <Layout>
+            <div className="text-black dark:bg-gray-800 dark:text-white">
+              <BalancerProvider>
+                <Suspense fallback={<div className={'h-full justify-center'}>Loading...</div>}>
+                  <Provider store={storeRef.current}>{children}</Provider>
+                </Suspense>
+              </BalancerProvider>
+            </div>
+          </Layout>
         </LocalizationProvider>
       </CssVarsProvider>
     </AppRouterCacheProvider>

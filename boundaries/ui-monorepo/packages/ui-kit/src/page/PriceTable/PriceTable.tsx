@@ -1,7 +1,5 @@
 import { OverridableStringUnion } from '@mui/types'
-import Button, {
-  ButtonPropsVariantOverrides,
-} from '@mui/material/Button'
+import Button, { ButtonPropsVariantOverrides } from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import React, { useState } from 'react'
 import Balancer from 'react-wrap-balancer'

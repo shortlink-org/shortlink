@@ -1,5 +1,6 @@
 'use client'
 
+import React, { useState } from 'react'
 import { DEFAULT_ONLOAD_NAME, DEFAULT_SCRIPT_ID, SCRIPT_URL } from '@marsidev/react-turnstile'
 import { Turnstile } from '@marsidev/react-turnstile'
 import CssBaseline from '@mui/material/CssBaseline'
@@ -7,8 +8,6 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
 import { Experimental_CssVarsProvider as CssVarsProvider, getInitColorSchemeScript } from '@mui/material/styles'
 import { theme } from '@shortlink-org/ui-kit/src/theme/theme'
 import Script from 'next/script'
-import { ThemeProvider } from 'next-themes'
-import React, { useState } from 'react'
 
 // TODO: faro has old peer dependencies, so we need to fix it before enabling it
 //
@@ -39,26 +38,24 @@ export function Providers({ children, ...props }) {
   return (
     <AppRouterCacheProvider>
       <CssVarsProvider theme={theme} defaultMode="dark">
-        <ThemeProvider enableSystem attribute="selector" defaultTheme="dark">
-          <Script id={DEFAULT_SCRIPT_ID} src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`} strategy="afterInteractive" />
-          {getInitColorSchemeScript()}
+        <Script id={DEFAULT_SCRIPT_ID} src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`} strategy="afterInteractive" />
+        {getInitColorSchemeScript()}
 
-          <div className="flex m-auto text-black dark:bg-gray-800 dark:text-white flex-col">
-            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-            <CssBaseline />
+        <div className="flex m-auto text-black dark:bg-gray-800 dark:text-white flex-col">
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
 
-            {isCaptcha && children}
+          {isCaptcha && children}
 
-            <Turnstile
-              siteKey={process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY}
-              injectScript={false}
-              className="captcha"
-              onSuccess={() => setIsCaptcha(true)}
-              onError={() => setIsCaptcha(false)}
-              onAbort={() => setIsCaptcha(false)}
-            />
-          </div>
-        </ThemeProvider>
+          <Turnstile
+            siteKey={process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY}
+            injectScript={false}
+            className="captcha"
+            onSuccess={() => setIsCaptcha(true)}
+            onError={() => setIsCaptcha(false)}
+            onAbort={() => setIsCaptcha(false)}
+          />
+        </div>
       </CssVarsProvider>
     </AppRouterCacheProvider>
   )

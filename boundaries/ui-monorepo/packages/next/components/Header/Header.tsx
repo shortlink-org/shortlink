@@ -5,7 +5,6 @@ import { ToggleDarkMode } from '@shortlink-org/ui-kit'
 import SearchForm from '@shortlink-org/ui-kit/src/ui/SearchForm/SearchForm'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import { useTheme as useNextTheme } from 'next-themes'
 import Typography from '@mui/material/Typography'
 import Link from 'next/link'
 
@@ -15,15 +14,10 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Notification from './notification'
 import Profile from './profile'
 import secondMenu from './secondMenu'
+import React from 'react'
 
 // @ts-ignore
 export default function Header({ hasSession, setOpen }) {
-  const { setTheme } = useNextTheme()
-
-  const onChangeTheme = (theme: string) => {
-    setTheme(theme)
-  }
-
   return (
     <nav className={'bg-indigo-500 text-white grid grid-cols-[auto_1fr_auto] z-100 p-2 justify-center items-center dark:bg-slate-800'}>
       <div className={'flex flex-row mx-2'}>
@@ -41,7 +35,7 @@ export default function Header({ hasSession, setOpen }) {
       <div />
 
       <div className={'flex flex-row justify-center items-center'}>
-        <ToggleDarkMode id="toggleDarkMode" onChange={onChangeTheme} />
+        <ToggleDarkMode id="ToggleDarkMode" />
 
         {secondMenu()}
 
