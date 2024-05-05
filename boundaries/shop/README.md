@@ -12,3 +12,4 @@
 ### Docs
 
 - [GLOSSARY.md](./GLOSSARY.md) - Ubiquitous Language of the Shop Boundary
+- [README.md](./docs/ADR/README.md) - Architecture Decision Records
