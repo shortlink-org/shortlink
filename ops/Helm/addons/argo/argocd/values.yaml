@@ -329,9 +329,6 @@ argo-cd:
       dexserver.disable.tls: true
       server.insecure: true
 
-      reposerver.parallelism.limit: 5
-      applicationsetcontroller.enable.progressive.syncs: true
-
   notifications:
     resources:
       limits:
