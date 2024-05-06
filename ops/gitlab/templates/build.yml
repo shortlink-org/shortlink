@@ -57,7 +57,7 @@
       -t ${REGISTRY_IMAGE}:${CI_COMMIT_TAG}
       -f ${DOCKERFILE_PATH} .
   tags:
-    - docker
+    - gitlab-org-docker
   retry: 1
   artifacts:
     expire_in: 3 week

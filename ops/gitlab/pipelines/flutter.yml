@@ -17,7 +17,7 @@ build:
   script:
     - flutter build apk
   tags:
-    - docker
+    - gitlab-org-docker
     # - mobile
   allow_failure: true
 
@@ -27,7 +27,7 @@ unit_test:
   script:
     - flutter test test/*
   tags:
-    - docker
+    - gitlab-org-docker
     # - mobile
 
 analyze:
@@ -36,5 +36,5 @@ analyze:
   script:
     - echo job excluded
   tags:
-    - docker
+    - gitlab-org-docker
     # - mobile

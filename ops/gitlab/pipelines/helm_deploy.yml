@@ -12,7 +12,7 @@ deploy:
     - .job_template_helm
     - .matrix_deploy_provider
   tags:
-    - docker
+    - gitlab-org-docker
   stage: deploy
   script:
     - |
