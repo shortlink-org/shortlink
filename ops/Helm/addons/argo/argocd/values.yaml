@@ -17,17 +17,21 @@ argo-cd:
       level: warn
 
   controller:
-    replicas: 2
+    replicas: 1
 
-    dynamicClusterDistribution: true
+    env:
+      - name: ARGOCD_CONTROLLER_SHARD
+        value: "-1"
+
+    dynamicClusterDistribution: false
 
     resources:
       limits:
-        cpu: 1000m
-        memory: 2Gi
+        cpu: 2000m
+        memory: 3Gi
       requests:
-        cpu: 500m
-        memory: 1Gi
+        cpu: 250m
+        memory: 512Mi
 
     metrics:
       enabled: true
@@ -269,10 +273,6 @@ argo-cd:
             name: custom-tools
 
   applicationSet:
-    extraEnv:
-      - name: ARGOCD_CONTROLLER_SHARD
-        value: "-1"
-
     resources:
       limits:
         cpu: 300m
