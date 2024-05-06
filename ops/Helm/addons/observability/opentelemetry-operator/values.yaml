@@ -1,12 +1,19 @@
 opentelemetry-operator:
   enabled: true
 
+  fullnameOverride: opentelemetry-operator
+
   kubeRBACProxy:
-    enabled: false
+    enabled: true
 
   manager:
+    featureGates:
+
     serviceMonitor:
       enabled: true
+
+      extraLabels:
+        release: prometheus-operator
 
     prometheusRule:
       enabled: true
@@ -16,3 +23,5 @@ opentelemetry-operator:
 
       defaultRules:
         enabled: true
+
+    createRbacPermissions: true
