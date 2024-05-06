@@ -3,7 +3,7 @@ kind: Namespace
 metadata:
   name: argocd
   labels:
-    istio-injection: disabled
+    istio-injection: enabled
     # TODO: tuning https://kubernetes.io/docs/concepts/security/pod-security-admission/
     pod-security.kubernetes.io/enforce: privileged
     pod-security.kubernetes.io/enforce-version: latest

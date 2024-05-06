@@ -111,7 +111,8 @@ argo-cd:
 
       annotations:
         cert-manager.io/cluster-issuer: cert-manager-production
-        nginx.ingress.kubernetes.io/backend-protocol: HTTPS
+        nginx.ingress.kubernetes.io/backend-protocol: HTTP
+        nginx.ingress.kubernetes.io/ssl-passthrough: "true"
         nginx.ingress.kubernetes.io/configuration-snippet: |-
           proxy_ssl_server_name on;
           proxy_ssl_name $host;
