@@ -10,7 +10,7 @@ argo-cd:
 
   global:
     image:
-      tag: "v2.11.0-rc1"
+      tag: "v2.11.0-rc3"
 
     logging:
       format: json
@@ -269,6 +269,10 @@ argo-cd:
             name: custom-tools
 
   applicationSet:
+    extraEnv:
+      - name: ARGOCD_CONTROLLER_SHARD
+        value: "-1"
+
     resources:
       limits:
         cpu: 300m
