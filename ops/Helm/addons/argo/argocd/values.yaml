@@ -97,10 +97,10 @@ argo-cd:
           release: prometheus-operator
 
   redis:
-    enabled: false
+    enabled: true
 
-  externalRedis:
-    host: redis-master.argocd
+  # externalRedis:
+  #  host: redis-master.argocd
 
   server:
     metrics:
