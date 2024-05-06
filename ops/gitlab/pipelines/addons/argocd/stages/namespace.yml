@@ -7,6 +7,8 @@ namespace:create:
   script:
     - kubectl --context=shortlink-org/shortlink:${PROVIDER} create namespace argocd
     - kubectl --context=shortlink-org/shortlink:${PROVIDER} label 
-      --overwrite ns argocd pod-security.kubernetes.io/enforce=privileged
+      --overwrite ns argocd pod-security.kubernetes.io/enforce=privileged 
+                            pod-security.kubernetes.io/enforce-version=latest 
+                            istio-injection=enabled
   rules:
     - when: manual
