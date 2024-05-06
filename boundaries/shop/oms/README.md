@@ -1,0 +1,25 @@
+# Order management system (OMS) service
+
+<img width='200' height='200' src="./docs/public/logo.svg">
+
+> [!NOTE]
+> Service for work with orders.
+
+### Getting started
+
+We use Makefile for build and deploy.
+
+```bash
+$> make help # show help message with all commands and targets
+```
+
+### ADR
+
+- **Common**:
+  - [ADR-0001](./docs/ADR/decisions/0001-init.md) - Init project
+  - [ADR-0003](./docs/ADR/decisions/0003-c4-system.md) - C4 system
+
+### Use Cases
+
+- [UC-1](./usecases/flow/README.md) Create and track orders
+- [UC-2](./usecases/refund/README.md) Refund orders
