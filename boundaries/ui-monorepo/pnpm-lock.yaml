@@ -501,8 +501,8 @@ importers:
         specifier: 8.0.10
         version: 8.0.10(@types/react@18.3.1)(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/addon-coverage':
-        specifier: ^1.0.1
-        version: 1.0.1
+        specifier: ^1.0.3
+        version: 1.0.3
       '@storybook/addon-docs':
         specifier: 8.0.10
         version: 8.0.10(encoding@0.1.13)
@@ -3267,8 +3267,8 @@ packages:
   '@storybook/addon-controls@8.0.10':
     resolution: {integrity: sha512-MAUtIJGayNSsfn3VZ6SjQwpRkb4ky+10oVfos+xX9GQ5+7RCs+oYMuE4+aiQvvfXNdV8v0pUGPUPeUzqfJmhOA==}
 
-  '@storybook/addon-coverage@1.0.1':
-    resolution: {integrity: sha512-jGDYPBbh3+LXMDw0Nmw+fUEDH3kuHvHSOjE1fqi4ac00CnwHnyD5PD6RFSpVxR4Fw/tCDPmKEubbOzQCSZGyJg==}
+  '@storybook/addon-coverage@1.0.3':
+    resolution: {integrity: sha512-UTv2rCn5yub6GJG6QMG1eLkewRwS1DmZ2S/9+sewfXDP86+CW3TTPU7eo4e04UMEwElh4sS+7J6y8BCavHXaSQ==}
 
   '@storybook/addon-docs@8.0.10':
     resolution: {integrity: sha512-y+Agoez/hXZHKUMIZHU96T5V1v0cs4ArSNfjqDg9DPYcyQ88ihJNb6ZabIgzmEaJF/NncCW+LofWeUtkTwalkw==}
@@ -14493,7 +14493,7 @@ snapshots:
       - react-dom
       - supports-color
 
-  '@storybook/addon-coverage@1.0.1':
+  '@storybook/addon-coverage@1.0.3':
     dependencies:
       '@istanbuljs/load-nyc-config': 1.1.0
       '@jsdevtools/coverage-istanbul-loader': 3.0.5
