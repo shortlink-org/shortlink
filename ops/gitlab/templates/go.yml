@@ -11,7 +11,7 @@
   stage: test
   image:
     # We don't use the ready golangci-lint image because it doesn't support the last version of Golang.
-    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/golang:1.22.2-alpine
+    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/golang:1.22.3-alpine
     entrypoint: [ "" ]
   interruptible: true
   needs: []
