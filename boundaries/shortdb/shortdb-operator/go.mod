@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/shortdb/shortdb-operator
 
-go 1.22.2
+go 1.22.3
 
 require (
 	github.com/onsi/ginkgo/v2 v2.17.3

@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/link/supplies/knative/kafka-to-elasticsearch
 
-go 1.22.2
+go 1.22.3
 
 require (
 	github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.15.2
