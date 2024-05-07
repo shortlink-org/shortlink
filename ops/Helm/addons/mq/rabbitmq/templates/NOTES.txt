@@ -6,6 +6,5 @@ APP VERSION: {{ .Chart.AppVersion }}
 
 1. Get default user && password
 
-    $> kubectl -n {{ .Release.Namespace }} get secret {{ .Values.rabbitmq.clusterName }}-default-user -o jsonpath='{.data.username}' | base64 --decode
-    $> kubectl -n {{ .Release.Namespace }} get secret {{ .Values.rabbitmq.clusterName }}-default-user -o jsonpath='{.data.password}' | base64 --decode
-
+    $> kubectl -n {{ .Release.Namespace }} get secret {{ .name | default (include "helpers.fullname" .) }}-default-user -o jsonpath='{.data.username}' | base64 --decode
+    $> kubectl -n {{ .Release.Namespace }} get secret {{ .name | default (include "helpers.fullname" .) }}-default-user -o jsonpath='{.data.password}' | base64 --decode

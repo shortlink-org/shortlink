@@ -6,6 +6,9 @@ secret:
   read:
     - shortlink
 
+rabbitmq:
+  clusterName: shortlink
+
 rabbitmq-cluster-operator:
   enabled: true
 
