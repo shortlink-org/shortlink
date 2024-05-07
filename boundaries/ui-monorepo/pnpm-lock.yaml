@@ -474,8 +474,8 @@ importers:
         specifier: 7.24.1
         version: 7.24.1(@babel/core@7.24.5)
       '@chromatic-com/storybook':
-        specifier: ^1.3.3
-        version: 1.3.3(react@18.3.1)
+        specifier: ^1.3.4
+        version: 1.3.4(react@18.3.1)
       '@mdx-js/react':
         specifier: 3.0.1
         version: 3.0.1(@types/react@18.3.1)(react@18.3.1)
@@ -1308,8 +1308,8 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@chromatic-com/storybook@1.3.3':
-    resolution: {integrity: sha512-1y9r691T5vVGDZ0HY3YrCXUnvtrT2YrhDuvDZSvYSNUVpM/Imz6i1dnNMKb3eoI1qRsH55mI4zCt+Iq94NLedQ==}
+  '@chromatic-com/storybook@1.3.4':
+    resolution: {integrity: sha512-ZfQDc5Zg5YSC9cWdBc9QpMF0vgvknwKTB9xBE0NhCJWjGxG9mz9yLzQTzzliYulPtWgcQ+8cE+apDljYK+fWdQ==}
     engines: {node: '>=16.0.0', yarn: '>=1.22.18'}
 
   '@colors/colors@1.5.0':
@@ -11871,7 +11871,7 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@chromatic-com/storybook@1.3.3(react@18.3.1)':
+  '@chromatic-com/storybook@1.3.4(react@18.3.1)':
     dependencies:
       chromatic: 11.3.1
       filesize: 10.1.1
