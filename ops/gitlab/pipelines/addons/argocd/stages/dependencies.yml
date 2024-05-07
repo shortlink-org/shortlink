@@ -6,25 +6,25 @@ prometheus-operator:crd:
   extends: .crd_templates
   parallel:
     matrix:
-      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagerconfigs.yaml
+      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.73.2/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagerconfigs.yaml
         APPLYSET: alertmanagerconfigs
-      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagers.yaml
+      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.73.2/example/prometheus-operator-crd/monitoring.coreos.com_alertmanagers.yaml
         APPLYSET: alertmanagers
-      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
+      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.73.2/example/prometheus-operator-crd/monitoring.coreos.com_podmonitors.yaml
         APPLYSET: podmonitors
-      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_probes.yaml
+      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.73.2/example/prometheus-operator-crd/monitoring.coreos.com_probes.yaml
         APPLYSET: probes
-      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_prometheusagents.yaml
+      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.73.2/example/prometheus-operator-crd/monitoring.coreos.com_prometheusagents.yaml
         APPLYSET: prometheusagents
-      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_prometheuses.yaml
+      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.73.2/example/prometheus-operator-crd/monitoring.coreos.com_prometheuses.yaml
         APPLYSET: prometheuses
-      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
+      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.73.2/example/prometheus-operator-crd/monitoring.coreos.com_prometheusrules.yaml
         APPLYSET: prometheusrules
-      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml
+      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.73.2/example/prometheus-operator-crd/monitoring.coreos.com_scrapeconfigs.yaml
         APPLYSET: scrapeconfigs
-      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
+      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.73.2/example/prometheus-operator-crd/monitoring.coreos.com_servicemonitors.yaml
         APPLYSET: servicemonitors
-      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.71.2/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml
+      - NAME: https://raw.githubusercontent.com/prometheus-operator/prometheus-operator/v0.73.2/example/prometheus-operator-crd/monitoring.coreos.com_thanosrulers.yaml
         APPLYSET: thanosrulers
   retry: 1
   environment:
