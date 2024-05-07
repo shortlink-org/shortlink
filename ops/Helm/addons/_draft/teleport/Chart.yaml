@@ -14,7 +14,7 @@ type: application
 deprecated: false
 dependencies:
   - name: teleport-cluster
-    version: 15.3.0
+    version: 15.3.1
     repository: https://charts.releases.teleport.dev
     condition: teleport-cluster.enabled
     tags:
