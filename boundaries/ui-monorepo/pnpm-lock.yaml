@@ -63,8 +63,8 @@ importers:
         specifier: 8.1.0-alpha.8
         version: 8.1.0-alpha.8(encoding@0.1.13)(prettier@3.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.4.5)
       '@stylistic/eslint-plugin-js':
-        specifier: ^1.8.0
-        version: 1.8.0(eslint@9.2.0)
+        specifier: ^1.8.1
+        version: 1.8.1(eslint@9.2.0)
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
         version: 0.4.2(tailwindcss@4.0.0-alpha.14)
@@ -3530,8 +3530,8 @@ packages:
   '@storybook/types@8.1.0-alpha.8':
     resolution: {integrity: sha512-ww019GrfNmNADGzycrt/D0yKiviSbjnlWZvWm7FOLJobEWxoDrE5QW4Wr0dc3ITQ9gZYmiuE6KiaOEDwtbxV/g==}
 
-  '@stylistic/eslint-plugin-js@1.8.0':
-    resolution: {integrity: sha512-jdvnzt+pZPg8TfclZlTZPiUbbima93ylvQ+wNgHLNmup3obY6heQvgewSu9i2CfS61BnRByv+F9fxQLPoNeHag==}
+  '@stylistic/eslint-plugin-js@1.8.1':
+    resolution: {integrity: sha512-c5c2C8Mos5tTQd+NWpqwEu7VT6SSRooAguFPMj1cp2RkTYl1ynKoXo8MWy3k4rkbzoeYHrqC2UlUzsroAN7wtQ==}
     engines: {node: ^16.0.0 || >=18.0.0}
     peerDependencies:
       eslint: '>=8.40.0'
@@ -15366,7 +15366,7 @@ snapshots:
       '@types/express': 4.17.21
       file-system-cache: 2.3.0
 
-  '@stylistic/eslint-plugin-js@1.8.0(eslint@9.2.0)':
+  '@stylistic/eslint-plugin-js@1.8.1(eslint@9.2.0)':
     dependencies:
       '@types/eslint': 8.56.10
       acorn: 8.11.3
