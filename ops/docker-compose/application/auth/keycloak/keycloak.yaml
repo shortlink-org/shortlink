@@ -12,7 +12,7 @@ services:
     depends_on:
       - coredns
       - postgres
-    image: quay.io/keycloak/keycloak:24.0.3
+    image: quay.io/keycloak/keycloak:24.0.4
     command: ["start-dev", "--import-realm"]
     container_name: keycloak
     init: true
