@@ -67,13 +67,13 @@ importers:
         version: 2.0.0(eslint@9.2.0)
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
-        version: 0.4.2(tailwindcss@4.0.0-alpha.14)
+        version: 0.4.2(tailwindcss@4.0.0-alpha.15)
       '@tailwindcss/container-queries':
         specifier: ^0.1.1
-        version: 0.1.1(tailwindcss@4.0.0-alpha.14)
+        version: 0.1.1(tailwindcss@4.0.0-alpha.15)
       '@tailwindcss/forms':
         specifier: 0.5.7
-        version: 0.5.7(tailwindcss@4.0.0-alpha.14)
+        version: 0.5.7(tailwindcss@4.0.0-alpha.15)
       '@tailwindcss/postcss':
         specifier: 4.0.0-alpha.14
         version: 4.0.0-alpha.14(postcss@8.4.38)
@@ -135,8 +135,8 @@ importers:
         specifier: 1.1.2
         version: 1.1.2(typescript@5.4.5)
       tailwindcss:
-        specifier: 4.0.0-alpha.14
-        version: 4.0.0-alpha.14
+        specifier: 4.0.0-alpha.15
+        version: 4.0.0-alpha.15
       typescript:
         specifier: ^5.4.5
         version: 5.4.5
@@ -241,13 +241,13 @@ importers:
         version: link:../ui-kit
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
-        version: 0.4.2(tailwindcss@4.0.0-alpha.14)
+        version: 0.4.2(tailwindcss@4.0.0-alpha.15)
       '@tailwindcss/line-clamp':
         specifier: ^0.4.4
-        version: 0.4.4(tailwindcss@4.0.0-alpha.14)
+        version: 0.4.4(tailwindcss@4.0.0-alpha.15)
       '@tailwindcss/typography':
         specifier: ^0.5.13
-        version: 0.5.13(tailwindcss@4.0.0-alpha.14)
+        version: 0.5.13(tailwindcss@4.0.0-alpha.15)
       eslint-config-shortlink:
         specifier: workspace:^
         version: link:../eslint/eslint-config-shortlink
@@ -311,13 +311,13 @@ importers:
         version: link:../ui-kit
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
-        version: 0.4.2(tailwindcss@4.0.0-alpha.14)
+        version: 0.4.2(tailwindcss@4.0.0-alpha.15)
       '@tailwindcss/line-clamp':
         specifier: 0.4.4
-        version: 0.4.4(tailwindcss@4.0.0-alpha.14)
+        version: 0.4.4(tailwindcss@4.0.0-alpha.15)
       '@tailwindcss/typography':
         specifier: ^0.5.13
-        version: 0.5.13(tailwindcss@4.0.0-alpha.14)
+        version: 0.5.13(tailwindcss@4.0.0-alpha.15)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -444,16 +444,16 @@ importers:
         version: 1.0.0(webpack@5.91.0(@swc/core@1.5.5(@swc/helpers@0.5.11))(esbuild@0.20.2))
       '@tailwindcss/aspect-ratio':
         specifier: 0.4.2
-        version: 0.4.2(tailwindcss@4.0.0-alpha.14)
+        version: 0.4.2(tailwindcss@4.0.0-alpha.15)
       '@tailwindcss/forms':
         specifier: 0.5.7
-        version: 0.5.7(tailwindcss@4.0.0-alpha.14)
+        version: 0.5.7(tailwindcss@4.0.0-alpha.15)
       '@tailwindcss/line-clamp':
         specifier: 0.4.4
-        version: 0.4.4(tailwindcss@4.0.0-alpha.14)
+        version: 0.4.4(tailwindcss@4.0.0-alpha.15)
       '@tailwindcss/typography':
         specifier: 0.5.13
-        version: 0.5.13(tailwindcss@4.0.0-alpha.14)
+        version: 0.5.13(tailwindcss@4.0.0-alpha.15)
       export-to-csv:
         specifier: ^1.3.0
         version: 1.3.0
@@ -10210,6 +10210,9 @@ packages:
   tailwindcss@4.0.0-alpha.14:
     resolution: {integrity: sha512-7qAhQPrsWyaaDk0IjOEhTEdgDWsN0MjB3kk38DxK5vXqPJ7C57FYlARA6vrE36WL0K/mYdAA54vWJbWbDfoVcQ==}
 
+  tailwindcss@4.0.0-alpha.15:
+    resolution: {integrity: sha512-hlL3dKkgKTNz6dXe4OWJMngI9DdcJncGXvhhjdPkMc/Pqc81NCYaV/8Z11DZ4Djy5RSFfLf41HI6+DGeKtvJ2g==}
+
   tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
     engines: {node: '>=6'}
@@ -15571,22 +15574,22 @@ snapshots:
     dependencies:
       defer-to-connect: 2.0.1
 
-  '@tailwindcss/aspect-ratio@0.4.2(tailwindcss@4.0.0-alpha.14)':
+  '@tailwindcss/aspect-ratio@0.4.2(tailwindcss@4.0.0-alpha.15)':
     dependencies:
-      tailwindcss: 4.0.0-alpha.14
+      tailwindcss: 4.0.0-alpha.15
 
-  '@tailwindcss/container-queries@0.1.1(tailwindcss@4.0.0-alpha.14)':
+  '@tailwindcss/container-queries@0.1.1(tailwindcss@4.0.0-alpha.15)':
     dependencies:
-      tailwindcss: 4.0.0-alpha.14
+      tailwindcss: 4.0.0-alpha.15
 
-  '@tailwindcss/forms@0.5.7(tailwindcss@4.0.0-alpha.14)':
+  '@tailwindcss/forms@0.5.7(tailwindcss@4.0.0-alpha.15)':
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 4.0.0-alpha.14
+      tailwindcss: 4.0.0-alpha.15
 
-  '@tailwindcss/line-clamp@0.4.4(tailwindcss@4.0.0-alpha.14)':
+  '@tailwindcss/line-clamp@0.4.4(tailwindcss@4.0.0-alpha.15)':
     dependencies:
-      tailwindcss: 4.0.0-alpha.14
+      tailwindcss: 4.0.0-alpha.15
 
   '@tailwindcss/oxide-android-arm64@4.0.0-alpha.14':
     optional: true
@@ -15640,13 +15643,13 @@ snapshots:
     transitivePeerDependencies:
       - postcss
 
-  '@tailwindcss/typography@0.5.13(tailwindcss@4.0.0-alpha.14)':
+  '@tailwindcss/typography@0.5.13(tailwindcss@4.0.0-alpha.15)':
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 4.0.0-alpha.14
+      tailwindcss: 4.0.0-alpha.15
 
   '@tanstack/match-sorter-utils@8.15.1':
     dependencies:
@@ -23457,6 +23460,8 @@ snapshots:
   tabbable@6.2.0: {}
 
   tailwindcss@4.0.0-alpha.14: {}
+
+  tailwindcss@4.0.0-alpha.15: {}
 
   tapable@2.2.1: {}
 
