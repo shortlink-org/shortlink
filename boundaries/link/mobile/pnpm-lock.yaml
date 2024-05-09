@@ -58,8 +58,8 @@ importers:
         version: 2.6.2
     devDependencies:
       '@config-plugins/detox':
-        specifier: ~7.0.0
-        version: 7.0.0(expo@51.0.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3)))
+        specifier: ~8.0.0
+        version: 8.0.0(expo@51.0.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3)))
       '@expo/cli':
         specifier: ~0.18.10
         version: 0.18.10(expo-modules-autolinking@1.11.1)
@@ -979,10 +979,10 @@ packages:
     peerDependencies:
       react: '>=16.3.0'
 
-  '@config-plugins/detox@7.0.0':
-    resolution: {integrity: sha512-uI7GU0g6JkzlKwjD61NP3EcMrjuIPbTEeByiSiWR3aJ7U+uf1xiQlTlHQSNQtcf3/MWfZj4ref/zyBma9c1muw==}
+  '@config-plugins/detox@8.0.0':
+    resolution: {integrity: sha512-t6J1W2RH6UKc8vt87NHQf6JG3B/Lu6rvVF24n5cqw+jWy9TmcqWrgxkDttKrR3dW/a0cfo3xpwBWvakpPQXGjw==}
     peerDependencies:
-      expo: ^50
+      expo: ^51
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -3622,8 +3622,8 @@ packages:
     peerDependencies:
       expo: '*'
 
-  expo-build-properties@0.11.1:
-    resolution: {integrity: sha512-m4j4aEjFaDuBE6KWYMxDhWgLzzSmpE7uHKAwtvXyNmRK+6JKF0gjiXi0sXgI5ngNppDQpsyPFMvqG7uQpRuCuw==}
+  expo-build-properties@0.12.1:
+    resolution: {integrity: sha512-gn8sngNmOHkbJ5Kt3mKcKg+Wl6+d0m70gg9OllRIVeDkvZqCObKfnSM4tAQWiJhm62sHnL8udfYnuArnKhQd/g==}
     peerDependencies:
       expo: '*'
 
@@ -8514,10 +8514,10 @@ snapshots:
       hoist-non-react-statics: 3.3.2
       react: 18.3.1
 
-  '@config-plugins/detox@7.0.0(expo@51.0.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3)))':
+  '@config-plugins/detox@8.0.0(expo@51.0.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3)))':
     dependencies:
       expo: 51.0.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))
-      expo-build-properties: 0.11.1(expo@51.0.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3)))
+      expo-build-properties: 0.12.1(expo@51.0.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3)))
 
   '@cspotcode/source-map-support@0.8.1':
     dependencies:
@@ -12847,7 +12847,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  expo-build-properties@0.11.1(expo@51.0.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))):
+  expo-build-properties@0.12.1(expo@51.0.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))):
     dependencies:
       ajv: 8.12.0
       expo: 51.0.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))
