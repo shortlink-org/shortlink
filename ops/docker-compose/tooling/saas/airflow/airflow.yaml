@@ -32,7 +32,7 @@ x-airflow-common:
 
 services:
   postgres:
-    image: postgres:16.2-alpine
+    image: postgres:16.3-alpine
     environment:
       POSTGRES_USER: airflow
       POSTGRES_PASSWORD: airflow

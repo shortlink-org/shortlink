@@ -19,7 +19,7 @@ services:
 
   gitlab_postgres:
     <<: *network
-    image: postgres:16.2-alpine
+    image: postgres:16.3-alpine
     container_name: gitlab_postgres
     restart: always
     environment:
