@@ -12,7 +12,7 @@ services:
     depends_on:
       - coredns
     hostname: cockroachdb-1
-    image: cockroachdb/cockroach:v23.2.4
+    image: cockroachdb/cockroach:v23.2.5
     command: [ "start", "--insecure", "--accept-sql-without-tls", "--join=cockroachdb-1,cockroachdb-2,cockroachdb-3" ]
     restart: on-failure
     container_name: cockroachdb-1
@@ -25,7 +25,7 @@ services:
     depends_on:
       - coredns
     hostname: cockroachdb-2
-    image: cockroachdb/cockroach:v23.2.4
+    image: cockroachdb/cockroach:v23.2.5
     command: [ "start", "--insecure", "--accept-sql-without-tls", "--join=cockroachdb-1,cockroachdb-2,cockroachdb-3" ]
     restart: on-failure
     container_name: cockroachdb-2
@@ -35,7 +35,7 @@ services:
     depends_on:
       - coredns
     hostname: cockroachdb-3
-    image: cockroachdb/cockroach:v23.2.4
+    image: cockroachdb/cockroach:v23.2.5
     command: [ "start", "--insecure", "--accept-sql-without-tls", "--join=cockroachdb-1,cockroachdb-2,cockroachdb-3" ]
     restart: on-failure
     container_name: cockroachdb-3
