@@ -121,8 +121,8 @@ importers:
         specifier: ^20.21.0
         version: 20.21.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.12.11)(ts-node@10.9.2(@types/node@20.12.11)(typescript@5.4.5)))
       eas-cli:
-        specifier: ^9.0.3
-        version: 9.0.3(@types/node@20.12.11)(expo-modules-autolinking@1.11.1)(typescript@5.4.5)
+        specifier: ^9.0.4
+        version: 9.0.4(@types/node@20.12.11)(expo-modules-autolinking@1.11.1)(typescript@5.4.5)
       eslint:
         specifier: ^9.2.0
         version: 9.2.0
@@ -1059,8 +1059,8 @@ packages:
   '@expo/eas-build-job@1.0.108':
     resolution: {integrity: sha512-4FjqsK+k2KLjfWBT08ECFmlWH5yE9vw7vQmKzM4N8uQHKA/SbA6mMMto/f8XSbs7f5y6kdGnB7pxcMH91RuxbA==}
 
-  '@expo/eas-json@9.0.3':
-    resolution: {integrity: sha512-NStZIcDCsvVRYikDDmnONtfsH1Qfba7c23wfqcgWWSSs12e9BLpTykpi9Xtrx4/sgx058tj+iaefUVDDyhtt+Q==}
+  '@expo/eas-json@9.0.4':
+    resolution: {integrity: sha512-VA0PEbyO7vGh5HPtSHdORsWcbcoQ79hiVyh/rZXuZ6jCpQ1TyHf9alpUWe8dlV9KeHuJ2HcUmecHKV5i2LxmQw==}
     engines: {node: '>=16.0.0'}
 
   '@expo/env@0.3.0':
@@ -3297,8 +3297,8 @@ packages:
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
 
-  eas-cli@9.0.3:
-    resolution: {integrity: sha512-tmzmkHeV0TXxv7Hu1mKhNGBY5TzF1kkhg/LhL/9//k0iYFbBHYr7lD2MKXpunMm7Nu/I44wIyZxAjIRBoJxbng==}
+  eas-cli@9.0.4:
+    resolution: {integrity: sha512-AnAHiWjxBbL6UtdK/pf7HnT32+kY6S4lijRDxwzIbT7Aj4vy3ZM57pluJI8Jz7KZ+H0rUaR2eCqvXJGiLDEB9Q==}
     engines: {node: '>=16.0.0'}
     hasBin: true
 
@@ -8808,7 +8808,7 @@ snapshots:
       semver: 7.6.0
       zod: 3.22.4
 
-  '@expo/eas-json@9.0.3':
+  '@expo/eas-json@9.0.4':
     dependencies:
       '@babel/code-frame': 7.23.5
       '@expo/eas-build-job': 1.0.108
@@ -12301,7 +12301,7 @@ snapshots:
 
   duplexer@0.1.2: {}
 
-  eas-cli@9.0.3(@types/node@20.12.11)(expo-modules-autolinking@1.11.1)(typescript@5.4.5):
+  eas-cli@9.0.4(@types/node@20.12.11)(expo-modules-autolinking@1.11.1)(typescript@5.4.5):
     dependencies:
       '@expo/apple-utils': 1.7.0
       '@expo/code-signing-certificates': 0.0.5
@@ -12309,7 +12309,7 @@ snapshots:
       '@expo/config-plugins': 7.8.4
       '@expo/config-types': 50.0.0
       '@expo/eas-build-job': 1.0.108
-      '@expo/eas-json': 9.0.3
+      '@expo/eas-json': 9.0.4
       '@expo/json-file': 8.2.37
       '@expo/logger': 1.0.57
       '@expo/multipart-body-parser': 1.1.0
