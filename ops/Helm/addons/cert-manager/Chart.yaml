@@ -22,7 +22,7 @@ dependencies:
       - security
       - tls
   - name: cert-manager-approver-policy
-    version: v0.14.0
+    version: v0.14.1
     repository: https://charts.jetstack.io
     condition: cert-manager-approver-policy.enabled
     tags:
