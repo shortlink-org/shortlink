@@ -114,8 +114,8 @@ importers:
         specifier: 19.0.3
         version: 19.0.3(@swc/core@1.5.7(@swc/helpers@0.5.11))
       nx-cloud:
-        specifier: 18.0.1
-        version: 18.0.1
+        specifier: 19.0.0
+        version: 19.0.0
       postcss-preset-env:
         specifier: ^9.5.13
         version: 9.5.13(postcss@8.4.38)
@@ -2660,8 +2660,8 @@ packages:
   '@nrwl/next@19.0.3':
     resolution: {integrity: sha512-nLpqYsIMnALvy2cqgRJO09OlcLMi6ZVPW3gSgNqASNyx52xrrGhtMuNMg99FIgpw0OObvsEmjnlQKTJaE3aGxA==}
 
-  '@nrwl/nx-cloud@18.0.1':
-    resolution: {integrity: sha512-uYVxoOXf0xlWJX8O5GBWajmIeL0PfIGvfqtvVNVnl7C6FiZRbmKEhXkWxEDekI6Jq+mI1G86o7d5YsIzq6e36A==}
+  '@nrwl/nx-cloud@19.0.0':
+    resolution: {integrity: sha512-3WuXq3KKXwKnbjOkYK0OXosjD02LIjC3kEkyMIbaE36O9dMp3k/sa4ZtDVC3tAoIrj17VLVmjKfoDYbED1rapw==}
 
   '@nrwl/react@19.0.3':
     resolution: {integrity: sha512-pfHQuMd0KUKv006Hwg719nca4wm25VFDnwZN4J0dDM7l+P+RBGB8Rd682GCziNqZT25imaOV/Bt3m9j2nUy1Zw==}
@@ -4982,9 +4982,6 @@ packages:
   axe-core@4.9.0:
     resolution: {integrity: sha512-H5orY+M2Fr56DWmMFpMrq5Ge93qjNdPVqzBv5gWK3aD1OvjBEJlEzxf09z93dGVQeI0LiW+aCMIx1QtShC/zUw==}
     engines: {node: '>=4'}
-
-  axios@1.1.3:
-    resolution: {integrity: sha512-00tXVRwKx/FZr/IDVFt4C+f9FYairX517WoGCL6dpOntqLkZofjhu43F/Xl44UOpqa+9sLFDrG/XAnFsUYgkDA==}
 
   axios@1.6.8:
     resolution: {integrity: sha512-v/ZHtJDU39mDpyBoFVkETcd/uNdxrWRrg3bKpOKzXFA6Bvqopts6ALSMU3y6ijYxbw2B+wPrIv46egTzJXCLGQ==}
@@ -8616,8 +8613,8 @@ packages:
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
 
-  nx-cloud@18.0.1:
-    resolution: {integrity: sha512-nxJfz0ZmW+DKSr8evmVVm6t1XcLn9WHR5I8kiE2BFNkLVwC+nx+MimjJ53opfHOepMqQiGJAdstZ5Ks630bJgg==}
+  nx-cloud@19.0.0:
+    resolution: {integrity: sha512-Aq1vQD8yBIdb5jLVpzsqmu8yDmMvRVdjaM30Pp1hghhlSvorGBlpTwY+TccZJv/hBtVO+SpXK8SnnegRZMrxdw==}
     hasBin: true
 
   nx@19.0.3:
@@ -14003,9 +14000,9 @@ snapshots:
       - webpack
       - webpack-cli
 
-  '@nrwl/nx-cloud@18.0.1':
+  '@nrwl/nx-cloud@19.0.0':
     dependencies:
-      nx-cloud: 18.0.1
+      nx-cloud: 19.0.0
     transitivePeerDependencies:
       - debug
 
@@ -17418,14 +17415,6 @@ snapshots:
   aws4@1.12.0: {}
 
   axe-core@4.9.0: {}
-
-  axios@1.1.3:
-    dependencies:
-      follow-redirects: 1.15.6
-      form-data: 4.0.0
-      proxy-from-env: 1.1.0
-    transitivePeerDependencies:
-      - debug
 
   axios@1.6.8:
     dependencies:
@@ -22072,10 +22061,10 @@ snapshots:
     dependencies:
       boolbase: 1.0.0
 
-  nx-cloud@18.0.1:
+  nx-cloud@19.0.0:
     dependencies:
-      '@nrwl/nx-cloud': 18.0.1
-      axios: 1.1.3
+      '@nrwl/nx-cloud': 19.0.0
+      axios: 1.6.8
       chalk: 4.1.2
       dotenv: 10.0.0
       fs-extra: 11.2.0
