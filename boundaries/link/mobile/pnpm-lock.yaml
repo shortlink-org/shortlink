@@ -48,8 +48,8 @@ importers:
         specifier: ^15.2.0
         version: 15.2.0(react-native@0.74.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.2)(react@18.3.1))(react@18.3.1)
       react-native-svg-transformer:
-        specifier: ^1.3.0
-        version: 1.3.0(react-native-svg@15.2.0(react-native@0.74.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.2)(react@18.3.1))(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.2)(react@18.3.1))(typescript@5.4.5)
+        specifier: ^1.4.0
+        version: 1.4.0(react-native-svg@15.2.0(react-native@0.74.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.2)(react@18.3.1))(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.2)(react@18.3.1))(typescript@5.4.5)
       react-native-web:
         specifier: ~0.19.11
         version: 0.19.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -164,7 +164,7 @@ importers:
         version: 19.0.3
       nx-cloud:
         specifier: latest
-        version: 18.0.1
+        version: 19.0.0
       prettier:
         specifier: ^3.2.5
         version: 3.2.5
@@ -1360,8 +1360,8 @@ packages:
   '@nrwl/js@19.0.3':
     resolution: {integrity: sha512-/BORFIqcq4+VRO7uTyXRPrAjpxNFfALpzBNItUc4L8T5eiPxsuHWt21UYfxrdxtAI+dc3HyC6Qh05mRwsGBkDQ==}
 
-  '@nrwl/nx-cloud@18.0.1':
-    resolution: {integrity: sha512-uYVxoOXf0xlWJX8O5GBWajmIeL0PfIGvfqtvVNVnl7C6FiZRbmKEhXkWxEDekI6Jq+mI1G86o7d5YsIzq6e36A==}
+  '@nrwl/nx-cloud@19.0.0':
+    resolution: {integrity: sha512-3WuXq3KKXwKnbjOkYK0OXosjD02LIjC3kEkyMIbaE36O9dMp3k/sa4ZtDVC3tAoIrj17VLVmjKfoDYbED1rapw==}
 
   '@nrwl/react@19.0.3':
     resolution: {integrity: sha512-pfHQuMd0KUKv006Hwg719nca4wm25VFDnwZN4J0dDM7l+P+RBGB8Rd682GCziNqZT25imaOV/Bt3m9j2nUy1Zw==}
@@ -2373,9 +2373,6 @@ packages:
   axe-core@4.7.0:
     resolution: {integrity: sha512-M0JtH+hlOL5pLQwHOLNYZaXuhqmvS8oExsqB1SBYgA4Dk7u/xx+YdGHXaK5pyUfed5mYXdlYiphWq3G8cRi5JQ==}
     engines: {node: '>=4'}
-
-  axios@1.1.3:
-    resolution: {integrity: sha512-00tXVRwKx/FZr/IDVFt4C+f9FYairX517WoGCL6dpOntqLkZofjhu43F/Xl44UOpqa+9sLFDrG/XAnFsUYgkDA==}
 
   axios@1.6.7:
     resolution: {integrity: sha512-/hDJGff6/c7u0hDkvkGxR/oy6CbCs8ziCsC7SqmhjfozqiJGc8Z11wrv9z9lYfY4K8l+H9TpjcMDX0xOZmx+RA==}
@@ -5421,8 +5418,8 @@ packages:
   nwsapi@2.2.7:
     resolution: {integrity: sha512-ub5E4+FBPKwAZx0UwIQOjYWGHTEq5sPqHQNRN8Z9e4A7u3Tj1weLJsL59yH9vmvqEtBHaOmT6cYQKIZOxp35FQ==}
 
-  nx-cloud@18.0.1:
-    resolution: {integrity: sha512-nxJfz0ZmW+DKSr8evmVVm6t1XcLn9WHR5I8kiE2BFNkLVwC+nx+MimjJ53opfHOepMqQiGJAdstZ5Ks630bJgg==}
+  nx-cloud@19.0.0:
+    resolution: {integrity: sha512-Aq1vQD8yBIdb5jLVpzsqmu8yDmMvRVdjaM30Pp1hghhlSvorGBlpTwY+TccZJv/hBtVO+SpXK8SnnegRZMrxdw==}
     hasBin: true
 
   nx@19.0.3:
@@ -6121,8 +6118,8 @@ packages:
       react: '*'
       react-native: '*'
 
-  react-native-svg-transformer@1.3.0:
-    resolution: {integrity: sha512-SV92uRjENDuanHLVuLy2Sdvt6f8vu7qnG8vC9CwBiAXV0BpWN4/wPvfc+r2WPAkcctRZLLOvrGnGA2o8nZd0cg==}
+  react-native-svg-transformer@1.4.0:
+    resolution: {integrity: sha512-ZJ9dpSl8EONXbFQcVoGVr0cAl/7Vm/sKtOH1V6Mf9lcdyeT1/rfww43xgSfQWjmneTNTTXjslM5EoyZTHPfawQ==}
     peerDependencies:
       react-native: '>=0.59.0'
       react-native-svg: '>=12.0.0'
@@ -9484,9 +9481,9 @@ snapshots:
       - typescript
       - verdaccio
 
-  '@nrwl/nx-cloud@18.0.1':
+  '@nrwl/nx-cloud@19.0.0':
     dependencies:
-      nx-cloud: 18.0.1
+      nx-cloud: 19.0.0
     transitivePeerDependencies:
       - debug
 
@@ -11236,14 +11233,6 @@ snapshots:
       possible-typed-array-names: 1.0.0
 
   axe-core@4.7.0: {}
-
-  axios@1.1.3:
-    dependencies:
-      follow-redirects: 1.15.6
-      form-data: 4.0.0
-      proxy-from-env: 1.1.0
-    transitivePeerDependencies:
-      - debug
 
   axios@1.6.7:
     dependencies:
@@ -15055,10 +15044,10 @@ snapshots:
 
   nwsapi@2.2.7: {}
 
-  nx-cloud@18.0.1:
+  nx-cloud@19.0.0:
     dependencies:
-      '@nrwl/nx-cloud': 18.0.1
-      axios: 1.1.3
+      '@nrwl/nx-cloud': 19.0.0
+      axios: 1.6.7
       chalk: 4.1.2
       dotenv: 10.0.0
       fs-extra: 11.2.0
@@ -15792,7 +15781,7 @@ snapshots:
       react-native: 0.74.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.2)(react@18.3.1)
       warn-once: 0.1.1
 
-  react-native-svg-transformer@1.3.0(react-native-svg@15.2.0(react-native@0.74.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.2)(react@18.3.1))(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.2)(react@18.3.1))(typescript@5.4.5):
+  react-native-svg-transformer@1.4.0(react-native-svg@15.2.0(react-native@0.74.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.2)(react@18.3.1))(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.2)(react@18.3.1))(typescript@5.4.5):
     dependencies:
       '@svgr/core': 8.1.0(typescript@5.4.5)
       '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@5.4.5))
