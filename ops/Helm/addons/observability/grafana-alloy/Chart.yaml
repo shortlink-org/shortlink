@@ -15,7 +15,7 @@ type: application
 deprecated: false
 dependencies:
   - name: alloy
-    version: 0.2.0
+    version: 0.3.0
     repository: https://grafana.github.io/helm-charts
     condition: alloy.enabled
     tags:
