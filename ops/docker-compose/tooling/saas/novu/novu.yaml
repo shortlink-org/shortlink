@@ -46,7 +46,7 @@ services:
 
   novu-worker:
     <<: *network
-    image: ghcr.io/novuhq/novu/worker:0.24.0
+    image: ghcr.io/novuhq/novu/worker:0.24.2
     container_name: novu-worker
     restart: unless-stopped
     environment:
