@@ -15,7 +15,7 @@ type: application
 deprecated: false
 dependencies:
   - name: opentelemetry-operator
-    version: 0.58.0
+    version: 0.58.1
     repository: https://open-telemetry.github.io/opentelemetry-helm-charts
     condition: opentelemetry-operator.enabled
     tags:
