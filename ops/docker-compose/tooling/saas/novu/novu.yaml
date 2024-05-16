@@ -67,7 +67,7 @@ services:
 
   novu-ws:
     <<: *network
-    image: ghcr.io/novuhq/novu/ws:0.24.0
+    image: ghcr.io/novuhq/novu/ws:0.24.2
     container_name: novu-ws
     restart: unless-stopped
     ports:
