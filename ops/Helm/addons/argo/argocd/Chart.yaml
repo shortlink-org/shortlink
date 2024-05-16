@@ -27,7 +27,7 @@ dependencies:
     tags:
       - ci/cd
   - name: argocd-image-updater
-    version: 0.9.7
+    version: 0.10.0
     repository: https://argoproj.github.io/argo-helm
     condition: argocd-image-updater.enabled
     tags:
