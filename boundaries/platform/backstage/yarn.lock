@@ -4196,9 +4196,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-app-backend@npm:^0.3.66":
-  version: 0.3.66
-  resolution: "@backstage/plugin-app-backend@npm:0.3.66"
+"@backstage/plugin-app-backend@npm:^0.3.67":
+  version: 0.3.67
+  resolution: "@backstage/plugin-app-backend@npm:0.3.67"
   dependencies:
     "@backstage/backend-common": "npm:^0.22.0"
     "@backstage/backend-plugin-api": "npm:^0.6.18"
@@ -4218,7 +4218,7 @@ __metadata:
     lodash: "npm:^4.17.21"
     luxon: "npm:^3.0.0"
     yn: "npm:^4.0.0"
-  checksum: 10c0/f4baece36a6e3cde5c8240e5f589aa5071e76cb014cd63bcd1ed54f2992e541e1cbe288cd682469df3edcc808435a91225d7284ec3027546221c70524645a3cc
+  checksum: 10c0/e250a55eaa22148cb6961052a19677e0e0bab4337c6ffafdbdadf6603949509600eca849a9594c337953d222e611d0c5a019b2043b9487fa182bf970a16315d2
   languageName: node
   linkType: hard
 
@@ -5236,9 +5236,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-scaffolder-backend@npm:^1.22.6":
-  version: 1.22.6
-  resolution: "@backstage/plugin-scaffolder-backend@npm:1.22.6"
+"@backstage/plugin-scaffolder-backend@npm:^1.22.7":
+  version: 1.22.7
+  resolution: "@backstage/plugin-scaffolder-backend@npm:1.22.7"
   dependencies:
     "@backstage/backend-common": "npm:^0.22.0"
     "@backstage/backend-plugin-api": "npm:^0.6.18"
@@ -5283,13 +5283,14 @@ __metadata:
     p-queue: "npm:^6.6.2"
     prom-client: "npm:^15.0.0"
     tar: "npm:^6.1.12"
+    triple-beam: "npm:^1.4.1"
     uuid: "npm:^9.0.0"
     winston: "npm:^3.2.1"
     winston-transport: "npm:^4.7.0"
     yaml: "npm:^2.0.0"
     zen-observable: "npm:^0.10.0"
     zod: "npm:^3.22.4"
-  checksum: 10c0/b86c92f2fd7355454c10e4c8d798c726aa9a6758001fb1ffc42424320a0bbcf68151a0c10c2066953c66e5c0efb20681ee717415070ff0b066b8a33e4edc7ca7
+  checksum: 10c0/6c6dc9bc93bfd0eabe33983790d62a60408b67da303402770694977613502f4fa69ae762356ad298b9e95c2ee7840aa6e4cda602fed4cd981cba01aafcb32e74
   languageName: node
   linkType: hard
 
@@ -5506,9 +5507,29 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-search-backend@npm:^1.5.8":
-  version: 1.5.8
-  resolution: "@backstage/plugin-search-backend@npm:1.5.8"
+"@backstage/plugin-search-backend-node@npm:^1.2.23":
+  version: 1.2.23
+  resolution: "@backstage/plugin-search-backend-node@npm:1.2.23"
+  dependencies:
+    "@backstage/backend-common": "npm:^0.22.0"
+    "@backstage/backend-plugin-api": "npm:^0.6.18"
+    "@backstage/backend-tasks": "npm:^0.5.23"
+    "@backstage/config": "npm:^1.2.0"
+    "@backstage/errors": "npm:^1.2.4"
+    "@backstage/plugin-permission-common": "npm:^0.7.13"
+    "@backstage/plugin-search-common": "npm:^1.2.11"
+    "@types/lunr": "npm:^2.3.3"
+    lodash: "npm:^4.17.21"
+    lunr: "npm:^2.3.9"
+    ndjson: "npm:^2.0.0"
+    uuid: "npm:^9.0.0"
+  checksum: 10c0/c52cb0608e0191e17fbe4f53e2b6ef6ccb0b4f044a6c0fb23ae35f6e4a7dd3b1e4dd0ba3d161a21890b81b263243503b217a4f4ea7f2bb2ffb6247dc97dbbf31
+  languageName: node
+  linkType: hard
+
+"@backstage/plugin-search-backend@npm:^1.5.9":
+  version: 1.5.9
+  resolution: "@backstage/plugin-search-backend@npm:1.5.9"
   dependencies:
     "@backstage/backend-common": "npm:^0.22.0"
     "@backstage/backend-openapi-utils": "npm:^0.1.11"
@@ -5517,7 +5538,7 @@ __metadata:
     "@backstage/errors": "npm:^1.2.4"
     "@backstage/plugin-permission-common": "npm:^0.7.13"
     "@backstage/plugin-permission-node": "npm:^0.7.29"
-    "@backstage/plugin-search-backend-node": "npm:^1.2.22"
+    "@backstage/plugin-search-backend-node": "npm:^1.2.23"
     "@backstage/plugin-search-common": "npm:^1.2.11"
     "@backstage/repo-tools": "npm:^0.9.0"
     "@backstage/types": "npm:^1.1.1"
@@ -5529,7 +5550,7 @@ __metadata:
     winston: "npm:^3.2.1"
     yn: "npm:^4.0.0"
     zod: "npm:^3.22.4"
-  checksum: 10c0/e077be6466c6d8131cc283cca96dd5cd67124e231d182e33b5aa493aa570227f73ae54ea4a4d7c00e7c970591056c4a5acaaeb69f6d3287acb57a1382b55576d
+  checksum: 10c0/79312f145938170d48d7b326c06a1a02c0144d9f68b4d0d2a74ab7c592815004abfb1df4a703c323aab3acc7baa26f54ac71dbecdc0e2b176d7caa4132f391a1
   languageName: node
   linkType: hard
 
@@ -5978,6 +5999,22 @@ __metadata:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
   checksum: 10c0/553dbb23cf7943ce9e710692c3d106d44c29c9bcf6e6327f9e0e28df4619d3d9c6e77cf75c86b44db30afa552a7ce7c800d1dd41ac3482ad472a178ba4a096cb
+  languageName: node
+  linkType: hard
+
+"@backstage/theme@npm:^0.5.5":
+  version: 0.5.5
+  resolution: "@backstage/theme@npm:0.5.5"
+  dependencies:
+    "@emotion/react": "npm:^11.10.5"
+    "@emotion/styled": "npm:^11.10.5"
+    "@mui/material": "npm:^5.12.2"
+  peerDependencies:
+    "@material-ui/core": ^4.12.2
+    "@types/react": ^16.13.1 || ^17.0.0 || ^18.0.0
+    react: ^16.13.1 || ^17.0.0 || ^18.0.0
+    react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
+  checksum: 10c0/5cc6cc6700801f83fa3c9abab8bb4b0e7f1ffa44ed0e6d5a722d273407ee1397ac11d6e7607218ef995b4d6ca1e291b63e7edea0e353f36880bc3b78fcf69c71
   languageName: node
   linkType: hard
 
@@ -15315,7 +15352,7 @@ __metadata:
     "@backstage/plugin-todo": "npm:^0.2.39"
     "@backstage/plugin-user-settings": "npm:^0.8.6"
     "@backstage/test-utils": "npm:^1.5.5"
-    "@backstage/theme": "npm:^0.5.4"
+    "@backstage/theme": "npm:^0.5.5"
     "@material-ui/core": "npm:^4.12.4"
     "@mui/icons-material": "npm:5.15.18"
     "@mui/material": "npm:^5.15.18"
@@ -15997,17 +16034,17 @@ __metadata:
     "@backstage/catalog-model": "npm:^1.5.0"
     "@backstage/cli": "npm:^0.26.5"
     "@backstage/config": "npm:^1.2.0"
-    "@backstage/plugin-app-backend": "npm:^0.3.66"
+    "@backstage/plugin-app-backend": "npm:^0.3.67"
     "@backstage/plugin-auth-backend": "npm:^0.22.5"
     "@backstage/plugin-auth-node": "npm:^0.4.13"
     "@backstage/plugin-catalog-backend": "npm:^1.22.0"
     "@backstage/plugin-permission-common": "npm:^0.7.13"
     "@backstage/plugin-permission-node": "npm:^0.7.29"
     "@backstage/plugin-proxy-backend": "npm:^0.4.16"
-    "@backstage/plugin-scaffolder-backend": "npm:^1.22.6"
-    "@backstage/plugin-search-backend": "npm:^1.5.8"
+    "@backstage/plugin-scaffolder-backend": "npm:^1.22.7"
+    "@backstage/plugin-search-backend": "npm:^1.5.9"
     "@backstage/plugin-search-backend-module-pg": "npm:^0.5.27"
-    "@backstage/plugin-search-backend-node": "npm:^1.2.22"
+    "@backstage/plugin-search-backend-node": "npm:^1.2.23"
     "@backstage/plugin-techdocs-backend": "npm:^1.10.5"
     "@backstage/plugin-todo-backend": "npm:^0.3.17"
     "@types/dockerode": "npm:^3.3.29"
@@ -33980,7 +34017,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"triple-beam@npm:^1.3.0":
+"triple-beam@npm:^1.3.0, triple-beam@npm:^1.4.1":
   version: 1.4.1
   resolution: "triple-beam@npm:1.4.1"
   checksum: 10c0/4bf1db71e14fe3ff1c3adbe3c302f1fdb553b74d7591a37323a7badb32dc8e9c290738996cbb64f8b10dc5a3833645b5d8c26221aaaaa12e50d1251c9aba2fea
