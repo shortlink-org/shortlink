@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://open-feature.github.io/open-feature-operator | open-feature-operator | v0.5.4 |
+| https://open-feature.github.io/open-feature-operator | open-feature-operator | v0.5.5 |
 
 ## Values
 

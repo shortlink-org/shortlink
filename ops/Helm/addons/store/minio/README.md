@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://operator.min.io/ | minio(operator) | 5.0.14 |
+| https://operator.min.io/ | minio(operator) | 5.0.15 |
 
 ## Values
 

@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://open-telemetry.github.io/opentelemetry-helm-charts | opentelemetry-operator | 0.56.0 |
+| https://open-telemetry.github.io/opentelemetry-helm-charts | opentelemetry-operator | 0.58.0 |
 
 ## Values
 
@@ -41,21 +41,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="opentelemetry-operator--kubeRBACProxy--enabled"><a href="./values.yaml#L5">opentelemetry-operator.kubeRBACProxy.enabled</a></td>
-			<td>
-bool
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-false
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="opentelemetry-operator--manager--prometheusRule--annotations--app"><a href="./values.yaml#L15">opentelemetry-operator.manager.prometheusRule.annotations.app</a></td>
+			<td id="opentelemetry-operator--fullnameOverride"><a href="./values.yaml#L4">opentelemetry-operator.fullnameOverride</a></td>
 			<td>
 string
 </td>
@@ -69,7 +55,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="opentelemetry-operator--manager--prometheusRule--defaultRules--enabled"><a href="./values.yaml#L18">opentelemetry-operator.manager.prometheusRule.defaultRules.enabled</a></td>
+			<td id="opentelemetry-operator--kubeRBACProxy--enabled"><a href="./values.yaml#L7">opentelemetry-operator.kubeRBACProxy.enabled</a></td>
 			<td>
 bool
 </td>
@@ -83,7 +69,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="opentelemetry-operator--manager--prometheusRule--enabled"><a href="./values.yaml#L12">opentelemetry-operator.manager.prometheusRule.enabled</a></td>
+			<td id="opentelemetry-operator--manager--createRbacPermissions"><a href="./values.yaml#L27">opentelemetry-operator.manager.createRbacPermissions</a></td>
 			<td>
 bool
 </td>
@@ -97,7 +83,35 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="opentelemetry-operator--manager--serviceMonitor--enabled"><a href="./values.yaml#L9">opentelemetry-operator.manager.serviceMonitor.enabled</a></td>
+			<td id="opentelemetry-operator--manager--featureGates"><a href="./values.yaml#L10">opentelemetry-operator.manager.featureGates</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+null
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="opentelemetry-operator--manager--prometheusRule--annotations--app"><a href="./values.yaml#L22">opentelemetry-operator.manager.prometheusRule.annotations.app</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"opentelemetry-operator"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="opentelemetry-operator--manager--prometheusRule--defaultRules--enabled"><a href="./values.yaml#L25">opentelemetry-operator.manager.prometheusRule.defaultRules.enabled</a></td>
 			<td>
 bool
 </td>
@@ -105,6 +119,48 @@ bool
 				<div style="max-width: 300px;">
 <pre lang="json">
 true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="opentelemetry-operator--manager--prometheusRule--enabled"><a href="./values.yaml#L19">opentelemetry-operator.manager.prometheusRule.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="opentelemetry-operator--manager--serviceMonitor--enabled"><a href="./values.yaml#L13">opentelemetry-operator.manager.serviceMonitor.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="opentelemetry-operator--manager--serviceMonitor--extraLabels--release"><a href="./values.yaml#L16">opentelemetry-operator.manager.serviceMonitor.extraLabels.release</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"prometheus-operator"
 </pre>
 </div>
 			</td>
