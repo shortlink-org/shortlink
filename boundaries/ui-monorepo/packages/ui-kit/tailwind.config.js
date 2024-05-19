@@ -33,6 +33,9 @@ module.exports = {
       }),
     },
   },
+  variants: {
+    typography: ['light', 'dark'],
+  },
   plugins: [
     require('@tailwindcss/typography'),
     require('@tailwindcss/forms'),

@@ -15,8 +15,5 @@ Sentry.init({
   // Setting this option to true will print useful information to the console while you're setting up Sentry.
   debug: false,
 
-  // set the instrumenter to use OpenTelemetry instead of Sentry
-  instrumenter: 'otel',
-
   integrations: [],
 })

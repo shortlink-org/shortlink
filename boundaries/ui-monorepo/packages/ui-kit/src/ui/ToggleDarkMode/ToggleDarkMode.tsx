@@ -1,3 +1,4 @@
+import { useTheme } from 'next-themes'
 import React, { useEffect } from 'react'
 import { useColorScheme } from '@mui/material/styles'
 
@@ -14,7 +15,7 @@ export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({
   onChange,
 }) => {
   const { mode, setMode } = useColorScheme()
-  // const { setTheme, resolvedTheme } = useTheme()
+  const { setTheme, resolvedTheme } = useTheme()
   const [mounted, setMounted] = React.useState(false)
 
   useEffect(() => {
@@ -29,7 +30,7 @@ export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({
 
   const onToggle = () => {
     setMode(mode === 'light' ? 'dark' : 'light')
-    // setTheme(mode === 'light' ? 'dark' : 'light')
+    setTheme(mode === 'light' ? 'dark' : 'light')
   }
 
   const labelText =

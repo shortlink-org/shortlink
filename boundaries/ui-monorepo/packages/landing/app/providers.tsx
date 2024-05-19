@@ -8,6 +8,7 @@ import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
 import { Experimental_CssVarsProvider as CssVarsProvider, getInitColorSchemeScript } from '@mui/material/styles'
 import { theme } from '@shortlink-org/ui-kit/src/theme/theme'
 import Script from 'next/script'
+import { ThemeProvider as NextThemeProvider } from 'next-themes'
 
 // TODO: faro has old peer dependencies, so we need to fix it before enabling it
 //
@@ -37,26 +38,32 @@ export function Providers({ children, ...props }) {
 
   return (
     <AppRouterCacheProvider>
-      <CssVarsProvider theme={theme} defaultMode="dark">
-        <Script id={DEFAULT_SCRIPT_ID} src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`} strategy="afterInteractive" />
-        {getInitColorSchemeScript()}
+      <NextThemeProvider
+        enableSystem
+        attribute="class"
+        defaultTheme={'light'}
+      >
+        <CssVarsProvider theme={theme} defaultMode="light">
+          <Script id={DEFAULT_SCRIPT_ID} src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`} strategy="afterInteractive" />
+          {getInitColorSchemeScript()}
 
-        <div className="flex m-auto text-black dark:bg-gray-800 dark:text-white flex-col">
-          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-          <CssBaseline />
+          <div className="flex m-auto text-black dark:bg-gray-800 dark:text-white flex-col">
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
 
-          {isCaptcha && children}
+            {isCaptcha && children}
 
-          <Turnstile
-            siteKey={process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY}
-            injectScript={false}
-            className="captcha"
-            onSuccess={() => setIsCaptcha(true)}
-            onError={() => setIsCaptcha(false)}
-            onAbort={() => setIsCaptcha(false)}
-          />
-        </div>
-      </CssVarsProvider>
+            <Turnstile
+              siteKey={process.env.NEXT_PUBLIC_CLOUDFLARE_SITE_KEY}
+              injectScript={false}
+              className="captcha"
+              onSuccess={() => setIsCaptcha(true)}
+              onError={() => setIsCaptcha(false)}
+              onAbort={() => setIsCaptcha(false)}
+            />
+          </div>
+        </CssVarsProvider>
+      </NextThemeProvider>
     </AppRouterCacheProvider>
   )
 }

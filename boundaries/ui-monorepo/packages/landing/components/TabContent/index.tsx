@@ -42,8 +42,6 @@ function getCard(name: string, url: string, theme) {
     <Link href={url} key={url} passHref>
       <Button
         variant="outlined"
-        // @ts-ignore
-        color={theme.palette.mode === 'dark' ? 'primary' : 'inherit'}
         size="large"
       >
         {name}

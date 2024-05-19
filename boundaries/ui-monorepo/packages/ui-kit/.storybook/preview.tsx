@@ -8,6 +8,7 @@ import '@fontsource/roboto/700.css'
 import '@fontsource/caveat'
 import '@fontsource/material-icons'
 import { Experimental_CssVarsProvider as CssVarsProvider } from '@mui/material/styles'
+import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
@@ -18,13 +19,20 @@ const preview: Preview = {
   decorators: [
     (Story) => {
       return (
-        <CssVarsProvider theme={theme} defaultMode="light">
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Provider>
-              <Story />
-            </Provider>
-          </LocalizationProvider>
-        </CssVarsProvider>
+        // @ts-ignore
+        <NextThemeProvider
+          enableSystem
+          attribute="class"
+          defaultTheme={'light'}
+        >
+          <CssVarsProvider theme={theme} defaultMode="light">
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+              <Provider>
+                <Story />
+              </Provider>
+            </LocalizationProvider>
+          </CssVarsProvider>
+        </NextThemeProvider>
       )
     },
   ],

@@ -9,6 +9,7 @@ import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Provider as BalancerProvider } from 'react-wrap-balancer'
 import { Provider } from 'react-redux'
+import { ThemeProvider as NextThemeProvider } from 'next-themes'
 
 import 'react-toastify/dist/ReactToastify.css'
 import '@shortlink-org/ui-kit/dist/cjs/index.css'
@@ -49,24 +50,30 @@ function Providers({ children, ...props }) {
 
   return (
     <AppRouterCacheProvider>
-      <CssVarsProvider theme={theme} defaultMode="light">
-        {getInitColorSchemeScript()}
+      <NextThemeProvider
+        enableSystem
+        attribute="class"
+        defaultTheme={'light'}
+      >
+        <CssVarsProvider theme={theme} defaultMode="light">
+          {getInitColorSchemeScript()}
 
-        {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
-        <CssBaseline />
+          {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+          <CssBaseline />
 
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <Layout>
-            <div className="text-black dark:bg-gray-800 dark:text-white">
-              <BalancerProvider>
-                <Suspense fallback={<div className={'h-full justify-center'}>Loading...</div>}>
-                  <Provider store={storeRef.current}>{children}</Provider>
-                </Suspense>
-              </BalancerProvider>
-            </div>
-          </Layout>
-        </LocalizationProvider>
-      </CssVarsProvider>
+          <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Layout>
+              <div className="text-black dark:bg-gray-800 dark:text-white">
+                <BalancerProvider>
+                  <Suspense fallback={<div className={'h-full justify-center'}>Loading...</div>}>
+                    <Provider store={storeRef.current}>{children}</Provider>
+                  </Suspense>
+                </BalancerProvider>
+              </div>
+            </Layout>
+          </LocalizationProvider>
+        </CssVarsProvider>
+      </NextThemeProvider>
     </AppRouterCacheProvider>
   )
 }

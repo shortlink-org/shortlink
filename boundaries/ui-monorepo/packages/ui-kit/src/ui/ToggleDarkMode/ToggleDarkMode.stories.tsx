@@ -1,4 +1,5 @@
 import { Meta } from '@storybook/react'
+import Button from '@mui/material/Button'
 
 import ToggleDarkMode from './ToggleDarkMode'
 import Header from '../../page/Header/Header'
@@ -24,6 +25,7 @@ export function WithHeader() {
     <>
       <Header title="Header" />
       <ToggleDarkMode id="toggle" />
+      <Button variant="contained">Example MUI button</Button>
     </>
   )
 }
