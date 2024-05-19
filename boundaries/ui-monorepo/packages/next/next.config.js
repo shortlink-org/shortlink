@@ -57,7 +57,6 @@ if (isEnableSentry) {
 const NEXT_CONFIG = {
   basePath: '/next',
   output: 'export',
-  swcMinify: isProd,
   compress: isProd,
   productionBrowserSourceMaps: isProd,
   reactStrictMode: true,
