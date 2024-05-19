@@ -41,8 +41,7 @@ func InitClient(ctx context.Context, log logger.Logger, tracer trace.TracerProvi
 	}
 
 	// Set up a connection to the server peer
-	conn, err := grpc.DialContext(
-		ctx,
+	conn, err := grpc.NewClient(
 		config.GetURI(),
 		config.optionsNewClient...,
 	)

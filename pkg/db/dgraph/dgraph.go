@@ -36,11 +36,11 @@ func (s *Store) Init(ctx context.Context) error {
 	// Set configuration
 	s.setConfig()
 
-	conn, err := grpc.DialContext(
-		ctx,
+	conn, err := grpc.NewClient(
 		s.config.URL,
 		grpc.WithTransportCredentials(insecure.NewCredentials()),
-		grpc.WithDefaultCallOptions(grpc.UseCompressor(gzip.Name)))
+		grpc.WithDefaultCallOptions(grpc.UseCompressor(gzip.Name)),
+	)
 	if err != nil {
 		return err
 	}
