@@ -54,7 +54,6 @@ export default [
       'react',
       'react-dom',
       'prop-types',
-      'next-themes',
       '@emotion/react',
       // '@mui/styled-engine',
       '@mui/system',
