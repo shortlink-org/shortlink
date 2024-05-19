@@ -18,11 +18,11 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/notification/notify/internal/infrastructure/slack"
 	"github.com/shortlink-org/shortlink/boundaries/notification/notify/internal/infrastructure/smtp"
 	"github.com/shortlink-org/shortlink/boundaries/notification/notify/internal/infrastructure/telegram"
-	"github.com/shortlink-org/shortlink/internal/di"
-	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
-	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
-	mq_di "github.com/shortlink-org/shortlink/internal/di/pkg/mq"
-	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
+	"github.com/shortlink-org/shortlink/pkg/di"
+	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
+	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
+	mq_di "github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
+	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 

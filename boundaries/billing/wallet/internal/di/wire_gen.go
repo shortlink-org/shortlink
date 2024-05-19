@@ -8,9 +8,9 @@ package wallet_di
 
 import (
 	"github.com/google/wire"
-	"github.com/shortlink-org/shortlink/internal/di"
-	"github.com/shortlink-org/shortlink/internal/di/pkg/context"
-	"github.com/shortlink-org/shortlink/internal/di/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/di"
+	"github.com/shortlink-org/shortlink/pkg/di/pkg/context"
+	"github.com/shortlink-org/shortlink/pkg/di/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 

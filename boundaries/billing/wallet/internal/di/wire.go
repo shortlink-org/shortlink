@@ -11,7 +11,7 @@ package wallet_di
 import (
 	"github.com/google/wire"
 
-	"github.com/shortlink-org/shortlink/internal/di"
+	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 

@@ -12,10 +12,10 @@ import (
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/shortlink-org/shortlink/internal/di"
-	"github.com/shortlink-org/shortlink/internal/di/pkg/autoMaxPro"
-	"github.com/shortlink-org/shortlink/internal/di/pkg/config"
-	"github.com/shortlink-org/shortlink/internal/di/pkg/profiling"
+	"github.com/shortlink-org/shortlink/pkg/di"
+	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
+	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
+	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 )
