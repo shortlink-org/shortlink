@@ -1,0 +1,65 @@
+package v1
+
+import (
+	"errors"
+
+	"github.com/google/uuid"
+)
+
+// AccountBuilder is used to build a new Account
+type AccountBuilder struct {
+	account *Account
+	errors  error
+}
+
+// NewAccountBuilder returns a new instance of AccountBuilder
+func NewAccountBuilder() *AccountBuilder {
+	return &AccountBuilder{account: &Account{}}
+}
+
+// SetId sets the id of the account
+func (b *AccountBuilder) SetId(id uuid.UUID) *AccountBuilder {
+	if id == uuid.Nil {
+		b.errors = errors.Join(b.errors, errors.New("invalid id: id is nil"))
+		return b
+	}
+
+	b.account.id = id
+	return b
+}
+
+// SetUserId sets the userId of the account
+func (b *AccountBuilder) SetUserId(userId uuid.UUID) *AccountBuilder {
+	if userId == uuid.Nil {
+		b.errors = errors.Join(b.errors, errors.New("invalid userId: userId is nil"))
+		return b
+	}
+
+	b.account.userId = userId
+	return b
+}
+
+// SetTariffId sets the tariffId of the account
+func (b *AccountBuilder) SetTariffId(tariffId uuid.UUID) *AccountBuilder {
+	if tariffId == uuid.Nil {
+		b.errors = errors.Join(b.errors, errors.New("invalid tariffId: tariffId is nil"))
+		return b
+	}
+
+	b.account.tariffId = tariffId
+	return b
+}
+
+// Build finalizes the building process and returns the built Account
+func (b *AccountBuilder) Build() (*Account, error) {
+	if b.errors != nil {
+		return nil, b.errors
+	}
+
+	// Generate a new id if it is not set
+	if b.account.id == uuid.Nil {
+		b.account.id = uuid.New()
+	}
+
+	return b.account, nil
+}

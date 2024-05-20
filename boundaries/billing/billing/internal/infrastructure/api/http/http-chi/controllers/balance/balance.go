@@ -5,15 +5,12 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/segmentio/encoding/json"
-	"google.golang.org/protobuf/encoding/protojson"
 
-	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/payment/v1"
+	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/payment/v1"
 	payment_application "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/usecases/payment"
 )
 
 type API struct {
-	jsonpb protojson.MarshalOptions //nolint:structcheck // ignore
-
 	paymentService *payment_application.PaymentService
 }
 
@@ -50,7 +47,7 @@ func (api *API) update(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := api.jsonpb.Marshal(updatePayment)
+	res, err := json.Marshal(updatePayment)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore

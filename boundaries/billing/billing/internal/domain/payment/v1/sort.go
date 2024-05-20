@@ -9,5 +9,5 @@ func (p *Payments) Less(i, j int) bool {
 }
 
 func (p *Payments) Swap(i, j int) {
-	p.List[i], p.List[j] = p.GetList()[j], p.GetList()[i]
+	p.list[i], p.list[j] = p.GetList()[j], p.GetList()[i]
 }

@@ -5,9 +5,9 @@ func (o *Orders) Len() int {
 }
 
 func (o *Orders) Less(i, j int) bool {
-	return o.GetList()[i].GetUserId() < o.GetList()[j].GetUserId()
+	return o.GetList()[i].GetUserId().String() < o.GetList()[j].GetUserId().String()
 }
 
 func (o *Orders) Swap(i, j int) {
-	o.List[i], o.List[j] = o.GetList()[j], o.GetList()[i]
+	o.list[i], o.list[j] = o.GetList()[j], o.GetList()[i]
 }

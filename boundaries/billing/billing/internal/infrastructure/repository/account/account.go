@@ -6,7 +6,6 @@ import (
 	"errors"
 
 	"github.com/Masterminds/squirrel"
-	"github.com/google/uuid"
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 
@@ -48,15 +47,11 @@ func (a *account) List(ctx context.Context, filter any) ([]*v1.Account, error) {
 }
 
 func (a *account) Add(ctx context.Context, in *v1.Account) (*v1.Account, error) {
-	id := uuid.MustParse(in.GetId())
-	userId := uuid.MustParse(in.GetUserId())
-	tariffId := uuid.MustParse(in.GetTariffId())
-
-	account := psql.Insert("billing.account").
+	request := psql.Insert("billing.account").
 		Columns("id", "user_id", "tariff_id").
-		Values(id, userId, tariffId)
+		Values(in.GetId(), in.GetUserId(), in.GetTariffId())
 
-	q, args, err := account.ToSql()
+	q, args, err := request.ToSql()
 	if err != nil {
 		return nil, err
 	}

@@ -3,8 +3,6 @@ package tariff_application
 import (
 	"context"
 
-	"github.com/google/uuid"
-
 	domain "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/tariff/v1"
 	tariff_repository "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/infrastructure/repository/tariff"
 	"github.com/shortlink-org/shortlink/pkg/db"
@@ -63,9 +61,6 @@ func (t *TariffService) List(ctx context.Context, filter any) (*domain.Tariffs, 
 }
 
 func (t *TariffService) Add(ctx context.Context, in *domain.Tariff) (*domain.Tariff, error) {
-	// generate uniq identity
-	in.Id = uuid.New().String()
-
 	return t.tariffRepository.Add(ctx, in)
 }
 

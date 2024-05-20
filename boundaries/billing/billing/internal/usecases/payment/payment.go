@@ -4,11 +4,12 @@ import (
 	"context"
 	"fmt"
 
+	"github.com/google/uuid"
 	"github.com/robfig/cron/v3"
+	"github.com/segmentio/encoding/json"
 	"github.com/spf13/viper"
-	"google.golang.org/protobuf/encoding/protojson"
 
-	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/payment/v1"
+	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/payment/v1"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/notify"
@@ -53,14 +54,14 @@ func (p *PaymentService) Handle(ctx context.Context, aggregate *Payment, command
 
 		if snapshot.GetPayload() != "" {
 			aggregate.Version = snapshot.GetAggregateVersion()
-			err := protojson.Unmarshal([]byte(snapshot.GetPayload()), aggregate.Payment)
+			err := json.Unmarshal([]byte(snapshot.GetPayload()), aggregate.Payment)
 			if err != nil {
 				return err
 			}
 		}
 
 		for _, event := range events {
-			errApplyChange := aggregate.ApplyChangeHelper(aggregate, event, false)
+			errApplyChange := aggregate.ApplyChangeHelper(ctx, aggregate, event, false)
 			if errApplyChange != nil {
 				return errApplyChange
 			}
@@ -106,14 +107,14 @@ func (p *PaymentService) Get(ctx context.Context, aggregateId string) (*billing.
 	}
 
 	if snapshot.GetPayload() != "" {
-		err = protojson.Unmarshal([]byte(snapshot.GetPayload()), aggregate.Payment)
+		err = json.Unmarshal([]byte(snapshot.GetPayload()), aggregate.Payment)
 		if err != nil {
 			return nil, err
 		}
 	}
 
 	for _, event := range events {
-		errApplyChange := aggregate.ApplyChangeHelper(aggregate, event, false)
+		errApplyChange := aggregate.ApplyChangeHelper(ctx, aggregate, event, false)
 		if errApplyChange != nil {
 			return nil, errApplyChange
 		}
@@ -177,9 +178,6 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 				return err
 			}
 
-			// safe identity
-			in.Id = command.GetAggregateId()
-
 			return nil
 		}).
 		Reject(func(ctx context.Context, thenErr error) error {
@@ -210,7 +208,7 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 		Needs(SAGA_STEP_PAYMENT_APPROVE).
 		Then(func(ctx context.Context) error {
 			var err error
-			in, err = p.Get(ctx, in.GetId())
+			in, err = p.Get(ctx, in.GetId().String())
 			if err != nil {
 				return err
 			}
@@ -234,15 +232,13 @@ func (p *PaymentService) Add(ctx context.Context, in *billing.Payment) (*billing
 	return in, nil
 }
 
-func (p *PaymentService) Approve(ctx context.Context, id string) error {
+func (p *PaymentService) Approve(ctx context.Context, id uuid.UUID) error {
 	aggregate := &Payment{
 		Payment:       &billing.Payment{},
 		BaseAggregate: &eventsourcing.BaseAggregate{},
 	}
 
-	command, err := CommandPaymentApprove(ctx, &billing.Payment{
-		Id: id,
-	})
+	command, err := CommandPaymentApprove(ctx, id)
 	if err != nil {
 		return err
 	}
@@ -255,15 +251,13 @@ func (p *PaymentService) Approve(ctx context.Context, id string) error {
 	return nil
 }
 
-func (p *PaymentService) Reject(ctx context.Context, id string) error {
+func (p *PaymentService) Reject(ctx context.Context, id uuid.UUID) error {
 	aggregate := &Payment{
 		Payment:       &billing.Payment{},
 		BaseAggregate: &eventsourcing.BaseAggregate{},
 	}
 
-	command, err := CommandPaymentReject(ctx, &billing.Payment{
-		Id: id,
-	})
+	command, err := CommandPaymentReject(ctx, id)
 	if err != nil {
 		return err
 	}
@@ -277,15 +271,13 @@ func (p *PaymentService) Reject(ctx context.Context, id string) error {
 	return nil
 }
 
-func (p *PaymentService) Close(ctx context.Context, id string) error {
+func (p *PaymentService) Close(ctx context.Context, id uuid.UUID) error {
 	aggregate := &Payment{
 		Payment:       &billing.Payment{},
 		BaseAggregate: &eventsourcing.BaseAggregate{},
 	}
 
-	command, err := CommandPaymentClose(ctx, &billing.Payment{
-		Id: id,
-	})
+	command, err := CommandPaymentClose(ctx, id)
 	if err != nil {
 		return err
 	}
@@ -352,7 +344,7 @@ func (p *PaymentService) asyncUpdateSnapshot() {
 			return
 		}
 
-		payload, err := protojson.Marshal(payment)
+		payload, err := json.Marshal(payment)
 		if err != nil {
 			p.log.ErrorWithContext(ctx, err.Error())
 			return

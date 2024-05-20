@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package domain.payment.v1;
 
-option go_package = "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/payment/v1";
+option go_package = "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/payment/v1";
 
 // Command is a command to be executed by the payment service.
 enum Command {

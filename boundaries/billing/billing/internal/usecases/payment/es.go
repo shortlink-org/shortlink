@@ -6,80 +6,39 @@ import (
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	"go.opentelemetry.io/otel/codes"
-	"google.golang.org/protobuf/encoding/protojson"
 
-	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/payment/v1"
+	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/payment/v1"
 	eventsourcing "github.com/shortlink-org/shortlink/pkg/pattern/eventsourcing/domain/eventsourcing/v1"
 )
 
 // ApplyChange to payment
-func (p *Payment) ApplyChange(event *eventsourcing.Event) error {
-	switch t := event.GetType(); {
-	case t == billing.Event_EVENT_PAYMENT_CREATED.String():
-		var payload billing.EventPaymentCreated
-		err := protojson.Unmarshal([]byte(event.GetPayload()), &payload)
-		if err != nil {
-			return err
-		}
-
-		p.Payment.Id = payload.GetId()
-		p.Name = payload.GetName()
-		p.Status = payload.GetStatus()
-		p.UserId = payload.GetUserId()
-	case t == billing.Event_EVENT_PAYMENT_APPROVED.String():
-		var payload billing.EventPaymentApproved
-		err := protojson.Unmarshal([]byte(event.GetPayload()), &payload)
-		if err != nil {
-			return err
-		}
-
-		p.Status = payload.GetStatus()
-	case t == billing.Event_EVENT_PAYMENT_CLOSED.String():
-		var payload billing.EventPaymentClosed
-		err := protojson.Unmarshal([]byte(event.GetPayload()), &payload)
-		if err != nil {
-			return err
-		}
-
-		p.Status = payload.GetStatus()
-	case t == billing.Event_EVENT_PAYMENT_REJECTED.String():
-		var payload billing.EventPaymentRejected
-		err := protojson.Unmarshal([]byte(event.GetPayload()), &payload)
-		if err != nil {
-			return err
-		}
-
-		p.Status = payload.GetStatus()
-	case t == billing.Event_EVENT_BALANCE_UPDATED.String():
-		// validate payment
-		if p.Status != billing.StatusPayment_STATUS_PAYMENT_APPROVE {
-			return &IncorrectStatusOfPaymentError{Status: p.Status.String()}
-		}
-
-		var payload billing.EventBalanceUpdated
-		err := protojson.Unmarshal([]byte(event.GetPayload()), &payload)
-		if err != nil {
-			return err
-		}
-
-		p.Amount += payload.GetAmount()
+func (p *Payment) ApplyChange(ctx context.Context, event *eventsourcing.Event) error {
+	switch event.GetType() {
+	case billing.Event_EVENT_PAYMENT_CREATED.String():
+		return p.Payment.ApplyEventPaymentCreated(ctx, event)
+	case billing.Event_EVENT_PAYMENT_APPROVED.String():
+		return p.Payment.ApplyEventPaymentApproved(ctx, event)
+	case billing.Event_EVENT_PAYMENT_CLOSED.String():
+		return p.Payment.ApplyEventPaymentClosed(ctx, event)
+	case billing.Event_EVENT_PAYMENT_REJECTED.String():
+		return p.Payment.ApplyEventPaymentRejected(ctx, event)
+	case billing.Event_EVENT_BALANCE_UPDATED.String():
+		return p.Payment.ApplyEventBalanceUpdated(ctx, event)
 	default:
-		return &NotFoundEventError{Type: t}
+		return &NotFoundEventError{Type: event.GetType()}
 	}
-
-	return nil
 }
 
-// HandleCommand create events and validate based on such command
+// HandleCommand create events and validate based on such a command
 func (p *Payment) HandleCommand(ctx context.Context, command *eventsourcing.BaseCommand) error {
 	event := &eventsourcing.Event{
-		AggregateId:   p.Payment.GetId(),
+		AggregateId:   p.Payment.GetId().String(),
 		AggregateType: "Payment",
 	}
 
 	// start tracing
 	_, span := otel.Tracer("event sourcing").Start(ctx, "HandleCommand")
-	span.SetAttributes(attribute.String("aggregate_id", p.Payment.GetId()))
+	span.SetAttributes(attribute.String("aggregate_id", p.Payment.GetId().String()))
 	defer span.End()
 
 	switch t := command.GetType(); {
@@ -113,7 +72,7 @@ func (p *Payment) HandleCommand(ctx context.Context, command *eventsourcing.Base
 		return &NotFoundCommandError{Type: t}
 	}
 
-	err := p.ApplyChangeHelper(p, event, true)
+	err := p.ApplyChangeHelper(ctx, p, event, true)
 	if err != nil {
 		span.RecordError(err)
 		span.SetStatus(codes.Error, err.Error())

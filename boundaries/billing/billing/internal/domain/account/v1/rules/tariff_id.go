@@ -3,6 +3,8 @@ package rules
 import (
 	"errors"
 
+	"github.com/google/uuid"
+
 	v1 "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/account/v1"
 )
 
@@ -15,7 +17,7 @@ func NewTariffId() *TariffId {
 }
 
 func (t *TariffId) IsSatisfiedBy(account *v1.Account) error {
-	if account.GetTariffId() != "" {
+	if account.GetTariffId() != uuid.Nil {
 		return nil
 	}
 

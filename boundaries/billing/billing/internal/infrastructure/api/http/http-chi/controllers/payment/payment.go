@@ -4,16 +4,14 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/google/uuid"
 	"github.com/segmentio/encoding/json"
-	"google.golang.org/protobuf/encoding/protojson"
 
-	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/payment/v1"
+	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/payment/v1"
 	payment_application "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/usecases/payment"
 )
 
 type API struct {
-	jsonpb protojson.MarshalOptions
-
 	paymentService *payment_application.PaymentService
 }
 
@@ -53,7 +51,7 @@ func (api *API) open(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := api.jsonpb.Marshal(newPayment)
+	res, err := json.Marshal(newPayment)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore
@@ -85,7 +83,7 @@ func (api *API) get(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := api.jsonpb.Marshal(getPayment)
+	res, err := json.Marshal(getPayment)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore
@@ -108,15 +106,15 @@ func (api *API) list(w http.ResponseWriter, r *http.Request) {
 func (api *API) close(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 
-	aggregateId := chi.URLParam(r, "id")
-	if aggregateId == "" {
+	aggregateId, err := uuid.Parse(chi.URLParam(r, "id"))
+	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "need set payment of identity"}`)) //nolint:errcheck // ignore
 
 		return
 	}
 
-	err := api.paymentService.Close(r.Context(), aggregateId)
+	err = api.paymentService.Close(r.Context(), aggregateId)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore

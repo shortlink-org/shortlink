@@ -5,15 +5,12 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/segmentio/encoding/json"
-	"google.golang.org/protobuf/encoding/protojson"
 
 	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/tariff/v1"
 	tariff_application "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/usecases/tariff"
 )
 
 type API struct {
-	jsonpb protojson.MarshalOptions
-
 	tariffService *tariff_application.TariffService
 }
 
@@ -53,7 +50,7 @@ func (api *API) add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := api.jsonpb.Marshal(newTariff)
+	res, err := json.Marshal(newTariff)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore
@@ -84,7 +81,7 @@ func (api *API) list(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := api.jsonpb.Marshal(tariffs)
+	res, err := json.Marshal(tariffs)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore

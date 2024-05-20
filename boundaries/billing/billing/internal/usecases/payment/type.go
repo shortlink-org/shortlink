@@ -1,7 +1,7 @@
 package payment_application
 
 import (
-	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/payment/v1"
+	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/payment/v1"
 	"github.com/shortlink-org/shortlink/pkg/notify"
 	eventsourcing "github.com/shortlink-org/shortlink/pkg/pattern/eventsourcing/domain/eventsourcing/v1"
 )

@@ -5,15 +5,12 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/segmentio/encoding/json"
-	"google.golang.org/protobuf/encoding/protojson"
 
-	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/order/v1"
+	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/order/v1"
 	order_application "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/usecases/order"
 )
 
 type API struct {
-	jsonpb protojson.MarshalOptions //nolint:structcheck // ignore
-
 	orderService *order_application.OrderService
 }
 
@@ -53,7 +50,7 @@ func (api *API) add(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	res, err := api.jsonpb.Marshal(newOrder)
+	res, err := json.Marshal(newOrder)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(`{"error": "` + err.Error() + `"}`)) //nolint:errcheck // ignore

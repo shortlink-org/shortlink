@@ -6,8 +6,8 @@ import (
 
 // AggregateHandler defines the methods to process commands
 type AggregateHandler interface {
-	ApplyChange(event *Event) error
-	ApplyChangeHelper(aggregate AggregateHandler, event *Event, commit bool) error
+	ApplyChange(ctx context.Context, event *Event) error
+	ApplyChangeHelper(ctx context.Context, aggregate AggregateHandler, event *Event, commit bool) error
 	HandleCommand(ctx context.Context, command *BaseCommand) error
 	Uncommitted() []*Event
 	ClearUncommitted()
@@ -30,12 +30,12 @@ func (b *BaseAggregate) IncrementVersion() {
 }
 
 // ApplyChangeHelper increments the version of an aggregate and apply the change itself
-func (b *BaseAggregate) ApplyChangeHelper(aggregate AggregateHandler, event *Event, commit bool) error {
+func (b *BaseAggregate) ApplyChangeHelper(ctx context.Context, aggregate AggregateHandler, event *Event, commit bool) error {
 	// increments the version in event and aggregate
 	b.IncrementVersion()
 
 	// apply the event itself
-	err := aggregate.ApplyChange(event)
+	err := aggregate.ApplyChange(ctx, event)
 	if err != nil {
 		return err
 	}

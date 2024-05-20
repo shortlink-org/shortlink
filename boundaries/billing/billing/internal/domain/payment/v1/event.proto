@@ -2,9 +2,7 @@ syntax = "proto3";
 
 package domain.payment.v1;
 
-option go_package = "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/payment/v1";
-
-import "domain/payment/v1/payment.proto";
+option go_package = "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/payment/v1";
 
 // Event
 enum Event {
@@ -22,52 +20,4 @@ enum Event {
 
   // balance updated event
   EVENT_BALANCE_UPDATED = 5;
-}
-
-// PAYMENT =============================================================================================================
-
-// EventPaymentCreated is published when a payment is created
-message EventPaymentCreated {
-  // id of the payment
-  string id = 1;
-  // name of the payment
-  string name = 2;
-  // status of the payment
-  StatusPayment status = 3;
-  // owner of the payment
-  string user_id = 4;
-}
-
-// EventPaymentApproved is published when a payment is approved
-message EventPaymentApproved {
-  // id of the payment
-  string id = 1;
-  // status of the payment
-  StatusPayment status = 2;
-}
-
-// EventPaymentRejected is published when a payment is rejected
-message EventPaymentRejected {
-  // id of the payment
-  string id = 1;
-  // status of the payment
-  StatusPayment status = 2;
-}
-
-// EventPaymentClosed is published when a payment is closed
-message EventPaymentClosed {
-  // id of the payment
-  string id = 1;
-  // status of the payment
-  StatusPayment status = 2;
-}
-
-// BALANCE =============================================================================================================
-
-// EventBalanceUpdated is published when a balance is updated
-message EventBalanceUpdated {
-  // id of the balance
-  string id = 1;
-  // amount of the balance
-  int64 amount = 2;
 }

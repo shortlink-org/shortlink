@@ -39,8 +39,6 @@ func New(ctx context.Context, store db.DB) (Repository, error) {
 }
 
 func (t *tariff) Get(ctx context.Context, id string) (*v1.Tariff, error) {
-	resp := &v1.Tariff{}
-
 	query := psql.Select("id", "name", "payload").
 		From("billing.tariff").
 		Where(squirrel.Eq{"id": id})
@@ -51,15 +49,26 @@ func (t *tariff) Get(ctx context.Context, id string) (*v1.Tariff, error) {
 	}
 
 	row := t.client.QueryRow(ctx, q, args...)
-	errScan := row.Scan(&resp.Id, &resp.Name, &resp.Payload)
+	var tariffId, name, payload string
+	errScan := row.Scan(&tariffId, &name, &payload)
 	if errors.Is(errScan, pgx.ErrNoRows) {
-		return resp, nil
+		return nil, nil // Return nil if no rows found
 	}
-	if errScan.Error() != "" {
+	if errScan != nil {
 		return nil, errScan
 	}
 
-	return resp, nil
+	tariffBuilder := v1.NewTariffBuilder().
+		SetId(tariffId).
+		SetName(name).
+		SetPayload(payload)
+
+	tariff, buildErr := tariffBuilder.Build()
+	if buildErr != nil {
+		return nil, buildErr
+	}
+
+	return tariff, nil
 }
 
 func (t *tariff) List(ctx context.Context, filter any) (*v1.Tariffs, error) {
@@ -74,17 +83,32 @@ func (t *tariff) List(ctx context.Context, filter any) (*v1.Tariffs, error) {
 	if err != nil {
 		return nil, err
 	}
+	defer rows.Close()
 
 	response := v1.Tariffs{}
 
 	for rows.Next() {
-		var result v1.Tariff
-		err = rows.Scan(&result.Id, &result.Name, &result.Payload)
+		var id, name, payload string
+		err = rows.Scan(&id, &name, &payload)
 		if err != nil {
 			return nil, err
 		}
 
-		response.List = append(response.GetList(), &result)
+		tariffBuilder := v1.NewTariffBuilder().
+			SetId(id).
+			SetName(name).
+			SetPayload(payload)
+
+		tariff, buildErr := tariffBuilder.Build()
+		if buildErr != nil {
+			return nil, buildErr
+		}
+
+		response.List = append(response.GetList(), tariff)
+	}
+
+	if err = rows.Err(); err != nil {
+		return nil, err
 	}
 
 	return &response, nil

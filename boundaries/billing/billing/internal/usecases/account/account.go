@@ -3,8 +3,6 @@ package account_application
 import (
 	"context"
 
-	"github.com/google/uuid"
-
 	domain "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/account/v1"
 	"github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/account/v1/rules"
 	account_repository "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/infrastructure/repository/account"
@@ -64,9 +62,6 @@ func (acc *AccountService) List(ctx context.Context, filter any) ([]*domain.Acco
 }
 
 func (acc *AccountService) Add(ctx context.Context, in *domain.Account) (*domain.Account, error) {
-	// generate uniq identity
-	in.id = uuid.New().String()
-
 	// create specification
 	spec := specification.NewAndSpecification[domain.Account](
 		rules.NewUserId(),
