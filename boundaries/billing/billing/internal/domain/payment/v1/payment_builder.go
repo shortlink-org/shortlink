@@ -4,6 +4,7 @@ import (
 	"errors"
 
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 // PaymentBuilder is used to build a new Payment
@@ -62,8 +63,8 @@ func (b *PaymentBuilder) SetUserId(userId uuid.UUID) *PaymentBuilder {
 }
 
 // SetAmount sets the amount of the payment
-func (b *PaymentBuilder) SetAmount(amount int64) *PaymentBuilder {
-	if amount <= 0 {
+func (b *PaymentBuilder) SetAmount(amount decimal.Decimal) *PaymentBuilder {
+	if amount.LessThanOrEqual(decimal.Zero) {
 		b.errors = errors.Join(b.errors, errors.New("invalid amount: amount must be greater than zero"))
 		return b
 	}

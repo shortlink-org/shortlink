@@ -2,6 +2,7 @@ package v1
 
 import (
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 // GetId returns the id field value
@@ -25,6 +26,6 @@ func (m *Payment) GetUserId() uuid.UUID {
 }
 
 // GetAmount returns the amount field value
-func (m *Payment) GetAmount() int64 {
+func (m *Payment) GetAmount() decimal.Decimal {
 	return m.amount
 }

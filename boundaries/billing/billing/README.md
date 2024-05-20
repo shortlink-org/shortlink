@@ -16,6 +16,7 @@ $> make help # show help message with all commands and targets
 ### ADR
 
 - [ADR-0001](./docs/ADR/decisions/0001-init.md) - Init project
+- [ADR-0002](./docs/ADR/decisions/0002-use-decimal-for-financal-types.md) - Use Decimal for Financial Types
 
 ### Use Cases
 

@@ -2,6 +2,7 @@ package v1
 
 import (
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 // Payment - information about payment
@@ -15,5 +16,5 @@ type Payment struct {
 	// User ID
 	userId uuid.UUID
 	// Amount payment
-	amount int64
+	amount decimal.Decimal
 }

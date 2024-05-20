@@ -2,6 +2,7 @@ package v1
 
 import (
 	"github.com/google/uuid"
+	"github.com/shopspring/decimal"
 )
 
 // PAYMENT =============================================================================================================
@@ -49,5 +50,5 @@ type EventBalanceUpdated struct {
 	// id of the balance
 	Id uuid.UUID `json:"id,omitempty"`
 	// amount of the balance
-	Amount int64 `json:"amount,omitempty"`
+	Amount decimal.Decimal `json:"amount,omitempty"`
 }

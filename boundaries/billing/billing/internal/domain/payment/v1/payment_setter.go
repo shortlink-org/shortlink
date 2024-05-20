@@ -66,7 +66,7 @@ func (p *Payment) ApplyEventBalanceUpdated(ctx context.Context, event *eventsour
 		return err
 	}
 
-	p.amount += payload.Amount
+	p.amount = p.amount.Add(payload.Amount)
 
 	return nil
 }
