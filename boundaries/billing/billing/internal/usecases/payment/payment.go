@@ -124,7 +124,7 @@ func (p *PaymentService) Get(ctx context.Context, aggregateId string) (*billing.
 
 func (p *PaymentService) List(ctx context.Context, filter any) ([]*billing.Payment, error) {
 	panic("implement me")
-	// return p.paymentRepository.List(ctx, filter)
+	// return p.paymentRepository.list(ctx, filter)
 }
 
 func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {

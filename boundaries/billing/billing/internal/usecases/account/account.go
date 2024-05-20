@@ -65,7 +65,7 @@ func (acc *AccountService) List(ctx context.Context, filter any) ([]*domain.Acco
 
 func (acc *AccountService) Add(ctx context.Context, in *domain.Account) (*domain.Account, error) {
 	// generate uniq identity
-	in.Id = uuid.New().String()
+	in.id = uuid.New().String()
 
 	// create specification
 	spec := specification.NewAndSpecification[domain.Account](

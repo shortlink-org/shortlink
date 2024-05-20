@@ -9,7 +9,6 @@ proto-lock: ## Lock proto dependencies
 	@buf build -o ops/proto/proto-lock.json
 
 proto-generate: ## Generate proto-files
-	# Link service ================================================================================
 	# domain --------------------------------------------------------------------------------------
 	@buf generate \
 		--path=internal/domain \

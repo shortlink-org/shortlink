@@ -5,7 +5,31 @@ package infrastructure.api.rpc.payment.v1;
 option go_package = "github.com/shortlink-org/shortlink/internal/billing/internal/infrastructure/payment_rpc";
 
 import "google/protobuf/empty.proto";
-import "domain/billing/payment/v1/payment.proto";
+import "google/protobuf/field_mask.proto";
+import "domain/payment/v1/payment.proto";
+
+// Payment - information about payment
+message Payment {
+  // FieldMask
+  google.protobuf.FieldMask field_mask = 6;
+
+  // ID payment
+  string id = 1;
+  // Name payment
+  string name = 2;
+  // Status payment
+  domain.payment.v1.StatusPayment status = 3;
+  // User ID
+  string user_id = 4;
+  // Amount payment
+  int64 amount = 5;
+}
+
+// Payments - list payments
+message Payments {
+  // List of payments
+  repeated Payment list = 1;
+}
 
 // PaymentService is the service that provides payment methods.
 service PaymentService {
@@ -22,41 +46,41 @@ service PaymentService {
 // PaymentRequest is the request message for PaymentService.Payment.
 message PaymentRequest {
   // ID is the id of the payment.
-  domain.billing.payment.v1.Payment payment = 1;
+  Payment payment = 1;
 }
 
 // PaymentResponse is the response message for PaymentService.Payment.
 message PaymentResponse {
   // Payment is the payment.
-  domain.billing.payment.v1.Payment payment = 1;
+  Payment payment = 1;
 }
 
 // PaymentsResponse is the response message for PaymentService.Payments.
 message PaymentsResponse {
   // Payments is the list of payments.
-  repeated domain.billing.payment.v1.Payment list = 1;
+  repeated Payment list = 1;
 }
 
 // PaymentCreateRequest is the request message for PaymentService.PaymentCreate.
 message PaymentCreateRequest {
   // Payment is the payment.
-  domain.billing.payment.v1.Payment payment = 1;
+  Payment payment = 1;
 }
 
 // PaymentCreateResponse is the response message for PaymentService.PaymentCreate.
 message PaymentCreateResponse {
   // Payment is the payment.
-  domain.billing.payment.v1.Payment payment = 1;
+  Payment payment = 1;
 }
 
 // PaymentCloseRequest is the request message for PaymentService.PaymentClose.
 message PaymentCloseRequest {
   // Payment is the payment.
-  domain.billing.payment.v1.Payment payment = 1;
+  Payment payment = 1;
 }
 
 // PaymentCloseResponse is the response message for PaymentService.PaymentClose.
 message PaymentCloseResponse {
   // Payment is the payment.
-  domain.billing.payment.v1.Payment payment = 1;
+  Payment payment = 1;
 }

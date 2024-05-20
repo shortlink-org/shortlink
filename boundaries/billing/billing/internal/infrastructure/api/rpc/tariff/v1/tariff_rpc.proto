@@ -5,7 +5,26 @@ package infrastructure.api.rpc.tariff.v1;
 option go_package = "github.com/shortlink-org/shortlink/internal/billing/internal/infrastructure/tariff_rpc";
 
 import "google/protobuf/empty.proto";
-import "domain/billing/tariff/v1/tariff.proto";
+import "google/protobuf/field_mask.proto";
+
+// Tariff
+message Tariff {
+  // FieldMask
+  google.protobuf.FieldMask field_mask = 4;
+
+  // ID of tariff
+  string id = 1;
+  // Name of tariff
+  string name = 2;
+  // Description of tariff
+  string payload = 3;
+}
+
+// Tariff list
+message Tariffs {
+  // List of tariffs
+  repeated Tariff list = 1;
+}
 
 // TariffService is the tariff service definition.
 service TariffService {
@@ -24,53 +43,53 @@ service TariffService {
 // TariffRequest is the tariff request message.
 message TariffRequest {
   // Tariff is the tariff.
-  domain.billing.tariff.v1.Tariff tariff = 1;
+  Tariff tariff = 1;
 }
 
 // TariffResponse is the tariff response message.
 message TariffResponse {
   // Tariff is the tariff.
-  domain.billing.tariff.v1.Tariff tariff = 1;
+  Tariff tariff = 1;
 }
 
 // TariffsResponse is the tariffs response message.
 message TariffsResponse {
   // Tariff is the tariff.
-  repeated domain.billing.tariff.v1.Tariff list = 1;
+  repeated Tariff list = 1;
 }
 
 // TariffCreateRequest is the tariff create request message.
 message TariffCreateRequest {
   // Tariff is the tariff.
-  domain.billing.tariff.v1.Tariff tariff = 1;
+  Tariff tariff = 1;
 }
 
 // TariffCreateResponse is the tariff create response message.
 message TariffCreateResponse {
   // Tariff is the tariff.
-  domain.billing.tariff.v1.Tariff tariff = 1;
+  Tariff tariff = 1;
 }
 
 // TariffUpdateRequest is the tariff update request message.
 message TariffUpdateRequest {
   // Tariff is the tariff.
-  domain.billing.tariff.v1.Tariff tariff = 1;
+  Tariff tariff = 1;
 }
 
 // TariffUpdateResponse is the tariff update response message.
 message TariffUpdateResponse {
   // Tariff is the tariff.
-  domain.billing.tariff.v1.Tariff tariff = 1;
+  Tariff tariff = 1;
 }
 
 // TariffCloseRequest is the tariff close request message.
 message TariffCloseRequest {
   // Tariff is the tariff.
-  domain.billing.tariff.v1.Tariff tariff = 1;
+  Tariff tariff = 1;
 }
 
 // TariffCloseResponse is the tariff close response message.
 message TariffCloseResponse {
   // Tariff is the tariff.
-  domain.billing.tariff.v1.Tariff tariff = 1;
+  Tariff tariff = 1;
 }

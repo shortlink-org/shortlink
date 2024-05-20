@@ -1,10 +1,8 @@
 syntax = "proto3";
 
-package domain.billing.tariff.v1;
+package domain.tariff.v1;
 
 option go_package = "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/tariff/v1";
-
-import "google/protobuf/field_mask.proto";
 
 // Tariff events
 enum Event {
@@ -17,23 +15,4 @@ enum Event {
   EVENT_TARIFF_UPDATE = 2;
   // Tariff closed
   EVENT_TARIFF_CLOSE = 3;
-}
-
-// Tariff
-message Tariff {
-  // FieldMask
-  google.protobuf.FieldMask field_mask = 4;
-
-  // ID of tariff
-  string id = 1;
-  // Name of tariff
-  string name = 2;
-  // Description of tariff
-  string payload = 3;
-}
-
-// Tariff list
-message Tariffs {
-  // List of tariffs
-  repeated Tariff list = 1;
 }

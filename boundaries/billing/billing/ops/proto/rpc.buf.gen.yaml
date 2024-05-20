@@ -5,9 +5,9 @@ managed:
 
 plugins:
   - plugin: buf.build/protocolbuffers/go
-    out: boundaries/billing/billing
+    out: internal
     opt: paths=source_relative
 
   - plugin: buf.build/grpc/go
-    out: boundaries/billing/billing
+    out: internal
     opt: paths=source_relative

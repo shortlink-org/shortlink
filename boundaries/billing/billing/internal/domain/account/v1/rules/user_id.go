@@ -6,7 +6,7 @@ import (
 	v1 "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/account/v1"
 )
 
-var ErrUserIdRequired = errors.New("UserId is required")
+var ErrUserIdRequired = errors.New("userId is required")
 
 type UserId struct{}
 

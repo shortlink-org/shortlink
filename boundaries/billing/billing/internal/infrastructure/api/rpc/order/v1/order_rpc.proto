@@ -5,7 +5,29 @@ package infrastructure.api.rpc.order.v1;
 option go_package = "github.com/shortlink-org/shortlink/internal/billing/internal/infrastructure/order_rpc";
 
 import "google/protobuf/empty.proto";
-import "domain/billing/order/v1/order.proto";
+import "google/protobuf/field_mask.proto";
+import "domain/order/v1/order.proto";
+
+// Order service
+message Order {
+  // FieldMask
+  google.protobuf.FieldMask field_mask = 5;
+
+  // order id
+  string id = 1;
+  // user id
+  string user_id = 2;
+  // tariff id
+  string tariff_id = 3;
+  // status order
+  domain.order.v1.StatusOrder status = 4;
+}
+
+// Order list
+message Orders {
+  // order list
+  repeated Order list = 1;
+}
 
 // OrderService is the order service definition.
 service OrderService {
@@ -24,54 +46,54 @@ service OrderService {
 // OrderHistoryResponse is the response for the OrderHistory RPC.
 message OrderHistoryResponse {
   // List of orders.
-  repeated domain.billing.order.v1.Order list = 1;
+  repeated Order list = 1;
 }
 
 // OrderCreateRequest is the request for the OrderCreate RPC.
 message OrderCreateRequest {
   // Order to create.
-  domain.billing.order.v1.Order order = 1;
+  Order order = 1;
 }
 
 // OrderCreateResponse is the response for the OrderCreate RPC.
 message OrderCreateResponse {
   // Created order.
-  domain.billing.order.v1.Order order = 1;
+  Order order = 1;
 }
 
 // OrderUpdateRequest is the request for the OrderUpdate RPC.
 message OrderUpdateRequest {
   // Order to update.
-  domain.billing.order.v1.Order order = 1;
+  Order order = 1;
 }
 
 // OrderUpdateResponse is the response for the OrderUpdate RPC.
 message OrderUpdateResponse {
   // Updated order.
-  domain.billing.order.v1.Order order = 1;
+  Order order = 1;
 }
 
 // OrderCloseRequest is the request for the OrderClose RPC.
 message OrderCloseRequest {
   // Order to close.
-  domain.billing.order.v1.Order order = 1;
+  Order order = 1;
 }
 
 // OrderCloseResponse is the response for the OrderClose RPC.
 message OrderCloseResponse {
   // Closed order.
-  domain.billing.order.v1.Order order = 1;
+  Order order = 1;
 }
 
 // OrderApproveRequest is the request for the OrderApprove RPC.
 message OrderApproveRequest {
   // Order to approve.
-  domain.billing.order.v1.Order order = 1;
+  Order order = 1;
 }
 
 // OrderApproveResponse is the response for the OrderApprove RPC.
 message OrderApproveResponse {
   // Approved order.
-  domain.billing.order.v1.Order order = 1;
+  Order order = 1;
 }
 

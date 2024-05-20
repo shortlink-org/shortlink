@@ -72,7 +72,7 @@ func (api *AccoutAPI) get(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-// List - list
+// list - list
 func (api *AccoutAPI) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 

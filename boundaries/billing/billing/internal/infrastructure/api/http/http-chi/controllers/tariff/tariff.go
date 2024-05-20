@@ -72,7 +72,7 @@ func (api *API) get(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
 
-// List - list
+// list - list
 func (api *API) list(w http.ResponseWriter, r *http.Request) {
 	w.Header().Add("Content-Type", "application/json")
 

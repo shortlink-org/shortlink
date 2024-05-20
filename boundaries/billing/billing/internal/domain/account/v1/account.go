@@ -3,24 +3,24 @@ package v1
 // Account is a billing account
 type Account struct {
 	// account id
-	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 	// user id
-	UserId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	userId string `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
 	// tariff id
-	TariffId string `protobuf:"bytes,3,opt,name=tariff_id,json=tariffId,proto3" json:"tariff_id,omitempty"`
+	tariffId string `protobuf:"bytes,3,opt,name=tariff_id,json=tariffId,proto3" json:"tariff_id,omitempty"`
 }
 
-// GetId returns the Id field value
+// GetId returns the id field value
 func (m *Account) GetId() string {
-	return m.Id
+	return m.id
 }
 
-// GetUserId returns the UserId field value
+// GetUserId returns the userId field value
 func (m *Account) GetUserId() string {
-	return m.UserId
+	return m.userId
 }
 
-// GetTariffId returns the TariffId field value
+// GetTariffId returns the tariffId field value
 func (m *Account) GetTariffId() string {
-	return m.TariffId
+	return m.tariffId
 }

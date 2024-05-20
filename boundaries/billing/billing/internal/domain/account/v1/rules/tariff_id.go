@@ -6,7 +6,7 @@ import (
 	v1 "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/account/v1"
 )
 
-var ErrTariffIdRequired = errors.New("TariffId is required")
+var ErrTariffIdRequired = errors.New("tariffId is required")
 
 type TariffId struct{}
 

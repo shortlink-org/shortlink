@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package domain.billing.payment.v1;
+package domain.payment.v1;
 
 option go_package = "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/payment/v1";
 
-import "domain/billing/payment/v1/payment.proto";
+import "domain/payment/v1/payment.proto";
 
 // Event
 enum Event {

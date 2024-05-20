@@ -3,7 +3,5 @@ SELF_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 # INCLUDE ==============================================================================================================
 # Include Makefile
 include ../../../ops/Makefile/common.mk
-
-# DOCUMENTATION ========================================================================================================
-docs: ### Generate documentation about use ENV variables
-	@go run github.com/shortlink-org/shortlink/boundaries/platform/shortctl/cmd --o ./docs/env.md --include-dir "." --exclude-dir "vendor"
+include $(SELF_DIR)/ops/Makefile/proto.mk
+include $(SELF_DIR)/ops/Makefile/docs.mk

@@ -11,9 +11,9 @@ build:
   roots:
     - boundaries/api/api-gateway/gateways/grpc-web/infrastructure
     - boundaries/link/proxy/src/proto
-    - boundaries/billing/billing
-    - boundaries/link/link
-    - boundaries/link/metadata
+    - boundaries/billing/billing/internal
+    - boundaries/link/link/internal
+    - boundaries/link/metadata/internal
     - boundaries/marketing/referral/src
     - boundaries/notification/newsletter/src
     - pkg/pattern/eventsourcing

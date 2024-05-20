@@ -1,19 +1,20 @@
 version: v1beta1
 
-name: buf.build/shortlink-org/shortlink
+name: buf.build/shortlink-org/shortlink-billing-billing
 
 deps:
   - buf.build/googleapis/googleapis
 
 build:
   roots:
-    - boundaries/billing/billing
-    - pkg
+    - ./internal
 
 lint:
   use:
     - DEFAULT # the current strictest possible
+    - COMMENTS
   rpc_allow_google_protobuf_empty_requests: true
+  rpc_allow_google_protobuf_empty_responses: true
 
 breaking:
   use:

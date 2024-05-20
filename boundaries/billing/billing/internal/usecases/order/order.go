@@ -30,7 +30,7 @@ func (o OrderService) Get(ctx context.Context, id string) (*billing.Order, error
 }
 
 func (o OrderService) List(ctx context.Context, filter any) ([]*billing.Order, error) {
-	// return o.orderRepository.List(ctx, filter)
+	// return o.orderRepository.list(ctx, filter)
 	panic("implement me")
 }
 

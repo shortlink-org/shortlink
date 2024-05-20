@@ -24,9 +24,9 @@ func TestAccountService_Add(t *testing.T) {
 
 	// Create a new account
 	account := &v1.Account{
-		Id:       "test-id",
-		UserId:   "test-user-id",
-		TariffId: "test-tariff-id",
+		id:       "test-id",
+		userId:   "test-user-id",
+		tariffId: "test-tariff-id",
 	}
 
 	// Create a mock repository
@@ -58,9 +58,9 @@ func TestAccountService_Get(t *testing.T) {
 
 	// Create a new account
 	account := &v1.Account{
-		Id:       "test-id",
-		UserId:   "test-user-id",
-		TariffId: "test-tariff-id",
+		id:       "test-id",
+		userId:   "test-user-id",
+		tariffId: "test-tariff-id",
 	}
 
 	// Create a mock repository
@@ -92,14 +92,14 @@ func TestAccountService_List(t *testing.T) {
 
 	// Create a new account
 	account := &v1.Account{
-		Id:       "test-id",
-		UserId:   "test-user-id",
-		TariffId: "test-tariff-id",
+		id:       "test-id",
+		userId:   "test-user-id",
+		tariffId: "test-tariff-id",
 	}
 
 	// Create a mock repository
 	mockRepo := account_repository.NewRepository(t)
-	mockRepo.On("List", mock.Anything, mock.Anything).Return([]*v1.Account{account}, nil)
+	mockRepo.On("list", mock.Anything, mock.Anything).Return([]*v1.Account{account}, nil)
 
 	// Create the service with the mock repository
 	service := &AccountService{
@@ -107,15 +107,15 @@ func TestAccountService_List(t *testing.T) {
 		accountRepository: mockRepo,
 	}
 
-	// Call the List method
+	// Call the list method
 	result, err := service.List(context.Background(), nil)
 
 	// Assert that the returned account list contains the account we expected
 	assert.NoError(t, err)
 	assert.Equal(t, []*v1.Account{account}, result)
 
-	// Assert that the List method was called
-	mockRepo.AssertCalled(t, "List", mock.Anything, mock.Anything)
+	// Assert that the list method was called
+	mockRepo.AssertCalled(t, "list", mock.Anything, mock.Anything)
 }
 
 func TestAccountService_Update(t *testing.T) {
@@ -126,9 +126,9 @@ func TestAccountService_Update(t *testing.T) {
 
 	// Create a new account
 	account := &v1.Account{
-		Id:       "test-id",
-		UserId:   "test-user-id",
-		TariffId: "test-tariff-id",
+		id:       "test-id",
+		userId:   "test-user-id",
+		tariffId: "test-tariff-id",
 	}
 
 	// Create a mock repository
@@ -160,9 +160,9 @@ func TestAccountService_Delete(t *testing.T) {
 
 	// Create a new account
 	account := &v1.Account{
-		Id:       "test-id",
-		UserId:   "test-user-id",
-		TariffId: "test-tariff-id",
+		id:       "test-id",
+		userId:   "test-user-id",
+		tariffId: "test-tariff-id",
 	}
 
 	// Create a mock repository
