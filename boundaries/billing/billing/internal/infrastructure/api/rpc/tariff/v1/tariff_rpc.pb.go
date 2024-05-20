@@ -7,7 +7,7 @@
 package tariff_rpc
 
 import (
-	v1 "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/tariff/v1"
+	v1 "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/tariff/v1"
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	emptypb "google.golang.org/protobuf/types/known/emptypb"

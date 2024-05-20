@@ -10,7 +10,7 @@ import (
 	"github.com/jackc/pgx/v5"
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	v1 "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/account/v1"
+	v1 "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/account/v1"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/db/postgres/migrate"
 )

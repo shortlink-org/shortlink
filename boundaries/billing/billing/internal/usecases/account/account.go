@@ -5,8 +5,8 @@ import (
 
 	"github.com/google/uuid"
 
-	domain "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/account/v1"
-	"github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/account/v1/rules"
+	domain "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/account/v1"
+	"github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/account/v1/rules"
 	account_repository "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/infrastructure/repository/account"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/logger"

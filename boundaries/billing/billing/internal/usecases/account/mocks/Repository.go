@@ -5,7 +5,7 @@ package account_repository
 import (
 	context "context"
 
-	v1 "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/account/v1"
+	v1 "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/account/v1"
 	mock "github.com/stretchr/testify/mock"
 )
 

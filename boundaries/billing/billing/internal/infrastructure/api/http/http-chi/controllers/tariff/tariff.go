@@ -7,7 +7,7 @@ import (
 	"github.com/segmentio/encoding/json"
 	"google.golang.org/protobuf/encoding/protojson"
 
-	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/tariff/v1"
+	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/tariff/v1"
 	tariff_application "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/usecases/tariff"
 )
 

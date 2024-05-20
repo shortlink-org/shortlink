@@ -8,7 +8,7 @@ import (
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
 
-	v1 "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/account/v1"
+	v1 "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/account/v1"
 	account_repository "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/usecases/account/mocks"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/config"

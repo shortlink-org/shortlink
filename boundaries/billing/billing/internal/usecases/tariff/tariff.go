@@ -5,7 +5,7 @@ import (
 
 	"github.com/google/uuid"
 
-	domain "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/billing/tariff/v1"
+	domain "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/tariff/v1"
 	tariff_repository "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/infrastructure/repository/tariff"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/logger"

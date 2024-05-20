@@ -22,26 +22,3 @@ enum StatusPayment {
   // Reject payment
   STATUS_PAYMENT_REJECT = 5;
 }
-
-// Payment - information about payment
-message Payment {
-  // FieldMask
-  google.protobuf.FieldMask field_mask = 6;
-
-  // ID payment
-  string id = 1;
-  // Name payment
-  string name = 2;
-  // Status payment
-  StatusPayment status = 3;
-  // User ID
-  string user_id = 4;
-  // Amount payment
-  int64 amount = 5;
-}
-
-// Payments - list payments
-message Payments {
-  // List of payments
-  repeated Payment list = 1;
-}
