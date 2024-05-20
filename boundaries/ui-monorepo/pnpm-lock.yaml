@@ -81,8 +81,8 @@ importers:
         specifier: 10.4.19
         version: 10.4.19(postcss@8.4.38)
       axios:
-        specifier: ^1.7.0
-        version: 1.7.0
+        specifier: ^1.7.1
+        version: 1.7.1
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
@@ -5073,8 +5073,8 @@ packages:
     resolution: {integrity: sha512-QbUdXJVTpvUTHU7871ppZkdOLBeGUKBQWHkHrvN2V9IQWGMt61zf3B45BtzjxEJzYuj0JBjBZP/hmYS/R9pmAw==}
     engines: {node: '>=4'}
 
-  axios@1.7.0:
-    resolution: {integrity: sha512-IiB0wQeKyPRdsFVhBgIo31FbzOyf2M6wYl7/NVutFwFBRMiAbjNiydJIHKeLmPugF4kJLfA1uWZ82Is2QzqqFA==}
+  axios@1.7.1:
+    resolution: {integrity: sha512-+LV37nQcd1EpFalkXksWNBiA17NZ5m5/WspmHGmZmdx1qBOg/VNq/c4eRJiA9VQQHBOs+N0ZhhdU10h2TyNK7Q==}
 
   babel-core@7.0.0-bridge.0:
     resolution: {integrity: sha512-poPX9mZH/5CSanm50Q+1toVci6pv5KSRv/5TWCwtzQS5XEwn40BcCrgIeMFWP9CKKIniKXNxoIOnOq4VVlGXhg==}
@@ -9969,6 +9969,7 @@ packages:
   read-package-json@6.0.4:
     resolution: {integrity: sha512-AEtWXYfopBj2z5N5PbkAOeNHRPUg5q+Nen7QLxV8M2zJq1ym6/lCz3fYNTCXe19puu2d06jfHhrP7v/S2PtMMw==}
     engines: {node: ^14.17.0 || ^16.13.0 || >=18.0.0}
+    deprecated: This package is no longer supported. Please use @npmcli/package-json instead.
 
   read-pkg-up@7.0.1:
     resolution: {integrity: sha512-zK0TB7Xd6JpCLmlLmufqykGE+/TlOePD6qKClNW7hHDKFh/J7/7gCWGR7joEQEW1bKq3a3yUZSObOoWLFQ4ohg==}
@@ -15005,7 +15006,7 @@ snapshots:
 
   '@ory/client@1.9.0':
     dependencies:
-      axios: 1.7.0
+      axios: 1.7.1
     transitivePeerDependencies:
       - debug
 
@@ -17761,7 +17762,7 @@ snapshots:
 
   axe-core@4.9.1: {}
 
-  axios@1.7.0:
+  axios@1.7.1:
     dependencies:
       follow-redirects: 1.15.6
       form-data: 4.0.0
@@ -22443,7 +22444,7 @@ snapshots:
   nx-cloud@19.0.0:
     dependencies:
       '@nrwl/nx-cloud': 19.0.0
-      axios: 1.7.0
+      axios: 1.7.1
       chalk: 4.1.2
       dotenv: 10.0.0
       fs-extra: 11.2.0
@@ -22461,7 +22462,7 @@ snapshots:
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.0-rc.46
       '@zkochan/js-yaml': 0.0.6
-      axios: 1.7.0
+      axios: 1.7.1
       chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
@@ -22512,7 +22513,7 @@ snapshots:
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.0-rc.46
       '@zkochan/js-yaml': 0.0.6
-      axios: 1.7.0
+      axios: 1.7.1
       chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
