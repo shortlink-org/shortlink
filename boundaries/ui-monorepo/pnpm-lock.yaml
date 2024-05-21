@@ -81,8 +81,8 @@ importers:
         specifier: 10.4.19
         version: 10.4.19(postcss@8.4.38)
       axios:
-        specifier: ^1.7.1
-        version: 1.7.1
+        specifier: ^1.7.2
+        version: 1.7.2
       date-fns:
         specifier: ^3.6.0
         version: 3.6.0
@@ -5081,8 +5081,8 @@ packages:
     resolution: {integrity: sha512-QbUdXJVTpvUTHU7871ppZkdOLBeGUKBQWHkHrvN2V9IQWGMt61zf3B45BtzjxEJzYuj0JBjBZP/hmYS/R9pmAw==}
     engines: {node: '>=4'}
 
-  axios@1.7.1:
-    resolution: {integrity: sha512-+LV37nQcd1EpFalkXksWNBiA17NZ5m5/WspmHGmZmdx1qBOg/VNq/c4eRJiA9VQQHBOs+N0ZhhdU10h2TyNK7Q==}
+  axios@1.7.2:
+    resolution: {integrity: sha512-2A8QhOMrbomlDuiLeK9XibIBzuHeRcqqNOHp0Cyp5EoJ1IFDh+XZH3A6BkXtv0K4gFGCI0Y4BM7B1wOEi0Rmgw==}
 
   babel-core@7.0.0-bridge.0:
     resolution: {integrity: sha512-poPX9mZH/5CSanm50Q+1toVci6pv5KSRv/5TWCwtzQS5XEwn40BcCrgIeMFWP9CKKIniKXNxoIOnOq4VVlGXhg==}
@@ -15014,7 +15014,7 @@ snapshots:
 
   '@ory/client@1.9.0':
     dependencies:
-      axios: 1.7.1
+      axios: 1.7.2
     transitivePeerDependencies:
       - debug
 
@@ -17776,7 +17776,7 @@ snapshots:
 
   axe-core@4.9.1: {}
 
-  axios@1.7.1:
+  axios@1.7.2:
     dependencies:
       follow-redirects: 1.15.6
       form-data: 4.0.0
@@ -22458,7 +22458,7 @@ snapshots:
   nx-cloud@19.0.0:
     dependencies:
       '@nrwl/nx-cloud': 19.0.0
-      axios: 1.7.1
+      axios: 1.7.2
       chalk: 4.1.2
       dotenv: 10.0.0
       fs-extra: 11.2.0
@@ -22476,7 +22476,7 @@ snapshots:
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.0-rc.46
       '@zkochan/js-yaml': 0.0.6
-      axios: 1.7.1
+      axios: 1.7.2
       chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
@@ -22526,7 +22526,7 @@ snapshots:
       '@nrwl/tao': 19.1.0-canary.20240521-1255603(@swc/core@1.5.7(@swc/helpers@0.5.11))
       '@yarnpkg/lockfile': 1.1.0
       '@yarnpkg/parsers': 3.0.0-rc.46
-      axios: 1.7.1
+      axios: 1.7.2
       chalk: 4.1.2
       cli-cursor: 3.1.0
       cli-spinners: 2.6.1
