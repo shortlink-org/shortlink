@@ -1,18 +1,12 @@
-gateway:http-chi:crud:
+include:
+  - template: DAST.gitlab-ci.yml
+
+dast:
   stage: qa
-  image:
-    name: grafana/xk6:latest
-    entrypoint: ['']
   variables:
-    API_URL: $ENVIRONMENT_URL
-  before_script:
-    - xk6 build 
-      --with github.com/grafana/xk6-browser@latest 
-      --with github.com/grafana/xk6-distributed-tracing@latest 
-      --with github.com/grafana/xk6-dashboard@master
-  script:
-    - ./k6 run --out web-dashboard=export=tests/test-report.htm 
-        ./boundaries/link/bff/tests/integrations/k6-link-crud.js
-  needs: []
-  rules:
-    - if: $CI_COMMIT_TAG
+    DAST_TARGET_URL: $ENVIRONMENT_URL
+    # DAST_AUTH_URL: "$ENVIRONMENT_URL/next/auth/login"
+    # DAST_AUTH_USERNAME_FIELD: "css:[name=username]"
+    # DAST_AUTH_PASSWORD_FIELD: "css:[name=password]"
+    # DAST_AUTH_SUBMIT_FIELD: "css:button[type=submit]"
+
