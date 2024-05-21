@@ -151,9 +151,8 @@
   # Default: 0 - no truncation will occur
   spanNameLimit = 0
 
-  [tracing.openTelemetry]
-    address = "jaeger-agent:4317"
-    insecure = true
+  [tracing.otlp.http]
+    endpoint = "http://jaeger-agent:4318/v1/traces"
 
   [tracing.openTelemetry.grpc]
 
@@ -166,3 +165,6 @@
     addEntryPointsLabels = true
     addServicesLabels = true
     entryPoint = "metrics"
+
+  [otlp.http]
+      endpoint = "http://prometheus:9090/api/v1/otlp/v1/metrics"
