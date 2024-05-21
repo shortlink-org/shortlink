@@ -7,9 +7,6 @@ pyrra:
 
   fullnameOverride: pyrra
 
-  image:
-    tag: v0.7.2
-
   prometheusUrl: http://prometheus-prometheus.prometheus-operator:9090
   prometheusExternalUrl: https://shortlink.best/prometheus
 
@@ -36,10 +33,10 @@ pyrra:
   resources:
     limits:
       cpu: 100m
-      memory: 256Mi
+      memory: 30Mi
     requests:
-      cpu: 50m
-      memory: 64Mi
+      cpu: 100m
+      memory: 20Mi
 
   serviceMonitor:
     enabled: true
