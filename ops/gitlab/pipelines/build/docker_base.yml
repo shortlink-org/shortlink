@@ -29,7 +29,7 @@ container_scanning:
 
 verify_image:
   stage: security
-  image: alpine:3.19
+  image: alpine:3.20
   before_script:
     - apk add --update cosign docker
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
