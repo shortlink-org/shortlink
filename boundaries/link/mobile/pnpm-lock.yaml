@@ -51,8 +51,8 @@ importers:
         specifier: ^1.4.0
         version: 1.4.0(react-native-svg@15.3.0(react-native@0.74.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.2)(react@18.3.1))(react@18.3.1))(react-native@0.74.1(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.2)(react@18.3.1))(typescript@5.4.5)
       react-native-web:
-        specifier: ~0.19.11
-        version: 0.19.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+        specifier: ~0.19.12
+        version: 0.19.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       tslib:
         specifier: ^2.6.2
         version: 2.6.2
@@ -1611,9 +1611,6 @@ packages:
 
   '@react-native/normalize-color@2.1.0':
     resolution: {integrity: sha512-Z1jQI2NpdFJCVgpY+8Dq/Bt3d+YUi1928Q+/CZm/oh66fzM0RUl54vvuXlPJKybH4pdCZey1eDTPaLHkMPNgWA==}
-
-  '@react-native/normalize-colors@0.74.81':
-    resolution: {integrity: sha512-g3YvkLO7UsSWiDfYAU+gLhRHtEpUyz732lZB+N8IlLXc5MnfXHC8GKneDGY3Mh52I3gBrs20o37D5viQX9E1CA==}
 
   '@react-native/normalize-colors@0.74.83':
     resolution: {integrity: sha512-jhCY95gRDE44qYawWVvhTjTplW1g+JtKTKM3f8xYT1dJtJ8QWv+gqEtKcfmOHfDkSDaMKG0AGBaDTSK8GXLH8Q==}
@@ -6129,8 +6126,8 @@ packages:
     resolution: {integrity: sha512-ZgVlV5AdQgnPHHvBEihGf2xwyziT1acpXV1U+WfCgCv3lcEeCRsmwAsBU+kUSNsU+8TcWVsX04kdI6qUaS8D7w==}
     hasBin: true
 
-  react-native-web@0.19.11:
-    resolution: {integrity: sha512-51Qcjr0AtIgskwLqLsBByUMPs2nAWZ+6QF7x/siC72svNPcJ1/daXoPTNuHR2fX4oOrDATC4Vmc/SXOYPH19rw==}
+  react-native-web@0.19.12:
+    resolution: {integrity: sha512-o2T0oztoVDQjztt4YksO9S1XRjoH/AqcSvifgWLrPJgGVbMWsfhILgl6lfUdEamVZzZSVV/2gqDVMAk/qq7mZw==}
     peerDependencies:
       react: ^18.0.0
       react-dom: ^18.0.0
@@ -10348,8 +10345,6 @@ snapshots:
       - supports-color
 
   '@react-native/normalize-color@2.1.0': {}
-
-  '@react-native/normalize-colors@0.74.81': {}
 
   '@react-native/normalize-colors@0.74.83': {}
 
@@ -15818,10 +15813,10 @@ snapshots:
       prop-types: 15.8.1
       yargs: 16.2.0
 
-  react-native-web@0.19.11(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
+  react-native-web@0.19.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1):
     dependencies:
       '@babel/runtime': 7.24.0
-      '@react-native/normalize-colors': 0.74.81
+      '@react-native/normalize-colors': 0.74.83
       fbjs: 3.0.5
       inline-style-prefixer: 6.0.4
       memoize-one: 6.0.0
