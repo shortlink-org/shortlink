@@ -35,7 +35,7 @@ services:
     depends_on:
       - coredns
       - gitlab_postgres
-    image: gitlab/gitlab-ce:17.0.0-ce.0
+    image: gitlab/gitlab-ce:17.0.1-ce.0
     hostname: localhost
     container_name: gitlab
     restart: always
