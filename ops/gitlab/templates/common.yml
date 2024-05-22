@@ -16,7 +16,7 @@ default:
 
 env:
   stage: .pre
-  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine:3.19
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine:3.20
   script:
     - env
   when: manual
