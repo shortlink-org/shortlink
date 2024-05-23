@@ -11,8 +11,8 @@ grafana:
     "pyroscope.grafana.com/scrape": "true"
     "pyroscope.grafana.com/port": "6060"
 
-  image:
-    tag: 11.0.0-preview
+  testFramework:
+    enabled: false
 
   # TODO: disable after fix https://github.com/grafana/helm-charts/issues/2899
   assertNoLeakedSecrets: false
@@ -118,6 +118,13 @@ grafana:
     notifiers:
       enabled: true
       searchNamespace: ALL
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 25m
+        memory: 64Mi
 
   plugins:
     - grafana-polystat-panel
@@ -151,6 +158,24 @@ grafana:
   extraVolumeMounts:
     - name: grafana-plugins
       mountPath: /var/lib/grafana/plugins
+
+  downloadDashboards:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 25m
+        memory: 64Mi
+
+  initChownData:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 25m
+        memory: 64Mi
 
   grafana.ini:
     reporting:
