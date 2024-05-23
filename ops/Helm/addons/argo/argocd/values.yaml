@@ -12,6 +12,9 @@ argo-cd:
     # image:
     #   tag: "v2.11.0-rc3"
 
+    networkPolicy:
+      create: true
+
     logging:
       format: json
       level: warn
