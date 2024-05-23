@@ -94,6 +94,7 @@ spec:
         - name: local-path-provisioner
           image: rancher/local-path-provisioner:master-head
           imagePullPolicy: IfNotPresent
+          resources: {}
           command:
             - local-path-provisioner
             - --debug
