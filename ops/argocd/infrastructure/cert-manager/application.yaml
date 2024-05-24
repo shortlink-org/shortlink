@@ -53,3 +53,7 @@ spec:
       kind: ClusterPolicy
       jqPathExpressions:
         - .spec.rules[] | select(.name|test("autogen-."))
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      jqPathExpressions:
+        - '.webhooks[]?.clientConfig.caBundle'
