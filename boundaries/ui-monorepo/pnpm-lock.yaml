@@ -492,8 +492,8 @@ importers:
         specifier: 8.1.3
         version: 8.1.3(@types/react-dom@18.3.0)(@types/react@18.3.3)(encoding@0.1.13)(prettier@3.2.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@storybook/addon-coverage':
-        specifier: ^1.0.3
-        version: 1.0.3
+        specifier: ^1.0.4
+        version: 1.0.4
       '@storybook/addon-docs':
         specifier: 8.1.3
         version: 8.1.3(@types/react-dom@18.3.0)(encoding@0.1.13)(prettier@3.2.5)
@@ -4223,8 +4223,8 @@ packages:
   '@storybook/addon-controls@8.1.3':
     resolution: {integrity: sha512-3/w5/AVrA+U3A5VtYmqJoj2kCu6qVLB6ycsusxsAlRKkXTRO5HvbK1Ndm8oPNaKaJT4W22VIVem6SyVMiNq4Kw==}
 
-  '@storybook/addon-coverage@1.0.3':
-    resolution: {integrity: sha512-UTv2rCn5yub6GJG6QMG1eLkewRwS1DmZ2S/9+sewfXDP86+CW3TTPU7eo4e04UMEwElh4sS+7J6y8BCavHXaSQ==}
+  '@storybook/addon-coverage@1.0.4':
+    resolution: {integrity: sha512-+qwsKTg6c0IrGnVAQjt1NxDyTqCOcudz9+56kFDmGApaPSby4uibYgJnnzua3sRVTe1zYZUfxwpeAuK9Ysf4Ig==}
 
   '@storybook/addon-docs@8.1.3':
     resolution: {integrity: sha512-oASBnWOT9bUXo3rWDH8Ph8xWvi7cia1Bn/aoA2YlkJIC9R99FLQbEeKOJgcANWBC05YnLF75k4AOZOLqLPMVxQ==}
@@ -16865,7 +16865,7 @@ snapshots:
       - react-dom
       - supports-color
 
-  '@storybook/addon-coverage@1.0.3':
+  '@storybook/addon-coverage@1.0.4':
     dependencies:
       '@istanbuljs/load-nyc-config': 1.1.0
       '@jsdevtools/coverage-istanbul-loader': 3.0.5
@@ -16873,7 +16873,6 @@ snapshots:
       convert-source-map: 2.0.0
       espree: 9.6.1
       istanbul-lib-instrument: 6.0.2
-      source-map: 0.7.4
       test-exclude: 6.0.0
       vite-plugin-istanbul: 3.0.4
     transitivePeerDependencies:
