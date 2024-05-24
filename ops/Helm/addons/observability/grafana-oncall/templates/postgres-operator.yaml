@@ -9,6 +9,7 @@ spec:
       sidecar.istio.io/inject: "false"
   instances:
     - name: grafana
+      replicas: 1
       metadata:
         annotations:
           sidecar.istio.io/inject: "false"

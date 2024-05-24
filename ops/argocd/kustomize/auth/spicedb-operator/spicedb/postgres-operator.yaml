@@ -11,6 +11,7 @@ spec:
       sidecar.istio.io/inject: "false"
   instances:
     - name: spicedb
+      replicas: 1
       metadata:
         annotations:
           sidecar.istio.io/inject: "false"

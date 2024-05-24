@@ -6,6 +6,7 @@ spec:
   postgresVersion: 16
   instances:
     - name: shortlink
+      replicas: 1
       metadata:
         annotations:
           replicator.v1.mittwald.de/replicate-to: "shortlink"
