@@ -64,3 +64,7 @@ spec:
       jqPathExpressions:
         - .spec.template.spec.containers[].env[].valueFrom.resourceFieldRef.divisor
         - .spec.template.spec.initContainers[].env[].valueFrom.resourceFieldRef.divisor
+    - group: admissionregistration.k8s.io
+      kind: MutatingWebhookConfiguration
+      jqPathExpressions:
+        - '.webhooks[]?.clientConfig.caBundle'
