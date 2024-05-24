@@ -121,7 +121,7 @@ services:
       - tikv1
       - tikv2
       - coredns
-    image: pingcap/tidb:v8.0.0
+    image: pingcap/tidb:v8.1.0
     ports:
       - "4000:4000"
       - "10080:10080"
