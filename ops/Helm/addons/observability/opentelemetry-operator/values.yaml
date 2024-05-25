@@ -7,7 +7,7 @@ opentelemetry-operator:
     enabled: true
 
   manager:
-    featureGates:
+    featureGates: ""
 
     serviceMonitor:
       enabled: true
