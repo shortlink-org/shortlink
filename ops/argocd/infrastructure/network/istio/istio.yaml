@@ -65,6 +65,6 @@ spec:
         - .spec.template.spec.containers[].env[].valueFrom.resourceFieldRef.divisor
         - .spec.template.spec.initContainers[].env[].valueFrom.resourceFieldRef.divisor
     - group: admissionregistration.k8s.io
-      kind: MutatingWebhookConfiguration
+      kind: ValidatingWebhookConfiguration
       jqPathExpressions:
         - '.webhooks[]?.clientConfig.caBundle'
