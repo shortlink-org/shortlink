@@ -147,6 +147,14 @@ grafana:
           # Unzip pluginName where grafana read plugins
           unzip /tmp/grafana-lokiexplore-app-latest.zip -d /var/lib/grafana/plugins
 
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 25m
+          memory: 64Mi
+
       volumeMounts:
         - name: grafana-plugins
           mountPath: /var/lib/grafana/plugins

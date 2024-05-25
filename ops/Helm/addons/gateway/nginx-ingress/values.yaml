@@ -69,6 +69,14 @@ ingress-nginx:
     opentelemetry:
       enabled: true
 
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 10m
+          memory: 32Mi
+
     ingressClassResource:
       default: true
 
