@@ -47,3 +47,7 @@ spec:
       name: crunchy-scylla-exporter
       jqPathExpressions:
         - .spec.podMetricsEndpoints[] | select(.action)
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
+      jqPathExpressions:
+        - '.webhooks[]?.clientConfig.caBundle'
