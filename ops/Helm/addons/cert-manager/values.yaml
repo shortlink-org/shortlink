@@ -9,6 +9,14 @@ annotations: {}
 certmanager:
   enabled: true
 
+  resources:
+    requests:
+      cpu: 10m
+      memory: 32Mi
+    limits:
+      cpu: 100m
+      memory: 128Mi
+
   featureGates: "ExperimentalGatewayAPISupport=true"
 
   # type: http, cloudflare
@@ -20,6 +28,33 @@ certmanager:
   extraArgs:
     - --logging-format=json
 #    - --controllers='*\,-certificaterequests-approver'
+
+  webhook:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        cpu: 100m
+        memory: 128Mi
+
+  cainjector:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        cpu: 100m
+        memory: 128Mi
+
+  startupapicheck:
+    resources:
+      requests:
+        cpu: 10m
+        memory: 32Mi
+      limits:
+        cpu: 100m
+        memory: 128Mi
 
   prometheus:
     enabled: true
