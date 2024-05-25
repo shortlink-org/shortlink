@@ -21,6 +21,11 @@ kratos:
         value: http://grafana-tempo.grafana:14268/sampling
       - name: TRACING_PROVIDERS_JAEGER_LOCAL_AGENT_ADDRESS
         value: grafana-tempo.grafana:6831
+      - name: DSN
+        valueFrom:
+          secretKeyRef:
+            name: kratos-postgres-pguser-kratos
+            key: uri
 
   ingress:
     admin:

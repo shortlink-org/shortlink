@@ -28,7 +28,6 @@ spec:
         # Example Method 2: (Assumptions: namespace=argocd, secret-name=sops-gpg, key-name=app, secret.yaml is in the root folder)
         - secrets+gpg-import-kubernetes://argocd/sops-gpg#sops.asc?secret.sops.yaml
         - secrets+gpg-import-kubernetes://argocd/sops-gpg#sops.asc?courier.sops.yaml
-        - secrets+gpg-import-kubernetes://argocd/sops-gpg#sops.asc?dsn.sops.yaml
   syncPolicy:
     automated:
       prune: true
