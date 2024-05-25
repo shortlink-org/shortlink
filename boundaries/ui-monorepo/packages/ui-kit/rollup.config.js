@@ -55,7 +55,7 @@ export default [
       'react-dom',
       'prop-types',
       '@emotion/react',
-      // '@mui/styled-engine',
+      '@mui/styled-engine',
       '@mui/system',
       '@mui/material',
       '@mui/material/styles',

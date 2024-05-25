@@ -41,7 +41,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--extraKubernetesArgs[0]"><a href="./values.yaml#L17">pyrra.extraKubernetesArgs[0]</a></td>
+			<td id="pyrra--extraKubernetesArgs[0]"><a href="./values.yaml#L14">pyrra.extraKubernetesArgs[0]</a></td>
 			<td>
 string
 </td>
@@ -69,7 +69,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--genericRules--enabled"><a href="./values.yaml#L53">pyrra.genericRules.enabled</a></td>
+			<td id="pyrra--genericRules--enabled"><a href="./values.yaml#L50">pyrra.genericRules.enabled</a></td>
 			<td>
 bool
 </td>
@@ -83,21 +83,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--image--tag"><a href="./values.yaml#L11">pyrra.image.tag</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"v0.7.2"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="pyrra--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L23">pyrra.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td id="pyrra--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L20">pyrra.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
 			<td>
 string
 </td>
@@ -111,7 +97,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L25">pyrra.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="pyrra--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L22">pyrra.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -125,7 +111,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L24">pyrra.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="pyrra--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L21">pyrra.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -139,7 +125,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--ingress--className"><a href="./values.yaml#L21">pyrra.ingress.className</a></td>
+			<td id="pyrra--ingress--className"><a href="./values.yaml#L18">pyrra.ingress.className</a></td>
 			<td>
 string
 </td>
@@ -153,7 +139,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--ingress--enabled"><a href="./values.yaml#L20">pyrra.ingress.enabled</a></td>
+			<td id="pyrra--ingress--enabled"><a href="./values.yaml#L17">pyrra.ingress.enabled</a></td>
 			<td>
 bool
 </td>
@@ -167,7 +153,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--ingress--hosts[0]--host"><a href="./values.yaml#L27">pyrra.ingress.hosts[0].host</a></td>
+			<td id="pyrra--ingress--hosts[0]--host"><a href="./values.yaml#L24">pyrra.ingress.hosts[0].host</a></td>
 			<td>
 string
 </td>
@@ -181,7 +167,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--ingress--hosts[0]--paths[0]--path"><a href="./values.yaml#L29">pyrra.ingress.hosts[0].paths[0].path</a></td>
+			<td id="pyrra--ingress--hosts[0]--paths[0]--path"><a href="./values.yaml#L26">pyrra.ingress.hosts[0].paths[0].path</a></td>
 			<td>
 string
 </td>
@@ -195,7 +181,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--ingress--hosts[0]--paths[0]--pathType"><a href="./values.yaml#L30">pyrra.ingress.hosts[0].paths[0].pathType</a></td>
+			<td id="pyrra--ingress--hosts[0]--paths[0]--pathType"><a href="./values.yaml#L27">pyrra.ingress.hosts[0].paths[0].pathType</a></td>
 			<td>
 string
 </td>
@@ -209,7 +195,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--ingress--tls[0]--hosts[0]"><a href="./values.yaml#L34">pyrra.ingress.tls[0].hosts[0]</a></td>
+			<td id="pyrra--ingress--tls[0]--hosts[0]"><a href="./values.yaml#L31">pyrra.ingress.tls[0].hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -223,7 +209,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--ingress--tls[0]--secretName"><a href="./values.yaml#L32">pyrra.ingress.tls[0].secretName</a></td>
+			<td id="pyrra--ingress--tls[0]--secretName"><a href="./values.yaml#L29">pyrra.ingress.tls[0].secretName</a></td>
 			<td>
 string
 </td>
@@ -237,7 +223,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--prometheusExternalUrl"><a href="./values.yaml#L14">pyrra.prometheusExternalUrl</a></td>
+			<td id="pyrra--prometheusExternalUrl"><a href="./values.yaml#L11">pyrra.prometheusExternalUrl</a></td>
 			<td>
 string
 </td>
@@ -251,7 +237,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--prometheusUrl"><a href="./values.yaml#L13">pyrra.prometheusUrl</a></td>
+			<td id="pyrra--prometheusUrl"><a href="./values.yaml#L10">pyrra.prometheusUrl</a></td>
 			<td>
 string
 </td>
@@ -265,7 +251,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--resources--limits--cpu"><a href="./values.yaml#L38">pyrra.resources.limits.cpu</a></td>
+			<td id="pyrra--resources--limits--cpu"><a href="./values.yaml#L35">pyrra.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -279,49 +265,49 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--resources--limits--memory"><a href="./values.yaml#L39">pyrra.resources.limits.memory</a></td>
+			<td id="pyrra--resources--limits--memory"><a href="./values.yaml#L36">pyrra.resources.limits.memory</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"256Mi"
+"30Mi"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--resources--requests--cpu"><a href="./values.yaml#L41">pyrra.resources.requests.cpu</a></td>
+			<td id="pyrra--resources--requests--cpu"><a href="./values.yaml#L38">pyrra.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"50m"
+"100m"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--resources--requests--memory"><a href="./values.yaml#L42">pyrra.resources.requests.memory</a></td>
+			<td id="pyrra--resources--requests--memory"><a href="./values.yaml#L39">pyrra.resources.requests.memory</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"64Mi"
+"20Mi"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--serviceMonitor--enabled"><a href="./values.yaml#L45">pyrra.serviceMonitor.enabled</a></td>
+			<td id="pyrra--serviceMonitor--enabled"><a href="./values.yaml#L42">pyrra.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -335,7 +321,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--serviceMonitor--jobLabel"><a href="./values.yaml#L47">pyrra.serviceMonitor.jobLabel</a></td>
+			<td id="pyrra--serviceMonitor--jobLabel"><a href="./values.yaml#L44">pyrra.serviceMonitor.jobLabel</a></td>
 			<td>
 string
 </td>
@@ -349,7 +335,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyrra--serviceMonitor--labels--release"><a href="./values.yaml#L50">pyrra.serviceMonitor.labels.release</a></td>
+			<td id="pyrra--serviceMonitor--labels--release"><a href="./values.yaml#L47">pyrra.serviceMonitor.labels.release</a></td>
 			<td>
 string
 </td>
