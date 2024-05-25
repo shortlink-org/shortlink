@@ -181,6 +181,14 @@ kratos:
       # Defaults to job
       type: initContainer
 
+      resources:
+        limits:
+          cpu: 100m
+          memory: 128Mi
+        requests:
+          cpu: 100m
+          memory: 128Mi
+
     #  You can add multiple identity schemas here
     identitySchemas:
       "identity.default.schema.json": |
