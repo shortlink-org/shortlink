@@ -3,7 +3,7 @@ kind: Secret
 metadata:
   name: oncall-postgres-pguser-grafana
   annotations:
-    argocd.argoproj.io/sync-wave: "0"
+    argocd.argoproj.io/sync-wave: "-1"
     argocd.argoproj.io/compare-options: IgnoreExtraneous
 stringData:
   password: "grafana-password"
