@@ -4,25 +4,15 @@ deps:
   - remote: buf.build
     owner: envoyproxy
     repository: protoc-gen-validate
-    commit: ea113bc841fa448ab34bf3f9fa6cef0f
+    commit: 89818263b32b46d39c9ecb5984bd2850
     digest: shake256:8f3653779e824957a4fe3d18cdb73531f7f7ed1393848082dfe1f90026fd187da9534e759b5833f4e5487be0d34cfa7d4ff149af9a2694863773387d61d09fce
   - remote: buf.build
     owner: googleapis
     repository: googleapis
-    commit: 4ed3bc159a8b4ac68fe253218760d035
-    digest: shake256:7149cf5e9955c692d381e557830555d4e93f205a0f1b8e2dfdae46d029369aa3fc1980e35df0d310f7cc3b622f93e19ad276769a283a967dd3065ddfd3a40e13
+    commit: f0e53af8f2fc4556b94f482688b57223
+    digest: shake256:de26a277fc28b8b411ecf58729d78d32fcf15090ffd998a4469225b17889bfb51442eaab04bb7a8d88d203ecdf0a9febd4ffd52c18ed1c2229160c7bd353ca95
   - remote: buf.build
     owner: grpc-ecosystem
     repository: grpc-gateway
-    commit: ca289928665845a7b2f7285d052c739a
+    commit: f04e50c23f5f40f786d0e8fa3fe3d713
     digest: shake256:67b115260e12cb2d6c5d5ce8dbbf3a095c86f0e52b84f9dbd16dec9433b218f8694bc9aadb1d45eb6fd52f5a7029977d460e2d58afb3208ab6c680e7b21c80e4
-  - remote: buf.build
-    owner: shortlink-org
-    repository: protoc-gen-rich-model
-    commit: 62abd71359c1475b9b678bdbf8b52a82
-    digest: shake256:8c9e63af688602a2dbe37f61d90a34ca0b92a161de4a14957dfbb28a08d9465cc2185eae5212b7a730efbaf405153b871ab4b5bbe9798de3c72c472e9c293b42
-  - remote: buf.build
-    owner: srikrsna
-    repository: protoc-gen-gotag
-    commit: 7a85d3ad2e7642c198480e92bf730c14
-    digest: shake256:059f136681cd47abe2d6e83d20b9594071c481572d16cebfafbc81ba3d3e7924aef6974f99da53d67a01d033e30b7bf57985a206b4e856fc82508545de84a70c
