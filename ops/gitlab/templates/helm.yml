@@ -1,7 +1,7 @@
 .job_template_helm:
   stage: action
   image:
-    name: alpine/helm:3.14.4
+    name: alpine/helm:3.15.1
     entrypoint: [""]
   variables:
     HELM_EXPERIMENTAL_OCI: 1
