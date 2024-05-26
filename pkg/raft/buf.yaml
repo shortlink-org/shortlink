@@ -1,0 +1,19 @@
+version: v1beta1
+
+name: buf.build/shortlink-org/raft
+
+build:
+  roots:
+    - .
+
+lint:
+  use:
+    - DEFAULT # the current strictest possible
+    - COMMENTS
+  rpc_allow_google_protobuf_empty_requests: true
+  rpc_allow_google_protobuf_empty_responses: true
+
+breaking:
+  use:
+    - WIRE_JSON
+
