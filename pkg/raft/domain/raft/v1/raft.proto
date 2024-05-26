@@ -21,24 +21,3 @@ enum RaftStatus {
   // RAFT_STATUS_STOPPED is the status of a raft node when it is stopped.
   RAFT_STATUS_STOPPED = 4;
 }
-
-// Raft is the representation of a raft node.
-message Raft {
-  // field_mask is the list of fields to update.
-  google.protobuf.FieldMask field_mask = 8;
-
-  // id is the unique identifier of the raft node.
-  string id = 1;
-  // peerIds is the list of peer IDs.
-  repeated string peer_ids = 2;
-  // name is the human-readable name of the raft node.
-  string name = 3;
-  // address is the address of the raft node.
-  string address = 4;
-  // status is the status of the raft node.
-  RaftStatus status = 5;
-  // last_heartbeat is the last time the raft node sent a heartbeat.
-  google.protobuf.Timestamp last_heartbeat = 6;
-  // weight is the voting weight of the raft node.
-  int32 weight = 7;
-}
