@@ -28,13 +28,14 @@ func main() {
 
 ```mermaid
 stateDiagram-v2
-    Start     --> Follower: times out, start election
-    Follower  --> Candidate: times out, start election
-    Candidate --> Candidate: timeout, new election
-    Candidate --> Leader: win election
-    Candidate --> Follower: receive vote from majority
+  UNSPECIFIED --> Follower: times out, start election
+  Follower    --> Candidate: times out, start election
+  Candidate   --> Candidate: timeout, new election
+  Candidate   --> Leader: win election
+  Candidate   --> Follower: receive vote from majority
 ```
 
 #### Docs
 
 + [The Raft Consensus Algorithm](https://raft.github.io/)
++ [Implementing Raft](https://eli.thegreenplace.net/2020/implementing-raft-part-0-introduction/)

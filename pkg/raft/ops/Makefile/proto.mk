@@ -12,3 +12,6 @@ proto-generate: ## Generate proto-files
 	@buf generate \
 		--path=domain \
 		--template=ops/proto/domain.buf.gen.yaml
+	@buf generate \
+		--path=rpc \
+		--template=ops/proto/rpc.buf.gen.yaml

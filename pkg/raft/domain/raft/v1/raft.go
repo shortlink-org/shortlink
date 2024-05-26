@@ -24,3 +24,8 @@ type Raft struct {
 	// weight is the voting weight of the raft node.
 	weight int32
 }
+
+// GetStatus returns the status of the raft node.
+func (r *Raft) GetStatus() RaftStatus {
+	return r.status
+}

@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package rpc.v1;
+
+option go_package = "github.com/shortlink-org/shortlink/pkg/raft/rpc/v1";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+
+service RaftService {
+  // RequestVotes is called by candidates to gather votes from other nodes.
+  rpc RequestVotes(RequestVotesRequest) returns (RequestVotesResponse);
+  // AppendEntries is called by leaders to replicate log entries and provide a heartbeat.
+  rpc AppendEntries(AppendEntriesRequest) returns (AppendEntriesResponse);
+}
+
+message RequestVotesRequest {}
+message RequestVotesResponse {}
+
+message AppendEntriesRequest {}
+message AppendEntriesResponse {}

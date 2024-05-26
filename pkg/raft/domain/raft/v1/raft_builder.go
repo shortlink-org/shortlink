@@ -61,5 +61,14 @@ func (b *RaftBuilder) Build() (*Raft, error) {
 		return nil, b.errors
 	}
 
+	// set default values
+	if b.raft.weight == 0 {
+		b.raft.weight = 1
+	}
+
+	if b.raft.status.Enum() == nil {
+		b.raft.status = RaftStatus_RAFT_STATUS_FOLLOWER
+	}
+
 	return b.raft, nil
 }
