@@ -3586,9 +3586,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/cli@npm:^0.26.5":
-  version: 0.26.5
-  resolution: "@backstage/cli@npm:0.26.5"
+"@backstage/cli@npm:^0.26.6":
+  version: 0.26.6
+  resolution: "@backstage/cli@npm:0.26.6"
   dependencies:
     "@backstage/catalog-model": "npm:^1.5.0"
     "@backstage/cli-common": "npm:^0.1.13"
@@ -3717,7 +3717,7 @@ __metadata:
       optional: true
   bin:
     backstage-cli: bin/backstage-cli
-  checksum: 10c0/d098b0036aeae4e56cda82d6619a5dd2d887d7d6d98e96e2733f66f7cef8b4a446eb3e7bd8ea2c21c874c61dcc4938dfc99b1f58c26ff700dcfb449317472487
+  checksum: 10c0/2ee239d85695aa8aa824d39103ee671d1c87e70c7f921f42c43fd989f0fbd0ee414f57cb53810b949da0037f34337e08db0ced0eacd83084f4ba9c47371a1d96
   languageName: node
   linkType: hard
 
@@ -15325,7 +15325,7 @@ __metadata:
     "@axis-backstage/plugin-readme-backend": "npm:^0.6.0"
     "@backstage/app-defaults": "npm:^1.5.5"
     "@backstage/catalog-model": "npm:^1.5.0"
-    "@backstage/cli": "npm:^0.26.5"
+    "@backstage/cli": "npm:^0.26.6"
     "@backstage/core-app-api": "npm:^1.12.5"
     "@backstage/core-components": "npm:^0.14.7"
     "@backstage/core-plugin-api": "npm:^1.9.2"
@@ -16032,7 +16032,7 @@ __metadata:
     "@backstage/backend-tasks": "npm:^0.5.23"
     "@backstage/catalog-client": "npm:^1.6.5"
     "@backstage/catalog-model": "npm:^1.5.0"
-    "@backstage/cli": "npm:^0.26.5"
+    "@backstage/cli": "npm:^0.26.6"
     "@backstage/config": "npm:^1.2.0"
     "@backstage/plugin-app-backend": "npm:^0.3.67"
     "@backstage/plugin-auth-backend": "npm:^0.22.5"
@@ -31859,7 +31859,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root@workspace:."
   dependencies:
-    "@backstage/cli": "npm:^0.26.5"
+    "@backstage/cli": "npm:^0.26.6"
     "@types/react": "npm:^18.3.3"
     "@types/react-dom": "npm:^18.3.0"
     concurrently: "npm:^8.2.2"
