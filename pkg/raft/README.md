@@ -38,4 +38,7 @@ stateDiagram-v2
 #### Docs
 
 + [The Raft Consensus Algorithm](https://raft.github.io/)
+  + [In Search of an Understandable Consensus Algorithm (Extended Version)](https://raft.github.io/raft.pdf)
 + [Implementing Raft](https://eli.thegreenplace.net/2020/implementing-raft-part-0-introduction/)
++ [Raft: Understandable Distributed Consensus](https://thesecretlivesofdata.com/raft/)
++ [GopherCon 2023: Philip O'Toole - Build Your Own Distributed System Using Go](https://youtu.be/8XbxQ1Epi5w?si=BHtRY59yORQrGoyt)
