@@ -18,14 +18,8 @@ func NewRaftBuilder() *RaftBuilder {
 	return &RaftBuilder{raft: &Raft{}}
 }
 
-// SetID sets the id of the Raft.
-func (b *RaftBuilder) SetID(id uuid.UUID) *RaftBuilder {
-	b.raft.id = id
-	return b
-}
-
 // SetPeerIDs sets the peerIDs of the Raft.
-func (b *RaftBuilder) SetPeerIDs(peerIDs []uuid.UUID) *RaftBuilder {
+func (b *RaftBuilder) SetPeerIDs(peerIDs []string) *RaftBuilder {
 	b.raft.peerIDs = peerIDs
 	return b
 }
@@ -66,9 +60,10 @@ func (b *RaftBuilder) Build() (*Raft, error) {
 		b.raft.weight = 1
 	}
 
-	if b.raft.status.Enum() == nil {
-		b.raft.status = RaftStatus_RAFT_STATUS_FOLLOWER
-	}
+	b.raft.status = RaftStatus_RAFT_STATUS_FOLLOWER
+
+	// generate a new UUID for the Raft
+	b.raft.id = uuid.New()
 
 	return b.raft, nil
 }

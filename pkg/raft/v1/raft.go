@@ -11,8 +11,8 @@ import (
 type Raft struct {
 	// id is the unique identifier of the raft node.
 	id uuid.UUID
-	// peerIDs is the list of peer IDs.
-	peerIDs []uuid.UUID
+	// peerIDs is the list of peer addresses.
+	peerIDs []string
 	// name is the human-readable name of the raft node.
 	name string
 	// address is the address of the raft node.
@@ -25,7 +25,22 @@ type Raft struct {
 	weight int32
 }
 
+// GetID returns the ID of the raft node.
+func (r *Raft) GetID() uuid.UUID {
+	return r.id
+}
+
 // GetStatus returns the status of the raft node.
 func (r *Raft) GetStatus() RaftStatus {
 	return r.status
+}
+
+// GetPeerIDs returns the peer addresses of the raft node.
+func (r *Raft) GetPeerIDs() []string {
+	return r.peerIDs
+}
+
+// SetStatus sets the status of the raft node.
+func (r *Raft) SetStatus(status RaftStatus) {
+	r.status = status
 }

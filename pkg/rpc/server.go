@@ -112,11 +112,14 @@ func setServerConfig(log logger.Logger, tracer trace.TracerProvider, monitor *mo
 	}
 
 	config.WithLogger(log)
-	config.WithMetrics(monitor)
-	config.WithRecovery(monitor)
 	config.WithTracer(tracer)
 	config.withSession()
 	config.withPprofLabels()
+
+	if monitor != nil {
+		config.WithMetrics(monitor)
+		config.WithRecovery(monitor)
+	}
 
 	config.optionsNewServer = append(config.optionsNewServer,
 		// Initialize your gRPC server's interceptor.

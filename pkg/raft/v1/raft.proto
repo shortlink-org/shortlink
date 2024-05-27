@@ -1,8 +1,8 @@
 syntax = "proto3";
 
-package domain.raft.v1;
+package v1;
 
-option go_package = "github.com/shortlink-org/shortlink/pkg/raft/domain/raft/v1";
+option go_package = "github.com/shortlink-org/shortlink/pkg/raft/v1";
 
 import "google/protobuf/field_mask.proto";
 import "google/protobuf/timestamp.proto";
@@ -18,6 +18,4 @@ enum RaftStatus {
   RAFT_STATUS_FOLLOWER = 2;
   // RAFT_STATUS_CANDIDATE is the status of a raft node when it is a candidate.
   RAFT_STATUS_CANDIDATE = 3;
-  // RAFT_STATUS_STOPPED is the status of a raft node when it is stopped.
-  RAFT_STATUS_STOPPED = 4;
 }
