@@ -14,7 +14,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: grafana/tempo:2.4.2
+    image: grafana/tempo:2.5.0
     profiles:
       - observability
     command: ["-config.file=/etc/tempo.yaml"]
