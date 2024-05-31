@@ -1438,9 +1438,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@axis-backstage/plugin-readme-backend@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "@axis-backstage/plugin-readme-backend@npm:0.6.0"
+"@axis-backstage/plugin-readme-backend@npm:^0.6.1":
+  version: 0.6.1
+  resolution: "@axis-backstage/plugin-readme-backend@npm:0.6.1"
   dependencies:
     "@backstage/backend-common": "npm:^0.21.7"
     "@backstage/backend-plugin-api": "npm:^0.6.17"
@@ -1455,7 +1455,7 @@ __metadata:
     node-fetch: "npm:^2.6.7"
     winston: "npm:^3.2.1"
     yn: "npm:^4.0.0"
-  checksum: 10c0/551b64915a8d3f07d32d58e3235aa4eb7dd1652315d01d24906e7e8252f6a59ca44dd28a5bf149d8f2648851067f61eb3fb6032469474d1a514742505ba0b541
+  checksum: 10c0/be2aa1a3081b09c702d87ed186de3e97eb62eee75de9dcda8e92f60807529ce883e39a80f99cb35d704626e848037870cde2c9eca7d85aa9e07546659a1b6940
   languageName: node
   linkType: hard
 
@@ -15322,7 +15322,7 @@ __metadata:
   resolution: "app@workspace:packages/app"
   dependencies:
     "@axis-backstage/plugin-readme": "npm:^0.7.1"
-    "@axis-backstage/plugin-readme-backend": "npm:^0.6.0"
+    "@axis-backstage/plugin-readme-backend": "npm:^0.6.1"
     "@backstage/app-defaults": "npm:^1.5.5"
     "@backstage/catalog-model": "npm:^1.5.0"
     "@backstage/cli": "npm:^0.26.6"
@@ -16027,7 +16027,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "backend@workspace:packages/backend"
   dependencies:
-    "@axis-backstage/plugin-readme-backend": "npm:^0.6.0"
+    "@axis-backstage/plugin-readme-backend": "npm:^0.6.1"
     "@backstage/backend-common": "npm:^0.22.0"
     "@backstage/backend-tasks": "npm:^0.5.23"
     "@backstage/catalog-client": "npm:^1.6.5"
