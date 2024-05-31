@@ -43,8 +43,8 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
       wxt:
-        specifier: ^0.18.3
-        version: 0.18.3(@types/node@20.12.11)(lightningcss@1.24.1)(rollup@4.17.2)
+        specifier: ^0.18.4
+        version: 0.18.4(@types/node@20.12.11)(lightningcss@1.24.1)(rollup@4.17.2)
 
 packages:
 
@@ -1380,9 +1380,11 @@ packages:
 
   glob@6.0.4:
     resolution: {integrity: sha512-MKZeRNyYZAVVVG1oZeLaWie1uweH40m9AZwIwxyPbTSX4hHrVYSzLg0Ro5Z5R7XKkIX+Cc6oD1rqeDJnwsB8/A==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
+    deprecated: Glob versions prior to v9 are no longer supported
 
   global-dirs@3.0.1:
     resolution: {integrity: sha512-NBcGGFbBA9s1VzD41QXDG+3++t9Mn5t1FpLdhESY6oKY4gYTFpX4wO3sqGUa0Srjtbfj3szX0RnemmrVRUdULA==}
@@ -2153,10 +2155,12 @@ packages:
 
   rimraf@2.4.5:
     resolution: {integrity: sha512-J5xnxTyqaiw06JjMftq7L9ouA448dw/E7dKghkP9WpKNuwmARNNg+Gk8/u5ryb9N/Yo2+z3MCwuqFK/+qPOPfQ==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   rimraf@3.0.2:
     resolution: {integrity: sha512-JZkJMZkAGFFPP2YqXZXPbMlMBgsxzE8ILs4lMIX/2o0L9UBw9O/Y3o6wFw/i9YLapcUJWwqbi3kdxIPdC62TIA==}
+    deprecated: Rimraf versions prior to v4 are no longer supported
     hasBin: true
 
   rollup@4.17.2:
@@ -2541,8 +2545,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  wxt@0.18.3:
-    resolution: {integrity: sha512-AFoppfr35LLlPpYyF5nGSR4n7HfTzdq+ihjewL0Urw8Bv83Ld/Cnw+xv7AF0xjZFyKKI/d+AAA0NRdl4cHxAng==}
+  wxt@0.18.4:
+    resolution: {integrity: sha512-BHg+yyHPg4KpusPr4QrcZCqGvCG2U0xoCqikwe9xreLeSNwjSeu7SkbceD/LzD/ltYTz9ETt2tZcC8LfNfrgcQ==}
     hasBin: true
 
   xdg-basedir@5.1.0:
@@ -4997,7 +5001,7 @@ snapshots:
 
   ws@8.16.0: {}
 
-  wxt@0.18.3(@types/node@20.12.11)(lightningcss@1.24.1)(rollup@4.17.2):
+  wxt@0.18.4(@types/node@20.12.11)(lightningcss@1.24.1)(rollup@4.17.2):
     dependencies:
       '@aklinker1/rollup-plugin-visualizer': 5.12.0(rollup@4.17.2)
       '@types/webextension-polyfill': 0.10.7
