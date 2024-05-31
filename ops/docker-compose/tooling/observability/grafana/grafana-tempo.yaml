@@ -38,7 +38,7 @@ services:
     depends_on:
       - coredns
       - jaeger-agent
-    image: grafana/tempo-query:2.4.2
+    image: grafana/tempo-query:2.5.0
     profiles:
       - observability
     command: ["--grpc-storage-plugin.configuration-file=/etc/tempo-query.yaml"]
