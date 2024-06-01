@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: shortlink
+  name: shortlink-delivery
   annotations:
     argocd.argoproj.io/sync-wave: "0"
   finalizers:
@@ -12,18 +12,15 @@ spec:
         elements:
           - cluster: in-cluster
             url: https://kubernetes.default.svc
-            stage: production
   template:
     metadata:
-      name: shortlink
-      # annotations:
-      #  kargo.akuity.io/authorized-stage: 'shortlink:{{"{{"}}stage{{"}}"}}"'
+      name: shortlink-delivery
     spec:
       project: shortlink
       source:
         repoURL: 'https://github.com/shortlink-org/shortlink'
         targetRevision: HEAD
-        path: ops/argocd/shortlink
+        path: ops/argocd/boundaries/delivery
         directory:
           recurse: true
       destination:

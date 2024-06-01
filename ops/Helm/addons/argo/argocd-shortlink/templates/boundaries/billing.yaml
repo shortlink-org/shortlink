@@ -1,0 +1,50 @@
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: shortlink-billing
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  generators:
+    - list:
+        elements:
+          - cluster: in-cluster
+            url: https://kubernetes.default.svc
+  template:
+    metadata:
+      name: shortlink-billing
+    spec:
+      project: shortlink
+      source:
+        repoURL: 'https://github.com/shortlink-org/shortlink'
+        targetRevision: HEAD
+        path: ops/argocd/boundaries/billing
+        directory:
+          recurse: true
+      destination:
+        name: ''
+        namespace: argocd
+        server: 'https://kubernetes.default.svc'
+      syncPolicy:
+        automated:
+          prune: true
+          allowEmpty: true
+          selfHeal: true
+        managedNamespaceMetadata:
+          labels:
+            istio-injection: enabled
+            # TODO: tuning https://kubernetes.io/docs/concepts/security/pod-security-admission/
+            pod-security.kubernetes.io/enforce: privileged
+            pod-security.kubernetes.io/enforce-version: latest
+            kargo.akuity.io/project: "true"
+          annotations:
+            chaos-mesh.org/inject: enabled
+  syncPolicy:
+    preserveResourcesOnDeletion: true
+    ignoreDifferences:
+      - group: kyverno.io
+        kind: ClusterPolicy
+        jqPathExpressions:
+          - .spec.rules[] | select(.name|test("autogen-."))

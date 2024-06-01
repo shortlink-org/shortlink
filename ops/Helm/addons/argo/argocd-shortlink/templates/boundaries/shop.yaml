@@ -20,7 +20,7 @@ spec:
       source:
         repoURL: 'https://github.com/shortlink-org/shortlink'
         targetRevision: HEAD
-        path: ops/argocd/shortlink-shop
+        path: ops/argocd/boundaries/shop
         directory:
           recurse: true
       destination:
