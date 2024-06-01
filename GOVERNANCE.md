@@ -19,4 +19,4 @@ Contributors and maintainers should always follow the code of conduct which can
 be found in [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 
 The ShortLink development is governed by the ShortLink maintainers which functions
-are described in [CODEOWNERS](.github%2FCODEOWNERS).
+are described in [CODEOWNERS](.github/CODEOWNERS).

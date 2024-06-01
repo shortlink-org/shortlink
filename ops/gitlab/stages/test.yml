@@ -40,3 +40,18 @@ DEPENDENCY:
       when: never
     - if: $CI_COMMIT_TAG
       when: on_success
+
+# DOCS =================================================================================================================
+linkchecker:
+  stage: test
+  image:
+    name: ghcr.io/tcort/markdown-link-check:latest
+    entrypoint: ["/bin/sh", "-c"]
+  script:
+    - find . -name \*.md -print0 | xargs -0 -n1 markdown-link-check -q
+  allow_failure: true
+  rules:
+    - changes:
+        - "**/*.md"
+    - if: $CI_COMMIT_TAG
+      when: on_success

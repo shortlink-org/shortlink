@@ -56,8 +56,6 @@ fine-grained control over user actions.
 
 ### Architecture SpiceDB
 
-![Architecture SpiceDB](https://authzed.com/docs/assets/images/arch-b08d49b895f89454b2dff988c77e34a0.svg)
-
 > Docs:
 > - [Architecture](https://authzed.com/blog/spicedb-architecture)
 > - [ABAC on SpiceDB: Enabling Netflix’s Complex Identity Types](https://authzed.com/blog/abac-on-spicedb-enabling-netflix-complex-identity-types)

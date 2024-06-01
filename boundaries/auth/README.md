@@ -9,9 +9,9 @@
 > critical functionalities are accessible only to authorized users, thereby safeguarding the integrity and 
 > confidentiality of the system.
 
-| Service | Description      | Language/Framework | Docs                     | Status                                                                                                                        |
-|---------|------------------|--------------------|--------------------------|-------------------------------------------------------------------------------------------------------------------------------|
-| auth    | Auth service     | Go                 | [docs](./auth/README.md) | [![App Status](https://argo.shortlink.best/api/badge?name=auth&revision=true)](https://argo.shortlink.best/applications/auth) |
+| Service | Description      | Language/Framework | Docs                     | Status                                                                                                                                                      |
+|---------|------------------|--------------------|--------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| auth    | Auth service     | Go                 | [docs](./auth/README.md) | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-auth-auth&revision=true)](https://argo.shortlink.best/applications/shortlink-auth-auth) |
 
 ### Third-party Service
 

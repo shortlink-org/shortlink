@@ -41,7 +41,7 @@ curl -X POST http://localhost:8080/evaluate \
 
 ### Docs
 
-- [docs](opensource.google.com/projects/cel)
+- [docs](https://cel.dev/)
 - [Language Definition](https://github.com/google/cel-spec/blob/master/doc/langdef.md)
 - [cel-lab](https://codelabs.developers.google.com/codelabs/cel-go#1)
 - [Common Expression Language in Kubernetes](https://kubernetes.io/docs/reference/using-api/cel/)

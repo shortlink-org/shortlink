@@ -60,4 +60,4 @@ shortlink.load.GatlingRunner
 
 telegram: @qa_load
 
-gatling docs: https://gatling.io/docs/current/general
+gatling docs: https://docs.gatling.io/
