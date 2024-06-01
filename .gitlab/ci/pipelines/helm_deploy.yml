@@ -1,0 +1,78 @@
+include:
+  - local: .gitlab/ci/templates/common.yml
+  - local: .gitlab/ci/templates/helm.yml
+  - local: .gitlab/ci/workflows/matrix_deploy.yml
+
+stages:
+  - deploy
+  - action
+
+deploy:
+  extends:
+    - .job_template_helm
+    - .matrix_deploy_provider
+  tags:
+    - gitlab-org-docker
+  stage: deploy
+  script:
+    - |
+      set -e
+      VALUE_FILES=""
+
+      # Check if there are any .values.yaml files
+      if ls ${HELM_PATH}/*.values.yaml 1> /dev/null 2>&1; then
+          for file in ${HELM_PATH}/*.values.yaml; do
+              VALUE_FILES="$VALUE_FILES -f $file"
+          done
+      else
+          echo "No .values.yaml files found in ${HELM_PATH}."
+      fi
+    - helm secrets upgrade $RELEASE_NAME $HELM_PATH $HELM_ARG $VALUE_FILES
+      --kube-context=shortlink-org/shortlink:${PROVIDER}
+      --install
+      --atomic
+      --cleanup-on-fail
+      --wait-for-jobs
+      --namespace=$HELM_NAMESPACE
+      --create-namespace=true
+      --set deploy.image.tag=$CI_COMMIT_TAG
+      --set deploy.image.repository=$REGISTRY
+      --set deploy.annotations."app\.gitlab\.com\/app"=$CI_PROJECT_PATH_SLUG,deploy.annotations."app\.gitlab\.com\/env"=$CI_ENVIRONMENT_SLUG;
+  environment:
+    name: ${PROVIDER}/${RELEASE_NAME}
+    deployment_tier: production
+    url: $ENVIRONMENT_URL
+    on_stop: drop
+    kubernetes:
+      namespace: ${HELM_NAMESPACE}
+
+# action ===============================================================================================================
+
+rollback:
+  extends:
+    - .job_template_helm
+  script:
+    - helm --namespace=$HELM_NAMESPACE rollback $RELEASE_NAME 0
+  needs:
+    - job: deploy
+  when: manual
+
+history:
+  extends:
+    - .job_template_helm
+  script:
+    - helm --namespace=$HELM_NAMESPACE history $RELEASE_NAME
+  needs:
+    - job: deploy
+  when: manual
+
+drop:
+  extends:
+    - .job_template_helm
+  script:
+    - helm del -n $HELM_NAMESPACE $RELEASE_NAME;
+  needs: []
+  environment:
+    name: ${PROVIDER}/${RELEASE_NAME}
+    action: stop
+  when: manual

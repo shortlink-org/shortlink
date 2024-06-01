@@ -1,0 +1,8 @@
+include:
+  - local: .gitlab/ci/templates/common.yml
+  - local: .gitlab/ci/workflows/matrix_deploy.yml
+  - local: ops/gitlab/pipelines/addons/addons.yml
+
+stages:
+  - .pre
+  - addons

@@ -1,0 +1,237 @@
+# To get started with Dependabot version updates, you'll need to specify which
+# package ecosystems to update and where the package manifests are located.
+# Please see the documentation for all configuration options:
+# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
+
+version: 2
+enable-beta-ecosystems: true
+updates:
+  - package-ecosystem: "" # See documentation for possible values
+    directory: "/" # Location of package manifests
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: docker
+    directory: /.clusterfuzzlite
+    schedule:
+      interval: daily
+
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /docs/ADR/decisions/proof/ADR-0007
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/api/api-gateway
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/link/bff
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/link/supplies/knative/kafka-to-elasticsearch
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/link/proxy
+    schedule:
+      interval: daily
+
+  - package-ecosystem: pip
+    directory: /boundaries/marketing/referral
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/marketing/report
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/platform/backstage
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/platform/backstage/packages/app
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/platform/backstage/packages/backend
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/platform/csi
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/platform/shortctl
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /boundaries/shortdb/shortdb-operator
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/shortdb/shortdb-operator
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui/mobile/expo/apps/shortlink
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui/mobile/expo/libs/ui
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui/mobile/expo
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui-monorepo
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui-monorepo/packages/eslint/eslint-config-shortlink
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui-monorepo/packages/eslint/eslint-plugin-shortlink
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui-monorepo/packages/landing
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui-monorepo/packages/next/components/Footer
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui-monorepo/packages/next/components/Header
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui-monorepo/packages/next/components/Testimonials
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui-monorepo/packages/next
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui-monorepo/packages/ui-kit
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /pkg/k8s/kube-secret-fetcher
+    schedule:
+      interval: daily
+
+  - package-ecosystem: pip
+    directory: /poc/ml-diff/ml
+    schedule:
+      interval: daily
+
+  - package-ecosystem: maven
+    directory: /boundaries/notification/bot
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/billing/wallet
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/link/supplies/knative/kafka-to-elasticsearch
+    schedule:
+      interval: daily
+
+  - package-ecosystem: pip
+    directory: /boundaries/shop/admin
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/link/chrome-extension
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/platform/argocd-extension-docs/ui
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/link/mobile/apps/shortlink
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/link/mobile/libs/ui
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/link/mobile
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/platform/istio-extension
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/link/link
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/shop/email-subscription
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/notification/notify
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /pkg/golangci-lint/value-object
+    schedule:
+      interval: daily

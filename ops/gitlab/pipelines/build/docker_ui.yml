@@ -1,8 +1,0 @@
-include:
-  - local: /ops/gitlab/pipelines/build/docker_base.yml
-  - local: /ops/gitlab/pipelines/ui/templates/cache.yml
-
-build:
-  extends:
-    - .cache
-    - .template_build

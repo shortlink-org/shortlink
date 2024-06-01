@@ -1,0 +1,78 @@
+include:
+  - local: .gitlab/ci/templates/common.yml
+
+# Official image for Hashicorp's Terraform. It uses light image which is Alpine
+# based as it is much lighter.
+#
+# Entrypoint is also needed as image by default set `terraform` binary as an
+# entrypoint.
+image:
+  name: hashicorp/terraform:light
+  entrypoint:
+    - '/usr/bin/env'
+    - 'PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin'
+
+# Default output file for Terraform plan
+variables:
+  GITLAB_TF_ADDRESS: ${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/terraform/state/${CI_PROJECT_NAME}
+  PLAN: plan.tfplan
+  PLAN_JSON: tfplan.json
+  POSTGRES_DB: postgres
+  POSTGRES_USER: postgres
+  POSTGRES_PASSWORD: postgres
+  POSTGRES_HOST_AUTH_METHOD: trust
+
+cache:
+  paths:
+    - .terraform
+
+before_script:
+  - apk --no-cache add jq
+  - alias convert_report="jq -r '([.resource_changes[]?.change.actions?]|flatten)|{\"create\":(map(select(.==\"create\"))|length),\"update\":(map(select(.==\"update\"))|length),\"delete\":(map(select(.==\"delete\"))|length)}'"
+  - terraform --version
+  - terraform init -backend-config="address=${GITLAB_TF_ADDRESS}" -backend-config="lock_address=${GITLAB_TF_ADDRESS}/lock" -backend-config="unlock_address=${GITLAB_TF_ADDRESS}/lock" -backend-config="username=${GITLAB_USER_LOGIN}" -backend-config="password=${GITLAB_TF_PASSWORD}" -backend-config="lock_method=POST" -backend-config="unlock_method=DELETE" -backend-config="retry_wait_min=5" ops/terraform
+
+stages:
+  - validate
+  - build
+  - deploy
+
+validate:
+  stage: validate
+  script:
+    - terraform validate
+  rules:
+    - when: always
+
+plan:
+  stage: build
+  services:
+    - postgres:16.3-alpine # Demo service for terraform plan
+  script:
+    - terraform plan -out=$PLAN ops/terraform
+    - terraform show --json $PLAN | convert_report > $PLAN_JSON
+  allow_failure: true
+  artifacts:
+    name: plan
+    paths:
+      - plan.tfplan
+    reports:
+      terraform: tfplan.json
+    expire_in: 14 days
+  needs:
+    - job: validate
+  rules:
+    - when: always
+
+# Separate apply job for manual launching Terraform as it can be destructive action.
+apply:
+  stage: deploy
+  environment:
+    name: terraform
+    deployment_tier: production
+  script:
+    - terraform apply -input=false $PLAN
+  needs:
+    - job: plan
+  rules:
+    - when: manual

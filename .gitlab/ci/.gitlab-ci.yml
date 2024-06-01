@@ -1,0 +1,44 @@
+include:
+  - local: .gitlab/ci/templates/common.yml
+  # TODO: don't work again after gitlab update
+  #  - local: .gitlab/ci/stages/**.yml
+  - local: .gitlab/ci/stages/.pre.yml
+  - local: .gitlab/ci/stages/test.yml
+  - local: .gitlab/ci/stages/build.yml
+  - local: .gitlab/ci/stages/deploy.yml
+    rules:
+      - if: $CI_COMMIT_TAG
+  - local: .gitlab/ci/stages/qa.yml
+  - local: .gitlab/ci/stages/release.yml
+    rules:
+      - if: $CI_COMMIT_TAG
+#  - local: .gitlab/ci/stages/.post.yml
+#    rules:
+#      - if: $CI_COMMIT_TAG
+
+stages:
+  - test
+  - build
+  - deploy
+  - qa
+  - release
+
+workflow:
+  name: 'Pipeline for branch: $CI_COMMIT_BRANCH'
+  auto_cancel:
+    on_new_commit: conservative
+  rules:
+    # Disable renovate branch
+    - if: $CI_COMMIT_REF_NAME =~ /^renovate/
+      when: never
+    # Disable draft branch
+    - if: $CI_COMMIT_TITLE =~ /-draft$/
+      when: never
+    # do not create pipelines if merge requests are opened
+    - if: '$CI_COMMIT_BRANCH && $CI_PIPELINE_SOURCE == "push" && $CI_OPEN_MERGE_REQUESTS'
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "merge_request_event"'
+      variables:
+        PIPELINE_NAME: 'MR pipeline: $CI_COMMIT_BRANCH'
+    - when: always
+

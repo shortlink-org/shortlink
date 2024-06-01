@@ -1,0 +1,23 @@
+include:
+  - local: .gitlab/ci/pipelines/ui/templates/cache.yml
+
+.nx:
+  extends: .cache
+  image: node:21.7.3-alpine
+  interruptible: true
+  variables:
+    GIT_DEPTH: 0
+    NX_BATCH_MODE: "true"
+    NX_HEAD: $CI_COMMIT_SHA
+    NX_BASE: ${CI_MERGE_REQUEST_DIFF_BASE_SHA:-$CI_COMMIT_BEFORE_SHA}
+  before_script:
+    - corepack enable
+    - corepack prepare pnpm@latest-8 --activate
+
+    - cd boundaries/ui-monorepo
+    - echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
+    - echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> ./packages/landing/.npmrc
+
+    - apk add --no-cache git || apt-get install -y git
+    - pnpm config set store-dir .pnpm-store
+    - pnpm install

@@ -1,0 +1,43 @@
+include:
+  - local: .gitlab/ci/templates/common.yml
+  - local: .gitlab/ci/templates/build.yml
+  - component: gitlab.com/components/container-scanning/container-scanning@main
+
+stages:
+  - .pre
+  - build
+  - security
+
+# BUILD ================================================================================================================
+build:
+  extends:
+    - .template_build
+
+# TODO: fix this job
+# SECURITY =============================================================================================================
+# Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/container_scanning/
+
+container_scanning:
+  stage: security
+  variables:
+    GIT_STRATEGY: fetch
+    DOCKERFILE_PATH: $DOCKERFILE_PATH
+  before_script:
+    - export DOCKER_IMAGE="$REGISTRY_IMAGE:$CI_COMMIT_TAG"
+  needs:
+    - build
+
+verify_image:
+  stage: security
+  image: alpine:3.20
+  before_script:
+    - apk add --update cosign docker
+    - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
+  needs:
+    - build
+  script:
+    - cosign verify "${REGISTRY_IMAGE}:${CI_COMMIT_TAG}" 
+        --certificate-identity "${CI_PROJECT_URL}//${DOCKER_ENV_CI_CONFIG_PATH}@refs/heads/main" 
+        --certificate-oidc-issuer $CI_SERVER_URL
+  # TODO: fix this job
+  allow_failure: true

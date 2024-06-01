@@ -1,0 +1,12 @@
+include:
+  - local: .gitlab/ci/workflows/matrix_build_ui.yml
+
+# DOCKER ===============================================================================================================
+build:
+  extends:
+    - .matrix_build_ui
+  stage: build
+  trigger:
+    include:
+      - local: 'ops/gitlab/pipelines/build/docker_ui.yml'
+    strategy: depend

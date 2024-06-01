@@ -1,0 +1,28 @@
+variables:
+  SETTINGS__GITLAB_ACCESS_TOKEN: $CI_JOB_TOKEN
+
+.dependabot-gitlab:
+  tags:
+    - runner-type:docker
+  image:
+    name: docker.io/andrcuns/dependabot-gitlab-gomod:3.15.0-alpha.1
+    entrypoint: [""]
+  variables:
+    GIT_STRATEGY: none
+    RAILS_ENV: production
+    SECRET_KEY_BASE: key
+    PACKAGE_MANAGER: gomod
+    SETTINGS__GITLAB_URL: $CI_SERVER_URL
+    SETTINGS__STANDALONE: "true"
+    SETTINGS__LOG_COLOR: "true"
+  script:
+    - cd /home/dependabot/app
+    - bundle exec rake "dependabot:update[$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME,$PACKAGE_MANAGER,/]"
+
+dependabot:
+  extends: .dependabot-gitlab
+  stage: test
+  rules:
+    - if: $DEPENDENCY_UPDATES_DISABLED
+      when: never
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
