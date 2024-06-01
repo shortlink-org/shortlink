@@ -8,7 +8,7 @@ shortlink:
     ENVIRONMENT_URL: https://${ENVIRONMENT_URL}
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+      - local: '.gitlab/ci/pipelines/helm_deploy.yml'
     strategy: depend
   needs: []
   rules:

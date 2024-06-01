@@ -9,7 +9,7 @@ argo-cd:
     HELM_ARG: -f ${HELM_PATH}/values.sops.yaml
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+      - local: '.gitlab/ci/pipelines/helm_deploy.yml'
     strategy: depend
   needs: []
   rules:

@@ -21,7 +21,7 @@ terraform-up:
   stage: .pre
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/terraform.yml'
+      - local: '.gitlab/ci/pipelines/terraform.yml'
   when: manual
 
 # K8S ==================================================================================================================
@@ -31,7 +31,7 @@ infrastructure:
   stage: .pre
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/helm_additional.yml'
+      - local: '.gitlab/ci/pipelines/helm_additional.yml'
   when: manual
 
 # ARGO CD ==============================================================================================================
@@ -41,7 +41,7 @@ argo-cd:
   stage: .pre
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/addons/argocd/argocd.yml'
+      - local: '.gitlab/ci/pipelines/addons/argocd/argocd.yml'
     strategy: depend
   needs: []
   rules:

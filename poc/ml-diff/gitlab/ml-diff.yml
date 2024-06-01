@@ -5,7 +5,7 @@ ml:diff:
     repo_token: $GITLAB_TOKEN
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/release_ml.yml'
+      - local: '.gitlab/ci/pipelines/release_ml.yml'
     strategy: depend
   rules:
     - if: $CI_COMMIT_TAG

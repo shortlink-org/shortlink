@@ -18,8 +18,8 @@ We will use the following structure:
 ├── ops/dockerfile/{{serviceName}}.Dockerfile
 ├── ops/docker-compose/application/{{serviceName}}/{{serviceName}}.yml
 ├── ops/Helm/{{serviceName}}/Chart.yaml
-├── ops/gitlab/workflows/matrix_build_base.yml
-├── ops/gitlab/workflows/matrix_build_helm.yml
+├── .gitlab/ci/workflows/matrix_build_base.yml
+├── .gitlab/ci/workflows/matrix_build_helm.yml
 ├── ops/argocd/shortlink/{{serviceName}}/application.yaml
 ├── docs/c4/containers/services
 ├── boundaries/{{serviceName}}

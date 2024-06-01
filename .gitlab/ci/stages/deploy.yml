@@ -8,7 +8,7 @@ applications:
   stage: deploy
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+      - local: '.gitlab/ci/pipelines/helm_deploy.yml'
     strategy: depend
   needs:
     # NOTE: We use ArgoCD for deploy applications, except for UI [landing]
@@ -21,7 +21,7 @@ mobile:
   stage: deploy
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/flutter.yml'
+      - local: '.gitlab/ci/pipelines/flutter.yml'
   needs: []
   rules:
     - if: $CI_COMMIT_TAG

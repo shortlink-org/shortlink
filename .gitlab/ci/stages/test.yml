@@ -3,7 +3,7 @@ GOLANG:
   stage: test
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/test/golang.yml'
+      - local: '.gitlab/ci/pipelines/test/golang.yml'
     strategy: depend
   needs: []
   rules:
@@ -16,7 +16,7 @@ HELM:
   stage: test
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/test/helm.yml'
+      - local: '.gitlab/ci/pipelines/test/helm.yml'
     strategy: depend
   needs: []
   rules:
@@ -32,7 +32,7 @@ DEPENDENCY:
   stage: test
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/test/security.yml'
+      - local: '.gitlab/ci/pipelines/test/security.yml'
     strategy: depend
   needs: []
   rules:

@@ -11,7 +11,7 @@ cilium:
     HELM_NAMESPACE: kube-system
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+      - local: '.gitlab/ci/pipelines/helm_deploy.yml'
     strategy: depend
   needs: []
   rules:
@@ -27,7 +27,7 @@ metrics-server:
     HELM_NAMESPACE: kube-system
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/helm_deploy.yml'
+      - local: '.gitlab/ci/pipelines/helm_deploy.yml'
     strategy: depend
   needs: []
   rules:

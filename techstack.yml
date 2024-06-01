@@ -1016,7 +1016,7 @@ tools:
   category: Application Hosting
   sub_category: Platform as a Service
   image_url: https://img.stackshare.io/service/3276/xWt1RFo6_400x400.jpg
-  detection_source: ops/gitlab/pipelines/addons/argocd/stages/application.yml
+  detection_source: .gitlab/ci/pipelines/addons/argocd/stages/application.yml
   last_updated_by: Victor Login
   last_updated_on: 2023-05-03 20:39:54.000000000 Z
 - name: Android OS

@@ -9,7 +9,7 @@ docker:
   stage: build
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/build/docker_base.yml'
+      - local: '.gitlab/ci/pipelines/build/docker_base.yml'
     strategy: depend
   needs:
     - job: GOLANG
@@ -24,7 +24,7 @@ helm-chart:
   stage: build
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/build/helm_chart.yml'
+      - local: '.gitlab/ci/pipelines/build/helm_chart.yml'
     strategy: depend
   needs:
     - job: HELM
@@ -36,7 +36,7 @@ ui:
   stage: build
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/ui/ui.yml'
+      - local: '.gitlab/ci/pipelines/ui/ui.yml'
     strategy: depend
   needs: []
   rules:

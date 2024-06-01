@@ -8,5 +8,5 @@ build:
   stage: build
   trigger:
     include:
-      - local: 'ops/gitlab/pipelines/build/docker_ui.yml'
+      - local: '.gitlab/ci/pipelines/build/docker_ui.yml'
     strategy: depend
