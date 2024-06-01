@@ -26,4 +26,4 @@ dependabot:
   extends: .dependabot-gitlab
   stage: test
   rules:
-    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_NAME == "dependabot"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
