@@ -9,6 +9,9 @@ opentelemetry-operator:
   manager:
     featureGates: ""
 
+    collectorImage:
+      repository: "otel/opentelemetry-collector-k8s"
+
     serviceMonitor:
       enabled: true
 
