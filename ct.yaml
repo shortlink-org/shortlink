@@ -8,12 +8,26 @@ target-branch: main
 
 # Chart directories separated by a space
 chart-dirs:
-  - ops/Helm
-  - ops/Helm/shortlink-api
-
-# TODO: need test all charts
-excluded-charts:
-  - shortlink-support
+  # Addons
+  # TODO: add addons
+  # ShortLink common charts
+  - ops/Helm/shortlink-common
+  - ops/Helm/shortlink-template
+  - ops/Helm/shortlink-workflows
+  # ShortLink boundaries
+  - ops/Helm/boundaries/api
+  - ops/Helm/boundaries/auth
+  - ops/Helm/boundaries/billing
+  - ops/Helm/boundaries/chat
+  - ops/Helm/boundaries/delivery
+  - ops/Helm/boundaries/ds
+  - ops/Helm/boundaries/link
+  - ops/Helm/boundaries/marketing
+  - ops/Helm/boundaries/notification
+  - ops/Helm/boundaries/platform
+  - ops/Helm/boundaries/search
+  - ops/Helm/boundaries/shop
+  - ops/Helm/boundaries/shortdb
 
 chart-repos:
   - incubator=https://charts.helm.sh/incubator
