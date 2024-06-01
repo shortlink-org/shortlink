@@ -16,7 +16,7 @@ spec:
     namespace: shortlink-notification
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/shortlink-api/boundaries/notification/notify
+    path: ops/Helm/boundaries/notification/notify
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:

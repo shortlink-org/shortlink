@@ -16,7 +16,7 @@ spec:
     namespace: auth
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/shortlink-api/boundaries/auth/auth
+    path: ops/Helm/boundaries/auth/auth
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:

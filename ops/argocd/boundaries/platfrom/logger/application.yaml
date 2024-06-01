@@ -16,7 +16,7 @@ spec:
     namespace: shortlink-platform
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/shortlink-api/boundaries/platfrom/logger
+    path: ops/Helm/boundaries/platfrom/logger
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
