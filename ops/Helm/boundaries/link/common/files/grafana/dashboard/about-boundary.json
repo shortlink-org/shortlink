@@ -24,14 +24,42 @@
   "panels": [
     {
       "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 12,
+        "x": 0,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "folderUID": "ddnhwiyia82dcb",
+        "includeVars": false,
+        "keepTime": false,
+        "maxItems": 10,
+        "query": "",
+        "showHeadings": true,
+        "showRecentlyViewed": false,
+        "showSearch": true,
+        "showStarred": false,
+        "tags": []
+      },
+      "pluginVersion": "11.0.0",
+      "title": "Services",
+      "type": "dashlist"
+    },
+    {
+      "datasource": {
         "type": "mixed",
         "uid": "-- Mixed --"
       },
       "description": "",
       "gridPos": {
-        "h": 8,
-        "w": 11,
-        "x": 0,
+        "h": 9,
+        "w": 12,
+        "x": 12,
         "y": 0
       },
       "id": 1,
@@ -57,7 +85,7 @@
           "refId": "A"
         }
       ],
-      "title": "Link boundary",
+      "title": "Description",
       "type": "text"
     }
   ],
@@ -77,6 +105,6 @@
   "timezone": "browser",
   "title": "About domain",
   "uid": "ednhs8kl12ltsa",
-  "version": 3,
+  "version": 6,
   "weekStart": ""
 }
