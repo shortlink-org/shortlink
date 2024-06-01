@@ -1,3 +1,6 @@
+# DOCS:
+# - tutorial: https://kkurko.hashnode.dev/keep-your-dependencies-up-to-date-with-dependabot-on-gitlab
+
 variables:
   SETTINGS__GITLAB_ACCESS_TOKEN: $CI_JOB_TOKEN
 
@@ -23,6 +26,4 @@ dependabot:
   extends: .dependabot-gitlab
   stage: test
   rules:
-    - if: $DEPENDENCY_UPDATES_DISABLED
-      when: never
-    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    - if: '$CI_PIPELINE_SOURCE == "schedule" && $SCHEDULE_NAME == "dependabot"'
