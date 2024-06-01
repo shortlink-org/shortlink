@@ -1,6 +1,6 @@
 import { Meta } from '@storybook/react'
 import { expect } from '@storybook/test'
-import { within } from '@storybook/testing-library'
+import { within } from '@storybook/test'
 
 import GithubRepository from './GithubRepository'
 

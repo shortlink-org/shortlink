@@ -50,11 +50,7 @@ function Providers({ children, ...props }) {
 
   return (
     <AppRouterCacheProvider>
-      <NextThemeProvider
-        enableSystem
-        attribute="class"
-        defaultTheme={'light'}
-      >
+      <NextThemeProvider enableSystem attribute="class" defaultTheme={'light'}>
         <CssVarsProvider theme={theme} defaultMode="light">
           {getInitColorSchemeScript()}
 

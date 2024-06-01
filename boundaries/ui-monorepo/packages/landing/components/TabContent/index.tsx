@@ -40,10 +40,7 @@ const TabContent: React.FC<TabContentProps> = ({ title, cards }) => {
 function getCard(name: string, url: string, theme) {
   return (
     <Link href={url} key={url} passHref>
-      <Button
-        variant="outlined"
-        size="large"
-      >
+      <Button variant="outlined" size="large">
         {name}
       </Button>
     </Link>

@@ -1,7 +1,6 @@
 import Button from '@mui/material/Button'
 import { Meta } from '@storybook/react'
-import { fn, expect } from '@storybook/test'
-import { within, userEvent } from '@storybook/testing-library'
+import { fn, expect, within, userEvent } from '@storybook/test'
 
 const meta: Meta<typeof Button> = {
   title: 'UI/Button',

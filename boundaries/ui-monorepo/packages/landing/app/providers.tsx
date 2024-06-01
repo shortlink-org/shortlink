@@ -38,11 +38,7 @@ export function Providers({ children, ...props }) {
 
   return (
     <AppRouterCacheProvider>
-      <NextThemeProvider
-        enableSystem
-        attribute="class"
-        defaultTheme={'light'}
-      >
+      <NextThemeProvider enableSystem attribute="class" defaultTheme={'light'}>
         <CssVarsProvider theme={theme} defaultMode="light">
           <Script id={DEFAULT_SCRIPT_ID} src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`} strategy="afterInteractive" />
           {getInitColorSchemeScript()}
