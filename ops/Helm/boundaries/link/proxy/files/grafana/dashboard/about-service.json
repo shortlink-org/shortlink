@@ -15,22 +15,21 @@
       }
     ]
   },
-  "description": "Summary information about the status domain",
+  "description": "Proxy service for redirecting to the original URL",
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 0,
-  "id": 559,
+  "id": 560,
   "links": [],
   "panels": [
     {
       "datasource": {
-        "type": "mixed",
-        "uid": "-- Mixed --"
+        "type": "prometheus",
+        "uid": "prometheus"
       },
-      "description": "",
       "gridPos": {
-        "h": 8,
-        "w": 11,
+        "h": 4,
+        "w": 2,
         "x": 0,
         "y": 0
       },
@@ -41,7 +40,7 @@
           "showLineNumbers": false,
           "showMiniMap": false
         },
-        "content": "## Link Boundary\n\n> The Link Boundary in software systems primarily deals with the management and functionality of URLs, \n> especially in the context of shortening and tracking them. This includes creating shortlinks for easier sharing and \n> readability, redirecting users from the shortlink to the original URL, and analyzing link usage for insights. \n> Features like QR code generation for easy access and custom domains for branding are also part of this boundary. \n> It's essential for optimizing user experience in sharing and accessing web resources, providing valuable data through \n> link analytics, and enhancing brand visibility with custom domains.",
+        "content": "![logo](https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/link/proxy/docs/public/logo.webp)",
         "mode": "markdown"
       },
       "pluginVersion": "11.0.0",
@@ -57,13 +56,41 @@
           "refId": "A"
         }
       ],
-      "title": "Link boundary",
+      "title": "Logo",
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "prometheus",
+        "uid": "prometheus"
+      },
+      "description": "Proxy service for redirecting to the original URL",
+      "gridPos": {
+        "h": 4,
+        "w": 8,
+        "x": 2,
+        "y": 0
+      },
+      "id": 2,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "### Proxy\n\n> Proxy service for redirecting to the original URL",
+        "mode": "markdown"
+      },
+      "pluginVersion": "11.0.0",
+      "title": "About service",
       "type": "text"
     }
   ],
   "schemaVersion": 39,
   "tags": [
-    "link"
+    "proxy",
+    "service",
+    "summary"
   ],
   "templating": {
     "list": []
@@ -75,8 +102,8 @@
   "timeRangeUpdatedDuringEditOrView": false,
   "timepicker": {},
   "timezone": "browser",
-  "title": "About domain",
-  "uid": "ednhs8kl12ltsa",
-  "version": 3,
+  "title": "Proxy service",
+  "uid": "ednhutpmfb0u8f",
+  "version": 2,
   "weekStart": ""
 }

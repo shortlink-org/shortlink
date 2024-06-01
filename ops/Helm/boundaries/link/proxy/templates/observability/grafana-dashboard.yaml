@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-dashboards
+  labels:
+    grafana_dashboard: "true"
+  annotations:
+    grafana_dashboard_folder: Boundaries/Link Boundary
+data:
+  about-service.json.url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/ops/Helm/boundaries/link/proxy/files/grafana/dashboard/about-service.json"
