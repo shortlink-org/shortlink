@@ -13,7 +13,7 @@ metadata:
 spec:
   destination:
     name: ''
-    namespace: shortlink
+    namespace: shortlink-link
     server: 'https://kubernetes.default.svc'
   source:
     path: ops/Helm/shortlink-api/boundaries/link/ui

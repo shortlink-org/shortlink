@@ -13,7 +13,7 @@ metadata:
 spec:
   destination:
     name: ''
-    namespace: shortlink
+    namespace: auth
     server: 'https://kubernetes.default.svc'
   source:
     path: ops/Helm/shortlink-api/boundaries/auth/auth
