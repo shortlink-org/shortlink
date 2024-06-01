@@ -16,7 +16,7 @@ spec:
     namespace: shortlink
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/shortlink-api/shortlink-api-grpc-web
+    path: ops/Helm/shortlink-api/boundaries/api/grpc-web
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:

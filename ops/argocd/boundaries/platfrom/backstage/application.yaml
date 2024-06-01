@@ -16,7 +16,7 @@ spec:
     namespace: shortlink-platform
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/shortlink-platform/backstage
+    path: ops/Helm/shortlink-api/boundaries/platfrom/backstage
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:

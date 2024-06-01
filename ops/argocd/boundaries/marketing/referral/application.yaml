@@ -16,7 +16,7 @@ spec:
     namespace: shortlink
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/shortlink-referral
+    path: ops/Helm/shortlink-api/boundaries/marketing/referral
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:

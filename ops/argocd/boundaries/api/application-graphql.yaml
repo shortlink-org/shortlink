@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: shortlink-billing-billing
+  name: shortlink-api-graphql
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
-    argocd-image-updater.argoproj.io/image-list: shortlink-billing=registry.gitlab.com/shortlink-org/shortlink/billing:0.x.x
+    argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/ws:0.x.x
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
     argocd-image-updater.argoproj.io/git-repository: git@github.com:shortlink-org/shortlink.git
   finalizers:
@@ -13,13 +13,14 @@ metadata:
 spec:
   destination:
     name: ''
-    namespace: shortlink-billing
+    namespace: shortlink
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/shortlink-api/boundaries/billing/billing
+    path: ops/Helm/shortlink-api/boundaries/api/graphql
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
+      releaseName: shortlink-api-graphql
       valueFiles:
         - values.yaml
   project: shortlink
