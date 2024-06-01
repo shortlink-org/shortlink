@@ -1,11 +1,11 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: ui-kit
+  name: landscape
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
-    argocd-image-updater.argoproj.io/image-list: registry.gitlab.com/shortlink-org/shortlink/ui-next:0.x.x
+    argocd-image-updater.argoproj.io/image-list: landscape=registry.gitlab.com/shortlink-org/shortlink/landscape:0.x.x
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
     argocd-image-updater.argoproj.io/git-repository: git@github.com:shortlink-org/shortlink.git
   finalizers:
@@ -16,7 +16,7 @@ spec:
     namespace: shortlink-platform
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/boundaries/platfrom/ui-kit
+    path: ops/Helm/boundaries/platform/landscape
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
