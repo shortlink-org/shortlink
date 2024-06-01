@@ -4,7 +4,7 @@
 
 ShortLink BFF Service for web
 
-**Homepage:** <https://batazor.github.io/shortlink/>
+**Homepage:** <https://github.com/shortlink-org/shortlink>
 
 ## Maintainers
 

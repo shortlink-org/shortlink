@@ -4,7 +4,7 @@
 
 Spark Operator Helm chart
 
-**Homepage:** <https://batazor.github.io/shortlink/>
+**Homepage:** <https://github.com/shortlink-org/shortlink>
 
 ## Maintainers
 

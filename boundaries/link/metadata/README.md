@@ -14,8 +14,8 @@
 
 ### Use Cases
 
-- [UC-1](./usecases/parsers/README.md) Manage metadata for URL
-- [UC-2](./usecases/screenshot/README.md) Made screenshot from URL
+- [UC-1](./internal/usecases/parsers/README.md) Manage metadata for URL
+- [UC-2](./internal/usecases/screenshot/README.md) Made screenshot from URL
 
 ### Docs
 

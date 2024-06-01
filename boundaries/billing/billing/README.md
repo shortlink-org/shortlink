@@ -20,10 +20,10 @@ $> make help # show help message with all commands and targets
 
 ### Use Cases
 
-- [UC-1](./usecases/account/README.md) Works with an account
-- [UC-2](./usecases/order/README.md) Works with an order
-- [UC-3](./usecases/payment/README.md) Works with a payment
-- [UC-4](./usecases/tariff/README.md) Works with a tariff
+- [UC-1](./internal/usecases/account/README.md) Works with an account
+- [UC-2](./internal/usecases/order/README.md) Works with an order
+- [UC-3](./internal/usecases/payment/README.md) Works with a payment
+- [UC-4](./internal/usecases/tariff/README.md) Works with a tariff
 
 ### Docs
 

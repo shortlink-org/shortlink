@@ -4,7 +4,7 @@
 
 ShortLink service for get metadata by URL
 
-**Homepage:** <https://batazor.github.io/shortlink/>
+**Homepage:** <https://github.com/shortlink-org/shortlink>
 
 ## Maintainers
 
