@@ -1,10 +1,12 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: shortlink-service-stats
+  name: grafana-dashboards
   labels:
     grafana_dashboard: "true"
   annotations:
-    grafana_dashboard_folder: ShortLink
+    grafana_dashboard_folder: Boundaries/Link Boundary
 data:
-  ingress_sla.json.url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/ops/Helm/shortlink-common/files/grafana/dashboards/service-stats.json"
+  about-boundary.json.url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/ops/Helm/boundaries/link/common/files/grafana/dashboard/about-boundary.json"
+  ingress_sla.json.url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/ops/Helm/boundaries/link/common/files/grafana/dashboard/service-stats.json"
+  postgres.json.url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/ops/Helm/boundaries/link/common/files/grafana/dashboard/postgres.json"

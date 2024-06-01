@@ -1,0 +1,82 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "Summary information about the status domain",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": 559,
+  "links": [],
+  "panels": [
+    {
+      "datasource": {
+        "type": "mixed",
+        "uid": "-- Mixed --"
+      },
+      "description": "",
+      "gridPos": {
+        "h": 8,
+        "w": 11,
+        "x": 0,
+        "y": 0
+      },
+      "id": 1,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "## Link Boundary\n\n> The Link Boundary in software systems primarily deals with the management and functionality of URLs, \n> especially in the context of shortening and tracking them. This includes creating shortlinks for easier sharing and \n> readability, redirecting users from the shortlink to the original URL, and analyzing link usage for insights. \n> Features like QR code generation for easy access and custom domains for branding are also part of this boundary. \n> It's essential for optimizing user experience in sharing and accessing web resources, providing valuable data through \n> link analytics, and enhancing brand visibility with custom domains.",
+        "mode": "markdown"
+      },
+      "pluginVersion": "11.0.0",
+      "targets": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "prometheus"
+          },
+          "expr": "",
+          "instant": false,
+          "range": true,
+          "refId": "A"
+        }
+      ],
+      "title": "Link boundary",
+      "type": "text"
+    }
+  ],
+  "schemaVersion": 39,
+  "tags": [
+    "billing"
+  ],
+  "templating": {
+    "list": []
+  },
+  "time": {
+    "from": "now-6h",
+    "to": "now"
+  },
+  "timeRangeUpdatedDuringEditOrView": false,
+  "timepicker": {},
+  "timezone": "browser",
+  "title": "About domain",
+  "uid": "ednhs8kl12ltsa",
+  "version": 2,
+  "weekStart": ""
+}
