@@ -6,7 +6,7 @@ variables:
 
 .dependabot-gitlab:
   tags:
-    - runner-type:docker
+    - gitlab-org-docker
   image:
     name: docker.io/andrcuns/dependabot-gitlab-gomod:3.15.0-alpha.1
     entrypoint: [""]
