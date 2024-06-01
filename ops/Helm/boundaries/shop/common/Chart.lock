@@ -1,0 +1,9 @@
+dependencies:
+- name: shortlink-template
+  repository: file://../../../shortlink-template
+  version: 0.8.17
+- name: redis
+  repository: oci://registry-1.docker.io/bitnamicharts
+  version: 19.5.0
+digest: sha256:efee851f808932bf5cbdf78f2961886a152f6462778f0ff79489dc1fdf236d20
+generated: "2024-06-01T17:33:00.024576+02:00"

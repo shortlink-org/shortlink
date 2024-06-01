@@ -1,17 +1,8 @@
 # KUBERNETES TASKS =====================================================================================================
 export HELM_EXPERIMENTAL_OCI=1
 
-SHORTLINK_HELM_PATH     := ops/Helm
-SHORTLINK_HELM_SERVICES := api bot common landing link logger metadata next notify proxy workflows
-SHORTLINK_HELM_ADDONS   := argocd cert-manager gateway/istio gateway/nginx-ingress grafana keda knative-operator kyverno prometheus-operator mq/rabbitmq rook-ceph store/postgresql store/redis
-
 helm-lint: ## Check Helm chart by linter
-	for i in $(SHORTLINK_HELM_SERVICES); do \
-		helm lint --quiet --with-subcharts ${SHORTLINK_HELM_PATH}/shortlink-$$i; \
-  	done; \
-  	for i in $(SHORTLINK_HELM_ADDONS); do \
-		helm lint --quiet --with-subcharts ${SHORTLINK_HELM_PATH}/addons/$$i; \
-  	done
+	@ops/Makefile/k8s/scripts/helm_lint.sh
 
 # HELM TASKS ===========================================================================================================
 helm-docs: ### Generate HELM docs
