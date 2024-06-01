@@ -43,7 +43,7 @@ object
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cert-manager-approver-policy--app--metrics--service--servicemonitor--enabled"><a href="./values.yaml#L39">cert-manager-approver-policy.app.metrics.service.servicemonitor.enabled</a></td>
+			<td id="cert-manager-approver-policy--app--metrics--service--servicemonitor--enabled"><a href="./values.yaml#L74">cert-manager-approver-policy.app.metrics.service.servicemonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -57,7 +57,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cert-manager-approver-policy--enabled"><a href="./values.yaml#L33">cert-manager-approver-policy.enabled</a></td>
+			<td id="cert-manager-approver-policy--enabled"><a href="./values.yaml#L68">cert-manager-approver-policy.enabled</a></td>
 			<td>
 bool
 </td>
@@ -65,6 +65,62 @@ bool
 				<div style="max-width: 300px;">
 <pre lang="json">
 false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--cainjector--resources--limits--cpu"><a href="./values.yaml#L47">certmanager.cainjector.resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"100m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--cainjector--resources--limits--memory"><a href="./values.yaml#L48">certmanager.cainjector.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"128Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--cainjector--resources--requests--cpu"><a href="./values.yaml#L44">certmanager.cainjector.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"10m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--cainjector--resources--requests--memory"><a href="./values.yaml#L45">certmanager.cainjector.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"32Mi"
 </pre>
 </div>
 			</td>
@@ -85,7 +141,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--extraArgs[0]"><a href="./values.yaml#L21">certmanager.extraArgs[0]</a></td>
+			<td id="certmanager--extraArgs[0]"><a href="./values.yaml#L29">certmanager.extraArgs[0]</a></td>
 			<td>
 string
 </td>
@@ -99,7 +155,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--featureGates"><a href="./values.yaml#L12">certmanager.featureGates</a></td>
+			<td id="certmanager--featureGates"><a href="./values.yaml#L20">certmanager.featureGates</a></td>
 			<td>
 string
 </td>
@@ -113,7 +169,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--installCRDs"><a href="./values.yaml#L18">certmanager.installCRDs</a></td>
+			<td id="certmanager--installCRDs"><a href="./values.yaml#L26">certmanager.installCRDs</a></td>
 			<td>
 bool
 </td>
@@ -127,7 +183,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--prometheus--enabled"><a href="./values.yaml#L25">certmanager.prometheus.enabled</a></td>
+			<td id="certmanager--prometheus--enabled"><a href="./values.yaml#L60">certmanager.prometheus.enabled</a></td>
 			<td>
 bool
 </td>
@@ -141,7 +197,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--prometheus--servicemonitor--enabled"><a href="./values.yaml#L28">certmanager.prometheus.servicemonitor.enabled</a></td>
+			<td id="certmanager--prometheus--servicemonitor--enabled"><a href="./values.yaml#L63">certmanager.prometheus.servicemonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -155,7 +211,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--prometheus--servicemonitor--labels--release"><a href="./values.yaml#L30">certmanager.prometheus.servicemonitor.labels.release</a></td>
+			<td id="certmanager--prometheus--servicemonitor--labels--release"><a href="./values.yaml#L65">certmanager.prometheus.servicemonitor.labels.release</a></td>
 			<td>
 string
 </td>
@@ -169,7 +225,119 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--type"><a href="./values.yaml#L16">certmanager.type</a></td>
+			<td id="certmanager--resources--limits--cpu"><a href="./values.yaml#L17">certmanager.resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"100m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--resources--limits--memory"><a href="./values.yaml#L18">certmanager.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"128Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--resources--requests--cpu"><a href="./values.yaml#L14">certmanager.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"10m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--resources--requests--memory"><a href="./values.yaml#L15">certmanager.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"32Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--startupapicheck--resources--limits--cpu"><a href="./values.yaml#L56">certmanager.startupapicheck.resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"100m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--startupapicheck--resources--limits--memory"><a href="./values.yaml#L57">certmanager.startupapicheck.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"128Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--startupapicheck--resources--requests--cpu"><a href="./values.yaml#L53">certmanager.startupapicheck.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"10m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--startupapicheck--resources--requests--memory"><a href="./values.yaml#L54">certmanager.startupapicheck.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"32Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--type"><a href="./values.yaml#L24">certmanager.type</a></td>
 			<td>
 string
 </td>
@@ -177,6 +345,62 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "cloudflare"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--webhook--resources--limits--cpu"><a href="./values.yaml#L38">certmanager.webhook.resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"100m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--webhook--resources--limits--memory"><a href="./values.yaml#L39">certmanager.webhook.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"128Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--webhook--resources--requests--cpu"><a href="./values.yaml#L35">certmanager.webhook.resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"10m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="certmanager--webhook--resources--requests--memory"><a href="./values.yaml#L36">certmanager.webhook.resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"32Mi"
 </pre>
 </div>
 			</td>
@@ -197,7 +421,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="spiffe--app--approver--metrics--service--servicemonitor--enabled"><a href="./values.yaml#L58">spiffe.app.approver.metrics.service.servicemonitor.enabled</a></td>
+			<td id="spiffe--app--approver--metrics--service--servicemonitor--enabled"><a href="./values.yaml#L93">spiffe.app.approver.metrics.service.servicemonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -211,7 +435,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="spiffe--app--driver--resources--limits--cpu"><a href="./values.yaml#L51">spiffe.app.driver.resources.limits.cpu</a></td>
+			<td id="spiffe--app--driver--resources--limits--cpu"><a href="./values.yaml#L86">spiffe.app.driver.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -225,7 +449,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="spiffe--app--driver--resources--limits--memory"><a href="./values.yaml#L52">spiffe.app.driver.resources.limits.memory</a></td>
+			<td id="spiffe--app--driver--resources--limits--memory"><a href="./values.yaml#L87">spiffe.app.driver.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -239,7 +463,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="spiffe--app--driver--resources--requests--cpu"><a href="./values.yaml#L48">spiffe.app.driver.resources.requests.cpu</a></td>
+			<td id="spiffe--app--driver--resources--requests--cpu"><a href="./values.yaml#L83">spiffe.app.driver.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -253,7 +477,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="spiffe--app--driver--resources--requests--memory"><a href="./values.yaml#L49">spiffe.app.driver.resources.requests.memory</a></td>
+			<td id="spiffe--app--driver--resources--requests--memory"><a href="./values.yaml#L84">spiffe.app.driver.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -267,7 +491,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="spiffe--enabled"><a href="./values.yaml#L42">spiffe.enabled</a></td>
+			<td id="spiffe--enabled"><a href="./values.yaml#L77">spiffe.enabled</a></td>
 			<td>
 bool
 </td>

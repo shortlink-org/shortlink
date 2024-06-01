@@ -27,7 +27,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="grafana--"grafana--ini"--auth--anonymous--enabled"><a href="./values.yaml#L186">grafana."grafana.ini".auth.anonymous.enabled</a></td>
+			<td id="grafana--"grafana--ini"--auth--anonymous--enabled"><a href="./values.yaml#L194">grafana."grafana.ini".auth.anonymous.enabled</a></td>
 			<td>
 bool
 </td>
@@ -41,7 +41,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--"grafana--ini"--auth--anonymous--hide_version"><a href="./values.yaml#L195">grafana."grafana.ini".auth.anonymous.hide_version</a></td>
+			<td id="grafana--"grafana--ini"--auth--anonymous--hide_version"><a href="./values.yaml#L203">grafana."grafana.ini".auth.anonymous.hide_version</a></td>
 			<td>
 bool
 </td>
@@ -55,7 +55,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--"grafana--ini"--auth--anonymous--org_name"><a href="./values.yaml#L189">grafana."grafana.ini".auth.anonymous.org_name</a></td>
+			<td id="grafana--"grafana--ini"--auth--anonymous--org_name"><a href="./values.yaml#L197">grafana."grafana.ini".auth.anonymous.org_name</a></td>
 			<td>
 string
 </td>
@@ -69,7 +69,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--"grafana--ini"--auth--anonymous--org_role"><a href="./values.yaml#L192">grafana."grafana.ini".auth.anonymous.org_role</a></td>
+			<td id="grafana--"grafana--ini"--auth--anonymous--org_role"><a href="./values.yaml#L200">grafana."grafana.ini".auth.anonymous.org_role</a></td>
 			<td>
 string
 </td>
@@ -83,7 +83,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--"grafana--ini"--reporting--enabled"><a href="./values.yaml#L182">grafana."grafana.ini".reporting.enabled</a></td>
+			<td id="grafana--"grafana--ini"--reporting--enabled"><a href="./values.yaml#L190">grafana."grafana.ini".reporting.enabled</a></td>
 			<td>
 bool
 </td>
@@ -125,7 +125,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--downloadDashboards--resources--limits--cpu"><a href="./values.yaml#L165">grafana.downloadDashboards.resources.limits.cpu</a></td>
+			<td id="grafana--downloadDashboards--resources--limits--cpu"><a href="./values.yaml#L173">grafana.downloadDashboards.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -139,7 +139,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--downloadDashboards--resources--limits--memory"><a href="./values.yaml#L166">grafana.downloadDashboards.resources.limits.memory</a></td>
+			<td id="grafana--downloadDashboards--resources--limits--memory"><a href="./values.yaml#L174">grafana.downloadDashboards.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -153,7 +153,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--downloadDashboards--resources--requests--cpu"><a href="./values.yaml#L168">grafana.downloadDashboards.resources.requests.cpu</a></td>
+			<td id="grafana--downloadDashboards--resources--requests--cpu"><a href="./values.yaml#L176">grafana.downloadDashboards.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -167,7 +167,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--downloadDashboards--resources--requests--memory"><a href="./values.yaml#L169">grafana.downloadDashboards.resources.requests.memory</a></td>
+			<td id="grafana--downloadDashboards--resources--requests--memory"><a href="./values.yaml#L177">grafana.downloadDashboards.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -251,7 +251,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraContainerVolumes[0]--emptyDir"><a href="./values.yaml#L156">grafana.extraContainerVolumes[0].emptyDir</a></td>
+			<td id="grafana--extraContainerVolumes[0]--emptyDir"><a href="./values.yaml#L164">grafana.extraContainerVolumes[0].emptyDir</a></td>
 			<td>
 object
 </td>
@@ -265,7 +265,7 @@ object
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraContainerVolumes[0]--name"><a href="./values.yaml#L155">grafana.extraContainerVolumes[0].name</a></td>
+			<td id="grafana--extraContainerVolumes[0]--name"><a href="./values.yaml#L163">grafana.extraContainerVolumes[0].name</a></td>
 			<td>
 string
 </td>
@@ -349,7 +349,63 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraInitContainers[0]--volumeMounts[0]--mountPath"><a href="./values.yaml#L152">grafana.extraInitContainers[0].volumeMounts[0].mountPath</a></td>
+			<td id="grafana--extraInitContainers[0]--resources--limits--cpu"><a href="./values.yaml#L152">grafana.extraInitContainers[0].resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"100m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--extraInitContainers[0]--resources--limits--memory"><a href="./values.yaml#L153">grafana.extraInitContainers[0].resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"128Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--extraInitContainers[0]--resources--requests--cpu"><a href="./values.yaml#L155">grafana.extraInitContainers[0].resources.requests.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"25m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--extraInitContainers[0]--resources--requests--memory"><a href="./values.yaml#L156">grafana.extraInitContainers[0].resources.requests.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"64Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--extraInitContainers[0]--volumeMounts[0]--mountPath"><a href="./values.yaml#L160">grafana.extraInitContainers[0].volumeMounts[0].mountPath</a></td>
 			<td>
 string
 </td>
@@ -363,7 +419,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraInitContainers[0]--volumeMounts[0]--name"><a href="./values.yaml#L151">grafana.extraInitContainers[0].volumeMounts[0].name</a></td>
+			<td id="grafana--extraInitContainers[0]--volumeMounts[0]--name"><a href="./values.yaml#L159">grafana.extraInitContainers[0].volumeMounts[0].name</a></td>
 			<td>
 string
 </td>
@@ -377,7 +433,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraVolumeMounts[0]--mountPath"><a href="./values.yaml#L160">grafana.extraVolumeMounts[0].mountPath</a></td>
+			<td id="grafana--extraVolumeMounts[0]--mountPath"><a href="./values.yaml#L168">grafana.extraVolumeMounts[0].mountPath</a></td>
 			<td>
 string
 </td>
@@ -391,7 +447,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraVolumeMounts[0]--name"><a href="./values.yaml#L159">grafana.extraVolumeMounts[0].name</a></td>
+			<td id="grafana--extraVolumeMounts[0]--name"><a href="./values.yaml#L167">grafana.extraVolumeMounts[0].name</a></td>
 			<td>
 string
 </td>
@@ -699,7 +755,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--initChownData--resources--limits--cpu"><a href="./values.yaml#L174">grafana.initChownData.resources.limits.cpu</a></td>
+			<td id="grafana--initChownData--resources--limits--cpu"><a href="./values.yaml#L182">grafana.initChownData.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -713,7 +769,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--initChownData--resources--limits--memory"><a href="./values.yaml#L175">grafana.initChownData.resources.limits.memory</a></td>
+			<td id="grafana--initChownData--resources--limits--memory"><a href="./values.yaml#L183">grafana.initChownData.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -727,7 +783,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--initChownData--resources--requests--cpu"><a href="./values.yaml#L177">grafana.initChownData.resources.requests.cpu</a></td>
+			<td id="grafana--initChownData--resources--requests--cpu"><a href="./values.yaml#L185">grafana.initChownData.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -741,7 +797,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--initChownData--resources--requests--memory"><a href="./values.yaml#L178">grafana.initChownData.resources.requests.memory</a></td>
+			<td id="grafana--initChownData--resources--requests--memory"><a href="./values.yaml#L186">grafana.initChownData.resources.requests.memory</a></td>
 			<td>
 string
 </td>
