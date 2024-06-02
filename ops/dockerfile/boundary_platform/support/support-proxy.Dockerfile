@@ -1,5 +1,5 @@
 # Production image, copy all the files and run next
-FROM --platform=$BUILDPLATFORM ghcr.io/nginxinc/nginx-unprivileged:1.26-alpine
+FROM --platform=$BUILDPLATFORM ghcr.io/nginxinc/nginx-unprivileged:1.27-alpine
 
 # Delete default config
 RUN rm /etc/nginx/conf.d/default.conf

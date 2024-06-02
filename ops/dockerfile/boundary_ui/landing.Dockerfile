@@ -40,7 +40,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm dlx nx run landing:build
 
 # Production image, copy all the files and run next
-FROM --platform=$TARGETPLATFORM ghcr.io/nginxinc/nginx-unprivileged:1.26-alpine
+FROM --platform=$TARGETPLATFORM ghcr.io/nginxinc/nginx-unprivileged:1.27-alpine
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-landing"
