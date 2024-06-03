@@ -7,9 +7,6 @@ grafana:
   enabled: true
   namespaceOverride: ""
 
-  image:
-    tag: 11.0.0
-
   podAnnotations:
     "pyroscope.grafana.com/scrape": "true"
     "pyroscope.grafana.com/port": "6060"
