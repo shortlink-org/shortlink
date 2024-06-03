@@ -8,6 +8,7 @@ import (
 	"os"
 	"strconv"
 	"testing"
+	"time"
 
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
@@ -16,7 +17,6 @@ import (
 	"go.uber.org/goleak"
 
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/mock"
 	"github.com/shortlink-org/shortlink/pkg/db/options"
 	db "github.com/shortlink-org/shortlink/pkg/db/postgres"
 )
@@ -91,11 +91,19 @@ func TestPostgres(t *testing.T) {
 		t.Fatalf("Could not create store: %s", err)
 	}
 
+	timestamp := time.Now()
+	mockLink, err := v1.NewLinkBuilder().
+		SetURL("https://example.com").
+		SetDescribe("example link").
+		SetCreatedAt(timestamp).
+		SetUpdatedAt(timestamp).
+		Build()
+
 	t.Run("Create [single]", func(t *testing.T) {
-		link, err := store.Add(ctx, mock.AddLink)
+		link, err := store.Add(ctx, mockLink)
 		require.NoError(t, err)
-		assert.Equal(t, mock.AddLink.Hash, link.Hash)
-		assert.Equal(t, mock.AddLink.Describe, link.Describe)
+		assert.Equal(t, mockLink.GetHash(), link.GetHash())
+		assert.Equal(t, mockLink.GetDescribe(), link.GetDescribe())
 	})
 
 	t.Run("Create [batch]", func(t *testing.T) {
@@ -114,62 +122,65 @@ func TestPostgres(t *testing.T) {
 		require.NoError(t, err)
 		_, err = storeBatchMode.Add(ctx, source)
 		require.NoError(t, err)
-		assert.NotNil(t, source.CreatedAt)
-		assert.Equal(t, source.Describe, mock.GetLink.Describe)
+		assert.NotNil(t, source.GetCreatedAt())
+		assert.Equal(t, source.GetDescribe(), mockLink.GetDescribe())
 
 		source, err = getLink()
 		require.NoError(t, err)
 		_, err = storeBatchMode.Add(ctx, source)
 		require.NoError(t, err)
-		assert.NotNil(t, source.CreatedAt)
-		assert.Equal(t, source.Describe, mock.GetLink.Describe)
+		assert.NotNil(t, source.GetCreatedAt())
+		assert.Equal(t, source.GetDescribe(), mockLink.GetDescribe())
 
 		source, err = getLink()
 		require.NoError(t, err)
 		_, err = storeBatchMode.Add(ctx, source)
 		require.NoError(t, err)
-		assert.NotNil(t, source.CreatedAt)
-		assert.Equal(t, source.Describe, mock.GetLink.Describe)
+		assert.NotNil(t, source.GetCreatedAt())
+		assert.Equal(t, source.GetDescribe(), mockLink.GetDescribe())
 
 		source, err = getLink()
 		require.NoError(t, err)
 		_, err = storeBatchMode.Add(ctx, source)
 		require.NoError(t, err)
-		assert.NotNil(t, source.CreatedAt)
-		assert.Equal(t, source.Describe, mock.GetLink.Describe)
+		assert.NotNil(t, source.GetCreatedAt())
+		assert.Equal(t, source.GetDescribe(), mockLink.GetDescribe())
 
 		t.Cleanup(func() {
 			cancelBatchMode()
 		})
 	})
 
-	t.Run("Get", func(t *testing.T) {
-		link, err := store.Get(ctx, mock.GetLink.Hash)
+	t.Run("Get by hash", func(t *testing.T) {
+		link, err := store.Get(ctx, mockLink.GetHash())
 		require.NoError(t, err)
-		assert.Equal(t, link.Hash, mock.GetLink.Hash)
-		assert.Equal(t, link.Describe, mock.GetLink.Describe)
+		assert.Equal(t, link.GetHash(), mockLink.GetHash())
+		assert.Equal(t, link.GetDescribe(), mockLink.GetDescribe())
 	})
 
 	t.Run("Get list", func(t *testing.T) {
 		links, err := store.List(ctx, nil)
 		require.NoError(t, err)
-		assert.Equal(t, 8, len(links.Link))
+		assert.Equal(t, 8, len(links.GetLinks()))
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		require.NoError(t, store.Delete(ctx, mock.GetLink.Hash))
+		require.NoError(t, store.Delete(ctx, mockLink.GetHash()))
 	})
 }
 
 func getLink() (*v1.Link, error) {
 	id := linkUniqId.Add(1)
 
-	data := &v1.Link{
-		Url:      fmt.Sprintf("%s/%d", "http://example.com", id),
-		Describe: mock.AddLink.Describe,
-	}
+	timestamp := time.Now()
+	data, err := v1.NewLinkBuilder().
+		SetURL(fmt.Sprintf("%s/%d", "http://example.com", id)).
+		SetDescribe("example link").
+		SetCreatedAt(timestamp).
+		SetUpdatedAt(timestamp).
+		Build()
 
-	if err := v1.NewURL(data); err != nil {
+	if err != nil {
 		return nil, err
 	}
 

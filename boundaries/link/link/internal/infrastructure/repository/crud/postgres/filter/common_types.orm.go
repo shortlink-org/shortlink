@@ -14,7 +14,7 @@ type FilterLink domain.FilterLink
 
 func NewFilter(params *domain.FilterLink) *FilterLink {
 	if params == nil {
-		return nil
+		return &FilterLink{}
 	}
 
 	return &FilterLink{

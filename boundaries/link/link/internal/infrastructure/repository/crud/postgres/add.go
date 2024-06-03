@@ -72,16 +72,16 @@ func (s *Store) singleWrite(ctx context.Context, in *domain.Link) (*domain.Link,
 }
 
 func (s *Store) batchWrite(ctx context.Context, in *domain.Links) (*domain.Links, error) {
-	links := make([]crud.CreateLinksParams, 0, len(in.GetLink()))
+	links := make([]crud.CreateLinksParams, 0, len(in.GetLinks()))
 
 	// Create a new link
-	list := in.GetLink()
+	list := in.GetLinks()
 	for key := range list {
 		links = append(links, crud.CreateLinksParams{
 			Url:      list[key].GetUrl().String(),
 			Hash:     list[key].GetHash(),
 			Describe: list[key].GetDescribe(),
-			Json:     *list[key],
+			Json:     NewExampleJsonLink(*list[key]),
 		})
 	}
 

@@ -70,7 +70,7 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 				return errBatchWrite
 			}
 
-			for key, item := range dataList.GetLink() {
+			for key, item := range dataList.GetLinks() {
 				args[key].CallbackChannel <- item
 			}
 

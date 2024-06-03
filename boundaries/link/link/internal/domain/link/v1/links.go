@@ -6,8 +6,8 @@ type Links struct {
 	link []*Link
 }
 
-// GetLink returns the value of the link field.
-func (m *Links) GetLink() []*Link {
+// GetLinks returns the value of the link field.
+func (m *Links) GetLinks() []*Link {
 	return m.link
 }
 

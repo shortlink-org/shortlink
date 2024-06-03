@@ -27,9 +27,9 @@ func (l *LinkRPC) List(ctx context.Context, in *ListRequest) (*ListResponse, err
 	}
 
 	links := &Links{
-		Link: make([]*Link, 0, len(resp.GetLink())),
+		Link: make([]*Link, 0, len(resp.GetLinks())),
 	}
-	for _, link := range resp.GetLink() {
+	for _, link := range resp.GetLinks() {
 		links.Link = append(links.Link, &Link{
 			Url:       link.GetUrl().String(),
 			Hash:      link.GetHash(),
