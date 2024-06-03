@@ -7,7 +7,7 @@ CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 CREATE SCHEMA IF NOT EXISTS billing;
 
 -- TARIFF TABLE ========================================================================================================
-CREATE TABLE billing.tariff(
+CREATE TABLE tariff(
     "id" UUID NOT NULL,
     "name" VARCHAR(255) NOT NULL,
     "payload" jsonb NOT NULL,
@@ -15,14 +15,15 @@ CREATE TABLE billing.tariff(
     "updated_at" TIMESTAMP(0) WITHOUT TIME ZONE NOT NULL
 ) WITH (fillfactor = 100);
 ALTER TABLE
-    billing.tariff ADD PRIMARY KEY("id");
+    tariff ADD PRIMARY KEY("id");
 COMMENT
 ON COLUMN
-    billing.tariff."payload" IS '{
+  tariff."payload" IS '{
   "productNameA": "price",
   "productNameB": "price",
 }';
 
 -- AGGREGATE TABLE =====================================================================================================
-ALTER TABLE
-    billing.account ADD CONSTRAINT "account_tariff_id_foreign" FOREIGN KEY("tariff_id") REFERENCES billing.tariff("id");
+-- We cann't use the same table for aggregate because of the different structure, it's need made from code side
+-- ALTER TABLE
+--    account ADD CONSTRAINT "account_tariff_id_foreign" FOREIGN KEY("tariff_id") REFERENCES tariff("id");
