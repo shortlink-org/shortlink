@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/boundaries/api/api-gateway
 go 1.22.3
 
 require (
-	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.3.0-20240420204150-bbba30c24796.3
+	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.4.0-20240420204150-bbba30c24796.1
 	github.com/cloudevents/sdk-go/observability/opentelemetry/v2 v2.15.2
 	github.com/cloudevents/sdk-go/v2 v2.15.2
 	github.com/google/wire v0.6.0
