@@ -14,7 +14,7 @@ spec:
     namespace: temporal
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/mq/temporal
+    path: ops/Helm/boundaries/shop/temporal
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
