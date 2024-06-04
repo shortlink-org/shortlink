@@ -20,9 +20,8 @@ spec:
     helm:
       releaseName: scylla-operator
       valueFiles:
-        - operator.values.yaml
+        - values.yaml
         - manager.values.yaml
-        - scylla.values.yaml
   syncPolicy:
     automated:
       prune: true
