@@ -15,7 +15,7 @@ type: application
 deprecated: false
 dependencies:
   - name: gateway
-    version: 1.22.0
+    version: 1.22.1
     repository: https://istio-release.storage.googleapis.com/charts
     condition: istio-ingress.enabled
     tags:
