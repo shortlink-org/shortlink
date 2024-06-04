@@ -21,6 +21,7 @@ spec:
       releaseName: temporal
       valueFiles:
         - values.yaml
+        - scylla.values.yaml
   syncPolicy:
     automated:
       prune: true
