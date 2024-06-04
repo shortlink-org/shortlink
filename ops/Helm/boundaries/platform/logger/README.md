@@ -1,4 +1,4 @@
-# shortlink-logger
+# logger
 
 ![Version: 0.7.1](https://img.shields.io/badge/Version-0.7.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
@@ -22,7 +22,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../shortlink-template | shortlink-template | 0.8.17 |
+| file://../../../shortlink-template | shortlink-template | 0.8.17 |
 
 ## Values
 
@@ -35,7 +35,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="deploy--affinity"><a href="values.yaml#L49">deploy.affinity</a></td>
+			<td id="deploy--affinity"><a href="./values.yaml#L49">deploy.affinity</a></td>
 			<td>
 list
 </td>
@@ -49,7 +49,7 @@ list
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--annotations"><a href="values.yaml#L32">deploy.annotations</a></td>
+			<td id="deploy--annotations"><a href="./values.yaml#L32">deploy.annotations</a></td>
 			<td>
 object
 </td>
@@ -63,7 +63,7 @@ object
 			<td>Annotations to be added to controller pods</td>
 		</tr>
 		<tr>
-			<td id="deploy--env--MQ_ENABLED"><a href="values.yaml#L23">deploy.env.MQ_ENABLED</a></td>
+			<td id="deploy--env--MQ_ENABLED"><a href="./values.yaml#L23">deploy.env.MQ_ENABLED</a></td>
 			<td>
 bool
 </td>
@@ -77,7 +77,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--MQ_KAFKA_CONSUMER_GROUP"><a href="values.yaml#L26">deploy.env.MQ_KAFKA_CONSUMER_GROUP</a></td>
+			<td id="deploy--env--MQ_KAFKA_CONSUMER_GROUP"><a href="./values.yaml#L26">deploy.env.MQ_KAFKA_CONSUMER_GROUP</a></td>
 			<td>
 string
 </td>
@@ -91,7 +91,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--MQ_KAFKA_URI"><a href="values.yaml#L25">deploy.env.MQ_KAFKA_URI</a></td>
+			<td id="deploy--env--MQ_KAFKA_URI"><a href="./values.yaml#L25">deploy.env.MQ_KAFKA_URI</a></td>
 			<td>
 string
 </td>
@@ -105,7 +105,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--MQ_TYPE"><a href="values.yaml#L24">deploy.env.MQ_TYPE</a></td>
+			<td id="deploy--env--MQ_TYPE"><a href="./values.yaml#L24">deploy.env.MQ_TYPE</a></td>
 			<td>
 string
 </td>
@@ -119,7 +119,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--TRACER_URI"><a href="values.yaml#L27">deploy.env.TRACER_URI</a></td>
+			<td id="deploy--env--TRACER_URI"><a href="./values.yaml#L27">deploy.env.TRACER_URI</a></td>
 			<td>
 string
 </td>
@@ -133,7 +133,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--pullPolicy"><a href="values.yaml#L40">deploy.image.pullPolicy</a></td>
+			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L40">deploy.image.pullPolicy</a></td>
 			<td>
 string
 </td>
@@ -147,7 +147,7 @@ string
 			<td>Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images</td>
 		</tr>
 		<tr>
-			<td id="deploy--image--repository"><a href="values.yaml#L35">deploy.image.repository</a></td>
+			<td id="deploy--image--repository"><a href="./values.yaml#L35">deploy.image.repository</a></td>
 			<td>
 string
 </td>
@@ -161,7 +161,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--tag"><a href="values.yaml#L36">deploy.image.tag</a></td>
+			<td id="deploy--image--tag"><a href="./values.yaml#L36">deploy.image.tag</a></td>
 			<td>
 string
 </td>
@@ -175,7 +175,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--imagePullSecrets"><a href="values.yaml#L29">deploy.imagePullSecrets</a></td>
+			<td id="deploy--imagePullSecrets"><a href="./values.yaml#L29">deploy.imagePullSecrets</a></td>
 			<td>
 list
 </td>
@@ -189,7 +189,7 @@ list
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--livenessProbe"><a href="values.yaml#L52">deploy.livenessProbe</a></td>
+			<td id="deploy--livenessProbe"><a href="./values.yaml#L52">deploy.livenessProbe</a></td>
 			<td>
 object
 </td>
@@ -213,7 +213,7 @@ object
 			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--nodeSelector"><a href="values.yaml#L45">deploy.nodeSelector</a></td>
+			<td id="deploy--nodeSelector"><a href="./values.yaml#L45">deploy.nodeSelector</a></td>
 			<td>
 object
 </td>
@@ -227,7 +227,7 @@ object
 			<td>Node labels and tolerations for pod assignment ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#nodeselector ref: https://kubernetes.io/docs/concepts/configuration/assign-pod-node/#taints-and-tolerations-beta-feature</td>
 		</tr>
 		<tr>
-			<td id="deploy--podSecurityContext--fsGroup"><a href="values.yaml#L87">deploy.podSecurityContext.fsGroup</a></td>
+			<td id="deploy--podSecurityContext--fsGroup"><a href="./values.yaml#L87">deploy.podSecurityContext.fsGroup</a></td>
 			<td>
 int
 </td>
@@ -241,7 +241,7 @@ int
 			<td>fsGroup is the group ID associated with the container</td>
 		</tr>
 		<tr>
-			<td id="deploy--readinessProbe"><a href="values.yaml#L63">deploy.readinessProbe</a></td>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L63">deploy.readinessProbe</a></td>
 			<td>
 object
 </td>
@@ -265,7 +265,7 @@ object
 			<td>define a readiness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--replicaCount"><a href="values.yaml#L20">deploy.replicaCount</a></td>
+			<td id="deploy--replicaCount"><a href="./values.yaml#L20">deploy.replicaCount</a></td>
 			<td>
 int
 </td>
@@ -279,7 +279,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--limits"><a href="values.yaml#L78">deploy.resources.limits</a></td>
+			<td id="deploy--resources--limits"><a href="./values.yaml#L78">deploy.resources.limits</a></td>
 			<td>
 object
 </td>
@@ -296,7 +296,7 @@ object
 			<td>We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'.</td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--requests--cpu"><a href="values.yaml#L82">deploy.resources.requests.cpu</a></td>
+			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L82">deploy.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -310,7 +310,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--requests--memory"><a href="values.yaml#L83">deploy.resources.requests.memory</a></td>
+			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L83">deploy.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -324,7 +324,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--securityContext"><a href="values.yaml#L92">deploy.securityContext</a></td>
+			<td id="deploy--securityContext"><a href="./values.yaml#L92">deploy.securityContext</a></td>
 			<td>
 object
 </td>
@@ -349,7 +349,7 @@ object
 			<td>Security Context policies for controller pods See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for notes on enabling and using sysctls</td>
 		</tr>
 		<tr>
-			<td id="deploy--tolerations"><a href="values.yaml#L47">deploy.tolerations</a></td>
+			<td id="deploy--tolerations"><a href="./values.yaml#L47">deploy.tolerations</a></td>
 			<td>
 list
 </td>
@@ -363,7 +363,7 @@ list
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="values.yaml#L113">monitoring.enabled</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L113">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -377,7 +377,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--enabled"><a href="values.yaml#L123">networkPolicy.enabled</a></td>
+			<td id="networkPolicy--enabled"><a href="./values.yaml#L123">networkPolicy.enabled</a></td>
 			<td>
 bool
 </td>
@@ -391,7 +391,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[0]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="values.yaml#L129">networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[0]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L129">networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -405,7 +405,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[1]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="values.yaml#L132">networkPolicy.ingress[0].from[1].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[1]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L132">networkPolicy.ingress[0].from[1].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -419,7 +419,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[2]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="values.yaml#L135">networkPolicy.ingress[0].from[2].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[2]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L135">networkPolicy.ingress[0].from[2].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -433,7 +433,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[3]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="values.yaml#L138">networkPolicy.ingress[0].from[3].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[3]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L138">networkPolicy.ingress[0].from[3].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -447,7 +447,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[4]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="values.yaml#L141">networkPolicy.ingress[0].from[4].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[4]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L141">networkPolicy.ingress[0].from[4].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -461,7 +461,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--policyTypes[0]"><a href="values.yaml#L143">networkPolicy.policyTypes[0]</a></td>
+			<td id="networkPolicy--policyTypes[0]"><a href="./values.yaml#L143">networkPolicy.policyTypes[0]</a></td>
 			<td>
 string
 </td>
@@ -475,7 +475,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--policyTypes[1]"><a href="values.yaml#L144">networkPolicy.policyTypes[1]</a></td>
+			<td id="networkPolicy--policyTypes[1]"><a href="./values.yaml#L144">networkPolicy.policyTypes[1]</a></td>
 			<td>
 string
 </td>
@@ -489,7 +489,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="podDisruptionBudget--enabled"><a href="values.yaml#L118">podDisruptionBudget.enabled</a></td>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L118">podDisruptionBudget.enabled</a></td>
 			<td>
 bool
 </td>
@@ -503,7 +503,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports"><a href="values.yaml#L108">service.ports</a></td>
+			<td id="service--ports"><a href="./values.yaml#L108">service.ports</a></td>
 			<td>
 list
 </td>
@@ -517,7 +517,7 @@ list
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--type"><a href="values.yaml#L107">service.type</a></td>
+			<td id="service--type"><a href="./values.yaml#L107">service.type</a></td>
 			<td>
 string
 </td>

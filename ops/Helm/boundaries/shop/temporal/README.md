@@ -15,6 +15,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | https://go.temporal.io/helm-charts | temporal | 0.39.0 |
+| https://scylla-operator-charts.storage.googleapis.com/stable | scylla | v1.12.2 |
 
 ## Values
 
@@ -27,7 +28,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="temporal--cassandra--enabled"><a href="values.yaml#L78">temporal.cassandra.enabled</a></td>
+			<td id="temporal--cassandra--enabled"><a href="./values.yaml#L78">temporal.cassandra.enabled</a></td>
 			<td>
 bool
 </td>
@@ -41,7 +42,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--elasticsearch--enabled"><a href="values.yaml#L74">temporal.elasticsearch.enabled</a></td>
+			<td id="temporal--elasticsearch--enabled"><a href="./values.yaml#L74">temporal.elasticsearch.enabled</a></td>
 			<td>
 bool
 </td>
@@ -55,7 +56,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--elasticsearch--replicas"><a href="values.yaml#L75">temporal.elasticsearch.replicas</a></td>
+			<td id="temporal--elasticsearch--replicas"><a href="./values.yaml#L75">temporal.elasticsearch.replicas</a></td>
 			<td>
 int
 </td>
@@ -69,7 +70,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--enabled"><a href="values.yaml#L6">temporal.enabled</a></td>
+			<td id="temporal--enabled"><a href="./values.yaml#L6">temporal.enabled</a></td>
 			<td>
 bool
 </td>
@@ -83,7 +84,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--fullnameOverride"><a href="values.yaml#L8">temporal.fullnameOverride</a></td>
+			<td id="temporal--fullnameOverride"><a href="./values.yaml#L8">temporal.fullnameOverride</a></td>
 			<td>
 string
 </td>
@@ -97,7 +98,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--grafana--enabled"><a href="values.yaml#L84">temporal.grafana.enabled</a></td>
+			<td id="temporal--grafana--enabled"><a href="./values.yaml#L84">temporal.grafana.enabled</a></td>
 			<td>
 bool
 </td>
@@ -111,7 +112,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--prometheus--enabled"><a href="values.yaml#L81">temporal.prometheus.enabled</a></td>
+			<td id="temporal--prometheus--enabled"><a href="./values.yaml#L81">temporal.prometheus.enabled</a></td>
 			<td>
 bool
 </td>
@@ -125,7 +126,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--server--config--persistence--default--cassandra--existingSecret"><a href="values.yaml#L21">temporal.server.config.persistence.default.cassandra.existingSecret</a></td>
+			<td id="temporal--server--config--persistence--default--cassandra--existingSecret"><a href="./values.yaml#L21">temporal.server.config.persistence.default.cassandra.existingSecret</a></td>
 			<td>
 string
 </td>
@@ -139,7 +140,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--server--config--persistence--default--cassandra--hosts[0]"><a href="values.yaml#L20">temporal.server.config.persistence.default.cassandra.hosts[0]</a></td>
+			<td id="temporal--server--config--persistence--default--cassandra--hosts[0]"><a href="./values.yaml#L20">temporal.server.config.persistence.default.cassandra.hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -153,7 +154,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--server--config--persistence--default--cassandra--port"><a href="values.yaml#L18">temporal.server.config.persistence.default.cassandra.port</a></td>
+			<td id="temporal--server--config--persistence--default--cassandra--port"><a href="./values.yaml#L18">temporal.server.config.persistence.default.cassandra.port</a></td>
 			<td>
 int
 </td>
@@ -167,7 +168,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--server--config--persistence--visibility--cassandra--existingSecret"><a href="values.yaml#L28">temporal.server.config.persistence.visibility.cassandra.existingSecret</a></td>
+			<td id="temporal--server--config--persistence--visibility--cassandra--existingSecret"><a href="./values.yaml#L28">temporal.server.config.persistence.visibility.cassandra.existingSecret</a></td>
 			<td>
 string
 </td>
@@ -181,7 +182,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--server--config--persistence--visibility--cassandra--hosts[0]"><a href="values.yaml#L27">temporal.server.config.persistence.visibility.cassandra.hosts[0]</a></td>
+			<td id="temporal--server--config--persistence--visibility--cassandra--hosts[0]"><a href="./values.yaml#L27">temporal.server.config.persistence.visibility.cassandra.hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -195,7 +196,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--server--config--persistence--visibility--cassandra--port"><a href="values.yaml#L25">temporal.server.config.persistence.visibility.cassandra.port</a></td>
+			<td id="temporal--server--config--persistence--visibility--cassandra--port"><a href="./values.yaml#L25">temporal.server.config.persistence.visibility.cassandra.port</a></td>
 			<td>
 int
 </td>
@@ -209,7 +210,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--server--frontend--metrics--serviceMonitor--enabled"><a href="values.yaml#L40">temporal.server.frontend.metrics.serviceMonitor.enabled</a></td>
+			<td id="temporal--server--frontend--metrics--serviceMonitor--enabled"><a href="./values.yaml#L40">temporal.server.frontend.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -223,7 +224,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--server--history--metrics--serviceMonitor--enabled"><a href="values.yaml#L45">temporal.server.history.metrics.serviceMonitor.enabled</a></td>
+			<td id="temporal--server--history--metrics--serviceMonitor--enabled"><a href="./values.yaml#L45">temporal.server.history.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -237,7 +238,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--server--matching--metrics--serviceMonitor--enabled"><a href="values.yaml#L50">temporal.server.matching.metrics.serviceMonitor.enabled</a></td>
+			<td id="temporal--server--matching--metrics--serviceMonitor--enabled"><a href="./values.yaml#L50">temporal.server.matching.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -251,7 +252,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--server--metrics--serviceMonitor--additionalLabels--release"><a href="values.yaml#L35">temporal.server.metrics.serviceMonitor.additionalLabels.release</a></td>
+			<td id="temporal--server--metrics--serviceMonitor--additionalLabels--release"><a href="./values.yaml#L35">temporal.server.metrics.serviceMonitor.additionalLabels.release</a></td>
 			<td>
 string
 </td>
@@ -265,7 +266,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--server--metrics--serviceMonitor--enabled"><a href="values.yaml#L32">temporal.server.metrics.serviceMonitor.enabled</a></td>
+			<td id="temporal--server--metrics--serviceMonitor--enabled"><a href="./values.yaml#L32">temporal.server.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -279,7 +280,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--server--worker--metrics--serviceMonitor--enabled"><a href="values.yaml#L55">temporal.server.worker.metrics.serviceMonitor.enabled</a></td>
+			<td id="temporal--server--worker--metrics--serviceMonitor--enabled"><a href="./values.yaml#L55">temporal.server.worker.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -293,7 +294,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--serviceAccount--create"><a href="values.yaml#L11">temporal.serviceAccount.create</a></td>
+			<td id="temporal--serviceAccount--create"><a href="./values.yaml#L11">temporal.serviceAccount.create</a></td>
 			<td>
 bool
 </td>
@@ -307,7 +308,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--web--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="values.yaml#L61">temporal.web.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td id="temporal--web--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L61">temporal.web.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
 			<td>
 string
 </td>
@@ -321,7 +322,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--web--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="values.yaml#L63">temporal.web.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="temporal--web--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L63">temporal.web.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -335,7 +336,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--web--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="values.yaml#L62">temporal.web.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="temporal--web--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L62">temporal.web.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -349,7 +350,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--web--ingress--enabled"><a href="values.yaml#L59">temporal.web.ingress.enabled</a></td>
+			<td id="temporal--web--ingress--enabled"><a href="./values.yaml#L59">temporal.web.ingress.enabled</a></td>
 			<td>
 bool
 </td>
@@ -363,7 +364,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--web--ingress--hosts[0]"><a href="values.yaml#L66">temporal.web.ingress.hosts[0]</a></td>
+			<td id="temporal--web--ingress--hosts[0]"><a href="./values.yaml#L66">temporal.web.ingress.hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -377,7 +378,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--web--ingress--tls[0]--hosts[0]"><a href="values.yaml#L71">temporal.web.ingress.tls[0].hosts[0]</a></td>
+			<td id="temporal--web--ingress--tls[0]--hosts[0]"><a href="./values.yaml#L71">temporal.web.ingress.tls[0].hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -391,7 +392,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="temporal--web--ingress--tls[0]--secretName"><a href="values.yaml#L69">temporal.web.ingress.tls[0].secretName</a></td>
+			<td id="temporal--web--ingress--tls[0]--secretName"><a href="./values.yaml#L69">temporal.web.ingress.tls[0].secretName</a></td>
 			<td>
 string
 </td>

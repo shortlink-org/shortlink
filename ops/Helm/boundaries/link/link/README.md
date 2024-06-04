@@ -22,7 +22,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../shortlink-template | shortlink-template | 0.8.17 |
+| file://../../../shortlink-template | shortlink-template | 0.8.17 |
 
 ## Values
 
@@ -35,7 +35,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="deploy--annotations--"instrumentation--opentelemetry--io/inject-go""><a href="values.yaml#L47">deploy.annotations."instrumentation.opentelemetry.io/inject-go"</a></td>
+			<td id="deploy--annotations--"instrumentation--opentelemetry--io/inject-go""><a href="./values.yaml#L47">deploy.annotations."instrumentation.opentelemetry.io/inject-go"</a></td>
 			<td>
 string
 </td>
@@ -49,7 +49,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--annotations--"instrumentation--opentelemetry--io/otel-go-auto-target-exe""><a href="values.yaml#L49">deploy.annotations."instrumentation.opentelemetry.io/otel-go-auto-target-exe"</a></td>
+			<td id="deploy--annotations--"instrumentation--opentelemetry--io/otel-go-auto-target-exe""><a href="./values.yaml#L49">deploy.annotations."instrumentation.opentelemetry.io/otel-go-auto-target-exe"</a></td>
 			<td>
 string
 </td>
@@ -63,7 +63,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--annotations--"sidecar--opentelemetry--io/inject""><a href="values.yaml#L48">deploy.annotations."sidecar.opentelemetry.io/inject"</a></td>
+			<td id="deploy--annotations--"sidecar--opentelemetry--io/inject""><a href="./values.yaml#L48">deploy.annotations."sidecar.opentelemetry.io/inject"</a></td>
 			<td>
 string
 </td>
@@ -77,7 +77,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--GRPC_CLIENT_HOST"><a href="values.yaml#L69">deploy.env.GRPC_CLIENT_HOST</a></td>
+			<td id="deploy--env--GRPC_CLIENT_HOST"><a href="./values.yaml#L69">deploy.env.GRPC_CLIENT_HOST</a></td>
 			<td>
 string
 </td>
@@ -91,7 +91,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--MQ_ENABLED"><a href="values.yaml#L64">deploy.env.MQ_ENABLED</a></td>
+			<td id="deploy--env--MQ_ENABLED"><a href="./values.yaml#L64">deploy.env.MQ_ENABLED</a></td>
 			<td>
 bool
 </td>
@@ -105,7 +105,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--MQ_KAFKA_SARAMA_VERSION"><a href="values.yaml#L67">deploy.env.MQ_KAFKA_SARAMA_VERSION</a></td>
+			<td id="deploy--env--MQ_KAFKA_SARAMA_VERSION"><a href="./values.yaml#L67">deploy.env.MQ_KAFKA_SARAMA_VERSION</a></td>
 			<td>
 string
 </td>
@@ -119,7 +119,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--MQ_KAFKA_URI"><a href="values.yaml#L66">deploy.env.MQ_KAFKA_URI</a></td>
+			<td id="deploy--env--MQ_KAFKA_URI"><a href="./values.yaml#L66">deploy.env.MQ_KAFKA_URI</a></td>
 			<td>
 string
 </td>
@@ -133,7 +133,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--MQ_TYPE"><a href="values.yaml#L65">deploy.env.MQ_TYPE</a></td>
+			<td id="deploy--env--MQ_TYPE"><a href="./values.yaml#L65">deploy.env.MQ_TYPE</a></td>
 			<td>
 string
 </td>
@@ -147,7 +147,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--SPICE_DB_API"><a href="values.yaml#L70">deploy.env.SPICE_DB_API</a></td>
+			<td id="deploy--env--SPICE_DB_API"><a href="./values.yaml#L70">deploy.env.SPICE_DB_API</a></td>
 			<td>
 string
 </td>
@@ -161,7 +161,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--STORE_REDIS_URI"><a href="values.yaml#L74">deploy.env.STORE_REDIS_URI</a></td>
+			<td id="deploy--env--STORE_REDIS_URI"><a href="./values.yaml#L74">deploy.env.STORE_REDIS_URI</a></td>
 			<td>
 string
 </td>
@@ -175,7 +175,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--STORE_TYPE"><a href="values.yaml#L73">deploy.env.STORE_TYPE</a></td>
+			<td id="deploy--env--STORE_TYPE"><a href="./values.yaml#L73">deploy.env.STORE_TYPE</a></td>
 			<td>
 string
 </td>
@@ -189,7 +189,7 @@ string
 			<td>Default store config</td>
 		</tr>
 		<tr>
-			<td id="deploy--env--TRACER_URI"><a href="values.yaml#L68">deploy.env.TRACER_URI</a></td>
+			<td id="deploy--env--TRACER_URI"><a href="./values.yaml#L68">deploy.env.TRACER_URI</a></td>
 			<td>
 string
 </td>
@@ -203,7 +203,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--envSecret[0]--name"><a href="values.yaml#L77">deploy.envSecret[0].name</a></td>
+			<td id="deploy--envSecret[0]--name"><a href="./values.yaml#L77">deploy.envSecret[0].name</a></td>
 			<td>
 string
 </td>
@@ -217,7 +217,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--envSecret[0]--secretKeyRef--key"><a href="values.yaml#L80">deploy.envSecret[0].secretKeyRef.key</a></td>
+			<td id="deploy--envSecret[0]--secretKeyRef--key"><a href="./values.yaml#L80">deploy.envSecret[0].secretKeyRef.key</a></td>
 			<td>
 string
 </td>
@@ -231,7 +231,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--envSecret[0]--secretKeyRef--name"><a href="values.yaml#L79">deploy.envSecret[0].secretKeyRef.name</a></td>
+			<td id="deploy--envSecret[0]--secretKeyRef--name"><a href="./values.yaml#L79">deploy.envSecret[0].secretKeyRef.name</a></td>
 			<td>
 string
 </td>
@@ -245,7 +245,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--repository"><a href="values.yaml#L83">deploy.image.repository</a></td>
+			<td id="deploy--image--repository"><a href="./values.yaml#L83">deploy.image.repository</a></td>
 			<td>
 string
 </td>
@@ -259,7 +259,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--tag"><a href="values.yaml#L84">deploy.image.tag</a></td>
+			<td id="deploy--image--tag"><a href="./values.yaml#L84">deploy.image.tag</a></td>
 			<td>
 string
 </td>
@@ -273,7 +273,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--livenessProbe"><a href="values.yaml#L87">deploy.livenessProbe</a></td>
+			<td id="deploy--livenessProbe"><a href="./values.yaml#L87">deploy.livenessProbe</a></td>
 			<td>
 object
 </td>
@@ -293,7 +293,7 @@ object
 			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--readinessProbe"><a href="values.yaml#L94">deploy.readinessProbe</a></td>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L94">deploy.readinessProbe</a></td>
 			<td>
 object
 </td>
@@ -313,7 +313,7 @@ object
 			<td>define a readiness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--limits"><a href="values.yaml#L56">deploy.resources.limits</a></td>
+			<td id="deploy--resources--limits"><a href="./values.yaml#L56">deploy.resources.limits</a></td>
 			<td>
 object
 </td>
@@ -330,7 +330,7 @@ object
 			<td>We usually recommend not to specify default resources and to leave this as a conscious choice for the user. This also increases chances charts run on environments with little resources, such as Minikube. If you do want to specify resources, uncomment the following lines, adjust them as necessary, and remove the curly braces after 'resources:'.</td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--requests--cpu"><a href="values.yaml#L60">deploy.resources.requests.cpu</a></td>
+			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L60">deploy.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -344,7 +344,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--requests--memory"><a href="values.yaml#L61">deploy.resources.requests.memory</a></td>
+			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L61">deploy.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -358,7 +358,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--type"><a href="values.yaml#L44">deploy.type</a></td>
+			<td id="deploy--type"><a href="./values.yaml#L44">deploy.type</a></td>
 			<td>
 string
 </td>
@@ -372,7 +372,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--enabled"><a href="values.yaml#L30">ingress.enabled</a></td>
+			<td id="ingress--enabled"><a href="./values.yaml#L30">ingress.enabled</a></td>
 			<td>
 bool
 </td>
@@ -386,7 +386,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--ingressClassName"><a href="values.yaml#L32">ingress.ingressClassName</a></td>
+			<td id="ingress--ingressClassName"><a href="./values.yaml#L32">ingress.ingressClassName</a></td>
 			<td>
 string
 </td>
@@ -400,7 +400,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--istio--match[0]--uri--prefix"><a href="values.yaml#L36">ingress.istio.match[0].uri.prefix</a></td>
+			<td id="ingress--istio--match[0]--uri--prefix"><a href="./values.yaml#L36">ingress.istio.match[0].uri.prefix</a></td>
 			<td>
 string
 </td>
@@ -414,7 +414,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="ingress--istio--route--destination--port"><a href="values.yaml#L39">ingress.istio.route.destination.port</a></td>
+			<td id="ingress--istio--route--destination--port"><a href="./values.yaml#L39">ingress.istio.route.destination.port</a></td>
 			<td>
 int
 </td>
@@ -428,7 +428,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="values.yaml#L115">monitoring.enabled</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L115">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -442,7 +442,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--enabled"><a href="values.yaml#L125">networkPolicy.enabled</a></td>
+			<td id="networkPolicy--enabled"><a href="./values.yaml#L125">networkPolicy.enabled</a></td>
 			<td>
 bool
 </td>
@@ -456,7 +456,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[0]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="values.yaml#L131">networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[0]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L131">networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -470,7 +470,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[1]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="values.yaml#L134">networkPolicy.ingress[0].from[1].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[1]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L134">networkPolicy.ingress[0].from[1].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -484,7 +484,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[2]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="values.yaml#L137">networkPolicy.ingress[0].from[2].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[2]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L137">networkPolicy.ingress[0].from[2].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -498,7 +498,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[3]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="values.yaml#L140">networkPolicy.ingress[0].from[3].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[3]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L140">networkPolicy.ingress[0].from[3].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -512,7 +512,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[4]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="values.yaml#L143">networkPolicy.ingress[0].from[4].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[4]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L143">networkPolicy.ingress[0].from[4].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -526,7 +526,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--policyTypes[0]"><a href="values.yaml#L145">networkPolicy.policyTypes[0]</a></td>
+			<td id="networkPolicy--policyTypes[0]"><a href="./values.yaml#L145">networkPolicy.policyTypes[0]</a></td>
 			<td>
 string
 </td>
@@ -540,7 +540,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="podDisruptionBudget--enabled"><a href="values.yaml#L120">podDisruptionBudget.enabled</a></td>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L120">podDisruptionBudget.enabled</a></td>
 			<td>
 bool
 </td>
@@ -554,7 +554,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="secret--enabled"><a href="values.yaml#L13">secret.enabled</a></td>
+			<td id="secret--enabled"><a href="./values.yaml#L13">secret.enabled</a></td>
 			<td>
 bool
 </td>
@@ -568,7 +568,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="secret--grpcIntermediateCA"><a href="values.yaml#L22">secret.grpcIntermediateCA</a></td>
+			<td id="secret--grpcIntermediateCA"><a href="./values.yaml#L22">secret.grpcIntermediateCA</a></td>
 			<td>
 string
 </td>
@@ -582,7 +582,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="secret--grpcServerCert"><a href="values.yaml#L14">secret.grpcServerCert</a></td>
+			<td id="secret--grpcServerCert"><a href="./values.yaml#L14">secret.grpcServerCert</a></td>
 			<td>
 string
 </td>
@@ -596,7 +596,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="secret--grpcServerKey"><a href="values.yaml#L18">secret.grpcServerKey</a></td>
+			<td id="secret--grpcServerKey"><a href="./values.yaml#L18">secret.grpcServerKey</a></td>
 			<td>
 string
 </td>
@@ -610,7 +610,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--name"><a href="values.yaml#L103">service.ports[0].name</a></td>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L103">service.ports[0].name</a></td>
 			<td>
 string
 </td>
@@ -624,7 +624,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--port"><a href="values.yaml#L104">service.ports[0].port</a></td>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L104">service.ports[0].port</a></td>
 			<td>
 int
 </td>
@@ -638,7 +638,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--protocol"><a href="values.yaml#L105">service.ports[0].protocol</a></td>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L105">service.ports[0].protocol</a></td>
 			<td>
 string
 </td>
@@ -652,7 +652,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--public"><a href="values.yaml#L106">service.ports[0].public</a></td>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L106">service.ports[0].public</a></td>
 			<td>
 bool
 </td>
@@ -666,7 +666,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--name"><a href="values.yaml#L107">service.ports[1].name</a></td>
+			<td id="service--ports[1]--name"><a href="./values.yaml#L107">service.ports[1].name</a></td>
 			<td>
 string
 </td>
@@ -680,7 +680,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--port"><a href="values.yaml#L108">service.ports[1].port</a></td>
+			<td id="service--ports[1]--port"><a href="./values.yaml#L108">service.ports[1].port</a></td>
 			<td>
 int
 </td>
@@ -694,7 +694,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--protocol"><a href="values.yaml#L109">service.ports[1].protocol</a></td>
+			<td id="service--ports[1]--protocol"><a href="./values.yaml#L109">service.ports[1].protocol</a></td>
 			<td>
 string
 </td>
@@ -708,7 +708,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[1]--public"><a href="values.yaml#L110">service.ports[1].public</a></td>
+			<td id="service--ports[1]--public"><a href="./values.yaml#L110">service.ports[1].public</a></td>
 			<td>
 bool
 </td>
@@ -722,7 +722,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--type"><a href="values.yaml#L101">service.type</a></td>
+			<td id="service--type"><a href="./values.yaml#L101">service.type</a></td>
 			<td>
 string
 </td>

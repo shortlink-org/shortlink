@@ -1,6 +1,6 @@
 # scylla-operator
 
-![Version: 1.0.0](https://img.shields.io/badge/Version-1.0.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 1.1.0](https://img.shields.io/badge/Version-1.1.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,6 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
+| https://scylla-operator-charts.storage.googleapis.com/stable | scylla-manager | v1.12.2 |
 | https://scylla-operator-charts.storage.googleapis.com/stable | scylla-operator | v1.12.2 |
 
 ## Values
@@ -27,7 +28,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="scylla-operator--enabled"><a href="values.yaml#L6">scylla-operator.enabled</a></td>
+			<td id="scylla-operator--enabled"><a href="./values.yaml#L6">scylla-operator.enabled</a></td>
 			<td>
 bool
 </td>
@@ -41,7 +42,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="scylla-operator--replicas"><a href="values.yaml#L8">scylla-operator.replicas</a></td>
+			<td id="scylla-operator--replicas"><a href="./values.yaml#L8">scylla-operator.replicas</a></td>
 			<td>
 int
 </td>

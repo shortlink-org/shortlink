@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://trinodb.github.io/charts | trino | 0.22.0 |
+| https://trinodb.github.io/charts | trino | 0.23.1 |
 
 ## Values
 

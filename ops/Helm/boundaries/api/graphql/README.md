@@ -1,8 +1,8 @@
-# shortlink-api-graphql
+# graphql
 
 ![Version: 0.13.1](https://img.shields.io/badge/Version-0.13.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
-ShortLink API service
+ShortLink API service for graphql
 
 **Homepage:** <https://github.com/shortlink-org/shortlink>
 
@@ -22,7 +22,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../shortlink-template | shortlink-template | 0.8.17 |
+| file://../../../shortlink-template | shortlink-template | 0.8.17 |
 
 ## Values
 
