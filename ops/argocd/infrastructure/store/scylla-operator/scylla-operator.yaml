@@ -21,7 +21,6 @@ spec:
       releaseName: scylla-operator
       valueFiles:
         - values.yaml
-        - manager.values.yaml
   syncPolicy:
     automated:
       prune: true
