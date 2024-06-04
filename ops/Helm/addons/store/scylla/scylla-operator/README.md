@@ -27,7 +27,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="scylla-operator--enabled"><a href="./values.yaml#L6">scylla-operator.enabled</a></td>
+			<td id="scylla-operator--enabled"><a href="values.yaml#L6">scylla-operator.enabled</a></td>
 			<td>
 bool
 </td>
@@ -41,7 +41,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="scylla-operator--replicas"><a href="./values.yaml#L8">scylla-operator.replicas</a></td>
+			<td id="scylla-operator--replicas"><a href="values.yaml#L8">scylla-operator.replicas</a></td>
 			<td>
 int
 </td>
