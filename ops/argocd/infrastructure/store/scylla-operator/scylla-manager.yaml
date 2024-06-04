@@ -19,6 +19,8 @@ spec:
     targetRevision: HEAD
     helm:
       releaseName: scylla-manager
+      valueFiles:
+        - values.yaml
   syncPolicy:
     automated:
       prune: true
