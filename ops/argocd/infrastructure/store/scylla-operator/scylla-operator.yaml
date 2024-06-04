@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: scylla
+  name: scylla-operator
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
@@ -11,14 +11,18 @@ spec:
   project: shortlink
   destination:
     name: ''
-    namespace: scylla
+    namespace: scylla-operator
     server: 'https://kubernetes.default.svc'
   source:
-    path: ops/Helm/addons/store/scylla/scylla
+    path: ops/Helm/addons/store/scylla-operator
     repoURL: 'https://github.com/shortlink-org/shortlink'
     targetRevision: HEAD
     helm:
-      releaseName: scylla
+      releaseName: scylla-operator
+      valueFiles:
+        - operator.values.yaml
+        - manager.values.yaml
+        - scylla.values.yaml
   syncPolicy:
     automated:
       prune: true
@@ -30,7 +34,7 @@ spec:
         pod-security.kubernetes.io/enforce-version: latest
     syncOptions:
       - CreateNamespace=true
-      # - ServerSideApply=true
+      - ServerSideApply=true
       - ApplyOutOfSyncOnly=true
     retry:
       limit: 2
@@ -47,3 +51,7 @@ spec:
       name: crunchy-scylla-exporter
       jqPathExpressions:
         - .spec.podMetricsEndpoints[] | select(.action)
+    - group: admissionregistration.k8s.io
+      kind: ValidatingWebhookConfiguration
+      jqPathExpressions:
+        - '.webhooks[]?.clientConfig.caBundle'

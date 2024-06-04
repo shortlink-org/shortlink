@@ -2,5 +2,11 @@ dependencies:
 - name: scylla-operator
   repository: https://scylla-operator-charts.storage.googleapis.com/stable
   version: v1.12.2
-digest: sha256:c6da53f0686b12d3056b2098673870b7b90653c18d90a976abf795bf8ddd9c30
-generated: "2024-06-01T12:10:29.918513+02:00"
+- name: scylla
+  repository: https://scylla-operator-charts.storage.googleapis.com/stable
+  version: v1.12.2
+- name: scylla-manager
+  repository: https://scylla-operator-charts.storage.googleapis.com/stable
+  version: v1.12.2
+digest: sha256:d231d7ec0b0507e0ae2ba6b300f7665216f19d37aced1c36b795497de4365307
+generated: "2024-06-05T00:56:21.950498+03:00"

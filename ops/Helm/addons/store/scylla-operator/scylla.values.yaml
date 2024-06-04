@@ -1,0 +1,7 @@
+scylla:
+  enabled: true
+
+  automaticOrphanedNodeCleanup: true
+
+  serviceMonitor:
+    create: true
