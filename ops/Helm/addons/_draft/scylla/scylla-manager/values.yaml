@@ -1,0 +1,9 @@
+# Common default values for scylla-manager.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+scylla-manager:
+  enabled: true
+
+  serviceMonitor:
+    create: true
