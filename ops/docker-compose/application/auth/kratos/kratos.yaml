@@ -22,7 +22,7 @@ services:
     depends_on:
       - coredns
       - kratos_migrate
-    image: oryd/kratos:v1.1.0
+    image: oryd/kratos:v1.2.0
     command: serve -c /etc/config/kratos/kratos.yml --dev --watch-courier
     container_name: kratos
     init: true
@@ -51,7 +51,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: oryd/kratos:v1.1.0
+    image: oryd/kratos:v1.2.0
     environment:
       DSN: sqlite:///var/lib/sqlite/db.sqlite?_fk=true&mode=rwc
     command: -c /etc/config/kratos/kratos.yml migrate sql -e --yes
