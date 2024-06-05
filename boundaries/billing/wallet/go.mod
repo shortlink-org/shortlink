@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/boundaries/billing/wallet
 go 1.22.4
 
 require (
-	github.com/ethereum/go-ethereum v1.14.3
+	github.com/ethereum/go-ethereum v1.14.4
 	github.com/google/wire v0.6.0
 	github.com/shortlink-org/shortlink v0.0.0-20240604162251-22693e294ca2
 	github.com/spf13/viper v1.19.0
@@ -14,7 +14,7 @@ require (
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/IBM/sarama v1.43.2 // indirect
 	github.com/Masterminds/semver/v3 v3.2.1 // indirect
-	github.com/Microsoft/go-winio v0.6.1 // indirect
+	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/StackExchange/wmi v1.2.1 // indirect
 	github.com/Unleash/unleash-client-go/v4 v4.1.0 // indirect
 	github.com/XSAM/otelsql v0.31.0 // indirect
@@ -29,7 +29,7 @@ require (
 	github.com/cpuguy83/go-md2man/v2 v2.0.3 // indirect
 	github.com/crate-crypto/go-kzg-4844 v1.0.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
-	github.com/deckarep/golang-set/v2 v2.1.0 // indirect
+	github.com/deckarep/golang-set/v2 v2.6.0 // indirect
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.2.0 // indirect
 	github.com/dgraph-io/badger/v4 v4.2.0 // indirect
 	github.com/dgraph-io/dgo/v2 v2.2.0 // indirect
