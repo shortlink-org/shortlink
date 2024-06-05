@@ -172,8 +172,8 @@ importers:
         specifier: 19.1.2
         version: 19.1.2(@swc/core@1.5.25(@swc/helpers@0.5.11))
       '@rollup/plugin-replace':
-        specifier: 5.0.6
-        version: 5.0.6(rollup@2.79.1)
+        specifier: 5.0.7
+        version: 5.0.7(rollup@2.79.1)
       '@rollup/plugin-terser':
         specifier: ^0.4.4
         version: 0.4.4(rollup@2.79.1)
@@ -3824,8 +3824,8 @@ packages:
     peerDependencies:
       rollup: ^1.20.0 || ^2.0.0
 
-  '@rollup/plugin-replace@5.0.6':
-    resolution: {integrity: sha512-n/Eea4MuS38M5iT+0nz7UzSbI4H4hVTKV5hOTAQzNVKT3nYxj8iaG4t9IW86Ugv/jApGY+O+SANAFqWPzZ9xkw==}
+  '@rollup/plugin-replace@5.0.7':
+    resolution: {integrity: sha512-PqxSfuorkHz/SPpyngLyg5GCEkOcee9M1bkxiVDr41Pd61mqP1PLOoDPbpl44SB2mQGKwV/In74gqQmGITOhEQ==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       rollup: ^1.20.0||^2.0.0||^3.0.0||^4.0.0
@@ -16343,7 +16343,7 @@ snapshots:
       magic-string: 0.25.9
       rollup: 2.79.1
 
-  '@rollup/plugin-replace@5.0.6(rollup@2.79.1)':
+  '@rollup/plugin-replace@5.0.7(rollup@2.79.1)':
     dependencies:
       '@rollup/pluginutils': 5.1.0(rollup@2.79.1)
       magic-string: 0.30.10
@@ -17815,7 +17815,7 @@ snapshots:
 
   '@testing-library/dom@10.1.0':
     dependencies:
-      '@babel/code-frame': 7.24.6
+      '@babel/code-frame': 7.24.7
       '@babel/runtime': 7.24.6
       '@types/aria-query': 5.0.4
       aria-query: 5.3.0
