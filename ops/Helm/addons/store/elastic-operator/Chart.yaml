@@ -16,7 +16,7 @@ deprecated: false
 dependencies:
   - name: eck-operator
     alias: elastic-operator
-    version: 2.12.1
+    version: 2.13.0
     repository: https://helm.elastic.co
     condition: elastic-operator.enabled
     tags:
