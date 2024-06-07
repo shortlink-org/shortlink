@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://go.temporal.io/helm-charts | temporal | 0.39.0 |
+| https://go.temporal.io/helm-charts | temporal | 0.39.1 |
 | https://scylla-operator-charts.storage.googleapis.com/stable | scylla | v1.12.2 |
 
 ## Values
