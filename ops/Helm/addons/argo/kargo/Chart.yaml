@@ -14,7 +14,7 @@ type: application
 deprecated: false
 dependencies:
   - name: kargo
-    version: 0.6.0
+    version: 0.7.0
     repository: oci://ghcr.io/akuity/kargo-charts
     condition: kargo.enabled
     tags:
