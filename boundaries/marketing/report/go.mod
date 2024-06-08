@@ -4,7 +4,6 @@ go 1.22.4
 
 require (
 	github.com/google/wire v0.6.0
-	github.com/shortlink-org/shortlink v0.0.0-20240604162251-22693e294ca2
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.9.0
 	go.opentelemetry.io/otel/trace v1.27.0

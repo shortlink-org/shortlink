@@ -10,7 +10,6 @@ require (
 	github.com/graph-gophers/graphql-go v1.5.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.20.0
 	github.com/segmentio/encoding v0.4.0
-	github.com/shortlink-org/shortlink v0.0.0-20240604162251-22693e294ca2
 	github.com/spf13/viper v1.19.0
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.3.0
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.52.0
