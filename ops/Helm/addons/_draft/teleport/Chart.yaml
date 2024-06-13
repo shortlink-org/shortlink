@@ -21,7 +21,7 @@ dependencies:
       - idp
       - teleport
   - name: teleport-kube-agent
-    version: 15.4.4
+    version: 16.0.0
     repository: https://charts.releases.teleport.dev
     condition: teleport-kube-agent.enabled
     tags:
