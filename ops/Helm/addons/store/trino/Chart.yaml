@@ -14,7 +14,7 @@ type: application
 deprecated: false
 dependencies:
   - name: trino
-    version: 0.23.1
+    version: 0.24.0
     repository: https://trinodb.github.io/charts
     condition: trino.enabled
     tags:
