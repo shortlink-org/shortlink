@@ -1,10 +1,11 @@
 import React, { PropsWithChildren } from 'react';
-import { makeStyles } from '@material-ui/core';
-import HomeIcon from '@material-ui/icons/Home';
-import ExtensionIcon from '@material-ui/icons/Extension';
-import MapIcon from '@material-ui/icons/MyLocation';
-import LibraryBooks from '@material-ui/icons/LibraryBooks';
-import CreateComponentIcon from '@material-ui/icons/AddCircleOutline';
+import HomeIcon from '@mui/icons-material/Home';
+import ExtensionIcon from '@mui/icons-material/Extension';
+import MapIcon from '@mui/icons-material/MyLocation';
+import LibraryBooks from '@mui/icons-material/LibraryBooks';
+import CreateComponentIcon from '@mui/icons-material/AddCircleOutline';
+import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 import LogoFull from './LogoFull';
 import LogoIcon from './LogoIcon';
 import {
@@ -14,7 +15,6 @@ import {
 import { SidebarSearchModal } from '@backstage/plugin-search';
 import {
   Sidebar,
-  sidebarConfig,
   SidebarDivider,
   SidebarGroup,
   SidebarItem,
@@ -24,31 +24,13 @@ import {
   useSidebarOpenState,
   Link,
 } from '@backstage/core-components';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
-
-const useSidebarLogoStyles = makeStyles({
-  root: {
-    width: sidebarConfig.drawerWidthClosed,
-    height: 3 * sidebarConfig.logoHeight,
-    display: 'flex',
-    flexFlow: 'row nowrap',
-    alignItems: 'center',
-    marginBottom: -14,
-  },
-  link: {
-    width: sidebarConfig.drawerWidthClosed,
-    marginLeft: 24,
-  },
-});
 
 const SidebarLogo = () => {
-  const classes = useSidebarLogoStyles();
   const { isOpen } = useSidebarOpenState();
 
   return (
-    <div className={classes.root}>
-      <Link to="/" underline="none" className={classes.link} aria-label="Home">
+    <div>
+      <Link to="/" underline="none" aria-label="Home">
         {isOpen ? <LogoFull /> : <LogoIcon />}
       </Link>
     </div>

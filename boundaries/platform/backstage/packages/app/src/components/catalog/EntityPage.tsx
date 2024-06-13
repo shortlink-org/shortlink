@@ -1,5 +1,6 @@
-import React from 'react';
-import { Button, Grid } from '@material-ui/core';
+import React from 'react'
+import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
 import {
   EntityApiDefinitionCard,
   EntityConsumedApisCard,
