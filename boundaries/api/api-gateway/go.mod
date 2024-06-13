@@ -12,7 +12,7 @@ require (
 	github.com/segmentio/encoding v0.4.0
 	github.com/shortlink-org/shortlink v0.0.0-20240611082655-72ad73d278bf
 	github.com/spf13/viper v1.19.0
-	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.3.0
+	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.3.1
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.52.0
 	go.opentelemetry.io/otel/trace v1.27.0
 	golang.org/x/sync v0.7.0
@@ -125,7 +125,7 @@ require (
 	github.com/twmb/murmur3 v1.1.5 // indirect
 	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.3.0 // indirect
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.3.0 // indirect
-	github.com/uptrace/opentelemetry-go-extra/otelutil v0.3.0 // indirect
+	github.com/uptrace/opentelemetry-go-extra/otelutil v0.3.1 // indirect
 	github.com/uptrace/opentelemetry-go-extra/otelzap v0.3.0 // indirect
 	github.com/vmihailenco/go-tinylfu v0.2.2 // indirect
 	github.com/vmihailenco/msgpack/v5 v5.3.5 // indirect
