@@ -37,7 +37,7 @@ dependencies = [
     "httpx",
     "testcontainers",
 # For code quality dependencies
-    "ruff>=0.4.8",
+    "ruff>=0.4.9",
 # For profiling dependencies
     "scalene",
     "werkzeug>=3.0.3" # not directly required, pinned by Snyk to avoid a vulnerability
