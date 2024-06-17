@@ -14,7 +14,7 @@ type: application
 deprecated: false
 dependencies:
   - name: kyverno
-    version: 3.2.4
+    version: 3.2.5
     repository: https://kyverno.github.io/kyverno
     condition: kyverno.enabled
     tags:
