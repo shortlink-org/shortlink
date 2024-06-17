@@ -22,7 +22,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://charts.signadot.com | operator | 0.16.1 |
+| https://charts.signadot.com | operator | 0.17.0 |
 
 ## Values
 
