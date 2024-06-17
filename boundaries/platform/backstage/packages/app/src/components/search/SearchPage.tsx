@@ -9,8 +9,8 @@ import {
   CATALOG_FILTER_EXISTS,
 } from '@backstage/plugin-catalog-react';
 import { TechDocsSearchResultListItem } from '@backstage/plugin-techdocs';
-import { AdrSearchResultListItem } from '@backstage/plugin-adr';
-import { AdrDocument } from '@backstage/plugin-adr-common'
+import { AdrSearchResultListItem } from '@backstage-community/plugin-adr';
+import { AdrDocument } from '@backstage-community/plugin-adr-common'
 
 import { SearchType } from '@backstage/plugin-search';
 import {

@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@axis-backstage/plugin-readme-backend": "^0.6.1",
+    "@backstage-community/plugin-todo-backend": "^0.3.17",
     "@backstage/backend-common": "^0.22.0",
     "@backstage/backend-tasks": "^0.5.23",
     "@backstage/catalog-client": "^1.6.5",
@@ -34,7 +35,6 @@
     "@backstage/plugin-search-backend-module-pg": "^0.5.27",
     "@backstage/plugin-search-backend-node": "^1.2.23",
     "@backstage/plugin-techdocs-backend": "^1.10.5",
-    "@backstage/plugin-todo-backend": "^0.3.17",
     "app": "link:packages/app",
     "better-sqlite3": "^11.0.0",
     "dockerode": "^4.0.2",

@@ -33,7 +33,7 @@ import {
 import {
   isGithubActionsAvailable,
   EntityGithubActionsContent,
-} from '@backstage/plugin-github-actions';
+} from '@backstage-community/plugin-github-actions';
 import {
   EntityUserProfileCard,
   EntityGroupProfileCard,
@@ -60,13 +60,13 @@ import {
   EntityArgoCDOverviewCard,
   isArgocdAvailable
 } from '@roadiehq/backstage-plugin-argo-cd';
-import { EntityLighthouseContent } from '@backstage/plugin-lighthouse';
+import { EntityLighthouseContent } from '@backstage-community/plugin-lighthouse';
 
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
-import { EntityAdrContent, isAdrAvailable } from '@backstage/plugin-adr';
+import { EntityAdrContent, isAdrAvailable } from '@backstage-community/plugin-adr';
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { EntityTodoContent } from '@backstage/plugin-todo';
+import { EntityTodoContent } from '@backstage-community/plugin-todo';
 
 const techdocsContent = (
   <EntityTechdocsContent>
