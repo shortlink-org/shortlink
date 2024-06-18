@@ -33,7 +33,7 @@ dependencies:
     tags:
       - ci/cd
   - name: redis
-    version: 19.5.3
+    version: 19.5.4
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: redis.enabled
     tags:
