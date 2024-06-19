@@ -33,5 +33,7 @@ chart-repos:
   - stable=https://charts.helm.sh/stable
   - istio=https://istio-release.storage.googleapis.com/charts
   - kratos=https://k8s.ory.sh/helm/charts
+  - temporal=https://go.temporal.io/helm-charts
+  - scylla=https://scylla-operator-charts.storage.googleapis.com/stable
 
 # helm-extra-args: --timeout 6m
