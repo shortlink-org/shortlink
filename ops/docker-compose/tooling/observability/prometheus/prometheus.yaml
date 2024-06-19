@@ -11,7 +11,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: prom/prometheus:v2.52.0
+    image: prom/prometheus:v2.53.0
     profiles:
       - observability
     container_name: prometheus
