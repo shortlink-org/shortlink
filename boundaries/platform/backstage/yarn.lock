@@ -1377,16 +1377,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@axis-backstage/plugin-readme-backend@npm:^0.6.1":
-  version: 0.6.1
-  resolution: "@axis-backstage/plugin-readme-backend@npm:0.6.1"
+"@axis-backstage/plugin-readme-backend@npm:^0.7.0":
+  version: 0.7.0
+  resolution: "@axis-backstage/plugin-readme-backend@npm:0.7.0"
   dependencies:
-    "@backstage/backend-common": "npm:^0.21.7"
-    "@backstage/backend-plugin-api": "npm:^0.6.17"
-    "@backstage/catalog-client": "npm:^1.6.4"
-    "@backstage/catalog-model": "npm:^1.4.5"
+    "@backstage/backend-common": "npm:^0.22.0"
+    "@backstage/backend-plugin-api": "npm:^0.6.18"
+    "@backstage/catalog-client": "npm:^1.6.5"
+    "@backstage/catalog-model": "npm:^1.5.0"
     "@backstage/config": "npm:^1.2.0"
-    "@backstage/integration": "npm:^1.10.0"
+    "@backstage/integration": "npm:^1.11.0"
     "@backstage/plugin-permission-common": "npm:^0.7.13"
     "@types/express": "npm:*"
     express: "npm:^4.17.1"
@@ -1394,7 +1394,7 @@ __metadata:
     node-fetch: "npm:^2.6.7"
     winston: "npm:^3.2.1"
     yn: "npm:^4.0.0"
-  checksum: 10c0/be2aa1a3081b09c702d87ed186de3e97eb62eee75de9dcda8e92f60807529ce883e39a80f99cb35d704626e848037870cde2c9eca7d85aa9e07546659a1b6940
+  checksum: 10c0/274207530cd6a0c6c3b05e5d64b1f802fe277feab0b2d02b995d762ebf82c04f10ae6d8661fd33a448bdd5d18fb709d6ad83f77d422cd98eaf03bb24ceda4cb4
   languageName: node
   linkType: hard
 
@@ -3308,7 +3308,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/backend-app-api@npm:^0.7.6":
+"@backstage/backend-app-api@npm:^0.7.3, @backstage/backend-app-api@npm:^0.7.6":
   version: 0.7.6
   resolution: "@backstage/backend-app-api@npm:0.7.6"
   dependencies:
@@ -3421,6 +3421,76 @@ __metadata:
     pg-connection-string:
       optional: true
   checksum: 10c0/cc4f6d6fb329acc3949a56bcae510c0a38bed1fd1dfb7ad7d21a58063ab6b01987c80daf6b5d42cec179badbf9249f1f4e5aeb3ad943284f717e148259398394
+  languageName: node
+  linkType: hard
+
+"@backstage/backend-common@npm:^0.22.0":
+  version: 0.22.0
+  resolution: "@backstage/backend-common@npm:0.22.0"
+  dependencies:
+    "@aws-sdk/abort-controller": "npm:^3.347.0"
+    "@aws-sdk/client-codecommit": "npm:^3.350.0"
+    "@aws-sdk/client-s3": "npm:^3.350.0"
+    "@aws-sdk/credential-providers": "npm:^3.350.0"
+    "@aws-sdk/types": "npm:^3.347.0"
+    "@backstage/backend-app-api": "npm:^0.7.3"
+    "@backstage/backend-dev-utils": "npm:^0.1.4"
+    "@backstage/backend-plugin-api": "npm:^0.6.18"
+    "@backstage/cli-common": "npm:^0.1.13"
+    "@backstage/config": "npm:^1.2.0"
+    "@backstage/config-loader": "npm:^1.8.0"
+    "@backstage/errors": "npm:^1.2.4"
+    "@backstage/integration": "npm:^1.11.0"
+    "@backstage/integration-aws-node": "npm:^0.1.12"
+    "@backstage/plugin-auth-node": "npm:^0.4.13"
+    "@backstage/types": "npm:^1.1.1"
+    "@google-cloud/storage": "npm:^7.0.0"
+    "@keyv/memcache": "npm:^1.3.5"
+    "@keyv/redis": "npm:^2.5.3"
+    "@kubernetes/client-node": "npm:0.20.0"
+    "@manypkg/get-packages": "npm:^1.1.3"
+    "@octokit/rest": "npm:^19.0.3"
+    "@types/cors": "npm:^2.8.6"
+    "@types/dockerode": "npm:^3.3.0"
+    "@types/express": "npm:^4.17.6"
+    "@types/luxon": "npm:^3.0.0"
+    "@types/webpack-env": "npm:^1.15.2"
+    archiver: "npm:^6.0.0"
+    base64-stream: "npm:^1.0.0"
+    compression: "npm:^1.7.4"
+    concat-stream: "npm:^2.0.0"
+    cors: "npm:^2.8.5"
+    dockerode: "npm:^4.0.0"
+    express: "npm:^4.17.1"
+    express-promise-router: "npm:^4.1.0"
+    fs-extra: "npm:^11.2.0"
+    git-url-parse: "npm:^14.0.0"
+    helmet: "npm:^6.0.0"
+    isomorphic-git: "npm:^1.23.0"
+    jose: "npm:^5.0.0"
+    keyv: "npm:^4.5.2"
+    knex: "npm:^3.0.0"
+    lodash: "npm:^4.17.21"
+    logform: "npm:^2.3.2"
+    luxon: "npm:^3.0.0"
+    minimatch: "npm:^9.0.0"
+    mysql2: "npm:^3.0.0"
+    node-fetch: "npm:^2.6.7"
+    p-limit: "npm:^3.1.0"
+    pg: "npm:^8.11.3"
+    raw-body: "npm:^2.4.1"
+    tar: "npm:^6.1.12"
+    uuid: "npm:^9.0.0"
+    winston: "npm:^3.2.1"
+    winston-transport: "npm:^4.5.0"
+    yauzl: "npm:^3.0.0"
+    yn: "npm:^4.0.0"
+  peerDependencies:
+    pg-connection-string: ^2.3.0
+  peerDependenciesMeta:
+    pg-connection-string:
+      optional: true
+  checksum: 10c0/e41c263a49f42606ee2a52238d81a893e86442f1306fc3553916ae317a0e1ed0014f5a35a2d643837488e8217d37953f80565b21b3632a86ce739229c291a9dc
   languageName: node
   linkType: hard
 
@@ -3630,7 +3700,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/backend-plugin-api@npm:^0.6.19":
+"@backstage/backend-plugin-api@npm:^0.6.18, @backstage/backend-plugin-api@npm:^0.6.19":
   version: 0.6.19
   resolution: "@backstage/backend-plugin-api@npm:0.6.19"
   dependencies:
@@ -4833,7 +4903,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-auth-node@npm:^0.4.14":
+"@backstage/plugin-auth-node@npm:^0.4.13, @backstage/plugin-auth-node@npm:^0.4.14":
   version: 0.4.14
   resolution: "@backstage/plugin-auth-node@npm:0.4.14"
   dependencies:
@@ -15274,7 +15344,7 @@ __metadata:
   resolution: "app@workspace:packages/app"
   dependencies:
     "@axis-backstage/plugin-readme": "npm:^0.7.1"
-    "@axis-backstage/plugin-readme-backend": "npm:^0.6.1"
+    "@axis-backstage/plugin-readme-backend": "npm:^0.7.0"
     "@backstage-community/plugin-adr": "npm:^0.6.20"
     "@backstage-community/plugin-github-actions": "npm:^0.6.16"
     "@backstage-community/plugin-lighthouse": "npm:^0.4.20"
@@ -15958,7 +16028,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "backend@workspace:packages/backend"
   dependencies:
-    "@axis-backstage/plugin-readme-backend": "npm:^0.6.1"
+    "@axis-backstage/plugin-readme-backend": "npm:^0.7.0"
     "@backstage-community/plugin-todo-backend": "npm:^0.3.17"
     "@backstage/backend-common": "npm:^0.23.0"
     "@backstage/backend-tasks": "npm:^0.5.24"
