@@ -1398,15 +1398,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@axis-backstage/plugin-readme@npm:^0.7.1":
-  version: 0.7.1
-  resolution: "@axis-backstage/plugin-readme@npm:0.7.1"
+"@axis-backstage/plugin-readme@npm:^0.8.0":
+  version: 0.8.0
+  resolution: "@axis-backstage/plugin-readme@npm:0.8.0"
   dependencies:
-    "@backstage/catalog-model": "npm:^1.4.5"
-    "@backstage/core-components": "npm:^0.14.4"
+    "@backstage/catalog-model": "npm:^1.5.0"
+    "@backstage/core-components": "npm:^0.14.7"
     "@backstage/core-plugin-api": "npm:^1.9.2"
-    "@backstage/plugin-catalog-react": "npm:^1.11.3"
-    "@backstage/theme": "npm:^0.5.3"
+    "@backstage/plugin-catalog-react": "npm:^1.12.0"
+    "@backstage/theme": "npm:^0.5.5"
     "@mui/icons-material": "npm:^5.15.7"
     "@mui/material": "npm:^5.15.7"
     react-use: "npm:^17.2.4"
@@ -1414,7 +1414,7 @@ __metadata:
     "@emotion/react": ^11.11.3
     "@emotion/styled": ^11.11.0
     react: ^17.0.0 || ^18.0.0
-  checksum: 10c0/06ad6f8f27a3b0e920fad4c4349948ce37c5f5b653997fe801799576b44fe3137bd0129a9ab102b0aad2da958b12f26fd67fe13896e0440d65c2000374ff8f80
+  checksum: 10c0/00def633fedeec4df7d41b6a581d57a955307f38c7ae54f3254b4ca554e655016e696f44fef10854a2e095b5a342c05de24550463c5dd10fc814acd022c0efc0
   languageName: node
   linkType: hard
 
@@ -15343,7 +15343,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "app@workspace:packages/app"
   dependencies:
-    "@axis-backstage/plugin-readme": "npm:^0.7.1"
+    "@axis-backstage/plugin-readme": "npm:^0.8.0"
     "@axis-backstage/plugin-readme-backend": "npm:^0.7.0"
     "@backstage-community/plugin-adr": "npm:^0.6.20"
     "@backstage-community/plugin-github-actions": "npm:^0.6.16"
