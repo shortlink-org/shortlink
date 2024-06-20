@@ -43,8 +43,8 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
       wxt:
-        specifier: ^0.18.7
-        version: 0.18.7(@types/node@20.14.2)(lightningcss@1.25.1)(rollup@4.18.0)
+        specifier: ^0.18.8
+        version: 0.18.8(@types/node@20.14.2)(lightningcss@1.25.1)(rollup@4.18.0)
 
 packages:
 
@@ -2553,8 +2553,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  wxt@0.18.7:
-    resolution: {integrity: sha512-wWbwVu46IX2q1+w9jTzb4Lq0gGK7Bt2BQEOFXmnZrW3jnESG2lm+cmcWepN/ORRL06uILHIb8mpISKuSyn7fyw==}
+  wxt@0.18.8:
+    resolution: {integrity: sha512-xNIPFORnHFpItPDyTP6e18J2m2vCx5VvV/Y/BzkMjTpH90eoHyqjMvlp7JauaD61C9RTTYOdAtzB3hXj/3w7lA==}
     hasBin: true
 
   xdg-basedir@5.1.0:
@@ -5020,7 +5020,7 @@ snapshots:
 
   ws@8.16.0: {}
 
-  wxt@0.18.7(@types/node@20.14.2)(lightningcss@1.25.1)(rollup@4.18.0):
+  wxt@0.18.8(@types/node@20.14.2)(lightningcss@1.25.1)(rollup@4.18.0):
     dependencies:
       '@aklinker1/rollup-plugin-visualizer': 5.12.0(rollup@4.18.0)
       '@types/webextension-polyfill': 0.10.7
