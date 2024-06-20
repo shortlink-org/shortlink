@@ -8,7 +8,7 @@ variables:
   tags:
     - gitlab-org-docker
   image:
-    name: docker.io/andrcuns/dependabot-gitlab-gomod:3.16.0-alpha.1
+    name: docker.io/andrcuns/dependabot-gitlab-gomod:3.16.1-alpha.1
     entrypoint: [""]
   variables:
     GIT_STRATEGY: none
