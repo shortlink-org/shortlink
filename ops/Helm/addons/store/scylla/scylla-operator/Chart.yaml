@@ -22,7 +22,7 @@ dependencies:
       - scylla
       - store
   - name: scylla-manager
-    version: v1.12.2
+    version: v1.13.0
     repository: https://scylla-operator-charts.storage.googleapis.com/stable
     condition: scylla-manager.enabled
     tags:
