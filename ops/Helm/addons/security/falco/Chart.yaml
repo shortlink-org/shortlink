@@ -15,7 +15,7 @@ type: application
 deprecated: false
 dependencies:
   - name: falco
-    version: 4.5.0
+    version: 4.5.1
     repository: https://falcosecurity.github.io/charts
     condition: falco.enabled
     tags:
