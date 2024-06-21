@@ -48,8 +48,8 @@ watch: ## Run for development mode with watch
 down: confirm ## Down docker compose
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f docker-compose.yaml \
+		-f ops/docker-compose/tooling/registry/docker-registry/docker-registry.yaml \
 		-f ops/docker-compose/tooling/services/coredns/coredns.yaml \
-		-f ops/docker-compose/tooling/services/docker-registry/docker-registry.yaml \
 		-f ops/docker-compose/tooling/services/feature-toggle/feature-toggle.yaml \
 		-f ops/docker-compose/tooling/saas/airflow/airflow.yaml \
 		-f ops/docker-compose/tooling/saas/nifi/nifi.yaml \
