@@ -28,6 +28,9 @@ data:
         }
         {{- end }}
       },
+      "log": {
+        "level": "info"
+      },
       "extensions": {
         "metrics": {},
         "search": {
@@ -50,6 +53,89 @@ data:
           "enable": true,
           "cosign": false,
           "notation": false
+        },
+        "sync": {
+          "enable": true,
+          "registries": [
+            {
+              "urls": [
+                "https://index.docker.io"
+              ],
+              "content": [
+                {
+                  "destination": "/docker.io",
+                  "prefix": "**"
+                }
+              ],
+              "onDemand": true,
+              "tlsVerify": true
+            },
+            {
+              "urls": [
+                "https://registry.gitlab.com"
+              ],
+              "content": [
+              {
+                "destination": "/registry.gitlab.com",
+                "prefix": "**"
+              }
+              ],
+              "onDemand": true,
+              "tlsVerify": true
+            },
+            {
+              "urls": [
+                "https://ghcr.io"
+              ],
+              "content": [
+              {
+                "destination": "ghcr.io",
+                "prefix": "**"
+              }
+              ],
+              "onDemand": true,
+              "tlsVerify": true
+            },
+            {
+              "urls": [
+                "https://quay.io"
+              ],
+              "content": [
+              {
+                "destination": "/quay.io",
+                "prefix": "**"
+              }
+              ],
+              "onDemand": true,
+              "tlsVerify": true
+            },
+            {
+              "urls": [
+                "https://gcr.io"
+              ],
+              "content": [
+              {
+                "destination": "/gcr.io",
+                "prefix": "**"
+              }
+              ],
+              "onDemand": true,
+              "tlsVerify": true
+            },
+            {
+              "urls": [
+                "https://registry.k8s.io"
+              ],
+              "content": [
+              {
+                "destination": "/registry.k8s.io",
+                "prefix": "**"
+              }
+              ],
+              "onDemand": true,
+              "tlsVerify": true
+            }
+          ]
         }
       }
     }
