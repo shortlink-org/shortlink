@@ -57,7 +57,7 @@ golint:
     - .go-cache
     - .job_teplate_go
   image:
-    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/golangci/golangci-lint:v1.58.2-alpine
+    name: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/golangci/golangci-lint:v1.59.1-alpine
     entrypoint: [""]
   before_script:
     - apk add --no-cache jq

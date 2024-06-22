@@ -192,7 +192,7 @@ func (_m *Repository) List(ctx context.Context, filter interface{}) ([]*v1.Accou
 	ret := _m.Called(ctx, filter)
 
 	if len(ret) == 0 {
-		panic("no return value specified for list")
+		panic("no return value specified for List")
 	}
 
 	var r0 []*v1.Account
@@ -217,7 +217,7 @@ func (_m *Repository) List(ctx context.Context, filter interface{}) ([]*v1.Accou
 	return r0, r1
 }
 
-// Repository_List_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'list'
+// Repository_List_Call is a *mock.Call that shadows Run/Return methods with type explicit version for method 'List'
 type Repository_List_Call struct {
 	*mock.Call
 }
@@ -226,7 +226,7 @@ type Repository_List_Call struct {
 //   - ctx context.Context
 //   - filter interface{}
 func (_e *Repository_Expecter) List(ctx interface{}, filter interface{}) *Repository_List_Call {
-	return &Repository_List_Call{Call: _e.mock.On("list", ctx, filter)}
+	return &Repository_List_Call{Call: _e.mock.On("List", ctx, filter)}
 }
 
 func (_c *Repository_List_Call) Run(run func(ctx context.Context, filter interface{})) *Repository_List_Call {

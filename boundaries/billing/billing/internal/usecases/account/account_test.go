@@ -4,6 +4,7 @@ import (
 	"context"
 	"testing"
 
+	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/mock"
 	"github.com/stretchr/testify/require"
@@ -23,11 +24,12 @@ func TestAccountService_Add(t *testing.T) {
 	require.NoError(t, err, "Error init a logger")
 
 	// Create a new account
-	account := &v1.Account{
-		id:       "test-id",
-		userId:   "test-user-id",
-		tariffId: "test-tariff-id",
-	}
+	account, err := v1.NewAccountBuilder().
+		SetUserId(uuid.New()).
+		SetTariffId(uuid.New()).
+		Build()
+
+	require.NoError(t, err, "Error create a new account")
 
 	// Create a mock repository
 	mockRepo := account_repository.NewRepository(t)
@@ -57,11 +59,12 @@ func TestAccountService_Get(t *testing.T) {
 	require.NoError(t, err, "Error init a logger")
 
 	// Create a new account
-	account := &v1.Account{
-		id:       "test-id",
-		userId:   "test-user-id",
-		tariffId: "test-tariff-id",
-	}
+	account, err := v1.NewAccountBuilder().
+		SetUserId(uuid.New()).
+		SetTariffId(uuid.New()).
+		Build()
+
+	require.NoError(t, err, "Error create a new account")
 
 	// Create a mock repository
 	mockRepo := account_repository.NewRepository(t)
@@ -74,7 +77,7 @@ func TestAccountService_Get(t *testing.T) {
 	}
 
 	// Call the Get method
-	result, err := service.Get(context.Background(), account.GetId())
+	result, err := service.Get(context.Background(), account.GetId().String())
 
 	// Assert that the returned account is the one we expected
 	assert.NoError(t, err)
@@ -91,11 +94,12 @@ func TestAccountService_List(t *testing.T) {
 	require.NoError(t, err, "Error init a logger")
 
 	// Create a new account
-	account := &v1.Account{
-		id:       "test-id",
-		userId:   "test-user-id",
-		tariffId: "test-tariff-id",
-	}
+	account, err := v1.NewAccountBuilder().
+		SetUserId(uuid.New()).
+		SetTariffId(uuid.New()).
+		Build()
+
+	require.NoError(t, err, "Error create a new account")
 
 	// Create a mock repository
 	mockRepo := account_repository.NewRepository(t)
@@ -125,11 +129,12 @@ func TestAccountService_Update(t *testing.T) {
 	require.NoError(t, err, "Error init a logger")
 
 	// Create a new account
-	account := &v1.Account{
-		id:       "test-id",
-		userId:   "test-user-id",
-		tariffId: "test-tariff-id",
-	}
+	account, err := v1.NewAccountBuilder().
+		SetUserId(uuid.New()).
+		SetTariffId(uuid.New()).
+		Build()
+
+	require.NoError(t, err, "Error create a new account")
 
 	// Create a mock repository
 	mockRepo := account_repository.NewRepository(t)
@@ -159,11 +164,12 @@ func TestAccountService_Delete(t *testing.T) {
 	require.NoError(t, err, "Error init a logger")
 
 	// Create a new account
-	account := &v1.Account{
-		id:       "test-id",
-		userId:   "test-user-id",
-		tariffId: "test-tariff-id",
-	}
+	account, err := v1.NewAccountBuilder().
+		SetUserId(uuid.New()).
+		SetTariffId(uuid.New()).
+		Build()
+
+	require.NoError(t, err, "Error create a new account")
 
 	// Create a mock repository
 	mockRepo := account_repository.NewRepository(t)
@@ -176,7 +182,7 @@ func TestAccountService_Delete(t *testing.T) {
 	}
 
 	// Call the Delete method
-	err = service.Delete(context.Background(), account.GetId())
+	err = service.Delete(context.Background(), account.GetId().String())
 	assert.NoError(t, err)
 
 	// Assert that the Delete method was called with the correct account id
