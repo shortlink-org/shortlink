@@ -27,32 +27,5 @@ zot:
         - zot.shortlink.best
         secretName: zot-signadot-tls
 
-  configFiles:
-    config.json: |-
-      {
-        "distSpecVersion": "1.1.0",
-        "storage": { "rootDirectory": "/var/lib/registry" },
-        "http": {
-          "address": "0.0.0.0",
-          "port": "5000"
-        },
-        "extensions": {
-          "metrics": {},
-          "search": {
-            "enable": true,
-            "cve": {
-              "updateInterval": "2h"
-            }
-          },
-          "ui": {
-            "enable": true
-          },
-          "mgmt": {
-            "enable": true
-          },
-          "scrub": {
-            "enable": true,
-            "interval": "24h"
-          }
-        }
-      }
+  mountConfig: true
+  configFiles: false

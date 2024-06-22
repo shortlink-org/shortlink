@@ -1,0 +1,53 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ .Release.Name }}-config
+data:
+  config.json: |-
+    {
+      "distSpecVersion": "1.1.0",
+      "storage": { "rootDirectory": "/var/lib/registry" },
+      "scheduler": {
+        "numWorkers": 3
+      },
+      "http": {
+        "address": "0.0.0.0",
+        "port": "5000",
+        "auth": {
+          "failDelay": 5,
+          "openid": {
+            "providers": {
+              "github": {
+                "clientid": {{ .Values.auth.github.clientid }},
+                "clientsecret": {{ .Values.auth.github.clientsecret }},
+                "scopes": ["read:org", "user", "repo"]
+              },
+            }
+          }
+        }
+      },
+      "extensions": {
+        "metrics": {},
+        "search": {
+          "enable": true,
+          "cve": {
+            "updateInterval": "2h"
+          }
+        },
+        "ui": {
+          "enable": true
+        },
+        "mgmt": {
+          "enable": true
+        },
+        "scrub": {
+          "enable": true,
+          "interval": "24h"
+        },
+        "trust": {
+          "enable": true,
+          "cosign": false,
+          "notation": false
+        }
+      }
+    }
