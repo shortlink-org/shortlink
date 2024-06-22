@@ -17,6 +17,11 @@ zot:
       nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
       nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
 
+    hosts:
+      - host: zot.shortlink.best
+        paths:
+          - path: /
+
     tls:
       - hosts:
         - zot.shortlink.best
