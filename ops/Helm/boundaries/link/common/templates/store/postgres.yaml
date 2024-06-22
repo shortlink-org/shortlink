@@ -21,7 +21,9 @@ spec:
           - "ReadWriteOnce"
         resources:
           requests:
-            storage: 1Gi
+            storage: 150Mi
+          limit:
+            storage: 2Gi
       walVolumeClaimSpec:
         storageClassName: local-path
         accessModes:

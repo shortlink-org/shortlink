@@ -18,6 +18,8 @@ spec:
         resources:
           requests:
             storage: 1Gi
+          limit:
+            storage: 2Gi
   backups:
     pgbackrest:
       repos:
