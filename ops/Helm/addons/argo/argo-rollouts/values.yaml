@@ -9,7 +9,7 @@ argo-rollouts:
     trafficRouterPlugins:
       trafficRouterPlugins: |-
         - name: "argoproj-labs/gatewayAPI"
-          location: "https://github.com/argoproj-labs/rollouts-plugin-trafficrouter-gatewayapi/releases/download/v0.0.0-rc1/gateway-api-plugin-linux-amd64"
+          location: "https://github.com/argoproj-labs/rollouts-plugin-trafficrouter-gatewayapi/releases/download/v0.3.0/gateway-api-plugin-linux-amd64"
 
     resources:
       limits:
