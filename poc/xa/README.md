@@ -14,6 +14,17 @@ The disadvantages of XA are:
 
 ### Docs
 
-- [DTM](https://en.dtm.pub/)
-- [Understanding XA Transactions With Practical Examples in Go](https://betterprogramming.pub/understanding-xa-transactions-with-practical-examples-in-go-67e99fd333db)
-- [Postgres: PREPARE TRANSACTION](https://postgrespro.ru/docs/postgresql/16/sql-prepare-transaction?lang=ru-en)
+- [GitHub: X/Open XA](https://github.com/topics/xa)
+  - [Apache Seata(incubating)](https://seata.apache.org/)
+  - [DTM](https://en.dtm.pub/)
+- DataBase
+  - [Postgres: PREPARE TRANSACTION](https://postgrespro.ru/docs/postgresql/16/sql-prepare-transaction?lang=ru-en)
+- Blogs
+  - [Understanding XA Transactions With Practical Examples in Go](https://betterprogramming.pub/understanding-xa-transactions-with-practical-examples-in-go-67e99fd333db)
+  - [dtm blog](https://medium.com/@dongfuye)
+  - [Распределенные транзакции (XA) с помощью JTA в JavaSE (на примере Spring + Atomikos)](https://samolisov.blogspot.com/2011/02/xa-jta-javase-spring-atomikos-2.html)
+
+### Examples
+
+- [incubator-seata-go-samples](https://github.com/apache/incubator-seata-go-samples)
+- [dtm-example](./dtm-example/README.md)
