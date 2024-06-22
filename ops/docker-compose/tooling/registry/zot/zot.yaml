@@ -1,0 +1,12 @@
+services:
+
+  registry:
+    depends_on:
+      - coredns
+    image: ghcr.io/project-zot/zot-linux-amd64:latest
+    container_name: registry
+    restart: on-failure
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./ops/docker-compose/tooling/registry/zot/config/config.json:/etc/zot/config.json:ro
