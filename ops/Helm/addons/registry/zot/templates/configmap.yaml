@@ -1,4 +1,3 @@
-{{- if .Values.auth.enabled }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
@@ -13,8 +12,9 @@ data:
       },
       "http": {
         "address": "0.0.0.0",
-        "port": "5000",
-        "auth": {
+        "port": "5000"
+        {{- if .Values.mountConfig .Values.configFiles }}
+        ,"auth": {
           "failDelay": 5,
           "openid": {
             "providers": {
@@ -26,6 +26,7 @@ data:
             }
           }
         }
+        {{- end }}
       },
       "extensions": {
         "metrics": {},
@@ -52,4 +53,3 @@ data:
         }
       }
     }
-{{- end }}
