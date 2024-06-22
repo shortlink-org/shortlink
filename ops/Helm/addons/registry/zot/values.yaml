@@ -1,0 +1,53 @@
+# Common default values for signadot.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+zot:
+  enabled: true
+
+  service:
+    type: ClusterIP
+
+  ingress:
+    enabled: true
+
+    annotations:
+      cert-manager.io/cluster-issuer: cert-manager-production
+      nginx.ingress.kubernetes.io/backend-protocol: HTTP
+      nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+      nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+
+    tls:
+      - hosts:
+        - zot.shortlink.best
+        secretName: zot-signadot-tls
+
+  configFiles:
+    config.json: |-
+      {
+        "distSpecVersion": "1.1.0",
+        "storage": { "rootDirectory": "/var/lib/registry" },
+        "http": {
+          "address": "0.0.0.0",
+          "port": "5000"
+        },
+        "extensions": {
+          "metrics": {},
+          "search": {
+            "enable": true,
+            "cve": {
+              "updateInterval": "2h"
+            }
+          },
+          "ui": {
+            "enable": true
+          },
+          "mgmt": {
+            "enable": true
+          },
+          "scrub": {
+            "enable": true,
+            "interval": "24h"
+          }
+        }
+      }

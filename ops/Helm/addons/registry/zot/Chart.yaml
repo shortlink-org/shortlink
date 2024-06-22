@@ -1,0 +1,22 @@
+apiVersion: v2
+appVersion: "1.0.0"
+name: zot
+description: A Helm chart for Kubernetes
+version: 0.1.0
+kubeVersion: ">= 1.29.0 || >= v1.29.0-0"
+keywords:
+  - registry
+home: https://github.com/shortlink-org/shortlink
+sources:
+  - https://github.com/shortlink-org/shortlink
+maintainers:
+  - email: batazor111@gmail.com
+    name: batazor
+    url: batazor.ru
+engine: gotpl
+type: application
+deprecated: false
+dependencies:
+  - name: zot
+    version: 0.1.56
+    repository: http://zotregistry.dev/helm-charts
