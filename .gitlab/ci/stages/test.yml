@@ -51,6 +51,8 @@ linkchecker:
   script:
     - find . -name \*.md -print0 | xargs -0 -n1 markdown-link-check -q
   allow_failure: true
+  tags:
+    - gitlab-org-docker
   rules:
     - changes:
         - "**/*.md"
