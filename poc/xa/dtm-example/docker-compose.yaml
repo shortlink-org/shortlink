@@ -1,0 +1,28 @@
+services:
+
+  postgres:
+    image: ghcr.io/dbsystel/postgresql-partman:16
+    init: true
+    restart: on-failure
+    container_name: postgres
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: shortlink
+      POSTGRES_DB: shortlink
+    healthcheck:
+      test: ["CMD", "pg_isready", "--username=postgres", "--host=127.0.0.1", "--port=5432"]
+      interval: 2s
+      timeout: 1m
+      retries: 5
+    volumes:
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  dtm:
+    image: yedf/dtm
+    restart: on-failure
+    container_name: dtm
+    ports:
+      - "36789:36789"
+      - "36790:36790"

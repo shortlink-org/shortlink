@@ -789,17 +789,7 @@ linters:
   enable-all: true
 
   disable:
-    - exhaustivestruct # replaced by exhaustruct
-    - nosnakecase # replaced by revive(var-naming)
-    - maligned # replaced by fieldalignment
-    - scopelint # replaced by exportloopref
-    - golint # replaced by revive(lint)
     - gomnd # replaced by mnd
-    - ifshort # deprecated
-    - interfacer # deprecated
-    - deadcode # deprecated
-    - varcheck # deprecated
-    - structcheck # deprecated
     - execinquery # deprecated
     - interfacebloat # we don't use limit of methods in interfaces
     - ireturn # return interface{} is allowed
