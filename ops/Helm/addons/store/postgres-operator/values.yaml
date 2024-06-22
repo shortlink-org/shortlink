@@ -5,6 +5,10 @@
 pgo:
   enabled: true
 
+  env:
+    - name: PGO_FEATURE_GATES
+      value: 'AutoGrowVolumes=true'
+
   resources:
     controller:
       limits:
