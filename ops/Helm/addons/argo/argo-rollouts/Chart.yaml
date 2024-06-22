@@ -15,7 +15,7 @@ type: application
 deprecated: false
 dependencies:
   - name: argo-rollouts
-    version: 2.36.0
+    version: 2.36.1
     repository: https://argoproj.github.io/argo-helm
     condition: argo-rollouts.enabled
     tags:
