@@ -18,10 +18,10 @@ data:
           "openid": {
             "providers": {
               "github": {
-                "clientid": {{ .Values.auth.github.clientid }},
-                "clientsecret": {{ .Values.auth.github.clientsecret }},
+                "clientid": {{ .Values.auth.github.clientid | quote }},
+                "clientsecret": {{ .Values.auth.github.clientsecret | quote }},
                 "scopes": ["read:org", "user", "repo"]
-              },
+              }
             }
           }
         }
