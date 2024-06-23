@@ -13,7 +13,7 @@ data:
       "http": {
         "address": "0.0.0.0",
         "port": "5000"
-        {{- if .Values.mountConfig .Values.configFiles }}
+        {{- if .Values.auth.enabled }}
         ,"auth": {
           "failDelay": 5,
           "openid": {
