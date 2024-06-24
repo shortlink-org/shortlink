@@ -32,7 +32,12 @@ data:
         "level": "info"
       },
       "extensions": {
-        "metrics": {},
+        "metrics": {
+          "enable": true,
+          "prometheus": {
+            "path": "/metrics"
+          }
+        },
         "search": {
           "enable": true,
           "cve": {
