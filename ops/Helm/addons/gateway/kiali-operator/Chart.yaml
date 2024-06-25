@@ -15,7 +15,7 @@ type: application
 deprecated: false
 dependencies:
   - name: kiali-operator
-    version: 1.86.0
+    version: 1.86.2
     repository: https://kiali.org/helm-charts
     condition: kiali-operator.enabled
     tags:
