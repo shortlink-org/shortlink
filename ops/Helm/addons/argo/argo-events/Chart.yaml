@@ -15,7 +15,7 @@ type: application
 deprecated: false
 dependencies:
   - name: argo-events
-    version: 2.4.6
+    version: 2.4.7
     repository: https://argoproj.github.io/argo-helm
     condition: argo-events.enabled
     tags:
