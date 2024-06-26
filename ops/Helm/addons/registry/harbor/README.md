@@ -22,7 +22,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://helm.goharbor.io | harbor | 1.14.2 |
+| https://helm.goharbor.io | harbor | 1.15.0 |
 
 ## Values
 
@@ -35,7 +35,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="harbor--enabled"><a href="values.yaml#L6">harbor.enabled</a></td>
+			<td id="harbor--enabled"><a href="./values.yaml#L6">harbor.enabled</a></td>
 			<td>
 bool
 </td>

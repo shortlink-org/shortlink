@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-rollouts | 2.36.0 |
+| https://argoproj.github.io/argo-helm | argo-rollouts | 2.37.1 |
 
 ## Values
 
@@ -104,7 +104,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"- name: \"argoproj-labs/gatewayAPI\"\n  location: \"https://github.com/argoproj-labs/rollouts-plugin-trafficrouter-gatewayapi/releases/download/v0.0.0-rc1/gateway-api-plugin-linux-amd64\""
+"- name: \"argoproj-labs/gatewayAPI\"\n  location: \"https://github.com/argoproj-labs/rollouts-plugin-trafficrouter-gatewayapi/releases/download/v0.3.0/gateway-api-plugin-linux-amd64\""
 </pre>
 </div>
 			</td>

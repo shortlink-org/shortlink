@@ -41,7 +41,35 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pgo--resources--controller--limits--cpu"><a href="./values.yaml#L11">pgo.resources.controller.limits.cpu</a></td>
+			<td id="pgo--env[0]--name"><a href="./values.yaml#L9">pgo.env[0].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"PGO_FEATURE_GATES"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="pgo--env[0]--value"><a href="./values.yaml#L10">pgo.env[0].value</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"AutoGrowVolumes=true"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="pgo--resources--controller--limits--cpu"><a href="./values.yaml#L15">pgo.resources.controller.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -55,7 +83,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pgo--resources--controller--limits--memory"><a href="./values.yaml#L12">pgo.resources.controller.limits.memory</a></td>
+			<td id="pgo--resources--controller--limits--memory"><a href="./values.yaml#L16">pgo.resources.controller.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -69,7 +97,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pgo--resources--controller--requests--cpu"><a href="./values.yaml#L14">pgo.resources.controller.requests.cpu</a></td>
+			<td id="pgo--resources--controller--requests--cpu"><a href="./values.yaml#L18">pgo.resources.controller.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -83,7 +111,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pgo--resources--controller--requests--memory"><a href="./values.yaml#L15">pgo.resources.controller.requests.memory</a></td>
+			<td id="pgo--resources--controller--requests--memory"><a href="./values.yaml#L19">pgo.resources.controller.requests.memory</a></td>
 			<td>
 string
 </td>
