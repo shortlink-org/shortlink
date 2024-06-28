@@ -12,7 +12,7 @@ services:
     depends_on:
       - coredns
       - spicedb_migrate
-    image: authzed/spicedb:v1.33.1
+    image: authzed/spicedb:v1.34.0
     command: serve
     container_name: spicedb
     restart: always
@@ -50,7 +50,7 @@ services:
     depends_on:
       - coredns
       - postgres
-    image: authzed/spicedb:v1.33.1
+    image: authzed/spicedb:v1.34.0
     command: "migrate head"
     container_name: spicedb_migrate
     restart: on-failure
