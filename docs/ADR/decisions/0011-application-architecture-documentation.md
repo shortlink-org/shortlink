@@ -53,6 +53,9 @@ We research tools:
 
 - [archi editor](https://www.archimatetool.com/)
   + [C4 Model, Architecture Viewpoint and Archi 4.7](https://www.archimatetool.com/blog/2020/04/18/c4-model-architecture-viewpoint-and-archi-4-7/)
+  + References:
+    + [RecruitmentCompany](https://github.com/rogerkohler/RecruitmentCompany) - Archimate All layers
+    + [Cloud Native Architectural Models using Archi](https://github.com/alberttwong/archi_cloudnative)
 
 ## Consequences
 
