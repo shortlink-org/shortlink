@@ -14,10 +14,10 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 7.3.2 |
+| https://argoproj.github.io/argo-helm | argo-cd | 7.3.3 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 2.0.0 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.10.2 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 19.5.5 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 19.6.0 |
 
 ## Values
 

@@ -19,7 +19,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://mongodb.github.io/helm-charts | mongodb(community-operator) | 0.9.0 |
+| https://mongodb.github.io/helm-charts | mongodb(community-operator) | 0.10.0 |
 
 ## Values
 
