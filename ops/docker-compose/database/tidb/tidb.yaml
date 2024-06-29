@@ -29,7 +29,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: pingcap/pd:v8.1.0
+    image: pingcap/pd:v7.1.1
     ports:
       - "2379"
     command:
