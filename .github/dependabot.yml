@@ -235,3 +235,8 @@ updates:
     directory: /pkg/golangci-lint/value-object
     schedule:
       interval: daily
+
+  - package-ecosystem: gomod
+    directory: /poc/xa/dtm-example
+    schedule:
+      interval: daily
