@@ -1,14 +1,10 @@
-version: v1
-
+version: v2
 managed:
   enabled: true
-
 plugins:
-  - name: es
+  - local: protoc-gen-es
     out: boundaries/link/proxy/src/proto
     opt: target=ts
-
-  - name: grpc
+  - local: grpc_tools_node_protoc_plugin
     out: boundaries/link/proxy/src/proto
     opt: grpc_js
-    path: grpc_tools_node_protoc_plugin

@@ -1,14 +1,10 @@
-version: v1
-
+version: v2
 managed:
   enabled: true
-
 plugins:
-  - plugin: buf.build/grpc/python
+  - remote: buf.build/grpc/python
     out: boundaries/marketing/referral
-
-  - plugin: buf.build/protocolbuffers/python
+  - remote: buf.build/protocolbuffers/python
     out: boundaries/marketing/referral
-
-  - plugin: buf.build/protocolbuffers/pyi
+  - remote: buf.build/protocolbuffers/pyi
     out: boundaries/marketing/referral

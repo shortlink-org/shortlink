@@ -1,33 +1,265 @@
-version: v1beta1
-
-name: buf.build/shortlink-org/shortlink
-
+version: v2
+modules:
+  - path: boundaries/api/api-gateway/gateways/grpc-web/infrastructure
+    lint:
+      use:
+        - COMMENTS
+        - DEFAULT
+        - FIELD_NO_DESCRIPTOR
+      except:
+        - ENUM_FIRST_VALUE_ZERO
+        - FIELD_NOT_REQUIRED
+        - IMPORT_USED
+        - PACKAGE_NO_IMPORT_CYCLE
+        - PROTOVALIDATE
+        - SYNTAX_SPECIFIED
+      rpc_allow_google_protobuf_empty_requests: true
+      rpc_allow_google_protobuf_empty_responses: true
+      disallow_comment_ignores: true
+    breaking:
+      use:
+        - FIELD_SAME_CARDINALITY
+        - FIELD_SAME_TYPE
+        - WIRE_JSON
+      except:
+        - FIELD_SAME_DEFAULT
+        - FIELD_WIRE_JSON_COMPATIBLE_CARDINALITY
+        - FIELD_WIRE_JSON_COMPATIBLE_TYPE
+        - FILE_SAME_PACKAGE
+  - path: boundaries/billing/billing/internal
+    lint:
+      use:
+        - COMMENTS
+        - DEFAULT
+        - FIELD_NO_DESCRIPTOR
+      except:
+        - ENUM_FIRST_VALUE_ZERO
+        - FIELD_NOT_REQUIRED
+        - IMPORT_USED
+        - PACKAGE_NO_IMPORT_CYCLE
+        - PROTOVALIDATE
+        - SYNTAX_SPECIFIED
+      rpc_allow_google_protobuf_empty_requests: true
+      rpc_allow_google_protobuf_empty_responses: true
+      disallow_comment_ignores: true
+    breaking:
+      use:
+        - FIELD_SAME_CARDINALITY
+        - FIELD_SAME_TYPE
+        - WIRE_JSON
+      except:
+        - FIELD_SAME_DEFAULT
+        - FIELD_WIRE_JSON_COMPATIBLE_CARDINALITY
+        - FIELD_WIRE_JSON_COMPATIBLE_TYPE
+        - FILE_SAME_PACKAGE
+  - path: boundaries/link/link/internal
+    lint:
+      use:
+        - COMMENTS
+        - DEFAULT
+        - FIELD_NO_DESCRIPTOR
+      except:
+        - ENUM_FIRST_VALUE_ZERO
+        - FIELD_NOT_REQUIRED
+        - IMPORT_USED
+        - PACKAGE_NO_IMPORT_CYCLE
+        - PROTOVALIDATE
+        - SYNTAX_SPECIFIED
+      rpc_allow_google_protobuf_empty_requests: true
+      rpc_allow_google_protobuf_empty_responses: true
+      disallow_comment_ignores: true
+    breaking:
+      use:
+        - FIELD_SAME_CARDINALITY
+        - FIELD_SAME_TYPE
+        - WIRE_JSON
+      except:
+        - FIELD_SAME_DEFAULT
+        - FIELD_WIRE_JSON_COMPATIBLE_CARDINALITY
+        - FIELD_WIRE_JSON_COMPATIBLE_TYPE
+        - FILE_SAME_PACKAGE
+  - path: boundaries/link/metadata/internal
+    lint:
+      use:
+        - COMMENTS
+        - DEFAULT
+        - FIELD_NO_DESCRIPTOR
+      except:
+        - ENUM_FIRST_VALUE_ZERO
+        - FIELD_NOT_REQUIRED
+        - IMPORT_USED
+        - PACKAGE_NO_IMPORT_CYCLE
+        - PROTOVALIDATE
+        - SYNTAX_SPECIFIED
+      rpc_allow_google_protobuf_empty_requests: true
+      rpc_allow_google_protobuf_empty_responses: true
+      disallow_comment_ignores: true
+    breaking:
+      use:
+        - FIELD_SAME_CARDINALITY
+        - FIELD_SAME_TYPE
+        - WIRE_JSON
+      except:
+        - FIELD_SAME_DEFAULT
+        - FIELD_WIRE_JSON_COMPATIBLE_CARDINALITY
+        - FIELD_WIRE_JSON_COMPATIBLE_TYPE
+        - FILE_SAME_PACKAGE
+  - path: boundaries/link/proxy/src/proto
+    lint:
+      use:
+        - COMMENTS
+        - DEFAULT
+        - FIELD_NO_DESCRIPTOR
+      except:
+        - ENUM_FIRST_VALUE_ZERO
+        - FIELD_NOT_REQUIRED
+        - IMPORT_USED
+        - PACKAGE_NO_IMPORT_CYCLE
+        - PROTOVALIDATE
+        - SYNTAX_SPECIFIED
+      rpc_allow_google_protobuf_empty_requests: true
+      rpc_allow_google_protobuf_empty_responses: true
+      disallow_comment_ignores: true
+    breaking:
+      use:
+        - FIELD_SAME_CARDINALITY
+        - FIELD_SAME_TYPE
+        - WIRE_JSON
+      except:
+        - FIELD_SAME_DEFAULT
+        - FIELD_WIRE_JSON_COMPATIBLE_CARDINALITY
+        - FIELD_WIRE_JSON_COMPATIBLE_TYPE
+        - FILE_SAME_PACKAGE
+  - path: boundaries/marketing/referral/src
+    lint:
+      use:
+        - COMMENTS
+        - DEFAULT
+        - FIELD_NO_DESCRIPTOR
+      except:
+        - ENUM_FIRST_VALUE_ZERO
+        - FIELD_NOT_REQUIRED
+        - IMPORT_USED
+        - PACKAGE_NO_IMPORT_CYCLE
+        - PROTOVALIDATE
+        - SYNTAX_SPECIFIED
+      rpc_allow_google_protobuf_empty_requests: true
+      rpc_allow_google_protobuf_empty_responses: true
+      disallow_comment_ignores: true
+    breaking:
+      use:
+        - FIELD_SAME_CARDINALITY
+        - FIELD_SAME_TYPE
+        - WIRE_JSON
+      except:
+        - FIELD_SAME_DEFAULT
+        - FIELD_WIRE_JSON_COMPATIBLE_CARDINALITY
+        - FIELD_WIRE_JSON_COMPATIBLE_TYPE
+        - FILE_SAME_PACKAGE
+  - path: boundaries/notification/newsletter/src
+    lint:
+      use:
+        - COMMENTS
+        - DEFAULT
+        - FIELD_NO_DESCRIPTOR
+      except:
+        - ENUM_FIRST_VALUE_ZERO
+        - FIELD_NOT_REQUIRED
+        - IMPORT_USED
+        - PACKAGE_NO_IMPORT_CYCLE
+        - PROTOVALIDATE
+        - SYNTAX_SPECIFIED
+      rpc_allow_google_protobuf_empty_requests: true
+      rpc_allow_google_protobuf_empty_responses: true
+      disallow_comment_ignores: true
+    breaking:
+      use:
+        - FIELD_SAME_CARDINALITY
+        - FIELD_SAME_TYPE
+        - WIRE_JSON
+      except:
+        - FIELD_SAME_DEFAULT
+        - FIELD_WIRE_JSON_COMPATIBLE_CARDINALITY
+        - FIELD_WIRE_JSON_COMPATIBLE_TYPE
+        - FILE_SAME_PACKAGE
+  - path: pkg/pattern/eventsourcing
+    lint:
+      use:
+        - COMMENTS
+        - DEFAULT
+        - FIELD_NO_DESCRIPTOR
+      except:
+        - ENUM_FIRST_VALUE_ZERO
+        - FIELD_NOT_REQUIRED
+        - IMPORT_USED
+        - PACKAGE_NO_IMPORT_CYCLE
+        - PROTOVALIDATE
+        - SYNTAX_SPECIFIED
+      rpc_allow_google_protobuf_empty_requests: true
+      rpc_allow_google_protobuf_empty_responses: true
+      disallow_comment_ignores: true
+    breaking:
+      use:
+        - FIELD_SAME_CARDINALITY
+        - FIELD_SAME_TYPE
+        - WIRE_JSON
+      except:
+        - FIELD_SAME_DEFAULT
+        - FIELD_WIRE_JSON_COMPATIBLE_CARDINALITY
+        - FIELD_WIRE_JSON_COMPATIBLE_TYPE
+        - FILE_SAME_PACKAGE
+  - path: pkg/pattern/transactional_outbox
+    lint:
+      use:
+        - COMMENTS
+        - DEFAULT
+        - FIELD_NO_DESCRIPTOR
+      except:
+        - ENUM_FIRST_VALUE_ZERO
+        - FIELD_NOT_REQUIRED
+        - IMPORT_USED
+        - PACKAGE_NO_IMPORT_CYCLE
+        - PROTOVALIDATE
+        - SYNTAX_SPECIFIED
+      rpc_allow_google_protobuf_empty_requests: true
+      rpc_allow_google_protobuf_empty_responses: true
+      disallow_comment_ignores: true
+    breaking:
+      use:
+        - FIELD_SAME_CARDINALITY
+        - FIELD_SAME_TYPE
+        - WIRE_JSON
+      except:
+        - FIELD_SAME_DEFAULT
+        - FIELD_WIRE_JSON_COMPATIBLE_CARDINALITY
+        - FIELD_WIRE_JSON_COMPATIBLE_TYPE
+        - FILE_SAME_PACKAGE
+  - path: pkg/raft
+    lint:
+      use:
+        - COMMENTS
+        - DEFAULT
+        - FIELD_NO_DESCRIPTOR
+      except:
+        - ENUM_FIRST_VALUE_ZERO
+        - FIELD_NOT_REQUIRED
+        - IMPORT_USED
+        - PACKAGE_NO_IMPORT_CYCLE
+        - PROTOVALIDATE
+        - SYNTAX_SPECIFIED
+      rpc_allow_google_protobuf_empty_requests: true
+      rpc_allow_google_protobuf_empty_responses: true
+      disallow_comment_ignores: true
+    breaking:
+      use:
+        - FIELD_SAME_CARDINALITY
+        - FIELD_SAME_TYPE
+        - WIRE_JSON
+      except:
+        - FIELD_SAME_DEFAULT
+        - FIELD_WIRE_JSON_COMPATIBLE_CARDINALITY
+        - FIELD_WIRE_JSON_COMPATIBLE_TYPE
+        - FILE_SAME_PACKAGE
 deps:
   - buf.build/googleapis/googleapis
-  - buf.build/envoyproxy/protoc-gen-validate
   - buf.build/grpc-ecosystem/grpc-gateway
-
-build:
-  roots:
-    - boundaries/api/api-gateway/gateways/grpc-web/infrastructure
-    - boundaries/link/proxy/src/proto
-    - boundaries/billing/billing/internal
-    - boundaries/link/link/internal
-    - boundaries/link/metadata/internal
-    - boundaries/marketing/referral/src
-    - boundaries/notification/newsletter/src
-    - pkg/pattern/eventsourcing
-    - pkg/pattern/transactional_outbox
-    - pkg/raft
-
-lint:
-  use:
-    - DEFAULT # the current strictest possible
-    - COMMENTS
-  rpc_allow_google_protobuf_empty_requests: true
-  rpc_allow_google_protobuf_empty_responses: true
-
-breaking:
-  use:
-    - WIRE_JSON
-

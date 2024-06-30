@@ -1,11 +1,8 @@
-version: v1
-
+version: v2
 managed:
   enabled: true
-
 plugins:
-  - plugin: go-orm
-    strategy: all
+  - local: protoc-gen-go-orm
     out: internal/infrastructure/repository/crud/types/v1
     opt:
       - paths=source_relative
@@ -13,9 +10,8 @@ plugins:
       - pkg=v1
       - filter=Link
       - common=true
-
-  - plugin: go-orm
     strategy: all
+  - local: protoc-gen-go-orm
     out: internal/infrastructure/repository/crud/postgres/filter
     opt:
       - paths=source_relative
@@ -23,9 +19,8 @@ plugins:
       - pkg=filter
       - filter=Link
       - common_path=github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1
-
-  - plugin: go-orm
     strategy: all
+  - local: protoc-gen-go-orm
     out: internal/infrastructure/repository/crud/mongo/filter
     opt:
       - paths=source_relative
@@ -33,9 +28,8 @@ plugins:
       - pkg=filter
       - filter=Link
       - common_path=github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1
-
-  - plugin: go-orm
     strategy: all
+  - local: protoc-gen-go-orm
     out: internal/infrastructure/repository/crud/ram/filter
     opt:
       - paths=source_relative
@@ -43,3 +37,4 @@ plugins:
       - pkg=filter
       - filter=Link
       - common_path=github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1
+    strategy: all

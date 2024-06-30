@@ -23,7 +23,6 @@ const nextConfig = {
   reactStrictMode: true,
   generateEtags: false,
   output: 'export',
-  swcMinify: isProd,
   compress: isProd,
   productionBrowserSourceMaps: isProd,
   env: {

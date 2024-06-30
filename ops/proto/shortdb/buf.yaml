@@ -1,20 +1,29 @@
-version: v1beta1
-
-name: buf.build/shortlink-org/shortlink
-
+version: v2
+modules:
+  - path: boundaries/shortdb
+    name: buf.build/shortlink-org/shortlink
 deps:
   - buf.build/googleapis/googleapis
-
-build:
-  roots:
-    - boundaries/shortdb
-
 lint:
   use:
-    - DEFAULT # the current strictest possible
+    - DEFAULT
+    - FIELD_NO_DESCRIPTOR
+  except:
+    - ENUM_FIRST_VALUE_ZERO
+    - FIELD_NOT_REQUIRED
+    - IMPORT_USED
+    - PACKAGE_NO_IMPORT_CYCLE
+    - PROTOVALIDATE
+    - SYNTAX_SPECIFIED
   rpc_allow_google_protobuf_empty_requests: true
-
+  disallow_comment_ignores: true
 breaking:
   use:
+    - FIELD_SAME_CARDINALITY
+    - FIELD_SAME_TYPE
     - WIRE_JSON
-
+  except:
+    - FIELD_SAME_DEFAULT
+    - FIELD_WIRE_JSON_COMPATIBLE_CARDINALITY
+    - FIELD_WIRE_JSON_COMPATIBLE_TYPE
+    - FILE_SAME_PACKAGE

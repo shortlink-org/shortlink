@@ -9,7 +9,7 @@ export interface SagaStore extends Store {
   sagaTask?: Task
 }
 
-export const makeStore = (context) => {
+export const makeStore = () => {
   // Create the middleware
   const sagaMiddleware = createSagaMiddleware()
 

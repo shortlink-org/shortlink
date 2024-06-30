@@ -1,13 +1,10 @@
-version: v1
-
+version: v2
 managed:
   enabled: true
-
 plugins:
-  - plugin: buf.build/protocolbuffers/go
+  - remote: buf.build/protocolbuffers/go
     out: boundaries/billing/billing
     opt: paths=source_relative
-
-  - plugin: buf.build/grpc/go
+  - remote: buf.build/grpc/go
     out: boundaries/billing/billing
     opt: paths=source_relative
