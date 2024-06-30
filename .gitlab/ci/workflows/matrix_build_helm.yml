@@ -14,8 +14,6 @@
         HELM_CHART_PATH: ops/Helm/boundaries/platform/$HELM_CHART_NAME
       - HELM_CHART_NAME: landscape
         HELM_CHART_PATH: ops/Helm/boundaries/platform/$HELM_CHART_NAME
-      - HELM_CHART_NAME: ui-kit
-        HELM_CHART_PATH: ops/Helm/boundaries/platform/$HELM_CHART_NAME
       - HELM_CHART_NAME: csi
         HELM_CHART_PATH: ops/Helm/boundaries/platform/$HELM_CHART_NAME
 
@@ -41,11 +39,9 @@
 
       # Auth
       - HELM_CHART_NAME: auth
-        HELM_CHART_PATH: ops/Helm/boundaries/aauth/$HELM_CHART_NAME
+        HELM_CHART_PATH: ops/Helm/boundaries/auth/$HELM_CHART_NAME
 
       # Billing
-      - HELM_CHART_NAME: common
-        HELM_CHART_PATH: ops/Helm/boundaries/billing/$HELM_CHART_NAME
       - HELM_CHART_NAME: billing
         HELM_CHART_PATH: ops/Helm/boundaries/billing/$HELM_CHART_NAME
 
