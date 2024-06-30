@@ -21,7 +21,7 @@ spec:
           - "ReadWriteOnce"
         resources:
           requests:
-            storage: 250Mi
+            storage: 1Gi
           limit:
             storage: 2Gi
       walVolumeClaimSpec:
