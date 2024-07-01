@@ -8,7 +8,7 @@ import {
   configApiRef,
   createApiFactory,
 } from '@backstage/core-plugin-api';
-import { techRadarApiRef } from '@backstage/plugin-tech-radar';
+import { techRadarApiRef } from '@backstage-community/plugin-tech-radar';
 import { ShortLinkTechRadar } from './lib/ShortLinkTechRadar';
 
 export const apis: AnyApiFactory[] = [

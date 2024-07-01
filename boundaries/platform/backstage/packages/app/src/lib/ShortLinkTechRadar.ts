@@ -1,7 +1,7 @@
 import {
   TechRadarApi,
   TechRadarLoaderResponse,
-} from '@backstage/plugin-tech-radar';
+} from '@backstage-community/plugin-tech-radar';
 
 export class ShortLinkTechRadar implements TechRadarApi {
   // @ts-ignore

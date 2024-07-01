@@ -7,11 +7,9 @@ FROM --platform=$BUILDPLATFORM node:21.7.3-bookworm-slim AS packages
 ARG ENVIRONMENT_CONFIG
 
 WORKDIR /app
-COPY ./boundaries/platform/backstage/package.json ./boundaries/platform/backstage/yarn.lock ./
-COPY ./boundaries/platform/backstage/.yarn ./.yarn
-COPY ./boundaries/platform/backstage/.yarnrc.yml ./
 
 COPY ./boundaries/platform/backstage/packages packages
+COPY ./boundaries/platform/backstage/package.json ./boundaries/platform/backstage/yarn.lock ./
 
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
 
@@ -35,8 +33,6 @@ USER node
 WORKDIR /app
 
 COPY --from=packages --chown=node:node /app .
-COPY --from=packages --chown=node:node /app/.yarn ./.yarn
-COPY --from=packages --chown=node:node /app/.yarnrc.yml  ./
 
 # Stop cypress from downloading it's massive binary.
 ENV CYPRESS_INSTALL_BINARY=0

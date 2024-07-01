@@ -4,7 +4,7 @@ import {
   createRouter,
   TodoReaderService,
   TodoScmReader,
-} from '@backstage/plugin-todo-backend';
+} from '@backstage-community/plugin-todo-backend';
 import { PluginEnvironment } from '../types';
 
 export default async function createPlugin(
