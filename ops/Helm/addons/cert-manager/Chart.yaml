@@ -30,7 +30,7 @@ dependencies:
       - tls
   - name: cert-manager-csi-driver-spiffe
     alias: spiffe
-    version: v0.6.0
+    version: v0.7.0
     repository: https://charts.jetstack.io
     condition: spiffe.enabled
     tags:
