@@ -41,7 +41,7 @@ require (
 	github.com/minio/minio-go/v7 v7.0.72
 	github.com/nats-io/nats.go v1.36.0
 	github.com/neo4j/neo4j-go-driver/v5 v5.22.0
-	github.com/ory/client-go v1.12.1
+	github.com/ory/client-go v1.12.2
 	github.com/ory/dockertest/v3 v3.10.0
 	github.com/prometheus/client_golang v1.19.1
 	github.com/prometheus/client_model v0.6.1
