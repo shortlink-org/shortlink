@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/poc/xa/example
 
-go 1.22.4
+go 1.22.5
 
 require (
 	github.com/dtm-labs/dtmcli v1.14.2
