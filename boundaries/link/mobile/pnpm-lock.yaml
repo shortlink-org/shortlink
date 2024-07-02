@@ -118,8 +118,8 @@ importers:
         specifier: ^20.23.0
         version: 20.23.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.14.9)(ts-node@10.9.2(@types/node@20.14.9)(typescript@5.5.3)))
       eas-cli:
-        specifier: ^10.0.3
-        version: 10.0.3(@types/node@20.14.9)(expo-modules-autolinking@1.11.1)(typescript@5.5.3)
+        specifier: ^10.1.0
+        version: 10.1.0(@types/node@20.14.9)(expo-modules-autolinking@1.11.1)(typescript@5.5.3)
       eslint:
         specifier: ^9.6.0
         version: 9.6.0
@@ -3364,8 +3364,8 @@ packages:
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
 
-  eas-cli@10.0.3:
-    resolution: {integrity: sha512-lAUBrzz5Kjrmg8rYYKCLN71esTAjjq1M8ynraScS2I/BS46EgLK4sVJkMQ6iPpw1CVRH1HBE5LjLudQB2sTwkw==}
+  eas-cli@10.1.0:
+    resolution: {integrity: sha512-CJbYRUE2MRaEkNVKRloNtdzkvAaJXNE4FZ7nBddkvJcwFA2QELBOWIgB6247UhmoYYvewQQemQoxsLGCfja57g==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -12667,7 +12667,7 @@ snapshots:
 
   duplexer@0.1.2: {}
 
-  eas-cli@10.0.3(@types/node@20.14.9)(expo-modules-autolinking@1.11.1)(typescript@5.5.3):
+  eas-cli@10.1.0(@types/node@20.14.9)(expo-modules-autolinking@1.11.1)(typescript@5.5.3):
     dependencies:
       '@expo/apple-utils': 1.7.0
       '@expo/code-signing-certificates': 0.0.5
