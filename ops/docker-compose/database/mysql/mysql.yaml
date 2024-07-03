@@ -11,7 +11,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: mysql:8
+    image: mysql:9
     init: true
     restart: on-failure
     container_name: mysql
