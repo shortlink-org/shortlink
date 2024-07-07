@@ -85,3 +85,7 @@ Before settling on the Crunchy operator, we assessed alternative solutions:
 
 The selection of the Crunchy Postgres Operator enhances our PostgreSQL management capabilities within 
 our Kubernetes environment, providing us with a more complete, feature-rich solution.
+
+### Alternatives
+
+- [tembo](https://tembo.io/) - Postgres Operator for Kubernetes
