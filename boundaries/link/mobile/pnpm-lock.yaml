@@ -48,8 +48,8 @@ importers:
         specifier: ^15.3.0
         version: 15.3.0(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1)
       react-native-svg-transformer:
-        specifier: ^1.4.0
-        version: 1.4.0(react-native-svg@15.3.0(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1))(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(typescript@5.5.3)
+        specifier: ^1.5.0
+        version: 1.5.0(react-native-svg@15.3.0(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1))(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(typescript@5.5.3)
       react-native-web:
         specifier: ~0.19.12
         version: 0.19.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -6196,8 +6196,8 @@ packages:
       react: '*'
       react-native: '*'
 
-  react-native-svg-transformer@1.4.0:
-    resolution: {integrity: sha512-ZJ9dpSl8EONXbFQcVoGVr0cAl/7Vm/sKtOH1V6Mf9lcdyeT1/rfww43xgSfQWjmneTNTTXjslM5EoyZTHPfawQ==}
+  react-native-svg-transformer@1.5.0:
+    resolution: {integrity: sha512-RG5fSWJT7mjCQYocgYFUo1KYPLOoypPVG5LQab+pZZO7m4ciGaQIe0mhok3W4R5jLQsEXKo0u+aQGkZV/bZG7w==}
     peerDependencies:
       react-native: '>=0.59.0'
       react-native-svg: '>=12.0.0'
@@ -16138,7 +16138,7 @@ snapshots:
       react-native: 0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1)
       warn-once: 0.1.1
 
-  react-native-svg-transformer@1.4.0(react-native-svg@15.3.0(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1))(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(typescript@5.5.3):
+  react-native-svg-transformer@1.5.0(react-native-svg@15.3.0(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1))(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(typescript@5.5.3):
     dependencies:
       '@svgr/core': 8.1.0(typescript@5.5.3)
       '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@5.5.3))
