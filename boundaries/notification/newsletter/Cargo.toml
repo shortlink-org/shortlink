@@ -32,7 +32,7 @@ refinery = { version = "0.8.14", features = ["tokio-postgres"] }
 
 [dependencies.uuid]
 features = ["serde", "v4"]
-version = "1.9.1"
+version = "1.10.0"
 
 [profile.dev]
 debug = 0
