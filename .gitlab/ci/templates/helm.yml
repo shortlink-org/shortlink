@@ -11,7 +11,7 @@
     - apk update
     - apk add --no-cache gnupg
     # install SOPS
-    - curl -L https://github.com/mozilla/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux -o /usr/local/bin/sops
+    - curl -L https://github.com/mozilla/sops/releases/download/${SOPS_VERSION}/sops-${SOPS_VERSION}.linux.amd64 -o /usr/local/bin/sops
     - chmod +x /usr/local/bin/sops
     - gpg --import ${GPG_TOKEN}
   retry: 1
