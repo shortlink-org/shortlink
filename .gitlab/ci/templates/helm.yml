@@ -5,7 +5,7 @@
     entrypoint: [""]
   variables:
     HELM_EXPERIMENTAL_OCI: 1
-    SOPS_VERSION: v3.7.3
+    SOPS_VERSION: v3.9.0
   before_script:
     - helm plugin install https://github.com/jkroepke/helm-secrets
     - apk update
