@@ -16,7 +16,7 @@
     "build-image": "docker build ../.. -f Dockerfile --tag backstage"
   },
   "dependencies": {
-    "@axis-backstage/plugin-readme-backend": "^0.7.0",
+    "@axis-backstage/plugin-readme-backend": "^0.8.0",
     "@backstage-community/plugin-todo-backend": "^0.3.17",
     "@backstage/backend-common": "^0.23.2",
     "@backstage/backend-tasks": "^0.5.26",
