@@ -10,7 +10,7 @@ importers:
     dependencies:
       '@ducanh2912/next-pwa':
         specifier: ^10.2.7
-        version: 10.2.7(@types/babel__core@7.20.5)(next@15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
+        version: 10.2.7(@types/babel__core@7.20.5)(next@15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
       '@emotion/cache':
         specifier: ^11.11.0
         version: 11.11.0
@@ -24,8 +24,8 @@ importers:
         specifier: ^11.11.0
         version: 11.11.0(@emotion/css@11.11.2)
       '@eslint/js':
-        specifier: ^9.6.0
-        version: 9.6.0
+        specifier: ^9.7.0
+        version: 9.7.0
       '@fontsource/caveat':
         specifier: ^5.0.18
         version: 5.0.18
@@ -61,10 +61,10 @@ importers:
         version: 14.3.0-canary.87
       '@storybook/nextjs':
         specifier: 8.2.2
-        version: 8.2.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(next@15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))(type-fest@2.19.0)(typescript@5.5.3)(webpack-dev-server@4.15.2(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))))(webpack-hot-middleware@2.26.1)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
+        version: 8.2.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(next@15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))(type-fest@2.19.0)(typescript@5.5.3)(webpack-dev-server@4.15.2(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))))(webpack-hot-middleware@2.26.1)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
       '@storybook/react':
         specifier: 8.2.2
-        version: 8.2.2(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))(typescript@5.5.3)
+        version: 8.2.2(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))(typescript@5.5.3)
       '@stylistic/eslint-plugin-js':
         specifier: ^2.3.0
         version: 2.3.0(eslint@9.6.0)
@@ -115,7 +115,7 @@ importers:
         version: 2.13.0(yegswiudlyadcpqq7fbp3qfqoi)
       next:
         specifier: 15.0.0-rc.0
-        version: 15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8)
+        version: 15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8)
       next-themes:
         specifier: ^0.3.0
         version: 0.3.0(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
@@ -152,7 +152,7 @@ importers:
     devDependencies:
       '@mui/material-nextjs':
         specifier: 6.0.0-dev.240424162023-9968b4889d
-        version: 6.0.0-dev.240424162023-9968b4889d(@emotion/cache@11.11.0)(@emotion/server@11.11.0(@emotion/css@11.11.2))(@mui/material@6.0.0-dev.240424162023-9968b4889d(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(next@15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(react@19.0.0-rc-fb9a90fa48-20240614)
+        version: 6.0.0-dev.240424162023-9968b4889d(@emotion/cache@11.11.0)(@emotion/server@11.11.0(@emotion/css@11.11.2))(@mui/material@6.0.0-dev.240424162023-9968b4889d(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(next@15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(react@19.0.0-rc-fb9a90fa48-20240614)
       '@mui/system':
         specifier: 6.0.0-dev.240424162023-9968b4889d
         version: 6.0.0-dev.240424162023-9968b4889d(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614)
@@ -167,10 +167,10 @@ importers:
         version: 19.4.2(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(@typescript-eslint/parser@7.8.0(eslint@9.6.0)(typescript@5.5.3))(eslint-config-prettier@9.1.0(eslint@9.6.0))(eslint@9.6.0)(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)
       '@nx/next':
         specifier: 19.4.2
-        version: 19.4.2(@babel/core@7.24.8)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(@zkochan/js-yaml@0.0.7)(eslint@9.6.0)(html-webpack-plugin@5.6.0(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))))(next@15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
+        version: 19.4.2(@babel/core@7.24.7)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(@zkochan/js-yaml@0.0.7)(eslint@9.6.0)(html-webpack-plugin@5.6.0(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))))(next@15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
       '@nx/rollup':
         specifier: 19.4.2
-        version: 19.4.2(@babel/core@7.24.8)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)
+        version: 19.4.2(@babel/core@7.24.7)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)
       '@nx/workspace':
         specifier: 19.4.2
         version: 19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11))
@@ -244,7 +244,7 @@ importers:
         version: 6.0.0-dev.240424162023-9968b4889d(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
       '@mui/material-nextjs':
         specifier: 6.0.0-dev.240424162023-9968b4889d
-        version: 6.0.0-dev.240424162023-9968b4889d(@emotion/cache@11.11.0)(@emotion/server@11.11.0(@emotion/css@11.11.2))(@mui/material@6.0.0-dev.240424162023-9968b4889d(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(next@15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(react@19.0.0-rc-fb9a90fa48-20240614)
+        version: 6.0.0-dev.240424162023-9968b4889d(@emotion/cache@11.11.0)(@emotion/server@11.11.0(@emotion/css@11.11.2))(@mui/material@6.0.0-dev.240424162023-9968b4889d(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(next@15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(react@19.0.0-rc-fb9a90fa48-20240614)
       '@shortlink-org/ui-kit':
         specifier: workspace:^
         version: link:../ui-kit
@@ -2343,6 +2343,10 @@ packages:
     resolution: {integrity: sha512-D9B0/3vNg44ZeWbYMpBoXqNP4j6eQD5vNwIlGAuFRRzK/WtT/jvDQW3Bi9kkf3PMDMlM7Yi+73VLUsn5bJcl8A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
+  '@eslint/js@9.7.0':
+    resolution: {integrity: sha512-ChuWDQenef8OSFnvuxv0TCVxEwmu3+hPNKvM9B34qpM0rDRbjL8t5QkQeHHeAfsKQjuH9wS82WeCi1J/owatng==}
+    engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+
   '@eslint/object-schema@2.1.4':
     resolution: {integrity: sha512-BsWiH1yFGjXXS2yvrf5LyuoSIIbPrGUWob917o+BTKuZ7qJdxX8aJLRxs1fS9n6r7vESrq1OUqb68dANcFXuQQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
@@ -3795,6 +3799,7 @@ packages:
 
   '@rollup/rollup-darwin-x64@4.18.1':
     resolution: {integrity: sha512-IgpzXKauRe1Tafcej9STjSSuG0Ghu/xGYH+qG6JwsAUxXrnkvNHcq/NL6nz1+jzvWAnQkuAJ4uIwGB48K9OCGA==}
+    cpu: [x64]
     os: [darwin]
 
   '@rollup/rollup-linux-arm-gnueabihf@4.18.1':
@@ -12510,6 +12515,15 @@ snapshots:
       '@babel/helper-environment-visitor': 7.24.7
       '@babel/helper-plugin-utils': 7.24.8
 
+  '@babel/plugin-proposal-decorators@7.24.7(@babel/core@7.24.7)':
+    dependencies:
+      '@babel/core': 7.24.7
+      '@babel/helper-create-class-features-plugin': 7.24.8(@babel/core@7.24.7)
+      '@babel/helper-plugin-utils': 7.24.8
+      '@babel/plugin-syntax-decorators': 7.24.7(@babel/core@7.24.7)
+    transitivePeerDependencies:
+      - supports-color
+
   '@babel/plugin-proposal-decorators@7.24.7(@babel/core@7.24.8)':
     dependencies:
       '@babel/core': 7.24.8
@@ -12579,6 +12593,11 @@ snapshots:
   '@babel/plugin-syntax-class-static-block@7.14.5(@babel/core@7.24.8)':
     dependencies:
       '@babel/core': 7.24.8
+      '@babel/helper-plugin-utils': 7.24.8
+
+  '@babel/plugin-syntax-decorators@7.24.7(@babel/core@7.24.7)':
+    dependencies:
+      '@babel/core': 7.24.7
       '@babel/helper-plugin-utils': 7.24.8
 
   '@babel/plugin-syntax-decorators@7.24.7(@babel/core@7.24.8)':
@@ -15171,10 +15190,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@ducanh2912/next-pwa@10.2.7(@types/babel__core@7.20.5)(next@15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))':
+  '@ducanh2912/next-pwa@10.2.7(@types/babel__core@7.20.5)(next@15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))':
     dependencies:
       fast-glob: 3.3.2
-      next: 15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8)
+      next: 15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8)
       semver: 7.6.0
       webpack: 5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))
       workbox-build: 7.1.0(@types/babel__core@7.20.5)
@@ -15391,6 +15410,8 @@ snapshots:
       - supports-color
 
   '@eslint/js@9.6.0': {}
+
+  '@eslint/js@9.7.0': {}
 
   '@eslint/object-schema@2.1.4': {}
 
@@ -16179,11 +16200,11 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.3
 
-  '@mui/material-nextjs@6.0.0-dev.240424162023-9968b4889d(@emotion/cache@11.11.0)(@emotion/server@11.11.0(@emotion/css@11.11.2))(@mui/material@6.0.0-dev.240424162023-9968b4889d(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(next@15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(react@19.0.0-rc-fb9a90fa48-20240614)':
+  '@mui/material-nextjs@6.0.0-dev.240424162023-9968b4889d(@emotion/cache@11.11.0)(@emotion/server@11.11.0(@emotion/css@11.11.2))(@mui/material@6.0.0-dev.240424162023-9968b4889d(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(next@15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(react@19.0.0-rc-fb9a90fa48-20240614)':
     dependencies:
       '@babel/runtime': 7.24.8
       '@mui/material': 6.0.0-dev.240424162023-9968b4889d(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
-      next: 15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8)
+      next: 15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8)
       react: 19.0.0-rc-fb9a90fa48-20240614
     optionalDependencies:
       '@emotion/cache': 11.11.0
@@ -16480,9 +16501,9 @@ snapshots:
       - typescript
       - verdaccio
 
-  '@nrwl/next@19.4.2(@babel/core@7.24.8)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(@zkochan/js-yaml@0.0.7)(eslint@9.6.0)(html-webpack-plugin@5.6.0(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))))(next@15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))':
+  '@nrwl/next@19.4.2(@babel/core@7.24.7)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(@zkochan/js-yaml@0.0.7)(eslint@9.6.0)(html-webpack-plugin@5.6.0(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))))(next@15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))':
     dependencies:
-      '@nx/next': 19.4.2(@babel/core@7.24.8)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(@zkochan/js-yaml@0.0.7)(eslint@9.6.0)(html-webpack-plugin@5.6.0(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))))(next@15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
+      '@nx/next': 19.4.2(@babel/core@7.24.7)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(@zkochan/js-yaml@0.0.7)(eslint@9.6.0)(html-webpack-plugin@5.6.0(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))))(next@15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/traverse'
@@ -16540,9 +16561,9 @@ snapshots:
       - verdaccio
       - webpack
 
-  '@nrwl/rollup@19.4.2(@babel/core@7.24.8)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)':
+  '@nrwl/rollup@19.4.2(@babel/core@7.24.7)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)':
     dependencies:
-      '@nx/rollup': 19.4.2(@babel/core@7.24.8)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)
+      '@nx/rollup': 19.4.2(@babel/core@7.24.7)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/traverse'
@@ -16784,10 +16805,10 @@ snapshots:
       - supports-color
       - verdaccio
 
-  '@nx/next@19.4.2(@babel/core@7.24.8)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(@zkochan/js-yaml@0.0.7)(eslint@9.6.0)(html-webpack-plugin@5.6.0(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))))(next@15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))':
+  '@nx/next@19.4.2(@babel/core@7.24.7)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(@zkochan/js-yaml@0.0.7)(eslint@9.6.0)(html-webpack-plugin@5.6.0(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))))(next@15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))':
     dependencies:
-      '@babel/plugin-proposal-decorators': 7.24.7(@babel/core@7.24.8)
-      '@nrwl/next': 19.4.2(@babel/core@7.24.8)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(@zkochan/js-yaml@0.0.7)(eslint@9.6.0)(html-webpack-plugin@5.6.0(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))))(next@15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
+      '@babel/plugin-proposal-decorators': 7.24.7(@babel/core@7.24.7)
+      '@nrwl/next': 19.4.2(@babel/core@7.24.7)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(@zkochan/js-yaml@0.0.7)(eslint@9.6.0)(html-webpack-plugin@5.6.0(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))))(next@15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
       '@nx/devkit': 19.4.2(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))
       '@nx/eslint': 19.4.2(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(@zkochan/js-yaml@0.0.7)(eslint@9.6.0)(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))
       '@nx/js': 19.4.2(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)
@@ -16802,7 +16823,7 @@ snapshots:
       file-loader: 6.2.0(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
       fs-extra: 11.2.0
       ignore: 5.3.1
-      next: 15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8)
+      next: 15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8)
       semver: 7.6.2
       tslib: 2.6.3
       webpack-merge: 5.10.0
@@ -16896,12 +16917,12 @@ snapshots:
       - verdaccio
       - webpack
 
-  '@nx/rollup@19.4.2(@babel/core@7.24.8)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)':
+  '@nx/rollup@19.4.2(@babel/core@7.24.7)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)':
     dependencies:
-      '@nrwl/rollup': 19.4.2(@babel/core@7.24.8)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)
+      '@nrwl/rollup': 19.4.2(@babel/core@7.24.7)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)
       '@nx/devkit': 19.4.2(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))
       '@nx/js': 19.4.2(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(nx@19.4.2(@swc/core@1.6.13(@swc/helpers@0.5.11)))(typescript@5.5.3)
-      '@rollup/plugin-babel': 6.0.4(@babel/core@7.24.8)(@types/babel__core@7.20.5)(rollup@4.18.1)
+      '@rollup/plugin-babel': 6.0.4(@babel/core@7.24.7)(@types/babel__core@7.20.5)(rollup@4.18.1)
       '@rollup/plugin-commonjs': 25.0.8(rollup@4.18.1)
       '@rollup/plugin-image': 3.0.3(rollup@4.18.1)
       '@rollup/plugin-json': 6.1.0(rollup@4.18.1)
@@ -17436,9 +17457,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@rollup/plugin-babel@6.0.4(@babel/core@7.24.8)(@types/babel__core@7.20.5)(rollup@4.18.1)':
+  '@rollup/plugin-babel@6.0.4(@babel/core@7.24.7)(@types/babel__core@7.20.5)(rollup@4.18.1)':
     dependencies:
-      '@babel/core': 7.24.8
+      '@babel/core': 7.24.7
       '@babel/helper-module-imports': 7.24.7
       '@rollup/pluginutils': 5.1.0(rollup@4.18.1)
     optionalDependencies:
@@ -18063,9 +18084,9 @@ snapshots:
       - uglify-js
       - webpack-cli
 
-  '@storybook/builder-webpack5@8.2.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))(typescript@5.5.3)':
+  '@storybook/builder-webpack5@8.2.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))(typescript@5.5.3)':
     dependencies:
-      '@storybook/core-webpack': 8.2.2(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))
+      '@storybook/core-webpack': 8.2.2(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))
       '@types/node': 18.19.39
       '@types/semver': 7.5.8
       browser-assert: 1.2.1
@@ -18082,7 +18103,7 @@ snapshots:
       path-browserify: 1.0.1
       process: 0.11.10
       semver: 7.6.2
-      storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8))
+      storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7))
       style-loader: 3.3.4(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
       terser-webpack-plugin: 5.3.10(@swc/core@1.6.13(@swc/helpers@0.5.11))(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
       ts-dedent: 2.2.0
@@ -18129,12 +18150,6 @@ snapshots:
       storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7))
       ts-dedent: 2.2.0
 
-  '@storybook/core-webpack@8.2.2(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))':
-    dependencies:
-      '@types/node': 18.19.39
-      storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8))
-      ts-dedent: 2.2.0
-
   '@storybook/core@8.2.2':
     dependencies:
       '@storybook/csf': 0.1.11
@@ -18174,13 +18189,6 @@ snapshots:
       '@storybook/global': 5.0.0
       '@vitest/utils': 1.6.0
       storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7))
-      util: 0.12.5
-
-  '@storybook/instrumenter@8.2.2(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))':
-    dependencies:
-      '@storybook/global': 5.0.0
-      '@vitest/utils': 1.6.0
-      storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8))
       util: 0.12.5
 
   '@storybook/nextjs@8.2.2(@jest/globals@29.7.0)(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/jest@29.5.12)(babel-plugin-macros@3.1.0)(esbuild@0.20.2)(jest@29.7.0(@types/node@20.14.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(typescript@5.5.3)))(next@15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(babel-plugin-macros@3.1.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(sass@1.77.8)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))(type-fest@2.19.0)(typescript@5.5.3)(webpack-dev-server@4.15.2(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))(esbuild@0.20.2)))(webpack-hot-middleware@2.26.1)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))(esbuild@0.20.2))':
@@ -18256,7 +18264,7 @@ snapshots:
       - webpack-hot-middleware
       - webpack-plugin-serve
 
-  '@storybook/nextjs@8.2.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(next@15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))(type-fest@2.19.0)(typescript@5.5.3)(webpack-dev-server@4.15.2(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))))(webpack-hot-middleware@2.26.1)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))':
+  '@storybook/nextjs@8.2.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(next@15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))(type-fest@2.19.0)(typescript@5.5.3)(webpack-dev-server@4.15.2(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))))(webpack-hot-middleware@2.26.1)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))':
     dependencies:
       '@babel/core': 7.24.7
       '@babel/plugin-syntax-bigint': 7.8.3(@babel/core@7.24.7)
@@ -18272,10 +18280,10 @@ snapshots:
       '@babel/preset-typescript': 7.24.7(@babel/core@7.24.7)
       '@babel/runtime': 7.24.7
       '@pmmmwh/react-refresh-webpack-plugin': 0.5.15(react-refresh@0.14.2)(type-fest@2.19.0)(webpack-dev-server@4.15.2(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))))(webpack-hot-middleware@2.26.1)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
-      '@storybook/builder-webpack5': 8.2.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))(typescript@5.5.3)
-      '@storybook/preset-react-webpack': 8.2.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))(typescript@5.5.3)
-      '@storybook/react': 8.2.2(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))(typescript@5.5.3)
-      '@storybook/test': 8.2.2(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))
+      '@storybook/builder-webpack5': 8.2.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))(typescript@5.5.3)
+      '@storybook/preset-react-webpack': 8.2.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))(typescript@5.5.3)
+      '@storybook/react': 8.2.2(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))(typescript@5.5.3)
+      '@storybook/test': 8.2.2(@jest/globals@29.7.0)(@types/jest@29.5.12)(jest@29.7.0(@types/node@20.14.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(typescript@5.5.3)))(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))
       '@types/node': 18.19.39
       '@types/semver': 7.5.8
       babel-loader: 9.1.3(@babel/core@7.24.7)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
@@ -18284,7 +18292,7 @@ snapshots:
       fs-extra: 11.2.0
       image-size: 1.1.1
       loader-utils: 3.3.1
-      next: 15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8)
+      next: 15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8)
       node-polyfill-webpack-plugin: 2.0.1(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
       pnp-webpack-plugin: 1.7.0(typescript@5.5.3)
       postcss: 8.4.39
@@ -18295,7 +18303,7 @@ snapshots:
       resolve-url-loader: 5.0.0
       sass-loader: 12.6.0(sass@1.77.8)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
       semver: 7.6.2
-      storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8))
+      storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7))
       style-loader: 3.3.4(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
       styled-jsx: 5.1.1(@babel/core@7.24.7)(react@19.0.0-rc-fb9a90fa48-20240614)
       ts-dedent: 2.2.0
@@ -18358,10 +18366,10 @@ snapshots:
       - uglify-js
       - webpack-cli
 
-  '@storybook/preset-react-webpack@8.2.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))(typescript@5.5.3)':
+  '@storybook/preset-react-webpack@8.2.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))(typescript@5.5.3)':
     dependencies:
-      '@storybook/core-webpack': 8.2.2(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))
-      '@storybook/react': 8.2.2(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))(typescript@5.5.3)
+      '@storybook/core-webpack': 8.2.2(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))
+      '@storybook/react': 8.2.2(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))(typescript@5.5.3)
       '@storybook/react-docgen-typescript-plugin': 1.0.6--canary.9.0c3f3b7.0(typescript@5.5.3)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11)))
       '@types/node': 18.19.39
       '@types/semver': 7.5.8
@@ -18373,7 +18381,7 @@ snapshots:
       react-dom: 19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614)
       resolve: 1.22.8
       semver: 7.6.2
-      storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8))
+      storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7))
       tsconfig-paths: 4.2.0
       webpack: 5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.11))
     optionalDependencies:
@@ -18419,11 +18427,11 @@ snapshots:
       react-dom: 18.3.1(react@18.3.1)
       storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7))
 
-  '@storybook/react-dom-shim@8.2.2(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))':
+  '@storybook/react-dom-shim@8.2.2(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))':
     dependencies:
       react: 19.0.0-rc-fb9a90fa48-20240614
       react-dom: 19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614)
-      storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8))
+      storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7))
 
   '@storybook/react@8.2.2(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))(typescript@5.5.3)':
     dependencies:
@@ -18450,10 +18458,10 @@ snapshots:
     optionalDependencies:
       typescript: 5.5.3
 
-  '@storybook/react@8.2.2(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))(typescript@5.5.3)':
+  '@storybook/react@8.2.2(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))(typescript@5.5.3)':
     dependencies:
       '@storybook/global': 5.0.0
-      '@storybook/react-dom-shim': 8.2.2(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))
+      '@storybook/react-dom-shim': 8.2.2(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7)))
       '@types/escodegen': 0.0.6
       '@types/estree': 0.0.51
       '@types/node': 18.19.39
@@ -18468,7 +18476,7 @@ snapshots:
       react-dom: 19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614)
       react-element-to-jsx-string: 15.0.0(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
       semver: 7.6.2
-      storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8))
+      storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7))
       ts-dedent: 2.2.0
       type-fest: 2.19.0
       util-deprecate: 1.0.2
@@ -18485,24 +18493,6 @@ snapshots:
       '@vitest/expect': 1.6.0
       '@vitest/spy': 1.6.0
       storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.7))
-      util: 0.12.5
-    transitivePeerDependencies:
-      - '@jest/globals'
-      - '@types/bun'
-      - '@types/jest'
-      - jest
-      - vitest
-
-  '@storybook/test@8.2.2(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))':
-    dependencies:
-      '@storybook/csf': 0.1.11
-      '@storybook/instrumenter': 8.2.2(storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)))
-      '@testing-library/dom': 10.1.0
-      '@testing-library/jest-dom': 6.4.5(@jest/globals@29.7.0)(@types/jest@29.5.12)(jest@29.7.0(@types/node@20.14.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.11))(@types/node@20.14.10)(typescript@5.5.3)))
-      '@testing-library/user-event': 14.5.2(@testing-library/dom@10.1.0)
-      '@vitest/expect': 1.6.0
-      '@vitest/spy': 1.6.0
-      storybook: 8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8))
       util: 0.12.5
     transitivePeerDependencies:
       - '@jest/globals'
@@ -23260,33 +23250,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  jscodeshift@0.15.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)):
-    dependencies:
-      '@babel/core': 7.24.7
-      '@babel/parser': 7.24.7
-      '@babel/plugin-transform-class-properties': 7.24.7(@babel/core@7.24.7)
-      '@babel/plugin-transform-modules-commonjs': 7.24.8(@babel/core@7.24.7)
-      '@babel/plugin-transform-nullish-coalescing-operator': 7.24.7(@babel/core@7.24.7)
-      '@babel/plugin-transform-optional-chaining': 7.24.8(@babel/core@7.24.7)
-      '@babel/plugin-transform-private-methods': 7.24.7(@babel/core@7.24.7)
-      '@babel/preset-flow': 7.24.1(@babel/core@7.24.7)
-      '@babel/preset-typescript': 7.24.7(@babel/core@7.24.7)
-      '@babel/register': 7.23.7(@babel/core@7.24.7)
-      babel-core: 7.0.0-bridge.0(@babel/core@7.24.7)
-      chalk: 4.1.2
-      flow-parser: 0.236.0
-      graceful-fs: 4.2.11
-      micromatch: 4.0.7
-      neo-async: 2.6.2
-      node-dir: 0.1.17
-      recast: 0.23.7
-      temp: 0.8.4
-      write-file-atomic: 2.4.3
-    optionalDependencies:
-      '@babel/preset-env': 7.24.8(@babel/core@7.24.8)
-    transitivePeerDependencies:
-      - supports-color
-
   jsesc@0.5.0: {}
 
   jsesc@2.5.2: {}
@@ -24238,7 +24201,7 @@ snapshots:
       - '@babel/core'
       - babel-plugin-macros
 
-  next@15.0.0-rc.0(@babel/core@7.24.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8):
+  next@15.0.0-rc.0(@babel/core@7.24.7)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8):
     dependencies:
       '@next/env': 15.0.0-rc.0
       '@swc/helpers': 0.5.11
@@ -24248,7 +24211,7 @@ snapshots:
       postcss: 8.4.31
       react: 19.0.0-rc-fb9a90fa48-20240614
       react-dom: 19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614)
-      styled-jsx: 5.1.3(@babel/core@7.24.8)(react@19.0.0-rc-fb9a90fa48-20240614)
+      styled-jsx: 5.1.3(@babel/core@7.24.7)(react@19.0.0-rc-fb9a90fa48-20240614)
     optionalDependencies:
       '@next/swc-darwin-arm64': 15.0.0-rc.0
       '@next/swc-darwin-x64': 15.0.0-rc.0
@@ -26674,42 +26637,6 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  storybook@8.2.2(@babel/preset-env@7.24.8(@babel/core@7.24.8)):
-    dependencies:
-      '@babel/core': 7.24.7
-      '@babel/types': 7.24.7
-      '@storybook/codemod': 8.2.2
-      '@storybook/core': 8.2.2
-      '@types/semver': 7.5.8
-      '@yarnpkg/fslib': 2.10.3
-      '@yarnpkg/libzip': 2.3.0
-      chalk: 4.1.2
-      commander: 6.2.1
-      cross-spawn: 7.0.3
-      detect-indent: 6.1.0
-      envinfo: 7.13.0
-      execa: 5.1.1
-      fd-package-json: 1.2.0
-      find-up: 5.0.0
-      fs-extra: 11.2.0
-      giget: 1.2.3
-      globby: 14.0.1
-      jscodeshift: 0.15.2(@babel/preset-env@7.24.8(@babel/core@7.24.8))
-      leven: 3.1.0
-      ora: 5.4.1
-      prettier: 3.3.2
-      prompts: 2.4.2
-      semver: 7.6.2
-      strip-json-comments: 3.1.1
-      tempy: 3.1.0
-      tiny-invariant: 1.3.3
-      ts-dedent: 2.2.0
-    transitivePeerDependencies:
-      - '@babel/preset-env'
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-
   stream-browserify@3.0.0:
     dependencies:
       inherits: 2.0.4
@@ -26893,12 +26820,12 @@ snapshots:
       '@babel/core': 7.24.7
       babel-plugin-macros: 3.1.0
 
-  styled-jsx@5.1.3(@babel/core@7.24.8)(react@19.0.0-rc-fb9a90fa48-20240614):
+  styled-jsx@5.1.3(@babel/core@7.24.7)(react@19.0.0-rc-fb9a90fa48-20240614):
     dependencies:
       client-only: 0.0.1
       react: 19.0.0-rc-fb9a90fa48-20240614
     optionalDependencies:
-      '@babel/core': 7.24.8
+      '@babel/core': 7.24.7
 
   stylehacks@5.1.1(postcss@8.4.39):
     dependencies:
