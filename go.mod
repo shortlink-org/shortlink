@@ -47,7 +47,7 @@ require (
 	github.com/prometheus/client_model v0.6.1
 	github.com/pterm/pterm v0.12.79
 	github.com/rabbitmq/amqp091-go v1.10.0
-	github.com/redis/go-redis/v9 v9.5.3
+	github.com/redis/go-redis/v9 v9.5.4
 	github.com/redis/rueidis v1.0.30-0.20240224222815-152800b84f6d
 	github.com/redis/rueidis/rueidiscompat v1.0.30-0.20240224222815-152800b84f6d
 	github.com/redis/rueidis/rueidisotel v1.0.30-0.20240224222815-152800b84f6d
