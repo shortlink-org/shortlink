@@ -38,7 +38,7 @@ sidecars:
   - name: proxy
     image:
       repository: registry.gitlab.com/shortlink-org/shortlink/support-proxy
-      tag: 0.17.105
+      tag: 0.17.106
 
     volumes:
       - name: tmp
