@@ -170,7 +170,7 @@ importers:
         version: 19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/node@20.14.10)(@zkochan/js-yaml@0.0.7)(eslint@9.7.0)(html-webpack-plugin@5.6.0(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.12))))(next@15.0.0-rc.0(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(typescript@5.5.3)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.12)))
       '@nx/rollup':
         specifier: 19.4.3
-        version: 19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)
+        version: 19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(typescript@5.5.3)
       '@nx/workspace':
         specifier: 19.4.3
         version: 19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12))
@@ -395,8 +395,8 @@ importers:
         specifier: ^4.17.21
         version: 4.17.21
       '@types/lodash':
-        specifier: ^4.17.6
-        version: 4.17.6
+        specifier: ^4.17.7
+        version: 4.17.7
       '@types/material-ui':
         specifier: ^0.21.17
         version: 0.21.17
@@ -3792,6 +3792,7 @@ packages:
 
   '@rollup/rollup-darwin-x64@4.18.1':
     resolution: {integrity: sha512-IgpzXKauRe1Tafcej9STjSSuG0Ghu/xGYH+qG6JwsAUxXrnkvNHcq/NL6nz1+jzvWAnQkuAJ4uIwGB48K9OCGA==}
+    cpu: [x64]
     os: [darwin]
 
   '@rollup/rollup-linux-arm-gnueabihf@4.18.1':
@@ -4750,8 +4751,8 @@ packages:
   '@types/keyv@3.1.4':
     resolution: {integrity: sha512-BQ5aZNSCpj7D6K2ksrRCTmKRLEpnPvWDiLPfoGyhZ++8YtiK9d/3DBKPJgry359X/P1PfruyYwvnvwFjuEiEIg==}
 
-  '@types/lodash@4.17.6':
-    resolution: {integrity: sha512-OpXEVoCKSS3lQqjx9GGGOapBeuW5eUboYHRlHP9urXPX25IKZ6AnP5ZRxtVf63iieUbsHxLn8NQ5Nlftc6yzAA==}
+  '@types/lodash@4.17.7':
+    resolution: {integrity: sha512-8wTvZawATi/lsmNu10/j2hk1KEP0IvjubqPE3cu1Xz7xfXXt5oCq3SNUz4fMIP4XGF9Ky+Ue2tBA3hcS7LSBlA==}
 
   '@types/material-ui@0.21.17':
     resolution: {integrity: sha512-3iyPhFkqI856UBWRxaO7ZZDpOtWM3XPl5gdKKkVBPn3TqNBdgDuFFhHx8BFLL85o5oYy5Y/SX5s0bs7a2VdLTw==}
@@ -16564,9 +16565,9 @@ snapshots:
       - verdaccio
       - webpack
 
-  '@nrwl/rollup@19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)':
+  '@nrwl/rollup@19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(typescript@5.5.3)':
     dependencies:
-      '@nx/rollup': 19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)
+      '@nx/rollup': 19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(typescript@5.5.3)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/traverse'
@@ -16920,9 +16921,9 @@ snapshots:
       - verdaccio
       - webpack
 
-  '@nx/rollup@19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)':
+  '@nx/rollup@19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(typescript@5.5.3)':
     dependencies:
-      '@nrwl/rollup': 19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)
+      '@nrwl/rollup': 19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(typescript@5.5.3)
       '@nx/devkit': 19.4.3(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))
       '@nx/js': 19.4.3(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(typescript@5.5.3)
       '@rollup/plugin-babel': 6.0.4(@babel/core@7.24.9)(@types/babel__core@7.20.5)(rollup@4.18.1)
@@ -18031,7 +18032,7 @@ snapshots:
       '@storybook/csf': 0.1.11
       '@storybook/global': 5.0.0
       '@storybook/icons': 1.2.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@types/lodash': 4.17.6
+      '@types/lodash': 4.17.7
       color-convert: 2.0.1
       dequal: 2.0.3
       lodash: 4.17.21
@@ -19092,7 +19093,7 @@ snapshots:
     dependencies:
       '@types/node': 20.14.10
 
-  '@types/lodash@4.17.6': {}
+  '@types/lodash@4.17.7': {}
 
   '@types/material-ui@0.21.17':
     dependencies:
