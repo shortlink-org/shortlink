@@ -57,14 +57,7 @@ const config: StorybookConfig = {
     getAbsolutePath('@storybook/addon-a11y'),
     getAbsolutePath('@storybook/addon-coverage'),
   ],
-  framework: {
-    name: getAbsolutePath('@storybook/nextjs'),
-    options: {
-      useSWC: true,
-      fsCache: true,
-      lazyCompilation: true,
-    },
-  },
+  framework: {},
   features: {},
   docs: {
     autodocs: false,

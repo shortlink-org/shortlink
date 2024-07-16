@@ -1,60 +1,58 @@
 'use client'
 
-import { ArticleJsonLd, NextSeo, FAQPageJsonLd } from 'next-seo'
+// <NextSeo
+// title="FAQ"
+// description="Do you have questions about shortlinks? This page provides answers to the most common questions we receive. If you need more help, please contact us!"
+// openGraph={{
+//   title: 'FAQ',
+//     description:
+//   'Do you have questions about shortlinks? This page provides answers to the most common questions we receive. If you need more help, please contact us!',
+//     type: 'article',
+//     article: {
+//     publishedTime: '2021-08-01T05:00:00.000Z',
+//       modifiedTime: '2021-08-01T05:00:00.000Z',
+//       section: 'FAQ',
+//       authors: ['https://batazor.ru'],
+//       tags: ['shortlink', 'faq'],
+//   },
+// }}
+// />
+// <ArticleJsonLd
+//   url="https://shortlink.best/next/about"
+//   title="FAQ"
+//   images={['https://shortlink.best/images/logo.png']}
+//   datePublished="2021-08-01T05:00:00.000Z"
+//   dateModified="2021-08-01T05:00:00.000Z"
+//   authorName={[
+//     {
+//       name: 'Login Viktor',
+//       url: 'https://batazor.ru',
+//     },
+//   ]}
+//   publisherName="Login Viktor"
+//   publisherLogo="https://shortlink.best/images/logo.png"
+//   description="Do you have questions about shortlinks? This page provides answers to the most common questions we receive. If you need more help, please contact us!"
+// />
+// <FAQPageJsonLd
+//   mainEntity={[
+//     {
+//       questionName: 'What is a shortlink?',
+//       acceptedAnswerText: 'A shortlink is a short URL that redirects to a longer URL.',
+//     },
+//     {
+//       questionName: 'How do I create a shortlink?',
+//       acceptedAnswerText: "You can create a shortlink by clicking on the 'Create' button on the main page.",
+//     },
+//     {
+//       questionName: 'Can I use a shortlink for free?',
+//       acceptedAnswerText: 'Yes, you can use shortlinks for free.',
+//     },
+//   ]}
+// />
 
 function Page() {
   return (
     <>
-      <NextSeo
-        title="FAQ"
-        description="Do you have questions about shortlinks? This page provides answers to the most common questions we receive. If you need more help, please contact us!"
-        openGraph={{
-          title: 'FAQ',
-          description:
-            'Do you have questions about shortlinks? This page provides answers to the most common questions we receive. If you need more help, please contact us!',
-          type: 'article',
-          article: {
-            publishedTime: '2021-08-01T05:00:00.000Z',
-            modifiedTime: '2021-08-01T05:00:00.000Z',
-            section: 'FAQ',
-            authors: ['https://batazor.ru'],
-            tags: ['shortlink', 'faq'],
-          },
-        }}
-      />
-      <ArticleJsonLd
-        url="https://shortlink.best/next/about"
-        title="FAQ"
-        images={['https://shortlink.best/images/logo.png']}
-        datePublished="2021-08-01T05:00:00.000Z"
-        dateModified="2021-08-01T05:00:00.000Z"
-        authorName={[
-          {
-            name: 'Login Viktor',
-            url: 'https://batazor.ru',
-          },
-        ]}
-        publisherName="Login Viktor"
-        publisherLogo="https://shortlink.best/images/logo.png"
-        description="Do you have questions about shortlinks? This page provides answers to the most common questions we receive. If you need more help, please contact us!"
-      />
-      <FAQPageJsonLd
-        mainEntity={[
-          {
-            questionName: 'What is a shortlink?',
-            acceptedAnswerText: 'A shortlink is a short URL that redirects to a longer URL.',
-          },
-          {
-            questionName: 'How do I create a shortlink?',
-            acceptedAnswerText: "You can create a shortlink by clicking on the 'Create' button on the main page.",
-          },
-          {
-            questionName: 'Can I use a shortlink for free?',
-            acceptedAnswerText: 'Yes, you can use shortlinks for free.',
-          },
-        ]}
-      />
-
       <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20 bg-white dark:bg-gray-800 rounded">
         <div className="max-w-xl sm:mx-auto lg:max-w-2xl">
           <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">

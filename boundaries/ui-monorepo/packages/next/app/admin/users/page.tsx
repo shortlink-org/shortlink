@@ -2,7 +2,6 @@
 
 // @ts-nocheck
 import { BeakerIcon } from '@heroicons/react/24/solid'
-import { NextSeo } from 'next-seo'
 
 import withAuthSync from 'components/Private'
 import Header from 'components/Page/Header'
@@ -68,7 +67,7 @@ const people = [
 function Page() {
   return (
     <>
-      <NextSeo title="Users" description="Admin users page" />
+      {/*<NextSeo title="Users" description="Admin users page" />*/}
 
       <Header title="Admin users" />
 

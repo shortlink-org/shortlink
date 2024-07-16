@@ -1,8 +1,5 @@
 'use client'
 
-// @ts-nocheck
-import { NextSeo } from 'next-seo'
-
 import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
 import Header from 'components/Page/Header'
@@ -10,7 +7,7 @@ import Header from 'components/Page/Header'
 function Page() {
   return (
     <>
-      <NextSeo title="Audit" description="Audit your account" />
+      {/*<NextSeo title="Audit" description="Audit your account" />*/}
 
       <Header title="Audit" />
 

@@ -5,12 +5,31 @@ import { VerificationFlow, UpdateVerificationFlowBody } from '@ory/client'
 import type { NextPage } from 'next'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
 import { AxiosError } from 'axios'
 
 import { Flow } from 'components/ui/Flow'
 import ory from 'pkg/sdk'
+
+// <BreadcrumbJsonLd
+// itemListElements={[
+//     {
+//       position: 1,
+//       name: 'Login page',
+//       item: 'https://shortlink.best/next/auth/login',
+//     },
+// {
+//   position: 2,
+//     name: 'Forgot Password',
+//   item: 'https://shortlink.best/next/auth/forgot',
+// },
+// {
+//   position: 3,
+//     name: 'Registration page',
+//   item: 'https://shortlink.best/next/auth/registration',
+// },
+// ]}
+// />
 
 const Page: NextPage = () => {
   const [flow, setFlow] = useState<VerificationFlow>()
@@ -115,26 +134,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <NextSeo title="Verification" description="Verify your account" />
-      <BreadcrumbJsonLd
-        itemListElements={[
-          {
-            position: 1,
-            name: 'Login page',
-            item: 'https://shortlink.best/next/auth/login',
-          },
-          {
-            position: 2,
-            name: 'Forgot Password',
-            item: 'https://shortlink.best/next/auth/forgot',
-          },
-          {
-            position: 3,
-            name: 'Registration page',
-            item: 'https://shortlink.best/next/auth/registration',
-          },
-        ]}
-      />
+      {/*<NextSeo title="Verification" description="Verify your account" />*/}
 
       <div className="flex h-full p-4 rotate">
         <div className="sm:max-w-xl md:max-w-3xl w-full m-auto">

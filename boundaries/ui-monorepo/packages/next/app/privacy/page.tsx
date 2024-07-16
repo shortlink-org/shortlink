@@ -1,43 +1,41 @@
 'use client'
 
-import { ArticleJsonLd, NextSeo } from 'next-seo'
+// <NextSeo
+// title="Privacy Policy"
+// description="At shortlink, we take your privacy seriously. This is why we have a comprehensive privacy policy in place to ensure that your data is protected at all times. Visit our website to learn more about how we keep your information safe and secure."
+// openGraph={{
+//   title: 'Privacy Policy',
+//     description: 'Privacy policy for shortlink.',
+//     type: 'article',
+//     article: {
+//     publishedTime: '2021-08-01T05:00:00.000Z',
+//       modifiedTime: '2021-08-01T05:00:00.000Z',
+//       section: 'Privacy',
+//       authors: ['https://batazor.ru'],
+//       tags: ['shortlink', 'privacy'],
+//   },
+// }}
+// />
+// <ArticleJsonLd
+//   url="https://shortlink.best/next/about"
+//   title="Privacy"
+//   images={['https://shortlink.best/images/logo.png']}
+//   datePublished="2021-08-01T05:00:00.000Z"
+//   dateModified="2021-08-01T05:00:00.000Z"
+//   authorName={[
+//     {
+//       name: 'Login Viktor',
+//       url: 'https://batazor.ru',
+//     },
+//   ]}
+//   publisherName="Login Viktor"
+//   publisherLogo="https://shortlink.best/images/logo.png"
+//   description="Privacy page for shortlink."
+// />
 
 function PrivacyContent() {
   return (
     <>
-      <NextSeo
-        title="Privacy Policy"
-        description="At shortlink, we take your privacy seriously. This is why we have a comprehensive privacy policy in place to ensure that your data is protected at all times. Visit our website to learn more about how we keep your information safe and secure."
-        openGraph={{
-          title: 'Privacy Policy',
-          description: 'Privacy policy for shortlink.',
-          type: 'article',
-          article: {
-            publishedTime: '2021-08-01T05:00:00.000Z',
-            modifiedTime: '2021-08-01T05:00:00.000Z',
-            section: 'Privacy',
-            authors: ['https://batazor.ru'],
-            tags: ['shortlink', 'privacy'],
-          },
-        }}
-      />
-      <ArticleJsonLd
-        url="https://shortlink.best/next/about"
-        title="Privacy"
-        images={['https://shortlink.best/images/logo.png']}
-        datePublished="2021-08-01T05:00:00.000Z"
-        dateModified="2021-08-01T05:00:00.000Z"
-        authorName={[
-          {
-            name: 'Login Viktor',
-            url: 'https://batazor.ru',
-          },
-        ]}
-        publisherName="Login Viktor"
-        publisherLogo="https://shortlink.best/images/logo.png"
-        description="Privacy page for shortlink."
-      />
-
       <section className="bg-white dark:bg-gray-800 rounded-md">
         <div className="px-4 py-24 mb-20 text-left md:text-center">
           <h1 className="mb-4 text-4xl font-bold leading-tight text-gray-900 md:text-5xl">Terms & Conditions</h1>

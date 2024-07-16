@@ -12,7 +12,6 @@ import Link from '@mui/material/Link'
 import Snackbar from '@mui/material/Snackbar'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
-import { NextSeo } from 'next-seo'
 import React, { useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
@@ -81,7 +80,7 @@ function Page() {
 
   return (
     <>
-      <NextSeo title="Add link" description="Add a new link" />
+      {/*<NextSeo title="Add link" description="Add a new link" />*/}
       <Grid container direction="column" justifyContent="space-around" alignItems="center">
         <div className="container mx-auto w-5/6 sm:w-2/3 h-full">
           <Header title="Add link" />

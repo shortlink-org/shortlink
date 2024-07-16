@@ -6,12 +6,31 @@ import { AxiosError } from 'axios'
 import type { NextPage } from 'next'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { BreadcrumbJsonLd, NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
 
 import { Flow } from 'components/ui/Flow'
 import { handleFlowError } from 'pkg/errors'
 import ory from 'pkg/sdk'
+
+// <BreadcrumbJsonLd
+// itemListElements={[
+//     {
+//       position: 1,
+//       name: 'Login page',
+//       item: 'https://shortlink.best/next/auth/login',
+//     },
+// {
+//   position: 2,
+//     name: 'Forgot Password',
+//   item: 'https://shortlink.best/next/auth/forgot',
+// },
+// {
+//   position: 3,
+//     name: 'Registration page',
+//   item: 'https://shortlink.best/next/auth/registration',
+// },
+// ]}
+// />
 
 const Page: NextPage = () => {
   const [flow, setFlow] = useState<RecoveryFlow>()
@@ -94,26 +113,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      <NextSeo title="Forgot Password" description="Forgot Password" />
-      <BreadcrumbJsonLd
-        itemListElements={[
-          {
-            position: 1,
-            name: 'Login page',
-            item: 'https://shortlink.best/next/auth/login',
-          },
-          {
-            position: 2,
-            name: 'Forgot Password',
-            item: 'https://shortlink.best/next/auth/forgot',
-          },
-          {
-            position: 3,
-            name: 'Registration page',
-            item: 'https://shortlink.best/next/auth/registration',
-          },
-        ]}
-      />
+      {/*<NextSeo title="Forgot Password" description="Forgot Password" />*/}
 
       <div className="flex h-full p-4 rotate">
         <div className="sm:max-w-xl md:max-w-3xl w-full m-auto">

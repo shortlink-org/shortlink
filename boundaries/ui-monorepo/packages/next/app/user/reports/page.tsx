@@ -2,7 +2,6 @@
 
 // @ts-ignore
 import { Header } from '@shortlink-org/ui-kit'
-import { NextSeo } from 'next-seo'
 
 import { Layout } from 'components'
 import Ready from 'components/Landing/Ready'
@@ -11,7 +10,7 @@ import withAuthSync from 'components/Private'
 function Page() {
   return (
     <Layout>
-      <NextSeo title="Reports" description="Reports page for your account." />
+      {/*<NextSeo title="Reports" description="Reports page for your account." />*/}
 
       <Header title="Reports" />
 

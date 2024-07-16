@@ -4,7 +4,6 @@ import Container from '@mui/material/Container'
 import Typography from '@mui/material/Typography'
 // @ts-ignore
 import { PriceTable } from '@shortlink-org/ui-kit'
-import { ArticleJsonLd, NextSeo } from 'next-seo'
 
 import Discounted from 'components/Billing/Discounted'
 
@@ -35,44 +34,45 @@ const tiers = [
   },
 ]
 
+
+// <NextSeo
+// title="Page Policy"
+// description="Shortlink offers fair, upfront pricing for all of our services. We never charge hidden fees or use bait-and-switch tactics. You'll know exactly what you're getting before your start working on your project."
+// openGraph={{
+//   title: 'Pricing Policy',
+//     description:
+//   "Shortlink offers fair, upfront pricing for all of our services. We never charge hidden fees or use bait-and-switch tactics. You'll know exactly what you're getting before your start working on your project.",
+//     type: 'article',
+//     article: {
+//     publishedTime: '2021-08-01T05:00:00.000Z',
+//       modifiedTime: '2021-08-01T05:00:00.000Z',
+//       section: 'Pricing',
+//       authors: ['https://batazor.ru'],
+//       tags: ['shortlink', 'pricing'],
+//   },
+// }}
+// />
+//
+// <ArticleJsonLd
+//   url="https://shortlink.best/next/about"
+//   title="Page Policy"
+//   images={['https://shortlink.best/images/logo.png']}
+//   datePublished="2021-08-01T05:00:00.000Z"
+//   dateModified="2021-08-01T05:00:00.000Z"
+//   authorName={[
+//     {
+//       name: 'Login Viktor',
+//       url: 'https://batazor.ru',
+//     },
+//   ]}
+//   publisherName="Login Viktor"
+//   publisherLogo="https://shortlink.best/images/logo.png"
+//   description="Shortlink offers fair, upfront pricing for all of our services. We never charge hidden fees or use bait-and-switch tactics. You'll know exactly what you're getting before your start working on your project."
+// />
+
 function Page() {
   return (
     <>
-      <NextSeo
-        title="Page Policy"
-        description="Shortlink offers fair, upfront pricing for all of our services. We never charge hidden fees or use bait-and-switch tactics. You'll know exactly what you're getting before your start working on your project."
-        openGraph={{
-          title: 'Pricing Policy',
-          description:
-            "Shortlink offers fair, upfront pricing for all of our services. We never charge hidden fees or use bait-and-switch tactics. You'll know exactly what you're getting before your start working on your project.",
-          type: 'article',
-          article: {
-            publishedTime: '2021-08-01T05:00:00.000Z',
-            modifiedTime: '2021-08-01T05:00:00.000Z',
-            section: 'Pricing',
-            authors: ['https://batazor.ru'],
-            tags: ['shortlink', 'pricing'],
-          },
-        }}
-      />
-
-      <ArticleJsonLd
-        url="https://shortlink.best/next/about"
-        title="Page Policy"
-        images={['https://shortlink.best/images/logo.png']}
-        datePublished="2021-08-01T05:00:00.000Z"
-        dateModified="2021-08-01T05:00:00.000Z"
-        authorName={[
-          {
-            name: 'Login Viktor',
-            url: 'https://batazor.ru',
-          },
-        ]}
-        publisherName="Login Viktor"
-        publisherLogo="https://shortlink.best/images/logo.png"
-        description="Shortlink offers fair, upfront pricing for all of our services. We never charge hidden fees or use bait-and-switch tactics. You'll know exactly what you're getting before your start working on your project."
-      />
-
       <Container disableGutters maxWidth="sm" component="main" sx={{ pt: 8, pb: 6 }}>
         <Typography component="h1" variant="h2" align="center" color="text.primary" gutterBottom>
           Page

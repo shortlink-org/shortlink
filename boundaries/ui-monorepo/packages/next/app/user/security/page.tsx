@@ -3,7 +3,6 @@
 // @ts-ignore
 import { Header } from '@shortlink-org/ui-kit'
 import { AxiosError } from 'axios'
-import { NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 
@@ -11,6 +10,16 @@ import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 import Security from 'components/Profile/Security'
 import ory from 'pkg/sdk'
+
+// <NextSeo
+// title="Security"
+// description="Security page for your account."
+// openGraph={{
+//   title: 'Security',
+//     description: 'Security page for your account.',
+//     type: 'website',
+// }}
+// />
 
 function SecurityContent() {
   const router = useRouter()
@@ -49,16 +58,6 @@ function SecurityContent() {
 
   return (
     <Layout>
-      <NextSeo
-        title="Security"
-        description="Security page for your account."
-        openGraph={{
-          title: 'Security',
-          description: 'Security page for your account.',
-          type: 'website',
-        }}
-      />
-
       <Header title="Security" />
 
       <Security session={session} />

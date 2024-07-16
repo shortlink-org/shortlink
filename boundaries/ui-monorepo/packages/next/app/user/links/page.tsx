@@ -1,7 +1,5 @@
 'use client'
 
-// @ts-nocheck
-import { NextSeo } from 'next-seo'
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 
@@ -22,7 +20,7 @@ function LinkTable() {
 
   return (
     <>
-      <NextSeo title="Links" description="Links page for your account." />
+      {/*<NextSeo title="Links" description="Links page for your account." />*/}
 
       <Header title="Links" />
 

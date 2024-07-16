@@ -1,8 +1,5 @@
 'use client'
 
-// @ts-nocheck
-import { NextSeo } from 'next-seo'
-
 import Ready from 'components/Landing/Ready'
 import withAuthSync from 'components/Private'
 import Header from 'components/Page/Header'
@@ -10,7 +7,7 @@ import Header from 'components/Page/Header'
 function Intargrations() {
   return (
     <>
-      <NextSeo title="Intargrations" description="Intargrations page for your account." />
+      {/*<NextSeo title="Intargrations" description="Intargrations page for your account." />*/}
       <Header title="Integration" />
 
       <div

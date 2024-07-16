@@ -2,7 +2,6 @@
 
 import { AxiosError } from 'axios'
 import get from 'lodash/get'
-import { NextSeo } from 'next-seo'
 import React, { useEffect, useState } from 'react'
 import { useRouter } from 'next/navigation'
 // @ts-ignore
@@ -14,6 +13,22 @@ import Notifications from 'components/Profile/Notifications'
 import Personal from 'components/Profile/Personal'
 import Profile from 'components/Profile/Profile'
 import Welcome from 'components/Profile/Welcome'
+
+
+// <NextSeo
+// title="Profile"
+// description="Profile page for your account."
+// openGraph={{
+//   title: 'Profile',
+//     description: 'Profile page for your account.',
+//     type: 'profile',
+//     profile: {
+//     firstName: 'John',
+//       lastName: 'Doe',
+//       username: 'johndoe',
+//   },
+// }}
+// />
 
 function ProfileContent() {
   const router = useRouter()
@@ -52,21 +67,6 @@ function ProfileContent() {
 
   return (
     <>
-      <NextSeo
-        title="Profile"
-        description="Profile page for your account."
-        openGraph={{
-          title: 'Profile',
-          description: 'Profile page for your account.',
-          type: 'profile',
-          profile: {
-            firstName: 'John',
-            lastName: 'Doe',
-            username: 'johndoe',
-          },
-        }}
-      />
-
       <Header title="Profile" />
 
       <Welcome nickname={get(session, 'kratos.identity.traits.name.first', 'default')} />

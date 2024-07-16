@@ -1,5 +1,3 @@
-const { composePlugins } = require('@nx/next')
-
 // ENVIRONMENT VARIABLE ================================================================================================
 const isProd = process.env.NODE_ENV === 'production'
 const isEnablePWA = process.env.PWA_ENABLE === 'true'
@@ -163,4 +161,6 @@ if (!isProd) {
   })
 }
 
-module.exports = composePlugins(...plugins)(NEXT_CONFIG)
+module.exports = NEXT_CONFIG
+
+// module.exports = composePlugins(...plugins)(NEXT_CONFIG)
