@@ -14,7 +14,7 @@ type: application
 deprecated: false
 dependencies:
   - name: velero
-    version: 7.1.0
+    version: 7.1.1
     repository: https://vmware-tanzu.github.io/helm-charts
     condition: velero.enabled
     tags:
