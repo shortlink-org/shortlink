@@ -15,7 +15,7 @@ type: application
 deprecated: false
 dependencies:
   - name: loki
-    version: 6.6.6
+    version: 6.7.0
     repository: https://grafana.github.io/helm-charts
     condition: loki.enabled
     tags:
