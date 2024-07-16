@@ -63,8 +63,8 @@ importers:
         specifier: 2.16.8
         version: 2.16.8
       google-protobuf:
-        specifier: ^3.21.2
-        version: 3.21.2
+        specifier: ^3.21.4
+        version: 3.21.4
       helmet:
         specifier: ^7.1.0
         version: 7.1.0
@@ -962,8 +962,8 @@ packages:
     resolution: {integrity: sha512-5uYhsJH8VJBTv7oslg4BznJYhDoRI6waYCxMmCdnTrcCrHA/fCFKoTFz2JKKE0HdDFUF7/oQuhzumXJK7paBRQ==}
     engines: {node: '>= 0.4'}
 
-  google-protobuf@3.21.2:
-    resolution: {integrity: sha512-3MSOYFO5U9mPGikIYCzK0SaThypfGgS6bHqrUGXG3DPHCrb+txNqeEcns1W0lkGfk0rCyNXm7xB9rMxnCiZOoA==}
+  google-protobuf@3.21.4:
+    resolution: {integrity: sha512-MnG7N936zcKTco4Jd2PX2U96Kf9PxygAPKBug+74LHzmHXmceN16MmRcdgZv+DGef/S9YvQAfRsNCn4cjf9yyQ==}
 
   gopd@1.0.1:
     resolution: {integrity: sha512-d65bNlIadxvpb/A2abVdlqKqV563juRnZ1Wtk6s1sIR8uNsXR70xqIzVqxVf1eTqDunwT2MkczEeaezCKTZhwA==}
@@ -2513,7 +2513,7 @@ snapshots:
       has-symbols: 1.0.3
       hasown: 2.0.2
 
-  google-protobuf@3.21.2: {}
+  google-protobuf@3.21.4: {}
 
   gopd@1.0.1:
     dependencies:
