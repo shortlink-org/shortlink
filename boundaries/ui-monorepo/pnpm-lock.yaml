@@ -170,7 +170,7 @@ importers:
         version: 19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/node@20.14.10)(@zkochan/js-yaml@0.0.7)(eslint@9.7.0)(html-webpack-plugin@5.6.0(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.12))))(next@15.0.0-rc.0(@babel/core@7.24.9)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(typescript@5.5.3)(webpack@5.93.0(@swc/core@1.6.13(@swc/helpers@0.5.12)))
       '@nx/rollup':
         specifier: 19.4.3
-        version: 19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)
+        version: 19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(typescript@5.5.3)
       '@nx/workspace':
         specifier: 19.4.3
         version: 19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12))
@@ -15846,9 +15846,9 @@ snapshots:
       - verdaccio
       - webpack
 
-  '@nrwl/rollup@19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)':
+  '@nrwl/rollup@19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(typescript@5.5.3)':
     dependencies:
-      '@nx/rollup': 19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)
+      '@nx/rollup': 19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(typescript@5.5.3)
     transitivePeerDependencies:
       - '@babel/core'
       - '@babel/traverse'
@@ -16202,9 +16202,9 @@ snapshots:
       - verdaccio
       - webpack
 
-  '@nx/rollup@19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)':
+  '@nx/rollup@19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(typescript@5.5.3)':
     dependencies:
-      '@nrwl/rollup': 19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/node@20.14.10)(typescript@5.5.3))(typescript@5.5.3)
+      '@nrwl/rollup': 19.4.3(@babel/core@7.24.9)(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/babel__core@7.20.5)(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(typescript@5.5.3)
       '@nx/devkit': 19.4.3(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))
       '@nx/js': 19.4.3(@babel/traverse@7.24.8)(@swc/core@1.6.13(@swc/helpers@0.5.12))(@types/node@20.14.10)(nx@19.4.3(@swc/core@1.6.13(@swc/helpers@0.5.12)))(typescript@5.5.3)
       '@rollup/plugin-babel': 6.0.4(@babel/core@7.24.9)(@types/babel__core@7.20.5)(rollup@4.18.1)
