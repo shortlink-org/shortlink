@@ -304,11 +304,11 @@ importers:
         specifier: 6.0.0-dev.240424162023-9968b4889d
         version: 6.0.0-dev.240424162023-9968b4889d(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.11.4(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.3)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
       '@ory/client':
-        specifier: ^1.13.10
-        version: 1.13.10
+        specifier: ^1.14.0
+        version: 1.14.0
       '@ory/integrations':
         specifier: ^1.2.1
-        version: 1.2.1(@ory/client@1.13.10)(next@15.0.0-rc.0(@babel/core@7.24.6)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))
+        version: 1.2.1(@ory/client@1.14.0)(next@15.0.0-rc.0(@babel/core@7.24.6)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))
       '@reduxjs/toolkit':
         specifier: ^2.2.6
         version: 2.2.6(react-redux@9.1.2(@types/react@18.3.3)(react@19.0.0-rc-fb9a90fa48-20240614)(redux@5.0.1))(react@19.0.0-rc-fb9a90fa48-20240614)
@@ -3494,8 +3494,8 @@ packages:
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
 
-  '@ory/client@1.13.10':
-    resolution: {integrity: sha512-mLTW2i7BUb39aSbAipfvLyB3FaRPxrRV/0wZ8jfy3Ky5AAwnEP1aX8oljOUJ7bvgrVx7Lys/RlMZCmO2eTA4qQ==}
+  '@ory/client@1.14.0':
+    resolution: {integrity: sha512-nRzVQLSs3RLf2mk6V7vChawZEAMsvEuCo5AQNRFfM5EzyVIfZAA4T4e1sCbZayu9jc/w0GofqZjpQtzs8tysCA==}
 
   '@ory/integrations@1.2.1':
     resolution: {integrity: sha512-IVJVHArFU2DRKM/bXTPk4HlQ23NXVrO96KYHquMI6tgO0zBEL4ZfARIwIDr/eYOWpfmcYBvPjIQVjOASdYVfRA==}
@@ -3784,6 +3784,7 @@ packages:
 
   '@rollup/rollup-darwin-x64@4.18.1':
     resolution: {integrity: sha512-IgpzXKauRe1Tafcej9STjSSuG0Ghu/xGYH+qG6JwsAUxXrnkvNHcq/NL6nz1+jzvWAnQkuAJ4uIwGB48K9OCGA==}
+    cpu: [x64]
     os: [darwin]
 
   '@rollup/rollup-linux-arm-gnueabihf@4.18.1':
@@ -16557,15 +16558,15 @@ snapshots:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/core': 1.25.1(@opentelemetry/api@1.9.0)
 
-  '@ory/client@1.13.10':
+  '@ory/client@1.14.0':
     dependencies:
       axios: 1.7.2
     transitivePeerDependencies:
       - debug
 
-  '@ory/integrations@1.2.1(@ory/client@1.13.10)(next@15.0.0-rc.0(@babel/core@7.24.6)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))':
+  '@ory/integrations@1.2.1(@ory/client@1.14.0)(next@15.0.0-rc.0(@babel/core@7.24.6)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8))':
     dependencies:
-      '@ory/client': 1.13.10
+      '@ory/client': 1.14.0
       '@types/tldjs': 2.3.4
       cookie: 0.6.0
       istextorbinary: 9.5.0
