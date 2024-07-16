@@ -14,8 +14,6 @@
         HELM_CHART_PATH: ops/Helm/boundaries/platform/$HELM_CHART_NAME
       - HELM_CHART_NAME: landscape
         HELM_CHART_PATH: ops/Helm/boundaries/platform/$HELM_CHART_NAME
-      - HELM_CHART_NAME: csi
-        HELM_CHART_PATH: ops/Helm/boundaries/platform/$HELM_CHART_NAME
 
       # API
       - HELM_CHART_NAME: cloudevents
