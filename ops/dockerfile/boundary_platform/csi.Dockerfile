@@ -42,7 +42,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
   -trimpath \
   -o app ./boundaries/platform/csi/cmd
 
-FROM --platform=$TARGETPLATFORM alpine:3.20
+FROM alpine:3.20
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-csi"

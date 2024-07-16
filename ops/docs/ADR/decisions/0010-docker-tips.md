@@ -42,7 +42,7 @@ FROM --platform=$BUILDPLATFORM ${APP_ENV}-builder AS cache
 COPY ./boundaries/ui-monorepo/packages/next/out /app/out
 
 # Production image: use cache from development or CI layers
-FROM --platform=$TARGETPLATFORM ghcr.io/nginxinc/nginx-unprivileged:1.25-alpine
+FROM ghcr.io/nginxinc/nginx-unprivileged:1.25-alpine
 COPY --from=cache /app/out ./next
 ```
 
