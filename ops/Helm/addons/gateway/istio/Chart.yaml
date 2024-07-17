@@ -22,7 +22,7 @@ dependencies:
       - istio
       - base
   - name: istiod
-    version: 1.22.2
+    version: 1.22.3
     repository: https://istio-release.storage.googleapis.com/charts
     condition: istiod.enabled
     tags:
