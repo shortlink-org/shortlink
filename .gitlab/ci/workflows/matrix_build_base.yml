@@ -15,11 +15,6 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/api-gateway/gateways/graphql/cmd"
-      # NOTE: Deprecated
-      # - APPLICATION: api-grpc-web
-      #   REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
-      #   DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-      #   CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/api-gateway/gateways/grpc-web/cmd"
       - APPLICATION: ws
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
