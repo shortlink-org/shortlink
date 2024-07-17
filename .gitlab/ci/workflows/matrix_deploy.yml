@@ -13,8 +13,8 @@
 .matrix_deploy_application:
   parallel:
     matrix:
-      - RELEASE_NAME: ${CI_PROJECT_NAME}-landing
-        HELM_PATH: ops/Helm/${CI_PROJECT_NAME}-landing
+      - RELEASE_NAME: landing
+        HELM_PATH: ops/Helm/boundaries/marketing/landing
         REGISTRY: ${CI_REGISTRY_IMAGE}/landing
         HELM_ARG: --set serviceAccount.create=false
-        HELM_NAMESPACE: ${CI_PROJECT_NAME}
+        HELM_NAMESPACE: shortlink-marketing
