@@ -2,7 +2,7 @@
 ARG ENVIRONMENT_CONFIG=production
 
 # Stage 1 - Create yarn install skeleton layer
-FROM --platform=$BUILDPLATFORM node:21.7.3-bookworm-slim AS packages
+FROM --platform=$BUILDPLATFORM node:22-bookworm-slim AS packages
 
 ARG ENVIRONMENT_CONFIG
 
@@ -14,7 +14,7 @@ COPY ./boundaries/platform/backstage/package.json ./boundaries/platform/backstag
 RUN find packages \! -name "package.json" -mindepth 2 -maxdepth 2 -print | xargs rm -rf
 
 # Stage 2 - Install dependencies and build packages
-FROM --platform=$BUILDPLATFORM node:21.7.3-bookworm-slim AS build
+FROM --platform=$BUILDPLATFORM node:22-bookworm-slim AS build
 
 ARG ENVIRONMENT_CONFIG
 
@@ -29,6 +29,9 @@ RUN --mount=type=cache,target=/var/cache/apt,sharing=locked \
     apt-get install -y --no-install-recommends libsqlite3-dev python3 g++ build-essential && \
     rm -rf /var/lib/apt/lists/*
 
+# enable yarn
+RUN corepack enable && yarn set version stable
+
 USER node
 WORKDIR /app
 
@@ -36,8 +39,7 @@ COPY --from=packages --chown=node:node /app .
 
 # Stop cypress from downloading it's massive binary.
 ENV CYPRESS_INSTALL_BINARY=0
-RUN --mount=type=cache,target=/home/node/.cache/yarn,sharing=locked,uid=1000,gid=1000 \
-    yarn install --immutable
+RUN yarn install --immutable
 
 COPY --chown=node:node ./boundaries/platform/backstage .
 
@@ -49,7 +51,7 @@ RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
     && tar xzf packages/backend/dist/bundle.tar.gz -C packages/backend/dist/bundle
 
 # Stage 3 - Build the actual backend image and install production dependencies
-FROM node:21.7.3-bookworm-slim
+FROM node:22-bookworm-slim
 
 ARG ENVIRONMENT_CONFIG
 
