@@ -13,9 +13,6 @@ loki:
     commonConfig:
       replication_factor: 1
 
-    limits_config:
-      volume_enabled: true
-
     storage:
       type: filesystem
 
