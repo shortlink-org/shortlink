@@ -20,7 +20,7 @@ ingress:
   paths:
     - path: /
       service:
-        name: shortlink-landing
+        name: landing
         port: 8080
 
   istio:
