@@ -22,7 +22,7 @@ ingress:
   paths:
     - path: /next(/|$)(.*)
       service:
-        name: shortlink-next
+        name: shortlink-link-ui
         port: 8080
 
 # ==============================================================================
