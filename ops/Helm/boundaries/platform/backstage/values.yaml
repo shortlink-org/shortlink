@@ -16,17 +16,17 @@ ingress:
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
     nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
 
-  hostname: landscape.shortlink.best
+  hostname: backstage.shortlink.best
   paths:
     - path: /
       service:
-        name: landscape
-        port: 8080
+        name: backstage
+        port: 7007
 
   tls:
-    - secretName: landscape-tls
+    - secretName: backstage-tls
       hosts:
-        - landscape.shortlink.best
+        - backstage.shortlink.best
 
 # ==============================================================================
 deploy:
@@ -45,14 +45,14 @@ deploy:
       cpu: 1000m
       memory: 512Mi
     requests:
-      cpu: 20m
-      memory: 64Mi
+      cpu: 100m
+      memory: 128Mi
 
   # -- Annotations to be added to controller pods
   annotations: {}
 
   image:
-    repository: registry.gitlab.com/shortlink-org/shortlink/landscape
+    repository: registry.gitlab.com/shortlink-org/shortlink/backstage
     tag: 0.17.100
     # -- Global imagePullPolicy
     # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
@@ -65,16 +65,22 @@ deploy:
     initialDelaySeconds: 300
     timeoutSeconds: 60
     httpGet:
-      path: /
-      port: 8080
+      path: /healthcheck
+      port: 7007
+    httpHeaders:
+      - name: Host
+        value: shortlink.best
 
   # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
   readinessProbe:
     initialDelaySeconds: 120
     timeoutSeconds: 15
     httpGet:
-      path: /
-      port: 8080
+      path: /healthcheck
+      port: 7007
+    httpHeaders:
+      - name: Host
+        value: shortlink.best
 
   # -- Security Context policies for controller pods
   # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
@@ -92,13 +98,13 @@ service:
   type: ClusterIP
   ports:
     - name: http
-      port: 8080
+      port: 7007
       protocol: TCP
       public: true
 
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
-  enabled: false
+  enabled: true
 
 # ==============================================================================
 # NetworkPolicy
