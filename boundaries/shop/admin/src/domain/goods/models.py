@@ -4,7 +4,7 @@ from django.db import models
 from django_prometheus.models import ExportModelOperationsMixin
 
 
-class Good(ExportModelOperationsMixin('goods'), models.Model):
+class Good(ExportModelOperationsMixin("goods"), models.Model):
     """Define the Good model."""
 
     name = models.CharField(max_length=255)

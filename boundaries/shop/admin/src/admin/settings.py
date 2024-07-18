@@ -113,8 +113,8 @@ DATABASES = {
 # https://github.com/jazzband/django-redis
 
 CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
         "LOCATION": env("REDIS_URL", default="redis://localhost:6379/1"),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
@@ -169,21 +169,24 @@ STATIC_URL = "static/"
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+
 # Debug toolbar settings
 def show_toolbar(request):
-    if 'debug_enable' in request.COOKIES and request.user.is_authenticated:
-        cookie_value = request.COOKIES['debug_enable']
-        if cookie_value == 'true':
+    """Show the debug toolbar if the cookie "debug_enable" is set to "true" and the user is authenticated."""
+    if "debug_enable" in request.COOKIES and request.user.is_authenticated:
+        cookie_value = request.COOKIES["debug_enable"]
+        if cookie_value == "true":
             return True
     return False
 
+
 DEBUG_TOOLBAR_CONFIG = {
-    'SHOW_TOOLBAR_CALLBACK': 'admin.settings.show_toolbar',
+    "SHOW_TOOLBAR_CALLBACK": "admin.settings.show_toolbar",
 }
 
 # Prometheus
 PROMETHEUS_METRICS_EXPORT_PORT = 9090
-PROMETHEUS_METRICS_EXPORT_ADDRESS = '0.0.0.0'  # all addresses
+PROMETHEUS_METRICS_EXPORT_ADDRESS = "0.0.0.0"  # all addresses
 PROMETHEUS_EXPORT_MIGRATIONS = False
 
 # Logging
