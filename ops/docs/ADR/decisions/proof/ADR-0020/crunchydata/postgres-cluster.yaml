@@ -18,8 +18,9 @@ spec:
         resources:
           requests:
             storage: 1Gi
-          limit:
-            storage: 2Gi
+          # NOTE: wait new version chart > 5.6.0
+          # limit:
+          #   storage: 2Gi
   backups:
     pgbackrest:
       repos:

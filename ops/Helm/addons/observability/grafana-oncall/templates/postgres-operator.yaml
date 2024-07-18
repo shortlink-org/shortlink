@@ -20,8 +20,9 @@ spec:
         resources:
           requests:
             storage: 1Gi
-          limit:
-            storage: 5Gi
+          # NOTE: wait new version chart > 5.6.0
+          # limit:
+          #   storage: 5Gi
       walVolumeClaimSpec:
         storageClassName: local-path
         accessModes:
