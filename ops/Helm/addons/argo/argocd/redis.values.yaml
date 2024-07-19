@@ -10,7 +10,7 @@ redis:
 
     resources:
       limits:
-        cpu: 500m
+        cpu: 1000m
         memory: 500Mi
       requests:
         cpu: 50m

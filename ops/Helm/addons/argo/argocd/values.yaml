@@ -20,7 +20,7 @@ argo-cd:
       level: warn
 
   controller:
-    replicas: 1
+    replicas: 2
 
     resources:
       limits:
@@ -131,7 +131,7 @@ argo-cd:
 
     rbac:
       policy.csv: |
-        p, role:readonly, extensions, invoke, httpbin, allow
+        p, role:readonly, extensions, invoke, httpbin, metrics, allow
         p, role:org-admin, applications, *, */*, allow
         p, role:org-admin, clusters, get, *, allow
         p, role:org-admin, repositories, get, *, allow
@@ -153,9 +153,9 @@ argo-cd:
         - name: extension-metrics
           env:
             - name: EXTENSION_URL
-              value: https://github.com/argoproj-labs/argocd-extension-metrics/releases/download/v1.0.1/extension.tar.gz
+              value: https://github.com/argoproj-labs/argocd-extension-metrics/releases/download/v1.0.3/extension.tar.gz
             - name: EXTENSION_CHECKSUM_URL
-              value: https://github.com/argoproj-labs/argocd-extension-metrics/releases/download/v1.0.1/extension_checksums.txt
+              value: https://github.com/argoproj-labs/argocd-extension-metrics/releases/download/v1.0.3/extension_checksums.txt
         - name: shortlink-extension-docs
           env:
             - name: EXTENSION_URL
@@ -294,6 +294,12 @@ argo-cd:
       exec.enabled: "true"
 
       server.enable.proxy.extension: "true"
+      extension.config: |-
+        extensions:
+          - name: metrics
+            backend:
+               services:
+                  - url: http://argocd-extension-metrics.argocd:9003
 
       helm.valuesFileSchemes: >-
         secrets+gpg-import, secrets+gpg-import-kubernetes,
