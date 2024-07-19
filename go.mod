@@ -12,7 +12,7 @@ require (
 	github.com/authzed/authzed-go v0.13.0
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/chromedp/chromedp v0.9.5
-	github.com/couchbase/gocb/v2 v2.9.0
+	github.com/couchbase/gocb/v2 v2.9.1
 	github.com/cucumber/godog v0.14.1
 	github.com/dgraph-io/badger/v4 v4.2.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
@@ -115,7 +115,7 @@ require (
 	github.com/containerd/continuity v0.3.0 // indirect
 	github.com/coreos/go-semver v0.3.1 // indirect
 	github.com/coreos/go-systemd/v22 v22.5.0 // indirect
-	github.com/couchbase/gocbcore/v10 v10.5.0 // indirect
+	github.com/couchbase/gocbcore/v10 v10.5.1 // indirect
 	github.com/couchbase/gocbcoreps v0.1.3 // indirect
 	github.com/couchbase/goprotostellar v1.0.2 // indirect
 	github.com/couchbaselabs/gocbconnstr/v2 v2.0.0-20240607131231-fb385523de28 // indirect
