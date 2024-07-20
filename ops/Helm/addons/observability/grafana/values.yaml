@@ -131,6 +131,7 @@ grafana:
     - grafana-oncall-app
     - cloudflare-app
     - hamedkarbasi93-kafka-datasource
+    - grafana-pyroscope-app
 
   extraInitContainers:
     - name: plugin-init
