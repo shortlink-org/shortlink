@@ -20,7 +20,8 @@ argo-cd:
       level: warn
 
   controller:
-    replicas: 2
+    replicas: 3
+    revisionHistoryLimit: 3
 
     resources:
       limits:
@@ -100,6 +101,8 @@ argo-cd:
     host: redis-master.argocd
 
   server:
+    replicas: 3
+
     metrics:
       enabled: true
       serviceMonitor:
@@ -162,6 +165,8 @@ argo-cd:
               value: https://github.com/shortlink-org/shortlink/raw/main/boundaries/platform/argocd-extension-docs/ui/dist/extension.tar
 
   repoServer:
+    replicas: 3
+
     serviceAccount:
       create: true
       name: argocd-repo-server
@@ -246,7 +251,7 @@ argo-cd:
           - name: HELM_SECRETS_VERSION
             value: "4.6.0"
           - name: KUBECTL_VERSION
-            value: "1.30.2"
+            value: "1.30.3"
           - name: VALS_VERSION
             value: "0.37.3"
           - name: SOPS_VERSION
@@ -329,8 +334,8 @@ argo-cd:
     params:
       # otlp.address: grafana-tempo.grafana:4317
       # https://github.com/argoproj/argo-cd/issues/11071
-      dexserver.disable.tls: true
-      server.insecure: true
+      dexserver.disable.tls: false
+      server.insecure: false
 
   notifications:
     resources:

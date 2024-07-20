@@ -1,7 +1,7 @@
 argo-cd:
     configs:
         cm:
-            url: ENC[AES256_GCM,data:Hu/xHe8/E7mmkCVnHC0MncahudF5YTQjy/voHQ==,iv:SyIR4IMT7MSU/OOXa4pL24ZLsGM7BESZEZYAOgxlVc4=,tag:CJpmBdcLXFSCUzRCvNCRug==,type:str]
+            url: ENC[AES256_GCM,data:ozQpUwFxB3aurZ5KT2jgOdvS4MTl9WCpuHKB,iv:gJOeWaqRpbnqK1M7OeEUtOmlFUot+2UoiFjLkTRHeYY=,tag:jt8w7WjQsaPbD3OrxLEXHw==,type:str]
             dex.config: ENC[AES256_GCM,data:jKUGrfepJNh1Zik+aXID8RSWf9z2zL4/liEGMz+yitHVGvphOyRvS8xklZjwFQLczFNq7BRlwiKz0C+MA0iRPVgnecMA2zTmzroHxql4Clr1gefyJs/TlNC1jIkBsLqq+m3Z9tIAArwaDI1z2sx4eRXWabSESf8OFecnQRiMXGrHWC//iVIMyvVQTmZ0Mcc/RxbiXjhvJcj6wRMZe9C3qzUlnbDbM64o1M10LwnkmeDw9/2ov8Y2mULBkse/YBrSbaBHYCBkI/PnC8oB8i9Mj5U1aZUaZULIlzSxCg2zY6ZoJV9SSjJ24mqu24UYxa38fo1gLP8vVY2XuhmRYxNqGBArxcbrlOTLgaUZsmO/P74+3EnVvCijeIUQDB+fwCSmG6QvmbThjUxhKj800dACLtOoB0tafwWXXwAZzAGqhtP/fgUHeeChbNEWdgrFMqhJTsDYe4KS8X1qjrRbGP7Xy0X4GZnUOfcDvNvpcPl8uWo6E/5LIRWo9PotCGZADSE7+GAoZR0IUhIDaXXLC2x0JcrG7B9AadGzpN/JYQ0CwCmFm+RlXq3TYy5DphRBrPb5V67M,iv:aP3r1i42kDZqRkAx75YRSnzItPU9d549VddjQXtMZBA=,tag:WVi8HwqWs73hFfdhi+zzwQ==,type:str]
     notifications:
         secret:
@@ -14,8 +14,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2024-05-06T16:49:38Z"
-    mac: ENC[AES256_GCM,data:RyW3bcFZjAWMw8u9FmFVFR2yVflF3AwG09Tc3mL9RCzIltJyNBJ9nuaMI5tEZ05tmkelZ06yciUTfQllvKSZV3yWoPFcr4XnaJtApeYUHpr9gSp4F8ReJnG22ZZewo5gRt8k1Cojjxv02pa6glcT8faa86QjSFpLhzo8wu+kGp4=,iv:aGfysAmaYU6KMldhVCTWX01BDnp6dw0mUHCCezqu4d8=,tag:7DDm/kvs/UACXnRIi7+oQw==,type:str]
+    lastmodified: "2024-07-20T14:23:06Z"
+    mac: ENC[AES256_GCM,data:4TV/H2tJD7vOMNHGotolHwSvTfZXO56WBv5aTBDAEKoowAykh8Md82yVNEr0VTIsKwviOzs0kRMEnJZNUvpsDbUg0p1ULfct4shyJ66BBE48gYJzlimUEbZYmeZ3b7k9oyqT/nCzaWWNBFkLqgLHNnOOfG950HLdolcN8NfoPFg=,iv:Nscbxdoux7DX71i4co9eTUfaUjNQ/kooFMWp5O2EFi0=,tag:PrM7Ws+xg7w9DQ+O1OfQZQ==,type:str]
     pgp:
         - created_at: "2023-01-15T16:35:29Z"
           enc: |
