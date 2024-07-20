@@ -45,8 +45,8 @@ deploy:
   annotations: {}
 
   image:
-    repository: registry.gitlab.com/shortlink-org/shortlink/bff
-    tag: 0.17.93
+    repository: registry.gitlab.com/shortlink-org/shortlink/bff-link
+    tag: 0.17.111
     # -- Global imagePullPolicy
     # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
     # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
