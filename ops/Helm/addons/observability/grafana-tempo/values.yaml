@@ -37,6 +37,11 @@ tempo:
         concurrent_jobs: 2000
         target_bytes_per_job: 400_000_000
 
+    metrics_generator:
+      processor:
+        service_graphs:
+          enable_virtual_node_label: true
+
     storage:
       trace:
         backend: local
