@@ -43,6 +43,7 @@ adr new Implement as Unix shell scripts
 - **DataBase**
   - [ADR-0004](./decisions/0004-use-uuid-as-primary-keys.md) - Use UUID as primary keys
   - [ADR-0026](./decisions/0026-pattern-database-per-service.md) - Pattern: database per service
+  - [ADR-0034](./decisions/0034-migrate-to-uuid-v7.md) - Migrate to UUID v7
 - **Service**
   - [ADR-0008](./decisions/0008-product-metrics-by-services.md) - Product metrics by services
   - [ADR-0015](./decisions/0015-authentication.md) - Authentication
