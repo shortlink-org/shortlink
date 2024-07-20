@@ -299,7 +299,7 @@ argo-cd:
           - name: metrics
             backend:
                services:
-                  - url: http://argocd-extension-metrics.argocd:9003
+                  - url: http://argocd-metrics-server.argocd:9003
 
       helm.valuesFileSchemes: >-
         secrets+gpg-import, secrets+gpg-import-kubernetes,
