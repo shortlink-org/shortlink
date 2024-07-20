@@ -7,6 +7,12 @@ tempo:
   tempo:
     reportingEnabled: false
 
+    overrides:
+      metrics_generator:
+        processor:
+          service_graphs:
+            enable_virtual_node_label: true
+
     resources:
       limits:
         cpu: 2
