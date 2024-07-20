@@ -23,9 +23,6 @@ spec:
         timeout: 100ms
 
     exporters:
-      logging:
-        loglevel: info
-
       # OTLP for Tracetest
       otlp/tracetest:
         endpoint: tracetest.tracetest:4317 # Send traces to Tracetest. Read more in docs here:  https://docs.tracetest.io/configuration/connecting-to-data-stores/opentelemetry-collector
@@ -52,7 +49,6 @@ spec:
             - memory_limiter
             - batch
           exporters:
-            - logging
             - otlp
             - otlp/tracetest
         metrics:
@@ -62,7 +58,6 @@ spec:
             - memory_limiter
             - batch
           exporters:
-            - logging
             - otlp
         logs:
           receivers:
@@ -71,5 +66,4 @@ spec:
             - memory_limiter
             - batch
           exporters:
-            - logging
             - otlp
