@@ -22,7 +22,7 @@ ingress:
   paths:
     - path: /api(/|$)(.*)
       service:
-        name: shortlink-bff-link
+        name: shortlink-link-bff-bff-link
         port: 7070
 
 # ==============================================================================
