@@ -10,5 +10,5 @@ namespaces=$(kubectl get ns --no-headers -o custom-columns=:metadata.name)
 # Loop through each namespace
 for ns in $namespaces; do
   echo "Processing namespace: $ns"
-  kubectl get pod -n $ns --no-headers | grep -E 'Evicted|Error|ContainerStatusUnknown' | awk '{print $1}' | xargs -r kubectl delete pod -n $ns
+  kubectl get pod -n $ns --no-headers | grep -E 'Evicted|Error|Completed|CrashLoopBackOff|ContainerStatusUnknown' | awk '{print $1}' | xargs -r kubectl delete pod -n $ns
 done
