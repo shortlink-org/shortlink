@@ -41,10 +41,8 @@ tempo:
       trace:
         backend: local
         block:
-          version: vParquet3               # version of the block storage to use
+          version: vParquet4               # version of the block storage to use
           bloom_filter_false_positive: .05 # bloom filter false positive rate.  lower values create larger filters but fewer false positives
-          v2_index_downsample_bytes: 1000  # number of bytes per index record
-          v2_encoding: zstd                # block encoding/compression.  options: none, gzip, lz4-64k, lz4-256k, lz4-1M, lz4, snappy, zstd
 
           parquet_dedicated_columns:
             - scope: span
