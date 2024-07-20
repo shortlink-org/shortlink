@@ -1,7 +1,7 @@
 apiVersion: v1
 kind: Secret
 metadata:
-  name: shortlink-env-configuration
+  name: shortlink-configuration
 type: Opaque
 data:
   config.env: {{ .Values.EnvConfig | b64enc }}

@@ -6,9 +6,7 @@ scheduler:
   name: ""
 spec:
   configuration:
-    name: shortlink-env-configuration
-  credsSecret:
-    name: shortlink-secret
+    name: shortlink-configuration
   exposeServices:
     console: true
     minio: true
@@ -35,5 +33,5 @@ spec:
   prometheusOperator: true
   requestAutoCert: false
   users:
-  - name: shortlink-user-0
-  - name: testkube-user-0
+  - name: shortlink-user
+  - name: testkube-user
