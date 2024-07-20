@@ -19,10 +19,7 @@ func New(ctx context.Context, store *s3.Client) (*Service, error) {
 	bucketName := "screenshot"
 	err := store.CreateBucket(ctx, bucketName, minio.MakeBucketOptions{})
 	if err != nil {
-		return nil, s3.ErrorCreateBucket{
-			Err:  err,
-			Name: bucketName,
-		}
+		return nil, err
 	}
 
 	return &Service{
