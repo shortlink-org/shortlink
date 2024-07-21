@@ -34,7 +34,7 @@ spec:
         pod-security.kubernetes.io/enforce-version: latest
     syncOptions:
       - CreateNamespace=true
-      - ServerSideApply=true
+      # - ServerSideApply=true
       - ApplyOutOfSyncOnly=true
       - RespectIgnoreDifferences=true
     retry:
