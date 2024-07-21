@@ -53,14 +53,8 @@ spec:
     # https://github.com/argoproj/argo-cd/issues/9323#issuecomment-1218974391
     - group: admissionregistration.k8s.io
       kind: ValidatingWebhookConfiguration
-      name: istiod-default-validator
       jsonPointers:
-        - '.webhooks[]?.failurePolicy'
-    - group: admissionregistration.k8s.io
-      kind: ValidatingWebhookConfiguration
-      name: istio-validator-istio-system
-      jsonPointers:
-        - '.webhooks[]?.failurePolicy'
+        - /webhooks/0/failurePolicy
     - group: kyverno.io
       kind: ClusterPolicy
       jqPathExpressions:
