@@ -51,3 +51,6 @@ spec:
       kind: ClusterPolicy
       jqPathExpressions:
         - .spec.rules[] | select(.name|test("autogen-."))
+    - group: ''
+      kind: Secret
+      name: console-sa-secret
