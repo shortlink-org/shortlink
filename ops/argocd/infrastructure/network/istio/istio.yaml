@@ -54,7 +54,7 @@ spec:
       kind: ValidatingWebhookConfiguration
       name: istiod-default-validator
       jsonPointers:
-        - /webhooks/0/failurePolicy
+        - '.webhooks[]?.failurePolicy'
     - group: kyverno.io
       kind: ClusterPolicy
       jqPathExpressions:
