@@ -390,8 +390,8 @@ linters-settings:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#banned-characters
       - name: banned-characters
         severity: warning
-        disabled: false
-        arguments: ["Ω", "Σ", "σ", "7"]
+        disabled: true
+        arguments: ["Ω", "Σ", "σ"]
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#bare-return
       - name: bare-return
         severity: warning

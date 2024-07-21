@@ -102,6 +102,7 @@ func (f *File) clearPage(nameTable string, pageCount int32) error { //nolint:unp
 	return nil
 }
 
+//nolint:unparam // ignore param
 func (f *File) clearPages(nameTable string) error {
 	f.database.Tables[nameTable].Pages = nil
 

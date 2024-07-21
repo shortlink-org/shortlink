@@ -9,9 +9,9 @@ import (
 type Option func(*Server)
 
 // WithLogger sets the logger for the server
-func WithLogger(logger logger.Logger) Option {
+func WithLogger(log logger.Logger) Option {
 	return func(s *Server) {
-		s.logger = logger
+		s.logger = log
 	}
 }
 

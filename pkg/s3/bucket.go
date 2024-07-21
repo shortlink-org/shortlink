@@ -16,7 +16,7 @@ func (c *Client) CreateBucket(ctx context.Context, bucketName string, opts minio
 			return nil
 		}
 
-		return ErrorCreateBucket{
+		return CreateBucketError{
 			Err:  err,
 			Name: bucketName,
 		}

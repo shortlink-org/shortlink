@@ -89,7 +89,7 @@ func TestPostgres(t *testing.T) {
 	}
 
 	t.Run("TestEventSourcingSaveAndLoad", func(t *testing.T) {
-		eventUID := uuid.New().String()
+		eventUID := mustNewV7(t).String()
 
 		// Create a dummy event
 		event := &eventsourcing.Event{
@@ -123,14 +123,14 @@ func TestPostgres(t *testing.T) {
 		// Create multiple dummy events with unique aggregate IDs
 		events := []*eventsourcing.Event{
 			{
-				AggregateId:   uuid.New().String(),
+				AggregateId:   mustNewV7(t).String(),
 				AggregateType: "test-type",
 				Type:          "test-event-1",
 				Payload:       `{"test": "test-payload-1"}`,
 				Version:       1,
 			},
 			{
-				AggregateId:   uuid.New().String(),
+				AggregateId:   mustNewV7(t).String(),
 				AggregateType: "test-type",
 				Type:          "test-event-2",
 				Payload:       `{"test": "test-payload-2"}`,
@@ -160,7 +160,7 @@ func TestPostgres(t *testing.T) {
 	})
 
 	t.Run("TestEventSourcingSaveEventExistingAggregate", func(t *testing.T) {
-		eventUID := uuid.New().String()
+		eventUID := mustNewV7(t).String()
 
 		// Create a dummy event with an existing aggregate ID but a different version
 		event := &eventsourcing.Event{
@@ -198,7 +198,7 @@ func TestPostgres(t *testing.T) {
 
 	t.Run("TestEventSourcingLoadNoEvents", func(t *testing.T) {
 		// Try to load events for a non-existent aggregate ID
-		_, events, err := eventSourcing.Load(ctx, uuid.New().String())
+		_, events, err := eventSourcing.Load(ctx, mustNewV7(t).String())
 		require.NoError(t, err, "Error occurred while loading events")
 
 		// Check if no events were loaded
@@ -206,7 +206,7 @@ func TestPostgres(t *testing.T) {
 	})
 
 	t.Run("TestEventSourcingUpdateAggregate", func(t *testing.T) {
-		eventUID := uuid.New().String()
+		eventUID := mustNewV7(t).String()
 
 		// Create a dummy event
 		event := &eventsourcing.Event{
@@ -239,4 +239,10 @@ func TestPostgres(t *testing.T) {
 		require.Equal(t, event.GetPayload(), events[1].GetPayload(), "Payload does not match")
 		require.Equal(t, event.GetVersion(), events[1].GetVersion(), "Version does not match")
 	})
+}
+
+func mustNewV7(t *testing.T) uuid.UUID {
+	id, err := uuid.NewV7()
+	require.NoError(t, err)
+	return id
 }

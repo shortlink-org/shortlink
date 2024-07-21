@@ -18,29 +18,31 @@ func NewTariffBuilder() *TariffBuilder {
 // SetId sets the id of the tariff
 func (b *TariffBuilder) SetId(id string) *TariffBuilder {
 	if id == "" {
-		b.errors = errors.Join(b.errors, errors.New("invalid id: id is empty"))
+		b.errors = errors.Join(b.errors, ErrInvalidId)
 		return b
 	}
 
 	b.tariff.id = id
+
 	return b
 }
 
 // SetName sets the name of the tariff
 func (b *TariffBuilder) SetName(name string) *TariffBuilder {
 	if name == "" {
-		b.errors = errors.Join(b.errors, errors.New("invalid name: name is empty"))
+		b.errors = errors.Join(b.errors, ErrInvalidName)
 		return b
 	}
 
 	b.tariff.name = name
+
 	return b
 }
 
 // SetPayload sets the payload of the tariff
 func (b *TariffBuilder) SetPayload(payload string) *TariffBuilder {
 	if payload == "" {
-		b.errors = errors.Join(b.errors, errors.New("invalid payload: payload is empty"))
+		b.errors = errors.Join(b.errors, ErrInvalidPayload)
 
 		return b
 	}

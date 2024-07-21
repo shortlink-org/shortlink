@@ -62,8 +62,13 @@ func (b *RaftBuilder) Build() (*Raft, error) {
 
 	b.raft.status = RaftStatus_RAFT_STATUS_FOLLOWER
 
+	var err error
+
 	// generate a new UUID for the Raft
-	b.raft.id = uuid.New()
+	b.raft.id, err = uuid.NewV7()
+	if err != nil {
+		return nil, err
+	}
 
 	return b.raft, nil
 }

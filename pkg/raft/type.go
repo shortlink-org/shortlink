@@ -1,11 +1,11 @@
 package raft
 
-// import (
+// Import (
 // 	"time"
 // )
 //
 // // Raft represents a distributed consensus algorithm.
-// type Raft interface {
+// Type Raft interface {
 // 	// Start starts the Raft node.
 // 	// It returns an error if the node fails to start.
 // 	Start() error
@@ -32,7 +32,7 @@ package raft
 // }
 //
 // // RaftRole represents the role of a Raft node.
-// type Role uint8
+// Type Role uint8
 //
 // const (
 // 	Follower Role = iota + 1
@@ -41,7 +41,7 @@ package raft
 // )
 //
 // // Client represents a client that interacts with a Raft cluster.
-// type Client interface {
+// Type Client interface {
 // 	// Connect connects the client to the Raft cluster.
 // 	// It takes a Config struct and returns an error if the connection fails.
 // 	Connect(config Config) error
@@ -52,7 +52,7 @@ package raft
 // }
 //
 // // Config represents the configuration for a Raft client.
-// type Config struct {
+// Type Config struct {
 // 	// NodeAddrs is a list of addresses of the nodes in the Raft cluster.
 // 	NodeAddrs []string
 //

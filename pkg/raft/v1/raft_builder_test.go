@@ -12,7 +12,7 @@ func TestRaftBuilder(t *testing.T) {
 	testCases := []struct {
 		name          string
 		id            uuid.UUID
-		peerIDs       []uuid.UUID
+		peerIDs       []string
 		nameField     string
 		address       string
 		weight        int32
@@ -20,16 +20,16 @@ func TestRaftBuilder(t *testing.T) {
 	}{
 		{
 			name:      "Valid Raft",
-			id:        uuid.New(),
-			peerIDs:   []uuid.UUID{uuid.New(), uuid.New()},
+			id:        mustNewV7(t),
+			peerIDs:   []string{"peer1", "peer2"},
 			nameField: "RaftNode1",
 			address:   "http://127.0.0.1:8080",
 			weight:    1,
 		},
 		{
 			name:          "Invalid Address",
-			id:            uuid.New(),
-			peerIDs:       []uuid.UUID{uuid.New(), uuid.New()},
+			id:            mustNewV7(t),
+			peerIDs:       []string{"peer1", "peer2"},
 			nameField:     "RaftNode2",
 			address:       "://invalid-url",
 			weight:        2,
@@ -40,7 +40,6 @@ func TestRaftBuilder(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			builder := NewRaftBuilder().
-				SetID(tc.id).
 				SetPeerIDs(tc.peerIDs).
 				SetName(tc.nameField).
 				SetAddress(tc.address).
@@ -59,9 +58,19 @@ func TestRaftBuilder(t *testing.T) {
 				require.Equal(t, tc.nameField, raft.name)
 				require.Equal(t, tc.weight, raft.weight)
 
-				parsedURL, _ := url.Parse(tc.address)
+				parsedURL, errParse := url.Parse(tc.address)
+				require.NoError(t, errParse)
 				require.Equal(t, *parsedURL, raft.address)
 			}
 		})
 	}
+}
+
+func mustNewV7(t *testing.T) uuid.UUID {
+	t.Helper()
+
+	id, err := uuid.NewV7()
+	require.NoError(t, err)
+
+	return id
 }

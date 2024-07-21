@@ -7,11 +7,11 @@ import (
 // Account is a billing account
 type Account struct {
 	// account id
-	id uuid.UUID `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	id uuid.UUID
 	// user id
-	userId uuid.UUID `protobuf:"bytes,2,opt,name=user_id,json=userId,proto3" json:"user_id,omitempty"`
+	userId uuid.UUID
 	// tariff id
-	tariffId uuid.UUID `protobuf:"bytes,3,opt,name=tariff_id,json=tariffId,proto3" json:"tariff_id,omitempty"`
+	tariffId uuid.UUID
 }
 
 // GetId returns the id field value

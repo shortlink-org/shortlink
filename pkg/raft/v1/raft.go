@@ -20,7 +20,7 @@ type Raft struct {
 	// status is the status of the raft node.
 	status RaftStatus
 	// lastHeartbeat is the last time the raft node sent a heartbeat.
-	lastHeartbeat timestamppb.Timestamp
+	lastHeartbeat *timestamppb.Timestamp
 	// weight is the voting weight of the raft node.
 	weight int32
 }
@@ -43,4 +43,9 @@ func (r *Raft) GetPeerIDs() []string {
 // SetStatus sets the status of the raft node.
 func (r *Raft) SetStatus(status RaftStatus) {
 	r.status = status
+}
+
+// UpdateHeartbeat updates the last heartbeat of the raft node.
+func (r *Raft) UpdateHeartbeat() {
+	r.lastHeartbeat = timestamppb.Now()
 }

@@ -42,11 +42,15 @@ func New(ctx context.Context, log logger.Logger) *Logger {
 }
 
 // Enabled indicates whether a specific record should be stored.
+//
+//nolint:gocritic // This is a temporary implementation.
 func (l *Logger) Enabled(ctx context.Context, record otellog.Record) bool {
 	return true
 }
 
 // Emit stores the log record.
+//
+//nolint:gocritic // This is a temporary implementation.
 func (l *Logger) Emit(_ context.Context, record otellog.Record) {
 	l.mu.Lock()
 	defer l.mu.Unlock()

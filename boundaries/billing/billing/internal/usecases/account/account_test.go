@@ -25,8 +25,8 @@ func TestAccountService_Add(t *testing.T) {
 
 	// Create a new account
 	account, err := v1.NewAccountBuilder().
-		SetUserId(uuid.New()).
-		SetTariffId(uuid.New()).
+		SetUserId(mustNewV7(t)).
+		SetTariffId(mustNewV7(t)).
 		Build()
 
 	require.NoError(t, err, "Error create a new account")
@@ -60,8 +60,8 @@ func TestAccountService_Get(t *testing.T) {
 
 	// Create a new account
 	account, err := v1.NewAccountBuilder().
-		SetUserId(uuid.New()).
-		SetTariffId(uuid.New()).
+		SetUserId(mustNewV7(t)).
+		SetTariffId(mustNewV7(t)).
 		Build()
 
 	require.NoError(t, err, "Error create a new account")
@@ -95,8 +95,8 @@ func TestAccountService_List(t *testing.T) {
 
 	// Create a new account
 	account, err := v1.NewAccountBuilder().
-		SetUserId(uuid.New()).
-		SetTariffId(uuid.New()).
+		SetUserId(mustNewV7(t)).
+		SetTariffId(mustNewV7(t)).
 		Build()
 
 	require.NoError(t, err, "Error create a new account")
@@ -130,8 +130,8 @@ func TestAccountService_Update(t *testing.T) {
 
 	// Create a new account
 	account, err := v1.NewAccountBuilder().
-		SetUserId(uuid.New()).
-		SetTariffId(uuid.New()).
+		SetUserId(mustNewV7(t)).
+		SetTariffId(mustNewV7(t)).
 		Build()
 
 	require.NoError(t, err, "Error create a new account")
@@ -165,8 +165,8 @@ func TestAccountService_Delete(t *testing.T) {
 
 	// Create a new account
 	account, err := v1.NewAccountBuilder().
-		SetUserId(uuid.New()).
-		SetTariffId(uuid.New()).
+		SetUserId(mustNewV7(t)).
+		SetTariffId(mustNewV7(t)).
 		Build()
 
 	require.NoError(t, err, "Error create a new account")
@@ -187,4 +187,13 @@ func TestAccountService_Delete(t *testing.T) {
 
 	// Assert that the Delete method was called with the correct account id
 	mockRepo.AssertCalled(t, "Delete", mock.Anything, account.GetId())
+}
+
+func mustNewV7(t *testing.T) uuid.UUID {
+	t.Helper()
+
+	id, err := uuid.NewV7()
+	require.NoError(t, err)
+
+	return id
 }

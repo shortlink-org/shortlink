@@ -85,9 +85,14 @@ func (s Store) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 		return nil, err
 	}
 
+	linkId, err := uuid.NewV7()
+	if err != nil {
+		return nil, err
+	}
+
 	link := in.GetUrl()
 	_, err = s.client.CreateLink(ctx, crud.CreateLinkParams{
-		ID:       uuid.New(),
+		ID:       linkId,
 		Url:      link.String(),
 		Hash:     in.GetHash(),
 		Describe: sql.NullString{String: in.GetDescribe(), Valid: true},

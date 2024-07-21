@@ -29,6 +29,7 @@ func Test_Raft(t *testing.T) {
 	peers := []string{"127.0.0.1:50051", "127.0.0.1:50052", "127.0.0.1:50053"}
 
 	// node 1 -----------------------------------------------------
+	//nolint:mnd,revive // It's okay to have magic numbers here
 	viper.Set("GRPC_SERVER_PORT", 50051)
 	serverRPC1, err := rpc.InitServer(ctx, log, nil, nil)
 	require.NoError(t, err)
@@ -37,6 +38,7 @@ func Test_Raft(t *testing.T) {
 	require.NoError(t, err)
 
 	// node 2 -----------------------------------------------------
+	//nolint:mnd,revive // It's okay to have magic numbers here
 	viper.Set("GRPC_SERVER_PORT", 50052)
 	serverRPC2, err := rpc.InitServer(ctx, log, nil, nil)
 	require.NoError(t, err)
@@ -45,6 +47,7 @@ func Test_Raft(t *testing.T) {
 	require.NoError(t, err)
 
 	// node 3 -----------------------------------------------------
+	//nolint:mnd,revive // It's okay to have magic numbers here
 	viper.Set("GRPC_SERVER_PORT", 50053)
 	serverRPC3, err := rpc.InitServer(ctx, log, nil, nil)
 	require.NoError(t, err)
@@ -66,18 +69,23 @@ func Test_Raft(t *testing.T) {
 			log.InfoWithContext(ctx, "Node 1 is the leader")
 
 			wg.Done()
+
 			break
 		}
+
 		if node2.GetStatus() == v1.RaftStatus_RAFT_STATUS_LEADER {
 			log.InfoWithContext(ctx, "Node 2 is the leader")
 
 			wg.Done()
+
 			break
 		}
+
 		if node3.GetStatus() == v1.RaftStatus_RAFT_STATUS_LEADER {
 			log.InfoWithContext(ctx, "Node 3 is the leader")
 
 			wg.Done()
+
 			break
 		}
 	}

@@ -5,15 +5,12 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/segmentio/encoding/json"
-	"google.golang.org/protobuf/encoding/protojson"
 
 	billing "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/account/v1"
 	account_application "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/usecases/account"
 )
 
 type AccoutAPI struct {
-	jsonpb protojson.MarshalOptions
-
 	accountService account_application.AccountService
 }
 

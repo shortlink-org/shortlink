@@ -13,7 +13,8 @@ import (
 )
 
 type Server struct {
-	api     *api.Server
+	api *api.Server
+	//nolint:unused // TODO: use client
 	clients []*api.Client
 
 	// TODO: use interface for logger
@@ -25,6 +26,9 @@ type Server struct {
 }
 
 func New(ctx context.Context, serverRPC *rpc.Server, peers []string, options ...Option) (*Server, error) {
+	const ElectionResetTimer = 150 * time.Millisecond
+	const MaxRandomTime = 51
+
 	rpcServer, err := api.NewServer(serverRPC)
 	if err != nil {
 		return nil, err
@@ -39,19 +43,21 @@ func New(ctx context.Context, serverRPC *rpc.Server, peers []string, options ...
 	}
 
 	// create connecting to all peers
-	for _, peer := range peers {
-		client, err := api.NewClient(peer)
-		if err != nil {
-			return nil, err
-		}
-
-		server.clients = append(server.clients, client)
-	}
+	// TODO: need implement client
+	// for _, peer := range peers {
+	// 	client, err := api.NewClient(peer)
+	// 	if err != nil {
+	// 		return nil, err
+	// 	}
+	//
+	// 	server.clients = append(server.clients, client)
+	// }
 
 	// if electionResetTimer is nil, set default value
 	if server.electionResetTimer == 0 {
-		randTime := GetRandIntBetween0And50() * time.Millisecond
-		server.electionResetTimer = 150*time.Millisecond + randTime
+		//nolint:gosec // it's not a security issue
+		randTime := time.Duration(rand.Intn(MaxRandomTime)) * time.Millisecond
+		server.electionResetTimer = ElectionResetTimer + randTime
 	}
 
 	// create raft node
@@ -59,6 +65,10 @@ func New(ctx context.Context, serverRPC *rpc.Server, peers []string, options ...
 		SetName("node1"). // TODO: set name from config
 		SetPeerIDs(peers).
 		Build()
+
+	if err != nil {
+		return nil, err
+	}
 
 	// run timer
 	go server.runTimer(ctx)
@@ -86,9 +96,11 @@ func (s *Server) runTimer(ctx context.Context) {
 		case <-electionResetTimer.C:
 			// check status
 			switch s.raft.GetStatus() {
+			case v1.RaftStatus_RAFT_STATUS_UNSPECIFIED:
+				panic("raft status is unspecified")
 			case v1.RaftStatus_RAFT_STATUS_FOLLOWER:
 				// if the node is a follower, change to a candidate
-				s.candidatePromotion()
+				s.candidatePromotion(ctx)
 			case v1.RaftStatus_RAFT_STATUS_CANDIDATE:
 			case v1.RaftStatus_RAFT_STATUS_LEADER:
 				s.sendHeartbeat(ctx)
@@ -119,12 +131,6 @@ func (s *Server) GetStatus() v1.RaftStatus {
 	return s.raft.GetStatus()
 }
 
-// GetRandIntBetween0And50 returns a random integer between 0 and 50 (inclusive).
-func GetRandIntBetween0And50() time.Duration {
-	rand.Seed(time.Now().UnixNano())
-	return time.Duration(rand.Intn(51)) // Intn(51) generates a number between 0 and 50
-}
-
 // candidatePromotion promotes the node to a candidate.
 func (s *Server) candidatePromotion(ctx context.Context) {
 	s.raft.SetStatus(v1.RaftStatus_RAFT_STATUS_CANDIDATE)
@@ -136,7 +142,7 @@ func (s *Server) candidatePromotion(ctx context.Context) {
 	}
 
 	// sent vote requests to all peers
-	for _, peerID := range s.raft.GetPeerIDs() {
-
-	}
+	// for _, peerID := range s.raft.GetPeerIDs() {
+	//
+	// }
 }

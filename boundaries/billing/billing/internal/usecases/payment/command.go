@@ -14,7 +14,10 @@ import (
 )
 
 func CommandPaymentCreate(ctx context.Context, in *billing.Payment) (*eventsourcing.BaseCommand, error) {
-	aggregateId := uuid.New()
+	aggregateId, err := uuid.NewV7()
+	if err != nil {
+		return nil, err
+	}
 
 	billing.NewPaymentBuilder().
 		SetId(aggregateId).

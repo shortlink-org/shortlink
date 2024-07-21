@@ -20,33 +20,36 @@ func NewAccountBuilder() *AccountBuilder {
 // SetId sets the id of the account
 func (b *AccountBuilder) SetId(id uuid.UUID) *AccountBuilder {
 	if id == uuid.Nil {
-		b.errors = errors.Join(b.errors, errors.New("invalid id: id is nil"))
+		b.errors = errors.Join(b.errors, ErrInvalidAccountId)
 		return b
 	}
 
 	b.account.id = id
+
 	return b
 }
 
 // SetUserId sets the userId of the account
 func (b *AccountBuilder) SetUserId(userId uuid.UUID) *AccountBuilder {
 	if userId == uuid.Nil {
-		b.errors = errors.Join(b.errors, errors.New("invalid userId: userId is nil"))
+		b.errors = errors.Join(b.errors, ErrInvalidAccountUserId)
 		return b
 	}
 
 	b.account.userId = userId
+
 	return b
 }
 
 // SetTariffId sets the tariffId of the account
 func (b *AccountBuilder) SetTariffId(tariffId uuid.UUID) *AccountBuilder {
 	if tariffId == uuid.Nil {
-		b.errors = errors.Join(b.errors, errors.New("invalid tariffId: tariffId is nil"))
+		b.errors = errors.Join(b.errors, ErrInvalidAccountTariffId)
 		return b
 	}
 
 	b.account.tariffId = tariffId
+
 	return b
 }
 
@@ -58,7 +61,12 @@ func (b *AccountBuilder) Build() (*Account, error) {
 
 	// Generate a new id if it is not set
 	if b.account.id == uuid.Nil {
-		b.account.id = uuid.New()
+		var err error
+
+		b.account.id, err = uuid.NewV7()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return b.account, nil

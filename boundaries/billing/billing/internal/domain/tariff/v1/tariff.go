@@ -3,14 +3,14 @@ package v1
 // Tariff is a domain model of tariff
 type Tariff struct {
 	// id of tariff
-	id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
+	id string
 	// name of tariff
-	name string `protobuf:"bytes,2,opt,name=name,proto3" json:"name,omitempty"`
+	name string
 	// payload of tariff
-	payload string `protobuf:"bytes,3,opt,name=payload,proto3" json:"payload,omitempty"`
+	payload string
 }
 
-// GetId returns the Id field value
+// GetId returns the id field value
 func (m *Tariff) GetId() string {
 	return m.id
 }

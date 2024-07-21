@@ -19,6 +19,7 @@ func (p *Payment) ApplyEventPaymentCreated(ctx context.Context, event *eventsour
 	p.name = payload.Name
 	p.status = payload.Status
 	p.userId = payload.UserId
+
 	return nil
 }
 
@@ -30,6 +31,7 @@ func (p *Payment) ApplyEventPaymentApproved(ctx context.Context, event *eventsou
 	}
 
 	p.status = payload.Status
+
 	return nil
 }
 
@@ -41,6 +43,7 @@ func (p *Payment) ApplyEventPaymentClosed(ctx context.Context, event *eventsourc
 	}
 
 	p.status = payload.Status
+
 	return nil
 }
 
@@ -52,6 +55,7 @@ func (p *Payment) ApplyEventPaymentRejected(ctx context.Context, event *eventsou
 	}
 
 	p.status = payload.Status
+
 	return nil
 }
 

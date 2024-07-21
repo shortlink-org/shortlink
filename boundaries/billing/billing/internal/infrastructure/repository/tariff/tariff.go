@@ -107,8 +107,8 @@ func (t *tariff) List(ctx context.Context, filter any) (*v1.Tariffs, error) {
 		response.List = append(response.GetList(), tariff)
 	}
 
-	if err = rows.Err(); err != nil {
-		return nil, err
+	if errRows := rows.Err(); errRows != nil {
+		return nil, errRows
 	}
 
 	return &response, nil

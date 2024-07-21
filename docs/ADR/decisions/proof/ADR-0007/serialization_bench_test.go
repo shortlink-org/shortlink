@@ -7,6 +7,7 @@ import (
 	"github.com/bytedance/sonic"
 	"github.com/google/uuid"
 	enc "github.com/segmentio/encoding/json"
+	"github.com/stretchr/testify/require"
 )
 
 var (
@@ -20,7 +21,7 @@ var (
 		Balance: 100,
 		User:    1,
 		Name:    "test",
-		Uid:     uuid.New(),
+		Uid:     mustNewV7(nil),
 		Quality: 100,
 	}
 )
@@ -62,4 +63,13 @@ func BenchmarkMarshalSonic(b *testing.B) {
 			b.Fatal(err)
 		}
 	}
+}
+
+func mustNewV7(t *testing.T) uuid.UUID {
+	id, err := uuid.NewV7()
+	if t != nil {
+		require.NoError(t, err)
+	}
+
+	return id
 }

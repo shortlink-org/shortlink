@@ -162,16 +162,19 @@ func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest)
 		}, nil
 	}
 
-	volumeID := uuid.New().String()
+	volumeID, err := uuid.NewV7()
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, "failed to create volume id: %v", err)
+	}
 
-	vol, err := createHostpathVolume(volumeID, req.GetName(), capacity, requestedAccessType)
+	vol, err := createHostpathVolume(volumeID.String(), req.GetName(), capacity, requestedAccessType)
 	if err != nil {
 		return nil, status.Errorf(codes.Internal, "failed to create volume %v: %v", volumeID, err)
 	}
 	d.log.InfoWithContext(ctx, fmt.Sprintf("created volume %s at path %s", vol.VolID, vol.VolPath))
 
 	if req.GetVolumeContentSource() != nil { //nolint:nestif
-		path := getVolumePath(volumeID)
+		path := getVolumePath(volumeID.String())
 		volumeSource := req.VolumeContentSource
 		switch volumeSource.Type.(type) {
 		case *csi.VolumeContentSource_Snapshot:
@@ -188,7 +191,7 @@ func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest)
 			err = status.Errorf(codes.InvalidArgument, "%v not a proper volume source", volumeSource)
 		}
 		if err != nil {
-			if delErr := deleteHostpathVolume(volumeID); delErr != nil {
+			if delErr := deleteHostpathVolume(volumeID.String()); delErr != nil {
 				d.log.InfoWithContext(ctx, fmt.Sprintf("deleting hostpath volume %v failed: %v", volumeID, delErr))
 			}
 
@@ -203,7 +206,7 @@ func (d *driver) CreateVolume(ctx context.Context, req *csi.CreateVolumeRequest)
 
 	return &csi.CreateVolumeResponse{
 		Volume: &csi.Volume{
-			VolumeId:           volumeID,
+			VolumeId:           volumeID.String(),
 			CapacityBytes:      req.GetCapacityRange().GetRequiredBytes(),
 			VolumeContext:      req.GetParameters(),
 			ContentSource:      req.GetVolumeContentSource(),
@@ -401,10 +404,14 @@ func (d *driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 		return nil, status.Error(codes.Internal, "volumeID is not exist")
 	}
 
-	snapshotID := uuid.New().String()
+	snapshotID, err := uuid.NewV7()
+	if err != nil {
+		return nil, status.Errorf(codes.Internal, "failed to create snapshot id: %v", err)
+	}
+
 	creationTime := timestamppb.Now()
 	volPath := hostPathVolume.VolPath
-	file := getSnapshotPath(snapshotID)
+	file := getSnapshotPath(snapshotID.String())
 
 	var cmd []string
 	if hostPathVolume.VolAccessType == blockAccess {
@@ -423,14 +430,14 @@ func (d *driver) CreateSnapshot(ctx context.Context, req *csi.CreateSnapshotRequ
 	d.log.InfoWithContext(ctx, fmt.Sprintf("create volume snapshot %s", file))
 	snapshot := hostPathSnapshot{}
 	snapshot.Name = req.GetName()
-	snapshot.Id = snapshotID
+	snapshot.Id = snapshotID.String()
 	snapshot.VolID = volumeID
 	snapshot.Path = file
 	snapshot.CreationTime = *creationTime //nolint:govet
 	snapshot.SizeBytes = hostPathVolume.VolSize
 	snapshot.ReadyToUse = true
 
-	hostPathVolumeSnapshots[snapshotID] = snapshot //nolint:govet
+	hostPathVolumeSnapshots[snapshotID.String()] = snapshot //nolint:govet
 
 	return &csi.CreateSnapshotResponse{
 		Snapshot: &csi.Snapshot{
@@ -468,7 +475,7 @@ func (d *driver) DeleteSnapshot(ctx context.Context, req *csi.DeleteSnapshotRequ
 
 // ListSnapshots returns the information about all snapshots on the storage
 // system within the given parameters regardless of how they were created.
-// ListSnapshots shold not list a snapshot that is being created but has not
+// ListSnapshots should not list a snapshot that is being created but has not
 // been cut successfully yet.
 func (d *driver) ListSnapshots(ctx context.Context, req *csi.ListSnapshotsRequest) (*csi.ListSnapshotsResponse, error) {
 	if err := d.validateControllerServiceRequest(csi.ControllerServiceCapability_RPC_LIST_SNAPSHOTS); err != nil {
