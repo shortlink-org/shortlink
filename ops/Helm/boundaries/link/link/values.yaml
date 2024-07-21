@@ -43,10 +43,9 @@ deploy:
   # type: Deployment, Rollout, StatefulSet
   type: Deployment
 
-  annotations:
-    instrumentation.opentelemetry.io/inject-go: 'true'
-    sidecar.opentelemetry.io/inject: 'sidecar'
-    instrumentation.opentelemetry.io/otel-go-auto-target-exe: '/app'
+  image:
+    repository: registry.gitlab.com/shortlink-org/shortlink/link
+    tag: 0.17.111
 
   resources:
     # -- We usually recommend not to specify default resources and to leave this as a conscious
@@ -78,10 +77,6 @@ deploy:
       secretKeyRef:
         name: shortlink-postgres-pguser-link
         key: uri
-
-  image:
-    repository: registry.gitlab.com/shortlink-org/shortlink/link
-    tag: 0.17.111
 
   # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
   livenessProbe:
