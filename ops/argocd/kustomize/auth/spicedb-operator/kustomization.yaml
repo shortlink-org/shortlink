@@ -8,7 +8,7 @@ resources:
   - spicedb/postgres-operator.yaml
 images:
   - name: ghcr.io/authzed/spicedb-operator
-    newTag: v1.15.0
+    newTag: v1.16.1
 patchesStrategicMerge:
   - |-
     apiVersion: v1
