@@ -2,7 +2,7 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: spicedb-operator
 resources:
-  - https://github.com/authzed/spicedb-operator/config?ref=v1.15.0
+  - https://github.com/authzed/spicedb-operator/config?ref=v1.16.1
   - spicedb/secret.yaml
   - spicedb/spiceDBCluster.yaml
   - spicedb/postgres-operator.yaml
