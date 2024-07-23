@@ -85,8 +85,8 @@ importers:
         specifier: 19.5.2
         version: 19.5.2
       '@testing-library/jest-dom':
-        specifier: ^6.4.7
-        version: 6.4.7(@jest/globals@29.7.0)(@types/jest@29.5.12)(jest@29.7.0(@types/node@20.14.11)(ts-node@10.9.2(@types/node@20.14.11)(typescript@5.5.4)))
+        specifier: ^6.4.8
+        version: 6.4.8
       '@testing-library/jest-native':
         specifier: 5.4.3
         version: 5.4.3(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(react-test-renderer@18.3.1(react@18.3.1))(react@18.3.1)
@@ -1827,26 +1827,9 @@ packages:
     resolution: {integrity: sha512-LnhVjMWyMQV9ZmeEy26maJk+8HTIbd59cH4F2MJ439k9DqejRisfFNGAPvRYlKETuh9LrImlS8aKsBgKjMA8WA==}
     engines: {node: '>=14'}
 
-  '@testing-library/jest-dom@6.4.7':
-    resolution: {integrity: sha512-GaKJ0nijoNf30dWSOOzQEBkWBRk4rG3C/efw8zKrimNuZpnS/6/AEwo0WvZHgJxG84cNCgxt+mtbe1fsvfLp2A==}
+  '@testing-library/jest-dom@6.4.8':
+    resolution: {integrity: sha512-JD0G+Zc38f5MBHA4NgxQMR5XtO5Jx9g86jqturNTt2WUfRmLDIY7iKkWHDCCTiDuFMre6nxAD5wHw9W5kI4rGw==}
     engines: {node: '>=14', npm: '>=6', yarn: '>=1'}
-    peerDependencies:
-      '@jest/globals': '>= 28'
-      '@types/bun': latest
-      '@types/jest': '>= 28'
-      jest: '>= 28'
-      vitest: '>= 0.32'
-    peerDependenciesMeta:
-      '@jest/globals':
-        optional: true
-      '@types/bun':
-        optional: true
-      '@types/jest':
-        optional: true
-      jest:
-        optional: true
-      vitest:
-        optional: true
 
   '@testing-library/jest-native@5.4.3':
     resolution: {integrity: sha512-/sSDGaOuE+PJ1Z9Kp4u7PQScSVVXGud59I/qsBFFJvIbcn4P6yYw6cBnBmbPF+X9aRIsTJRDl6gzw5ZkJNm66w==}
@@ -9942,6 +9925,21 @@ snapshots:
       - typescript
       - verdaccio
 
+  '@nrwl/js@19.5.2(@babel/traverse@7.24.1)(@types/node@20.14.11)(nx@19.5.2)(typescript@5.4.5)':
+    dependencies:
+      '@nx/js': 19.5.2(@babel/traverse@7.24.1)(@types/node@20.14.11)(nx@19.5.2)(typescript@5.4.5)
+    transitivePeerDependencies:
+      - '@babel/traverse'
+      - '@swc-node/register'
+      - '@swc/core'
+      - '@swc/wasm'
+      - '@types/node'
+      - debug
+      - nx
+      - supports-color
+      - typescript
+      - verdaccio
+
   '@nrwl/js@19.5.2(@babel/traverse@7.24.1)(@types/node@20.14.11)(nx@19.5.2)(typescript@5.5.4)':
     dependencies:
       '@nx/js': 19.5.2(@babel/traverse@7.24.1)(@types/node@20.14.11)(nx@19.5.2)(typescript@5.5.4)
@@ -10237,7 +10235,7 @@ snapshots:
       '@babel/preset-env': 7.24.3(@babel/core@7.24.3)
       '@babel/preset-typescript': 7.23.3(@babel/core@7.24.3)
       '@babel/runtime': 7.24.0
-      '@nrwl/js': 19.5.2(@babel/traverse@7.24.1)(@types/node@20.14.11)(nx@19.5.2)(typescript@5.5.4)
+      '@nrwl/js': 19.5.2(@babel/traverse@7.24.1)(@types/node@20.14.11)(nx@19.5.2)(typescript@5.4.5)
       '@nx/devkit': 19.5.2(nx@19.5.2)
       '@nx/workspace': 19.5.2
       babel-plugin-const-enum: 1.2.0(@babel/core@7.24.3)
@@ -11054,7 +11052,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@testing-library/jest-dom@6.4.7(@jest/globals@29.7.0)(@types/jest@29.5.12)(jest@29.7.0(@types/node@20.14.11)(ts-node@10.9.2(@types/node@20.14.11)(typescript@5.5.4)))':
+  '@testing-library/jest-dom@6.4.8':
     dependencies:
       '@adobe/css-tools': 4.4.0
       '@babel/runtime': 7.24.0
@@ -11064,10 +11062,6 @@ snapshots:
       dom-accessibility-api: 0.6.3
       lodash: 4.17.21
       redent: 3.0.0
-    optionalDependencies:
-      '@jest/globals': 29.7.0
-      '@types/jest': 29.5.12
-      jest: 29.7.0(@types/node@20.14.11)(ts-node@10.9.2(@types/node@20.14.11)(typescript@5.5.4))
 
   '@testing-library/jest-native@5.4.3(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(react-test-renderer@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
