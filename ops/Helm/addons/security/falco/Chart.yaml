@@ -21,7 +21,7 @@ dependencies:
     tags:
       - security
   - name: falco-exporter
-    version: 0.12.0
+    version: 0.12.1
     repository: https://falcosecurity.github.io/charts
     condition: falco-exporter.enabled
     tags:
