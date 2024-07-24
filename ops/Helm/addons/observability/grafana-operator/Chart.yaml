@@ -15,7 +15,7 @@ type: application
 deprecated: false
 dependencies:
   - name: grafana-operator
-    version: 5.9.0
+    version: 5.10.0
     repository: oci://ghcr.io/grafana/helm-charts/grafana-operator
     condition: grafana-operator.enabled
     tags:
