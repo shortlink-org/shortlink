@@ -2,7 +2,7 @@ apiVersion: v2
 appVersion: "1.0.0"
 name: spark-operator
 description: Spark Operator Helm chart
-version: 0.1.0
+version: 0.2.0
 kubeVersion: ">= 1.29.0 || >= v1.29.0-0"
 keywords:
   - spark
@@ -20,6 +20,6 @@ type: application
 deprecated: false
 dependencies:
   - name: spark-operator
-    version: 1.1.27
-    repository: https://googlecloudplatform.github.io/spark-on-k8s-operator
+    version: 1.4.5
+    repository: https://kubeflow.github.io/spark-operator
     condition: spark-operator.enabled
