@@ -11,7 +11,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: neo4j:5.21.2
+    image: neo4j:5.22.0
     restart: on-failure
     hostname: neo4j
     container_name: neo4j
