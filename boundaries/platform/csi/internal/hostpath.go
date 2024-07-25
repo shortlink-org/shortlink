@@ -24,7 +24,6 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/container-storage-interface/spec/lib/go/csi"
 	"github.com/golang/glog"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/grpc"
@@ -166,9 +165,10 @@ func (d *driver) Run(ctx context.Context) error {
 	d.ids = NewIdentityServer(d.name, d.log)
 	d.ns = NewNodeServer(d.nodeID, d.maxVolumesPerNode)
 	d.cs = NewControllerServer(d.nodeID)
-	csi.RegisterIdentityServer(d.srv, d)
-	csi.RegisterControllerServer(d.srv, d)
-	csi.RegisterNodeServer(d.srv, d)
+	// TODO: implement the identity server
+	// csi.RegisterIdentityServer(d.srv, d)
+	// csi.RegisterControllerServer(d.srv, d)
+	// csi.RegisterNodeServer(d.srv, d)
 
 	discoverExistingSnapshots()
 
