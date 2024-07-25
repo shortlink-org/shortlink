@@ -1,4 +1,3 @@
-import * as React from 'react'
 import { ChevronRightIcon } from '@heroicons/react/24/outline'
 
 export function GithubRepository({

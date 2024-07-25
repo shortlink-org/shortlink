@@ -8,7 +8,6 @@ import {
   MRT_ToggleFullScreenButton,
   MRT_ShowHideColumnsButton,
   MRT_ToggleFiltersButton,
-  type MaterialReactTable as MaterialReactTableProps,
   type MRT_Row,
 } from 'material-react-table'
 import React, { useState, useCallback } from 'react'

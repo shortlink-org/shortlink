@@ -9,6 +9,7 @@ const meta: Meta<typeof Spotlight> = {
 
 export default meta
 
+// @ts-ignore
 function Template(args: any) {
   return (
     <Spotlight className="max-w-sm mx-auto grid gap-6 lg:grid-cols-3 items-start lg:max-w-none group">

@@ -1,27 +1,11 @@
 {
-  "compilerOptions": {
-    "target": "esnext",
-    "lib": ["dom", "dom.iterable", "esnext"],
-    "allowJs": true,
-    "skipLibCheck": true,
-    "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true,
-    "module": "ESNext",
-    "declaration": true, // add and output type defs file in the dist folder
-    "declarationDir": "types",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "strict": true,
-    "rootDir": "./src",
-    "jsx": "react-jsx",
-    "moduleResolution": "node",
-    "emitDeclarationOnly": true,
-    "noImplicitReturns": true,
-    "noImplicitThis": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "allowSyntheticDefaultImports": true
-  },
-  "include": ["src/**/*", "*.ts", "typings.d.ts"],
-  "exclude": ["dist", "node_modules", "src/**/*.test.tsx"]
+  "files": [],
+  "references": [
+    {
+      "path": "./tsconfig.app.json"
+    },
+    {
+      "path": "./tsconfig.node.json"
+    }
+  ]
 }

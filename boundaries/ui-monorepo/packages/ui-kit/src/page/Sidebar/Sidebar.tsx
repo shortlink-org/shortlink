@@ -1,5 +1,3 @@
-import * as React from 'react'
-
 // Importing icons
 import AddLinkIcon from '@mui/icons-material/AddLink'
 import SettingsIcon from '@mui/icons-material/Settings'

@@ -1,7 +1,7 @@
-import * as React from 'react'
+import React from 'react'
 import Collapse from '@mui/material/Collapse'
-import Tooltip from '@mui/material/Tooltip'
 
+import Tooltip from '@mui/material/Tooltip'
 import ExpandLessIcon from '@mui/icons-material/ExpandLess'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore'
 

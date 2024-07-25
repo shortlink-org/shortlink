@@ -6,7 +6,6 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 // @ts-ignore
 import { ToggleDarkMode } from '@shortlink-org/ui-kit'
 import React, { useState } from 'react'
-import '@shortlink-org/ui-kit/dist/cjs/index.css'
 
 import TabContent from '../TabContent'
 import TabPanel from '../TabPanel'

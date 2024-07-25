@@ -1,4 +1,3 @@
-import * as React from 'react'
 import Balancer from 'react-wrap-balancer'
 
 type AppProps = {

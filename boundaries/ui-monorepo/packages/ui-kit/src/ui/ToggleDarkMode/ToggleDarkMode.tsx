@@ -2,20 +2,17 @@ import { useTheme } from 'next-themes'
 import React, { useEffect } from 'react'
 import { useColorScheme } from '@mui/material/styles'
 
-// @ts-ignore
 import './styles.css'
 
 type ToggleDarkModeProps = {
   id: string
-  onChange?: (theme: string) => void
 }
 
 export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({
   id,
-  onChange,
 }) => {
   const { mode, setMode } = useColorScheme()
-  const { setTheme, resolvedTheme } = useTheme()
+  const { setTheme } = useTheme()
   const [mounted, setMounted] = React.useState(false)
 
   useEffect(() => {

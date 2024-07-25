@@ -1,5 +1,4 @@
 import { Meta } from '@storybook/react'
-import React from 'react'
 import { formatRelative } from 'date-fns'
 import { ContentCopy } from '@mui/icons-material'
 
