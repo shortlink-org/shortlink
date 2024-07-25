@@ -21,6 +21,9 @@ npm:
         echo "//${CI_SERVER_HOST}/api/v4/projects/${CI_PROJECT_ID}/packages/npm/:_authToken=${CI_JOB_TOKEN}"
         echo "@${CI_PROJECT_ROOT_NAMESPACE}/shortlink=${CI_API_V4_URL}/projects/${CI_PROJECT_ID}/packages/npm/"
       } | tee -a ~/.npmrc
+    # Enable pnpm
+    - corepack enable pnpm
+    - corepack use pnpm@latest
   script:
     - cd $PACKAGE_PATH
     # TODO: add `--provenance` flag
