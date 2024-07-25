@@ -3126,13 +3126,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-github-actions@npm:^0.6.17":
-  version: 0.6.17
-  resolution: "@backstage-community/plugin-github-actions@npm:0.6.17"
+"@backstage-community/plugin-github-actions@npm:^0.6.18":
+  version: 0.6.18
+  resolution: "@backstage-community/plugin-github-actions@npm:0.6.18"
   dependencies:
     "@backstage/catalog-model": "npm:^1.5.0"
+    "@backstage/core-compat-api": "npm:^0.2.7"
     "@backstage/core-components": "npm:^0.14.9"
     "@backstage/core-plugin-api": "npm:^1.9.3"
+    "@backstage/frontend-plugin-api": "npm:^0.6.7"
     "@backstage/integration": "npm:^1.13.0"
     "@backstage/integration-react": "npm:^1.1.29"
     "@backstage/plugin-catalog-react": "npm:^1.12.2"
@@ -3148,7 +3150,7 @@ __metadata:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
-  checksum: 10c0/1b6b85668aaaa323df4325863aedbbfc860235fe81edaf51d6e2c002a80b138841555d6b3a46c70b8bda9dbc992005c527049c20995ac9cf383cbf56be775679
+  checksum: 10c0/34ec665c5f80380ad312d6befad391968018e2ae81320c6f265bc0b25b3f6369126b908a2fc03958d5fd9fae1757e4fcd66d8e065cbeeb76e0555535882ebe0d
   languageName: node
   linkType: hard
 
@@ -15654,7 +15656,7 @@ __metadata:
     "@axis-backstage/plugin-readme": "npm:^0.9.0"
     "@axis-backstage/plugin-readme-backend": "npm:^0.8.0"
     "@backstage-community/plugin-adr": "npm:^0.6.22"
-    "@backstage-community/plugin-github-actions": "npm:^0.6.17"
+    "@backstage-community/plugin-github-actions": "npm:^0.6.18"
     "@backstage-community/plugin-lighthouse": "npm:^0.4.21"
     "@backstage-community/plugin-tech-radar": "npm:^0.7.5"
     "@backstage-community/plugin-todo": "npm:^0.2.40"
