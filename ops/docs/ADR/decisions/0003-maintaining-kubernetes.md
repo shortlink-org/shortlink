@@ -29,18 +29,39 @@ This approach ensures efficient management of Kubernetes applications.
 
 ### Hardware Configuration
 
-```mermaid
-graph TD
-    A(Admin) -- Interacts with --> B(Kubernetes)
-    subgraph Cluster
-        B -- Runs on --> C[Node 1]
-        B -- Runs on --> D[Node 2]
-        C -. Private Network .- D
-    end
-    style A fill:#58c0f0,stroke:#333,stroke-width:2px
-    style B fill:#4caf50,stroke:#333,stroke-width:2px
-    style C fill:#f9a825,stroke:#333,stroke-width:2px
-    style D fill:#f9a825,stroke:#333,stroke-width:2px
+```puml
+@startuml k8s_nodes
+
+' Define KubernetesPuml for URL inclusion
+!define KubernetesPuml https://raw.githubusercontent.com/dcasati/kubernetes-PlantUML/master/dist
+
+' Include common Kubernetes components
+!includeurl KubernetesPuml/kubernetes_Common.puml
+!includeurl KubernetesPuml/kubernetes_Context.puml
+
+' Include specific components for nodes
+!includeurl KubernetesPuml/OSS/KubernetesNode.puml
+
+' Include C4 model
+!includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+skinparam backgroundColor #FEFEFE
+skinparam handwritten false
+
+left to right direction
+
+' Define C4 Context
+LAYOUT_TOP_DOWN()
+
+System_Boundary(k8s_cluster, "K8s Cluster") {
+    ' Define Nodes
+    KubernetesNode(talos_bxi_ihe, "talos-bxi-ihe\nStatus: Ready\nRoles: <none>\nAge: 78d\nVersion: v1.30.3", "#ffcccc")
+    KubernetesNode(talos_coj_emd, "talos-coj-emd\nStatus: Ready\nRoles: <none>\nAge: 78d\nVersion: v1.30.3", "#ccffcc")
+    KubernetesNode(talos_dks_th8, "talos-dks-th8\nStatus: Ready\nRoles: <none>\nAge: 78d\nVersion: v1.30.3", "#ccccff")
+    KubernetesNode(talos_t8v_b87, "talos-t8v-b87\nStatus: Ready\nRoles: control-plane\nAge: 78d\nVersion: v1.30.3", "#ffffcc")
+}
+
+@enduml
 ```
 
 ### CI/CD
