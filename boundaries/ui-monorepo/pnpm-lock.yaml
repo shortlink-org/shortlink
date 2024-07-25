@@ -116,9 +116,6 @@ importers:
       nx:
         specifier: 19.5.3
         version: 19.5.3(@swc/core@1.7.2(@swc/helpers@0.5.12))
-      nx-cloud:
-        specifier: 19.0.0
-        version: 19.0.0
       postcss-preset-env:
         specifier: ^9.6.0
         version: 9.6.0(postcss@8.4.40)
@@ -2831,9 +2828,6 @@ packages:
 
   '@nrwl/next@19.5.3':
     resolution: {integrity: sha512-bQo18Ol0PTMl0vAAsVO52k0KWq1VmzKW39FAED/yB0QPSVolB6EgbSGEhCHLrKRlLwF5mbui14Wfv2CkbHuBow==}
-
-  '@nrwl/nx-cloud@19.0.0':
-    resolution: {integrity: sha512-3WuXq3KKXwKnbjOkYK0OXosjD02LIjC3kEkyMIbaE36O9dMp3k/sa4ZtDVC3tAoIrj17VLVmjKfoDYbED1rapw==}
 
   '@nrwl/react@19.5.3':
     resolution: {integrity: sha512-MmvXlZlsFOzzqCrNqnuLgS53JRB4UBw35nawghxRmcoeACiibql+AbHG3pZ+6GaWZLUF7a7vqBwxaXPXDRm44g==}
@@ -5876,10 +5870,6 @@ packages:
     resolution: {integrity: sha512-8NHi73otpWsZGBSZwwknTXS5pqMOrk9+Ssrna8xCaxkzEpU9OTf9R5ArQGVw03//Zmk9MOwLPng9WwndvpAJ5g==}
     engines: {node: '>=12'}
 
-  dotenv@10.0.0:
-    resolution: {integrity: sha512-rlBi9d8jpv9Sf1klPjNfFAuWDjKLwTIJJ/VxtoTwIR6hnZxcEOQCZg2oIL3MWBYw5GpUDKOEnND7LXTbIpQ03Q==}
-    engines: {node: '>=10'}
-
   dotenv@16.4.5:
     resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
     engines: {node: '>=12'}
@@ -8274,10 +8264,6 @@ packages:
 
   nth-check@2.1.1:
     resolution: {integrity: sha512-lqjrjmaOoAnWfMmBPL+XNnynZh2+swxiX3WUE0s4yEHI6m+AwrK2UZOimIRl3X/4QctVqS8AiZjFqyOGrMXb/w==}
-
-  nx-cloud@19.0.0:
-    resolution: {integrity: sha512-Aq1vQD8yBIdb5jLVpzsqmu8yDmMvRVdjaM30Pp1hghhlSvorGBlpTwY+TccZJv/hBtVO+SpXK8SnnegRZMrxdw==}
-    hasBin: true
 
   nx@19.5.3:
     resolution: {integrity: sha512-ZUrnRwPdRWXeo8IuLj16Oo9IfiDjd8C6xKWC4F6wcTNZ9ZS7ZErrfqaQr04zdO89ASF9brbkqm0UkMyDPc6kPQ==}
@@ -14044,12 +14030,6 @@ snapshots:
       - webpack
       - webpack-cli
 
-  '@nrwl/nx-cloud@19.0.0':
-    dependencies:
-      nx-cloud: 19.0.0
-    transitivePeerDependencies:
-      - debug
-
   '@nrwl/react@19.5.3(@babel/traverse@7.24.8)(@swc/core@1.7.2(@swc/helpers@0.5.12))(@types/node@20.14.12)(@zkochan/js-yaml@0.0.7)(eslint@9.7.0)(nx@19.5.3(@swc/core@1.7.2(@swc/helpers@0.5.12)))(typescript@5.5.4)(vue-tsc@2.0.19(typescript@5.5.4))(webpack@5.93.0(@swc/core@1.7.2(@swc/helpers@0.5.12)))':
     dependencies:
       '@nx/react': 19.5.3(@babel/traverse@7.24.8)(@swc/core@1.7.2(@swc/helpers@0.5.12))(@types/node@20.14.12)(@zkochan/js-yaml@0.0.7)(eslint@9.7.0)(nx@19.5.3(@swc/core@1.7.2(@swc/helpers@0.5.12)))(typescript@5.5.4)(vue-tsc@2.0.19(typescript@5.5.4))(webpack@5.93.0(@swc/core@1.7.2(@swc/helpers@0.5.12)))
@@ -18016,8 +17996,6 @@ snapshots:
     dependencies:
       dotenv: 16.4.5
 
-  dotenv@10.0.0: {}
-
   dotenv@16.4.5: {}
 
   duplexer2@0.1.4:
@@ -21186,21 +21164,6 @@ snapshots:
   nth-check@2.1.1:
     dependencies:
       boolbase: 1.0.0
-
-  nx-cloud@19.0.0:
-    dependencies:
-      '@nrwl/nx-cloud': 19.0.0
-      axios: 1.7.2
-      chalk: 4.1.2
-      dotenv: 10.0.0
-      fs-extra: 11.2.0
-      node-machine-id: 1.1.12
-      open: 8.4.2
-      strip-json-comments: 3.1.1
-      tar: 6.2.1
-      yargs-parser: 21.1.1
-    transitivePeerDependencies:
-      - debug
 
   nx@19.5.3(@swc/core@1.7.2(@swc/helpers@0.5.12)):
     dependencies:
