@@ -16,6 +16,8 @@ Accepted
 
 ![gitlab-codeowner](images/ADR-0006/codeowner.png)
 
+- [Best practices to set up organizational hierarchies that scale](https://about.gitlab.com/blog/2024/07/22/best-practices-to-set-up-organizational-hierarchies-that-scale/)
+
 ### Structure
 
 ```
