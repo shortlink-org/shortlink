@@ -40,7 +40,7 @@ deploy:
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/referral
-    tag: 0.17.111
+    tag: 0.18.1
     # -- Global imagePullPolicy
     # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
     # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
