@@ -292,6 +292,8 @@ argo-cd:
     cm:
       url: https://argo.shortlink.best
 
+      timeout.reconciliation: 5m
+
       statusbadge.enabled: true
 
       controller.diff.server.side: "true"
