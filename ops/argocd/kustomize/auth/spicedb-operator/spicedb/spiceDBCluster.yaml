@@ -20,7 +20,7 @@ spec:
             spec:
               containers:
                 - name: spicedb
-                  image: 'ghcr.io/authzed/spicedb:v1.28.0'
+                  image: 'ghcr.io/authzed/spicedb:v1.34.0'
                   resources:
                     requests:
                       memory: "128Mi"
