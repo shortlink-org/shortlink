@@ -7,11 +7,11 @@ tempo:
   tempo:
     reportingEnabled: false
 
-    global_overrides:
-      metrics_generator:
-        processor:
-          service_graphs:
-            enable_virtual_node_label: true
+    # global_overrides:
+    #   metrics_generator:
+    #     processor:
+    #       service_graphs:
+    #         enable_virtual_node_label: true
 
     resources:
       limits:
