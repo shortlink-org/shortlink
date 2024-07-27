@@ -3,43 +3,57 @@
 allure-pytest==2.13.5 \
     --hash=sha256:0ef8e1790c44a988db6b83c4d4f5e91451e2c4c8ea10601dfa88528d23afcf6e \
     --hash=sha256:94130bac32964b78058e62cf4b815ad97a5ac82a065e6dd2d43abac2be7640fc
+    # via referral (pyproject.toml)
 dependency-injector @ git+https://github.com/shortlink-org/python-dependency-injector@6aae04eae3fd6ab5bf7a6b24627534a937ca184e
+    # via referral (pyproject.toml)
 httpx==0.27.0 \
     --hash=sha256:71d5465162c13681bff01ad59b2cc68dd838ea1f10e51574bac27103f00c91a5 \
     --hash=sha256:a0cb88a46f32dc874e04ee956e4c2764aba2aa228f650b06788ba6bda2962ab5
-Hypercorn==0.17.3 \
+    # via referral (pyproject.toml)
+hypercorn==0.17.3 \
     --hash=sha256:059215dec34537f9d40a69258d323f56344805efb462959e727152b0aa504547 \
     --hash=sha256:1b37802ee3ac52d2d85270700d565787ab16cf19e1462ccfa9f089ca17574165
+    # via referral (pyproject.toml)
 loguru==0.7.2 \
     --hash=sha256:003d71e3d3ed35f0f8984898359d65b79e5b21943f78af86aa5491210429b8eb \
     --hash=sha256:e671a53522515f34fd406340ee968cb9ecafbc4b36c679da03c18fd8d0bd51ac
+    # via referral (pyproject.toml)
 opentelemetry-api==1.26.0 \
     --hash=sha256:2bd639e4bed5b18486fef0b5a520aaffde5a18fc225e808a1ac4df363f43a1ce \
     --hash=sha256:7d7ea33adf2ceda2dd680b18b1677e4152000b37ca76e679da71ff103b943064
+    # via referral (pyproject.toml)
 opentelemetry-exporter-otlp==1.26.0 \
     --hash=sha256:cf0e093f080011951d9f97431a83869761e4d4ebe83a4195ee92d7806223299c \
     --hash=sha256:f839989f54bda85ee33c5dae033c44dcec9ccbb0dafc6a43d585df44da1d2036
+    # via referral (pyproject.toml)
 opentelemetry-exporter-otlp-proto-common==1.26.0 \
     --hash=sha256:bdbe50e2e22a1c71acaa0c8ba6efaadd58882e5a5978737a44a4c4b10d304c92 \
     --hash=sha256:ee4d8f8891a1b9c372abf8d109409e5b81947cf66423fd998e56880057afbc71
+    # via referral (pyproject.toml)
 opentelemetry-exporter-otlp-proto-grpc==1.26.0 \
     --hash=sha256:a65b67a9a6b06ba1ec406114568e21afe88c1cdb29c464f2507d529eb906d8ae \
     --hash=sha256:e2be5eff72ebcb010675b818e8d7c2e7d61ec451755b8de67a140bc49b9b0280
+    # via referral (pyproject.toml)
 opentelemetry-exporter-otlp-proto-http==1.26.0 \
     --hash=sha256:5801ebbcf7b527377883e6cbbdda35ee712dc55114fff1e93dfee210be56c908 \
     --hash=sha256:ee72a87c48ec977421b02f16c52ea8d884122470e0be573905237b540f4ee562
-opentelemetry-exporter-prometheus==0.45b0 \
-    --hash=sha256:09461de02c7043285f818b12962de75c77d662555d05732f02d5acf8aaa6a92d \
-    --hash=sha256:101b0e00258d5c1cf6fa15e3920da8b9158bb303b333da0027cb52e6a8c425bd
-opentelemetry-instrumentation-redis==0.45b0 \
-    --hash=sha256:44500fb0e767d219d3453af9804111f46d11127b603ff67d7eda9945f766d8ca \
-    --hash=sha256:a506772c5afe15b23cb6b7c1c5c67861111b71fce81c85a452f0bc66a319c648
-opentelemetry-instrumentation-sqlalchemy==0.45b0 \
-    --hash=sha256:1141865207ea5d8314a1e44033a24f8921027470b296386a535dd50a2eb73aec \
-    --hash=sha256:4cea41d92cabb16a0d02755049ceefa9381165226d4be77d73301fbd0e9aa73f
+    # via referral (pyproject.toml)
+opentelemetry-exporter-prometheus==0.47b0 \
+    --hash=sha256:03e8ebccdaeae3a7dad9909d1203dfce5d6c3311ff715911156ed61d9928ab44 \
+    --hash=sha256:d65d73da0689f5ec4da9951b209f04ecc8596864daf9b7422bac0d7dc3cb7b76
+    # via referral (pyproject.toml)
+opentelemetry-instrumentation-redis==0.47b0 \
+    --hash=sha256:15886c725c7e3b6f706964bd72dbfcbefeeeaa1254e98f662516cfed453aaebe \
+    --hash=sha256:169de5154cc37ccf402dd43ac06a47f7f883abba7c0a8f99b2731164ec4f1132
+    # via referral (pyproject.toml)
+opentelemetry-instrumentation-sqlalchemy==0.47b0 \
+    --hash=sha256:997b2c4a624ebcba45b9bda27882622d0ab3028d66a5fb50cdcf3581af04b3d1 \
+    --hash=sha256:bbeab06fc421ddae16bb69ca287abb81a131d3dff97de60b02c092887794103d
+    # via referral (pyproject.toml)
 opentelemetry-sdk==1.26.0 \
     --hash=sha256:c90d2868f8805619535c05562d699e2f4fb1f00dbd55a86dcefca4da6fa02f85 \
     --hash=sha256:feb5056a84a88670c041ea0ded9921fca559efec03905dddeb3885525e0af897
+    # via referral (pyproject.toml)
 protobuf==5.27.2 \
     --hash=sha256:0e341109c609749d501986b835f667c6e1e24531096cff9d34ae411595e26505 \
     --hash=sha256:176c12b1f1c880bf7a76d9f7c75822b6a2bc3db2d28baa4d300e8ce4cde7409b \
@@ -52,32 +66,41 @@ protobuf==5.27.2 \
     --hash=sha256:a109916aaac42bff84702fb5187f3edadbc7c97fc2c99c5ff81dd15dcce0d1e5 \
     --hash=sha256:b848dbe1d57ed7c191dfc4ea64b8b004a3f9ece4bf4d0d80a367b76df20bf36e \
     --hash=sha256:f3ecdef226b9af856075f28227ff2c90ce3a594d092c39bee5513573f25e2714
+    # via referral (pyproject.toml)
 pyroscope-io==0.8.7 \
     --hash=sha256:33897f08168d808848ff821af5e919b7af5503083ad26c293c9577ad79c373c8 \
     --hash=sha256:7b6ad0fc538fbdf5bb8849ee70bd731631a5fea7df40ab4ba860e2c369bf1720 \
     --hash=sha256:8eac84e2e34f84a9ad4c369c573b1c463ccb77eacd4b1907ea695d100fe76bc5 \
     --hash=sha256:a6535c8b07e6f1ad0fc2337a30ae263749b4e9a889266d9329615dfb400ee372
+    # via referral (pyproject.toml)
 pytest==8.3.2 \
     --hash=sha256:4ba08f9ae7dcf84ded419494d229b48d0903ea6407b030eaec46df5e6a73bba5 \
     --hash=sha256:c132345d12ce551242c87269de812483f5bcc87cdbb4722e48487ba194f9fdce
+    # via referral (pyproject.toml)
 pytest-asyncio==0.23.8 \
     --hash=sha256:50265d892689a5faefb84df80819d1ecef566eb3549cf915dfb33569359d1ce2 \
     --hash=sha256:759b10b33a6dc61cce40a8bd5205e302978bbbcc00e279a8b61d9a6a3c82e4d3
+    # via referral (pyproject.toml)
 pytest-cov==5.0.0 \
     --hash=sha256:4f0764a1219df53214206bf1feea4633c3b558a2925c8b59f144f682861ce652 \
     --hash=sha256:5837b58e9f6ebd335b0f8060eecce69b662415b16dc503883a02f45dfeb14857
+    # via referral (pyproject.toml)
 pytest-factoryboy==2.7.0 \
     --hash=sha256:67fc54ec8669a3feb8ac60094dd57cd71eb0b20b2c319d2957873674c776a77b \
     --hash=sha256:bf3222db22d954fbf46f4bff902a0a8d82f3fc3594a47c04bbdc0546ff4c59a6
+    # via referral (pyproject.toml)
 python-dotenv==1.0.1 \
     --hash=sha256:e324ee90a023d808f1959c46bcbc04446a10ced277783dc6ee09987c37ec10ca \
     --hash=sha256:f7b63ef50f1b690dddf550d03497b66d609393b40b564ed0d674909a68ebf16a
-Quart==0.19.6 \
+    # via referral (pyproject.toml)
+quart==0.19.6 \
     --hash=sha256:89ddda6da24300a5ea4f21e4582d5e89bc8ea678e724e0b747767143401e4558 \
     --hash=sha256:f9092310f4eb120903da692a5e4354f05d48c28ca7ec3054d3d94dd862412c58
+    # via referral (pyproject.toml)
 redis==5.0.7 \
     --hash=sha256:0e479e24da960c690be5d9b96d21f7b918a98c0cf49af3b6fafaa0753f93a0db \
     --hash=sha256:8f611490b93c8109b50adc317b31bfd84fff31def3475b92e7e80bf39f48175b
+    # via referral (pyproject.toml)
 ruff==0.5.5 \
     --hash=sha256:00817603822a3e42b80f7c3298c8269e09f889ee94640cd1fc7f9329788d7bf8 \
     --hash=sha256:187a60f555e9f865a2ff2c6984b9afeffa7158ba6e1eab56cb830404c942b0f3 \
@@ -97,6 +120,7 @@ ruff==0.5.5 \
     --hash=sha256:d40a8533ed545390ef8315b8e25c4bb85739b90bd0f3fe1280a29ae364cc55d8 \
     --hash=sha256:f70737c157d7edf749bcb952d13854e8f745cec695a01bdc6e29c29c288fc36e \
     --hash=sha256:fe26fc46fa8c6e0ae3f47ddccfbb136253c831c3289bba044befe68f467bfb16
+    # via referral (pyproject.toml)
 scalene==1.5.43.2 \
     --hash=sha256:0467b089b7dda75f5438126781e15d7e93c8b66d144f6d5663e9ed1d5f560eed \
     --hash=sha256:09258efea3c7b6358ef2c42807c2950361f4d60511a2d6265283bd8847a5e19d \
@@ -118,10 +142,12 @@ scalene==1.5.43.2 \
     --hash=sha256:e3d7c52654110a07ab19d6f669ececa9802107555ca7ec4555f2d8768b25a9c5 \
     --hash=sha256:efb759a7395a1faf89d854c2e839ada59950c615dbea1f7e066a03730a964482 \
     --hash=sha256:fc6e9cffca7a0bf2d8512a31de9e97cbfd7f4090a5792b0dd8137a0ce263d1ec
+    # via referral (pyproject.toml)
 setuptools==71.1.0 \
     --hash=sha256:032d42ee9fb536e33087fb66cac5f840eb9391ed05637b3f2a76a7c8fb477936 \
     --hash=sha256:33874fdc59b3188304b2e7c80d9029097ea31627180896fb549c578ceb8a0855
-SQLAlchemy==2.0.31 \
+    # via referral (pyproject.toml)
+sqlalchemy==2.0.31 \
     --hash=sha256:0b0f658414ee4e4b8cbcd4a9bb0fd743c5eeb81fc858ca517217a8013d282c96 \
     --hash=sha256:2196208432deebdfe3b22185d46b08f00ac9d7b01284e168c212919891289396 \
     --hash=sha256:23b9fbb2f5dd9e630db70fbe47d963c7779e9c81830869bd7d137c2dc1ad05fb \
@@ -171,12 +197,16 @@ SQLAlchemy==2.0.31 \
     --hash=sha256:f68470edd70c3ac3b6cd5c2a22a8daf18415203ca1b036aaeb9b0fb6f54e8298 \
     --hash=sha256:fa4b1af3e619b5b0b435e333f3967612db06351217c58bfb50cee5f003db2a5a \
     --hash=sha256:fc6b14e8602f59c6ba893980bea96571dd0ed83d8ebb9c4479d9ed5425d562e9
+    # via referral (pyproject.toml)
 testcontainers==4.7.2 \
     --hash=sha256:23b13cf8078f615a08c75197f227796d90c46df92d2b282ae7c39b1fc1a9c9ed \
     --hash=sha256:9976b1cdcdeb9feeae6a477073e7c8b02cd40ea44f1daa34b5da6d2c918dff0d
+    # via referral (pyproject.toml)
 uvicorn==0.30.3 \
     --hash=sha256:0d114d0831ff1adbf231d358cbf42f17333413042552a624ea6a9b4c33dcfd81 \
     --hash=sha256:94a3608da0e530cea8f69683aa4126364ac18e3826b6630d1a65f4638aade503
-Werkzeug==3.0.3 \
+    # via referral (pyproject.toml)
+werkzeug==3.0.3 \
     --hash=sha256:097e5bfda9f0aba8da6b8545146def481d06aa7d3266e7448e2cccf67dd8bd18 \
     --hash=sha256:fc9645dc43e03e4d630d23143a04a7f947a9a3b5727cd535fdfe155a17cc48c8
+    # via referral (pyproject.toml)
