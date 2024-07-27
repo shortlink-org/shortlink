@@ -8,12 +8,13 @@
 > recurring payments for subscriptions. Effective management within this boundary is crucial for ensuring a smooth, 
 > secure, and user-friendly payment experience for customers.
 
-| Service | Description     | Language/Framework | Docs                               | Status                                                                                                                                                                  |
-|---------|-----------------|--------------------|------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| billing | Billing service | Go                 | [docs](./billing/README.md)        | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-billing-billing&revision=true)](https://argo.shortlink.best/applications/shortlink-billing-billing) |
-| wallet  | Wallet service  | Go (Solidity)      | [docs](./wallet/README.md)         |                                                                                                                                                                         |
-| mobile  | Mobile UI       | Dart/Flutter       | [docs](mobile/shortlink/README.md) | -                                                                                                                                                                       |
-| report  | Report service  | Coming soon        | [docs](./report/README.md)         | -                                                                                                                                                                       |
+| Service   | Description        | Language/Framework | Docs                               | Status                                                                                                                                                                  |
+|-----------|--------------------|--------------------|------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| billing   | Billing service    | Go                 | [docs](./billing/README.md)        | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-billing-billing&revision=true)](https://argo.shortlink.best/applications/shortlink-billing-billing) |
+| wallet    | Wallet service     | Go (Solidity)      | [docs](./wallet/README.md)         |                                                                                                                                                                         |
+| mobile    | Mobile UI          | Dart/Flutter       | [docs](mobile/shortlink/README.md) | -                                                                                                                                                                       |
+| report    | Report service     | Coming soon        | [docs](./report/README.md)         | -                                                                                                                                                                       |
+| antifraud | Anti-fraud service | Coming soon        | [docs](./antifraud/README.md)      | -                                                                                                                                                                       |
 
 ### Docs
 
