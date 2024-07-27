@@ -1,0 +1,36 @@
+argo-rollouts:
+  dashboard:
+    # NOTE: we can see the dashboard in common argo-cd interface
+    enabled: false
+    readonly: true
+
+    resources:
+      limits:
+        cpu: 100m
+        memory: 256Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+
+    ingress:
+      # TODO: need setting work with subpath
+      enabled: false
+
+      ingressClassName: nginx
+
+      annotations:
+        cert-manager.io/cluster-issuer: cert-manager-production
+        nginx.ingress.kubernetes.io/backend-protocol: HTTP
+        nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+        nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+
+      hosts:
+        - argo.shortlink.best
+
+      paths:
+        - /rollouts
+
+      tls:
+        - secretName: argo-ingress-tls
+          hosts:
+            - argo.shortlink.best

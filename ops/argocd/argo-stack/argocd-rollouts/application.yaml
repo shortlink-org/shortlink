@@ -21,6 +21,7 @@ spec:
       releaseName: argo-rollouts
       valueFiles:
         - values.yaml
+        - dashboard.values.yaml
 
         # ### Method 2: Fetch the gpg/age key from kubernetes secret
         # secrets+gpg-import-kubernetes://<namespace>/<secret-name>#<key-name>.asc?<relative/path/to/the/encrypted/secrets.yaml>
