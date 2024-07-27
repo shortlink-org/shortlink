@@ -56,7 +56,7 @@ deploy:
 
     # -- Default store config
     STORE_TYPE: postgres
-    STORE_REDIS_URI: shortlink-redis-master.redis:6379
+    STORE_REDIS_URI: shortlink-redis-master.shortlink-billing:6379
 
   envSecret:
     - name: STORE_POSTGRES_URI

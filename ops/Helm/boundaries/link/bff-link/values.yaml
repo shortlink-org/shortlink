@@ -37,7 +37,7 @@ deploy:
 
     # -- Default store config
     STORE_TYPE: redis
-    STORE_REDIS_URI: shortlink-redis-master.redis:6379
+    STORE_REDIS_URI: shortlink-redis-master.shortlink-link:6379
 
   imagePullSecrets: []
 
