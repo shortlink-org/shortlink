@@ -19,6 +19,34 @@ offering real-time insights and analytics.
 
 We have decided to integrate Cloudflare for all incoming and outgoing traffic.
 
+```puml
+@startuml
+!include https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Container.puml
+
+title C4 Model - Integrating Cloudflare, Kubernetes, and Dropping Envoy Response Headers
+
+Person(user, "User")
+
+Container_Boundary(cdn, "Cloudflare") {
+    Container(cloudflare, "Cloudflare Services", "CDN, DDoS Protection, WAF, SSL", "Provides security, performance, and reliability enhancements")
+    Container_Ext(googleAnalytics, "Google Analytics", "Analytics", "Provides insights into user behavior and website performance")
+}
+
+Container_Boundary(k8s, "Kubernetes Cluster") {
+    Container(nginxIngress, "Nginx Ingress Controller", "Nginx", "Manages incoming traffic and routes to services within the cluster")
+    Container(application, "Application", "Spring Boot", "Handles business logic")
+    Container(envoyProxy, "Envoy Proxy", "Envoy", "Proxy server handling traffic between Cloudflare and internal services")
+}
+
+Rel(user, cloudflare, "Requests website content")
+Rel(cloudflare, envoyProxy, "Forwards requests and responses, drops and adds headers", "HTTPS")
+Rel(cloudflare, googleAnalytics, "Sends usage data to", "HTTPS")
+Rel(envoyProxy, nginxIngress, "Routes traffic to", "HTTP")
+Rel(nginxIngress, application, "Proxies requests to", "HTTP")
+
+@enduml
+```
+
 ### Dropping Existing Envoy Response Headers
 
 To enhance security and prevent the exposure of internal architecture details, we will drop existing Envoy response headers. 
