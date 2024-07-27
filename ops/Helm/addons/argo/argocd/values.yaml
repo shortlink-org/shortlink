@@ -20,7 +20,7 @@ argo-cd:
       level: warn
 
   controller:
-    replicas: 3
+    replicas: 1
     revisionHistoryLimit: 3
 
     resources:
@@ -101,7 +101,7 @@ argo-cd:
     host: redis-master.argocd
 
   server:
-    replicas: 3
+    replicas: 1
 
     metrics:
       enabled: true
@@ -165,7 +165,7 @@ argo-cd:
               value: https://github.com/shortlink-org/shortlink/raw/main/boundaries/platform/argocd-extension-docs/ui/dist/extension.tar
 
   repoServer:
-    replicas: 3
+    replicas: 1
 
     serviceAccount:
       create: true
@@ -186,6 +186,8 @@ argo-cd:
           - create
 
     env:
+      - name: ARGOCD_EXEC_TIMEOUT
+        value: 5m
       - name: HELM_PLUGINS
         value: /custom-tools/helm-plugins/
       - name: HELM_SECRETS_SOPS_PATH
