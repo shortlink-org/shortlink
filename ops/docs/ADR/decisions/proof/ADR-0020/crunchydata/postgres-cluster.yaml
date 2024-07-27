@@ -2,6 +2,8 @@ apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
   name: shortlink
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   postgresVersion: 16
   instances:
