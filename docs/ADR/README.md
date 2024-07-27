@@ -50,6 +50,7 @@ adr new Implement as Unix shell scripts
 - **Security**
   - [ADR-0013](./decisions/0013-security.md) - Enhancing Security Measures
   - [ADR-0025](./decisions/0025-configuration.md) - Application Configuration Redesign
+  - [ADR-0035](./decisions/0035-use-cloudflare.md) - Use Cloudflare
 - **Optimization**
   - [ADR-0016](./decisions/0005-use-singleflight-for-debouncing.md) - Use singleflight for debouncing
   - [ADR-0022](./decisions/0022-cache.md) - Cache Strategy [common]
