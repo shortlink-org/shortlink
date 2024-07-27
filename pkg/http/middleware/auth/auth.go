@@ -39,7 +39,7 @@ func (a auth) middleware(next http.Handler) http.Handler {
 		// check if the cookie is valid
 		sess, _, err := a.ory.FrontendAPI.ToSession(r.Context()).Cookie(cookies).Execute() //nolint:bodyclose // false positive
 		if (err != nil && sess == nil) || (err == nil && !*sess.Active) {
-			// this will redirect the user to the managed Ory Login UI
+			// this will redirect the user to the login page if the cookie is invalid
 			// NOTE:
 			// 	- we use 302 instead of 303 because proxy servers might not understand the 303 status code
 			// details -> https://stackoverflow.com/questions/2839585/what-is-correct-http-status-code-when-redirecting-to-a-login-page
