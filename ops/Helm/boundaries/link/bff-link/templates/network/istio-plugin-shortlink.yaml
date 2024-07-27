@@ -10,9 +10,9 @@ spec:
   selector:
     matchLabels:
       {{- include "shortlink-common.matchLabels" . | indent 6 }}
-  url: oci://registry.gitlab.com/shortlink-org/shortlink/istio-plugin-shortlink:0.18.2
+  url: oci://registry.gitlab.com/shortlink-org/shortlink/istio-plugin-shortlink:0.18.3
   vmConfig:
     env:
       - name: PLUGIN_VERSION
-        value: "0.18.2"
+        value: "0.18.3"
 {{- end }}
