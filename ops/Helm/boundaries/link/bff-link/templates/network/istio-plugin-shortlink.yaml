@@ -1,3 +1,4 @@
+{{- if .Values.istio.plugin.enabled }}
 apiVersion: extensions.istio.io/v1alpha1
 kind: WasmPlugin
 metadata:
@@ -9,8 +10,9 @@ spec:
   selector:
     matchLabels:
       {{- include "shortlink-common.matchLabels" . | indent 6 }}
-  url: oci://registry.gitlab.com/shortlink-org/shortlink/istio-plugin-shortlink:0.17.111
+  url: oci://registry.gitlab.com/shortlink-org/shortlink/istio-plugin-shortlink:0.18.2
   vmConfig:
     env:
       - name: PLUGIN_VERSION
-        value: "0.17.111"
+        value: "0.18.2"
+{{- end }}
