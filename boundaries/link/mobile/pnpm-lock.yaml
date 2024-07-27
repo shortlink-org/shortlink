@@ -36,8 +36,8 @@ importers:
         specifier: ^0.74.3
         version: 0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1)
       react-native-paper:
-        specifier: ^5.12.3
-        version: 5.12.3(react-native-safe-area-context@4.10.8(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1))(react-native-vector-icons@10.0.3)(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1)
+        specifier: ^5.12.4
+        version: 5.12.4(react-native-safe-area-context@4.10.8(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1))(react-native-vector-icons@10.0.3)(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1)
       react-native-safe-area-context:
         specifier: ^4.10.8
         version: 4.10.8(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1)
@@ -6301,8 +6301,8 @@ packages:
   react-is@18.3.1:
     resolution: {integrity: sha512-/LLMVyas0ljjAtoYiPqYiL8VWXzUUdThrmU5+n20DZv+a+ClRoevUzw5JxU+Ieh5/c87ytoTBV9G1FiKfNJdmg==}
 
-  react-native-paper@5.12.3:
-    resolution: {integrity: sha512-nH1e1pGPE/aOE5YR2GRX7CfMHFA9cAfrAfgCtwL4amJPDZCoVjc5yt2VDiUE1rT+JUfk0qdICMP3UggxvjMgug==}
+  react-native-paper@5.12.4:
+    resolution: {integrity: sha512-iKQmthSYo2n7fuOUmTk7V78U2AHXvOh7SzY5EFS6Kcy2Ao42mFrP9M8YuovMQf1j5A7IzQ86nMR4cRnaL7T5Fg==}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -9911,21 +9911,6 @@ snapshots:
       - typescript
       - verdaccio
 
-  '@nrwl/js@19.5.3(@babel/traverse@7.24.1)(@types/node@20.14.12)(nx@19.5.3)(typescript@5.4.5)':
-    dependencies:
-      '@nx/js': 19.5.3(@babel/traverse@7.24.1)(@types/node@20.14.12)(nx@19.5.3)(typescript@5.4.5)
-    transitivePeerDependencies:
-      - '@babel/traverse'
-      - '@swc-node/register'
-      - '@swc/core'
-      - '@swc/wasm'
-      - '@types/node'
-      - debug
-      - nx
-      - supports-color
-      - typescript
-      - verdaccio
-
   '@nrwl/js@19.5.3(@babel/traverse@7.24.1)(@types/node@20.14.12)(nx@19.5.3)(typescript@5.5.4)':
     dependencies:
       '@nx/js': 19.5.3(@babel/traverse@7.24.1)(@types/node@20.14.12)(nx@19.5.3)(typescript@5.5.4)
@@ -10215,7 +10200,7 @@ snapshots:
       '@babel/preset-env': 7.24.3(@babel/core@7.24.3)
       '@babel/preset-typescript': 7.23.3(@babel/core@7.24.3)
       '@babel/runtime': 7.24.0
-      '@nrwl/js': 19.5.3(@babel/traverse@7.24.1)(@types/node@20.14.12)(nx@19.5.3)(typescript@5.4.5)
+      '@nrwl/js': 19.5.3(@babel/traverse@7.24.1)(@types/node@20.14.12)(nx@19.5.3)(typescript@5.5.4)
       '@nx/devkit': 19.5.3(nx@19.5.3)
       '@nx/workspace': 19.5.3
       babel-plugin-const-enum: 1.2.0(@babel/core@7.24.3)
@@ -16507,7 +16492,7 @@ snapshots:
 
   react-is@18.3.1: {}
 
-  react-native-paper@5.12.3(react-native-safe-area-context@4.10.8(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1))(react-native-vector-icons@10.0.3)(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1):
+  react-native-paper@5.12.4(react-native-safe-area-context@4.10.8(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1))(react-native-vector-icons@10.0.3)(react-native@0.74.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.3)(react@18.3.1))(react@18.3.1):
     dependencies:
       '@callstack/react-theme-provider': 3.0.9(react@18.3.1)
       color: 3.2.1
