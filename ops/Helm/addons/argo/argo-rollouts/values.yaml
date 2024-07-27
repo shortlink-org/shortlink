@@ -20,7 +20,8 @@ argo-rollouts:
         memory: 50Mi
 
   dashboard:
-    enabled: true
+    # NOTE: we can see the dashboard in common argo-cd interface
+    enabled: false
     readonly: true
 
     resources:
@@ -32,7 +33,8 @@ argo-rollouts:
         memory: 64Mi
 
     ingress:
-      enabled: true
+      # TODO: need setting work with subpath
+      enabled: false
 
       ingressClassName: nginx
 
