@@ -8,17 +8,13 @@ import { libInjectCss } from 'vite-plugin-lib-inject-css'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [
-    react(),
-    libInjectCss(),
-    dts(),
-  ],
+  plugins: [react(), libInjectCss(), dts()],
   build: {
     copyPublicDir: false,
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'ui-kit',
-      formats: ['es']
+      formats: ['es'],
     },
     rollupOptions: {
       external: [
@@ -34,24 +30,23 @@ export default defineConfig({
         '@mui/icons-material',
       ],
       input: Object.fromEntries(
-        glob.sync('src/**/*.{ts,tsx}', {
-          ignore: ["src/**/*.d.ts", 'src/**/*.stories.tsx'],
-        }).map((file) => [
-          // The name of the entry point
-          // src/nested/foo.ts becomes nested/foo
-          relative(
-            'src',
-            file.slice(0, file.length - extname(file).length)
-          ),
-          // The absolute path to the entry file
-          // lib/nested/foo.ts becomes /project/lib/nested/foo.ts
-          fileURLToPath(new URL(file, import.meta.url))
-        ])
+        glob
+          .sync('src/**/*.{ts,tsx}', {
+            ignore: ['src/**/*.d.ts', 'src/**/*.stories.tsx'],
+          })
+          .map((file) => [
+            // The name of the entry point
+            // src/nested/foo.ts becomes nested/foo
+            relative('src', file.slice(0, file.length - extname(file).length)),
+            // The absolute path to the entry file
+            // lib/nested/foo.ts becomes /project/lib/nested/foo.ts
+            fileURLToPath(new URL(file, import.meta.url)),
+          ]),
       ),
       output: {
         assetFileNames: 'assets/[name][extname]',
         entryFileNames: '[name].js',
-      }
-    }
-  }
+      },
+    },
+  },
 })

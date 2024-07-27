@@ -8,9 +8,7 @@ type ToggleDarkModeProps = {
   id: string
 }
 
-export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({
-  id,
-}) => {
+export const ToggleDarkMode: React.FC<ToggleDarkModeProps> = ({ id }) => {
   const { mode, setMode } = useColorScheme()
   const { setTheme } = useTheme()
   const [mounted, setMounted] = React.useState(false)

@@ -34,7 +34,6 @@ const tiers = [
   },
 ]
 
-
 // <NextSeo
 // title="Page Policy"
 // description="Shortlink offers fair, upfront pricing for all of our services. We never charge hidden fees or use bait-and-switch tactics. You'll know exactly what you're getting before your start working on your project."
