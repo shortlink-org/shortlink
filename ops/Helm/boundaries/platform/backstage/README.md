@@ -22,7 +22,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../../shortlink-template | shortlink-template | 0.8.17 |
+| file://../../../shortlink-template | shortlink-template | 0.8.18 |
 
 ## Values
 
@@ -70,7 +70,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"registry.gitlab.com/shortlink-org/shortlink/landscape"
+"registry.gitlab.com/shortlink-org/shortlink/backstage"
 </pre>
 </div>
 			</td>
@@ -115,9 +115,15 @@ object
 {
   "failureThreshold": 30,
   "httpGet": {
-    "path": "/",
-    "port": 8080
+    "path": "/healthcheck",
+    "port": 7007
   },
+  "httpHeaders": [
+    {
+      "name": "Host",
+      "value": "shortlink.best"
+    }
+  ],
   "initialDelaySeconds": 300,
   "timeoutSeconds": 60
 }
@@ -127,7 +133,7 @@ object
 			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--readinessProbe"><a href="./values.yaml#L72">deploy.readinessProbe</a></td>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L75">deploy.readinessProbe</a></td>
 			<td>
 object
 </td>
@@ -136,9 +142,15 @@ object
 <pre lang="json">
 {
   "httpGet": {
-    "path": "/",
-    "port": 8080
+    "path": "/healthcheck",
+    "port": 7007
   },
+  "httpHeaders": [
+    {
+      "name": "Host",
+      "value": "shortlink.best"
+    }
+  ],
   "initialDelaySeconds": 120,
   "timeoutSeconds": 15
 }
@@ -197,7 +209,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"20m"
+"100m"
 </pre>
 </div>
 			</td>
@@ -211,14 +223,14 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"64Mi"
+"128Mi"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--securityContext"><a href="./values.yaml#L82">deploy.securityContext</a></td>
+			<td id="deploy--securityContext"><a href="./values.yaml#L88">deploy.securityContext</a></td>
 			<td>
 object
 </td>
@@ -277,7 +289,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--volumes[0]--mountPath"><a href="./values.yaml#L88">deploy.volumes[0].mountPath</a></td>
+			<td id="deploy--volumes[0]--mountPath"><a href="./values.yaml#L94">deploy.volumes[0].mountPath</a></td>
 			<td>
 string
 </td>
@@ -291,7 +303,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--volumes[0]--name"><a href="./values.yaml#L87">deploy.volumes[0].name</a></td>
+			<td id="deploy--volumes[0]--name"><a href="./values.yaml#L93">deploy.volumes[0].name</a></td>
 			<td>
 string
 </td>
@@ -305,7 +317,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--volumes[0]--type"><a href="./values.yaml#L89">deploy.volumes[0].type</a></td>
+			<td id="deploy--volumes[0]--type"><a href="./values.yaml#L95">deploy.volumes[0].type</a></td>
 			<td>
 string
 </td>
@@ -382,7 +394,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"landscape.shortlink.best"
+"backstage.shortlink.best"
 </pre>
 </div>
 			</td>
@@ -424,7 +436,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"landscape"
+"backstage"
 </pre>
 </div>
 			</td>
@@ -438,7 +450,7 @@ int
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-8080
+7007
 </pre>
 </div>
 			</td>
@@ -452,7 +464,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"landscape.shortlink.best"
+"backstage.shortlink.best"
 </pre>
 </div>
 			</td>
@@ -466,112 +478,14 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"landscape-tls"
+"backstage-tls"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="./values.yaml#L101">monitoring.enabled</a></td>
-			<td>
-bool
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-false
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="networkPolicy--enabled"><a href="./values.yaml#L106">networkPolicy.enabled</a></td>
-			<td>
-bool
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-false
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="networkPolicy--ingress[0]--from[0]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L112">networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"nginx-ingress"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="networkPolicy--policyTypes[0]"><a href="./values.yaml#L114">networkPolicy.policyTypes[0]</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"Ingress"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="service--ports[0]--name"><a href="./values.yaml#L94">service.ports[0].name</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"http"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="service--ports[0]--port"><a href="./values.yaml#L95">service.ports[0].port</a></td>
-			<td>
-int
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-8080
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="service--ports[0]--protocol"><a href="./values.yaml#L96">service.ports[0].protocol</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"TCP"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="service--ports[0]--public"><a href="./values.yaml#L97">service.ports[0].public</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L107">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -585,7 +499,105 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--type"><a href="./values.yaml#L92">service.type</a></td>
+			<td id="networkPolicy--enabled"><a href="./values.yaml#L112">networkPolicy.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="networkPolicy--ingress[0]--from[0]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L118">networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"nginx-ingress"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="networkPolicy--policyTypes[0]"><a href="./values.yaml#L120">networkPolicy.policyTypes[0]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"Ingress"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L100">service.ports[0].name</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L101">service.ports[0].port</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+7007
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L102">service.ports[0].protocol</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"TCP"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L103">service.ports[0].public</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="service--type"><a href="./values.yaml#L98">service.type</a></td>
 			<td>
 string
 </td>
@@ -602,4 +614,4 @@ string
 </table>
 
 ----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.12.0](https://github.com/norwoodj/helm-docs/releases/v1.12.0)
+Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)

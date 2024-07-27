@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | grafana | 8.2.0 |
+| https://grafana.github.io/helm-charts | grafana | 8.3.6 |
 
 ## Values
 
@@ -27,7 +27,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="grafana--"grafana--ini"--auth--anonymous--enabled"><a href="./values.yaml#L194">grafana."grafana.ini".auth.anonymous.enabled</a></td>
+			<td id="grafana--"grafana--ini"--auth--anonymous--enabled"><a href="./values.yaml#L195">grafana."grafana.ini".auth.anonymous.enabled</a></td>
 			<td>
 bool
 </td>
@@ -41,7 +41,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--"grafana--ini"--auth--anonymous--hide_version"><a href="./values.yaml#L203">grafana."grafana.ini".auth.anonymous.hide_version</a></td>
+			<td id="grafana--"grafana--ini"--auth--anonymous--hide_version"><a href="./values.yaml#L204">grafana."grafana.ini".auth.anonymous.hide_version</a></td>
 			<td>
 bool
 </td>
@@ -55,7 +55,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--"grafana--ini"--auth--anonymous--org_name"><a href="./values.yaml#L197">grafana."grafana.ini".auth.anonymous.org_name</a></td>
+			<td id="grafana--"grafana--ini"--auth--anonymous--org_name"><a href="./values.yaml#L198">grafana."grafana.ini".auth.anonymous.org_name</a></td>
 			<td>
 string
 </td>
@@ -69,7 +69,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--"grafana--ini"--auth--anonymous--org_role"><a href="./values.yaml#L200">grafana."grafana.ini".auth.anonymous.org_role</a></td>
+			<td id="grafana--"grafana--ini"--auth--anonymous--org_role"><a href="./values.yaml#L201">grafana."grafana.ini".auth.anonymous.org_role</a></td>
 			<td>
 string
 </td>
@@ -83,7 +83,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--"grafana--ini"--reporting--enabled"><a href="./values.yaml#L190">grafana."grafana.ini".reporting.enabled</a></td>
+			<td id="grafana--"grafana--ini"--reporting--enabled"><a href="./values.yaml#L191">grafana."grafana.ini".reporting.enabled</a></td>
 			<td>
 bool
 </td>
@@ -125,7 +125,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--downloadDashboards--resources--limits--cpu"><a href="./values.yaml#L173">grafana.downloadDashboards.resources.limits.cpu</a></td>
+			<td id="grafana--downloadDashboards--resources--limits--cpu"><a href="./values.yaml#L174">grafana.downloadDashboards.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -139,7 +139,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--downloadDashboards--resources--limits--memory"><a href="./values.yaml#L174">grafana.downloadDashboards.resources.limits.memory</a></td>
+			<td id="grafana--downloadDashboards--resources--limits--memory"><a href="./values.yaml#L175">grafana.downloadDashboards.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -153,7 +153,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--downloadDashboards--resources--requests--cpu"><a href="./values.yaml#L176">grafana.downloadDashboards.resources.requests.cpu</a></td>
+			<td id="grafana--downloadDashboards--resources--requests--cpu"><a href="./values.yaml#L177">grafana.downloadDashboards.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -167,7 +167,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--downloadDashboards--resources--requests--memory"><a href="./values.yaml#L177">grafana.downloadDashboards.resources.requests.memory</a></td>
+			<td id="grafana--downloadDashboards--resources--requests--memory"><a href="./values.yaml#L178">grafana.downloadDashboards.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -251,7 +251,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraContainerVolumes[0]--emptyDir"><a href="./values.yaml#L164">grafana.extraContainerVolumes[0].emptyDir</a></td>
+			<td id="grafana--extraContainerVolumes[0]--emptyDir"><a href="./values.yaml#L165">grafana.extraContainerVolumes[0].emptyDir</a></td>
 			<td>
 object
 </td>
@@ -265,7 +265,7 @@ object
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraContainerVolumes[0]--name"><a href="./values.yaml#L163">grafana.extraContainerVolumes[0].name</a></td>
+			<td id="grafana--extraContainerVolumes[0]--name"><a href="./values.yaml#L164">grafana.extraContainerVolumes[0].name</a></td>
 			<td>
 string
 </td>
@@ -279,7 +279,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraInitContainers[0]--args[0]"><a href="./values.yaml#L140">grafana.extraInitContainers[0].args[0]</a></td>
+			<td id="grafana--extraInitContainers[0]--args[0]"><a href="./values.yaml#L141">grafana.extraInitContainers[0].args[0]</a></td>
 			<td>
 string
 </td>
@@ -293,7 +293,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraInitContainers[0]--command[0]"><a href="./values.yaml#L138">grafana.extraInitContainers[0].command[0]</a></td>
+			<td id="grafana--extraInitContainers[0]--command[0]"><a href="./values.yaml#L139">grafana.extraInitContainers[0].command[0]</a></td>
 			<td>
 string
 </td>
@@ -307,7 +307,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraInitContainers[0]--command[1]"><a href="./values.yaml#L138">grafana.extraInitContainers[0].command[1]</a></td>
+			<td id="grafana--extraInitContainers[0]--command[1]"><a href="./values.yaml#L139">grafana.extraInitContainers[0].command[1]</a></td>
 			<td>
 string
 </td>
@@ -321,7 +321,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraInitContainers[0]--image"><a href="./values.yaml#L137">grafana.extraInitContainers[0].image</a></td>
+			<td id="grafana--extraInitContainers[0]--image"><a href="./values.yaml#L138">grafana.extraInitContainers[0].image</a></td>
 			<td>
 string
 </td>
@@ -335,7 +335,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraInitContainers[0]--name"><a href="./values.yaml#L136">grafana.extraInitContainers[0].name</a></td>
+			<td id="grafana--extraInitContainers[0]--name"><a href="./values.yaml#L137">grafana.extraInitContainers[0].name</a></td>
 			<td>
 string
 </td>
@@ -349,7 +349,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraInitContainers[0]--resources--limits--cpu"><a href="./values.yaml#L152">grafana.extraInitContainers[0].resources.limits.cpu</a></td>
+			<td id="grafana--extraInitContainers[0]--resources--limits--cpu"><a href="./values.yaml#L153">grafana.extraInitContainers[0].resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -363,7 +363,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraInitContainers[0]--resources--limits--memory"><a href="./values.yaml#L153">grafana.extraInitContainers[0].resources.limits.memory</a></td>
+			<td id="grafana--extraInitContainers[0]--resources--limits--memory"><a href="./values.yaml#L154">grafana.extraInitContainers[0].resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -377,7 +377,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraInitContainers[0]--resources--requests--cpu"><a href="./values.yaml#L155">grafana.extraInitContainers[0].resources.requests.cpu</a></td>
+			<td id="grafana--extraInitContainers[0]--resources--requests--cpu"><a href="./values.yaml#L156">grafana.extraInitContainers[0].resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -391,7 +391,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraInitContainers[0]--resources--requests--memory"><a href="./values.yaml#L156">grafana.extraInitContainers[0].resources.requests.memory</a></td>
+			<td id="grafana--extraInitContainers[0]--resources--requests--memory"><a href="./values.yaml#L157">grafana.extraInitContainers[0].resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -405,7 +405,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraInitContainers[0]--volumeMounts[0]--mountPath"><a href="./values.yaml#L160">grafana.extraInitContainers[0].volumeMounts[0].mountPath</a></td>
+			<td id="grafana--extraInitContainers[0]--volumeMounts[0]--mountPath"><a href="./values.yaml#L161">grafana.extraInitContainers[0].volumeMounts[0].mountPath</a></td>
 			<td>
 string
 </td>
@@ -419,7 +419,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraInitContainers[0]--volumeMounts[0]--name"><a href="./values.yaml#L159">grafana.extraInitContainers[0].volumeMounts[0].name</a></td>
+			<td id="grafana--extraInitContainers[0]--volumeMounts[0]--name"><a href="./values.yaml#L160">grafana.extraInitContainers[0].volumeMounts[0].name</a></td>
 			<td>
 string
 </td>
@@ -433,7 +433,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraVolumeMounts[0]--mountPath"><a href="./values.yaml#L168">grafana.extraVolumeMounts[0].mountPath</a></td>
+			<td id="grafana--extraVolumeMounts[0]--mountPath"><a href="./values.yaml#L169">grafana.extraVolumeMounts[0].mountPath</a></td>
 			<td>
 string
 </td>
@@ -447,7 +447,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--extraVolumeMounts[0]--name"><a href="./values.yaml#L167">grafana.extraVolumeMounts[0].name</a></td>
+			<td id="grafana--extraVolumeMounts[0]--name"><a href="./values.yaml#L168">grafana.extraVolumeMounts[0].name</a></td>
 			<td>
 string
 </td>
@@ -755,7 +755,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--initChownData--resources--limits--cpu"><a href="./values.yaml#L182">grafana.initChownData.resources.limits.cpu</a></td>
+			<td id="grafana--initChownData--resources--limits--cpu"><a href="./values.yaml#L183">grafana.initChownData.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -769,7 +769,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--initChownData--resources--limits--memory"><a href="./values.yaml#L183">grafana.initChownData.resources.limits.memory</a></td>
+			<td id="grafana--initChownData--resources--limits--memory"><a href="./values.yaml#L184">grafana.initChownData.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -783,7 +783,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--initChownData--resources--requests--cpu"><a href="./values.yaml#L185">grafana.initChownData.resources.requests.cpu</a></td>
+			<td id="grafana--initChownData--resources--requests--cpu"><a href="./values.yaml#L186">grafana.initChownData.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -797,7 +797,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="grafana--initChownData--resources--requests--memory"><a href="./values.yaml#L186">grafana.initChownData.resources.requests.memory</a></td>
+			<td id="grafana--initChownData--resources--requests--memory"><a href="./values.yaml#L187">grafana.initChownData.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -917,6 +917,20 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "hamedkarbasi93-kafka-datasource"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="grafana--plugins[4]"><a href="./values.yaml#L134">grafana.plugins[4]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"grafana-pyroscope-app"
 </pre>
 </div>
 			</td>
@@ -1374,4 +1388,4 @@ false
 </table>
 
 ----------------------------------------------
-Autogenerated from chart metadata using [helm-docs v1.12.0](https://github.com/norwoodj/helm-docs/releases/v1.12.0)
+Autogenerated from chart metadata using [helm-docs v1.14.2](https://github.com/norwoodj/helm-docs/releases/v1.14.2)
