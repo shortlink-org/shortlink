@@ -9,6 +9,8 @@ argo-cd:
   fullnameOverride: argocd
 
   global:
+    domain: argo.shortlink.best
+
     image:
       tag: "v2.12.0-rc4"
 
