@@ -40,7 +40,6 @@ We research tools:
 ### Architecture documentation
 
 - [C4](./docs/c4)
-- [Docs in Notion](https://shortlink-org.notion.site/Low-level-f61e3d5ab4ad484784cada86de569eba)
 - [Low-level schema](https://miro.com/app/board/o9J_laImQpo=/)
 - [Auth](https://miro.com/app/board/o9J_lA5Wmhg=/)
 - [Event Sourcing](https://miro.com/app/board/o9J_l-6o1U0=/)
@@ -59,5 +58,5 @@ We research tools:
 
 ## Consequences
 
-+ We have a standard documentation for the application architecture.
++ We have standard documentation for the application architecture.
 + We use the [4C model](https://c4model.com/) for the documentation of the application architecture.
