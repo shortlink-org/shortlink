@@ -27,7 +27,7 @@ To improve communication and collaboration across teams and to more closely alig
 ##### 1.1 Use Rich Domain Models:
  
 - Use rich domain models to encapsulate business logic and behavior.
-  - [protoc-gen-rich-model](../pkg/protoc/protoc-gen-rich-model/README.md) is a code generator that creates rich domain models from protobuf definitions.
+  - [protoc-gen-rich-model](../../../pkg/protoc/protoc-gen-rich-model/README.md) is a code generator that creates rich domain models from protobuf definitions.
 
 ##### 1.2. Value Objects:
 

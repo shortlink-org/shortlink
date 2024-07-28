@@ -19,7 +19,9 @@ We have decided to follow the "Configuration" principle outlined in the [12-Fact
 This approach emphasizes the importance of storing configuration that varies between deployments in the environment, 
 rather than in the codebase.
 
-For further information, you can review the details of our environment variables in [View ENV Variables](../../env.md).
+### Documentation
+
+We can use tools like [shortctl](../../../boundaries/platform/shortctl) to manage and document the configuration changes.
 
 ## Consequences
 

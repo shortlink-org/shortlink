@@ -29,7 +29,7 @@ We selected JSON format for logging. We will use the following format:
 
 To record application logs, use [span events](https://uptrace.dev/opentelemetry/distributed-tracing.html#event).
 You must set the event name to `log` and
-use [semantic attributes](./https://uptrace.dev/opentelemetry/distributed-tracing.html#attributes) to record the
+use [semantic attributes](https://uptrace.dev/opentelemetry/distributed-tracing.html#attributes) to record the
 context:
 
 - `level` - to record the log severity. Must be one of `DEBUG`, `INFO`, `WARN`, `ERROR` and `FATAL`.
