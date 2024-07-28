@@ -21,10 +21,3 @@ dependencies:
     tags:
       - temporal
       - background_job
-  - name: scylla
-    version: v1.13.0
-    repository: https://scylla-operator-charts.storage.googleapis.com/stable
-    condition: scylla.enabled
-    tags:
-      - scylla
-      - store

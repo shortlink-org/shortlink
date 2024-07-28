@@ -17,15 +17,15 @@ temporal:
           cassandra:
             port: 9042
             hosts:
-              - scylla-cluster.temporal
-            existingSecret: scylla-cluster-auth-token
+              - shortlink-client.temporal
+            existingSecret: shortlink-auth-token
 
         visibility:
           cassandra:
             port: 9042
             hosts:
-              - scylla-cluster.temporal
-            existingSecret: scylla-cluster-auth-token
+              - shortlink-client.temporal
+            existingSecret: shortlink-auth-token
 
     metrics:
       serviceMonitor:
