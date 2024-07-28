@@ -84,8 +84,8 @@ argo-cd:
         cpu: 300m
         memory: 128Mi
       requests:
-        cpu: 15m
-        memory: 32Mi
+        cpu: 20m
+        memory: 64Mi
 
     metrics:
       enabled: true
@@ -233,8 +233,8 @@ argo-cd:
 
     resources:
       requests:
-        cpu: 10m
-        memory: 64Mi
+        cpu: 50m
+        memory: 128Mi
 
     initContainers:
       - name: download-tools
