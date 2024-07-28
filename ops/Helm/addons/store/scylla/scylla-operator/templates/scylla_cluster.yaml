@@ -3,11 +3,10 @@ kind: ScyllaCluster
 metadata:
   name: shortlink
 spec:
-  version: 5.2.7
-  agentVersion: 3.1.2
-  repository: docker.io/scylladb/scylla
-  agentRepository: docker.io/scylladb/scylla-manager-agent
+  agentVersion: 3.3.0
+  version: 5.4.3
   developerMode: true
+  automaticOrphanedNodeCleanup: true
   cpuset: true
   datacenter:
     name: manager-dc
@@ -16,10 +15,11 @@ spec:
         members: 1
         storage:
           capacity: 2Gi
+          storageClassName: local-path
         resources:
           limits:
             cpu: 1
-            memory: 200Mi
+            memory: 100Mi
           requests:
             cpu: 1
             memory: 200Mi
