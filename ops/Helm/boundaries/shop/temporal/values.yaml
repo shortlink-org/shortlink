@@ -12,20 +12,7 @@ temporal:
 
   server:
     config:
-      persistence:
-        default:
-          cassandra:
-            port: 9042
-            hosts:
-              - shortlink-client.temporal
-            existingSecret: shortlink-auth-token
-
-        visibility:
-          cassandra:
-            port: 9042
-            hosts:
-              - shortlink-client.temporal
-            existingSecret: shortlink-auth-token
+      persistence: {}
 
     metrics:
       serviceMonitor:
@@ -75,7 +62,7 @@ temporal:
     replicas: 1
 
   cassandra:
-    enabled: false
+    enabled: true
 
   prometheus:
     enabled: false
