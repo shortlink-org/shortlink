@@ -2,4 +2,5 @@ SELF_DIR := $(dir $(lastword $(MAKEFILE_LIST)))
 
 # INCLUDE ==============================================================================================================
 # Include Makefile
-include ../../../ops/Makefile/common.mk
+include $(SELF_DIR)/../../../ops/Makefile/common.mk
+include $(SELF_DIR)/ops/Makefile/dev.mk
