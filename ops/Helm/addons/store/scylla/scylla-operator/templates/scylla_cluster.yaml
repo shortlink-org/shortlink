@@ -2,3 +2,24 @@ apiVersion: scylla.scylladb.com/v1
 kind: ScyllaCluster
 metadata:
   name: shortlink
+spec:
+  version: 5.2.7
+  agentVersion: 3.1.2
+  repository: docker.io/scylladb/scylla
+  agentRepository: docker.io/scylladb/scylla-manager-agent
+  developerMode: true
+  cpuset: true
+  datacenter:
+    name: manager-dc
+    racks:
+      - name: manager-rack
+        members: 1
+        storage:
+          capacity: 2Gi
+        resources:
+          limits:
+            cpu: 1
+            memory: 200Mi
+          requests:
+            cpu: 1
+            memory: 200Mi
