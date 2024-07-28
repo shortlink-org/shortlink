@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: scylla-manager-dashboard
+  labels:
+    grafana_dashboard: "true"
+  annotations:
+    grafana_dashboard_folder: DataBase/Scylla
+data:
+  alternator.master.json.url: "https://raw.githubusercontent.com/scylladb/scylla-monitoring/branch-4.7/grafana/build/ver_master/alternator.master.json"
+  scylla-advanced.master.json.url: "https://raw.githubusercontent.com/scylladb/scylla-monitoring/branch-4.7/grafana/build/ver_master/scylla-advanced.master.json"
+  scylla-cql.master.json.url: "https://raw.githubusercontent.com/scylladb/scylla-monitoring/branch-4.7/grafana/build/ver_master/scylla-cql.master.json"
+  scylla-detailed.master.json.url: "https://raw.githubusercontent.com/scylladb/scylla-monitoring/branch-4.7/grafana/build/ver_master/scylla-detailed.master.json"
+  scylla-ks.master.json.url: "https://raw.githubusercontent.com/scylladb/scylla-monitoring/branch-4.7/grafana/build/ver_master/scylla-ks.master.json"
+  scylla-os.master.json.url: "https://raw.githubusercontent.com/scylladb/scylla-monitoring/branch-4.7/grafana/build/ver_master/scylla-os.master.json"
+  scylla-overview.master.json.url: "https://raw.githubusercontent.com/scylladb/scylla-monitoring/branch-4.7/grafana/build/ver_master/scylla-overview.master.json"
