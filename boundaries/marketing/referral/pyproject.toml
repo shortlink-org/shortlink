@@ -16,7 +16,7 @@ dependencies = [
     "sqlalchemy",
     "python-dotenv",
     "hypercorn",
-    "setuptools>=71.1.0", # not directly required, pinned by Snyk to avoid a vulnerability
+    "setuptools>=72.0.0", # not directly required, pinned by Snyk to avoid a vulnerability
 # Opentelemetry dependencies
     "pyroscope-io==0.8.7",
     "opentelemetry-api==1.26.0",
@@ -44,7 +44,7 @@ dependencies = [
 ]
 
 [build-system]
-requires = ["setuptools~=71.1"]
+requires = ["setuptools~=72.0"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.dynamic]
