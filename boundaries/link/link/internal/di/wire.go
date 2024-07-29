@@ -43,14 +43,14 @@ import (
 
 type LinkService struct {
 	// Common
-	Log    logger.Logger
-	Config *config.Config
+	Log        logger.Logger
+	Config     *config.Config
+	AutoMaxPro autoMaxPro.AutoMaxPro
 
 	// Observability
 	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
-	AutoMaxPro    autoMaxPro.AutoMaxPro
 
 	// Security
 	authPermission *authzed.Client
@@ -217,12 +217,12 @@ func NewLinkService(
 	// Common
 	log logger.Logger,
 	config *config.Config,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	// Observability
 	monitoring *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
-	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	// Security
 	authPermission *authzed.Client,

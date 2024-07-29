@@ -28,14 +28,14 @@ import (
 
 type LoggerService struct {
 	// Common
-	Log    logger.Logger
-	Config *config.Config
+	Log        logger.Logger
+	Config     *config.Config
+	AutoMaxPro autoMaxPro.AutoMaxPro
 
 	// Observability
 	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
-	AutoMaxPro    autoMaxPro.AutoMaxPro
 
 	// Delivery
 	loggerMQ *logger_mq.Event
@@ -80,12 +80,12 @@ func NewLoggerService(
 	// Common
 	log logger.Logger,
 	config *config.Config,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	// Observability
 	monitoring *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
-	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	// Application
 	loggerService *logger_application.Service,

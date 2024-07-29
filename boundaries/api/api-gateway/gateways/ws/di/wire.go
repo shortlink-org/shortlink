@@ -25,8 +25,9 @@ import (
 
 type WSService struct {
 	// Common
-	Log    logger.Logger
-	Config *config.Config
+	Log        logger.Logger
+	Config     *config.Config
+	AutoMaxPro autoMaxPro.AutoMaxPro
 
 	// Applications
 	service *ws.WS
@@ -35,7 +36,6 @@ type WSService struct {
 	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
-	AutoMaxPro    autoMaxPro.AutoMaxPro
 }
 
 // WSService ===========================================================================================================
@@ -57,12 +57,12 @@ func NewWSService(
 	// Common
 	log logger.Logger,
 	config *config.Config,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	// Observability
 	monitoring *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
-	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	service *ws.WS,
 ) (*WSService, error) {

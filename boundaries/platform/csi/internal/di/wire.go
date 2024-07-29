@@ -21,14 +21,14 @@ import (
 // Service - heplers
 type Service struct {
 	// Common
-	Ctx context.Context
-	Log logger.Logger
+	Ctx        context.Context
+	Log        logger.Logger
+	AutoMaxPro autoMaxPro.AutoMaxPro
 
 	// Observability
 	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
-	AutoMaxPro    autoMaxPro.AutoMaxPro
 }
 
 // Context =============================================================================================================
@@ -49,12 +49,12 @@ func NewSCIDriver(
 	// Common
 	log logger.Logger,
 	ctx context.Context,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	// Observability
 	monitor *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
-	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {
 	return &Service{
 		// Common

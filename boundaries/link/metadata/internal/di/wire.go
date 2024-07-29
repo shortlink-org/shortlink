@@ -39,14 +39,14 @@ import (
 
 type MetaDataService struct {
 	// Common
-	Log    logger.Logger
-	Config *config.Config
+	Log        logger.Logger
+	Config     *config.Config
+	AutoMaxPro autoMaxPro.AutoMaxPro
 
 	// Observability
 	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
-	AutoMaxPro    autoMaxPro.AutoMaxPro
 
 	// Delivery
 	metadataMQ        *metadata_mq.Event
@@ -154,12 +154,12 @@ func NewMetaDataService(
 	// Common
 	log logger.Logger,
 	config *config.Config,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	// Observability
 	monitoring *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
-	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	// Application
 	service *parsers.UC,

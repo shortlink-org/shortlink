@@ -34,9 +34,10 @@ import (
 
 type BFFWebService struct {
 	// Common
-	Log    logger.Logger
-	Config *config.Config
-	i18n   *message.Printer
+	Log        logger.Logger
+	Config     *config.Config
+	i18n       *message.Printer
+	AutoMaxPro autoMaxPro.AutoMaxPro
 
 	// Delivery
 	httpAPIServer *api.Server
@@ -45,7 +46,6 @@ type BFFWebService struct {
 	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
-	AutoMaxPro    autoMaxPro.AutoMaxPro
 }
 
 // BFFWebService =======================================================================================================
@@ -95,12 +95,12 @@ func NewAPIApplication(
 	i18n *message.Printer,
 	log logger.Logger,
 	config *config.Config,
+	autoMaxPro autoMaxPro.AutoMaxPro,
 
 	// Observability
 	tracer trace.TracerProvider,
 	monitoring *monitoring.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint,
-	autoMaxPro autoMaxPro.AutoMaxPro,
 
 	// Infrastructure
 	rpcServer *rpc.Server,
@@ -143,12 +143,12 @@ func NewBFFWebService(
 	ctx context.Context,
 	log logger.Logger,
 	config *config.Config,
+	autoMaxPro autoMaxPro.AutoMaxPro,
 
 	// Observability
 	tracer trace.TracerProvider,
 	monitoring *monitoring.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint,
-	autoMaxPro autoMaxPro.AutoMaxPro,
 
 	// Delivery
 	httpAPIServer *api.Server,
