@@ -28,7 +28,7 @@ services:
       ENABLE_ES: true
       ES_SEEDS: host.docker.internal
       ES_PORT: 9200
-      ES_VERSION: v8
+      ES_VERSION: v7
     ports:
       - 7233:7233
     extra_hosts:
