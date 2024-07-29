@@ -5,3 +5,4 @@ ROOT_DIR := $(abspath $(SELF_DIR)/../../..)
 # Include Makefile
 include $(ROOT_DIR)/ops/Makefile/common.mk
 include $(SELF_DIR)/ops/Makefile/dev.mk
+include $(SELF_DIR)/ops/Makefile/proto.mk

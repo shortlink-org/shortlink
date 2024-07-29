@@ -9,6 +9,8 @@ package oms_di
 import (
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
+	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/cart/v1"
+	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/run"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
@@ -19,6 +21,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
+	"github.com/shortlink-org/shortlink/pkg/rpc"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -79,7 +82,34 @@ func InitializeOMSService() (*OMSService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	omsService, err := NewOMSService(logger, configConfig, autoMaxProAutoMaxPro, monitoringMonitoring, tracerProvider, pprofEndpoint, client)
+	server, err := rpc.InitServer(context, logger, tracerProvider, monitoringMonitoring)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	cartRPC, err := NewCartRPCServer(server, logger)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	response, err := NewRunRPCServer(server, cartRPC)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	omsService, err := NewOMSService(logger, configConfig, autoMaxProAutoMaxPro, monitoringMonitoring, tracerProvider, pprofEndpoint, client, response, cartRPC)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -112,10 +142,32 @@ type OMSService struct {
 
 	// Security
 	authPermission *authzed.Client
+
+	// Delivery
+	run           *run.Response
+	cartRPCServer *v1.CartRPC
 }
 
 // OMSService ==========================================================================================================
-var OMSSet = wire.NewSet(di.DefaultSet, NewOMSService)
+var OMSSet = wire.NewSet(di.DefaultSet, rpc.InitServer, NewCartRPCServer,
+	NewRunRPCServer,
+
+	NewOMSService,
+)
+
+func NewCartRPCServer(runRPCServer *rpc.Server, log logger.Logger) (*v1.CartRPC, error) {
+	cartRPCServer, err := v1.New(runRPCServer, log)
+	if err != nil {
+		return nil, err
+	}
+
+	return cartRPCServer, nil
+}
+
+// TODO: refactoring. maybe drop this function
+func NewRunRPCServer(runRPCServer *rpc.Server, _ *v1.CartRPC) (*run.Response, error) {
+	return run.Run(runRPCServer)
+}
 
 func NewOMSService(
 
@@ -124,7 +176,8 @@ func NewOMSService(
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 
-	authPermission *authzed.Client,
+	authPermission *authzed.Client, run2 *run.Response,
+	cartRPCServer *v1.CartRPC,
 ) (*OMSService, error) {
 	return &OMSService{
 
@@ -135,5 +188,8 @@ func NewOMSService(
 		Tracer:        tracer,
 		Monitoring:    monitoring2,
 		PprofEndpoint: pprofHTTP,
+
+		run:           run2,
+		cartRPCServer: cartRPCServer,
 	}, nil
 }

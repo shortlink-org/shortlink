@@ -1,0 +1,81 @@
+syntax = "proto3";
+
+package infrastructure.rpc.cart.v1;
+
+option go_package = "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/cart/v1";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+
+// CartItem is the cart item message.
+message CartItem {
+  // Field mask
+  google.protobuf.FieldMask field_mask = 6;
+
+  // Product ID
+  string product_id = 1;
+  // Quantity
+  int32 quantity = 2;
+}
+
+// CartState is the cart state message.
+message CartState {
+  // Field mask
+  google.protobuf.FieldMask field_mask = 6;
+
+  // Cart ID
+  string cart_id = 1;
+  // User ID
+  string user_id = 2;
+  // Items
+  repeated CartItem items = 3;
+  // Created at
+  google.protobuf.Timestamp created_at = 4;
+  // Updated at
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+// CartService is the service that provides cart operations.
+service CartService {
+  // Add adds an item to the cart.
+  rpc Add(AddRequest) returns (google.protobuf.Empty);
+
+  // Remove removes an item from the cart.
+  rpc Remove(RemoveRequest) returns (google.protobuf.Empty);
+
+  // Get gets the state of the cart.
+  rpc Get(GetRequest) returns (GetResponse);
+}
+
+// AddRequest is the request message for adding an item to the cart.
+message AddRequest {
+  // Cart ID
+  string cart_id = 1;
+  // Item to add
+  CartItem item = 2;
+  // Quantity to add
+  int32 quantity = 3;
+}
+
+// RemoveRequest is the request message for removing an item from the cart.
+message RemoveRequest {
+  // Cart ID
+  string cart_id = 1;
+  // Item to remove
+  CartItem item = 2;
+  // Quantity to remove
+  int32 quantity = 3;
+}
+
+// GetRequest is the request message for getting the cart state.
+message GetRequest {
+  // Cart ID
+  string cart_id = 1;
+}
+
+// GetResponse is the response message for getting the cart state.
+message GetResponse {
+  // Cart state
+  CartState state = 1;
+}

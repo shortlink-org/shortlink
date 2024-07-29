@@ -21,5 +21,4 @@ $> make help # show help message with all commands and targets
 
 ### Use Cases
 
-- [UC-1](./usecases/flow/README.md) Create and track orders
-- [UC-2](./usecases/refund/README.md) Refund orders
+- [UC-1](internal/usecases/cart/README.md) Cart workflows

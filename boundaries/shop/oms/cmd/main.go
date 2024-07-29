@@ -1,8 +1,8 @@
 /*
 Shortlink application
 
-Link boundary
-Link-service
+boundary: OMS
+service: shortlink-shop-oms
 */
 package main
 

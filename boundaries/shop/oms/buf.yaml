@@ -1,0 +1,30 @@
+version: v2
+modules:
+  - path: internal
+    name: buf.build/shortlink-org/shortlink-shop-oms
+deps:
+  - buf.build/googleapis/googleapis
+  - buf.build/grpc-ecosystem/grpc-gateway
+lint:
+  use:
+    - COMMENTS
+    - DEFAULT
+  except:
+    - ENUM_FIRST_VALUE_ZERO
+    - FIELD_NOT_REQUIRED
+    - IMPORT_USED
+    - PACKAGE_NO_IMPORT_CYCLE
+    - PROTOVALIDATE
+  rpc_allow_google_protobuf_empty_requests: true
+  rpc_allow_google_protobuf_empty_responses: true
+  disallow_comment_ignores: true
+breaking:
+  use:
+    - FIELD_SAME_CARDINALITY
+    - FIELD_SAME_TYPE
+    - WIRE_JSON
+  except:
+    - FIELD_SAME_DEFAULT
+    - FIELD_WIRE_JSON_COMPATIBLE_CARDINALITY
+    - FIELD_WIRE_JSON_COMPATIBLE_TYPE
+    - FILE_SAME_PACKAGE
