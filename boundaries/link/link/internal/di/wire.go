@@ -248,14 +248,14 @@ func NewLinkService(
 ) (*LinkService, error) {
 	return &LinkService{
 		// Common
-		Log:    log,
-		Config: config,
+		Log:        log,
+		Config:     config,
+		AutoMaxPro: autoMaxProcsOption,
 
 		// Observability
 		Tracer:        tracer,
 		Monitoring:    monitoring,
 		PprofEndpoint: pprofHTTP,
-		AutoMaxPro:    autoMaxProcsOption,
 
 		// Security
 		authPermission: authPermission,

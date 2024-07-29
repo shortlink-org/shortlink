@@ -11,16 +11,16 @@ import (
 
 	"github.com/spf13/viper"
 
-	link_di "github.com/shortlink-org/shortlink/boundaries/link/link/internal/di"
+	oms_di "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/di"
 	"github.com/shortlink-org/shortlink/pkg/graceful_shutdown"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
 )
 
 func main() {
-	viper.SetDefault("SERVICE_NAME", "shortlink-link")
+	viper.SetDefault("SERVICE_NAME", "shortlink-shop-oms")
 
 	// Init a new service
-	service, cleanup, err := link_di.InitializeLinkService()
+	service, cleanup, err := oms_di.InitializeOMSService()
 	if err != nil {
 		panic(err)
 	}
