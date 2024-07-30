@@ -15,7 +15,7 @@ deprecated: false
 dependencies:
   - name: cert-manager
     alias: certmanager
-    version: v1.15.1
+    version: v1.15.2
     repository: https://charts.jetstack.io
     condition: certmanager.enabled
     tags:
