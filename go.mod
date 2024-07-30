@@ -9,7 +9,7 @@ require (
 	github.com/Unleash/unleash-client-go/v4 v4.1.2
 	github.com/XSAM/otelsql v0.32.0
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
-	github.com/authzed/authzed-go v0.13.0
+	github.com/authzed/authzed-go v0.14.0
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/chromedp/chromedp v0.9.5
 	github.com/couchbase/gocb/v2 v2.9.1
@@ -215,7 +215,7 @@ require (
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sagikazarmark/locafero v0.4.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect
-	github.com/samber/lo v1.39.0 // indirect
+	github.com/samber/lo v1.46.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
 	github.com/sergi/go-diff v1.3.1 // indirect
 	github.com/sigurn/crc16 v0.0.0-20211026045750-20ab5afb07e3 // indirect
