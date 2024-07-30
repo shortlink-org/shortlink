@@ -14,7 +14,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: grafana/beyla:1.6.4
+    image: grafana/beyla:1.7.0
     command:
       - /beyla
       - --config=/configs/beyla-config.yml
