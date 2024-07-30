@@ -4,7 +4,7 @@ go 1.22.5
 
 require (
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
-	github.com/authzed/authzed-go v0.13.0
+	github.com/authzed/authzed-go v0.14.0
 	github.com/dgraph-io/badger/v4 v4.2.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/go-redis/cache/v9 v9.0.0
@@ -128,7 +128,7 @@ require (
 	github.com/redis/rueidis/rueidisotel v1.0.30-0.20240224222815-152800b84f6d // indirect
 	github.com/sagikazarmark/locafero v0.4.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect
-	github.com/samber/lo v1.39.0 // indirect
+	github.com/samber/lo v1.46.0 // indirect
 	github.com/sasha-s/go-deadlock v0.3.1 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
 	github.com/sirupsen/logrus v1.9.3 // indirect
