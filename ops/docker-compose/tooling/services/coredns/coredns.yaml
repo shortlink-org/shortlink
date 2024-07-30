@@ -1,7 +1,7 @@
 services:
 
   coredns:
-    image: coredns/coredns:1.11.1
+    image: coredns/coredns:1.11.3
     profiles:
       - dns
     container_name: coredns
