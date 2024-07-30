@@ -12,13 +12,17 @@ import (
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
+	"go.temporal.io/sdk/client"
+	"go.temporal.io/sdk/worker"
 
-	v1 "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/cart/v1"
+	cartRPC "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/cart/v1"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/run"
+	oms_worker "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/worker"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
+	"github.com/shortlink-org/shortlink/pkg/di/pkg/temporal"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
@@ -40,7 +44,11 @@ type OMSService struct {
 
 	// Delivery
 	run           *run.Response
-	cartRPCServer *v1.CartRPC
+	cartRPCServer *cartRPC.CartRPC
+
+	// Temporal
+	temporalClient client.Client
+	worker         worker.Worker
 }
 
 // OMSService ==========================================================================================================
@@ -49,23 +57,18 @@ var OMSSet = wire.NewSet(
 	rpc.InitServer,
 
 	// Delivery
-	NewCartRPCServer,
+	cartRPC.New,
 	NewRunRPCServer,
 
 	NewOMSService,
+
+	// Temporal
+	temporal.New,
+	oms_worker.New,
 )
 
-func NewCartRPCServer(runRPCServer *rpc.Server, log logger.Logger) (*v1.CartRPC, error) {
-	cartRPCServer, err := v1.New(runRPCServer, log)
-	if err != nil {
-		return nil, err
-	}
-
-	return cartRPCServer, nil
-}
-
 // TODO: refactoring. maybe drop this function
-func NewRunRPCServer(runRPCServer *rpc.Server, _ *v1.CartRPC) (*run.Response, error) {
+func NewRunRPCServer(runRPCServer *rpc.Server, _ *cartRPC.CartRPC) (*run.Response, error) {
 	return run.Run(runRPCServer)
 }
 
@@ -73,7 +76,7 @@ func NewOMSService(
 	// Common
 	log logger.Logger,
 	config *config.Config,
-	autoMaxProcsOption autoMaxPro.AutoMaxPro,
+	autoMaxPro autoMaxPro.AutoMaxPro,
 
 	// Observability
 	monitoring *monitoring.Monitoring,
@@ -85,13 +88,17 @@ func NewOMSService(
 
 	// Delivery
 	run *run.Response,
-	cartRPCServer *v1.CartRPC,
+	cartRPCServer *cartRPC.CartRPC,
+
+	// Temporal
+	temporalClient client.Client,
+	worker worker.Worker,
 ) (*OMSService, error) {
 	return &OMSService{
 		// Common
 		Log:        log,
 		Config:     config,
-		AutoMaxPro: autoMaxProcsOption,
+		AutoMaxPro: autoMaxPro,
 
 		// Observability
 		Tracer:        tracer,
@@ -105,6 +112,10 @@ func NewOMSService(
 		// Delivery
 		run:           run,
 		cartRPCServer: cartRPCServer,
+
+		// Temporal
+		temporalClient: temporalClient,
+		worker:         worker,
 	}, nil
 }
 

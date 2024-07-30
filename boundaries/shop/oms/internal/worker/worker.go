@@ -1,22 +1,16 @@
-package main
+package oms_worker
 
 import (
-	"log"
+	"context"
 
 	"go.temporal.io/sdk/client"
 	"go.temporal.io/sdk/worker"
 
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/usecases/cart"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
-func main() {
-	// Create the client object just once per process
-	c, err := client.Dial(client.Options{})
-	if err != nil {
-		log.Fatalln("unable to create Temporal client", err)
-	}
-	defer c.Close()
-
+func New(ctx context.Context, c client.Client, log logger.Logger) (worker.Worker, error) {
 	// This worker hosts both Worker and Activity functions
 	w := worker.New(c, "CART_TASK_QUEUE", worker.Options{})
 
@@ -25,8 +19,12 @@ func main() {
 	w.RegisterActivity(cart.RemoveItemActivity)
 
 	// Start listening to the Task Queue
-	err = w.Run(worker.InterruptCh())
+	err := w.Run(worker.InterruptCh())
 	if err != nil {
-		log.Fatalln("unable to start Worker", err)
+		return nil, err
 	}
+
+	log.Info("Worker started")
+
+	return w, nil
 }

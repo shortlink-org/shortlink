@@ -51,27 +51,23 @@ service CartService {
 // AddRequest is the request message for adding an item to the cart.
 message AddRequest {
   // Cart ID
-  string cart_id = 1;
+  string user_id = 1;
   // Item to add
   CartItem item = 2;
-  // Quantity to add
-  int32 quantity = 3;
 }
 
 // RemoveRequest is the request message for removing an item from the cart.
 message RemoveRequest {
   // Cart ID
-  string cart_id = 1;
+  string user_id = 1;
   // Item to remove
   CartItem item = 2;
-  // Quantity to remove
-  int32 quantity = 3;
 }
 
 // GetRequest is the request message for getting the cart state.
 message GetRequest {
   // Cart ID
-  string cart_id = 1;
+  string user_id = 1;
 }
 
 // GetResponse is the response message for getting the cart state.
