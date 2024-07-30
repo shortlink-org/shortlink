@@ -15,7 +15,7 @@ type: application
 deprecated: false
 dependencies:
   - name: grafana
-    version: 8.3.6
+    version: 8.3.7
     repository: https://grafana.github.io/helm-charts
     condition: grafana.enabled
     tags:
