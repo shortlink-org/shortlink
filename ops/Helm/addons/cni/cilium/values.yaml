@@ -107,6 +107,9 @@ cilium:
 
     listenAddress: ":4244"
 
+    dropEventEmitter:
+      enabled: true
+
     metrics:
       enabled:
         - dns:query;ignoreAAAA
