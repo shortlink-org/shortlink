@@ -60,6 +60,8 @@ spec:
       {{- if (and (eq $.Values.service.type "NodePort") (not (empty .nodePort))) }}
       nodePort: {{.nodePort}}
       {{- end -}}
+      # TODO: use after upgrade to v1.31
+      # trafficDistribution: {{ .Values.service.trafficDistribution | default "PreferClose" }}
     {{- end -}}
     {{- end }}
   selector:
