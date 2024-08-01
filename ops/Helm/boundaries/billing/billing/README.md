@@ -112,7 +112,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"shortlink-redis-master.redis:6379"
+"shortlink-redis-master.shortlink-billing:6379"
 </pre>
 </div>
 			</td>

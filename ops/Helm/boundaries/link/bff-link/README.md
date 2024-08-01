@@ -1,6 +1,6 @@
 # bff-link
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.2.1](https://img.shields.io/badge/Version-0.2.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 0.18.3](https://img.shields.io/badge/AppVersion-0.18.3-informational?style=flat-square)
 
 ShortLink BFF Service for web
 
@@ -112,7 +112,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"shortlink-redis-master.redis:6379"
+"shortlink-redis-master.shortlink-link:6379"
 </pre>
 </div>
 			</td>
@@ -495,6 +495,20 @@ int
 			<td></td>
 		</tr>
 		<tr>
+			<td id="istio--plugin--enabled"><a href="./values.yaml#L132">istio.plugin.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
 			<td id="monitoring--enabled"><a href="./values.yaml#L121">monitoring.enabled</a></td>
 			<td>
 bool
@@ -509,7 +523,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--enabled"><a href="./values.yaml#L131">networkPolicy.enabled</a></td>
+			<td id="networkPolicy--enabled"><a href="./values.yaml#L137">networkPolicy.enabled</a></td>
 			<td>
 bool
 </td>
@@ -523,7 +537,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[0]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L137">networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[0]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L143">networkPolicy.ingress[0].from[0].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -537,7 +551,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[1]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L140">networkPolicy.ingress[0].from[1].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[1]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L146">networkPolicy.ingress[0].from[1].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -551,7 +565,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[2]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L143">networkPolicy.ingress[0].from[2].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[2]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L149">networkPolicy.ingress[0].from[2].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -565,7 +579,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--ingress[0]--from[3]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L146">networkPolicy.ingress[0].from[3].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
+			<td id="networkPolicy--ingress[0]--from[3]--namespaceSelector--matchLabels--"kubernetes--io/metadata--name""><a href="./values.yaml#L152">networkPolicy.ingress[0].from[3].namespaceSelector.matchLabels."kubernetes.io/metadata.name"</a></td>
 			<td>
 string
 </td>
@@ -579,7 +593,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--policyTypes[0]"><a href="./values.yaml#L148">networkPolicy.policyTypes[0]</a></td>
+			<td id="networkPolicy--policyTypes[0]"><a href="./values.yaml#L154">networkPolicy.policyTypes[0]</a></td>
 			<td>
 string
 </td>
@@ -593,7 +607,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--policyTypes[1]"><a href="./values.yaml#L149">networkPolicy.policyTypes[1]</a></td>
+			<td id="networkPolicy--policyTypes[1]"><a href="./values.yaml#L155">networkPolicy.policyTypes[1]</a></td>
 			<td>
 string
 </td>

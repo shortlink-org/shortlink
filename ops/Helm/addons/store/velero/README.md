@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://vmware-tanzu.github.io/helm-charts | velero | 7.1.3 |
+| https://vmware-tanzu.github.io/helm-charts | velero | 7.1.4 |
 
 ## Values
 

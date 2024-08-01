@@ -195,6 +195,20 @@ true
 			<td></td>
 		</tr>
 		<tr>
+			<td id="cilium--hubble--dropEventEmitter--enabled"><a href="./values.yaml#L111">cilium.hubble.dropEventEmitter.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
 			<td id="cilium--hubble--enabled"><a href="./values.yaml#L106">cilium.hubble.enabled</a></td>
 			<td>
 bool
@@ -223,7 +237,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cilium--hubble--metrics--dashboards--annotations--grafana_dashboard_folder"><a href="./values.yaml#L125">cilium.hubble.metrics.dashboards.annotations.grafana_dashboard_folder</a></td>
+			<td id="cilium--hubble--metrics--dashboards--annotations--grafana_dashboard_folder"><a href="./values.yaml#L128">cilium.hubble.metrics.dashboards.annotations.grafana_dashboard_folder</a></td>
 			<td>
 string
 </td>
@@ -237,7 +251,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cilium--hubble--metrics--dashboards--enabled"><a href="./values.yaml#L122">cilium.hubble.metrics.dashboards.enabled</a></td>
+			<td id="cilium--hubble--metrics--dashboards--enabled"><a href="./values.yaml#L125">cilium.hubble.metrics.dashboards.enabled</a></td>
 			<td>
 bool
 </td>
@@ -251,7 +265,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cilium--hubble--metrics--enableOpenMetrics"><a href="./values.yaml#L119">cilium.hubble.metrics.enableOpenMetrics</a></td>
+			<td id="cilium--hubble--metrics--enableOpenMetrics"><a href="./values.yaml#L122">cilium.hubble.metrics.enableOpenMetrics</a></td>
 			<td>
 bool
 </td>
@@ -265,7 +279,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cilium--hubble--metrics--enabled[0]"><a href="./values.yaml#L112">cilium.hubble.metrics.enabled[0]</a></td>
+			<td id="cilium--hubble--metrics--enabled[0]"><a href="./values.yaml#L115">cilium.hubble.metrics.enabled[0]</a></td>
 			<td>
 string
 </td>
@@ -279,7 +293,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cilium--hubble--metrics--enabled[1]"><a href="./values.yaml#L113">cilium.hubble.metrics.enabled[1]</a></td>
+			<td id="cilium--hubble--metrics--enabled[1]"><a href="./values.yaml#L116">cilium.hubble.metrics.enabled[1]</a></td>
 			<td>
 string
 </td>
@@ -293,7 +307,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cilium--hubble--metrics--enabled[2]"><a href="./values.yaml#L114">cilium.hubble.metrics.enabled[2]</a></td>
+			<td id="cilium--hubble--metrics--enabled[2]"><a href="./values.yaml#L117">cilium.hubble.metrics.enabled[2]</a></td>
 			<td>
 string
 </td>
@@ -307,7 +321,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cilium--hubble--metrics--enabled[3]"><a href="./values.yaml#L115">cilium.hubble.metrics.enabled[3]</a></td>
+			<td id="cilium--hubble--metrics--enabled[3]"><a href="./values.yaml#L118">cilium.hubble.metrics.enabled[3]</a></td>
 			<td>
 string
 </td>
@@ -321,7 +335,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cilium--hubble--metrics--enabled[4]"><a href="./values.yaml#L116">cilium.hubble.metrics.enabled[4]</a></td>
+			<td id="cilium--hubble--metrics--enabled[4]"><a href="./values.yaml#L119">cilium.hubble.metrics.enabled[4]</a></td>
 			<td>
 string
 </td>
@@ -335,7 +349,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cilium--hubble--metrics--enabled[5]"><a href="./values.yaml#L117">cilium.hubble.metrics.enabled[5]</a></td>
+			<td id="cilium--hubble--metrics--enabled[5]"><a href="./values.yaml#L120">cilium.hubble.metrics.enabled[5]</a></td>
 			<td>
 string
 </td>
@@ -349,7 +363,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cilium--hubble--metrics--serviceMonitor--enabled"><a href="./values.yaml#L128">cilium.hubble.metrics.serviceMonitor.enabled</a></td>
+			<td id="cilium--hubble--metrics--serviceMonitor--enabled"><a href="./values.yaml#L131">cilium.hubble.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -363,7 +377,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cilium--hubble--metrics--serviceMonitor--labels--release"><a href="./values.yaml#L131">cilium.hubble.metrics.serviceMonitor.labels.release</a></td>
+			<td id="cilium--hubble--metrics--serviceMonitor--labels--release"><a href="./values.yaml#L134">cilium.hubble.metrics.serviceMonitor.labels.release</a></td>
 			<td>
 string
 </td>
@@ -377,7 +391,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cilium--hubble--relay--enabled"><a href="./values.yaml#L134">cilium.hubble.relay.enabled</a></td>
+			<td id="cilium--hubble--relay--enabled"><a href="./values.yaml#L137">cilium.hubble.relay.enabled</a></td>
 			<td>
 bool
 </td>
@@ -391,7 +405,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cilium--hubble--relay--rollOutPods"><a href="./values.yaml#L135">cilium.hubble.relay.rollOutPods</a></td>
+			<td id="cilium--hubble--relay--rollOutPods"><a href="./values.yaml#L138">cilium.hubble.relay.rollOutPods</a></td>
 			<td>
 bool
 </td>
@@ -405,7 +419,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cilium--hubble--ui--enabled"><a href="./values.yaml#L138">cilium.hubble.ui.enabled</a></td>
+			<td id="cilium--hubble--ui--enabled"><a href="./values.yaml#L141">cilium.hubble.ui.enabled</a></td>
 			<td>
 bool
 </td>
@@ -419,7 +433,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="cilium--hubble--ui--rollOutPods"><a href="./values.yaml#L139">cilium.hubble.ui.rollOutPods</a></td>
+			<td id="cilium--hubble--ui--rollOutPods"><a href="./values.yaml#L142">cilium.hubble.ui.rollOutPods</a></td>
 			<td>
 bool
 </td>
