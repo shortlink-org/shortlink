@@ -60,8 +60,8 @@ importers:
         specifier: 14.3.0-canary.87
         version: 14.3.0-canary.87
       '@stylistic/eslint-plugin-js':
-        specifier: ^2.4.0
-        version: 2.4.0(eslint@9.8.0)
+        specifier: ^2.6.0
+        version: 2.6.0(eslint@9.8.0)
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
         version: 0.4.2(tailwindcss@4.0.0-alpha.18)
@@ -3995,8 +3995,8 @@ packages:
     peerDependencies:
       storybook: ^8.3.0-alpha.3
 
-  '@stylistic/eslint-plugin-js@2.4.0':
-    resolution: {integrity: sha512-ScIYDFAwNz+ELr3KfAZMuYMCUq7Q6TdEEIq4RBRR77EHucpDrwi5Kx2d0VdYxb4s4o6nOtSkJmY9MCZupDYJow==}
+  '@stylistic/eslint-plugin-js@2.6.0':
+    resolution: {integrity: sha512-6oN0Djdy8gTRhx2qS1m4P+CeDKqmZZwc4ibgzzJS+8iBW3Ts1c2mAvi+OH6TN4bt0AHm0FnDv2+KtTqqueMATw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.40.0'
@@ -16208,7 +16208,7 @@ snapshots:
     dependencies:
       storybook: 8.3.0-alpha.3(@babel/preset-env@7.25.0(@babel/core@7.24.9))
 
-  '@stylistic/eslint-plugin-js@2.4.0(eslint@9.8.0)':
+  '@stylistic/eslint-plugin-js@2.6.0(eslint@9.8.0)':
     dependencies:
       '@types/eslint': 9.6.0
       acorn: 8.12.1
