@@ -48,7 +48,7 @@ services:
     depends_on:
       - coredns
       - redpanda
-    image: docker.redpanda.com/vectorized/console:v2.6.1
+    image: docker.redpanda.com/vectorized/console:v2.7.0
     container_name: console
     init: true
     entrypoint: /bin/sh
