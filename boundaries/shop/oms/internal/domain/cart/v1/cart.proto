@@ -1,0 +1,20 @@
+syntax = "proto3";
+
+package domain.cart.v1;
+
+option go_package = "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/domain/cart/v1";
+
+// Cart event
+enum CartEvent {
+  // Unspecified
+  CART_EVENT_UNSPECIFIED = 0;
+
+  // Add item
+  CART_EVENT_ADD = 1;
+  // Remove item
+  CART_EVENT_REMOVE = 2;
+  // Reset cart
+  CART_EVENT_RESET = 3;
+  // Get cart
+  CART_EVENT_GET = 4;
+}

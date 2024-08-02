@@ -46,6 +46,9 @@ service CartService {
 
   // Get gets the state of the cart.
   rpc Get(GetRequest) returns (GetResponse);
+
+  // Reset clears the cart.
+  rpc Reset(ResetRequest) returns (google.protobuf.Empty);
 }
 
 // AddRequest is the request message for adding an item to the cart.
@@ -53,7 +56,7 @@ message AddRequest {
   // Cart ID
   string user_id = 1;
   // Item to add
-  CartItem item = 2;
+  repeated CartItem item = 2;
 }
 
 // RemoveRequest is the request message for removing an item from the cart.
@@ -61,7 +64,7 @@ message RemoveRequest {
   // Cart ID
   string user_id = 1;
   // Item to remove
-  CartItem item = 2;
+  repeated CartItem item = 2;
 }
 
 // GetRequest is the request message for getting the cart state.
@@ -74,4 +77,10 @@ message GetRequest {
 message GetResponse {
   // Cart state
   CartState state = 1;
+}
+
+// ResetRequest is the request message for resetting the cart.
+message ResetRequest {
+  // Cart ID
+  string user_id = 1;
 }

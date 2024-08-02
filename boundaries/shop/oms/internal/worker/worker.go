@@ -19,10 +19,12 @@ func New(ctx context.Context, c client.Client, log logger.Logger) (worker.Worker
 	w.RegisterActivity(cart.RemoveItemActivity)
 
 	// Start listening to the Task Queue
-	err := w.Run(worker.InterruptCh())
-	if err != nil {
-		return nil, err
-	}
+	go func() {
+		err := w.Run(worker.InterruptCh())
+		if err != nil {
+			panic(err)
+		}
+	}()
 
 	log.Info("Worker started")
 
