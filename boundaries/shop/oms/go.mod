@@ -6,7 +6,6 @@ require (
 	github.com/authzed/authzed-go v0.14.0
 	github.com/google/uuid v1.6.0
 	github.com/google/wire v0.6.0
-	github.com/mitchellh/mapstructure v1.5.1-0.20220423185008-bf980b35cac4
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.9.0
 	go.opentelemetry.io/otel/trace v1.28.0
@@ -28,6 +27,7 @@ require (
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/jzelinskie/stringz v0.0.3 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
+	github.com/mitchellh/mapstructure v1.5.1-0.20220423185008-bf980b35cac4 // indirect
 	github.com/nexus-rpc/sdk-go v0.0.9 // indirect
 	github.com/pborman/uuid v1.2.1 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
