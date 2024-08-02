@@ -1,5 +1,18 @@
 ## UC-1: Cart workflows
 
+### Events
+
+- **Global Events**
+  - `CreateCustomer` - Create a new customer
+  - `DeleteCustomer` - Delete a customer
+- **Cart Events**
+  - `AddItems` - Add items to cart
+  - `RemoveItems` - Remove items from cart
+  - `GetCart` - Get cart state
+  - `ResetCart` - Reset cart state
+
+### State Diagram
+
 ```plantuml
 @startuml
 skinparam state {
