@@ -12,27 +12,22 @@ skinparam state {
 [*] --> Cart : Create customer (event from another service)
 
 state Cart <<CartState>> {
-  AddingItems<<Add>> -left-> ResettingCart<<Remove>>
-  AddingItems<<Add>> -down-> RemovingItems<<Remove>>
-  AddingItems<<Add>> --right--> ViewingCart<<Get>>
+  AddItems<<Add>> -left-> ResettingCart<<Remove>>
+  AddItems<<Add>> -down-> RemovingItems<<Remove>>
+  AddItems<<Add>> --right--> GetCart<<Get>>
   
-  RemovingItems<<Remove>> -up-> AddingItems<<Add>>
+  RemovingItems<<Remove>> -up-> AddItems<<Add>>
   RemovingItems<<Remove>> -left-> ResettingCart<<Remove>>
-  RemovingItems<<Remove>> -right-> ViewingCart<<Get>>
+  RemovingItems<<Remove>> -right-> GetCart<<Get>>
   
-  ViewingCart<<Get>> ---> RemovingItems<<Remove>>
-  ViewingCart<<Get>> ---> ResettingCart<<Remove>>
-  ViewingCart<<Get>> --left--> AddingItems<<Add>>
+  GetCart<<Get>> ---> RemovingItems<<Remove>>
+  GetCart<<Get>> ---> ResettingCart<<Remove>>
+  GetCart<<Get>> --left--> AddItems<<Add>>
   
-  ResettingCart<<Remove>> -right-> AddingItems<<Add>>
-  ResettingCart<<Remove>> -up-> ViewingCart<<Get>>
+  ResettingCart<<Remove>> -right-> AddItems<<Add>>
+  ResettingCart<<Remove>> -up-> GetCart<<Get>>
   ResettingCart<<Remove>> -left-> RemovingItems<<Remove>>
 }
-
-AddingItems : Add(AddRequest)
-RemovingItems : Remove(RemoveRequest)
-ViewingCart : Get(GetRequest) return GetResponse
-ResettingCart : Reset(ResetRequest)
 
 Cart --> [*] : Delete User (event from another service)
 @enduml
