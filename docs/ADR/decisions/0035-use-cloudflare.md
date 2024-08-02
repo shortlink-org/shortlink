@@ -19,7 +19,7 @@ offering real-time insights and analytics.
 
 We have decided to integrate Cloudflare for all incoming and outgoing traffic.
 
-```puml
+```plantuml
 @startuml
 !include https://raw.githubusercontent.com/RicardoNiepel/C4-PlantUML/master/C4_Container.puml
 

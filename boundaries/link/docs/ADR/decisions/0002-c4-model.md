@@ -27,7 +27,7 @@ for each service within the boundary.
 
 #### Level 1: System Context diagram
 
-```puml
+```plantuml
 @startuml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 
@@ -54,7 +54,7 @@ Rel_U(mq, metadata_service, "Sends events to")
 
 #### Level 2: Container diagram
 
-```puml
+```plantuml
 @startuml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 

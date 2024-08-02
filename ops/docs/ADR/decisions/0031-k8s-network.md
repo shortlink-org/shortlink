@@ -24,7 +24,7 @@ These tools will be used to manage network traffic, security policies, and servi
 
 ### Schema for Kubernetes Network
 
-```puml
+```plantuml
 @startuml k8s_nodes_network
 
 ' Define KubernetesPuml for URL inclusion

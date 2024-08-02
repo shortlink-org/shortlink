@@ -21,7 +21,7 @@ In this ADR we describe only component level.
 
 ### C4 Component diagram
 
-```puml
+```plantuml
 @startuml Component_Diagram
 !includeurl https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
 

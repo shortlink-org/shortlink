@@ -1,6 +1,6 @@
 ## UC-1: Cart workflows
 
-```puml
+```plantuml
 @startuml
 skinparam state {
     BackgroundColor<<CartState>> Yellow
@@ -40,7 +40,7 @@ Cart --> [*] : Delete User (event from another service)
 
 ### Sequence Diagram
 
-```puml
+```plantuml
 @startuml
 actor User
 

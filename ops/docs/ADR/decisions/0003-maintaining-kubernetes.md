@@ -29,7 +29,7 @@ This approach ensures efficient management of Kubernetes applications.
 
 ### Hardware Configuration
 
-```puml
+```plantuml
 @startuml k8s_nodes
 
 ' Define KubernetesPuml for URL inclusion

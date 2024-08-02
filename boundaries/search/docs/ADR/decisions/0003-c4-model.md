@@ -29,7 +29,7 @@ with a focus on detailing how the search service interfaces with search database
 
 #### Level 1: System Context diagram
 
-```puml
+```plantuml
 @startuml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
 
@@ -51,7 +51,7 @@ Rel(search_service, search_db, "Queries")
 
 #### Level 2: Container diagram
 
-```puml
+```plantuml
 @startuml
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 
