@@ -37,6 +37,9 @@ pyroscope:
     labels:
       release: prometheus-operator
 
+  alloy:
+    enabled: false
+
 pyroscope-ebpf:
   enabled: false
 
