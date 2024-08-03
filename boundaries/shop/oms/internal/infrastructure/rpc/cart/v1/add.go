@@ -3,22 +3,12 @@ package v1
 import (
 	"context"
 
-	"github.com/bufbuild/protovalidate-go"
 	"google.golang.org/protobuf/types/known/emptypb"
 )
 
+// Add adds an item to the cart
 func (c *CartRPC) Add(ctx context.Context, in *AddRequest) (*emptypb.Empty, error) {
-	v, err := protovalidate.New()
-	if err != nil {
-		return nil, err
-	}
-
-	err = v.Validate(in)
-	if err != nil {
-		return nil, err
-	}
-
-	request, err := in.ToDomain()
+	request, err := AddRequestToDomain(in, c.validator)
 	if err != nil {
 		return nil, err
 	}

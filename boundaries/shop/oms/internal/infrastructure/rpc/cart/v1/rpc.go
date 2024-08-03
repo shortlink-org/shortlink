@@ -5,6 +5,8 @@ Cart UC. Infrastructure layer. RPC Endpoint
 package v1
 
 import (
+	"github.com/bufbuild/protovalidate-go"
+
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/usecases/cart"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
@@ -13,14 +15,26 @@ import (
 type CartRPC struct {
 	CartServiceServer
 
-	log logger.Logger
+	// Common
+	log       logger.Logger
+	validator *protovalidate.Validator
 
+	// Services
 	cartService *cart.UC
 }
 
 func New(runRPCServer *rpc.Server, log logger.Logger, cartService *cart.UC) (*CartRPC, error) {
+	validator, err := protovalidate.New()
+	if err != nil {
+		return nil, err
+	}
+
 	server := &CartRPC{
-		log:         log,
+		// Common
+		log:       log,
+		validator: validator,
+
+		// Services
 		cartService: cartService,
 	}
 

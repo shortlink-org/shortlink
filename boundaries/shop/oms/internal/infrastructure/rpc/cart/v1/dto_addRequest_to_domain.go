@@ -1,13 +1,19 @@
 package v1
 
 import (
+	"github.com/bufbuild/protovalidate-go"
 	"github.com/google/uuid"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/domain/cart/v1"
 )
 
-// ToDomain converts AddRequest to domain model.
-func (r AddRequest) ToDomain() (*domain.CartState, error) {
+// AddRequestToDomain converts an AddRequest to a domain model
+func AddRequestToDomain(r *AddRequest, validator *protovalidate.Validator) (*domain.CartState, error) {
+	err := validator.Validate(r)
+	if err != nil {
+		return nil, err
+	}
+
 	// string to uuid
 	customerId, err := uuid.Parse(r.CustomerId)
 	if err != nil {
@@ -28,5 +34,5 @@ func (r AddRequest) ToDomain() (*domain.CartState, error) {
 		item.AddItem(domain.NewCartItem(productId, quantity))
 	}
 
-	return &domain.CartState{}, nil
+	return item, nil
 }
