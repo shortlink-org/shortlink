@@ -43,8 +43,8 @@ importers:
         specifier: ^5.5.4
         version: 5.5.4
       wxt:
-        specifier: ^0.19.2
-        version: 0.19.2(@types/node@20.14.2)(lightningcss@1.25.1)(rollup@4.18.0)
+        specifier: ^0.19.3
+        version: 0.19.3(@types/node@20.14.2)(lightningcss@1.25.1)(rollup@4.18.0)
 
 packages:
 
@@ -2569,8 +2569,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  wxt@0.19.2:
-    resolution: {integrity: sha512-pkBTSZfdEFUnm3N7f/7JPWrUHt/l5/aBgm9bp/uxwBREvbAmMJAp9QEkd0PAxHJqP6KBKiLzY1kzXVQpzniMpA==}
+  wxt@0.19.3:
+    resolution: {integrity: sha512-ZEyWAvahUkye5oZR6AX1oxTvg3wOK6DSO14ukiRCSY9FRWeBloa6C24AjzjsvYmZwO0RA8FNClQHJfaoli/MVw==}
     hasBin: true
     peerDependencies:
       '@types/chrome': '*'
@@ -5055,7 +5055,7 @@ snapshots:
 
   ws@8.18.0: {}
 
-  wxt@0.19.2(@types/node@20.14.2)(lightningcss@1.25.1)(rollup@4.18.0):
+  wxt@0.19.3(@types/node@20.14.2)(lightningcss@1.25.1)(rollup@4.18.0):
     dependencies:
       '@aklinker1/rollup-plugin-visualizer': 5.12.0(rollup@4.18.0)
       '@types/webextension-polyfill': 0.10.7
@@ -5067,6 +5067,7 @@ snapshots:
       cac: 6.7.14
       chokidar: 3.6.0
       ci-info: 4.0.0
+      consola: 3.2.3
       defu: 6.1.4
       dequal: 2.0.3
       esbuild: 0.23.0
