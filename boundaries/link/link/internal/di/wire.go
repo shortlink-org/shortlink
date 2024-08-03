@@ -9,13 +9,9 @@ Link UC DI-package
 package link_di
 
 import (
-	"context"
-
 	"github.com/authzed/authzed-go/v1"
-	"github.com/go-redis/cache/v9"
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
-	"google.golang.org/grpc"
 
 	api_mq "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/mq"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/cqrs/cqs"
@@ -28,7 +24,6 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/link"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/link_cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/sitemap"
-	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
@@ -68,7 +63,7 @@ type LinkService struct {
 	sitemapService  *sitemap.Service
 
 	// Repository
-	linkStore crud.Repository
+	linkStore *crud.Store
 
 	// CQRS
 	cqsStore   *cqs.Store
@@ -84,67 +79,30 @@ var LinkSet = wire.NewSet(
 	store.New,
 
 	// Delivery
-	InitLinkMQ,
+	api_mq.New,
 
-	NewLinkRPCServer,
-	NewLinkCQRSRPCServer,
-	NewSitemapRPCServer,
+	link_rpc.New,
+	cqrs.New,
+	sitemap_rpc.New,
 	NewRunRPCServer,
 
-	NewLinkRPCClient,
-	// NewMetadataRPCClient,
+	link_rpc.NewLinkServiceClient,
+	// metadata_rpc.NewMetadataServiceClient,
 
 	// Applications
 	NewLinkApplication,
-	NewLinkCQRSApplication,
-	NewSitemapApplication,
+	link_cqrs.New,
+	sitemap.New,
 
 	// repository
-	NewLinkStore,
-	NewCQSLinkStore,
-	NewQueryLinkStore,
+	crud.New,
+	cqs.New,
+	query.New,
 
 	NewLinkService,
 )
 
-func InitLinkMQ(ctx context.Context, log logger.Logger, mq mq.MQ, service *link.UC) (*api_mq.Event, error) {
-	linkMQ, err := api_mq.New(mq, log, service)
-	if err != nil {
-		return nil, err
-	}
-
-	return linkMQ, nil
-}
-
-func NewLinkStore(ctx context.Context, log logger.Logger, db db.DB, cache *cache.Cache) (crud.Repository, error) {
-	linkStore, err := crud.New(ctx, log, db, cache)
-	if err != nil {
-		return nil, err
-	}
-
-	return linkStore, nil
-}
-
-func NewCQSLinkStore(ctx context.Context, log logger.Logger, db db.DB, cache *cache.Cache) (*cqs.Store, error) {
-	store, err := cqs.New(ctx, log, db, cache)
-	if err != nil {
-		return nil, err
-	}
-
-	return store, nil
-}
-
-func NewQueryLinkStore(ctx context.Context, log logger.Logger, db db.DB, cache *cache.Cache) (*query.Store, error) {
-	store, err := query.New(ctx, log, db, cache)
-	if err != nil {
-		return nil, err
-	}
-
-	return store, nil
-}
-
-// func NewLinkApplication(log logger.Logger, mq mq.MQ, metadataService metadata_rpc.MetadataServiceClient, store crud.Repository, authPermission *authzed.Client) (*link.UC, error) {
-func NewLinkApplication(log logger.Logger, mq mq.MQ, store crud.Repository, authPermission *authzed.Client) (*link.UC, error) {
+func NewLinkApplication(log logger.Logger, mq mq.MQ, store *crud.Store, authPermission *authzed.Client) (*link.UC, error) {
 	linkService, err := link.New(log, mq, nil, store, authPermission)
 	if err != nil {
 		return nil, err
@@ -153,65 +111,10 @@ func NewLinkApplication(log logger.Logger, mq mq.MQ, store crud.Repository, auth
 	return linkService, nil
 }
 
-func NewLinkCQRSApplication(log logger.Logger, cqsStore *cqs.Store, queryStore *query.Store) (*link_cqrs.Service, error) {
-	linkCQRSService, err := link_cqrs.New(log, cqsStore, queryStore)
-	if err != nil {
-		return nil, err
-	}
-
-	return linkCQRSService, nil
-}
-
-func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (link_rpc.LinkServiceClient, error) {
-	LinkServiceClient := link_rpc.NewLinkServiceClient(runRPCClient)
-	return LinkServiceClient, nil
-}
-
-func NewSitemapApplication(log logger.Logger, dataBus mq.MQ) (*sitemap.Service, error) {
-	sitemapService, err := sitemap.New(log, dataBus)
-	if err != nil {
-		return nil, err
-	}
-
-	return sitemapService, nil
-}
-
-func NewLinkCQRSRPCServer(runRPCServer *rpc.Server, application *link_cqrs.Service, log logger.Logger) (*cqrs.LinkRPC, error) {
-	linkRPCServer, err := cqrs.New(runRPCServer, application, log)
-	if err != nil {
-		return nil, err
-	}
-
-	return linkRPCServer, nil
-}
-
-func NewLinkRPCServer(runRPCServer *rpc.Server, application *link.UC, log logger.Logger) (*link_rpc.LinkRPC, error) {
-	linkRPCServer, err := link_rpc.New(runRPCServer, application, log)
-	if err != nil {
-		return nil, err
-	}
-
-	return linkRPCServer, nil
-}
-
-func NewSitemapRPCServer(runRPCServer *rpc.Server, application *sitemap.Service, log logger.Logger) (*sitemap_rpc.Sitemap, error) {
-	sitemapRPCServer, err := sitemap_rpc.New(runRPCServer, application, log)
-	if err != nil {
-		return nil, err
-	}
-
-	return sitemapRPCServer, nil
-}
-
 // TODO: refactoring. maybe drop this function
 func NewRunRPCServer(runRPCServer *rpc.Server, _ *cqrs.LinkRPC, _ *link_rpc.LinkRPC) (*run.Response, error) {
 	return run.Run(runRPCServer)
 }
-
-// func NewMetadataRPCClient(runRPCClient *grpc.ClientConn) (metadata_rpc.MetadataServiceClient, error) {
-// 	metadataRPCClient := metadata_rpc.NewMetadataServiceClient(runRPCClient)
-// 	return metadataRPCClient, nil
-// }
 
 func NewLinkService(
 	// Common
@@ -240,7 +143,7 @@ func NewLinkService(
 	sitemapRPCServer *sitemap_rpc.Sitemap,
 
 	// Repository
-	linkStore crud.Repository,
+	linkStore *crud.Store,
 
 	// CQRS Repository
 	cqsStore *cqs.Store,

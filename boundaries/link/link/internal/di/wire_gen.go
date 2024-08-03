@@ -7,21 +7,20 @@
 package link_di
 
 import (
-	"context"
 	"github.com/authzed/authzed-go/v1"
-	cache2 "github.com/go-redis/cache/v9"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/mq"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/cqrs/cqs"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/cqrs/query"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud"
-	v1_2 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/cqrs/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/cqrs/link/v1"
+	v1_2 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/run"
 	v1_3 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/sitemap/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/link"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/link_cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/sitemap"
+	"github.com/shortlink-org/shortlink/pkg/cache"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
@@ -32,14 +31,11 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/store"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/traicing"
-	"github.com/shortlink-org/shortlink/pkg/cache"
-	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 	"go.opentelemetry.io/otel/trace"
-	"google.golang.org/grpc"
 )
 
 // Injectors from wire.go:
@@ -60,20 +56,20 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
+	autoMaxProAutoMaxPro, cleanup3, err := autoMaxPro.New(logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	monitoringMonitoring, cleanup4, err := monitoring.New(context, logger, tracerProvider)
+	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint, err := profiling.New(context, logger)
+	monitoringMonitoring, cleanup5, err := monitoring.New(context, logger, tracerProvider)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -81,8 +77,9 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	autoMaxProAutoMaxPro, cleanup5, err := autoMaxPro.New(logger)
+	pprofEndpoint, err := profiling.New(context, logger)
 	if err != nil {
+		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -125,7 +122,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	repository, err := NewLinkStore(context, logger, db, cacheCache)
+	crudStore, err := crud.New(context, logger, db, cacheCache)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -134,7 +131,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	uc, err := NewLinkApplication(logger, mq, repository, client)
+	uc, err := NewLinkApplication(logger, mq, crudStore, client)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -143,7 +140,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	cqsStore, err := NewCQSLinkStore(context, logger, db, cacheCache)
+	cqsStore, err := cqs.New(context, logger, db, cacheCache)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -152,7 +149,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	queryStore, err := NewQueryLinkStore(context, logger, db, cacheCache)
+	queryStore, err := query.New(context, logger, db, cacheCache)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -161,7 +158,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewLinkCQRSApplication(logger, cqsStore, queryStore)
+	service, err := link_cqrs.New(logger, cqsStore, queryStore)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -170,7 +167,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	sitemapService, err := NewSitemapApplication(logger, mq)
+	sitemapService, err := sitemap.New(logger, mq)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -179,7 +176,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitLinkMQ(context, logger, mq, uc)
+	event, err := api_mq.New(mq, logger, uc)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -197,7 +194,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkRPC, err := NewLinkCQRSRPCServer(server, service, logger)
+	linkRPC, err := v1.New(server, service, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -206,7 +203,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	v1LinkRPC, err := NewLinkRPCServer(server, uc, logger)
+	v1LinkRPC, err := v1_2.New(server, uc, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -224,7 +221,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	sitemap, err := NewSitemapRPCServer(server, sitemapService, logger)
+	v1Sitemap, err := v1_3.New(server, sitemapService, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -233,7 +230,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(logger, configConfig, monitoringMonitoring, tracerProvider, pprofEndpoint, autoMaxProAutoMaxPro, client, uc, service, sitemapService, event, response, v1LinkRPC, linkRPC, sitemap, repository, cqsStore, queryStore)
+	linkService, err := NewLinkService(logger, configConfig, autoMaxProAutoMaxPro, monitoringMonitoring, tracerProvider, pprofEndpoint, client, uc, service, sitemapService, event, response, v1LinkRPC, linkRPC, v1Sitemap, crudStore, cqsStore, queryStore)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -255,14 +252,14 @@ func InitializeLinkService() (*LinkService, func(), error) {
 
 type LinkService struct {
 	// Common
-	Log    logger.Logger
-	Config *config.Config
+	Log        logger.Logger
+	Config     *config.Config
+	AutoMaxPro autoMaxPro.AutoMaxPro
 
 	// Observability
 	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
-	AutoMaxPro    autoMaxPro.AutoMaxPro
 
 	// Security
 	authPermission *authzed.Client
@@ -270,8 +267,8 @@ type LinkService struct {
 	// Delivery
 	linkMQ            *api_mq.Event
 	run               *run.Response
-	linkRPCServer     *v1.LinkRPC
-	linkCQRSRPCServer *v1_2.LinkRPC
+	linkRPCServer     *v1_2.LinkRPC
+	linkCQRSRPCServer *v1.LinkRPC
 	sitemapRPCServer  *v1_3.Sitemap
 
 	// Application
@@ -280,7 +277,7 @@ type LinkService struct {
 	sitemapService  *sitemap.Service
 
 	// Repository
-	linkStore crud.Repository
+	linkStore *crud.Store
 
 	// CQRS
 	cqsStore   *cqs.Store
@@ -288,64 +285,9 @@ type LinkService struct {
 }
 
 // LinkService =========================================================================================================
-var LinkSet = wire.NewSet(di.DefaultSet, mq_di.New, rpc.InitServer, rpc.InitClient, store.New, InitLinkMQ,
+var LinkSet = wire.NewSet(di.DefaultSet, mq_di.New, rpc.InitServer, rpc.InitClient, store.New, api_mq.New, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, NewLinkApplication, link_cqrs.New, sitemap.New, crud.New, cqs.New, query.New, NewLinkService)
 
-	NewLinkRPCServer,
-	NewLinkCQRSRPCServer,
-	NewSitemapRPCServer,
-	NewRunRPCServer,
-
-	NewLinkRPCClient,
-
-	NewLinkApplication,
-	NewLinkCQRSApplication,
-	NewSitemapApplication,
-
-	NewLinkStore,
-	NewCQSLinkStore,
-	NewQueryLinkStore,
-
-	NewLinkService,
-)
-
-func InitLinkMQ(ctx2 context.Context, log logger.Logger, mq2 mq.MQ, service *link.UC) (*api_mq.Event, error) {
-	linkMQ, err := api_mq.New(mq2, log, service)
-	if err != nil {
-		return nil, err
-	}
-
-	return linkMQ, nil
-}
-
-func NewLinkStore(ctx2 context.Context, log logger.Logger, db2 db.DB, cache3 *cache2.Cache) (crud.Repository, error) {
-	linkStore, err := crud.New(ctx2, log, db2, cache3)
-	if err != nil {
-		return nil, err
-	}
-
-	return linkStore, nil
-}
-
-func NewCQSLinkStore(ctx2 context.Context, log logger.Logger, db2 db.DB, cache3 *cache2.Cache) (*cqs.Store, error) {
-	store2, err := cqs.New(ctx2, log, db2, cache3)
-	if err != nil {
-		return nil, err
-	}
-
-	return store2, nil
-}
-
-func NewQueryLinkStore(ctx2 context.Context, log logger.Logger, db2 db.DB, cache3 *cache2.Cache) (*query.Store, error) {
-	store2, err := query.New(ctx2, log, db2, cache3)
-	if err != nil {
-		return nil, err
-	}
-
-	return store2, nil
-}
-
-// func NewLinkApplication(log logger.Logger, mq mq.MQ, metadataService metadata_rpc.MetadataServiceClient, store crud.Repository, authPermission *authzed.Client) (*link.UC, error) {
-func NewLinkApplication(log logger.Logger, mq2 mq.MQ, store2 crud.Repository, authPermission *authzed.Client) (*link.UC, error) {
+func NewLinkApplication(log logger.Logger, mq2 mq.MQ, store2 *crud.Store, authPermission *authzed.Client) (*link.UC, error) {
 	linkService, err := link.New(log, mq2, nil, store2, authPermission)
 	if err != nil {
 		return nil, err
@@ -354,67 +296,17 @@ func NewLinkApplication(log logger.Logger, mq2 mq.MQ, store2 crud.Repository, au
 	return linkService, nil
 }
 
-func NewLinkCQRSApplication(log logger.Logger, cqsStore *cqs.Store, queryStore *query.Store) (*link_cqrs.Service, error) {
-	linkCQRSService, err := link_cqrs.New(log, cqsStore, queryStore)
-	if err != nil {
-		return nil, err
-	}
-
-	return linkCQRSService, nil
-}
-
-func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (v1.LinkServiceClient, error) {
-	LinkServiceClient := v1.NewLinkServiceClient(runRPCClient)
-	return LinkServiceClient, nil
-}
-
-func NewSitemapApplication(log logger.Logger, dataBus mq.MQ) (*sitemap.Service, error) {
-	sitemapService, err := sitemap.New(log, dataBus)
-	if err != nil {
-		return nil, err
-	}
-
-	return sitemapService, nil
-}
-
-func NewLinkCQRSRPCServer(runRPCServer *rpc.Server, application *link_cqrs.Service, log logger.Logger) (*v1_2.LinkRPC, error) {
-	linkRPCServer, err := v1_2.New(runRPCServer, application, log)
-	if err != nil {
-		return nil, err
-	}
-
-	return linkRPCServer, nil
-}
-
-func NewLinkRPCServer(runRPCServer *rpc.Server, application *link.UC, log logger.Logger) (*v1.LinkRPC, error) {
-	linkRPCServer, err := v1.New(runRPCServer, application, log)
-	if err != nil {
-		return nil, err
-	}
-
-	return linkRPCServer, nil
-}
-
-func NewSitemapRPCServer(runRPCServer *rpc.Server, application *sitemap.Service, log logger.Logger) (*v1_3.Sitemap, error) {
-	sitemapRPCServer, err := v1_3.New(runRPCServer, application, log)
-	if err != nil {
-		return nil, err
-	}
-
-	return sitemapRPCServer, nil
-}
-
 // TODO: refactoring. maybe drop this function
-func NewRunRPCServer(runRPCServer *rpc.Server, _ *v1_2.LinkRPC, _ *v1.LinkRPC) (*run.Response, error) {
+func NewRunRPCServer(runRPCServer *rpc.Server, _ *v1.LinkRPC, _ *v1_2.LinkRPC) (*run.Response, error) {
 	return run.Run(runRPCServer)
 }
 
 func NewLinkService(
 
-	log logger.Logger, config2 *config.Config, monitoring2 *monitoring.Monitoring,
+	log logger.Logger, config2 *config.Config,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro, monitoring2 *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
-	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	authPermission *authzed.Client,
 
@@ -423,24 +315,24 @@ func NewLinkService(
 	sitemapService *sitemap.Service,
 
 	linkMQ *api_mq.Event, run2 *run.Response,
-	linkRPCServer *v1.LinkRPC,
-	linkCQRSRPCServer *v1_2.LinkRPC,
+	linkRPCServer *v1_2.LinkRPC,
+	linkCQRSRPCServer *v1.LinkRPC,
 	sitemapRPCServer *v1_3.Sitemap,
 
-	linkStore crud.Repository,
+	linkStore *crud.Store,
 
 	cqsStore *cqs.Store,
 	queryStore *query.Store,
 ) (*LinkService, error) {
 	return &LinkService{
 
-		Log:    log,
-		Config: config2,
+		Log:        log,
+		Config:     config2,
+		AutoMaxPro: autoMaxProcsOption,
 
 		Tracer:        tracer,
 		Monitoring:    monitoring2,
 		PprofEndpoint: pprofHTTP,
-		AutoMaxPro:    autoMaxProcsOption,
 
 		authPermission: authPermission,
 

@@ -4,15 +4,11 @@ Link UC. Application layer
 package link
 
 import (
-	"context"
-	"fmt"
-
 	"github.com/authzed/authzed-go/v1"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud"
 	"github.com/shortlink-org/shortlink/pkg/logger"
-	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/notify"
 )
@@ -20,6 +16,9 @@ import (
 type UC struct {
 	// Observer interface for subscribe on system event
 	notify.Subscriber[domain.Link]
+
+	// Common
+	log logger.Logger
 
 	// Security
 	permission *authzed.Client
@@ -30,11 +29,10 @@ type UC struct {
 
 	// Repository
 	store crud.Repository
-
-	log logger.Logger
 }
 
-func New(log logger.Logger, dataBus mq.MQ, metadataService any, store crud.Repository, permissionClient *authzed.Client) (*UC, error) {
+// New creates a new link usecase
+func New(log logger.Logger, dataBus mq.MQ, metadataService any, store *crud.Store, permissionClient *authzed.Client) (*UC, error) {
 	service := &UC{
 		log: log,
 
@@ -50,19 +48,4 @@ func New(log logger.Logger, dataBus mq.MQ, metadataService any, store crud.Repos
 	}
 
 	return service, nil
-}
-
-func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {
-	if len(errs) > 0 {
-		errList := field.Fields{}
-		for index := range errs {
-			errList[fmt.Sprintf("stack error: %d", index)] = errs[index]
-		}
-
-		log.ErrorWithContext(ctx, "Error create a new link", errList)
-
-		return ErrCreateLink
-	}
-
-	return nil
 }
