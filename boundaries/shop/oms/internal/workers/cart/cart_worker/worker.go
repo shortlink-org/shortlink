@@ -1,4 +1,4 @@
-package oms_worker
+package cart_worker
 
 import (
 	"context"

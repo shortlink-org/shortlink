@@ -4,18 +4,17 @@
 // The build tag makes sure the stub is not built in the final build.
 
 /*
-OMS DI-package
+OMS Cart Worker DI-package
 */
-package oms_di
+package oms_cart_worker_di
 
 import (
-	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
 	"go.temporal.io/sdk/client"
+	"go.temporal.io/sdk/worker"
 
-	cartRPC "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/cart/v1"
-	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/run"
+	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/workers/cart/cart_worker"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
@@ -23,10 +22,9 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/temporal"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
-type OMSService struct {
+type OMSCartWorkerService struct {
 	// Common
 	Log        logger.Logger
 	Config     *config.Config
@@ -37,33 +35,23 @@ type OMSService struct {
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 
-	// Security
-	authPermission *authzed.Client
-
-	// Delivery
-	run           *run.Response
-	cartRPCServer *cartRPC.CartRPC
-
 	// Temporal
 	temporalClient client.Client
+	cartWorker     worker.Worker
 }
 
-// OMSService ==========================================================================================================
-var OMSSet = wire.NewSet(
+// OMSCartWorkerService ================================================================================================
+var OMSCartWorkerSet = wire.NewSet(
 	di.DefaultSet,
-	rpc.InitServer,
-
-	// Delivery
-	cartRPC.New,
-	run.Run,
-
-	NewOMSService,
 
 	// Temporal
 	temporal.New,
+	cart_worker.New,
+
+	NewOMSCartWorkerService,
 )
 
-func NewOMSService(
+func NewOMSCartWorkerService(
 	// Common
 	log logger.Logger,
 	config *config.Config,
@@ -74,17 +62,11 @@ func NewOMSService(
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 
-	// Security
-	authPermission *authzed.Client,
-
-	// Delivery
-	run *run.Response,
-	cartRPCServer *cartRPC.CartRPC,
-
 	// Temporal
 	temporalClient client.Client,
-) (*OMSService, error) {
-	return &OMSService{
+	cartWorker worker.Worker,
+) (*OMSCartWorkerService, error) {
+	return &OMSCartWorkerService{
 		// Common
 		Log:        log,
 		Config:     config,
@@ -95,19 +77,12 @@ func NewOMSService(
 		Monitoring:    monitoring,
 		PprofEndpoint: pprofHTTP,
 
-		// Security
-		// TODO: enable later
-		// authPermission: authPermission,
-
-		// Delivery
-		run:           run,
-		cartRPCServer: cartRPCServer,
-
 		// Temporal
 		temporalClient: temporalClient,
+		cartWorker:     cartWorker,
 	}, nil
 }
 
-func InitializeOMSService() (*OMSService, func(), error) {
-	panic(wire.Build(OMSSet))
+func InitializeOMSCartWorkerService() (*OMSCartWorkerService, func(), error) {
+	panic(wire.Build(OMSCartWorkerSet))
 }

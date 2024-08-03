@@ -4,32 +4,29 @@
 //go:build !wireinject
 // +build !wireinject
 
-package oms_di
+package oms_cart_worker_di
 
 import (
-	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
-	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/cart/v1"
-	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/run"
+	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/workers/cart/cart_worker"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/context"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/logger"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/temporal"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 	"go.opentelemetry.io/otel/trace"
 	"go.temporal.io/sdk/client"
+	"go.temporal.io/sdk/worker"
 )
 
 // Injectors from wire.go:
 
-func InitializeOMSService() (*OMSService, func(), error) {
+func InitializeOMSCartWorkerService() (*OMSCartWorkerService, func(), error) {
 	context, cleanup, err := ctx.New()
 	if err != nil {
 		return nil, nil, err
@@ -75,7 +72,7 @@ func InitializeOMSService() (*OMSService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	client, err := permission.New(context, logger, tracerProvider, monitoringMonitoring)
+	client, err := temporal.New(logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -84,7 +81,7 @@ func InitializeOMSService() (*OMSService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	server, err := rpc.InitServer(context, logger, tracerProvider, monitoringMonitoring)
+	worker, err := cart_worker.New(context, client, logger)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -93,7 +90,7 @@ func InitializeOMSService() (*OMSService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	response, err := run.Run(server)
+	omsCartWorkerService, err := NewOMSCartWorkerService(logger, configConfig, autoMaxProAutoMaxPro, monitoringMonitoring, tracerProvider, pprofEndpoint, client, worker)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -102,34 +99,7 @@ func InitializeOMSService() (*OMSService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientClient, err := temporal.New(logger)
-	if err != nil {
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	cartRPC, err := v1.New(server, logger, clientClient)
-	if err != nil {
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	omsService, err := NewOMSService(logger, configConfig, autoMaxProAutoMaxPro, monitoringMonitoring, tracerProvider, pprofEndpoint, client, response, cartRPC, clientClient)
-	if err != nil {
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	return omsService, func() {
+	return omsCartWorkerService, func() {
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -140,7 +110,7 @@ func InitializeOMSService() (*OMSService, func(), error) {
 
 // wire.go:
 
-type OMSService struct {
+type OMSCartWorkerService struct {
 	// Common
 	Log        logger.Logger
 	Config     *config.Config
@@ -151,32 +121,24 @@ type OMSService struct {
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 
-	// Security
-	authPermission *authzed.Client
-
-	// Delivery
-	run           *run.Response
-	cartRPCServer *v1.CartRPC
-
 	// Temporal
 	temporalClient client.Client
+	cartWorker     worker.Worker
 }
 
-// OMSService ==========================================================================================================
-var OMSSet = wire.NewSet(di.DefaultSet, rpc.InitServer, v1.New, run.Run, NewOMSService, temporal.New)
+// OMSCartWorkerService ================================================================================================
+var OMSCartWorkerSet = wire.NewSet(di.DefaultSet, temporal.New, cart_worker.New, NewOMSCartWorkerService)
 
-func NewOMSService(
+func NewOMSCartWorkerService(
 
 	log logger.Logger, config2 *config.Config, autoMaxPro2 autoMaxPro.AutoMaxPro, monitoring2 *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 
-	authPermission *authzed.Client, run2 *run.Response,
-	cartRPCServer *v1.CartRPC,
-
 	temporalClient client.Client,
-) (*OMSService, error) {
-	return &OMSService{
+	cartWorker worker.Worker,
+) (*OMSCartWorkerService, error) {
+	return &OMSCartWorkerService{
 
 		Log:        log,
 		Config:     config2,
@@ -186,9 +148,7 @@ func NewOMSService(
 		Monitoring:    monitoring2,
 		PprofEndpoint: pprofHTTP,
 
-		run:           run2,
-		cartRPCServer: cartRPCServer,
-
 		temporalClient: temporalClient,
+		cartWorker:     cartWorker,
 	}, nil
 }
