@@ -1,5 +1,7 @@
 # PROTO TASKS ==========================================================================================================
 
+proto: proto-lock proto-lint proto-generate ## Check lint, lock proto dependencies and generate proto-files
+
 proto-lint: ## Check lint
 	@buf ls-files
 	@buf lint

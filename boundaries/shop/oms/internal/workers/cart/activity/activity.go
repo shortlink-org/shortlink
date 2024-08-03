@@ -1,4 +1,4 @@
-package cart
+package activity
 
 import (
 	"context"

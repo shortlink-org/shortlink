@@ -16,6 +16,7 @@ import (
 
 	cartRPC "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/cart/v1"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/run"
+	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/usecases/cart"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
@@ -44,6 +45,9 @@ type OMSService struct {
 	run           *run.Response
 	cartRPCServer *cartRPC.CartRPC
 
+	// Applications
+	cartService *cart.UC
+
 	// Temporal
 	temporalClient client.Client
 }
@@ -57,10 +61,13 @@ var OMSSet = wire.NewSet(
 	cartRPC.New,
 	NewRunRPCServer,
 
-	NewOMSService,
+	// Applications
+	cart.New,
 
 	// Temporal
 	temporal.New,
+
+	NewOMSService,
 )
 
 // TODO: refactoring. maybe drop this function

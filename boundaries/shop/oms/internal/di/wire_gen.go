@@ -11,6 +11,7 @@ import (
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/cart/v1"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/run"
+	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/usecases/cart"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
@@ -102,7 +103,16 @@ func InitializeOMSService() (*OMSService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	cartRPC, err := v1.New(server, logger, clientClient)
+	uc, err := cart.New(logger, client, clientClient)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	cartRPC, err := v1.New(server, logger, uc)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -158,15 +168,15 @@ type OMSService struct {
 	run           *run.Response
 	cartRPCServer *v1.CartRPC
 
+	// Applications
+	cartService *cart.UC
+
 	// Temporal
 	temporalClient client.Client
 }
 
 // OMSService ==========================================================================================================
-var OMSSet = wire.NewSet(di.DefaultSet, rpc.InitServer, v1.New, NewRunRPCServer,
-
-	NewOMSService, temporal.New,
-)
+var OMSSet = wire.NewSet(di.DefaultSet, rpc.InitServer, v1.New, NewRunRPCServer, cart.New, temporal.New, NewOMSService)
 
 // TODO: refactoring. maybe drop this function
 func NewRunRPCServer(runRPCServer *rpc.Server, _ *v1.CartRPC) (*run.Response, error) {

@@ -1,4 +1,4 @@
-package cart
+package workflow
 
 import (
 	"go.temporal.io/sdk/workflow"

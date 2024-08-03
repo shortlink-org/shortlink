@@ -27,7 +27,7 @@ message CartState {
   // Cart ID
   string cart_id = 1;
   // User ID
-  string user_id = 2;
+  string customer_id = 2;
   // Items
   repeated CartItem items = 3;
   // Created at
@@ -54,15 +54,15 @@ service CartService {
 // AddRequest is the request message for adding an item to the cart.
 message AddRequest {
   // Cart ID
-  string user_id = 1;
+  string customer_id = 1;
   // Item to add
-  repeated CartItem item = 2;
+  repeated CartItem items = 2;
 }
 
 // RemoveRequest is the request message for removing an item from the cart.
 message RemoveRequest {
   // Cart ID
-  string user_id = 1;
+  string customer_id = 1;
   // Item to remove
   repeated CartItem item = 2;
 }
@@ -70,7 +70,7 @@ message RemoveRequest {
 // GetRequest is the request message for getting the cart state.
 message GetRequest {
   // Cart ID
-  string user_id = 1;
+  string customer_id = 1;
 }
 
 // GetResponse is the response message for getting the cart state.
@@ -82,5 +82,5 @@ message GetResponse {
 // ResetRequest is the request message for resetting the cart.
 message ResetRequest {
   // Cart ID
-  string user_id = 1;
+  string customer_id = 1;
 }
