@@ -18,14 +18,14 @@ func (r AddRequest) ToDomain() (*domain.CartState, error) {
 	item := domain.NewCartState(customerId)
 
 	// add item to the cart
-	for _, i := range r.Items {
+	for id, quantity := range r.Items {
 		// string to uuid
-		productId, errParseItem := uuid.Parse(i.ProductId)
+		productId, errParseItem := uuid.Parse(id)
 		if errParseItem != nil {
-			return nil, ParseItemError{Err: errParseItem, item: i.ProductId}
+			return nil, ParseItemError{Err: errParseItem, item: id}
 		}
 
-		item.AddItem(domain.NewCartItem(productId, i.Quantity))
+		item.AddItem(domain.NewCartItem(productId, quantity))
 	}
 
 	return &domain.CartState{}, nil
