@@ -93,15 +93,6 @@ func InitializeOMSService() (*OMSService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	response, err := run.Run(server)
-	if err != nil {
-		cleanup5()
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
 	clientClient, err := temporal.New(logger)
 	if err != nil {
 		cleanup5()
@@ -112,6 +103,15 @@ func InitializeOMSService() (*OMSService, func(), error) {
 		return nil, nil, err
 	}
 	cartRPC, err := v1.New(server, logger, clientClient)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	response, err := NewRunRPCServer(server, cartRPC)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -163,7 +163,15 @@ type OMSService struct {
 }
 
 // OMSService ==========================================================================================================
-var OMSSet = wire.NewSet(di.DefaultSet, rpc.InitServer, v1.New, run.Run, NewOMSService, temporal.New)
+var OMSSet = wire.NewSet(di.DefaultSet, rpc.InitServer, v1.New, NewRunRPCServer,
+
+	NewOMSService, temporal.New,
+)
+
+// TODO: refactoring. maybe drop this function
+func NewRunRPCServer(runRPCServer *rpc.Server, _ *v1.CartRPC) (*run.Response, error) {
+	return run.Run(runRPCServer)
+}
 
 func NewOMSService(
 

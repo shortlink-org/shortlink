@@ -55,13 +55,18 @@ var OMSSet = wire.NewSet(
 
 	// Delivery
 	cartRPC.New,
-	run.Run,
+	NewRunRPCServer,
 
 	NewOMSService,
 
 	// Temporal
 	temporal.New,
 )
+
+// TODO: refactoring. maybe drop this function
+func NewRunRPCServer(runRPCServer *rpc.Server, _ *cartRPC.CartRPC) (*run.Response, error) {
+	return run.Run(runRPCServer)
+}
 
 func NewOMSService(
 	// Common
