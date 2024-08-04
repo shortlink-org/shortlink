@@ -26,6 +26,7 @@ func Workflow(ctx workflow.Context, customerId uuid.UUID) error {
 	logger := workflow.GetLogger(ctx)
 
 	addToCartChannel := workflow.GetSignalChannel(ctx, v2.Event_EVENT_ADD.String())
+	removeFromCartChannel := workflow.GetSignalChannel(ctx, v2.Event_EVENT_REMOVE.String())
 
 	selector := workflow.NewSelector(ctx)
 
@@ -40,6 +41,20 @@ func Workflow(ctx workflow.Context, customerId uuid.UUID) error {
 			}
 
 			state.AddItem(v2.NewCartItem(productId, item.Quantity))
+		}
+	})
+
+	selector.AddReceive(removeFromCartChannel, func(c workflow.ReceiveChannel, _ bool) {
+		var request v1.CartEvent
+		c.Receive(ctx, &request)
+
+		for _, item := range request.Items {
+			productId, err := uuid.Parse(item.ProductId)
+			if err != nil {
+				logger.Error("Invalid product ID %v", err)
+			}
+
+			state.RemoveItem(v2.NewCartItem(productId, item.Quantity))
 		}
 	})
 
