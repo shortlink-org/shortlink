@@ -19,3 +19,13 @@ func NewCartItem(productId uuid.UUID, quantity int32) CartItem {
 		quantity:  quantity,
 	}
 }
+
+// GetProductId returns the product ID.
+func (c CartItem) GetProductId() uuid.UUID {
+	return c.productId
+}
+
+// GetQuantity returns the quantity.
+func (c CartItem) GetQuantity() int32 {
+	return c.quantity
+}

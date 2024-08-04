@@ -1,4 +1,4 @@
-package workflow
+package cart_workflow
 
 import (
 	"testing"

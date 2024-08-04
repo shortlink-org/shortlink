@@ -6,12 +6,12 @@ import (
 	"github.com/google/uuid"
 )
 
-// CartState
+// CartState represents the cart state.
 type CartState struct {
 	mu sync.Mutex
 
 	// items is the cart items
-	items []CartItem
+	items CartItems
 	// customerId is the customer ID
 	customerId uuid.UUID
 }
@@ -25,7 +25,7 @@ func NewCartState(customerId uuid.UUID) *CartState {
 }
 
 // GetItems returns the value of the items field.
-func (m *CartState) GetItems() []CartItem {
+func (m *CartState) GetItems() CartItems {
 	return m.items
 }
 
@@ -62,7 +62,6 @@ func (m *CartState) RemoveItem(item CartItem) {
 			if m.items[i].quantity <= 0 {
 				m.items = append(m.items[:i], m.items[i+1:]...)
 			}
-			return
 		}
 	}
 }

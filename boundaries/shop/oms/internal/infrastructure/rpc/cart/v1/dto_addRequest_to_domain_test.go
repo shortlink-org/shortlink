@@ -4,95 +4,78 @@ import (
 	"errors"
 	"testing"
 
-	"buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go/buf/validate"
-	"github.com/bufbuild/protovalidate-go"
 	"github.com/google/uuid"
 	"github.com/stretchr/testify/assert"
-	"github.com/stretchr/testify/require"
+
+	domain "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/domain/cart/v1"
+	model "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/cart/v1/model/v1"
 )
 
 func TestAddRequestToDomain(t *testing.T) {
-	validUUID := uuid.New().String()
-	invalidUUID := "invalid-uuid"
-
-	// Initialize the validator
-	validator, err := protovalidate.New()
-	require.NoError(t, err)
-
 	tests := []struct {
 		name          string
 		request       *AddRequest
 		expectedError error
+		expectedState *domain.CartState
 	}{
 		{
-			name: "valid request",
+			name: "Valid AddRequest",
 			request: &AddRequest{
-				CustomerId: validUUID,
-				Items: map[string]int32{
-					uuid.New().String(): 1,
+				CustomerId: "e2c8ba97-1a6b-4c5c-9a2a-3f4c9b9d65a1",
+				Items: []*model.CartItem{
+					{ProductId: "c5f5d6d6-98e6-4f57-b34a-48a3997f28d4", Quantity: 1},
+					{ProductId: "da3f3a3e-784d-4a9a-8cfa-6321d555d6a3", Quantity: 2},
 				},
 			},
 			expectedError: nil,
+			expectedState: func() *domain.CartState {
+				customerId, _ := uuid.Parse("e2c8ba97-1a6b-4c5c-9a2a-3f4c9b9d65a1")
+				productId1, _ := uuid.Parse("c5f5d6d6-98e6-4f57-b34a-48a3997f28d4")
+				productId2, _ := uuid.Parse("da3f3a3e-784d-4a9a-8cfa-6321d555d6a3")
+				state := domain.NewCartState(customerId)
+				state.AddItem(domain.NewCartItem(productId1, 1))
+				state.AddItem(domain.NewCartItem(productId2, 2))
+				return state
+			}(),
 		},
 		{
-			name: "invalid customer id",
+			name: "Invalid Customer ID",
 			request: &AddRequest{
-				CustomerId: invalidUUID,
-				Items: map[string]int32{
-					uuid.New().String(): 1,
+				CustomerId: "invalid-uuid",
+				Items: []*model.CartItem{
+					{ProductId: uuid.New().String(), Quantity: 1},
 				},
 			},
 			expectedError: ErrInvalidCustomerId,
+			expectedState: nil,
 		},
 		{
-			name: "invalid product id",
+			name: "Invalid Product ID",
 			request: &AddRequest{
-				CustomerId: validUUID,
-				Items: map[string]int32{
-					invalidUUID: 1,
+				CustomerId: uuid.New().String(),
+				Items: []*model.CartItem{
+					{ProductId: "invalid-uuid", Quantity: 1},
 				},
 			},
-			expectedError: ParseItemError{Err: errors.New(""), item: invalidUUID},
-		},
-		{
-			name: "negative quantity",
-			request: &AddRequest{
-				CustomerId: validUUID,
-				Items: map[string]int32{
-					"0ab35561-f7d9-4f70-967c-9b104e06866d": -1,
-				},
+			expectedError: ParseItemError{
+				Err:  errors.New("invalid UUID length: 12"),
+				item: "invalid-uuid",
 			},
-			expectedError: &protovalidate.ValidationError{
-				Violations: []*validate.Violation{
-					{
-						FieldPath:    `items["0ab35561-f7d9-4f70-967c-9b104e06866d"]`,
-						ConstraintId: "int32.gt",
-						Message:      "value must be greater than 0",
-						ForKey:       false,
-					},
-				},
-			},
+			expectedState: nil,
 		},
 	}
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			cartState, err := AddRequestToDomain(tt.request, validator)
-
-			// Check for error
-			assert.Equal(t, tt.expectedError != nil, err != nil)
-
-			// Check error type and content
-			switch expectedErr := tt.expectedError.(type) {
-			case nil:
-				require.NoError(t, err)
-				assert.NotNil(t, cartState)
-				assert.Equal(t, tt.request.CustomerId, cartState.GetCustomerId().String())
-			case ParseItemError:
-				assert.IsType(t, expectedErr, err)
-				assert.Equal(t, expectedErr.item, err.(ParseItemError).item)
-			default:
-				assert.EqualError(t, err, expectedErr.Error())
+			actualState, err := AddRequestToDomain(tt.request)
+			if tt.expectedError != nil {
+				assert.NotNil(t, err)
+				assert.Equal(t, tt.expectedError.Error(), err.Error())
+			} else {
+				assert.NoError(t, err)
+				assert.NotNil(t, actualState)
+				assert.Equal(t, tt.expectedState.GetCustomerId(), actualState.GetCustomerId())
+				assert.Equal(t, len(tt.expectedState.GetItems()), len(actualState.GetItems()))
 			}
 		})
 	}

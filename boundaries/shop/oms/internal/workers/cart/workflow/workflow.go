@@ -1,68 +1,41 @@
-package workflow
+package cart_workflow
 
 import (
+	"github.com/google/uuid"
 	"go.temporal.io/sdk/workflow"
 
-	v1 "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/domain/cart/v1"
+	v2 "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/domain/cart/v1"
+	v1 "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/workers/cart/workflow/model/cart/v1"
 )
 
 // Workflow is a Temporal workflow that manages the cart state.
-func Workflow(ctx workflow.Context, state *v1.CartState) error {
+func Workflow(ctx workflow.Context, customerId uuid.UUID) error {
+	state := v2.NewCartState(customerId)
+
 	// https://docs.temporal.io/docs/concepts/workflows/#workflows-have-options
 	logger := workflow.GetLogger(ctx)
 
-	err := workflow.SetQueryHandler(ctx, "getCart", func(input []byte) (*v1.CartState, error) {
-		return state, nil
+	addToCartChannel := workflow.GetSignalChannel(ctx, v2.Event_EVENT_ADD.String())
+
+	selector := workflow.NewSelector(ctx)
+
+	selector.AddReceive(addToCartChannel, func(c workflow.ReceiveChannel, _ bool) {
+		var request v1.CartEvent
+		c.Receive(ctx, &request)
+
+		for _, item := range request.Items {
+			productId, err := uuid.Parse(item.ProductId)
+			if err != nil {
+				logger.Error("Invalid product ID %v", err)
+			}
+
+			state.AddItem(v2.NewCartItem(productId, item.Quantity))
+		}
 	})
-	if err != nil {
-		logger.Info("SetQueryHandler failed.", "Error", err)
-		return err
+
+	for {
+		selector.Select(ctx)
 	}
-
-	// addToCartChannel := workflow.GetSignalChannel(ctx, v1.ADD_TO_CART.String())
-	// removeFromCartChannel := workflow.GetSignalChannel(ctx, v1.REMOVE_FROM_CART.String())
-	//
-	// selector := workflow.NewSelector(ctx)
-
-	// for {
-	// 	selector.AddReceive(addToCartChannel, func(c workflow.ReceiveChannel, _ bool) {
-	// 		var signal interface{}
-	// 		c.Receive(ctx, &signal)
-	//
-	// 		var message v1.AddToCartSignal
-	// 		err := mapstructure.Decode(signal, &message)
-	// 		if err != nil {
-	// 			logger.Error("Invalid signal type %v", err)
-	// 			return
-	// 		}
-	//
-	// 		state.AddItem(message.Item)
-	// 	})
-	//
-	// 	selector.AddReceive(removeFromCartChannel, func(c workflow.ReceiveChannel, _ bool) {
-	// 		var signal interface{}
-	// 		c.Receive(ctx, &signal)
-	//
-	// 		var message v1.RemoveFromCartSignal
-	// 		err := mapstructure.Decode(signal, &message)
-	// 		if err != nil {
-	// 			logger.Error("Invalid signal type %v", err)
-	// 			return
-	// 		}
-	//
-	// 		state.RemoveItem(message.Item)
-	// 	})
-	//
-	// 	// This ensures the workflow yields control periodically
-	// 	selector.Select(ctx)
-	//
-	// 	// Add short sleep to yield control more explicitly
-	// 	err = workflow.Sleep(ctx, 1*time.Second)
-	// 	if err != nil {
-	// 		logger.Error("Workflow sleep interrupted.", "Error", err)
-	// 		return err
-	// 	}
-	// }
 
 	return nil
 }

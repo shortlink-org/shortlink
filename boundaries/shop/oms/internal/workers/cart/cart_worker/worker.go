@@ -6,6 +6,7 @@ import (
 	"go.temporal.io/sdk/client"
 	"go.temporal.io/sdk/worker"
 
+	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/domain/queue/v1"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/workers/cart/activity"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/workers/cart/workflow"
 	"github.com/shortlink-org/shortlink/pkg/logger"
@@ -13,9 +14,9 @@ import (
 
 func New(ctx context.Context, c client.Client, log logger.Logger) (worker.Worker, error) {
 	// This worker hosts both Worker and Activity functions
-	w := worker.New(c, "CART_TASK_QUEUE", worker.Options{})
+	w := worker.New(c, v1.CART_TASK_QUEUE, worker.Options{})
 
-	w.RegisterWorkflow(workflow.Workflow)
+	w.RegisterWorkflow(cart_workflow.Workflow)
 	w.RegisterActivity(activity.AddItemActivity)
 	w.RegisterActivity(activity.RemoveItemActivity)
 

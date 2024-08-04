@@ -20,3 +20,8 @@ proto-generate: ## Generate proto-files
 	@buf generate \
 		--path=internal/infrastructure \
 		--template=ops/proto/rpc.buf.gen.yaml
+
+	# workers -------------------------------------------------------------------------------------
+	@buf generate \
+		--path=internal/workers \
+		--template=ops/proto/domain.buf.gen.yaml

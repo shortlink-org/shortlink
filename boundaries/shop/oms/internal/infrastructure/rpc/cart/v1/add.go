@@ -8,7 +8,7 @@ import (
 
 // Add adds an item to the cart
 func (c *CartRPC) Add(ctx context.Context, in *AddRequest) (*emptypb.Empty, error) {
-	request, err := AddRequestToDomain(in, c.validator)
+	request, err := AddRequestToDomain(in)
 	if err != nil {
 		return nil, err
 	}

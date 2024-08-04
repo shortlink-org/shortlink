@@ -14,5 +14,5 @@ type ParseItemError struct {
 }
 
 func (e ParseItemError) Error() string {
-	return fmt.Sprintf("failed to parse item: %s: %v", e.item, e.Err)
+	return fmt.Sprintf("failed to parse item (%s): %v", e.item, e.Err)
 }
