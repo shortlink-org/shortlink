@@ -12,6 +12,8 @@ import (
 type OrderState struct {
 	mu sync.Mutex
 
+	// orderID is the order ID
+	id uuid.UUID
 	// items is the list of order items
 	items Items
 	// customerId is the customer ID
@@ -23,6 +25,7 @@ type OrderState struct {
 // NewOrderState creates a new order state.
 func NewOrderState(customerId uuid.UUID) *OrderState {
 	return &OrderState{
+		id:         uuid.New(),
 		items:      make([]Item, 0),
 		customerId: customerId,
 		fsm: fsm.NewFSM(
@@ -52,6 +55,11 @@ func NewOrderState(customerId uuid.UUID) *OrderState {
 			fsm.Callbacks{},
 		),
 	}
+}
+
+// GetOrderID returns the order ID.
+func (o *OrderState) GetOrderID() uuid.UUID {
+	return o.id
 }
 
 // GetItems returns the list of order items.

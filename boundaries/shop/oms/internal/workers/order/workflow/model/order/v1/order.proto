@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+package workers.order.workflow.model.order.v1;
+
+option go_package = "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/workers/order/workflow/model/order/v1";
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+// CartItem is the cart item message.
+message WorkerOrderItem {
+  // Product ID
+  string order_id = 1;
+  // Quantity
+  int32 quantity = 2;
+}
