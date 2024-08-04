@@ -24,7 +24,7 @@ func (uc *UC) Add(ctx context.Context, in *v1.CartState) error {
 		return err
 	}
 
-	request := dto.ItemsToCartEvent(in, v1.Event_EVENT_ADD)
+	request := dto.CartStateToCartEvent(in, v1.Event_EVENT_ADD)
 	err = uc.temporalClient.SignalWorkflow(ctx, workflowId, "", v1.Event_EVENT_ADD.String(), request)
 	if err != nil {
 		return err

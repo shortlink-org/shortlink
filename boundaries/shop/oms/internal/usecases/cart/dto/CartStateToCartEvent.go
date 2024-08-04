@@ -5,8 +5,8 @@ import (
 	v2 "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/workers/cart/workflow/model/cart/v1"
 )
 
-// ItemsToCartEvent converts a list of items to a cart event.
-func ItemsToCartEvent(in *v1.CartState, event v1.Event) v2.CartEvent {
+// CartStateToCartEvent converts a list of items to a cart event.
+func CartStateToCartEvent(in *v1.CartState, event v1.Event) v2.CartEvent {
 	return v2.CartEvent{
 		Event: event,
 		Items: newWorkerCartItems(in.GetItems()),

@@ -5,12 +5,22 @@ import (
 	"go.temporal.io/sdk/workflow"
 
 	v2 "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/domain/cart/v1"
+	v3 "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/cart/v1/model/v1"
+	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/workers/cart/workflow/dto"
 	v1 "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/workers/cart/workflow/model/cart/v1"
 )
 
 // Workflow is a Temporal workflow that manages the cart state.
 func Workflow(ctx workflow.Context, customerId uuid.UUID) error {
 	state := v2.NewCartState(customerId)
+
+	// Set up query handler for getting cart state
+	err := workflow.SetQueryHandler(ctx, v2.Event_EVENT_GET.String(), func() (*v3.CartState, error) {
+		return dto.CartStateToDomain(state), nil
+	})
+	if err != nil {
+		return err
+	}
 
 	// https://docs.temporal.io/docs/concepts/workflows/#workflows-have-options
 	logger := workflow.GetLogger(ctx)

@@ -4,11 +4,14 @@ import (
 	"context"
 
 	"google.golang.org/protobuf/types/known/emptypb"
+
+	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/cart/v1/dto"
+	v1 "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/cart/v1/model/v1"
 )
 
 // Add adds an item to the cart
-func (c *CartRPC) Add(ctx context.Context, in *AddRequest) (*emptypb.Empty, error) {
-	request, err := AddRequestToDomain(in)
+func (c *CartRPC) Add(ctx context.Context, in *v1.AddRequest) (*emptypb.Empty, error) {
+	request, err := dto.AddRequestToDomain(in)
 	if err != nil {
 		return nil, err
 	}
