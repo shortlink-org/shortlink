@@ -49,7 +49,7 @@ message RemoveRequest {
   // Cart ID
   string customer_id = 1;
   // Item to remove
-  CartItem item = 2;
+  repeated CartItem items = 2;
 }
 
 // GetRequest is the request message for getting the cart state.

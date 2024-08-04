@@ -7,7 +7,6 @@ import (
 	"go.temporal.io/sdk/worker"
 
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/domain/queue/v1"
-	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/workers/cart/activity"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/workers/cart/workflow"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
@@ -17,8 +16,6 @@ func New(ctx context.Context, c client.Client, log logger.Logger) (worker.Worker
 	w := worker.New(c, v1.CART_TASK_QUEUE, worker.Options{})
 
 	w.RegisterWorkflow(cart_workflow.Workflow)
-	w.RegisterActivity(activity.AddItemActivity)
-	w.RegisterActivity(activity.RemoveItemActivity)
 
 	// Start listening to the Task Queue
 	go func() {
