@@ -65,3 +65,11 @@ func (m *CartState) RemoveItem(item CartItem) {
 		}
 	}
 }
+
+// Reset resets the cart.
+func (m *CartState) Reset() {
+	m.mu.Lock()
+	defer m.mu.Unlock()
+
+	m.items = make([]CartItem, 0)
+}
