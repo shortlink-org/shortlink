@@ -23,3 +23,4 @@ $> make help # show help message with all commands and targets
 ### Use Cases
 
 - [UC-1](internal/usecases/cart/README.md) Cart workflows
+- [UC-2](internal/usecases/order/README.md) Order workflows
