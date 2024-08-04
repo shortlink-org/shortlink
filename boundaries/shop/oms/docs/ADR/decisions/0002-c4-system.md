@@ -36,6 +36,7 @@ System_Ext(temporal, "Temporal", "Orchestration service for managing workflows."
 System_Boundary(oms, "Shop Boundaries") {
     System(oms_service, "OMS Service", "API", "Handles order management API requests.")
     Container(cart_worker, "Cart Worker", "Workflow Worker", "Handles cart workflows.")
+    Container(order_worker, "Order Worker", "Workflow Worker", "Handles order workflows.")
     ContainerDb(database, "Database", "SQL Database", "Stores order, customer, and inventory data.")
     Container(cache, "Cache", "In-Memory Data Store", "Caches frequently accessed order data.")
 }
@@ -48,11 +49,13 @@ Rel(oms_service, cache, "Utilizes for quick access", "In-Memory")
 BiRel_U(oms_service, mq, "Sends/Receives order events", "Messages")
 Rel_U(oms_service, temporal, "Uses for workflow orchestration", "Temporal API")
 Rel(temporal, cart_worker, "Triggers cart workflows in", "Workflow")
+Rel(temporal, order_worker, "Triggers order workflows in", "Workflow")
 
 ' Use Cases
 note right of oms_service
   Use Cases:
   - UC-1: Cart workflows
+  - UC-2: Order workflows
 end note
 
 @enduml
