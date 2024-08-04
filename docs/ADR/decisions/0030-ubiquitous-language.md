@@ -27,3 +27,4 @@ However, it requires ongoing effort to maintain and adapt the language to the pr
 ## References
 
 - Ubiquitous Language, Open Practice Library: [https://openpracticelibrary.com/practice/ubiquitous-language/](https://openpracticelibrary.com/practice/ubiquitous-language/)
+- [Делай нейминг как сеньор](https://habr.com/ru/companies/dododev/articles/714512/)

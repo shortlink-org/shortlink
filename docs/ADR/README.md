@@ -26,7 +26,6 @@ adr new Implement as Unix shell scripts
   - [ADR-0012](./decisions/0012-use-monorepository.md) - Use monorepository
   - [ADR-0016](./decisions/0016-use-domain-driven-developer.md) - Adopting Domain-Driven Design (DDD) and Clean Architecture Principles
   - [ADR-0021](./decisions/0021-microservice-structure.md) - Microservice structure
-  - [ADR-0024](./decisions/0024-selecting-a-development-tool-for-remote-machine.md) - Selecting a Development Tool for Remote Machine
 - **Naming**
   - [ADR-0030](./decisions/0030-ubiquitous-language.md) - Ubiquitous Language [glossary]
   - [ADR-0002](./decisions/0002-implement-as-event-naming.md) - Implement as event naming
@@ -47,6 +46,8 @@ adr new Implement as Unix shell scripts
 - **Service**
   - [ADR-0008](./decisions/0008-product-metrics-by-services.md) - Product metrics by services
   - [ADR-0015](./decisions/0015-authentication.md) - Authentication
+- **Tooling**
+  - [ADR-0024](./decisions/0024-selecting-a-development-tool-for-remote-machine.md) - Selecting a Development Tool for Remote Machine
 - **Security**
   - [ADR-0013](./decisions/0013-security.md) - Enhancing Security Measures
   - [ADR-0025](./decisions/0025-configuration.md) - Application Configuration Redesign
