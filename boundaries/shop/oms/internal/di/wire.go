@@ -17,6 +17,7 @@ import (
 	cartRPC "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/cart/v1"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/run"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/usecases/cart"
+	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/usecases/order"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
@@ -63,6 +64,7 @@ var OMSSet = wire.NewSet(
 
 	// Applications
 	cart.New,
+	order.New,
 
 	// Temporal
 	temporal.New,

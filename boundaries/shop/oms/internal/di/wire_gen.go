@@ -12,6 +12,7 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/cart/v1"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/run"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/usecases/cart"
+	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/usecases/order"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
@@ -176,7 +177,7 @@ type OMSService struct {
 }
 
 // OMSService ==========================================================================================================
-var OMSSet = wire.NewSet(di.DefaultSet, rpc.InitServer, v1.New, NewRunRPCServer, cart.New, temporal.New, NewOMSService)
+var OMSSet = wire.NewSet(di.DefaultSet, rpc.InitServer, v1.New, NewRunRPCServer, cart.New, order.New, temporal.New, NewOMSService)
 
 // TODO: refactoring. maybe drop this function
 func NewRunRPCServer(runRPCServer *rpc.Server, _ *v1.CartRPC) (*run.Response, error) {
