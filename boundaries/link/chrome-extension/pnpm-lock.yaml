@@ -43,8 +43,8 @@ importers:
         specifier: ^5.5.4
         version: 5.5.4
       wxt:
-        specifier: ^0.19.3
-        version: 0.19.3(@types/node@20.14.2)(lightningcss@1.25.1)(rollup@4.18.0)
+        specifier: ^0.19.4
+        version: 0.19.4(@types/node@20.14.2)(lightningcss@1.25.1)(rollup@4.18.0)
 
 packages:
 
@@ -2589,8 +2589,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  wxt@0.19.3:
-    resolution: {integrity: sha512-ZEyWAvahUkye5oZR6AX1oxTvg3wOK6DSO14ukiRCSY9FRWeBloa6C24AjzjsvYmZwO0RA8FNClQHJfaoli/MVw==}
+  wxt@0.19.4:
+    resolution: {integrity: sha512-L77X9mTYEqJPbaKyT3UQ9zKtIYNsJ7FCNb6t/OT73aWDUD3w7ijqJ38485mlOwyDKKDcJ2AWcvsU9Z0tR8B8ZQ==}
     hasBin: true
     peerDependencies:
       '@types/chrome': '*'
@@ -5094,7 +5094,7 @@ snapshots:
 
   ws@8.18.0: {}
 
-  wxt@0.19.3(@types/node@20.14.2)(lightningcss@1.25.1)(rollup@4.18.0):
+  wxt@0.19.4(@types/node@20.14.2)(lightningcss@1.25.1)(rollup@4.18.0):
     dependencies:
       '@aklinker1/rollup-plugin-visualizer': 5.12.0(rollup@4.18.0)
       '@types/webextension-polyfill': 0.10.7
