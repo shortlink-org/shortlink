@@ -391,7 +391,7 @@ func (x *UpdateRequest) GetUpdateMask() *fieldmaskpb.FieldMask {
 }
 
 // Request message for deleting an order by ID
-type DeleteRequest struct {
+type CancelRequest struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
@@ -400,8 +400,8 @@ type DeleteRequest struct {
 	Id string `protobuf:"bytes,1,opt,name=id,proto3" json:"id,omitempty"`
 }
 
-func (x *DeleteRequest) Reset() {
-	*x = DeleteRequest{}
+func (x *CancelRequest) Reset() {
+	*x = CancelRequest{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_infrastructure_rpc_order_v1_model_v1_model_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -409,13 +409,13 @@ func (x *DeleteRequest) Reset() {
 	}
 }
 
-func (x *DeleteRequest) String() string {
+func (x *CancelRequest) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*DeleteRequest) ProtoMessage() {}
+func (*CancelRequest) ProtoMessage() {}
 
-func (x *DeleteRequest) ProtoReflect() protoreflect.Message {
+func (x *CancelRequest) ProtoReflect() protoreflect.Message {
 	mi := &file_infrastructure_rpc_order_v1_model_v1_model_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -427,12 +427,12 @@ func (x *DeleteRequest) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use DeleteRequest.ProtoReflect.Descriptor instead.
-func (*DeleteRequest) Descriptor() ([]byte, []int) {
+// Deprecated: Use CancelRequest.ProtoReflect.Descriptor instead.
+func (*CancelRequest) Descriptor() ([]byte, []int) {
 	return file_infrastructure_rpc_order_v1_model_v1_model_proto_rawDescGZIP(), []int{6}
 }
 
-func (x *DeleteRequest) GetId() string {
+func (x *CancelRequest) GetId() string {
 	if x != nil {
 		return x.Id
 	}
@@ -502,7 +502,7 @@ var file_infrastructure_rpc_order_v1_model_v1_model_proto_rawDesc = []byte{
 	0x74, 0x65, 0x5f, 0x6d, 0x61, 0x73, 0x6b, 0x18, 0x02, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x1a, 0x2e,
 	0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e,
 	0x46, 0x69, 0x65, 0x6c, 0x64, 0x4d, 0x61, 0x73, 0x6b, 0x52, 0x0a, 0x75, 0x70, 0x64, 0x61, 0x74,
-	0x65, 0x4d, 0x61, 0x73, 0x6b, 0x22, 0x1f, 0x0a, 0x0d, 0x44, 0x65, 0x6c, 0x65, 0x74, 0x65, 0x52,
+	0x65, 0x4d, 0x61, 0x73, 0x6b, 0x22, 0x1f, 0x0a, 0x0d, 0x43, 0x61, 0x6e, 0x63, 0x65, 0x6c, 0x52,
 	0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01,
 	0x28, 0x09, 0x52, 0x02, 0x69, 0x64, 0x42, 0xd3, 0x02, 0x0a, 0x28, 0x63, 0x6f, 0x6d, 0x2e, 0x69,
 	0x6e, 0x66, 0x72, 0x61, 0x73, 0x74, 0x72, 0x75, 0x63, 0x74, 0x75, 0x72, 0x65, 0x2e, 0x72, 0x70,
@@ -549,7 +549,7 @@ var file_infrastructure_rpc_order_v1_model_v1_model_proto_goTypes = []any{
 	(*GetRequest)(nil),            // 3: infrastructure.rpc.order.v1.model.v1.GetRequest
 	(*GetResponse)(nil),           // 4: infrastructure.rpc.order.v1.model.v1.GetResponse
 	(*UpdateRequest)(nil),         // 5: infrastructure.rpc.order.v1.model.v1.UpdateRequest
-	(*DeleteRequest)(nil),         // 6: infrastructure.rpc.order.v1.model.v1.DeleteRequest
+	(*CancelRequest)(nil),         // 6: infrastructure.rpc.order.v1.model.v1.CancelRequest
 	(v1.OrderStatus)(0),           // 7: domain.order.v1.OrderStatus
 	(*timestamppb.Timestamp)(nil), // 8: google.protobuf.Timestamp
 	(*fieldmaskpb.FieldMask)(nil), // 9: google.protobuf.FieldMask
@@ -649,7 +649,7 @@ func file_infrastructure_rpc_order_v1_model_v1_model_proto_init() {
 			}
 		}
 		file_infrastructure_rpc_order_v1_model_v1_model_proto_msgTypes[6].Exporter = func(v any, i int) any {
-			switch v := v.(*DeleteRequest); i {
+			switch v := v.(*CancelRequest); i {
 			case 0:
 				return &v.state
 			case 1:

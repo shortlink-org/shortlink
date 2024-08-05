@@ -15,6 +15,7 @@ import (
 	"go.temporal.io/sdk/client"
 
 	cartRPC "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/cart/v1"
+	orderRPC "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/order/v1"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/run"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/usecases/cart"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/usecases/order"
@@ -43,8 +44,9 @@ type OMSService struct {
 	authPermission *authzed.Client
 
 	// Delivery
-	run           *run.Response
-	cartRPCServer *cartRPC.CartRPC
+	run            *run.Response
+	cartRPCServer  *cartRPC.CartRPC
+	orderRPCServer *orderRPC.OrderRPC
 
 	// Applications
 	cartService *cart.UC
@@ -60,6 +62,7 @@ var OMSSet = wire.NewSet(
 
 	// Delivery
 	cartRPC.New,
+	orderRPC.New,
 	NewRunRPCServer,
 
 	// Applications
@@ -94,6 +97,7 @@ func NewOMSService(
 	// Delivery
 	run *run.Response,
 	cartRPCServer *cartRPC.CartRPC,
+	orderRPCServer *orderRPC.OrderRPC,
 
 	// Temporal
 	temporalClient client.Client,
@@ -114,8 +118,9 @@ func NewOMSService(
 		// authPermission: authPermission,
 
 		// Delivery
-		run:           run,
-		cartRPCServer: cartRPCServer,
+		run:            run,
+		cartRPCServer:  cartRPCServer,
+		orderRPCServer: orderRPCServer,
 
 		// Temporal
 		temporalClient: temporalClient,

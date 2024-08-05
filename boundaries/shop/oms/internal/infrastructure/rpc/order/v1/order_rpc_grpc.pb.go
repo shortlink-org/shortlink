@@ -24,7 +24,7 @@ const (
 	OrderService_Create_FullMethodName = "/infrastructure.rpc.order.v1.OrderService/Create"
 	OrderService_Update_FullMethodName = "/infrastructure.rpc.order.v1.OrderService/Update"
 	OrderService_Get_FullMethodName    = "/infrastructure.rpc.order.v1.OrderService/Get"
-	OrderService_Delete_FullMethodName = "/infrastructure.rpc.order.v1.OrderService/Delete"
+	OrderService_Cancel_FullMethodName = "/infrastructure.rpc.order.v1.OrderService/Cancel"
 )
 
 // OrderServiceClient is the client API for OrderService service.
@@ -40,7 +40,7 @@ type OrderServiceClient interface {
 	// Get retrieves an order by its ID.
 	Get(ctx context.Context, in *v1.GetRequest, opts ...grpc.CallOption) (*v1.GetResponse, error)
 	// Delete deletes an order by its ID.
-	Delete(ctx context.Context, in *v1.DeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
+	Cancel(ctx context.Context, in *v1.CancelRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 }
 
 type orderServiceClient struct {
@@ -81,10 +81,10 @@ func (c *orderServiceClient) Get(ctx context.Context, in *v1.GetRequest, opts ..
 	return out, nil
 }
 
-func (c *orderServiceClient) Delete(ctx context.Context, in *v1.DeleteRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
+func (c *orderServiceClient) Cancel(ctx context.Context, in *v1.CancelRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, OrderService_Delete_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, OrderService_Cancel_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -104,7 +104,7 @@ type OrderServiceServer interface {
 	// Get retrieves an order by its ID.
 	Get(context.Context, *v1.GetRequest) (*v1.GetResponse, error)
 	// Delete deletes an order by its ID.
-	Delete(context.Context, *v1.DeleteRequest) (*emptypb.Empty, error)
+	Cancel(context.Context, *v1.CancelRequest) (*emptypb.Empty, error)
 	mustEmbedUnimplementedOrderServiceServer()
 }
 
@@ -124,8 +124,8 @@ func (UnimplementedOrderServiceServer) Update(context.Context, *v1.UpdateRequest
 func (UnimplementedOrderServiceServer) Get(context.Context, *v1.GetRequest) (*v1.GetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
 }
-func (UnimplementedOrderServiceServer) Delete(context.Context, *v1.DeleteRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Delete not implemented")
+func (UnimplementedOrderServiceServer) Cancel(context.Context, *v1.CancelRequest) (*emptypb.Empty, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Cancel not implemented")
 }
 func (UnimplementedOrderServiceServer) mustEmbedUnimplementedOrderServiceServer() {}
 func (UnimplementedOrderServiceServer) testEmbeddedByValue()                      {}
@@ -202,20 +202,20 @@ func _OrderService_Get_Handler(srv interface{}, ctx context.Context, dec func(in
 	return interceptor(ctx, in, info, handler)
 }
 
-func _OrderService_Delete_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.DeleteRequest)
+func _OrderService_Cancel_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(v1.CancelRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(OrderServiceServer).Delete(ctx, in)
+		return srv.(OrderServiceServer).Cancel(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: OrderService_Delete_FullMethodName,
+		FullMethod: OrderService_Cancel_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrderServiceServer).Delete(ctx, req.(*v1.DeleteRequest))
+		return srv.(OrderServiceServer).Cancel(ctx, req.(*v1.CancelRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -240,8 +240,8 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _OrderService_Get_Handler,
 		},
 		{
-			MethodName: "Delete",
-			Handler:    _OrderService_Delete_Handler,
+			MethodName: "Cancel",
+			Handler:    _OrderService_Cancel_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

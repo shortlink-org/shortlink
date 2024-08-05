@@ -62,7 +62,7 @@ message UpdateRequest {
 }
 
 // Request message for deleting an order by ID
-message DeleteRequest {
+message CancelRequest {
   // ID of the order to delete
   string id = 1;
 }

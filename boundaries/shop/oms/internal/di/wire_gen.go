@@ -10,6 +10,7 @@ import (
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/cart/v1"
+	v1_2 "github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/order/v1"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/infrastructure/rpc/run"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/usecases/cart"
 	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/usecases/order"
@@ -131,7 +132,16 @@ func InitializeOMSService() (*OMSService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	omsService, err := NewOMSService(logger, configConfig, autoMaxProAutoMaxPro, monitoringMonitoring, tracerProvider, pprofEndpoint, client, response, cartRPC, clientClient)
+	orderRPC, err := v1_2.New(server, logger, uc)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	omsService, err := NewOMSService(logger, configConfig, autoMaxProAutoMaxPro, monitoringMonitoring, tracerProvider, pprofEndpoint, client, response, cartRPC, orderRPC, clientClient)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -166,8 +176,9 @@ type OMSService struct {
 	authPermission *authzed.Client
 
 	// Delivery
-	run           *run.Response
-	cartRPCServer *v1.CartRPC
+	run            *run.Response
+	cartRPCServer  *v1.CartRPC
+	orderRPCServer *v1_2.OrderRPC
 
 	// Applications
 	cartService *cart.UC
@@ -177,7 +188,7 @@ type OMSService struct {
 }
 
 // OMSService ==========================================================================================================
-var OMSSet = wire.NewSet(di.DefaultSet, rpc.InitServer, v1.New, NewRunRPCServer, cart.New, order.New, temporal.New, NewOMSService)
+var OMSSet = wire.NewSet(di.DefaultSet, rpc.InitServer, v1.New, v1_2.New, NewRunRPCServer, cart.New, order.New, temporal.New, NewOMSService)
 
 // TODO: refactoring. maybe drop this function
 func NewRunRPCServer(runRPCServer *rpc.Server, _ *v1.CartRPC) (*run.Response, error) {
@@ -192,6 +203,7 @@ func NewOMSService(
 
 	authPermission *authzed.Client, run2 *run.Response,
 	cartRPCServer *v1.CartRPC,
+	orderRPCServer *v1_2.OrderRPC,
 
 	temporalClient client.Client,
 ) (*OMSService, error) {
@@ -205,8 +217,9 @@ func NewOMSService(
 		Monitoring:    monitoring2,
 		PprofEndpoint: pprofHTTP,
 
-		run:           run2,
-		cartRPCServer: cartRPCServer,
+		run:            run2,
+		cartRPCServer:  cartRPCServer,
+		orderRPCServer: orderRPCServer,
 
 		temporalClient: temporalClient,
 	}, nil
