@@ -11,6 +11,8 @@ temporal:
     create: true
 
   server:
+    replicaCount: 1
+
     config:
       persistence: {}
 
@@ -63,6 +65,18 @@ temporal:
 
   cassandra:
     enabled: true
+
+    persistence:
+      storageClass: local-path
+      size: 1Gi
+
+    config:
+      cluster_size: 1
+
+    exporter:
+      enabled: true
+      additionalLabels:
+        release: prometheus-operator
 
   prometheus:
     enabled: false
