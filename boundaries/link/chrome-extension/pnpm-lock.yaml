@@ -20,7 +20,7 @@ importers:
     devDependencies:
       '@tailwindcss/postcss':
         specifier: 4.0.0-alpha.18
-        version: 4.0.0-alpha.18(postcss@8.4.40)
+        version: 4.0.0-alpha.18(postcss@8.4.41)
       '@types/react':
         specifier: ^18.3.3
         version: 18.3.3
@@ -32,10 +32,10 @@ importers:
         version: 4.3.1(vite@5.3.5(@types/node@20.14.2)(lightningcss@1.25.1))
       autoprefixer:
         specifier: ^10.4.20
-        version: 10.4.20(postcss@8.4.40)
+        version: 10.4.20(postcss@8.4.41)
       postcss:
-        specifier: ^8.4.40
-        version: 8.4.40
+        specifier: ^8.4.41
+        version: 8.4.41
       tailwindcss:
         specifier: 4.0.0-alpha.18
         version: 4.0.0-alpha.18
@@ -2079,8 +2079,8 @@ packages:
     resolution: {integrity: sha512-M0RzbcI0sO/XJNucsGjvWU9ERWxb/ytp1w6dKtxTKgixdtQDq4rmx/g8W1hnaheq9jgwL/oyEdH5Bc4WwJKMqg==}
     engines: {node: ^10 || ^12 || >=14}
 
-  postcss@8.4.40:
-    resolution: {integrity: sha512-YF2kKIUzAofPMpfH6hOi2cGnv/HrUlfucspc7pDyvv7kGdqXrfj8SCl/t8owkEgKEuu8ZcRjSOxFxVLqwChZ2Q==}
+  postcss@8.4.41:
+    resolution: {integrity: sha512-TesUflQ0WKZqAvg52PWL6kHgLKP6xB6heTOdoYM0Wt2UHyxNa4K25EZZMgKns3BH1RLVbZCREPpLY0rhnNoHVQ==}
     engines: {node: ^10 || ^12 || >=14}
 
   process-nextick-args@2.0.1:
@@ -3180,11 +3180,11 @@ snapshots:
       '@tailwindcss/oxide-linux-x64-musl': 4.0.0-alpha.18
       '@tailwindcss/oxide-win32-x64-msvc': 4.0.0-alpha.18
 
-  '@tailwindcss/postcss@4.0.0-alpha.18(postcss@8.4.40)':
+  '@tailwindcss/postcss@4.0.0-alpha.18(postcss@8.4.41)':
     dependencies:
       '@tailwindcss/oxide': 4.0.0-alpha.18
       lightningcss: 1.25.1
-      postcss-import: 16.1.0(postcss@8.4.40)
+      postcss-import: 16.1.0(postcss@8.4.41)
       tailwindcss: 4.0.0-alpha.18
     transitivePeerDependencies:
       - postcss
@@ -3302,14 +3302,14 @@ snapshots:
 
   at-least-node@1.0.0: {}
 
-  autoprefixer@10.4.20(postcss@8.4.40):
+  autoprefixer@10.4.20(postcss@8.4.41):
     dependencies:
       browserslist: 4.23.3
       caniuse-lite: 1.0.30001647
       fraction.js: 4.3.7
       normalize-range: 0.1.2
       picocolors: 1.0.1
-      postcss: 8.4.40
+      postcss: 8.4.41
       postcss-value-parser: 4.2.0
 
   balanced-match@1.0.2: {}
@@ -4527,9 +4527,9 @@ snapshots:
       read-cache: 1.0.0
       resolve: 1.22.8
 
-  postcss-import@16.1.0(postcss@8.4.40):
+  postcss-import@16.1.0(postcss@8.4.41):
     dependencies:
-      postcss: 8.4.40
+      postcss: 8.4.41
       postcss-value-parser: 4.2.0
       read-cache: 1.0.0
       resolve: 1.22.8
@@ -4542,7 +4542,7 @@ snapshots:
       picocolors: 1.0.1
       source-map-js: 1.2.0
 
-  postcss@8.4.40:
+  postcss@8.4.41:
     dependencies:
       nanoid: 3.3.7
       picocolors: 1.0.1
@@ -4995,7 +4995,7 @@ snapshots:
   vite@5.3.5(@types/node@20.14.2)(lightningcss@1.25.1):
     dependencies:
       esbuild: 0.21.5
-      postcss: 8.4.40
+      postcss: 8.4.41
       rollup: 4.18.0
     optionalDependencies:
       '@types/node': 20.14.2
