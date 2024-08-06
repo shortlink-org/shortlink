@@ -16,7 +16,7 @@ func (o *OrderRPC) Cancel(ctx context.Context, in *v1.CancelRequest) (*emptypb.E
 		return nil, err
 	}
 
-	_, err = o.orderService.Cancel(ctx, orderId)
+	err = o.orderService.Cancel(ctx, orderId)
 	if err != nil {
 		return nil, err
 	}

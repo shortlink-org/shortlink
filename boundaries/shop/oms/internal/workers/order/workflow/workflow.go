@@ -10,7 +10,7 @@ import (
 )
 
 // Workflow is a Temporal workflow that manages the order state.
-func Workflow(ctx workflow.Context, customerId uuid.UUID) error {
+func Workflow(ctx workflow.Context, orderId, customerId uuid.UUID, in v2.Items) error {
 	state := v2.NewOrderState(customerId)
 
 	// Set up query handler for getting order state
@@ -24,20 +24,10 @@ func Workflow(ctx workflow.Context, customerId uuid.UUID) error {
 	// https://docs.temporal.io/docs/concepts/workflows/#workflows-have-options
 	logger := workflow.GetLogger(ctx)
 
-	createOrderChannel := workflow.GetSignalChannel(ctx, v2.Event_EVENT_CREATE.String())
-	updateOrderChannel := workflow.GetSignalChannel(ctx, v2.Event_EVENT_UPDATE.String())
 	cancelOrderChannel := workflow.GetSignalChannel(ctx, v2.Event_EVENT_CANCEL.String())
 	completeOrderChannel := workflow.GetSignalChannel(ctx, v2.Event_EVENT_COMPLETE.String())
 
 	selector := workflow.NewSelector(ctx)
-
-	selector.AddReceive(createOrderChannel, func(c workflow.ReceiveChannel, _ bool) {
-		logger.Info("Order creation started.")
-	})
-
-	selector.AddReceive(updateOrderChannel, func(c workflow.ReceiveChannel, _ bool) {
-		logger.Info("Order update started.")
-	})
 
 	selector.AddReceive(cancelOrderChannel, func(c workflow.ReceiveChannel, _ bool) {
 		logger.Info("Order cancellation started.")

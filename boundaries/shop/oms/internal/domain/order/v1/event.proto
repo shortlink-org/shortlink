@@ -11,14 +11,12 @@ enum Event {
 
   // Create order
   EVENT_CREATE = 1;
-  // Update order
-  EVENT_UPDATE = 2;
   // Cancel order
-  EVENT_CANCEL = 3;
+  EVENT_CANCEL = 2;
   // Complete order
-  EVENT_COMPLETE = 4;
+  EVENT_COMPLETE = 3;
   // Get order
-  EVENT_GET = 5;
+  EVENT_GET = 4;
 }
 
 // Enum for order status

@@ -13,6 +13,12 @@ import (
 
 func (o *OrderRPC) Create(ctx context.Context, in *v1.CreateRequest) (*emptypb.Empty, error) {
 	// parse order ID to UUID
+	orderId, err := uuid.Parse(in.GetOrder().GetId())
+	if err != nil {
+		return nil, err
+	}
+
+	// parse customer ID to UUID
 	customerId, err := uuid.Parse(in.GetOrder().GetCustomerId())
 	if err != nil {
 		return nil, err
@@ -31,7 +37,7 @@ func (o *OrderRPC) Create(ctx context.Context, in *v1.CreateRequest) (*emptypb.E
 		items = append(items, v2.NewItem(productID, item.GetQuantity(), price))
 	}
 
-	_, err = o.orderService.Create(ctx, customerId, items)
+	err = o.orderService.Create(ctx, orderId, customerId, items)
 	if err != nil {
 		return nil, err
 	}

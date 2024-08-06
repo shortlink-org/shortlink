@@ -14,13 +14,13 @@ import (
 func TestAddRequestToDomain(t *testing.T) {
 	tests := []struct {
 		name          string
-		request       *AddRequest
+		request       *model.AddRequest
 		expectedError error
 		expectedState *domain.CartState
 	}{
 		{
 			name: "Valid AddRequest",
-			request: &AddRequest{
+			request: &model.AddRequest{
 				CustomerId: "e2c8ba97-1a6b-4c5c-9a2a-3f4c9b9d65a1",
 				Items: []*model.CartItem{
 					{ProductId: "c5f5d6d6-98e6-4f57-b34a-48a3997f28d4", Quantity: 1},
@@ -40,7 +40,7 @@ func TestAddRequestToDomain(t *testing.T) {
 		},
 		{
 			name: "Invalid Customer ID",
-			request: &AddRequest{
+			request: &model.AddRequest{
 				CustomerId: "invalid-uuid",
 				Items: []*model.CartItem{
 					{ProductId: uuid.New().String(), Quantity: 1},
@@ -51,7 +51,7 @@ func TestAddRequestToDomain(t *testing.T) {
 		},
 		{
 			name: "Invalid Product ID",
-			request: &AddRequest{
+			request: &model.AddRequest{
 				CustomerId: uuid.New().String(),
 				Items: []*model.CartItem{
 					{ProductId: "invalid-uuid", Quantity: 1},
