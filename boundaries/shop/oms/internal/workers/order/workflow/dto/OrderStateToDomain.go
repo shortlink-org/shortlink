@@ -10,7 +10,7 @@ func OrderStateToDomain(in *v2.OrderState) *v3.OrderState {
 
 	for i, item := range in.GetItems() {
 		items[i] = &v3.OrderItem{
-			ItemId:   item.GetProductId().String(),
+			Id:       item.GetProductId().String(),
 			Quantity: item.GetQuantity(),
 			Price:    item.GetPrice().InexactFloat64(),
 		}

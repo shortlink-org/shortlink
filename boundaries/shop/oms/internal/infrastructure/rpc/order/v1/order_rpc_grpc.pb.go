@@ -22,7 +22,6 @@ const _ = grpc.SupportPackageIsVersion9
 
 const (
 	OrderService_Create_FullMethodName = "/infrastructure.rpc.order.v1.OrderService/Create"
-	OrderService_Update_FullMethodName = "/infrastructure.rpc.order.v1.OrderService/Update"
 	OrderService_Get_FullMethodName    = "/infrastructure.rpc.order.v1.OrderService/Get"
 	OrderService_Cancel_FullMethodName = "/infrastructure.rpc.order.v1.OrderService/Cancel"
 )
@@ -35,8 +34,6 @@ const (
 type OrderServiceClient interface {
 	// Create creates a new order.
 	Create(ctx context.Context, in *v1.CreateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
-	// Update updates an existing order.
-	Update(ctx context.Context, in *v1.UpdateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error)
 	// Get retrieves an order by its ID.
 	Get(ctx context.Context, in *v1.GetRequest, opts ...grpc.CallOption) (*v1.GetResponse, error)
 	// Delete deletes an order by its ID.
@@ -55,16 +52,6 @@ func (c *orderServiceClient) Create(ctx context.Context, in *v1.CreateRequest, o
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(emptypb.Empty)
 	err := c.cc.Invoke(ctx, OrderService_Create_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *orderServiceClient) Update(ctx context.Context, in *v1.UpdateRequest, opts ...grpc.CallOption) (*emptypb.Empty, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(emptypb.Empty)
-	err := c.cc.Invoke(ctx, OrderService_Update_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -99,8 +86,6 @@ func (c *orderServiceClient) Cancel(ctx context.Context, in *v1.CancelRequest, o
 type OrderServiceServer interface {
 	// Create creates a new order.
 	Create(context.Context, *v1.CreateRequest) (*emptypb.Empty, error)
-	// Update updates an existing order.
-	Update(context.Context, *v1.UpdateRequest) (*emptypb.Empty, error)
 	// Get retrieves an order by its ID.
 	Get(context.Context, *v1.GetRequest) (*v1.GetResponse, error)
 	// Delete deletes an order by its ID.
@@ -117,9 +102,6 @@ type UnimplementedOrderServiceServer struct{}
 
 func (UnimplementedOrderServiceServer) Create(context.Context, *v1.CreateRequest) (*emptypb.Empty, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Create not implemented")
-}
-func (UnimplementedOrderServiceServer) Update(context.Context, *v1.UpdateRequest) (*emptypb.Empty, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Update not implemented")
 }
 func (UnimplementedOrderServiceServer) Get(context.Context, *v1.GetRequest) (*v1.GetResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Get not implemented")
@@ -162,24 +144,6 @@ func _OrderService_Create_Handler(srv interface{}, ctx context.Context, dec func
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(OrderServiceServer).Create(ctx, req.(*v1.CreateRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _OrderService_Update_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(v1.UpdateRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(OrderServiceServer).Update(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: OrderService_Update_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(OrderServiceServer).Update(ctx, req.(*v1.UpdateRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -230,10 +194,6 @@ var OrderService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "Create",
 			Handler:    _OrderService_Create_Handler,
-		},
-		{
-			MethodName: "Update",
-			Handler:    _OrderService_Update_Handler,
 		},
 		{
 			MethodName: "Get",

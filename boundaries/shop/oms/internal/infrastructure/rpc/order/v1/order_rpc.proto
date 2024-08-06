@@ -14,9 +14,6 @@ service OrderService {
   // Create creates a new order.
   rpc Create(infrastructure.rpc.order.v1.model.v1.CreateRequest) returns (google.protobuf.Empty);
 
-  // Update updates an existing order.
-  rpc Update(infrastructure.rpc.order.v1.model.v1.UpdateRequest) returns (google.protobuf.Empty);
-
   // Get retrieves an order by its ID.
   rpc Get(infrastructure.rpc.order.v1.model.v1.GetRequest) returns (infrastructure.rpc.order.v1.model.v1.GetResponse);
 

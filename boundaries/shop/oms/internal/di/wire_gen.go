@@ -132,7 +132,16 @@ func InitializeOMSService() (*OMSService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	orderRPC, err := v1_2.New(server, logger, uc)
+	orderUC, err := order.New(logger, client, clientClient)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	orderRPC, err := v1_2.New(server, logger, orderUC)
 	if err != nil {
 		cleanup5()
 		cleanup4()

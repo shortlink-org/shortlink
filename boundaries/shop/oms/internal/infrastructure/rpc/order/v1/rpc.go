@@ -5,7 +5,7 @@ Cart UC. Infrastructure layer. RPC Endpoint
 package v1
 
 import (
-	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/usecases/cart"
+	"github.com/shortlink-org/shortlink/boundaries/shop/oms/internal/usecases/order"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
@@ -17,16 +17,16 @@ type OrderRPC struct {
 	log logger.Logger
 
 	// Services
-	cartService *cart.UC
+	orderService *order.UC
 }
 
-func New(runRPCServer *rpc.Server, log logger.Logger, cartService *cart.UC) (*OrderRPC, error) {
+func New(runRPCServer *rpc.Server, log logger.Logger, orderService *order.UC) (*OrderRPC, error) {
 	server := &OrderRPC{
 		// Common
 		log: log,
 
 		// Services
-		cartService: cartService,
+		orderService: orderService,
 	}
 
 	// Register services

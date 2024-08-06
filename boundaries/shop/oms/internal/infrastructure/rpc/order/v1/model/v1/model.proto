@@ -28,7 +28,7 @@ message OrderState {
 // Define the OrderItem message
 message OrderItem {
   // Unique identifier for the item
-  string item_id = 1;
+  string id = 1;
   // Quantity of the item ordered
   int32 quantity = 2;
   // Price of a single item

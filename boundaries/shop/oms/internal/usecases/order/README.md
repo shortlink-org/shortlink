@@ -53,24 +53,6 @@ OrderActivity -> TemporalWorkflow: OrderProcessed()
 TemporalWorkflow -> OrderService: OrderCreated()
 OrderService -> Customer: OrderCreatedResponse
 
-== Update Order ==
-note right of Customer
-Customer updates an existing order, initiating the order update process.
-end note
-
-Customer -> OrderService: UpdateOrder()
-OrderService -> TemporalWorkflow: UpdateOrderWorkflow(UpdateOrderRequest)
-TemporalWorkflow -> OrderActivity: Execute(UpdateOrderRequest)
-OrderActivity -> BillingService: UpdatePaymentDetails()
-BillingService -> OrderActivity: PaymentUpdated()
-OrderActivity -> LogisticsService: RescheduleDelivery()
-LogisticsService -> OrderActivity: DeliveryRescheduled()
-OrderActivity -> NotificationService: SendOrderUpdate()
-NotificationService -> OrderActivity: UpdateSent()
-OrderActivity -> TemporalWorkflow: OrderUpdated()
-TemporalWorkflow -> OrderService: OrderUpdated()
-OrderService -> Customer: OrderUpdatedResponse
-
 == Cancel Order ==
 note right of Customer
 Customer cancels an order, initiating the order cancellation process.
