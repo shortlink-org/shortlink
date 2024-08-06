@@ -96,7 +96,7 @@ func InitializeOMSService() (*OMSService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientClient, err := temporal.New(logger)
+	clientClient, err := temporal.New(logger, monitoringMonitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()

@@ -72,7 +72,7 @@ func InitializeOMSOrderWorkerService() (*OMSOrderWorkerService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	client, err := temporal.New(logger)
+	client, err := temporal.New(logger, monitoringMonitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
