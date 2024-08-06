@@ -63,7 +63,7 @@ require (
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.9.0
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
-	github.com/uber-go/tally/v4 v4.1.1
+	github.com/uber-go/tally/v4 v4.1.16
 	github.com/uptrace/go-clickhouse v0.3.1
 	github.com/uptrace/go-clickhouse/chdebug v0.3.1
 	github.com/uptrace/go-clickhouse/chotel v0.3.1
