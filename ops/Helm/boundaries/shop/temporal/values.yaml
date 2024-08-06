@@ -20,6 +20,9 @@ temporal:
       serviceMonitor:
         enabled: true
 
+        additionalLabels:
+          release: prometheus-operator
+
     frontend:
       metrics:
         serviceMonitor:
@@ -72,8 +75,6 @@ temporal:
 
     exporter:
       enabled: true
-      additionalLabels:
-        release: prometheus-operator
 
   prometheus:
     enabled: false
