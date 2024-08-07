@@ -246,8 +246,8 @@ importers:
         specifier: ^0.4.4
         version: 0.4.4(tailwindcss@4.0.0-alpha.18)
       '@tailwindcss/typography':
-        specifier: ^0.5.13
-        version: 0.5.13(tailwindcss@4.0.0-alpha.18)
+        specifier: ^0.5.14
+        version: 0.5.14(tailwindcss@4.0.0-alpha.18)
       eslint-config-shortlink:
         specifier: workspace:^
         version: link:../eslint/eslint-config-shortlink
@@ -316,8 +316,8 @@ importers:
         specifier: 0.4.4
         version: 0.4.4(tailwindcss@4.0.0-alpha.18)
       '@tailwindcss/typography':
-        specifier: ^0.5.13
-        version: 0.5.13(tailwindcss@4.0.0-alpha.18)
+        specifier: ^0.5.14
+        version: 0.5.14(tailwindcss@4.0.0-alpha.18)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -4016,8 +4016,8 @@ packages:
   '@tailwindcss/postcss@4.0.0-alpha.18':
     resolution: {integrity: sha512-+A/EPAAI7kO4HCmznybCouwAyV33k1cFywIK7D7P8e/WGfDfKEa57be4+jJ6Rnudc6DcnKfHrPPoz30hGMtuWw==}
 
-  '@tailwindcss/typography@0.5.13':
-    resolution: {integrity: sha512-ADGcJ8dX21dVVHIwTRgzrcunY6YY9uSlAHHGVKvkA+vLc5qLwEszvKts40lx7z0qc4clpjclwLeK5rVCV2P/uw==}
+  '@tailwindcss/typography@0.5.14':
+    resolution: {integrity: sha512-ZvOCjUbsJBjL9CxQBn+VEnFpouzuKhxh2dH8xMIWHILL+HfOYtlAkWcyoon8LlzE53d2Yo6YO6pahKKNW3q1YQ==}
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders'
 
@@ -15605,7 +15605,7 @@ snapshots:
     transitivePeerDependencies:
       - postcss
 
-  '@tailwindcss/typography@0.5.13(tailwindcss@4.0.0-alpha.18)':
+  '@tailwindcss/typography@0.5.14(tailwindcss@4.0.0-alpha.18)':
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
