@@ -7,7 +7,7 @@ dynamic = ["version"]
 
 dependencies = [
 #  Main dependencies
-    "dependency-injector @ git+https://github.com/shortlink-org/python-dependency-injector@master",
+    "dependency-injector @ git+https://github.com/ets-labs/python-dependency-injector@master",
     "uvicorn",
     "redis",
     "protobuf",

@@ -4,7 +4,7 @@ allure-pytest==2.13.5 \
     --hash=sha256:0ef8e1790c44a988db6b83c4d4f5e91451e2c4c8ea10601dfa88528d23afcf6e \
     --hash=sha256:94130bac32964b78058e62cf4b815ad97a5ac82a065e6dd2d43abac2be7640fc
     # via referral (pyproject.toml)
-dependency-injector @ git+https://github.com/shortlink-org/python-dependency-injector@6aae04eae3fd6ab5bf7a6b24627534a937ca184e
+dependency-injector @ git+https://github.com/ets-labs/python-dependency-injector@2c998b8448ae717921efa63610669aa6ea661bae
     # via referral (pyproject.toml)
 httpx==0.27.0 \
     --hash=sha256:71d5465162c13681bff01ad59b2cc68dd838ea1f10e51574bac27103f00c91a5 \
@@ -147,7 +147,7 @@ setuptools==72.1.0 \
     --hash=sha256:5a03e1860cf56bb6ef48ce186b0e557fdba433237481a9a625176c2831be15d1 \
     --hash=sha256:8d243eff56d095e5817f796ede6ae32941278f542e0f941867cc05ae52b162ec
     # via referral (pyproject.toml)
-SQLAlchemy==2.0.32 \
+sqlalchemy==2.0.32 \
     --hash=sha256:01438ebcdc566d58c93af0171c74ec28efe6a29184b773e378a385e6215389da \
     --hash=sha256:0c1c9b673d21477cec17ab10bc4decb1322843ba35b481585facd88203754fc5 \
     --hash=sha256:0c9045ecc2e4db59bfc97b20516dfdf8e41d910ac6fb667ebd3a79ea54084619 \
