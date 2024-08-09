@@ -64,13 +64,13 @@ importers:
         version: 2.6.2(eslint@9.8.0)
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
-        version: 0.4.2(tailwindcss@4.0.0-alpha.18)
+        version: 0.4.2(tailwindcss@4.0.0-alpha.19)
       '@tailwindcss/container-queries':
         specifier: ^0.1.1
-        version: 0.1.1(tailwindcss@4.0.0-alpha.18)
+        version: 0.1.1(tailwindcss@4.0.0-alpha.19)
       '@tailwindcss/forms':
         specifier: 0.5.7
-        version: 0.5.7(tailwindcss@4.0.0-alpha.18)
+        version: 0.5.7(tailwindcss@4.0.0-alpha.19)
       '@tailwindcss/postcss':
         specifier: 4.0.0-alpha.18
         version: 4.0.0-alpha.18(postcss@8.4.41)
@@ -135,8 +135,8 @@ importers:
         specifier: 1.1.2
         version: 1.1.2(typescript@5.5.4)
       tailwindcss:
-        specifier: 4.0.0-alpha.18
-        version: 4.0.0-alpha.18
+        specifier: 4.0.0-alpha.19
+        version: 4.0.0-alpha.19
       typescript:
         specifier: ^5.5.4
         version: 5.5.4
@@ -241,13 +241,13 @@ importers:
         version: link:../ui-kit
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
-        version: 0.4.2(tailwindcss@4.0.0-alpha.18)
+        version: 0.4.2(tailwindcss@4.0.0-alpha.19)
       '@tailwindcss/line-clamp':
         specifier: ^0.4.4
-        version: 0.4.4(tailwindcss@4.0.0-alpha.18)
+        version: 0.4.4(tailwindcss@4.0.0-alpha.19)
       '@tailwindcss/typography':
         specifier: ^0.5.14
-        version: 0.5.14(tailwindcss@4.0.0-alpha.18)
+        version: 0.5.14(tailwindcss@4.0.0-alpha.19)
       eslint-config-shortlink:
         specifier: workspace:^
         version: link:../eslint/eslint-config-shortlink
@@ -311,13 +311,13 @@ importers:
         version: link:../ui-kit
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
-        version: 0.4.2(tailwindcss@4.0.0-alpha.18)
+        version: 0.4.2(tailwindcss@4.0.0-alpha.19)
       '@tailwindcss/line-clamp':
         specifier: 0.4.4
-        version: 0.4.4(tailwindcss@4.0.0-alpha.18)
+        version: 0.4.4(tailwindcss@4.0.0-alpha.19)
       '@tailwindcss/typography':
         specifier: ^0.5.14
-        version: 0.5.14(tailwindcss@4.0.0-alpha.18)
+        version: 0.5.14(tailwindcss@4.0.0-alpha.19)
       clsx:
         specifier: ^2.1.1
         version: 2.1.1
@@ -459,8 +459,8 @@ importers:
         specifier: 3.3.3
         version: 3.3.3
       prettier-plugin-tailwindcss:
-        specifier: ^0.6.5
-        version: 0.6.5(prettier@3.3.3)
+        specifier: ^0.6.6
+        version: 0.6.6(prettier@3.3.3)
       tailwindcss:
         specifier: ^3.4.9
         version: 3.4.9(ts-node@10.9.2(@swc/core@1.7.9(@swc/helpers@0.5.12))(@types/node@20.14.15)(typescript@5.5.4))
@@ -9136,8 +9136,8 @@ packages:
     resolution: {integrity: sha512-GbK2cP9nraSSUF9N2XwUwqfzlAFlMNYYl+ShE/V+H8a9uNl/oUqB1w2EL54Jh0OlyRSd8RfWYJ3coVS4TROP2w==}
     engines: {node: '>=6.0.0'}
 
-  prettier-plugin-tailwindcss@0.6.5:
-    resolution: {integrity: sha512-axfeOArc/RiGHjOIy9HytehlC0ZLeMaqY09mm8YCkMzznKiDkwFzOpBvtuhuv3xG5qB73+Mj7OCe2j/L1ryfuQ==}
+  prettier-plugin-tailwindcss@0.6.6:
+    resolution: {integrity: sha512-OPva5S7WAsPLEsOuOWXATi13QrCKACCiIonFgIR6V4lYv4QLp++UXVhZSzRbZxXGimkQtQT86CC6fQqTOybGng==}
     engines: {node: '>=14.21.3'}
     peerDependencies:
       '@ianvs/prettier-plugin-sort-imports': '*'
@@ -9151,6 +9151,7 @@ packages:
       prettier-plugin-import-sort: '*'
       prettier-plugin-jsdoc: '*'
       prettier-plugin-marko: '*'
+      prettier-plugin-multiline-arrays: '*'
       prettier-plugin-organize-attributes: '*'
       prettier-plugin-organize-imports: '*'
       prettier-plugin-sort-imports: '*'
@@ -9176,6 +9177,8 @@ packages:
       prettier-plugin-jsdoc:
         optional: true
       prettier-plugin-marko:
+        optional: true
+      prettier-plugin-multiline-arrays:
         optional: true
       prettier-plugin-organize-attributes:
         optional: true
@@ -10193,6 +10196,9 @@ packages:
 
   tailwindcss@4.0.0-alpha.18:
     resolution: {integrity: sha512-wX9Kwo+Wi0l2RSzeUrQjLQJE/VFudncMeE0I6W4Zua0QoXQsdVnzQ4QZH8ntp9/17faqz0u/z4ZZ6CvCIvU1sw==}
+
+  tailwindcss@4.0.0-alpha.19:
+    resolution: {integrity: sha512-4k8i6ml9ZQaj4xmdTHA2ZVp4YGsA+9+8VsIj/VkwyD38J5jX3L3NSi7TnPvlYT+WXcqAJF7EX8x76yCTfi2CyA==}
 
   tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
@@ -15740,26 +15746,26 @@ snapshots:
     dependencies:
       defer-to-connect: 2.0.1
 
-  '@tailwindcss/aspect-ratio@0.4.2(tailwindcss@4.0.0-alpha.18)':
+  '@tailwindcss/aspect-ratio@0.4.2(tailwindcss@4.0.0-alpha.19)':
     dependencies:
-      tailwindcss: 4.0.0-alpha.18
+      tailwindcss: 4.0.0-alpha.19
 
   '@tailwindcss/container-queries@0.1.1(tailwindcss@3.4.9(ts-node@10.9.2(@swc/core@1.7.9(@swc/helpers@0.5.12))(@types/node@20.14.15)(typescript@5.5.4)))':
     dependencies:
       tailwindcss: 3.4.9(ts-node@10.9.2(@swc/core@1.7.9(@swc/helpers@0.5.12))(@types/node@20.14.15)(typescript@5.5.4))
 
-  '@tailwindcss/container-queries@0.1.1(tailwindcss@4.0.0-alpha.18)':
+  '@tailwindcss/container-queries@0.1.1(tailwindcss@4.0.0-alpha.19)':
     dependencies:
-      tailwindcss: 4.0.0-alpha.18
+      tailwindcss: 4.0.0-alpha.19
 
-  '@tailwindcss/forms@0.5.7(tailwindcss@4.0.0-alpha.18)':
+  '@tailwindcss/forms@0.5.7(tailwindcss@4.0.0-alpha.19)':
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 4.0.0-alpha.18
+      tailwindcss: 4.0.0-alpha.19
 
-  '@tailwindcss/line-clamp@0.4.4(tailwindcss@4.0.0-alpha.18)':
+  '@tailwindcss/line-clamp@0.4.4(tailwindcss@4.0.0-alpha.19)':
     dependencies:
-      tailwindcss: 4.0.0-alpha.18
+      tailwindcss: 4.0.0-alpha.19
 
   '@tailwindcss/oxide-android-arm64@4.0.0-alpha.18':
     optional: true
@@ -15821,13 +15827,13 @@ snapshots:
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.4.9(ts-node@10.9.2(@swc/core@1.7.9(@swc/helpers@0.5.12))(@types/node@20.14.15)(typescript@5.5.4))
 
-  '@tailwindcss/typography@0.5.14(tailwindcss@4.0.0-alpha.18)':
+  '@tailwindcss/typography@0.5.14(tailwindcss@4.0.0-alpha.19)':
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 4.0.0-alpha.18
+      tailwindcss: 4.0.0-alpha.19
 
   '@tanstack/match-sorter-utils@8.15.1':
     dependencies:
@@ -21984,7 +21990,7 @@ snapshots:
     dependencies:
       fast-diff: 1.3.0
 
-  prettier-plugin-tailwindcss@0.6.5(prettier@3.3.3):
+  prettier-plugin-tailwindcss@0.6.6(prettier@3.3.3):
     dependencies:
       prettier: 3.3.3
 
@@ -23222,6 +23228,8 @@ snapshots:
       - ts-node
 
   tailwindcss@4.0.0-alpha.18: {}
+
+  tailwindcss@4.0.0-alpha.19: {}
 
   tapable@2.2.1: {}
 
