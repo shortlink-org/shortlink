@@ -24,6 +24,7 @@ for an information team about cases for updated ADR.
 - [ADR-0016](./decisions/0016-lifecycle-deploy.md) - Lifecycle deploy
 - [ADR-0010](./decisions/0010-docker-tips.md) - Docker tips
 - [ADR-0028](./decisions/0028-application-lifecycle-orchestration.md) - Implementing Stage-based Promotion Mechanisms with Kargo for CD in Kubernetes
+- [ADR-0032](./decisions/0032-argocd-tips.md) - ArgoCD tips
 
 #### Kubernetes
 
