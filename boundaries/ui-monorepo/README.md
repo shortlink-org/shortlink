@@ -30,7 +30,7 @@
 | eslint  | Custom rules for eslint | JavaScript         | [docs](./packages/eslint/README.md)  |
 | landing | Welcome page            | JS/NextJS          | [docs](./packages/landing/README.md) |
 | next    | UI service              | JS/NextJS          | [docs](./packages/next/README.md)    |
-| shop   | Shop service            | JS/NextJS          | [docs](./packages/shop/README.md)    |
+| shop    | Shop service            | JS/NextJS          | [docs](./packages/shop/README.md)    |
 | ui-kit  | UI kit for ShortLink    | JS/React           | [docs](./packages/ui-kit/README.md)  |
 
 #### Status

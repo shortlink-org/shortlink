@@ -28,7 +28,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="pyroscope-ebpf--args[0]"><a href="./values.yaml#L44">pyroscope-ebpf.args[0]</a></td>
+			<td id="pyroscope-ebpf--args[0]"><a href="./values.yaml#L47">pyroscope-ebpf.args[0]</a></td>
 			<td>
 string
 </td>
@@ -42,7 +42,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope-ebpf--args[1]"><a href="./values.yaml#L45">pyroscope-ebpf.args[1]</a></td>
+			<td id="pyroscope-ebpf--args[1]"><a href="./values.yaml#L48">pyroscope-ebpf.args[1]</a></td>
 			<td>
 string
 </td>
@@ -56,7 +56,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope-ebpf--args[2]"><a href="./values.yaml#L46">pyroscope-ebpf.args[2]</a></td>
+			<td id="pyroscope-ebpf--args[2]"><a href="./values.yaml#L49">pyroscope-ebpf.args[2]</a></td>
 			<td>
 string
 </td>
@@ -70,7 +70,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope-ebpf--args[3]"><a href="./values.yaml#L47">pyroscope-ebpf.args[3]</a></td>
+			<td id="pyroscope-ebpf--args[3]"><a href="./values.yaml#L50">pyroscope-ebpf.args[3]</a></td>
 			<td>
 string
 </td>
@@ -84,7 +84,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope-ebpf--args[4]"><a href="./values.yaml#L48">pyroscope-ebpf.args[4]</a></td>
+			<td id="pyroscope-ebpf--args[4]"><a href="./values.yaml#L51">pyroscope-ebpf.args[4]</a></td>
 			<td>
 string
 </td>
@@ -98,7 +98,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="pyroscope-ebpf--enabled"><a href="./values.yaml#L41">pyroscope-ebpf.enabled</a></td>
+			<td id="pyroscope-ebpf--enabled"><a href="./values.yaml#L44">pyroscope-ebpf.enabled</a></td>
 			<td>
 bool
 </td>
@@ -113,6 +113,20 @@ false
 		</tr>
 		<tr>
 			<td id="pyroscope--agent--enabled"><a href="./values.yaml#L32">pyroscope.agent.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="pyroscope--alloy--enabled"><a href="./values.yaml#L41">pyroscope.alloy.enabled</a></td>
 			<td>
 bool
 </td>
