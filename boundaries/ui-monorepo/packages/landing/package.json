@@ -3,9 +3,9 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "dev": "pnpm dlx next dev -p 3001",
+    "dev": "pnpm next dev -p 3001",
     "build": "NODE_ENV=production pnpm next build",
-    "start": "pnpm dlx next start",
+    "start": "pnpm next start",
     "inspector": "pnpm dlx @eslint/config-inspector",
     "lint": "pnpm dlx eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
     "lint:fix": "pnpm run lint --fix",
@@ -27,6 +27,7 @@
     "@tailwindcss/typography": "^0.5.14",
     "eslint-config-shortlink": "workspace:^",
     "postcss-preset-env": "^10.0.0",
+    "tailwindcss": "4.0.0-alpha.19",
     "typescript": "^5.5.4"
   },
   "devDependencies": {
