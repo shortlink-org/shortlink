@@ -11,39 +11,6 @@ const config: StorybookConfig = {
     '@chromatic-com/storybook',
     '@storybook/addon-a11y',
     '@storybook/addon-coverage',
-    {
-      name: '@storybook/addon-styling-webpack',
-      options: {
-        postCss: {
-          implementation: require.resolve('postcss'),
-        },
-        rules: [
-          {
-            test: /\.css$/,
-            sideEffects: true,
-            use: [
-              require.resolve('style-loader'),
-              {
-                loader: require.resolve('css-loader'),
-                options: {
-                  // Want to add more CSS Modules options? Read more here: https://github.com/webpack-contrib/css-loader#modules
-                  modules: {
-                    auto: true,
-                  },
-                  importLoaders: 1,
-                },
-              },
-              {
-                loader: require.resolve('postcss-loader'),
-                options: {
-                  implementation: require.resolve('postcss'),
-                },
-              },
-            ],
-          },
-        ],
-      },
-    },
   ],
   framework: '@storybook/react-vite',
   features: {},
