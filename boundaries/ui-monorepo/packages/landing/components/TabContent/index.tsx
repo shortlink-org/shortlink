@@ -17,7 +17,7 @@ const TabContent: React.FC<TabContentProps> = ({ title, cards }) => {
   const theme = useTheme()
 
   return (
-    <div className="my-2 max-w-4xl mx-auto">
+    <div className="my-2 mx-5 max-w-4xl mx-auto">
       <h2 className="text-2xl prose text-center my-5 text-gray-800 dark:text-white">
         {title}
       </h2>

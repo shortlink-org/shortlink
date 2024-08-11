@@ -525,9 +525,6 @@ importers:
       '@storybook/addon-links':
         specifier: 8.3.0-alpha.4
         version: 8.3.0-alpha.4(react@18.3.1)(storybook@8.3.0-alpha.4)
-      '@storybook/addon-styling-webpack':
-        specifier: ^1.0.0
-        version: 1.0.0(storybook@8.3.0-alpha.4)(webpack@5.93.0(@swc/core@1.7.10(@swc/helpers@0.5.12))(esbuild@0.23.0))
       '@storybook/addon-themes':
         specifier: 8.3.0-alpha.4
         version: 8.3.0-alpha.4(storybook@8.3.0-alpha.4)
@@ -3695,11 +3692,6 @@ packages:
     peerDependencies:
       storybook: ^8.3.0-alpha.4
 
-  '@storybook/addon-styling-webpack@1.0.0':
-    resolution: {integrity: sha512-jo1kzn7pi+NA+LZxrWoRvW6w7dXIKY/BjTG80XX2uU92lIKT+X1k/9vYk/0KPVK3Bsf4tO6ToAuqIRyOk7MHtg==}
-    peerDependencies:
-      webpack: ^5.0.0
-
   '@storybook/addon-themes@8.3.0-alpha.4':
     resolution: {integrity: sha512-tzxLCE84WG/+XUfzIulPhMnpNjQvgb0SYKJKer6jIAo9O0IDBiGFoHn+ACTwukMYB78HkB7md1X/rhCS/0rt9Q==}
     peerDependencies:
@@ -3778,11 +3770,6 @@ packages:
     resolution: {integrity: sha512-rNE55L5pWak+q+3D7r6cGGKEsBPRcrAveUTxagYWSE0ZrlQMb+/oInQCdulb/NS2TJljkb8v2lsvyUKT7EZhmQ==}
     peerDependencies:
       storybook: ^8.3.0-alpha.4
-
-  '@storybook/node-logger@8.2.8':
-    resolution: {integrity: sha512-BQr3xvZFfOuNfO+e9w/kwaNPOZ07oXJH/i76sPFle3ulSjhKE2npgOSdUsZ7XoDhgkhb58xS+OVLenmP3GWB7w==}
-    peerDependencies:
-      storybook: ^8.2.8
 
   '@storybook/preview-api@8.3.0-alpha.4':
     resolution: {integrity: sha512-eKEAKuXjagPw64z8/TpI9veI+0bOiRd4UsD/D5+JKw3fYdqC63OleZAr8vhtfkvy1hu9bsnsv2Ga6ZUUSPgMdw==}
@@ -15422,13 +15409,6 @@ snapshots:
       storybook: 8.3.0-alpha.4
       ts-dedent: 2.2.0
 
-  '@storybook/addon-styling-webpack@1.0.0(storybook@8.3.0-alpha.4)(webpack@5.93.0(@swc/core@1.7.10(@swc/helpers@0.5.12))(esbuild@0.23.0))':
-    dependencies:
-      '@storybook/node-logger': 8.2.8(storybook@8.3.0-alpha.4)
-      webpack: 5.93.0(@swc/core@1.7.10(@swc/helpers@0.5.12))(esbuild@0.23.0)
-    transitivePeerDependencies:
-      - storybook
-
   '@storybook/addon-themes@8.3.0-alpha.4(storybook@8.3.0-alpha.4)':
     dependencies:
       storybook: 8.3.0-alpha.4
@@ -15528,10 +15508,6 @@ snapshots:
       util: 0.12.5
 
   '@storybook/manager-api@8.3.0-alpha.4(storybook@8.3.0-alpha.4)':
-    dependencies:
-      storybook: 8.3.0-alpha.4
-
-  '@storybook/node-logger@8.2.8(storybook@8.3.0-alpha.4)':
     dependencies:
       storybook: 8.3.0-alpha.4
 

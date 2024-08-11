@@ -9,8 +9,8 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc -b && vite build",
-    "storybook": "pnpm dlx storybook dev -p 6006",
-    "build-storybook": "pnpm dlx storybook build",
+    "dev": "pnpm storybook dev -p 6006",
+    "build-storybook": "pnpm run storybook build",
     "semantic-release": "pnpm dlx semantic-release",
     "test": "NODE_ENV=test jest",
     "inspector": "pnpm dlx @eslint/config-inspector",
@@ -59,7 +59,6 @@
     "@storybook/addon-essentials": "8.3.0-alpha.4",
     "@storybook/addon-interactions": "8.3.0-alpha.4",
     "@storybook/addon-links": "8.3.0-alpha.4",
-    "@storybook/addon-styling-webpack": "^1.0.0",
     "@storybook/addon-themes": "8.3.0-alpha.4",
     "@storybook/blocks": "8.3.0-alpha.4",
     "@storybook/react": "8.3.0-alpha.4",

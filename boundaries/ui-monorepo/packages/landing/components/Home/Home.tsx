@@ -34,7 +34,7 @@ const Home = () => {
     <>
       <ToggleDarkMode id="ToggleDarkMode" />
 
-      <div className='relative flex flex-col text-gray-700 bg-white shadow-lg bg-clip-border rounded-2xl max-w-4xl mx-auto mt-12'>
+      <div className="relative flex flex-col text-gray-700 bg-white shadow-lg bg-clip-border rounded-2xl max-w-4xl mx-auto mt-12">
         <AppBar position='static' id='menu' color={appBarColor} className='mt-[10em] md:mt-0'>
           <Tabs
             value={value}

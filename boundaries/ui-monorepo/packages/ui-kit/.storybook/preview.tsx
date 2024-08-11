@@ -8,6 +8,7 @@ import '@fontsource/roboto/700.css'
 import '@fontsource/caveat'
 import '@fontsource/material-icons'
 import { CssVarsProvider } from '@mui/material/styles'
+import InitColorSchemeScript from '@mui/material/InitColorSchemeScript'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
@@ -25,7 +26,8 @@ const preview: Preview = {
           attribute="class"
           defaultTheme={'light'}
         >
-          <CssVarsProvider theme={theme} defaultMode="light">
+          <CssVarsProvider theme={theme}>
+            <InitColorSchemeScript />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Provider>
                 <Story />
