@@ -77,6 +77,7 @@ const nextConfig = {
     instrumentationHook: false,
     webVitalsAttribution: ['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'],
     turbo: {},
+    reactCompiler: true,
     // typedRoutes: true,
   },
 }

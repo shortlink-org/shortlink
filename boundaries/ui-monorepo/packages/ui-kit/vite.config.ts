@@ -22,7 +22,7 @@ export default defineConfig({
         'react-dom',
         'material-react-table',
         '@emotion/react',
-        '@mui/styled-engine',
+        '@mui/styled-engine-sc',
         '@mui/system',
         '@mui/material',
         '@mui/material/styles',

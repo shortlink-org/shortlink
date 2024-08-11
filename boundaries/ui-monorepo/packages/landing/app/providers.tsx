@@ -5,7 +5,8 @@ import { DEFAULT_ONLOAD_NAME, DEFAULT_SCRIPT_ID, SCRIPT_URL } from '@marsidev/re
 import { Turnstile } from '@marsidev/react-turnstile'
 import CssBaseline from '@mui/material/CssBaseline'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
-import { Experimental_CssVarsProvider as CssVarsProvider, getInitColorSchemeScript } from '@mui/material/styles'
+import { CssVarsProvider } from '@mui/material/styles'
+import InitColorSchemeScript from '@mui/material/InitColorSchemeScript'
 import { theme } from '@shortlink-org/ui-kit/src/theme/theme'
 import Script from 'next/script'
 import { ThemeProvider as NextThemeProvider } from 'next-themes'
@@ -39,9 +40,9 @@ export function Providers({ children, ...props }) {
   return (
     <AppRouterCacheProvider>
       <NextThemeProvider enableSystem attribute="class" defaultTheme={'light'}>
-        <CssVarsProvider theme={theme} defaultMode="light">
+        <CssVarsProvider theme={theme}>
           <Script id={DEFAULT_SCRIPT_ID} src={`${SCRIPT_URL}?onload=${DEFAULT_ONLOAD_NAME}`} strategy="afterInteractive" />
-          {getInitColorSchemeScript()}
+          <InitColorSchemeScript />
 
           <div className="flex m-auto text-black dark:bg-gray-800 dark:text-white flex-col">
             {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}

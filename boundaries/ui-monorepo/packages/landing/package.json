@@ -18,14 +18,16 @@
   "dependencies": {
     "@emotion/cache": "^11.13.1",
     "@marsidev/react-turnstile": "0.7.2",
-    "@mui/icons-material": "6.0.0-dev.240424162023-9968b4889d",
-    "@mui/material": "6.0.0-dev.240424162023-9968b4889d",
-    "@mui/material-nextjs": "6.0.0-dev.240424162023-9968b4889d",
+    "@mui/icons-material": "6.0.0-beta.5",
+    "@mui/material": "6.0.0-beta.5",
+    "@mui/material-nextjs": "6.0.0-beta.4",
     "@shortlink-org/ui-kit": "workspace:^",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/line-clamp": "^0.4.4",
     "@tailwindcss/typography": "^0.5.14",
+    "babel-plugin-react-compiler": "0.0.0-experimental-334f00b-20240725",
     "eslint-config-shortlink": "workspace:^",
+    "postcss-import": "^16.1.0",
     "postcss-preset-env": "^10.0.0",
     "tailwindcss": "4.0.0-alpha.19",
     "typescript": "^5.5.4"
@@ -37,6 +39,7 @@
     "eslint": "^9.9.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
+    "postcss": "^8.4.41",
     "prettier": "3.3.3",
     "schema-dts": "1.1.2"
   },

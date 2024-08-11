@@ -5,9 +5,8 @@
     "pnpm": ">=9.7.0"
   },
   "scripts": {
-    "dev": "pnpm dlx next dev",
-    "build": "pnpm dlx next build",
-    "start": "pnpm dlx next start",
+    "dev": "pnpm next dev",
+    "start": "pnpm next start",
     "prettier": "pnpm dlx prettier --write --ignore-unknown .",
     "prettier:check": "pnpm dlx prettier --check --ignore-unknown .",
     "test": "pnpm dlx pnpm prettier:check"
