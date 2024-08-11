@@ -34,41 +34,42 @@ const Home = () => {
     <>
       <ToggleDarkMode id="ToggleDarkMode" />
 
-      <div className="relative flex flex-col text-gray-700 bg-white shadow-md bg-clip-border rounded-xl min-h-60">
-        <AppBar position="static" id="menu" color={appBarColor} className="mt-[10em] md:mt-0">
+      <div className='relative flex flex-col text-gray-700 bg-white shadow-lg bg-clip-border rounded-2xl max-w-4xl mx-auto mt-12'>
+        <AppBar position='static' id='menu' color={appBarColor} className='mt-[10em] md:mt-0'>
           <Tabs
             value={value}
             onChange={handleChange}
-            indicatorColor="secondary"
+            indicatorColor='secondary'
             textColor={textColor}
             variant={isMobile ? 'scrollable' : 'fullWidth'}
-            aria-label="full width tabs example"
+            aria-label='scrollable full width tabs example'
             selectionFollowsFocus
-            scrollButtons="auto"
+            scrollButtons='auto'
             allowScrollButtonsMobile
+            className='md:max-w-3xl mx-auto'
           >
-            <Tab label="ShortLink" {...a11yProps(0)} />
-            <Tab label="Infrastructure" {...a11yProps(1)} />
-            <Tab label="Security" {...a11yProps(2)} />
-            <Tab label="Observability" {...a11yProps(3)} />
-            <Tab label="Docs" {...a11yProps(4)} />
+            <Tab label='ShortLink' {...a11yProps(0)} />
+            <Tab label='Shop' {...a11yProps(1)} />
+            <Tab label='Infrastructure' {...a11yProps(2)} />
+            <Tab label='Security' {...a11yProps(3)} />
+            <Tab label='Observability' {...a11yProps(4)} />
+            <Tab label='Docs' {...a11yProps(5)} />
           </Tabs>
         </AppBar>
 
         <TabPanel value={value} index={0}>
           <TabContent
-            title="UI"
-            key="shortlink-ui"
+            title='UI'
+            key='shortlink-ui'
             cards={[
               { name: 'Next', url: '/next' },
               { name: 'ui-kit', url: '/storybook/' },
-              { name: 'shop', url: 'https://shop.shortlink.best' },
             ]}
           />
 
           <TabContent
-            title="Shortlink API"
-            key="shortlink-api"
+            title='Shortlink API'
+            key='shortlink-api'
             cards={[
               { name: 'HTTP', url: '/api' },
               { name: 'gRPC-web', url: '/grpc/' },
@@ -79,10 +80,23 @@ const Home = () => {
           />
         </TabPanel>
 
-        <TabPanel value={value} index={1} dir={theme.direction}>
+        <TabPanel value={value} index={1}>
           <TabContent
-            title="Infrastructure services"
-            key="infrastructure"
+            title='Shop'
+            key='shortlink-shop'
+            cards={[
+              { name: 'Shop', url: 'https://shop.shortlink.best' },
+              { name: 'Admin', url: 'https://shop.shortlink.best/admin' },
+              { name: 'Temporal', url: 'https://temporal.shortlink.best' },
+              { name: 'Storybook', url: 'https://shop.shortlink.best/storybook' },
+            ]}
+          />
+        </TabPanel>
+
+        <TabPanel value={value} index={2} dir={theme.direction}>
+          <TabContent
+            title='Infrastructure services'
+            key='infrastructure'
             cards={[
               { name: 'RabbitMQ', url: '/rabbitmq/' },
               { name: 'Kafka', url: '/kafka-ui/' },
@@ -91,8 +105,8 @@ const Home = () => {
           />
 
           <TabContent
-            title="Argo"
-            key="infrastructure"
+            title='Argo'
+            key='infrastructure'
             cards={[
               { name: 'Argo CD', url: 'https://argo.shortlink.best' },
               {
@@ -107,10 +121,10 @@ const Home = () => {
           />
         </TabPanel>
 
-        <TabPanel value={value} index={2} dir={theme.direction}>
+        <TabPanel value={value} index={3} dir={theme.direction}>
           <TabContent
-            title="Security"
-            key="observability"
+            title='Security'
+            key='observability'
             cards={[
               {
                 name: 'Armosec',
@@ -122,10 +136,10 @@ const Home = () => {
           />
         </TabPanel>
 
-        <TabPanel value={value} index={3} dir={theme.direction}>
+        <TabPanel value={value} index={4} dir={theme.direction}>
           <TabContent
-            title="Observability services"
-            key="observability"
+            title='Observability services'
+            key='observability'
             cards={[
               { name: 'Prometheus', url: '/prometheus' },
               { name: 'AlertManager', url: '/alertmanager' },
@@ -138,10 +152,10 @@ const Home = () => {
           />
         </TabPanel>
 
-        <TabPanel value={value} index={4} dir={theme.direction}>
+        <TabPanel value={value} index={5} dir={theme.direction}>
           <TabContent
-            title="Documentation and etc..."
-            key="docs"
+            title='Documentation and etc...'
+            key='docs'
             cards={[
               {
                 name: 'GitHub',
@@ -162,7 +176,7 @@ const Home = () => {
         </TabPanel>
       </div>
 
-      <p className="text-sm text-gray-600 text-center my-6">
+      <p className='text-sm text-gray-600 text-center my-4'>
         Version: <b>{process.env.NEXT_PUBLIC_GIT_TAG}</b>
         {' && '}
         <Link href={process.env.NEXT_PUBLIC_CI_PIPELINE_URL}>

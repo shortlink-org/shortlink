@@ -1,6 +1,4 @@
-import Box from '@mui/material/Box'
-import Typography from '@mui/material/Typography'
-import * as React from 'react'
+import React from 'react'
 
 interface TabPanelProps {
   children?: React.ReactNode
@@ -9,14 +7,22 @@ interface TabPanelProps {
   value: number
 }
 
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props
-
-  if (value === index) {
-    return <div className="w-4xl m-auto">{children}</div>
+const TabPanel: React.FC<TabPanelProps> = ({ children, value, index, ...other }) => {
+  if (value !== index) {
+    return null
   }
 
-  return null
+  return (
+    <div
+      className="max-w-4xl mx-auto m-6"
+      role="tabpanel"
+      id={`tabpanel-${index}`}
+      aria-labelledby={`tab-${index}`}
+      {...other}
+    >
+      {children}
+    </div>
+  )
 }
 
 export default TabPanel

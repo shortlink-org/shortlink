@@ -1,7 +1,7 @@
 import { Divider, Stack, Typography, useTheme } from '@mui/material'
 import Button from '@mui/material/Button'
 import Link from 'next/link'
-import * as React from 'react'
+import React from 'react'
 
 interface Card {
   name: string
@@ -17,8 +17,10 @@ const TabContent: React.FC<TabContentProps> = ({ title, cards }) => {
   const theme = useTheme()
 
   return (
-    <div className="my-5 max-w-4xl">
-      <h2 className="prose text-center my-5 dark:text-white">{title}</h2>
+    <div className="my-2 max-w-4xl mx-auto">
+      <h2 className="text-2xl prose text-center my-5 text-gray-800 dark:text-white">
+        {title}
+      </h2>
 
       <Stack
         spacing={{ xs: 1, sm: 1, md: 2 }}
@@ -30,20 +32,27 @@ const TabContent: React.FC<TabContentProps> = ({ title, cards }) => {
         useFlexGap
         flexWrap="wrap"
       >
-        {cards.map((card) => getCard(card.name, card.url, theme))}
+        {cards.map((card) => (
+          <Link href={card.url} key={card.url} passHref>
+            <Button
+              variant="outlined"
+              size="large"
+              sx={{
+                minWidth: 160,
+                color: theme.palette.text.primary,
+                borderColor: theme.palette.divider,
+                '&:hover': {
+                  borderColor: theme.palette.primary.main,
+                  backgroundColor: theme.palette.action.hover,
+                },
+              }}
+            >
+              {card.name}
+            </Button>
+          </Link>
+        ))}
       </Stack>
     </div>
-  )
-}
-
-// @ts-ignore
-function getCard(name: string, url: string, theme) {
-  return (
-    <Link href={url} key={url} passHref>
-      <Button variant="outlined" size="large">
-        {name}
-      </Button>
-    </Link>
   )
 }
 
