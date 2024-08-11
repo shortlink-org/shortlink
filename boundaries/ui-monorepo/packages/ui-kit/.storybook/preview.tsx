@@ -9,19 +9,19 @@ import '@fontsource/caveat'
 import '@fontsource/material-icons'
 import { CssVarsProvider } from '@mui/material/styles'
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript'
-import { ThemeProvider as NextThemeProvider } from 'next-themes'
+import { ThemeProvider } from 'next-themes'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
 import '../src/theme/styles.css'
-import { theme } from '../src'
+import { theme } from '../src/theme/theme'
 
 const preview: Preview = {
   decorators: [
     (Story) => {
       return (
         // @ts-ignore
-        <NextThemeProvider
+        <ThemeProvider
           enableSystem
           attribute="class"
           defaultTheme={'light'}
@@ -34,7 +34,7 @@ const preview: Preview = {
               </Provider>
             </LocalizationProvider>
           </CssVarsProvider>
-        </NextThemeProvider>
+        </ThemeProvider>
       )
     },
   ],

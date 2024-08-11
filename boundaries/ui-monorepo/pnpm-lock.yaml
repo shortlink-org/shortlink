@@ -482,6 +482,9 @@ importers:
 
   packages/ui-kit:
     dependencies:
+      '@storybook/builder-vite':
+        specifier: ^8.2.8
+        version: 8.2.8(storybook@8.3.0-alpha.4)(typescript@5.5.4)(vite@5.4.0(@types/node@22.2.0)(less@4.1.3)(lightningcss@1.26.0)(sass@1.77.8)(stylus@0.59.0)(terser@5.31.5))
       export-to-csv:
         specifier: ^1.3.0
         version: 1.3.0
@@ -3719,6 +3722,22 @@ packages:
       react-dom:
         optional: true
 
+  '@storybook/builder-vite@8.2.8':
+    resolution: {integrity: sha512-p9EJfZkX9ZsVi1Qr3jYyCJaZZ/2pt0KVTOYnDzNnhi3P/suU6O3Lp/YCV5+KOfAmlg2IgTND0EidqZinqPIBSg==}
+    peerDependencies:
+      '@preact/preset-vite': '*'
+      storybook: ^8.2.8
+      typescript: '>= 4.3.x'
+      vite: ^4.0.0 || ^5.0.0
+      vite-plugin-glimmerx: '*'
+    peerDependenciesMeta:
+      '@preact/preset-vite':
+        optional: true
+      typescript:
+        optional: true
+      vite-plugin-glimmerx:
+        optional: true
+
   '@storybook/builder-vite@8.3.0-alpha.4':
     resolution: {integrity: sha512-kT8H97hNfPwQR2ArtDGBWfoD5XhDwcnoWdmcWz2Httdc5qrOH3n9p/ddh1IUmypvWS3GEGPyo7K493680E0YNg==}
     peerDependencies:
@@ -3742,6 +3761,11 @@ packages:
 
   '@storybook/core@8.3.0-alpha.4':
     resolution: {integrity: sha512-sN3hUm377nct4ZOwFXjqvehzt6wWHJO01tXq2NIX2w0KUEWhBCjj1FhEhwFcCEai6I14afMBgHlTMXADHPUDyw==}
+
+  '@storybook/csf-plugin@8.2.8':
+    resolution: {integrity: sha512-CEHY7xloBPE8d8h0wg2AM2kRaZkHK8/vkYMNZPbccqAYj6PQIdTuOcXZIBAhAGydyIBULZmsmmsASxM9RO5fKA==}
+    peerDependencies:
+      storybook: ^8.2.8
 
   '@storybook/csf-plugin@8.3.0-alpha.4':
     resolution: {integrity: sha512-vOUrUu91brmZRja+N2M6J1ZuTyoNtXnniZHoBJCV10lZ/YIrtNiY0tiObOc6qleiUkNCUvAk3tUrSQtfdnfReA==}
@@ -15444,6 +15468,24 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
+  '@storybook/builder-vite@8.2.8(storybook@8.3.0-alpha.4)(typescript@5.5.4)(vite@5.4.0(@types/node@22.2.0)(less@4.1.3)(lightningcss@1.26.0)(sass@1.77.8)(stylus@0.59.0)(terser@5.31.5))':
+    dependencies:
+      '@storybook/csf-plugin': 8.2.8(storybook@8.3.0-alpha.4)
+      '@types/find-cache-dir': 3.2.1
+      browser-assert: 1.2.1
+      es-module-lexer: 1.5.4
+      express: 4.19.2
+      find-cache-dir: 3.3.2
+      fs-extra: 11.2.0
+      magic-string: 0.30.11
+      storybook: 8.3.0-alpha.4
+      ts-dedent: 2.2.0
+      vite: 5.4.0(@types/node@22.2.0)(less@4.1.3)(lightningcss@1.26.0)(sass@1.77.8)(stylus@0.59.0)(terser@5.31.5)
+    optionalDependencies:
+      typescript: 5.5.4
+    transitivePeerDependencies:
+      - supports-color
+
   '@storybook/builder-vite@8.3.0-alpha.4(storybook@8.3.0-alpha.4)(typescript@5.5.4)(vite@5.4.0(@types/node@22.2.0)(less@4.1.3)(lightningcss@1.26.0)(sass@1.77.8)(stylus@0.59.0)(terser@5.31.5))':
     dependencies:
       '@storybook/csf-plugin': 8.3.0-alpha.4(storybook@8.3.0-alpha.4)
@@ -15483,6 +15525,11 @@ snapshots:
       - bufferutil
       - supports-color
       - utf-8-validate
+
+  '@storybook/csf-plugin@8.2.8(storybook@8.3.0-alpha.4)':
+    dependencies:
+      storybook: 8.3.0-alpha.4
+      unplugin: 1.12.1
 
   '@storybook/csf-plugin@8.3.0-alpha.4(storybook@8.3.0-alpha.4)':
     dependencies:
