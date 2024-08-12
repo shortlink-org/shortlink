@@ -14,14 +14,14 @@ type: application
 deprecated: false
 dependencies:
   - name: teleport-cluster
-    version: 16.1.4
+    version: 16.1.6
     repository: https://charts.releases.teleport.dev
     condition: teleport-cluster.enabled
     tags:
       - idp
       - teleport
   - name: teleport-kube-agent
-    version: 16.1.4
+    version: 16.1.6
     repository: https://charts.releases.teleport.dev
     condition: teleport-kube-agent.enabled
     tags:
