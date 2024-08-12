@@ -21,3 +21,10 @@ providing a seamless authentication experience.
 
 By using `django_ory_auth`, we can leverage the features of Ory Kratos without having to implement the integration ourselves. 
 This decision speeds up the development process and ensures that we are using a tested and secure authentication system.
+
+### Admin roles
+
+For set up the admin roles, need open Postgres and set next values:
+
+- `is_staff` - True
+- `is_superuser` - True
