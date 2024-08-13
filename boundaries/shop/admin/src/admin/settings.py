@@ -55,6 +55,7 @@ INSTALLED_APPS = [
     "health_check.db",
     "health_check.cache",
     "health_check.contrib.migrations",
+    'rest_framework',
     "domain.goods",
 ]
 
@@ -215,4 +216,15 @@ LOGGING = {
             "propagate": False,
         },
     },
+}
+
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+    # Pagination settings
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10
 }
