@@ -1,0 +1,271 @@
+openapi: 3.0.3
+info:
+  title: Shop Admin API
+  version: 1.0.0
+  description: API documentation for Shop Admin
+paths:
+  /goods/:
+    get:
+      operationId: goods_list
+      description: A viewset for viewing and editing Good instances.
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - goods
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedGoodList'
+          description: ''
+    post:
+      operationId: goods_create
+      description: A viewset for viewing and editing Good instances.
+      tags:
+      - goods
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoodRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GoodRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GoodRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Good'
+          description: ''
+  /goods/{id}/:
+    get:
+      operationId: goods_retrieve
+      description: A viewset for viewing and editing Good instances.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this good.
+        required: true
+      tags:
+      - goods
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Good'
+          description: ''
+    put:
+      operationId: goods_update
+      description: A viewset for viewing and editing Good instances.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this good.
+        required: true
+      tags:
+      - goods
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GoodRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/GoodRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/GoodRequest'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Good'
+          description: ''
+    patch:
+      operationId: goods_partial_update
+      description: A viewset for viewing and editing Good instances.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this good.
+        required: true
+      tags:
+      - goods
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedGoodRequest'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedGoodRequest'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedGoodRequest'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Good'
+          description: ''
+    delete:
+      operationId: goods_destroy
+      description: A viewset for viewing and editing Good instances.
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: A unique integer value identifying this good.
+        required: true
+      tags:
+      - goods
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    Good:
+      type: object
+      description: |-
+        Serializer for the Good model.
+
+        This serializer converts the Good model instances to JSON format and vice versa.
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+          maxLength: 255
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        description:
+          type: string
+        created_at:
+          type: string
+          format: date-time
+          readOnly: true
+        updated_at:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - created_at
+      - description
+      - id
+      - name
+      - price
+      - updated_at
+    GoodRequest:
+      type: object
+      description: |-
+        Serializer for the Good model.
+
+        This serializer converts the Good model instances to JSON format and vice versa.
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        description:
+          type: string
+          minLength: 1
+      required:
+      - description
+      - name
+      - price
+    PaginatedGoodList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Good'
+    PatchedGoodRequest:
+      type: object
+      description: |-
+        Serializer for the Good model.
+
+        This serializer converts the Good model instances to JSON format and vice versa.
+      properties:
+        name:
+          type: string
+          minLength: 1
+          maxLength: 255
+        price:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,3}(?:\.\d{0,2})?$
+        description:
+          type: string
+          minLength: 1
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid

@@ -57,6 +57,7 @@ INSTALLED_APPS = [
     "health_check.contrib.migrations",
     'rest_framework',
     "domain.goods",
+    'drf_spectacular',
 ]
 
 MIDDLEWARE = [
@@ -224,7 +225,26 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ],
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
     # Pagination settings
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
+}
+
+# Documentation settings for Swagger and ReDoc UI (drf-spectacular)
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'Shop Admin API',
+    'DESCRIPTION': 'API documentation for Shop Admin',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False,
+    'COMPONENT_SPLIT_REQUEST': True,
+    'SERVE_PERMISSIONS': ['rest_framework.permissions.AllowAny'],
+    'SWAGGER_UI_SETTINGS': {
+        'deepLinking': True,
+        'persistAuthorization': True,
+    },
+    'REDOC_UI_SETTINGS': {
+        'pathInMiddlePanel': True,
+        'hideDownloadButton': True,
+    },
 }
