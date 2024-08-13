@@ -468,8 +468,8 @@ importers:
   packages/ui-kit:
     dependencies:
       '@storybook/builder-vite':
-        specifier: ^8.2.8
-        version: 8.2.8(storybook@8.3.0-alpha.5)(typescript@5.5.4)(vite@5.4.0(@types/node@22.2.0)(less@4.1.3)(lightningcss@1.26.0)(sass@1.77.8)(stylus@0.59.0)(terser@5.31.5))
+        specifier: ^8.2.9
+        version: 8.2.9(storybook@8.3.0-alpha.5)(typescript@5.5.4)(vite@5.4.0(@types/node@22.2.0)(less@4.1.3)(lightningcss@1.26.0)(sass@1.77.8)(stylus@0.59.0)(terser@5.31.5))
       export-to-csv:
         specifier: ^1.3.0
         version: 1.3.0
@@ -3627,11 +3627,11 @@ packages:
       react-dom:
         optional: true
 
-  '@storybook/builder-vite@8.2.8':
-    resolution: {integrity: sha512-p9EJfZkX9ZsVi1Qr3jYyCJaZZ/2pt0KVTOYnDzNnhi3P/suU6O3Lp/YCV5+KOfAmlg2IgTND0EidqZinqPIBSg==}
+  '@storybook/builder-vite@8.2.9':
+    resolution: {integrity: sha512-MHD3ezRjKkJkOl0u7CRQoQD/LKd28YMWIcaz4YrV6ygokc0c3RFTlOefICQFgboc+1RwIUowxN1CJ2kJ7p4SWw==}
     peerDependencies:
       '@preact/preset-vite': '*'
-      storybook: ^8.2.8
+      storybook: ^8.2.9
       typescript: '>= 4.3.x'
       vite: ^4.0.0 || ^5.0.0
       vite-plugin-glimmerx: '*'
@@ -3667,10 +3667,10 @@ packages:
   '@storybook/core@8.3.0-alpha.5':
     resolution: {integrity: sha512-HQ42HOq9uLQxJc4X8QdXayQaCxzIuzp0XbwS6b7RzLHGhdhM1fNOEtkVdeJeEJrv/Q20BfTwPMjEhHQmV0uHgw==}
 
-  '@storybook/csf-plugin@8.2.8':
-    resolution: {integrity: sha512-CEHY7xloBPE8d8h0wg2AM2kRaZkHK8/vkYMNZPbccqAYj6PQIdTuOcXZIBAhAGydyIBULZmsmmsASxM9RO5fKA==}
+  '@storybook/csf-plugin@8.2.9':
+    resolution: {integrity: sha512-QQCFb3g12VQQEraDV1UfCmniGhQZKyT6oEt1Im6dzzPJj9NQk+6BjWoDep33CZhBHWoLryrMQd2fjuHxnFRNEA==}
     peerDependencies:
-      storybook: ^8.2.8
+      storybook: ^8.2.9
 
   '@storybook/csf-plugin@8.3.0-alpha.5':
     resolution: {integrity: sha512-NgArxKGtrdeCTM7H0L3ppYpXRsxqUfaw5jGk2QykMqOFbrSfyVgKeL8iZPClFH6YjopYL1GtlziHLCL2Cju1JA==}
@@ -14862,9 +14862,9 @@ snapshots:
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@storybook/builder-vite@8.2.8(storybook@8.3.0-alpha.5)(typescript@5.5.4)(vite@5.4.0(@types/node@22.2.0)(less@4.1.3)(lightningcss@1.26.0)(sass@1.77.8)(stylus@0.59.0)(terser@5.31.5))':
+  '@storybook/builder-vite@8.2.9(storybook@8.3.0-alpha.5)(typescript@5.5.4)(vite@5.4.0(@types/node@22.2.0)(less@4.1.3)(lightningcss@1.26.0)(sass@1.77.8)(stylus@0.59.0)(terser@5.31.5))':
     dependencies:
-      '@storybook/csf-plugin': 8.2.8(storybook@8.3.0-alpha.5)
+      '@storybook/csf-plugin': 8.2.9(storybook@8.3.0-alpha.5)
       '@types/find-cache-dir': 3.2.1
       browser-assert: 1.2.1
       es-module-lexer: 1.5.4
@@ -14919,7 +14919,7 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@storybook/csf-plugin@8.2.8(storybook@8.3.0-alpha.5)':
+  '@storybook/csf-plugin@8.2.9(storybook@8.3.0-alpha.5)':
     dependencies:
       storybook: 8.3.0-alpha.5
       unplugin: 1.12.1
