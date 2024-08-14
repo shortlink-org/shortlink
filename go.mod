@@ -53,7 +53,7 @@ require (
 	github.com/redis/rueidis/rueidisotel v1.0.30-0.20240224222815-152800b84f6d
 	github.com/riandyrn/otelchi v0.9.0
 	github.com/robfig/cron/v3 v3.0.1
-	github.com/sasha-s/go-deadlock v0.3.3
+	github.com/sasha-s/go-deadlock v0.3.5
 	github.com/segmentio/encoding v0.4.0
 	github.com/shopspring/decimal v1.4.0
 	github.com/sirupsen/logrus v1.9.3
@@ -209,7 +209,7 @@ require (
 	github.com/opencontainers/runc v1.1.13 // indirect
 	github.com/pborman/uuid v1.2.1 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
-	github.com/petermattis/goid v0.0.0-20180202154549-b0b1615b78e5 // indirect
+	github.com/petermattis/goid v0.0.0-20240813172612-4fcff4a6cae7 // indirect
 	github.com/pierrec/lz4/v4 v4.1.21 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/pkg/term v1.2.0-beta.2 // indirect
