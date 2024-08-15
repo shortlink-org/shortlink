@@ -27,6 +27,10 @@
       "matchManagers": ["gomod"],
       "matchPackagePatterns": ["^github.com/shortlink-org/shortlink$"],
       "ignoreDeps": ["github.com/shortlink-org/shortlink"]
+    },
+    {
+      "matchPackageNames": ["material-ui"],
+      "enabled": false
     }
   ]
 }
