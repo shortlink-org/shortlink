@@ -7,9 +7,19 @@ const countries = introspect.graphql({
 	url: 'https://countries.trevorblades.com/',
 });
 
+const goods = introspect.openApiV2({
+  id: 'goods',
+  apiNamespace: 'goods',
+  source: {
+    kind: 'file',
+    filePath: 'https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/shop/admin/docs/public/Shop%20Admin%20API.yaml',
+  },
+  baseURL: 'https://shop.shortlink.org/api/goods',
+})
+
 // configureWunderGraph emits the configuration
 configureWunderGraphApplication({
-	apis: [countries],
+	apis: [countries, goods],
 	server,
 	operations,
 	generate: {
