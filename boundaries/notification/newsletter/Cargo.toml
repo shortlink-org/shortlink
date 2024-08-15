@@ -16,9 +16,9 @@ pyroscope_pprofrs = "0.2.7"
 futures = { version = "0.3.30", default-features = true, features = ["async-await"] }
 hyper = { version = "1.4.1", features = ["full"] }
 tokio = { version = "1.39.2", features = ["full"] }
-serde = {version = "1.0.207", features = ["derive"] }
+serde = {version = "1.0.208", features = ["derive"] }
 serde_json = "1.0.125"
-serde_derive = "1.0.207"
+serde_derive = "1.0.208"
 route-recognizer = "0.3.1"
 bytes = "1.7.1"
 async-trait = "0.1.81"
