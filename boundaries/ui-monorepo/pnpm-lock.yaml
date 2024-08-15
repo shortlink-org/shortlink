@@ -63,8 +63,8 @@ importers:
         specifier: 14.3.0-canary.87
         version: 14.3.0-canary.87
       '@stylistic/eslint-plugin-js':
-        specifier: ^2.6.2
-        version: 2.6.2(eslint@9.9.0(jiti@1.21.6))
+        specifier: ^2.6.3
+        version: 2.6.3(eslint@9.9.0(jiti@1.21.6))
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
         version: 0.4.2(tailwindcss@3.4.10(ts-node@10.9.2(@swc/core@1.7.11(@swc/helpers@0.5.12))(@types/node@20.14.15)(typescript@5.5.4)))
@@ -3742,8 +3742,8 @@ packages:
     peerDependencies:
       storybook: ^8.3.0-alpha.6
 
-  '@stylistic/eslint-plugin-js@2.6.2':
-    resolution: {integrity: sha512-wCr/kVctAPayMU3pcOI1MKR7MoKIh6VKZU89lPklAqtJoxT+Em6RueiiARbpznUYG5eg3LymiU+aMD+aIZXdqA==}
+  '@stylistic/eslint-plugin-js@2.6.3':
+    resolution: {integrity: sha512-VkfqvbP9ro4XlP7wjIe6tWJjh6rzEJYYeIr5oWHTiayHfKgtRgUIRIWTZu1vbJg49aP2CsM0GRFI6iX5xwqTXA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.40.0'
@@ -14991,7 +14991,7 @@ snapshots:
     dependencies:
       storybook: 8.3.0-alpha.6
 
-  '@stylistic/eslint-plugin-js@2.6.2(eslint@9.9.0(jiti@1.21.6))':
+  '@stylistic/eslint-plugin-js@2.6.3(eslint@9.9.0(jiti@1.21.6))':
     dependencies:
       '@types/eslint': 9.6.0
       acorn: 8.12.1
