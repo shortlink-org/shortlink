@@ -240,3 +240,18 @@ updates:
     directory: /poc/xa/dtm-example
     schedule:
       interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/shop/gateway
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/shop/oms
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui-monorepo/packages/shop
+    schedule:
+      interval: daily
