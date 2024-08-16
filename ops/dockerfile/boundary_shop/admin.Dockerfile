@@ -42,7 +42,7 @@ RUN pip install uv
 # Create a virtual environment at .venv
 RUN uv venv
 
-RUN uv pip install -r pyproject.toml --no-deps
+RUN uv pip install -r pyproject.toml
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 
