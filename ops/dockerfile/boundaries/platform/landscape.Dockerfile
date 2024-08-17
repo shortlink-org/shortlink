@@ -7,49 +7,37 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
 # Install dependencies only when needed
-FROM --platform=$BUILDPLATFORM node:21.7.3-alpine AS development-builder
+FROM --platform=$BUILDPLATFORM public.ecr.aws/g6m3a0y9/landscape2:latest as builder
 
-# Defining environment
-ARG API_URI
-ARG CI_COMMIT_TAG
-ARG CI_COMMIT_REF_NAME
-ARG CI_PIPELINE_ID
-ARG CI_PIPELINE_URL
-
-# Set environment variables
-ENV CI_COMMIT_TAG=$CI_COMMIT_TAG
-ENV CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME
-ENV CI_PIPELINE_ID=$CI_PIPELINE_ID
-ENV CI_PIPELINE_URL=$CI_PIPELINE_URL
-
-# Enable corepack and set pnpm home
-ENV PNPM_HOME="/pnpm"
-ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
-
-# Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
-RUN apk add --no-cache libc6-compat
+ARG GITHUB_TOKEN
+ENV GITHUB_TOKEN=$GITHUB_TOKEN
 
 WORKDIR /app
-RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
 
-COPY ./boundaries/ui-monorepo/ ./
-COPY .env.prod .env
+COPY ./boundaries/platform/landscape ./
 
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN pnpm dlx nx run landing:build
+USER root
+
+RUN landscape2 build \
+          --data-file data.yml \
+          --settings-file settings.yml \
+          --guide-file guide.yml \
+          --logos-path logos \
+          --output-dir build
 
 # Production image, copy all the files and run next
 FROM ghcr.io/nginxinc/nginx-unprivileged:1.27-alpine
 
 LABEL maintainer=batazor111@gmail.com
-LABEL org.opencontainers.image.title="shortlink-landing"
-LABEL org.opencontainers.image.description="shortlink-landing"
+LABEL org.opencontainers.image.title="shortlink-landscape"
+LABEL org.opencontainers.image.description="shortlink-landscape"
 LABEL org.opencontainers.image.authors="Login Viktor @batazor"
 LABEL org.opencontainers.image.vendor="Login Viktor @batazor"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.url="http://shortlink.best/"
 LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
+
+EXPOSE 8080
 
 # Delete default config
 RUN rm /etc/nginx/conf.d/default.conf
@@ -71,10 +59,10 @@ HEALTHCHECK \
   CMD curl -f localhost:8080 || exit 1
 
 # Copy application and custom NGINX configuration
-COPY ./ops/dockerfile/boundary_ui/conf/ui.local /etc/nginx/conf.d/default.conf
+COPY ./ops/dockerfile/boundaries/platform/landscape/landscape.local /etc/nginx/conf.d/default.conf
 COPY ./ops/docker-compose/gateway/nginx/conf/nginx.conf /etc/nginx/nginx.conf
 COPY ./ops/docker-compose/gateway/nginx/conf/templates /etc/nginx/template
-COPY --from=development-builder /app/packages/landing/out ./
+COPY --from=builder /app/build ./
 
 # Setup unprivileged user 1001
 RUN chown -R 1001 /usr/share/nginx/html
