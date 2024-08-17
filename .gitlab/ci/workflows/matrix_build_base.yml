@@ -50,7 +50,7 @@
         CMD_PATH: "--build-arg CMD_PATH=./boundaries/link/metadata/cmd"
       - APPLICATION: proxy
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
-        DOCKERFILE_PATH: ops/dockerfile/proxy.Dockerfile
+        DOCKERFILE_PATH: ops/dockerfile/boundaries/link/proxy.Dockerfile
 
       # PAYMENT Boundary
       - APPLICATION: billing
@@ -65,14 +65,14 @@
       # MARKETING Boundary
       - APPLICATION: bot
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
-        DOCKERFILE_PATH: ops/dockerfile/bot.Dockerfile
+        DOCKERFILE_PATH: ops/dockerfile/boundaries/notification/bot.Dockerfile
       - APPLICATION: notify
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./boundaries/notification/notify/cmd"
       - APPLICATION: referral
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
-        DOCKERFILE_PATH: ops/dockerfile/referral.Dockerfile
+        DOCKERFILE_PATH: ops/dockerfile/boundaries/marketing/referral.Dockerfile
 
       # WORKFLOW Boundary
       - APPLICATION: kafka-to-elasticsearch
