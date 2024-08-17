@@ -9,6 +9,15 @@ ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 # Install dependencies only when needed
 FROM --platform=$BUILDPLATFORM node:21.7.3-alpine AS development-builder
 
+LABEL maintainer=batazor111@gmail.com
+LABEL org.opencontainers.image.title="shortlink-shop-ui"
+LABEL org.opencontainers.image.description="shortlink-shop-ui"
+LABEL org.opencontainers.image.authors="Login Viktor @batazor"
+LABEL org.opencontainers.image.vendor="Login Viktor @batazor"
+LABEL org.opencontainers.image.licenses="MIT"
+LABEL org.opencontainers.image.url="http://shortlink.best/"
+LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
+
 # Defining environment
 ARG API_URI
 ARG CI_COMMIT_TAG
@@ -21,6 +30,7 @@ ENV CI_COMMIT_TAG=$CI_COMMIT_TAG
 ENV CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME
 ENV CI_PIPELINE_ID=$CI_PIPELINE_ID
 ENV CI_PIPELINE_URL=$CI_PIPELINE_URL
+ENV NEXT_TELEMETRY_DISABLED 1
 
 # Enable corepack and set pnpm home
 ENV PNPM_HOME="/pnpm"
@@ -34,51 +44,29 @@ WORKDIR /app
 RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
 
 COPY ./boundaries/ui-monorepo/ ./
-COPY .env.prod .env
 
 # version for npm: npm ci --cache .npm --prefer-offline --force
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
-RUN pnpm dlx nx run ui-next:build
-
-# Production image, copy all the files and run next
-FROM ghcr.io/nginxinc/nginx-unprivileged:1.27-alpine
-
-LABEL maintainer=batazor111@gmail.com
-LABEL org.opencontainers.image.title="shortlink-shop-ui"
-LABEL org.opencontainers.image.description="shortlink-shop-ui"
-LABEL org.opencontainers.image.authors="Login Viktor @batazor"
-LABEL org.opencontainers.image.vendor="Login Viktor @batazor"
-LABEL org.opencontainers.image.licenses="MIT"
-LABEL org.opencontainers.image.url="http://shortlink.best/"
-LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
-
-# Delete default config
-RUN rm /etc/nginx/conf.d/default.conf
-
-WORKDIR /usr/share/nginx/html
-
-# Use root user to copy dist folder and modify user access to specific folder
-USER root
-
-# Install dependencies
-RUN \
-  apk update && \
-  apk add --no-cache curl
 
 HEALTHCHECK \
   --interval=5s \
   --timeout=5s \
   --retries=3 \
-  CMD curl -f localhost:8080 || exit 1
+  CMD curl -f localhost:3000 || exit 1
 
-# Copy application and custom NGINX configuration
-COPY ./ops/dockerfile/boundary_ui/conf/nextjs.local /etc/nginx/conf.d/default.conf
-COPY ./ops/docker-compose/gateway/nginx/conf/nginx.conf /etc/nginx/nginx.conf
-COPY ./ops/docker-compose/gateway/nginx/conf/templates /etc/nginx/template
-COPY --from=development-builder /app/packages/next/out ./next
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
 
-# Setup unprivileged user 1001
-RUN chown -R 1001 /usr/share/nginx/html
+# Set the correct permission for prerender cache
+RUN mkdir .next
+RUN chown nextjs:nodejs .next
 
-# Use user 1001
-USER 1001
+USER nextjs
+
+EXPOSE 3000
+
+ENV PORT=3000
+
+# server.js is created by next build from the standalone output
+# https://nextjs.org/docs/pages/api-reference/next-config-js/output
+CMD HOSTNAME="0.0.0.0" pnpm start
