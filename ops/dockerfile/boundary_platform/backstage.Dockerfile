@@ -43,7 +43,7 @@ RUN yarn install --immutable
 
 COPY --chown=node:node ./boundaries/platform/backstage .
 
-RUN yarn tsc
+RUN npx tsc
 RUN yarn --cwd packages/backend build
 
 RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
