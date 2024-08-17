@@ -132,9 +132,7 @@ django-health-check==3.18.3 \
     --hash=sha256:18b75daca4551c69a43f804f9e41e23f5f5fb9efd06cf6a313b3d5031bb87bd0 \
     --hash=sha256:f5f58762b80bdf7b12fad724761993d6e83540f97e2c95c42978f187e452fa07
     # via shop-admin (pyproject.toml)
-django-ory-auth==0.1.3 \
-    --hash=sha256:2d60a2aacc488c6405b8470df574341a21bc4f2b8fc6ce4751a4d61b83689165 \
-    --hash=sha256:c0d7aea0269831a90e194dbba973a671d30ded481efd0898a8062530bd72c626
+django-ory-auth @ git+https://github.com/micro-company/django_ory_auth@5ce24ac73dd843b7555348f2419f33c156060117
     # via shop-admin (pyproject.toml)
 django-prometheus==2.3.1 \
     --hash=sha256:cf9b26f7ba2e4568f08f8f91480a2882023f5908579681bcf06a4d2465f12168 \
