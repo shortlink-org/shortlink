@@ -18,7 +18,3 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui-kit
         DOCKERFILE_PATH: ops/dockerfile/boundary_ui/storybook.Dockerfile
         DOCKERFILE_ARGS: "--build-arg API_URI=https://shortlink.best"
-      - APPLICATION: shop-ui
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
-        DOCKERFILE_PATH: ops/dockerfile/boundary_ui/shop-ui.Dockerfile
-        DOCKERFILE_ARGS: "--build-arg API_URI=https://shop.shortlink.best"

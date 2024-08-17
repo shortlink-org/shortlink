@@ -30,7 +30,7 @@ ENV CI_COMMIT_TAG=$CI_COMMIT_TAG
 ENV CI_COMMIT_REF_NAME=$CI_COMMIT_REF_NAME
 ENV CI_PIPELINE_ID=$CI_PIPELINE_ID
 ENV CI_PIPELINE_URL=$CI_PIPELINE_URL
-ENV NEXT_TELEMETRY_DISABLED 1
+ENV NEXT_TELEMETRY_DISABLED=1
 
 # Enable corepack and set pnpm home
 ENV PNPM_HOME="/pnpm"
@@ -43,7 +43,7 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
 
-COPY ./boundaries/ui-monorepo/ ./
+COPY ./boundaries/shop/ui ./
 
 # version for npm: npm ci --cache .npm --prefer-offline --force
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
@@ -54,18 +54,7 @@ HEALTHCHECK \
   --retries=3 \
   CMD curl -f localhost:3000 || exit 1
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nextjs
-
-# Set the correct permission for prerender cache
-RUN mkdir .next
-RUN chown nextjs:nodejs .next
-
-USER nextjs
-
 EXPOSE 3000
-
-ENV PORT=3000
 
 # server.js is created by next build from the standalone output
 # https://nextjs.org/docs/pages/api-reference/next-config-js/output

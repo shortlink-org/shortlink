@@ -1,0 +1,15 @@
+.*
+*.yml
+cmd
+docs
+ds
+internal
+ops
+pkg
+ui
+boundaries
+node_modules
+
+# Exclude
+!.env.prod
+!boundaries/shop/ui
