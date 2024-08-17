@@ -113,3 +113,6 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
         DOCKERFILE_PATH: ops/dockerfile/boundaries/shop/ui.Dockerfile
         DOCKERFILE_ARGS: "--build-arg API_URI=https://shop.shortlink.best"
+      - APPLICATION: bff
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
+        DOCKERFILE_PATH: ops/dockerfile/boundaries/shop/bff.Dockerfile
