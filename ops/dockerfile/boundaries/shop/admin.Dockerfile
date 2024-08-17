@@ -30,7 +30,7 @@ ENV ORY_UI_URL="http://host.docker.internal:3000/next/auth"
 EXPOSE 8000
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends curl tini sqlite3
+    apt-get install -y --no-install-recommends curl tini sqlite3 git
 
 WORKDIR /app
 

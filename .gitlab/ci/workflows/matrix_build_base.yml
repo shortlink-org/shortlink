@@ -62,7 +62,7 @@
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./boundaries/billing/wallet/cmd"
 
-      # MARKETING Boundary
+      # NOTIFY Boundary
       - APPLICATION: bot
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
         DOCKERFILE_PATH: ops/dockerfile/boundaries/notification/bot.Dockerfile
@@ -70,6 +70,8 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
         DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
         CMD_PATH: "--build-arg CMD_PATH=./boundaries/notification/notify/cmd"
+
+      # MARKETING Boundary
       - APPLICATION: referral
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
         DOCKERFILE_PATH: ops/dockerfile/boundaries/marketing/referral.Dockerfile
@@ -113,6 +115,6 @@
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
         DOCKERFILE_PATH: ops/dockerfile/boundaries/shop/ui.Dockerfile
         DOCKERFILE_ARGS: "--build-arg API_URI=https://shop.shortlink.best"
-      - APPLICATION: bff
+      - APPLICATION: shop_bff
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
         DOCKERFILE_PATH: ops/dockerfile/boundaries/shop/bff.Dockerfile
