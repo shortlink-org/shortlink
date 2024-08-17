@@ -3086,24 +3086,25 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-adr-common@npm:^0.2.26":
-  version: 0.2.26
-  resolution: "@backstage-community/plugin-adr-common@npm:0.2.26"
+"@backstage-community/plugin-adr-common@npm:^0.2.27":
+  version: 0.2.27
+  resolution: "@backstage-community/plugin-adr-common@npm:0.2.27"
   dependencies:
     "@backstage/catalog-model": "npm:^1.5.0"
     "@backstage/integration": "npm:^1.13.0"
     "@backstage/plugin-search-common": "npm:^1.2.13"
     front-matter: "npm:^4.0.2"
     luxon: "npm:^3.0.0"
-  checksum: 10c0/9977b31b8b31ae912751a1cf1e62bd24d086cb2702db3f3bd165e642c99b0ff4be0f24c7b2d678e563251d41129b71d65340a5dc1912f7279b649bc17bc66d5a
+    marked: "npm:^12.0.0"
+  checksum: 10c0/65fea1a588ddb48204a88a06046fe00b57488c51b31e79f2b54dc5c25d9f2c6603e604057ba359fd4ad109c292ff7bdd684925b7dceea14b20d9a48d9503e4ec
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-adr@npm:^0.6.22":
-  version: 0.6.22
-  resolution: "@backstage-community/plugin-adr@npm:0.6.22"
+"@backstage-community/plugin-adr@npm:^0.6.23":
+  version: 0.6.23
+  resolution: "@backstage-community/plugin-adr@npm:0.6.23"
   dependencies:
-    "@backstage-community/plugin-adr-common": "npm:^0.2.26"
+    "@backstage-community/plugin-adr-common": "npm:^0.2.27"
     "@backstage/catalog-model": "npm:^1.5.0"
     "@backstage/core-components": "npm:^0.14.9"
     "@backstage/core-plugin-api": "npm:^1.9.3"
@@ -3122,7 +3123,7 @@ __metadata:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
-  checksum: 10c0/bfb3d1b1d85095785945c988cd8aee7d6e1ddbe09042cc71409875fc4a6629e83b75fb899154860736ddde13648993ee9398c01e61acf35dc56884c79e21c184
+  checksum: 10c0/4b6787d648d0fea16c0270c7e150fc1f51fad4e08f920be0c83063881d01c89489281b630d9cdcabfefb4b71197765f7f30b36d5eed264899788bd5d56e794d8
   languageName: node
   linkType: hard
 
@@ -15620,7 +15621,7 @@ __metadata:
   dependencies:
     "@axis-backstage/plugin-readme": "npm:^0.9.0"
     "@axis-backstage/plugin-readme-backend": "npm:^0.8.0"
-    "@backstage-community/plugin-adr": "npm:^0.6.22"
+    "@backstage-community/plugin-adr": "npm:^0.6.23"
     "@backstage-community/plugin-github-actions": "npm:^0.6.20"
     "@backstage-community/plugin-lighthouse": "npm:^0.4.21"
     "@backstage-community/plugin-tech-radar": "npm:^0.7.6"
@@ -26378,6 +26379,15 @@ __metadata:
   peerDependencies:
     react: ">= 0.14.0"
   checksum: 10c0/f40d9ab632a659ef7fd3afcae9c40e11ce77d57ae856275eb9439bf6762738eefb9897cfb65fc0495347cf8fc3b1cfef6cb9dcfe96959ded3ebd122375155323
+  languageName: node
+  linkType: hard
+
+"marked@npm:^12.0.0":
+  version: 12.0.2
+  resolution: "marked@npm:12.0.2"
+  bin:
+    marked: bin/marked.js
+  checksum: 10c0/45ae2e1e3f06b30a5b5f64efc6cde9830c81d1d024fd7668772a3217f1bc0f326e66a6b8970482d9783edf1f581fecac7023a7fa160f2c14dbcc16e064b4eafb
   languageName: node
   linkType: hard
 
