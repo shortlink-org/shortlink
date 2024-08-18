@@ -17,7 +17,7 @@ strategy:
     # of each ReplicaSet.
     minPodsPerReplicaSet: {{ .Values.deploy.strategy.minPodsPerReplicaSet | default 1 }}
     {{- if eq .Values.ingress.enabled true }}
-    dynamicStableScale: {{ .Values.deploy.strategy.canary.dynamicStableScale | default true }}
+    dynamicStableScale: {{ ne .Values.deploy.strategy.canary.dynamicStableScale false }}
     {{- end }}
     trafficRouting:
     {{- if eq .Values.ingress.enabled true }}
