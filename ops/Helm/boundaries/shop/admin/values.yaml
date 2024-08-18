@@ -28,7 +28,7 @@ ingress:
 
   hostname: shop.shortlink.best
   paths:
-    - path: /
+    - path: /admin(/|$)(.*)
       service:
         name: shortlink-shop-admin
         port: 8000
