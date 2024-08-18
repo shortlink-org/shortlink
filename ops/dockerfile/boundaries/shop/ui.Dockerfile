@@ -47,6 +47,9 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
 
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nodejs
+
 COPY ./boundaries/shop/ui ./
 
 # version for npm: npm ci --cache .npm --prefer-offline --force
@@ -57,6 +60,8 @@ HEALTHCHECK \
   --timeout=5s \
   --retries=3 \
   CMD curl -f localhost:3000 || exit 1
+
+USER nodejs
 
 EXPOSE 3000
 
