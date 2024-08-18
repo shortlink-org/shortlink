@@ -18,9 +18,7 @@ const TabContent: React.FC<TabContentProps> = ({ title, cards }) => {
 
   return (
     <div className="my-2 mx-5 max-w-4xl mx-auto">
-      <h2 className="text-2xl prose text-center my-5 text-gray-800 dark:text-white">
-        {title}
-      </h2>
+      <h2 className="text-2xl prose text-center my-5 text-gray-800 dark:text-white">{title}</h2>
 
       <Stack
         spacing={{ xs: 1, sm: 1, md: 2 }}

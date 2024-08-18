@@ -13,13 +13,7 @@ const TabPanel: React.FC<TabPanelProps> = ({ children, value, index, ...other })
   }
 
   return (
-    <div
-      className="max-w-4xl mx-auto m-6"
-      role="tabpanel"
-      id={`tabpanel-${index}`}
-      aria-labelledby={`tab-${index}`}
-      {...other}
-    >
+    <div className="max-w-4xl mx-auto m-6" role="tabpanel" id={`tabpanel-${index}`} aria-labelledby={`tab-${index}`} {...other}>
       {children}
     </div>
   )

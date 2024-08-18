@@ -7,18 +7,19 @@
   parallel:
     matrix:
       # API Boundary
-      - APPLICATION: api-cloudevents
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
-        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/api-gateway/gateways/cloudevents/cmd"
-      - APPLICATION: api-graphql
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
-        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/api-gateway/gateways/graphql/cmd"
-      - APPLICATION: ws
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
-        DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
-        CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/api-gateway/gateways/ws/cmd"
+      # NOTE: DEPRECATED
+      # - APPLICATION: api-cloudevents
+      #   REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
+      #   DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
+      #   CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/api-gateway/gateways/cloudevents/cmd"
+      # - APPLICATION: api-graphql
+      #   REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
+      #   DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
+      #   CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/api-gateway/gateways/graphql/cmd"
+      # - APPLICATION: ws
+      #   REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
+      #   DOCKERFILE_PATH: ops/dockerfile/go.Dockerfile
+      #   CMD_PATH: "--build-arg CMD_PATH=./boundaries/api/api-gateway/gateways/ws/cmd"
 
       # AUTH Boundary
       - APPLICATION: auth
