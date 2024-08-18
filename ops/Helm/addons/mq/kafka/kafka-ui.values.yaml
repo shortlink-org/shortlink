@@ -18,13 +18,19 @@ kafka-ui:
     runAsNonRoot: true
     runAsUser: 1000
 
+  yamlApplicationConfig:
+    kafka:
+      clusters:
+        - name: shortlink
+          bootstrapServers: shortlink-kafka-bootstrap:9092
+          zookeeper: kafka-zookeeper-client:2181
+          readOnly: true
+    auth:
+      type: disabled
+
   envs:
     secret: {}
     config:
-      KAFKA_CLUSTERS_0_NAME: shortlink
-      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: shortlink-kafka-bootstrap:9092
-      KAFKA_CLUSTERS_0_ZOOKEEPER: kafka-zookeeper-client:2181
-      KAFKA_CLUSTERS_0_READONLY: "true"
       SPRING_SECURITY_USER_NAME: "redacted"
       SPRING_SECURITY_USER_PASSWORD: "redacted"
       MANAGEMENT_HEALTH_LDAP_ENABLED: "FALSE"
