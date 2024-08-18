@@ -4,7 +4,7 @@ kafka-ui:
   fullnameOverride: kafka-ui
 
   image:
-    tag: master
+    tag: main
     pullPolicy: Always
 
   networkPolicy:
