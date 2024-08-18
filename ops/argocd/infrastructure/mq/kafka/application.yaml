@@ -19,6 +19,9 @@ spec:
     targetRevision: HEAD
     helm:
       releaseName: kafka
+      valueFiles:
+        - values.yaml
+        - kafka-ui.values.yaml
   syncPolicy:
     automated:
       prune: true

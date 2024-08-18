@@ -1,0 +1,58 @@
+kafka-ui:
+  enabled: true
+
+  fullnameOverride: kafka-ui
+
+  image:
+    tag: master
+    pullPolicy: Always
+
+  networkPolicy:
+    enabled: false
+
+  securityContext:
+    capabilities:
+      drop:
+        - ALL
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 1000
+
+  envs:
+    secret: {}
+    config:
+      KAFKA_CLUSTERS_0_NAME: shortlink
+      KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: shortlink-kafka-bootstrap:9092
+      KAFKA_CLUSTERS_0_ZOOKEEPER: kafka-zookeeper-client:2181
+      KAFKA_CLUSTERS_0_READONLY: "true"
+      SPRING_SECURITY_USER_NAME: "redacted"
+      SPRING_SECURITY_USER_PASSWORD: "redacted"
+      MANAGEMENT_HEALTH_LDAP_ENABLED: "FALSE"
+      SERVER_SERVLET_CONTEXT_PATH: "/kafka-ui"
+
+  probes:
+    useHttpsScheme: false
+
+  # TODO: add config for oauth2
+  # yamlApplicationConfig:
+  #  spring:
+  #    security:
+  #      oauth2:
+
+  ingress:
+    enabled: true
+    ingressClassName: nginx
+    annotations:
+      cert-manager.io/cluster-issuer: cert-manager-production
+      nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+      nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+      nginx.ingress.kubernetes.io/rewrite-target: /kafka-ui/$2
+      nginx.ingress.kubernetes.io/use-regex: "true"
+
+    host: shortlink.best
+
+    path: /kafka-ui(/|$)(.*)
+
+    tls:
+      enabled: true
+      secretName: shortlink-ingress-tls

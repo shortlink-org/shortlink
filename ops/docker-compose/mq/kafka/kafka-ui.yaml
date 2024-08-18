@@ -14,13 +14,14 @@ services:
       - kafka_1
       - kafka_2
       - kafka_3
-    image: provectuslabs/kafka-ui
+    image: ghcr.io/kafbat/kafka-ui
     container_name: kafka-ui
     init: true
     ports:
       - "8050:8080"
     restart: always
     environment:
+      DYNAMIC_CONFIG_ENABLED: true
       KAFKA_CLUSTERS_0_NAME: shortlink
       KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS: kafka_1:9094
       KAFKA_CLUSTERS_0_ZOOKEEPER: zookeeper:2181
