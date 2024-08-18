@@ -1,6 +1,6 @@
 # nginx-ingress
 
-![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.3.0](https://img.shields.io/badge/Version-0.3.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.11.1 |
+| https://kubernetes.github.io/ingress-nginx | ingress-nginx | 4.11.2 |
 
 ## Values
 
@@ -776,7 +776,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"100m"
+"300m"
 </pre>
 </div>
 			</td>
@@ -790,7 +790,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"128Mi"
+"256Mi"
 </pre>
 </div>
 			</td>
@@ -846,7 +846,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"1000m"
+"1500m"
 </pre>
 </div>
 			</td>

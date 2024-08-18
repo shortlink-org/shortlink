@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 7.4.3 |
+| https://argoproj.github.io/argo-helm | argo-cd | 7.4.4 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 2.0.0 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.11.0 |
 | oci://registry-1.docker.io/bitnamicharts | redis | 20.0.2 |
@@ -850,20 +850,6 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "argo.shortlink.best"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="argo-cd--global--image--tag"><a href="./values.yaml#L15">argo-cd.global.image.tag</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"v2.12.0"
 </pre>
 </div>
 			</td>
