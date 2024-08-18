@@ -15,16 +15,6 @@
       - HELM_CHART_NAME: landscape
         HELM_CHART_PATH: ops/Helm/boundaries/platform/$HELM_CHART_NAME
 
-      # API
-      - HELM_CHART_NAME: cloudevents
-        HELM_CHART_PATH: ops/Helm/boundaries/api/$HELM_CHART_NAME
-      - HELM_CHART_NAME: graphql
-        HELM_CHART_PATH: ops/Helm/boundaries/api/$HELM_CHART_NAME
-      - HELM_CHART_NAME: grpc-web
-        HELM_CHART_PATH: ops/Helm/boundaries/api/$HELM_CHART_NAME
-      - HELM_CHART_NAME: ws
-        HELM_CHART_PATH: ops/Helm/boundaries/api/$HELM_CHART_NAME
-
       # Link
       - HELM_CHART_NAME: bff-link
         HELM_CHART_PATH: ops/Helm/boundaries/link/$HELM_CHART_NAME
