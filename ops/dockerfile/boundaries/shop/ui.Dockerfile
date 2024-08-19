@@ -64,4 +64,4 @@ HEALTHCHECK \
 EXPOSE 3000
 
 # server.js is created by next build from the standalone output
-CMD ["next", "dev"]
+CMD ["next", "dev", "-H", "0.0.0.0"]
