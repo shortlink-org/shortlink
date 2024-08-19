@@ -12,10 +12,10 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 )
 
-func newPrometheusScope(c prometheus.Configuration, monitoring *monitoring.Monitoring, log logger.Logger) (tally.Scope, error) {
+func newPrometheusScope(c *prometheus.Configuration, monitor *monitoring.Monitoring, log logger.Logger) (tally.Scope, error) {
 	reporter, err := c.NewReporter(
 		prometheus.ConfigurationOptions{
-			Registry: monitoring.Prometheus,
+			Registry: monitor.Prometheus,
 			OnError: func(err error) {
 				log.Error(fmt.Sprintf("error in prometheus reporter: %v", err))
 			},
