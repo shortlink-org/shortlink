@@ -40,6 +40,8 @@ ENV PATH="$PNPM_HOME:$PATH"
 RUN mkdir -p /home/node/.cache/node/corepack/v1 \
     && chown -R node:node /home/node/.cache
 
+RUN npm i -g next@canary
+
 RUN corepack enable
 
 # Check https://github.com/nodejs/docker-node/tree/b4117f9333da4138b03a546ec926ef50a31506c3#nodealpine to understand why libc6-compat might be needed.
@@ -62,4 +64,4 @@ HEALTHCHECK \
 EXPOSE 3000
 
 # server.js is created by next build from the standalone output
-CMD ["pnpm", "dev"]
+CMD ["next", "dev"]
