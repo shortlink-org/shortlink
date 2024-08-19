@@ -67,7 +67,7 @@ deploy:
       port: 3000
 
   securityContext:
-    readOnlyRootFilesystem: false
+    readOnlyRootFilesystem: true
 
   volumes:
     - name: tmp
