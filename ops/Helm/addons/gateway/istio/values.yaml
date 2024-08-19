@@ -22,6 +22,8 @@ istiod:
       env:
         ENABLE_NATIVE_SIDECARS: "true"
         ISTIO_ENABLE_CONTROLLER_QUEUE_METRICS: "true"
+        PILOT_ENABLE_IP_AUTOALLOCATE: true
+        ENABLE_INBOUND_RETRY_POLICY: true
 
     istio_cni:
       enabled: false
