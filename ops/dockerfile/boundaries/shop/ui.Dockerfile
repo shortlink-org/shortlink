@@ -7,7 +7,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
 # Install dependencies only when needed
-FROM --platform=$BUILDPLATFORM node:21.7.3-alpine AS development-builder
+FROM --platform=$BUILDPLATFORM node:22.6.0-alpine AS development-builder
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-shop-ui"
@@ -47,9 +47,6 @@ RUN apk add --no-cache libc6-compat
 WORKDIR /app
 RUN echo @shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/ >> .npmrc
 
-RUN addgroup --system --gid 1001 nodejs
-RUN adduser --system --uid 1001 nodejs
-
 COPY ./boundaries/shop/ui ./
 
 # version for npm: npm ci --cache .npm --prefer-offline --force
@@ -60,8 +57,6 @@ HEALTHCHECK \
   --timeout=5s \
   --retries=3 \
   CMD curl -f localhost:3000 || exit 1
-
-USER nodejs
 
 EXPOSE 3000
 

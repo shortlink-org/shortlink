@@ -6,7 +6,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM --platform=$BUILDPLATFORM node:21.7.3-alpine
+FROM --platform=$BUILDPLATFORM node:22.6.0-alpine
 
 # This is the public node url of the wundergraph node you want to include in the generated client
 ARG wg_public_node_url
