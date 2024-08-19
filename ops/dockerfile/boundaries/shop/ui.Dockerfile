@@ -55,6 +55,8 @@ COPY ./boundaries/shop/ui ./
 # version for npm: npm ci --cache .npm --prefer-offline --force
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
+RUN chown -R node:node /app
+
 HEALTHCHECK \
   --interval=5s \
   --timeout=5s \
