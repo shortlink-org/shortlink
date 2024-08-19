@@ -37,7 +37,8 @@ ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
 # Create the necessary directory for corepack
-RUN mkdir -p /home/node/.cache/node/corepack/v1
+RUN mkdir -p /home/node/.cache/node/corepack/v1 \
+    && chown -R node:node /home/node/.cache
 
 RUN corepack enable
 
