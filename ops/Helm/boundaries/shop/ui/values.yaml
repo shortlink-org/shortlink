@@ -48,20 +48,22 @@ deploy:
     # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
     pullPolicy: Always
 
-  # -- define a liveness probe that checks every 5 seconds, starting after 5 seconds
+  # -- define a liveness probe that checks every 5 seconds, starting after 180 seconds
   livenessProbe:
     enabled: true
-    initialDelaySeconds: 60
-    timeoutSeconds: 20
+    initialDelaySeconds: 180
+    timeoutSeconds: 40
+    failureThreshold: 10
     httpGet:
       path: /
       port: 3000
 
-  # -- define a readiness probe that checks every 5 seconds, starting after 5 seconds
+  # -- define a readiness probe that checks every 5 seconds, starting after 60 seconds
   readinessProbe:
     enabled: true
     initialDelaySeconds: 60
     timeoutSeconds: 30
+    failureThreshold: 10
     httpGet:
       path: /
       port: 3000
