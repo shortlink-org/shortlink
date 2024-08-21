@@ -22,8 +22,8 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../../shortlink-template | shortlink-template | 0.9.1 |
-| oci://registry-1.docker.io/bitnamicharts | redis | 20.0.2 |
+| file://../../../shortlink-template | shortlink-template | 0.9.5 |
+| oci://registry-1.docker.io/bitnamicharts | redis | 20.0.3 |
 
 ## Values
 

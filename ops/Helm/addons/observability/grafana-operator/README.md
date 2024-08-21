@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://ghcr.io/grafana/helm-charts/grafana-operator | grafana-operator | 5.10.0 |
+| oci://ghcr.io/grafana/helm-charts/grafana-operator | grafana-operator | 5.12.0 |
 
 ## Values
 

@@ -22,7 +22,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| file://../../../shortlink-template | shortlink-template | 0.9.1 |
+| file://../../../shortlink-template | shortlink-template | 0.9.5 |
 
 ## Values
 
@@ -416,7 +416,7 @@ object
       "ALL"
     ]
   },
-  "readOnlyRootFilesystem": "true",
+  "readOnlyRootFilesystem": true,
   "runAsGroup": 1000,
   "runAsNonRoot": true,
   "runAsUser": 1000
