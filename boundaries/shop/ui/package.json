@@ -6,7 +6,8 @@
   },
   "scripts": {
     "dev": "pnpm next dev",
-    "start": "pnpm next start",
+    "start": "NODE_ENV=production pnpm next start",
+    "build": "NODE_ENV=production pnpm next build",
     "prettier": "pnpm dlx prettier --write --ignore-unknown .",
     "prettier:check": "pnpm dlx prettier --check --ignore-unknown .",
     "test": "pnpm dlx pnpm prettier:check"
@@ -14,6 +15,7 @@
   "dependencies": {
     "@headlessui/react": "^2.1.2",
     "@heroicons/react": "^2.1.5",
+    "@types/react-dom": "^18.3.0",
     "clsx": "^2.1.1",
     "geist": "^1.3.1",
     "next": "15.0.0-rc.0",

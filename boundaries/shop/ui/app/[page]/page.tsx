@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 import Prose from 'components/prose';
-// import { getPage } from 'lib/shopify';
+import type { Page } from 'lib/shopify/types';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({
@@ -9,8 +9,20 @@ export async function generateMetadata({
 }: {
   params: { page: string };
 }): Promise<Metadata> {
-  // const page = await getPage(params.page);
-  let page = false
+  // const page: Page = await getPage(params.page);
+  const page: Page = {
+    id: "1",
+    title: "Sample Title",
+    handle: "sample-handle",
+    body: "Sample Body",
+    bodySummary: "Sample Body Summary",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    seo: {
+      title: "Sample SEO Title",
+      description: "Sample SEO Description"
+    }
+  };
 
   if (!page) return notFound();
 
@@ -27,7 +39,19 @@ export async function generateMetadata({
 
 export default async function Page({ params }: { params: { page: string } }) {
   // const page = await getPage(params.page);
-  let page = false
+  const page: Page = {
+    id: "1",
+    title: "Sample Title",
+    handle: "sample-handle",
+    body: "Sample Body",
+    bodySummary: "Sample Body Summary",
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    seo: {
+      title: "Sample SEO Title",
+      description: "Sample SEO Description"
+    }
+  };
 
   if (!page) return notFound();
 
