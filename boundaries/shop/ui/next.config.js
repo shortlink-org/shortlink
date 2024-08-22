@@ -13,6 +13,7 @@ module.exports = {
     NEXT_PUBLIC_SERVICE_NAME: 'shortlink-shop-ui',
     NEXT_PUBLIC_GIT_TAG: process.env.CI_COMMIT_TAG,
   },
+  generateEtags: isProd,
   compiler: {},
   images: {
     formats: ['image/avif', 'image/webp'],
