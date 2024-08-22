@@ -5,9 +5,10 @@ import logging
 import os
 import sys
 
-from admin.otel_logging import CustomLogRecord
 from opentelemetry.instrumentation.django import DjangoInstrumentor
 from opentelemetry.instrumentation.requests import RequestsInstrumentor
+
+from admin.otel_logging import CustomLogRecord
 
 logging.setLogRecordFactory(CustomLogRecord)
 
