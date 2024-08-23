@@ -3,6 +3,12 @@ import Collections from 'components/layout/search/collections';
 import FilterList from 'components/layout/search/filter';
 import { sorting } from 'lib/constants';
 
+// DOCS: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#experimental_ppr
+export const experimental_ppr = true
+
+// DOCS: https://nextjs.org/docs/app/api-reference/file-conventions/route-segment-config#dynamic
+export const dynamic = 'force-dynamic'
+
 export default function SearchLayout({ children }: { children: React.ReactNode }) {
   return (
     <>

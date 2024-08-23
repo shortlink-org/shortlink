@@ -40,7 +40,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 RUN mkdir -p /home/node/.cache/node/corepack/v1 \
     && chown -R node:node /home/node/.cache
 
-RUN npm i -g next@canary
+RUN npm i -g next@15.0.0-rc.0
 
 RUN corepack enable
 

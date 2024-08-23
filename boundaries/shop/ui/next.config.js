@@ -26,6 +26,7 @@ module.exports = {
     },
   },
   experimental: {
+    ppr: 'incremental',
     forceSwcTransforms: true,
     swcTraceProfiling: true,
     instrumentationHook: false,
