@@ -3199,9 +3199,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-todo-backend@npm:^0.3.18":
-  version: 0.3.18
-  resolution: "@backstage-community/plugin-todo-backend@npm:0.3.18"
+"@backstage-community/plugin-todo-backend@npm:^0.3.19":
+  version: 0.3.19
+  resolution: "@backstage-community/plugin-todo-backend@npm:0.3.19"
   dependencies:
     "@backstage/backend-common": "npm:^0.23.3"
     "@backstage/backend-openapi-utils": "npm:^0.1.15"
@@ -3216,7 +3216,7 @@ __metadata:
     express: "npm:^4.17.1"
     leasot: "npm:^12.0.0"
     yn: "npm:^4.0.0"
-  checksum: 10c0/59ccdd0075261463533e0a4d0935ff0a3d2ae0f6fe4527ddfd05e3829d27bcd00adaa0070033381c3c1327076fd0741cf53b7deb8e4fee4bea5ddfc6b573169b
+  checksum: 10c0/2fc614917ecc931aeaed6eaea2f045179bf368807c4ef5136c1667bd754cf97b03c1069c2f6a369d86a37c2d7ee42d3653fb68f54914af02fb6dbc378efa991e
   languageName: node
   linkType: hard
 
@@ -14582,7 +14582,7 @@ __metadata:
   resolution: "backend@workspace:packages/backend"
   dependencies:
     "@axis-backstage/plugin-readme-backend": "npm:^0.9.0"
-    "@backstage-community/plugin-todo-backend": "npm:^0.3.18"
+    "@backstage-community/plugin-todo-backend": "npm:^0.3.19"
     "@backstage/backend-common": "npm:^0.24.0"
     "@backstage/backend-tasks": "npm:^0.6.0"
     "@backstage/catalog-client": "npm:^1.6.6"
