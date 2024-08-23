@@ -50,7 +50,7 @@ deploy:
 
   # -- define a liveness probe that checks
   livenessProbe:
-    enabled: true
+    enabled: false
     initialDelaySeconds: 300
     timeoutSeconds: 60
     httpGet:
@@ -59,7 +59,7 @@ deploy:
 
   # -- define a readiness probe that checks
   readinessProbe:
-    enabled: true
+    enabled: false
     initialDelaySeconds: 180
     timeoutSeconds: 30
     failureThreshold: 10
