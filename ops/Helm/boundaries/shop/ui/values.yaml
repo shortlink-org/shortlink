@@ -23,6 +23,11 @@ ingress:
         name: shortlink-shop-ui
         port: 3000
 
+  tls:
+    - secretName: shop-ui-tls
+      hosts:
+        - shop.shortlink.best
+
 # ==============================================================================
 deploy:
   replicaCount: 1
