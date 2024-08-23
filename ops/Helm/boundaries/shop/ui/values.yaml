@@ -21,7 +21,7 @@ ingress:
     - path: /
       service:
         name: shortlink-shop-ui
-        port: 8080
+        port: 3000
 
 # ==============================================================================
 deploy:
@@ -81,7 +81,7 @@ service:
   type: ClusterIP
   ports:
     - name: http
-      port: 8080
+      port: 3000
       protocol: TCP
       public: true
 
