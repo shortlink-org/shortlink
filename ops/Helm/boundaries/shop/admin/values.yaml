@@ -35,6 +35,8 @@ ingress:
 
 # ==============================================================================
 deploy:
+  name:
+
   # type: Deployment, Rollout, StatefulSet
   type: Deployment
 
