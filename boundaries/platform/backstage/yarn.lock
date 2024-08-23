@@ -1398,15 +1398,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@axis-backstage/plugin-readme@npm:^0.9.0":
-  version: 0.9.0
-  resolution: "@axis-backstage/plugin-readme@npm:0.9.0"
+"@axis-backstage/plugin-readme@npm:^0.10.0":
+  version: 0.10.0
+  resolution: "@axis-backstage/plugin-readme@npm:0.10.0"
   dependencies:
-    "@backstage/catalog-model": "npm:^1.5.0"
-    "@backstage/core-components": "npm:^0.14.7"
-    "@backstage/core-plugin-api": "npm:^1.9.2"
-    "@backstage/plugin-catalog-react": "npm:^1.12.0"
-    "@backstage/theme": "npm:^0.5.5"
+    "@backstage/catalog-model": "npm:^1.6.0"
+    "@backstage/core-components": "npm:^0.14.10"
+    "@backstage/core-plugin-api": "npm:^1.9.3"
+    "@backstage/plugin-catalog-react": "npm:^1.12.3"
+    "@backstage/theme": "npm:^0.5.6"
     "@mui/icons-material": "npm:^5.15.7"
     "@mui/material": "npm:^5.15.7"
     react-use: "npm:^17.2.4"
@@ -1414,7 +1414,7 @@ __metadata:
     "@emotion/react": ^11.11.3
     "@emotion/styled": ^11.11.0
     react: ^17.0.0 || ^18.0.0
-  checksum: 10c0/72537380596581f9074c7c657d89b170d761475dbe06341b93d966ac3309da58a4c5e3bbb10334bc2981563e6ebbad84e3577e178948b3e2a088bc705f0bdafa
+  checksum: 10c0/234170951cc55d2d24accb28136fd277f6ec654cd5a2899ec880ccee3bdaa34493a4c4f86805ed729ab84fa3b4e16b14931c06ce82d571695e7439b30cceb0b6
   languageName: node
   linkType: hard
 
@@ -4029,7 +4029,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/core-components@npm:^0.14.10, @backstage/core-components@npm:^0.14.6, @backstage/core-components@npm:^0.14.7, @backstage/core-components@npm:^0.14.8, @backstage/core-components@npm:^0.14.9":
+"@backstage/core-components@npm:^0.14.10, @backstage/core-components@npm:^0.14.6, @backstage/core-components@npm:^0.14.8, @backstage/core-components@npm:^0.14.9":
   version: 0.14.10
   resolution: "@backstage/core-components@npm:0.14.10"
   dependencies:
@@ -4766,7 +4766,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-catalog-react@npm:^1.11.3, @backstage/plugin-catalog-react@npm:^1.12.0, @backstage/plugin-catalog-react@npm:^1.12.1, @backstage/plugin-catalog-react@npm:^1.12.2, @backstage/plugin-catalog-react@npm:^1.12.3":
+"@backstage/plugin-catalog-react@npm:^1.11.3, @backstage/plugin-catalog-react@npm:^1.12.1, @backstage/plugin-catalog-react@npm:^1.12.2, @backstage/plugin-catalog-react@npm:^1.12.3":
   version: 1.12.3
   resolution: "@backstage/plugin-catalog-react@npm:1.12.3"
   dependencies:
@@ -5810,7 +5810,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/theme@npm:^0.5.3, @backstage/theme@npm:^0.5.5, @backstage/theme@npm:^0.5.6":
+"@backstage/theme@npm:^0.5.3, @backstage/theme@npm:^0.5.6":
   version: 0.5.6
   resolution: "@backstage/theme@npm:0.5.6"
   dependencies:
@@ -14095,7 +14095,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "app@workspace:packages/app"
   dependencies:
-    "@axis-backstage/plugin-readme": "npm:^0.9.0"
+    "@axis-backstage/plugin-readme": "npm:^0.10.0"
     "@axis-backstage/plugin-readme-backend": "npm:^0.8.0"
     "@backstage-community/plugin-adr": "npm:^0.6.23"
     "@backstage-community/plugin-github-actions": "npm:^0.6.21"
