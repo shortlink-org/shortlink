@@ -25,11 +25,10 @@ ingress:
     cert-manager.io/cluster-issuer: cert-manager-production
     nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
     nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
-    nginx.ingress.kubernetes.io/use-regex: "true"
 
   hostname: shop.shortlink.best
   paths:
-    - path: /admin(/|$)(.*)
+    - path: /admin
       service:
         name: shortlink-shop-admin
         port: 8000
