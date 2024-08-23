@@ -17,10 +17,9 @@ LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.url="http://shortlink.best/"
 LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
 
-ENV PYTHONPATH="$PYTHONPATH:$PWD"
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
-ENV VIRTUAL_ENV=/usr/local
+ENV UV_SYSTEM_PYTHON=1
 
 # Kratos ENV
 ENV ORY_SDK_URL="http://host.docker.internal:4433"
@@ -30,19 +29,24 @@ ENV ORY_UI_URL="http://host.docker.internal:3000/next/auth"
 EXPOSE 8000
 
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends curl tini sqlite3 git
+    apt-get install -y --no-install-recommends curl tini sqlite3 git && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Install dependency manager
+# https://github.com/astral-sh/uv
+COPY --from=ghcr.io/astral-sh/uv:latest /uv /bin/uv
 
 WORKDIR /app
 
 COPY boundaries/shop/admin/pyproject.toml .
+COPY boundaries/shop/admin/requirements.txt .
 
-# Install dependency manager
-# https://github.com/astral-sh/uv
-RUN pip install uv
 # Create a virtual environment at .venv
 RUN uv venv
 
-RUN uv pip install -r pyproject.toml
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv pip install -r requirements.txt
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
 
@@ -55,8 +59,8 @@ HEALTHCHECK \
 RUN addgroup --system shop && adduser --system --group shop
 
 COPY boundaries/shop/admin/ .
-RUN chown -R shop:shop /app/src
+RUN #chown -R shop:shop /app/src
 
-USER shop
+#USER shop
 
 CMD ["python", "src/manage.py", "runserver", "0.0.0.0:8000"]
