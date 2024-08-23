@@ -178,6 +178,12 @@ monitoring:
   enabled: true
 
 # ==============================================================================
+# Istio plugins
+istio:
+  plugin:
+    enabled: false
+
+# ==============================================================================
 # NetworkPolicy
 networkPolicy:
   enabled: false

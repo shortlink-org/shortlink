@@ -142,6 +142,12 @@ podDisruptionBudget:
   enabled: false
 
 # ==============================================================================
+# Istio plugins
+istio:
+  plugin:
+    enabled: false
+
+# ==============================================================================
 # NetworkPolicy
 networkPolicy:
   enabled: false
