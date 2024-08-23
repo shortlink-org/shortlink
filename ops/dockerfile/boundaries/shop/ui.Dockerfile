@@ -55,6 +55,8 @@ COPY ./boundaries/shop/ui ./
 # version for npm: npm ci --cache .npm --prefer-offline --force
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
+RUN pnpm build
+
 RUN chown -R node:node /app
 
 HEALTHCHECK \
@@ -66,4 +68,4 @@ HEALTHCHECK \
 EXPOSE 3000
 
 # server.js is created by next build from the standalone output
-CMD ["next", "dev", "-H", "0.0.0.0"]
+CMD ["next", "start", "-H", "0.0.0.0"]
