@@ -68,7 +68,7 @@ kratos:
             allowed_origins:
               - "http://127.0.0.1:3000"
               - "https://shortlink.best"
-              - "https://shop.shortlink.best"
+              - "https://*.shortlink.best"
             allowed_methods:
               - POST
               - GET
@@ -88,7 +88,7 @@ kratos:
         # 30 days
         lifespan: 720h
         cookie:
-          domain: https://shortlink.best
+          domain: shortlink.best
           same_site: Lax
 
       selfservice:
