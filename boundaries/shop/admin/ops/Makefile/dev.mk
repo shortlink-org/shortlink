@@ -23,3 +23,6 @@ lint: ## Run linter
 # MIGRATION TASKS ======================================================================================================
 migrate: ## Run migrations
 	@python src/migration.py migrate
+
+static: ## Collect static files
+	@python src/made.py collectstatic

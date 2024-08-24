@@ -59,8 +59,10 @@ HEALTHCHECK \
 RUN addgroup --system shop && adduser --system --group shop
 
 COPY boundaries/shop/admin/ .
-RUN #chown -R shop:shop /app/src
+RUN python src/made.py collectstatic
 
-#USER shop
+RUN chown -R shop:shop /app/src
+
+USER shop
 
 CMD ["python", "src/manage.py", "runserver", "0.0.0.0:8000"]
