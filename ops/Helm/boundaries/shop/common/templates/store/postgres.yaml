@@ -2,13 +2,15 @@ apiVersion: postgres-operator.crunchydata.com/v1beta1
 kind: PostgresCluster
 metadata:
   name: shop-postgres
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   postgresVersion: 16
   metadata:
     annotations:
       sidecar.istio.io/inject: "false"
   instances:
-    - name: shortlink
+    - name: shop
       replicas: 1
       metadata:
         annotations:
@@ -19,7 +21,7 @@ spec:
           - "ReadWriteOnce"
         resources:
           requests:
-            storage: 250Mi
+            storage: 1Gi
           # NOTE: wait new version chart > 5.6.0
           # limit:
           #   storage: 2Gi
@@ -30,9 +32,6 @@ spec:
         resources:
           requests:
             storage: 1Gi
-  # databaseInitSQL:
-  #  name: shop-init-sql
-  #  key: init.sql
   backups:
     pgbackrest:
       metadata:
@@ -76,9 +75,10 @@ spec:
     dynamicConfiguration:
       synchronous_mode: true
       postgresql:
+        use_pg_rewind: true
         parameters:
           # https://pgtune.leopard.in.ua/#/
-          max_connections: 100
+          max_connections: 101
           shared_buffers: 256MB
           effective_cache_size: 768MB
           maintenance_work_mem: 64MB
@@ -114,9 +114,9 @@ spec:
       databases:
         - postgres
         - shop
+        - postgres
     - name: partman
       databases:
-        - postgres
         - partman
         - shop
     - name: shop
