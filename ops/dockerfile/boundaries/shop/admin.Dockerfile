@@ -59,7 +59,6 @@ HEALTHCHECK \
 RUN addgroup --system shop && adduser --system --group shop
 
 COPY boundaries/shop/admin/ .
-RUN python src/made.py collectstatic
 
 RUN chown -R shop:shop /app/src
 
