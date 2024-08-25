@@ -4,9 +4,9 @@ argocd-apps:
   # -- Deploy Argo CD Applications within this helm release
   # @default -- `[]` (See [values.yaml])
   ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
-  applications: []
+  applications: {}
 
   # -- Deploy Argo CD Projects within this helm release
   # @default -- `[]` (See [values.yaml])
   ## Ref: https://github.com/argoproj/argo-cd/blob/master/docs/operator-manual/
-  projects: []
+  projects: {}
