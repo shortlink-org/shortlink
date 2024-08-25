@@ -12,19 +12,32 @@ const goods = introspect.openApiV2({
   apiNamespace: 'goods',
   source: {
     kind: 'file',
-    filePath: 'https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/shop/admin/docs/public/Shop%20Admin%20API.yaml',
+    filePath: './schema/swagger.yaml',
   },
-  baseURL: 'https://shop.shortlink.org/api/goods',
+  baseURL: 'http://127.0.0.1:8000/goods/',
 })
 
 // configureWunderGraph emits the configuration
 configureWunderGraphApplication({
-	apis: [countries, goods],
+	apis: [goods, countries],
 	server,
 	operations,
 	generate: {
-		codeGenerators: [],
+		codeGenerators: [
+      {
+        templates: [
+          // use all the typescript react templates to generate a client
+          ...templates.typescript.all,
+          templates.typescript.operations,
+          templates.typescript.linkBuilder,
+          templates.typescript.client,
+        ],
+      }
+    ],
 	},
+  openApi: {
+    title: "ShortLink Shop API",
+  },
 	cors: {
 		...cors.allowAll,
 		allowedOrigins:
