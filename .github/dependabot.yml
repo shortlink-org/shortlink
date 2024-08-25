@@ -255,3 +255,13 @@ updates:
     directory: /boundaries/ui-monorepo/packages/shop
     schedule:
       interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/shop/bff
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/shop/ui
+    schedule:
+      interval: daily
