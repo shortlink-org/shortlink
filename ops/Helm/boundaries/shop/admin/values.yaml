@@ -74,7 +74,7 @@ deploy:
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/shop_admin
-    tag: 0.18.15.7
+    tag: 0.18.15.8
     # -- Global imagePullPolicy
     # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
     # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
@@ -150,7 +150,7 @@ initContainers:
   - name: migration
     image:
       repository: registry.gitlab.com/shortlink-org/shortlink/shop_admin
-      tag: 0.18.15.7
+      tag: 0.18.15.8
     command: ["python", "src/migration.py", "migrate"]
 
     envSecret:
@@ -176,7 +176,7 @@ jobs:
   - name: migration
     image:
       repository: registry.gitlab.com/shortlink-org/shortlink/shop_admin
-      tag: 0.18.15.7
+      tag: 0.18.15.8
     command: ["python", "src/migration.py", "loaddata", "fixtures/good.json"]
 
 # ==============================================================================
