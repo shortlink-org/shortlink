@@ -50,7 +50,8 @@ deploy:
     REDIS_URL: redis://redis-master.shortlink-shop:6379/0
 
     # Security --------------------------
-    DEBUG: false
+    # TODO: set false, when research as work with static files
+    DEBUG: true
 
   envSecret:
     - name: POSTGRES_DB
