@@ -68,9 +68,12 @@ export type Page = {
   updatedAt: string;
 };
 
-export type Product = Omit<ShopifyProduct, 'variants' | 'images'> & {
-  variants: ProductVariant[];
-  images: Image[];
+export type Product = Omit<ShopifyProduct, 'price' | 'description' | 'createdAt' | 'updatedAt'> & {
+  name: string;
+  price: number;
+  description: string;
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type ProductOption = {
@@ -117,21 +120,10 @@ export type ShopifyCollection = {
 
 export type ShopifyProduct = {
   id: string;
-  handle: string;
-  availableForSale: boolean;
-  title: string;
+  name: string;
+  price: number;
   description: string;
-  descriptionHtml: string;
-  options: ProductOption[];
-  priceRange: {
-    maxVariantPrice: Money;
-    minVariantPrice: Money;
-  };
-  variants: Connection<ProductVariant>;
-  featuredImage: Image;
-  images: Connection<Image>;
-  seo: SEO;
-  tags: string[];
+  createdAt: string;
   updatedAt: string;
 };
 
@@ -202,14 +194,12 @@ export type ShopifyCollectionOperation = {
 
 export type ShopifyCollectionProductsOperation = {
   data: {
-    collection: {
-      products: Connection<ShopifyProduct>;
+    goods_goods_list: {
+      count: number;
+      next: string | null;
+      previous: string | null;
+      results: ShopifyProduct[];
     };
-  };
-  variables: {
-    handle: string;
-    reverse?: boolean;
-    sortKey?: string;
   };
 };
 

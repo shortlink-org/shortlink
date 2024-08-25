@@ -12,6 +12,7 @@ import {
 } from './mutations/cart';
 import { getCartQuery } from './queries/cart';
 import {
+  getCollectionProductsQuery,
   getCollectionQuery,
   getCollectionsQuery
 } from './queries/collection';
@@ -49,21 +50,18 @@ import {
   ShopifyUpdateCartOperation
 } from './types';
 
-const domain = process.env.SHOPIFY_STORE_DOMAIN
-  ? ensureStartsWith(process.env.SHOPIFY_STORE_DOMAIN, 'https://')
-  : '';
-const endpoint = `${domain}${SHOPIFY_GRAPHQL_API_ENDPOINT}`;
-const key = process.env.SHOPIFY_STOREFRONT_ACCESS_TOKEN!;
+const domain = process.env.API_URI ?? '';
+const endpoint = `${domain}/graphql`;
 
 type ExtractVariables<T> = T extends { variables: object } ? T['variables'] : never;
 
 export async function shopifyFetch<T>({
-  cache = 'force-cache',
-  headers,
-  query,
-  tags,
-  variables
-}: {
+                                        cache = 'force-cache',
+                                        headers,
+                                        query,
+                                        tags,
+                                        variables
+                                      }: {
   cache?: RequestCache;
   headers?: HeadersInit;
   query: string;
@@ -75,7 +73,6 @@ export async function shopifyFetch<T>({
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'X-Shopify-Storefront-Access-Token': key,
         ...headers
       },
       body: JSON.stringify({
@@ -83,7 +80,6 @@ export async function shopifyFetch<T>({
         ...(variables && { variables })
       }),
       cache,
-      ...(tags && { next: { tags } })
     });
 
     const body = await result.json();
@@ -113,21 +109,21 @@ export async function shopifyFetch<T>({
   }
 }
 
-const removeEdgesAndNodes = <T>(array: Connection<T>): T[] => {
-  return array.edges.map((edge) => edge?.node);
+const removeEdgesAndNodes = <T>(data: { results: T[] }): T[] => {
+  return data.results;
 };
 
 const reshapeCart = (cart: ShopifyCart): Cart => {
   if (!cart.cost?.totalTaxAmount) {
     cart.cost.totalTaxAmount = {
       amount: '0.0',
-      currencyCode: 'USD'
+      currencyCode: 'USD',
     };
   }
 
   return {
     ...cart,
-    lines: removeEdgesAndNodes(cart.lines)
+    lines: cart.lines.edges.map((edge) => edge.node),
   };
 };
 
@@ -158,29 +154,23 @@ const reshapeCollections = (collections: ShopifyCollection[]) => {
   return reshapedCollections;
 };
 
-const reshapeImages = (images: Connection<Image>, productTitle: string) => {
-  const flattened = removeEdgesAndNodes(images);
-
-  return flattened.map((image) => {
-    const filename = image.url.match(/.*\/(.*)\..*/)?.[1];
-    return {
-      ...image,
-      altText: image.altText || `${productTitle} - ${filename}`
-    };
-  });
-};
+// const reshapeImages = (images: Connection<Image>, productTitle: string) => {
+//   const flattened = removeEdgesAndNodes(images);
+//
+//   return flattened.map((image) => {
+//     const filename = image.url.match(/.*\/(.*)\..*/)?.[1];
+//     return {
+//       ...image,
+//       altText: image.altText || `${productTitle} - ${filename}`
+//     };
+//   });
+// };
 
 const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean = true) => {
-  if (!product || (filterHiddenProducts && product.tags.includes(HIDDEN_PRODUCT_TAG))) {
-    return undefined;
-  }
-
-  const { images, variants, ...rest } = product;
+  const { ...rest } = product;
 
   return {
     ...rest,
-    images: reshapeImages(images, product.title),
-    variants: removeEdgesAndNodes(variants)
   };
 };
 
@@ -284,12 +274,31 @@ export async function getCollection(handle: string): Promise<Collection | undefi
   return reshapeCollection(res.body.data.collection);
 }
 
+export async function getCollectionProducts({ page }: {
+  page?: number;
+}): Promise<Product[]> {
+  const res = await shopifyFetch<ShopifyCollectionProductsOperation>({
+    query: getCollectionProductsQuery,
+  });
+
+  if (!res.body.data.goods_goods_list) {
+    console.log(`No collection found for \`${res.body.data}\``);
+    return [];
+  }
+
+  return reshapeProducts(res.body.data.goods_goods_list.results);
+}
+
 export async function getCollections(): Promise<Collection[]> {
   const res = await shopifyFetch<ShopifyCollectionsOperation>({
     query: getCollectionsQuery,
-    tags: [TAGS.collections]
+    tags: [TAGS.collections],
   });
-  const shopifyCollections = removeEdgesAndNodes(res.body?.data?.collections);
+
+  const shopifyCollections = res.body?.data?.collections
+    ? res.body.data.collections.edges.map((edge) => edge.node)
+    : [];
+
   const collections = [
     {
       handle: '',
@@ -297,16 +306,15 @@ export async function getCollections(): Promise<Collection[]> {
       description: 'All products',
       seo: {
         title: 'All',
-        description: 'All products'
+        description: 'All products',
       },
       path: '/search',
-      updatedAt: new Date().toISOString()
+      updatedAt: new Date().toISOString(),
     },
     // Filter out the `hidden` collections.
-    // Collections that start with `hidden-*` need to be hidden on the search page.
     ...reshapeCollections(shopifyCollections).filter(
       (collection) => !collection.handle.startsWith('hidden')
-    )
+    ),
   ];
 
   return collections;
@@ -342,10 +350,12 @@ export async function getPage(handle: string): Promise<Page> {
 export async function getPages(): Promise<Page[]> {
   const res = await shopifyFetch<ShopifyPagesOperation>({
     query: getPagesQuery,
-    cache: 'no-store'
+    cache: 'no-store',
   });
 
-  return removeEdgesAndNodes(res.body.data.pages);
+  return res.body?.data?.pages
+    ? res.body.data.pages.edges.map((edge) => edge.node)
+    : [];
 }
 
 export async function getProduct(handle: string): Promise<Product | undefined> {
@@ -353,9 +363,13 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
     query: getProductQuery,
     tags: [TAGS.products],
     variables: {
-      handle
-    }
+      handle,
+    },
   });
+
+  if (!res.body.data.product) {
+    return undefined;
+  }
 
   return reshapeProduct(res.body.data.product, false);
 }
@@ -373,10 +387,10 @@ export async function getProductRecommendations(productId: string): Promise<Prod
 }
 
 export async function getProducts({
-  query,
-  reverse,
-  sortKey
-}: {
+                                    query,
+                                    reverse,
+                                    sortKey
+                                  }: {
   query?: string;
   reverse?: boolean;
   sortKey?: string;
@@ -391,7 +405,7 @@ export async function getProducts({
     }
   });
 
-  return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
+  return reshapeProducts(removeEdgesAndNodes(res.body.data));
 }
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.

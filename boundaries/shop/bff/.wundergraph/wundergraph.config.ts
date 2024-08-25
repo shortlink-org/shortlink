@@ -52,6 +52,6 @@ configureWunderGraphApplication({
 				: ['http://localhost:3000', new EnvironmentVariable('WG_ALLOWED_ORIGIN')],
 	},
 	security: {
-		enableGraphQLEndpoint: process.env.NODE_ENV !== 'production' || process.env.GITPOD_WORKSPACE_ID !== undefined,
+		enableGraphQLEndpoint: true,
 	},
 });

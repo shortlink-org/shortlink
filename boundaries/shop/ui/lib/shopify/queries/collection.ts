@@ -35,3 +35,23 @@ export const getCollectionsQuery = /* GraphQL */ `
   }
   ${collectionFragment}
 `;
+
+export const getCollectionProductsQuery = /* GraphQL */ `
+  query getGoodsList(
+    $page: Int
+  ) {
+    goods_goods_list(page: $page) {
+      count
+      next
+      previous
+      results {
+        id
+        name
+        price
+        description
+        created_at
+        updated_at
+      }
+    }
+  }
+`;

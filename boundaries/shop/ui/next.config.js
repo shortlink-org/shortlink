@@ -16,8 +16,12 @@ module.exports = {
   generateEtags: isProd,
   compiler: {},
   images: {
-    formats: ['image/avif', 'image/webp'],
-    remotePatterns: []
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos',
+      },
+    ]
   },
   trailingSlash: false,
   logging: {
