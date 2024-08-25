@@ -1,32 +1,38 @@
-import productFragment from '../fragments/product';
-
 export const getProductQuery = /* GraphQL */ `
-  query getProduct($handle: String!) {
-    product(handle: $handle) {
-      ...product
+  query Goods_goods_retrieve {
+    goods_goods_retrieve(id: $handle) {
+        created_at
+        description
+        id
+        name
+        price
+        updated_at
     }
   }
-  ${productFragment}
 `;
 
 export const getProductsQuery = /* GraphQL */ `
-  query getProducts($sortKey: ProductSortKeys, $reverse: Boolean, $query: String) {
-    products(sortKey: $sortKey, reverse: $reverse, query: $query, first: 100) {
-      edges {
-        node {
-          ...product
-        }
-      }
+  query Goods_goods_retrieve {
+    goods_goods_retrieve(id: $handle) {
+        created_at
+        description
+        id
+        name
+        price
+        updated_at
     }
   }
-  ${productFragment}
 `;
 
 export const getProductRecommendationsQuery = /* GraphQL */ `
-  query getProductRecommendations($productId: ID!) {
-    productRecommendations(productId: $productId) {
-      ...product
+  query Goods_goods_retrieve {
+    goods_goods_retrieve(id: $handle) {
+        created_at
+        description
+        id
+        name
+        price
+        updated_at
     }
   }
-  ${productFragment}
 `;
