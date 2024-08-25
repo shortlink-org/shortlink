@@ -103,7 +103,9 @@ argo-cd:
     host: redis-master.argocd
 
   server:
-    replicas: 1
+    autoscaling:
+      enabled: true
+      minReplicas: 2
 
     metrics:
       enabled: true
@@ -167,7 +169,9 @@ argo-cd:
               value: https://github.com/shortlink-org/shortlink/raw/main/boundaries/platform/argocd-extension-docs/ui/dist/extension.tar
 
   repoServer:
-    replicas: 1
+    autoscaling:
+      enabled: true
+      minReplicas: 2
 
     serviceAccount:
       create: true
@@ -279,6 +283,8 @@ argo-cd:
             name: custom-tools
 
   applicationSet:
+    replicas: 2
+
     resources:
       limits:
         cpu: 300m
