@@ -13,3 +13,5 @@
 {{ include "shortlink-common.PodDisruptionBudget" . }}
 
 {{ include "shortlink-common.NetworkPolicy" . }}
+
+{{ include "shortlink-common.Jobs" . }}
