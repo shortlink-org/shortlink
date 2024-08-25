@@ -31,6 +31,9 @@ deploy:
 
   imagePullSecrets: []
 
+  env:
+    GOODS_API_URL: https://shop.shortlink.best/api
+
   resources:
     limits:
       cpu: 100m

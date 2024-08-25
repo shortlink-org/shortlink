@@ -6,7 +6,12 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM --platform=$BUILDPLATFORM node:22.7.0-alpine
+FROM --platform=$BUILDPLATFORM node:22.6.0-alpine
+
+# WARNING: if container limit < MAX_OLD_SPACE_SIZE => Killed
+# Docs: https://developer.ibm.com/languages/node-js/articles/nodejs-memory-management-in-container-environments/
+ARG MAX_OLD_SPACE_SIZE=8192
+ENV NODE_OPTIONS=--max_old_space_size=${MAX_OLD_SPACE_SIZE}
 
 # This is the public node url of the wundergraph node you want to include in the generated client
 ARG wg_public_node_url
@@ -40,9 +45,9 @@ ENV CI=true WG_COPY_BIN_PATH=/usr/bin/wunderctl
 # Ensure you lock file is up to date otherwise the build will fail
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
-RUN wunderctl generate --wundergraph-dir=.wundergraph
+RUN pnpm build
 
 # Expose only the node, server is private
 EXPOSE 9991
 
-CMD wunderctl start --wundergraph-dir=.wundergraph
+CMD pnpm start

@@ -7,6 +7,8 @@ const countries = introspect.graphql({
 	url: 'https://countries.trevorblades.com/',
 });
 
+const GOODS_API_URL = new EnvironmentVariable('GOODS_API_URL', 'http://127.0.0.1:8000/')
+
 const goods = introspect.openApiV2({
   id: 'goods',
   apiNamespace: 'goods',
@@ -14,7 +16,7 @@ const goods = introspect.openApiV2({
     kind: 'file',
     filePath: 'https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/shop/admin/docs/public/Shop%20Admin%20API.yaml',
   },
-  baseURL: 'http://127.0.0.1:8000/',
+  baseURL: GOODS_API_URL,
 })
 
 // configureWunderGraph emits the configuration
