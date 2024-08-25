@@ -12,9 +12,9 @@ const goods = introspect.openApiV2({
   apiNamespace: 'goods',
   source: {
     kind: 'file',
-    filePath: './schema/swagger.yaml',
+    filePath: 'https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/shop/admin/docs/public/Shop%20Admin%20API.yaml',
   },
-  baseURL: 'http://127.0.0.1:8000/goods/',
+  baseURL: 'http://127.0.0.1:8000/',
 })
 
 // configureWunderGraph emits the configuration
@@ -37,6 +37,7 @@ configureWunderGraphApplication({
 	},
   openApi: {
     title: "ShortLink Shop API",
+    apiVersion: '1.0',
   },
 	cors: {
 		...cors.allowAll,
