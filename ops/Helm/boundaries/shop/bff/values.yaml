@@ -32,7 +32,7 @@ deploy:
   imagePullSecrets: []
 
   env:
-    GOODS_API_URL: https://shop.shortlink.best/api
+    GOODS_API_URL: http://shortlink-shop-admin.shortlink-shop:8000/
 
   resources:
     limits:
