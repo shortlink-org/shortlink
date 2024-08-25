@@ -50,4 +50,4 @@ RUN pnpm build
 # Expose only the node, server is private
 EXPOSE 9991
 
-CMD pnpm start
+CMD npx wunderctl start --wundergraph-dir=.wundergraph
