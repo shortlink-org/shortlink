@@ -9,7 +9,7 @@
     COSIGN_YES: "true"  # Used by Cosign to skip confirmation prompts for non-destructive operations
     DOCKER_BUILDKIT: 1
     DOCKER_CONTENT_TRUST: 1
-    DOCKER_BUILDX_VERSION: v0.13.1
+    DOCKER_BUILDX_VERSION: v0.16.2
     BUILDX_GIT_LABELS: 1
   id_tokens:
     SIGSTORE_ID_TOKEN: # Used by Cosign to get certificate from Fulcio
@@ -71,12 +71,12 @@
 .template_build_kit:
   extends: .template_build
   services:
-    - name: moby/buildkit:v0.13.2
+    - name: moby/buildkit:v0.15.2
       alias: buildkitd
       command:
         - --addr=tcp://0.0.0.0:1234
   image:
-    name: moby/buildkit:v0.13.2
+    name: moby/buildkit:v0.15.2
     entrypoint: [ "" ]
   variables:
     # GIT_STRATEGY: none # Set `none` if we use git sparse-checkout

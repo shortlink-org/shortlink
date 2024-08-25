@@ -2,7 +2,7 @@ include:
   - local: .gitlab/ci/workflows/matrix_deploy.yml
 # TODO: issue https://gitlab.com/renovate-bot/renovate-runner/-/issues/70
 #  - local: .gitlab/ci/templates/renovate.yml
-  - local: ".gitlab/ci/templates/dependabot-flow.yml"
+  - local: .gitlab/ci/templates/dependabot-flow.yml
 
 # ANSIBLE ==============================================================================================================
 ansible-up:
