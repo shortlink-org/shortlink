@@ -18,8 +18,7 @@
 
 #### Use cases
 
-- [UC-1](src/usecases/manage_goods/README.md) - Manage goods
-
+- [UC-1](src/domain/goods/README.md) - Manage goods
 
 ### Contributing
 
