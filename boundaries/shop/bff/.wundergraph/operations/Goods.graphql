@@ -1,5 +1,15 @@
-query {
-	goods_goods_list {
+query Goods($page: Int) {
+	goods_goods_list(page: $page) {
 		count
+        next
+        previous
+        results {
+            id
+            name
+            price
+            description
+            created_at
+            updated_at
+        }
 	}
 }
