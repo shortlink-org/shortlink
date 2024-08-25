@@ -52,7 +52,7 @@ deploy:
     # Security --------------------------
     # TODO: set false, when research as work with static files
     DEBUG: true
-    CSRF_COOKIE_DOMAIN: shop.shortlink.best
+    CSRF_COOKIE_DOMAIN: https://shop.shortlink.best
 
   envSecret:
     - name: POSTGRES_DB
