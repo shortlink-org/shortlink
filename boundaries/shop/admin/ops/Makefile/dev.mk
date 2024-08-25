@@ -24,5 +24,9 @@ lint: ## Run linter
 migrate: ## Run migrations
 	@python src/migration.py migrate
 
+dump: ## Dump migrations
+	@python src/migration.py dumpdata goods.good > fixtures/good.json
+
+# STATIC TASKS =========================================================================================================
 static: ## Collect static files
 	@python src/made.py collectstatic
