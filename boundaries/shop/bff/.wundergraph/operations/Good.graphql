@@ -1,0 +1,10 @@
+query Good($id: Int!) {
+    goods_goods_retrieve(id: $id) {
+        id
+        name
+        price
+        description
+        created_at
+        updated_at
+    }
+}
