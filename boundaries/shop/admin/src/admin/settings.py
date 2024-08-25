@@ -96,6 +96,13 @@ TEMPLATES = [
 WSGI_APPLICATION = "admin.wsgi.application"
 
 
+# CSRF
+CSRF_COOKIE_DOMAIN = env("CSRF_COOKIE_DOMAIN", default=None)
+CSRF_COOKIE_SECURE = env("CSRF_COOKIE_SECURE", default=True)
+CSRF_TRUSTED_ORIGINS = [
+    CSRF_COOKIE_DOMAIN,
+]
+
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
