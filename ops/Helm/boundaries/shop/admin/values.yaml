@@ -110,11 +110,11 @@ deploy:
     # resources, such as Minikube. If you do want to specify resources, uncomment the following
     # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
     limits:
-      cpu: 100m
-      memory: 128Mi
+      cpu: 2000m
+      memory: 512Mi
     requests:
-      cpu: 10m
-      memory: 32Mi
+      cpu: 200m
+      memory: 128Mi
 
   # -- Security Context policies for controller pods
   # See https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/ for
