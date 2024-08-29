@@ -123,11 +123,8 @@ export default function CartModal() {
                                     className="h-full w-full object-cover"
                                     width={64}
                                     height={64}
-                                    alt={
-                                      item.merchandise.product.featuredImage.altText ||
-                                      item.merchandise.product.title
-                                    }
-                                    src={item.merchandise.product.featuredImage.url}
+                                    alt={"cart"}
+                                    src={"https://picsum.photos/200"}
                                   />
                                 </div>
                                 <Link

@@ -66,9 +66,9 @@ function createOrUpdateCartItem(
       selectedOptions: variant.selectedOptions,
       product: {
         id: product.id,
-        handle: product.handle,
-        title: product.title,
-        featuredImage: product.featuredImage
+        handle: product.name,
+        title: product.name,
+        // featuredImage: product.name
       }
     }
   };

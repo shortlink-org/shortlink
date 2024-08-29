@@ -262,12 +262,12 @@ export async function getCart(cartId: string | undefined): Promise<Cart | undefi
   return reshapeCart(res.body.data.cart);
 }
 
-export async function getCollection(handle: string): Promise<Collection | undefined> {
+export async function getCollection(id: number): Promise<Collection | undefined> {
   const res = await shopifyFetch<ShopifyCollectionOperation>({
     query: getCollectionQuery,
     tags: [TAGS.collections],
     variables: {
-      handle
+      id
     }
   });
 
@@ -320,12 +320,12 @@ export async function getCollections(): Promise<Collection[]> {
   return collections;
 }
 
-export async function getMenu(handle: string): Promise<Menu[]> {
+export async function getMenu(id: number): Promise<Menu[]> {
   const res = await shopifyFetch<ShopifyMenuOperation>({
     query: getMenuQuery,
     tags: [TAGS.collections],
     variables: {
-      handle
+      id
     }
   });
 
@@ -337,11 +337,11 @@ export async function getMenu(handle: string): Promise<Menu[]> {
   );
 }
 
-export async function getPage(handle: string): Promise<Page> {
+export async function getPage(id: number): Promise<Page> {
   const res = await shopifyFetch<ShopifyPageOperation>({
     query: getPageQuery,
     cache: 'no-store',
-    variables: { handle }
+    variables: { id }
   });
 
   return res.body.data.pageByHandle;
@@ -358,11 +358,11 @@ export async function getPages(): Promise<Page[]> {
     : [];
 }
 
-export async function getProduct(handle: string): Promise<Product | undefined> {
+export async function getProduct(id: number): Promise<Product | undefined> {
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductQuery,
     variables: {
-      handle,
+      id,
     },
   });
 
@@ -375,11 +375,11 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
   return reshapeProduct(res.body.data.product, false);
 }
 
-export async function getProductRecommendations(productId: string): Promise<Product[]> {
+export async function getProductRecommendations(productId: number): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
     query: getProductRecommendationsQuery,
     variables: {
-      productId
+      productId,
     }
   });
 

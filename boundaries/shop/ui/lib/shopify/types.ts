@@ -13,10 +13,10 @@ export type Cart = Omit<ShopifyCart, 'lines'> & {
 };
 
 export type CartProduct = {
-  id: string;
+  id: number;
   handle: string;
   title: string;
-  featuredImage: Image;
+  featuredImage?: Image;
 };
 
 export type CartItem = {
@@ -119,7 +119,7 @@ export type ShopifyCollection = {
 };
 
 export type ShopifyProduct = {
-  id: string;
+  id: number;
   name: string;
   price: number;
   description: string;
@@ -188,7 +188,7 @@ export type ShopifyCollectionOperation = {
     collection: ShopifyCollection;
   };
   variables: {
-    handle: string;
+    id: number;
   };
 };
 
@@ -219,13 +219,13 @@ export type ShopifyMenuOperation = {
     };
   };
   variables: {
-    handle: string;
+    id: number;
   };
 };
 
 export type ShopifyPageOperation = {
   data: { pageByHandle: Page };
-  variables: { handle: string };
+  variables: { id: number };
 };
 
 export type ShopifyPagesOperation = {
@@ -237,7 +237,7 @@ export type ShopifyPagesOperation = {
 export type ShopifyProductOperation = {
   data: { product: ShopifyProduct };
   variables: {
-    handle: string;
+    id: number;
   };
 };
 
@@ -246,7 +246,7 @@ export type ShopifyProductRecommendationsOperation = {
     productRecommendations: ShopifyProduct[];
   };
   variables: {
-    productId: string;
+    productId: number;
   };
 };
 

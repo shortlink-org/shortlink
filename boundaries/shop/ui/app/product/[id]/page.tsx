@@ -21,9 +21,13 @@ export const dynamic = 'force-dynamic'
 export async function generateMetadata({
   params
 }: {
-  params: { handle: string };
+  params: { id: number };
 }): Promise<Metadata> {
-  const product = await getProduct(params.handle);
+  console.warn('product 1', params);
+
+  const product = await getProduct(params.id);
+
+  console.warn('product', product);
 
   if (!product) return notFound();
 
@@ -33,8 +37,10 @@ export async function generateMetadata({
   };
 }
 
-export default async function ProductPage({ params }: { params: { handle: string } }) {
-  const product = await getProduct(params.handle);
+export default async function ProductPage({ params }: { params: { id: number } }) {
+  console.warn('product 2', params.id);
+
+  const product = await getProduct(params.id);
 
   console.warn('product', product);
 
@@ -76,8 +82,12 @@ export default async function ProductPage({ params }: { params: { handle: string
   );
 }
 
-async function RelatedProducts({ id }: { id: string }) {
+async function RelatedProducts({ id }: { id: number }) {
+  console.warn('relatedProducts', id);
+
   const relatedProducts = await getProductRecommendations(id);
+
+  console.warn('relatedProducts', relatedProducts);
 
   if (!relatedProducts.length) return null;
 
