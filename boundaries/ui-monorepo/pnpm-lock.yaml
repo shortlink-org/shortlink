@@ -237,8 +237,8 @@ importers:
         specifier: ^0.4.4
         version: 0.4.4(tailwindcss@3.4.10(ts-node@10.9.2(@swc/core@1.7.21(@swc/helpers@0.5.12))(@types/node@20.16.2)(typescript@5.5.4)))
       '@tailwindcss/typography':
-        specifier: ^0.5.14
-        version: 0.5.14(tailwindcss@3.4.10(ts-node@10.9.2(@swc/core@1.7.21(@swc/helpers@0.5.12))(@types/node@20.16.2)(typescript@5.5.4)))
+        specifier: ^0.5.15
+        version: 0.5.15(tailwindcss@3.4.10(ts-node@10.9.2(@swc/core@1.7.21(@swc/helpers@0.5.12))(@types/node@20.16.2)(typescript@5.5.4)))
       babel-plugin-react-compiler:
         specifier: 0.0.0
         version: 0.0.0
@@ -4075,10 +4075,10 @@ packages:
     peerDependencies:
       tailwindcss: '>=2.0.0 || >=3.0.0 || >=3.0.0-alpha.1'
 
-  '@tailwindcss/typography@0.5.14':
-    resolution: {integrity: sha512-ZvOCjUbsJBjL9CxQBn+VEnFpouzuKhxh2dH8xMIWHILL+HfOYtlAkWcyoon8LlzE53d2Yo6YO6pahKKNW3q1YQ==}
+  '@tailwindcss/typography@0.5.15':
+    resolution: {integrity: sha512-AqhlCXl+8grUz8uqExv5OTtgpjuVIwFTSXTrh8y9/pw6q2ek7fJ+Y8ZEVw7EB2DCcuCOtEjf9w3+J3rzts01uA==}
     peerDependencies:
-      tailwindcss: '>=3.0.0 || insiders'
+      tailwindcss: '>=3.0.0 || insiders || >=4.0.0-alpha.20'
 
   '@tanstack/match-sorter-utils@8.15.1':
     resolution: {integrity: sha512-PnVV3d2poenUM31ZbZi/yXkBu3J7kd5k2u51CGwwNojag451AjTH9N6n41yjXz2fpLeewleyLBmNS6+HcGDlXw==}
@@ -15746,7 +15746,7 @@ snapshots:
     dependencies:
       tailwindcss: 3.4.10(ts-node@10.9.2(@swc/core@1.7.21(@swc/helpers@0.5.12))(@types/node@20.16.2)(typescript@5.5.4))
 
-  '@tailwindcss/typography@0.5.14(tailwindcss@3.4.10(ts-node@10.9.2(@swc/core@1.7.21(@swc/helpers@0.5.12))(@types/node@20.16.2)(typescript@5.5.4)))':
+  '@tailwindcss/typography@0.5.15(tailwindcss@3.4.10(ts-node@10.9.2(@swc/core@1.7.21(@swc/helpers@0.5.12))(@types/node@20.16.2)(typescript@5.5.4)))':
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
