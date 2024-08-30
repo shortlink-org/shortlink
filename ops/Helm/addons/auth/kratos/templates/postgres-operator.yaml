@@ -98,7 +98,9 @@ spec:
           # Synchronous Replication
           synchronous_commit: 'on'
           # other settings
-          shared_preload_libraries: pgaudit,auto_explain,pg_stat_statements,pg_prewarm,uuid-ossp
+          shared_preload_libraries: pgaudit,auto_explain,pg_stat_statements,pg_prewarm,uuid-ossp,pgmonitor_bgw
+          pgmonitor_bgw.dbname: postgres,kratos
+          pgmonitor_bgw.role: "postgres"
     syncPeriodSeconds: 60
     leaderLeaseDurationSeconds: 300
   users:

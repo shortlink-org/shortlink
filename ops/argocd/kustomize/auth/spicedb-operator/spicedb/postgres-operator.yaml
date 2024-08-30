@@ -30,7 +30,9 @@ spec:
       postgresql:
         parameters:
           track_commit_timestamp: "on"
-          shared_preload_libraries: auto_explain,pgaudit,pg_stat_statements
+          shared_preload_libraries: auto_explain,pgaudit,pg_stat_statements,pgmonitor_bgw
+          pgmonitor_bgw.dbname: postgres,spicedb
+          pgmonitor_bgw.role: "postgres"
   backups:
     pgbackrest:
       metadata:

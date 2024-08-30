@@ -103,7 +103,9 @@ spec:
           enable_partition_pruning: 'on'
           # other settings
           # TODO: enabled pgrouting,timescaledb,postgis
-          shared_preload_libraries: pgaudit,auto_explain,pg_stat_statements,pg_prewarm,uuid-ossp,pg_partman_bgw
+          shared_preload_libraries: pgaudit,auto_explain,pg_stat_statements,pg_prewarm,uuid-ossp,pg_partman_bgw,pgmonitor_bgw
+          pgmonitor_bgw.dbname: postgres,billing
+          pgmonitor_bgw.role: "postgres"
     syncPeriodSeconds: 60
     leaderLeaseDurationSeconds: 300
   users:
