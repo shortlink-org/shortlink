@@ -328,8 +328,8 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5
       jspdf-autotable:
-        specifier: ^3.8.2
-        version: 3.8.2(jspdf@2.5.1)
+        specifier: ^3.8.3
+        version: 3.8.3(jspdf@2.5.1)
       localforage:
         specifier: 1.10.0
         version: 1.10.0
@@ -7228,8 +7228,8 @@ packages:
     resolution: {integrity: sha512-p/nXbhSEcu3pZRdkW1OfJhpsVtW1gd4Wa1fnQc9YLiTfAjn0312eMKimbdIQzuZl9aa9xUGaRlP9T/CJE/ditQ==}
     engines: {node: '>=0.10.0'}
 
-  jspdf-autotable@3.8.2:
-    resolution: {integrity: sha512-zW1ix99/mtR4MbIni7IqvrpfHmuTaICl6iv6wqjRN86Nxtwaw/QtOeDbpXqYSzHIJK9JvgtLM283sc5x+ipkJg==}
+  jspdf-autotable@3.8.3:
+    resolution: {integrity: sha512-PQFdljBt+ijm6ZWXYxhZ54A/awV63UKcipYoA2+YGsz0BXXiXTIL/FIg+V30j7wPdSdzClfbB3qKX9UeuFylPQ==}
     peerDependencies:
       jspdf: ^2.5.1
 
@@ -19221,7 +19221,7 @@ snapshots:
 
   jsonpointer@5.0.1: {}
 
-  jspdf-autotable@3.8.2(jspdf@2.5.1):
+  jspdf-autotable@3.8.3(jspdf@2.5.1):
     dependencies:
       jspdf: 2.5.1
 
