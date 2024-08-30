@@ -72,8 +72,8 @@ importers:
         specifier: ^0.1.1
         version: 0.1.1(tailwindcss@3.4.10(ts-node@10.9.2(@swc/core@1.7.21(@swc/helpers@0.5.12))(@types/node@20.16.2)(typescript@5.5.4)))
       '@tailwindcss/forms':
-        specifier: 0.5.7
-        version: 0.5.7(tailwindcss@3.4.10(ts-node@10.9.2(@swc/core@1.7.21(@swc/helpers@0.5.12))(@types/node@20.16.2)(typescript@5.5.4)))
+        specifier: 0.5.8
+        version: 0.5.8(tailwindcss@3.4.10(ts-node@10.9.2(@swc/core@1.7.21(@swc/helpers@0.5.12))(@types/node@20.16.2)(typescript@5.5.4)))
       autoprefixer:
         specifier: 10.4.20
         version: 10.4.20(postcss@8.4.41)
@@ -4065,10 +4065,10 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.2.0'
 
-  '@tailwindcss/forms@0.5.7':
-    resolution: {integrity: sha512-QE7X69iQI+ZXwldE+rzasvbJiyV/ju1FGHH0Qn2W3FKbuYtqp8LKcy6iSw79fVUT5/Vvf+0XgLCeYVG+UV6hOw==}
+  '@tailwindcss/forms@0.5.8':
+    resolution: {integrity: sha512-DJs7B7NPD0JH7BVvdHWNviWmunlFhuEkz7FyFxE4japOWYMLl9b1D6+Z9mivJJPWr6AEbmlPqgiFRyLwFB1SgQ==}
     peerDependencies:
-      tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1'
+      tailwindcss: '>=3.0.0 || >= 3.0.0-alpha.1 || >= 4.0.0-alpha.20'
 
   '@tailwindcss/line-clamp@0.4.4':
     resolution: {integrity: sha512-5U6SY5z8N42VtrCrKlsTAA35gy2VSyYtHWCsg1H87NU1SXnEfekTVlrga9fzUDrrHcGi2Lb5KenUWb4lRQT5/g==}
@@ -15737,7 +15737,7 @@ snapshots:
     dependencies:
       tailwindcss: 3.4.10(ts-node@10.9.2(@swc/core@1.7.21(@swc/helpers@0.5.12))(@types/node@20.16.2)(typescript@5.5.4))
 
-  '@tailwindcss/forms@0.5.7(tailwindcss@3.4.10(ts-node@10.9.2(@swc/core@1.7.21(@swc/helpers@0.5.12))(@types/node@20.16.2)(typescript@5.5.4)))':
+  '@tailwindcss/forms@0.5.8(tailwindcss@3.4.10(ts-node@10.9.2(@swc/core@1.7.21(@swc/helpers@0.5.12))(@types/node@20.16.2)(typescript@5.5.4)))':
     dependencies:
       mini-svg-data-uri: 1.4.4
       tailwindcss: 3.4.10(ts-node@10.9.2(@swc/core@1.7.21(@swc/helpers@0.5.12))(@types/node@20.16.2)(typescript@5.5.4))
