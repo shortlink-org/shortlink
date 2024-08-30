@@ -9,6 +9,7 @@ To start the app, run:
 
 ```shell
 ### install yarn
+corepack enable
 yarn set version stable
 yarn install
 
