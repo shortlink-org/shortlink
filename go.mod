@@ -38,7 +38,7 @@ require (
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a
 	github.com/lib/pq v1.10.9
 	github.com/mattn/go-sqlite3 v1.14.22
-	github.com/minio/minio-go/v7 v7.0.75
+	github.com/minio/minio-go/v7 v7.0.76
 	github.com/nats-io/nats.go v1.37.0
 	github.com/neo4j/neo4j-go-driver/v5 v5.23.1
 	github.com/ory/client-go v1.14.3
@@ -220,7 +220,7 @@ require (
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
 	github.com/rivo/uniseg v0.4.4 // indirect
 	github.com/robfig/cron v1.2.0 // indirect
-	github.com/rs/xid v1.5.0 // indirect
+	github.com/rs/xid v1.6.0 // indirect
 	github.com/russross/blackfriday/v2 v2.1.0 // indirect
 	github.com/sagikazarmark/locafero v0.4.0 // indirect
 	github.com/sagikazarmark/slog-shim v0.1.0 // indirect
