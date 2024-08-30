@@ -1,6 +1,6 @@
 # argo
 
-![Version: 0.4.7](https://img.shields.io/badge/Version-0.4.7-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.12.0](https://img.shields.io/badge/AppVersion-2.12.0-informational?style=flat-square)
+![Version: 0.4.8](https://img.shields.io/badge/Version-0.4.8-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.12.0](https://img.shields.io/badge/AppVersion-2.12.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 7.4.4 |
+| https://argoproj.github.io/argo-helm | argo-cd | 7.5.0 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 2.0.0 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.11.0 |
 | oci://registry-1.docker.io/bitnamicharts | redis | 20.0.3 |
@@ -30,7 +30,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="argo-cd--applicationSet--metrics--enabled"><a href="./values.yaml#L291">argo-cd.applicationSet.metrics.enabled</a></td>
+			<td id="argo-cd--applicationSet--metrics--enabled"><a href="./values.yaml#L297">argo-cd.applicationSet.metrics.enabled</a></td>
 			<td>
 bool
 </td>
@@ -44,7 +44,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--applicationSet--metrics--serviceMonitor--enabled"><a href="./values.yaml#L293">argo-cd.applicationSet.metrics.serviceMonitor.enabled</a></td>
+			<td id="argo-cd--applicationSet--metrics--serviceMonitor--enabled"><a href="./values.yaml#L299">argo-cd.applicationSet.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -58,7 +58,21 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--applicationSet--resources--limits--cpu"><a href="./values.yaml#L284">argo-cd.applicationSet.resources.limits.cpu</a></td>
+			<td id="argo-cd--applicationSet--replicas"><a href="./values.yaml#L286">argo-cd.applicationSet.replicas</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+2
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-cd--applicationSet--resources--limits--cpu"><a href="./values.yaml#L290">argo-cd.applicationSet.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -72,7 +86,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--applicationSet--resources--limits--memory"><a href="./values.yaml#L285">argo-cd.applicationSet.resources.limits.memory</a></td>
+			<td id="argo-cd--applicationSet--resources--limits--memory"><a href="./values.yaml#L291">argo-cd.applicationSet.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -86,7 +100,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--applicationSet--resources--requests--cpu"><a href="./values.yaml#L287">argo-cd.applicationSet.resources.requests.cpu</a></td>
+			<td id="argo-cd--applicationSet--resources--requests--cpu"><a href="./values.yaml#L293">argo-cd.applicationSet.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -100,7 +114,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--applicationSet--resources--requests--memory"><a href="./values.yaml#L288">argo-cd.applicationSet.resources.requests.memory</a></td>
+			<td id="argo-cd--applicationSet--resources--requests--memory"><a href="./values.yaml#L294">argo-cd.applicationSet.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -114,7 +128,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--cm--"controller--diff--server--side""><a href="./values.yaml#L303">argo-cd.configs.cm."controller.diff.server.side"</a></td>
+			<td id="argo-cd--configs--cm--"controller--diff--server--side""><a href="./values.yaml#L309">argo-cd.configs.cm."controller.diff.server.side"</a></td>
 			<td>
 string
 </td>
@@ -128,7 +142,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--cm--"exec--enabled""><a href="./values.yaml#L305">argo-cd.configs.cm."exec.enabled"</a></td>
+			<td id="argo-cd--configs--cm--"exec--enabled""><a href="./values.yaml#L311">argo-cd.configs.cm."exec.enabled"</a></td>
 			<td>
 string
 </td>
@@ -142,7 +156,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--cm--"extension--config""><a href="./values.yaml#L308">argo-cd.configs.cm."extension.config"</a></td>
+			<td id="argo-cd--configs--cm--"extension--config""><a href="./values.yaml#L314">argo-cd.configs.cm."extension.config"</a></td>
 			<td>
 string
 </td>
@@ -156,7 +170,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--cm--"helm--valuesFileSchemes""><a href="./values.yaml#L315">argo-cd.configs.cm."helm.valuesFileSchemes"</a></td>
+			<td id="argo-cd--configs--cm--"helm--valuesFileSchemes""><a href="./values.yaml#L321">argo-cd.configs.cm."helm.valuesFileSchemes"</a></td>
 			<td>
 string
 </td>
@@ -170,7 +184,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--cm--"resource--compareoptions""><a href="./values.yaml#L322">argo-cd.configs.cm."resource.compareoptions"</a></td>
+			<td id="argo-cd--configs--cm--"resource--compareoptions""><a href="./values.yaml#L328">argo-cd.configs.cm."resource.compareoptions"</a></td>
 			<td>
 string
 </td>
@@ -184,7 +198,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--cm--"resource--exclusions""><a href="./values.yaml#L326">argo-cd.configs.cm."resource.exclusions"</a></td>
+			<td id="argo-cd--configs--cm--"resource--exclusions""><a href="./values.yaml#L332">argo-cd.configs.cm."resource.exclusions"</a></td>
 			<td>
 string
 </td>
@@ -198,7 +212,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--cm--"server--enable--proxy--extension""><a href="./values.yaml#L307">argo-cd.configs.cm."server.enable.proxy.extension"</a></td>
+			<td id="argo-cd--configs--cm--"server--enable--proxy--extension""><a href="./values.yaml#L313">argo-cd.configs.cm."server.enable.proxy.extension"</a></td>
 			<td>
 string
 </td>
@@ -212,7 +226,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--cm--"statusbadge--enabled""><a href="./values.yaml#L301">argo-cd.configs.cm."statusbadge.enabled"</a></td>
+			<td id="argo-cd--configs--cm--"statusbadge--enabled""><a href="./values.yaml#L307">argo-cd.configs.cm."statusbadge.enabled"</a></td>
 			<td>
 bool
 </td>
@@ -226,7 +240,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--cm--"timeout--reconciliation""><a href="./values.yaml#L299">argo-cd.configs.cm."timeout.reconciliation"</a></td>
+			<td id="argo-cd--configs--cm--"timeout--reconciliation""><a href="./values.yaml#L305">argo-cd.configs.cm."timeout.reconciliation"</a></td>
 			<td>
 string
 </td>
@@ -240,7 +254,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--cm--url"><a href="./values.yaml#L297">argo-cd.configs.cm.url</a></td>
+			<td id="argo-cd--configs--cm--url"><a href="./values.yaml#L303">argo-cd.configs.cm.url</a></td>
 			<td>
 string
 </td>
@@ -254,7 +268,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--params--"dexserver--disable--tls""><a href="./values.yaml#L343">argo-cd.configs.params."dexserver.disable.tls"</a></td>
+			<td id="argo-cd--configs--params--"dexserver--disable--tls""><a href="./values.yaml#L349">argo-cd.configs.params."dexserver.disable.tls"</a></td>
 			<td>
 bool
 </td>
@@ -268,7 +282,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--params--"server--insecure""><a href="./values.yaml#L344">argo-cd.configs.params."server.insecure"</a></td>
+			<td id="argo-cd--configs--params--"server--insecure""><a href="./values.yaml#L350">argo-cd.configs.params."server.insecure"</a></td>
 			<td>
 bool
 </td>
@@ -282,7 +296,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--repositories--shortlink--name"><a href="./values.yaml#L337">argo-cd.configs.repositories.shortlink.name</a></td>
+			<td id="argo-cd--configs--repositories--shortlink--name"><a href="./values.yaml#L343">argo-cd.configs.repositories.shortlink.name</a></td>
 			<td>
 string
 </td>
@@ -296,7 +310,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--repositories--shortlink--type"><a href="./values.yaml#L338">argo-cd.configs.repositories.shortlink.type</a></td>
+			<td id="argo-cd--configs--repositories--shortlink--type"><a href="./values.yaml#L344">argo-cd.configs.repositories.shortlink.type</a></td>
 			<td>
 string
 </td>
@@ -310,7 +324,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--configs--repositories--shortlink--url"><a href="./values.yaml#L336">argo-cd.configs.repositories.shortlink.url</a></td>
+			<td id="argo-cd--configs--repositories--shortlink--url"><a href="./values.yaml#L342">argo-cd.configs.repositories.shortlink.url</a></td>
 			<td>
 string
 </td>
@@ -898,7 +912,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--metrics--enabled"><a href="./values.yaml#L356">argo-cd.notifications.metrics.enabled</a></td>
+			<td id="argo-cd--notifications--metrics--enabled"><a href="./values.yaml#L362">argo-cd.notifications.metrics.enabled</a></td>
 			<td>
 bool
 </td>
@@ -912,7 +926,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--metrics--serviceMonitor--enabled"><a href="./values.yaml#L358">argo-cd.notifications.metrics.serviceMonitor.enabled</a></td>
+			<td id="argo-cd--notifications--metrics--serviceMonitor--enabled"><a href="./values.yaml#L364">argo-cd.notifications.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -926,7 +940,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--resources--limits--cpu"><a href="./values.yaml#L349">argo-cd.notifications.resources.limits.cpu</a></td>
+			<td id="argo-cd--notifications--resources--limits--cpu"><a href="./values.yaml#L355">argo-cd.notifications.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -940,7 +954,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--resources--limits--memory"><a href="./values.yaml#L350">argo-cd.notifications.resources.limits.memory</a></td>
+			<td id="argo-cd--notifications--resources--limits--memory"><a href="./values.yaml#L356">argo-cd.notifications.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -954,7 +968,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--resources--requests--cpu"><a href="./values.yaml#L352">argo-cd.notifications.resources.requests.cpu</a></td>
+			<td id="argo-cd--notifications--resources--requests--cpu"><a href="./values.yaml#L358">argo-cd.notifications.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -968,7 +982,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--notifications--resources--requests--memory"><a href="./values.yaml#L353">argo-cd.notifications.resources.requests.memory</a></td>
+			<td id="argo-cd--notifications--resources--requests--memory"><a href="./values.yaml#L359">argo-cd.notifications.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -996,7 +1010,35 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[0]--name"><a href="./values.yaml#L191">argo-cd.repoServer.env[0].name</a></td>
+			<td id="argo-cd--repoServer--autoscaling--enabled"><a href="./values.yaml#L173">argo-cd.repoServer.autoscaling.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-cd--repoServer--autoscaling--minReplicas"><a href="./values.yaml#L174">argo-cd.repoServer.autoscaling.minReplicas</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+2
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-cd--repoServer--env[0]--name"><a href="./values.yaml#L195">argo-cd.repoServer.env[0].name</a></td>
 			<td>
 string
 </td>
@@ -1010,7 +1052,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[0]--value"><a href="./values.yaml#L192">argo-cd.repoServer.env[0].value</a></td>
+			<td id="argo-cd--repoServer--env[0]--value"><a href="./values.yaml#L196">argo-cd.repoServer.env[0].value</a></td>
 			<td>
 string
 </td>
@@ -1024,7 +1066,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[1]--name"><a href="./values.yaml#L193">argo-cd.repoServer.env[1].name</a></td>
+			<td id="argo-cd--repoServer--env[1]--name"><a href="./values.yaml#L197">argo-cd.repoServer.env[1].name</a></td>
 			<td>
 string
 </td>
@@ -1038,7 +1080,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[1]--value"><a href="./values.yaml#L194">argo-cd.repoServer.env[1].value</a></td>
+			<td id="argo-cd--repoServer--env[1]--value"><a href="./values.yaml#L198">argo-cd.repoServer.env[1].value</a></td>
 			<td>
 string
 </td>
@@ -1052,7 +1094,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[2]--name"><a href="./values.yaml#L195">argo-cd.repoServer.env[2].name</a></td>
+			<td id="argo-cd--repoServer--env[2]--name"><a href="./values.yaml#L199">argo-cd.repoServer.env[2].name</a></td>
 			<td>
 string
 </td>
@@ -1066,7 +1108,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[2]--value"><a href="./values.yaml#L196">argo-cd.repoServer.env[2].value</a></td>
+			<td id="argo-cd--repoServer--env[2]--value"><a href="./values.yaml#L200">argo-cd.repoServer.env[2].value</a></td>
 			<td>
 string
 </td>
@@ -1080,7 +1122,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[3]--name"><a href="./values.yaml#L197">argo-cd.repoServer.env[3].name</a></td>
+			<td id="argo-cd--repoServer--env[3]--name"><a href="./values.yaml#L201">argo-cd.repoServer.env[3].name</a></td>
 			<td>
 string
 </td>
@@ -1094,7 +1136,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[3]--value"><a href="./values.yaml#L198">argo-cd.repoServer.env[3].value</a></td>
+			<td id="argo-cd--repoServer--env[3]--value"><a href="./values.yaml#L202">argo-cd.repoServer.env[3].value</a></td>
 			<td>
 string
 </td>
@@ -1108,7 +1150,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[4]--name"><a href="./values.yaml#L199">argo-cd.repoServer.env[4].name</a></td>
+			<td id="argo-cd--repoServer--env[4]--name"><a href="./values.yaml#L203">argo-cd.repoServer.env[4].name</a></td>
 			<td>
 string
 </td>
@@ -1122,7 +1164,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[4]--value"><a href="./values.yaml#L200">argo-cd.repoServer.env[4].value</a></td>
+			<td id="argo-cd--repoServer--env[4]--value"><a href="./values.yaml#L204">argo-cd.repoServer.env[4].value</a></td>
 			<td>
 string
 </td>
@@ -1136,7 +1178,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[5]--name"><a href="./values.yaml#L201">argo-cd.repoServer.env[5].name</a></td>
+			<td id="argo-cd--repoServer--env[5]--name"><a href="./values.yaml#L205">argo-cd.repoServer.env[5].name</a></td>
 			<td>
 string
 </td>
@@ -1150,7 +1192,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[5]--value"><a href="./values.yaml#L202">argo-cd.repoServer.env[5].value</a></td>
+			<td id="argo-cd--repoServer--env[5]--value"><a href="./values.yaml#L206">argo-cd.repoServer.env[5].value</a></td>
 			<td>
 string
 </td>
@@ -1164,7 +1206,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[6]--name"><a href="./values.yaml#L204">argo-cd.repoServer.env[6].name</a></td>
+			<td id="argo-cd--repoServer--env[6]--name"><a href="./values.yaml#L208">argo-cd.repoServer.env[6].name</a></td>
 			<td>
 string
 </td>
@@ -1178,7 +1220,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[6]--value"><a href="./values.yaml#L205">argo-cd.repoServer.env[6].value</a></td>
+			<td id="argo-cd--repoServer--env[6]--value"><a href="./values.yaml#L209">argo-cd.repoServer.env[6].value</a></td>
 			<td>
 string
 </td>
@@ -1192,7 +1234,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[7]--name"><a href="./values.yaml#L206">argo-cd.repoServer.env[7].name</a></td>
+			<td id="argo-cd--repoServer--env[7]--name"><a href="./values.yaml#L210">argo-cd.repoServer.env[7].name</a></td>
 			<td>
 string
 </td>
@@ -1206,7 +1248,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[7]--value"><a href="./values.yaml#L207">argo-cd.repoServer.env[7].value</a></td>
+			<td id="argo-cd--repoServer--env[7]--value"><a href="./values.yaml#L211">argo-cd.repoServer.env[7].value</a></td>
 			<td>
 string
 </td>
@@ -1220,7 +1262,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[8]--name"><a href="./values.yaml#L208">argo-cd.repoServer.env[8].name</a></td>
+			<td id="argo-cd--repoServer--env[8]--name"><a href="./values.yaml#L212">argo-cd.repoServer.env[8].name</a></td>
 			<td>
 string
 </td>
@@ -1234,7 +1276,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--env[8]--value"><a href="./values.yaml#L209">argo-cd.repoServer.env[8].value</a></td>
+			<td id="argo-cd--repoServer--env[8]--value"><a href="./values.yaml#L213">argo-cd.repoServer.env[8].value</a></td>
 			<td>
 string
 </td>
@@ -1248,7 +1290,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--args[0]"><a href="./values.yaml#L264">argo-cd.repoServer.initContainers[0].args[0]</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--args[0]"><a href="./values.yaml#L268">argo-cd.repoServer.initContainers[0].args[0]</a></td>
 			<td>
 string
 </td>
@@ -1262,7 +1304,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--command[0]"><a href="./values.yaml#L244">argo-cd.repoServer.initContainers[0].command[0]</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--command[0]"><a href="./values.yaml#L248">argo-cd.repoServer.initContainers[0].command[0]</a></td>
 			<td>
 string
 </td>
@@ -1276,7 +1318,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--command[1]"><a href="./values.yaml#L244">argo-cd.repoServer.initContainers[0].command[1]</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--command[1]"><a href="./values.yaml#L248">argo-cd.repoServer.initContainers[0].command[1]</a></td>
 			<td>
 string
 </td>
@@ -1290,7 +1332,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--env[0]--name"><a href="./values.yaml#L255">argo-cd.repoServer.initContainers[0].env[0].name</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--env[0]--name"><a href="./values.yaml#L259">argo-cd.repoServer.initContainers[0].env[0].name</a></td>
 			<td>
 string
 </td>
@@ -1304,7 +1346,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--env[0]--value"><a href="./values.yaml#L256">argo-cd.repoServer.initContainers[0].env[0].value</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--env[0]--value"><a href="./values.yaml#L260">argo-cd.repoServer.initContainers[0].env[0].value</a></td>
 			<td>
 string
 </td>
@@ -1318,7 +1360,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--env[1]--name"><a href="./values.yaml#L257">argo-cd.repoServer.initContainers[0].env[1].name</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--env[1]--name"><a href="./values.yaml#L261">argo-cd.repoServer.initContainers[0].env[1].name</a></td>
 			<td>
 string
 </td>
@@ -1332,7 +1374,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--env[1]--value"><a href="./values.yaml#L258">argo-cd.repoServer.initContainers[0].env[1].value</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--env[1]--value"><a href="./values.yaml#L262">argo-cd.repoServer.initContainers[0].env[1].value</a></td>
 			<td>
 string
 </td>
@@ -1346,7 +1388,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--env[2]--name"><a href="./values.yaml#L259">argo-cd.repoServer.initContainers[0].env[2].name</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--env[2]--name"><a href="./values.yaml#L263">argo-cd.repoServer.initContainers[0].env[2].name</a></td>
 			<td>
 string
 </td>
@@ -1360,7 +1402,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--env[2]--value"><a href="./values.yaml#L260">argo-cd.repoServer.initContainers[0].env[2].value</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--env[2]--value"><a href="./values.yaml#L264">argo-cd.repoServer.initContainers[0].env[2].value</a></td>
 			<td>
 string
 </td>
@@ -1374,7 +1416,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--env[3]--name"><a href="./values.yaml#L261">argo-cd.repoServer.initContainers[0].env[3].name</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--env[3]--name"><a href="./values.yaml#L265">argo-cd.repoServer.initContainers[0].env[3].name</a></td>
 			<td>
 string
 </td>
@@ -1388,7 +1430,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--env[3]--value"><a href="./values.yaml#L262">argo-cd.repoServer.initContainers[0].env[3].value</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--env[3]--value"><a href="./values.yaml#L266">argo-cd.repoServer.initContainers[0].env[3].value</a></td>
 			<td>
 string
 </td>
@@ -1402,7 +1444,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--image"><a href="./values.yaml#L243">argo-cd.repoServer.initContainers[0].image</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--image"><a href="./values.yaml#L247">argo-cd.repoServer.initContainers[0].image</a></td>
 			<td>
 string
 </td>
@@ -1416,7 +1458,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--name"><a href="./values.yaml#L242">argo-cd.repoServer.initContainers[0].name</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--name"><a href="./values.yaml#L246">argo-cd.repoServer.initContainers[0].name</a></td>
 			<td>
 string
 </td>
@@ -1430,7 +1472,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--securityContext--allowPrivilegeEscalation"><a href="./values.yaml#L248">argo-cd.repoServer.initContainers[0].securityContext.allowPrivilegeEscalation</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--securityContext--allowPrivilegeEscalation"><a href="./values.yaml#L252">argo-cd.repoServer.initContainers[0].securityContext.allowPrivilegeEscalation</a></td>
 			<td>
 bool
 </td>
@@ -1444,7 +1486,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--securityContext--capabilities--drop[0]"><a href="./values.yaml#L251">argo-cd.repoServer.initContainers[0].securityContext.capabilities.drop[0]</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--securityContext--capabilities--drop[0]"><a href="./values.yaml#L255">argo-cd.repoServer.initContainers[0].securityContext.capabilities.drop[0]</a></td>
 			<td>
 string
 </td>
@@ -1458,7 +1500,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--securityContext--runAsNonRoot"><a href="./values.yaml#L246">argo-cd.repoServer.initContainers[0].securityContext.runAsNonRoot</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--securityContext--runAsNonRoot"><a href="./values.yaml#L250">argo-cd.repoServer.initContainers[0].securityContext.runAsNonRoot</a></td>
 			<td>
 bool
 </td>
@@ -1472,7 +1514,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--securityContext--runAsUser"><a href="./values.yaml#L247">argo-cd.repoServer.initContainers[0].securityContext.runAsUser</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--securityContext--runAsUser"><a href="./values.yaml#L251">argo-cd.repoServer.initContainers[0].securityContext.runAsUser</a></td>
 			<td>
 int
 </td>
@@ -1486,7 +1528,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--securityContext--seccompProfile--type"><a href="./values.yaml#L253">argo-cd.repoServer.initContainers[0].securityContext.seccompProfile.type</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--securityContext--seccompProfile--type"><a href="./values.yaml#L257">argo-cd.repoServer.initContainers[0].securityContext.seccompProfile.type</a></td>
 			<td>
 string
 </td>
@@ -1500,7 +1542,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--volumeMounts[0]--mountPath"><a href="./values.yaml#L278">argo-cd.repoServer.initContainers[0].volumeMounts[0].mountPath</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--volumeMounts[0]--mountPath"><a href="./values.yaml#L282">argo-cd.repoServer.initContainers[0].volumeMounts[0].mountPath</a></td>
 			<td>
 string
 </td>
@@ -1514,7 +1556,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--initContainers[0]--volumeMounts[0]--name"><a href="./values.yaml#L279">argo-cd.repoServer.initContainers[0].volumeMounts[0].name</a></td>
+			<td id="argo-cd--repoServer--initContainers[0]--volumeMounts[0]--name"><a href="./values.yaml#L283">argo-cd.repoServer.initContainers[0].volumeMounts[0].name</a></td>
 			<td>
 string
 </td>
@@ -1528,7 +1570,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--metrics--enabled"><a href="./values.yaml#L215">argo-cd.repoServer.metrics.enabled</a></td>
+			<td id="argo-cd--repoServer--metrics--enabled"><a href="./values.yaml#L219">argo-cd.repoServer.metrics.enabled</a></td>
 			<td>
 bool
 </td>
@@ -1542,7 +1584,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--metrics--serviceMonitor--enabled"><a href="./values.yaml#L217">argo-cd.repoServer.metrics.serviceMonitor.enabled</a></td>
+			<td id="argo-cd--repoServer--metrics--serviceMonitor--enabled"><a href="./values.yaml#L221">argo-cd.repoServer.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -1556,7 +1598,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--rbac[0]--apiGroups[0]"><a href="./values.yaml#L178">argo-cd.repoServer.rbac[0].apiGroups[0]</a></td>
+			<td id="argo-cd--repoServer--rbac[0]--apiGroups[0]"><a href="./values.yaml#L182">argo-cd.repoServer.rbac[0].apiGroups[0]</a></td>
 			<td>
 string
 </td>
@@ -1570,7 +1612,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--rbac[0]--resources[0]"><a href="./values.yaml#L180">argo-cd.repoServer.rbac[0].resources[0]</a></td>
+			<td id="argo-cd--repoServer--rbac[0]--resources[0]"><a href="./values.yaml#L184">argo-cd.repoServer.rbac[0].resources[0]</a></td>
 			<td>
 string
 </td>
@@ -1584,7 +1626,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--rbac[0]--verbs[0]"><a href="./values.yaml#L182">argo-cd.repoServer.rbac[0].verbs[0]</a></td>
+			<td id="argo-cd--repoServer--rbac[0]--verbs[0]"><a href="./values.yaml#L186">argo-cd.repoServer.rbac[0].verbs[0]</a></td>
 			<td>
 string
 </td>
@@ -1598,7 +1640,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--rbac[1]--apiGroups[0]"><a href="./values.yaml#L184">argo-cd.repoServer.rbac[1].apiGroups[0]</a></td>
+			<td id="argo-cd--repoServer--rbac[1]--apiGroups[0]"><a href="./values.yaml#L188">argo-cd.repoServer.rbac[1].apiGroups[0]</a></td>
 			<td>
 string
 </td>
@@ -1612,7 +1654,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--rbac[1]--resources[0]"><a href="./values.yaml#L186">argo-cd.repoServer.rbac[1].resources[0]</a></td>
+			<td id="argo-cd--repoServer--rbac[1]--resources[0]"><a href="./values.yaml#L190">argo-cd.repoServer.rbac[1].resources[0]</a></td>
 			<td>
 string
 </td>
@@ -1626,7 +1668,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--rbac[1]--verbs[0]"><a href="./values.yaml#L188">argo-cd.repoServer.rbac[1].verbs[0]</a></td>
+			<td id="argo-cd--repoServer--rbac[1]--verbs[0]"><a href="./values.yaml#L192">argo-cd.repoServer.rbac[1].verbs[0]</a></td>
 			<td>
 string
 </td>
@@ -1640,21 +1682,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--replicas"><a href="./values.yaml#L170">argo-cd.repoServer.replicas</a></td>
-			<td>
-int
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-1
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="argo-cd--repoServer--resources--requests--cpu"><a href="./values.yaml#L238">argo-cd.repoServer.resources.requests.cpu</a></td>
+			<td id="argo-cd--repoServer--resources--requests--cpu"><a href="./values.yaml#L242">argo-cd.repoServer.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -1668,7 +1696,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--resources--requests--memory"><a href="./values.yaml#L239">argo-cd.repoServer.resources.requests.memory</a></td>
+			<td id="argo-cd--repoServer--resources--requests--memory"><a href="./values.yaml#L243">argo-cd.repoServer.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -1682,7 +1710,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--serviceAccount--create"><a href="./values.yaml#L173">argo-cd.repoServer.serviceAccount.create</a></td>
+			<td id="argo-cd--repoServer--serviceAccount--create"><a href="./values.yaml#L177">argo-cd.repoServer.serviceAccount.create</a></td>
 			<td>
 bool
 </td>
@@ -1696,7 +1724,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--serviceAccount--name"><a href="./values.yaml#L174">argo-cd.repoServer.serviceAccount.name</a></td>
+			<td id="argo-cd--repoServer--serviceAccount--name"><a href="./values.yaml#L178">argo-cd.repoServer.serviceAccount.name</a></td>
 			<td>
 string
 </td>
@@ -1710,7 +1738,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--volumeMounts[0]--mountPath"><a href="./values.yaml#L227">argo-cd.repoServer.volumeMounts[0].mountPath</a></td>
+			<td id="argo-cd--repoServer--volumeMounts[0]--mountPath"><a href="./values.yaml#L231">argo-cd.repoServer.volumeMounts[0].mountPath</a></td>
 			<td>
 string
 </td>
@@ -1724,7 +1752,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--volumeMounts[0]--name"><a href="./values.yaml#L228">argo-cd.repoServer.volumeMounts[0].name</a></td>
+			<td id="argo-cd--repoServer--volumeMounts[0]--name"><a href="./values.yaml#L232">argo-cd.repoServer.volumeMounts[0].name</a></td>
 			<td>
 string
 </td>
@@ -1738,7 +1766,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--volumeMounts[1]--mountPath"><a href="./values.yaml#L229">argo-cd.repoServer.volumeMounts[1].mountPath</a></td>
+			<td id="argo-cd--repoServer--volumeMounts[1]--mountPath"><a href="./values.yaml#L233">argo-cd.repoServer.volumeMounts[1].mountPath</a></td>
 			<td>
 string
 </td>
@@ -1752,7 +1780,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--volumeMounts[1]--name"><a href="./values.yaml#L230">argo-cd.repoServer.volumeMounts[1].name</a></td>
+			<td id="argo-cd--repoServer--volumeMounts[1]--name"><a href="./values.yaml#L234">argo-cd.repoServer.volumeMounts[1].name</a></td>
 			<td>
 string
 </td>
@@ -1766,7 +1794,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--volumes[0]--emptyDir"><a href="./values.yaml#L221">argo-cd.repoServer.volumes[0].emptyDir</a></td>
+			<td id="argo-cd--repoServer--volumes[0]--emptyDir"><a href="./values.yaml#L225">argo-cd.repoServer.volumes[0].emptyDir</a></td>
 			<td>
 object
 </td>
@@ -1780,7 +1808,7 @@ object
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--volumes[0]--name"><a href="./values.yaml#L220">argo-cd.repoServer.volumes[0].name</a></td>
+			<td id="argo-cd--repoServer--volumes[0]--name"><a href="./values.yaml#L224">argo-cd.repoServer.volumes[0].name</a></td>
 			<td>
 string
 </td>
@@ -1794,7 +1822,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--volumes[1]--name"><a href="./values.yaml#L222">argo-cd.repoServer.volumes[1].name</a></td>
+			<td id="argo-cd--repoServer--volumes[1]--name"><a href="./values.yaml#L226">argo-cd.repoServer.volumes[1].name</a></td>
 			<td>
 string
 </td>
@@ -1808,7 +1836,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--repoServer--volumes[1]--secret--secretName"><a href="./values.yaml#L224">argo-cd.repoServer.volumes[1].secret.secretName</a></td>
+			<td id="argo-cd--repoServer--volumes[1]--secret--secretName"><a href="./values.yaml#L228">argo-cd.repoServer.volumes[1].secret.secretName</a></td>
 			<td>
 string
 </td>
@@ -1822,7 +1850,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--extensions--enabled"><a href="./values.yaml#L151">argo-cd.server.extensions.enabled</a></td>
+			<td id="argo-cd--server--autoscaling--enabled"><a href="./values.yaml#L107">argo-cd.server.autoscaling.enabled</a></td>
 			<td>
 bool
 </td>
@@ -1836,7 +1864,35 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--extensions--extensionList[0]--env[0]--name"><a href="./values.yaml#L156">argo-cd.server.extensions.extensionList[0].env[0].name</a></td>
+			<td id="argo-cd--server--autoscaling--minReplicas"><a href="./values.yaml#L108">argo-cd.server.autoscaling.minReplicas</a></td>
+			<td>
+int
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+2
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-cd--server--extensions--enabled"><a href="./values.yaml#L153">argo-cd.server.extensions.enabled</a></td>
+			<td>
+bool
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+true
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="argo-cd--server--extensions--extensionList[0]--env[0]--name"><a href="./values.yaml#L158">argo-cd.server.extensions.extensionList[0].env[0].name</a></td>
 			<td>
 string
 </td>
@@ -1850,7 +1906,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--extensions--extensionList[0]--env[0]--value"><a href="./values.yaml#L157">argo-cd.server.extensions.extensionList[0].env[0].value</a></td>
+			<td id="argo-cd--server--extensions--extensionList[0]--env[0]--value"><a href="./values.yaml#L159">argo-cd.server.extensions.extensionList[0].env[0].value</a></td>
 			<td>
 string
 </td>
@@ -1864,7 +1920,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--extensions--extensionList[0]--name"><a href="./values.yaml#L154">argo-cd.server.extensions.extensionList[0].name</a></td>
+			<td id="argo-cd--server--extensions--extensionList[0]--name"><a href="./values.yaml#L156">argo-cd.server.extensions.extensionList[0].name</a></td>
 			<td>
 string
 </td>
@@ -1878,7 +1934,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--extensions--extensionList[1]--env[0]--name"><a href="./values.yaml#L160">argo-cd.server.extensions.extensionList[1].env[0].name</a></td>
+			<td id="argo-cd--server--extensions--extensionList[1]--env[0]--name"><a href="./values.yaml#L162">argo-cd.server.extensions.extensionList[1].env[0].name</a></td>
 			<td>
 string
 </td>
@@ -1892,7 +1948,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--extensions--extensionList[1]--env[0]--value"><a href="./values.yaml#L161">argo-cd.server.extensions.extensionList[1].env[0].value</a></td>
+			<td id="argo-cd--server--extensions--extensionList[1]--env[0]--value"><a href="./values.yaml#L163">argo-cd.server.extensions.extensionList[1].env[0].value</a></td>
 			<td>
 string
 </td>
@@ -1906,7 +1962,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--extensions--extensionList[1]--env[1]--name"><a href="./values.yaml#L162">argo-cd.server.extensions.extensionList[1].env[1].name</a></td>
+			<td id="argo-cd--server--extensions--extensionList[1]--env[1]--name"><a href="./values.yaml#L164">argo-cd.server.extensions.extensionList[1].env[1].name</a></td>
 			<td>
 string
 </td>
@@ -1920,7 +1976,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--extensions--extensionList[1]--env[1]--value"><a href="./values.yaml#L163">argo-cd.server.extensions.extensionList[1].env[1].value</a></td>
+			<td id="argo-cd--server--extensions--extensionList[1]--env[1]--value"><a href="./values.yaml#L165">argo-cd.server.extensions.extensionList[1].env[1].value</a></td>
 			<td>
 string
 </td>
@@ -1934,7 +1990,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--extensions--extensionList[1]--name"><a href="./values.yaml#L158">argo-cd.server.extensions.extensionList[1].name</a></td>
+			<td id="argo-cd--server--extensions--extensionList[1]--name"><a href="./values.yaml#L160">argo-cd.server.extensions.extensionList[1].name</a></td>
 			<td>
 string
 </td>
@@ -1948,7 +2004,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--extensions--extensionList[2]--env[0]--name"><a href="./values.yaml#L166">argo-cd.server.extensions.extensionList[2].env[0].name</a></td>
+			<td id="argo-cd--server--extensions--extensionList[2]--env[0]--name"><a href="./values.yaml#L168">argo-cd.server.extensions.extensionList[2].env[0].name</a></td>
 			<td>
 string
 </td>
@@ -1962,7 +2018,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--extensions--extensionList[2]--env[0]--value"><a href="./values.yaml#L167">argo-cd.server.extensions.extensionList[2].env[0].value</a></td>
+			<td id="argo-cd--server--extensions--extensionList[2]--env[0]--value"><a href="./values.yaml#L169">argo-cd.server.extensions.extensionList[2].env[0].value</a></td>
 			<td>
 string
 </td>
@@ -1976,7 +2032,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--extensions--extensionList[2]--name"><a href="./values.yaml#L164">argo-cd.server.extensions.extensionList[2].name</a></td>
+			<td id="argo-cd--server--extensions--extensionList[2]--name"><a href="./values.yaml#L166">argo-cd.server.extensions.extensionList[2].name</a></td>
 			<td>
 string
 </td>
@@ -1990,7 +2046,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L119">argo-cd.server.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
+			<td id="argo-cd--server--ingress--annotations--"cert-manager--io/cluster-issuer""><a href="./values.yaml#L121">argo-cd.server.ingress.annotations."cert-manager.io/cluster-issuer"</a></td>
 			<td>
 string
 </td>
@@ -2004,7 +2060,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--ingress--annotations--"nginx--ingress--kubernetes--io/backend-protocol""><a href="./values.yaml#L120">argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol"</a></td>
+			<td id="argo-cd--server--ingress--annotations--"nginx--ingress--kubernetes--io/backend-protocol""><a href="./values.yaml#L122">argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/backend-protocol"</a></td>
 			<td>
 string
 </td>
@@ -2018,7 +2074,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--ingress--annotations--"nginx--ingress--kubernetes--io/configuration-snippet""><a href="./values.yaml#L122">argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/configuration-snippet"</a></td>
+			<td id="argo-cd--server--ingress--annotations--"nginx--ingress--kubernetes--io/configuration-snippet""><a href="./values.yaml#L124">argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/configuration-snippet"</a></td>
 			<td>
 string
 </td>
@@ -2032,7 +2088,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L128">argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
+			<td id="argo-cd--server--ingress--annotations--"nginx--ingress--kubernetes--io/enable-opentelemetry""><a href="./values.yaml#L130">argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-opentelemetry"</a></td>
 			<td>
 string
 </td>
@@ -2046,7 +2102,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L127">argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
+			<td id="argo-cd--server--ingress--annotations--"nginx--ingress--kubernetes--io/enable-owasp-core-rules""><a href="./values.yaml#L129">argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/enable-owasp-core-rules"</a></td>
 			<td>
 string
 </td>
@@ -2060,7 +2116,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--ingress--annotations--"nginx--ingress--kubernetes--io/secure-backends""><a href="./values.yaml#L126">argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/secure-backends"</a></td>
+			<td id="argo-cd--server--ingress--annotations--"nginx--ingress--kubernetes--io/secure-backends""><a href="./values.yaml#L128">argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/secure-backends"</a></td>
 			<td>
 string
 </td>
@@ -2074,7 +2130,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--ingress--annotations--"nginx--ingress--kubernetes--io/ssl-passthrough""><a href="./values.yaml#L121">argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/ssl-passthrough"</a></td>
+			<td id="argo-cd--server--ingress--annotations--"nginx--ingress--kubernetes--io/ssl-passthrough""><a href="./values.yaml#L123">argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/ssl-passthrough"</a></td>
 			<td>
 string
 </td>
@@ -2088,7 +2144,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--ingress--annotations--"nginx--ingress--kubernetes--io/ssl-redirect""><a href="./values.yaml#L125">argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/ssl-redirect"</a></td>
+			<td id="argo-cd--server--ingress--annotations--"nginx--ingress--kubernetes--io/ssl-redirect""><a href="./values.yaml#L127">argo-cd.server.ingress.annotations."nginx.ingress.kubernetes.io/ssl-redirect"</a></td>
 			<td>
 string
 </td>
@@ -2102,7 +2158,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--ingress--enabled"><a href="./values.yaml#L114">argo-cd.server.ingress.enabled</a></td>
+			<td id="argo-cd--server--ingress--enabled"><a href="./values.yaml#L116">argo-cd.server.ingress.enabled</a></td>
 			<td>
 bool
 </td>
@@ -2116,7 +2172,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--ingress--extraTls[0]--hosts[0]"><a href="./values.yaml#L135">argo-cd.server.ingress.extraTls[0].hosts[0]</a></td>
+			<td id="argo-cd--server--ingress--extraTls[0]--hosts[0]"><a href="./values.yaml#L137">argo-cd.server.ingress.extraTls[0].hosts[0]</a></td>
 			<td>
 string
 </td>
@@ -2130,7 +2186,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--ingress--extraTls[0]--secretName"><a href="./values.yaml#L133">argo-cd.server.ingress.extraTls[0].secretName</a></td>
+			<td id="argo-cd--server--ingress--extraTls[0]--secretName"><a href="./values.yaml#L135">argo-cd.server.ingress.extraTls[0].secretName</a></td>
 			<td>
 string
 </td>
@@ -2144,7 +2200,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--ingress--hostname"><a href="./values.yaml#L130">argo-cd.server.ingress.hostname</a></td>
+			<td id="argo-cd--server--ingress--hostname"><a href="./values.yaml#L132">argo-cd.server.ingress.hostname</a></td>
 			<td>
 string
 </td>
@@ -2158,7 +2214,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--ingress--ingressClassName"><a href="./values.yaml#L116">argo-cd.server.ingress.ingressClassName</a></td>
+			<td id="argo-cd--server--ingress--ingressClassName"><a href="./values.yaml#L118">argo-cd.server.ingress.ingressClassName</a></td>
 			<td>
 string
 </td>
@@ -2172,7 +2228,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--metrics--enabled"><a href="./values.yaml#L109">argo-cd.server.metrics.enabled</a></td>
+			<td id="argo-cd--server--metrics--enabled"><a href="./values.yaml#L111">argo-cd.server.metrics.enabled</a></td>
 			<td>
 bool
 </td>
@@ -2186,7 +2242,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--metrics--serviceMonitor--enabled"><a href="./values.yaml#L111">argo-cd.server.metrics.serviceMonitor.enabled</a></td>
+			<td id="argo-cd--server--metrics--serviceMonitor--enabled"><a href="./values.yaml#L113">argo-cd.server.metrics.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -2200,7 +2256,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--rbac--"policy--csv""><a href="./values.yaml#L138">argo-cd.server.rbac."policy.csv"</a></td>
+			<td id="argo-cd--server--rbac--"policy--csv""><a href="./values.yaml#L140">argo-cd.server.rbac."policy.csv"</a></td>
 			<td>
 string
 </td>
@@ -2214,7 +2270,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="argo-cd--server--rbac--"policy--default""><a href="./values.yaml#L148">argo-cd.server.rbac."policy.default"</a></td>
+			<td id="argo-cd--server--rbac--"policy--default""><a href="./values.yaml#L150">argo-cd.server.rbac."policy.default"</a></td>
 			<td>
 string
 </td>
@@ -2222,20 +2278,6 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "role:readonly"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="argo-cd--server--replicas"><a href="./values.yaml#L106">argo-cd.server.replicas</a></td>
-			<td>
-int
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-1
 </pre>
 </div>
 			</td>

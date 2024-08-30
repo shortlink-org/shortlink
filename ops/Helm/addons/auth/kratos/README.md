@@ -1,6 +1,6 @@
 # kratos
 
-![Version: 0.3.4](https://img.shields.io/badge/Version-0.3.4-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.3.5](https://img.shields.io/badge/Version-0.3.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://k8s.ory.sh/helm/charts | kratos | 0.46.0 |
+| https://k8s.ory.sh/helm/charts | kratos | 0.47.0 |
 
 ## Values
 
@@ -377,7 +377,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--automigration"><a href="./values.yaml#L181">kratos.kratos.automigration</a></td>
+			<td id="kratos--kratos--automigration"><a href="./values.yaml#L182">kratos.kratos.automigration</a></td>
 			<td>
 object
 </td>
@@ -404,7 +404,7 @@ object
 			<td>Enables database migration</td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--automigration--type"><a href="./values.yaml#L187">kratos.kratos.automigration.type</a></td>
+			<td id="kratos--kratos--automigration--type"><a href="./values.yaml#L188">kratos.kratos.automigration.type</a></td>
 			<td>
 string
 </td>
@@ -418,7 +418,7 @@ string
 			<td>Configure the way to execute database migration. Possible values: job, initContainer When set to job, the migration will be executed as a job on release or upgrade. When set to initContainer, the migration will be executed when kratos pod is created Defaults to job</td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--hashers--argon2--iterations"><a href="./values.yaml#L174">kratos.kratos.config.hashers.argon2.iterations</a></td>
+			<td id="kratos--kratos--config--hashers--argon2--iterations"><a href="./values.yaml#L175">kratos.kratos.config.hashers.argon2.iterations</a></td>
 			<td>
 int
 </td>
@@ -432,7 +432,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--hashers--argon2--key_length"><a href="./values.yaml#L176">kratos.kratos.config.hashers.argon2.key_length</a></td>
+			<td id="kratos--kratos--config--hashers--argon2--key_length"><a href="./values.yaml#L177">kratos.kratos.config.hashers.argon2.key_length</a></td>
 			<td>
 int
 </td>
@@ -446,7 +446,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--hashers--argon2--memory"><a href="./values.yaml#L173">kratos.kratos.config.hashers.argon2.memory</a></td>
+			<td id="kratos--kratos--config--hashers--argon2--memory"><a href="./values.yaml#L174">kratos.kratos.config.hashers.argon2.memory</a></td>
 			<td>
 string
 </td>
@@ -460,7 +460,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--hashers--argon2--parallelism"><a href="./values.yaml#L172">kratos.kratos.config.hashers.argon2.parallelism</a></td>
+			<td id="kratos--kratos--config--hashers--argon2--parallelism"><a href="./values.yaml#L173">kratos.kratos.config.hashers.argon2.parallelism</a></td>
 			<td>
 int
 </td>
@@ -474,7 +474,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--hashers--argon2--salt_length"><a href="./values.yaml#L175">kratos.kratos.config.hashers.argon2.salt_length</a></td>
+			<td id="kratos--kratos--config--hashers--argon2--salt_length"><a href="./values.yaml#L176">kratos.kratos.config.hashers.argon2.salt_length</a></td>
 			<td>
 int
 </td>
@@ -530,7 +530,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--log--format"><a href="./values.yaml#L162">kratos.kratos.config.log.format</a></td>
+			<td id="kratos--kratos--config--log--format"><a href="./values.yaml#L163">kratos.kratos.config.log.format</a></td>
 			<td>
 string
 </td>
@@ -544,7 +544,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--log--leak_sensitive_values"><a href="./values.yaml#L163">kratos.kratos.config.log.leak_sensitive_values</a></td>
+			<td id="kratos--kratos--config--log--leak_sensitive_values"><a href="./values.yaml#L164">kratos.kratos.config.log.leak_sensitive_values</a></td>
 			<td>
 bool
 </td>
@@ -558,7 +558,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--log--level"><a href="./values.yaml#L161">kratos.kratos.config.log.level</a></td>
+			<td id="kratos--kratos--config--log--level"><a href="./values.yaml#L162">kratos.kratos.config.log.level</a></td>
 			<td>
 string
 </td>
@@ -572,7 +572,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--secrets--cookie[0]"><a href="./values.yaml#L168">kratos.kratos.config.secrets.cookie[0]</a></td>
+			<td id="kratos--kratos--config--secrets--cookie[0]"><a href="./values.yaml#L169">kratos.kratos.config.secrets.cookie[0]</a></td>
 			<td>
 string
 </td>
@@ -586,7 +586,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--allowed_return_urls[0]"><a href="./values.yaml#L96">kratos.kratos.config.selfservice.allowed_return_urls[0]</a></td>
+			<td id="kratos--kratos--config--selfservice--allowed_return_urls[0]"><a href="./values.yaml#L97">kratos.kratos.config.selfservice.allowed_return_urls[0]</a></td>
 			<td>
 string
 </td>
@@ -600,7 +600,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--allowed_return_urls[1]"><a href="./values.yaml#L97">kratos.kratos.config.selfservice.allowed_return_urls[1]</a></td>
+			<td id="kratos--kratos--config--selfservice--allowed_return_urls[1]"><a href="./values.yaml#L98">kratos.kratos.config.selfservice.allowed_return_urls[1]</a></td>
 			<td>
 string
 </td>
@@ -614,7 +614,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--allowed_return_urls[2]"><a href="./values.yaml#L98">kratos.kratos.config.selfservice.allowed_return_urls[2]</a></td>
+			<td id="kratos--kratos--config--selfservice--allowed_return_urls[2]"><a href="./values.yaml#L99">kratos.kratos.config.selfservice.allowed_return_urls[2]</a></td>
 			<td>
 string
 </td>
@@ -628,7 +628,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--default_browser_return_url"><a href="./values.yaml#L94">kratos.kratos.config.selfservice.default_browser_return_url</a></td>
+			<td id="kratos--kratos--config--selfservice--default_browser_return_url"><a href="./values.yaml#L95">kratos.kratos.config.selfservice.default_browser_return_url</a></td>
 			<td>
 string
 </td>
@@ -642,7 +642,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--flows--error--ui_url"><a href="./values.yaml#L122">kratos.kratos.config.selfservice.flows.error.ui_url</a></td>
+			<td id="kratos--kratos--config--selfservice--flows--error--ui_url"><a href="./values.yaml#L123">kratos.kratos.config.selfservice.flows.error.ui_url</a></td>
 			<td>
 string
 </td>
@@ -656,7 +656,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--flows--login--lifespan"><a href="./values.yaml#L147">kratos.kratos.config.selfservice.flows.login.lifespan</a></td>
+			<td id="kratos--kratos--config--selfservice--flows--login--lifespan"><a href="./values.yaml#L148">kratos.kratos.config.selfservice.flows.login.lifespan</a></td>
 			<td>
 string
 </td>
@@ -670,7 +670,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--flows--login--ui_url"><a href="./values.yaml#L146">kratos.kratos.config.selfservice.flows.login.ui_url</a></td>
+			<td id="kratos--kratos--config--selfservice--flows--login--ui_url"><a href="./values.yaml#L147">kratos.kratos.config.selfservice.flows.login.ui_url</a></td>
 			<td>
 string
 </td>
@@ -684,7 +684,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--flows--logout--after--default_browser_return_url"><a href="./values.yaml#L143">kratos.kratos.config.selfservice.flows.logout.after.default_browser_return_url</a></td>
+			<td id="kratos--kratos--config--selfservice--flows--logout--after--default_browser_return_url"><a href="./values.yaml#L144">kratos.kratos.config.selfservice.flows.logout.after.default_browser_return_url</a></td>
 			<td>
 string
 </td>
@@ -698,7 +698,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--flows--recovery--enabled"><a href="./values.yaml#L132">kratos.kratos.config.selfservice.flows.recovery.enabled</a></td>
+			<td id="kratos--kratos--config--selfservice--flows--recovery--enabled"><a href="./values.yaml#L133">kratos.kratos.config.selfservice.flows.recovery.enabled</a></td>
 			<td>
 bool
 </td>
@@ -712,7 +712,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--flows--recovery--ui_url"><a href="./values.yaml#L133">kratos.kratos.config.selfservice.flows.recovery.ui_url</a></td>
+			<td id="kratos--kratos--config--selfservice--flows--recovery--ui_url"><a href="./values.yaml#L134">kratos.kratos.config.selfservice.flows.recovery.ui_url</a></td>
 			<td>
 string
 </td>
@@ -726,7 +726,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--flows--registration--after--oidc--hooks[0]--hook"><a href="./values.yaml#L158">kratos.kratos.config.selfservice.flows.registration.after.oidc.hooks[0].hook</a></td>
+			<td id="kratos--kratos--config--selfservice--flows--registration--after--oidc--hooks[0]--hook"><a href="./values.yaml#L159">kratos.kratos.config.selfservice.flows.registration.after.oidc.hooks[0].hook</a></td>
 			<td>
 string
 </td>
@@ -740,7 +740,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--flows--registration--after--password--hooks[0]--hook"><a href="./values.yaml#L155">kratos.kratos.config.selfservice.flows.registration.after.password.hooks[0].hook</a></td>
+			<td id="kratos--kratos--config--selfservice--flows--registration--after--password--hooks[0]--hook"><a href="./values.yaml#L156">kratos.kratos.config.selfservice.flows.registration.after.password.hooks[0].hook</a></td>
 			<td>
 string
 </td>
@@ -754,7 +754,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--flows--registration--lifespan"><a href="./values.yaml#L150">kratos.kratos.config.selfservice.flows.registration.lifespan</a></td>
+			<td id="kratos--kratos--config--selfservice--flows--registration--lifespan"><a href="./values.yaml#L151">kratos.kratos.config.selfservice.flows.registration.lifespan</a></td>
 			<td>
 string
 </td>
@@ -768,7 +768,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--flows--registration--ui_url"><a href="./values.yaml#L151">kratos.kratos.config.selfservice.flows.registration.ui_url</a></td>
+			<td id="kratos--kratos--config--selfservice--flows--registration--ui_url"><a href="./values.yaml#L152">kratos.kratos.config.selfservice.flows.registration.ui_url</a></td>
 			<td>
 string
 </td>
@@ -782,7 +782,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--flows--settings--privileged_session_max_age"><a href="./values.yaml#L128">kratos.kratos.config.selfservice.flows.settings.privileged_session_max_age</a></td>
+			<td id="kratos--kratos--config--selfservice--flows--settings--privileged_session_max_age"><a href="./values.yaml#L129">kratos.kratos.config.selfservice.flows.settings.privileged_session_max_age</a></td>
 			<td>
 string
 </td>
@@ -796,7 +796,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--flows--settings--required_aal"><a href="./values.yaml#L129">kratos.kratos.config.selfservice.flows.settings.required_aal</a></td>
+			<td id="kratos--kratos--config--selfservice--flows--settings--required_aal"><a href="./values.yaml#L130">kratos.kratos.config.selfservice.flows.settings.required_aal</a></td>
 			<td>
 string
 </td>
@@ -810,7 +810,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--flows--settings--ui_url"><a href="./values.yaml#L125">kratos.kratos.config.selfservice.flows.settings.ui_url</a></td>
+			<td id="kratos--kratos--config--selfservice--flows--settings--ui_url"><a href="./values.yaml#L126">kratos.kratos.config.selfservice.flows.settings.ui_url</a></td>
 			<td>
 string
 </td>
@@ -824,7 +824,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--flows--verification--after--default_browser_return_url"><a href="./values.yaml#L139">kratos.kratos.config.selfservice.flows.verification.after.default_browser_return_url</a></td>
+			<td id="kratos--kratos--config--selfservice--flows--verification--after--default_browser_return_url"><a href="./values.yaml#L140">kratos.kratos.config.selfservice.flows.verification.after.default_browser_return_url</a></td>
 			<td>
 string
 </td>
@@ -838,7 +838,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--flows--verification--enabled"><a href="./values.yaml#L136">kratos.kratos.config.selfservice.flows.verification.enabled</a></td>
+			<td id="kratos--kratos--config--selfservice--flows--verification--enabled"><a href="./values.yaml#L137">kratos.kratos.config.selfservice.flows.verification.enabled</a></td>
 			<td>
 bool
 </td>
@@ -852,7 +852,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--flows--verification--ui_url"><a href="./values.yaml#L137">kratos.kratos.config.selfservice.flows.verification.ui_url</a></td>
+			<td id="kratos--kratos--config--selfservice--flows--verification--ui_url"><a href="./values.yaml#L138">kratos.kratos.config.selfservice.flows.verification.ui_url</a></td>
 			<td>
 string
 </td>
@@ -866,7 +866,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--methods--link--enabled"><a href="./values.yaml#L106">kratos.kratos.config.selfservice.methods.link.enabled</a></td>
+			<td id="kratos--kratos--config--selfservice--methods--link--enabled"><a href="./values.yaml#L107">kratos.kratos.config.selfservice.methods.link.enabled</a></td>
 			<td>
 bool
 </td>
@@ -880,7 +880,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--methods--lookup_secret--enabled"><a href="./values.yaml#L110">kratos.kratos.config.selfservice.methods.lookup_secret.enabled</a></td>
+			<td id="kratos--kratos--config--selfservice--methods--lookup_secret--enabled"><a href="./values.yaml#L111">kratos.kratos.config.selfservice.methods.lookup_secret.enabled</a></td>
 			<td>
 bool
 </td>
@@ -894,7 +894,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--methods--oidc--enabled"><a href="./values.yaml#L108">kratos.kratos.config.selfservice.methods.oidc.enabled</a></td>
+			<td id="kratos--kratos--config--selfservice--methods--oidc--enabled"><a href="./values.yaml#L109">kratos.kratos.config.selfservice.methods.oidc.enabled</a></td>
 			<td>
 bool
 </td>
@@ -908,7 +908,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--methods--password--enabled"><a href="./values.yaml#L102">kratos.kratos.config.selfservice.methods.password.enabled</a></td>
+			<td id="kratos--kratos--config--selfservice--methods--password--enabled"><a href="./values.yaml#L103">kratos.kratos.config.selfservice.methods.password.enabled</a></td>
 			<td>
 bool
 </td>
@@ -922,7 +922,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--methods--profile--enabled"><a href="./values.yaml#L104">kratos.kratos.config.selfservice.methods.profile.enabled</a></td>
+			<td id="kratos--kratos--config--selfservice--methods--profile--enabled"><a href="./values.yaml#L105">kratos.kratos.config.selfservice.methods.profile.enabled</a></td>
 			<td>
 bool
 </td>
@@ -936,7 +936,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--methods--totp--config--issuer"><a href="./values.yaml#L115">kratos.kratos.config.selfservice.methods.totp.config.issuer</a></td>
+			<td id="kratos--kratos--config--selfservice--methods--totp--config--issuer"><a href="./values.yaml#L116">kratos.kratos.config.selfservice.methods.totp.config.issuer</a></td>
 			<td>
 string
 </td>
@@ -950,7 +950,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--selfservice--methods--totp--enabled"><a href="./values.yaml#L112">kratos.kratos.config.selfservice.methods.totp.enabled</a></td>
+			<td id="kratos--kratos--config--selfservice--methods--totp--enabled"><a href="./values.yaml#L113">kratos.kratos.config.selfservice.methods.totp.enabled</a></td>
 			<td>
 bool
 </td>
@@ -964,7 +964,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--serve--admin--base_url"><a href="./values.yaml#L84">kratos.kratos.config.serve.admin.base_url</a></td>
+			<td id="kratos--kratos--config--serve--admin--base_url"><a href="./values.yaml#L85">kratos.kratos.config.serve.admin.base_url</a></td>
 			<td>
 string
 </td>
@@ -992,7 +992,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--serve--public--cors--allow_credentials"><a href="./values.yaml#L82">kratos.kratos.config.serve.public.cors.allow_credentials</a></td>
+			<td id="kratos--kratos--config--serve--public--cors--allow_credentials"><a href="./values.yaml#L83">kratos.kratos.config.serve.public.cors.allow_credentials</a></td>
 			<td>
 bool
 </td>
@@ -1006,7 +1006,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--serve--public--cors--allowed_headers[0]"><a href="./values.yaml#L78">kratos.kratos.config.serve.public.cors.allowed_headers[0]</a></td>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_headers[0]"><a href="./values.yaml#L79">kratos.kratos.config.serve.public.cors.allowed_headers[0]</a></td>
 			<td>
 string
 </td>
@@ -1020,7 +1020,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--serve--public--cors--allowed_headers[1]"><a href="./values.yaml#L79">kratos.kratos.config.serve.public.cors.allowed_headers[1]</a></td>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_headers[1]"><a href="./values.yaml#L80">kratos.kratos.config.serve.public.cors.allowed_headers[1]</a></td>
 			<td>
 string
 </td>
@@ -1034,7 +1034,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--serve--public--cors--allowed_headers[2]"><a href="./values.yaml#L80">kratos.kratos.config.serve.public.cors.allowed_headers[2]</a></td>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_headers[2]"><a href="./values.yaml#L81">kratos.kratos.config.serve.public.cors.allowed_headers[2]</a></td>
 			<td>
 string
 </td>
@@ -1048,7 +1048,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--serve--public--cors--allowed_headers[3]"><a href="./values.yaml#L81">kratos.kratos.config.serve.public.cors.allowed_headers[3]</a></td>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_headers[3]"><a href="./values.yaml#L82">kratos.kratos.config.serve.public.cors.allowed_headers[3]</a></td>
 			<td>
 string
 </td>
@@ -1062,7 +1062,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--serve--public--cors--allowed_methods[0]"><a href="./values.yaml#L72">kratos.kratos.config.serve.public.cors.allowed_methods[0]</a></td>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_methods[0]"><a href="./values.yaml#L73">kratos.kratos.config.serve.public.cors.allowed_methods[0]</a></td>
 			<td>
 string
 </td>
@@ -1076,7 +1076,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--serve--public--cors--allowed_methods[1]"><a href="./values.yaml#L73">kratos.kratos.config.serve.public.cors.allowed_methods[1]</a></td>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_methods[1]"><a href="./values.yaml#L74">kratos.kratos.config.serve.public.cors.allowed_methods[1]</a></td>
 			<td>
 string
 </td>
@@ -1090,7 +1090,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--serve--public--cors--allowed_methods[2]"><a href="./values.yaml#L74">kratos.kratos.config.serve.public.cors.allowed_methods[2]</a></td>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_methods[2]"><a href="./values.yaml#L75">kratos.kratos.config.serve.public.cors.allowed_methods[2]</a></td>
 			<td>
 string
 </td>
@@ -1104,7 +1104,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--serve--public--cors--allowed_methods[3]"><a href="./values.yaml#L75">kratos.kratos.config.serve.public.cors.allowed_methods[3]</a></td>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_methods[3]"><a href="./values.yaml#L76">kratos.kratos.config.serve.public.cors.allowed_methods[3]</a></td>
 			<td>
 string
 </td>
@@ -1118,7 +1118,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--serve--public--cors--allowed_methods[4]"><a href="./values.yaml#L76">kratos.kratos.config.serve.public.cors.allowed_methods[4]</a></td>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_methods[4]"><a href="./values.yaml#L77">kratos.kratos.config.serve.public.cors.allowed_methods[4]</a></td>
 			<td>
 string
 </td>
@@ -1160,6 +1160,20 @@ string
 			<td></td>
 		</tr>
 		<tr>
+			<td id="kratos--kratos--config--serve--public--cors--allowed_origins[2]"><a href="./values.yaml#L71">kratos.kratos.config.serve.public.cors.allowed_origins[2]</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"https://*.shortlink.best"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
 			<td id="kratos--kratos--config--serve--public--cors--debug"><a href="./values.yaml#L67">kratos.kratos.config.serve.public.cors.debug</a></td>
 			<td>
 bool
@@ -1188,21 +1202,21 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--session--cookie--domain"><a href="./values.yaml#L90">kratos.kratos.config.session.cookie.domain</a></td>
+			<td id="kratos--kratos--config--session--cookie--domain"><a href="./values.yaml#L91">kratos.kratos.config.session.cookie.domain</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"https://shortlink.best"
+"shortlink.best"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--session--cookie--same_site"><a href="./values.yaml#L91">kratos.kratos.config.session.cookie.same_site</a></td>
+			<td id="kratos--kratos--config--session--cookie--same_site"><a href="./values.yaml#L92">kratos.kratos.config.session.cookie.same_site</a></td>
 			<td>
 string
 </td>
@@ -1216,7 +1230,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--config--session--lifespan"><a href="./values.yaml#L88">kratos.kratos.config.session.lifespan</a></td>
+			<td id="kratos--kratos--config--session--lifespan"><a href="./values.yaml#L89">kratos.kratos.config.session.lifespan</a></td>
 			<td>
 string
 </td>
@@ -1230,7 +1244,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--development"><a href="./values.yaml#L178">kratos.kratos.development</a></td>
+			<td id="kratos--kratos--development"><a href="./values.yaml#L179">kratos.kratos.development</a></td>
 			<td>
 bool
 </td>
@@ -1244,7 +1258,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--identitySchemas--"identity--default--schema--json""><a href="./values.yaml#L199">kratos.kratos.identitySchemas."identity.default.schema.json"</a></td>
+			<td id="kratos--kratos--identitySchemas--"identity--default--schema--json""><a href="./values.yaml#L200">kratos.kratos.identitySchemas."identity.default.schema.json"</a></td>
 			<td>
 string
 </td>
@@ -1258,7 +1272,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--identitySchemas--"oidc--github--jsonnet""><a href="./values.yaml#L252">kratos.kratos.identitySchemas."oidc.github.jsonnet"</a></td>
+			<td id="kratos--kratos--identitySchemas--"oidc--github--jsonnet""><a href="./values.yaml#L253">kratos.kratos.identitySchemas."oidc.github.jsonnet"</a></td>
 			<td>
 string
 </td>
@@ -1272,7 +1286,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--kratos--identitySchemas--"oidc--gitlab--jsonnet""><a href="./values.yaml#L273">kratos.kratos.identitySchemas."oidc.gitlab.jsonnet"</a></td>
+			<td id="kratos--kratos--identitySchemas--"oidc--gitlab--jsonnet""><a href="./values.yaml#L274">kratos.kratos.identitySchemas."oidc.gitlab.jsonnet"</a></td>
 			<td>
 string
 </td>
@@ -1314,7 +1328,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--serviceMonitor--enabled"><a href="./values.yaml#L293">kratos.serviceMonitor.enabled</a></td>
+			<td id="kratos--serviceMonitor--enabled"><a href="./values.yaml#L294">kratos.serviceMonitor.enabled</a></td>
 			<td>
 bool
 </td>
@@ -1328,7 +1342,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kratos--serviceMonitor--labels--release"><a href="./values.yaml#L296">kratos.serviceMonitor.labels.release</a></td>
+			<td id="kratos--serviceMonitor--labels--release"><a href="./values.yaml#L297">kratos.serviceMonitor.labels.release</a></td>
 			<td>
 string
 </td>

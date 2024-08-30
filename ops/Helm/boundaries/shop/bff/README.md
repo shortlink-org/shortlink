@@ -1,6 +1,6 @@
 # bff
 
-![Version: 0.1.1](https://img.shields.io/badge/Version-0.1.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.1.2](https://img.shields.io/badge/Version-0.1.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ShortLink Shop BFF
 
@@ -35,7 +35,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="deploy--annotations"><a href="./values.yaml#L43">deploy.annotations</a></td>
+			<td id="deploy--annotations"><a href="./values.yaml#L46">deploy.annotations</a></td>
 			<td>
 object
 </td>
@@ -49,7 +49,21 @@ object
 			<td>Annotations to be added to controller pods</td>
 		</tr>
 		<tr>
-			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L51">deploy.image.pullPolicy</a></td>
+			<td id="deploy--env--GOODS_API_URL"><a href="./values.yaml#L35">deploy.env.GOODS_API_URL</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"http://shortlink-shop-admin.shortlink-shop:8000/"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--image--pullPolicy"><a href="./values.yaml#L54">deploy.image.pullPolicy</a></td>
 			<td>
 string
 </td>
@@ -63,7 +77,7 @@ string
 			<td>Global imagePullPolicy Default: 'Always' if image tag is 'latest', else 'IfNotPresent' Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images</td>
 		</tr>
 		<tr>
-			<td id="deploy--image--repository"><a href="./values.yaml#L46">deploy.image.repository</a></td>
+			<td id="deploy--image--repository"><a href="./values.yaml#L49">deploy.image.repository</a></td>
 			<td>
 string
 </td>
@@ -77,14 +91,14 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--image--tag"><a href="./values.yaml#L47">deploy.image.tag</a></td>
+			<td id="deploy--image--tag"><a href="./values.yaml#L50">deploy.image.tag</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"0.18.15"
+"0.18.15.3"
 </pre>
 </div>
 			</td>
@@ -105,7 +119,7 @@ list
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--livenessProbe"><a href="./values.yaml#L54">deploy.livenessProbe</a></td>
+			<td id="deploy--livenessProbe"><a href="./values.yaml#L57">deploy.livenessProbe</a></td>
 			<td>
 object
 </td>
@@ -113,9 +127,9 @@ object
 				<div style="max-width: 300px;">
 <pre lang="json">
 {
-  "enabled": true,
+  "enabled": false,
   "httpGet": {
-    "path": "/",
+    "path": "/health",
     "port": 9991
   }
 }
@@ -125,7 +139,7 @@ object
 			<td>define a liveness probe that checks every 5 seconds, starting after 5 seconds</td>
 		</tr>
 		<tr>
-			<td id="deploy--readinessProbe"><a href="./values.yaml#L61">deploy.readinessProbe</a></td>
+			<td id="deploy--readinessProbe"><a href="./values.yaml#L64">deploy.readinessProbe</a></td>
 			<td>
 object
 </td>
@@ -133,9 +147,9 @@ object
 				<div style="max-width: 300px;">
 <pre lang="json">
 {
-  "enabled": true,
+  "enabled": false,
   "httpGet": {
-    "path": "/",
+    "path": "/health",
     "port": 9991
   }
 }
@@ -159,7 +173,35 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--limits--cpu"><a href="./values.yaml#L36">deploy.resources.limits.cpu</a></td>
+			<td id="deploy--resources--limits--cpu"><a href="./values.yaml#L39">deploy.resources.limits.cpu</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"1000m"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--resources--limits--memory"><a href="./values.yaml#L40">deploy.resources.limits.memory</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"512Mi"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L42">deploy.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -173,35 +215,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--resources--limits--memory"><a href="./values.yaml#L37">deploy.resources.limits.memory</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"128Mi"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="deploy--resources--requests--cpu"><a href="./values.yaml#L39">deploy.resources.requests.cpu</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"15m"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L40">deploy.resources.requests.memory</a></td>
+			<td id="deploy--resources--requests--memory"><a href="./values.yaml#L43">deploy.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -215,7 +229,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--securityContext--readOnlyRootFilesystem"><a href="./values.yaml#L68">deploy.securityContext.readOnlyRootFilesystem</a></td>
+			<td id="deploy--securityContext--readOnlyRootFilesystem"><a href="./values.yaml#L71">deploy.securityContext.readOnlyRootFilesystem</a></td>
 			<td>
 bool
 </td>
@@ -229,7 +243,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--volumes[0]--mountPath"><a href="./values.yaml#L72">deploy.volumes[0].mountPath</a></td>
+			<td id="deploy--volumes[0]--mountPath"><a href="./values.yaml#L75">deploy.volumes[0].mountPath</a></td>
 			<td>
 string
 </td>
@@ -243,7 +257,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--volumes[0]--name"><a href="./values.yaml#L71">deploy.volumes[0].name</a></td>
+			<td id="deploy--volumes[0]--name"><a href="./values.yaml#L74">deploy.volumes[0].name</a></td>
 			<td>
 string
 </td>
@@ -257,7 +271,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--volumes[0]--type"><a href="./values.yaml#L73">deploy.volumes[0].type</a></td>
+			<td id="deploy--volumes[0]--type"><a href="./values.yaml#L76">deploy.volumes[0].type</a></td>
 			<td>
 string
 </td>
@@ -425,7 +439,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="monitoring--enabled"><a href="./values.yaml#L88">monitoring.enabled</a></td>
+			<td id="monitoring--enabled"><a href="./values.yaml#L91">monitoring.enabled</a></td>
 			<td>
 bool
 </td>
@@ -439,7 +453,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="networkPolicy--enabled"><a href="./values.yaml#L98">networkPolicy.enabled</a></td>
+			<td id="networkPolicy--enabled"><a href="./values.yaml#L101">networkPolicy.enabled</a></td>
 			<td>
 bool
 </td>
@@ -453,7 +467,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L93">podDisruptionBudget.enabled</a></td>
+			<td id="podDisruptionBudget--enabled"><a href="./values.yaml#L96">podDisruptionBudget.enabled</a></td>
 			<td>
 bool
 </td>
@@ -467,7 +481,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--name"><a href="./values.yaml#L80">service.ports[0].name</a></td>
+			<td id="service--ports[0]--name"><a href="./values.yaml#L83">service.ports[0].name</a></td>
 			<td>
 string
 </td>
@@ -481,7 +495,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--port"><a href="./values.yaml#L81">service.ports[0].port</a></td>
+			<td id="service--ports[0]--port"><a href="./values.yaml#L84">service.ports[0].port</a></td>
 			<td>
 int
 </td>
@@ -495,7 +509,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--protocol"><a href="./values.yaml#L82">service.ports[0].protocol</a></td>
+			<td id="service--ports[0]--protocol"><a href="./values.yaml#L85">service.ports[0].protocol</a></td>
 			<td>
 string
 </td>
@@ -509,7 +523,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--ports[0]--public"><a href="./values.yaml#L83">service.ports[0].public</a></td>
+			<td id="service--ports[0]--public"><a href="./values.yaml#L86">service.ports[0].public</a></td>
 			<td>
 bool
 </td>
@@ -523,7 +537,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="service--type"><a href="./values.yaml#L78">service.type</a></td>
+			<td id="service--type"><a href="./values.yaml#L81">service.type</a></td>
 			<td>
 string
 </td>

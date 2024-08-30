@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | oncall | 1.9.9 |
+| https://grafana.github.io/helm-charts | oncall | 1.9.18 |
 | oci://registry-1.docker.io/bitnamicharts | redis | 20.0.3 |
 
 ## Values
