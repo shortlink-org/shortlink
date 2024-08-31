@@ -18,7 +18,7 @@ spec:
         # Keep exporter port and drop all others
         - sourceLabels: [ __meta_kubernetes_pod_container_port_number ]
           action: keep
-          regex: ^9187$
+          regex: "^9187$"
         # Set label for namespace
         - sourceLabels: [ __meta_kubernetes_namespace ]
           targetLabel: kubernetes_namespace
