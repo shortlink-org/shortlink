@@ -7,7 +7,7 @@ pgo:
 
   env:
     - name: PGO_FEATURE_GATES
-      value: 'AutoGrowVolumes=true'
+      value: 'AutoGrowVolumes=true,AppendCustomQueries=true'
 
   resources:
     controller:
