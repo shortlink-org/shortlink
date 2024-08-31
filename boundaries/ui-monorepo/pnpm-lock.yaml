@@ -105,8 +105,8 @@ importers:
         specifier: ^15.9.0
         version: 15.9.0
       material-react-table:
-        specifier: ^2.13.1
-        version: 2.13.1(lnxgfolj3y5qqmuctocbdna544)
+        specifier: ^2.13.2
+        version: 2.13.2(lnxgfolj3y5qqmuctocbdna544)
       next:
         specifier: 15.0.0-rc.0
         version: 15.0.0-rc.0(@babel/core@7.25.2)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@0.0.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.77.8)
@@ -425,8 +425,8 @@ importers:
         specifier: ^11.0.0
         version: 11.0.0
       material-react-table:
-        specifier: ^2.13.1
-        version: 2.13.1(5mehs7yd5uqyc54kjciidj5m6a)
+        specifier: ^2.13.2
+        version: 2.13.2(5mehs7yd5uqyc54kjciidj5m6a)
       vite-plugin-dts:
         specifier: 4.0.3
         version: 4.0.3(@types/node@22.5.1)(rollup@4.21.2)(typescript@5.5.4)(vite@5.4.2(@types/node@22.5.1)(less@4.1.3)(lightningcss@1.26.0)(sass@1.77.8)(stylus@0.59.0)(terser@5.31.6))
@@ -4025,12 +4025,12 @@ packages:
     peerDependencies:
       tailwindcss: '>=3.0.0 || insiders || >=4.0.0-alpha.20'
 
-  '@tanstack/match-sorter-utils@8.15.1':
-    resolution: {integrity: sha512-PnVV3d2poenUM31ZbZi/yXkBu3J7kd5k2u51CGwwNojag451AjTH9N6n41yjXz2fpLeewleyLBmNS6+HcGDlXw==}
+  '@tanstack/match-sorter-utils@8.19.4':
+    resolution: {integrity: sha512-Wo1iKt2b9OT7d+YGhvEPD3DXvPv2etTusIMhMUoG7fbhmxcXCtIjJDEygy91Y2JFlwGyjqiBPRozme7UD8hoqg==}
     engines: {node: '>=12'}
 
-  '@tanstack/react-table@8.19.3':
-    resolution: {integrity: sha512-MtgPZc4y+cCRtU16y1vh1myuyZ2OdkWgMEBzyjYsoMWMicKZGZvcDnub3Zwb6XF2pj9iRMvm1SO1n57lS0vXLw==}
+  '@tanstack/react-table@8.20.5':
+    resolution: {integrity: sha512-WEHopKw3znbUZ61s9i0+i9g8drmDo6asTWbrQh8Us63DAk/M0FkmIqERew6P71HI75ksZ2Pxyuf4vvKh9rAkiA==}
     engines: {node: '>=12'}
     peerDependencies:
       react: '>=16.8'
@@ -4042,21 +4042,12 @@ packages:
       react: ^16.8.0 || ^17.0.0 || ^18.0.0
       react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
 
-  '@tanstack/react-virtual@3.8.3':
-    resolution: {integrity: sha512-9ICwbDUUzN99CJIGc373i8NLoj6zFTKI2Hlcmo0+lCSAhPQ5mxq4dGOMKmLYoEFyHcGQ64Bd6ZVbnPpM6lNK5w==}
-    peerDependencies:
-      react: ^16.8.0 || ^17.0.0 || ^18.0.0
-      react-dom: ^16.8.0 || ^17.0.0 || ^18.0.0
-
-  '@tanstack/table-core@8.19.3':
-    resolution: {integrity: sha512-IqREj9ADoml9zCAouIG/5kCGoyIxPFdqdyoxis9FisXFi5vT+iYfEfLosq4xkU/iDbMcEuAj+X8dWRLvKYDNoQ==}
+  '@tanstack/table-core@8.20.5':
+    resolution: {integrity: sha512-P9dF7XbibHph2PFRz8gfBKEXEY/HJPOhym8CHmjF8y3q5mWpKx9xtZapXQUWCgkqvsK0R46Azuz+VaxD4Xl+Tg==}
     engines: {node: '>=12'}
 
   '@tanstack/virtual-core@3.10.6':
     resolution: {integrity: sha512-1giLc4dzgEKLMx5pgKjL6HlG5fjZMgCjzlKAlpr7yoUtetVPELgER1NtephAI910nMwfPTHNyWKSFmJdHkz2Cw==}
-
-  '@tanstack/virtual-core@3.8.3':
-    resolution: {integrity: sha512-vd2A2TnM5lbnWZnHi9B+L2gPtkSeOtJOAw358JqokIH1+v2J7vUAzFVPwB/wrye12RFOurffXu33plm4uQ+JBQ==}
 
   '@testing-library/dom@10.4.0':
     resolution: {integrity: sha512-pemlzrSESWbdAloYml3bAJMEfNh1Z7EduzqPKprCH5S341frlpYnUEW0H72dLxa6IsYr+mPno20GiSm+h9dEdQ==}
@@ -7564,8 +7555,8 @@ packages:
     peerDependencies:
       react: '>= 0.14.0'
 
-  material-react-table@2.13.1:
-    resolution: {integrity: sha512-3iWwCa24ogxwllP4+W11euR/GV6f5wQE5FEilJ72/H3hDYHgsN+XehANytaG0G7/qy/OWYE7oXkcsRUU35I/iA==}
+  material-react-table@2.13.2:
+    resolution: {integrity: sha512-8q2Jq723rqCNNxZ9yKZOBU9A2EzcdjT/6IQIXoigRZO2IUROEhcv5bvg8Sqojz+Au5bNQJ8f7RNzSP1UOzirNA==}
     engines: {node: '>=16'}
     peerDependencies:
       '@emotion/react': '>=11.11'
@@ -15451,21 +15442,27 @@ snapshots:
       postcss-selector-parser: 6.0.10
       tailwindcss: 3.4.10(ts-node@10.9.2(@swc/core@1.7.22(@swc/helpers@0.5.12))(@types/node@20.16.2)(typescript@5.5.4))
 
-  '@tanstack/match-sorter-utils@8.15.1':
+  '@tanstack/match-sorter-utils@8.19.4':
     dependencies:
       remove-accents: 0.5.0
 
-  '@tanstack/react-table@8.19.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+  '@tanstack/react-table@8.20.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
     dependencies:
-      '@tanstack/table-core': 8.19.3
+      '@tanstack/table-core': 8.20.5
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  '@tanstack/react-table@8.19.3(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)':
+  '@tanstack/react-table@8.20.5(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)':
     dependencies:
-      '@tanstack/table-core': 8.19.3
+      '@tanstack/table-core': 8.20.5
       react: 19.0.0-rc-fb9a90fa48-20240614
       react-dom: 19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614)
+
+  '@tanstack/react-virtual@3.10.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
+    dependencies:
+      '@tanstack/virtual-core': 3.10.6
+      react: 18.3.1
+      react-dom: 18.3.1(react@18.3.1)
 
   '@tanstack/react-virtual@3.10.6(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)':
     dependencies:
@@ -15473,23 +15470,9 @@ snapshots:
       react: 19.0.0-rc-fb9a90fa48-20240614
       react-dom: 19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614)
 
-  '@tanstack/react-virtual@3.8.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)':
-    dependencies:
-      '@tanstack/virtual-core': 3.8.3
-      react: 18.3.1
-      react-dom: 18.3.1(react@18.3.1)
-
-  '@tanstack/react-virtual@3.8.3(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)':
-    dependencies:
-      '@tanstack/virtual-core': 3.8.3
-      react: 19.0.0-rc-fb9a90fa48-20240614
-      react-dom: 19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614)
-
-  '@tanstack/table-core@8.19.3': {}
+  '@tanstack/table-core@8.20.5': {}
 
   '@tanstack/virtual-core@3.10.6': {}
-
-  '@tanstack/virtual-core@3.8.3': {}
 
   '@testing-library/dom@10.4.0':
     dependencies:
@@ -19569,30 +19552,30 @@ snapshots:
     dependencies:
       react: 18.3.1
 
-  material-react-table@2.13.1(5mehs7yd5uqyc54kjciidj5m6a):
+  material-react-table@2.13.2(5mehs7yd5uqyc54kjciidj5m6a):
     dependencies:
       '@emotion/react': 11.13.3(@types/react@18.3.5)(react@18.3.1)
       '@emotion/styled': 11.11.5(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1)
       '@mui/icons-material': 6.0.0-beta.6(@mui/material@6.0.0-beta.6(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.11.5(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@types/react@18.3.5)(react@18.3.1)
       '@mui/material': 6.0.0-beta.6(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.11.5(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       '@mui/x-date-pickers': 7.15.0(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.11.5(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@mui/material@6.0.0-beta.6(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.11.5(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(@mui/system@6.0.0-beta.6(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@emotion/styled@11.11.5(@emotion/react@11.13.3(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(react@18.3.1))(@types/react@18.3.5)(date-fns@3.6.0)(dayjs@1.11.12)(luxon@3.5.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tanstack/match-sorter-utils': 8.15.1
-      '@tanstack/react-table': 8.19.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
-      '@tanstack/react-virtual': 3.8.3(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tanstack/match-sorter-utils': 8.19.4
+      '@tanstack/react-table': 8.20.5(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
+      '@tanstack/react-virtual': 3.10.6(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       highlight-words: 1.2.2
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
 
-  material-react-table@2.13.1(lnxgfolj3y5qqmuctocbdna544):
+  material-react-table@2.13.2(lnxgfolj3y5qqmuctocbdna544):
     dependencies:
       '@emotion/react': 11.13.3(@types/react@18.3.5)(react@19.0.0-rc-fb9a90fa48-20240614)
       '@emotion/styled': 11.11.5(@emotion/react@11.13.3(@types/react@18.3.5)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.5)(react@19.0.0-rc-fb9a90fa48-20240614)
       '@mui/icons-material': 6.0.0-beta.6(@mui/material@6.0.0-beta.6(@emotion/react@11.13.3(@types/react@18.3.5)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.13.3(@types/react@18.3.5)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.5)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.5)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.5)(react@19.0.0-rc-fb9a90fa48-20240614)
       '@mui/material': 6.0.0-beta.6(@emotion/react@11.13.3(@types/react@18.3.5)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.13.3(@types/react@18.3.5)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.5)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.5)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
       '@mui/x-date-pickers': 7.15.0(c2jevfiu7kombyjdxqapzj2f54)
-      '@tanstack/match-sorter-utils': 8.15.1
-      '@tanstack/react-table': 8.19.3(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
-      '@tanstack/react-virtual': 3.8.3(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
+      '@tanstack/match-sorter-utils': 8.19.4
+      '@tanstack/react-table': 8.20.5(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
+      '@tanstack/react-virtual': 3.10.6(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
       highlight-words: 1.2.2
       react: 19.0.0-rc-fb9a90fa48-20240614
       react-dom: 19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614)
