@@ -4,6 +4,9 @@ kind: PodMonitor
 metadata:
   name: crunchy-postgres-exporter
 spec:
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
   selector:
     matchLabels:
       postgres-operator.crunchydata.com/crunchy-postgres-exporter: "true"
