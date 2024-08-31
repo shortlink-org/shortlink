@@ -21,22 +21,22 @@ spec:
           regex: 9187
         # Set label for namespace
         - sourceLabels: [ __meta_kubernetes_namespace ]
-          target_label: kubernetes_namespace
+          targetLabel: kubernetes_namespace
         # Set label for pod name
         - sourceLabels: [ __meta_kubernetes_pod_name ]
-          target_label: pod
+          targetLabel: pod
         # Convert namespace and cluster name to pg_cluster=namespace:cluster
         - sourceLabels: [ __meta_kubernetes_namespace,__meta_kubernetes_pod_label_pg_cluster ]
-          target_label: pg_cluster
+          targetLabel: pg_cluster
           separator: ":"
           replacement: '$1$2'
         # Convert kubernetes pod ip to ip
         - sourceLabels: [ __meta_kubernetes_pod_ip ]
-          target_label: ip
+          targetLabel: ip
         # Set deployment_name as deployment label
         - sourceLabels: [ __meta_kubernetes_pod_label_deployment_name ]
-          target_label: deployment
+          targetLabel: deployment
         # Set label for role
         - sourceLabels: [ __meta_kubernetes_pod_label_role ]
-          target_label: role
+          targetLabel: role
 {{- end }}
