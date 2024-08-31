@@ -18,6 +18,10 @@ spec:
       interval: 10s
       relabelings:
         - sourceLabels:
+            - "__meta_kubernetes_pod_label_postgres_operator_crunchydata_com_crunchy_postgres_exporter"
+          action: "keep"
+          regex: "true"
+        - sourceLabels:
             - "__meta_kubernetes_pod_container_port_number"
           action: "drop"
           regex: "5432"
