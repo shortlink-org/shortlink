@@ -13,30 +13,63 @@ spec:
     - pg_cluster
   podMetricsEndpoints:
     - port: exporter
+      path: /metrics
       honorLabels: true
+      interval: 10s
       relabelings:
-        # Keep exporter port and drop all others
-        - sourceLabels: [ __meta_kubernetes_pod_container_port_number ]
-          action: keep
-          regex: "^9187$"
-        # Set label for namespace
-        - sourceLabels: [ __meta_kubernetes_namespace ]
-          targetLabel: kubernetes_namespace
-        # Set label for pod name
-        - sourceLabels: [ __meta_kubernetes_pod_name ]
-          targetLabel: pod
-        # Convert namespace and cluster name to pg_cluster=namespace:cluster
-        - sourceLabels: [ __meta_kubernetes_namespace,__meta_kubernetes_pod_label_pg_cluster ]
-          targetLabel: pg_cluster
-          separator: ":"
+        - sourceLabels:
+            - "__meta_kubernetes_pod_container_port_number"
+          action: "drop"
+          regex: "5432"
+        - sourceLabels:
+            - "__meta_kubernetes_pod_container_port_number"
+          action: "drop"
+          regex: "8009"
+        - sourceLabels:
+            - "__meta_kubernetes_pod_container_port_number"
+          action: "drop"
+          regex: "2022"
+        - sourceLabels:
+            - "__meta_kubernetes_pod_container_port_number"
+          action: "drop"
+          regex: "10000"
+        - sourceLabels:
+            - "__meta_kubernetes_namespace"
+          action: "replace"
+          targetLabel: "kubernetes_namespace"
+        - sourceLabels:
+            - "__meta_kubernetes_pod_name"
+          targetLabel: "pod"
+        - sourceLabels:
+            - "__meta_kubernetes_namespace"
+            - "__meta_kubernetes_pod_label_postgres_operator_crunchydata_com_cluster"
+          targetLabel: "pg_cluster"
+          separator: ':'
           replacement: '$1$2'
-        # Convert kubernetes pod ip to ip
-        - sourceLabels: [ __meta_kubernetes_pod_ip ]
-          targetLabel: ip
-        # Set deployment_name as deployment label
-        - sourceLabels: [ __meta_kubernetes_pod_label_deployment_name ]
-          targetLabel: deployment
-        # Set label for role
-        - sourceLabels: [ __meta_kubernetes_pod_label_role ]
-          targetLabel: role
+        - sourceLabels:
+            - "__meta_kubernetes_pod_ip"
+          targetLabel: "ip"
+          replacement: "$1"
+        - sourceLabels:
+            - "__meta_kubernetes_pod_label_postgres_operator_crunchydata_com_instance"
+          targetLabel: "deployment"
+          replacement: '$1'
+        - sourceLabels:
+            - "__meta_kubernetes_pod_label_postgres_operator_crunchydata_com_role"
+          targetLabel: "role"
+          replacement: '$1'
+        - sourceLabels:
+            - "dbname"
+          targetLabel: "dbname"
+          replacement: "$1"
+        - sourceLabels:
+            - "relname"
+          targetLabel: "relname"
+          replacement: "$1"
+        - sourceLabels:
+            - "schemaname"
+          targetLabel: "schemaname"
+          replacement: "$1"
+        - targetLabel: "exp_type"
+          replacement: "pg"
 {{- end }}
