@@ -1,3 +1,19 @@
+argo-redis:
+  stage: deploy
+  variables:
+    PROVIDER: $PROVIDER
+    RELEASE_NAME: argo-redis
+    HELM_PATH: ops/Helm/addons/argo/argo-redis
+    HELM_NAMESPACE: argocd
+    ENVIRONMENT_URL: https://argo.${ENVIRONMENT_URL}
+  trigger:
+    include:
+      - local: '.gitlab/ci/pipelines/helm_deploy.yml'
+    strategy: depend
+  needs: []
+  rules:
+    - when: manual
+
 argo-cd:
   stage: deploy
   variables:
