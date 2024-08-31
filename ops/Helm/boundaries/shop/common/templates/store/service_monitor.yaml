@@ -1,0 +1,21 @@
+{{- if .Values.monitoring.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: crunchy-postgres-exporter-monitor
+  labels:
+    release: prometheus-operator
+spec:
+  namespaceSelector:
+    matchNames:
+      - {{ .Release.Namespace }}
+  selector:
+    matchLabels:
+      postgres-operator.crunchydata.com/crunchy-postgres-exporter: 'true'
+  endpoints:
+    - port: exporter
+      targetPort: 9187
+      protocol: TCP
+      interval: 30s
+  jobLabel: crunchy-postgres-exporter
+{{- end }}
