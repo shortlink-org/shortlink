@@ -2,13 +2,18 @@
 apiVersion: monitoring.coreos.com/v1
 kind: PodMonitor
 metadata:
-  name: postgresql-exporter
+  name: crunchy-postgres-exporter
 spec:
   selector:
     matchLabels:
       postgres-operator.crunchydata.com/crunchy-postgres-exporter: "true"
+  podTargetLabels:
+    - deployment
+    - role
+    - pg_cluster
   podMetricsEndpoints:
     - port: exporter
+      honorLabels: true
       relabelings:
         - sourceLabels: [__meta_kubernetes_namespace]
           action: replace
