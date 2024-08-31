@@ -103,9 +103,10 @@ argo-cd:
     host: redis-master.argocd
 
   server:
+    replicas: 1
+
     autoscaling:
-      enabled: true
-      minReplicas: 2
+      enabled: false
 
     metrics:
       enabled: true
@@ -169,9 +170,10 @@ argo-cd:
               value: https://github.com/shortlink-org/shortlink/raw/main/boundaries/platform/argocd-extension-docs/ui/dist/extension.tar
 
   repoServer:
+    replicas: 1
+
     autoscaling:
-      enabled: true
-      minReplicas: 2
+      enabled: false
 
     serviceAccount:
       create: true
@@ -259,7 +261,7 @@ argo-cd:
           - name: HELM_SECRETS_VERSION
             value: "4.6.0"
           - name: KUBECTL_VERSION
-            value: "1.30.3"
+            value: "1.31.0"
           - name: VALS_VERSION
             value: "0.37.3"
           - name: SOPS_VERSION
@@ -283,7 +285,7 @@ argo-cd:
             name: custom-tools
 
   applicationSet:
-    replicas: 2
+    replicas: 1
 
     resources:
       limits:
