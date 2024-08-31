@@ -16,27 +16,27 @@ spec:
       honorLabels: true
       relabelings:
         # Keep exporter port and drop all others
-        - source_labels: [ __meta_kubernetes_pod_container_port_number ]
+        - sourceLabels: [ __meta_kubernetes_pod_container_port_number ]
           action: keep
           regex: 9187
         # Set label for namespace
-        - source_labels: [ __meta_kubernetes_namespace ]
+        - sourceLabels: [ __meta_kubernetes_namespace ]
           target_label: kubernetes_namespace
         # Set label for pod name
-        - source_labels: [ __meta_kubernetes_pod_name ]
+        - sourceLabels: [ __meta_kubernetes_pod_name ]
           target_label: pod
         # Convert namespace and cluster name to pg_cluster=namespace:cluster
-        - source_labels: [ __meta_kubernetes_namespace,__meta_kubernetes_pod_label_pg_cluster ]
+        - sourceLabels: [ __meta_kubernetes_namespace,__meta_kubernetes_pod_label_pg_cluster ]
           target_label: pg_cluster
           separator: ":"
           replacement: '$1$2'
         # Convert kubernetes pod ip to ip
-        - source_labels: [ __meta_kubernetes_pod_ip ]
+        - sourceLabels: [ __meta_kubernetes_pod_ip ]
           target_label: ip
         # Set deployment_name as deployment label
-        - source_labels: [ __meta_kubernetes_pod_label_deployment_name ]
+        - sourceLabels: [ __meta_kubernetes_pod_label_deployment_name ]
           target_label: deployment
         # Set label for role
-        - source_labels: [ __meta_kubernetes_pod_label_role ]
+        - sourceLabels: [ __meta_kubernetes_pod_label_role ]
           target_label: role
 {{- end }}
