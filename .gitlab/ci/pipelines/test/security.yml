@@ -1,6 +1,5 @@
 include:
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
-  - template: $CI_SERVER_FQDN/components/container-scanning/container-scanning@main
   - component: $CI_SERVER_FQDN/components/dependency-scanning/cargo@main
   - component: $CI_SERVER_FQDN/components/dependency-scanning/android@main
   - component: $CI_SERVER_FQDN/components/secret-detection/secret-detection@main
