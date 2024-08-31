@@ -1,10 +1,11 @@
 include:
-  # https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/Jobs/SAST-IaC.latest.gitlab-ci.yml
-  - template: Jobs/SAST-IaC.latest.gitlab-ci.yml
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
-  - component: gitlab.com/components/secret-detection/secret-detection@main
-  - component: gitlab.com/components/code-quality/code-quality@main
-  - component: gitlab.com/components/sast/sast@main
+  - template: $CI_SERVER_FQDN/components/container-scanning/container-scanning@main
+  - component: $CI_SERVER_FQDN/components/dependency-scanning/cargo@main
+  - component: $CI_SERVER_FQDN/components/dependency-scanning/android@main
+  - component: $CI_SERVER_FQDN/components/secret-detection/secret-detection@main
+  - component: $CI_SERVER_FQDN/components/code-quality/code-quality@main
+  - component: $CI_SERVER_FQDN/components/sast/sast@main
     inputs:
       run_kubesec_sast: "true"
       include_experimental: "true"
