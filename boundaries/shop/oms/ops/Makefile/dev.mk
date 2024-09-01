@@ -8,11 +8,14 @@ up: ## Run for development mode
 		-f $(ROOT_DIR)/docker-compose.yaml \
 		-f $(ROOT_DIR)/ops/docker-compose/tooling/services/coredns/coredns.yaml \
 		-f $(ROOT_DIR)/ops/docker-compose/tooling/saas/temporal/temporal.yaml \
+		-f $(ROOT_DIR)/ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
 		up -d --remove-orphans --build
 
 down: confirm ## Down docker compose
 	@COMPOSE_PROFILES=dns,observability,gateway docker compose \
 		-f $(ROOT_DIR)/docker-compose.yaml \
 		-f $(ROOT_DIR)/ops/docker-compose/tooling/services/coredns/coredns.yaml \
+		-f $(ROOT_DIR)/ops/docker-compose/tooling/saas/temporal/temporal.yaml \
+		-f $(ROOT_DIR)/ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
 	down --remove-orphans
 	@docker network prune -f
