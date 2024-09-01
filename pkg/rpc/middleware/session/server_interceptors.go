@@ -18,6 +18,11 @@ func SessionUnaryServerInterceptor() grpc.UnaryServerInterceptor {
 		info *grpc.UnaryServerInfo,
 		handler grpc.UnaryHandler,
 	) (any, error) {
+		// Skip user-id extraction for ServerReflectionInfo method
+		if info.FullMethod == "/grpc.reflection.v1alpha.ServerReflection/ServerReflectionInfo" {
+			return handler(ctx, req)
+		}
+
 		md, ok := metadata.FromIncomingContext(ctx)
 		if !ok {
 			return nil, session.ErrMetadataNotFound
@@ -42,6 +47,11 @@ func SessionStreamServerInterceptor() grpc.StreamServerInterceptor {
 		info *grpc.StreamServerInfo,
 		handler grpc.StreamHandler,
 	) error {
+		// Skip user-id extraction for ServerReflectionInfo method
+		if info.FullMethod == "/grpc.reflection.v1alpha.ServerReflection/ServerReflectionInfo" {
+			return handler(srv, stream)
+		}
+
 		wrapped := grpc_middleware.WrapServerStream(stream)
 		ctx := wrapped.Context()
 
