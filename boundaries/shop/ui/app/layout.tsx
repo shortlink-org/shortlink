@@ -83,13 +83,13 @@ export default async function RootLayout({ children }: { children: ReactNode }) 
   return (
     <html lang="en" className={GeistSans.variable}>
       <body className="bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white">
-        {/*<CartProvider cartPromise={Promise.resolve(mockCart)}>*/}
+        <CartProvider cartPromise={Promise.resolve(mockCart)}>
           <Navbar />
-          {/*<main>*/}
-          {/*  {children}*/}
-          {/*  <Toaster closeButton />*/}
-          {/*</main>*/}
-        {/*</CartProvider>*/}
+          <main>
+            {children}
+            <Toaster closeButton />
+          </main>
+        </CartProvider>
       </body>
     </html>
   );

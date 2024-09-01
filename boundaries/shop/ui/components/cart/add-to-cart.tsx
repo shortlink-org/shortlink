@@ -13,7 +13,7 @@ function SubmitButton({
   selectedVariantId
 }: {
   availableForSale: boolean;
-  selectedVariantId: string | undefined;
+  selectedVariantId: number | undefined;
 }) {
   const buttonClasses =
     'relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white';
@@ -59,27 +59,17 @@ function SubmitButton({
 }
 
 export function AddToCart({ product }: { product: Product }) {
-  const { variants, availableForSale } = product;
   const { addCartItem } = useCart();
   const { state } = useProduct();
   const [message, formAction] = useFormState(addItem, null);
 
-  const variant = variants.find((variant: ProductVariant) =>
-    variant.selectedOptions.every((option) => option.value === state[option.name.toLowerCase()])
-  );
-  const defaultVariantId = variants.length === 1 ? variants[0]?.id : undefined;
-  const selectedVariantId = variant?.id || defaultVariantId;
-  const actionWithVariant = formAction.bind(null, selectedVariantId);
-  const finalVariant = variants.find((variant) => variant.id === selectedVariantId)!;
-
   return (
     <form
-      action={async () => {
-        addCartItem(finalVariant, product);
-        await actionWithVariant();
-      }}
+      // action={() => {
+      //   addCartItem(product.id, product);
+      // }}
     >
-      <SubmitButton availableForSale={availableForSale} selectedVariantId={selectedVariantId} />
+      <SubmitButton availableForSale={true} selectedVariantId={product.id} />
       <p aria-live="polite" className="sr-only" role="status">
         {message}
       </p>

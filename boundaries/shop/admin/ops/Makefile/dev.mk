@@ -27,6 +27,9 @@ migrate: ## Run migrations
 dump: ## Dump migrations
 	@python src/migration.py dumpdata goods.good > fixtures/good.json
 
+restore: ## Restore migrations
+	@python src/migration.py loaddata fixtures/good.json
+
 # STATIC TASKS =========================================================================================================
 static: ## Collect static files
 	@python src/made.py collectstatic

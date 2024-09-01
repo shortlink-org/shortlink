@@ -27,9 +27,9 @@ export async function generateMetadata({
 
   const product = await getProduct(params.id);
 
-  console.warn('product', product);
-
   if (!product) return notFound();
+
+  console.warn('product 3', product);
 
   return {
     title: product.name,
@@ -38,11 +38,7 @@ export async function generateMetadata({
 }
 
 export default async function ProductPage({ params }: { params: { id: number } }) {
-  console.warn('product 2', params.id);
-
   const product = await getProduct(params.id);
-
-  console.warn('product', product);
 
   if (!product) return notFound();
 
@@ -59,6 +55,8 @@ export default async function ProductPage({ params }: { params: { id: number } }
     }
   };
 
+  product.images = [{}, {}, {}, {}, {}];
+
   return (
     <ProductProvider>
       <script
@@ -68,14 +66,30 @@ export default async function ProductPage({ params }: { params: { id: number } }
         }}
       />
       <div className="mx-auto max-w-screen-2xl px-4">
-        <div className="flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 dark:bg-black">
-          <div className="basis-full lg:basis-2/6">
+        <div
+          className='flex flex-col rounded-lg border border-neutral-200 bg-white p-8 md:p-12 lg:flex-row lg:gap-8 dark:border-neutral-800 dark:bg-black'>
+          <div className='h-full w-full basis-full lg:basis-4/6'>
+            <Suspense
+              fallback={
+                <div className='relative aspect-square h-full max-h-[550px] w-full overflow-hidden' />
+              }
+            >
+              <Gallery
+                images={product.images.slice(0, 5).map((image: Image) => ({
+                  src: "https://picsum.photos/200",
+                  altText: image.altText,
+                }))}
+              />
+            </Suspense>
+          </div>
+
+          <div className='basis-full lg:basis-2/6'>
             <Suspense fallback={null}>
               <ProductDescription product={product} />
             </Suspense>
           </div>
         </div>
-        <RelatedProducts id={product.id} />
+        {/*<RelatedProducts id={product.id} />*/}
       </div>
       <Footer />
     </ProductProvider>
@@ -83,17 +97,13 @@ export default async function ProductPage({ params }: { params: { id: number } }
 }
 
 async function RelatedProducts({ id }: { id: number }) {
-  console.warn('relatedProducts', id);
+  const relatedProducts = await getProductRecommendations(id)
 
-  const relatedProducts = await getProductRecommendations(id);
-
-  console.warn('relatedProducts', relatedProducts);
-
-  if (!relatedProducts.length) return null;
+  if (!relatedProducts.length) return null
 
   return (
-    <div className="py-8">
-      <h2 className="mb-4 text-2xl font-bold">Related Products</h2>
+    <div className='py-8'>
+      <h2 className='mb-4 text-2xl font-bold'>Related Products</h2>
       <ul className="flex w-full gap-4 overflow-x-auto pt-1">
         {relatedProducts.map((product) => (
           <li

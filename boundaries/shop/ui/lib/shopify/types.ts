@@ -53,7 +53,7 @@ export type Menu = {
 };
 
 export type Money = {
-  amount: string;
+  amount: number;
   currencyCode: string;
 };
 
@@ -246,7 +246,7 @@ export type ShopifyProductRecommendationsOperation = {
     productRecommendations: ShopifyProduct[];
   };
   variables: {
-    productId: number;
+    id: number;
   };
 };
 

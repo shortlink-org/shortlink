@@ -166,30 +166,6 @@ const reshapeCollections = (collections: ShopifyCollection[]) => {
 //   });
 // };
 
-const reshapeProduct = (product: ShopifyProduct, filterHiddenProducts: boolean = true) => {
-  const { ...rest } = product;
-
-  return {
-    ...rest,
-  };
-};
-
-const reshapeProducts = (products: ShopifyProduct[]) => {
-  const reshapedProducts = [];
-
-  for (const product of products) {
-    if (product) {
-      const reshapedProduct = reshapeProduct(product);
-
-      if (reshapedProduct) {
-        reshapedProducts.push(reshapedProduct);
-      }
-    }
-  }
-
-  return reshapedProducts;
-};
-
 export async function createCart(): Promise<Cart> {
   const res = await shopifyFetch<ShopifyCreateCartOperation>({
     query: createCartMutation,
@@ -286,7 +262,7 @@ export async function getCollectionProducts({ page }: {
     return [];
   }
 
-  return reshapeProducts(res.body.data.goods_goods_list.results);
+  return res.body.data.goods_goods_list.results;
 }
 
 export async function getCollections(): Promise<Collection[]> {
@@ -362,28 +338,22 @@ export async function getProduct(id: number): Promise<Product | undefined> {
   const res = await shopifyFetch<ShopifyProductOperation>({
     query: getProductQuery,
     variables: {
-      id,
+      id: parseInt(id),
     },
   });
 
-  console.warn("getProduct", res.body.data);
-
-  if (!res.body.data.product) {
-    return undefined;
-  }
-
-  return reshapeProduct(res.body.data.product, false);
+  return res.body.data.goods_goods_retrieve;
 }
 
-export async function getProductRecommendations(productId: number): Promise<Product[]> {
+export async function getProductRecommendations(id: number): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
     query: getProductRecommendationsQuery,
     variables: {
-      productId,
+      id,
     }
   });
 
-  return reshapeProducts(res.body.data.productRecommendations);
+  return res.body.data.productRecommendations;
 }
 
 export async function getProducts({
@@ -407,7 +377,7 @@ export async function getProducts({
 
   console.warn("res.body.data", res.body.data);
 
-  return reshapeProducts(removeEdgesAndNodes(res.body.data));
+  return removeEdgesAndNodes(res.body.data);
 }
 
 // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.
