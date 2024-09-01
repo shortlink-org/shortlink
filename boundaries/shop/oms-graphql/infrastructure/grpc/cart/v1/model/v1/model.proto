@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package infrastructure.rpc.cart.v1.model.v1;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+
+// CartItem is the cart item message.
+message CartItem {
+  // Product ID
+  string product_id = 1;
+  // Quantity
+  int32 quantity = 2;
+}
+
+// CartState is the cart state message.
+message CartState {
+  // Cart ID
+  string cart_id = 1;
+  // User ID
+  string customer_id = 2;
+  // Items
+  repeated CartItem items = 3;
+  // Created at
+  google.protobuf.Timestamp created_at = 4;
+  // Updated at
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+// AddRequest is the request message for adding an item to the cart.
+message AddRequest {
+  // Cart ID
+  string customer_id = 1;
+  // Item to add
+  repeated CartItem items = 2;
+}
+
+// RemoveRequest is the request message for removing an item from the cart.
+message RemoveRequest {
+  // Cart ID
+  string customer_id = 1;
+  // Item to remove
+  repeated CartItem items = 2;
+}
+
+// GetRequest is the request message for getting the cart state.
+message GetRequest {
+  // Cart ID
+  string customer_id = 1;
+}
+
+// GetResponse is the response message for getting the cart state.
+message GetResponse {
+  // Cart state
+  CartState state = 1;
+}
+
+// ResetRequest is the request message for resetting the cart.
+message ResetRequest {
+  // Cart ID
+  string customer_id = 1;
+}

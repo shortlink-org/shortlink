@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+package infrastructure.rpc.cart.v1;
+
+import "google/protobuf/empty.proto";
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+import "model/v1/model.proto";
+
+// CartService is the service that provides cart operations.
+service CartService {
+  // Add adds an item to the cart.
+  rpc Add(infrastructure.rpc.cart.v1.model.v1.AddRequest) returns (google.protobuf.Empty);
+
+  // Remove removes an item from the cart.
+  rpc Remove(infrastructure.rpc.cart.v1.model.v1.RemoveRequest) returns (google.protobuf.Empty);
+
+  // Get gets the state of the cart.
+  rpc Get(infrastructure.rpc.cart.v1.model.v1.GetRequest) returns (infrastructure.rpc.cart.v1.model.v1.GetResponse);
+
+  // Reset clears the cart.
+  rpc Reset(infrastructure.rpc.cart.v1.model.v1.ResetRequest) returns (google.protobuf.Empty);
+}

@@ -1,0 +1,55 @@
+schema
+@server(port: 8100)
+@upstream(
+  baseURL: "http://localhost:50051",
+  allowedHeaders: ["Authorization", "user-id"]
+)
+@link(type: Script, src: "scripts/auth.js")
+@link(src: "http://localhost:50051", type: Grpc) {
+  query: Query
+  mutation: Mutation
+}
+
+type CartItem {
+  productId: String
+  quantity: Int
+}
+
+type CartState {
+  cartId: String
+  customerId: String
+  items: [CartItem!]
+#  createdAt: String  # ISO8601 timestamp
+#  updatedAt: String  # ISO8601 timestamp
+}
+
+type GetCartState {
+  state: CartState
+}
+
+type Query {
+  getCart(customerId: String!): GetCartState!
+  @grpc(
+    method: "infrastructure.rpc.cart.v1.CartService.Get"
+    body: "{{.args.customerId}}"
+    headers: [
+      {key: "user-id", value: "3e173751-8840-4b0d-8065-fbea88357cc4"}
+    ]
+  )
+}
+
+type Mutation {
+  addItem(customerId: String!, items: [CartItemInput!]!): Empty!
+  @grpc(method: "infrastructure.rpc.cart.v1.CartService.Add")
+
+  removeItem(customerId: String!, items: [CartItemInput!]!): Empty!
+  @grpc(method: "infrastructure.rpc.cart.v1.CartService.Remove")
+
+  resetCart(customerId: String!): Empty!
+  @grpc(method: "infrastructure.rpc.cart.v1.CartService.Reset")
+}
+
+input CartItemInput {
+  productId: String!
+  quantity: Int!
+}
