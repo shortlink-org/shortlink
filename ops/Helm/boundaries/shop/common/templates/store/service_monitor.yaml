@@ -14,8 +14,6 @@ spec:
       postgres-operator.crunchydata.com/crunchy-postgres-exporter: 'true'
   endpoints:
     - port: exporter
-      targetPort: 9187
-      protocol: TCP
       interval: 30s
   jobLabel: crunchy-postgres-exporter
 {{- end }}
