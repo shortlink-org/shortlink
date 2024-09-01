@@ -4,6 +4,16 @@ schema
   baseURL: "http://localhost:50051",
   allowedHeaders: ["Authorization", "user-id"]
 )
+@telemetry(
+  export: {
+    prometheus: {
+      path: "/metrics"
+    }
+#    otlp: {
+#      url: "http://127.0.0.1"
+#    }
+  }
+)
 @link(type: Script, src: "scripts/auth.js")
 @link(src: "http://localhost:50051", type: Grpc) {
   query: Query
@@ -18,7 +28,7 @@ type CartItem {
 type CartState {
   cartId: String
   customerId: String
-  items: [CartItem!]
+#  items: [CartItem]
 #  createdAt: String  # ISO8601 timestamp
 #  updatedAt: String  # ISO8601 timestamp
 }
@@ -28,19 +38,25 @@ type GetCartState {
 }
 
 type Query {
-  getCart(customerId: String!): GetCartState!
+  getCart(customerId: String): GetCartState
   @grpc(
     method: "infrastructure.rpc.cart.v1.CartService.Get"
     body: "{{.args.customerId}}"
     headers: [
-      {key: "user-id", value: "3e173751-8840-4b0d-8065-fbea88357cc4"}
+      {key: "user-id", value: "3e173751-8840-4b0d-8065-fbea88357cc5"}
     ]
   )
 }
 
 type Mutation {
   addItem(customerId: String!, items: [CartItemInput!]!): Empty!
-  @grpc(method: "infrastructure.rpc.cart.v1.CartService.Add")
+  @grpc(
+    method: "infrastructure.rpc.cart.v1.CartService.Add"
+    body: "{{.args.customerId}},{{.args.items}}"
+    headers: [
+      {key: "user-id", value: "3e173751-8840-4b0d-8065-fbea88357cc5"}
+    ]
+  )
 
   removeItem(customerId: String!, items: [CartItemInput!]!): Empty!
   @grpc(method: "infrastructure.rpc.cart.v1.CartService.Remove")
