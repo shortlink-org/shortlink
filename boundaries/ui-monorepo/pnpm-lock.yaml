@@ -419,8 +419,8 @@ importers:
         specifier: ^8.2.9
         version: 8.2.9(storybook@8.3.0-beta.1)(typescript@5.5.4)(vite@5.4.2(@types/node@22.5.1)(less@4.1.3)(lightningcss@1.26.0)(sass@1.77.8)(stylus@0.59.0)(terser@5.31.6))
       export-to-csv:
-        specifier: ^1.3.0
-        version: 1.3.0
+        specifier: ^1.4.0
+        version: 1.4.0
       glob:
         specifier: ^11.0.0
         version: 11.0.0
@@ -6121,8 +6121,8 @@ packages:
     resolution: {integrity: sha512-A5EmesHW6rfnZ9ysHQjPdJRni0SRar0tjtG5MNtm9n5TUvsYU8oozprtRD4AqHxcZWWlVuAmQo2nWKfN9oyjTw==}
     engines: {node: '>=0.10.0'}
 
-  export-to-csv@1.3.0:
-    resolution: {integrity: sha512-msPjbfozZdYzDghAEKmCVH5veMeKHNacplE6noXvGiA8AeV1qa/SOxp6JXDjF9R8Kf6v3ypI6jskiY19dkhZeA==}
+  export-to-csv@1.4.0:
+    resolution: {integrity: sha512-6CX17Cu+rC2Fi2CyZ4CkgVG3hLl6BFsdAxfXiZkmDFIDY4mRx2y2spdeH6dqPHI9rP+AsHEfGeKz84Uuw7+Pmg==}
     engines: {node: ^v12.20.0 || >=v14.13.0}
 
   express@4.19.2:
@@ -18137,7 +18137,7 @@ snapshots:
     dependencies:
       homedir-polyfill: 1.0.3
 
-  export-to-csv@1.3.0: {}
+  export-to-csv@1.4.0: {}
 
   express@4.19.2:
     dependencies:
