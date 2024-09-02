@@ -20,8 +20,6 @@ require (
 	github.com/edgedb/edgedb-go v0.17.2
 	github.com/exaring/otelpgx v0.6.2
 	github.com/go-chi/chi/v5 v5.1.0
-	github.com/go-chi/cors v1.2.1
-	github.com/go-chi/render v1.0.3
 	github.com/go-redis/cache/v9 v9.0.0
 	github.com/go-sql-driver/mysql v1.8.1
 	github.com/golang-migrate/migrate/v4 v4.17.1
@@ -51,11 +49,8 @@ require (
 	github.com/redis/rueidis v1.0.30-0.20240224222815-152800b84f6d
 	github.com/redis/rueidis/rueidiscompat v1.0.30-0.20240224222815-152800b84f6d
 	github.com/redis/rueidis/rueidisotel v1.0.30-0.20240224222815-152800b84f6d
-	github.com/riandyrn/otelchi v0.9.0
-	github.com/robfig/cron/v3 v3.0.1
 	github.com/sasha-s/go-deadlock v0.3.5
 	github.com/segmentio/encoding v0.4.0
-	github.com/shopspring/decimal v1.4.0
 	github.com/sirupsen/logrus v1.9.3
 	github.com/sourcegraph/conc v0.3.0
 	github.com/spf13/cobra v1.8.1
@@ -106,7 +101,6 @@ require (
 	github.com/Masterminds/semver/v3 v3.2.1 // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
-	github.com/ajg/form v1.5.1 // indirect
 	github.com/andybalholm/cascadia v1.3.2 // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
@@ -232,6 +226,7 @@ require (
 	github.com/spf13/cast v1.6.0 // indirect
 	github.com/stoewer/go-strcase v1.3.0 // indirect
 	github.com/stretchr/objx v0.5.2 // indirect
+	github.com/stripe/stripe-go/v79 v79.9.0 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/twmb/murmur3 v1.1.8 // indirect
 	github.com/uptrace/opentelemetry-go-extra/otelutil v0.3.1 // indirect
