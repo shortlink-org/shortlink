@@ -1,0 +1,136 @@
+{
+	"info": {
+		"_postman_id": "17b4e3af-d18e-4452-b71d-9a7df231a369",
+		"name": "shortlink-shop",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20072339"
+	},
+	"item": [
+		{
+			"name": "oms-graphql",
+			"item": [
+				{
+					"name": "cart",
+					"item": [
+						{
+							"name": "get",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query GetCart($customerId: String) {\n  getCart(customerId: { customerId: $customerId }) {\n    state {\n      cartId\n      customerId\n      items {\n        productId\n        quantity\n      }\n    }\n  }\n}\n",
+										"variables": "{\n    \"customerId\": \"3e173751-8840-4b0d-8065-fbea88357cc5\"\n}"
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8100/graphql",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8100",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "addItems",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation {\n  addItem(\n    addRequest: {\n        customerId: \"3e173751-8840-4b0d-8065-fbea88357cc5\", \n        items: [\n            {\n                productId: \"3e173751-8840-4b0d-8065-fbea88357cc5\", \n                quantity: 1\n            }\n        ]\n    }\n  )\n}",
+										"variables": "{\n    \"customerId\": \"3e173751-8840-4b0d-8065-fbea88357cc5\"\n}"
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8100/graphql",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8100",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "removeItems",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation {\n  removeItem(\n    removeRequest: {\n        customerId: \"3e173751-8840-4b0d-8065-fbea88357cc5\", \n        items: [\n            {\n                productId: \"3e173751-8840-4b0d-8065-fbea88357cc5\", \n                quantity: 1\n            }\n        ]\n    }\n  )\n}",
+										"variables": "{\n    \"customerId\": \"3e173751-8840-4b0d-8065-fbea88357cc5\"\n}"
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8100/graphql",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8100",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "reset",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "mutation {\n  resetCart(\n    customerId: {\n        customerId: \"3e173751-8840-4b0d-8065-fbea88357cc5\"\n    }\n  )\n}",
+										"variables": "{\n    \"customerId\": \"3e173751-8840-4b0d-8065-fbea88357cc5\"\n}"
+									}
+								},
+								"url": {
+									"raw": "http://127.0.0.1:8100/graphql",
+									"protocol": "http",
+									"host": [
+										"127",
+										"0",
+										"0",
+										"1"
+									],
+									"port": "8100",
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}
