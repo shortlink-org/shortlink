@@ -270,3 +270,8 @@ updates:
     directory: /boundaries/shop/oms-graphql
     schedule:
       interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/billing/billing
+    schedule:
+      interval: daily
