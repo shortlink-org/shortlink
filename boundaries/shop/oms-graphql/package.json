@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "tailcall start config/grpc.graphql",
-    "gen": "rm ./src/infrastructure/graphql/*.graphql && tailcall gen config.yml"
+    "gen": "rm -f jsonplaceholder.graphql && tailcall gen config.yml"
   },
   "keywords": [],
   "author": "",
