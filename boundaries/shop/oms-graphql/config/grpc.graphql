@@ -28,17 +28,21 @@ type CartItem {
 type CartState {
   cartId: String
   customerId: String
-#  items: [CartItem]
+  items: [CartItem]
 #  createdAt: String  # ISO8601 timestamp
 #  updatedAt: String  # ISO8601 timestamp
 }
 
-type GetCartState {
+type GetCartResponse {
   state: CartState
 }
 
+type CartRequest {
+  customerId: String
+}
+
 type Query {
-  getCart(customerId: String): GetCartState
+  getCart(customerId: CartRequest): GetCartResponse
   @grpc(
     method: "infrastructure.rpc.cart.v1.CartService.Get"
     body: "{{.args.customerId}}"
@@ -48,21 +52,38 @@ type Query {
   )
 }
 
+input ItemRequest {
+  customerId: String!
+  items: [CartItemInput!]!
+}
+
 type Mutation {
-  addItem(customerId: String!, items: [CartItemInput!]!): Empty!
+  addItem(addRequest: ItemRequest): Empty!
   @grpc(
     method: "infrastructure.rpc.cart.v1.CartService.Add"
-    body: "{{.args.customerId}},{{.args.items}}"
+    body: "{{.args.addRequest}}"
     headers: [
       {key: "user-id", value: "3e173751-8840-4b0d-8065-fbea88357cc5"}
     ]
   )
 
-  removeItem(customerId: String!, items: [CartItemInput!]!): Empty!
-  @grpc(method: "infrastructure.rpc.cart.v1.CartService.Remove")
+  removeItem(removeRequest: ItemRequest): Empty!
+  @grpc(
+    method: "infrastructure.rpc.cart.v1.CartService.Remove"
+    body: "{{.args.removeRequest}}"
+    headers: [
+      {key: "user-id", value: "3e173751-8840-4b0d-8065-fbea88357cc5"}
+    ]
+  )
 
-  resetCart(customerId: String!): Empty!
-  @grpc(method: "infrastructure.rpc.cart.v1.CartService.Reset")
+  resetCart(customerId: CartRequest): Empty!
+  @grpc(
+    method: "infrastructure.rpc.cart.v1.CartService.Reset"
+    body: "{{.args.customerId}}"
+    headers: [
+      {key: "user-id", value: "3e173751-8840-4b0d-8065-fbea88357cc5"}
+    ]
+  )
 }
 
 input CartItemInput {
