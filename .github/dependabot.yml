@@ -265,3 +265,8 @@ updates:
     directory: /boundaries/shop/ui
     schedule:
       interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/shop/oms-graphql
+    schedule:
+      interval: daily
