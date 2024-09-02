@@ -3,7 +3,7 @@
 <img width='200' height='200' src="./docs/public/logo.svg">
 
 > [!NOTE]
-> Service for work with orders.
+> Service for work with carts, orders.
 
 ### Getting started
 

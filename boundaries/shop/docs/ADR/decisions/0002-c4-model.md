@@ -46,9 +46,10 @@ title System Context diagram for Shop Boundary with External Contexts
 Person(customer, "Customer", "A customer using the online shop.")
 
 System_Boundary(sbs, "Shop Boundary Context") {
-    System(merch_service, "Merch Service", "Handles merchandise listings and inventory.")
+    System(wundergraph_bff, "BFF (WunderGraph)", "Handles frontend requests via GraphQL and coordinates with backend services.")
     System(admin_service, "Admin Service", "Administers shop settings and user permissions.")
-    System(cart_service, "Cart Service", "Manages customer shopping cart and checkout process.")
+    System(oms_graphql, "OMS-GraphQL", "Service for work with orders via GraphQL API.")
+    System(oms_temporal, "OMS (Temporal)", "Service for work with carts and orders.")
 }
 
 System_Boundary(bbs, "Billing Boundary") {
@@ -59,11 +60,12 @@ System_Boundary(dbs, "Delivery Boundary") {
     System_Ext(delivery_service, "Delivery Service", "Handles logistics and delivery of orders.")
 }
 
-Rel(customer, merch_service, "Browses and orders merch from")
-Rel(customer, cart_service, "Adds items to and checks out via")
-Rel(customer, admin_service, "Managed by administrators for")
-Rel_D(cart_service, bbs, "Submits order details to")
-Rel_D(cart_service, dbs, "Sends order info for delivery to")
+Rel(customer, wundergraph_bff, "Interacts with shop through")
+Rel(wundergraph_bff, oms_graphql, "Coordinates shopping cart and checkout via GraphQL with")
+Rel(wundergraph_bff, admin_service, "Admin service managed by administrators via GraphQL")
+Rel(oms_graphql, oms_temporal, "Communicates with OMS via gRPC for order management")
+Rel(oms_temporal, bbs, "Submits order details to")
+Rel(oms_temporal, dbs, "Sends order info for delivery to")
 
 @enduml
 ```
@@ -83,24 +85,24 @@ Container_Ext(api_gateway, "API Gateway", "API Gateway", "Serves as the central 
 SystemQueue_Ext(mq, "Message Queue", "Handles asynchronous communication and event-driven operations among services.")
 Container_Ext(payment_gateway, "Payment Gateway", "External Service", "Securely processes payment transactions and handles financial data exchange.")
 System_Boundary(sbs, "Shop Boundary Context") {
-    Container(merch_service, "Merch Service", "Service", "Provides merchandise listings, manages inventory, and handles product updates.")
-    Container(cart_service, "Cart Service", "Service", "Responsible for shopping cart management, session tracking, and checkout operations.")
+    Container(wundergraph_bff, "BFF (WunderGraph)", "Service", "Handles frontend requests via GraphQL and coordinates with backend services.")
+    Container(oms_graphql, "OMS-GraphQL", "Service", "Service for work with orders via GraphQL API.")
+    Container(oms_temporal, "OMS (Temporal)", "Service", "Service for work with carts and orders using gRPC.")
     Container(admin_service, "Admin Service", "Service", "Administers shop settings, manages user roles and permissions, and performs back-end configuration tasks.")
-    ContainerDb(shop_db, "Shop Database", "Database", "Central repository for storing all merchandise, cart, and administrative data.")
+    ContainerDb(shop_db, "Shop Database", "Database", "Central repository for storing all orders, carts, and administrative data.")
     Container(shop_cache, "Shop Cache Server", "Cache", "Improves performance by caching frequently accessed data such as product details and prices.")
 }
 
-Rel_D(mq, merch_service, "Sends inventory updates and order confirmations")
-Rel_D(mq, cart_service, "Notifies on cart updates and checkout events")
+Rel(mq, oms_temporal, "Notifies on cart and order processing events")
 Rel(customer, api_gateway, "Submits requests to", "HTTP/HTTPS")
-Rel(api_gateway, merch_service, "Routes requests to", "HTTP/HTTPS")
-Rel(api_gateway, cart_service, "Routes requests to", "HTTP/HTTPS")
-Rel(api_gateway, admin_service, "Routes requests to", "HTTP/HTTPS")
-Rel(merch_service, shop_db, "Reads and writes data", "SQL")
-Rel(cart_service, shop_db, "Reads and writes data", "SQL")
+Rel(api_gateway, wundergraph_bff, "Routes requests to", "HTTP/HTTPS")
+Rel(wundergraph_bff, oms_graphql, "Coordinates order management via", "GraphQL")
+Rel(wundergraph_bff, admin_service, "Routes administrative requests to", "GraphQL")
+Rel(oms_graphql, oms_temporal, "Communicates with for order management", "gRPC")
+Rel(oms_graphql, shop_db, "Reads and writes data", "SQL")
 Rel(admin_service, shop_db, "Reads and writes data", "SQL")
-Rel(merch_service, shop_cache, "Utilizes for faster data retrieval")
-Rel(cart_service, payment_gateway, "Connects for payment processing", "API")
+Rel(oms_temporal, shop_cache, "Utilizes for faster data retrieval")
+Rel(oms_temporal, payment_gateway, "Connects for payment processing", "API")
 
 @enduml
 ```
