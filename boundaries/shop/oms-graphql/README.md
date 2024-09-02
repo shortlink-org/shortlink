@@ -9,6 +9,10 @@
 $> pnpm start
 ```
 
+### API
+
+The Postman collection can be accessed [here](https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/shop/docs/API/shortlink-shop.postman_collection.json).
+
 ### ADR
 
 - **Common**:

@@ -21,3 +21,4 @@ for an information team about cases for updated ADR.
 - [ADR-0001](./decisions/0001-init.md) - Init Shop Boundary context
 - [ADR-0003](./decisions/0003-requirements.md) - Requirements and Consumption Calculations
 - [ADR-0002](./decisions/0002-c4-model.md) - C4 Model for Shop boundary context
+- [ADR-0004](./decisions/0004-use-postman-collection-for-api-documentation.md) - Use Postman Collection for API Documentation
