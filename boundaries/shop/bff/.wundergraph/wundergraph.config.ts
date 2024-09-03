@@ -7,6 +7,11 @@ const countries = introspect.graphql({
 	url: 'https://countries.trevorblades.com/',
 });
 
+const carts = introspect.graphql({
+  apiNamespace: 'carts',
+  url: 'http://127.0.0.1:8100/graphql',
+});
+
 const GOODS_API_URL = new EnvironmentVariable('GOODS_API_URL', 'http://127.0.0.1:8000/')
 
 const goods = introspect.openApiV2({
@@ -21,7 +26,7 @@ const goods = introspect.openApiV2({
 
 // configureWunderGraph emits the configuration
 configureWunderGraphApplication({
-	apis: [goods, countries],
+	apis: [carts, goods, countries],
 	server,
 	operations,
 	generate: {
