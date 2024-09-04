@@ -118,8 +118,8 @@ importers:
         specifier: ^20.25.6
         version: 20.25.6(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.4)(ts-node@10.9.2(@types/node@20.16.4)(typescript@5.5.4)))
       eas-cli:
-        specifier: ^11.0.3
-        version: 11.0.3(@types/node@20.16.4)(expo-modules-autolinking@1.11.2)(typescript@5.5.4)
+        specifier: ^12.0.0
+        version: 12.0.0(@types/node@20.16.4)(expo-modules-autolinking@1.11.2)(typescript@5.5.4)
       eslint:
         specifier: ^9.9.1
         version: 9.9.1
@@ -1081,8 +1081,8 @@ packages:
     resolution: {integrity: sha512-BsWiH1yFGjXXS2yvrf5LyuoSIIbPrGUWob917o+BTKuZ7qJdxX8aJLRxs1fS9n6r7vESrq1OUqb68dANcFXuQQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@expo/apple-utils@1.7.1':
-    resolution: {integrity: sha512-oKHKRMfpPsVIlMSwHsartqrFhxKR1PnwGzaM3i+d4/g9XE9A+bKMu5YIUT4IXX561E0YYoaeaRHuxiIzcmEmRw==}
+  '@expo/apple-utils@1.8.0':
+    resolution: {integrity: sha512-JKGfPCCGko7GtLcvCj9VeyrSJGimgWsBJnR4G10kGY9sUQo3ykEgVrUBUaG2HJrCLzbeDUExmsbuZRWqJha77g==}
     hasBin: true
 
   '@expo/bunyan@4.0.0':
@@ -1120,14 +1120,11 @@ packages:
   '@expo/devcert@1.1.2':
     resolution: {integrity: sha512-FyWghLu7rUaZEZSTLt/XNRukm0c9GFfwP0iFaswoDWpV6alvVg+zRAfCLdIVQEz1SVcQ3zo1hMZFDrnKGvkCuQ==}
 
-  '@expo/eas-build-job@1.0.130':
-    resolution: {integrity: sha512-3amSYB9QC24ZqMjNAl/s2EHbF4Y3btKnSAafp5sp5t2g8GvU1sBZ/+rXQPKH/Ga+PcbqNT+pduGIGg4uUC7gnw==}
-
   '@expo/eas-build-job@1.0.133':
     resolution: {integrity: sha512-dlY3tl1A0GDIGs4WOOuvK08jvR6cfXCmCKTCqZ9ioePscZ3jbeGmadLa1nTvMSe9k8vFdfrHgkKmfs78hI7sbw==}
 
-  '@expo/eas-json@11.0.0':
-    resolution: {integrity: sha512-c0lUi708OMFyWWw8qK8TMpXJgXB2FYWwctX0pJFLIvXifP+rRkqyVjdToSzcTyNia99V6I1cY+3bOTfGxhaCvA==}
+  '@expo/eas-json@12.0.0':
+    resolution: {integrity: sha512-ztI9aQ826/ej2i6Yg6SXnDNFI9CwGzvHD6+fnGl/uNAhcBQRwcQXYyFRRWiixItC5zSsRyTvZKTANTMwaNPaCw==}
     engines: {node: '>=18.0.0'}
 
   '@expo/env@0.3.0':
@@ -1233,8 +1230,8 @@ packages:
     resolution: {integrity: sha512-QdWi16+CHB9JYP7gma19OVVg0BFkvU8zNj9GjWorYI8Iv8FUxjOCcYRuAmX4s/h91e4e7BPsskc8cSrZYho9Ew==}
     engines: {node: '>=12'}
 
-  '@expo/steps@1.0.130':
-    resolution: {integrity: sha512-ZWjrPGj8rzPVDSwxhWi2i2FWIkKUZmJCNfs0p9DSPqdUOADg7XIFSqxefxBeygZ0R2dJMEjRQA8Gz0mqjFIkiQ==}
+  '@expo/steps@1.0.134':
+    resolution: {integrity: sha512-9WZUhq1Jggipy+cTcN/pi92I911jaOS4VoEWjuKbhp5G5HU/oHBSfR3ZapEopA9N9xzBv9I/GYzRbPiMHPXaxw==}
     engines: {node: '>=18'}
 
   '@expo/timeago.js@1.0.0':
@@ -3557,8 +3554,8 @@ packages:
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
 
-  eas-cli@11.0.3:
-    resolution: {integrity: sha512-tlARN9UYELlI4aJDCITgL6sdF7sN0txNUWh/iq5vWDP3l27OqPt1P7oDKNsr6f17CHozA3C3o1mIT5QpTDzamw==}
+  eas-cli@12.0.0:
+    resolution: {integrity: sha512-O2hRM0gfAgwF1YJGjv9frLXs0Qb9qTrw3m0wBJ/MLZqvytvGxdxnFU0xDxd+mjFLGrWM07gLVzBxVEPl81JjWA==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -9241,7 +9238,7 @@ snapshots:
 
   '@eslint/object-schema@2.1.4': {}
 
-  '@expo/apple-utils@1.7.1': {}
+  '@expo/apple-utils@1.8.0': {}
 
   '@expo/bunyan@4.0.0':
     dependencies:
@@ -9439,13 +9436,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@expo/eas-build-job@1.0.130':
-    dependencies:
-      '@expo/logger': 1.0.117
-      joi: 17.13.1
-      semver: 7.6.3
-      zod: 3.23.8
-
   '@expo/eas-build-job@1.0.133':
     dependencies:
       '@expo/logger': 1.0.117
@@ -9453,10 +9443,10 @@ snapshots:
       semver: 7.6.3
       zod: 3.23.8
 
-  '@expo/eas-json@11.0.0':
+  '@expo/eas-json@12.0.0':
     dependencies:
       '@babel/code-frame': 7.23.5
-      '@expo/eas-build-job': 1.0.130
+      '@expo/eas-build-job': 1.0.133
       chalk: 4.1.2
       env-string: 1.0.1
       fs-extra: 11.2.0
@@ -9739,9 +9729,9 @@ snapshots:
     dependencies:
       cross-spawn: 7.0.3
 
-  '@expo/steps@1.0.130':
+  '@expo/steps@1.0.134':
     dependencies:
-      '@expo/eas-build-job': 1.0.130
+      '@expo/eas-build-job': 1.0.133
       '@expo/logger': 1.0.117
       '@expo/spawn-async': 1.7.2
       arg: 5.0.2
@@ -10262,6 +10252,21 @@ snapshots:
       - typescript
       - verdaccio
 
+  '@nrwl/js@19.6.5(@babel/traverse@7.25.3)(@types/node@20.16.4)(nx@19.6.5)(typescript@5.4.5)':
+    dependencies:
+      '@nx/js': 19.6.5(@babel/traverse@7.25.3)(@types/node@20.16.4)(nx@19.6.5)(typescript@5.4.5)
+    transitivePeerDependencies:
+      - '@babel/traverse'
+      - '@swc-node/register'
+      - '@swc/core'
+      - '@swc/wasm'
+      - '@types/node'
+      - debug
+      - nx
+      - supports-color
+      - typescript
+      - verdaccio
+
   '@nrwl/js@19.6.5(@babel/traverse@7.25.3)(@types/node@20.16.4)(nx@19.6.5)(typescript@5.5.4)':
     dependencies:
       '@nx/js': 19.6.5(@babel/traverse@7.25.3)(@types/node@20.16.4)(nx@19.6.5)(typescript@5.5.4)
@@ -10552,7 +10557,7 @@ snapshots:
       '@babel/preset-env': 7.24.3(@babel/core@7.24.3)
       '@babel/preset-typescript': 7.23.3(@babel/core@7.24.3)
       '@babel/runtime': 7.24.0
-      '@nrwl/js': 19.6.5(@babel/traverse@7.25.3)(@types/node@20.16.4)(nx@19.6.5)(typescript@5.5.4)
+      '@nrwl/js': 19.6.5(@babel/traverse@7.25.3)(@types/node@20.16.4)(nx@19.6.5)(typescript@5.4.5)
       '@nx/devkit': 19.6.5(nx@19.6.5)
       '@nx/workspace': 19.6.5
       babel-plugin-const-enum: 1.2.0(@babel/core@7.24.3)
@@ -13379,15 +13384,15 @@ snapshots:
 
   duplexer@0.1.2: {}
 
-  eas-cli@11.0.3(@types/node@20.16.4)(expo-modules-autolinking@1.11.2)(typescript@5.5.4):
+  eas-cli@12.0.0(@types/node@20.16.4)(expo-modules-autolinking@1.11.2)(typescript@5.5.4):
     dependencies:
-      '@expo/apple-utils': 1.7.1
+      '@expo/apple-utils': 1.8.0
       '@expo/code-signing-certificates': 0.0.5
       '@expo/config': 8.5.4
       '@expo/config-plugins': 7.8.4
       '@expo/config-types': 50.0.0
       '@expo/eas-build-job': 1.0.133
-      '@expo/eas-json': 11.0.0
+      '@expo/eas-json': 12.0.0
       '@expo/json-file': 8.2.37
       '@expo/logger': 1.0.117
       '@expo/multipart-body-parser': 1.1.0
@@ -13401,7 +13406,7 @@ snapshots:
       '@expo/results': 1.0.0
       '@expo/rudder-sdk-node': 1.1.1
       '@expo/spawn-async': 1.7.0
-      '@expo/steps': 1.0.130
+      '@expo/steps': 1.0.134
       '@expo/timeago.js': 1.0.0
       '@oclif/core': 1.26.2
       '@oclif/plugin-autocomplete': 2.3.10(@types/node@20.16.4)(typescript@5.5.4)
