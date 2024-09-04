@@ -27,17 +27,24 @@ container_scanning:
   needs:
     - build
 
+# Verify the image signature using Cosign to ensure it matches the expected annotations and certificate identity
 verify_image:
   stage: security
   image: alpine:3.20
+  variables:
+    COSIGN_YES: "true"         # Automatically confirm actions in Cosign without user interaction
+    FF_SCRIPT_SECTIONS: "true" # Enables GitLab's CI script sections for better multi-line script output
+    IMAGE_TAG: $REGISTRY_IMAGE:$CI_COMMIT_TAG
   before_script:
     - apk add --update cosign docker
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   needs:
     - build
   script:
-    - cosign verify "${REGISTRY_IMAGE}:${CI_COMMIT_TAG}" 
-        --certificate-identity "${CI_PROJECT_URL}//${DOCKER_ENV_CI_CONFIG_PATH}@refs/heads/main" 
-        --certificate-oidc-issuer $CI_SERVER_URL
+    - cosign verify \
+      --annotations "tag=$IMAGE_TAG" \
+      --certificate-identity "$CI_PROJECT_URL//.gitlab-ci.yml@refs/heads/$CI_COMMIT_REF_NAME" \
+      --certificate-oidc-issuer "$CI_SERVER_URL" \
+      "$IMAGE_URI" | jq .
   # TODO: fix this job
   allow_failure: true

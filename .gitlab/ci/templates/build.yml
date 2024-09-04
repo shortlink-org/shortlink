@@ -7,6 +7,7 @@
   variables:
     # GIT_STRATEGY: none # Set `none` if we use git sparse-checkout
     COSIGN_YES: "true"  # Used by Cosign to skip confirmation prompts for non-destructive operations
+    FF_SCRIPT_SECTIONS: "true" # Enables GitLab's CI script sections for better multi-line script output
     DOCKER_BUILDKIT: 1
     DOCKER_CONTENT_TRUST: 1
     DOCKER_BUILDX_VERSION: v0.16.2
@@ -34,10 +35,25 @@
     # - cd ${CI_PROJECT_NAME}
     # - git sparse-checkout init --cone
     # - while IFS= read -r line; do git sparse-checkout set "$line"; done < $CMD_PATH/sparse-checkout.yaml
-  after_script: []
-    # - apk add --update cosign
-    # - IMAGE_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' ${REGISTRY_IMAGE}:${CI_COMMIT_TAG})
-    # - cosign sign $IMAGE_DIGEST
+  after_script:
+    - apk add --update cosign
+    # Retrieve the digest of the pushed image to use in the signing step
+    - IMAGE_DIGEST=$(docker inspect --format='{{index .RepoDigests 0}}' ${REGISTRY_IMAGE}:${CI_COMMIT_TAG})
+    # Sign the image using Cosign with annotations that provide metadata about the build and tag annotation to allow verifying
+    # the tag->digest mapping (https://github.com/sigstore/cosign?tab=readme-ov-file#tag-signing)
+    - |
+      cosign sign "$IMAGE_DIGEST" \
+        --annotations "com.gitlab.ci.user.name=$GITLAB_USER_NAME" \
+        --annotations "com.gitlab.ci.pipeline.id=$CI_PIPELINE_ID" \
+        --annotations "com.gitlab.ci.pipeline.url=$CI_PIPELINE_URL" \
+        --annotations "com.gitlab.ci.job.id=$CI_JOB_ID" \
+        --annotations "com.gitlab.ci.job.url=$CI_JOB_URL" \
+        --annotations "com.gitlab.ci.commit.sha=$CI_COMMIT_SHA" \
+        --annotations "com.gitlab.ci.commit.ref.name=$CI_COMMIT_REF_NAME" \
+        --annotations "com.gitlab.ci.project.path=$CI_PROJECT_PATH" \
+        --annotations "org.opencontainers.image.source=$CI_PROJECT_URL" \
+        --annotations "org.opencontainers.image.revision=$CI_COMMIT_SHA" \
+        --annotations "tag=$IMAGE_TAG"
   script:
     # TODO: improve work with ENV
     - cp ${UI_ENV} .env.prod
