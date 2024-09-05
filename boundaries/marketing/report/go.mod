@@ -9,7 +9,7 @@ require (
 	github.com/stretchr/testify v1.9.0
 	go.opentelemetry.io/otel/trace v1.29.0
 	go.temporal.io/api v1.39.0
-	go.temporal.io/sdk v1.28.1
+	go.temporal.io/sdk v1.29.0
 )
 
 require (
@@ -83,7 +83,7 @@ require (
 	github.com/nats-io/nkeys v0.4.7 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/neo4j/neo4j-go-driver/v5 v5.24.0 // indirect
-	github.com/nexus-rpc/sdk-go v0.0.9 // indirect
+	github.com/nexus-rpc/sdk-go v0.0.10 // indirect
 	github.com/ory/client-go v1.14.5 // indirect
 	github.com/pborman/uuid v1.2.1 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.2 // indirect
