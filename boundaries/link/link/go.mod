@@ -15,7 +15,7 @@ require (
 	github.com/lib/pq v1.10.9
 	github.com/mattn/go-sqlite3 v1.14.23
 	github.com/ory/dockertest/v3 v3.11.0
-	github.com/prometheus/client_golang v1.20.2
+	github.com/prometheus/client_golang v1.20.3
 	github.com/redis/rueidis v1.0.30-0.20240224222815-152800b84f6d
 	github.com/segmentio/encoding v0.4.0
 	github.com/shortlink-org/shortlink v0.0.0-20240903183956-dfd74a6da18f
