@@ -11,7 +11,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: cassandra:4.1.6
+    image: cassandra:5.0.0
     restart: on-failure
     container_name: cassandra
     init: true
