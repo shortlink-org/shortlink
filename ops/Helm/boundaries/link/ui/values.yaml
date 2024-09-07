@@ -33,10 +33,10 @@ deploy:
 
   resources:
     limits:
-      cpu: 100m
+      cpu: 1000m
       memory: 128Mi
     requests:
-      cpu: 15m
+      cpu: 150m
       memory: 64Mi
 
   # -- Annotations to be added to controller pods
@@ -44,7 +44,7 @@ deploy:
 
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/ui-next
-    tag: 0.18.2
+    tag: 0.18.16
     # -- Global imagePullPolicy
     # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
     # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
