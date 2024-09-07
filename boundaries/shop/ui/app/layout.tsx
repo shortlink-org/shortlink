@@ -43,47 +43,14 @@ export const metadata = {
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   const cartId = cookies().get('cartId')?.value;
-  // Don't await the fetch, pass the Promise to the context provider
-  // const cart = getCart(cartId);
 
-  const mockCart = {
-    id: 'mockCartId',
-    checkoutUrl: 'http://localhost:3000/checkout',
-    totalQuantity: 1,
-    lines: [
-      {
-        id: 'mockLineId',
-        quantity: 1,
-        cost: {
-          totalAmount: {
-            amount: '100.00',
-            currencyCode: 'USD'
-          }
-        },
-        merchandise: {
-          id: 'mockMerchandiseId',
-          title: 'Mock Product',
-          selectedOptions: [],
-          product: {
-            id: 'mockProductId',
-            handle: 'mock-product',
-            title: 'Mock Product',
-            featuredImage: null
-          }
-        }
-      }
-    ],
-    cost: {
-      subtotalAmount: { amount: '100.00', currencyCode: 'USD' },
-      totalAmount: { amount: '100.00', currencyCode: 'USD' },
-      totalTaxAmount: { amount: '0', currencyCode: 'USD' }
-    }
-  };
+  // Don't await the fetch, pass the Promise to the context provider
+  const cart = getCart("cartId");
 
   return (
     <html lang="en" className={GeistSans.variable}>
       <body className="bg-neutral-50 text-black selection:bg-teal-300 dark:bg-neutral-900 dark:text-white dark:selection:bg-pink-500 dark:selection:text-white">
-        <CartProvider cartPromise={Promise.resolve(mockCart)}>
+        <CartProvider cartPromise={Promise.resolve(cart)}>
           <Navbar />
           <main>
             {children}

@@ -9,6 +9,8 @@ up: ## Run for development mode
 		-f $(ROOT_DIR)/ops/docker-compose/tooling/services/coredns/coredns.yaml \
 		-f $(ROOT_DIR)/ops/docker-compose/tooling/saas/temporal/temporal.yaml \
 		-f $(ROOT_DIR)/ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
+		-f $(ROOT_DIR)/ops/docker-compose/database/postgres/postgres.yaml \
+		-f $(ROOT_DIR)/ops/docker-compose/application/auth/kratos/kratos.yaml \
 		up -d --remove-orphans --build
 
 down: confirm ## Down docker compose
@@ -17,5 +19,7 @@ down: confirm ## Down docker compose
 		-f $(ROOT_DIR)/ops/docker-compose/tooling/services/coredns/coredns.yaml \
 		-f $(ROOT_DIR)/ops/docker-compose/tooling/saas/temporal/temporal.yaml \
 		-f $(ROOT_DIR)/ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
+		-f $(ROOT_DIR)/ops/docker-compose/database/postgres/postgres.yaml \
+		-f $(ROOT_DIR)/ops/docker-compose/application/auth/kratos/kratos.yaml \
 	down --remove-orphans
 	@docker network prune -f

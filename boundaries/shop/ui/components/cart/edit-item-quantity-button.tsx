@@ -38,7 +38,7 @@ export function EditItemQuantityButton({
 }) {
   const [message, formAction] = useFormState(updateItemQuantity, null);
   const payload = {
-    merchandiseId: item.merchandise.id,
+    merchandiseId: item.id,
     quantity: type === 'plus' ? item.quantity + 1 : item.quantity - 1
   };
   const actionWithVariant = formAction.bind(null, payload);

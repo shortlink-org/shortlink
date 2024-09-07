@@ -226,16 +226,20 @@ export async function getCart(cartId: string | undefined): Promise<Cart | undefi
 
   const res = await shopifyFetch<ShopifyCartOperation>({
     query: getCartQuery,
-    variables: { cartId },
-    tags: [TAGS.cart]
+    variables: {
+      cartId: "",
+      customerId: "3e173751-8840-4b0d-8065-fbea88357cc5",
+    },
   });
 
+  console.warn("getCart", res.body.data.carts_getCart.state);
+
   // Old carts becomes `null` when you checkout.
-  if (!res.body.data.cart) {
+  if (!res.body.data.carts_getCart.state) {
     return undefined;
   }
 
-  return reshapeCart(res.body.data.cart);
+  return res.body.data.carts_getCart.state;
 }
 
 export async function getCollection(id: number): Promise<Collection | undefined> {

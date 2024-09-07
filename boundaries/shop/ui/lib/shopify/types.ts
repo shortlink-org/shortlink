@@ -133,6 +133,7 @@ export type ShopifyCartOperation = {
   };
   variables: {
     cartId: string;
+    customerId: string;
   };
 };
 

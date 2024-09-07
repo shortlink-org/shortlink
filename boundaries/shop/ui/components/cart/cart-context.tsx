@@ -27,7 +27,7 @@ function updateCartItem(item: CartItem, updateType: UpdateType): CartItem | null
   const newQuantity = updateType === 'plus' ? item.quantity + 1 : item.quantity - 1;
   if (newQuantity === 0) return null;
 
-  const singleItemAmount = Number(item.cost.totalAmount.amount) / item.quantity;
+  const singleItemAmount = Number(100) / item.quantity;
   const newTotalAmount = calculateItemCost(newQuantity, singleItemAmount.toString());
 
   return {
@@ -36,7 +36,6 @@ function updateCartItem(item: CartItem, updateType: UpdateType): CartItem | null
     cost: {
       ...item.cost,
       totalAmount: {
-        ...item.cost.totalAmount,
         amount: newTotalAmount
       }
     }
@@ -76,14 +75,14 @@ function createOrUpdateCartItem(
 
 function updateCartTotals(lines: CartItem[]): Pick<Cart, 'totalQuantity' | 'cost'> {
   const totalQuantity = lines.reduce((sum, item) => sum + item.quantity, 0);
-  const totalAmount = lines.reduce((sum, item) => sum + Number(item.cost.totalAmount.amount), 0);
+  const totalAmount = lines.reduce((sum, item) => sum + Number(100), 0);
   const currencyCode = lines[0]?.cost.totalAmount.currencyCode ?? 'USD';
 
   return {
     totalQuantity,
     cost: {
-      subtotalAmount: { amount: totalAmount.toString(), currencyCode },
-      totalAmount: { amount: totalAmount.toString(), currencyCode },
+      subtotalAmount: { amount: 100, currencyCode },
+      totalAmount: { amount: 100, currencyCode },
       totalTaxAmount: { amount: '0', currencyCode }
     }
   };
@@ -109,9 +108,9 @@ function cartReducer(state: Cart | undefined, action: CartAction): Cart {
   switch (action.type) {
     case 'UPDATE_ITEM': {
       const { merchandiseId, updateType } = action.payload;
-      const updatedLines = currentCart.lines
+      const updatedLines = currentCart.items
         .map((item) =>
-          item.merchandise.id === merchandiseId ? updateCartItem(item, updateType) : item
+          item.id === merchandiseId ? updateCartItem(item, updateType) : item
         )
         .filter(Boolean) as CartItem[];
 
@@ -122,7 +121,7 @@ function cartReducer(state: Cart | undefined, action: CartAction): Cart {
           totalQuantity: 0,
           cost: {
             ...currentCart.cost,
-            totalAmount: { ...currentCart.cost.totalAmount, amount: '0' }
+            totalAmount: { amount: '0' }
           }
         };
       }
@@ -131,12 +130,15 @@ function cartReducer(state: Cart | undefined, action: CartAction): Cart {
     }
     case 'ADD_ITEM': {
       const { variant, product } = action.payload;
-      const existingItem = currentCart.lines.find((item) => item.merchandise.id === variant.id);
+
+      console.warn('ADD_ITEM', variant, product);
+
+      const existingItem = currentCart.items.find((item) => item.id === variant.id);
       const updatedItem = createOrUpdateCartItem(existingItem, variant, product);
 
       const updatedLines = existingItem
-        ? currentCart.lines.map((item) => (item.merchandise.id === variant.id ? updatedItem : item))
-        : [...currentCart.lines, updatedItem];
+        ? currentCart.items.map((item) => (item.id === variant.id ? updatedItem : item))
+        : [...currentCart.items, updatedItem];
 
       return { ...currentCart, ...updateCartTotals(updatedLines), lines: updatedLines };
     }
