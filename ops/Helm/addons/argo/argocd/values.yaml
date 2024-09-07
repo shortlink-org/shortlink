@@ -240,8 +240,11 @@ argo-cd:
     #    name: custom-tools
 
     resources:
+      limits:
+        cpu: 2000m
+        memory: 512Mi
       requests:
-        cpu: 50m
+        cpu: 500m
         memory: 128Mi
 
     initContainers:
@@ -289,7 +292,7 @@ argo-cd:
 
     resources:
       limits:
-        cpu: 300m
+        cpu: 1000m
         memory: 512Mi
       requests:
         cpu: 150m
@@ -354,10 +357,10 @@ argo-cd:
   notifications:
     resources:
       limits:
-        cpu: 300m
+        cpu: 1000m
         memory: 256Mi
       requests:
-        cpu: 15m
+        cpu: 50m
         memory: 64Mi
 
     metrics:
