@@ -1,7 +1,7 @@
 {{/* vim: set filetype=mustache: */}}
 
 {{- define "shortlink-common.istioIngress" }}
-apiVersion: networking.istio.io/v1beta1
+apiVersion: networking.istio.io/v1
 kind: VirtualService
 metadata:
   name: {{ empty .Values.ingress.name | ternary (include "helpers.fullname" .) .Values.ingress.name }}
@@ -38,7 +38,7 @@ spec:
 
 {{- if and false }}
 ---
-apiVersion: networking.istio.io/v1beta1
+apiVersion: networking.istio.io/v1
 kind: DestinationRule
 metadata:
   namespace: {{ .Values.ingress.namespace | default .Release.Namespace }}

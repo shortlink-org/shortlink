@@ -14,7 +14,7 @@ Accepted
 It's primarily used to define the accessibility of services to each sidecar, enhancing security and performance.
 
 ```yaml
-apiVersion: networking.istio.io/v1beta1
+apiVersion: networking.istio.io/v1
 kind: Sidecar
 metadata:
   name: default
