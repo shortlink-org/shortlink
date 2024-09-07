@@ -27,10 +27,6 @@
       "matchManagers": ["gomod"],
       "matchPackagePatterns": ["^github.com/shortlink-org/shortlink$"],
       "ignoreDeps": ["github.com/shortlink-org/shortlink"]
-    },
-    {
-      "matchPackageNames": ["@mui/icons-material", "@mui/material", "@mui/system", "@mui/material-nextjs", "@mui/styled-engine-sc"],
-      "enabled": false
     }
   ]
 }
