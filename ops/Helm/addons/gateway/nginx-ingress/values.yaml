@@ -24,7 +24,7 @@ ingress-nginx:
   controller:
 
     nodeSelector:
-      kubernetes.io/hostname: talos-dks-th8
+      kubernetes.io/hostname: talos-9p3-rge
 
     resources:
       limits:

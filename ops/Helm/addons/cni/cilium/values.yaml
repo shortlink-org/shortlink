@@ -66,7 +66,7 @@ cilium:
     enabled: true
 
     serviceMonitor:
-      enabled: true
+      enabled: false
 
       labels:
         release: prometheus-operator
@@ -84,14 +84,14 @@ cilium:
       enabled: true
 
     serviceMonitor:
-      enabled: true
+      enabled: false
 
       labels:
         release: prometheus-operator
 
   envoy:
     serviceMonitor:
-      enabled: true
+      enabled: false
 
     labels:
       release: prometheus-operator
@@ -128,7 +128,7 @@ cilium:
           grafana_dashboard_folder: Cilium
 
       serviceMonitor:
-        enabled: true
+        enabled: false
 
         labels:
           release: prometheus-operator

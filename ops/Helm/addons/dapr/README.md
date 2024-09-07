@@ -15,7 +15,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | https://dapr.github.io/helm-charts/ | dapr | 1.12 |
-| https://dapr.github.io/helm-charts/ | dapr-dashboard | 0.14.0 |
+| https://dapr.github.io/helm-charts/ | dapr-dashboard | 0.15.0 |
 
 ## Values
 
