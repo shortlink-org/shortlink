@@ -101,9 +101,8 @@ spec:
           synchronous_commit: 'on'
           # Partitioning
           enable_partition_pruning: 'on'
-          # other settings
-          # TODO: enabled pgrouting,timescaledb,postgis
-          shared_preload_libraries: pg_stat_statements,auto_explain,pgaudit,pg_prewarm,uuid-ossp,pg_partman_bgw,pgmonitor_bgw
+          # TODO: enabled pgrouting,timescaledb,postgis,pgmonitor_bgw
+          shared_preload_libraries: pg_stat_statements,auto_explain,pgaudit,pg_prewarm,uuid-ossp,pg_partman_bgw
           pgmonitor_bgw.dbname: postgres,link
           pgmonitor_bgw.role: "postgres"
     syncPeriodSeconds: 60
