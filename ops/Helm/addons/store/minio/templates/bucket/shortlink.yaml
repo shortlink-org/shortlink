@@ -52,7 +52,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
-  #  mcImage: quay.io/minio/mc:latest
+  mcImage: quay.io/minio/mc:latest
   serviceAccountName: mc-job-sa
   securityContext: {}
   containerSecurityContext: {}
