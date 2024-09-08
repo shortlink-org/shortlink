@@ -13,7 +13,7 @@
 
 ### Roadmap
 
-See  this [project](https://github.com/shortlink-org/shortlink/projects/20)
+See this [project](https://github.com/shortlink-org/shortlink/projects/20)
 
 ### Running the Binaries
 

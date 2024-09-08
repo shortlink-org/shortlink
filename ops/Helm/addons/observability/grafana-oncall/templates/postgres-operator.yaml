@@ -70,7 +70,7 @@ spec:
           max_parallel_workers: 8
           max_parallel_maintenance_workers: 4
           # other settings
-          shared_preload_libraries: pgaudit,auto_explain,pg_stat_statements,pg_prewarm,uuid-ossp,pgmonitor_bgw
+          shared_preload_libraries: pg_stat_statements,pgaudit,auto_explain,pg_prewarm,uuid-ossp,pgmonitor_bgw
           pgmonitor_bgw.dbname: postgres,oncall
           pgmonitor_bgw.role: "postgres"
   users:
