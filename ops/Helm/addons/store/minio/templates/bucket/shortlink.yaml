@@ -2,12 +2,16 @@ apiVersion: v1
 kind: ServiceAccount
 metadata:
   name: mc-job-sa
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 
 ---
 apiVersion: sts.min.io/v1alpha1
 kind: PolicyBinding
 metadata:
   name: mc-job-binding
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 spec:
   application:
     serviceaccount: mc-job-sa
@@ -20,6 +24,8 @@ apiVersion: v1
 kind: ConfigMap
 metadata:
   name: shortlink-bucket-policy
+  annotations:
+    argocd.argoproj.io/sync-wave: "0"
 data:
   policy.json:  |
     {
@@ -43,6 +49,8 @@ apiVersion: job.min.io/v1alpha1
 kind: MinIOJob
 metadata:
   name: minio-create-shortlink-bucket-job
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
 spec:
   #  mcImage: quay.io/minio/mc:latest
   serviceAccountName: mc-job-sa
