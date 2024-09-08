@@ -49,6 +49,7 @@ spec:
   containerSecurityContext: {}
   tenant:
     name: shortlink
+    namespace: minio
   commands:
     - op: make-bucket
       args:
