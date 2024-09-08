@@ -1,0 +1,107 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: mc-job-sa
+
+---
+apiVersion: sts.min.io/v1alpha1
+kind: PolicyBinding
+metadata:
+  name: mc-job-binding
+spec:
+  application:
+    serviceaccount: mc-job-sa
+  policies:
+    - consoleAdmin
+
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shortlink-bucket-policy
+data:
+  policy.json:  |
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Effect": "Allow",
+          "Action": [
+            "s3:*"
+          ],
+          "Resource": [
+            "arn:aws:s3:::shortlink",
+            "arn:aws:s3:::shortlink/*"
+          ]
+        }
+      ]
+    }
+
+---
+apiVersion: job.min.io/v1alpha1
+kind: MinIOJob
+metadata:
+  name: minio-create-shortlink-bucket-job
+spec:
+  #  mcImage: quay.io/minio/mc:latest
+  serviceAccountName: mc-job-sa
+  securityContext: {}
+  containerSecurityContext: {}
+  tenant:
+    name: shortlink
+  commands:
+    - op: make-bucket
+      args:
+        name: shortlink
+    - name: add-testkube-user
+      op: admin/user/add
+      args:
+        user: testkube-user
+        password: $(PASSWORD)
+      envFrom:
+        - secretRef:
+            name: testkube-user
+    - name: add-shortlink-user
+      op: admin/user/add
+      args:
+        user: shortlink-user
+        password: $(PASSWORD)
+      envFrom:
+        - secretRef:
+            name: shortlink-user
+    - name: add-my-policy
+      op: admin/policy/create
+      args:
+        name: shortlink-access
+        policy: /temp/policy.json
+      volumeMounts:
+        - name: policy
+          mountPath: /temp
+      volumes:
+        - name: policy
+          configMap:
+            name: shortlink-bucket-policy
+            items:
+              - key: policy.json
+                path: policy.json
+    - op: admin/policy/attach
+      dependsOn:
+        - add-testkube-user
+        - add-shortlink-user
+        - add-my-policy
+      args:
+        policy: shortlink-access
+        user: daniel
+    - op: admin/policy/attach
+      dependsOn:
+        - add-testkube-user
+        - add-shortlink-user
+        - add-my-policy
+      args:
+        policy: shortlink-access
+        user: pedro
+    - op: stat
+      command:
+        - "mc"
+        - "stat"
+        - "myminio/shortlink"
