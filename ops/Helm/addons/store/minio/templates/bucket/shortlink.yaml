@@ -79,7 +79,7 @@ spec:
       envFrom:
         - secretRef:
             name: shortlink-user
-    - name: add-my-policy
+    - name: add-shortlink-policy
       op: admin/policy/create
       args:
         name: shortlink-access
@@ -98,18 +98,18 @@ spec:
       dependsOn:
         - add-testkube-user
         - add-shortlink-user
-        - add-my-policy
+        - add-shortlink-policy
       args:
         policy: shortlink-access
-        user: daniel
+        user: testkube-user
     - op: admin/policy/attach
       dependsOn:
         - add-testkube-user
         - add-shortlink-user
-        - add-my-policy
+        - add-shortlink-policy
       args:
         policy: shortlink-access
-        user: pedro
+        user: shortlink-user
     - op: stat
       command:
         - "mc"
