@@ -11,6 +11,7 @@ metadata:
 spec:
   application:
     serviceaccount: mc-job-sa
+    namespace: {{ .Release.Namespace }}
   policies:
     - consoleAdmin
 
@@ -49,7 +50,7 @@ spec:
   containerSecurityContext: {}
   tenant:
     name: shortlink
-    namespace: minio
+    namespace: {{ .Release.Namespace }}
   commands:
     - op: make-bucket
       args:
