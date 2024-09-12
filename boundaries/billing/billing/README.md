@@ -25,6 +25,7 @@ $> make help # show help message with all commands and targets
 - [UC-3](./internal/usecases/payment/README.md) Works with a payment
 - [UC-4](./internal/usecases/tariff/README.md) Works with a tariff
 - [UC-5](./internal/usecases/subscription/README.md) Works with a subscription
+- [UC-6](./internal/usecases/credit_cart/README.md) Works with a credit card
 
 ### Docs
 
