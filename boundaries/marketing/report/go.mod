@@ -9,7 +9,7 @@ require (
 	github.com/stretchr/testify v1.9.0
 	go.opentelemetry.io/otel/trace v1.30.0
 	go.temporal.io/api v1.39.0
-	go.temporal.io/sdk v1.29.0
+	go.temporal.io/sdk v1.29.1
 )
 
 require (
