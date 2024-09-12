@@ -1,6 +1,6 @@
 # Currency
 
-<img width='200' height='200' src="./docs/public/logo.svg">
+<img width='200' height='200' src="./docs/public/logo.webp">
 
 > [!NOTE]
 > This service enables users to select their preferred currency and automatically convert it in real-time. 
