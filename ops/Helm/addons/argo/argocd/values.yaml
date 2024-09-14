@@ -241,8 +241,8 @@ argo-cd:
 
     resources:
       limits:
-        cpu: 2000m
-        memory: 512Mi
+        cpu: 3000m
+        memory: 1024Mi
       requests:
         cpu: 500m
         memory: 128Mi
@@ -262,9 +262,9 @@ argo-cd:
             type: RuntimeDefault
         env:
           - name: HELM_SECRETS_VERSION
-            value: "4.6.0"
+            value: "4.6.1"
           - name: KUBECTL_VERSION
-            value: "1.31.0"
+            value: "1.31.1"
           - name: VALS_VERSION
             value: "0.37.3"
           - name: SOPS_VERSION
@@ -292,10 +292,10 @@ argo-cd:
 
     resources:
       limits:
-        cpu: 1000m
-        memory: 512Mi
+        cpu: 2000m
+        memory: 1024Mi
       requests:
-        cpu: 150m
+        cpu: 300m
         memory: 128Mi
 
     metrics:
