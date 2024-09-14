@@ -10,9 +10,6 @@ kube-prometheus-stack:
       routePrefix: /prometheus/
       enforcedKeepDroppedTargets: 1
 
-      image:
-        tag: v3.0.0-beta.0
-
       resources:
         limits:
           cpu: 2
