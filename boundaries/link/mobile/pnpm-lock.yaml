@@ -118,8 +118,8 @@ importers:
         specifier: ^20.26.2
         version: 20.26.2(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.5)(ts-node@10.9.2(@types/node@20.16.5)(typescript@5.6.2)))
       eas-cli:
-        specifier: ^12.3.0
-        version: 12.3.0(@types/node@20.16.5)(expo-modules-autolinking@1.11.2)(typescript@5.6.2)
+        specifier: ^12.4.0
+        version: 12.4.0(@types/node@20.16.5)(expo-modules-autolinking@1.11.2)(typescript@5.6.2)
       eslint:
         specifier: ^9.10.0
         version: 9.10.0
@@ -3561,8 +3561,8 @@ packages:
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
 
-  eas-cli@12.3.0:
-    resolution: {integrity: sha512-A7w4Z4DiL6AzApYNHtVhZHRkh/g2d3ge+eiX8wCY3WKeUrXcI+eVEPdMi2X3EFoxE6S7wJoh5MxgbP1K8CJqEA==}
+  eas-cli@12.4.0:
+    resolution: {integrity: sha512-eCgA6v9EOb8/8Ydnra7IMWlF/I2I7b7el/VN3I2Cjv9M0DDjzmFQ7eExlROX6TyK4cQgp/U23XN6YJCZD9Uibg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -10205,21 +10205,6 @@ snapshots:
       - typescript
       - verdaccio
 
-  '@nrwl/js@19.7.3(@babel/traverse@7.25.3)(@types/node@20.16.5)(nx@19.7.3)(typescript@5.4.5)':
-    dependencies:
-      '@nx/js': 19.7.3(@babel/traverse@7.25.3)(@types/node@20.16.5)(nx@19.7.3)(typescript@5.4.5)
-    transitivePeerDependencies:
-      - '@babel/traverse'
-      - '@swc-node/register'
-      - '@swc/core'
-      - '@swc/wasm'
-      - '@types/node'
-      - debug
-      - nx
-      - supports-color
-      - typescript
-      - verdaccio
-
   '@nrwl/js@19.7.3(@babel/traverse@7.25.3)(@types/node@20.16.5)(nx@19.7.3)(typescript@5.6.2)':
     dependencies:
       '@nx/js': 19.7.3(@babel/traverse@7.25.3)(@types/node@20.16.5)(nx@19.7.3)(typescript@5.6.2)
@@ -10510,7 +10495,7 @@ snapshots:
       '@babel/preset-env': 7.24.3(@babel/core@7.24.3)
       '@babel/preset-typescript': 7.23.3(@babel/core@7.24.3)
       '@babel/runtime': 7.25.6
-      '@nrwl/js': 19.7.3(@babel/traverse@7.25.3)(@types/node@20.16.5)(nx@19.7.3)(typescript@5.4.5)
+      '@nrwl/js': 19.7.3(@babel/traverse@7.25.3)(@types/node@20.16.5)(nx@19.7.3)(typescript@5.6.2)
       '@nx/devkit': 19.7.3(nx@19.7.3)
       '@nx/workspace': 19.7.3
       babel-plugin-const-enum: 1.2.0(@babel/core@7.24.3)
@@ -13309,7 +13294,7 @@ snapshots:
 
   duplexer@0.1.2: {}
 
-  eas-cli@12.3.0(@types/node@20.16.5)(expo-modules-autolinking@1.11.2)(typescript@5.6.2):
+  eas-cli@12.4.0(@types/node@20.16.5)(expo-modules-autolinking@1.11.2)(typescript@5.6.2):
     dependencies:
       '@expo/apple-utils': 1.8.0
       '@expo/code-signing-certificates': 0.0.5
@@ -13318,6 +13303,7 @@ snapshots:
       '@expo/config-types': 50.0.0
       '@expo/eas-build-job': 1.0.133
       '@expo/eas-json': 12.0.0
+      '@expo/env': 0.3.0
       '@expo/json-file': 8.2.37
       '@expo/logger': 1.0.117
       '@expo/multipart-body-parser': 1.1.0
