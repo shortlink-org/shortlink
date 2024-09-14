@@ -58,6 +58,7 @@ spec:
             spec:
               containers:
                 - name: migrate
+                  image: 'ghcr.io/authzed/spicedb:v1.35.3'
                   env:
                     - name: SPICEDB_DATASTORE_CONN_URI
                       valueFrom:
