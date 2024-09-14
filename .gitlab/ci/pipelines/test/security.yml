@@ -1,5 +1,6 @@
 include:
   - template: Jobs/Dependency-Scanning.gitlab-ci.yml
+  - template: Jobs/SAST-IaC.gitlab-ci.yml
   - component: $CI_SERVER_FQDN/components/dependency-scanning/cargo@main
   - component: $CI_SERVER_FQDN/components/dependency-scanning/android@main
   - component: $CI_SERVER_FQDN/components/secret-detection/secret-detection@main
