@@ -13,10 +13,6 @@ tempo:
     #       service_graphs:
     #         enable_virtual_node_label: true
 
-    # NOTE: fix problem - "mkdir /var/tempo/traces: permission denied"
-    securityContext:
-      fsGroup: 10001
-
     resources:
       limits:
         cpu: 2
