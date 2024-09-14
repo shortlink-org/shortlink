@@ -8,6 +8,18 @@ kube-prometheus-stack:
 
     prometheusSpec:
       routePrefix: /prometheus/
+      enforcedKeepDroppedTargets: 1
+
+      image:
+        tag: v3.0.0-beta.0
+
+      resources:
+        limits:
+          cpu: 2
+          memory: 2Gi
+        requests:
+          cpu: 500m
+          memory: 256Mi
 
       enableRemoteWriteReceiver: true
       logFormat: json
