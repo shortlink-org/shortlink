@@ -8,12 +8,19 @@ use std::sync::Arc;
 use warp::Filter;
 use rust_decimal_macros::dec;
 use domain::exchange_rate::entities::{Currency, ExchangeRate};
-use crate::repository::exchange_rate::repository::ExchangeRateRepository;
+use domain::currency_conversion::entities::Amount;
 use usecases::exchange_rate::fetcher::RateFetcherUseCase;
 use usecases::currency_conversion::converter::CurrencyConversionUseCase;
 use repository::exchange_rate::in_memory_repository::InMemoryExchangeRateRepository;
 use infrastructure::http::routes::api;
 use utoipa::OpenApi;
+use tracing_subscriber;
+use tracing_subscriber::fmt::format::FmtSpan;
+use tracing_subscriber::EnvFilter;
+use tracing::info;
+
+// Import the ExchangeRateRepository trait
+use repository::exchange_rate::repository::ExchangeRateRepository;
 
 #[derive(OpenApi)]
 #[openapi(
@@ -35,6 +42,12 @@ struct ApiDoc;
 
 #[tokio::main]
 async fn main() {
+    // Initialize tracing subscriber
+    tracing_subscriber::fmt()
+        .with_env_filter(EnvFilter::new("warp=info"))
+        .with_span_events(FmtSpan::CLOSE)
+        .init();
+
     // Create repository and use cases
     let exchange_rate_repository = Arc::new(InMemoryExchangeRateRepository::new());
     let rate_fetcher_use_case = Arc::new(RateFetcherUseCase::new(exchange_rate_repository as Arc<dyn ExchangeRateRepository + Send + Sync>));
@@ -58,8 +71,10 @@ async fn main() {
 
     // Set up the HTTP server with the API routes
     let routes = api(rate_fetcher_use_case, currency_conversion_use_case)
-        .or(openapi_filter);
+        .or(openapi_filter)
+        .with(warp::trace::request());
 
+    info!("Starting server at http://127.0.0.1:3030");
     warp::serve(routes)
         .run(([127, 0, 0, 1], 3030))
         .await;
