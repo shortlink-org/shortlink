@@ -1,0 +1,10 @@
+[package]
+name = "currency"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+rust_decimal = "1.36.0"
+rust_decimal_macros = "1.36.0"
+tokio = { version = "1.40.0", features = ["full"] }
+async-trait = "0.1.82"
