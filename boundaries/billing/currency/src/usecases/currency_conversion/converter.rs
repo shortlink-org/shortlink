@@ -1,13 +1,13 @@
-use crate::repository::exchange_rate::repository::ExchangeRateRepository;
+use std::sync::Arc;
 use crate::domain::currency_conversion::entities::{Amount, ConvertedAmount};
 use crate::usecases::exchange_rate::fetcher::RateFetcherUseCase;
 
-pub struct CurrencyConversionUseCase<'a, R: ExchangeRateRepository> {
-    pub rate_fetcher: &'a RateFetcherUseCase<R>, // Use a reference here
+pub struct CurrencyConversionUseCase {
+    pub rate_fetcher: Arc<RateFetcherUseCase>, // No generic parameter here
 }
 
-impl<'a, R: ExchangeRateRepository> CurrencyConversionUseCase<'a, R> {
-    pub fn new(rate_fetcher: &'a RateFetcherUseCase<R>) -> Self {
+impl CurrencyConversionUseCase {
+    pub fn new(rate_fetcher: Arc<RateFetcherUseCase>) -> Self {
         Self { rate_fetcher }
     }
 
