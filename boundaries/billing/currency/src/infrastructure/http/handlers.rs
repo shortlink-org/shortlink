@@ -4,15 +4,16 @@ use rust_decimal::Decimal;
 use std::sync::Arc;
 use crate::usecases::exchange_rate::fetcher::RateFetcherUseCase;
 use crate::usecases::currency_conversion::converter::CurrencyConversionUseCase;
+use utoipa::{ToSchema, IntoParams};
 
 // Request query parameters
-#[derive(Deserialize)]
+#[derive(Deserialize, ToSchema, IntoParams)]
 pub struct ExchangeRateQuery {
     base_currency: String,
     target_currency: String,
 }
 
-#[derive(Deserialize)]
+#[derive(Deserialize, ToSchema, IntoParams)]
 pub struct HistoricalRateQuery {
     base_currency: String,
     target_currency: String,
@@ -21,7 +22,7 @@ pub struct HistoricalRateQuery {
 }
 
 // Response structures
-#[derive(Serialize)]
+#[derive(Serialize, ToSchema)]
 pub struct ExchangeRateResponse {
     base_currency: String,
     target_currency: String,
@@ -29,12 +30,21 @@ pub struct ExchangeRateResponse {
     timestamp: String,
 }
 
-#[derive(Serialize)]
+#[derive(Serialize, ToSchema)]
 pub struct HistoricalRateResponse {
     date: String,
     exchange_rate: Decimal,
 }
 
+#[utoipa::path(
+    get,
+    path = "/rates/current",
+    params(ExchangeRateQuery),
+    responses(
+        (status = 200, description = "Success", body = ExchangeRateResponse),
+        (status = 404, description = "Not Found")
+    )
+)]
 // Handler for current exchange rate
 pub async fn get_current_exchange_rate(
     query: ExchangeRateQuery,
@@ -53,6 +63,15 @@ pub async fn get_current_exchange_rate(
     }
 }
 
+#[utoipa::path(
+    get,
+    path = "/rates/historical",
+    params(HistoricalRateQuery),
+    responses(
+        (status = 200, description = "Success", body = [HistoricalRateResponse]),
+        (status = 404, description = "Not Found")
+    )
+)]
 // Handler for historical exchange rates
 pub async fn get_historical_exchange_rate(
     query: HistoricalRateQuery,
