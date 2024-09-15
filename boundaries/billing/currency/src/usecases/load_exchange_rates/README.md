@@ -17,9 +17,6 @@
    - If the data is not in the cache, the service sends a request to **Bloomberg** or **Yahoo** to fetch the current exchange rates.
    - Upon receiving the data from the subscription, the rates are stored in both the **Cache** and the **Rate Database** for future requests.
 
-3. **Scheduled Updates (via Cron Job)**:  
-   A **cron** job runs at predefined intervals (e.g., every hour) to proactively refresh exchange rate data from the **Bloomberg** and **Yahoo** APIs, ensuring the cache and database are populated with up-to-date rates. This reduces the need to hit the APIs for every user request and ensures the system is ready for future requests.
-
 4. **Update System**:  
    The service updates the **Cache** and **Rate Database** with the latest exchange rate data. This ensures that subsequent requests for the same currency pair can be quickly fulfilled from the cache, reducing load on external data providers.
 
@@ -74,40 +71,6 @@ note over client, service
 3. If missing, it fetches from Bloomberg.
 4. Service stores rates in cache and database.
 5. Returns result to client.
-end note
-@enduml
-```
-
-### Cron Job Interaction Diagram
-
-```plantuml
-@startuml
-' Define colors for actors and participants
-skinparam actorBackgroundColor #ADD8E6
-skinparam participantBackgroundColor #90EE90
-skinparam noteBackgroundColor #FFFFE0
-skinparam sequenceLifeLineBackgroundColor #FF6347
-
-actor CronJob as cron
-participant CurrencyService as service
-participant CacheStore as cache
-participant BloombergAPI as bloomberg
-participant YahooAPI as yahoo
-participant RateDatabase as db
-
-' Cron job interaction to refresh rates
-cron -> service: Trigger scheduled rate refresh
-service -> bloomberg: Fetch latest rates from Bloomberg
-bloomberg --> service: Return updated rates
-service -> yahoo: Fetch latest rates from Yahoo
-yahoo --> service: Return updated rates
-service -> cache: Update cache with new rates
-service -> db: Update database with new rates
-
-note over cron, service
-1. Cron job triggers periodic refresh.
-2. Service fetches latest rates from Bloomberg and Yahoo.
-3. Updates cache and database with new rates.
 end note
 @enduml
 ```
