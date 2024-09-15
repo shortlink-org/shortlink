@@ -25,19 +25,19 @@ paths:
       tags:
         - Currency
       summary: Get current exchange rate
-      description: Retrieves the current exchange rate between two currencies
+      description: Retrieves the current exchange rate between two currencies.
       parameters:
         - name: base_currency
           in: query
           required: true
-          description: The base currency code (e.g., USD)
+          description: The base currency code (e.g., USD).
           schema:
             type: string
             example: USD
         - name: target_currency
           in: query
           required: true
-          description: The target currency code (e.g., EUR)
+          description: The target currency code (e.g., EUR).
           schema:
             type: string
             example: EUR
@@ -54,26 +54,26 @@ paths:
       tags:
         - Currency
       summary: Get historical exchange rates
-      description: Retrieves historical exchange rates between two currencies within a specified date range
+      description: Retrieves historical exchange rates between two currencies within a specified date range.
       parameters:
         - name: base_currency
           in: query
           required: true
-          description: The base currency code (e.g., USD)
+          description: The base currency code (e.g., USD).
           schema:
             type: string
             example: USD
         - name: target_currency
           in: query
           required: true
-          description: The target currency code (e.g., EUR)
+          description: The target currency code (e.g., EUR).
           schema:
             type: string
             example: EUR
         - name: start_date
           in: query
           required: true
-          description: Start date for the historical range (YYYY-MM-DD)
+          description: Start date for the historical range (YYYY-MM-DD).
           schema:
             type: string
             format: date
@@ -81,7 +81,7 @@ paths:
         - name: end_date
           in: query
           required: true
-          description: End date for the historical range (YYYY-MM-DD)
+          description: End date for the historical range (YYYY-MM-DD).
           schema:
             type: string
             format: date
@@ -101,17 +101,21 @@ components:
       properties:
         base_currency:
           type: string
+          description: The base currency code.
           example: USD
         target_currency:
           type: string
+          description: The target currency code.
           example: EUR
         exchange_rate:
           type: number
           format: float
+          description: The current exchange rate between the base and target currency.
           example: 0.85
         timestamp:
           type: string
           format: date-time
+          description: The time when the exchange rate was retrieved.
           example: "2024-09-12T12:00:00Z"
 
     HistoricalRate:
@@ -120,10 +124,12 @@ components:
         date:
           type: string
           format: date
+          description: The date of the historical exchange rate.
           example: "2024-09-12"
         exchange_rate:
           type: number
           format: float
+          description: The exchange rate on the given date.
           example: 0.85
 
     Error:
@@ -132,9 +138,11 @@ components:
         code:
           type: integer
           format: int32
+          description: The error code.
           example: 400
         message:
           type: string
+          description: The error message.
           example: "Invalid parameters provided"
 
   responses:
