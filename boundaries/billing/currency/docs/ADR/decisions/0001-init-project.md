@@ -22,3 +22,9 @@ We will create a new service called `currency` to handle currency conversion.
 - We will need to provide an API for converting between currencies.
 - We will need to provide an API for getting exchange rate data.
 - We will need to provide an API for getting historical exchange rate data.
+
+### References
+
+- [Odoo Currency related Addons (cryptocurrencies, rate conversion, integrations with third party applications)](https://github.com/OCA/currency)
+- [Currency handling for Go](https://github.com/bojanz/currency)
+- [JavaScript library for handling currencies](https://github.com/scurker/currency.js)

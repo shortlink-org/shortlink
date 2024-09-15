@@ -17,11 +17,14 @@ $> make help # show help message with all commands and targets
 
 ### ADR
 
-- [ADR-0001](./docs/ADR/decisions/0001-init-project.md) - Init project
-- [ADR-0002](./docs/ADR/decisions/0002-requirements.md) - Requirements for Currency Service
-- [ADR-0003](./docs/ADR/decisions/0003-c4-model.md) - C4 Model
-- [ADR-0004](./docs/ADR/decisions/0004-api-design.md) - API Design
-- [ADR-0005](./docs/ADR/decisions/0005-handling-divergence-in-exchange-rates-between-providers.md) - Handling Divergence in Exchange Rates Between Providers
+- **Common:**
+  - [ADR-0001](./docs/ADR/decisions/0001-init-project.md) - Init project
+  - [ADR-0002](./docs/ADR/decisions/0002-requirements.md) - Requirements for Currency Service
+  - [ADR-0003](./docs/ADR/decisions/0003-c4-model.md) - C4 Model
+  - [ADR-0004](./docs/ADR/decisions/0004-api-design.md) - API Design
+  - [ADR-0006](./docs/ADR/decisions/0006-project-layout.md) - Project Layout
+- **Use Cases:**
+  - [ADR-0005](./docs/ADR/decisions/0005-handling-divergence-in-exchange-rates-between-providers.md) - Handling Divergence in Exchange Rates Between Providers
 
 ### Use Cases
 
