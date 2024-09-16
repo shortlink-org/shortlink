@@ -14470,7 +14470,7 @@ __metadata:
     react-dom: "npm:^18.3.1"
     react-router-dom: "npm:^6.26.2"
     react-use: "npm:^17.5.1"
-    start-server-and-test: "npm:^2.0.7"
+    start-server-and-test: "npm:^2.0.8"
   languageName: unknown
   linkType: soft
 
@@ -14921,7 +14921,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"axios@npm:^1.7.4":
+"axios@npm:^1.7.7":
   version: 1.7.7
   resolution: "axios@npm:1.7.7"
   dependencies:
@@ -31780,9 +31780,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"start-server-and-test@npm:^2.0.7":
-  version: 2.0.7
-  resolution: "start-server-and-test@npm:2.0.7"
+"start-server-and-test@npm:^2.0.8":
+  version: 2.0.8
+  resolution: "start-server-and-test@npm:2.0.8"
   dependencies:
     arg: "npm:^5.0.2"
     bluebird: "npm:3.7.2"
@@ -31791,12 +31791,12 @@ __metadata:
     execa: "npm:5.1.1"
     lazy-ass: "npm:1.6.0"
     ps-tree: "npm:1.2.0"
-    wait-on: "npm:8.0.0"
+    wait-on: "npm:8.0.1"
   bin:
     server-test: src/bin/start.js
     start-server-and-test: src/bin/start.js
     start-test: src/bin/start.js
-  checksum: 10c0/8f79d30a4a777b0cd762529575e96dbd2fa6cb4e334039cf2c5a88847eb89baba6afe3d0f94f069a661813376fb37e9d9604c3c10bfc0cc83045ffe90cc933b1
+  checksum: 10c0/c0b29e8f48ef3c74ab345d63f2adefa5fdc1c1fa3db0d876b31060a7c57cccbd18332a32cfd034da0c741bafc49f95ba693f54e70ec0eb74865d6e23ecfa0760
   languageName: node
   linkType: hard
 
@@ -34086,18 +34086,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"wait-on@npm:8.0.0":
-  version: 8.0.0
-  resolution: "wait-on@npm:8.0.0"
+"wait-on@npm:8.0.1":
+  version: 8.0.1
+  resolution: "wait-on@npm:8.0.1"
   dependencies:
-    axios: "npm:^1.7.4"
+    axios: "npm:^1.7.7"
     joi: "npm:^17.13.3"
     lodash: "npm:^4.17.21"
     minimist: "npm:^1.2.8"
     rxjs: "npm:^7.8.1"
   bin:
     wait-on: bin/wait-on
-  checksum: 10c0/f649106ecdb74d8f18f7db3840c17c55269ac6d4672c30be06835fe66e735107d74576600310b1139161a2ddb7f4aa1453011d9f141b0aa5f1c365fbe7b532ec
+  checksum: 10c0/e8fe78084465a5fa95b17095136dcb3942480c7d9e47a0cfb72363238e2411883630dc9ced02fb372f4cc7ec0ec2484c92c67060ea2f81d0e97e41ef21df8006
   languageName: node
   linkType: hard
 
