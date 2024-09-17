@@ -58,7 +58,7 @@ importers:
         version: 7.2.16(@types/react@18.3.6)
       '@mui/x-date-pickers':
         specifier: ^7.17.0
-        version: 7.17.0(k5ogiiux5za6zrvolzk3vehnay)
+        version: 7.17.0(fmo4ufcbimnel6ikml3dovtxcm)
       '@next/env':
         specifier: 14.3.0-canary.87
         version: 14.3.0-canary.87
@@ -81,8 +81,8 @@ importers:
         specifier: ^1.7.7
         version: 1.7.7
       date-fns:
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^4.1.0
+        version: 4.1.0
       eslint-config-prettier:
         specifier: ^9.1.0
         version: 9.1.0(eslint@9.10.0(jiti@1.21.6))
@@ -106,7 +106,7 @@ importers:
         version: 15.9.0
       material-react-table:
         specifier: ^3.0.1
-        version: 3.0.1(umthmy5mnhnmx7xojspame7kna)
+        version: 3.0.1(2qrvxgftko34vcwfzlizmk3jcy)
       next:
         specifier: 15.0.0-rc.0
         version: 15.0.0-rc.0(@babel/core@7.25.2)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@0.0.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.78.0)
@@ -313,8 +313,8 @@ importers:
         specifier: ^1.4.6
         version: 1.4.6
       date-fns:
-        specifier: ^4.0.0
-        version: 4.0.0
+        specifier: ^4.1.0
+        version: 4.1.0
       eslint-config-shortlink:
         specifier: workspace:^
         version: link:../eslint/eslint-config-shortlink
@@ -5564,8 +5564,8 @@ packages:
   date-fns@3.6.0:
     resolution: {integrity: sha512-fRHTG8g/Gif+kSh50gaGEdToemgfj74aRX3swtiouboip5JDLAyDE9F11nHMIcvOaXeOC6D7SpNhi7uFyB7Uww==}
 
-  date-fns@4.0.0:
-    resolution: {integrity: sha512-6K33+I8fQ5otvHgLIvKK1xmMbLAh0pduyrx7dwMXKiGYeoWhmk6M3Zoak9n7bXHMJQlHq1yqmdGy1QxKddJjUA==}
+  date-fns@4.1.0:
+    resolution: {integrity: sha512-Ukq0owbQXxa/U3EGtsdVBkR1w7KOQ5gIBqdH2hkvknzZPYvBxb/aa6E8L7tmjFtkwZBu3UXBbjIgPo/Ez4xaNg==}
 
   date-format@4.0.14:
     resolution: {integrity: sha512-39BOQLs9ZjKh0/patS9nrT8wc3ioX3/eA/zgbKNopnF2wCqJEoxywwwElATYvRsXdnOxA/OQeQoFZ3rFjVajhg==}
@@ -13426,7 +13426,7 @@ snapshots:
     transitivePeerDependencies:
       - '@types/react'
 
-  '@mui/x-date-pickers@7.17.0(k5ogiiux5za6zrvolzk3vehnay)':
+  '@mui/x-date-pickers@7.17.0(fmo4ufcbimnel6ikml3dovtxcm)':
     dependencies:
       '@babel/runtime': 7.25.6
       '@mui/material': 6.1.0(@emotion/react@11.13.3(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.13.3(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.6)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
@@ -13442,7 +13442,7 @@ snapshots:
     optionalDependencies:
       '@emotion/react': 11.13.3(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614)
       '@emotion/styled': 11.11.5(@emotion/react@11.13.3(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614)
-      date-fns: 4.0.0
+      date-fns: 4.1.0
       dayjs: 1.11.12
       luxon: 3.5.0
     transitivePeerDependencies:
@@ -17322,7 +17322,7 @@ snapshots:
   date-fns@3.6.0:
     optional: true
 
-  date-fns@4.0.0: {}
+  date-fns@4.1.0: {}
 
   date-format@4.0.14: {}
 
@@ -19638,6 +19638,20 @@ snapshots:
     dependencies:
       react: 18.3.1
 
+  material-react-table@3.0.1(2qrvxgftko34vcwfzlizmk3jcy):
+    dependencies:
+      '@emotion/react': 11.13.3(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614)
+      '@emotion/styled': 11.11.5(@emotion/react@11.13.3(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614)
+      '@mui/icons-material': 6.1.0(@mui/material@6.1.0(@emotion/react@11.13.3(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.13.3(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.6)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614)
+      '@mui/material': 6.1.0(@emotion/react@11.13.3(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.13.3(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.6)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
+      '@mui/x-date-pickers': 7.17.0(fmo4ufcbimnel6ikml3dovtxcm)
+      '@tanstack/match-sorter-utils': 8.19.4
+      '@tanstack/react-table': 8.20.5(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
+      '@tanstack/react-virtual': 3.10.6(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
+      highlight-words: 1.2.2
+      react: 19.0.0-rc-fb9a90fa48-20240614
+      react-dom: 19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614)
+
   material-react-table@3.0.1(gds37ionbbfaax7jaqmqu5s4xm):
     dependencies:
       '@emotion/react': 11.13.3(@types/react@18.3.6)(react@18.3.1)
@@ -19651,20 +19665,6 @@ snapshots:
       highlight-words: 1.2.2
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
-
-  material-react-table@3.0.1(umthmy5mnhnmx7xojspame7kna):
-    dependencies:
-      '@emotion/react': 11.13.3(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614)
-      '@emotion/styled': 11.11.5(@emotion/react@11.13.3(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614)
-      '@mui/icons-material': 6.1.0(@mui/material@6.1.0(@emotion/react@11.13.3(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.13.3(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.6)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614)
-      '@mui/material': 6.1.0(@emotion/react@11.13.3(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.13.3(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.6)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.6)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
-      '@mui/x-date-pickers': 7.17.0(k5ogiiux5za6zrvolzk3vehnay)
-      '@tanstack/match-sorter-utils': 8.19.4
-      '@tanstack/react-table': 8.20.5(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
-      '@tanstack/react-virtual': 3.10.6(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
-      highlight-words: 1.2.2
-      react: 19.0.0-rc-fb9a90fa48-20240614
-      react-dom: 19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614)
 
   mdast-util-from-markdown@2.0.1:
     dependencies:
