@@ -45,11 +45,11 @@ importers:
         specifier: ^3.34.0
         version: 3.34.0(react-native@0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2))(react@18.3.1)
       react-native-svg:
-        specifier: ^15.6.0
-        version: 15.6.0(react-native@0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2))(react@18.3.1)
+        specifier: ^15.7.1
+        version: 15.7.1(react-native@0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2))(react@18.3.1)
       react-native-svg-transformer:
         specifier: ^1.5.0
-        version: 1.5.0(react-native-svg@15.6.0(react-native@0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2))(react@18.3.1))(react-native@0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2))(typescript@5.6.2)
+        version: 1.5.0(react-native-svg@15.7.1(react-native@0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2))(react@18.3.1))(react-native@0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2))(typescript@5.6.2)
       react-native-web:
         specifier: ~0.19.12
         version: 0.19.12(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
@@ -6533,8 +6533,8 @@ packages:
       react-native: '>=0.59.0'
       react-native-svg: '>=12.0.0'
 
-  react-native-svg@15.6.0:
-    resolution: {integrity: sha512-TUtR+h+yi1ODsd8FHdom1TpjfWOmnaK5pri5rnSBXnMqpzq8o2zZfonHTjPX+nS3wb/Pu2XsoARgYaHNjVWXhQ==}
+  react-native-svg@15.7.1:
+    resolution: {integrity: sha512-Xc11L4t6/DtmUwrQqHR7S45Qy3cIWpcfGlmEatVeZ9c1N8eAK79heJmGRgCOVrXESrrLEHfP/AYGf0BGyrvV6A==}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -16965,19 +16965,19 @@ snapshots:
       react-native: 0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2)
       warn-once: 0.1.1
 
-  react-native-svg-transformer@1.5.0(react-native-svg@15.6.0(react-native@0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2))(react@18.3.1))(react-native@0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2))(typescript@5.6.2):
+  react-native-svg-transformer@1.5.0(react-native-svg@15.7.1(react-native@0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2))(react@18.3.1))(react-native@0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2))(typescript@5.6.2):
     dependencies:
       '@svgr/core': 8.1.0(typescript@5.6.2)
       '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@5.6.2))
       '@svgr/plugin-svgo': 8.1.0(@svgr/core@8.1.0(typescript@5.6.2))(typescript@5.6.2)
       path-dirname: 1.0.2
       react-native: 0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2)
-      react-native-svg: 15.6.0(react-native@0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2))(react@18.3.1)
+      react-native-svg: 15.7.1(react-native@0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2))(react@18.3.1)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  react-native-svg@15.6.0(react-native@0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2))(react@18.3.1):
+  react-native-svg@15.7.1(react-native@0.75.3(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))(@types/react@18.3.7)(react@18.3.1)(typescript@5.6.2))(react@18.3.1):
     dependencies:
       css-select: 5.1.0
       css-tree: 1.1.3
