@@ -5,6 +5,7 @@ metadata:
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
+    argocd.argoproj.io/manifest-generate-paths: ./ops/Helm/boundaries/shop/admin
     argocd-image-updater.argoproj.io/image-list: shortlink-shop-admin=registry.gitlab.com/shortlink-org/shortlink/shop_admin:0.x.x
     argocd-image-updater.argoproj.io/write-back-method: git:secret:argocd/git-creds
     argocd-image-updater.argoproj.io/git-repository: git@github.com:shortlink-org/shortlink.git

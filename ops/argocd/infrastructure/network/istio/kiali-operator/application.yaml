@@ -5,6 +5,7 @@ metadata:
   namespace: argocd
   annotations:
     notifications.argoproj.io/subscribe.on-sync-succeeded.slack: gitops
+    argocd.argoproj.io/manifest-generate-paths: ./ops/Helm/addons/gateway/kiali-operator
   finalizers:
     - resources-finalizer.argocd.argoproj.io
 spec:
