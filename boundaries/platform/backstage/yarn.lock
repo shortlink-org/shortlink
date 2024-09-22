@@ -4290,7 +4290,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/core-components@npm:^0.14.10, @backstage/core-components@npm:^0.14.8, @backstage/core-components@npm:^0.14.9":
+"@backstage/core-components@npm:^0.14.10, @backstage/core-components@npm:^0.14.9":
   version: 0.14.10
   resolution: "@backstage/core-components@npm:0.14.10"
   dependencies:
@@ -5250,7 +5250,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-catalog-react@npm:^1.12.1, @backstage/plugin-catalog-react@npm:^1.12.2, @backstage/plugin-catalog-react@npm:^1.12.3":
+"@backstage/plugin-catalog-react@npm:^1.12.2, @backstage/plugin-catalog-react@npm:^1.12.3":
   version: 1.12.3
   resolution: "@backstage/plugin-catalog-react@npm:1.12.3"
   dependencies:
@@ -5773,7 +5773,6 @@ __metadata:
     fs-extra: "npm:^11.2.0"
     globby: "npm:^11.0.0"
     isbinaryfile: "npm:^5.0.0"
-    isolated-vm: "npm:^4.5.0"
     jsonschema: "npm:^1.2.6"
     knex: "npm:^3.0.0"
     lodash: "npm:^4.17.21"
@@ -10963,9 +10962,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@roadiehq/backstage-plugin-argo-cd@npm:^2.8.1":
-  version: 2.8.1
-  resolution: "@roadiehq/backstage-plugin-argo-cd@npm:2.8.1"
+"@roadiehq/backstage-plugin-argo-cd@npm:^2.8.2":
+  version: 2.8.2
+  resolution: "@roadiehq/backstage-plugin-argo-cd@npm:2.8.2"
   dependencies:
     "@backstage/catalog-model": "npm:^1.6.0"
     "@backstage/core-compat-api": "npm:^0.2.8"
@@ -10991,7 +10990,7 @@ __metadata:
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router: 6.0.0-beta.0  || ^6.3.0
     react-router-dom: 6.0.0-beta.0  || ^6.3.0
-  checksum: 10c0/29377160b59a6bbfd221f01d320930196e70b7b4687b2c2349d3b39de7b7c30e4422581fd1f35c04bb20118214866b10fa802d805dcb1faf7188207b654180ac
+  checksum: 10c0/36603ea85f865a44388f1d80be88c040b0214f6ba3244410ecfef3c56f6690f914c630680e77f90c13c2ceac0ac9b76f142d10d4b0d15e805a550d1f388668cb
   languageName: node
   linkType: hard
 
@@ -14276,16 +14275,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@veecode-platform/backstage-plugin-gitlab-pipelines@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "@veecode-platform/backstage-plugin-gitlab-pipelines@npm:0.5.0"
+"@veecode-platform/backstage-plugin-gitlab-pipelines@npm:^0.5.1":
+  version: 0.5.1
+  resolution: "@veecode-platform/backstage-plugin-gitlab-pipelines@npm:0.5.1"
   dependencies:
-    "@backstage/catalog-model": "npm:^1.5.0"
-    "@backstage/core-components": "npm:^0.14.8"
-    "@backstage/core-plugin-api": "npm:^1.9.3"
-    "@backstage/integration-react": "npm:^1.1.30"
-    "@backstage/plugin-catalog-react": "npm:^1.12.1"
-    "@backstage/theme": "npm:^0.5.6"
+    "@backstage/catalog-model": "npm:^1.7.0"
+    "@backstage/core-components": "npm:^0.15.0"
+    "@backstage/core-plugin-api": "npm:^1.9.4"
+    "@backstage/integration-react": "npm:^1.1.31"
+    "@backstage/plugin-catalog-react": "npm:^1.13.0"
+    "@backstage/theme": "npm:^0.5.7"
     "@material-ui/core": "npm:^4.12.2"
     "@material-ui/icons": "npm:^4.9.1"
     "@material-ui/lab": "npm:4.0.0-alpha.61"
@@ -14295,7 +14294,7 @@ __metadata:
     react-use: "npm:^17.2.4"
   peerDependencies:
     react: ^16.13.1 || ^17.0.0
-  checksum: 10c0/a802d154c38675f425f1b1a37d6c9bfcf6f121eab8903ee7315677fbfc42475c7f664ee11246e7f71fb7014fd340706f415943aa28df07e808410c02d85f4a78
+  checksum: 10c0/ea7ab43148f25fe451ed80847d26ab64ab814a7c0d847c2ad802cc68c278c4cda1c611a9a2aa84b2b92d3d139f731b9a94fdd49f1d4edb4654ae1af3c2d4cd28
   languageName: node
   linkType: hard
 
@@ -14965,14 +14964,14 @@ __metadata:
     "@backstage/theme": "npm:^0.5.7"
     "@mui/icons-material": "npm:6.1.1"
     "@mui/material": "npm:^6.1.1"
-    "@roadiehq/backstage-plugin-argo-cd": "npm:^2.8.1"
+    "@roadiehq/backstage-plugin-argo-cd": "npm:^2.8.2"
     "@roadiehq/backstage-plugin-prometheus": "npm:^2.11.1"
     "@testing-library/jest-dom": "npm:^6.5.0"
     "@testing-library/react": "npm:^16.0.1"
     "@testing-library/user-event": "npm:^14.5.2"
     "@types/node": "npm:^22.5.5"
     "@types/react-dom": "npm:^18.3.0"
-    "@veecode-platform/backstage-plugin-gitlab-pipelines": "npm:^0.5.0"
+    "@veecode-platform/backstage-plugin-gitlab-pipelines": "npm:^0.5.1"
     cross-env: "npm:^7.0.3"
     cypress: "npm:^13.14.2"
     eslint-plugin-cypress: "npm:^3.5.0"
@@ -23282,16 +23281,6 @@ __metadata:
   version: 3.0.1
   resolution: "isobject@npm:3.0.1"
   checksum: 10c0/03344f5064a82f099a0cd1a8a407f4c0d20b7b8485e8e816c39f249e9416b06c322e8dec5b842b6bb8a06de0af9cb48e7bc1b5352f0fadc2f0abac033db3d4db
-  languageName: node
-  linkType: hard
-
-"isolated-vm@npm:^4.5.0":
-  version: 4.7.2
-  resolution: "isolated-vm@npm:4.7.2"
-  dependencies:
-    node-gyp: "npm:latest"
-    prebuild-install: "npm:^7.1.1"
-  checksum: 10c0/b7f3e17341477cf9dcca2c29b95d2b0f883894f107afc293827f76af8689bceae34520a114171417bdeb911c4da7b62caf7351b708d7b554eea912c636d122d8
   languageName: node
   linkType: hard
 
