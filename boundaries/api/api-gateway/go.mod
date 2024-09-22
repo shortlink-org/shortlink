@@ -11,7 +11,7 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.22.0
 	github.com/segmentio/encoding v0.4.0
 	github.com/spf13/viper v1.19.0
-	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.3.1
+	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.3.2
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.55.0
 	go.opentelemetry.io/otel/trace v1.30.0
 	golang.org/x/sync v0.8.0
@@ -42,8 +42,8 @@ require (
 	github.com/spf13/cast v1.6.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
-	github.com/uptrace/opentelemetry-go-extra/otelutil v0.3.1 // indirect
-	go.opentelemetry.io/contrib v1.27.0 // indirect
+	github.com/uptrace/opentelemetry-go-extra/otelutil v0.3.2 // indirect
+	go.opentelemetry.io/contrib v1.30.0 // indirect
 	go.opentelemetry.io/otel v1.30.0 // indirect
 	go.opentelemetry.io/otel/log v0.6.0 // indirect
 	go.opentelemetry.io/otel/metric v1.30.0 // indirect

@@ -7,7 +7,7 @@ require (
 	github.com/golang/glog v1.2.2
 	github.com/google/uuid v1.6.0
 	github.com/google/wire v0.6.0
-	github.com/kubernetes-csi/csi-test/v5 v5.3.0
+	github.com/kubernetes-csi/csi-test/v5 v5.3.1
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.9.0
@@ -29,6 +29,7 @@ require (
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-task/slim-sprig/v3 v3.0.0 // indirect
 	github.com/godbus/dbus/v5 v5.1.0 // indirect
+	github.com/golang/mock v1.6.0 // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
 	github.com/google/pprof v0.0.0-20240827171923-fa2c70bbbfe5 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect

@@ -1097,6 +1097,7 @@ github.com/kr/fs v0.1.0/go.mod h1:FFnZGqtBN9Gxj7eW1uZ42v5BccTP0vu6NEaFoC2HwRg=
 github.com/kr/pretty v0.2.0/go.mod h1:ipq/a2n7PKx3OHsz4KJII5eveXtPO4qwEXGdVfWzfnI=
 github.com/kr/pty v1.1.8 h1:AkaSdXYQOWeaO3neb8EM634ahkXXe3jYbVh/F9lq+GI=
 github.com/ktrysmt/go-bitbucket v0.6.4 h1:C8dUGp0qkwncKtAnozHCbbqhptefzEd1I0sfnuy9rYQ=
+github.com/kubernetes-csi/csi-test/v5 v5.3.1/go.mod h1:7hA2cSYJ6T8CraEZPA6zqkLZwemjBD54XAnPsPC3VpA=
 github.com/kulti/thelper v0.6.3/go.mod h1:DsqKShOvP40epevkFrvIwkCMNYxMeTNjdWL4dqWHZ6I=
 github.com/kunwardeep/paralleltest v1.0.9/go.mod h1:2C7s65hONVqY7Q5Efj5aLzRCNLjw2h4eMc9EcypGjcY=
 github.com/kunwardeep/paralleltest v1.0.10/go.mod h1:2C7s65hONVqY7Q5Efj5aLzRCNLjw2h4eMc9EcypGjcY=
@@ -1406,6 +1407,11 @@ github.com/ugorji/go/codec v1.2.11/go.mod h1:UNopzCgEMSXjBc6AOMqYvWC1ktqTAfzJZUZ
 github.com/ultraware/funlen v0.1.0/go.mod h1:XJqmOQja6DpxarLj6Jj1U7JuoS8PvL4nEqDaQhy22p4=
 github.com/ultraware/whitespace v0.1.0/go.mod h1:/se4r3beMFNmewJ4Xmz0nMQ941GJt+qmSHGP9emHYe0=
 github.com/ultraware/whitespace v0.1.1/go.mod h1:XcP1RLD81eV4BW8UhQlpaR+SDc2givTvyI8a586WjW8=
+github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.3.2/go.mod h1:FDsvlAarZmgl85BnG/2q6CEHebYpdTr6RWqfbJ202MA=
+github.com/uptrace/opentelemetry-go-extra/otellogrus v0.3.2/go.mod h1:/kR4beFhlz2g+V5ik8jW+3PMiMQAPt29y6K64NNY53c=
+github.com/uptrace/opentelemetry-go-extra/otelsql v0.3.2/go.mod h1:O8bHQfyinKwTXKkiKNGmLQS7vRsqRxIQTFZpYpHK3IQ=
+github.com/uptrace/opentelemetry-go-extra/otelutil v0.3.2/go.mod h1:Zit4b8AQXaXvA68+nzmbyDzqiyFRISyw1JiD5JqUBjw=
+github.com/uptrace/opentelemetry-go-extra/otelzap v0.3.2/go.mod h1:LDaXk90gKEC2nC7JH3Lpnhfu+2V7o/TsqomJJmqA39o=
 github.com/urfave/cli v1.22.1 h1:+mkCCcOFKPnCmVYVcURKps1Xe+3zP90gSYGNfRkjoIY=
 github.com/urfave/cli v1.22.1/go.mod h1:Gos4lmkARVdJ6EkW0WaNv/tZAAMe9V7XWyB60NtXRu0=
 github.com/uudashr/gocognit v1.1.2/go.mod h1:aAVdLURqcanke8h3vg35BC++eseDm66Z7KmchI5et4k=
@@ -1475,6 +1481,7 @@ go.etcd.io/etcd/server/v3 v3.5.10 h1:4NOGyOwD5sUZ22PiWYKmfxqoeh72z6EhYjNosKGLmZg
 go.etcd.io/etcd/server/v3 v3.5.10/go.mod h1:gBplPHfs6YI0L+RpGkTQO7buDbHv5HJGG/Bst0/zIPo=
 go.etcd.io/etcd/server/v3 v3.5.13/go.mod h1:K/8nbsGupHqmr5MkgaZpLlH1QdX1pcNQLAkODy44XcQ=
 go.opencensus.io v0.22.5/go.mod h1:5pWMHQbX5EPX2/62yrJeAkowc+lfs/XD7Uxpq3pI6kk=
+go.opentelemetry.io/contrib v1.30.0/go.mod h1:10IRYpeyXrTiOz6iJGXlLWoFWrnIzYRE/1EdC3GSHjg=
 go.opentelemetry.io/contrib/instrumentation/github.com/emicklei/go-restful/otelrestful v0.42.0 h1:Z6SbqeRZAl2OczfkFOqLx1BeYBDYehNjEnqluD7581Y=
 go.opentelemetry.io/contrib/instrumentation/github.com/emicklei/go-restful/otelrestful v0.42.0/go.mod h1:XiglO+8SPMqM3Mqh5/rtxR1VHc63o8tb38QrU6tm4mU=
 go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.42.0/go.mod h1:5z+/ZWJQKXa9YT34fQNx5K8Hd1EoIhvtUygUQPqEOgQ=
