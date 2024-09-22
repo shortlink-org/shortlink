@@ -15,14 +15,14 @@ type: application
 deprecated: false
 dependencies:
   - name: base
-    version: 1.23.1
+    version: 1.23.2
     repository: https://istio-release.storage.googleapis.com/charts
     condition: base.enabled
     tags:
       - istio
       - base
   - name: istiod
-    version: 1.23.1
+    version: 1.23.2
     repository: https://istio-release.storage.googleapis.com/charts
     condition: istiod.enabled
     tags:
