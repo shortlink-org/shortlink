@@ -20,6 +20,6 @@ type: application
 deprecated: false
 dependencies:
   - name: spark-operator
-    version: 1.4.6
+    version: 2.0.0
     repository: https://kubeflow.github.io/spark-operator
     condition: spark-operator.enabled
