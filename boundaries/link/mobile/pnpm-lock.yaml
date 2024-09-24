@@ -65,7 +65,7 @@ importers:
         version: 0.18.29(expo-modules-autolinking@1.11.2)
       '@nx/detox':
         specifier: 19.8.0
-        version: 19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(@zkochan/js-yaml@0.0.7)(detox@20.27.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.6)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))))(eslint@9.11.0)(nx@19.8.0)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))(typescript@5.6.2)(webpack@5.90.3)
+        version: 19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(@zkochan/js-yaml@0.0.7)(detox@20.27.2(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.6)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))))(eslint@9.11.0)(nx@19.8.0)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))(typescript@5.6.2)(webpack@5.90.3)
       '@nx/eslint-plugin':
         specifier: 19.8.0
         version: 19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(@typescript-eslint/parser@8.6.0(eslint@9.11.0)(typescript@5.6.2))(eslint-config-prettier@9.1.0(eslint@9.11.0))(eslint@9.11.0)(nx@19.8.0)(typescript@5.6.2)
@@ -115,8 +115,8 @@ importers:
         specifier: ~11.0.14
         version: 11.0.14(@babel/core@7.24.3)(@babel/preset-env@7.24.3(@babel/core@7.24.3))
       detox:
-        specifier: ^20.27.0
-        version: 20.27.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.6)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2)))
+        specifier: ^20.27.2
+        version: 20.27.2(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.6)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2)))
       eas-cli:
         specifier: ^12.4.1
         version: 12.4.1(@types/node@20.16.6)(expo-modules-autolinking@1.11.2)(typescript@5.6.2)
@@ -3442,11 +3442,11 @@ packages:
     resolution: {integrity: sha512-aBzdj76lueB6uUst5iAs7+0H/oOjqI5D16XUWxlWMIMROhcM0rfsNVk93zTngq1dDNpoXRr++Sus7ETAExppAQ==}
     hasBin: true
 
-  detox-copilot@0.0.5:
-    resolution: {integrity: sha512-GbJZABYVMgfFZFWAxrRyN6K992sMB10/2q3UiWe+WILPygM0j0JxNOZoO4ZpzVsf17OIYrX4p5mHXtuqq9439Q==}
+  detox-copilot@0.0.9:
+    resolution: {integrity: sha512-Wk2fuisD8EH+349b0ysNWvZ7UEsThAChbYFlLqOR1jWkDaonEvgf6IOUlmxjvyTl9ENtl8ckd1U7k94yCBYwqw==}
 
-  detox@20.27.0:
-    resolution: {integrity: sha512-ew3wNnpOPjUTtwTahrtetC9y8vSasQLrBUOwS+2OuozLWM6AsE8TQKt6k/75wYeCh5byllU9rEOQTKsQgPommA==}
+  detox@20.27.2:
+    resolution: {integrity: sha512-cC6S40v7ix+uA5jYzG8eazSs7YtOWgc2aCwWLZIIzfE5Kvo0gfHgtqeRhrYWCMZaj/irKKs39h2B070oNQOIrA==}
     engines: {node: '>=14'}
     hasBin: true
     peerDependencies:
@@ -10072,9 +10072,9 @@ snapshots:
     dependencies:
       semver: 7.6.3
 
-  '@nrwl/detox@19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(@zkochan/js-yaml@0.0.7)(detox@20.27.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.6)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))))(eslint@9.11.0)(nx@19.8.0)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))(typescript@5.6.2)(webpack@5.90.3)':
+  '@nrwl/detox@19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(@zkochan/js-yaml@0.0.7)(detox@20.27.2(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.6)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))))(eslint@9.11.0)(nx@19.8.0)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))(typescript@5.6.2)(webpack@5.90.3)':
     dependencies:
-      '@nx/detox': 19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(@zkochan/js-yaml@0.0.7)(detox@20.27.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.6)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))))(eslint@9.11.0)(nx@19.8.0)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))(typescript@5.6.2)(webpack@5.90.3)
+      '@nx/detox': 19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(@zkochan/js-yaml@0.0.7)(detox@20.27.2(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.6)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))))(eslint@9.11.0)(nx@19.8.0)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))(typescript@5.6.2)(webpack@5.90.3)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -10178,21 +10178,6 @@ snapshots:
       - typescript
       - verdaccio
 
-  '@nrwl/js@19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(nx@19.8.0)(typescript@5.4.5)':
-    dependencies:
-      '@nx/js': 19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(nx@19.8.0)(typescript@5.4.5)
-    transitivePeerDependencies:
-      - '@babel/traverse'
-      - '@swc-node/register'
-      - '@swc/core'
-      - '@swc/wasm'
-      - '@types/node'
-      - debug
-      - nx
-      - supports-color
-      - typescript
-      - verdaccio
-
   '@nrwl/js@19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(nx@19.8.0)(typescript@5.6.2)':
     dependencies:
       '@nx/js': 19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(nx@19.8.0)(typescript@5.6.2)
@@ -10293,15 +10278,15 @@ snapshots:
       - '@swc/core'
       - debug
 
-  '@nx/detox@19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(@zkochan/js-yaml@0.0.7)(detox@20.27.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.6)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))))(eslint@9.11.0)(nx@19.8.0)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))(typescript@5.6.2)(webpack@5.90.3)':
+  '@nx/detox@19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(@zkochan/js-yaml@0.0.7)(detox@20.27.2(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.6)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))))(eslint@9.11.0)(nx@19.8.0)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))(typescript@5.6.2)(webpack@5.90.3)':
     dependencies:
-      '@nrwl/detox': 19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(@zkochan/js-yaml@0.0.7)(detox@20.27.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.6)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))))(eslint@9.11.0)(nx@19.8.0)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))(typescript@5.6.2)(webpack@5.90.3)
+      '@nrwl/detox': 19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(@zkochan/js-yaml@0.0.7)(detox@20.27.2(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.6)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))))(eslint@9.11.0)(nx@19.8.0)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))(typescript@5.6.2)(webpack@5.90.3)
       '@nx/devkit': 19.8.0(nx@19.8.0)
       '@nx/eslint': 19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(@zkochan/js-yaml@0.0.7)(eslint@9.11.0)(nx@19.8.0)
       '@nx/jest': 19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(nx@19.8.0)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))(typescript@5.6.2)
       '@nx/js': 19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(nx@19.8.0)(typescript@5.6.2)
       '@nx/react': 19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(@zkochan/js-yaml@0.0.7)(eslint@9.11.0)(nx@19.8.0)(typescript@5.6.2)(webpack@5.90.3)
-      detox: 20.27.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.6)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2)))
+      detox: 20.27.2(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.6)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2)))
       tslib: 2.7.0
     transitivePeerDependencies:
       - '@babel/traverse'
@@ -10485,7 +10470,7 @@ snapshots:
       '@babel/preset-env': 7.24.3(@babel/core@7.24.3)
       '@babel/preset-typescript': 7.23.3(@babel/core@7.24.3)
       '@babel/runtime': 7.25.6
-      '@nrwl/js': 19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(nx@19.8.0)(typescript@5.4.5)
+      '@nrwl/js': 19.8.0(@babel/traverse@7.25.3)(@types/node@20.16.6)(nx@19.8.0)(typescript@5.6.2)
       '@nx/devkit': 19.8.0(nx@19.8.0)
       '@nx/workspace': 19.8.0
       babel-plugin-const-enum: 1.2.0(@babel/core@7.24.3)
@@ -13111,9 +13096,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  detox-copilot@0.0.5: {}
+  detox-copilot@0.0.9: {}
 
-  detox@20.27.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.6)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))):
+  detox@20.27.2(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.6)(ts-node@10.9.2(@types/node@20.16.6)(typescript@5.6.2))):
     dependencies:
       ajv: 8.12.0
       bunyan: 1.8.15
@@ -13121,7 +13106,7 @@ snapshots:
       caf: 15.0.1
       chalk: 4.1.2
       child-process-promise: 2.2.1
-      detox-copilot: 0.0.5
+      detox-copilot: 0.0.9
       execa: 5.1.1
       find-up: 5.0.0
       fs-extra: 11.2.0
