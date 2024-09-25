@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://rlex.github.io/helm-charts/ | pyrra | 0.13.3 |
+| https://rlex.github.io/helm-charts/ | pyrra | 0.13.4 |
 
 ## Values
 

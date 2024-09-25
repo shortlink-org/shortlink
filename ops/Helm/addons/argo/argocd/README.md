@@ -1,6 +1,6 @@
 # argo
 
-![Version: 0.5.0](https://img.shields.io/badge/Version-0.5.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.12.0](https://img.shields.io/badge/AppVersion-2.12.0-informational?style=flat-square)
+![Version: 0.5.2](https://img.shields.io/badge/Version-0.5.2-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 2.13.0](https://img.shields.io/badge/AppVersion-2.13.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-cd | 7.5.2 |
+| https://argoproj.github.io/argo-helm | argo-cd | 7.6.2 |
 | https://argoproj.github.io/argo-helm | argocd-apps | 2.0.1 |
 | https://argoproj.github.io/argo-helm | argocd-image-updater | 0.11.0 |
 
@@ -78,7 +78,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"1000m"
+"2000m"
 </pre>
 </div>
 			</td>
@@ -92,7 +92,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"512Mi"
+"1024Mi"
 </pre>
 </div>
 			</td>
@@ -106,7 +106,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"150m"
+"300m"
 </pre>
 </div>
 			</td>
@@ -869,6 +869,20 @@ string
 			<td></td>
 		</tr>
 		<tr>
+			<td id="argo-cd--global--image--tag"><a href="./values.yaml#L15">argo-cd.global.image.tag</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"v2.13.0-rc2"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
 			<td id="argo-cd--global--logging--format"><a href="./values.yaml#L21">argo-cd.global.logging.format</a></td>
 			<td>
 string
@@ -1338,7 +1352,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"4.6.0"
+"4.6.1"
 </pre>
 </div>
 			</td>
@@ -1366,7 +1380,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"1.31.0"
+"1.31.1"
 </pre>
 </div>
 			</td>
@@ -1688,7 +1702,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"2000m"
+"3000m"
 </pre>
 </div>
 			</td>
@@ -1702,7 +1716,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"512Mi"
+"1024Mi"
 </pre>
 </div>
 			</td>

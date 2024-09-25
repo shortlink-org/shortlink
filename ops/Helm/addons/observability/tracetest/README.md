@@ -14,7 +14,7 @@ Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubeshop.github.io/helm-charts | tracetest | 0.3.35 |
+| https://kubeshop.github.io/helm-charts | tracetest | 0.3.37 |
 
 ## Values
 
