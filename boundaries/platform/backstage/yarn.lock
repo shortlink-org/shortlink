@@ -13314,7 +13314,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express-serve-static-core@npm:*, @types/express-serve-static-core@npm:^4.17.33, @types/express-serve-static-core@npm:^4.17.5, @types/express-serve-static-core@npm:^4.19.5":
+"@types/express-serve-static-core@npm:*, @types/express-serve-static-core@npm:^4.17.33, @types/express-serve-static-core@npm:^4.17.5":
   version: 4.19.5
   resolution: "@types/express-serve-static-core@npm:4.19.5"
   dependencies:
@@ -13323,6 +13323,18 @@ __metadata:
     "@types/range-parser": "npm:*"
     "@types/send": "npm:*"
   checksum: 10c0/ba8d8d976ab797b2602c60e728802ff0c98a00f13d420d82770f3661b67fa36ea9d3be0b94f2ddd632afe1fbc6e41620008b01db7e4fabdd71a2beb5539b0725
+  languageName: node
+  linkType: hard
+
+"@types/express-serve-static-core@npm:^4.19.6":
+  version: 4.19.6
+  resolution: "@types/express-serve-static-core@npm:4.19.6"
+  dependencies:
+    "@types/node": "npm:*"
+    "@types/qs": "npm:*"
+    "@types/range-parser": "npm:*"
+    "@types/send": "npm:*"
+  checksum: 10c0/4281f4ead71723f376b3ddf64868ae26244d434d9906c101cf8d436d4b5c779d01bd046e4ea0ed1a394d3e402216fabfa22b1fa4dba501061cd7c81c54045983
   languageName: node
   linkType: hard
 
@@ -15689,7 +15701,7 @@ __metadata:
     "@backstage/plugin-techdocs-backend": "npm:^1.10.13"
     "@types/dockerode": "npm:^3.3.31"
     "@types/express": "npm:^4.17.21"
-    "@types/express-serve-static-core": "npm:^4.19.5"
+    "@types/express-serve-static-core": "npm:^4.19.6"
     "@types/luxon": "npm:^3.4.2"
     app: "link:packages/app"
     better-sqlite3: "npm:^11.3.0"
