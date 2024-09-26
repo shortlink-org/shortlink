@@ -38,7 +38,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.23
 	github.com/minio/minio-go/v7 v7.0.77
 	github.com/nats-io/nats.go v1.37.0
-	github.com/neo4j/neo4j-go-driver/v5 v5.24.0
+	github.com/neo4j/neo4j-go-driver/v5 v5.25.0
 	github.com/ory/client-go v1.15.4
 	github.com/ory/dockertest/v3 v3.11.0
 	github.com/prometheus/client_golang v1.20.4
