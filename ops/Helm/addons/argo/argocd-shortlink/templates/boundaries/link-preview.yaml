@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
-  name: shortlink-link
+  name: shortlink-link-preview
   annotations:
     argocd.argoproj.io/sync-wave: "0"
   finalizers:
