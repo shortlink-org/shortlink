@@ -10,7 +10,7 @@
 
 ## Requirements
 
-Kubernetes: `>= 1.29.0 || >= v1.29.0-0`
+Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 
 ## Values
 
