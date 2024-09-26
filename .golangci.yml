@@ -794,6 +794,7 @@ linters:
     - interfacebloat # we don't use limit of methods in interfaces
     - ireturn # return interface{} is allowed
     - copyloopvar # no actual after go 1.22
+    - exportloopref # deprecated
     - musttag
     - gochecknoinits
     - inamedparam
