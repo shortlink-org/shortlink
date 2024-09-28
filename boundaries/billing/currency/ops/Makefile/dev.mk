@@ -22,3 +22,7 @@ down: confirm ## Down docker compose
 lint: ## Lint code
 	@cargo fmt
 	@cargo clippy --fix --allow-dirty
+
+### Testing ============================================================================================================
+test: ## Run tests
+    @cargo test

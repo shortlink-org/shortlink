@@ -1,5 +1,3 @@
-// src/main.rs
-
 mod cache;
 mod domain;
 mod infrastructure;

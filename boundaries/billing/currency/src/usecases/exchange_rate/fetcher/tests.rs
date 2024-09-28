@@ -1,7 +1,7 @@
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::cache::cache_service::CacheService;
+    use crate::cache::CacheService;
     use crate::domain::exchange_rate::entities::{Currency, ExchangeRate};
     use crate::repository::exchange_rate::in_memory_repository::InMemoryExchangeRateRepository;
     use crate::usecases::exchange_rate::fetcher::external_rate_provider::ExternalRateProvider;
@@ -10,12 +10,30 @@ mod tests {
     use rust_decimal_macros::dec;
     use std::error::Error;
     use std::sync::Arc;
+    use async_trait::async_trait;
     use tokio::sync::Mutex;
+    use crate::repository::exchange_rate::repository::ExchangeRateRepository;
+    use crate::usecases::exchange_rate::fetcher::RateFetcherUseCase;
+
+    /// A mock provider that always fails to fetch exchange rates.
+    struct FailingProvider;
+
+    #[async_trait]
+    impl ExternalRateProvider for FailingProvider {
+        async fn fetch_rate(
+            &self,
+            _from: &str,
+            _to: &str,
+        ) -> Result<ExchangeRate, Box<dyn Error + Send + Sync>> {
+            Err("Provider failure".into())
+        }
+    }
 
     #[tokio::test]
     async fn test_fetch_rate_cache_hit() {
         // Setup
-        let repository = Arc::new(InMemoryExchangeRateRepository::new());
+        let repository: Arc<dyn ExchangeRateRepository + Send + Sync> =
+            Arc::new(InMemoryExchangeRateRepository::new());
         let cache = Arc::new(CacheService::new());
         let bloomberg = Arc::new(MockBloombergProvider::new());
         let yahoo = Arc::new(MockYahooProvider::new());
@@ -49,7 +67,8 @@ mod tests {
     #[tokio::test]
     async fn test_fetch_rate_cache_miss_bloomberg_success() {
         // Setup
-        let repository = Arc::new(InMemoryExchangeRateRepository::new());
+        let repository: Arc<dyn ExchangeRateRepository + Send + Sync> =
+            Arc::new(InMemoryExchangeRateRepository::new());
         let cache = Arc::new(CacheService::new());
         let bloomberg = Arc::new(MockBloombergProvider::new());
         let yahoo = Arc::new(MockYahooProvider::new());
@@ -76,20 +95,8 @@ mod tests {
     #[tokio::test]
     async fn test_fetch_rate_cache_miss_bloomberg_fail_yahoo_success() {
         // Setup
-        struct FailingProvider;
-
-        #[async_trait]
-        impl ExternalRateProvider for FailingProvider {
-            async fn fetch_rate(
-                &self,
-                _from: &str,
-                _to: &str,
-            ) -> Result<ExchangeRate, Box<dyn Error + Send + Sync>> {
-                Err("Provider failure".into())
-            }
-        }
-
-        let repository = Arc::new(InMemoryExchangeRateRepository::new());
+        let repository: Arc<dyn ExchangeRateRepository + Send + Sync> =
+            Arc::new(InMemoryExchangeRateRepository::new());
         let cache = Arc::new(CacheService::new());
         let failing_provider = Arc::new(FailingProvider);
         let yahoo = Arc::new(MockYahooProvider::new());
@@ -120,20 +127,8 @@ mod tests {
     #[tokio::test]
     async fn test_fetch_rate_all_providers_fail() {
         // Setup
-        struct FailingProvider;
-
-        #[async_trait]
-        impl ExternalRateProvider for FailingProvider {
-            async fn fetch_rate(
-                &self,
-                _from: &str,
-                _to: &str,
-            ) -> Result<ExchangeRate, Box<dyn Error + Send + Sync>> {
-                Err("Provider failure".into())
-            }
-        }
-
-        let repository = Arc::new(InMemoryExchangeRateRepository::new());
+        let repository: Arc<dyn ExchangeRateRepository + Send + Sync> =
+            Arc::new(InMemoryExchangeRateRepository::new());
         let cache = Arc::new(CacheService::new());
         let failing_provider1 = Arc::new(FailingProvider);
         let failing_provider2 = Arc::new(FailingProvider);
