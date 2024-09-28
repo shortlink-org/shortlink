@@ -71,10 +71,15 @@ impl RateFetcherUseCase {
                             attempt,
                             rate
                         );
+
+                        // Store the rate in cache and database
+                        self.cache.set_rate(&rate).await.ok();
+
                         // Step 3: Save using `save_rate` method which returns Result
                         if let Err(e) = self.save_rate(rate.clone()).await {
                             error!("Failed to save rate: {}", e);
                         }
+
                         return Some(rate);
                     }
                     Err(e) => {
@@ -99,6 +104,26 @@ impl RateFetcherUseCase {
             "Failed to fetch exchange rate for {} to {} after {} attempts",
             from, to, self.max_retries
         );
+
+        None
+    }
+
+    async fn fetch_with_retry(&self, provider: Arc<dyn ExternalRateProvider>, from: &str, to: &str) -> Option<ExchangeRate> {
+        let mut attempt = 0;
+        let max_attempts = 3;
+
+        while attempt < max_attempts {
+            match provider.fetch_rate(from, to).await {
+                Ok(rate) => return Some(rate),
+                Err(e) => {
+                    attempt += 1;
+                    let backoff_duration = Duration::from_secs(2_u64.pow(attempt));
+                    error!("Attempt {} failed: {}. Retrying in {} seconds...", attempt, e, backoff_duration.as_secs());
+                    sleep(backoff_duration).await;
+                }
+            }
+        }
+
         None
     }
 

@@ -4,22 +4,24 @@ mod infrastructure;
 mod repository;
 mod usecases;
 
+use std::convert::Infallible;
 use infrastructure::http::routes::api;
 use repository::exchange_rate::redis_repository::RedisExchangeRateRepository;
 use std::sync::Arc;
-use tracing::info;
+use tracing::{error, info};
 use tracing_subscriber::fmt::format::FmtSpan;
 use tracing_subscriber::EnvFilter;
 use usecases::currency_conversion::ICurrencyConversionUseCase;
 use usecases::exchange_rate::RateFetcherUseCase;
 use utoipa::OpenApi;
-use warp::Filter;
-
-// Import dotenvy
+use warp::{Filter, Rejection};
+use tokio_cron_scheduler::{Job, JobScheduler};
 use dotenvy::dotenv;
 use std::env;
-
-// Import mock providers
+use std::iter::Map;
+use tracing_subscriber::filter::combinator::And;
+use warp::path::Exact;
+use warp::reply::Json;
 use crate::cache::CacheService;
 use crate::repository::exchange_rate::in_memory_repository::InMemoryExchangeRateRepository;
 use crate::repository::exchange_rate::repository::ExchangeRateRepository;
@@ -47,16 +49,41 @@ struct ApiDoc;
 
 #[tokio::main]
 async fn main() {
-    // Load environment variables from .env file
+    // Load environment variables
     dotenv().ok();
+    init_tracing();
 
-    // Initialize tracing subscriber with log level from environment
+    // Initialize services (repositories, caches, external providers, etc.)
+    let (rate_fetcher_use_case, currency_conversion_use_case) = init_services().await;
+
+    // Initialize scheduler and job
+    let mut scheduler = init_scheduler(rate_fetcher_use_case.clone()).await;
+
+    // Generate OpenAPI specification
+    let openapi = ApiDoc::openapi();
+    let openapi_filter = warp::path!("api-docs" / "openapi.json")
+        .map(move || warp::reply::json(&openapi));
+
+    // Serve the API routes
+    serve_api(rate_fetcher_use_case, currency_conversion_use_case).await;
+
+    // Wait for a shutdown signal and stop the scheduler
+    tokio::signal::ctrl_c().await.unwrap();
+    scheduler.shutdown().await.unwrap();
+    println!("Shutting down");
+}
+
+/// Initialize environment logging using tracing.
+fn init_tracing() {
     let log_level = env::var("LOG_LEVEL").unwrap_or_else(|_| "info".to_string());
     tracing_subscriber::fmt()
         .with_env_filter(EnvFilter::new(log_level))
         .with_span_events(FmtSpan::CLOSE)
         .init();
+}
 
+/// Initialize the services (repositories, caches, providers, etc.)
+async fn init_services() -> (Arc<RateFetcherUseCase>, Arc<CurrencyConversionUseCase>) {
     // Retrieve Redis URL from environment
     let redis_url = env::var("REDIS_URL").expect("REDIS_URL must be set in .env");
 
@@ -82,21 +109,60 @@ async fn main() {
         3, // max_retries
     ));
 
-    // Initialize InMemoryExchangeRateRepository if needed
-    let _exchange_rate_repository = Arc::new(InMemoryExchangeRateRepository::new());
-
     // Create CurrencyConversionUseCase
     let currency_conversion_use_case = Arc::new(CurrencyConversionUseCase::new(
         rate_fetcher_use_case.clone(),
     ));
 
-    // Generate OpenAPI specification
-    let openapi = ApiDoc::openapi();
+    (rate_fetcher_use_case, currency_conversion_use_case)
+}
 
-    // Serve OpenAPI JSON at `/api-docs/openapi.json`
-    let openapi_filter =
-        warp::path!("api-docs" / "openapi.json").map(move || warp::reply::json(&openapi));
+/// Initialize the scheduler and add the currency update job.
+async fn init_scheduler(rate_fetcher_use_case: Arc<RateFetcherUseCase>) -> JobScheduler {
+    let scheduler = JobScheduler::new().await.unwrap();
 
+    // Define a cron job to run every hour (adjust for testing if needed)
+    let job = Job::new_async("0 * * * * *", move |_uuid, _l| {
+        let rate_fetcher_use_case = rate_fetcher_use_case.clone();
+        Box::pin(async move {
+            run_currency_update_job(rate_fetcher_use_case).await;
+        })
+    }).unwrap();
+
+    scheduler.add(job).await.unwrap();
+    scheduler.start().await.unwrap();
+
+    scheduler
+}
+
+/// Periodic currency update job.
+async fn run_currency_update_job(rate_fetcher_use_case: Arc<RateFetcherUseCase>) {
+    info!("Starting exchange rate update job...");
+
+    let from_currency = "USD"; // Example currencies
+    let to_currency = "EUR";
+
+    match rate_fetcher_use_case.fetch_rate(from_currency, to_currency).await {
+        Some(exchange_rate) => {
+            info!(
+                "Successfully fetched exchange rate for {} to {}: {}",
+                from_currency, to_currency, exchange_rate.rate
+            );
+        }
+        None => {
+            error!(
+                "Failed to fetch exchange rate for {} to {}",
+                from_currency, to_currency
+            );
+        }
+    }
+}
+
+/// Set up and run the HTTP API server.
+async fn serve_api(
+    rate_fetcher_use_case: Arc<RateFetcherUseCase>,
+    currency_conversion_use_case: Arc<CurrencyConversionUseCase>,
+) {
     // Retrieve server host and port from environment
     let server_host = env::var("SERVER_HOST").unwrap_or_else(|_| "127.0.0.1".to_string());
     let server_port: u16 = env::var("SERVER_PORT")
@@ -106,7 +172,6 @@ async fn main() {
 
     // Set up the HTTP server with the API routes and OpenAPI filter
     let routes = api(rate_fetcher_use_case, currency_conversion_use_case)
-        .or(openapi_filter)
         .with(warp::trace::request());
 
     info!("Starting server at http://{}:{}", server_host, server_port);
