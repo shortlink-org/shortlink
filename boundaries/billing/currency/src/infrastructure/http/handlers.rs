@@ -1,5 +1,6 @@
-use crate::usecases::currency_conversion::converter::CurrencyConversionUseCase;
-use crate::usecases::exchange_rate::fetcher::RateFetcherUseCase;
+use crate::usecases::currency_conversion::converter::traits::ICurrencyConversionUseCase;
+use crate::usecases::exchange_rate::fetcher::traits::IRateFetcherUseCase;
+use crate::domain::exchange_rate::entities::{Currency, ExchangeRate};
 use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
@@ -49,7 +50,7 @@ pub struct HistoricalRateResponse {
 // Handler for current exchange rate
 pub async fn get_current_exchange_rate(
     query: ExchangeRateQuery,
-    rate_fetcher: Arc<RateFetcherUseCase>,
+    rate_fetcher: Arc<dyn IRateFetcherUseCase>,
 ) -> Result<Json, warp::Rejection> {
     info!(
         "Fetching current exchange rate for {} to {}",
@@ -84,7 +85,7 @@ pub async fn get_current_exchange_rate(
 // Handler for historical exchange rates
 pub async fn get_historical_exchange_rate(
     query: HistoricalRateQuery,
-    _conversion_service: Arc<CurrencyConversionUseCase>,
+    _conversion_service: Arc<dyn ICurrencyConversionUseCase>,
 ) -> Result<Json, warp::Rejection> {
     info!(
         "Fetching historical exchange rates for {} to {} from {} to {}",

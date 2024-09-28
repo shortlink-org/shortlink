@@ -2,6 +2,7 @@ use super::external_rate_provider::ExternalRateProvider;
 use crate::cache::cache_service::CacheService;
 use crate::domain::exchange_rate::entities::ExchangeRate;
 use crate::repository::exchange_rate::repository::ExchangeRateRepository;
+use crate::usecases::exchange_rate::fetcher::traits::IRateFetcherUseCase;
 use async_trait::async_trait;
 use std::error::Error;
 use std::sync::Arc;
@@ -10,10 +11,10 @@ use tracing::{error, info};
 
 /// Use case for fetching exchange rates from external providers.
 pub struct RateFetcherUseCase {
-    repository: Arc<dyn ExchangeRateRepository + Send + Sync>,
-    cache: Arc<CacheService>,
-    providers: Vec<Arc<dyn ExternalRateProvider + Send + Sync>>,
-    max_retries: usize,
+    pub repository: Arc<dyn ExchangeRateRepository + Send + Sync>,
+    pub cache: Arc<CacheService>,
+    pub providers: Vec<Arc<dyn ExternalRateProvider + Send + Sync>>,
+    pub max_retries: usize,
 }
 
 impl RateFetcherUseCase {
@@ -132,5 +133,17 @@ impl ProviderIdentifiable for dyn ExternalRateProvider + Send + Sync {
 impl<T: ExternalRateProvider + Send + Sync> ProviderIdentifiable for T {
     fn type_id(&self) -> &'static str {
         std::any::type_name::<T>()
+    }
+}
+
+#[async_trait]
+impl IRateFetcherUseCase for RateFetcherUseCase {
+    async fn fetch_rate(&self, from: &str, to: &str) -> Option<ExchangeRate> {
+        self.fetch_rate(from, to).await
+    }
+
+    async fn save_rate(&self, rate: ExchangeRate) -> Result<(), Box<dyn Error + Send + Sync>> {
+        self.repository.save_rate(&rate).await;
+        self.cache.set_rate(&rate).await
     }
 }
