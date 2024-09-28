@@ -26,7 +26,7 @@ impl ExchangeRateRepository for InMemoryExchangeRateRepository {
     async fn save_rate(&self, rate: &ExchangeRate) {
         let mut store = self.store.lock().unwrap();
         store.insert(
-            (rate.from_currency.code.clone(), rate.to_currency.code.clone()),
+            (rate.from.code.clone(), rate.to.code.clone()),
             rate.clone(),
         );
     }

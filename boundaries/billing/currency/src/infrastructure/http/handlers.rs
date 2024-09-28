@@ -55,8 +55,8 @@ pub async fn get_current_exchange_rate(
 
     if let Some(rate) = rate_fetcher.fetch_rate(&query.base_currency, &query.target_currency).await {
         let response = ExchangeRateResponse {
-            base_currency: rate.from_currency.code,
-            target_currency: rate.to_currency.code,
+            base_currency: rate.from.code,
+            target_currency: rate.to.code,
             exchange_rate: rate.rate,
             timestamp: "2024-09-12T12:00:00Z".to_string(), // Mocked timestamp
         };
@@ -78,7 +78,7 @@ pub async fn get_current_exchange_rate(
 // Handler for historical exchange rates
 pub async fn get_historical_exchange_rate(
     query: HistoricalRateQuery,
-    conversion_service: Arc<CurrencyConversionUseCase>,
+    _conversion_service: Arc<CurrencyConversionUseCase>,
 ) -> Result<Json, warp::Rejection> {
     info!("Fetching historical exchange rates for {} to {} from {} to {}", query.base_currency, query.target_currency, query.start_date, query.end_date);
 
