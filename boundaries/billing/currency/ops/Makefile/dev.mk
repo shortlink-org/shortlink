@@ -17,3 +17,7 @@ down: confirm ## Down docker compose
 		-f $(ROOT_DIR)/ops/docker-compose/database/redis/redis.yaml \
 	down --remove-orphans
 	@docker network prune -f
+
+### Code style =========================================================================================================
+lint: ## Lint code
+    @cargo clippy --fix
