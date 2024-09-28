@@ -9,7 +9,7 @@ require (
 	github.com/Unleash/unleash-client-go/v4 v4.1.3
 	github.com/XSAM/otelsql v0.34.0
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
-	github.com/authzed/authzed-go v0.15.0
+	github.com/authzed/authzed-go v0.16.0
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/chromedp/chromedp v0.10.0
 	github.com/couchbase/gocb/v2 v2.9.2
