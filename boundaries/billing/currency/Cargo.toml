@@ -17,3 +17,4 @@ tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
 redis = { version = "0.27.2", features = ["aio", "tokio-comp"] }
 deadpool-redis =  { version = "0.18.0", features = ["rt_tokio_1"] }
 dotenvy = "0.15.7"
+thiserror = "1.0.64"
