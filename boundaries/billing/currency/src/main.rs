@@ -21,6 +21,10 @@ use tracing::info;
 use repository::exchange_rate::repository::ExchangeRateRepository;
 use repository::exchange_rate::redis_repository::RedisExchangeRateRepository;
 
+// Import dotenvy
+use dotenvy::dotenv;
+use std::env;
+
 #[derive(OpenApi)]
 #[openapi(
     paths(
@@ -41,15 +45,22 @@ struct ApiDoc;
 
 #[tokio::main]
 async fn main() {
-    // Initialize tracing subscriber
+    // Load environment variables from .env file
+    dotenv().ok();
+
+    // Initialize tracing subscriber with log level from environment
+    let log_level = env::var("LOG_LEVEL").unwrap_or_else(|_| "info".to_string());
     tracing_subscriber::fmt()
-        .with_env_filter(EnvFilter::new("warp=info"))
+        .with_env_filter(EnvFilter::new(log_level))
         .with_span_events(FmtSpan::CLOSE)
         .init();
 
+    // Retrieve Redis URL from environment
+    let redis_url = env::var("REDIS_URL").expect("REDIS_URL must be set in .env");
+
     // Create Redis repository and use cases
     let exchange_rate_repository = Arc::new(
-        RedisExchangeRateRepository::new("redis://127.0.0.1/")
+        RedisExchangeRateRepository::new(&redis_url)
             .await
             .expect("Failed to connect to Redis"),
     );
@@ -83,13 +94,19 @@ async fn main() {
     let openapi_filter = warp::path!("api-docs" / "openapi.json")
         .map(move || warp::reply::json(&openapi));
 
-    // Set up the HTTP server with the API routes
+    // Retrieve server host and port from environment
+    let server_host = env::var("SERVER_HOST").unwrap_or_else(|_| "127.0.0.1".to_string());
+    let server_port: u16 = env::var("SERVER_PORT")
+        .unwrap_or_else(|_| "3030".to_string())
+        .parse()
+        .expect("SERVER_PORT must be a valid u16");
+
+    // Set up the HTTP server with the API routes and OpenAPI filter
     let routes = api(rate_fetcher_use_case, currency_conversion_use_case)
         .or(openapi_filter)
         .with(warp::trace::request());
 
-    info!("Starting server at http://127.0.0.1:3030");
     warp::serve(routes)
-        .run(([127, 0, 0, 1], 3030))
+        .run(([127, 0, 0, 1], server_port))
         .await;
 }

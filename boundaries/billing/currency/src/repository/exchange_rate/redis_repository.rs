@@ -4,6 +4,7 @@ use crate::domain::exchange_rate::entities::ExchangeRate;
 use crate::repository::exchange_rate::repository::ExchangeRateRepository;
 use async_trait::async_trait;
 use serde_json;
+use std::env;
 
 pub struct RedisExchangeRateRepository {
     pool: Pool,
@@ -12,9 +13,7 @@ pub struct RedisExchangeRateRepository {
 impl RedisExchangeRateRepository {
     pub async fn new(redis_url: &str) -> Result<Self, deadpool_redis::CreatePoolError> {
         // Initialize the deadpool Redis configuration
-        let cfg = Config::from_url(redis_url);
-        // Optionally, you can set pool size and other settings here
-        // cfg.pool.max_size = 16;
+        let mut cfg = Config::from_url(redis_url);
 
         // Create the connection pool
         let pool = cfg.create_pool(Some(Runtime::Tokio1))?;
