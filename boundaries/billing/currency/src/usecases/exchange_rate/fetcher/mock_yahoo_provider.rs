@@ -24,7 +24,7 @@ impl ExternalRateProvider for MockYahooProvider {
         let rate = match (from, to) {
             ("USD", "EUR") => Decimal::new(86, 2), // Represents 0.86
             ("EUR", "GBP") => Decimal::new(76, 2), // Represents 0.76
-            _ => Decimal::new(100, 2),              // Represents 1.00
+            _ => Decimal::new(100, 2),             // Represents 1.00
         };
 
         Ok(ExchangeRate::new(

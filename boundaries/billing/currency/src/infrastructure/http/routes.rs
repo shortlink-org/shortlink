@@ -1,8 +1,8 @@
-use warp::Filter;
-use std::sync::Arc;
 use super::handlers::{get_current_exchange_rate, get_historical_exchange_rate};
-use crate::usecases::exchange_rate::fetcher::RateFetcherUseCase;
 use crate::usecases::currency_conversion::converter::CurrencyConversionUseCase;
+use crate::usecases::exchange_rate::fetcher::RateFetcherUseCase;
+use std::sync::Arc;
+use warp::Filter;
 
 pub fn api(
     rate_fetcher: Arc<RateFetcherUseCase>,
@@ -34,6 +34,7 @@ fn with_rate_fetcher(
 
 fn with_conversion_service(
     conversion_service: Arc<CurrencyConversionUseCase>,
-) -> impl Filter<Extract = (Arc<CurrencyConversionUseCase>,), Error = std::convert::Infallible> + Clone {
+) -> impl Filter<Extract = (Arc<CurrencyConversionUseCase>,), Error = std::convert::Infallible> + Clone
+{
     warp::any().map(move || conversion_service.clone())
 }

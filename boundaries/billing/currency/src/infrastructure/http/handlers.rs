@@ -1,11 +1,11 @@
-use warp::reply::Json;
-use serde::{Deserialize, Serialize};
-use rust_decimal::Decimal;
-use std::sync::Arc;
-use crate::usecases::exchange_rate::fetcher::RateFetcherUseCase;
 use crate::usecases::currency_conversion::converter::CurrencyConversionUseCase;
-use utoipa::{ToSchema, IntoParams};
+use crate::usecases::exchange_rate::fetcher::RateFetcherUseCase;
+use rust_decimal::Decimal;
+use serde::{Deserialize, Serialize};
+use std::sync::Arc;
 use tracing::info;
+use utoipa::{IntoParams, ToSchema};
+use warp::reply::Json;
 
 // Request query parameters
 #[derive(Deserialize, ToSchema, IntoParams)]
@@ -51,9 +51,15 @@ pub async fn get_current_exchange_rate(
     query: ExchangeRateQuery,
     rate_fetcher: Arc<RateFetcherUseCase>,
 ) -> Result<Json, warp::Rejection> {
-    info!("Fetching current exchange rate for {} to {}", query.base_currency, query.target_currency);
+    info!(
+        "Fetching current exchange rate for {} to {}",
+        query.base_currency, query.target_currency
+    );
 
-    if let Some(rate) = rate_fetcher.fetch_rate(&query.base_currency, &query.target_currency).await {
+    if let Some(rate) = rate_fetcher
+        .fetch_rate(&query.base_currency, &query.target_currency)
+        .await
+    {
         let response = ExchangeRateResponse {
             base_currency: rate.from.code,
             target_currency: rate.to.code,
@@ -80,7 +86,10 @@ pub async fn get_historical_exchange_rate(
     query: HistoricalRateQuery,
     _conversion_service: Arc<CurrencyConversionUseCase>,
 ) -> Result<Json, warp::Rejection> {
-    info!("Fetching historical exchange rates for {} to {} from {} to {}", query.base_currency, query.target_currency, query.start_date, query.end_date);
+    info!(
+        "Fetching historical exchange rates for {} to {} from {} to {}",
+        query.base_currency, query.target_currency, query.start_date, query.end_date
+    );
 
     let response = vec![
         HistoricalRateResponse {

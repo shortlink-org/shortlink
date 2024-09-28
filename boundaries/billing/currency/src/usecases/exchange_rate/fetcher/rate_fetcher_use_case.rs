@@ -1,7 +1,7 @@
+use super::external_rate_provider::ExternalRateProvider;
 use crate::cache::cache_service::CacheService;
 use crate::domain::exchange_rate::entities::ExchangeRate;
 use crate::repository::exchange_rate::repository::ExchangeRateRepository;
-use super::external_rate_provider::ExternalRateProvider;
 use async_trait::async_trait;
 use std::error::Error;
 use std::sync::Arc;
@@ -65,11 +65,11 @@ impl RateFetcherUseCase {
                 match provider.fetch_rate(from, to).await {
                     Ok(rate) => {
                         info!(
-                        "Fetched rate from provider {} on attempt {}: {:?}",
-                        provider.type_id(),
-                        attempt,
-                        rate
-                    );
+                            "Fetched rate from provider {} on attempt {}: {:?}",
+                            provider.type_id(),
+                            attempt,
+                            rate
+                        );
                         // Step 3: Save using `save_rate` method which returns Result
                         if let Err(e) = self.save_rate(rate.clone()).await {
                             error!("Failed to save rate: {}", e);
@@ -78,11 +78,11 @@ impl RateFetcherUseCase {
                     }
                     Err(e) => {
                         error!(
-                        "Error fetching rate from provider {} on attempt {}: {}",
-                        provider.type_id(),
-                        attempt,
-                        e
-                    );
+                            "Error fetching rate from provider {} on attempt {}: {}",
+                            provider.type_id(),
+                            attempt,
+                            e
+                        );
                         if attempt < self.max_retries {
                             let backoff = 2_u64.pow(attempt as u32);
                             info!("Retrying after {} seconds...", backoff);
@@ -95,9 +95,9 @@ impl RateFetcherUseCase {
 
         // If all providers and retries fail
         error!(
-        "Failed to fetch exchange rate for {} to {} after {} attempts",
-        from, to, self.max_retries
-    );
+            "Failed to fetch exchange rate for {} to {} after {} attempts",
+            from, to, self.max_retries
+        );
         None
     }
 

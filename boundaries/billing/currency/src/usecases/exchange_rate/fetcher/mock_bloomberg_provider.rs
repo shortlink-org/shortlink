@@ -24,7 +24,7 @@ impl ExternalRateProvider for MockBloombergProvider {
         let rate = match (from, to) {
             ("USD", "EUR") => Decimal::new(85, 2), // Represents 0.85
             ("EUR", "GBP") => Decimal::new(75, 2), // Represents 0.75
-            _ => Decimal::new(100, 2),              // Represents 1.00
+            _ => Decimal::new(100, 2),             // Represents 1.00
         };
 
         Ok(ExchangeRate::new(

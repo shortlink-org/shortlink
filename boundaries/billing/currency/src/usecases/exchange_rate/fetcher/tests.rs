@@ -34,12 +34,8 @@ mod tests {
         );
         cache.set_rate(&cached_rate).await.unwrap();
 
-        let use_case = RateFetcherUseCase::new(
-            repository.clone(),
-            cache.clone(),
-            vec![bloomberg, yahoo],
-            3,
-        );
+        let use_case =
+            RateFetcherUseCase::new(repository.clone(), cache.clone(), vec![bloomberg, yahoo], 3);
 
         // Execute
         let rate = use_case.fetch_rate("USD", "EUR").await;
@@ -58,12 +54,8 @@ mod tests {
         let bloomberg = Arc::new(MockBloombergProvider::new());
         let yahoo = Arc::new(MockYahooProvider::new());
 
-        let use_case = RateFetcherUseCase::new(
-            repository.clone(),
-            cache.clone(),
-            vec![bloomberg, yahoo],
-            3,
-        );
+        let use_case =
+            RateFetcherUseCase::new(repository.clone(), cache.clone(), vec![bloomberg, yahoo], 3);
 
         // Execute
         let rate = use_case.fetch_rate("USD", "EUR").await;

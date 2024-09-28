@@ -1,34 +1,32 @@
 // src/main.rs
 
-mod domain;
-mod usecases;
-mod repository;
 mod cache;
+mod domain;
 mod infrastructure;
+mod repository;
+mod usecases;
 
-use std::sync::Arc;
-use warp::Filter;
-use rust_decimal_macros::dec;
-use domain::exchange_rate::entities::{Currency, ExchangeRate};
-use usecases::exchange_rate::fetcher::RateFetcherUseCase;
-use usecases::currency_conversion::converter::CurrencyConversionUseCase;
-use repository::exchange_rate::redis_repository::RedisExchangeRateRepository;
 use infrastructure::http::routes::api;
-use utoipa::OpenApi;
+use repository::exchange_rate::redis_repository::RedisExchangeRateRepository;
+use std::sync::Arc;
+use tracing::info;
 use tracing_subscriber::fmt::format::FmtSpan;
 use tracing_subscriber::EnvFilter;
-use tracing::info;
+use usecases::currency_conversion::converter::CurrencyConversionUseCase;
+use usecases::exchange_rate::fetcher::RateFetcherUseCase;
+use utoipa::OpenApi;
+use warp::Filter;
 
 // Import dotenvy
 use dotenvy::dotenv;
 use std::env;
 
 // Import mock providers
-use usecases::exchange_rate::fetcher::mock_bloomberg_provider::MockBloombergProvider;
-use usecases::exchange_rate::fetcher::mock_yahoo_provider::MockYahooProvider;
 use crate::cache::CacheService;
 use crate::repository::exchange_rate::in_memory_repository::InMemoryExchangeRateRepository;
 use crate::repository::exchange_rate::repository::ExchangeRateRepository;
+use usecases::exchange_rate::fetcher::mock_bloomberg_provider::MockBloombergProvider;
+use usecases::exchange_rate::fetcher::mock_yahoo_provider::MockYahooProvider;
 
 #[derive(OpenApi)]
 #[openapi(
@@ -89,14 +87,16 @@ async fn main() {
     let _exchange_rate_repository = Arc::new(InMemoryExchangeRateRepository::new());
 
     // Create CurrencyConversionUseCase
-    let currency_conversion_use_case = Arc::new(CurrencyConversionUseCase::new(rate_fetcher_use_case.clone()));
+    let currency_conversion_use_case = Arc::new(CurrencyConversionUseCase::new(
+        rate_fetcher_use_case.clone(),
+    ));
 
     // Generate OpenAPI specification
     let openapi = ApiDoc::openapi();
 
     // Serve OpenAPI JSON at `/api-docs/openapi.json`
-    let openapi_filter = warp::path!("api-docs" / "openapi.json")
-        .map(move || warp::reply::json(&openapi));
+    let openapi_filter =
+        warp::path!("api-docs" / "openapi.json").map(move || warp::reply::json(&openapi));
 
     // Retrieve server host and port from environment
     let server_host = env::var("SERVER_HOST").unwrap_or_else(|_| "127.0.0.1".to_string());
@@ -111,7 +111,5 @@ async fn main() {
         .with(warp::trace::request());
 
     info!("Starting server at http://{}:{}", server_host, server_port);
-    warp::serve(routes)
-        .run(([127, 0, 0, 1], server_port))
-        .await;
+    warp::serve(routes).run(([127, 0, 0, 1], server_port)).await;
 }

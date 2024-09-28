@@ -1,9 +1,8 @@
 use crate::domain::exchange_rate::entities::ExchangeRate;
-use async_trait::async_trait;
-use std::error::Error;
-use tokio::sync::Mutex;
 use std::collections::HashMap;
+use std::error::Error;
 use std::sync::Arc;
+use tokio::sync::Mutex;
 
 #[derive(Default, Clone)]
 pub struct CacheService {
