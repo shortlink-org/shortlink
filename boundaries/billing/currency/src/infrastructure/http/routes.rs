@@ -13,14 +13,14 @@ pub fn api(
         .and(warp::get())
         .and(warp::query::<super::handlers::ExchangeRateQuery>())
         .and(with_rate_fetcher(rate_fetcher.clone()))
-        .and_then(|query, rate_fetcher| get_current_exchange_rate(query, rate_fetcher)); // Pass both arguments
+        .and_then(|query, rate_fetcher| get_current_exchange_rate(query, rate_fetcher));
 
     // Historical exchange rates route
     let historical_rate = warp::path!("rates" / "historical")
         .and(warp::get())
         .and(warp::query::<super::handlers::HistoricalRateQuery>())
         .and(with_conversion_service(conversion_service.clone()))
-        .and_then(|query, conversion_service| get_historical_exchange_rate(query, conversion_service)); // Pass both arguments
+        .and_then(|query, conversion_service| get_historical_exchange_rate(query, conversion_service));
 
     // Combine the routes
     current_rate.or(historical_rate)

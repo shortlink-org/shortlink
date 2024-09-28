@@ -3,7 +3,7 @@ use crate::domain::currency_conversion::entities::{Amount, ConvertedAmount};
 use crate::usecases::exchange_rate::fetcher::RateFetcherUseCase;
 
 pub struct CurrencyConversionUseCase {
-    pub rate_fetcher: Arc<RateFetcherUseCase>, // No generic parameter here
+    pub rate_fetcher: Arc<RateFetcherUseCase>,
 }
 
 impl CurrencyConversionUseCase {

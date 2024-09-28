@@ -13,7 +13,6 @@ use usecases::currency_conversion::converter::CurrencyConversionUseCase;
 use repository::exchange_rate::in_memory_repository::InMemoryExchangeRateRepository;
 use infrastructure::http::routes::api;
 use utoipa::OpenApi;
-use tracing_subscriber;
 use tracing_subscriber::fmt::format::FmtSpan;
 use tracing_subscriber::EnvFilter;
 use tracing::info;
