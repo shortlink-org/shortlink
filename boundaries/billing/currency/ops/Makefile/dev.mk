@@ -20,4 +20,5 @@ down: confirm ## Down docker compose
 
 ### Code style =========================================================================================================
 lint: ## Lint code
+    @cargo fmt
     @cargo clippy --fix

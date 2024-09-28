@@ -1,25 +1,34 @@
 use crate::domain::exchange_rate::entities::ExchangeRate;
+use async_trait::async_trait;
+use std::error::Error;
+use tokio::sync::Mutex;
 use std::collections::HashMap;
-use std::sync::Mutex;
+use std::sync::Arc;
 
+#[derive(Default, Clone)]
 pub struct CacheService {
-    cache: Mutex<HashMap<String, ExchangeRate>>,
+    store: Arc<Mutex<HashMap<String, ExchangeRate>>>,
 }
 
 impl CacheService {
     pub fn new() -> Self {
         Self {
-            cache: Mutex::new(HashMap::new()),
+            store: Arc::new(Mutex::new(HashMap::new())),
         }
     }
 
-    pub fn get(&self, key: &str) -> Option<ExchangeRate> {
-        let cache = self.cache.lock().unwrap();
-        cache.get(key).cloned()
+    /// Retrieves an exchange rate from the cache.
+    pub async fn get_rate(&self, from: &str, to: &str) -> Option<ExchangeRate> {
+        let key = format!("exchange_rate:{}:{}", from, to);
+        let store = self.store.lock().await;
+        store.get(&key).cloned()
     }
 
-    pub fn save(&self, key: String, rate: ExchangeRate) {
-        let mut cache = self.cache.lock().unwrap();
-        cache.insert(key, rate);
+    /// Stores an exchange rate in the cache.
+    pub async fn set_rate(&self, rate: &ExchangeRate) -> Result<(), Box<dyn Error + Send + Sync>> {
+        let key = format!("exchange_rate:{}:{}", rate.from.code, rate.to.code);
+        let mut store = self.store.lock().await;
+        store.insert(key, rate.clone());
+        Ok(())
     }
 }

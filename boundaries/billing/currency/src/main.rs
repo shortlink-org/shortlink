@@ -1,3 +1,5 @@
+// src/main.rs
+
 mod domain;
 mod usecases;
 mod repository;
@@ -10,20 +12,23 @@ use rust_decimal_macros::dec;
 use domain::exchange_rate::entities::{Currency, ExchangeRate};
 use usecases::exchange_rate::fetcher::RateFetcherUseCase;
 use usecases::currency_conversion::converter::CurrencyConversionUseCase;
-use repository::exchange_rate::in_memory_repository::InMemoryExchangeRateRepository;
+use repository::exchange_rate::redis_repository::RedisExchangeRateRepository;
 use infrastructure::http::routes::api;
 use utoipa::OpenApi;
 use tracing_subscriber::fmt::format::FmtSpan;
 use tracing_subscriber::EnvFilter;
 use tracing::info;
 
-// Import the ExchangeRateRepository trait
-use repository::exchange_rate::repository::ExchangeRateRepository;
-use repository::exchange_rate::redis_repository::RedisExchangeRateRepository;
-
 // Import dotenvy
 use dotenvy::dotenv;
 use std::env;
+
+// Import mock providers
+use usecases::exchange_rate::fetcher::mock_bloomberg_provider::MockBloombergProvider;
+use usecases::exchange_rate::fetcher::mock_yahoo_provider::MockYahooProvider;
+use crate::cache::CacheService;
+use crate::repository::exchange_rate::in_memory_repository::InMemoryExchangeRateRepository;
+use crate::repository::exchange_rate::repository::ExchangeRateRepository;
 
 #[derive(OpenApi)]
 #[openapi(
@@ -58,34 +63,33 @@ async fn main() {
     // Retrieve Redis URL from environment
     let redis_url = env::var("REDIS_URL").expect("REDIS_URL must be set in .env");
 
-    // Create Redis repository and use cases
+    // Create Redis repository
     let exchange_rate_repository = Arc::new(
         RedisExchangeRateRepository::new(&redis_url)
             .await
             .expect("Failed to connect to Redis"),
     );
 
-    // Create repository and use cases
+    // Initialize cache service
+    let cache_service = Arc::new(CacheService::new());
+
+    // Initialize external providers
+    let bloomberg_provider = Arc::new(MockBloombergProvider::new());
+    let yahoo_provider = Arc::new(MockYahooProvider::new());
+
+    // Create RateFetcherUseCase
     let rate_fetcher_use_case = Arc::new(RateFetcherUseCase::new(
         exchange_rate_repository.clone() as Arc<dyn ExchangeRateRepository + Send + Sync>,
+        cache_service.clone(),
+        vec![bloomberg_provider, yahoo_provider],
+        3, // max_retries
     ));
+
+    // Initialize InMemoryExchangeRateRepository if needed
     let _exchange_rate_repository = Arc::new(InMemoryExchangeRateRepository::new());
+
+    // Create CurrencyConversionUseCase
     let currency_conversion_use_case = Arc::new(CurrencyConversionUseCase::new(rate_fetcher_use_case.clone()));
-
-    // Example rate to save
-    let usd_to_eur_rate = ExchangeRate::new(
-        Currency {
-            code: "USD".to_string(),
-            symbol: "$".to_string(),
-        },
-        Currency {
-            code: "EUR".to_string(),
-            symbol: "€".to_string(),
-        },
-        dec!(0.85), // Example rate
-    );
-
-    rate_fetcher_use_case.save_rate(usd_to_eur_rate).await;
 
     // Generate OpenAPI specification
     let openapi = ApiDoc::openapi();
@@ -106,6 +110,7 @@ async fn main() {
         .or(openapi_filter)
         .with(warp::trace::request());
 
+    info!("Starting server at http://{}:{}", server_host, server_port);
     warp::serve(routes)
         .run(([127, 0, 0, 1], server_port))
         .await;
