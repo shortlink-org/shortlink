@@ -7,6 +7,7 @@ use std::sync::Arc;
 use tracing::info;
 use utoipa::{IntoParams, ToSchema};
 use warp::reply::Json;
+use rust_decimal_macros::dec;
 
 // Request query parameters
 #[derive(Deserialize, ToSchema, IntoParams)]

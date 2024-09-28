@@ -10,4 +10,11 @@ pub trait IRateFetcherUseCase: Send + Sync {
 
     /// Saves an exchange rate to the repository and cache.
     async fn save_rate(&self, rate: ExchangeRate) -> Result<(), Box<dyn Error + Send + Sync>>;
+    async fn get_historical_rates(
+        &self,
+        base_currency: &str,
+        target_currency: &str,
+        start_date: &str,
+        end_date: &str,
+    ) -> Option<Vec<ExchangeRate>>;
 }

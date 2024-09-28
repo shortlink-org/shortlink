@@ -101,6 +101,22 @@ async fn init_services() -> (Arc<RateFetcherUseCase>, Arc<CurrencyConversionUseC
     let bloomberg_provider = Arc::new(MockBloombergProvider::new());
     let yahoo_provider = Arc::new(MockYahooProvider::new());
 
+    // Load weighted average approach configuration from environment variables or use defaults
+    let divergence_threshold: f64 = env::var("DIVERGENCE_THRESHOLD")
+        .unwrap_or_else(|_| "0.5".to_string()) // Default to 0.5%
+        .parse()
+        .expect("DIVERGENCE_THRESHOLD must be a valid number");
+
+    let bloomberg_weight: f64 = env::var("BLOOMBERG_WEIGHT")
+        .unwrap_or_else(|_| "0.7".to_string()) // Default to 0.7
+        .parse()
+        .expect("BLOOMBERG_WEIGHT must be a valid number");
+
+    let yahoo_weight: f64 = env::var("YAHOO_WEIGHT")
+        .unwrap_or_else(|_| "0.3".to_string()) // Default to 0.3
+        .parse()
+        .expect("YAHOO_WEIGHT must be a valid number");
+
     // Create RateFetcherUseCase
     let rate_fetcher_use_case = Arc::new(RateFetcherUseCase::new(
         exchange_rate_repository.clone() as Arc<dyn ExchangeRateRepository + Send + Sync>,
@@ -109,9 +125,12 @@ async fn init_services() -> (Arc<RateFetcherUseCase>, Arc<CurrencyConversionUseC
         3, // max_retries
     ));
 
-    // Create CurrencyConversionUseCase
+    // Create CurrencyConversionUseCase with weighted average approach
     let currency_conversion_use_case = Arc::new(CurrencyConversionUseCase::new(
         rate_fetcher_use_case.clone(),
+        divergence_threshold,
+        bloomberg_weight,
+        yahoo_weight,
     ));
 
     (rate_fetcher_use_case, currency_conversion_use_case)
@@ -174,6 +193,5 @@ async fn serve_api(
     let routes = api(rate_fetcher_use_case, currency_conversion_use_case)
         .with(warp::trace::request());
 
-    info!("Starting server at http://{}:{}", server_host, server_port);
     warp::serve(routes).run(([127, 0, 0, 1], server_port)).await;
 }

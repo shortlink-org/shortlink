@@ -108,6 +108,34 @@ impl RateFetcherUseCase {
         None
     }
 
+    /// Fetches the exchange rate from a specific provider by name.
+    pub async fn fetch_rate_from_provider(
+        &self,
+        provider_name: &str,
+        from: &str,
+        to: &str,
+    ) -> Option<ExchangeRate> {
+        // Find the provider by name
+        let provider = self
+            .providers
+            .iter()
+            .find(|provider| provider.type_id() == provider_name);
+
+        // If provider is found, fetch the rate
+        if let Some(provider) = provider {
+            match provider.fetch_rate(from, to).await {
+                Ok(rate) => Some(rate),
+                Err(err) => {
+                    tracing::error!("Failed to fetch rate from provider {}: {}", provider_name, err);
+                    None
+                }
+            }
+        } else {
+            tracing::error!("Provider {} not found", provider_name);
+            None
+        }
+    }
+
     async fn fetch_with_retry(&self, provider: Arc<dyn ExternalRateProvider>, from: &str, to: &str) -> Option<ExchangeRate> {
         let mut attempt = 0;
         let max_attempts = 3;
@@ -139,6 +167,31 @@ impl RateFetcherUseCase {
         self.cache.set_rate(&rate).await?;
         Ok(())
     }
+
+    /// Fetches historical exchange rates for the specified period.
+    ///
+    /// # Arguments
+    ///
+    /// * `base_currency` - The source currency code (e.g., "USD").
+    /// * `target_currency` - The target currency code (e.g., "EUR").
+    /// * `start_date` - The start date of the historical period.
+    /// * `end_date` - The end date of the historical period.
+    ///
+    /// # Returns
+    ///
+    /// * `Some(Vec<ExchangeRate>)` if successful.
+    /// * `None` if no rates are found.
+    pub async fn get_historical_rates(
+        &self,
+        base_currency: &str,
+        target_currency: &str,
+        start_date: &str,
+        end_date: &str,
+    ) -> Option<Vec<ExchangeRate>> {
+        self.repository
+            .get_historical_rates(base_currency, target_currency, start_date, end_date)
+            .await
+    }
 }
 
 /// Helper trait to identify the provider type.
@@ -168,7 +221,17 @@ impl IRateFetcherUseCase for RateFetcherUseCase {
     }
 
     async fn save_rate(&self, rate: ExchangeRate) -> Result<(), Box<dyn Error + Send + Sync>> {
-        self.repository.save_rate(&rate).await;
-        self.cache.set_rate(&rate).await
+        self.save_rate(rate).await
+    }
+
+    async fn get_historical_rates(
+        &self,
+        base_currency: &str,
+        target_currency: &str,
+        start_date: &str,
+        end_date: &str,
+    ) -> Option<Vec<ExchangeRate>> {
+        self.get_historical_rates(base_currency, target_currency, start_date, end_date)
+            .await
     }
 }
