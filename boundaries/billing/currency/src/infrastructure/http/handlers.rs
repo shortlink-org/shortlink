@@ -1,6 +1,6 @@
-use crate::usecases::currency_conversion::converter::traits::ICurrencyConversionUseCase;
-use crate::usecases::exchange_rate::fetcher::traits::IRateFetcherUseCase;
 use crate::domain::exchange_rate::entities::{Currency, ExchangeRate};
+use crate::usecases::currency_conversion::traits::ICurrencyConversionUseCase;
+use crate::usecases::exchange_rate::traits::IRateFetcherUseCase;
 use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;

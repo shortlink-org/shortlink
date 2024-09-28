@@ -1,6 +1,6 @@
 use super::handlers::{get_current_exchange_rate, get_historical_exchange_rate};
-use crate::usecases::currency_conversion::converter::traits::ICurrencyConversionUseCase;
-use crate::usecases::exchange_rate::fetcher::traits::IRateFetcherUseCase;
+use crate::usecases::currency_conversion::traits::ICurrencyConversionUseCase;
+use crate::usecases::exchange_rate::traits::IRateFetcherUseCase;
 use std::sync::Arc;
 use warp::Filter;
 
@@ -34,7 +34,8 @@ pub fn api(
 /// * `rate_fetcher` - An `Arc` pointing to a trait object implementing `IRateFetcherUseCase`.
 fn with_rate_fetcher(
     rate_fetcher: Arc<dyn IRateFetcherUseCase>,
-) -> impl Filter<Extract = (Arc<dyn IRateFetcherUseCase>,), Error = std::convert::Infallible> + Clone {
+) -> impl Filter<Extract = (Arc<dyn IRateFetcherUseCase>,), Error = std::convert::Infallible> + Clone
+{
     warp::any().map(move || rate_fetcher.clone())
 }
 
@@ -45,7 +46,7 @@ fn with_rate_fetcher(
 /// * `conversion_service` - An `Arc` pointing to a trait object implementing `ICurrencyConversionUseCase`.
 fn with_conversion_service(
     conversion_service: Arc<dyn ICurrencyConversionUseCase>,
-) -> impl Filter<Extract = (Arc<dyn ICurrencyConversionUseCase>,), Error = std::convert::Infallible> + Clone
-{
+) -> impl Filter<Extract = (Arc<dyn ICurrencyConversionUseCase>,), Error = std::convert::Infallible>
+       + Clone {
     warp::any().map(move || conversion_service.clone())
 }

@@ -1,15 +1,15 @@
 #[cfg(test)]
 mod tests {
-    use crate::usecases::currency_conversion::converter::traits::ICurrencyConversionUseCase;
-    use crate::usecases::exchange_rate::fetcher::traits::IRateFetcherUseCase;
+    use crate::domain::exchange_rate::entities::{Currency, ExchangeRate};
     use crate::infrastructure::http::routes::api;
+    use crate::usecases::currency_conversion::traits::ICurrencyConversionUseCase;
+    use crate::usecases::exchange_rate::traits::IRateFetcherUseCase;
+    use rust_decimal::Decimal;
+    use serde_json::json;
+    use std::sync::Arc;
     use warp::http::StatusCode;
     use warp::test::request;
-    use serde_json::json;
-    use rust_decimal::Decimal;
-    use std::sync::Arc;
     use warp::Filter;
-    use crate::domain::exchange_rate::entities::{Currency, ExchangeRate};
 
     /// Mock implementation of `IRateFetcherUseCase`
     struct MockRateFetcherUseCase;
@@ -20,8 +20,14 @@ mod tests {
         async fn fetch_rate(&self, from: &str, to: &str) -> Option<ExchangeRate> {
             if from.eq_ignore_ascii_case("USD") && to.eq_ignore_ascii_case("EUR") {
                 Some(ExchangeRate::new(
-                    Currency { code: "USD".to_string(), symbol: "$".to_string() },
-                    Currency { code: "EUR".to_string(), symbol: "€".to_string() },
+                    Currency {
+                        code: "USD".to_string(),
+                        symbol: "$".to_string(),
+                    },
+                    Currency {
+                        code: "EUR".to_string(),
+                        symbol: "€".to_string(),
+                    },
                     Decimal::new(85, 2), // 0.85
                 ))
             } else {
@@ -30,7 +36,10 @@ mod tests {
         }
 
         /// Mock save_rate does nothing
-        async fn save_rate(&self, _rate: ExchangeRate) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
+        async fn save_rate(
+            &self,
+            _rate: ExchangeRate,
+        ) -> Result<(), Box<dyn std::error::Error + Send + Sync>> {
             Ok(())
         }
     }
@@ -48,16 +57,30 @@ mod tests {
             start_date: &str,
             end_date: &str,
         ) -> Option<Vec<ExchangeRate>> {
-            if base_currency.eq_ignore_ascii_case("USD") && target_currency.eq_ignore_ascii_case("EUR") {
+            if base_currency.eq_ignore_ascii_case("USD")
+                && target_currency.eq_ignore_ascii_case("EUR")
+            {
                 Some(vec![
                     ExchangeRate::new(
-                        Currency { code: "USD".to_string(), symbol: "$".to_string() },
-                        Currency { code: "EUR".to_string(), symbol: "€".to_string() },
+                        Currency {
+                            code: "USD".to_string(),
+                            symbol: "$".to_string(),
+                        },
+                        Currency {
+                            code: "EUR".to_string(),
+                            symbol: "€".to_string(),
+                        },
                         Decimal::new(84, 2), // 0.84
                     ),
                     ExchangeRate::new(
-                        Currency { code: "USD".to_string(), symbol: "$".to_string() },
-                        Currency { code: "EUR".to_string(), symbol: "€".to_string() },
+                        Currency {
+                            code: "USD".to_string(),
+                            symbol: "$".to_string(),
+                        },
+                        Currency {
+                            code: "EUR".to_string(),
+                            symbol: "€".to_string(),
+                        },
                         Decimal::new(85, 2), // 0.85
                     ),
                 ])
@@ -70,15 +93,18 @@ mod tests {
     /// Helper function to inject `IRateFetcherUseCase` mock
     fn with_rate_fetcher(
         rate_fetcher: Arc<dyn IRateFetcherUseCase>,
-    ) -> impl warp::Filter<Extract = (Arc<dyn IRateFetcherUseCase>,), Error = std::convert::Infallible> + Clone {
+    ) -> impl warp::Filter<Extract = (Arc<dyn IRateFetcherUseCase>,), Error = std::convert::Infallible>
+           + Clone {
         warp::any().map(move || rate_fetcher.clone())
     }
 
     /// Helper function to inject `ICurrencyConversionUseCase` mock
     fn with_conversion_service(
         conversion_service: Arc<dyn ICurrencyConversionUseCase>,
-    ) -> impl warp::Filter<Extract = (Arc<dyn ICurrencyConversionUseCase>,), Error = std::convert::Infallible> + Clone
-    {
+    ) -> impl warp::Filter<
+        Extract = (Arc<dyn ICurrencyConversionUseCase>,),
+        Error = std::convert::Infallible,
+    > + Clone {
         warp::any().map(move || conversion_service.clone())
     }
 
@@ -86,7 +112,8 @@ mod tests {
     async fn test_get_current_exchange_rate_success() {
         // Setup mocks
         let mock_rate_fetcher = Arc::new(MockRateFetcherUseCase) as Arc<dyn IRateFetcherUseCase>;
-        let mock_conversion_service = Arc::new(MockCurrencyConversionUseCase) as Arc<dyn ICurrencyConversionUseCase>;
+        let mock_conversion_service =
+            Arc::new(MockCurrencyConversionUseCase) as Arc<dyn ICurrencyConversionUseCase>;
 
         // Build API filter
         let api_filter = api(mock_rate_fetcher.clone(), mock_conversion_service.clone());
@@ -114,7 +141,8 @@ mod tests {
     async fn test_get_current_exchange_rate_not_found() {
         // Setup mocks
         let mock_rate_fetcher = Arc::new(MockRateFetcherUseCase) as Arc<dyn IRateFetcherUseCase>;
-        let mock_conversion_service = Arc::new(MockCurrencyConversionUseCase) as Arc<dyn ICurrencyConversionUseCase>;
+        let mock_conversion_service =
+            Arc::new(MockCurrencyConversionUseCase) as Arc<dyn ICurrencyConversionUseCase>;
 
         // Build API filter
         let api_filter = api(mock_rate_fetcher.clone(), mock_conversion_service.clone());
@@ -134,7 +162,8 @@ mod tests {
     async fn test_get_historical_exchange_rate_success() {
         // Setup mocks
         let mock_rate_fetcher = Arc::new(MockRateFetcherUseCase) as Arc<dyn IRateFetcherUseCase>;
-        let mock_conversion_service = Arc::new(MockCurrencyConversionUseCase) as Arc<dyn ICurrencyConversionUseCase>;
+        let mock_conversion_service =
+            Arc::new(MockCurrencyConversionUseCase) as Arc<dyn ICurrencyConversionUseCase>;
 
         // Build API filter
         let api_filter = api(mock_rate_fetcher.clone(), mock_conversion_service.clone());
@@ -166,7 +195,8 @@ mod tests {
     async fn test_invalid_currency_code() {
         // Setup mocks
         let mock_rate_fetcher = Arc::new(MockRateFetcherUseCase) as Arc<dyn IRateFetcherUseCase>;
-        let mock_conversion_service = Arc::new(MockCurrencyConversionUseCase) as Arc<dyn ICurrencyConversionUseCase>;
+        let mock_conversion_service =
+            Arc::new(MockCurrencyConversionUseCase) as Arc<dyn ICurrencyConversionUseCase>;
 
         // Build API filter
         let api_filter = api(mock_rate_fetcher.clone(), mock_conversion_service.clone());

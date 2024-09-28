@@ -1,16 +1,22 @@
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::cache::CacheService;
     use crate::domain::exchange_rate::entities::{Currency, ExchangeRate};
     use rust_decimal_macros::dec;
-    use crate::cache::CacheService;
 
     #[tokio::test]
     async fn test_set_and_get_rate() {
         let cache = CacheService::new();
         let rate = ExchangeRate::new(
-            Currency { code: "USD".to_string(), symbol: "$".to_string() },
-            Currency { code: "EUR".to_string(), symbol: "€".to_string() },
+            Currency {
+                code: "USD".to_string(),
+                symbol: "$".to_string(),
+            },
+            Currency {
+                code: "EUR".to_string(),
+                symbol: "€".to_string(),
+            },
             dec!(0.85),
         );
 
@@ -31,15 +37,27 @@ mod tests {
     async fn test_update_rate() {
         let cache = CacheService::new();
         let rate1 = ExchangeRate::new(
-            Currency { code: "USD".to_string(), symbol: "$".to_string() },
-            Currency { code: "EUR".to_string(), symbol: "€".to_string() },
+            Currency {
+                code: "USD".to_string(),
+                symbol: "$".to_string(),
+            },
+            Currency {
+                code: "EUR".to_string(),
+                symbol: "€".to_string(),
+            },
             dec!(0.85),
         );
         cache.set_rate(&rate1).await.unwrap();
 
         let rate2 = ExchangeRate::new(
-            Currency { code: "USD".to_string(), symbol: "$".to_string() },
-            Currency { code: "EUR".to_string(), symbol: "€".to_string() },
+            Currency {
+                code: "USD".to_string(),
+                symbol: "$".to_string(),
+            },
+            Currency {
+                code: "EUR".to_string(),
+                symbol: "€".to_string(),
+            },
             dec!(0.90),
         );
         cache.set_rate(&rate2).await.unwrap();
@@ -52,13 +70,25 @@ mod tests {
     async fn test_multiple_rates() {
         let cache = CacheService::new();
         let rate_usd_eur = ExchangeRate::new(
-            Currency { code: "USD".to_string(), symbol: "$".to_string() },
-            Currency { code: "EUR".to_string(), symbol: "€".to_string() },
+            Currency {
+                code: "USD".to_string(),
+                symbol: "$".to_string(),
+            },
+            Currency {
+                code: "EUR".to_string(),
+                symbol: "€".to_string(),
+            },
             dec!(0.85),
         );
         let rate_gbp_jpy = ExchangeRate::new(
-            Currency { code: "GBP".to_string(), symbol: "£".to_string() },
-            Currency { code: "JPY".to_string(), symbol: "¥".to_string() },
+            Currency {
+                code: "GBP".to_string(),
+                symbol: "£".to_string(),
+            },
+            Currency {
+                code: "JPY".to_string(),
+                symbol: "¥".to_string(),
+            },
             dec!(150.0),
         );
 

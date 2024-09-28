@@ -4,16 +4,16 @@ mod tests {
     use crate::cache::CacheService;
     use crate::domain::exchange_rate::entities::{Currency, ExchangeRate};
     use crate::repository::exchange_rate::in_memory_repository::InMemoryExchangeRateRepository;
-    use crate::usecases::exchange_rate::fetcher::external_rate_provider::ExternalRateProvider;
-    use crate::usecases::exchange_rate::fetcher::mock_bloomberg_provider::MockBloombergProvider;
-    use crate::usecases::exchange_rate::fetcher::mock_yahoo_provider::MockYahooProvider;
+    use crate::repository::exchange_rate::repository::ExchangeRateRepository;
+    use crate::usecases::exchange_rate::external_rate_provider::ExternalRateProvider;
+    use crate::usecases::exchange_rate::mock_bloomberg_provider::MockBloombergProvider;
+    use crate::usecases::exchange_rate::mock_yahoo_provider::MockYahooProvider;
+    use crate::usecases::exchange_rate::RateFetcherUseCase;
+    use async_trait::async_trait;
     use rust_decimal_macros::dec;
     use std::error::Error;
     use std::sync::Arc;
-    use async_trait::async_trait;
     use tokio::sync::Mutex;
-    use crate::repository::exchange_rate::repository::ExchangeRateRepository;
-    use crate::usecases::exchange_rate::fetcher::RateFetcherUseCase;
 
     /// A mock provider that always fails to fetch exchange rates.
     struct FailingProvider;

@@ -2,7 +2,7 @@ use super::external_rate_provider::ExternalRateProvider;
 use crate::cache::cache_service::CacheService;
 use crate::domain::exchange_rate::entities::ExchangeRate;
 use crate::repository::exchange_rate::repository::ExchangeRateRepository;
-use crate::usecases::exchange_rate::fetcher::traits::IRateFetcherUseCase;
+use crate::usecases::exchange_rate::traits::IRateFetcherUseCase;
 use async_trait::async_trait;
 use std::error::Error;
 use std::sync::Arc;

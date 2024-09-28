@@ -1,6 +1,6 @@
 use crate::domain::exchange_rate::entities::ExchangeRate;
-use std::error::Error;
 use async_trait::async_trait;
+use std::error::Error;
 
 /// Trait defining the interface for fetching exchange rates.
 #[async_trait]

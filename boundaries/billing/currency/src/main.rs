@@ -10,8 +10,8 @@ use std::sync::Arc;
 use tracing::info;
 use tracing_subscriber::fmt::format::FmtSpan;
 use tracing_subscriber::EnvFilter;
-use usecases::currency_conversion::converter::ICurrencyConversionUseCase;
-use usecases::exchange_rate::fetcher::RateFetcherUseCase;
+use usecases::currency_conversion::ICurrencyConversionUseCase;
+use usecases::exchange_rate::RateFetcherUseCase;
 use utoipa::OpenApi;
 use warp::Filter;
 
@@ -23,9 +23,9 @@ use std::env;
 use crate::cache::CacheService;
 use crate::repository::exchange_rate::in_memory_repository::InMemoryExchangeRateRepository;
 use crate::repository::exchange_rate::repository::ExchangeRateRepository;
-use usecases::exchange_rate::fetcher::mock_bloomberg_provider::MockBloombergProvider;
-use usecases::exchange_rate::fetcher::mock_yahoo_provider::MockYahooProvider;
-use crate::usecases::currency_conversion::converter::converter::CurrencyConversionUseCase;
+use crate::usecases::currency_conversion::converter::CurrencyConversionUseCase;
+use usecases::exchange_rate::mock_bloomberg_provider::MockBloombergProvider;
+use usecases::exchange_rate::mock_yahoo_provider::MockYahooProvider;
 
 #[derive(OpenApi)]
 #[openapi(

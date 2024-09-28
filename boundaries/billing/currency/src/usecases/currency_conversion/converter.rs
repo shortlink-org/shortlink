@@ -1,9 +1,9 @@
 use crate::domain::currency_conversion::entities::{Amount, ConvertedAmount};
-use crate::usecases::exchange_rate::fetcher::RateFetcherUseCase;
-use std::sync::Arc;
-use async_trait::async_trait;
-use crate::usecases::currency_conversion::converter::traits::ICurrencyConversionUseCase;
 use crate::domain::exchange_rate::entities::ExchangeRate;
+use crate::usecases::currency_conversion::traits::ICurrencyConversionUseCase;
+use crate::usecases::exchange_rate::RateFetcherUseCase;
+use async_trait::async_trait;
+use std::sync::Arc;
 
 pub struct CurrencyConversionUseCase {
     pub rate_fetcher: Arc<RateFetcherUseCase>,
@@ -40,6 +40,7 @@ impl ICurrencyConversionUseCase for CurrencyConversionUseCase {
         start_date: &str,
         end_date: &str,
     ) -> Option<Vec<ExchangeRate>> {
-        self.get_historical_rates(base_currency, target_currency, start_date, end_date).await
+        self.get_historical_rates(base_currency, target_currency, start_date, end_date)
+            .await
     }
 }
