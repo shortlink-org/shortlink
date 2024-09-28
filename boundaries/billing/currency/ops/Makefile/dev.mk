@@ -15,10 +15,10 @@ down: confirm ## Down docker compose
 		-f $(ROOT_DIR)/docker-compose.yaml \
 		-f $(ROOT_DIR)/ops/docker-compose/tooling/services/coredns/coredns.yaml \
 		-f $(ROOT_DIR)/ops/docker-compose/database/redis/redis.yaml \
-	down --remove-orphans
+	    down --remove-orphans
 	@docker network prune -f
 
 ### Code style =========================================================================================================
 lint: ## Lint code
-    @cargo fmt
-    @cargo clippy --fix --allow-dirty
+	@cargo fmt
+	@cargo clippy --fix --allow-dirty
