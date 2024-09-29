@@ -9,7 +9,7 @@ use std::sync::Arc;
 use deadpool_redis::Metrics;
 use dotenvy::dotenv;
 use tokio_cron_scheduler::{Job, JobScheduler};
-use tracing::{error, info, instrument};
+use tracing::{error, instrument};
 use tracing_subscriber::prelude::*;
 use tracing_subscriber::{fmt, EnvFilter, Registry};
 use opentelemetry::{global, KeyValue};
@@ -26,7 +26,7 @@ use opentelemetry_sdk::runtime::Tokio;
 use serde::de::Error;
 use tracing_subscriber::fmt::format::FmtSpan;
 use spandoc::spandoc;
-
+use tracing::log::info;
 // Import service modules
 use crate::cache::CacheService;
 use crate::infrastructure::http::routes::api;
