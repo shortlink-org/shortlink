@@ -1,7 +1,37 @@
+use async_trait::async_trait;
 use crate::domain::{NewsLetter, SendSubscribeRequest};
-use crate::postgres;
+use crate::{handler, postgres};
 use crate::Context;
 use hyper::{Body, Response, StatusCode};
+use crate::router::Handler;
+
+pub struct GetListSubscribesHandler;
+
+#[async_trait]
+impl Handler for GetListSubscribesHandler {
+    async fn invoke(&self, context: Context) -> Response<Body> {
+        let result = handler::get_list_subscribes(context).await;
+        Response::new(result.into())
+    }
+}
+
+pub struct NewsletterSubscribeHandler;
+
+#[async_trait]
+impl Handler for NewsletterSubscribeHandler {
+    async fn invoke(&self, context: Context) -> Response<Body> {
+        handler::newsletter_subscribe(context).await
+    }
+}
+
+pub struct NewsletterUnsubscribeHandler;
+
+#[async_trait]
+impl Handler for NewsletterUnsubscribeHandler {
+    async fn invoke(&self, context: Context) -> Response<Body> {
+        handler::newsletter_unsubscribe(context).await
+    }
+}
 
 pub async fn get_list_subscribes(_ctx: Context) -> String {
     let newsletters = postgres::list().await.unwrap();

@@ -11,14 +11,9 @@ pub trait Handler: Send + Sync + 'static {
 }
 
 #[async_trait]
-impl<F: Send + Sync + 'static, Fut> Handler for F
-where
-    F: Fn(Context) -> Fut,
-    Fut: Future + Send + 'static,
-    Fut::Output: IntoResponse,
-{
+impl Handler for Box<dyn Handler> {
     async fn invoke(&self, context: Context) -> Response<Body> {
-        (self)(context).await.into_response()
+        (**self).invoke(context).await
     }
 }
 
@@ -60,21 +55,21 @@ impl Router {
     }
 
     pub fn route(&self, path: &str, method: &Method) -> RouterMatch<'_> {
-        if let Some(Match { handler, params }) = self
-            .method_map
-            .get(method)
-            .and_then(|r| r.recognize(path).ok())
-        {
+        if let Some(matched) = self.get_method_map().get(method).and_then(|r| r.recognize(path).ok()) {
             RouterMatch {
-                handler: &**handler,
-                params,
+                handler: *matched.handler(),
+                params: matched.params().clone(),
             }
         } else {
             RouterMatch {
-                handler: &not_found_handler,
+                handler: &NotFoundHandler,
                 params: Params::new(),
             }
         }
+    }
+
+    pub fn get_method_map(&self) -> &HashMap<Method, InternalRouter<Box<dyn Handler>>> {
+        &self.method_map
     }
 }
 
@@ -104,5 +99,17 @@ impl IntoResponse for &'static str {
 impl IntoResponse for String {
     fn into_response(self) -> Response<Body> {
         Response::new(self.into())
+    }
+}
+
+struct NotFoundHandler;
+
+#[async_trait]
+impl Handler for NotFoundHandler {
+    async fn invoke(&self, context: Context) -> Response<Body> {
+        hyper::Response::builder()
+            .status(StatusCode::NOT_FOUND)
+            .body("NOT FOUND".into())
+            .unwrap()
     }
 }

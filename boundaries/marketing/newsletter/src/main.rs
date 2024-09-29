@@ -7,9 +7,7 @@ use hyper::{
 use router::Router;
 use std::net::SocketAddr;
 use std::sync::Arc;
-
-use pyroscope::PyroscopeAgent;
-use pyroscope_pprofrs::{pprof_backend, PprofConfig};
+use crate::handler::{GetListSubscribesHandler, NewsletterSubscribeHandler, NewsletterUnsubscribeHandler};
 
 mod context;
 mod domain;
@@ -27,22 +25,13 @@ pub async fn main() {
     let future = postgres::run_migrations();
     block_on(future);
 
-    // Create Pyroscope Agent
-    // TODO: Use env variable for Pyroscope server
-    let agent = PyroscopeAgent::builder("http://localhost:4040", "newsletter")
-        .backend(pprof_backend(PprofConfig::new().sample_rate(100)))
-        .build()?;
-
-    // Start Agent
-    let agent_running = agent.start()?;
-
     // Routing
     let mut router: Router = Router::new();
-    router.get("/api/newsletters", Box::new(handler::get_list_subscribes));
-    router.post("/api/newsletter", Box::new(handler::newsletter_subscribe));
+    router.get("/api/newsletters", Box::new(GetListSubscribesHandler));
+    router.post("/api/newsletter", Box::new(NewsletterSubscribeHandler));
     router.get(
         "/api/newsletter/unsubscribe/:email",
-        Box::new(handler::newsletter_unsubscribe),
+        Box::new(NewsletterUnsubscribeHandler),
     );
 
     let shared_router = Arc::new(router);
@@ -62,10 +51,6 @@ pub async fn main() {
     // Run this server for... forever!
     if let Err(e) = graceful.await {
         eprintln!("server error: {}", e);
-
-        // Stop Agent
-        let agent_ready = agent_running.stop()?;
-        agent_ready.shutdown();
     }
 }
 
