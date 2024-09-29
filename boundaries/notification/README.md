@@ -11,7 +11,6 @@
 | Service    | Description                          | Language/Framework | Docs                           | Status                                                                                                                                                        |
 |------------|--------------------------------------|--------------------|--------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | bot        | Telegram bot                         | JAVA               | [docs](./bot/README.md)        |                                                                                                                                                               |                                                                    
-| newsletter | Newsletter service                   | Rust               | [docs](./newsletter/README.md) | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-newsletter&revision=true)](https://argo.shortlink.best/applications/shortlink-newsletter) |                                                              
 | notify     | Send notify to smtp, slack, telegram | Go                 | [docs](./notify/README.md)     | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-notify&revision=true)](https://argo.shortlink.best/applications/shortlink-notify)         |                                                                  
 
 ### Docs
