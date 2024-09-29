@@ -29,6 +29,9 @@ dotenv = "0.15.0"
 postgres = "0.19.9"
 tokio-postgres = { version = "^0.7.12" }
 refinery = { version = "0.8.14", features = ["tokio-postgres"] }
+hyper-util = "0.1.9"
+http-body-util = "0.1.2"
+log = "0.4.22"
 
 [dependencies.uuid]
 features = ["serde", "v4"]
