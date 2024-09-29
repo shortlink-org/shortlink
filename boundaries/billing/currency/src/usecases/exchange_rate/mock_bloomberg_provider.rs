@@ -3,6 +3,7 @@ use crate::domain::exchange_rate::entities::{Currency, ExchangeRate};
 use async_trait::async_trait;
 use rust_decimal::Decimal;
 use std::error::Error;
+use std::fmt::{Debug, Formatter};
 
 /// Mock implementation of the Bloomberg exchange rate provider.
 pub struct MockBloombergProvider;
@@ -10,6 +11,12 @@ pub struct MockBloombergProvider;
 impl MockBloombergProvider {
     pub fn new() -> Self {
         Self
+    }
+}
+
+impl Debug for MockBloombergProvider {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "MockBloombergProvider")
     }
 }
 

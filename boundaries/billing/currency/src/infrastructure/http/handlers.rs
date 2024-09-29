@@ -4,19 +4,21 @@ use crate::usecases::exchange_rate::traits::IRateFetcherUseCase;
 use rust_decimal::Decimal;
 use serde::{Deserialize, Serialize};
 use std::sync::Arc;
-use tracing::info;
+use opentelemetry::{global, KeyValue};
+use opentelemetry::metrics::{Counter, Meter};
+use tracing::{info, instrument};
 use utoipa::{IntoParams, ToSchema};
 use warp::reply::Json;
 use rust_decimal_macros::dec;
 
 // Request query parameters
-#[derive(Deserialize, ToSchema, IntoParams)]
+#[derive(Deserialize, ToSchema, IntoParams, Debug)]
 pub struct ExchangeRateQuery {
     base_currency: String,
     target_currency: String,
 }
 
-#[derive(Deserialize, ToSchema, IntoParams)]
+#[derive(Deserialize, ToSchema, IntoParams, Debug)]
 pub struct HistoricalRateQuery {
     base_currency: String,
     target_currency: String,
@@ -49,6 +51,7 @@ pub struct HistoricalRateResponse {
     )
 )]
 // Handler for current exchange rate
+#[instrument]
 pub async fn get_current_exchange_rate(
     query: ExchangeRateQuery,
     rate_fetcher: Arc<dyn IRateFetcherUseCase>,
@@ -84,6 +87,7 @@ pub async fn get_current_exchange_rate(
     )
 )]
 // Handler for historical exchange rates
+#[instrument]
 pub async fn get_historical_exchange_rate(
     query: HistoricalRateQuery,
     _conversion_service: Arc<dyn ICurrencyConversionUseCase>,
@@ -105,4 +109,33 @@ pub async fn get_historical_exchange_rate(
     ];
 
     Ok(warp::reply::json(&response))
+}
+
+#[derive(Debug)]
+struct Metrics {
+    request_counter: Counter<u64>,
+    error_counter: Counter<u64>,
+}
+
+impl Metrics {
+    fn new(meter: &Meter) -> Self {
+        Self {
+            request_counter: meter.u64_counter("requests_total").with_description("Total number of requests").init(),
+            error_counter: meter.u64_counter("errors_total").with_description("Total number of errors").init(),
+        }
+    }
+
+    fn increment_requests(&self) {
+        self.request_counter.add(1, &[KeyValue::new("service.name", "currency-service")]);
+    }
+
+    fn increment_errors(&self) {
+        self.error_counter.add(1, &[KeyValue::new("service.name", "currency-service")]);
+    }
+}
+
+// In your main function or service initialization
+fn init_metrics() -> Metrics {
+    let meter = global::meter("currency-service");
+    Metrics::new(&meter)
 }

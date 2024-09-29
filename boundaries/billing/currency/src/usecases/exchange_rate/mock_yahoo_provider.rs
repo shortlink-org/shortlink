@@ -3,6 +3,7 @@ use crate::domain::exchange_rate::entities::{Currency, ExchangeRate};
 use async_trait::async_trait;
 use rust_decimal::Decimal;
 use std::error::Error;
+use std::fmt::{Debug, Formatter};
 
 /// Mock implementation of the Yahoo exchange rate provider.
 pub struct MockYahooProvider;
@@ -10,6 +11,12 @@ pub struct MockYahooProvider;
 impl MockYahooProvider {
     pub fn new() -> Self {
         Self
+    }
+}
+
+impl Debug for MockYahooProvider {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "MockYahooProvider")
     }
 }
 

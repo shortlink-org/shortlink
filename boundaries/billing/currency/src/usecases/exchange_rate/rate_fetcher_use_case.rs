@@ -5,11 +5,13 @@ use crate::repository::exchange_rate::repository::ExchangeRateRepository;
 use crate::usecases::exchange_rate::traits::IRateFetcherUseCase;
 use async_trait::async_trait;
 use std::error::Error;
+use std::fmt::Debug;
 use std::sync::Arc;
 use tokio::time::{sleep, Duration};
 use tracing::{error, info};
 
 /// Use case for fetching exchange rates from external providers.
+#[derive(Debug)]
 pub struct RateFetcherUseCase {
     pub repository: Arc<dyn ExchangeRateRepository + Send + Sync>,
     pub cache: Arc<CacheService>,

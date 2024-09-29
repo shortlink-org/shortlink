@@ -2,6 +2,7 @@ use crate::domain::exchange_rate::entities::ExchangeRate;
 use crate::repository::exchange_rate::repository::ExchangeRateRepository;
 use async_trait::async_trait;
 use std::collections::HashMap;
+use std::fmt::{Debug, Formatter};
 use std::sync::Mutex;
 use std::sync::Arc;
 
@@ -18,6 +19,12 @@ impl InMemoryExchangeRateRepository {
 
     fn make_key(&self, base_currency: &str, target_currency: &str, date: &str) -> String {
         format!("{}:{}:{}", base_currency, target_currency, date)
+    }
+}
+
+impl Debug for InMemoryExchangeRateRepository {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        write!(f, "InMemoryExchangeRateRepository")
     }
 }
 

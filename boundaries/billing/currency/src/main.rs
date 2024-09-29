@@ -4,30 +4,39 @@ mod infrastructure;
 mod repository;
 mod usecases;
 
-use std::convert::Infallible;
-use infrastructure::http::routes::api;
-use repository::exchange_rate::redis_repository::RedisExchangeRateRepository;
-use std::sync::Arc;
-use tracing::{error, info};
-use tracing_subscriber::fmt::format::FmtSpan;
-use tracing_subscriber::EnvFilter;
-use usecases::currency_conversion::ICurrencyConversionUseCase;
-use usecases::exchange_rate::RateFetcherUseCase;
-use utoipa::OpenApi;
-use warp::{Filter, Rejection};
-use tokio_cron_scheduler::{Job, JobScheduler};
-use dotenvy::dotenv;
 use std::env;
-use std::iter::Map;
-use tracing_subscriber::filter::combinator::And;
-use warp::path::Exact;
-use warp::reply::Json;
+use std::sync::Arc;
+use deadpool_redis::Metrics;
+use dotenvy::dotenv;
+use tokio_cron_scheduler::{Job, JobScheduler};
+use tracing::{error, info, instrument};
+use tracing_subscriber::prelude::*;
+use tracing_subscriber::{fmt, EnvFilter, Registry};
+use opentelemetry::{global, KeyValue};
+use opentelemetry::metrics::MetricsError::Config;
+use opentelemetry::trace::TracerProvider;
+use opentelemetry_otlp::WithExportConfig;
+use tracing_opentelemetry::OpenTelemetryLayer;
+use utoipa::OpenApi;
+use warp::{Filter, Rejection, Reply};
+
+// Import OpenTelemetry SDK trace module
+use opentelemetry_sdk::{trace as sdktrace, Resource};
+use opentelemetry_sdk::runtime::Tokio;
+use serde::de::Error;
+use tracing_subscriber::fmt::format::FmtSpan;
+use spandoc::spandoc;
+
+// Import service modules
 use crate::cache::CacheService;
-use crate::repository::exchange_rate::in_memory_repository::InMemoryExchangeRateRepository;
+use crate::infrastructure::http::routes::api;
+use crate::repository::exchange_rate::redis_repository::RedisExchangeRateRepository;
 use crate::repository::exchange_rate::repository::ExchangeRateRepository;
 use crate::usecases::currency_conversion::converter::CurrencyConversionUseCase;
-use usecases::exchange_rate::mock_bloomberg_provider::MockBloombergProvider;
-use usecases::exchange_rate::mock_yahoo_provider::MockYahooProvider;
+use crate::usecases::exchange_rate::mock_bloomberg_provider::MockBloombergProvider;
+use crate::usecases::exchange_rate::mock_yahoo_provider::MockYahooProvider;
+use crate::usecases::exchange_rate::RateFetcherUseCase;
+use crate::usecases::load_exchange_rates_cron::cron::run_currency_update_job;
 
 #[derive(OpenApi)]
 #[openapi(
@@ -48,13 +57,19 @@ use usecases::exchange_rate::mock_yahoo_provider::MockYahooProvider;
 struct ApiDoc;
 
 #[tokio::main]
-async fn main() {
+#[spandoc]
+async fn main() -> Result<(), Box<dyn std::error::Error>> {
     // Load environment variables
     dotenv().ok();
-    init_tracing();
+
+    // Initialize tracing and OpenTelemetry
+    init_tracing()?;
 
     // Initialize services (repositories, caches, external providers, etc.)
     let (rate_fetcher_use_case, currency_conversion_use_case) = init_services().await;
+
+    // Initialize Metrics (this should match your actual metrics usage)
+    let metrics = Arc::new(Metrics::default());
 
     // Initialize scheduler and job
     let mut scheduler = init_scheduler(rate_fetcher_use_case.clone()).await;
@@ -65,21 +80,59 @@ async fn main() {
         .map(move || warp::reply::json(&openapi));
 
     // Serve the API routes
-    serve_api(rate_fetcher_use_case, currency_conversion_use_case).await;
+    serve_api(rate_fetcher_use_case, currency_conversion_use_case, openapi_filter, metrics).await;
 
     // Wait for a shutdown signal and stop the scheduler
     tokio::signal::ctrl_c().await.unwrap();
     scheduler.shutdown().await.unwrap();
-    println!("Shutting down");
+    info!("Shutting down");
+
+    // Shutdown the tracer
+    global::shutdown_tracer_provider();
+
+    Ok(())
 }
 
-/// Initialize environment logging using tracing.
-fn init_tracing() {
-    let log_level = env::var("LOG_LEVEL").unwrap_or_else(|_| "info".to_string());
-    tracing_subscriber::fmt()
-        .with_env_filter(EnvFilter::new(log_level))
-        .with_span_events(FmtSpan::CLOSE)
-        .init();
+/// Initialize OpenTelemetry tracing using the OTLP exporter over gRPC (Tempo)
+fn init_tracing() -> Result<(), opentelemetry::trace::TraceError> {
+    // Get the OTLP endpoint from the environment variable or use a default
+    let otlp_endpoint = env::var("OTLP_ENDPOINT")
+        .unwrap_or_else(|_| "http://localhost:4317".to_string());
+
+    // Create the OTLP exporter and get a TracerProvider
+    let tracer_provider = opentelemetry_otlp::new_pipeline()
+        .tracing()
+        .with_exporter(
+            opentelemetry_otlp::new_exporter()
+                .tonic() // Use gRPC
+                .with_endpoint(otlp_endpoint),
+        )
+        .with_trace_config(
+            sdktrace::Config::default()
+                .with_resource(Resource::new(vec![
+                    KeyValue::new("service.name", "currency-service"),
+                ])),
+        )
+        .install_batch(Tokio)?;
+
+    // Set the global tracer provider
+    opentelemetry::global::set_tracer_provider(tracer_provider.clone());
+
+    // Get a tracer from the tracer provider
+    let tracer = tracer_provider.tracer("currency-service");
+
+    // Create a tracing layer with the configured tracer
+    let telemetry = tracing_opentelemetry::layer().with_tracer(tracer);
+
+    // Create a tracing subscriber for console and file output
+    let subscriber = Registry::default()
+        .with(EnvFilter::from_default_env())
+        .with(telemetry);
+
+    tracing::subscriber::set_global_default(subscriber)
+        .expect("Failed to set the tracing subscriber");
+
+    Ok(())
 }
 
 /// Initialize the services (repositories, caches, providers, etc.)
@@ -140,13 +193,14 @@ async fn init_services() -> (Arc<RateFetcherUseCase>, Arc<CurrencyConversionUseC
 async fn init_scheduler(rate_fetcher_use_case: Arc<RateFetcherUseCase>) -> JobScheduler {
     let scheduler = JobScheduler::new().await.unwrap();
 
-    // Define a cron job to run every hour (adjust for testing if needed)
-    let job = Job::new_async("0 * * * * *", move |_uuid, _l| {
+    // Define a cron job to run every hour (adjust as needed)
+    let job = Job::new_async("0 0 * * * *", move |_uuid, _l| {
         let rate_fetcher_use_case = rate_fetcher_use_case.clone();
         Box::pin(async move {
             run_currency_update_job(rate_fetcher_use_case).await;
         })
-    }).unwrap();
+    })
+        .unwrap();
 
     scheduler.add(job).await.unwrap();
     scheduler.start().await.unwrap();
@@ -154,33 +208,12 @@ async fn init_scheduler(rate_fetcher_use_case: Arc<RateFetcherUseCase>) -> JobSc
     scheduler
 }
 
-/// Periodic currency update job.
-async fn run_currency_update_job(rate_fetcher_use_case: Arc<RateFetcherUseCase>) {
-    info!("Starting exchange rate update job...");
-
-    let from_currency = "USD"; // Example currencies
-    let to_currency = "EUR";
-
-    match rate_fetcher_use_case.fetch_rate(from_currency, to_currency).await {
-        Some(exchange_rate) => {
-            info!(
-                "Successfully fetched exchange rate for {} to {}: {}",
-                from_currency, to_currency, exchange_rate.rate
-            );
-        }
-        None => {
-            error!(
-                "Failed to fetch exchange rate for {} to {}",
-                from_currency, to_currency
-            );
-        }
-    }
-}
-
 /// Set up and run the HTTP API server.
 async fn serve_api(
     rate_fetcher_use_case: Arc<RateFetcherUseCase>,
     currency_conversion_use_case: Arc<CurrencyConversionUseCase>,
+    openapi_filter: impl Filter<Extract = impl warp::Reply, Error = warp::Rejection> + Clone + Send + Sync + 'static,
+    metrics: Arc<Metrics>,
 ) {
     // Retrieve server host and port from environment
     let server_host = env::var("SERVER_HOST").unwrap_or_else(|_| "127.0.0.1".to_string());
@@ -190,8 +223,11 @@ async fn serve_api(
         .expect("SERVER_PORT must be a valid u16");
 
     // Set up the HTTP server with the API routes and OpenAPI filter
-    let routes = api(rate_fetcher_use_case, currency_conversion_use_case)
+    let routes = api(rate_fetcher_use_case, currency_conversion_use_case, metrics)
+        .or(openapi_filter)
         .with(warp::trace::request());
+
+    info!("Starting HTTP server at http://{}:{}", server_host, server_port);
 
     warp::serve(routes).run(([127, 0, 0, 1], server_port)).await;
 }

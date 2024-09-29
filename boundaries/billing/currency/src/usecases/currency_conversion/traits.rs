@@ -1,9 +1,10 @@
+use std::fmt::Debug;
 use crate::domain::exchange_rate::entities::ExchangeRate;
 use async_trait::async_trait;
 
 /// Trait defining the interface for currency conversion.
 #[async_trait]
-pub trait ICurrencyConversionUseCase: Send + Sync {
+pub trait ICurrencyConversionUseCase: Send + Sync + Debug {
     /// Retrieves historical exchange rates for the specified parameters.
     async fn get_historical_rates(
         &self,

@@ -4,18 +4,32 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
+
+# OpenTelemetry and Tracing
+opentelemetry = { version = "0.25.0", features = ["trace", "metrics"] }
+opentelemetry-otlp = { version = "0.25.0", features = ["grpc-tonic"] }
+opentelemetry_sdk = { version = "0.25.0", features = ["trace", "metrics", "rt-tokio"] }
+tracing = "0.1.40"
+tracing-subscriber = { version = "0.3.18", features = ["env-filter", "fmt", "json"] }
+tracing-opentelemetry = "0.26.0"
+spandoc = "0.2.2"
+
+# gRPC with Tonic
+tonic = { version = "0.12.3", features = ["tls"] }
+
+# Redis and Serialization
+deadpool-redis = { version = "0.18.0", features = ["rt_tokio_1"] }
+redis = { version = "0.27.2", features = ["aio", "tokio-comp"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+
+# Other
 rust_decimal = { version = "1.36", features = ["serde"] }
 rust_decimal_macros = "1.36.0"
-tokio = { version = "1.40.0", features = ["full"] }
+tokio = { version = "1.38.1", features = ["full"] }
 async-trait = "0.1.83"
 warp = "0.3.7"
-serde = { version = "1.0.210", features = ["derive"] }
-serde_json = "1.0.128"
 utoipa = "4.2.3"
-tracing = "0.1.40"
-tracing-subscriber = { version = "0.3.18", features = ["env-filter"] }
-redis = { version = "0.27.2", features = ["aio", "tokio-comp"] }
-deadpool-redis =  { version = "0.18.0", features = ["rt_tokio_1"] }
 dotenvy = "0.15.7"
 thiserror = "1.0.64"
 tokio-cron-scheduler = "0.13.0"

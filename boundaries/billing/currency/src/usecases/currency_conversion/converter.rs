@@ -1,3 +1,4 @@
+use std::fmt::{Debug, Formatter};
 use crate::domain::currency_conversion::entities::{Amount, ConvertedAmount};
 use crate::domain::exchange_rate::entities::ExchangeRate;
 use crate::usecases::currency_conversion::traits::ICurrencyConversionUseCase;
@@ -73,6 +74,17 @@ impl CurrencyConversionUseCase {
         } else {
             None
         }
+    }
+}
+
+impl Debug for CurrencyConversionUseCase {
+    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("CurrencyConversionUseCase")
+            .field("rate_fetcher", &self.rate_fetcher)  // Assuming rate_fetcher implements Debug
+            .field("divergence_threshold", &self.divergence_threshold)
+            .field("bloomberg_weight", &self.bloomberg_weight)
+            .field("yahoo_weight", &self.yahoo_weight)
+            .finish()
     }
 }
 

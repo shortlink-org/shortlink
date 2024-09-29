@@ -4,7 +4,7 @@ use std::error::Error;
 use std::sync::Arc;
 use tokio::sync::Mutex;
 
-#[derive(Default, Clone)]
+#[derive(Default, Clone, Debug)]
 pub struct CacheService {
     store: Arc<Mutex<HashMap<String, ExchangeRate>>>,
 }

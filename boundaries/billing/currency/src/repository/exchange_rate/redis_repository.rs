@@ -8,6 +8,8 @@ use serde_json;
 use chrono::NaiveDate;
 use std::error::Error as StdError;
 
+/// A Redis-based implementation of the ExchangeRateRepository trait.
+#[derive(Debug)]
 pub struct RedisExchangeRateRepository {
     pool: Pool,
 }

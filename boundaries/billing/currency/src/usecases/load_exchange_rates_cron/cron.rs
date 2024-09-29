@@ -1,14 +1,14 @@
 use tokio_cron_scheduler::{Job, JobScheduler};
 use std::sync::Arc;
-use crate::usecases::exchange_rate::fetcher::RateFetcherUseCase;
-use tracing::{info, error};
+use tracing::{info, error, instrument};
+use crate::usecases::exchange_rate::RateFetcherUseCase;
 
-async fn run_currency_update_job(
-    rate_fetcher_use_case: Arc<RateFetcherUseCase>
-) {
+/// Periodic currency update job.
+#[instrument]
+pub(crate) async fn run_currency_update_job(rate_fetcher_use_case: Arc<RateFetcherUseCase>) {
     info!("Starting exchange rate update job...");
 
-    let from_currency = "USD"; // Example currencies
+    let from_currency = "USD";
     let to_currency = "EUR";
 
     match rate_fetcher_use_case.fetch_rate(from_currency, to_currency).await {

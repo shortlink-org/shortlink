@@ -1,10 +1,11 @@
 use crate::domain::exchange_rate::entities::ExchangeRate;
 use async_trait::async_trait;
 use std::error::Error;
+use std::fmt::Debug;
 
 /// Trait defining the interface for external exchange rate providers.
 #[async_trait]
-pub trait ExternalRateProvider: Send + Sync {
+pub trait ExternalRateProvider: Send + Sync + Debug {
     /// Fetches the exchange rate for the given currency pair.
     ///
     /// # Arguments

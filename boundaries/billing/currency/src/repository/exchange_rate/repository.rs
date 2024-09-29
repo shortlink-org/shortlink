@@ -1,8 +1,9 @@
+use std::fmt::Debug;
 use crate::domain::exchange_rate::entities::ExchangeRate;
 use async_trait::async_trait;
 
 #[async_trait]
-pub trait ExchangeRateRepository: Send + Sync {
+pub trait ExchangeRateRepository: Send + Sync + Debug {
     async fn save_rate(&self, rate: &ExchangeRate) -> Result<(), Box<dyn std::error::Error + Send + Sync>>;
 
     async fn get_rate(&self, from: &str, to: &str) -> Option<ExchangeRate>;
