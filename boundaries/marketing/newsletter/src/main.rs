@@ -1,4 +1,7 @@
 use crate::context::Context;
+use crate::handler::{
+    GetListSubscribesHandler, NewsletterSubscribeHandler, NewsletterUnsubscribeHandler,
+};
 use futures::executor::block_on;
 use hyper::{
     service::{make_service_fn, service_fn},
@@ -7,7 +10,6 @@ use hyper::{
 use router::Router;
 use std::net::SocketAddr;
 use std::sync::Arc;
-use crate::handler::{GetListSubscribesHandler, NewsletterSubscribeHandler, NewsletterUnsubscribeHandler};
 
 mod context;
 mod domain;

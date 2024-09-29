@@ -27,6 +27,6 @@ impl Context {
             self.body_bytes.as_ref().expect("body_bytes was set above")
         };
 
-        Ok(serde_json::from_slice(&body_bytes)?)
+        Ok(serde_json::from_slice(body_bytes)?)
     }
 }

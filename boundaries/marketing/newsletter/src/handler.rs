@@ -1,9 +1,9 @@
-use async_trait::async_trait;
 use crate::domain::{NewsLetter, SendSubscribeRequest};
-use crate::{handler, postgres};
-use crate::Context;
-use hyper::{Body, Response, StatusCode};
 use crate::router::Handler;
+use crate::Context;
+use crate::{handler, postgres};
+use async_trait::async_trait;
+use hyper::{Body, Response, StatusCode};
 
 pub struct GetListSubscribesHandler;
 
@@ -35,7 +35,7 @@ impl Handler for NewsletterUnsubscribeHandler {
 
 pub async fn get_list_subscribes(_ctx: Context) -> String {
     let newsletters = postgres::list().await.unwrap();
-    format!("{}", serde_json::to_string(&newsletters).unwrap())
+    serde_json::to_string(&newsletters).unwrap().to_string()
 }
 
 pub async fn newsletter_subscribe(mut ctx: Context) -> Response<Body> {
@@ -52,35 +52,26 @@ pub async fn newsletter_subscribe(mut ctx: Context) -> Response<Body> {
     postgres::add(&body.email).await.unwrap();
 
     Response::new(
-        format!(
-            "{}",
-            serde_json::to_string(&NewsLetter {
+        serde_json::to_string(&NewsLetter {
                 _id: 0,
                 email: body.email,
             })
-            .unwrap()
-        )
+            .unwrap().to_string()
         .into(),
     )
 }
 
 pub async fn newsletter_unsubscribe(ctx: Context) -> Response<Body> {
-    let param = match ctx.params.find("email") {
-        Some(v) => v,
-        None => "empty",
-    };
+    let param = ctx.params.find("email").unwrap_or("empty");
 
     postgres::delete(param).await.unwrap();
 
     Response::new(
-        format!(
-            "{}",
-            serde_json::to_string(&NewsLetter {
+        serde_json::to_string(&NewsLetter {
                 _id: 0,
                 email: param.into(),
             })
-            .unwrap()
-        )
+            .unwrap().to_string()
         .into(),
     )
 }

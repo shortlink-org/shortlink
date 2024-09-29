@@ -1,8 +1,7 @@
 use crate::Context;
 use async_trait::async_trait;
-use futures::future::Future;
 use hyper::{Body, Method, Response, StatusCode};
-use route_recognizer::{Match, Params, Router as InternalRouter};
+use route_recognizer::{Params, Router as InternalRouter};
 use std::collections::HashMap;
 
 #[async_trait]
@@ -36,26 +35,30 @@ impl Router {
     pub fn get(&mut self, path: &str, handler: Box<dyn Handler>) {
         self.method_map
             .entry(Method::GET)
-            .or_insert_with(InternalRouter::new)
+            .or_default()
             .add(path, handler)
     }
 
     pub fn post(&mut self, path: &str, handler: Box<dyn Handler>) {
         self.method_map
             .entry(Method::POST)
-            .or_insert_with(InternalRouter::new)
+            .or_default()
             .add(path, handler)
     }
 
     pub fn delete(&mut self, path: &str, handler: Box<dyn Handler>) {
         self.method_map
             .entry(Method::DELETE)
-            .or_insert_with(InternalRouter::new)
+            .or_default()
             .add(path, handler)
     }
 
     pub fn route(&self, path: &str, method: &Method) -> RouterMatch<'_> {
-        if let Some(matched) = self.get_method_map().get(method).and_then(|r| r.recognize(path).ok()) {
+        if let Some(matched) = self
+            .get_method_map()
+            .get(method)
+            .and_then(|r| r.recognize(path).ok())
+        {
             RouterMatch {
                 handler: *matched.handler(),
                 params: matched.params().clone(),
