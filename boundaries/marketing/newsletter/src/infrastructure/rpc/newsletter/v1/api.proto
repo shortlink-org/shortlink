@@ -1,9 +1,9 @@
 syntax = "proto3";
 
-package domain.newsletter.v1;
+package infrastructure.rpc.newsletter.v1;
 
 import "google/protobuf/empty.proto";
-import "domain/newsletter/v1/newsletter.proto";
+import "infrastructure/rpc/newsletter/v1/newsletter.proto";
 
 // NewsletterService is the service that provides newsletter operations.
 service NewsletterService {
