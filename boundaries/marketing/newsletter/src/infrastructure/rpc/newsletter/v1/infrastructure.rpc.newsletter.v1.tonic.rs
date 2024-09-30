@@ -4,8 +4,6 @@ pub mod newsletter_service_client {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
     use tonic::codegen::http::Uri;
-    /** NewsletterService is the service that provides newsletter operations.
-*/
     #[derive(Debug, Clone)]
     pub struct NewsletterServiceClient<T> {
         inner: tonic::client::Grpc<T>,
@@ -86,11 +84,9 @@ pub mod newsletter_service_client {
             self.inner = self.inner.max_encoding_message_size(limit);
             self
         }
-        /** Get returns the newsletter with the given id.
-*/
         pub async fn get(
             &mut self,
-            request: impl tonic::IntoRequest<()>,
+            request: impl tonic::IntoRequest<super::GetRequest>,
         ) -> std::result::Result<tonic::Response<super::GetResponse>, tonic::Status> {
             self.inner
                 .ready()
@@ -115,15 +111,10 @@ pub mod newsletter_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
-        /** Subscribe subscribes the user to the newsletter.
-*/
         pub async fn subscribe(
             &mut self,
             request: impl tonic::IntoRequest<super::SubscribeRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::SubscribeResponse>,
-            tonic::Status,
-        > {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -150,10 +141,7 @@ pub mod newsletter_service_client {
         pub async fn un_subscribe(
             &mut self,
             request: impl tonic::IntoRequest<super::UnSubscribeRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::UnSubscribeResponse>,
-            tonic::Status,
-        > {
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
             self.inner
                 .ready()
                 .await
@@ -177,6 +165,87 @@ pub mod newsletter_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+        pub async fn list(
+            &mut self,
+            request: impl tonic::IntoRequest<()>,
+        ) -> std::result::Result<tonic::Response<super::ListResponse>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/infrastructure.rpc.newsletter.v1.NewsletterService/List",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "infrastructure.rpc.newsletter.v1.NewsletterService",
+                        "List",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn update_status(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpdateStatusRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/infrastructure.rpc.newsletter.v1.NewsletterService/UpdateStatus",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "infrastructure.rpc.newsletter.v1.NewsletterService",
+                        "UpdateStatus",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        pub async fn delete(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/infrastructure.rpc.newsletter.v1.NewsletterService/Delete",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "infrastructure.rpc.newsletter.v1.NewsletterService",
+                        "Delete",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
     }
 }
 /// Generated server implementations.
@@ -186,31 +255,31 @@ pub mod newsletter_service_server {
     /// Generated trait containing gRPC methods that should be implemented for use with NewsletterServiceServer.
     #[async_trait]
     pub trait NewsletterService: Send + Sync + 'static {
-        /** Get returns the newsletter with the given id.
-*/
         async fn get(
             &self,
-            request: tonic::Request<()>,
+            request: tonic::Request<super::GetRequest>,
         ) -> std::result::Result<tonic::Response<super::GetResponse>, tonic::Status>;
-        /** Subscribe subscribes the user to the newsletter.
-*/
         async fn subscribe(
             &self,
             request: tonic::Request<super::SubscribeRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::SubscribeResponse>,
-            tonic::Status,
-        >;
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
         async fn un_subscribe(
             &self,
             request: tonic::Request<super::UnSubscribeRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::UnSubscribeResponse>,
-            tonic::Status,
-        >;
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        async fn list(
+            &self,
+            request: tonic::Request<()>,
+        ) -> std::result::Result<tonic::Response<super::ListResponse>, tonic::Status>;
+        async fn update_status(
+            &self,
+            request: tonic::Request<super::UpdateStatusRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        async fn delete(
+            &self,
+            request: tonic::Request<super::DeleteRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
     }
-    /** NewsletterService is the service that provides newsletter operations.
-*/
     #[derive(Debug)]
     pub struct NewsletterServiceServer<T: NewsletterService> {
         inner: Arc<T>,
@@ -290,14 +359,18 @@ pub mod newsletter_service_server {
                 "/infrastructure.rpc.newsletter.v1.NewsletterService/Get" => {
                     #[allow(non_camel_case_types)]
                     struct GetSvc<T: NewsletterService>(pub Arc<T>);
-                    impl<T: NewsletterService> tonic::server::UnaryService<()>
-                    for GetSvc<T> {
+                    impl<
+                        T: NewsletterService,
+                    > tonic::server::UnaryService<super::GetRequest> for GetSvc<T> {
                         type Response = super::GetResponse;
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
                         >;
-                        fn call(&mut self, request: tonic::Request<()>) -> Self::Future {
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetRequest>,
+                        ) -> Self::Future {
                             let inner = Arc::clone(&self.0);
                             let fut = async move {
                                 <T as NewsletterService>::get(&inner, request).await
@@ -334,7 +407,7 @@ pub mod newsletter_service_server {
                         T: NewsletterService,
                     > tonic::server::UnaryService<super::SubscribeRequest>
                     for SubscribeSvc<T> {
-                        type Response = super::SubscribeResponse;
+                        type Response = ();
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -379,7 +452,7 @@ pub mod newsletter_service_server {
                         T: NewsletterService,
                     > tonic::server::UnaryService<super::UnSubscribeRequest>
                     for UnSubscribeSvc<T> {
-                        type Response = super::UnSubscribeResponse;
+                        type Response = ();
                         type Future = BoxFuture<
                             tonic::Response<Self::Response>,
                             tonic::Status,
@@ -403,6 +476,137 @@ pub mod newsletter_service_server {
                     let inner = self.inner.clone();
                     let fut = async move {
                         let method = UnSubscribeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/infrastructure.rpc.newsletter.v1.NewsletterService/List" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSvc<T: NewsletterService>(pub Arc<T>);
+                    impl<T: NewsletterService> tonic::server::UnaryService<()>
+                    for ListSvc<T> {
+                        type Response = super::ListResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(&mut self, request: tonic::Request<()>) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NewsletterService>::list(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/infrastructure.rpc.newsletter.v1.NewsletterService/UpdateStatus" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateStatusSvc<T: NewsletterService>(pub Arc<T>);
+                    impl<
+                        T: NewsletterService,
+                    > tonic::server::UnaryService<super::UpdateStatusRequest>
+                    for UpdateStatusSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateStatusRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NewsletterService>::update_status(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateStatusSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/infrastructure.rpc.newsletter.v1.NewsletterService/Delete" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteSvc<T: NewsletterService>(pub Arc<T>);
+                    impl<
+                        T: NewsletterService,
+                    > tonic::server::UnaryService<super::DeleteRequest>
+                    for DeleteSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NewsletterService>::delete(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteSvc(inner);
                         let codec = tonic::codec::ProstCodec::default();
                         let mut grpc = tonic::server::Grpc::new(codec)
                             .apply_compression_config(
