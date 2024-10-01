@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/boundaries/billing/wallet
 go 1.23.2
 
 require (
-	github.com/ethereum/go-ethereum v1.14.10
+	github.com/ethereum/go-ethereum v1.14.11
 	github.com/google/wire v0.6.0
 	github.com/shortlink-org/shortlink v0.0.0-20241001175717-d9e622134fbf
 	github.com/spf13/viper v1.19.0
