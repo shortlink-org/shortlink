@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/boundaries/shop/oms
 go 1.23.2
 
 require (
-	github.com/authzed/authzed-go v0.16.0
+	github.com/authzed/authzed-go v1.0.0
 	github.com/google/uuid v1.6.0
 	github.com/google/wire v0.6.0
 	github.com/looplab/fsm v1.0.2
