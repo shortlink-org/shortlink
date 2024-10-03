@@ -22,16 +22,16 @@ pub async fn new() -> Result<Client, Error> {
 }
 
 pub async fn list() -> std::result::Result<Vec<NewsLetter>, Error> {
-    let client = new().await.unwrap();
+    let client = new().await?;
 
     let rows = client
         .query("SELECT id, email FROM shortlink.newsletters", &[])
-        .await;
+        .await?;
 
     let mut newsletters = Vec::new();
-    for row in rows.unwrap().as_slice() {
+    for row in rows.iter() {
         newsletters.push(NewsLetter {
-            _id: 0,
+            _id: row.get(0),
             email: row.get(1),
         });
     }
@@ -40,38 +40,36 @@ pub async fn list() -> std::result::Result<Vec<NewsLetter>, Error> {
 }
 
 pub async fn add(email: &str) -> std::result::Result<(), Error> {
-    let client = new().await.unwrap();
+    let client = new().await?;
     client
         .execute(
             "INSERT INTO shortlink.newsletters (email) VALUES ($1)",
             &[&email],
         )
-        .await
-        .ok();
+        .await?;
 
     Ok(())
 }
 
 pub async fn delete(email: &str) -> std::result::Result<(), Error> {
-    let client = new().await.unwrap();
+    let client = new().await?;
     client
         .execute(
             "DELETE FROM shortlink.newsletters WHERE email=$1",
             &[&email],
         )
-        .await
-        .ok();
+        .await?;
 
     Ok(())
 }
 
 mod embedded {
     use refinery::embed_migrations;
-    embed_migrations!("src/migrations");
+    embed_migrations!("migrations");
 }
 
 pub(crate) async fn run_migrations() -> Result<Client, Error> {
-    let mut client = new().await.unwrap();
+    let mut client = new().await?;
 
     println!("Running DB migrations...");
 
@@ -81,11 +79,12 @@ pub(crate) async fn run_migrations() -> Result<Client, Error> {
 
     for migration in migration_report.applied_migrations() {
         println!(
-            "Migration Applied -  Name: {}, Version: {}",
+            "Migration Applied - Name: {}, Version: {}",
             migration.name(),
             migration.version()
         );
     }
+
     println!("DB migrations finished!");
 
     Ok(client)

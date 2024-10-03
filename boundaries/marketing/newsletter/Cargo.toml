@@ -13,7 +13,7 @@ repository = "https://github.com/shortlink-org/shortlink"
 [dependencies]
 futures = { version = "0.3.30", default-features = true, features = ["async-await"] }
 hyper = { version = "0.14.30", features = ["full"] }
-tokio = { version = "1.40.0", features = ["full"] }
+tokio = { version = "1.40.0", features = ["full", "macros", "rt-multi-thread"] }
 serde = {version = "1.0.210", features = ["derive"] }
 serde_json = "1.0.128"
 serde_derive = "1.0.210"
@@ -30,6 +30,9 @@ refinery = { version = "0.8.14", features = ["tokio-postgres"] }
 hyper-util = "0.1.9"
 http-body-util = "0.1.2"
 log = "0.4.22"
+bufbuild_registry_community_neoeinstein-prost = { version = "0.4.0-20240925012807-1610ffa05635.1", registry = "buf" }
+bufbuild_registry_community_neoeinstein-tonic = { version = "0.4.1-20240925012807-1610ffa05635.1", registry = "buf" }
+tonic = { version = "0.12.3", features = ["tls-roots"] }
 
 [dependencies.uuid]
 features = ["serde", "v4"]
