@@ -11,7 +11,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: traefik:v3.1
+    image: traefik:v3.2
     profiles:
       - gateway
     container_name: traefik
