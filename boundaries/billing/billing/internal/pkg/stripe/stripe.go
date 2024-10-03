@@ -3,7 +3,7 @@ package provider
 import (
 	"context"
 
-	"github.com/stripe/stripe-go/v79/client"
+	"github.com/stripe/stripe-go/v80/client"
 )
 
 type Provider struct {
