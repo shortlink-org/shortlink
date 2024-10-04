@@ -29,7 +29,6 @@ Here is the support and scalability summary of each:
 
 However, the decision is also influenced by our past experiences. We have decided to drop support for MySQL, scylla, and cassandra due to various reasons, as reflected in our changelog:
 
-- [19.09.2022] Drop support database: MySQL
 - [04.08.2021] Drop support database: scylla, cassandra
 
 ## Consequences
