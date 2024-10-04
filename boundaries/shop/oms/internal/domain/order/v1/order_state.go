@@ -36,11 +36,31 @@ func NewOrderState(customerId uuid.UUID) *OrderState {
 	order.fsm = fsm.New(fsm.State(OrderStatus_ORDER_STATUS_PENDING.String()))
 
 	// Define transition rules.
-	order.fsm.AddTransitionRule(fsm.State(OrderStatus_ORDER_STATUS_PENDING.String()), fsm.Event(OrderStatus_ORDER_STATUS_PENDING.String()), fsm.State(OrderStatus_ORDER_STATUS_PROCESSING.String()))
-	order.fsm.AddTransitionRule(fsm.State(OrderStatus_ORDER_STATUS_PROCESSING.String()), fsm.Event(OrderStatus_ORDER_STATUS_PROCESSING.String()), fsm.State(OrderStatus_ORDER_STATUS_PROCESSING.String()))
-	order.fsm.AddTransitionRule(fsm.State(OrderStatus_ORDER_STATUS_PENDING.String()), fsm.Event(OrderStatus_ORDER_STATUS_CANCELLED.String()), fsm.State(OrderStatus_ORDER_STATUS_CANCELLED.String()))
-	order.fsm.AddTransitionRule(fsm.State(OrderStatus_ORDER_STATUS_PROCESSING.String()), fsm.Event(OrderStatus_ORDER_STATUS_CANCELLED.String()), fsm.State(OrderStatus_ORDER_STATUS_CANCELLED.String()))
-	order.fsm.AddTransitionRule(fsm.State(OrderStatus_ORDER_STATUS_PROCESSING.String()), fsm.Event(OrderStatus_ORDER_STATUS_COMPLETED.String()), fsm.State(OrderStatus_ORDER_STATUS_COMPLETED.String()))
+	order.fsm.AddTransitionRule(
+		fsm.State(OrderStatus_ORDER_STATUS_PENDING.String()),
+		fsm.Event(OrderStatus_ORDER_STATUS_PENDING.String()),
+		fsm.State(OrderStatus_ORDER_STATUS_PROCESSING.String()),
+	)
+	order.fsm.AddTransitionRule(
+		fsm.State(OrderStatus_ORDER_STATUS_PROCESSING.String()),
+		fsm.Event(OrderStatus_ORDER_STATUS_PROCESSING.String()),
+		fsm.State(OrderStatus_ORDER_STATUS_PROCESSING.String()),
+	)
+	order.fsm.AddTransitionRule(
+		fsm.State(OrderStatus_ORDER_STATUS_PENDING.String()),
+		fsm.Event(OrderStatus_ORDER_STATUS_CANCELLED.String()),
+		fsm.State(OrderStatus_ORDER_STATUS_CANCELLED.String()),
+	)
+	order.fsm.AddTransitionRule(
+		fsm.State(OrderStatus_ORDER_STATUS_PROCESSING.String()),
+		fsm.Event(OrderStatus_ORDER_STATUS_CANCELLED.String()),
+		fsm.State(OrderStatus_ORDER_STATUS_CANCELLED.String()),
+	)
+	order.fsm.AddTransitionRule(
+		fsm.State(OrderStatus_ORDER_STATUS_PROCESSING.String()),
+		fsm.Event(OrderStatus_ORDER_STATUS_COMPLETED.String()),
+		fsm.State(OrderStatus_ORDER_STATUS_COMPLETED.String()),
+	)
 
 	// Set up callbacks.
 	order.fsm.SetOnEnterState(order.onEnterState)
@@ -50,26 +70,33 @@ func NewOrderState(customerId uuid.UUID) *OrderState {
 }
 
 // onEnterState is the callback executed when entering a new state.
-func (o *OrderState) onEnterState(from, to fsm.State, event fsm.Event) {
+func (o *OrderState) onEnterState(ctx context.Context, from, to fsm.State, event fsm.Event) {
 	fmt.Printf("Order %s entered state '%s' due to event '%s'\n", o.id, to, event)
 }
 
 // onExitState is the callback executed when exiting a state.
-func (o *OrderState) onExitState(from, to fsm.State, event fsm.Event) {
+func (o *OrderState) onExitState(ctx context.Context, from, to fsm.State, event fsm.Event) {
 	fmt.Printf("Order %s exited state '%s' due to event '%s'\n", o.id, from, event)
 }
 
-// GetOrderID returns the order ID.
+// GetOrderID returns the unique identifier of the order.
 func (o *OrderState) GetOrderID() uuid.UUID {
 	return o.id
 }
 
-// GetItems returns the list of order items.
+// GetItems returns a copy of the list of items in the order.
 func (o *OrderState) GetItems() Items {
-	return o.items
+	o.mu.Lock()
+	defer o.mu.Unlock()
+
+	// Return a copy to prevent external modification.
+	itemsCopy := make(Items, len(o.items))
+	copy(itemsCopy, o.items)
+
+	return itemsCopy
 }
 
-// GetCustomerId returns the customer ID.
+// GetCustomerId returns the customer ID associated with the order.
 func (o *OrderState) GetCustomerId() uuid.UUID {
 	return o.customerId
 }
@@ -85,6 +112,7 @@ func (o *OrderState) GetStatus() OrderStatus {
 			return OrderStatus(k)
 		}
 	}
+
 	return OrderStatus_ORDER_STATUS_UNSPECIFIED
 }
 
@@ -94,7 +122,7 @@ func (o *OrderState) CreateOrder(ctx context.Context, items Items) error {
 	defer o.mu.Unlock()
 
 	// Trigger the transition event to Processing.
-	err := o.fsm.TriggerEvent(fsm.Event(OrderStatus_ORDER_STATUS_PENDING.String()))
+	err := o.fsm.TriggerEvent(ctx, fsm.Event(OrderStatus_ORDER_STATUS_PENDING.String()))
 	if err != nil {
 		return err
 	}
@@ -104,7 +132,7 @@ func (o *OrderState) CreateOrder(ctx context.Context, items Items) error {
 }
 
 // UpdateOrder updates the order's items. It modifies existing items and adds new ones as needed.
-func (o *OrderState) UpdateOrder(items Items) error {
+func (o *OrderState) UpdateOrder(ctx context.Context, items Items) error {
 	o.mu.Lock()
 	defer o.mu.Unlock()
 
@@ -128,12 +156,12 @@ func (o *OrderState) UpdateOrder(items Items) error {
 }
 
 // CancelOrder transitions the order to the Cancelled state.
-func (o *OrderState) CancelOrder() error {
+func (o *OrderState) CancelOrder(ctx context.Context) error {
 	o.mu.Lock()
 	defer o.mu.Unlock()
 
 	// Trigger the transition event to Cancel.
-	err := o.fsm.TriggerEvent(fsm.Event(OrderStatus_ORDER_STATUS_CANCELLED.String()))
+	err := o.fsm.TriggerEvent(ctx, fsm.Event(OrderStatus_ORDER_STATUS_CANCELLED.String()))
 	if err != nil {
 		return err
 	}
@@ -142,12 +170,12 @@ func (o *OrderState) CancelOrder() error {
 }
 
 // CompleteOrder transitions the order to the Completed state.
-func (o *OrderState) CompleteOrder() error {
+func (o *OrderState) CompleteOrder(ctx context.Context) error {
 	o.mu.Lock()
 	defer o.mu.Unlock()
 
 	// Trigger the transition event to Complete.
-	err := o.fsm.TriggerEvent(fsm.Event(OrderStatus_ORDER_STATUS_COMPLETED.String()))
+	err := o.fsm.TriggerEvent(ctx, fsm.Event(OrderStatus_ORDER_STATUS_COMPLETED.String()))
 	if err != nil {
 		return err
 	}

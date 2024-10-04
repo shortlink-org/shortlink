@@ -6,7 +6,6 @@ require (
 	github.com/authzed/authzed-go v1.0.0
 	github.com/google/uuid v1.6.0
 	github.com/google/wire v0.6.0
-	github.com/looplab/fsm v1.0.2
 	github.com/shopspring/decimal v1.4.0
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.9.0

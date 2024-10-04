@@ -1,10 +1,14 @@
 package v1
 
 import (
+	"context"
 	"errors"
+	"fmt"
 
 	"github.com/google/uuid"
 	"github.com/shopspring/decimal"
+
+	"github.com/shortlink-org/shortlink/pkg/fsm"
 )
 
 // Error definitions
@@ -47,14 +51,45 @@ func (b *OrderStateBuilder) AddItem(productId uuid.UUID, quantity int32, price d
 	return b
 }
 
-// SetStatus sets the status of the order
-func (b *OrderStateBuilder) SetStatus(status OrderStatus) *OrderStateBuilder {
+// SetStatus sets the status of the order using a context for the FSM transition
+func (b *OrderStateBuilder) SetStatus(ctx context.Context, status OrderStatus) *OrderStateBuilder {
 	if status == OrderStatus_ORDER_STATUS_UNSPECIFIED {
 		b.errors = errors.Join(b.errors, ErrInvalidOrderStatus)
 		return b
 	}
-	b.orderState.fsm.SetState(status.String())
+
+	// Map the desired status to the corresponding FSM event
+	event, err := mapOrderStatusToEvent(status)
+	if err != nil {
+		b.errors = errors.Join(b.errors, err)
+		return b
+	}
+
+	// Trigger the event with the provided context
+	err = b.orderState.fsm.TriggerEvent(ctx, fsm.Event(event))
+	if err != nil {
+		b.errors = errors.Join(b.errors, err)
+		return b
+	}
+
 	return b
+}
+
+// mapOrderStatusToEvent maps OrderStatus to corresponding FSM events
+func mapOrderStatusToEvent(status OrderStatus) (string, error) {
+	switch status {
+	case OrderStatus_ORDER_STATUS_PROCESSING:
+		// To reach "Processing", trigger the "Pending" event
+		return OrderStatus_ORDER_STATUS_PENDING.String(), nil
+	case OrderStatus_ORDER_STATUS_CANCELLED:
+		// To reach "Cancelled", trigger the "Cancelled" event
+		return OrderStatus_ORDER_STATUS_CANCELLED.String(), nil
+	case OrderStatus_ORDER_STATUS_COMPLETED:
+		// To reach "Completed", trigger the "Completed" event
+		return OrderStatus_ORDER_STATUS_COMPLETED.String(), nil
+	default:
+		return "", fmt.Errorf("no event mapping for status '%s'", status)
+	}
 }
 
 // Build finalizes the building process and returns the built OrderState
