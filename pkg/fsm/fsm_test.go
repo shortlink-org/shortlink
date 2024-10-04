@@ -2,69 +2,127 @@ package fsm
 
 import (
 	"testing"
+
+	"github.com/stretchr/testify/require"
 )
 
-func TestFSM(t *testing.T) {
+// TestTrafficLightFSM verifies the functionality of the Traffic Light FSM.
+func TestTrafficLightFSM(t *testing.T) {
+	// Define traffic light states.
 	const (
-		state1 State = "state1"
-		state2 State = "state2"
-		state3 State = "state3"
+		StateRed    State = "Red"
+		StateGreen  State = "Green"
+		StateYellow State = "Yellow"
 	)
 
-	// Initialize a new FSM
-	fsm := NewFSM("state1")
+	// Define traffic light events.
+	const (
+		EventTimer     Event = "Timer"
+		EventEmergency Event = "Emergency" // Invalid event for this FSM
+	)
 
-	// Add some transition rules
-	fsm.AddTransitionRule(state1, "event1", state2)
-	fsm.AddTransitionRule(state2, "event2", state3)
+	// Initialize the FSM with the initial state (Red).
+	trafficLight := New(StateRed)
 
-	// Variables to track callbacks
-	var entered, exited State
+	// Add transition rules to the FSM.
+	trafficLight.AddTransitionRule(StateRed, EventTimer, StateGreen)
+	trafficLight.AddTransitionRule(StateGreen, EventTimer, StateYellow)
+	trafficLight.AddTransitionRule(StateYellow, EventTimer, StateRed)
 
-	// Define callbacks
-	fsm.OnEnterState = func(state State) {
-		entered = state
-	}
-	fsm.OnExitState = func(state State) {
-		exited = state
-	}
+	// Variables to track callback invocations.
+	var (
+		entered     State
+		exited      State
+		triggeredEv Event
+	)
 
-	// Trigger the first event
-	fsm.TriggerEvent("event1")
+	// Set up the OnExitState callback.
+	trafficLight.SetOnExitState(func(from, to State, event Event) {
+		exited = from
+		triggeredEv = event
+	})
 
-	// Test the state transition and callbacks
-	if fsm.CurrentState != state2 {
-		t.Errorf("Expected state2, got %s", fsm.CurrentState)
-	}
-	if entered != state2 {
-		t.Errorf("Expected entered state2, got %s", entered)
-	}
-	if exited != state1 {
-		t.Errorf("Expected exited state1, got %s", exited)
-	}
+	// Set up the OnEnterState callback.
+	trafficLight.SetOnEnterState(func(from, to State, event Event) {
+		entered = to
+		triggeredEv = event
+	})
 
-	// Reset callback trackers
-	entered, exited = "", ""
-
-	// Trigger the second event
-	fsm.TriggerEvent("event2")
-
-	// Test the state transition and callbacks
-	if fsm.CurrentState != state3 {
-		t.Errorf("Expected state3, got %s", fsm.CurrentState)
-	}
-	if entered != state3 {
-		t.Errorf("Expected entered state3, got %s", entered)
-	}
-	if exited != state2 {
-		t.Errorf("Expected exited state2, got %s", exited)
+	// Helper function to reset callback trackers.
+	resetCallbacks := func() {
+		entered, exited, triggeredEv = "", "", ""
 	}
 
-	// Test invalid event
-	fsm.TriggerEvent("invalid")
+	// Test initial state.
+	require.Equal(t, StateRed, trafficLight.GetCurrentState(), "Initial state should be Red")
 
-	// State should not change on invalid event
-	if fsm.CurrentState != state3 {
-		t.Errorf("Expected state3, got %s", fsm.CurrentState)
-	}
+	// Transition 1: Red -> Green
+	err := trafficLight.TriggerEvent(EventTimer)
+	require.NoError(t, err, "TriggerEvent should not return an error for valid event 'Timer' from Red")
+
+	// Verify state transition to Green.
+	require.Equal(t, StateGreen, trafficLight.GetCurrentState(), "State should transition to Green after Timer event")
+
+	// Verify callbacks for the first transition.
+	require.Equal(t, StateRed, exited, "Exited state should be Red after Timer event")
+	require.Equal(t, StateGreen, entered, "Entered state should be Green after Timer event")
+	require.Equal(t, EventTimer, triggeredEv, "Triggered event should be Timer")
+
+	// Reset callback trackers.
+	resetCallbacks()
+
+	// Transition 2: Green -> Yellow
+	err = trafficLight.TriggerEvent(EventTimer)
+	require.NoError(t, err, "TriggerEvent should not return an error for valid event 'Timer' from Green")
+
+	// Verify state transition to Yellow.
+	require.Equal(t, StateYellow, trafficLight.GetCurrentState(), "State should transition to Yellow after Timer event")
+
+	// Verify callbacks for the second transition.
+	require.Equal(t, StateGreen, exited, "Exited state should be Green after Timer event")
+	require.Equal(t, StateYellow, entered, "Entered state should be Yellow after Timer event")
+	require.Equal(t, EventTimer, triggeredEv, "Triggered event should be Timer")
+
+	// Reset callback trackers.
+	resetCallbacks()
+
+	// Transition 3: Yellow -> Red
+	err = trafficLight.TriggerEvent(EventTimer)
+	require.NoError(t, err, "TriggerEvent should not return an error for valid event 'Timer' from Yellow")
+
+	// Verify state transition to Red.
+	require.Equal(t, StateRed, trafficLight.GetCurrentState(), "State should transition to Red after Timer event")
+
+	// Verify callbacks for the third transition.
+	require.Equal(t, StateYellow, exited, "Exited state should be Yellow after Timer event")
+	require.Equal(t, StateRed, entered, "Entered state should be Red after Timer event")
+	require.Equal(t, EventTimer, triggeredEv, "Triggered event should be Timer")
+
+	// Reset callback trackers.
+	resetCallbacks()
+
+	// Attempt to trigger an invalid event: Emergency
+	err = trafficLight.TriggerEvent(EventEmergency)
+	require.Error(t, err, "TriggerEvent should return an error for invalid event 'Emergency'")
+	require.Contains(t, err.Error(), "invalid transition", "Error message should indicate invalid transition")
+
+	// Verify that the state remains unchanged after invalid event.
+	require.Equal(t, StateRed, trafficLight.GetCurrentState(), "State should remain Red after invalid Emergency event")
+
+	// Verify that callbacks were not called on invalid event.
+	require.Empty(t, exited, "Exited state should not be set on invalid Emergency event")
+	require.Empty(t, entered, "Entered state should not be set on invalid Emergency event")
+	require.Empty(t, triggeredEv, "Triggered event should not be set on invalid Emergency event")
+
+	// Ensure FSM is still operational by triggering another valid event: Timer
+	err = trafficLight.TriggerEvent(EventTimer)
+	require.NoError(t, err, "TriggerEvent should not return an error for valid event 'Timer' after invalid event")
+
+	// Verify state transition to Green.
+	require.Equal(t, StateGreen, trafficLight.GetCurrentState(), "State should transition to Green after Timer event")
+
+	// Verify callbacks for the transition after invalid event.
+	require.Equal(t, StateRed, exited, "Exited state should be Red after Timer event")
+	require.Equal(t, StateGreen, entered, "Entered state should be Green after Timer event")
+	require.Equal(t, EventTimer, triggeredEv, "Triggered event should be Timer")
 }
