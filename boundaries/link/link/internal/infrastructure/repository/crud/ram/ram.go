@@ -15,7 +15,7 @@ import (
 
 // Config - config
 type Config struct {
-	job  *batch.Batch
+	job  *batch.Batch[*domain.Link]
 	mode int
 }
 
@@ -34,30 +34,25 @@ func New(ctx context.Context) (*Store, error) {
 
 	// Create a batch job
 	if s.config.mode == options.MODE_BATCH_WRITE {
-		cb := func(args []*batch.Item) any {
-			if len(args) == 0 {
+		cb := func(items []*batch.Item[*domain.Link]) error {
+			if len(items) == 0 {
 				return nil
 			}
 
-			for key := range args {
-				source, ok := args[key].Item.(*domain.Link)
-				if !ok {
-					return nil
-				}
-
-				data, errSingleWrite := s.singleWrite(ctx, source)
+			for _, item := range items {
+				data, errSingleWrite := s.singleWrite(ctx, item.Item)
 				if errSingleWrite != nil {
 					return errSingleWrite
 				}
 
-				args[key].CallbackChannel <- data
+				item.CallbackChannel <- data
 			}
 
 			return nil
 		}
 
 		var err error
-		s.config.job, err = batch.New(ctx, cb)
+		s.config.job, err = batch.New[*domain.Link](ctx, cb)
 		if err != nil {
 			return nil, err
 		}
@@ -109,16 +104,16 @@ func (s *Store) List(_ context.Context, params *v1.FilterLink) (*domain.Links, e
 func (s *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, error) {
 	switch s.config.mode {
 	case options.MODE_BATCH_WRITE:
-		cb := s.config.job.Push(source)
+		resCh := s.config.job.Push(source)
 
-		res := <-cb
-		switch data := res.(type) {
-		case error:
-			return nil, data
-		case *domain.Link:
-			return data, nil
-		default:
-			return nil, nil
+		select {
+		case res, ok := <-resCh:
+			if !ok || res == nil {
+				return nil, ErrWrite
+			}
+			return res, nil
+		case <-ctx.Done():
+			return nil, ctx.Err()
 		}
 	case options.MODE_SINGLE_WRITE:
 		data, err := s.singleWrite(ctx, source)
@@ -136,6 +131,7 @@ func (s *Store) Update(_ context.Context, _ *domain.Link) (*domain.Link, error) 
 // Delete - delete
 func (s *Store) Delete(_ context.Context, id string) error {
 	s.links.Delete(id)
+
 	return nil
 }
 

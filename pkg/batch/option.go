@@ -5,18 +5,18 @@ import (
 )
 
 // Option is the type for batch options.
-type Option func(*Batch)
+type Option[T any] func(*Batch[T])
 
 // WithInterval sets the interval for the batch.
-func WithInterval(interval time.Duration) Option {
-	return func(b *Batch) {
+func WithInterval[T any](interval time.Duration) Option[T] {
+	return func(b *Batch[T]) {
 		b.interval = interval
 	}
 }
 
 // WithSize sets the size for the batch.
-func WithSize(size int) Option {
-	return func(b *Batch) {
+func WithSize[T any](size int) Option[T] {
+	return func(b *Batch[T]) {
 		b.size = size
 	}
 }

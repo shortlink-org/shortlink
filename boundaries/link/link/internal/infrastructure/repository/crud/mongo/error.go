@@ -1,7 +1,7 @@
 package mongo
 
 import (
-	"fmt"
+	"errors"
 )
 
-var ErrWrite = fmt.Errorf("error write to MongoDB")
+var ErrWrite = errors.New("error write to MongoDB")

@@ -18,9 +18,13 @@ func FuzzBatch(f *testing.F) {
 		ctx, cancel := context.WithTimeout(context.Background(), 60*time.Second)
 		defer cancel()
 
-		// Define a callback function
-		callback := func(items []*Item) any {
-			// Add assertions here to check the state of items
+		// Define a callback function for handling byte slices
+		callback := func(items []*Item[[]byte]) error {
+			// Simulate processing by sending back the item
+			for _, item := range items {
+				item.CallbackChannel <- item.Item
+				close(item.CallbackChannel)
+			}
 			return nil
 		}
 
@@ -33,10 +37,13 @@ func FuzzBatch(f *testing.F) {
 		// Push the fuzzed input to the batch
 		callbackChan := batch.Push(input)
 
-		// Optionally, you can wait for the callback to complete
+		// Optionally, wait for the callback to complete
 		select {
-		case <-callbackChan:
-			// Callback completed
+		case result := <-callbackChan:
+			// Assert that the input and output match
+			if string(result) != string(input) {
+				t.Errorf("Expected %s, got %s", input, result)
+			}
 		case <-time.After(20 * time.Second):
 			// Handle timeout if the callback takes too long
 			t.Fatal("Callback timed out")

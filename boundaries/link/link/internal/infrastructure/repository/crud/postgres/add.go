@@ -16,16 +16,16 @@ import (
 func (s *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, error) {
 	switch s.config.mode {
 	case options.MODE_BATCH_WRITE:
-		cb := s.config.job.Push(source)
+		resCh := s.config.job.Push(source)
 
-		res := <-cb
-		switch data := res.(type) {
-		case error:
-			return nil, data
-		case *domain.Link:
-			return data, nil
-		default:
-			return nil, nil
+		select {
+		case res, ok := <-resCh:
+			if !ok || res == nil {
+				return nil, ErrWrite
+			}
+			return res, nil
+		case <-ctx.Done():
+			return nil, ctx.Err()
 		}
 	case options.MODE_SINGLE_WRITE:
 		data, err := s.singleWrite(ctx, source)

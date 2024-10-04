@@ -20,15 +20,17 @@ func TestMain(m *testing.M) {
 }
 
 func TestNew(t *testing.T) {
-	t.Run("Create new a batch", func(t *testing.T) {
+	t.Run("Create a new batch", func(t *testing.T) {
 		ctx, cancelFunc := context.WithCancel(context.Background())
+		defer cancelFunc()
 		eg, ctx := errgroup.WithContext(ctx)
 
-		aggrCB := func(args []*Item) any {
+		aggrCB := func(args []*Item[string]) error {
 			for _, item := range args {
 				time.Sleep(time.Microsecond * 100) // Emulate long work
 
-				item.CallbackChannel <- item.Item.(string)
+				item.CallbackChannel <- item.Item
+				close(item.CallbackChannel)
 			}
 
 			return nil
@@ -38,36 +40,34 @@ func TestNew(t *testing.T) {
 		require.NoError(t, err)
 
 		requests := []string{"A", "B", "C", "D"}
-		for key := range requests {
-			request := requests[key]
+		for _, request := range requests {
 			res := b.Push(request)
 
+			req := request // Capture range variable
 			eg.Go(func() error {
-				require.Equal(t, <-res, request)
+				val, ok := <-res
+				require.True(t, ok)
+				require.Equal(t, req, val)
 				return nil
 			})
 		}
 
 		err = eg.Wait()
 		require.NoError(t, err)
-
-		t.Cleanup(func() {
-			cancelFunc()
-		})
 	})
 
-	t.Run("Check close context", func(t *testing.T) {
-		ctx := context.Background()
-		ctx, cancelFunc := context.WithTimeout(ctx, time.Millisecond*10)
+	t.Run("Check context cancellation", func(t *testing.T) {
+		ctx, cancelFunc := context.WithTimeout(context.Background(), time.Millisecond*10)
+		defer cancelFunc()
 
 		eg, ctx := errgroup.WithContext(ctx)
 
-		aggrCB := func(args []*Item) any {
-			// Get string
+		aggrCB := func(args []*Item[string]) error {
 			for _, item := range args {
 				time.Sleep(time.Second * 10) // Emulate long work
 
-				item.CallbackChannel <- item.Item.(string)
+				item.CallbackChannel <- item.Item
+				close(item.CallbackChannel)
 			}
 
 			return nil
@@ -78,21 +78,17 @@ func TestNew(t *testing.T) {
 		b, err := New(ctx, aggrCB)
 		require.NoError(t, err)
 
-		for key := range requests {
-			request := requests[key]
+		for _, request := range requests {
 			res := b.Push(request)
 
 			eg.Go(func() error {
-				require.Equal(t, nil, <-res)
+				_, ok := <-res
+				require.False(t, ok)
 				return nil
 			})
 		}
 
 		err = eg.Wait()
 		require.NoError(t, err)
-
-		t.Cleanup(func() {
-			cancelFunc()
-		})
 	})
 }

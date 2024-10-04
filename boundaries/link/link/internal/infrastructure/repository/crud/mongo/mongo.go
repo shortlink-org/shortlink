@@ -13,6 +13,7 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/mongo/dto"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/mongo/filter"
 	types "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
 	"github.com/shortlink-org/shortlink/pkg/batch"
@@ -44,32 +45,32 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 
 	// Create a batch job
 	if s.config.mode == options.MODE_BATCH_WRITE {
-		cb := func(args []*batch.Item) any {
-			sources := make([]*v1.Link, len(args))
+		cb := func(items []*batch.Item[*v1.Link]) error {
+			sources := make([]*v1.Link, len(items))
 
-			for key := range args {
-				sources[key] = args[key].Item.(*v1.Link) //nolint:errcheck,forcetypeassert // ignore
+			for i, item := range items {
+				sources[i] = item.Item
 			}
 
 			dataList, errBatchWrite := s.batchWrite(ctx, sources)
 			if errBatchWrite != nil {
-				for index := range args {
-					// TODO: add logs for error
-					args[index].CallbackChannel <- ErrWrite
+				for _, item := range items {
+					item.CallbackChannel <- nil
+					close(item.CallbackChannel)
 				}
-
 				return errBatchWrite
 			}
 
-			for key, item := range dataList.GetLinks() {
-				args[key].CallbackChannel <- item
+			for i, link := range dataList.GetLinks() {
+				items[i].CallbackChannel <- link
+				close(items[i].CallbackChannel)
 			}
 
 			return nil
 		}
 
 		var err error
-		s.config.job, err = batch.New(ctx, cb)
+		s.config.job, err = batch.New[*v1.Link](ctx, cb)
 		if err != nil {
 			return nil, err
 		}
@@ -82,30 +83,30 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	switch s.config.mode {
 	case options.MODE_BATCH_WRITE:
-		cb := s.config.job.Push(source)
+		resCh := s.config.job.Push(source)
 
-		res := <-cb
-		switch data := res.(type) {
-		case error:
-			return nil, data
-		case *v1.Link:
-			return data, nil
-		default:
-			return nil, nil
+		select {
+		case res, ok := <-resCh:
+			if !ok || res == nil {
+				return nil, ErrWrite
+			}
+			return res, nil
+		case <-ctx.Done():
+			return nil, ctx.Err()
 		}
 	case options.MODE_SINGLE_WRITE:
 		data, err := s.singleWrite(ctx, source)
 		return data, err
+	default:
+		return nil, nil
 	}
-
-	return nil, nil
 }
 
 // Get - get
 func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	collection := s.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:mnd // ignore
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 
 	val := collection.FindOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
@@ -114,26 +115,30 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 		return nil, &v1.NotFoundByHashError{Hash: id}
 	}
 
-	var response v1.Link
+	var response dto.Link
 
 	if err := val.Decode(&response); err != nil {
 		return nil, &v1.NotFoundByHashError{Hash: id}
 	}
 
-	return &response, nil
+	link, err := response.ToDomain()
+	if err != nil {
+		return nil, err
+	}
+
+	return link, nil
 }
 
 // List - list
 func (s *Store) List(ctx context.Context, params *types.FilterLink) (*v1.Links, error) {
 	collection := s.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:mnd // ignore
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 
 	// Build filter
 	filterQuery := filter.NewFilter(params).BuildMongoFilter()
 
-	// Passing bson.D{{}} as the filter matches all documents in the collection
 	cur, err := collection.Find(ctx, filterQuery)
 	if err != nil {
 		return nil, &v1.NotFoundError{Link: &v1.Link{}}
@@ -143,22 +148,23 @@ func (s *Store) List(ctx context.Context, params *types.FilterLink) (*v1.Links, 
 		return nil, &v1.NotFoundError{Link: &v1.Link{}}
 	}
 
-	// Here's an array in which you can db the decoded documents
 	links := v1.NewLinks()
 
-	// Finding multiple documents returns a cursor
-	// Iterating through the cursor allows us to decode document one at a time
 	for cur.Next(ctx) {
-		// create a value into which the single document can be decoded
-		var elem v1.Link
+		var elem dto.Link
 		if errDecode := cur.Decode(&elem); errDecode != nil {
 			return nil, &v1.NotFoundError{Link: &v1.Link{}}
 		}
 
-		links.Push(&elem)
+		// convert to domain
+		link, errToDomain := elem.ToDomain()
+		if errToDomain != nil {
+			return nil, errToDomain
+		}
+
+		links.Push(link)
 	}
 
-	// Close the cursor once finished
 	err = cur.Close(ctx)
 	if err != nil {
 		return nil, err
@@ -176,7 +182,7 @@ func (s *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 func (s *Store) Delete(ctx context.Context, id string) error {
 	collection := s.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:mnd // ignore
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 
 	_, err := collection.DeleteOne(ctx, bson.D{primitive.E{Key: "hash", Value: id}})
@@ -190,40 +196,45 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 func (s *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	collection := s.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:mnd // ignore
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 
-	_, err := collection.InsertOne(ctx, &source)
+	// convert to DTO
+	link, err := dto.FromDomain(source)
 	if err != nil {
-		var typeErr mongo.WriteException
-		errors.As(err, &typeErr)
+		return nil, err
+	}
 
-		if errors.As(err, &typeErr) {
-			switch typeErr.WriteErrors[0].Code {
-			case 11000: //nolint:mnd,revive // ignore
+	_, err = collection.InsertOne(ctx, link)
+	if err != nil {
+		var writeErr mongo.WriteException
+		if errors.As(err, &writeErr) {
+			if writeErr.HasErrorCode(11000) {
 				return nil, &v1.NotUniqError{Link: source}
-			default:
-				return nil, &v1.NotFoundError{Link: source}
 			}
 		}
 
-		return nil, &v1.NotFoundError{Link: source}
+		return nil, err
 	}
 
 	return source, nil
 }
 
 func (s *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, error) {
-	docs := make([]any, len(sources))
+	docs := make([]interface{}, len(sources))
+	for i, source := range sources {
+		// convert to DTO
+		link, err := dto.FromDomain(source)
+		if err != nil {
+			return nil, err
+		}
 
-	// Create a new link
-	for key := range sources {
-		docs[key] = sources[key]
+		docs[i] = link
 	}
 
 	collection := s.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second) //nolint:mnd // ignore
+	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 
 	_, err := collection.InsertMany(ctx, docs)

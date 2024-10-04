@@ -12,14 +12,14 @@ import (
 	"go.uber.org/atomic"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/mock"
 	"github.com/shortlink-org/shortlink/pkg/db/options"
 )
 
 var linkUniqId atomic.Int64
 
 func BenchmarkRAMSerial(b *testing.B) {
-	ctx := context.Background()
+	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
 
 	b.Run("Create [single]", func(b *testing.B) {
 		b.ReportAllocs()
@@ -27,11 +27,11 @@ func BenchmarkRAMSerial(b *testing.B) {
 		// create a db
 		store := Store{}
 
-		data := mock.AddLink
-
 		for i := 0; i < b.N; i++ {
-			data.Url = fmt.Sprintf("%s/%d", data.Url, i)
-			_, err := store.Add(ctx, data)
+			source, err := getLink()
+			require.NoError(b, err)
+
+			_, err = store.Add(ctx, source)
 			require.NoError(b, err)
 		}
 	})
@@ -45,11 +45,11 @@ func BenchmarkRAMSerial(b *testing.B) {
 		// Set config
 		b.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 
-		data := mock.AddLink
-
 		for i := 0; i < b.N; i++ {
-			data.Url = fmt.Sprintf("%s/%d", data.Url, i)
-			_, err := store.Add(ctx, data)
+			source, err := getLink()
+			require.NoError(b, err)
+
+			_, err = store.Add(ctx, source)
 			require.NoError(b, err)
 		}
 	})
@@ -96,17 +96,19 @@ func BenchmarkRAMParallel(b *testing.B) {
 	})
 }
 
+// getLink constructs a new Link using the LinkBuilder.
 func getLink() (*v1.Link, error) {
 	id := linkUniqId.Add(1)
+	url := fmt.Sprintf("http://example.com/%d", id)
+	describe := "Generated link description"
 
-	data := &v1.Link{
-		Url:      fmt.Sprintf("%s/%d", "http://example.com", id),
-		Describe: mock.AddLink.Describe,
-	}
-
-	if err := v1.NewURL(data); err != nil {
+	linkBuilder := v1.NewLinkBuilder().
+		SetURL(url).
+		SetDescribe(describe)
+	link, err := linkBuilder.Build()
+	if err != nil {
 		return nil, err
 	}
 
-	return data, nil
+	return link, nil
 }

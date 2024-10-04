@@ -48,37 +48,32 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 
 	// Create a batch job ----------------------------------------------------------------------------------------------
 	if s.config.mode == options.MODE_BATCH_WRITE {
-		cb := func(args []*batch.Item) any { //nolint:errcheck // ignore
-			sources := domain.NewLinks()
+		cb := func(items []*batch.Item[*domain.Link]) error {
+			sources := &domain.Links{}
 
-			for key := range args {
-				link, ok := args[key].Item.(*domain.Link)
-				if !ok {
-					args[key].CallbackChannel <- batch.ErrInvalidType
-				}
-
-				sources.Push(link)
+			for _, item := range items {
+				sources.Push(item.Item)
 			}
 
 			dataList, errBatchWrite := s.batchWrite(ctx, sources)
 			if errBatchWrite != nil {
-				for index := range args {
-					// TODO: add logs for error
-					args[index].CallbackChannel <- ErrWrite
+				for _, item := range items {
+					item.CallbackChannel <- nil
+					close(item.CallbackChannel)
 				}
-
 				return errBatchWrite
 			}
 
-			for key, item := range dataList.GetLinks() {
-				args[key].CallbackChannel <- item
+			for i, link := range dataList.GetLinks() {
+				items[i].CallbackChannel <- link
+				close(items[i].CallbackChannel)
 			}
 
 			return nil
 		}
 
 		var err error
-		s.config.job, err = batch.New(ctx, cb)
+		s.config.job, err = batch.New[*domain.Link](ctx, cb)
 		if err != nil {
 			return nil, err
 		}

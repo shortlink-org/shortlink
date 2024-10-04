@@ -3,12 +3,13 @@ package mongo
 import (
 	"go.mongodb.org/mongo-driver/mongo"
 
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/batch"
 )
 
 // Config - config
 type Config struct {
-	job  *batch.Batch
+	job  *batch.Batch[*v1.Link]
 	URI  string
 	mode int
 }

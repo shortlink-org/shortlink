@@ -10,7 +10,7 @@ import (
 
 // Config - config
 type Config struct {
-	job  *batch.Batch
+	job  *batch.Batch[*domain.Link]
 	URI  string
 	mode int
 }

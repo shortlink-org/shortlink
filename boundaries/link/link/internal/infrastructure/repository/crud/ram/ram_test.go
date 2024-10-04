@@ -4,6 +4,7 @@ package ram
 
 import (
 	"context"
+	"fmt"
 	"os"
 	"strconv"
 	"testing"
@@ -12,6 +13,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/mock"
 	"github.com/shortlink-org/shortlink/pkg/db/options"
 )
@@ -24,15 +26,17 @@ func TestMain(m *testing.M) {
 
 func TestRAM(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
+	defer cancel()
+
+	store, err := New(ctx)
+	require.NoError(t, err)
 
 	t.Run("Create [single]", func(t *testing.T) {
-		store, err := New(ctx)
-		require.NoError(t, err)
-
-		link, errAdd := store.Add(ctx, mock.AddLink)
-		require.NoError(t, errAdd)
-		assert.Equal(t, link.Hash, mock.GetLink.Hash)
-		assert.Equal(t, link.Describe, mock.GetLink.Describe)
+		createdLink, err := store.Add(ctx, mock.AddLink)
+		require.NoError(t, err, "Failed to add Link to store")
+		assert.Equal(t, mock.AddLink.GetHash(), createdLink.GetHash(), "Hashes should match")
+		assert.Equal(t, mock.AddLink.GetDescribe(), createdLink.GetDescribe(), "Descriptions should match")
+		assert.False(t, createdLink.GetCreatedAt().GetTime().IsZero(), "CreatedAt should be set")
 	})
 
 	t.Run("Create [batch]", func(t *testing.T) {
@@ -43,45 +47,58 @@ func TestRAM(t *testing.T) {
 		require.NoError(t, err)
 
 		for i := 0; i < 4; i++ {
-			link, errBatchMode := storeBatchMode.Add(ctx, mock.AddLink)
-			require.NoError(t, errBatchMode)
-			assert.Equal(t, link.Hash, mock.GetLink.Hash)
-			assert.Equal(t, link.Describe, mock.GetLink.Describe)
+			// Use LinkBuilder to create a new Link instance
+			linkURL := fmt.Sprintf("http://example.com/batch/%d", linkUniqId.Add(1))
+			linkBuilder := v1.NewLinkBuilder().
+				SetURL(linkURL).
+				SetDescribe("Batch link description")
+			link, err := linkBuilder.Build()
+			require.NoError(t, err, "Failed to build Link using LinkBuilder")
+
+			createdLink, err := storeBatchMode.Add(ctx, link)
+			require.NoError(t, err, "Failed to add Link to store in batch mode")
+			assert.Equal(t, link.GetHash(), createdLink.GetHash(), "Hashes should match")
+			assert.Equal(t, link.GetDescribe(), createdLink.GetDescribe(), "Descriptions should match")
+			assert.False(t, createdLink.GetCreatedAt().GetTime().IsZero(), "CreatedAt should be set")
 		}
 	})
 
 	t.Run("Get", func(t *testing.T) {
-		store, err := New(ctx)
-		require.NoError(t, err)
-
-		link, err := store.Add(ctx, mock.GetLink)
-		require.NoError(t, err)
-
-		link, err = store.Get(ctx, mock.GetLink.Hash)
-		require.NoError(t, err)
-		assert.Equal(t, link.Hash, mock.GetLink.Hash)
-		assert.Equal(t, link.Describe, mock.GetLink.Describe)
+		retrievedLink, err := store.Get(ctx, mock.GetLink.GetHash())
+		require.NoError(t, err, "Failed to get Link from store")
+		assert.Equal(t, mock.GetLink.GetHash(), retrievedLink.GetHash(), "Hashes should match")
+		assert.Equal(t, mock.GetLink.GetDescribe(), retrievedLink.GetDescribe(), "Descriptions should match")
 	})
 
 	t.Run("Get list", func(t *testing.T) {
-		store, err := New(ctx)
-		require.NoError(t, err)
-
-		_, err = store.Add(ctx, mock.GetLink)
-		require.NoError(t, err)
+		// Set up data needed for the test
+		// Add multiple links
+		for i := 0; i < 5; i++ {
+			link, err := getLink()
+			require.NoError(t, err)
+			_, err = store.Add(ctx, link)
+			require.NoError(t, err)
+		}
 
 		links, err := store.List(ctx, nil)
-		require.NoError(t, err)
-		assert.Equal(t, 1, len(links.Link))
+		require.NoError(t, err, "Failed to list Links from store")
+		assert.GreaterOrEqual(t, len(links.GetLinks()), 5, "Should have at least 5 Links")
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		store, err := New(ctx)
-		require.NoError(t, err)
+		// Set up data needed for the test
+		linkBuilder := v1.NewLinkBuilder().
+			SetURL("http://example.com/delete").
+			SetDescribe("Delete link description")
+		link, err := linkBuilder.Build()
+		require.NoError(t, err, "Failed to build Link using LinkBuilder")
 
-		link, err := store.Add(ctx, mock.GetLink)
+		_, err = store.Add(ctx, link)
+		require.NoError(t, err, "Failed to add Link to store")
 
-		require.NoError(t, store.Delete(ctx, link.Hash))
+		// Proceed with the test
+		err = store.Delete(ctx, link.GetHash())
+		require.NoError(t, err, "Failed to delete Link from store")
 	})
 
 	t.Cleanup(func() {
