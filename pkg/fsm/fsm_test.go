@@ -1,12 +1,14 @@
 package fsm
 
 import (
+	"context"
+	"sync"
 	"testing"
 
 	"github.com/stretchr/testify/require"
 )
 
-// TestTrafficLightFSM verifies the functionality of the Traffic Light FSM.
+// TestTrafficLightFSM verifies the functionality of the Traffic Light FSM with context support.
 func TestTrafficLightFSM(t *testing.T) {
 	// Define traffic light states.
 	const (
@@ -31,33 +33,43 @@ func TestTrafficLightFSM(t *testing.T) {
 
 	// Variables to track callback invocations.
 	var (
-		entered     State
-		exited      State
-		triggeredEv Event
+		entered      State
+		exited       State
+		triggeredEv  Event
+		callbackLock sync.Mutex
 	)
 
 	// Set up the OnExitState callback.
-	trafficLight.SetOnExitState(func(from, to State, event Event) {
+	trafficLight.SetOnExitState(func(ctx context.Context, from, to State, event Event) {
+		callbackLock.Lock()
+		defer callbackLock.Unlock()
 		exited = from
 		triggeredEv = event
 	})
 
 	// Set up the OnEnterState callback.
-	trafficLight.SetOnEnterState(func(from, to State, event Event) {
+	trafficLight.SetOnEnterState(func(ctx context.Context, from, to State, event Event) {
+		callbackLock.Lock()
+		defer callbackLock.Unlock()
 		entered = to
 		triggeredEv = event
 	})
 
 	// Helper function to reset callback trackers.
 	resetCallbacks := func() {
+		callbackLock.Lock()
+		defer callbackLock.Unlock()
 		entered, exited, triggeredEv = "", "", ""
 	}
+
+	// Create a context for the test.
+	ctx := context.Background()
 
 	// Test initial state.
 	require.Equal(t, StateRed, trafficLight.GetCurrentState(), "Initial state should be Red")
 
 	// Transition 1: Red -> Green
-	err := trafficLight.TriggerEvent(EventTimer)
+	err := trafficLight.TriggerEvent(ctx, EventTimer)
 	require.NoError(t, err, "TriggerEvent should not return an error for valid event 'Timer' from Red")
 
 	// Verify state transition to Green.
@@ -72,7 +84,7 @@ func TestTrafficLightFSM(t *testing.T) {
 	resetCallbacks()
 
 	// Transition 2: Green -> Yellow
-	err = trafficLight.TriggerEvent(EventTimer)
+	err = trafficLight.TriggerEvent(ctx, EventTimer)
 	require.NoError(t, err, "TriggerEvent should not return an error for valid event 'Timer' from Green")
 
 	// Verify state transition to Yellow.
@@ -87,7 +99,7 @@ func TestTrafficLightFSM(t *testing.T) {
 	resetCallbacks()
 
 	// Transition 3: Yellow -> Red
-	err = trafficLight.TriggerEvent(EventTimer)
+	err = trafficLight.TriggerEvent(ctx, EventTimer)
 	require.NoError(t, err, "TriggerEvent should not return an error for valid event 'Timer' from Yellow")
 
 	// Verify state transition to Red.
@@ -102,7 +114,7 @@ func TestTrafficLightFSM(t *testing.T) {
 	resetCallbacks()
 
 	// Attempt to trigger an invalid event: Emergency
-	err = trafficLight.TriggerEvent(EventEmergency)
+	err = trafficLight.TriggerEvent(ctx, EventEmergency)
 	require.Error(t, err, "TriggerEvent should return an error for invalid event 'Emergency'")
 	require.Contains(t, err.Error(), "invalid transition", "Error message should indicate invalid transition")
 
@@ -115,7 +127,7 @@ func TestTrafficLightFSM(t *testing.T) {
 	require.Equal(t, Event(""), triggeredEv, "Triggered event should not be set on invalid Emergency event")
 
 	// Ensure FSM is still operational by triggering another valid event: Timer
-	err = trafficLight.TriggerEvent(EventTimer)
+	err = trafficLight.TriggerEvent(ctx, EventTimer)
 	require.NoError(t, err, "TriggerEvent should not return an error for valid event 'Timer' after invalid event")
 
 	// Verify state transition to Green.

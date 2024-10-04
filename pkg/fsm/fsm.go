@@ -1,12 +1,18 @@
 package fsm
 
 import (
+	"context"
 	"fmt"
 	"sync"
 )
 
 // State represents a state in the FSM.
 type State string
+
+// String returns the string representation of the state.
+func (s State) String() string {
+	return string(s)
+}
 
 // Event represents an event that can trigger a state transition.
 type Event string
@@ -23,8 +29,8 @@ type FSM struct {
 	TransitionRules TransitionRuleSet
 
 	// Callbacks triggered on state transitions.
-	OnEnterState func(from State, to State, event Event)
-	OnExitState  func(from State, to State, event Event)
+	OnEnterState func(ctx context.Context, from State, to State, event Event)
+	OnExitState  func(ctx context.Context, from State, to State, event Event)
 }
 
 // New creates a new FSM with the given initial state.
@@ -51,22 +57,25 @@ func (f *FSM) AddTransitionRule(from State, event Event, to State) {
 }
 
 // SetOnEnterState sets the callback function to be called when entering a new state.
-func (f *FSM) SetOnEnterState(callback func(from State, to State, event Event)) {
+// The callback receives a context, the previous state, the new state, and the triggering event.
+func (f *FSM) SetOnEnterState(callback func(ctx context.Context, from State, to State, event Event)) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	f.OnEnterState = callback
 }
 
 // SetOnExitState sets the callback function to be called when exiting a state.
-func (f *FSM) SetOnExitState(callback func(from State, to State, event Event)) {
+// The callback receives a context, the previous state, the new state, and the triggering event.
+func (f *FSM) SetOnExitState(callback func(ctx context.Context, from State, to State, event Event)) {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 	f.OnExitState = callback
 }
 
 // TriggerEvent triggers an event and attempts to transition the FSM to the next state.
+// It accepts a context for handling cancellation, deadlines, and passing request-scoped values.
 // It returns an error if the transition is invalid.
-func (f *FSM) TriggerEvent(event Event) error {
+func (f *FSM) TriggerEvent(ctx context.Context, event Event) error {
 	f.mu.Lock()
 	defer f.mu.Unlock()
 
@@ -80,7 +89,11 @@ func (f *FSM) TriggerEvent(event Event) error {
 
 	// If there is an exit callback, invoke it before changing the state.
 	if f.OnExitState != nil {
-		f.OnExitState(current, nextState, event)
+		// It's a good practice to execute callbacks without holding the lock
+		// to prevent potential deadlocks or performance issues.
+		f.mu.Unlock()
+		f.OnExitState(ctx, current, nextState, event)
+		f.mu.Lock()
 	}
 
 	// Update the current state.
@@ -88,7 +101,9 @@ func (f *FSM) TriggerEvent(event Event) error {
 
 	// If there is an enter callback, invoke it after changing the state.
 	if f.OnEnterState != nil {
-		f.OnEnterState(current, nextState, event)
+		f.mu.Unlock()
+		f.OnEnterState(ctx, current, nextState, event)
+		f.mu.Lock()
 	}
 
 	return nil
