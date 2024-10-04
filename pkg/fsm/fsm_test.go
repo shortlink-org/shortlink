@@ -110,9 +110,9 @@ func TestTrafficLightFSM(t *testing.T) {
 	require.Equal(t, StateRed, trafficLight.GetCurrentState(), "State should remain Red after invalid Emergency event")
 
 	// Verify that callbacks were not called on invalid event.
-	require.Empty(t, exited, "Exited state should not be set on invalid Emergency event")
-	require.Empty(t, entered, "Entered state should not be set on invalid Emergency event")
-	require.Empty(t, triggeredEv, "Triggered event should not be set on invalid Emergency event")
+	require.Equal(t, State(""), exited, "Exited state should not be set on invalid Emergency event")
+	require.Equal(t, State(""), entered, "Entered state should not be set on invalid Emergency event")
+	require.Equal(t, Event(""), triggeredEv, "Triggered event should not be set on invalid Emergency event")
 
 	// Ensure FSM is still operational by triggering another valid event: Timer
 	err = trafficLight.TriggerEvent(EventTimer)
