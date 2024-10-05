@@ -28,7 +28,7 @@ func TestGenerateFeeds(t *testing.T) {
 	goodsController := controller.NewGoodsController(goodsUseCase)
 
 	// Call the GenerateFeeds function
-	err = goodsController.GenerateFeeds("feeds", outDir)
+	err = goodsController.GenerateFeeds("policy", outDir)
 	require.NoError(t, err)
 
 	// Get the list of expected feed files from ./tests/dump/

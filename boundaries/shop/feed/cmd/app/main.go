@@ -13,7 +13,7 @@ func main() {
 	goodsUseCase := usecase.NewGoodsUseCase(goodsRepo)
 	goodsController := controller.NewGoodsController(goodsUseCase)
 
-	err := goodsController.GenerateFeeds("feeds", "out")
+	err := goodsController.GenerateFeeds("policy", "out")
 	if err != nil {
 		fmt.Println("Error generating feeds:", err)
 	}
