@@ -1,0 +1,13 @@
+name: "in_stock_policy"
+rules:
+  - name: "check if stock is above ${minStock}"
+    condition: "stock > minStock"
+    message: "Error: Stock must be greater than ${minStock}"
+    action: "allow"
+  - name: "check if stock meets the threshold of ${stockThreshold}"
+    condition: "stock >= stockThreshold"
+    message: "Error: Stock must be at least ${stockThreshold}"
+    action: "allow"
+params:
+  minStock: 0
+  stockThreshold: 10
