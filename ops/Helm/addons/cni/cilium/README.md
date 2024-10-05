@@ -14,7 +14,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://helm.cilium.io/ | cilium | 1.16.1 |
+| https://helm.cilium.io/ | cilium | 1.16.2 |
 
 ## Values
 

@@ -14,7 +14,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| oci://registry-1.docker.io/bitnamicharts | keycloak | 22.2.6 |
+| oci://registry-1.docker.io/bitnamicharts | keycloak | 23.0.0 |
 
 ## Values
 

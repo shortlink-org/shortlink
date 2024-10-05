@@ -22,7 +22,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| http://zotregistry.dev/helm-charts | zot | 0.1.61 |
+| http://zotregistry.dev/helm-charts | zot | 0.1.62 |
 
 ## Values
 
