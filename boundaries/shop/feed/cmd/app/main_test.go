@@ -9,6 +9,10 @@ import (
 	"testing"
 
 	"github.com/stretchr/testify/require"
+
+	"github.com/shortlink-org/shortlink/boundaries/shop/feed/internal/infrastructure/persistence"
+	"github.com/shortlink-org/shortlink/boundaries/shop/feed/internal/interfaces/controller"
+	"github.com/shortlink-org/shortlink/boundaries/shop/feed/internal/usecase"
 )
 
 func TestGenerateFeeds(t *testing.T) {
@@ -19,8 +23,14 @@ func TestGenerateFeeds(t *testing.T) {
 	err = os.MkdirAll(outDir, os.ModePerm)
 	require.NoError(t, err)
 
-	// Call the main function or the functions responsible for generating feeds
-	main()
+	// Set up the dependencies
+	goodsRepo := persistence.NewGoodsJSONRepository("tests/fixtures/phone.json")
+	goodsUseCase := usecase.NewGoodsUseCase(goodsRepo)
+	goodsController := controller.NewGoodsController(goodsUseCase)
+
+	// Call the GenerateFeeds function
+	err = goodsController.GenerateFeeds("feeds", outDir)
+	require.NoError(t, err)
 
 	// Get the list of expected feed files from ./tests/dump/
 	expectedFiles, err := filepath.Glob("tests/dump/*.xml")
