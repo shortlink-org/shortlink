@@ -11,6 +11,7 @@
 | feed               | Feed service       | Go                   | [docs](./feed/README.md)               | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-feed&revision=true)](https://argo.shortlink.best/applications/shortlink-feed)                             |
 | oms                | Order management   | Temporal             | [docs](./oms/README.md)                | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-oms&revision=true)](https://argo.shortlink.best/applications/shortlink-oms)                               |
 | oms-graphql        | GraphQL API Bridge | Coming soon          | [docs](./oms-graphql/README.md)        | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-oms-graphql&revision=true)](https://argo.shortlink.best/applications/shortlink-oms-graphql)               |
+| pricer             | Price service      | Go                   | [docs](./pricer/README.md)             | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-pricer&revision=true)](https://argo.shortlink.best/applications/shortlink-pricer)                         |
 | ui                 | Shop service       | JS/NextJS            | [docs](./ui/README.md)                 | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-shop-ui&revision=true)](https://argo.shortlink.best/applications/shortlink-shop-ui)                       |
 
 ### Docs
