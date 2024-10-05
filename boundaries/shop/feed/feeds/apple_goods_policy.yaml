@@ -1,8 +1,8 @@
 name: "apple_goods_policy"
-rules:
-  - name: "check if goods are from ${brand}"
-    condition: "brand == brand"
-    message: "Error: Only goods from ${brand} are allowed"
-    action: "allow"
 params:
-  brand: "Apple"
+  brandParam: "Apple"
+rules:
+  - name: "check if goods are from ${brandParam}"
+    condition: "brand == brandParam"
+    message: "Error: Only goods from ${brandParam} are allowed"
+    action: "allow"
