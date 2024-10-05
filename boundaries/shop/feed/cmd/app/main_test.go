@@ -3,7 +3,6 @@ package main
 import (
 	"bytes"
 	"encoding/xml"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"testing"
@@ -41,14 +40,14 @@ func TestGenerateFeeds(t *testing.T) {
 		fileName := filepath.Base(expectedFile)
 
 		// Read the expected content
-		expectedContent, err := ioutil.ReadFile(expectedFile)
+		expectedContent, err := os.ReadFile(expectedFile)
 		require.NoError(t, err)
 		expectedContent, err = normalizeXML(expectedContent)
 		require.NoError(t, err)
 
 		// Read the generated content
 		generatedFile := filepath.Join(outDir, fileName)
-		generatedContent, err := ioutil.ReadFile(generatedFile)
+		generatedContent, err := os.ReadFile(generatedFile)
 		require.NoError(t, err, "Generated file %s does not exist", generatedFile)
 		generatedContent, err = normalizeXML(generatedContent)
 		require.NoError(t, err)

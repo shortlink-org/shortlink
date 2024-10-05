@@ -3,7 +3,7 @@ package persistence
 import (
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"os"
 
 	"github.com/shortlink-org/shortlink/boundaries/shop/feed/internal/domain/entity"
 	"github.com/shortlink-org/shortlink/boundaries/shop/feed/internal/domain/repository"
@@ -19,7 +19,7 @@ func NewGoodsJSONRepository(filePath string) repository.GoodsRepository {
 
 func (repo *GoodsJSONRepository) GetAllGoods() ([]entity.Goods, error) {
 	var goods []entity.Goods
-	data, err := ioutil.ReadFile(repo.FilePath)
+	data, err := os.ReadFile(repo.FilePath)
 	if err != nil {
 		return nil, fmt.Errorf("error reading goods data: %w", err)
 	}

@@ -2,7 +2,7 @@ package utils
 
 import (
 	"fmt"
-	"io/ioutil"
+	"os"
 	"path/filepath"
 
 	"gopkg.in/yaml.v2"
@@ -12,7 +12,7 @@ import (
 
 func LoadPolicy(filePath string) (usecase.Policy, error) {
 	var policy usecase.Policy
-	data, err := ioutil.ReadFile(filePath)
+	data, err := os.ReadFile(filePath)
 	if err != nil {
 		return policy, fmt.Errorf("error reading policy: %w", err)
 	}
