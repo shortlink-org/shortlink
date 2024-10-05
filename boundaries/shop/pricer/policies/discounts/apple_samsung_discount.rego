@@ -1,7 +1,12 @@
 package pricing.discount
 
-# 5% discount on Apple and Samsung products
+# 5% discount on Apple and Samsung products using parameterized discount rate
 brand_discount {
-    brand := input.brand
-    discount := if brand == "Apple" || brand == "Samsung" then input.price * 0.05 else 0
+    input.brand == "Apple"
+    discount := input.price * input.params.apple_samsung_discount
+}
+
+brand_discount {
+    input.brand == "Samsung"
+    discount := input.price * input.params.apple_samsung_discount
 }
