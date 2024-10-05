@@ -11,7 +11,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: bitnami/mongodb:7.0
+    image: bitnami/mongodb:8.0
     restart: on-failure
     container_name: mongo
     init: true
