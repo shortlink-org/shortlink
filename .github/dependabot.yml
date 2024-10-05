@@ -275,3 +275,8 @@ updates:
     directory: /boundaries/billing/billing
     schedule:
       interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/shop/feed
+    schedule:
+      interval: daily
