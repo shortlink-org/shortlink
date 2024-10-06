@@ -20,6 +20,7 @@ import (
 	pkg_di "github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/di/pkg"
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/infrastructure/cli"
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/infrastructure/policy_evaluator"
+	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/infrastructure/rpc/run"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
@@ -41,6 +42,9 @@ type PricerService struct {
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 
+	// Delivery
+	run *run.Response
+
 	// Application
 	CartService *application.CartService
 
@@ -60,6 +64,9 @@ var PricerSet = wire.NewSet(
 	newTaxPolicy,
 	newPolicyNames,
 
+	// Delivery
+	NewRunRPCServer,
+
 	// Application
 	application.NewCartService,
 	newCLIHandler,
@@ -67,12 +74,17 @@ var PricerSet = wire.NewSet(
 	NewPricerService,
 )
 
+// TODO: refactoring. maybe drop this function
+func NewRunRPCServer(runRPCServer *rpc.Server) (*run.Response, error) {
+	return run.Run(runRPCServer)
+}
+
 // newDiscountPolicy creates a new DiscountPolicy
 func newDiscountPolicy(ctx context.Context, log logger.Logger, cfg *pkg_di.Config) application.DiscountPolicy {
 	discountPolicyPath := viper.GetString("policies.discounts")
 	discountQuery := viper.GetString("queries.discounts")
 
-	discountEvaluator, err := policy_evaluator.NewOPAEvaluator(discountPolicyPath, discountQuery)
+	discountEvaluator, err := policy_evaluator.NewOPAEvaluator(log, discountPolicyPath, discountQuery)
 	if err != nil {
 		log.ErrorWithContext(ctx, "Failed to initialize Discount Policy Evaluator: %v", field.Fields{"error": err})
 	}
@@ -85,7 +97,7 @@ func newTaxPolicy(ctx context.Context, log logger.Logger, cfg *pkg_di.Config) ap
 	taxPolicyPath := viper.GetString("policies.taxes")
 	taxQuery := viper.GetString("queries.taxes")
 
-	taxEvaluator, err := policy_evaluator.NewOPAEvaluator(taxPolicyPath, taxQuery)
+	taxEvaluator, err := policy_evaluator.NewOPAEvaluator(log, taxPolicyPath, taxQuery)
 	if err != nil {
 		log.ErrorWithContext(ctx, "Failed to initialize Tax Policy Evaluator: %v", field.Fields{"error": err})
 	}
@@ -136,6 +148,9 @@ func NewPricerService(
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 
+	// Delivery
+	run *run.Response,
+
 	// Application
 	cartService *application.CartService,
 
@@ -152,6 +167,9 @@ func NewPricerService(
 		Tracer:        tracer,
 		Monitoring:    monitoring,
 		PprofEndpoint: pprofHTTP,
+
+		// Delivery
+		run: run,
 
 		// Application
 		CartService: cartService,

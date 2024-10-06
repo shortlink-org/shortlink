@@ -3,7 +3,6 @@ package application
 import (
 	"context"
 	"fmt"
-	"log"
 
 	"github.com/shopspring/decimal"
 
@@ -54,7 +53,7 @@ func (s *CartService) CalculateTotal(ctx context.Context, cart *domain.Cart, dis
 		// Calculate per-item total: (Price + Tax - Discount) * Quantity
 		itemTotal := item.Price.Add(totalTax).Sub(totalDiscount).Mul(decimal.NewFromInt32(item.Quantity))
 		finalPrice = finalPrice.Add(itemTotal)
-		log.Printf("ItemID: %s, ItemTotal: %.2f", item.ProductID, itemTotal)
+		s.log.InfoWithContext(ctx, "ItemID: %s, ItemTotal: %.2f", field.Fields{"itemID": item.ProductID, "itemTotal": itemTotal})
 	}
 
 	// Prepare the CartTotal

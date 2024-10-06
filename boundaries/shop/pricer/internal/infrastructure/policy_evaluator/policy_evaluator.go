@@ -4,7 +4,6 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"log"
 	"os"
 	"path/filepath"
 	"strconv"
@@ -12,6 +11,8 @@ import (
 	"github.com/open-policy-agent/opa/rego"
 
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/domain"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
 )
 
 // PolicyEvaluator interface as defined
@@ -26,9 +27,9 @@ type OPAEvaluator struct {
 	policyPath    string
 }
 
-func NewOPAEvaluator(policyPath string, query string) (*OPAEvaluator, error) {
+func NewOPAEvaluator(log logger.Logger, policyPath string, query string) (*OPAEvaluator, error) {
 	// Log the policy path and query
-	log.Printf("Initializing OPAEvaluator with Policy Path: %s and Query: %s", policyPath, query)
+	log.Info("Initializing OPAEvaluator with Policy Path: %s and Query: %s", field.Fields{"policyPath": policyPath, "query": query})
 
 	// Check if the policy directory exists
 	if _, err := os.Stat(policyPath); os.IsNotExist(err) {

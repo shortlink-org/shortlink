@@ -14,6 +14,7 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/di/pkg"
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/infrastructure/cli"
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/infrastructure/policy_evaluator"
+	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/infrastructure/rpc/run"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
@@ -77,6 +78,24 @@ func InitializePricerService() (*PricerService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	server, err := rpc.InitServer(context, logger, tracerProvider, monitoringMonitoring)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	response, err := NewRunRPCServer(server)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	pkg_diConfig, err := pkg_di.ReadConfig()
 	if err != nil {
 		cleanup5()
@@ -99,7 +118,7 @@ func InitializePricerService() (*PricerService, func(), error) {
 	}
 	cartService := application.NewCartService(logger, discountPolicy, taxPolicy, v)
 	cliHandler := newCLIHandler(context, logger, cartService, pkg_diConfig)
-	pricerService, err := NewPricerService(logger, configConfig, autoMaxProAutoMaxPro, monitoringMonitoring, tracerProvider, pprofEndpoint, cartService, cliHandler)
+	pricerService, err := NewPricerService(logger, configConfig, autoMaxProAutoMaxPro, monitoringMonitoring, tracerProvider, pprofEndpoint, response, cartService, cliHandler)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -130,6 +149,9 @@ type PricerService struct {
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 
+	// Delivery
+	run *run.Response
+
 	// Application
 	CartService *application.CartService
 
@@ -140,17 +162,24 @@ type PricerService struct {
 // PricerService =======================================================================================================
 var PricerSet = wire.NewSet(di.DefaultSet, rpc.InitServer, pkg_di.ReadConfig, newDiscountPolicy,
 	newTaxPolicy,
-	newPolicyNames, application.NewCartService, newCLIHandler,
+	newPolicyNames,
+
+	NewRunRPCServer, application.NewCartService, newCLIHandler,
 
 	NewPricerService,
 )
+
+// TODO: refactoring. maybe drop this function
+func NewRunRPCServer(runRPCServer *rpc.Server) (*run.Response, error) {
+	return run.Run(runRPCServer)
+}
 
 // newDiscountPolicy creates a new DiscountPolicy
 func newDiscountPolicy(ctx2 context.Context, log logger.Logger, cfg *pkg_di.Config) application.DiscountPolicy {
 	discountPolicyPath := viper.GetString("policies.discounts")
 	discountQuery := viper.GetString("queries.discounts")
 
-	discountEvaluator, err := policy_evaluator.NewOPAEvaluator(discountPolicyPath, discountQuery)
+	discountEvaluator, err := policy_evaluator.NewOPAEvaluator(log, discountPolicyPath, discountQuery)
 	if err != nil {
 		log.ErrorWithContext(ctx2, "Failed to initialize Discount Policy Evaluator: %v", field.Fields{"error": err})
 	}
@@ -163,7 +192,7 @@ func newTaxPolicy(ctx2 context.Context, log logger.Logger, cfg *pkg_di.Config) a
 	taxPolicyPath := viper.GetString("policies.taxes")
 	taxQuery := viper.GetString("queries.taxes")
 
-	taxEvaluator, err := policy_evaluator.NewOPAEvaluator(taxPolicyPath, taxQuery)
+	taxEvaluator, err := policy_evaluator.NewOPAEvaluator(log, taxPolicyPath, taxQuery)
 	if err != nil {
 		log.ErrorWithContext(ctx2, "Failed to initialize Tax Policy Evaluator: %v", field.Fields{"error": err})
 	}
@@ -207,7 +236,7 @@ func NewPricerService(
 	log logger.Logger, config2 *config.Config,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro, monitoring2 *monitoring.Monitoring,
 	tracer trace.TracerProvider,
-	pprofHTTP profiling.PprofEndpoint,
+	pprofHTTP profiling.PprofEndpoint, run2 *run.Response,
 
 	cartService *application.CartService,
 
@@ -222,6 +251,8 @@ func NewPricerService(
 		Tracer:        tracer,
 		Monitoring:    monitoring2,
 		PprofEndpoint: pprofHTTP,
+
+		run: run2,
 
 		CartService: cartService,
 

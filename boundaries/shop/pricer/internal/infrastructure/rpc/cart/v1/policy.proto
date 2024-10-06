@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package cart;
+
+option go_package = "github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/infrastructure/rpc/cart/v1";
+
+// CartItem represents an item in the shopping cart
+message CartItem {
+  string product_id = 1; // UUID as a string
+  int32 quantity = 2;
+  string price = 3; // Decimal as a string to preserve precision
+  string brand = 4;
+}
+
+// Cart represents a customer's shopping cart
+message Cart {
+  repeated CartItem items = 1;
+  string customer_id = 2; // UUID as a string
+}
+
+// CartTotal represents the calculated totals for the cart
+message CartTotal {
+  string total_tax = 1;       // Decimal as a string
+  string total_discount = 2;  // Decimal as a string
+  string final_price = 3;     // Decimal as a string
+  repeated string policies = 4;
+}
+
+// CalculateTotalRequest is the request message for calculating cart totals
+message CalculateTotalRequest {
+  Cart cart = 1;
+  map<string, string> discount_params = 2; // Using string for simplicity
+  map<string, string> tax_params = 3;       // Using string for simplicity
+}
+
+// CalculateTotalResponse is the response message after calculating totals
+message CalculateTotalResponse {
+  CartTotal total = 1;
+}
+
+// CartService defines the gRPC service for cart operations
+service CartService {
+  // CalculateTotal calculates the total price, tax, and discounts for a cart
+  rpc CalculateTotal (CalculateTotalRequest) returns (CalculateTotalResponse);
+}
