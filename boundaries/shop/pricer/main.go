@@ -8,120 +8,151 @@ import (
 	"log"
 	"os"
 	"path/filepath"
-	"time"
+	"strconv"
 
-	"gopkg.in/yaml.v2"
-
+	"github.com/google/uuid"
 	"github.com/open-policy-agent/opa/rego"
+	"github.com/shopspring/decimal"
 )
 
-// Config represents the structure of the config.yaml file
-type Config struct {
-	Params map[string]interface{} `yaml:"params"`
+// CartItem represents a cart item.
+type CartItem struct {
+	ProductId uuid.UUID       `json:"productId"`
+	Quantity  int32           `json:"quantity"`
+	Price     decimal.Decimal `json:"price"`
+	Discount  decimal.Decimal `json:"discount"`
+	Tax       decimal.Decimal `json:"tax"`
+	Brand     string          `json:"brand"`
 }
 
-// Goods represents a product with its attributes
-type Goods struct {
-	Brand    string                 `json:"brand"`
-	Model    string                 `json:"model"`
-	Price    float64                `json:"price"`
-	Stock    int                    `json:"stock"`
-	Category string                 `json:"category"`
-	Tags     []string               `json:"tags"`
-	Features map[string]interface{} `json:"features"`
+// CartItems represents a list of cart items.
+type CartItems []CartItem
+
+// CartState represents the cart state.
+type CartState struct {
+	Items      CartItems `json:"items"`
+	CustomerId uuid.UUID `json:"customerId"`
 }
 
-// LoadConfig loads the configuration from config.yaml
-func LoadConfig(filePath string) (Config, error) {
-	var config Config
+// LoadCart loads a cart from a JSON file.
+func LoadCart(filePath string) (CartState, error) {
+	var cart CartState
 	file, err := ioutil.ReadFile(filePath)
 	if err != nil {
-		return config, err
+		return cart, err
 	}
-	err = yaml.Unmarshal(file, &config)
-	return config, err
+	err = json.Unmarshal(file, &cart)
+	return cart, err
 }
 
-// LoadGoods loads the goods data from tests/fixtures/phone.json
-func LoadGoods(filePath string) ([]Goods, error) {
-	var goods []Goods
-	file, err := ioutil.ReadFile(filePath)
-	if err != nil {
-		return nil, err
-	}
-	err = json.Unmarshal(file, &goods)
-	return goods, err
-}
-
-// LoadOPAPolicies loads all OPA policies from a directory
-func LoadOPAPolicies(dir string) (*rego.PreparedEvalQuery, error) {
-	// Load all rego files from the directory
-	query, err := rego.New(
-		rego.Query("data.pricing"),
+// LoadOPAPolicies loads all OPA policies from a directory with a specific query
+func LoadOPAPolicies(dir string, query string) (*rego.PreparedEvalQuery, error) {
+	preparedQuery, err := rego.New(
+		rego.Query(query),
 		rego.Load([]string{dir}, nil),
-	).PrepareForEval(context.TODO())
+	).PrepareForEval(context.Background())
 	if err != nil {
 		return nil, err
 	}
-	return &query, nil
+	return &preparedQuery, nil
 }
 
-// EvaluateTaxPolicy evaluates tax policies using OPA
-func EvaluateTaxPolicy(goods Goods, params map[string]interface{}, query *rego.PreparedEvalQuery) (float64, error) {
-	// Create input data
+// EvaluateTaxPolicy evaluates the tax policy using OPA.
+func EvaluateTaxPolicy(cart CartItems, query *rego.PreparedEvalQuery, params map[string]interface{}) (decimal.Decimal, error) {
+	var items []map[string]interface{}
+	for _, item := range cart {
+		items = append(items, map[string]interface{}{
+			"productId": item.ProductId.String(), // Convert UUID to string
+			"quantity":  item.Quantity,
+			"price":     item.Price.InexactFloat64(), // Convert decimal to float64
+			"brand":     item.Brand,
+		})
+	}
 	input := map[string]interface{}{
-		"price":  goods.Price,
-		"params": params,
+		"items":  items,
+		"params": params, // Include tax parameters if needed
 	}
 
-	// Evaluate OPA policies
-	rs, err := query.Eval(context.TODO(), rego.EvalInput(input))
+	rs, err := query.Eval(context.Background(), rego.EvalInput(input))
 	if err != nil {
-		return 0, err
+		return decimal.Zero, err
 	}
 
-	tax := 0.0
-	for _, result := range rs {
-		for _, expr := range result.Expressions {
-			if v, ok := expr.Value.(map[string]interface{}); ok {
-				if t, ok := v["tax"].(float64); ok {
-					tax += t
-				}
-			}
-		}
+	if len(rs) == 0 {
+		return decimal.Zero, nil
 	}
-	return tax, nil
+
+	// Extract the single value from the result
+	expr := rs[0].Expressions[0].Value
+	var taxFloat float64
+
+	switch v := expr.(type) {
+	case float64:
+		taxFloat = v
+	case string:
+		taxFloat, err = strconv.ParseFloat(v, 64)
+		if err != nil {
+			return decimal.Zero, fmt.Errorf("invalid number format for tax: %v", err)
+		}
+	case json.Number:
+		taxFloat, err = v.Float64()
+		if err != nil {
+			return decimal.Zero, fmt.Errorf("invalid number for tax: %v", err)
+		}
+	default:
+		return decimal.Zero, fmt.Errorf("unexpected type for tax: %T", expr)
+	}
+
+	return decimal.NewFromFloat(taxFloat), nil
 }
 
-// EvaluateDiscountPolicy evaluates discount policies using OPA
-func EvaluateDiscountPolicy(goods Goods, params map[string]interface{}, query *rego.PreparedEvalQuery) (float64, error) {
-	// Create input data with current time and stock count
-	currentTime := time.Now().Format("15:04")
+// EvaluateDiscountPolicy evaluates the discount policy using OPA.
+func EvaluateDiscountPolicy(cart CartItems, query *rego.PreparedEvalQuery, params map[string]interface{}) (decimal.Decimal, error) {
+	var items []map[string]interface{}
+	for _, item := range cart {
+		items = append(items, map[string]interface{}{
+			"productId": item.ProductId.String(), // Convert UUID to string
+			"quantity":  item.Quantity,
+			"price":     item.Price.InexactFloat64(), // Convert decimal to float64
+			"brand":     item.Brand,
+		})
+	}
 	input := map[string]interface{}{
-		"price":  goods.Price,
-		"brand":  goods.Brand,
-		"count":  goods.Stock,
-		"time":   currentTime,
-		"params": params,
+		"items":  items,
+		"params": params, // Include discount parameters
 	}
 
-	// Evaluate OPA policies
-	rs, err := query.Eval(context.TODO(), rego.EvalInput(input))
+	rs, err := query.Eval(context.Background(), rego.EvalInput(input))
 	if err != nil {
-		return 0, err
+		return decimal.Zero, err
 	}
 
-	discount := 0.0
-	for _, result := range rs {
-		for _, expr := range result.Expressions {
-			if v, ok := expr.Value.(map[string]interface{}); ok {
-				if d, ok := v["discount"].(float64); ok {
-					discount += d
-				}
-			}
-		}
+	if len(rs) == 0 {
+		return decimal.Zero, nil
 	}
-	return discount, nil
+
+	// Extract the single value from the result
+	expr := rs[0].Expressions[0].Value
+	var discountFloat float64
+
+	switch v := expr.(type) {
+	case float64:
+		discountFloat = v
+	case string:
+		discountFloat, err = strconv.ParseFloat(v, 64)
+		if err != nil {
+			return decimal.Zero, fmt.Errorf("invalid number format for discount: %v", err)
+		}
+	case json.Number:
+		discountFloat, err = v.Float64()
+		if err != nil {
+			return decimal.Zero, fmt.Errorf("invalid number for discount: %v", err)
+		}
+	default:
+		return decimal.Zero, fmt.Errorf("unexpected type for discount: %T", expr)
+	}
+
+	return decimal.NewFromFloat(discountFloat), nil
 }
 
 // SaveResultToFile saves the final result to the out directory
@@ -152,59 +183,77 @@ func SaveResultToFile(result map[string]interface{}, outDir string, filename str
 }
 
 func main() {
-	// Load parameters from config.yaml
-	config, err := LoadConfig("config.yaml")
-	if err != nil {
-		log.Fatalf("Failed to load config: %v", err)
+	// Cart files to process
+	cartFiles := []string{
+		"tests/fixtures/cart_1.json",
+		"tests/fixtures/cart_2.json",
+		"tests/fixtures/cart_3.json",
+		"tests/fixtures/cart_4.json",
+		"tests/fixtures/cart_5.json",
 	}
 
-	// Load goods data from tests/fixtures/phone.json
-	goodsList, err := LoadGoods("tests/fixtures/phone.json")
-	if err != nil {
-		log.Fatalf("Failed to load goods: %v", err)
+	// Define discount parameters
+	discountParams := map[string]interface{}{
+		"apple_samsung_discount": 0.05,
 	}
 
-	// Load policies
-	taxQuery, err := LoadOPAPolicies("policies/taxes/")
+	// Define tax parameters if any (add as needed)
+	taxParams := map[string]interface{}{
+		// Example: "tax_rate": 0.20,
+	}
+
+	// Load tax policies with specific query
+	taxQuery, err := LoadOPAPolicies("policies/taxes/", "data.pricing.tax.total_markup")
 	if err != nil {
 		log.Fatalf("Failed to load tax policies: %v", err)
 	}
-	discountQuery, err := LoadOPAPolicies("policies/discounts/")
+
+	// Load discount policies with specific query
+	discountQuery, err := LoadOPAPolicies("policies/discounts/", "data.pricing.discount.total_brand_discount")
 	if err != nil {
 		log.Fatalf("Failed to load discount policies: %v", err)
 	}
 
-	// Iterate over the list of goods and calculate prices
-	for _, goods := range goodsList {
-		// Calculate taxes and discounts
-		tax, err := EvaluateTaxPolicy(goods, config.Params, taxQuery)
+	// Process each cart
+	for _, cartFile := range cartFiles {
+		// Load the cart from the file
+		cart, err := LoadCart(cartFile)
 		if err != nil {
-			log.Fatalf("Failed to evaluate tax: %v", err)
+			log.Fatalf("Failed to load cart %s: %v", cartFile, err)
 		}
-		discount, err := EvaluateDiscountPolicy(goods, config.Params, discountQuery)
+
+		// Calculate taxes and discounts
+		totalTax, err := EvaluateTaxPolicy(cart.Items, taxQuery, taxParams)
 		if err != nil {
-			log.Fatalf("Failed to evaluate discount: %v", err)
+			log.Fatalf("Failed to evaluate tax for cart %s: %v", cartFile, err)
+		}
+
+		totalDiscount, err := EvaluateDiscountPolicy(cart.Items, discountQuery, discountParams)
+		if err != nil {
+			log.Fatalf("Failed to evaluate discount for cart %s: %v", cartFile, err)
 		}
 
 		// Final price calculation
-		finalPrice := (goods.Price + tax) - discount
+		finalPrice := decimal.Zero
+		for _, item := range cart.Items {
+			// Calculate per-item total: (Price + Tax - Discount) * Quantity
+			itemTotal := item.Price.Add(totalTax).Sub(totalDiscount).Mul(decimal.NewFromInt32(item.Quantity))
+			finalPrice = finalPrice.Add(itemTotal)
+		}
 
 		// Prepare the result
 		result := map[string]interface{}{
-			"brand":          goods.Brand,
-			"model":          goods.Model,
-			"category":       goods.Category,
-			"original_price": goods.Price,
-			"tax":            tax,
-			"discount":       discount,
-			"final_price":    finalPrice,
+			"customerId":    cart.CustomerId.String(),
+			"totalTax":      totalTax.StringFixed(2),
+			"totalDiscount": totalDiscount.StringFixed(2),
+			"finalPrice":    finalPrice.StringFixed(2),
 		}
 
-		// Save result to the out folder, one file per goods item
-		filename := fmt.Sprintf("%s_%s_price.json", goods.Brand, goods.Model)
+		// Save result to the out folder, one file per customer
+		filename := fmt.Sprintf("cart_result_%s.json", cart.CustomerId.String())
 		err = SaveResultToFile(result, "out", filename)
 		if err != nil {
-			log.Fatalf("Failed to save result: %v", err)
+			log.Fatalf("Failed to save result for cart %s: %v", cartFile, err)
 		}
 	}
 }
