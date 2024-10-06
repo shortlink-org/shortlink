@@ -72,15 +72,15 @@ type LinkService struct {
 
 // LinkService =========================================================================================================
 var LinkSet = wire.NewSet(
+	// Common
 	di.DefaultSet,
-	mq_di.New,
-	rpc.InitServer,
-	rpc.InitClient,
 	store.New,
 
 	// Delivery
+	mq_di.New,
 	api_mq.New,
-
+	rpc.InitServer,
+	rpc.InitClient,
 	link_rpc.New,
 	cqrs.New,
 	sitemap_rpc.New,

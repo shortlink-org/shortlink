@@ -26,8 +26,11 @@ type CartService struct {
 	PolicyNames    []string
 }
 
+type DiscountPolicy infrastructure.PolicyEvaluator
+type TaxPolicy infrastructure.PolicyEvaluator
+
 // NewCartService creates a new CartService
-func NewCartService(discountPolicy, taxPolicy infrastructure.PolicyEvaluator, policyNames []string) *CartService {
+func NewCartService(discountPolicy DiscountPolicy, taxPolicy TaxPolicy, policyNames []string) *CartService {
 	return &CartService{
 		DiscountPolicy: discountPolicy,
 		TaxPolicy:      taxPolicy,

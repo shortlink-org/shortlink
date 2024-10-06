@@ -8,9 +8,10 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/application"
-	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/infrastructure"
+	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/di"
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/interfaces/cli"
+	"github.com/shortlink-org/shortlink/pkg/graceful_shutdown"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
 )
 
 func validateConfig() error {
@@ -38,6 +39,8 @@ func validateConfig() error {
 }
 
 func main() {
+	viper.SetDefault("SERVICE_NAME", "shop-pricer")
+
 	// Initialize Viper
 	if err := initConfig(); err != nil {
 		log.Fatalf("Error initializing config: %v", err)
@@ -48,42 +51,22 @@ func main() {
 		log.Fatalf("Configuration validation error: %v", err)
 	}
 
-	// Retrieve configuration values
-	discountPolicyPath := viper.GetString("policies.discounts")
-	discountQuery := viper.GetString("queries.discounts")
-
-	taxPolicyPath := viper.GetString("policies.taxes")
-	taxQuery := viper.GetString("queries.taxes")
-
-	discountParams := viper.GetStringMap("params.discount")
-	taxParams := viper.GetStringMap("params.tax")
+	// Init a new service
+	service, cleanup, err := di.InitializePricerService()
+	if err != nil {
+		panic(err)
+	}
+	service.Log.Info("Service initialized")
 
 	cartFiles := viper.GetStringSlice("cart_files")
 	outputDir := viper.GetString("output_dir")
 
-	// Initialize Policy Evaluators
-	discountEvaluator, err := infrastructure.NewOPAEvaluator(discountPolicyPath, discountQuery)
-	if err != nil {
-		log.Fatalf("Failed to initialize Discount Policy Evaluator: %v", err)
-	}
-
-	taxEvaluator, err := infrastructure.NewOPAEvaluator(taxPolicyPath, taxQuery)
-	if err != nil {
-		log.Fatalf("Failed to initialize Tax Policy Evaluator: %v", err)
-	}
-
-	// Retrieve policy names
-	policyNames, err := infrastructure.GetPolicyNames(discountPolicyPath, taxPolicyPath)
-	if err != nil {
-		log.Fatalf("Failed to retrieve policy names: %v", err)
-	}
-
-	// Initialize Cart Service
-	cartService := application.NewCartService(discountEvaluator, taxEvaluator, policyNames)
+	discountParams := viper.GetStringMap("params.discount")
+	taxParams := viper.GetStringMap("params.tax")
 
 	// Initialize CLI Handler
 	cliHandler := cli.CLIHandler{
-		CartService: cartService,
+		CartService: service.CartService,
 		OutputDir:   outputDir,
 	}
 
@@ -94,6 +77,24 @@ func main() {
 			log.Printf("Error processing cart %s: %v", cartFile, err)
 		}
 	}
+
+	defer func() {
+		if r := recover(); r != nil {
+			service.Log.Error(r.(string)) //nolint:forcetypeassert // simple type assertion
+		}
+	}()
+
+	// Handle SIGINT, SIGQUIT and SIGTERM.
+	signal := graceful_shutdown.GracefulShutdown()
+
+	cleanup()
+
+	service.Log.Info("Service stopped", field.Fields{
+		"signal": signal.String(),
+	})
+
+	// Exit Code 143: Graceful Termination (SIGTERM)
+	os.Exit(143) //nolint:gocritic // exit code 143 is used to indicate graceful termination
 }
 
 // initConfig initializes Viper and reads the configuration file.
