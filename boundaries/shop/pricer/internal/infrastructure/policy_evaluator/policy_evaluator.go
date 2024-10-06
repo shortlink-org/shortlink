@@ -1,4 +1,4 @@
-package infrastructure
+package policy_evaluator
 
 import (
 	"context"

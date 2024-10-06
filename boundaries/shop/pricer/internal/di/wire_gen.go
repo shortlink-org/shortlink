@@ -12,8 +12,8 @@ import (
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/application"
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/di/pkg"
-	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/infrastructure"
-	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/interfaces/cli"
+	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/infrastructure/cli"
+	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/infrastructure/policy_evaluator"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
@@ -150,7 +150,7 @@ func newDiscountPolicy(ctx2 context.Context, log logger.Logger, cfg *pkg_di.Conf
 	discountPolicyPath := viper.GetString("policies.discounts")
 	discountQuery := viper.GetString("queries.discounts")
 
-	discountEvaluator, err := infrastructure.NewOPAEvaluator(discountPolicyPath, discountQuery)
+	discountEvaluator, err := policy_evaluator.NewOPAEvaluator(discountPolicyPath, discountQuery)
 	if err != nil {
 		log.ErrorWithContext(ctx2, "Failed to initialize Discount Policy Evaluator: %v", field.Fields{"error": err})
 	}
@@ -163,7 +163,7 @@ func newTaxPolicy(ctx2 context.Context, log logger.Logger, cfg *pkg_di.Config) a
 	taxPolicyPath := viper.GetString("policies.taxes")
 	taxQuery := viper.GetString("queries.taxes")
 
-	taxEvaluator, err := infrastructure.NewOPAEvaluator(taxPolicyPath, taxQuery)
+	taxEvaluator, err := policy_evaluator.NewOPAEvaluator(taxPolicyPath, taxQuery)
 	if err != nil {
 		log.ErrorWithContext(ctx2, "Failed to initialize Tax Policy Evaluator: %v", field.Fields{"error": err})
 	}
@@ -176,7 +176,7 @@ func newPolicyNames(cfg *pkg_di.Config) ([]string, error) {
 	discountPolicyPath := viper.GetString("policies.discounts")
 	taxPolicyPath := viper.GetString("policies.taxes")
 
-	return infrastructure.GetPolicyNames(discountPolicyPath, taxPolicyPath)
+	return policy_evaluator.GetPolicyNames(discountPolicyPath, taxPolicyPath)
 }
 
 // newCLIHandler creates a new CLIHandler

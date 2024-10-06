@@ -8,30 +8,9 @@ import (
 	"github.com/shopspring/decimal"
 
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/domain"
-	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/infrastructure"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
 )
-
-// CartTotal represents the total calculation result
-type CartTotal struct {
-	TotalTax      decimal.Decimal `json:"totalTax"`
-	TotalDiscount decimal.Decimal `json:"totalDiscount"`
-	FinalPrice    decimal.Decimal `json:"finalPrice"`
-	Policies      []string        `json:"policies"`
-}
-
-// CartService orchestrates cart operations
-type CartService struct {
-	log logger.Logger
-
-	DiscountPolicy infrastructure.PolicyEvaluator
-	TaxPolicy      infrastructure.PolicyEvaluator
-	PolicyNames    []string
-}
-
-type DiscountPolicy infrastructure.PolicyEvaluator
-type TaxPolicy infrastructure.PolicyEvaluator
 
 // NewCartService creates a new CartService
 func NewCartService(log logger.Logger, discountPolicy DiscountPolicy, taxPolicy TaxPolicy, policyNames []string) *CartService {
