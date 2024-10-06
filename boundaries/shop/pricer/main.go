@@ -57,6 +57,27 @@ func LoadOPAPolicies(dir string, query string) (*rego.PreparedEvalQuery, error) 
 	return &preparedQuery, nil
 }
 
+// GetPolicyNames retrieves the names of all .rego files in the specified directories.
+func GetPolicyNames(dirs ...string) ([]string, error) {
+	var policyNames []string
+	for _, dir := range dirs {
+		// Use filepath.Glob to find all .rego files in the directory
+		pattern := filepath.Join(dir, "*.rego")
+		files, err := filepath.Glob(pattern)
+		if err != nil {
+			return nil, fmt.Errorf("failed to list .rego files in %s: %v", dir, err)
+		}
+
+		for _, file := range files {
+			// Extract the base name without the directory and extension
+			base := filepath.Base(file)
+			name := base[:len(base)-len(filepath.Ext(base))]
+			policyNames = append(policyNames, name)
+		}
+	}
+	return policyNames, nil
+}
+
 // EvaluateTaxPolicy evaluates the tax policy using OPA.
 func EvaluateTaxPolicy(cart CartItems, query *rego.PreparedEvalQuery, params map[string]interface{}) (decimal.Decimal, error) {
 	var items []map[string]interface{}
@@ -214,6 +235,12 @@ func main() {
 		log.Fatalf("Failed to load discount policies: %v", err)
 	}
 
+	// Retrieve policy names from both directories
+	policyNames, err := GetPolicyNames("policies/taxes/", "policies/discounts/")
+	if err != nil {
+		log.Fatalf("Failed to retrieve policy names: %v", err)
+	}
+
 	// Process each cart
 	for _, cartFile := range cartFiles {
 		// Load the cart from the file
@@ -247,6 +274,7 @@ func main() {
 			"totalTax":      totalTax.StringFixed(2),
 			"totalDiscount": totalDiscount.StringFixed(2),
 			"finalPrice":    finalPrice.StringFixed(2),
+			"policies":      policyNames,
 		}
 
 		// Save result to the out folder, one file per customer
