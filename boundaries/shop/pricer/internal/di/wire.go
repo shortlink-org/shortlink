@@ -9,13 +9,15 @@ Pricer DI-package
 package di
 
 import (
-	"log"
+	"context"
+	"fmt"
 
 	"github.com/google/wire"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/application"
+	pkg_di "github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/di/pkg"
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/infrastructure"
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/interfaces/cli"
 	"github.com/shortlink-org/shortlink/pkg/di"
@@ -23,6 +25,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
@@ -50,6 +53,7 @@ var PricerSet = wire.NewSet(
 	// Common
 	di.DefaultSet,
 	rpc.InitServer,
+	pkg_di.ReadConfig,
 
 	// Repository
 	newDiscountPolicy,
@@ -58,42 +62,67 @@ var PricerSet = wire.NewSet(
 
 	// Application
 	application.NewCartService,
+	newCLIHandler,
 
 	NewPricerService,
 )
 
 // newDiscountPolicy creates a new DiscountPolicy
-func newDiscountPolicy() application.DiscountPolicy {
+func newDiscountPolicy(ctx context.Context, log logger.Logger, cfg *pkg_di.Config) application.DiscountPolicy {
 	discountPolicyPath := viper.GetString("policies.discounts")
 	discountQuery := viper.GetString("queries.discounts")
 
 	discountEvaluator, err := infrastructure.NewOPAEvaluator(discountPolicyPath, discountQuery)
 	if err != nil {
-		log.Fatalf("Failed to initialize Discount Policy Evaluator: %v", err)
+		log.ErrorWithContext(ctx, "Failed to initialize Discount Policy Evaluator: %v", field.Fields{"error": err})
 	}
 
 	return discountEvaluator
 }
 
 // newTaxPolicy creates a new TaxPolicy
-func newTaxPolicy() application.TaxPolicy {
+func newTaxPolicy(ctx context.Context, log logger.Logger, cfg *pkg_di.Config) application.TaxPolicy {
 	taxPolicyPath := viper.GetString("policies.taxes")
 	taxQuery := viper.GetString("queries.taxes")
 
 	taxEvaluator, err := infrastructure.NewOPAEvaluator(taxPolicyPath, taxQuery)
 	if err != nil {
-		log.Fatalf("Failed to initialize Tax Policy Evaluator: %v", err)
+		log.ErrorWithContext(ctx, "Failed to initialize Tax Policy Evaluator: %v", field.Fields{"error": err})
 	}
 
 	return taxEvaluator
 }
 
 // newPolicyNames retrieves policy names
-func newPolicyNames() ([]string, error) {
+func newPolicyNames(cfg *pkg_di.Config) ([]string, error) {
 	discountPolicyPath := viper.GetString("policies.discounts")
 	taxPolicyPath := viper.GetString("policies.taxes")
 
 	return infrastructure.GetPolicyNames(discountPolicyPath, taxPolicyPath)
+}
+
+// newCLIHandler creates a new CLIHandler
+func newCLIHandler(ctx context.Context, log logger.Logger, cartService *application.CartService, cfg *pkg_di.Config) *cli.CLIHandler {
+	cartFiles := viper.GetStringSlice("cart_files")
+	outputDir := viper.GetString("output_dir")
+
+	discountParams := viper.GetStringMap("params.discount")
+	taxParams := viper.GetStringMap("params.tax")
+
+	cliHandler := &cli.CLIHandler{
+		CartService: cartService,
+		OutputDir:   outputDir,
+	}
+
+	// Process each cart file
+	for _, cartFile := range cartFiles {
+		fmt.Printf("Processing cart file: %s\n", cartFile)
+		if err := cliHandler.Run(cartFile, discountParams, taxParams); err != nil {
+			log.ErrorWithContext(ctx, "Error processing cart", field.Fields{"cart": cartFile, "error": err})
+		}
+	}
+
+	return cliHandler
 }
 
 func NewPricerService(
@@ -109,6 +138,9 @@ func NewPricerService(
 
 	// Application
 	cartService *application.CartService,
+
+	// CLI
+	cliHandler *cli.CLIHandler,
 ) (*PricerService, error) {
 	return &PricerService{
 		// Common
@@ -123,6 +155,9 @@ func NewPricerService(
 
 		// Application
 		CartService: cartService,
+
+		// CLI
+		CLIHandler: cliHandler,
 	}, nil
 }
 

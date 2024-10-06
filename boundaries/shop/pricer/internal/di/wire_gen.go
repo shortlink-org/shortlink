@@ -7,8 +7,11 @@
 package di
 
 import (
+	"context"
+	"fmt"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/application"
+	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/di/pkg"
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/infrastructure"
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/interfaces/cli"
 	"github.com/shortlink-org/shortlink/pkg/di"
@@ -19,11 +22,11 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/trace"
-	"log"
 )
 
 // Injectors from wire.go:
@@ -74,9 +77,7 @@ func InitializePricerService() (*PricerService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	discountPolicy := newDiscountPolicy()
-	taxPolicy := newTaxPolicy()
-	v, err := newPolicyNames()
+	pkg_diConfig, err := pkg_di.ReadConfig()
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -85,8 +86,20 @@ func InitializePricerService() (*PricerService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	cartService := application.NewCartService(discountPolicy, taxPolicy, v)
-	pricerService, err := NewPricerService(logger, configConfig, autoMaxProAutoMaxPro, monitoringMonitoring, tracerProvider, pprofEndpoint, cartService)
+	discountPolicy := newDiscountPolicy(context, logger, pkg_diConfig)
+	taxPolicy := newTaxPolicy(context, logger, pkg_diConfig)
+	v, err := newPolicyNames(pkg_diConfig)
+	if err != nil {
+		cleanup5()
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	cartService := application.NewCartService(logger, discountPolicy, taxPolicy, v)
+	cliHandler := newCLIHandler(context, logger, cartService, pkg_diConfig)
+	pricerService, err := NewPricerService(logger, configConfig, autoMaxProAutoMaxPro, monitoringMonitoring, tracerProvider, pprofEndpoint, cartService, cliHandler)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -125,55 +138,84 @@ type PricerService struct {
 }
 
 // PricerService =======================================================================================================
-var PricerSet = wire.NewSet(di.DefaultSet, rpc.InitServer, newDiscountPolicy,
+var PricerSet = wire.NewSet(di.DefaultSet, rpc.InitServer, pkg_di.ReadConfig, newDiscountPolicy,
 	newTaxPolicy,
-	newPolicyNames, application.NewCartService, NewPricerService,
+	newPolicyNames, application.NewCartService, newCLIHandler,
+
+	NewPricerService,
 )
 
 // newDiscountPolicy creates a new DiscountPolicy
-func newDiscountPolicy() application.DiscountPolicy {
+func newDiscountPolicy(ctx2 context.Context, log logger.Logger, cfg *pkg_di.Config) application.DiscountPolicy {
 	discountPolicyPath := viper.GetString("policies.discounts")
 	discountQuery := viper.GetString("queries.discounts")
 
 	discountEvaluator, err := infrastructure.NewOPAEvaluator(discountPolicyPath, discountQuery)
 	if err != nil {
-		log.Fatalf("Failed to initialize Discount Policy Evaluator: %v", err)
+		log.ErrorWithContext(ctx2, "Failed to initialize Discount Policy Evaluator: %v", field.Fields{"error": err})
 	}
 
 	return discountEvaluator
 }
 
 // newTaxPolicy creates a new TaxPolicy
-func newTaxPolicy() application.TaxPolicy {
+func newTaxPolicy(ctx2 context.Context, log logger.Logger, cfg *pkg_di.Config) application.TaxPolicy {
 	taxPolicyPath := viper.GetString("policies.taxes")
 	taxQuery := viper.GetString("queries.taxes")
 
 	taxEvaluator, err := infrastructure.NewOPAEvaluator(taxPolicyPath, taxQuery)
 	if err != nil {
-		log.Fatalf("Failed to initialize Tax Policy Evaluator: %v", err)
+		log.ErrorWithContext(ctx2, "Failed to initialize Tax Policy Evaluator: %v", field.Fields{"error": err})
 	}
 
 	return taxEvaluator
 }
 
 // newPolicyNames retrieves policy names
-func newPolicyNames() ([]string, error) {
+func newPolicyNames(cfg *pkg_di.Config) ([]string, error) {
 	discountPolicyPath := viper.GetString("policies.discounts")
 	taxPolicyPath := viper.GetString("policies.taxes")
 
 	return infrastructure.GetPolicyNames(discountPolicyPath, taxPolicyPath)
 }
 
-func NewPricerService(log2 logger.Logger, config2 *config.Config,
+// newCLIHandler creates a new CLIHandler
+func newCLIHandler(ctx2 context.Context, log logger.Logger, cartService *application.CartService, cfg *pkg_di.Config) *cli.CLIHandler {
+	cartFiles := viper.GetStringSlice("cart_files")
+	outputDir := viper.GetString("output_dir")
+
+	discountParams := viper.GetStringMap("params.discount")
+	taxParams := viper.GetStringMap("params.tax")
+
+	cliHandler := &cli.CLIHandler{
+		CartService: cartService,
+		OutputDir:   outputDir,
+	}
+
+	for _, cartFile := range cartFiles {
+		fmt.Printf("Processing cart file: %s\n", cartFile)
+		if err := cliHandler.Run(cartFile, discountParams, taxParams); err != nil {
+			log.ErrorWithContext(ctx2, "Error processing cart", field.Fields{"cart": cartFile, "error": err})
+		}
+	}
+
+	return cliHandler
+}
+
+func NewPricerService(
+
+	log logger.Logger, config2 *config.Config,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro, monitoring2 *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 
 	cartService *application.CartService,
+
+	cliHandler *cli.CLIHandler,
 ) (*PricerService, error) {
 	return &PricerService{
 
-		Log:        log2,
+		Log:        log,
 		Config:     config2,
 		AutoMaxPro: autoMaxProcsOption,
 
@@ -182,5 +224,7 @@ func NewPricerService(log2 logger.Logger, config2 *config.Config,
 		PprofEndpoint: pprofHTTP,
 
 		CartService: cartService,
+
+		CLIHandler: cliHandler,
 	}, nil
 }

@@ -15,7 +15,7 @@ type Config struct{}
 func New() (*Config, error) {
 	viper.SetConfigName(".env")
 	viper.SetConfigType("dotenv")
-	viper.AddConfigPath(".")
+	viper.AddConfigPath(".") // look for config in the working directory
 	viper.AutomaticEnv()
 
 	if err := viper.ReadInConfig(); err != nil {

@@ -9,6 +9,8 @@ import (
 
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/domain"
 	"github.com/shortlink-org/shortlink/boundaries/shop/pricer/internal/infrastructure"
+	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
 )
 
 // CartTotal represents the total calculation result
@@ -21,6 +23,8 @@ type CartTotal struct {
 
 // CartService orchestrates cart operations
 type CartService struct {
+	log logger.Logger
+
 	DiscountPolicy infrastructure.PolicyEvaluator
 	TaxPolicy      infrastructure.PolicyEvaluator
 	PolicyNames    []string
@@ -30,8 +34,10 @@ type DiscountPolicy infrastructure.PolicyEvaluator
 type TaxPolicy infrastructure.PolicyEvaluator
 
 // NewCartService creates a new CartService
-func NewCartService(discountPolicy DiscountPolicy, taxPolicy TaxPolicy, policyNames []string) *CartService {
+func NewCartService(log logger.Logger, discountPolicy DiscountPolicy, taxPolicy TaxPolicy, policyNames []string) *CartService {
 	return &CartService{
+		log: log,
+
 		DiscountPolicy: discountPolicy,
 		TaxPolicy:      taxPolicy,
 		PolicyNames:    policyNames,
@@ -43,25 +49,27 @@ func (s *CartService) CalculateTotal(ctx context.Context, cart *domain.Cart, dis
 	var total CartTotal
 
 	// Evaluate Discount Policy
-	log.Printf("Evaluating Discount Policy for CustomerID: %s", cart.CustomerID)
+	s.log.InfoWithContext(ctx, "Evaluating Discount Policy for CustomerID: %s", field.Fields{"customerID": cart.CustomerID})
 	totalDiscountFloat, err := s.DiscountPolicy.Evaluate(ctx, cart, discountParams)
 	if err != nil {
 		return total, fmt.Errorf("failed to evaluate discount policy: %w", err)
 	}
-	log.Printf("Total Discount: %.2f", totalDiscountFloat)
+
+	s.log.InfoWithContext(ctx, "Total Discount: %.2f", field.Fields{"totalDiscount": totalDiscountFloat})
 	totalDiscount := decimal.NewFromFloat(totalDiscountFloat)
 
 	// Evaluate Tax Policy
-	log.Printf("Evaluating Tax Policy for CustomerID: %s", cart.CustomerID)
+	s.log.InfoWithContext(ctx, "Evaluating Tax Policy for CustomerID: %s", field.Fields{"customerID": cart.CustomerID})
 	totalTaxFloat, err := s.TaxPolicy.Evaluate(ctx, cart, taxParams)
 	if err != nil {
 		return total, fmt.Errorf("failed to evaluate tax policy: %w", err)
 	}
-	log.Printf("Total Tax: %.2f", totalTaxFloat)
+
+	s.log.InfoWithContext(ctx, "Total Tax: %.2f", field.Fields{"totalTax": totalTaxFloat})
 	totalTax := decimal.NewFromFloat(totalTaxFloat)
 
 	// Calculate Final Price
-	log.Printf("Calculating Final Price for CustomerID: %s", cart.CustomerID)
+	s.log.InfoWithContext(ctx, "Calculating Final Price for CustomerID: %s", field.Fields{"customerID": cart.CustomerID})
 	finalPrice := decimal.Zero
 	for _, item := range cart.Items {
 		// Calculate per-item total: (Price + Tax - Discount) * Quantity
@@ -78,6 +86,7 @@ func (s *CartService) CalculateTotal(ctx context.Context, cart *domain.Cart, dis
 		Policies:      s.PolicyNames,
 	}
 
-	log.Printf("Final Price for CustomerID %s: %.2f", cart.CustomerID, finalPrice)
+	s.log.InfoWithContext(ctx, "Final Price for CustomerID %s: %.2f", field.Fields{"customerID": cart.CustomerID, "finalPrice": finalPrice})
+
 	return total, nil
 }
