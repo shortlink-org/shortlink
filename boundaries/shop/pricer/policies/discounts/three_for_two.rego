@@ -4,7 +4,8 @@ package pricing.discount
 three_for_two[item_id] = discount {
     item := input.items[_]
     item.quantity >= input.params.min_quantity_for_discount
-    discount := item.price / input.params.min_quantity_for_discount
+    sets := floor(item.quantity / input.params.min_quantity_for_discount)
+    discount := sets * item.price  # item.price is the unit price
     item_id := item.productId
 }
 
