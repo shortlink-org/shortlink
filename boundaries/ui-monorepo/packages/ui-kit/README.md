@@ -9,7 +9,7 @@
 
 ```bash
 npm install @shortlink/ui-kit # for GitLab registry
-npm i shortlink-ui-kit        # for NPM registry
+npm install shortlink-ui-kit        # for NPM registry
 ```
 
 ### Usage
