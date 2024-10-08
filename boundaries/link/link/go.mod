@@ -18,6 +18,7 @@ require (
 	github.com/prometheus/client_golang v1.20.4
 	github.com/redis/rueidis v1.0.30-0.20240224222815-152800b84f6d
 	github.com/segmentio/encoding v0.4.0
+	github.com/shortlink-org/shortlink v0.0.0-20241008163959-ec0f05cf4258
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.9.0
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
@@ -26,7 +27,7 @@ require (
 	go.uber.org/atomic v1.11.0
 	go.uber.org/goleak v1.3.0
 	google.golang.org/grpc v1.67.1
-	google.golang.org/protobuf v1.34.2
+	google.golang.org/protobuf v1.35.1
 )
 
 require (
