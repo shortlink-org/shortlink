@@ -23,7 +23,9 @@ certmanager:
   # default: http
   type: cloudflare
 
-  installCRDs: true
+  crds:
+    enabled: true
+    keep: true
 
   extraArgs:
     - --logging-format=json
