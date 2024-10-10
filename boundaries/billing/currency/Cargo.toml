@@ -11,7 +11,7 @@ opentelemetry-otlp = { version = "0.26.0", features = ["grpc-tonic"] }
 opentelemetry_sdk = { version = "0.26.0", features = ["trace", "metrics", "rt-tokio"] }
 tracing = "0.1.40"
 tracing-subscriber = { version = "0.3.18", features = ["env-filter", "fmt", "json"] }
-tracing-opentelemetry = "0.26.0"
+tracing-opentelemetry = "0.27.0"
 spandoc = "0.2.2"
 
 # gRPC with Tonic
