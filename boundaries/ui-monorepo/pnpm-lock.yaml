@@ -437,8 +437,8 @@ importers:
         specifier: ^7.13.3
         version: 7.13.3(algoliasearch@5.8.1)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)
       vite-plugin-dts:
-        specifier: 4.2.3
-        version: 4.2.3(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.8(@types/node@22.7.5)(less@4.1.3)(lightningcss@1.26.0)(sass@1.79.4)(stylus@0.59.0)(terser@5.34.1))
+        specifier: 4.2.4
+        version: 4.2.4(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.8(@types/node@22.7.5)(less@4.1.3)(lightningcss@1.26.0)(sass@1.79.4)(stylus@0.59.0)(terser@5.34.1))
       vite-plugin-lib-inject-css:
         specifier: ^2.1.1
         version: 2.1.1(vite@5.4.8(@types/node@22.7.5)(less@4.1.3)(lightningcss@1.26.0)(sass@1.79.4)(stylus@0.59.0)(terser@5.34.1))
@@ -10998,8 +10998,8 @@ packages:
   vfile@6.0.2:
     resolution: {integrity: sha512-zND7NlS8rJYb/sPqkb13ZvbbUoExdbi4w3SfRrMq6R3FvnLQmmfpajJNITuuYm6AZ5uao9vy4BAos3EXBPf2rg==}
 
-  vite-plugin-dts@4.2.3:
-    resolution: {integrity: sha512-O5NalzHANQRwVw1xj8KQun3Bv8OSDAlNJXrnqoAz10BOuW8FVvY5g4ygj+DlJZL5mtSPuMu9vd3OfrdW5d4k6w==}
+  vite-plugin-dts@4.2.4:
+    resolution: {integrity: sha512-REcYoxO90Pi8c0P1J7XAa/nVwNVGkX2eYkBEIfFSfcKE4g1W8sB0R23a7SU3aLEMfdOdb0SVHq3JlJ+Qb6gjgA==}
     engines: {node: ^14.18.0 || >=16.0.0}
     peerDependencies:
       typescript: '*'
@@ -24411,7 +24411,7 @@ snapshots:
       unist-util-stringify-position: 4.0.0
       vfile-message: 4.0.2
 
-  vite-plugin-dts@4.2.3(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.8(@types/node@22.7.5)(less@4.1.3)(lightningcss@1.26.0)(sass@1.79.4)(stylus@0.59.0)(terser@5.34.1)):
+  vite-plugin-dts@4.2.4(@types/node@22.7.5)(rollup@4.24.0)(typescript@5.6.3)(vite@5.4.8(@types/node@22.7.5)(less@4.1.3)(lightningcss@1.26.0)(sass@1.79.4)(stylus@0.59.0)(terser@5.34.1)):
     dependencies:
       '@microsoft/api-extractor': 7.47.7(@types/node@22.7.5)
       '@rollup/pluginutils': 5.1.2(rollup@4.24.0)
