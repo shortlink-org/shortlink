@@ -11,6 +11,7 @@ const config: StorybookConfig = {
     '@chromatic-com/storybook',
     '@storybook/addon-a11y',
     '@storybook/addon-coverage',
+    '@storybook/addon-jest',
   ],
   framework: '@storybook/react-vite',
   features: {},
