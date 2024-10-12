@@ -8,7 +8,12 @@ spec:
   config:
     replicas: 1
     datastoreEngine: postgres
+    image: 'ghcr.io/authzed/spicedb:v1.37.0'
   secretName: shortlink-spicedb-config
+  status:
+    version:
+      name: v1.16.1
+      channel: stable
   patches:
     - kind: Deployment
       patch:
@@ -20,7 +25,6 @@ spec:
             spec:
               containers:
                 - name: spicedb
-                  image: 'ghcr.io/authzed/spicedb:v1.37.0'
                   resources:
                     requests:
                       memory: "128Mi"
@@ -58,7 +62,6 @@ spec:
             spec:
               containers:
                 - name: migrate
-                  image: 'ghcr.io/authzed/spicedb:v1.37.0'
                   env:
                     - name: SPICEDB_DATASTORE_CONN_URI
                       valueFrom:
