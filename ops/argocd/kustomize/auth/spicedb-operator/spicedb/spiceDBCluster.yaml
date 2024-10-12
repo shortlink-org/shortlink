@@ -10,10 +10,6 @@ spec:
     datastoreEngine: postgres
     image: 'ghcr.io/authzed/spicedb:v1.37.0'
   secretName: shortlink-spicedb-config
-  status:
-    version:
-      name: v1.16.1
-      channel: stable
   patches:
     - kind: Deployment
       patch:
