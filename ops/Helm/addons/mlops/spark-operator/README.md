@@ -22,7 +22,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubeflow.github.io/spark-operator | spark-operator | 2.0.1 |
+| https://kubeflow.github.io/spark-operator | spark-operator | 2.0.2 |
 
 ## Values
 

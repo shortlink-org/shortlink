@@ -14,7 +14,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://kubernetes-sigs.github.io/metrics-server | metrics-server | 3.12.1 |
+| https://kubernetes-sigs.github.io/metrics-server | metrics-server | 3.12.2 |
 
 ## Values
 

@@ -14,7 +14,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://helm-chart.oneuptime.com/ | oneuptime | 7.0.3148 |
+| https://helm-chart.oneuptime.com/ | oneuptime | 7.0.3163 |
 
 ## Values
 
