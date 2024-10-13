@@ -21,6 +21,9 @@ odd-platform:
 
     hosts:
       - host: odd.shortlink.best
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
 
     tls:
       - secretName: odd-ingress-tls
