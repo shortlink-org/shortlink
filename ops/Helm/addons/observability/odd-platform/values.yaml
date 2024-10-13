@@ -2,15 +2,15 @@ odd-platform:
   enabled: true
 
   config:
-    yaml:
-      spring:
-        datasource:
-          username: odd-platform
-          password: odd-platform
-          url: jdbc:postgresql://odd-platform-postgresql:5432/odd-platform
-#    env:
-#      - name: OTEL_INSTRUMENTATION_COMMON_DB_STATEMENT_SANITIZER_ENABLED
-#        value: "true"
+    env:
+      - name: OTEL_INSTRUMENTATION_COMMON_DB_STATEMENT_SANITIZER_ENABLED
+        value: "true"
+      - name: SPRING_DATASOURCE_URL
+        value: jdbc:postgresql://odd-platform-postgresql:5432/odd-platform
+      - name: SPRING_DATASOURCE_USERNAME
+        value: odd-platform
+      - name: SPRING_DATASOURCE_PASSWORD
+        value: odd-platform
 
   ingress:
     enabled: true
