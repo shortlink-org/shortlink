@@ -4,8 +4,10 @@ postgresql:
   global:
     postgresql:
       auth:
-        postgresPassword:
-        database: "odd-platform"
+        postgresPassword: odd-platform
+        username: odd-platform
+        password: odd-platform
+        database: odd-platform
     loadBalancerSourceRanges: ""
     platformServiceType: ""
 
