@@ -1,7 +1,11 @@
 odd-platform:
   enabled: true
 
-#  config:
+  config:
+    yaml:
+      spring:
+        datasource:
+          username: postgres
 #    env:
 #      - name: OTEL_INSTRUMENTATION_COMMON_DB_STATEMENT_SANITIZER_ENABLED
 #        value: "true"

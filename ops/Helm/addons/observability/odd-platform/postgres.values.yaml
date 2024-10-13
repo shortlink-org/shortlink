@@ -1,0 +1,14 @@
+postgresql:
+  enabled: true
+
+  global:
+    postgresql:
+      auth:
+        postgresPassword:
+        database: "odd-platform"
+    loadBalancerSourceRanges: ""
+    platformServiceType: ""
+
+  primary:
+    persistence:
+      enabled: false

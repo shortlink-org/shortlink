@@ -22,6 +22,7 @@ spec:
       releaseName: odd-platform
       valueFiles:
         - values.yaml
+        - postgres.values.yaml
   syncPolicy:
     automated:
       prune: true
