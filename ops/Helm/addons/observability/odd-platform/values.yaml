@@ -1,0 +1,32 @@
+odd-platform:
+  enabled: true
+
+  config:
+    env:
+      - name: OTEL_INSTRUMENTATION_COMMON_DB_STATEMENT_SANITIZER_ENABLED
+        value: "true"
+
+  ingress:
+    enabled: true
+    className: nginx
+
+    annotations:
+      cert-manager.io/cluster-issuer: cert-manager-production
+      nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
+      nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
+
+    hosts:
+      - host: odd.shortlink.best
+
+    tls:
+      - secretName: odd-ingress-tls
+        hosts:
+          - odd.shortlink.best
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
