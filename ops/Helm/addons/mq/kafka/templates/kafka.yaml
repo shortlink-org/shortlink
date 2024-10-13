@@ -46,7 +46,7 @@ spec:
       transaction.state.log.min.isr: 2
       default.replication.factor: 3
       min.insync.replicas: 2
-      inter.broker.protocol.version: "3.7"
+      inter.broker.protocol.version: "3.8"
     storage:
       type: ephemeral
     resources:
@@ -56,12 +56,12 @@ spec:
       limits:
         memory: 2Gi
         cpu: 1000m
-    # metricsConfig:
-    #  type: jmxPrometheusExporter
-    #  valueFrom:
-    #    configMapKeyRef:
-    #      name: kafka-metrics
-    #      key: kafka-metrics-config.yml
+    metricsConfig:
+      type: jmxPrometheusExporter
+      valueFrom:
+        configMapKeyRef:
+          name: connect-metrics
+          key: metrics-config.yml
   entityOperator:
     topicOperator: {}
     userOperator: {}
