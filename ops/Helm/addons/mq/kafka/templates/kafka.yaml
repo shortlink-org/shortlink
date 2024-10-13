@@ -56,12 +56,12 @@ spec:
       limits:
         memory: 2Gi
         cpu: 1000m
-    metricsConfig:
-      type: jmxPrometheusExporter
-      valueFrom:
-        configMapKeyRef:
-          name: connect-metrics
-          key: metrics-config.yml
+    # metricsConfig:
+    #   type: jmxPrometheusExporter
+    #   valueFrom:
+    #     configMapKeyRef:
+    #       name: connect-metrics
+    #       key: metrics-config.yml
   entityOperator:
     topicOperator: {}
     userOperator: {}
