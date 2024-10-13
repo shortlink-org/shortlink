@@ -346,8 +346,8 @@ importers:
         specifier: ^9.1.2
         version: 9.1.2(@types/react@18.3.11)(react@19.0.0-rc-fb9a90fa48-20240614)(redux@5.0.1)
       react-toastify:
-        specifier: ^10.0.5
-        version: 10.0.5(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
+        specifier: ^10.0.6
+        version: 10.0.6(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
       redux:
         specifier: ^5.0.1
         version: 5.0.1
@@ -9887,8 +9887,8 @@ packages:
       redux:
         optional: true
 
-  react-toastify@10.0.5:
-    resolution: {integrity: sha512-mNKt2jBXJg4O7pSdbNUfDdTsK9FIdikfsIE/yUCxbAEXl4HMyJaivrVFcn3Elvt5xvCQYhUZm+hqTIu1UXM3Pw==}
+  react-toastify@10.0.6:
+    resolution: {integrity: sha512-yYjp+omCDf9lhZcrZHKbSq7YMuK0zcYkDFTzfRFgTXkTFHZ1ToxwAonzA4JI5CxA91JpjFLmwEsZEgfYfOqI1A==}
     peerDependencies:
       react: '>=18'
       react-dom: '>=18'
@@ -23055,7 +23055,7 @@ snapshots:
       '@types/react': 18.3.11
       redux: 5.0.1
 
-  react-toastify@10.0.5(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614):
+  react-toastify@10.0.6(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614):
     dependencies:
       clsx: 2.1.1
       react: 19.0.0-rc-fb9a90fa48-20240614
