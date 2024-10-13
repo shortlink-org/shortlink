@@ -36,7 +36,7 @@ verify_image:
     FF_SCRIPT_SECTIONS: "true" # Enables GitLab's CI script sections for better multi-line script output
     IMAGE_TAG: $REGISTRY_IMAGE:$CI_COMMIT_TAG
   before_script:
-    - apk add --update cosign docker
+    - apk add --update cosign docker jq
     - docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" $CI_REGISTRY
   needs:
     - build
