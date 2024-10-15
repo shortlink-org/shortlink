@@ -154,8 +154,8 @@ importers:
         specifier: 0.80.12
         version: 0.80.12
       metro-resolver:
-        specifier: ^0.80.12
-        version: 0.80.12
+        specifier: ^0.81.0
+        version: 0.81.0
       nx:
         specifier: 20.0.0
         version: 20.0.0
@@ -5593,6 +5593,10 @@ packages:
   metro-resolver@0.80.12:
     resolution: {integrity: sha512-PR24gYRZnYHM3xT9pg6BdbrGbM/Cu1TcyIFBVlAk7qDAuHkUNQ1nMzWumWs+kwSvtd9eZGzHoucGJpTUEeLZAw==}
     engines: {node: '>=18'}
+
+  metro-resolver@0.81.0:
+    resolution: {integrity: sha512-Uu2Q+buHhm571cEwpPek8egMbdSTqmwT/5U7ZVNpK6Z2ElQBBCxd7HmFAslKXa7wgpTO2FAn6MqGeERbAtVDUA==}
+    engines: {node: '>=18.18'}
 
   metro-runtime@0.80.12:
     resolution: {integrity: sha512-LIx7+92p5rpI0i6iB4S4GBvvLxStNt6fF0oPMaUd1Weku7jZdfkCZzmrtDD9CSQ6EPb0T9NUZoyXIxlBa3wOCw==}
@@ -15978,6 +15982,10 @@ snapshots:
       terser: 5.28.1
 
   metro-resolver@0.80.12:
+    dependencies:
+      flow-enums-runtime: 0.0.6
+
+  metro-resolver@0.81.0:
     dependencies:
       flow-enums-runtime: 0.0.6
 
