@@ -3270,22 +3270,22 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-todo@npm:^0.2.40":
-  version: 0.2.40
-  resolution: "@backstage-community/plugin-todo@npm:0.2.40"
+"@backstage-community/plugin-todo@npm:^0.2.42":
+  version: 0.2.42
+  resolution: "@backstage-community/plugin-todo@npm:0.2.42"
   dependencies:
-    "@backstage/catalog-model": "npm:^1.5.0"
-    "@backstage/core-components": "npm:^0.14.9"
-    "@backstage/core-plugin-api": "npm:^1.9.3"
+    "@backstage/catalog-model": "npm:^1.7.0"
+    "@backstage/core-components": "npm:^0.15.1"
+    "@backstage/core-plugin-api": "npm:^1.10.0"
     "@backstage/errors": "npm:^1.2.4"
-    "@backstage/plugin-catalog-react": "npm:^1.12.2"
+    "@backstage/plugin-catalog-react": "npm:^1.14.0"
     "@material-ui/icons": "npm:^4.9.1"
     "@types/react": "npm:^16.13.1 || ^17.0.0"
   peerDependencies:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
-  checksum: 10c0/f149dfedf636e25e9dfde5921baac4f8a9de3e60beef38ad04bd677b4627d138b438f1545ade2ad5a85132c73f4b672895cdff5d986f5efa2a30224bfdcf3256
+  checksum: 10c0/06540c6605ddf9245c88d37f60eb4a93655807a6f306f7a66218dd0de5247ae20c071d824e375c8e94c5658e3500accbe0a13a0b15ba28546e39d8809f286933
   languageName: node
   linkType: hard
 
@@ -4413,7 +4413,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/core-components@npm:^0.14.10, @backstage/core-components@npm:^0.14.9":
+"@backstage/core-components@npm:^0.14.10":
   version: 0.14.10
   resolution: "@backstage/core-components@npm:0.14.10"
   dependencies:
@@ -5647,7 +5647,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-catalog-react@npm:^1.12.2, @backstage/plugin-catalog-react@npm:^1.12.3":
+"@backstage/plugin-catalog-react@npm:^1.12.3":
   version: 1.12.3
   resolution: "@backstage/plugin-catalog-react@npm:1.12.3"
   dependencies:
@@ -15903,7 +15903,7 @@ __metadata:
     "@backstage-community/plugin-github-actions": "npm:^0.6.22"
     "@backstage-community/plugin-lighthouse": "npm:^0.4.23"
     "@backstage-community/plugin-tech-radar": "npm:^0.7.10"
-    "@backstage-community/plugin-todo": "npm:^0.2.40"
+    "@backstage-community/plugin-todo": "npm:^0.2.42"
     "@backstage/app-defaults": "npm:^1.5.12"
     "@backstage/catalog-model": "npm:^1.7.0"
     "@backstage/cli": "npm:^0.28.0"
