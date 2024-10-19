@@ -3196,24 +3196,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-lighthouse-common@npm:^0.1.9":
-  version: 0.1.9
-  resolution: "@backstage-community/plugin-lighthouse-common@npm:0.1.9"
+"@backstage-community/plugin-lighthouse-common@npm:^0.1.10":
+  version: 0.1.10
+  resolution: "@backstage-community/plugin-lighthouse-common@npm:0.1.10"
   dependencies:
     "@backstage/config": "npm:^1.2.0"
-  checksum: 10c0/40d2fe01139b862d6668729d6456fab1ce958eec07926b78598de1ab8efd2d3bcb0c64ae2f70be6905ae596be1bb37124f096de2d6dcd825c073112c81ed03cd
+  checksum: 10c0/c6f7e872d990861d78f099f1220495d902933a15451352161af7f48b2f88fd9827988fac41e63e68bb46b48341a5aad5ab430dd348806354114888f0f51e8c7b
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-lighthouse@npm:^0.4.23":
-  version: 0.4.23
-  resolution: "@backstage-community/plugin-lighthouse@npm:0.4.23"
+"@backstage-community/plugin-lighthouse@npm:^0.4.24":
+  version: 0.4.24
+  resolution: "@backstage-community/plugin-lighthouse@npm:0.4.24"
   dependencies:
-    "@backstage-community/plugin-lighthouse-common": "npm:^0.1.9"
+    "@backstage-community/plugin-lighthouse-common": "npm:^0.1.10"
     "@backstage/catalog-model": "npm:^1.7.0"
-    "@backstage/core-components": "npm:^0.15.0"
-    "@backstage/core-plugin-api": "npm:^1.9.4"
-    "@backstage/plugin-catalog-react": "npm:^1.13.0"
+    "@backstage/core-components": "npm:^0.15.1"
+    "@backstage/core-plugin-api": "npm:^1.10.0"
+    "@backstage/plugin-catalog-react": "npm:^1.14.0"
     "@material-ui/core": "npm:^4.12.2"
     "@material-ui/icons": "npm:^4.9.1"
     "@material-ui/lab": "npm:4.0.0-alpha.61"
@@ -3223,7 +3223,7 @@ __metadata:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
-  checksum: 10c0/ce7004ddf3b78c9aa4b862ad5c7204d5a57d304ed4c35a90f52a24bc0737a6c2a611a55878d97e4aeb9b263da1d0face8253771c967549b1ea279eb55bb38ea1
+  checksum: 10c0/777fa708c82312c9d41e0ee95c00295de42a5632c7c8a0a5320c4be3a2a247f02f3a225e2cfdb0fc515476e889ac9a177dc3f5250797cff9e7d9bd54510d8d4e
   languageName: node
   linkType: hard
 
@@ -15859,7 +15859,7 @@ __metadata:
     "@axis-backstage/plugin-readme-backend": "npm:^0.10.0"
     "@backstage-community/plugin-adr": "npm:^0.6.27"
     "@backstage-community/plugin-github-actions": "npm:^0.6.22"
-    "@backstage-community/plugin-lighthouse": "npm:^0.4.23"
+    "@backstage-community/plugin-lighthouse": "npm:^0.4.24"
     "@backstage-community/plugin-tech-radar": "npm:^0.7.10"
     "@backstage-community/plugin-todo": "npm:^0.2.40"
     "@backstage/app-defaults": "npm:^1.5.12"
