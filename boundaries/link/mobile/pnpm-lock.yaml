@@ -118,8 +118,8 @@ importers:
         specifier: ^20.27.3
         version: 20.27.3(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@20.16.13)(ts-node@10.9.2(@types/node@20.16.13)(typescript@5.6.3)))
       eas-cli:
-        specifier: ^12.5.2
-        version: 12.5.2(@types/node@20.16.13)(expo-modules-autolinking@1.11.3)(typescript@5.6.3)
+        specifier: ^12.5.4
+        version: 12.5.4(@types/node@20.16.13)(expo-modules-autolinking@1.11.3)(typescript@5.6.3)
       eslint:
         specifier: ^9.12.0
         version: 9.12.0
@@ -1132,8 +1132,8 @@ packages:
     resolution: {integrity: sha512-vH9PiIMMwvhCx31Af3HiGzsVNULDbyVkHXwlemn/B0TFj/00ho3y55efXrUZTfQipxoHC5u4xq6zblww1zm1Ig==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@expo/apple-utils@1.8.0':
-    resolution: {integrity: sha512-JKGfPCCGko7GtLcvCj9VeyrSJGimgWsBJnR4G10kGY9sUQo3ykEgVrUBUaG2HJrCLzbeDUExmsbuZRWqJha77g==}
+  '@expo/apple-utils@2.0.2':
+    resolution: {integrity: sha512-KIfzTYgk81YeXCwPVfR2lWdMZBMS2gUt5BXXV1sgDl7BbmjPlRbixL7kaieegwimPmXG2y3+Tth2lqWjuip3oQ==}
     hasBin: true
 
   '@expo/bunyan@4.0.0':
@@ -3754,8 +3754,8 @@ packages:
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
 
-  eas-cli@12.5.2:
-    resolution: {integrity: sha512-tdpOUPzVkNXyGmf0TebkcTir9KcHH0ZL3gIQizwXm3hYGG6r2hnxltudVAv+mpbBQp08Z7uHhESwx+oeD9bu0w==}
+  eas-cli@12.5.4:
+    resolution: {integrity: sha512-q0eW5TiGkmhZhVSvjAeA8AJEhUD2G0qYleaibITGsJNn9UQfEMXRjpdMmOZGyEKiNNtSVBbHwlg6I3S/NDG7Mw==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -8380,7 +8380,7 @@ snapshots:
 
   '@babel/code-frame@7.23.5':
     dependencies:
-      '@babel/highlight': 7.24.7
+      '@babel/highlight': 7.25.7
       chalk: 2.4.2
 
   '@babel/code-frame@7.24.7':
@@ -9540,7 +9540,7 @@ snapshots:
     dependencies:
       levn: 0.4.1
 
-  '@expo/apple-utils@1.8.0': {}
+  '@expo/apple-utils@2.0.2': {}
 
   '@expo/bunyan@4.0.0':
     dependencies:
@@ -13775,13 +13775,12 @@ snapshots:
 
   duplexer@0.1.2: {}
 
-  eas-cli@12.5.2(@types/node@20.16.13)(expo-modules-autolinking@1.11.3)(typescript@5.6.3):
+  eas-cli@12.5.4(@types/node@20.16.13)(expo-modules-autolinking@1.11.3)(typescript@5.6.3):
     dependencies:
-      '@expo/apple-utils': 1.8.0
+      '@expo/apple-utils': 2.0.2
       '@expo/code-signing-certificates': 0.0.5
       '@expo/config': 8.5.4
       '@expo/config-plugins': 7.8.4
-      '@expo/config-types': 50.0.0
       '@expo/eas-build-job': 1.0.136
       '@expo/eas-json': 12.5.2
       '@expo/env': 0.3.0
