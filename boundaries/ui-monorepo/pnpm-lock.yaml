@@ -259,8 +259,8 @@ importers:
         version: 5.6.3
     devDependencies:
       '@mdx-js/loader':
-        specifier: 3.0.1
-        version: 3.0.1(webpack@5.95.0(@swc/core@1.7.36(@swc/helpers@0.5.13)))
+        specifier: 3.1.0
+        version: 3.1.0(webpack@5.95.0(@swc/core@1.7.36(@swc/helpers@0.5.13)))
       '@types/node':
         specifier: ^20.16.13
         version: 20.16.13
@@ -359,8 +359,8 @@ importers:
         version: 10.0.0
     devDependencies:
       '@mdx-js/loader':
-        specifier: 3.0.1
-        version: 3.0.1(webpack@5.95.0(@swc/core@1.7.36(@swc/helpers@0.5.13)))
+        specifier: 3.1.0
+        version: 3.1.0(webpack@5.95.0(@swc/core@1.7.36(@swc/helpers@0.5.13)))
       '@redux-devtools/extension':
         specifier: ^3.3.0
         version: 3.3.0(redux@5.0.1)
@@ -2920,10 +2920,13 @@ packages:
       react: ^17.0.2 || ^18.0.0
       react-dom: ^17.0.2 || ^18.0.0
 
-  '@mdx-js/loader@3.0.1':
-    resolution: {integrity: sha512-YbYUt7YyEOdFxhyuCWmLKf5vKhID/hJAojEUnheJk4D8iYVLFQw+BAoBWru/dHGch1omtmZOPstsmKPyBF68Tw==}
+  '@mdx-js/loader@3.1.0':
+    resolution: {integrity: sha512-xU/lwKdOyfXtQGqn3VnJjlDrmKXEvMi1mgYxVmukEUtVycIz1nh7oQ40bKTd4cA7rLStqu0740pnhGYxGoqsCg==}
     peerDependencies:
       webpack: '>=5'
+    peerDependenciesMeta:
+      webpack:
+        optional: true
 
   '@mdx-js/mdx@3.0.1':
     resolution: {integrity: sha512-eIQ4QTrOWyL3LWEe/bu6Taqzq2HQvHcyTMaOrI95P2/LmJE7AsfPfgJGuFLPVqBUE1BC1rik3VIhU+s9u72arA==}
@@ -5032,9 +5035,6 @@ packages:
 
   '@types/unist@2.0.11':
     resolution: {integrity: sha512-CmBKiL6NNo/OqgmMn95Fk9Whlp2mtvIv+KNpQKN2F4SjvrEesubTRWGYSg+BnWZOnlCaSTU1sMpsBOzgbYhnsA==}
-
-  '@types/unist@3.0.2':
-    resolution: {integrity: sha512-dqId9J8K/vGi5Zr7oo212BGii5m3q5Hxlkwy3WpYuKPklmBEvsbMYYyLxAQpSffdLl/gdW0XUpKWFvYmyoWCoQ==}
 
   '@types/unist@3.0.3':
     resolution: {integrity: sha512-ko/gIFJRv177XgZsZcBwnqJN5x/Gien8qNOn0D5bQU/zAzVf9Zt3BlcUiLqhV9y4ARk0GbT3tnUiPNgnTXzc/Q==}
@@ -14424,10 +14424,11 @@ snapshots:
       react: 19.0.0-rc-fb9a90fa48-20240614
       react-dom: 19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614)
 
-  '@mdx-js/loader@3.0.1(webpack@5.95.0(@swc/core@1.7.36(@swc/helpers@0.5.13)))':
+  '@mdx-js/loader@3.1.0(webpack@5.95.0(@swc/core@1.7.36(@swc/helpers@0.5.13)))':
     dependencies:
       '@mdx-js/mdx': 3.0.1
       source-map: 0.7.4
+    optionalDependencies:
       webpack: 5.95.0(@swc/core@1.7.36(@swc/helpers@0.5.13))
     transitivePeerDependencies:
       - supports-color
@@ -17381,8 +17382,6 @@ snapshots:
 
   '@types/unist@2.0.11': {}
 
-  '@types/unist@3.0.2': {}
-
   '@types/unist@3.0.3': {}
 
   '@types/use-sync-external-store@0.0.3': {}
@@ -20238,7 +20237,7 @@ snapshots:
     dependencies:
       '@types/estree': 1.0.6
       '@types/hast': 3.0.4
-      '@types/unist': 3.0.2
+      '@types/unist': 3.0.3
       comma-separated-tokens: 2.0.3
       devlop: 1.1.0
       estree-util-is-identifier-name: 3.0.0
@@ -24573,7 +24572,7 @@ snapshots:
 
   unified@11.0.5:
     dependencies:
-      '@types/unist': 3.0.2
+      '@types/unist': 3.0.3
       bail: 2.0.2
       devlop: 1.1.0
       extend: 3.0.2
@@ -24595,7 +24594,7 @@ snapshots:
 
   unist-util-position-from-estree@2.0.0:
     dependencies:
-      '@types/unist': 3.0.2
+      '@types/unist': 3.0.3
 
   unist-util-position@5.0.0:
     dependencies:
@@ -24608,7 +24607,7 @@ snapshots:
 
   unist-util-stringify-position@4.0.0:
     dependencies:
-      '@types/unist': 3.0.2
+      '@types/unist': 3.0.3
 
   unist-util-visit-parents@6.0.1:
     dependencies:
@@ -24716,12 +24715,12 @@ snapshots:
 
   vfile-message@4.0.2:
     dependencies:
-      '@types/unist': 3.0.2
+      '@types/unist': 3.0.3
       unist-util-stringify-position: 4.0.0
 
   vfile@6.0.2:
     dependencies:
-      '@types/unist': 3.0.2
+      '@types/unist': 3.0.3
       unist-util-stringify-position: 4.0.0
       vfile-message: 4.0.2
 
