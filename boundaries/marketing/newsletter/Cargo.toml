@@ -15,7 +15,7 @@ futures = { version = "0.3.31", default-features = true, features = ["async-awai
 hyper = { version = "0.14.31", features = ["full"] }
 tokio = { version = "1.40.0", features = ["full", "macros", "rt-multi-thread"] }
 serde = {version = "1.0.210", features = ["derive"] }
-serde_json = "1.0.128"
+serde_json = "1.0.132"
 serde_derive = "1.0.210"
 route-recognizer = "0.3.1"
 bytes = "1.7.2"
