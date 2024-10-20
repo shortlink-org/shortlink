@@ -14,7 +14,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | alloy | 0.9.1 |
+| https://grafana.github.io/helm-charts | alloy | 0.9.2 |
 
 ## Values
 
