@@ -876,7 +876,7 @@ string
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"v2.13.0-rc3"
+"v2.13.0-rc5"
 </pre>
 </div>
 			</td>
