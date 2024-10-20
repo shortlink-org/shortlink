@@ -29,7 +29,7 @@ graph TD;
 
 ```yaml
 # Base stage: Install dependencies only when needed
-FROM --platform=$BUILDPLATFORM node:22.6.0-alpine AS development-builder
+FROM --platform=$BUILDPLATFORM node:23.0.0-alpine AS development-builder
 
 # Development build stage: Copy over only necessary files for production
 FROM --platform=$BUILDPLATFORM development-builder AS cache
