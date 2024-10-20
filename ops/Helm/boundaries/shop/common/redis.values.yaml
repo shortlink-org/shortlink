@@ -4,6 +4,9 @@ redis:
   master:
     kind: Deployment
 
+    pdb:
+      create: false
+
     persistence:
       enabled: false
       storageClass: local-path
@@ -39,6 +42,9 @@ redis:
 
   replica:
     replicaCount: 0
+
+    pdb:
+      create: false
 
     resources:
       limits:
