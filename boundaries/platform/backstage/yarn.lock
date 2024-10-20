@@ -3168,18 +3168,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-github-actions@npm:^0.6.22":
-  version: 0.6.22
-  resolution: "@backstage-community/plugin-github-actions@npm:0.6.22"
+"@backstage-community/plugin-github-actions@npm:^0.6.23":
+  version: 0.6.23
+  resolution: "@backstage-community/plugin-github-actions@npm:0.6.23"
   dependencies:
-    "@backstage/catalog-model": "npm:^1.6.0"
-    "@backstage/core-compat-api": "npm:^0.2.8"
-    "@backstage/core-components": "npm:^0.14.10"
-    "@backstage/core-plugin-api": "npm:^1.9.3"
-    "@backstage/frontend-plugin-api": "npm:^0.7.0"
-    "@backstage/integration": "npm:^1.14.0"
-    "@backstage/integration-react": "npm:^1.1.30"
-    "@backstage/plugin-catalog-react": "npm:^1.12.3"
+    "@backstage/catalog-model": "npm:^1.7.0"
+    "@backstage/core-compat-api": "npm:^0.3.1"
+    "@backstage/core-components": "npm:^0.15.1"
+    "@backstage/core-plugin-api": "npm:^1.10.0"
+    "@backstage/frontend-plugin-api": "npm:^0.9.0"
+    "@backstage/integration": "npm:^1.15.1"
+    "@backstage/integration-react": "npm:^1.2.0"
+    "@backstage/plugin-catalog-react": "npm:^1.14.0"
     "@material-ui/core": "npm:^4.12.2"
     "@material-ui/icons": "npm:^4.9.1"
     "@material-ui/lab": "npm:4.0.0-alpha.61"
@@ -3192,7 +3192,7 @@ __metadata:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
-  checksum: 10c0/b62c4d58c66709896d48f63757d048d647c4c0510d1451d5a4a2393dd70ce34b084565a61be43ebc96e214c15577968d2a57498284641b4e593f4d2f0ab50ebd
+  checksum: 10c0/3d42dbd686718b84c022753a254b86d6ac8aed8cb7a35126c43466ae359bfaf48635342d4e8e82793a321142f642bf560aef15eed1e187b91a9dd37888a00848
   languageName: node
   linkType: hard
 
@@ -3946,7 +3946,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/catalog-model@npm:^1.5.0, @backstage/catalog-model@npm:^1.6.0":
+"@backstage/catalog-model@npm:^1.6.0":
   version: 1.6.0
   resolution: "@backstage/catalog-model@npm:1.6.0"
   dependencies:
@@ -15703,7 +15703,7 @@ __metadata:
     "@axis-backstage/plugin-readme": "npm:^0.12.0"
     "@axis-backstage/plugin-readme-backend": "npm:^0.10.0"
     "@backstage-community/plugin-adr": "npm:^0.6.27"
-    "@backstage-community/plugin-github-actions": "npm:^0.6.22"
+    "@backstage-community/plugin-github-actions": "npm:^0.6.23"
     "@backstage-community/plugin-lighthouse": "npm:^0.4.24"
     "@backstage-community/plugin-tech-radar": "npm:^0.7.10"
     "@backstage-community/plugin-todo": "npm:^0.2.42"
