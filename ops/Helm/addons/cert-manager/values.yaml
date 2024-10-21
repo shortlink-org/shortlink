@@ -6,6 +6,10 @@ email: mymail@gmail.com
 
 annotations: {}
 
+# type: http, cloudflare
+# default: http
+type: cloudflare
+
 certmanager:
   enabled: true
 
@@ -18,10 +22,6 @@ certmanager:
       memory: 128Mi
 
   featureGates: "ExperimentalGatewayAPISupport=true"
-
-  # type: http, cloudflare
-  # default: http
-  type: cloudflare
 
   crds:
     enabled: true
