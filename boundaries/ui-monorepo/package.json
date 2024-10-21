@@ -2,6 +2,10 @@
   "name": "shortlink",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "node": ">=23.0.0",
+    "pnpm": ">=9.12.2"
+  },
   "scripts": {
     "build": "NX_BATCH_MODE=true pnpm dlx nx run-many -t build --all --parallel",
     "build-storybook": "NX_BATCH_MODE=true pnpm dlx nx run-many -t build-storybook --all --parallel",
@@ -15,7 +19,7 @@
   "devDependencies": {
     "@mui/material-nextjs": "6.1.4",
     "@mui/system": "6.1.4",
-    "@next/eslint-plugin-next": "14.2.15",
+    "@next/eslint-plugin-next": "15.0.0",
     "@nx/devkit": "20.0.3",
     "@nx/eslint-plugin": "20.0.3",
     "@nx/next": "20.0.3",
@@ -58,7 +62,7 @@
     "@mui/styled-engine-sc": "6.1.4",
     "@mui/types": "^7.2.18",
     "@mui/x-date-pickers": "^7.21.0",
-    "@next/env": "14.3.0-canary.87",
+    "@next/env": "15.0.0",
     "@stylistic/eslint-plugin-js": "^2.9.0",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/container-queries": "^0.1.1",
