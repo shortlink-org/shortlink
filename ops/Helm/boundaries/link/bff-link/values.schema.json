@@ -1,5 +1,7 @@
 {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": true,
+    "description": "Schema for Helm values",
     "properties": {
         "deploy": {
             "properties": {
@@ -325,5 +327,6 @@
             "type": "object"
         }
     },
+    "title": "Helm Values Schema",
     "type": "object"
 }
