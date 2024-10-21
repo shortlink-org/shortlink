@@ -1,0 +1,304 @@
+{
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "additionalProperties": true,
+    "description": "Schema for Helm values",
+    "properties": {
+        "deploy": {
+            "properties": {
+                "env": {
+                    "properties": {
+                        "GRPC_CLIENT_HOST": {
+                            "type": "string"
+                        },
+                        "MQ_ENABLED": {
+                            "type": "boolean"
+                        },
+                        "MQ_KAFKA_SARAMA_VERSION": {
+                            "type": "string"
+                        },
+                        "MQ_KAFKA_URI": {
+                            "type": "string"
+                        },
+                        "MQ_TYPE": {
+                            "type": "string"
+                        },
+                        "SPICE_DB_API": {
+                            "type": "string"
+                        },
+                        "STORE_REDIS_URI": {
+                            "type": "string"
+                        },
+                        "STORE_TYPE": {
+                            "type": "string"
+                        },
+                        "TRACER_URI": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "envSecret": {
+                    "items": {
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "secretKeyRef": {
+                                "properties": {
+                                    "key": {
+                                        "type": "string"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "image": {
+                    "properties": {
+                        "repository": {
+                            "type": "string"
+                        },
+                        "tag": {
+                            "type": "string"
+                        }
+                    },
+                    "type": "object"
+                },
+                "livenessProbe": {
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "httpGet": {
+                            "properties": {
+                                "path": {
+                                    "type": "string"
+                                },
+                                "port": {
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "readinessProbe": {
+                    "properties": {
+                        "enabled": {
+                            "type": "boolean"
+                        },
+                        "httpGet": {
+                            "properties": {
+                                "path": {
+                                    "type": "string"
+                                },
+                                "port": {
+                                    "type": "integer"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "resources": {
+                    "properties": {
+                        "limits": {
+                            "properties": {
+                                "cpu": {
+                                    "type": "string"
+                                },
+                                "memory": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        },
+                        "requests": {
+                            "properties": {
+                                "cpu": {
+                                    "type": "string"
+                                },
+                                "memory": {
+                                    "type": "string"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                },
+                "type": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "ingress": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "ingressClassName": {
+                    "type": "string"
+                },
+                "istio": {
+                    "properties": {
+                        "match": {
+                            "items": {
+                                "properties": {
+                                    "uri": {
+                                        "properties": {
+                                            "prefix": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "type": "array"
+                        },
+                        "route": {
+                            "properties": {
+                                "destination": {
+                                    "properties": {
+                                        "port": {
+                                            "type": "integer"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "type": "object"
+                        }
+                    },
+                    "type": "object"
+                }
+            },
+            "type": "object"
+        },
+        "monitoring": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "networkPolicy": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "ingress": {
+                    "items": {
+                        "properties": {
+                            "from": {
+                                "items": {
+                                    "properties": {
+                                        "namespaceSelector": {
+                                            "properties": {
+                                                "matchLabels": {
+                                                    "properties": {
+                                                        "kubernetes.io/metadata.name": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "type": "object"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "type": "array"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "policyTypes": {
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": "array"
+                }
+            },
+            "type": "object"
+        },
+        "podDisruptionBudget": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        },
+        "secret": {
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "grpcIntermediateCA": {
+                    "type": "string"
+                },
+                "grpcServerCert": {
+                    "type": "string"
+                },
+                "grpcServerKey": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "service": {
+            "properties": {
+                "ports": {
+                    "items": {
+                        "properties": {
+                            "name": {
+                                "type": "string"
+                            },
+                            "port": {
+                                "type": "integer"
+                            },
+                            "protocol": {
+                                "type": "string"
+                            },
+                            "public": {
+                                "type": "boolean"
+                            }
+                        },
+                        "type": "object"
+                    },
+                    "type": "array"
+                },
+                "type": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "serviceAccount": {
+            "properties": {
+                "create": {
+                    "type": "boolean"
+                }
+            },
+            "type": "object"
+        }
+    },
+    "title": "Helm Values Schema",
+    "type": "object"
+}
