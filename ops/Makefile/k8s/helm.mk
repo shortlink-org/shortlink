@@ -1,6 +1,9 @@
 # KUBERNETES TASKS =====================================================================================================
 export HELM_EXPERIMENTAL_OCI=1
 
+deps:
+	@helm plugin install https://github.com/losisin/helm-values-schema-json.git
+
 helm-lint: ## Check Helm chart by linter
 	@ops/Makefile/k8s/scripts/helm_lint.sh
 
