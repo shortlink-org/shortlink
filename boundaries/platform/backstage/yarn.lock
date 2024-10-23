@@ -4009,9 +4009,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/cli@npm:^0.28.0":
-  version: 0.28.0
-  resolution: "@backstage/cli@npm:0.28.0"
+"@backstage/cli@npm:^0.28.1":
+  version: 0.28.1
+  resolution: "@backstage/cli@npm:0.28.1"
   dependencies:
     "@backstage/catalog-model": "npm:^1.7.0"
     "@backstage/cli-common": "npm:^0.1.14"
@@ -4157,7 +4157,7 @@ __metadata:
       optional: true
   bin:
     backstage-cli: bin/backstage-cli
-  checksum: 10c0/a5ead0c3aae69da33f5d068921a710bcd4d9356867e10c4e33dcd22afd71004156961aa789d004c41166c466b04fe14cfb0c03429b5482fe98bb4006c9991914
+  checksum: 10c0/2510ba9e7d738c9281fbdbd12bb2642c1d51c7319d7a8bf131a40d2f3f8ee8cc6649b299bb06bb7f750a90480f83d5923cf7533d1766e3f6d9fa69185936f470
   languageName: node
   linkType: hard
 
@@ -6137,9 +6137,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/plugin-scaffolder-react@npm:^1.13.1":
-  version: 1.13.1
-  resolution: "@backstage/plugin-scaffolder-react@npm:1.13.1"
+"@backstage/plugin-scaffolder-react@npm:^1.13.2":
+  version: 1.13.2
+  resolution: "@backstage/plugin-scaffolder-react@npm:1.13.2"
   dependencies:
     "@backstage/catalog-client": "npm:^1.7.1"
     "@backstage/catalog-model": "npm:^1.7.0"
@@ -6183,13 +6183,13 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10c0/fb04433d3300e41f1ff11b627483df0d51d6c7694db1d5e1dd8956fd1a68e9c4f8aaa16f7f5d13505fde263c49640b6135d5f0c68a38dd1345af8cd51bb4cb97
+  checksum: 10c0/657d251f3a493c9a97d97a75f1b0604c11d4a3f957c5e30004020921e12c8c17bb20d4342870f3836709b5908ff8d98efeca4f173e3d694004ae84fdce9cd164
   languageName: node
   linkType: hard
 
-"@backstage/plugin-scaffolder@npm:^1.26.1":
-  version: 1.26.1
-  resolution: "@backstage/plugin-scaffolder@npm:1.26.1"
+"@backstage/plugin-scaffolder@npm:^1.26.2":
+  version: 1.26.2
+  resolution: "@backstage/plugin-scaffolder@npm:1.26.2"
   dependencies:
     "@backstage/catalog-client": "npm:^1.7.1"
     "@backstage/catalog-model": "npm:^1.7.0"
@@ -6204,7 +6204,7 @@ __metadata:
     "@backstage/plugin-catalog-react": "npm:^1.14.0"
     "@backstage/plugin-permission-react": "npm:^0.4.27"
     "@backstage/plugin-scaffolder-common": "npm:^1.5.6"
-    "@backstage/plugin-scaffolder-react": "npm:^1.13.1"
+    "@backstage/plugin-scaffolder-react": "npm:^1.13.2"
     "@backstage/types": "npm:^1.1.1"
     "@codemirror/language": "npm:^6.0.0"
     "@codemirror/legacy-modes": "npm:^6.1.0"
@@ -6244,7 +6244,7 @@ __metadata:
   peerDependenciesMeta:
     "@types/react":
       optional: true
-  checksum: 10c0/952ac947bde59776d4a0852ec998d44482d235c87c2e19dec57675445853acd0445fb052d312b12b47988a0bb36ac96abb730cc243b1fba1a2bc080d3e96aca0
+  checksum: 10c0/db36077e0d5bd588641472eb6714f45b7981b58b2ae155a856ba45b4033f9e12e38ddce62007012fffb29b3e073fb18ff50526404336ec72cc6cebf523256de3
   languageName: node
   linkType: hard
 
@@ -15709,7 +15709,7 @@ __metadata:
     "@backstage-community/plugin-todo": "npm:^0.2.42"
     "@backstage/app-defaults": "npm:^1.5.12"
     "@backstage/catalog-model": "npm:^1.7.0"
-    "@backstage/cli": "npm:^0.28.0"
+    "@backstage/cli": "npm:^0.28.1"
     "@backstage/core-app-api": "npm:^1.15.1"
     "@backstage/core-components": "npm:^0.15.1"
     "@backstage/core-plugin-api": "npm:^1.10.0"
@@ -15723,7 +15723,7 @@ __metadata:
     "@backstage/plugin-kubernetes": "npm:^0.11.16"
     "@backstage/plugin-org": "npm:^0.6.31"
     "@backstage/plugin-permission-react": "npm:^0.4.27"
-    "@backstage/plugin-scaffolder": "npm:^1.26.1"
+    "@backstage/plugin-scaffolder": "npm:^1.26.2"
     "@backstage/plugin-search": "npm:^1.4.18"
     "@backstage/plugin-search-react": "npm:^1.8.1"
     "@backstage/plugin-techdocs": "npm:^1.11.0"
@@ -16438,7 +16438,7 @@ __metadata:
     "@backstage/backend-tasks": "npm:^0.6.1"
     "@backstage/catalog-client": "npm:^1.7.1"
     "@backstage/catalog-model": "npm:^1.7.0"
-    "@backstage/cli": "npm:^0.28.0"
+    "@backstage/cli": "npm:^0.28.1"
     "@backstage/config": "npm:^1.2.0"
     "@backstage/plugin-app-backend": "npm:^0.3.76"
     "@backstage/plugin-auth-backend": "npm:^0.23.1"
@@ -32765,7 +32765,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root@workspace:."
   dependencies:
-    "@backstage/cli": "npm:^0.28.0"
+    "@backstage/cli": "npm:^0.28.1"
     "@types/react": "npm:^18.3.12"
     "@types/react-dom": "npm:^18.3.1"
     concurrently: "npm:^9.0.1"
