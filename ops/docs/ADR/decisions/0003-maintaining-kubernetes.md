@@ -55,10 +55,9 @@ LAYOUT_TOP_DOWN()
 
 System_Boundary(k8s_cluster, "K8s Cluster") {
     ' Define Nodes
-    KubernetesNode(talos_bxi_ihe, "talos-bxi-ihe\nStatus: Ready\nRoles: <none>\nAge: 78d\nVersion: v1.30.3", "#ffcccc")
-    KubernetesNode(talos_coj_emd, "talos-coj-emd\nStatus: Ready\nRoles: <none>\nAge: 78d\nVersion: v1.30.3", "#ccffcc")
-    KubernetesNode(talos_dks_th8, "talos-dks-th8\nStatus: Ready\nRoles: <none>\nAge: 78d\nVersion: v1.30.3", "#ccccff")
-    KubernetesNode(talos_t8v_b87, "talos-t8v-b87\nStatus: Ready\nRoles: control-plane\nAge: 78d\nVersion: v1.30.3", "#ffffcc")
+    KubernetesNode(talos_bxi_ihe, "talos-bxi-ihe\nStatus: Ready\nRoles: <none>\nAge: 78d\nVersion: v1.31.2", "#ffcccc")
+    KubernetesNode(talos_coj_emd, "talos-coj-emd\nStatus: Ready\nRoles: <none>\nAge: 78d\nVersion: v1.31.2", "#ccffcc")
+    KubernetesNode(talos_dks_th8, "talos-dks-th8\nStatus: Ready\nRoles: <none>\nAge: 78d\nVersion: v1.31.2", "#ccccff")
 }
 
 @enduml
