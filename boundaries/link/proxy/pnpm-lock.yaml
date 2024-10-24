@@ -69,8 +69,8 @@ importers:
         specifier: ^8.0.0
         version: 8.0.0
       inversify:
-        specifier: ^6.0.2
-        version: 6.0.2
+        specifier: ^6.0.3
+        version: 6.0.3
       inversify-express-utils:
         specifier: ^6.4.6
         version: 6.4.6
@@ -1026,8 +1026,8 @@ packages:
   inversify-logger-middleware@3.1.0:
     resolution: {integrity: sha512-jKwwuQ3cDwCasgSdgUyF3DTlIvcfAVqcs3ViMXrKj5L7AqVP5hd2dnrHr3v8XZf984t6fsj+1Wic43A5WDtkEA==}
 
-  inversify@6.0.2:
-    resolution: {integrity: sha512-i9m8j/7YIv4mDuYXUAcrpKPSaju/CIly9AHK5jvCBeoiM/2KEsuCQTTP+rzSWWpLYWRukdXFSl6ZTk2/uumbiA==}
+  inversify@6.0.3:
+    resolution: {integrity: sha512-s/svzcRQ/scaGUUyaVtFSL1dvOaRgyvE7VvpGcJwXmFz7CCzfSfxC/Uyl7iSHDEmBabJ2gbDES72DaygtMmwvg==}
 
   ipaddr.js@1.9.1:
     resolution: {integrity: sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g==}
@@ -2591,7 +2591,7 @@ snapshots:
     dependencies:
       express: 4.21.1
       http-status-codes: 2.3.0
-      inversify: 6.0.2
+      inversify: 6.0.3
     transitivePeerDependencies:
       - supports-color
 
@@ -2599,7 +2599,7 @@ snapshots:
     dependencies:
       chalk: 2.3.0
 
-  inversify@6.0.2: {}
+  inversify@6.0.3: {}
 
   ipaddr.js@1.9.1: {}
 
