@@ -17,7 +17,7 @@ require (
 	golang.org/x/sync v0.8.0
 	google.golang.org/grpc v1.67.1
 	google.golang.org/protobuf v1.35.1
-	k8s.io/kubernetes v1.31.1
+	k8s.io/kubernetes v1.31.2
 	k8s.io/mount-utils v0.31.2
 	k8s.io/utils v0.0.0-20240711033017-18e509b52bc8
 )
