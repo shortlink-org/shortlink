@@ -40,6 +40,10 @@ for an information team about cases for updated ADR.
 - [ADR-0027](./decisions/0027-local-kubernetes-development-tools.md) - Local Kubernetes Development Tools
 - [ADR-0031](./decisions/0031-k8s-network.md) - k8s network
 
+#### Observability
+
+- [ADR-0011](decisions/0011-prometheus-operator.md) - Prometheus operator
+
 #### Helm
 
 - [ADR-033](./decisions/0033-helm-use-values-schemas-json.md) - Use `values.schema.json`
