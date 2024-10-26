@@ -4,7 +4,7 @@
         {
             "id": "BFF Web run on port {Port}",
             "message": "BFF Web run on port {Port}",
-            "translation": "",
+            "translation": "BFF Web run on port {Port}",
             "placeholders": [
                 {
                     "id": "Port",
@@ -12,7 +12,7 @@
                     "type": "int",
                     "underlyingType": "int",
                     "argNum": 1,
-                    "expr": "config.Port"
+                    "expr": "config.Http.Port"
                 }
             ]
         }

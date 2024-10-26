@@ -26,7 +26,7 @@ docs: ### Generate OpenAPI documentation
 
 # BFF ==================================================================================================================
 dep: ### Get the dependencies
-	@go install github.com/deepmap/oapi-codegen/v2/cmd/oapi-codegen@latest
+	@go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest
 	@go install golang.org/x/text/cmd/gotext@latest
 
 generate: dep ### Generate BFF
