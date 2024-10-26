@@ -72,8 +72,8 @@ importers:
         specifier: ^6.0.3
         version: 6.0.3
       inversify-express-utils:
-        specifier: ^6.4.6
-        version: 6.4.6
+        specifier: ^6.4.7
+        version: 6.4.7(express@4.21.1)(inversify@6.0.3)
       inversify-logger-middleware:
         specifier: ^3.1.0
         version: 3.1.0
@@ -1029,8 +1029,11 @@ packages:
   inherits@2.0.4:
     resolution: {integrity: sha512-k/vGaX4/Yla3WzyMCvTQOXYeIHvqOKtnqBduzTHpzpQZzAskKMhZ2K+EnBiSM9zGSoIFeMpXKxa4dYeZIQqewQ==}
 
-  inversify-express-utils@6.4.6:
-    resolution: {integrity: sha512-IWvWS8pcg2jwMxrSH3o12BFdpZbO1DM/0U/f5GyCV07sbsNVNaHjgBHRpHTvOHhyxakxoXQLknXF47RI5JqPHA==}
+  inversify-express-utils@6.4.7:
+    resolution: {integrity: sha512-s1EQNu31HM7Obh9dZu0awwGNYjYRfc3uh1u4Fe4XjcCSyJjBWL1EZfew5NPTn6dYQa78lwUjVGpdZ2uzqqky7A==}
+    peerDependencies:
+      express: ^4.19.2
+      inversify: ^6.0.3
 
   inversify-logger-middleware@3.1.0:
     resolution: {integrity: sha512-jKwwuQ3cDwCasgSdgUyF3DTlIvcfAVqcs3ViMXrKj5L7AqVP5hd2dnrHr3v8XZf984t6fsj+1Wic43A5WDtkEA==}
@@ -2601,13 +2604,11 @@ snapshots:
 
   inherits@2.0.4: {}
 
-  inversify-express-utils@6.4.6:
+  inversify-express-utils@6.4.7(express@4.21.1)(inversify@6.0.3):
     dependencies:
       express: 4.21.1
       http-status-codes: 2.3.0
       inversify: 6.0.3
-    transitivePeerDependencies:
-      - supports-color
 
   inversify-logger-middleware@3.1.0:
     dependencies:
