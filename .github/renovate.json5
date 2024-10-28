@@ -1,32 +1,44 @@
 {
-  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["config:base"],
-  "rangeStrategy": "bump",
-  "baseBranches": ["main"],
-  "automerge": false,
-  "patch": {
-    "automerge": true
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
+  ],
+  rangeStrategy: 'bump',
+  baseBranches: [
+    'main',
+  ],
+  automerge: false,
+  patch: {
+    automerge: true,
   },
-  "commitBody": "Signed-off-by: {{{gitAuthor}}}",
-  "docker-compose": {
-    "fileMatch": [
-      "^.*\/?ops\/docker-compose\/.*\.ya?ml$"
+  commitBody: 'Signed-off-by: {{{gitAuthor}}}',
+  'docker-compose': {
+    fileMatch: [
+      '^.*/?ops/docker-compose/.*.ya?ml$',
     ],
   },
-  "gitlabci": {
-    "fileMatch": [
-      "^.*\/?ops\/gitlab\/.*\.ya?ml$"
+  gitlabci: {
+    fileMatch: [
+      '^.*/?ops/gitlab/.*.ya?ml$',
     ],
   },
-  "packageRules": [
+  packageRules: [
     {
-      "matchPackagePatterns": ["^github.com/mattn/go-sqlite3$"],
-      "allowedVersions": "<2.0.0"
+      allowedVersions: '<2.0.0',
+      matchPackageNames: [
+        '/^github.com/mattn/go-sqlite3$/',
+      ],
     },
     {
-      "matchManagers": ["gomod"],
-      "matchPackagePatterns": ["^github.com/shortlink-org/shortlink$"],
-      "ignoreDeps": ["github.com/shortlink-org/shortlink"]
-    }
-  ]
+      matchManagers: [
+        'gomod',
+      ],
+      ignoreDeps: [
+        'github.com/shortlink-org/shortlink',
+      ],
+      matchPackageNames: [
+        '/^github.com/shortlink-org/shortlink$/',
+      ],
+    },
+  ],
 }
