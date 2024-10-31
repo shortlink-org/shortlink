@@ -40,7 +40,7 @@ dependencies = [
     "ruff>=0.7.1",
 # For profiling dependencies
     "scalene",
-    "werkzeug>=3.0.6" # not directly required, pinned by Snyk to avoid a vulnerability
+    "werkzeug>=3.1.0" # not directly required, pinned by Snyk to avoid a vulnerability
 ]
 
 [build-system]
