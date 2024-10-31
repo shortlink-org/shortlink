@@ -96,7 +96,7 @@ const Home = () => {
 
           <TabContent
             title="Argo"
-            key="infrastructure"
+            key="argo"
             cards={[
               { name: 'Argo CD', url: 'https://argo.shortlink.best' },
               {

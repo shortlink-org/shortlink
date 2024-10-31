@@ -6,7 +6,7 @@ export interface GithubRepositoryProps {
   title: string
 }
 
-const GithubRepository: FC<GithubRepositoryProps> = memo(({ url, title }) => {
+export const GithubRepository: FC<GithubRepositoryProps> = memo(({ url, title }) => {
   return (
     <a
       href={url}

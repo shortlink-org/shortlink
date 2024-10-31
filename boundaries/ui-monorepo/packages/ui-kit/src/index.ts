@@ -5,7 +5,6 @@ export { theme } from './theme/theme'
 export { ToggleDarkMode } from './ui/ToggleDarkMode/ToggleDarkMode'
 export { GithubRepository } from './card/GithubRepository/GithubRepository'
 export { Timeline } from './ui/Timeline/Timeline'
-export { Spotlight } from './effect/Spotlight/Spotlight'
 export { default as Table } from './ui/Table/Table'
 export { default as ScrollToTopButton } from './ui/ScrollToTopButton/ScrollToTopButton'
 
