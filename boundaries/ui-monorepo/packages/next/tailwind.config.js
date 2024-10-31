@@ -1,7 +1,10 @@
 const { fontFamily } = require('tailwindcss/defaultTheme')
+const forms = require('@tailwindcss/forms')
+const aspectRatio = require('@tailwindcss/aspect-ratio')
+const containerQueries = require('@tailwindcss/container-queries')
 
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   mode: 'jit',
   darkMode: 'selector',
   corePlugins: {
@@ -39,10 +42,5 @@ module.exports = {
   variants: {
     typography: ['light', 'dark'],
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-    require('@tailwindcss/forms'),
-    require('@tailwindcss/aspect-ratio'),
-    require('@tailwindcss/container-queries'),
-  ],
+  plugins: [typography, forms, aspectRatio, containerQueries],
 }

@@ -51,7 +51,7 @@ if (isEnableSentry) {
   plugins.push(() => withSentryConfig(config))
 }
 
-/** @type {import('@nx/next/plugins/with-nx').WithNxOptions} * */
+/** @type {import('next').NextConfig} */
 const NEXT_CONFIG = {
   basePath: '/next',
   output: 'export',
@@ -108,18 +108,17 @@ const NEXT_CONFIG = {
       fullUrl: true,
     },
   },
-  webpack: (config, { isServer, buildId }) => {
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack'],
-    })
-
-    return config
-  },
+  // webpack: (config, { isServer, buildId }) => {
+  //   config.module.rules.push({
+  //     test: /\.svg$/i,
+  //     issuer: /\.[jt]sx?$/,
+  //     use: ['@svgr/webpack'],
+  //   })
+  //
+  //   return config
+  // },
+  bundlePagesRouterDependencies: true,
   experimental: {
-    forceSwcTransforms: true,
-    swcTraceProfiling: true,
     webVitalsAttribution: ['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'],
     turbo: {},
     // typedRoutes: true,

@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "build": "NODE_ENV=production pnpm next build",
-    "start": "NODE_OPTIONS='--max-http-header-size=131072' pnpm dlx next dev",
+    "start": "NODE_OPTIONS='--max-http-header-size=131072' pnpm dlx next dev --turbopack",
     "start:dev": "cp .env.dev .env.local && pnpm start",
     "start:k8s": "cp .env.k8s .env.local && pnpm start",
     "start:prod": "cp .env.prod .env.local && pnpm start",
