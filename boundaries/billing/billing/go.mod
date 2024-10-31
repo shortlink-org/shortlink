@@ -19,6 +19,7 @@ require (
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.9.0
 	github.com/stripe/stripe-go/v80 v80.2.1
+	github.com/stripe/stripe-go/v81 v81.0.0
 	go.opentelemetry.io/otel v1.31.0
 	go.opentelemetry.io/otel/trace v1.31.0
 	go.uber.org/goleak v1.3.0
