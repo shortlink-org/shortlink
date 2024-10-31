@@ -14,7 +14,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://helm.vector.dev | vector | 0.36.1 |
+| https://helm.vector.dev | vector | 0.37.0 |
 
 ## Values
 

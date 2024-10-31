@@ -1,6 +1,6 @@
 # prometheus-operator
 
-![Version: 0.7.5](https://img.shields.io/badge/Version-0.7.5-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
+![Version: 0.7.6](https://img.shields.io/badge/Version-0.7.6-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.0.0](https://img.shields.io/badge/AppVersion-1.0.0-informational?style=flat-square)
 
 ## Maintainers
 
@@ -14,7 +14,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 65.3.1 |
+| https://prometheus-community.github.io/helm-charts | kube-prometheus-stack | 65.5.1 |
 
 ## Values
 
@@ -27,7 +27,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="kube-prometheus-stack--coreDns--enabled"><a href="./values.yaml#L22">kube-prometheus-stack.coreDns.enabled</a></td>
+			<td id="kube-prometheus-stack--coreDns--enabled"><a href="./values.yaml#L27">kube-prometheus-stack.coreDns.enabled</a></td>
 			<td>
 bool
 </td>
@@ -69,7 +69,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--grafana--enabled"><a href="./values.yaml#L11">kube-prometheus-stack.grafana.enabled</a></td>
+			<td id="kube-prometheus-stack--grafana--enabled"><a href="./values.yaml#L16">kube-prometheus-stack.grafana.enabled</a></td>
 			<td>
 bool
 </td>
@@ -83,7 +83,7 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--grafana--sidecar--dashboards--enableNewTablePanelSyntax"><a href="./values.yaml#L15">kube-prometheus-stack.grafana.sidecar.dashboards.enableNewTablePanelSyntax</a></td>
+			<td id="kube-prometheus-stack--grafana--sidecar--dashboards--enableNewTablePanelSyntax"><a href="./values.yaml#L20">kube-prometheus-stack.grafana.sidecar.dashboards.enableNewTablePanelSyntax</a></td>
 			<td>
 bool
 </td>
@@ -97,7 +97,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--kubeDns--enabled"><a href="./values.yaml#L18">kube-prometheus-stack.kubeDns.enabled</a></td>
+			<td id="kube-prometheus-stack--kubeDns--enabled"><a href="./values.yaml#L23">kube-prometheus-stack.kubeDns.enabled</a></td>
 			<td>
 bool
 </td>
@@ -111,7 +111,35 @@ false
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheusOperator--resources--limits--cpu"><a href="./values.yaml#L29">kube-prometheus-stack.prometheusOperator.resources.limits.cpu</a></td>
+			<td id="kube-prometheus-stack--prometheus--prometheusSpec--image--tag"><a href="./values.yaml#L13">kube-prometheus-stack.prometheus.prometheusSpec.image.tag</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"v3.0.0-beta.1"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kube-prometheus-stack--prometheusOperator--image--tag"><a href="./values.yaml#L31">kube-prometheus-stack.prometheusOperator.image.tag</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"main"
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="kube-prometheus-stack--prometheusOperator--resources--limits--cpu"><a href="./values.yaml#L37">kube-prometheus-stack.prometheusOperator.resources.limits.cpu</a></td>
 			<td>
 int
 </td>
@@ -125,7 +153,7 @@ int
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheusOperator--resources--limits--memory"><a href="./values.yaml#L30">kube-prometheus-stack.prometheusOperator.resources.limits.memory</a></td>
+			<td id="kube-prometheus-stack--prometheusOperator--resources--limits--memory"><a href="./values.yaml#L38">kube-prometheus-stack.prometheusOperator.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -139,7 +167,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheusOperator--resources--requests--cpu"><a href="./values.yaml#L32">kube-prometheus-stack.prometheusOperator.resources.requests.cpu</a></td>
+			<td id="kube-prometheus-stack--prometheusOperator--resources--requests--cpu"><a href="./values.yaml#L40">kube-prometheus-stack.prometheusOperator.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -153,7 +181,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheusOperator--resources--requests--memory"><a href="./values.yaml#L33">kube-prometheus-stack.prometheusOperator.resources.requests.memory</a></td>
+			<td id="kube-prometheus-stack--prometheusOperator--resources--requests--memory"><a href="./values.yaml#L41">kube-prometheus-stack.prometheusOperator.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -167,7 +195,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="kube-prometheus-stack--prometheusOperator--secretFieldSelector"><a href="./values.yaml#L25">kube-prometheus-stack.prometheusOperator.secretFieldSelector</a></td>
+			<td id="kube-prometheus-stack--prometheusOperator--secretFieldSelector"><a href="./values.yaml#L33">kube-prometheus-stack.prometheusOperator.secretFieldSelector</a></td>
 			<td>
 string
 </td>

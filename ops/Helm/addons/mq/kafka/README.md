@@ -15,7 +15,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | https://kafbat.github.io/helm-charts | kafka-ui | 1.4.9 |
-| https://strimzi.io/charts/ | strimzi-kafka-operator | 0.43.0 |
+| https://strimzi.io/charts/ | strimzi-kafka-operator | 0.44.0 |
 
 ## Values
 

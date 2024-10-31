@@ -1,6 +1,6 @@
 # cert-manager
 
-![Version: 0.4.0](https://img.shields.io/badge/Version-0.4.0-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.0](https://img.shields.io/badge/AppVersion-1.16.0-informational?style=flat-square)
+![Version: 0.4.1](https://img.shields.io/badge/Version-0.4.1-informational?style=flat-square) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat-square) ![AppVersion: 1.16.1](https://img.shields.io/badge/AppVersion-1.16.1-informational?style=flat-square)
 
 ## Maintainers
 
@@ -15,7 +15,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | https://charts.jetstack.io | certmanager(cert-manager) | v1.16.1 |
-| https://charts.jetstack.io | cert-manager-approver-policy | v0.15.2 |
+| https://charts.jetstack.io | cert-manager-approver-policy | v0.16.0 |
 | https://charts.jetstack.io | spiffe(cert-manager-csi-driver-spiffe) | v0.8.1 |
 
 ## Values
@@ -155,7 +155,7 @@ true
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--enabled"><a href="./values.yaml#L10">certmanager.enabled</a></td>
+			<td id="certmanager--enabled"><a href="./values.yaml#L14">certmanager.enabled</a></td>
 			<td>
 bool
 </td>
@@ -183,7 +183,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--featureGates"><a href="./values.yaml#L20">certmanager.featureGates</a></td>
+			<td id="certmanager--featureGates"><a href="./values.yaml#L24">certmanager.featureGates</a></td>
 			<td>
 string
 </td>
@@ -239,7 +239,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--resources--limits--cpu"><a href="./values.yaml#L17">certmanager.resources.limits.cpu</a></td>
+			<td id="certmanager--resources--limits--cpu"><a href="./values.yaml#L21">certmanager.resources.limits.cpu</a></td>
 			<td>
 string
 </td>
@@ -253,7 +253,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--resources--limits--memory"><a href="./values.yaml#L18">certmanager.resources.limits.memory</a></td>
+			<td id="certmanager--resources--limits--memory"><a href="./values.yaml#L22">certmanager.resources.limits.memory</a></td>
 			<td>
 string
 </td>
@@ -267,7 +267,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--resources--requests--cpu"><a href="./values.yaml#L14">certmanager.resources.requests.cpu</a></td>
+			<td id="certmanager--resources--requests--cpu"><a href="./values.yaml#L18">certmanager.resources.requests.cpu</a></td>
 			<td>
 string
 </td>
@@ -281,7 +281,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="certmanager--resources--requests--memory"><a href="./values.yaml#L15">certmanager.resources.requests.memory</a></td>
+			<td id="certmanager--resources--requests--memory"><a href="./values.yaml#L19">certmanager.resources.requests.memory</a></td>
 			<td>
 string
 </td>
@@ -345,20 +345,6 @@ string
 				<div style="max-width: 300px;">
 <pre lang="json">
 "32Mi"
-</pre>
-</div>
-			</td>
-			<td></td>
-		</tr>
-		<tr>
-			<td id="certmanager--type"><a href="./values.yaml#L24">certmanager.type</a></td>
-			<td>
-string
-</td>
-			<td>
-				<div style="max-width: 300px;">
-<pre lang="json">
-"cloudflare"
 </pre>
 </div>
 			</td>
@@ -513,6 +499,20 @@ bool
 				<div style="max-width: 300px;">
 <pre lang="json">
 false
+</pre>
+</div>
+			</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td id="type"><a href="./values.yaml#L11">type</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"cloudflare"
 </pre>
 </div>
 			</td>
