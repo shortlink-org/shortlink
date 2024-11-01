@@ -80,7 +80,9 @@ const nextConfig = {
   },
 }
 
-module.exports = composePlugins(...plugins)(nextConfig)
+module.exports = nextConfig
+
+// module.exports = composePlugins(...plugins)(nextConfig)
 
 
 // Injected content via Sentry wizard below

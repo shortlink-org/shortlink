@@ -1,7 +1,8 @@
-const { fontFamily } = require('tailwindcss/defaultTheme')
-const forms = require('@tailwindcss/forms')
-const aspectRatio = require('@tailwindcss/aspect-ratio')
-const containerQueries = require('@tailwindcss/container-queries')
+import { fontFamily } from 'tailwindcss/defaultTheme'
+import typography from '@tailwindcss/typography'
+import forms from '@tailwindcss/forms'
+import aspectRatio from '@tailwindcss/aspect-ratio'
+import containerQueries from '@tailwindcss/container-queries'
 
 /** @type {import('tailwindcss').Config} */
 export default {
