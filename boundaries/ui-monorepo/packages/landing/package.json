@@ -3,8 +3,8 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "dev": "pnpm next dev -p 3001",
-    "build": "NODE_ENV=production pnpm next build --turbopack",
+    "dev": "pnpm next dev -p 3001 --turbopack",
+    "build": "NODE_ENV=production pnpm next build",
     "start": "pnpm next start",
     "inspector": "pnpm dlx @eslint/config-inspector",
     "lint": "pnpm dlx eslint ./ --max-warnings 0 --report-unused-disable-directives --cache",
