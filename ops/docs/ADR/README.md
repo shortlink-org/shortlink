@@ -36,6 +36,7 @@ for an information team about cases for updated ADR.
 >   - [C4-PlantUML](https://github.com/plantuml-stdlib/C4-PlantUML)
 
 - [ADR-0003](./decisions/0003-maintaining-kubernetes.md) - Maintaining Kubernetes
+- [ADR-0012](./decisions/0012-talos-os.md) - Adoption of Talos OS for Kubernetes Infrastructure
 - [ADR-0004](./decisions/0004-kubernetes-tips.md) - Kubernetes tips
 - [ADR-0027](./decisions/0027-local-kubernetes-development-tools.md) - Local Kubernetes Development Tools
 - [ADR-0031](./decisions/0031-k8s-network.md) - k8s network
