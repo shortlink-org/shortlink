@@ -108,15 +108,15 @@ const NEXT_CONFIG = {
       fullUrl: true,
     },
   },
-  // webpack: (config, { isServer, buildId }) => {
-  //   config.module.rules.push({
-  //     test: /\.svg$/i,
-  //     issuer: /\.[jt]sx?$/,
-  //     use: ['@svgr/webpack'],
-  //   })
-  //
-  //   return config
-  // },
+  webpack: (config, { isServer, buildId }) => {
+    config.module.rules.push({
+      test: /\.svg$/i,
+      issuer: /\.[jt]sx?$/,
+      use: ['@svgr/webpack'],
+    })
+
+    return config
+  },
   bundlePagesRouterDependencies: true,
   experimental: {
     webVitalsAttribution: ['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'],
