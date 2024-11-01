@@ -63,8 +63,8 @@ importers:
         specifier: 15.0.2
         version: 15.0.2
       '@stylistic/eslint-plugin-js':
-        specifier: ^2.10.0
-        version: 2.10.0(eslint@9.13.0(jiti@1.21.6))
+        specifier: ^2.10.1
+        version: 2.10.1(eslint@9.13.0(jiti@1.21.6))
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
         version: 0.4.2(tailwindcss@3.4.14(ts-node@10.9.2(@swc/core@1.7.42(@swc/helpers@0.5.13))(@types/node@22.8.6)(typescript@5.6.3)))
@@ -229,7 +229,7 @@ importers:
         version: 1.0.2(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
       '@sentry/nextjs':
         specifier: ^8.36.0
-        version: 8.36.0(@opentelemetry/core@1.27.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.54.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.27.0(@opentelemetry/api@1.9.0))(encoding@0.1.13)(next@15.0.2(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@0.0.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.80.5))(react@19.0.0-rc-fb9a90fa48-20240614)(webpack@5.96.0(@swc/core@1.7.42(@swc/helpers@0.5.13)))
+        version: 8.36.0(@opentelemetry/core@1.27.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.53.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.27.0(@opentelemetry/api@1.9.0))(encoding@0.1.13)(next@15.0.2(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@0.0.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.80.5))(react@19.0.0-rc-fb9a90fa48-20240614)(webpack@5.96.0(@swc/core@1.7.42(@swc/helpers@0.5.13)))
       '@shortlink-org/ui-kit':
         specifier: workspace:^
         version: link:../ui-kit
@@ -305,7 +305,7 @@ importers:
         version: 2.3.0(react-redux@9.1.2(@types/react@18.3.12)(react@19.0.0-rc-fb9a90fa48-20240614)(redux@5.0.1))(react@19.0.0-rc-fb9a90fa48-20240614)
       '@sentry/nextjs':
         specifier: ^8.36.0
-        version: 8.36.0(@opentelemetry/core@1.27.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.53.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.27.0(@opentelemetry/api@1.9.0))(encoding@0.1.13)(next@15.0.2(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@0.0.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.80.5))(react@19.0.0-rc-fb9a90fa48-20240614)(webpack@5.96.0(@swc/core@1.7.42(@swc/helpers@0.5.13)))
+        version: 8.36.0(@opentelemetry/core@1.27.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.54.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.27.0(@opentelemetry/api@1.9.0))(encoding@0.1.13)(next@15.0.2(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@0.0.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(sass@1.80.5))(react@19.0.0-rc-fb9a90fa48-20240614)(webpack@5.96.0(@swc/core@1.7.42(@swc/helpers@0.5.13)))
       '@shortlink-org/ui-kit':
         specifier: workspace:^
         version: link:../ui-kit
@@ -3963,8 +3963,8 @@ packages:
     peerDependencies:
       storybook: ^8.4.0
 
-  '@stylistic/eslint-plugin-js@2.10.0':
-    resolution: {integrity: sha512-H742K6j8EeWgStJphdwWBZRy9LXWUZ/EjFgqUy7PfuXNnldr6QbfZT3zug5QUkWyA9Qh7skmMF8aT7TsnNwJ6w==}
+  '@stylistic/eslint-plugin-js@2.10.1':
+    resolution: {integrity: sha512-IikL/RKy9Sk2UMDUUpqrEcwDeYzUEt6SaL2/UVCFuVQxKACHSgStT0NxXkxZmBOUforaU52FPf2Su07FYH5s5g==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     peerDependencies:
       eslint: '>=8.40.0'
@@ -15304,7 +15304,7 @@ snapshots:
     dependencies:
       storybook: 8.4.0(prettier@3.3.3)
 
-  '@stylistic/eslint-plugin-js@2.10.0(eslint@9.13.0(jiti@1.21.6))':
+  '@stylistic/eslint-plugin-js@2.10.1(eslint@9.13.0(jiti@1.21.6))':
     dependencies:
       eslint: 9.13.0(jiti@1.21.6)
       eslint-visitor-keys: 4.2.0
