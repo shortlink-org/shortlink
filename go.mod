@@ -154,7 +154,7 @@ require (
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/gookit/color v1.5.4 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware v1.4.0 // indirect
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.22.0 // indirect
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.23.0 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-immutable-radix v1.3.1 // indirect
 	github.com/hashicorp/go-memdb v1.3.4 // indirect
@@ -260,8 +260,8 @@ require (
 	golang.org/x/text v0.19.0 // indirect
 	golang.org/x/time v0.7.0 // indirect
 	golang.org/x/tools v0.26.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20241007155032-5fefd90f89a9 // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20241007155032-5fefd90f89a9 // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20241021214115-324edc3d5d38 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20241021214115-324edc3d5d38 // indirect
 	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/ini.v1 v1.67.0 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
@@ -272,7 +272,6 @@ replace (
 	k8s.io/apiextensions-apiserver => k8s.io/apiextensions-apiserver v0.31.2
 	k8s.io/apimachinery => k8s.io/apimachinery v0.31.2
 	k8s.io/apiserver => k8s.io/apiserver v0.31.2
-	k8s.io/cri-client => k8s.io/cri-client v0.31.2
 	k8s.io/cli-runtime => k8s.io/cli-runtime v0.31.2
 	k8s.io/client-go => k8s.io/client-go v0.31.2
 	k8s.io/cloud-provider => k8s.io/cloud-provider v0.31.2
@@ -282,6 +281,7 @@ replace (
 	k8s.io/component-helpers => k8s.io/component-helpers v0.31.2
 	k8s.io/controller-manager => k8s.io/controller-manager v0.31.2
 	k8s.io/cri-api => k8s.io/cri-api v0.31.2
+	k8s.io/cri-client => k8s.io/cri-client v0.31.2
 	k8s.io/csi-translation-lib => k8s.io/csi-translation-lib v0.31.2
 	k8s.io/dynamic-resource-allocation => k8s.io/dynamic-resource-allocation v0.31.2
 	k8s.io/endpointslice => k8s.io/endpointslice v0.31.2
