@@ -59,7 +59,7 @@ services:
 
   prometheus:
     <<: *network
-    image: prom/prometheus:v2.55.0
+    image: prom/prometheus:v2.55.1
     profiles:
       - prometheus
     volumes:
