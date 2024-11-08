@@ -16,7 +16,7 @@ require (
 	github.com/spf13/viper v1.19.0
 	go.opentelemetry.io/otel/trace v1.31.0
 	golang.org/x/sync v0.9.0
-	golang.org/x/text v0.19.0
+	golang.org/x/text v0.20.0
 	google.golang.org/grpc v1.68.0
 	google.golang.org/protobuf v1.35.1
 )
