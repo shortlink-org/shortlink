@@ -15,7 +15,7 @@ require (
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.3.2
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.56.0
 	go.opentelemetry.io/otel/trace v1.31.0
-	golang.org/x/sync v0.8.0
+	golang.org/x/sync v0.9.0
 	google.golang.org/grpc v1.68.0
 	google.golang.org/protobuf v1.35.1
 )
