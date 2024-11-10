@@ -14,7 +14,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://grafana.github.io/helm-charts | tempo | 1.10.3 |
+| https://grafana.github.io/helm-charts | tempo | 1.13.0 |
 
 ## Values
 

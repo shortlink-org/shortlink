@@ -14,7 +14,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://istio-release.storage.googleapis.com/charts | gateway | 1.23.3 |
+| https://istio-release.storage.googleapis.com/charts | gateway | 1.24.0 |
 
 ## Values
 

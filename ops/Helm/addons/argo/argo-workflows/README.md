@@ -14,7 +14,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://argoproj.github.io/argo-helm | argo-workflows | 0.42.6 |
+| https://argoproj.github.io/argo-helm | argo-workflows | 0.42.7 |
 
 ## Values
 
