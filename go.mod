@@ -9,7 +9,7 @@ require (
 	github.com/Unleash/unleash-client-go/v4 v4.1.4
 	github.com/XSAM/otelsql v0.35.0
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
-	github.com/authzed/authzed-go v1.1.0
+	github.com/authzed/authzed-go v1.1.1
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/chromedp/chromedp v0.11.2
 	github.com/couchbase/gocb/v2 v2.9.2
@@ -136,7 +136,7 @@ require (
 	github.com/eapache/queue v1.1.0 // indirect
 	github.com/envoyproxy/protoc-gen-validate v1.1.0 // indirect
 	github.com/facebookgo/clock v0.0.0-20150410010913-600d898af40a // indirect
-	github.com/fatih/color v1.17.0 // indirect
+	github.com/fatih/color v1.18.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/go-ini/ini v1.67.0 // indirect
