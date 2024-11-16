@@ -14,7 +14,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 
 | Repository | Name | Version |
 |------------|------|---------|
-| https://k8s.ory.sh/helm/charts | kratos | 0.49.2 |
+| https://k8s.ory.sh/helm/charts | kratos | 0.50.0 |
 
 ## Values
 

@@ -5,7 +5,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
-  postgresVersion: 16
+  postgresVersion: 17
   metadata:
     annotations:
       sidecar.istio.io/inject: "false"
@@ -70,7 +70,7 @@ spec:
   monitoring:
     pgmonitor:
       exporter:
-        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:ubi8-5.6.1-0
+        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:latest
   patroni:
     dynamicConfiguration:
       synchronous_mode: true

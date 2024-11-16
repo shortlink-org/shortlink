@@ -15,7 +15,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 | Repository | Name | Version |
 |------------|------|---------|
 | https://opendatadiscovery.github.io/charts | odd-platform | 0.1.10 |
-| oci://registry-1.docker.io/bitnamicharts | postgresql | 16.1.2 |
+| oci://registry-1.docker.io/bitnamicharts | postgresql | 16.2.1 |
 
 ## Values
 
