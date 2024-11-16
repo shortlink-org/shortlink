@@ -10,7 +10,7 @@ kube-prometheus-stack:
   prometheus:
     prometheusSpec:
       image:
-        tag: v3.0.0-beta.1
+        tag: v3.0.0
 
   grafana:
     enabled: false
