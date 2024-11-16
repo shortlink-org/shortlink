@@ -32,9 +32,18 @@ redis:
 
     serviceMonitor:
       enabled: true
+      additionalLabels:
+        release: prometheus-operator
 
-    prometheusRule:
-      enabled: true
+      podMonitor:
+        enabled: true
+        additionalLabels:
+          release: prometheus-operator
+
+      prometheusRule:
+        enabled: true
+        additionalLabels:
+          release: prometheus-operator
 
   replica:
     replicaCount: 0

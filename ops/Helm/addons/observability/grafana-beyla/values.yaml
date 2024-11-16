@@ -1,0 +1,24 @@
+beyla:
+  enabled: true
+
+  resources:
+    limits:
+      cpu: 100m
+      memory: 128Mi
+    requests:
+      cpu: 100m
+      memory: 128Mi
+
+  serviceMonitor:
+    enabled: true
+    additionalLabels:
+      release: prometheus-operator
+
+  k8sCache:
+    resources:
+      limits:
+        cpu: 100m
+        memory: 128Mi
+      requests:
+        cpu: 100m
+        memory: 128Mi
