@@ -36,7 +36,6 @@ down: confirm ## Down docker compose
 		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-pyroscope.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-oncall.yaml \
-		-f ops/docker-compose/tooling/observability/grafana/grafana-beyla.yaml \
 		-f ops/docker-compose/tooling/observability/prometheus/prometheus.yaml \
 		-f ops/docker-compose/tooling/observability/fluent-bit/fluent-bit.yaml \
 		-f ops/docker-compose/tooling/minio/minio.yaml \
