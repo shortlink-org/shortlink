@@ -71,8 +71,15 @@ grafana:
         cpu: 25m
         memory: 64Mi
 
+  route:
+    main:
+      enabled: true
+
+      hostnames:
+        - grafana.shortlink.best
+
   ingress:
-    enabled: true
+    enabled: false
 
     annotations:
       cert-manager.io/cluster-issuer: cert-manager-production
