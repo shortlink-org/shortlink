@@ -1,11 +1,11 @@
 .job_template_helm:
   stage: action
   image:
-    name: alpine/helm:3.15.1
+    name: alpine/helm:3.16
     entrypoint: [""]
   variables:
     HELM_EXPERIMENTAL_OCI: 1
-    SOPS_VERSION: v3.9.0
+    SOPS_VERSION: v3.9.1
   before_script:
     - helm plugin install https://github.com/jkroepke/helm-secrets
     - apk update
