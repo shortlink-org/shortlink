@@ -5,25 +5,26 @@ istio-ingress:
     kubernetes.io/hostname: talos-lrv-pcr
 
 gateway:
-  service:
-    type: ClusterIP
-    ports:
-      - name: status-port
-        port: 15021
-        targetPort: 15021
-        protocol: TCP
-      - name: http2
-        port: 80
-        targetPort: 80
-        protocol: TCP
-      - name: https
-        port: 443
-        targetPort: 443
-        protocol: TCP
-      - name: grpc
-        port: 50051
-        targetPort: 50051
-        protocol: TCP
+  _internal_defaults_do_not_set:
+    service:
+      type: ClusterIP
+      ports:
+        - name: status-port
+          port: 15021
+          targetPort: 15021
+          protocol: TCP
+        - name: http2
+          port: 80
+          targetPort: 80
+          protocol: TCP
+        - name: https
+          port: 443
+          targetPort: 443
+          protocol: TCP
+        - name: grpc
+          port: 50051
+          targetPort: 50051
+          protocol: TCP
 
   global:
     logAsJson: true
