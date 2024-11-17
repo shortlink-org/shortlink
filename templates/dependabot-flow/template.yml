@@ -31,5 +31,8 @@ variables:
 dependabot:
   extends: .dependabot-gitlab
   stage: $[[ inputs.stage ]]
+  script:
+    - cd /home/dependabot/app
+    - bundle exec rake "dependabot:update[$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME,$PACKAGE_MANAGER,/]"
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'
