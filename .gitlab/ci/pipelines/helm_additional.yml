@@ -1,5 +1,5 @@
 include:
-  - local: .gitlab/ci/templates/common.yml
+  - component: $CI_SERVER_FQDN/$CI_PROJECT_PATH/common@$CI_COMMIT_SHA
   - local: .gitlab/ci/workflows/matrix_deploy.yml
   - local: .gitlab/ci/pipelines/addons/addons.yml
 
