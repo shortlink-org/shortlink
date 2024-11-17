@@ -1,5 +1,5 @@
 include:
-  - component: $CI_SERVER_FQDN/$CI_PROJECT_PATH/common@$CI_COMMIT_SHA
+  - local: .gitlab/ci/templates/common.yml
   # TODO: don't work again after gitlab update
   #  - local: .gitlab/ci/stages/**.yml
   - local: .gitlab/ci/stages/.pre.yml

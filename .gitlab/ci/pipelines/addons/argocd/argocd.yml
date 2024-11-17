@@ -1,5 +1,5 @@
 include:
-  - component: $CI_SERVER_FQDN/$CI_PROJECT_PATH/common@$CI_COMMIT_SHA
+  - local: .gitlab/ci/templates/common.yml
   - local: .gitlab/ci/pipelines/addons/argocd/stages/**
 
 stages:

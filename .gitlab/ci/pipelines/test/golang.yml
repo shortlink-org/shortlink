@@ -2,7 +2,7 @@ include:
   # https://gitlab.com/gitlab-org/gitlab-foss/-/blob/master/lib/gitlab/ci/templates/Security/Coverage-Fuzzing.gitlab-ci.yml
   - template: Security/Coverage-Fuzzing.gitlab-ci.yml
   - template: Jobs/Code-Intelligence.gitlab-ci.yml
-  - component: $CI_SERVER_FQDN/$CI_PROJECT_PATH/common@$CI_COMMIT_SHA
+  - local: .gitlab/ci/templates/common.yml
   - local: .gitlab/ci/templates/go.yml
 
 code_intelligence_go:
