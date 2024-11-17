@@ -79,7 +79,7 @@ grafana:
         - grafana.shortlink.best
 
   ingress:
-    enabled: false
+    enabled: true
 
     annotations:
       cert-manager.io/cluster-issuer: cert-manager-production
