@@ -1,6 +1,6 @@
 include:
   - local: .gitlab/ci/templates/common.yml
-  - local: .gitlab/ci/templates/helm.yml
+  - component: .gitlab/ci/templates/helm.yml
 
 stages:
   - .pre

@@ -1,6 +1,12 @@
 # DOCS:
 # - tutorial: https://kkurko.hashnode.dev/keep-your-dependencies-up-to-date-with-dependabot-on-gitlab
 
+spec:
+  inputs:
+    stage:
+      default: test
+      description: "Define the stage this job will run in"
+
 variables:
   SETTINGS__GITLAB_ACCESS_TOKEN: $CI_JOB_TOKEN
 
@@ -24,6 +30,6 @@ variables:
 
 dependabot:
   extends: .dependabot-gitlab
-  stage: test
+  stage: $[[ inputs.stage ]]
   rules:
     - if: '$CI_PIPELINE_SOURCE == "schedule"'

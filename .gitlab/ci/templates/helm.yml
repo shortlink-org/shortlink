@@ -1,5 +1,11 @@
+spec:
+  inputs:
+    stage:
+      default: action
+      description: "Define the stage this job will run in"
+
 .job_template_helm:
-  stage: action
+  stage: $[[ inputs.stage ]]
   image:
     name: alpine/helm:3.16
     entrypoint: [""]

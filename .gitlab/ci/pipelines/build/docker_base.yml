@@ -1,7 +1,7 @@
 include:
   - local: .gitlab/ci/templates/common.yml
-  - local: .gitlab/ci/templates/build.yml
-  - component: gitlab.com/components/container-scanning/container-scanning@main
+  - component: .gitlab/ci/templates/build.yml
+  - component: $CI_SERVER_FQDN/components/container-scanning/container-scanning@main
 
 stages:
   - .pre

@@ -1,7 +1,7 @@
 include:
   - local: .gitlab/ci/templates/common.yml
-  - local: .gitlab/ci/templates/helm.yml
   - local: .gitlab/ci/workflows/matrix_deploy.yml
+  - component: .gitlab/ci/templates/helm.yml
 
 stages:
   - deploy

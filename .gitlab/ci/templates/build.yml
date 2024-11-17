@@ -1,9 +1,21 @@
+spec:
+  inputs:
+    stage:
+      default: build
+      description: "Define the stage this job will run in"
+    docker_version:
+      default: "27.4.0-rc.1"
+      description: "Define the version of Docker to use"
+    buildkit_version:
+      default: "v0.17.1"
+      description: "Define the version of BuildKit to use"
+
 .template_build:
-  stage: build
+  stage: $[[ inputs.stage ]]
   services:
-    - name: docker:27.4.0-rc.1-dind
+    - name: docker:$[[ inputs.docker_version ]]-dind
       command: ["--experimental"]
-  image: docker:27.4.0-rc.1-cli
+  image: docker:$[[ inputs.docker_version ]]-cli
   variables:
     # GIT_STRATEGY: none # Set `none` if we use git sparse-checkout
     COSIGN_YES: "true"  # Used by Cosign to skip confirmation prompts for non-destructive operations
@@ -87,12 +99,12 @@
 .template_build_kit:
   extends: .template_build
   services:
-    - name: moby/buildkit:v0.17.1
+    - name: moby/buildkit:$[[ inputs.buildkit_version ]]
       alias: buildkitd
       command:
         - --addr=tcp://0.0.0.0:1234
   image:
-    name: moby/buildkit:v0.17.1
+    name: moby/buildkit:$[[ inputs.buildkit_version ]]
     entrypoint: [ "" ]
   variables:
     # GIT_STRATEGY: none # Set `none` if we use git sparse-checkout
