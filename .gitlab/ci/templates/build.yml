@@ -1,16 +1,16 @@
 .template_build:
   stage: build
   services:
-    - name: docker:26.1.3-dind
+    - name: docker:27.4.0-rc.1-dind
       command: ["--experimental"]
-  image: docker:26.1.3-cli
+  image: docker:27.4.0-rc.1-cli
   variables:
     # GIT_STRATEGY: none # Set `none` if we use git sparse-checkout
     COSIGN_YES: "true"  # Used by Cosign to skip confirmation prompts for non-destructive operations
     FF_SCRIPT_SECTIONS: "true" # Enables GitLab's CI script sections for better multi-line script output
     DOCKER_BUILDKIT: 1
     DOCKER_CONTENT_TRUST: 1
-    DOCKER_BUILDX_VERSION: v0.16.2
+    DOCKER_BUILDX_VERSION: v0.18.0
     BUILDX_GIT_LABELS: 1
   id_tokens:
     SIGSTORE_ID_TOKEN: # Used by Cosign to get certificate from Fulcio
@@ -87,12 +87,12 @@
 .template_build_kit:
   extends: .template_build
   services:
-    - name: moby/buildkit:v0.15.2
+    - name: moby/buildkit:v0.17.1
       alias: buildkitd
       command:
         - --addr=tcp://0.0.0.0:1234
   image:
-    name: moby/buildkit:v0.15.2
+    name: moby/buildkit:v0.17.1
     entrypoint: [ "" ]
   variables:
     # GIT_STRATEGY: none # Set `none` if we use git sparse-checkout
