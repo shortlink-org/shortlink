@@ -1,11 +1,12 @@
 istio-ingress:
   enabled: true
 
-  nodeSelector:
-    kubernetes.io/hostname: talos-lrv-pcr
-
 gateway:
   _internal_defaults_do_not_set:
+
+    nodeSelector:
+      kubernetes.io/hostname: talos-lrv-pcr
+
     service:
       type: ClusterIP
       ports:
@@ -25,7 +26,3 @@ gateway:
           port: 50051
           targetPort: 50051
           protocol: TCP
-
-  global:
-    logAsJson: true
-
