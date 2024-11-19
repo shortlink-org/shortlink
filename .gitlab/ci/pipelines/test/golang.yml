@@ -3,7 +3,7 @@ include:
   - template: Security/Coverage-Fuzzing.gitlab-ci.yml
   - template: Jobs/Code-Intelligence.gitlab-ci.yml
   - local: .gitlab/ci/templates/common.yml
-  - local: .gitlab/ci/templates/go.yml
+  - component: $CI_SERVER_FQDN/$CI_PROJECT_PATH/go@$CI_COMMIT_SHA
 
 code_intelligence_go:
   stage: .pre

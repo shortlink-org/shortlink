@@ -1,6 +1,6 @@
 include:
   - local: .gitlab/ci/templates/common.yml
-  - component: .gitlab/ci/templates/build.yml
+  - component: $CI_SERVER_FQDN/$CI_PROJECT_PATH/build@$CI_COMMIT_SHA
   - component: $CI_SERVER_FQDN/components/container-scanning/container-scanning@main
 
 stages:
