@@ -9,6 +9,7 @@ spec:
     buildkit_version:
       default: "v0.17.1"
       description: "Define the version of BuildKit to use"
+---
 
 .template_build:
   stage: $[[ inputs.stage ]]
