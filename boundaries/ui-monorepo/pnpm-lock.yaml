@@ -202,8 +202,8 @@ importers:
         specifier: workspace:^
         version: link:packages/eslint/eslint-config-shortlink
       eslint-plugin-jest-dom:
-        specifier: ^5.4.0
-        version: 5.4.0(@testing-library/dom@10.4.0)(eslint@9.15.0(jiti@1.21.6))
+        specifier: ^5.5.0
+        version: 5.5.0(@testing-library/dom@10.4.0)(eslint@9.15.0(jiti@1.21.6))
       eslint-plugin-mui-unused-classes:
         specifier: ^2.0.2
         version: 2.0.2(eslint@9.15.0(jiti@1.21.6))
@@ -6157,8 +6157,8 @@ packages:
     peerDependencies:
       eslint: '>=5'
 
-  eslint-plugin-jest-dom@5.4.0:
-    resolution: {integrity: sha512-yBqvFsnpS5Sybjoq61cJiUsenRkC9K32hYQBFS9doBR7nbQZZ5FyO+X7MlmfM1C48Ejx/qTuOCgukDUNyzKZ7A==}
+  eslint-plugin-jest-dom@5.5.0:
+    resolution: {integrity: sha512-CRlXfchTr7EgC3tDI7MGHY6QjdJU5Vv2RPaeeGtkXUHnKZf04kgzMPIJUXt4qKCvYWVVIEo9ut9Oq1vgXAykEA==}
     engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0, npm: '>=6', yarn: '>=1'}
     peerDependencies:
       '@testing-library/dom': ^8.0.0 || ^9.0.0 || ^10.0.0
@@ -17890,7 +17890,7 @@ snapshots:
       eslint: 9.15.0(jiti@1.21.6)
       yaml: 2.6.0
 
-  eslint-plugin-jest-dom@5.4.0(@testing-library/dom@10.4.0)(eslint@9.15.0(jiti@1.21.6)):
+  eslint-plugin-jest-dom@5.5.0(@testing-library/dom@10.4.0)(eslint@9.15.0(jiti@1.21.6)):
     dependencies:
       '@babel/runtime': 7.26.0
       eslint: 9.15.0(jiti@1.21.6)
