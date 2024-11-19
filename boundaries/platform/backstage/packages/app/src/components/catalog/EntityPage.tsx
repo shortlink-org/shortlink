@@ -31,10 +31,6 @@ import {
   EntityPrometheusContent,
 } from '@roadiehq/backstage-plugin-prometheus'
 import {
-  isGithubActionsAvailable,
-  EntityGithubActionsContent,
-} from '@backstage-community/plugin-github-actions';
-import {
   EntityUserProfileCard,
   EntityGroupProfileCard,
   EntityMembersListCard,
@@ -64,7 +60,6 @@ import { EntityLighthouseContent } from '@backstage-community/plugin-lighthouse'
 
 import { TechDocsAddons } from '@backstage/plugin-techdocs-react';
 import { ReportIssue } from '@backstage/plugin-techdocs-module-addons-contrib';
-import { EntityAdrContent, isAdrAvailable } from '@backstage-community/plugin-adr';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { EntityTodoContent } from '@backstage-community/plugin-todo';
 
@@ -81,10 +76,6 @@ const cicdContent = (
   // This is an example of how you can implement your company's logic in entity page.
   // You can for example enforce that all components of type 'service' should use GitHubActions
   <EntitySwitch>
-    <EntitySwitch.Case if={isGithubActionsAvailable}>
-      <EntityGithubActionsContent />
-    </EntitySwitch.Case>
-
     <EntitySwitch.Case>
       <EmptyState
         title="No CI/CD available for this entity"
@@ -157,10 +148,6 @@ const serviceEntityPage = (
   <EntityLayout>
     <EntityLayout.Route path="/" title="Overview">
       {overviewContent}
-    </EntityLayout.Route>
-
-    <EntityLayout.Route if={isAdrAvailable} path="/adrs" title="ADRs">
-      <EntityAdrContent />
     </EntityLayout.Route>
 
     {/* @ts-ignore */}
