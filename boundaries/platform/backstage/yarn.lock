@@ -4091,9 +4091,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/cli@npm:^0.29.0":
-  version: 0.29.0
-  resolution: "@backstage/cli@npm:0.29.0"
+"@backstage/cli@npm:^0.29.1":
+  version: 0.29.1
+  resolution: "@backstage/cli@npm:0.29.1"
   dependencies:
     "@backstage/catalog-model": "npm:^1.7.1"
     "@backstage/cli-common": "npm:^0.1.15"
@@ -4164,7 +4164,7 @@ __metadata:
     global-agent: "npm:^3.0.0"
     globby: "npm:^11.1.0"
     handlebars: "npm:^4.7.3"
-    html-webpack-plugin: "npm:^5.3.1"
+    html-webpack-plugin: "npm:^5.6.3"
     inquirer: "npm:^8.2.0"
     jest: "npm:^29.7.0"
     jest-cli: "npm:^29.7.0"
@@ -4237,7 +4237,7 @@ __metadata:
       optional: true
   bin:
     backstage-cli: bin/backstage-cli
-  checksum: 10c0/b0703b308fd0bfa109c77eda73013528b5bcd99d14a45bee3bdd07fe11d1c5f9744686a4f3f24359a5563d436549b849f37bc1b85aaff478fe97dda2d87097ed
+  checksum: 10c0/016b2960343c898ada5aa10d687485d20674dc05f7aa54397d793e2f19db02d0d95e6595b0f54d651e412e0a0d4feb73012b2665b77775a4d128289b4872e9da
   languageName: node
   linkType: hard
 
@@ -16382,7 +16382,7 @@ __metadata:
     "@backstage-community/plugin-todo": "npm:^0.2.42"
     "@backstage/app-defaults": "npm:^1.5.13"
     "@backstage/catalog-model": "npm:^1.7.1"
-    "@backstage/cli": "npm:^0.29.0"
+    "@backstage/cli": "npm:^0.29.1"
     "@backstage/core-app-api": "npm:^1.15.2"
     "@backstage/core-components": "npm:^0.16.0"
     "@backstage/core-plugin-api": "npm:^1.10.1"
@@ -17111,7 +17111,7 @@ __metadata:
     "@backstage/backend-tasks": "npm:^0.6.1"
     "@backstage/catalog-client": "npm:^1.8.0"
     "@backstage/catalog-model": "npm:^1.7.1"
-    "@backstage/cli": "npm:^0.29.0"
+    "@backstage/cli": "npm:^0.29.1"
     "@backstage/config": "npm:^1.3.0"
     "@backstage/plugin-app-backend": "npm:^0.4.0"
     "@backstage/plugin-auth-backend": "npm:^0.24.0"
@@ -23819,9 +23819,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"html-webpack-plugin@npm:^5.3.1":
-  version: 5.5.4
-  resolution: "html-webpack-plugin@npm:5.5.4"
+"html-webpack-plugin@npm:^5.6.3":
+  version: 5.6.3
+  resolution: "html-webpack-plugin@npm:5.6.3"
   dependencies:
     "@types/html-minifier-terser": "npm:^6.0.0"
     html-minifier-terser: "npm:^6.0.2"
@@ -23829,8 +23829,14 @@ __metadata:
     pretty-error: "npm:^4.0.0"
     tapable: "npm:^2.0.0"
   peerDependencies:
+    "@rspack/core": 0.x || 1.x
     webpack: ^5.20.0
-  checksum: 10c0/fd7b9882a7b44b78711d3489fd571308372a915924c2e619ad8a08d9100a17ae8899a3d3bb1934c326d45bf942330a693206088ba80f292dd6574d9e33c67a43
+  peerDependenciesMeta:
+    "@rspack/core":
+      optional: true
+    webpack:
+      optional: true
+  checksum: 10c0/25a21f83a8823d3711396dd8050bc0080c0ae55537352d432903eff58a7d9838fc811e3c26462419036190720357e67c7977efd106fb9a252770632824f0cc25
   languageName: node
   linkType: hard
 
@@ -33623,7 +33629,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root@workspace:."
   dependencies:
-    "@backstage/cli": "npm:^0.29.0"
+    "@backstage/cli": "npm:^0.29.1"
     "@types/react": "npm:^18.3.12"
     "@types/react-dom": "npm:^18.3.1"
     concurrently: "npm:^9.1.0"
