@@ -6,6 +6,7 @@ spec:
     stage:
       default: test
       description: "Define the stage this job will run in"
+---
 
 variables:
   SETTINGS__GITLAB_ACCESS_TOKEN: $CI_JOB_TOKEN
