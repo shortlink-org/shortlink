@@ -1,7 +1,6 @@
 schema
 @server(port: 8100)
 @upstream(
-  baseURL: "http://localhost:50051",
   allowedHeaders: ["Authorization", "user-id"]
 )
 @telemetry(
@@ -44,6 +43,7 @@ type CartRequest {
 type Query {
   getCart(customerId: CartRequest): GetCartResponse
   @grpc(
+    url: "http://localhost:50051"
     method: "infrastructure.rpc.cart.v1.CartService.Get"
     body: "{{.args.customerId}}"
     headers: [
@@ -60,6 +60,7 @@ input ItemRequest {
 type Mutation {
   addItem(addRequest: ItemRequest): Empty!
   @grpc(
+    url: "http://localhost:50051"
     method: "infrastructure.rpc.cart.v1.CartService.Add"
     body: "{{.args.addRequest}}"
     headers: [
@@ -69,6 +70,7 @@ type Mutation {
 
   removeItem(removeRequest: ItemRequest): Empty!
   @grpc(
+    url: "http://localhost:50051"
     method: "infrastructure.rpc.cart.v1.CartService.Remove"
     body: "{{.args.removeRequest}}"
     headers: [
@@ -78,6 +80,7 @@ type Mutation {
 
   resetCart(customerId: CartRequest): Empty!
   @grpc(
+    url: "http://localhost:50051"
     method: "infrastructure.rpc.cart.v1.CartService.Reset"
     body: "{{.args.customerId}}"
     headers: [

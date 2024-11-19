@@ -1,6 +1,7 @@
 package dto
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/google/uuid"
@@ -39,7 +40,7 @@ func OrderStateToDomain(in *v3.OrderState) (*v1.OrderState, error) {
 	}
 
 	// Set the status of the order
-	builder.SetStatus(v1.OrderStatus(in.GetStatus()))
+	builder.SetStatus(context.TODO(), in.GetStatus())
 
 	// Build the OrderState
 	orderState, err := builder.Build()
