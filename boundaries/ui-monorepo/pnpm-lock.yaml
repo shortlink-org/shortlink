@@ -42,8 +42,8 @@ importers:
         specifier: ^2.2.0
         version: 2.2.0(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
       '@heroicons/react':
-        specifier: 2.1.5
-        version: 2.1.5(react@19.0.0-rc-fb9a90fa48-20240614)
+        specifier: 2.2.0
+        version: 2.2.0(react@19.0.0-rc-fb9a90fa48-20240614)
       '@mui/icons-material':
         specifier: 6.1.7
         version: 6.1.7(@mui/material@6.1.7(@emotion/react@11.13.3(@types/react@18.3.12)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.11.5(@emotion/react@11.13.3(@types/react@18.3.12)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.12)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.12)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.12)(react@19.0.0-rc-fb9a90fa48-20240614)
@@ -292,8 +292,8 @@ importers:
   packages/next:
     dependencies:
       '@heroicons/react':
-        specifier: 2.1.5
-        version: 2.1.5(react@19.0.0-rc-fb9a90fa48-20240614)
+        specifier: 2.2.0
+        version: 2.2.0(react@19.0.0-rc-fb9a90fa48-20240614)
       '@ory/client':
         specifier: ^1.15.10
         version: 1.15.10
@@ -2189,10 +2189,10 @@ packages:
       react: ^18 || ^19 || ^19.0.0-rc
       react-dom: ^18 || ^19 || ^19.0.0-rc
 
-  '@heroicons/react@2.1.5':
-    resolution: {integrity: sha512-FuzFN+BsHa+7OxbvAERtgBTNeZpUjgM/MIizfVkSCL2/edriN0Hx/DWRCR//aPYwO5QX/YlgLGXk+E3PcfZwjA==}
+  '@heroicons/react@2.2.0':
+    resolution: {integrity: sha512-LMcepvRaS9LYHJGsF0zzmgKCUim/X3N/DQKc4jepAXJ7l8QxJ1PmxJzqplF2Z3FE4PqBAIGyJAQ/w4B5dsqbtQ==}
     peerDependencies:
-      react: '>= 16'
+      react: '>= 16 || ^19.0.0-rc'
 
   '@humanfs/core@0.19.1':
     resolution: {integrity: sha512-5DyQ4+1JEUzejeK1JGICcideyfUbGixgS9jNgex5nqkW+cY7WZhxBigmieN5Qnw9ZosSNVC9KQKyb+GUaGyKUA==}
@@ -12806,7 +12806,7 @@ snapshots:
       react: 19.0.0-rc-fb9a90fa48-20240614
       react-dom: 19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614)
 
-  '@heroicons/react@2.1.5(react@19.0.0-rc-fb9a90fa48-20240614)':
+  '@heroicons/react@2.2.0(react@19.0.0-rc-fb9a90fa48-20240614)':
     dependencies:
       react: 19.0.0-rc-fb9a90fa48-20240614
 
