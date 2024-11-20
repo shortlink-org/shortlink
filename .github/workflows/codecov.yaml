@@ -53,7 +53,7 @@ jobs:
       - name: Run coverage
         run: go test -coverprofile=coverage.txt -covermode atomic -race -tags=unit -v ./...
 
-      - uses: codecov/codecov-action@288befbd1044bd1756afb0bdae077549e0ddb31f # v5.0.5
+      - uses: codecov/codecov-action@d168679d447a7d9f9917d4b26caf2cfbf080cfb4 # v5.0.6
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
           files: ./coverage.txt # optional
