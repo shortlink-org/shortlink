@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/boundaries/shortdb/shortdb-operator
 go 1.23.3
 
 require (
-	github.com/onsi/ginkgo/v2 v2.21.0
+	github.com/onsi/ginkgo/v2 v2.22.0
 	github.com/onsi/gomega v1.35.1
 	k8s.io/api v0.31.2
 	k8s.io/apimachinery v0.31.2
