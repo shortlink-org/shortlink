@@ -1,0 +1,112 @@
+## Default Merge Requests insights.yml
+mergeRequests:
+  title: Merge requests dashboard
+  charts:
+    - title: Merge requests merged per week
+      type: bar
+      query:
+        data_source: issuables
+        params:
+          issuable_type: merge_request
+          issuable_state: merged
+          group_by: week
+          period_limit: 12
+    - title: Merge requests merged per month
+      type: bar
+      query:
+        data_source: issuables
+        params:
+          issuable_type: merge_request
+          issuable_state: merged
+          group_by: month
+          period_limit: 3
+
+## Per-teams Merge Requests insights.yml
+mergeRequestsTeams:
+  title: Merge requests dashboard per teams
+  charts:
+    - title: Merge requests merged per week
+      type: stacked-bar
+      query:
+        data_source: issuables
+        params:
+          issuable_type: merge_request
+          issuable_state: merged
+          group_by: week
+          period_limit: 12
+          collection_labels:
+            - squad::alpha
+            - squad::beta
+    - title: Merge requests merged per month
+      type: stacked-bar
+      query:
+        data_source: issuables
+        params:
+          issuable_type: merge_request
+          issuable_state: merged
+          group_by: month
+          period_limit: 3
+          collection_labels:
+            - squad::alpha
+            - squad::beta
+
+## Per-teams and Type Merge Requests insights.yml
+mergeRequestsTeamsAndType:
+  title: Per Teams and Type - Merge requests dashboard
+  charts:
+    - title: Merge requests merged per week - Squad Alpha
+      type: stacked-bar
+      query:
+        data_source: issuables
+        params:
+          issuable_type: merge_request
+          issuable_state: merged
+          filter_labels: squad::alpha
+          collection_labels:
+            - type::feature
+            - type::bug
+            - type::maintenance
+          group_by: week
+          period_limit: 12
+    - title: Merge requests merged per month - Squad Alpha
+      type: stacked-bar
+      query:
+        data_source: issuables
+        params:
+          issuable_type: merge_request
+          issuable_state: merged
+          filter_labels: squad::alpha
+          collection_labels:
+            - type::feature
+            - type::bug
+            - type::maintenance
+          group_by: month
+          period_limit: 3
+    - title: Merge requests merged per week - Squad Beta
+      type: stacked-bar
+      query:
+        data_source: issuables
+        params:
+          issuable_type: merge_request
+          issuable_state: merged
+          filter_labels: squad::beta
+          collection_labels:
+            - type::feature
+            - type::bug
+            - type::maintenance
+          group_by: week
+          period_limit: 12
+    - title: Merge requests merged per month - Squad Beta
+      type: stacked-bar
+      query:
+        data_source: issuables
+        params:
+          issuable_type: merge_request
+          issuable_state: merged
+          filter_labels: squad::beta
+          collection_labels:
+            - type::feature
+            - type::bug
+            - type::maintenance
+          group_by: month
+          period_limit: 3
