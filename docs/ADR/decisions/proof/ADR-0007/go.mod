@@ -5,7 +5,7 @@ go 1.23.3
 require (
 	github.com/bytedance/sonic v1.12.4
 	github.com/google/uuid v1.6.0
-	github.com/segmentio/encoding v0.4.0
+	github.com/segmentio/encoding v0.4.1
 	github.com/stretchr/testify v1.9.0
 )
 
