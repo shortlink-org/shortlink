@@ -50,7 +50,7 @@ require (
 	github.com/redis/rueidis/rueidiscompat v1.0.30-0.20240224222815-152800b84f6d
 	github.com/redis/rueidis/rueidisotel v1.0.30-0.20240224222815-152800b84f6d
 	github.com/sasha-s/go-deadlock v0.3.5
-	github.com/segmentio/encoding v0.4.0
+	github.com/segmentio/encoding v0.4.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/sourcegraph/conc v0.3.0
 	github.com/spf13/cobra v1.8.1
