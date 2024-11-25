@@ -15,7 +15,7 @@ type: application
 deprecated: false
 dependencies:
   - name: argo-workflows
-    version: 0.42.7
+    version: 0.45.0
     repository: https://argoproj.github.io/argo-helm
     condition: argo-workflows.enabled
     tags:
