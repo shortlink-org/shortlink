@@ -11,7 +11,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: ghcr.io/dbsystel/postgresql-partman:16
+    image: ghcr.io/dbsystel/postgresql-partman:17
     init: true
     restart: on-failure
     container_name: postgres
