@@ -17,7 +17,7 @@ require (
 	github.com/shopspring/decimal v1.4.0
 	github.com/shortlink-org/shortlink v0.0.0-20241121032303-b67af4ee0dac
 	github.com/spf13/viper v1.19.0
-	github.com/stretchr/testify v1.9.0
+	github.com/stretchr/testify v1.10.0
 	github.com/stripe/stripe-go/v81 v81.1.0
 	go.opentelemetry.io/otel v1.32.0
 	go.opentelemetry.io/otel/trace v1.32.0
