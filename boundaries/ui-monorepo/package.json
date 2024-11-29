@@ -4,7 +4,7 @@
   "license": "MIT",
   "engines": {
     "node": ">=23.3.0",
-    "pnpm": ">=9.14.2"
+    "pnpm": ">=9.14.4"
   },
   "scripts": {
     "build": "NX_BATCH_MODE=true pnpm dlx nx run-many -t build --all --parallel",
@@ -90,5 +90,5 @@
     "tailwindcss": "3.4.15",
     "typescript": "^5.7.2"
   },
-  "packageManager": "pnpm@9.14.2"
+  "packageManager": "pnpm@9.14.4"
 }
