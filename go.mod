@@ -14,7 +14,7 @@ require (
 	github.com/chromedp/chromedp v0.11.2
 	github.com/couchbase/gocb/v2 v2.9.3
 	github.com/cucumber/godog v0.15.0
-	github.com/dgraph-io/badger/v4 v4.4.0
+	github.com/dgraph-io/badger/v4 v4.5.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/dnwe/otelsarama v0.0.0-20231212173111-631a0a53d5d4
 	github.com/edgedb/edgedb-go v0.17.2
