@@ -13,6 +13,10 @@ we need to establish standard tools for monitoring, tracing, and logging.
 
 ## Decision
 
+### Common landscape
+
+![distributed-kubernetes-app-workflow.png](images/ADR-0014/distributed-kubernetes-app-workflow.png)
+
 ### Tracing
 
 We use [OpenTelemetry](https://opentelemetry.io/) for tracing and metrics.
