@@ -9,8 +9,8 @@ edition = "2021"
 opentelemetry = { version = "0.27.1", features = ["trace", "metrics"] }
 opentelemetry-otlp = { version = "0.27.0", features = ["grpc-tonic"] }
 opentelemetry_sdk = { version = "0.27.1", features = ["trace", "metrics", "rt-tokio"] }
-tracing = "0.1.40"
-tracing-subscriber = { version = "0.3.18", features = ["env-filter", "fmt", "json"] }
+tracing = "0.1.41"
+tracing-subscriber = { version = "0.3.19", features = ["env-filter", "fmt", "json"] }
 tracing-opentelemetry = "0.28.0"
 spandoc = "0.2.2"
 
