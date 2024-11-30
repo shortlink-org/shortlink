@@ -37,11 +37,6 @@ services:
       - 9092:9092
       - 28082:28082
       - 29092:29092
-    logging:
-      driver: ${LOGGER_DRIVER}
-      options:
-        loki-url: ${LOGGER_DRIVER_URL}
-        max-size: ${LOGGER_MAX_SIZE}
 
   console:
     <<: *network

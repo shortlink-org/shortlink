@@ -120,7 +120,6 @@ const NEXT_CONFIG = {
   bundlePagesRouterDependencies: true,
   experimental: {
     webVitalsAttribution: ['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'],
-    turbo: {},
     // typedRoutes: true,
   },
 }

@@ -2,8 +2,8 @@
 
 import React, { useRef, Suspense } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
-import { AppRouterCacheProvider } from '@mui/material-nextjs/v14-appRouter'
-import { CssVarsProvider } from '@mui/material/styles'
+import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
+import { ThemeProvider } from '@mui/material/styles'
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript'
 import { theme } from '@shortlink-org/ui-kit'
 import { LocalizationProvider } from '@mui/x-date-pickers'
@@ -49,9 +49,9 @@ function Providers({ children, ...props }) {
   }
 
   return (
-    <AppRouterCacheProvider>
+    <AppRouterCacheProvider options={{ enableCssLayer: true }}>
       <NextThemeProvider enableSystem attribute="class" defaultTheme={'light'}>
-        <CssVarsProvider theme={theme}>
+        <ThemeProvider theme={theme}>
           <InitColorSchemeScript />
 
           {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
@@ -68,7 +68,7 @@ function Providers({ children, ...props }) {
               </div>
             </Layout>
           </LocalizationProvider>
-        </CssVarsProvider>
+        </ThemeProvider>
       </NextThemeProvider>
     </AppRouterCacheProvider>
   )

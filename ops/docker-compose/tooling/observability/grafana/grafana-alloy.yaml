@@ -7,7 +7,7 @@ x-network: &network
 
 services:
 
-  alloy:
+  jaeger-agent:
     <<: *network
     depends_on:
       coredns:
@@ -18,11 +18,11 @@ services:
       - --server.http.listen-addr=0.0.0.0:12345
       - --storage.path=/var/lib/alloy/data
       - /etc/alloy/config.alloy
-    container_name: alloy
+    container_name: jaeger-agent
     ports:
-      - 12345:12345
       - 4317:4317
       - 4318:4318
+      - 12345:12345
     environment:
       - LOKI_URI=${LOKI_URI}
       - LOKI_USERNAME=${LOKI_USERNAME}
@@ -30,6 +30,9 @@ services:
       - PROMETHEUS_URI=${PROMETHEUS_URI}
       - PROMETHEUS_USERNAME=${PROMETHEUS_USERNAME}
       - PROMETHEUS_PASSWORD=${PROMETHEUS_PASSWORD}
+      - TEMPO_URI=${TEMPO_URI}
+      - TEMPO_USERNAME=${TEMPO_USERNAME}
+      - TEMPO_PASSWORD=${TEMPO_PASSWORD}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./ops/docker-compose/tooling/observability/grafana/conf/alloy/config.alloy:/etc/alloy/config.alloy

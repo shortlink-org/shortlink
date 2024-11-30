@@ -5,7 +5,14 @@ const searchClient = algoliasearch('YourApplicationID', 'YourSearchOnlyAPIKey')
 
 function SearchForm() {
   return (
-    <InstantSearch searchClient={searchClient} indexName="instant_search" insights>
+    <InstantSearch
+      searchClient={searchClient}
+      future={{
+        preserveSharedStateOnUnmount: true,
+      }}
+      indexName="instant_search"
+      insights
+    >
       <SearchBox
         placeholder="Product, brand, color, …"
         classNames={{

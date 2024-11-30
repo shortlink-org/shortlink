@@ -148,13 +148,12 @@
 [tracing]
   serviceName = "traefik"
 
-  # Default: 0 - no truncation will occur
-  spanNameLimit = 0
-
   [tracing.otlp.http]
     endpoint = "http://jaeger-agent:4318/v1/traces"
 
-  [tracing.openTelemetry.grpc]
+  [tracing.otlp.grpc]
+    insecure = true
+    endpoint = "http://jaeger-agent:4317"
 
 ################################################################
 # Prometheus

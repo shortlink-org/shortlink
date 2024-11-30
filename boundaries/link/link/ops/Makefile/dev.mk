@@ -8,6 +8,9 @@ dev: ### Run the development environment
 		-f $(ROOT_DIR)/ops/docker-compose/database/redis/redis.yaml \
 		-f $(ROOT_DIR)/ops/docker-compose/database/postgres/postgres.yaml \
 		-f $(ROOT_DIR)/ops/docker-compose/tooling/minio/minio.yaml \
+		-f $(ROOT_DIR)/ops/docker-compose/application/auth/kratos/kratos.yaml \
+		-f $(ROOT_DIR)/ops/docker-compose/application/auth/spicedb/spicedb.yaml \
+		-f $(ROOT_DIR)/ops/docker-compose/gateway/traefik/traefik.yaml \
     up -d --remove-orphans --build
 
 down: confirm ## Down docker compose
@@ -18,5 +21,8 @@ down: confirm ## Down docker compose
 		-f $(ROOT_DIR)/ops/docker-compose/database/redis/redis.yaml \
 		-f $(ROOT_DIR)/ops/docker-compose/database/postgres/postgres.yaml \
 		-f $(ROOT_DIR)/ops/docker-compose/tooling/minio/minio.yaml \
+		-f $(ROOT_DIR)/ops/docker-compose/application/auth/kratos/kratos.yaml \
+		-f $(ROOT_DIR)/ops/docker-compose/application/auth/spicedb/spicedb.yaml \
+		-f $(ROOT_DIR)/ops/docker-compose/gateway/traefik/traefik.yaml \
 	down --remove-orphans
 	@docker network prune -f

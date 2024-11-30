@@ -59,6 +59,7 @@ prometheus.scrape "scrape_metrics" {
   targets = [
     // {"__address__" = "localhost:12345", group = "infrastructure", service = "alloy"},
     {"__address__" = "coredns:9153",    group = "infrastructure", service = "coredns"},
+    {"__address__" = "traefik:8082",    group = "infrastructure", service = "traefik"},
   ]
 
   // Setting the scrape interval lower to make it faster to be able to see the metrics
@@ -116,14 +117,14 @@ otelcol.processor.batch "default" {
 
 otelcol.exporter.otlp "grafanacloud" {
   client {
-    endpoint = env("OPENTELEMETRY_URI")
+    endpoint = env("TEMPO_URI")
     auth     = otelcol.auth.basic.grafanacloud.handler
   }
 }
 
 otelcol.auth.basic "grafanacloud" {
-  username = env("OPENTELEMETRY_USERNAME")
-  password = env("OPENTELEMETRY_PASSWORD")
+  username = env("TEMPO_USERNAME")
+  password = env("TEMPO_PASSWORD")
 }
 
 otelcol.exporter.loki "grafanacloud" {
