@@ -21,6 +21,8 @@ services:
     container_name: alloy
     ports:
       - 12345:12345
+      - 4317:4317
+      - 4318:4318
     environment:
       - LOKI_URI=${LOKI_URI}
       - LOKI_USERNAME=${LOKI_USERNAME}
