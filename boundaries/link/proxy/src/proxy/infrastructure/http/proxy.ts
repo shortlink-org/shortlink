@@ -11,7 +11,7 @@ import log from '../../../logger'
 class ProxyController {
   constructor(
     @inject(TYPES.SERVICE.LinkService) private linkService: LinkService,
-    @inject(TYPES.SERVICE.StatsService) private statsService: StatsService,
+    // @inject(TYPES.SERVICE.StatsService) private statsService: StatsService,
   ) { }
 
   @httpGet(`/`)

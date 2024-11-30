@@ -3,8 +3,6 @@ import http from "http"
 import * as express from "express"
 import * as bodyParser from 'body-parser'
 import helmet from 'helmet'
-// TODO: temp disable pyroscope
-// const Pyroscope = require('@pyroscope/nodejs')
 import morgan from 'morgan'
 import {InversifyExpressServer} from "inversify-express-utils"
 import {createTerminus} from "@godaddy/terminus"
@@ -20,8 +18,6 @@ import container from "./inversify.config"
 
 import './proxy/infrastructure/http/proxy'
 
-// TODO: enable pyroscope
-// const { expressMiddleware } = Pyroscope
 const APP = express.default()
 const PORT = process.env.PORT || 3020
 const SERVER_HTTP = http.createServer(APP)
@@ -43,8 +39,6 @@ APP.use(bodyParser.urlencoded({
 APP.use(bodyParser.json())
 APP.use(helmet())
 APP.use(morganMiddleware)
-// TODO: enable pyroscope
-// APP.use(expressMiddleware())
 
 // start the server
 const SERVER = new InversifyExpressServer(container, null, { rootPath: "/" }, APP);

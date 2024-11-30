@@ -7,12 +7,7 @@
     </scripts>
     <node-interpreter value="project" />
     <package-manager value="npm" />
-    <envs>
-      <env name="API_LINK_SERVICE" value="http://localhost:7070" />
-      <env name="MQ_RABBIT_URI" value="amqp://admin:admin@rabbitmq.rabbitmq:5672" />
-      <env name="SERVICE_NAME" value="shortlink-proxy" />
-      <env name="STORE_POSTGRES_URI" value="postgres://postgres:shortlink@postgresql.postgresql:5432/shortlink?sslmode=disable&amp;pool_timeout=20&amp;connect_timeout=20" />
-    </envs>
+    <envs />
     <method v="2" />
   </configuration>
 </component>
