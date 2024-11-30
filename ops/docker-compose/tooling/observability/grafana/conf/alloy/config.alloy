@@ -57,7 +57,7 @@ loki.write "grafanacloud" {
 prometheus.scrape "scrape_metrics" {
   // Scrape metrics from services running on the same host
   targets = [
-    {"__address__" = "localhost:12345", group = "infrastructure", service = "alloy"},
+    // {"__address__" = "localhost:12345", group = "infrastructure", service = "alloy"},
     {"__address__" = "coredns:9153",    group = "infrastructure", service = "coredns"},
   ]
 
@@ -75,5 +75,34 @@ prometheus.remote_write "grafanacloud" {
       username = env("PROMETHEUS_USERNAME")
       password = env("PROMETHEUS_PASSWORD")
     }
+  }
+}
+
+// OPENTELEMTRY ---------------------------------------------------------------
+otelcol.exporter.otlp "default" {
+  client {
+    endpoint = env("OTEL_EXPORTER_OTLP_ENDPOINT")
+    auth     = otelcol.auth.basic.grafanacloud.handler
+  }
+}
+
+otelcol.auth.basic "grafanacloud" {
+  username = env("OTEL_EXPORTER_OTLP_USERNAME")
+  password = env("OTEL_EXPORTER_OTLP_PASSWORD")
+}
+
+otelcol.receiver.otlp "default" {
+  grpc {
+    endpoint = "127.0.0.1:4317"
+  }
+
+  http {
+    endpoint = "127.0.0.1:4318"
+  }
+
+  output {
+    metrics = [otelcol.exporter.otlp.default.input]
+    logs    = [otelcol.exporter.otlp.default.input]
+    traces  = [otelcol.exporter.otlp.default.input]
   }
 }
