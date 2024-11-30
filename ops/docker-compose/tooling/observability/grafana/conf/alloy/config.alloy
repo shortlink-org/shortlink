@@ -79,7 +79,42 @@ prometheus.remote_write "grafanacloud" {
 }
 
 // OPENTELEMTRY ---------------------------------------------------------------
-otelcol.exporter.otlp "default" {
+otelcol.receiver.otlp "default" {
+  grpc {
+    endpoint = "0.0.0.0:4317"
+  }
+
+  http {
+    endpoint = "0.0.0.0:4318"
+  }
+
+  output {
+    metrics = [otelcol.processor.memory_limiter.default.input]
+    logs    = [otelcol.processor.memory_limiter.default.input]
+    traces  = [otelcol.processor.memory_limiter.default.input]
+  }
+}
+
+otelcol.processor.memory_limiter "default" {
+  check_interval = "1s"
+  limit          = "1GiB"
+
+  output {
+    metrics = [otelcol.processor.batch.default.input]
+    logs    = [otelcol.processor.batch.default.input]
+    traces  = [otelcol.processor.batch.default.input]
+  }
+}
+
+otelcol.processor.batch "default" {
+  output {
+    metrics = [otelcol.exporter.prometheus.grafanacloud.input]
+    logs    = [otelcol.exporter.loki.grafanacloud.input]
+    traces  = [otelcol.exporter.otlp.grafanacloud.input]
+  }
+}
+
+otelcol.exporter.otlp "grafanacloud" {
   client {
     endpoint = env("OPENTELEMETRY_URI")
     auth     = otelcol.auth.basic.grafanacloud.handler
@@ -91,18 +126,10 @@ otelcol.auth.basic "grafanacloud" {
   password = env("OPENTELEMETRY_PASSWORD")
 }
 
-otelcol.receiver.otlp "default" {
-  grpc {
-    endpoint = "0.0.0.0:4317"
-  }
+otelcol.exporter.loki "grafanacloud" {
+  forward_to = [loki.write.grafanacloud.receiver]
+}
 
-  http {
-    endpoint = "0.0.0.0:4318"
-  }
-
-  output {
-    metrics = [otelcol.exporter.otlp.default.input]
-    logs    = [otelcol.exporter.otlp.default.input]
-    traces  = [otelcol.exporter.otlp.default.input]
-  }
+otelcol.exporter.prometheus "grafanacloud" {
+  forward_to = [prometheus.remote_write.grafanacloud.receiver]
 }
