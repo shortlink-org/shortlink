@@ -1,0 +1,30 @@
+x-network: &network
+  networks:
+    - ${DOCKER_NETWORK}
+  dns:
+    - ${DNS_IP}
+  dns_search: ${DNS_SEARCH}
+
+services:
+
+  alloy:
+    <<: *network
+    depends_on:
+      coredns:
+        condition: service_started
+    image: grafana/alloy:latest
+    command:
+      - run
+      - --server.http.listen-addr=0.0.0.0:12345
+      - --storage.path=/var/lib/alloy/data
+      - /etc/alloy/config.alloy
+    container_name: alloy
+    ports:
+      - 12345:12345
+    environment:
+      - LOKI_URI=${LOKI_URI}
+      - LOKI_USERNAME=${LOKI_USERNAME}
+      - LOKI_PASSWORD=${LOKI_PASSWORD}
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./ops/docker-compose/tooling/observability/grafana/conf/alloy/config.alloy:/etc/alloy/config.alloy

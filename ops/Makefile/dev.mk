@@ -33,6 +33,7 @@ down: confirm ## Down docker compose
 		-f ops/docker-compose/tooling/saas/localstack/localstack.yaml \
 		-f ops/docker-compose/tooling/saas/temporal/temporal.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-loki.yaml \
+		-f ops/docker-compose/tooling/observability/grafana/grafana-alloy.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-tempo.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-pyroscope.yaml \
 		-f ops/docker-compose/tooling/observability/grafana/grafana-oncall.yaml \

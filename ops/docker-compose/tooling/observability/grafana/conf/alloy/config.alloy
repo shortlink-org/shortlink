@@ -1,0 +1,47 @@
+// Discover docker containers to collect logs from
+//
+// Docs: https://grafana.com/docs/alloy/latest/reference/components/loki/loki.source.docker/#example
+discovery.docker "docker_containers" {
+  host = "unix:///var/run/docker.sock"
+}
+
+// Extract container name from __meta_docker_container_name label and add as label
+discovery.relabel "docker_containers" {
+    targets = discovery.docker.docker_containers.targets
+
+    rule {
+        source_labels = ["__meta_docker_container_name"]
+        target_label  = "container"
+    }
+}
+
+// Scrape logs from docker containers and send to be processed
+loki.source.docker "docker_containers" {
+  host       = "unix:///var/run/docker.sock"
+  targets    = discovery.relabel.docker_containers.output
+  forward_to = [loki.process.process_logs.receiver]
+}
+
+// Process logs and send to Loki
+loki.process "process_logs" {
+    stage.docker { }
+
+    forward_to = [loki.write.grafanacloud.receiver]
+}
+
+// loki.write "local" {
+//  endpoint {
+//    url = "http://loki:3100/loki/api/v1/push"
+//  }
+// }
+
+loki.write "grafanacloud" {
+  endpoint {
+    url = env("LOKI_URI")
+
+    basic_auth {
+      username = env("LOKI_USERNAME")
+      password = env("LOKI_PASSWORD")
+    }
+  }
+}
