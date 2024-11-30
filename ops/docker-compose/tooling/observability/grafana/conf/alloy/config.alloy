@@ -81,14 +81,14 @@ prometheus.remote_write "grafanacloud" {
 // OPENTELEMTRY ---------------------------------------------------------------
 otelcol.exporter.otlp "default" {
   client {
-    endpoint = env("OTEL_EXPORTER_OTLP_ENDPOINT")
+    endpoint = env("OPENTELEMETRY_URI")
     auth     = otelcol.auth.basic.grafanacloud.handler
   }
 }
 
 otelcol.auth.basic "grafanacloud" {
-  username = env("OTEL_EXPORTER_OTLP_USERNAME")
-  password = env("OTEL_EXPORTER_OTLP_PASSWORD")
+  username = env("OPENTELEMETRY_USERNAME")
+  password = env("OPENTELEMETRY_PASSWORD")
 }
 
 otelcol.receiver.otlp "default" {
