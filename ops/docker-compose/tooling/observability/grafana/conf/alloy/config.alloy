@@ -1,3 +1,10 @@
+logging {
+    level  = "info"
+    format = "json"
+}
+
+// LOKI ------------------------------------------------------------------------
+
 // Discover docker containers to collect logs from
 //
 // Docs: https://grafana.com/docs/alloy/latest/reference/components/loki/loki.source.docker/#example
@@ -42,6 +49,31 @@ loki.write "grafanacloud" {
     basic_auth {
       username = env("LOKI_USERNAME")
       password = env("LOKI_PASSWORD")
+    }
+  }
+}
+
+// PROMETHEUS ------------------------------------------------------------------
+prometheus.scrape "scrape_metrics" {
+  // Scrape metrics from services running on the same host
+  targets = [
+    {"__address__" = "localhost:12345", group = "infrastructure", service = "alloy"},
+    {"__address__" = "coredns:9153",    group = "infrastructure", service = "coredns"},
+  ]
+
+  // Setting the scrape interval lower to make it faster to be able to see the metrics
+  scrape_interval = "10s"
+
+  forward_to      = [prometheus.remote_write.grafanacloud.receiver]
+}
+
+prometheus.remote_write "grafanacloud" {
+  endpoint {
+    url = env("PROMETHEUS_URI")
+
+    basic_auth {
+      username = env("PROMETHEUS_USERNAME")
+      password = env("PROMETHEUS_PASSWORD")
     }
   }
 }

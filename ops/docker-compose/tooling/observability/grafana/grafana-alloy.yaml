@@ -25,6 +25,9 @@ services:
       - LOKI_URI=${LOKI_URI}
       - LOKI_USERNAME=${LOKI_USERNAME}
       - LOKI_PASSWORD=${LOKI_PASSWORD}
+      - PROMETHEUS_URI=${PROMETHEUS_URI}
+      - PROMETHEUS_USERNAME=${PROMETHEUS_USERNAME}
+      - PROMETHEUS_PASSWORD=${PROMETHEUS_PASSWORD}
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./ops/docker-compose/tooling/observability/grafana/conf/alloy/config.alloy:/etc/alloy/config.alloy
