@@ -285,3 +285,8 @@ updates:
     directory: /boundaries/shop/pricer
     schedule:
       interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/auth/ui
+    schedule:
+      interval: daily
