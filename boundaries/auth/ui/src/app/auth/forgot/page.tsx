@@ -1,15 +1,16 @@
 'use client'
 
 // @ts-nocheck
-import { VerificationFlow, UpdateVerificationFlowBody } from '@ory/client'
+import { RecoveryFlow, UpdateRecoveryFlowBody } from '@ory/client'
+import { AxiosError } from 'axios'
 import type { NextPage } from 'next'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import React, { useEffect, useState } from 'react'
-import { AxiosError } from 'axios'
 
-import { Flow } from 'components/ui/Flow'
-import ory from 'pkg/sdk'
+import { Flow } from '@/components/ui/Flow'
+import { handleFlowError } from '@/pkg/errors'
+import ory from '@/pkg/sdk'
 
 // <BreadcrumbJsonLd
 // itemListElements={[
@@ -32,7 +33,7 @@ import ory from 'pkg/sdk'
 // />
 
 const Page: NextPage = () => {
-  const [flow, setFlow] = useState<VerificationFlow>()
+  const [flow, setFlow] = useState<RecoveryFlow>()
 
   // Get ?flow=... from the URL
   const router = useRouter()
@@ -49,80 +50,58 @@ const Page: NextPage = () => {
     // If ?flow=.. was in the URL, we fetch it
     if (flowId) {
       ory
-        .getVerificationFlow({ id: String(flowId) })
+        .getRecoveryFlow({ id: String(flowId) })
         .then(({ data }) => {
           setFlow(data)
         })
-        .catch((err: AxiosError) => {
-          switch (err.response?.status) {
-            case 410:
-            // Status code 410 means the request has expired - so let's load a fresh flow!
-            case 403:
-              // Status code 403 implies some other issue (e.g. CSRF) - let's reload!
-              return router.push('/verification')
-            default:
-            // Otherwise, we nothitng - the error will be handled by the Flow component
-          }
-
-          throw err
-        })
+        .catch(handleFlowError(router, 'recovery', setFlow))
       return
     }
 
     // Otherwise, we initialize it
     ory
-      .createBrowserVerificationFlow({
-        returnTo: returnTo ? String(returnTo) : undefined,
+      .createBrowserRecoveryFlow({
+        returnTo: String(returnTo || ''),
       })
       .then(({ data }) => {
         setFlow(data)
       })
+      .catch(handleFlowError(router, 'recovery', setFlow))
       .catch((err: AxiosError) => {
-        switch (err.response?.status) {
-          case 400:
-            // Status code 400 implies the user is already signed in
-            return router.push('/')
-          default:
-          // Otherwise, we nothitng - the error will be handled by the Flow component
+        // If the previous handler did not catch the error it's most likely a form validation error
+        if (err.response?.status === 400) {
+          // Yup, it is!
+          // @ts-ignore
+          setFlow(err.response?.data)
+          return
         }
 
-        throw err
+        return Promise.reject(err)
       })
   }, [flowId, router, returnTo, flow])
 
-  const onSubmit = async (values: UpdateVerificationFlowBody) => {
+  const onSubmit = (values: UpdateRecoveryFlowBody) => {
     router
       // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
-      // their data when they reload the page.
-      .push(`/auth/verification?flow=${flow?.id}`)
+      // his data when she/he reloads the page.
+      .push(`/auth/forget?flow=${flow?.id}`)
 
     ory
-      .updateVerificationFlow({
+      .updateRecoveryFlow({
         flow: String(flow?.id),
-        updateVerificationFlowBody: values,
+        updateRecoveryFlowBody: values,
       })
       .then(({ data }) => {
         // Form submission was successful, show the message to the user!
         setFlow(data)
       })
+      .catch(handleFlowError(router, 'recovery', setFlow))
       .catch((err: AxiosError) => {
         switch (err.response?.status) {
           case 400:
             // Status code 400 implies the form validation had an error
             // @ts-ignore
             setFlow(err.response?.data)
-            return
-          case 410:
-            // @ts-ignore
-            // eslint-disable-next-line no-case-declarations
-            const newFlowID = err.response.data.use_flow_id
-            router
-              // On submission, add the flow ID to the URL but do not navigate. This prevents the user loosing
-              // their data when they reload the page.
-              .push(`/auth/verification?flow=${newFlowID}`)
-
-            ory.getVerificationFlow({ id: newFlowID }).then(({ data }) => setFlow(data))
-
             return
           default:
           // Otherwise, we nothitng - the error will be handled by the Flow component
@@ -134,7 +113,7 @@ const Page: NextPage = () => {
 
   return (
     <>
-      {/*<NextSeo title="Verification" description="Verify your account" />*/}
+      {/*<NextSeo title="Forgot Password" description="Forgot Password" />*/}
 
       <div className="flex h-full p-4 rotate">
         <div className="sm:max-w-xl md:max-w-3xl w-full m-auto">
@@ -147,8 +126,8 @@ const Page: NextPage = () => {
               }}
             >
               <div className="flex-1 absolute bottom-0 text-white p-10">
-                <h3 className="text-4xl font-bold inline-block">Login</h3>
-                <p className="text-gray-500 whitespace-no-wrap">Verification page for your account</p>
+                <h3 className="text-2xl font-bold inline-block">Reset Password</h3>
+                <p className="text-gray-500 whitespace-no-wrap">Forgotten Password? No prob!</p>
               </div>
               <svg
                 className="absolute animate h-full w-4/12 sm:w-2/12 right-0 inset-y-0 fill-current text-white"
@@ -162,19 +141,19 @@ const Page: NextPage = () => {
 
             <div className="flex-1 p-6 sm:p-10 sm:py-12">
               <h3 className="text-xl text-gray-700 font-bold mb-6">
-                Verification <span className="text-gray-400 font-light">to your account</span>
+                Enter <span className="text-gray-400 font-light">your email below</span>
               </h3>
 
-              <Flow key="verification" onSubmit={onSubmit} flow={flow} />
+              <Flow onSubmit={onSubmit} flow={flow} />
 
               <div className="flex items-center justify-between">
-                <Link href="/auth/forgot">
+                <Link href="/auth/login" legacyBehavior>
                   <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
-                    Forgot password?
+                    Log in
                   </p>
                 </Link>
 
-                <Link href="/auth/registration">
+                <Link href="/auth/registration" legacyBehavior>
                   <p className="cursor-pointer no-underline hover:underline mt-4 text-sm font-medium text-indigo-600 hover:text-indigo-500">
                     Don't have an account? Sign Up
                   </p>
