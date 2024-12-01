@@ -21,7 +21,7 @@ const preview: Preview = {
     (Story) => {
       return (
         // @ts-ignore
-        <ThemeProvider
+        (<ThemeProvider
           enableSystem
           attribute="class"
           defaultTheme={'light'}
@@ -34,10 +34,12 @@ const preview: Preview = {
               </Provider>
             </LocalizationProvider>
           </CssVarsProvider>
-        </ThemeProvider>
-      )
+        </ThemeProvider>)
+      );
     },
   ],
+
+  tags: ['autodocs']
 }
 
 export default preview
