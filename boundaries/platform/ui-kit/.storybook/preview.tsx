@@ -7,13 +7,13 @@ import '@fontsource/roboto/500.css'
 import '@fontsource/roboto/700.css'
 import '@fontsource/caveat'
 import '@fontsource/material-icons'
-import { CssVarsProvider } from '@mui/material/styles'
+import { ThemeProvider } from '@mui/material/styles'
 import InitColorSchemeScript from '@mui/material/InitColorSchemeScript'
-import { ThemeProvider } from 'next-themes'
+import { ThemeProvider as ThemeProviderNext } from 'next-themes'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
-import '../src/theme/styles.css'
+// import '../src/theme/styles.css'
 import { theme } from '../src/theme/theme'
 
 const preview: Preview = {
@@ -21,25 +21,25 @@ const preview: Preview = {
     (Story) => {
       return (
         // @ts-ignore
-        (<ThemeProvider
+        (<ThemeProviderNext
           enableSystem
           attribute="class"
           defaultTheme={'light'}
         >
-          <CssVarsProvider theme={theme}>
+          <ThemeProvider theme={theme}>
             <InitColorSchemeScript />
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <Provider>
                 <Story />
               </Provider>
             </LocalizationProvider>
-          </CssVarsProvider>
-        </ThemeProvider>)
+          </ThemeProvider>
+        </ThemeProviderNext>)
       );
     },
   ],
 
-  tags: ['autodocs']
+  tags: []
 }
 
 export default preview
