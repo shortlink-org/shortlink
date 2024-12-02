@@ -37,6 +37,7 @@ jobs:
         with:
           node-version: '23.x'
           cache: 'pnpm'
+          cache-dependency-path: './boundaries/platform/ui-kit/pnpm-lock.yaml'
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
