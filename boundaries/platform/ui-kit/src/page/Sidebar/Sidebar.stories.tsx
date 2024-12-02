@@ -10,6 +10,10 @@ const meta: Meta<typeof Sidebar> = {
 export default meta
 
 export const Default = {
+  args: {
+    mode: 'full',
+  },
+
   render: (args: any) => {
     let className = 'h-screen w-96'
 
@@ -23,12 +27,13 @@ export const Default = {
       </div>
     )
   },
+
   argTypes: {
     mode: {
       control: {
         type: 'select',
-        options: ['full', 'mini'],
       },
+      options: ['full', 'mini'],
     },
   },
 }
