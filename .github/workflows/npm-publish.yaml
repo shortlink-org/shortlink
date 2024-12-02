@@ -41,7 +41,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: Install dependencies
-        run: pnpm ci
+        run: pnpm install --frozen-lockfile
         working-directory: ./boundaries/platform/ui-kit
 
       - run: sed -i 's/@shortlink-org\/ui-kit/shortlink-ui-kit/g' package.json
