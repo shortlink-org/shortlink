@@ -23,18 +23,31 @@ jobs:
         with:
           egress-policy: audit
 
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-      - uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+      - name: Checkout
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          node-version: '20.x'
+          version: 9
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@39370e3970a6d050c480ffad4ff0ed4d3fdee5af # v4.1.0
+        with:
+          node-version: '23.x'
+          cache: 'pnpm'
           registry-url: 'https://registry.npmjs.org'
-      - run: pnpm install -g npm
+
+      - name: Install dependencies
+        run: pnpm ci
         working-directory: ./boundaries/platform/ui-kit
-      - run: pnpm ci
-        working-directory: ./boundaries/platform/ui-kit
+
       - run: sed -i 's/@shortlink-org\/ui-kit/shortlink-ui-kit/g' package.json
         working-directory: ./boundaries/platform/ui-kit
-      - run: pnpm publish --provenance --access public --registry https://registry.npmjs.org --scope=@batazor
+
+      - name: Publish 🚀
+        run: pnpm publish --provenance --access public --registry https://registry.npmjs.org --scope=@batazor
         working-directory: ./boundaries/platform/ui-kit
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
