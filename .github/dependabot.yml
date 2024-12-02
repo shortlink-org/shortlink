@@ -290,3 +290,53 @@ updates:
     directory: /boundaries/auth/ui
     schedule:
       interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/billing/ui
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/link/ui/components/Footer
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/link/ui/components/Header
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/link/ui/components/Testimonials
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/link/ui
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/marketing/landing
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/marketing/ui
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/platform/ui-kit
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /pkg/eslint/eslint-config-shortlink
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /pkg/eslint/eslint-plugin-shortlink
+    schedule:
+      interval: daily
