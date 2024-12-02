@@ -10,12 +10,13 @@
 
 | Service   | Description        | Language/Framework | Docs                               | Status                                                                                                                                                                  |
 |-----------|--------------------|--------------------|------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| antifraud | Anti-fraud service | Coming soon        | [docs](./antifraud/README.md)      | -                                                                                                                                                                       |
 | billing   | Billing service    | Go                 | [docs](./billing/README.md)        | [![App Status](https://argo.shortlink.best/api/badge?name=shortlink-billing-billing&revision=true)](https://argo.shortlink.best/applications/shortlink-billing-billing) |
 | currency  | Currency service   | Rust               | [docs](./currency/README.md)       | -                                                                                                                                                                       |
 | wallet    | Wallet service     | Go (Solidity)      | [docs](./wallet/README.md)         |                                                                                                                                                                         |
 | mobile    | Mobile UI          | Dart/Flutter       | [docs](mobile/shortlink/README.md) | -                                                                                                                                                                       |
 | report    | Report service     | Coming soon        | [docs](./report/README.md)         | -                                                                                                                                                                       |
-| antifraud | Anti-fraud service | Coming soon        | [docs](./antifraud/README.md)      | -                                                                                                                                                                       |
+| ui        | Web UI             | React (NextJS)     | [docs](./ui/README.md)             | -                                                                                                                                                                       |
 
 ### Docs
 

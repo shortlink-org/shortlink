@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 // @ts-ignore
 import { PriceTable } from '@shortlink-org/ui-kit'
 
-import Discounted from 'components/Billing/Discounted'
+import Discounted from '@/components/Billing/Discounted'
 
 const tiers = [
   {

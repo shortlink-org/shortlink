@@ -1,9 +1,9 @@
 'use client'
 
-import Discounted from 'components/Billing/Discounted'
-import PaymentMethod from 'components/Billing/PaymentMethod'
-import withAuthSync from 'components/Private'
-import Header from 'components/Page/Header'
+import Discounted from '@/components/Billing/Discounted'
+import PaymentMethod from '@/components/Billing/PaymentMethod'
+import withAuthSync from '@/components/Private'
+import Header from '@/components/Page/Header'
 
 // <ProductJsonLd
 // productName="Shortlink"
