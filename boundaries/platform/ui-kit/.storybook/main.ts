@@ -1,4 +1,4 @@
-import type { StorybookConfig } from '@storybook/react-vite'
+import type { StorybookConfig } from '@storybook/experimental-nextjs-vite'
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.stories.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
@@ -20,7 +20,7 @@ const config: StorybookConfig = {
   },
 
   framework: {
-    name: '@storybook/react-vite',
+    name: '@storybook/experimental-nextjs-vite',
     options: {}
   },
 

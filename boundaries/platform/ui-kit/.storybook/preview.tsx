@@ -13,7 +13,7 @@ import { ThemeProvider as ThemeProviderNext } from 'next-themes'
 import { LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 
-// import '../src/theme/styles.css'
+import '../src/theme/styles.css'
 import { theme } from '../src/theme/theme'
 
 const preview: Preview = {
