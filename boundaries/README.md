@@ -19,8 +19,6 @@
 | Search Boundary       | Search services          | Supporting     | [docs](./boundaries/search/README.md)       |
 | Shop Boundary         | Shop services            | Supporting     | [docs](./boundaries/shop/README.md)         |
 | ShortDB Boundary      | ShortDB services         | Supporting     | [docs](./boundaries/shortdb/README.md)      |
-| UI Boundary           | UI services              | Supporting     | [docs](./boundaries/ui-monorepo/README.md)  |
-
 
 #### Draft context
  

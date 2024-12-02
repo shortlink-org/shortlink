@@ -61,8 +61,13 @@ adr new Implement as Unix shell scripts
   - [ADR-0028](./decisions/0028-go-and-debug-concurrency.md) - Go and debug concurrency
   - [ADR-0029](./decisions/0029-go-key-recommendations.md) - Go: Key Recommendations
 - **Front-end/Javascript**
+  - [ADR-0036](./decisions/0036-nx-monorepo.md) - Nx, monorepo **[DEPRECATED]**
   - [ADR-0019](./decisions/0019-front-end-testing.md) - Front-end testings
   - [ADR-0031](./decisions/0031-js-package-manager.md) - JS: package manager
+  - [ADR-0037](./decisions/0037-ui-security.md) - Implementing Security Measures in UI
+  - [ADR-0038](./decisions/0038-transition-to-cloudflare-apps.md) - Transition to Cloudflare Apps
+  - [ADR-0039](./decisions/0039-ui-accessibility.md) - UI Accessibility
+  - [ADR-0040](./decisions/0040-ui-kit.md) - UI-kit
 - **Testing**
   - [ADR-0020](./decisions/0020-k6.md) - k6 
 - **Python**

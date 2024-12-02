@@ -127,7 +127,7 @@ const Page: NextPage = () => {
             >
               <div className="flex-1 absolute bottom-0 text-white p-10">
                 <h3 className="text-2xl font-bold inline-block">Reset Password</h3>
-                <p className="text-gray-500 whitespace-no-wrap">Forgotten Password? No prob!</p>
+                <p className="text-gray-500 whitespace-no-wrap">Forgotten Password? No problem!</p>
               </div>
               <svg
                 className="absolute animate h-full w-4/12 sm:w-2/12 right-0 inset-y-0 fill-current text-white"

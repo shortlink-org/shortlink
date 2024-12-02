@@ -1,10 +1,10 @@
-# 1. Init
+# 36. Nx, monorepo
 
 Date: 2023-04-27
 
 ## Status
 
-Accepted
+Deprecated
 
 ## Context
 
@@ -19,7 +19,7 @@ We will set up a monorepo using Nx to streamline development and manage our appl
 
 - Use a multi-repo approach
 - Use turborepo
-- Use lerna
+- Use NX
 
 #### Turborepo
 
@@ -44,3 +44,12 @@ By initializing an Nx monorepo, we can expect the following benefits:
 However, there are some potential drawbacks:
 
 - Increased complexity for developers unfamiliar with monorepos or Nx.
+
+## Deprecated
+
+This ADR is deprecated because we decided not to use Nx for our project.
+We grouped our applications and libraries by bounded contexts.
+
+We have problems with Nx:
+- Nx is bad controlled dependencies between packages
+- All packages are in one repository, which makes it difficult to manage

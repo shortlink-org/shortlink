@@ -1,4 +1,4 @@
-# 3. Transition to Cloudflare Apps 🌩️
+# 38. Transition to Cloudflare Apps 🌩️
 
 Date: 2023-06-18
 
