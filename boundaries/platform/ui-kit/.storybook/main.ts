@@ -13,6 +13,8 @@ const config: StorybookConfig = {
     '@storybook/addon-a11y',
     '@storybook/addon-coverage',
     '@storybook/addon-jest',
+    'storybook-addon-next',
+    'storybook-addon-next-router',
   ],
 
   core: {
