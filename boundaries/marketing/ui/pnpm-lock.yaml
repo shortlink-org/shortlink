@@ -21,11 +21,11 @@ importers:
         specifier: ^6.1.9
         version: 6.1.9(@emotion/cache@11.13.5)(@emotion/react@11.13.5(@types/react@18.3.12)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.12)(next@15.0.3(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
       '@ory/client':
-        specifier: ^1.15.13
-        version: 1.15.13
+        specifier: ^1.15.14
+        version: 1.15.14
       '@ory/integrations':
         specifier: ^1.2.1
-        version: 1.2.1(@ory/client@1.15.13)(next@15.0.3(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))
+        version: 1.2.1(@ory/client@1.15.14)(next@15.0.3(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))
       axios:
         specifier: ^1.7.8
         version: 1.7.8
@@ -520,8 +520,8 @@ packages:
     resolution: {integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==}
     engines: {node: '>=12.4.0'}
 
-  '@ory/client@1.15.13':
-    resolution: {integrity: sha512-5B5cBT/63CYC2MoqKOXxst0m4De9O2SgzMGa3VmrkqGCLWdCCL+0nNNiEvapw3Hws6s2Xif/XNH4/NGsUtGtXQ==}
+  '@ory/client@1.15.14':
+    resolution: {integrity: sha512-90z8Slnyhjsakl2MEsCQ8nnR4v11Iw1dj74sA6nkYY77MLFDN+kCWOD0PkNBI5Sm/BD3O1TombrRK8V0r0ZTJQ==}
 
   '@ory/integrations@1.2.1':
     resolution: {integrity: sha512-IVJVHArFU2DRKM/bXTPk4HlQ23NXVrO96KYHquMI6tgO0zBEL4ZfARIwIDr/eYOWpfmcYBvPjIQVjOASdYVfRA==}
@@ -2459,15 +2459,15 @@ snapshots:
 
   '@nolyfill/is-core-module@1.0.39': {}
 
-  '@ory/client@1.15.13':
+  '@ory/client@1.15.14':
     dependencies:
       axios: 1.7.8
     transitivePeerDependencies:
       - debug
 
-  '@ory/integrations@1.2.1(@ory/client@1.15.13)(next@15.0.3(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))':
+  '@ory/integrations@1.2.1(@ory/client@1.15.14)(next@15.0.3(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))':
     dependencies:
-      '@ory/client': 1.15.13
+      '@ory/client': 1.15.14
       '@types/tldjs': 2.3.4
       cookie: 0.6.0
       istextorbinary: 9.5.0
