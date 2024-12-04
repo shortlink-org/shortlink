@@ -15,8 +15,8 @@ importers:
         specifier: ^4.12.1
         version: 4.12.1
       '@grpc/grpc-js':
-        specifier: 1.12.2
-        version: 1.12.2
+        specifier: 1.12.3
+        version: 1.12.3
       '@opentelemetry/api':
         specifier: 1.9.0
         version: 1.9.0
@@ -131,8 +131,8 @@ packages:
   '@godaddy/terminus@4.12.1':
     resolution: {integrity: sha512-Tm+wVu1/V37uZXcT7xOhzdpFoovQReErff8x3y82k6YyWa1gzxWBjTyrx4G2enjEqoXPnUUmJ3MOmwH+TiP6Sw==}
 
-  '@grpc/grpc-js@1.12.2':
-    resolution: {integrity: sha512-bgxdZmgTrJZX50OjyVwz3+mNEnCTNkh3cIqGPWVNeW9jX6bn1ZkU80uPd+67/ZpIJIjRQ9qaHCjhavyoWYxumg==}
+  '@grpc/grpc-js@1.12.3':
+    resolution: {integrity: sha512-iaxAZnANdCwMNpJlyhkI1W1jQZIDZKFNtU2OpQDdgd+pBcU3t7G+PT7svobkW4WSZTdis+CVV6y8KIwu83HDYQ==}
     engines: {node: '>=12.10.0'}
 
   '@grpc/proto-loader@0.7.13':
@@ -1534,7 +1534,7 @@ snapshots:
     dependencies:
       stoppable: 1.1.0
 
-  '@grpc/grpc-js@1.12.2':
+  '@grpc/grpc-js@1.12.3':
     dependencies:
       '@grpc/proto-loader': 0.7.13
       '@js-sdsl/ordered-map': 4.4.2
@@ -1632,7 +1632,7 @@ snapshots:
 
   '@opentelemetry/exporter-logs-otlp-grpc@0.55.0(@opentelemetry/api@1.9.0)':
     dependencies:
-      '@grpc/grpc-js': 1.12.2
+      '@grpc/grpc-js': 1.12.3
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/core': 1.28.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/otlp-grpc-exporter-base': 0.55.0(@opentelemetry/api@1.9.0)
@@ -1661,7 +1661,7 @@ snapshots:
 
   '@opentelemetry/exporter-trace-otlp-grpc@0.55.0(@opentelemetry/api@1.9.0)':
     dependencies:
-      '@grpc/grpc-js': 1.12.2
+      '@grpc/grpc-js': 1.12.3
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/core': 1.28.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/otlp-grpc-exporter-base': 0.55.0(@opentelemetry/api@1.9.0)
@@ -2050,7 +2050,7 @@ snapshots:
 
   '@opentelemetry/otlp-grpc-exporter-base@0.55.0(@opentelemetry/api@1.9.0)':
     dependencies:
-      '@grpc/grpc-js': 1.12.2
+      '@grpc/grpc-js': 1.12.3
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/core': 1.28.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/otlp-exporter-base': 0.55.0(@opentelemetry/api@1.9.0)
