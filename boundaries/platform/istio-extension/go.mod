@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/platform/istio-extension
 
-go 1.23.3
+go 1.23.4
 
 require github.com/tetratelabs/proxy-wasm-go-sdk v0.24.0
 
