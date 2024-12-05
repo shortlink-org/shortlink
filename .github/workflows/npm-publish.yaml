@@ -48,7 +48,7 @@ jobs:
         working-directory: ./boundaries/platform/ui-kit
 
       - name: Publish 🚀
-        run: pnpm publish --provenance --access public --registry https://registry.npmjs.org
+        run: pnpm publish --provenance --access public --registry https://registry.npmjs.org --no-git-checks
         working-directory: ./boundaries/platform/ui-kit
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
