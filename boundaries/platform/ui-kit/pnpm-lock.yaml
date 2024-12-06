@@ -30,8 +30,8 @@ importers:
         specifier: ^7.2.19
         version: 7.2.19(@types/react@18.3.13)
       '@mui/x-date-pickers':
-        specifier: 8.0.0-alpha.2
-        version: 8.0.0-alpha.2(5dxw75oi7627ocvcgrvraf7gue)
+        specifier: 8.0.0-alpha.3
+        version: 8.0.0-alpha.3(5dxw75oi7627ocvcgrvraf7gue)
       '@storybook/builder-vite':
         specifier: 8.5.0-alpha.17
         version: 8.5.0-alpha.17(storybook@8.5.0-alpha.17(prettier@3.4.1))(vite@6.0.3(@types/node@22.10.1)(jiti@2.4.1)(lightningcss@1.28.2)(terser@5.36.0)(yaml@2.6.1))
@@ -67,7 +67,7 @@ importers:
         version: 11.0.0
       material-react-table:
         specifier: ^3.0.1
-        version: 3.0.1(e667fsl32tjkxliutkssrfcppi)
+        version: 3.0.1(2lyqdo2eufs4byruiytjc7hjhe)
       next:
         specifier: ^15.0.4
         version: 15.0.4(@babel/core@7.26.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
@@ -921,8 +921,8 @@ packages:
       '@types/react':
         optional: true
 
-  '@mui/x-date-pickers@8.0.0-alpha.2':
-    resolution: {integrity: sha512-fSc3jMQoPWnKnfEStNnqCKaG5J9FSgejhlpNkI60kvqVMeKBXqPeQBTH7Eds52OJGZjjIYux/Cv/akXYzyam4Q==}
+  '@mui/x-date-pickers@8.0.0-alpha.3':
+    resolution: {integrity: sha512-VS1hD00Yh36PxUdQDHroWATFUoJsVkPg/ttUNV0GGZulG4rXN8Mpwm8VjOjEBDQ6TV346vK7azu7kgsOjnC8sw==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
       '@emotion/react': ^11.9.0
@@ -4587,7 +4587,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 18.3.13
 
-  '@mui/x-date-pickers@8.0.0-alpha.2(5dxw75oi7627ocvcgrvraf7gue)':
+  '@mui/x-date-pickers@8.0.0-alpha.3(5dxw75oi7627ocvcgrvraf7gue)':
     dependencies:
       '@babel/runtime': 7.26.0
       '@mui/material': 6.1.10(@emotion/react@11.13.5(@types/react@18.3.13)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.13.5(@emotion/react@11.13.5(@types/react@18.3.13)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.13)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.13)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
@@ -6668,13 +6668,13 @@ snapshots:
 
   map-or-similar@1.5.0: {}
 
-  material-react-table@3.0.1(e667fsl32tjkxliutkssrfcppi):
+  material-react-table@3.0.1(2lyqdo2eufs4byruiytjc7hjhe):
     dependencies:
       '@emotion/react': 11.13.5(@types/react@18.3.13)(react@19.0.0-rc-fb9a90fa48-20240614)
       '@emotion/styled': 11.13.5(@emotion/react@11.13.5(@types/react@18.3.13)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.13)(react@19.0.0-rc-fb9a90fa48-20240614)
       '@mui/icons-material': 6.1.10(@mui/material@6.1.10(@emotion/react@11.13.5(@types/react@18.3.13)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.13.5(@emotion/react@11.13.5(@types/react@18.3.13)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.13)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.13)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.13)(react@19.0.0-rc-fb9a90fa48-20240614)
       '@mui/material': 6.1.10(@emotion/react@11.13.5(@types/react@18.3.13)(react@19.0.0-rc-fb9a90fa48-20240614))(@emotion/styled@11.13.5(@emotion/react@11.13.5(@types/react@18.3.13)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.13)(react@19.0.0-rc-fb9a90fa48-20240614))(@types/react@18.3.13)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
-      '@mui/x-date-pickers': 8.0.0-alpha.2(5dxw75oi7627ocvcgrvraf7gue)
+      '@mui/x-date-pickers': 8.0.0-alpha.3(5dxw75oi7627ocvcgrvraf7gue)
       '@tanstack/match-sorter-utils': 8.19.4
       '@tanstack/react-table': 8.20.5(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
       '@tanstack/react-virtual': 3.10.6(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
