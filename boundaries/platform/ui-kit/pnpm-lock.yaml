@@ -43,7 +43,7 @@ importers:
         version: 4.0.0-beta.5
       '@tailwindcss/typography':
         specifier: ^0.5.15
-        version: 0.5.15(tailwindcss@4.0.0-beta.5)
+        version: 0.5.15(tailwindcss@4.0.0-beta.6)
       '@types/react':
         specifier: ^19.0.1
         version: 19.0.1
@@ -99,8 +99,8 @@ importers:
         specifier: link:@mui/material/styles
         version: link:@mui/material/styles
       tailwindcss:
-        specifier: 4.0.0-beta.5
-        version: 4.0.0-beta.5
+        specifier: 4.0.0-beta.6
+        version: 4.0.0-beta.6
       vite-plugin-dts:
         specifier: 4.3.0
         version: 4.3.0(@types/node@22.10.1)(rollup@4.28.0)(typescript@5.7.2)(vite@6.0.3(@types/node@22.10.1)(jiti@2.4.1)(lightningcss@1.28.2)(terser@5.36.0)(yaml@2.6.1))
@@ -3577,6 +3577,9 @@ packages:
   tailwindcss@4.0.0-beta.5:
     resolution: {integrity: sha512-59zeDyaVE5z1iQnhk5cGeBJvb6Z/Iym4qSFzPddiotWbnqWcIqj0kRgZH8OyR4VZU+solTRQaWRgfDZ8PQ+p8A==}
 
+  tailwindcss@4.0.0-beta.6:
+    resolution: {integrity: sha512-eCCuMk3H65w4J/QWkjxfeWoBSKbCD3E6Uj2LA6Xkkl4eMa1MXuwVpIU1RXcLIp+BVsXGEZMP7i7uJig7KxfAXQ==}
+
   tapable@2.2.1:
     resolution: {integrity: sha512-GNzQvQTOIP6RyTfE2Qxb8ZVlNmw0n88vp1szwWRimP02mnTsx3Wtn5qRdqY9w2XduFNUgvOwhNnQsjwCp+kqaQ==}
     engines: {node: '>=6'}
@@ -5305,13 +5308,13 @@ snapshots:
       postcss: 8.4.49
       tailwindcss: 4.0.0-beta.5
 
-  '@tailwindcss/typography@0.5.15(tailwindcss@4.0.0-beta.5)':
+  '@tailwindcss/typography@0.5.15(tailwindcss@4.0.0-beta.6)':
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 4.0.0-beta.5
+      tailwindcss: 4.0.0-beta.6
 
   '@tanstack/match-sorter-utils@8.19.4':
     dependencies:
@@ -7366,6 +7369,8 @@ snapshots:
       tslib: 2.8.1
 
   tailwindcss@4.0.0-beta.5: {}
+
+  tailwindcss@4.0.0-beta.6: {}
 
   tapable@2.2.1: {}
 
