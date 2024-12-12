@@ -72,11 +72,11 @@ importers:
         specifier: ^8.0.0
         version: 8.0.0
       inversify:
-        specifier: ^6.1.6
-        version: 6.1.6(reflect-metadata@0.2.2)
+        specifier: ^6.2.0
+        version: 6.2.0(reflect-metadata@0.2.2)
       inversify-express-utils:
         specifier: ^6.4.10
-        version: 6.4.10(express@4.21.2)(inversify@6.1.6(reflect-metadata@0.2.2))
+        version: 6.4.10(express@4.21.2)(inversify@6.2.0(reflect-metadata@0.2.2))
       inversify-logger-middleware:
         specifier: ^3.1.0
         version: 3.1.0
@@ -1084,8 +1084,8 @@ packages:
   inversify-logger-middleware@3.1.0:
     resolution: {integrity: sha512-jKwwuQ3cDwCasgSdgUyF3DTlIvcfAVqcs3ViMXrKj5L7AqVP5hd2dnrHr3v8XZf984t6fsj+1Wic43A5WDtkEA==}
 
-  inversify@6.1.6:
-    resolution: {integrity: sha512-qQLOINPTMoe0U4lGUuCkNr/MQ9+8xVlht1MBKm67wPzD5N9mwjgCgBXtJlSwibTnwc3OkTlLx/MpIR6pP6djUA==}
+  inversify@6.2.0:
+    resolution: {integrity: sha512-wpiGpyIphFthWf18CBASJ1gClYwnW0mKjcSHwOuF7ToF/TBoarYSItX492WTGyK0VdJN1afwBIfaEpvp8IetPA==}
     peerDependencies:
       reflect-metadata: ~0.2.2
 
@@ -2729,17 +2729,17 @@ snapshots:
 
   inherits@2.0.4: {}
 
-  inversify-express-utils@6.4.10(express@4.21.2)(inversify@6.1.6(reflect-metadata@0.2.2)):
+  inversify-express-utils@6.4.10(express@4.21.2)(inversify@6.2.0(reflect-metadata@0.2.2)):
     dependencies:
       express: 4.21.2
       http-status-codes: 2.3.0
-      inversify: 6.1.6(reflect-metadata@0.2.2)
+      inversify: 6.2.0(reflect-metadata@0.2.2)
 
   inversify-logger-middleware@3.1.0:
     dependencies:
       chalk: 2.3.0
 
-  inversify@6.1.6(reflect-metadata@0.2.2):
+  inversify@6.2.0(reflect-metadata@0.2.2):
     dependencies:
       '@inversifyjs/common': 1.4.0
       '@inversifyjs/core': 1.3.5(reflect-metadata@0.2.2)
