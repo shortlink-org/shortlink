@@ -21,11 +21,11 @@ importers:
         specifier: ^6.1.9
         version: 6.1.9(@emotion/cache@11.13.5)(@emotion/react@11.13.5(@types/react@19.0.1)(react@19.0.0))(@types/react@19.0.1)(next@15.0.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0))(react@19.0.0)
       '@ory/client':
-        specifier: ^1.15.14
-        version: 1.15.14
+        specifier: ^1.15.15
+        version: 1.15.15
       '@ory/integrations':
         specifier: ^1.2.1
-        version: 1.2.1(@ory/client@1.15.14)(next@15.0.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
+        version: 1.2.1(@ory/client@1.15.15)(next@15.0.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0))
       axios:
         specifier: ^1.7.9
         version: 1.7.9
@@ -520,8 +520,8 @@ packages:
     resolution: {integrity: sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==}
     engines: {node: '>=12.4.0'}
 
-  '@ory/client@1.15.14':
-    resolution: {integrity: sha512-90z8Slnyhjsakl2MEsCQ8nnR4v11Iw1dj74sA6nkYY77MLFDN+kCWOD0PkNBI5Sm/BD3O1TombrRK8V0r0ZTJQ==}
+  '@ory/client@1.15.15':
+    resolution: {integrity: sha512-wvw5n2XJUfAiwhkdsCRSVUNegg5St80pUl8LNudImUqWtd9HRprIj3IFzGRbfRjQP5k2Wu5BopG5JrVkw8rgWw==}
 
   '@ory/integrations@1.2.1':
     resolution: {integrity: sha512-IVJVHArFU2DRKM/bXTPk4HlQ23NXVrO96KYHquMI6tgO0zBEL4ZfARIwIDr/eYOWpfmcYBvPjIQVjOASdYVfRA==}
@@ -2459,15 +2459,15 @@ snapshots:
 
   '@nolyfill/is-core-module@1.0.39': {}
 
-  '@ory/client@1.15.14':
+  '@ory/client@1.15.15':
     dependencies:
       axios: 1.7.9
     transitivePeerDependencies:
       - debug
 
-  '@ory/integrations@1.2.1(@ory/client@1.15.14)(next@15.0.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0))':
+  '@ory/integrations@1.2.1(@ory/client@1.15.15)(next@15.0.4(react-dom@19.0.0(react@19.0.0))(react@19.0.0))':
     dependencies:
-      '@ory/client': 1.15.14
+      '@ory/client': 1.15.15
       '@types/tldjs': 2.3.4
       cookie: 0.6.0
       istextorbinary: 9.5.0
