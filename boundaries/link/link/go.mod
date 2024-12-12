@@ -23,6 +23,7 @@ require (
 	github.com/stretchr/testify v1.10.0
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
 	go.mongodb.org/mongo-driver v1.17.1
+	go.mongodb.org/mongo-driver/v2 v2.0.0
 	go.opentelemetry.io/otel/trace v1.32.0
 	go.uber.org/atomic v1.11.0
 	go.uber.org/goleak v1.3.0
