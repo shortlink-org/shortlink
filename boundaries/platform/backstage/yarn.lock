@@ -14139,12 +14139,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react-dom@npm:^19.0.1":
-  version: 19.0.1
-  resolution: "@types/react-dom@npm:19.0.1"
-  dependencies:
-    "@types/react": "npm:*"
-  checksum: 10c0/fb40069a7c5c70475155dff91d25ff5a51226c14d45c8ad55894480366876426981c8be63ef322486af879bb220bf48443f2344c1a89cb75a47a1a761acee9d3
+"@types/react-dom@npm:^19.0.2":
+  version: 19.0.2
+  resolution: "@types/react-dom@npm:19.0.2"
+  peerDependencies:
+    "@types/react": ^19.0.0
+  checksum: 10c0/3d0c7b78dbe8df64ea769f30af990a5950173a8321c745fe11094d765423f7964c3519dca6e7cd36b4be6521c8efc690bdd3b79b327b229dd1e9d5a8bad677dd
   languageName: node
   linkType: hard
 
@@ -15367,7 +15367,7 @@ __metadata:
     "@testing-library/react": "npm:^16.1.0"
     "@testing-library/user-event": "npm:^14.5.2"
     "@types/node": "npm:^22.10.2"
-    "@types/react-dom": "npm:^19.0.1"
+    "@types/react-dom": "npm:^19.0.2"
     cross-env: "npm:^7.0.3"
     cypress: "npm:^13.16.1"
     eslint-plugin-cypress: "npm:^4.1.0"
@@ -32336,7 +32336,7 @@ __metadata:
   dependencies:
     "@backstage/cli": "npm:^0.29.2"
     "@types/react": "npm:^19.0.1"
-    "@types/react-dom": "npm:^19.0.1"
+    "@types/react-dom": "npm:^19.0.2"
     concurrently: "npm:^9.1.0"
     lerna: "npm:^8.1.9"
     node-gyp: "npm:^11.0.0"
