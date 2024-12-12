@@ -14,9 +14,9 @@ repository = "https://github.com/shortlink-org/shortlink"
 futures = { version = "0.3.31", default-features = true, features = ["async-await"] }
 hyper = { version = "0.14.31", features = ["full"] }
 tokio = { version = "1.42.0", features = ["full", "macros", "rt-multi-thread"] }
-serde = {version = "1.0.215", features = ["derive"] }
+serde = {version = "1.0.216", features = ["derive"] }
 serde_json = "1.0.133"
-serde_derive = "1.0.215"
+serde_derive = "1.0.216"
 route-recognizer = "0.3.1"
 bytes = "1.9.0"
 async-trait = "0.1.83"
