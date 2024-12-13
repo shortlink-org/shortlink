@@ -3795,9 +3795,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/cli@npm:^0.29.2":
-  version: 0.29.2
-  resolution: "@backstage/cli@npm:0.29.2"
+"@backstage/cli@npm:^0.29.3":
+  version: 0.29.3
+  resolution: "@backstage/cli@npm:0.29.3"
   dependencies:
     "@backstage/catalog-model": "npm:^1.7.1"
     "@backstage/cli-common": "npm:^0.1.15"
@@ -3845,7 +3845,7 @@ __metadata:
     commander: "npm:^12.0.0"
     cross-fetch: "npm:^4.0.0"
     cross-spawn: "npm:^7.0.3"
-    css-loader: "npm:^7.0.0"
+    css-loader: "npm:^6.5.1"
     ctrlc-windows: "npm:^2.1.0"
     esbuild: "npm:^0.24.0"
     esbuild-loader: "npm:^4.0.0"
@@ -3941,7 +3941,7 @@ __metadata:
       optional: true
   bin:
     backstage-cli: bin/backstage-cli
-  checksum: 10c0/40d5ef2636bab5c837bc5393bcffe68fdd6c9de5cda9e47df74a8109f87d7ab224031565a557735356f3b951ec6b0abcf96bcc431ff25d359449b54138c2e34e
+  checksum: 10c0/96e002e869d5618c96df1b8b468e0d97f3631655ab2063763ddcc777ccf0748b785965d98cdd4dafde47f7f289c4d071d6180a1efbdf40d9a83deccd1cdf159a
   languageName: node
   linkType: hard
 
@@ -15343,7 +15343,7 @@ __metadata:
     "@backstage-community/plugin-todo": "npm:^0.2.42"
     "@backstage/app-defaults": "npm:^1.5.14"
     "@backstage/catalog-model": "npm:^1.7.1"
-    "@backstage/cli": "npm:^0.29.2"
+    "@backstage/cli": "npm:^0.29.3"
     "@backstage/core-app-api": "npm:^1.15.2"
     "@backstage/core-components": "npm:^0.16.1"
     "@backstage/core-plugin-api": "npm:^1.10.1"
@@ -16071,7 +16071,7 @@ __metadata:
     "@backstage/backend-tasks": "npm:^0.6.1"
     "@backstage/catalog-client": "npm:^1.8.0"
     "@backstage/catalog-model": "npm:^1.7.1"
-    "@backstage/cli": "npm:^0.29.2"
+    "@backstage/cli": "npm:^0.29.3"
     "@backstage/config": "npm:^1.3.0"
     "@backstage/plugin-app-backend": "npm:^0.4.2"
     "@backstage/plugin-auth-backend": "npm:^0.24.0"
@@ -18278,9 +18278,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-loader@npm:^7.0.0":
-  version: 7.1.2
-  resolution: "css-loader@npm:7.1.2"
+"css-loader@npm:^6.5.1":
+  version: 6.11.0
+  resolution: "css-loader@npm:6.11.0"
   dependencies:
     icss-utils: "npm:^5.1.0"
     postcss: "npm:^8.4.33"
@@ -18292,13 +18292,13 @@ __metadata:
     semver: "npm:^7.5.4"
   peerDependencies:
     "@rspack/core": 0.x || 1.x
-    webpack: ^5.27.0
+    webpack: ^5.0.0
   peerDependenciesMeta:
     "@rspack/core":
       optional: true
     webpack:
       optional: true
-  checksum: 10c0/edec9ed71e3c416c9c6ad41c138834c94baf7629de3b97a3337ae8cec4a45e05c57bdb7c4b4d267229fc04b8970d0d1c0734ded8dcd0ac8c7c286b36facdbbf0
+  checksum: 10c0/bb52434138085fed06a33e2ffbdae9ee9014ad23bf60f59d6b7ee67f28f26c6b1764024d3030bd19fd884d6ee6ee2224eaed64ad19eb18fbbb23d148d353a965
   languageName: node
   linkType: hard
 
@@ -32385,7 +32385,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "root@workspace:."
   dependencies:
-    "@backstage/cli": "npm:^0.29.2"
+    "@backstage/cli": "npm:^0.29.3"
     "@types/react": "npm:^19.0.1"
     "@types/react-dom": "npm:^19.0.2"
     concurrently: "npm:^9.1.0"
