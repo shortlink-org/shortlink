@@ -280,7 +280,7 @@ replace (
 	k8s.io/cluster-bootstrap => k8s.io/cluster-bootstrap v0.32.0
 	k8s.io/code-generator => k8s.io/code-generator v0.32.0
 	k8s.io/component-base => k8s.io/component-base v0.32.0
-	k8s.io/component-helpers => k8s.io/component-helpers v0.31.3
+	k8s.io/component-helpers => k8s.io/component-helpers v0.32.0
 	k8s.io/controller-manager => k8s.io/controller-manager v0.32.0
 	k8s.io/cri-api => k8s.io/cri-api v0.32.0
 	k8s.io/cri-client => k8s.io/cri-client v0.31.3
