@@ -42,8 +42,8 @@ importers:
         specifier: 1.28.0
         version: 1.28.0
       '@pyroscope/nodejs':
-        specifier: 0.4.2
-        version: 0.4.2
+        specifier: 0.4.3
+        version: 0.4.3
       '@types/express':
         specifier: ^5.0.0
         version: 5.0.0
@@ -636,8 +636,8 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
-  '@pyroscope/nodejs@0.4.2':
-    resolution: {integrity: sha512-qqLJGLfs45enyJPwMoaTc9vakjxYZX/hxBHsD3jUVJEifDIsgVcm2jvqyBTZuiYRBt9O0MYPeSPoNnkUD3mHfQ==}
+  '@pyroscope/nodejs@0.4.3':
+    resolution: {integrity: sha512-RpQ71SnBvMt7RErgCVgQ3wyKnsVQYntWXDNQVOiBujHsgIW20u+o3J9luEcM9IbCdm/Qsa9NV/SvhZevdcALQA==}
     engines: {node: '>=v18'}
 
   '@types/aws-lambda@8.10.143':
@@ -2237,7 +2237,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
-  '@pyroscope/nodejs@0.4.2':
+  '@pyroscope/nodejs@0.4.3':
     dependencies:
       '@datadog/pprof': 5.4.1
       axios: 0.28.1(debug@4.3.7)
