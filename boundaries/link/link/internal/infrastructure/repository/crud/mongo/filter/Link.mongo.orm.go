@@ -7,7 +7,7 @@
 package filter
 
 import (
-	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/v2/bson"
 )
 
 func (f *FilterLink) BuildMongoFilter() bson.M {

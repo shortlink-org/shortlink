@@ -36,7 +36,7 @@ func TestMongoORMGeneration(t *testing.T) {
 
 	// Examples of PostgreSQL-specific checks you might perform
 	expectedContents := []string{
-		"\"go.mongodb.org/mongo-driver/bson\"", // Check for PostgreSQL specific library import
+		"\"go.mongodb.org/mongo-driver/v2/bson\"", // Check for PostgreSQL specific library import
 		// Add more PostgreSQL-specific code snippets to check for
 	}
 

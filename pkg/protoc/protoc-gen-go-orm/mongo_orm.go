@@ -21,7 +21,7 @@ func generateMongoFile(gen *protogen.Plugin, file *protogen.File) {
 		printHeader(gen, g, file)
 
 		g.P("import (")
-		g.P("\"go.mongodb.org/mongo-driver/bson\"")
+		g.P("\"go.mongodb.org/mongo-driver/v2/bson\"")
 		g.P(")")
 		g.P()
 

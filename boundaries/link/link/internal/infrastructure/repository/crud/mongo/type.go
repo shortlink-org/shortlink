@@ -1,7 +1,7 @@
 package mongo
 
 import (
-	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/v2/mongo"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/batch"

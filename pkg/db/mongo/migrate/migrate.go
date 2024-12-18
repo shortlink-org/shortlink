@@ -9,7 +9,7 @@ import (
 	"github.com/golang-migrate/migrate/v4"
 	"github.com/golang-migrate/migrate/v4/database/mongodb"
 	"github.com/johejo/golang-migrate-extra/source/iofs"
-	"go.mongodb.org/mongo-driver/mongo"
+	"go.mongodb.org/mongo-driver/v2/mongo"
 
 	"github.com/shortlink-org/shortlink/pkg/db"
 )
