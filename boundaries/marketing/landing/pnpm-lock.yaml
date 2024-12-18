@@ -19,16 +19,16 @@ importers:
         version: 8.46.0(@opentelemetry/core@1.29.0(@opentelemetry/api@1.9.0))(@opentelemetry/instrumentation@0.56.0(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@1.29.0(@opentelemetry/api@1.9.0))(next@15.0.3(@babel/core@7.26.0)(@opentelemetry/api@1.9.0)(babel-plugin-react-compiler@0.0.0)(react-dom@18.3.1(react@18.3.1))(react@18.3.1))(react@18.3.1)(webpack@5.96.1(esbuild@0.24.0))
       '@shortlink-org/ui-kit':
         specifier: ^1.3.9
-        version: 1.3.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@3.4.2))(tailwindcss@3.4.16)(webpack@5.96.1(esbuild@0.24.0))
+        version: 1.3.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@3.4.2))(tailwindcss@3.4.17)(webpack@5.96.1(esbuild@0.24.0))
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
-        version: 0.4.2(tailwindcss@3.4.16)
+        version: 0.4.2(tailwindcss@3.4.17)
       '@tailwindcss/line-clamp':
         specifier: ^0.4.4
-        version: 0.4.4(tailwindcss@3.4.16)
+        version: 0.4.4(tailwindcss@3.4.17)
       '@tailwindcss/typography':
         specifier: ^0.5.15
-        version: 0.5.15(tailwindcss@3.4.16)
+        version: 0.5.15(tailwindcss@3.4.17)
       babel-plugin-react-compiler:
         specifier: 0.0.0
         version: 0.0.0
@@ -39,8 +39,8 @@ importers:
         specifier: ^10.1.2
         version: 10.1.2(postcss@8.4.49)
       tailwindcss:
-        specifier: 3.4.16
-        version: 3.4.16
+        specifier: 3.4.17
+        version: 3.4.17
       typescript:
         specifier: ^5.7.2
         version: 5.7.2
@@ -3317,8 +3317,8 @@ packages:
     resolution: {integrity: sha512-vrozgXDQwYO72vHjUb/HnFbQx1exDjoKzqx23aXEg2a9VIg2TSFZ8FmeZpTjUCFMYw7mpX4BE2SFu8wI7asYsw==}
     engines: {node: ^14.18.0 || >=16.0.0}
 
-  tailwindcss@3.4.16:
-    resolution: {integrity: sha512-TI4Cyx7gDiZ6r44ewaJmt0o6BrMCT5aK5e0rmJ/G9Xq3w7CX/5VXl/zIPEJZFUK5VEqwByyhqNPycPlvcK4ZNw==}
+  tailwindcss@3.4.17:
+    resolution: {integrity: sha512-w33E2aCvSDP0tW9RZuNXadXlkHXqFzSkQew/aIa2i/Sj8fThxwovwlXHSPXTbAHwEIhBFXAedUhP2tueAKP8Og==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -4798,13 +4798,13 @@ snapshots:
       - encoding
       - supports-color
 
-  '@shortlink-org/ui-kit@1.3.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@3.4.2))(tailwindcss@3.4.16)(webpack@5.96.1(esbuild@0.24.0))':
+  '@shortlink-org/ui-kit@1.3.9(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(storybook@8.4.6(prettier@3.4.2))(tailwindcss@3.4.17)(webpack@5.96.1(esbuild@0.24.0))':
     dependencies:
       '@storybook/addon-styling-webpack': 1.0.1(storybook@8.4.6(prettier@3.4.2))(webpack@5.96.1(esbuild@0.24.0))
-      '@tailwindcss/aspect-ratio': 0.4.2(tailwindcss@3.4.16)
-      '@tailwindcss/forms': 0.5.7(tailwindcss@3.4.16)
-      '@tailwindcss/line-clamp': 0.4.4(tailwindcss@3.4.16)
-      '@tailwindcss/typography': 0.5.10(tailwindcss@3.4.16)
+      '@tailwindcss/aspect-ratio': 0.4.2(tailwindcss@3.4.17)
+      '@tailwindcss/forms': 0.5.7(tailwindcss@3.4.17)
+      '@tailwindcss/line-clamp': 0.4.4(tailwindcss@3.4.17)
+      '@tailwindcss/typography': 0.5.10(tailwindcss@3.4.17)
       export-to-csv: 1.4.0
       react: 18.3.1
       react-dom: 18.3.1(react@18.3.1)
@@ -4854,34 +4854,34 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@tailwindcss/aspect-ratio@0.4.2(tailwindcss@3.4.16)':
+  '@tailwindcss/aspect-ratio@0.4.2(tailwindcss@3.4.17)':
     dependencies:
-      tailwindcss: 3.4.16
+      tailwindcss: 3.4.17
 
-  '@tailwindcss/forms@0.5.7(tailwindcss@3.4.16)':
+  '@tailwindcss/forms@0.5.7(tailwindcss@3.4.17)':
     dependencies:
       mini-svg-data-uri: 1.4.4
-      tailwindcss: 3.4.16
+      tailwindcss: 3.4.17
 
-  '@tailwindcss/line-clamp@0.4.4(tailwindcss@3.4.16)':
+  '@tailwindcss/line-clamp@0.4.4(tailwindcss@3.4.17)':
     dependencies:
-      tailwindcss: 3.4.16
+      tailwindcss: 3.4.17
 
-  '@tailwindcss/typography@0.5.10(tailwindcss@3.4.16)':
-    dependencies:
-      lodash.castarray: 4.4.0
-      lodash.isplainobject: 4.0.6
-      lodash.merge: 4.6.2
-      postcss-selector-parser: 6.0.10
-      tailwindcss: 3.4.16
-
-  '@tailwindcss/typography@0.5.15(tailwindcss@3.4.16)':
+  '@tailwindcss/typography@0.5.10(tailwindcss@3.4.17)':
     dependencies:
       lodash.castarray: 4.4.0
       lodash.isplainobject: 4.0.6
       lodash.merge: 4.6.2
       postcss-selector-parser: 6.0.10
-      tailwindcss: 3.4.16
+      tailwindcss: 3.4.17
+
+  '@tailwindcss/typography@0.5.15(tailwindcss@3.4.17)':
+    dependencies:
+      lodash.castarray: 4.4.0
+      lodash.isplainobject: 4.0.6
+      lodash.merge: 4.6.2
+      postcss-selector-parser: 6.0.10
+      tailwindcss: 3.4.17
 
   '@types/acorn@4.0.6':
     dependencies:
@@ -7321,7 +7321,7 @@ snapshots:
       '@pkgr/core': 0.1.1
       tslib: 2.8.1
 
-  tailwindcss@3.4.16:
+  tailwindcss@3.4.17:
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
