@@ -12,12 +12,13 @@ require (
 	github.com/oapi-codegen/runtime v1.1.1
 	github.com/riandyrn/otelchi v0.11.0
 	github.com/segmentio/encoding v0.4.1
+	github.com/shortlink-org/shortlink v0.0.0-20241218151928-3a3b44210490
 	github.com/spf13/viper v1.19.0
 	go.opentelemetry.io/otel/trace v1.33.0
 	golang.org/x/sync v0.10.0
 	golang.org/x/text v0.21.0
 	google.golang.org/grpc v1.69.0
-	google.golang.org/protobuf v1.35.2
+	google.golang.org/protobuf v1.36.0
 )
 
 require (
@@ -132,6 +133,7 @@ require (
 	github.com/xdg-go/stringprep v1.0.4 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20240726163527-a2c0da244d78 // indirect
 	go.mongodb.org/mongo-driver v1.17.1 // indirect
+	go.mongodb.org/mongo-driver/v2 v2.0.0 // indirect
 	go.opencensus.io v0.24.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo v0.58.0 // indirect
