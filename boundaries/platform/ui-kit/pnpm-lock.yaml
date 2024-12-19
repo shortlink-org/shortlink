@@ -109,8 +109,8 @@ importers:
         version: 2.1.1(vite@6.0.3(@types/node@22.10.2)(jiti@2.4.1)(lightningcss@1.28.2)(terser@5.37.0)(yaml@2.6.1))
     devDependencies:
       '@chromatic-com/storybook':
-        specifier: ^3.2.2
-        version: 3.2.2(react@19.0.0)(storybook@8.5.0-beta.2(prettier@3.4.1))
+        specifier: ^3.2.3
+        version: 3.2.3(react@19.0.0)(storybook@8.5.0-beta.2(prettier@3.4.1))
       '@storybook/addon-a11y':
         specifier: 8.5.0-beta.2
         version: 8.5.0-beta.2(storybook@8.5.0-beta.2(prettier@3.4.1))(vitest@2.1.8(@types/node@22.10.2)(lightningcss@1.28.2)(terser@5.37.0))
@@ -386,8 +386,8 @@ packages:
     resolution: {integrity: sha512-vN5p+1kl59GVKMvTHt55NzzmYVxprfJD+ql7U9NFIfKCBkYE55LYtS+WtPlaYOyzydrKI8Nezd+aZextrd+FMA==}
     engines: {node: '>=6.9.0'}
 
-  '@chromatic-com/storybook@3.2.2':
-    resolution: {integrity: sha512-xmXt/GW0hAPbzNTrxYuVo43Adrtjue4DeVrsoIIEeJdGaPNNeNf+DHMlJKOBdlHmCnFUoe9R/0mLM9zUp5bKWw==}
+  '@chromatic-com/storybook@3.2.3':
+    resolution: {integrity: sha512-3+hfANx79kIjP1qrOSLxpoAXOiYUA0S7A0WI0A24kASrv7USFNNW8etR5TjUilMb0LmqKUn3wDwUK2h6aceQ9g==}
     engines: {node: '>=16.0.0', yarn: '>=1.22.18'}
     peerDependencies:
       storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
@@ -4406,7 +4406,7 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@chromatic-com/storybook@3.2.2(react@19.0.0)(storybook@8.5.0-beta.2(prettier@3.4.1))':
+  '@chromatic-com/storybook@3.2.3(react@19.0.0)(storybook@8.5.0-beta.2(prettier@3.4.1))':
     dependencies:
       chromatic: 11.20.2
       filesize: 10.1.6
@@ -5955,7 +5955,7 @@ snapshots:
     dependencies:
       '@vitest/spy': 2.1.8
       estree-walker: 3.0.3
-      magic-string: 0.30.15
+      magic-string: 0.30.17
     optionalDependencies:
       vite: 5.4.11(@types/node@22.10.2)(lightningcss@1.28.2)(terser@5.37.0)
 
@@ -5975,7 +5975,7 @@ snapshots:
   '@vitest/snapshot@2.1.8':
     dependencies:
       '@vitest/pretty-format': 2.1.8
-      magic-string: 0.30.15
+      magic-string: 0.30.17
       pathe: 1.1.2
 
   '@vitest/spy@2.0.5':
@@ -8144,7 +8144,7 @@ snapshots:
       chai: 5.1.2
       debug: 4.4.0
       expect-type: 1.1.0
-      magic-string: 0.30.15
+      magic-string: 0.30.17
       pathe: 1.1.2
       std-env: 3.8.0
       tinybench: 2.9.0
