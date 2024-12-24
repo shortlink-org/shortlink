@@ -16,7 +16,7 @@ type: application
 deprecated: false
 dependencies:
   - name: victoria-metrics-operator
-    version: 0.39.1
+    version: 0.40.1
     repository: https://victoriametrics.github.io/helm-charts/
     condition: victoria-metrics-operator.enabled
     tags:
