@@ -121,8 +121,8 @@ importers:
         specifier: 8.5.0-beta.5
         version: 8.5.0-beta.5(storybook@8.5.0-beta.5(prettier@3.4.1))
       '@storybook/addon-coverage':
-        specifier: ^1.0.4
-        version: 1.0.4
+        specifier: ^1.0.5
+        version: 1.0.5
       '@storybook/addon-docs':
         specifier: 8.5.0-beta.5
         version: 8.5.0-beta.5(@types/react@19.0.2)(storybook@8.5.0-beta.5(prettier@3.4.1))
@@ -1468,8 +1468,8 @@ packages:
     peerDependencies:
       storybook: ^8.5.0-beta.5
 
-  '@storybook/addon-coverage@1.0.4':
-    resolution: {integrity: sha512-+qwsKTg6c0IrGnVAQjt1NxDyTqCOcudz9+56kFDmGApaPSby4uibYgJnnzua3sRVTe1zYZUfxwpeAuK9Ysf4Ig==}
+  '@storybook/addon-coverage@1.0.5':
+    resolution: {integrity: sha512-EMa5vMJFVZJjp6MKJUa/aAfaw833eQ8/y6BHB2sMnvdwztV9DHMGtA1fXAPFwqOo81q8og0+7e47z1oHPsbk4Q==}
 
   '@storybook/addon-docs@8.5.0-beta.5':
     resolution: {integrity: sha512-uCeAc+2pGbye44sVZkoxSdH5Tvi0gKsQzLVL3OwE0HBBeyWXfyO4A5RXi1/5e1rekL9onTZ3GsYUSnoJo9e5/w==}
@@ -5401,7 +5401,7 @@ snapshots:
       storybook: 8.5.0-beta.5(prettier@3.4.1)
       ts-dedent: 2.2.0
 
-  '@storybook/addon-coverage@1.0.4':
+  '@storybook/addon-coverage@1.0.5':
     dependencies:
       '@istanbuljs/load-nyc-config': 1.1.0
       '@jsdevtools/coverage-istanbul-loader': 3.0.5
