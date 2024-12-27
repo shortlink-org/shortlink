@@ -3147,24 +3147,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-tech-radar-common@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@backstage-community/plugin-tech-radar-common@npm:1.0.0"
+"@backstage-community/plugin-tech-radar-common@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@backstage-community/plugin-tech-radar-common@npm:1.1.0"
   dependencies:
     zod: "npm:^3.20.0"
-  checksum: 10c0/0e0848050c0b4857190f0bbb0aa069098b334952a148c946a21cd9c17c9fac563a670bb36d316523c689f2158aec47983b3fd0756aeaa56e8d847b332b1c4cf2
+  checksum: 10c0/08917c1f31aade31114fa2a21137e981f67f5783029fff898fb7b86220b869ce570bdca4597d32df63f8eb3d2f953ffb11dfdd4771a98c8f4921e33fa8a83b50
   languageName: node
   linkType: hard
 
-"@backstage-community/plugin-tech-radar@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@backstage-community/plugin-tech-radar@npm:1.0.1"
+"@backstage-community/plugin-tech-radar@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "@backstage-community/plugin-tech-radar@npm:1.1.0"
   dependencies:
-    "@backstage-community/plugin-tech-radar-common": "npm:^1.0.0"
-    "@backstage/core-compat-api": "npm:^0.3.1"
-    "@backstage/core-components": "npm:^0.15.1"
-    "@backstage/core-plugin-api": "npm:^1.10.0"
-    "@backstage/frontend-plugin-api": "npm:^0.9.0"
+    "@backstage-community/plugin-tech-radar-common": "npm:^1.1.0"
+    "@backstage/core-compat-api": "npm:^0.3.4"
+    "@backstage/core-components": "npm:^0.16.2"
+    "@backstage/core-plugin-api": "npm:^1.10.2"
+    "@backstage/frontend-plugin-api": "npm:^0.9.3"
     "@material-ui/core": "npm:^4.12.2"
     "@material-ui/icons": "npm:^4.9.1"
     "@types/react": "npm:^16.13.1 || ^17.0.0 || ^18.0.0"
@@ -3175,7 +3175,7 @@ __metadata:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-router-dom: 6.0.0-beta.0 || ^6.3.0
-  checksum: 10c0/3430ed56dde874a50a08e4e853b5452bb12c6dde92feda701592accd9e7b96f9f7b8b480ab3f68495462501c5f6322425d306c872dec2651757e0db1ae7e496a
+  checksum: 10c0/f2cbc50ece8239e1baaef09e0cddfa72d5edf9a336469b82b48054ebfaedaaee2dddd7094394226cde747c607f5ac78f0478d2eb8ecb558b286cfa46846183a0
   languageName: node
   linkType: hard
 
@@ -4130,7 +4130,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/core-compat-api@npm:^0.3.1, @backstage/core-compat-api@npm:^0.3.2":
+"@backstage/core-compat-api@npm:^0.3.2":
   version: 0.3.2
   resolution: "@backstage/core-compat-api@npm:0.3.2"
   dependencies:
@@ -4545,7 +4545,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@backstage/frontend-plugin-api@npm:^0.9.0, @backstage/frontend-plugin-api@npm:^0.9.1":
+"@backstage/frontend-plugin-api@npm:^0.9.1":
   version: 0.9.1
   resolution: "@backstage/frontend-plugin-api@npm:0.9.1"
   dependencies:
@@ -15671,7 +15671,7 @@ __metadata:
     "@axis-backstage/plugin-readme": "npm:^0.12.0"
     "@axis-backstage/plugin-readme-backend": "npm:^0.11.0"
     "@backstage-community/plugin-lighthouse": "npm:^0.4.24"
-    "@backstage-community/plugin-tech-radar": "npm:^1.0.1"
+    "@backstage-community/plugin-tech-radar": "npm:^1.1.0"
     "@backstage-community/plugin-todo": "npm:^0.2.42"
     "@backstage/app-defaults": "npm:^1.5.15"
     "@backstage/catalog-model": "npm:^1.7.2"
