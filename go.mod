@@ -5,7 +5,7 @@ go 1.23.4
 require (
 	github.com/IBM/sarama v1.43.3
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
-	github.com/PuerkitoBio/goquery v1.10.0
+	github.com/PuerkitoBio/goquery v1.10.1
 	github.com/Unleash/unleash-client-go/v4 v4.1.4
 	github.com/XSAM/otelsql v0.36.0
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
@@ -102,7 +102,7 @@ require (
 	github.com/Masterminds/semver/v3 v3.3.0 // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
-	github.com/andybalholm/cascadia v1.3.2 // indirect
+	github.com/andybalholm/cascadia v1.3.3 // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
