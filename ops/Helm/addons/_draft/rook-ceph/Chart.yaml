@@ -17,7 +17,7 @@ dependencies:
     version: 0.9.6
     repository: "file://../shortlink-template"
   - name: rook-ceph
-    version: v1.16.0
+    version: v1.16.1
     repository: https://charts.rook.io/release
     condition: rook-ceph.enabled
     tags:
