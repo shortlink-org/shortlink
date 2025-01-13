@@ -36,8 +36,8 @@ importers:
         specifier: ^0.76.6
         version: 0.76.6(@babel/core@7.25.8)(@babel/preset-env@7.24.3(@babel/core@7.25.8))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.6)(encoding@0.1.13)(react@19.0.0)
       react-native-paper:
-        specifier: ^5.12.5
-        version: 5.12.5(react-native-safe-area-context@5.0.0(react-native@0.76.6(@babel/core@7.25.8)(@babel/preset-env@7.24.3(@babel/core@7.25.8))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.6)(encoding@0.1.13)(react@19.0.0))(react@19.0.0))(react-native-vector-icons@10.0.3)(react-native@0.76.6(@babel/core@7.25.8)(@babel/preset-env@7.24.3(@babel/core@7.25.8))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.6)(encoding@0.1.13)(react@19.0.0))(react@19.0.0)
+        specifier: ^5.13.1
+        version: 5.13.1(react-native-safe-area-context@5.0.0(react-native@0.76.6(@babel/core@7.25.8)(@babel/preset-env@7.24.3(@babel/core@7.25.8))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.6)(encoding@0.1.13)(react@19.0.0))(react@19.0.0))(react-native-vector-icons@10.0.3)(react-native@0.76.6(@babel/core@7.25.8)(@babel/preset-env@7.24.3(@babel/core@7.25.8))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.6)(encoding@0.1.13)(react@19.0.0))(react@19.0.0)
       react-native-safe-area-context:
         specifier: ^5.0.0
         version: 5.0.0(react-native@0.76.6(@babel/core@7.25.8)(@babel/preset-env@7.24.3(@babel/core@7.25.8))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.6)(encoding@0.1.13)(react@19.0.0))(react@19.0.0)
@@ -6702,8 +6702,8 @@ packages:
   react-is@19.0.0:
     resolution: {integrity: sha512-H91OHcwjZsbq3ClIDHMzBShc1rotbfACdWENsmEf0IFvZ3FgGPtdHMcsv45bQ1hAbgdfiA8SnxTKfDS+x/8m2g==}
 
-  react-native-paper@5.12.5:
-    resolution: {integrity: sha512-Qpqd1g9PClmjGj/Dkr1htAwt8cTZ3SCHVmhttxRuG/QML7KzHm5ArLNgR7vz5dW1EwJqTmyl/3gd6gnrtw90mw==}
+  react-native-paper@5.13.1:
+    resolution: {integrity: sha512-8frKVKJ5JBd8WL1G3tpcYzOgK40kxkD/U+yLHGKNeLnD6v1Qc9W6DxWTHWN7lsX/DPYnhgvw1aKkYaPTmDj5pg==}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -17313,7 +17313,7 @@ snapshots:
 
   react-is@19.0.0: {}
 
-  react-native-paper@5.12.5(react-native-safe-area-context@5.0.0(react-native@0.76.6(@babel/core@7.25.8)(@babel/preset-env@7.24.3(@babel/core@7.25.8))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.6)(encoding@0.1.13)(react@19.0.0))(react@19.0.0))(react-native-vector-icons@10.0.3)(react-native@0.76.6(@babel/core@7.25.8)(@babel/preset-env@7.24.3(@babel/core@7.25.8))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.6)(encoding@0.1.13)(react@19.0.0))(react@19.0.0):
+  react-native-paper@5.13.1(react-native-safe-area-context@5.0.0(react-native@0.76.6(@babel/core@7.25.8)(@babel/preset-env@7.24.3(@babel/core@7.25.8))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.6)(encoding@0.1.13)(react@19.0.0))(react@19.0.0))(react-native-vector-icons@10.0.3)(react-native@0.76.6(@babel/core@7.25.8)(@babel/preset-env@7.24.3(@babel/core@7.25.8))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.6)(encoding@0.1.13)(react@19.0.0))(react@19.0.0):
     dependencies:
       '@callstack/react-theme-provider': 3.0.9(react@19.0.0)
       color: 3.2.1
