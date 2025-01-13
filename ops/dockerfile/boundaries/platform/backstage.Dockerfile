@@ -51,7 +51,7 @@ RUN mkdir packages/backend/dist/skeleton packages/backend/dist/bundle \
     && tar xzf packages/backend/dist/bundle.tar.gz -C packages/backend/dist/bundle
 
 # Stage 3 - Build the actual backend image and install production dependencies
-FROM node:23.5.0-bookworm-slim
+FROM node:23.6.0-bookworm-slim
 
 ARG ENVIRONMENT_CONFIG
 
