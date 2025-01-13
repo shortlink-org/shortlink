@@ -27,7 +27,7 @@ serde_json = "1.0.134"
 rust_decimal = { version = "1.36", features = ["serde"] }
 rust_decimal_macros = "1.36.0"
 tokio = { version = "1.42.0", features = ["full"] }
-async-trait = "0.1.83"
+async-trait = "0.1.85"
 warp = "0.3.7"
 utoipa = "5.3.0"
 dotenvy = "0.15.7"
