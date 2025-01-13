@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink
 go 1.23.4
 
 require (
-	github.com/IBM/sarama v1.44.0
+	github.com/IBM/sarama v1.45.0
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
 	github.com/PuerkitoBio/goquery v1.10.1
 	github.com/Unleash/unleash-client-go/v4 v4.1.4
@@ -254,13 +254,13 @@ require (
 	go.opentelemetry.io/proto/otlp v1.4.0 // indirect
 	go.temporal.io/api v1.43.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	golang.org/x/crypto v0.31.0 // indirect
+	golang.org/x/crypto v0.32.0 // indirect
 	golang.org/x/exp v0.0.0-20240909161429-701f63a606c0 // indirect
 	golang.org/x/mod v0.22.0 // indirect
-	golang.org/x/net v0.33.0 // indirect
+	golang.org/x/net v0.34.0 // indirect
 	golang.org/x/oauth2 v0.24.0 // indirect
-	golang.org/x/sys v0.28.0 // indirect
-	golang.org/x/term v0.27.0 // indirect
+	golang.org/x/sys v0.29.0 // indirect
+	golang.org/x/term v0.28.0 // indirect
 	golang.org/x/text v0.21.0 // indirect
 	golang.org/x/time v0.7.0 // indirect
 	golang.org/x/tools v0.28.0 // indirect
