@@ -118,8 +118,8 @@ importers:
         specifier: ^20.32.0
         version: 20.32.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@22.10.6)(ts-node@10.9.2(@types/node@22.10.6)(typescript@5.7.3)))
       eas-cli:
-        specifier: ^14.4.0
-        version: 14.4.0(@types/node@22.10.6)(encoding@0.1.13)(typescript@5.7.3)
+        specifier: ^14.4.1
+        version: 14.4.1(@types/node@22.10.6)(encoding@0.1.13)(typescript@5.7.3)
       eslint:
         specifier: ^9.18.0
         version: 9.18.0
@@ -1167,8 +1167,8 @@ packages:
     resolution: {integrity: sha512-QdWi16+CHB9JYP7gma19OVVg0BFkvU8zNj9GjWorYI8Iv8FUxjOCcYRuAmX4s/h91e4e7BPsskc8cSrZYho9Ew==}
     engines: {node: '>=12'}
 
-  '@expo/steps@1.0.156':
-    resolution: {integrity: sha512-fa2rMaWqF0DaqqyDXy2Dy5pBbXTPfnMD1ALQid3ApjokMV5Gq+CTyr7sYFGqr1vywK0sftpmKVAOMJzHV95dDg==}
+  '@expo/steps@1.0.161':
+    resolution: {integrity: sha512-CKYYBB+fb0uV1DmaNgIoXcPaT5MBRTWDE8ptRWUbYwrNSf9Dp9k+bVlw+eoI1GTwcoCoLiLSLg+S7hvfQRBeZw==}
     engines: {node: '>=18'}
 
   '@expo/timeago.js@1.0.0':
@@ -3605,8 +3605,8 @@ packages:
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
 
-  eas-cli@14.4.0:
-    resolution: {integrity: sha512-OuWYIgwbxd0ZWXrPubJEgtMXfRw9J5wL0NDdVkHLnMHgA7QctX3EMF5xH5DIM8WnkAoaToPiIN+1ljI0u+alJQ==}
+  eas-cli@14.4.1:
+    resolution: {integrity: sha512-fP7gp1Kxm9DJ3GOEfmYwqmQIVUey2yvkNB3kTXlcaaKi1SMa8MDw2qMw1bSXBBrv4O1hkA0V8Zgx/uMwYu3Cgg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -9805,7 +9805,7 @@ snapshots:
     dependencies:
       cross-spawn: 7.0.6
 
-  '@expo/steps@1.0.156':
+  '@expo/steps@1.0.161':
     dependencies:
       '@expo/eas-build-job': 1.0.156
       '@expo/logger': 1.0.117
@@ -13322,7 +13322,7 @@ snapshots:
 
   duplexer@0.1.2: {}
 
-  eas-cli@14.4.0(@types/node@22.10.6)(encoding@0.1.13)(typescript@5.7.3):
+  eas-cli@14.4.1(@types/node@22.10.6)(encoding@0.1.13)(typescript@5.7.3):
     dependencies:
       '@expo/apple-utils': 2.1.5
       '@expo/code-signing-certificates': 0.0.5
@@ -13344,7 +13344,7 @@ snapshots:
       '@expo/results': 1.0.0
       '@expo/rudder-sdk-node': 1.1.1(encoding@0.1.13)
       '@expo/spawn-async': 1.7.2
-      '@expo/steps': 1.0.156
+      '@expo/steps': 1.0.161
       '@expo/timeago.js': 1.0.0
       '@oclif/core': 1.26.2
       '@oclif/plugin-autocomplete': 2.3.10(@types/node@22.10.6)(typescript@5.7.3)
