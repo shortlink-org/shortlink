@@ -287,7 +287,7 @@ replace (
 	k8s.io/cri-api => k8s.io/cri-api v0.32.0
 	k8s.io/cri-client => k8s.io/cri-client v0.32.1
 	k8s.io/csi-translation-lib => k8s.io/csi-translation-lib v0.32.0
-	k8s.io/dynamic-resource-allocation => k8s.io/dynamic-resource-allocation v0.32.0
+	k8s.io/dynamic-resource-allocation => k8s.io/dynamic-resource-allocation v0.32.1
 	k8s.io/endpointslice => k8s.io/endpointslice v0.32.0
 	k8s.io/kms => k8s.io/kms v0.32.0
 	k8s.io/kube-aggregator => k8s.io/kube-aggregator v0.32.0
