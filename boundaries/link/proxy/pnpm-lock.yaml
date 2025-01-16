@@ -103,8 +103,8 @@ importers:
         specifier: 3.15.12
         version: 3.15.12
       '@types/node':
-        specifier: 22.10.6
-        version: 22.10.6
+        specifier: 22.10.7
+        version: 22.10.7
       prisma:
         specifier: 6.2.1
         version: 6.2.1
@@ -722,8 +722,8 @@ packages:
   '@types/node@12.20.55':
     resolution: {integrity: sha512-J8xLz7q2OFulZ2cyGTLE1TbbZcjpno7FaN6zdJNrgAdrJ+DZzh/uFR6YrTb4C+nXakvud8Q4+rbhoIWlYQbUFQ==}
 
-  '@types/node@22.10.6':
-    resolution: {integrity: sha512-qNiuwC4ZDAUNcY47xgaSuS92cjf8JbSUoaKS77bmLG1rU7MlATVSiw/IlrjtIyyskXBZ8KkNfjK/P5na7rgXbQ==}
+  '@types/node@22.10.7':
+    resolution: {integrity: sha512-V09KvXxFiutGp6B7XkpaDXlNadZxrzajcY50EuoLIpQ6WWYCSvf19lVIazzfIzQvhUN2HjX12spLojTnhuKlGg==}
 
   '@types/pg-pool@2.0.6':
     resolution: {integrity: sha512-TaAUE5rq2VQYxab5Ts7WZhKNmuN78Q6PiFonTDdpbx8a1H0M1vhy3rhiMjl+e2iHmogyMw7jZF4FrE6eJUy5HQ==}
@@ -2357,23 +2357,23 @@ snapshots:
   '@types/body-parser@1.19.5':
     dependencies:
       '@types/connect': 3.4.38
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
 
   '@types/bunyan@1.8.9':
     dependencies:
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
 
   '@types/connect@3.4.36':
     dependencies:
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
 
   '@types/connect@3.4.38':
     dependencies:
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
 
   '@types/express-serve-static-core@5.0.2':
     dependencies:
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
       '@types/qs': 6.9.17
       '@types/range-parser': 1.2.7
       '@types/send': 0.17.4
@@ -2391,21 +2391,21 @@ snapshots:
 
   '@types/memcached@2.2.10':
     dependencies:
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
 
   '@types/mime@1.3.5': {}
 
   '@types/morgan@1.9.9':
     dependencies:
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
 
   '@types/mysql@2.15.26':
     dependencies:
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
 
   '@types/node@12.20.55': {}
 
-  '@types/node@22.10.6':
+  '@types/node@22.10.7':
     dependencies:
       undici-types: 6.20.0
 
@@ -2415,7 +2415,7 @@ snapshots:
 
   '@types/pg@8.6.1':
     dependencies:
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
       pg-protocol: 1.7.0
       pg-types: 2.2.0
 
@@ -2426,19 +2426,19 @@ snapshots:
   '@types/send@0.17.4':
     dependencies:
       '@types/mime': 1.3.5
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
 
   '@types/serve-static@1.15.7':
     dependencies:
       '@types/http-errors': 2.0.4
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
       '@types/send': 0.17.4
 
   '@types/shimmer@1.2.0': {}
 
   '@types/tedious@4.0.14':
     dependencies:
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
 
   '@types/triple-beam@1.3.5': {}
 
@@ -3009,7 +3009,7 @@ snapshots:
       '@protobufjs/path': 1.1.2
       '@protobufjs/pool': 1.1.0
       '@protobufjs/utf8': 1.1.0
-      '@types/node': 22.10.6
+      '@types/node': 22.10.7
       long: 5.2.3
 
   proxy-addr@2.0.7:
