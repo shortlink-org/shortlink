@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/link/bff
 
-go 1.23.4
+go 1.23.5
 
 require (
 	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.5.1-20240420204150-bbba30c24796.2
