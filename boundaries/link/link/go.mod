@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/link/link
 
-go 1.23.4
+go 1.23.5
 
 require (
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d

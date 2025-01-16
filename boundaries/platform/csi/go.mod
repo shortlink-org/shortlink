@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/platform/csi
 
-go 1.23.4
+go 1.23.5
 
 require (
 	github.com/container-storage-interface/spec v1.11.0
