@@ -52,8 +52,8 @@ importers:
         specifier: ^22.10.7
         version: 22.10.7
       cypress:
-        specifier: ^13.17.0
-        version: 13.17.0
+        specifier: ^14.0.0
+        version: 14.0.0
       eslint:
         specifier: ^9.18.0
         version: 9.18.0(jiti@1.21.6)
@@ -1581,10 +1581,6 @@ packages:
     resolution: {integrity: sha512-BhYE+WDaywFg2TBWYNXAE+8B1ATnThNBqXHP5nQu0jWJdVvY2hvkpyB3qOmtmDePiS5/BDQ8wASEWGMWRG148g==}
     engines: {node: '>= 0.4'}
 
-  call-bind@1.0.7:
-    resolution: {integrity: sha512-GHTSNSYICQ7scH7sZ+M2rFopRoLh8t2bLSW6BbgrtLsahOIB5iyAVJf9GjWK3cYTDaMj4XdBpM1cA6pIS0Kv2w==}
-    engines: {node: '>= 0.4'}
-
   call-bind@1.0.8:
     resolution: {integrity: sha512-oKlSFMcMwpUg2ednkhQ454wfWiU/ul3CkJe/PEHcTKuiX6RpbehUiFMXu13HalGZxfUwCQzZG747YXBn1im9ww==}
     engines: {node: '>= 0.4'}
@@ -1755,9 +1751,9 @@ packages:
     engines: {node: '>=4'}
     hasBin: true
 
-  cypress@13.17.0:
-    resolution: {integrity: sha512-5xWkaPurwkIljojFidhw8lFScyxhtiFHl/i/3zov+1Z5CmY4t9tjIdvSXfu82Y3w7wt0uR9KkucbhkVvJZLQSA==}
-    engines: {node: ^16.0.0 || ^18.0.0 || >=20.0.0}
+  cypress@14.0.0:
+    resolution: {integrity: sha512-kEGqQr23so5IpKeg/dp6GVi7RlHx1NmW66o2a2Q4wk9gRaAblLZQSiZJuDI8UMC4LlG5OJ7Q6joAiqTrfRNbTw==}
+    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
     hasBin: true
 
   dashdash@1.14.1:
@@ -1769,15 +1765,6 @@ packages:
 
   debug@3.2.7:
     resolution: {integrity: sha512-CFjzYYAi4ThfiQvizrFQevTTXHtnCqWfe7x1AhgEscTz6ZbLbfoLRLPugTQyBth6f8ZERVUSyWHFD/7Wu4t1XQ==}
-    peerDependencies:
-      supports-color: '*'
-    peerDependenciesMeta:
-      supports-color:
-        optional: true
-
-  debug@4.3.7:
-    resolution: {integrity: sha512-Er2nc/H7RrMXZBFCEim6TCmMk02Z8vLC2Rbi1KEBggpo0fS6l0S1nnapwmIi3yW/+GOJap1Krg4w0Hg80oCqgQ==}
-    engines: {node: '>=6.0'}
     peerDependencies:
       supports-color: '*'
     peerDependenciesMeta:
@@ -1861,10 +1848,6 @@ packages:
   enquirer@2.4.1:
     resolution: {integrity: sha512-rRqJg/6gd538VHvR3PSrdRBb/1Vy2YfzHqzvbhGIQpDRKIa4FgV/54b5Q1xYSxOOwKvjXweS26E0Q+nAMwp2pQ==}
     engines: {node: '>=8.6'}
-
-  es-define-property@1.0.0:
-    resolution: {integrity: sha512-jxayLKShrEqqzJ0eumQbVhTYQM27CfT1T35+gCgDFoL82JLsXqTJ76zv6A0YLOgEnLUMvLzsDsGIrl8NFpT2gQ==}
-    engines: {node: '>= 0.4'}
 
   es-define-property@1.0.1:
     resolution: {integrity: sha512-e3nRfgfUZ4rNGL232gUgX06QNyyez04KdjFrF+LTRoOXmrOgFKDg4BCdsjW8EnT69eqdYGmRpJwiPVYNrCaW3g==}
@@ -2134,10 +2117,6 @@ packages:
     resolution: {integrity: sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==}
     engines: {node: '>=6.9.0'}
 
-  get-intrinsic@1.2.4:
-    resolution: {integrity: sha512-5uYhsJH8VJBTv7oslg4BznJYhDoRI6waYCxMmCdnTrcCrHA/fCFKoTFz2JKKE0HdDFUF7/oQuhzumXJK7paBRQ==}
-    engines: {node: '>= 0.4'}
-
   get-intrinsic@1.2.7:
     resolution: {integrity: sha512-VW6Pxhsrk0KAOqs3WEd0klDiF/+V7gQOpAvY1jVU/LHmaD/kQO4523aiJuikX/QAKYiW6x8Jh+RJej1almdtCA==}
     engines: {node: '>= 0.4'}
@@ -2187,10 +2166,6 @@ packages:
     resolution: {integrity: sha512-oahGvuMGQlPw/ivIYBjVSrWAfWLBeku5tpPE2fOPLi+WHffIWbuh2tCjhyQhTBPMf5E9jDEH4FOmTYgYwbKwtQ==}
     engines: {node: '>=18'}
 
-  gopd@1.1.0:
-    resolution: {integrity: sha512-FQoVQnqcdk4hVM4JN1eromaun4iuS34oStkdlLENLdpULsuQcTyXj8w7ayhuUfPwEYZ1ZOooOTT6fdA9Vmx/RA==}
-    engines: {node: '>= 0.4'}
-
   gopd@1.2.0:
     resolution: {integrity: sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==}
     engines: {node: '>= 0.4'}
@@ -2204,14 +2179,6 @@ packages:
 
   has-property-descriptors@1.0.2:
     resolution: {integrity: sha512-55JNKuIW+vq4Ke1BjOTjM2YctQIvCT7GFzHwmfZPGo5wnrgkid0YQtnAleFSqumZm4az3n2BS+erby5ipJdgrg==}
-
-  has-proto@1.1.0:
-    resolution: {integrity: sha512-QLdzI9IIO1Jg7f9GT1gXpPpXArAn6cS31R1eEZqz08Gc+uQ8/XiqHWt17Fiw+2p6oTTIq5GXEpQkAlA88YRl/Q==}
-    engines: {node: '>= 0.4'}
-
-  has-symbols@1.0.3:
-    resolution: {integrity: sha512-l3LCuF6MgDNwTDKkdYGEihYjt5pRPbEg46rtlmnSPlUbgmB8LOIrKJbYYFBSbnPaJexMKtiPO8hmeRjRz2Td+A==}
-    engines: {node: '>= 0.4'}
 
   has-symbols@1.1.0:
     resolution: {integrity: sha512-1cDNdwJ2Jaohmb3sg4OmKaMBwuC48sYni5HUw2DvsC8LjGTLK9h+eb1X6RyuOHe4hT0ULCW68iomhjUoKUqlPQ==}
@@ -3719,7 +3686,7 @@ snapshots:
       '@babel/traverse': 7.25.9
       '@babel/types': 7.26.0
       convert-source-map: 2.0.0
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@8.1.1)
       gensync: 1.0.0-beta.2
       json5: 2.2.3
       semver: 6.3.1
@@ -3786,7 +3753,7 @@ snapshots:
       '@babel/parser': 7.26.2
       '@babel/template': 7.25.9
       '@babel/types': 7.26.0
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@8.1.1)
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
@@ -4185,7 +4152,7 @@ snapshots:
   '@eslint/config-array@0.19.0':
     dependencies:
       '@eslint/object-schema': 2.1.4
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@8.1.1)
       minimatch: 3.1.2
     transitivePeerDependencies:
       - supports-color
@@ -4197,7 +4164,7 @@ snapshots:
   '@eslint/eslintrc@3.2.0':
     dependencies:
       ajv: 6.12.6
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@8.1.1)
       espree: 10.3.0
       globals: 14.0.0
       ignore: 5.3.2
@@ -5172,7 +5139,7 @@ snapshots:
 
   agent-base@6.0.2:
     dependencies:
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -5339,14 +5306,6 @@ snapshots:
       es-errors: 1.3.0
       function-bind: 1.1.2
 
-  call-bind@1.0.7:
-    dependencies:
-      es-define-property: 1.0.0
-      es-errors: 1.3.0
-      function-bind: 1.1.2
-      get-intrinsic: 1.2.4
-      set-function-length: 1.2.2
-
   call-bind@1.0.8:
     dependencies:
       call-bind-apply-helpers: 1.0.1
@@ -5498,7 +5457,7 @@ snapshots:
 
   cssesc@3.0.0: {}
 
-  cypress@13.17.0:
+  cypress@14.0.0:
     dependencies:
       '@cypress/request': 3.0.6
       '@cypress/xvfb': 1.2.4(supports-color@8.1.1)
@@ -5517,7 +5476,7 @@ snapshots:
       commander: 6.2.1
       common-tags: 1.8.2
       dayjs: 1.11.13
-      debug: 4.3.7(supports-color@8.1.1)
+      debug: 4.4.0(supports-color@8.1.1)
       enquirer: 2.4.1
       eventemitter2: 6.4.7
       execa: 4.1.0
@@ -5556,15 +5515,11 @@ snapshots:
     optionalDependencies:
       supports-color: 8.1.1
 
-  debug@4.3.7(supports-color@8.1.1):
+  debug@4.4.0(supports-color@8.1.1):
     dependencies:
       ms: 2.1.3
     optionalDependencies:
       supports-color: 8.1.1
-
-  debug@4.4.0:
-    dependencies:
-      ms: 2.1.3
 
   decode-named-character-reference@1.0.2:
     dependencies:
@@ -5574,9 +5529,9 @@ snapshots:
 
   define-data-property@1.1.4:
     dependencies:
-      es-define-property: 1.0.0
+      es-define-property: 1.0.1
       es-errors: 1.3.0
-      gopd: 1.1.0
+      gopd: 1.2.0
 
   define-lazy-prop@2.0.0: {}
 
@@ -5630,10 +5585,6 @@ snapshots:
       ansi-colors: 4.1.3
       strip-ansi: 6.0.1
 
-  es-define-property@1.0.0:
-    dependencies:
-      get-intrinsic: 1.2.4
-
   es-define-property@1.0.1: {}
 
   es-errors@1.3.0: {}
@@ -5660,7 +5611,7 @@ snapshots:
 
   esbuild-register@3.6.0(esbuild@0.24.2):
     dependencies:
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@8.1.1)
       esbuild: 0.24.2
     transitivePeerDependencies:
       - supports-color
@@ -5744,7 +5695,7 @@ snapshots:
       ajv: 6.12.6
       chalk: 4.1.2
       cross-spawn: 7.0.6
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@8.1.1)
       escape-string-regexp: 4.0.0
       eslint-scope: 8.2.0
       eslint-visitor-keys: 4.2.0
@@ -5851,7 +5802,7 @@ snapshots:
 
   extract-zip@2.0.1(supports-color@8.1.1):
     dependencies:
-      debug: 4.3.7(supports-color@8.1.1)
+      debug: 4.4.0(supports-color@8.1.1)
       get-stream: 5.2.0
       yauzl: 2.10.0
     optionalDependencies:
@@ -5952,14 +5903,6 @@ snapshots:
 
   gensync@1.0.0-beta.2: {}
 
-  get-intrinsic@1.2.4:
-    dependencies:
-      es-errors: 1.3.0
-      function-bind: 1.1.2
-      has-proto: 1.1.0
-      has-symbols: 1.0.3
-      hasown: 2.0.2
-
   get-intrinsic@1.2.7:
     dependencies:
       call-bind-apply-helpers: 1.0.1
@@ -6024,10 +5967,6 @@ snapshots:
 
   globals@14.0.0: {}
 
-  gopd@1.1.0:
-    dependencies:
-      get-intrinsic: 1.2.4
-
   gopd@1.2.0: {}
 
   graceful-fs@4.2.11: {}
@@ -6036,13 +5975,7 @@ snapshots:
 
   has-property-descriptors@1.0.2:
     dependencies:
-      es-define-property: 1.0.0
-
-  has-proto@1.1.0:
-    dependencies:
-      call-bind: 1.0.7
-
-  has-symbols@1.0.3: {}
+      es-define-property: 1.0.1
 
   has-symbols@1.1.0: {}
 
@@ -6112,7 +6045,7 @@ snapshots:
   https-proxy-agent@5.0.1:
     dependencies:
       agent-base: 6.0.2
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -6659,7 +6592,7 @@ snapshots:
   micromark@4.0.1:
     dependencies:
       '@types/debug': 4.1.12
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@8.1.1)
       decode-named-character-reference: 1.0.2
       devlop: 1.1.0
       micromark-core-commonmark: 2.0.2
@@ -7284,7 +7217,7 @@ snapshots:
 
   require-in-the-middle@7.4.0:
     dependencies:
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@8.1.1)
       module-details-from-path: 1.0.3
       resolve: 1.22.8
     transitivePeerDependencies:
@@ -7363,8 +7296,8 @@ snapshots:
       define-data-property: 1.1.4
       es-errors: 1.3.0
       function-bind: 1.1.2
-      get-intrinsic: 1.2.4
-      gopd: 1.1.0
+      get-intrinsic: 1.2.7
+      gopd: 1.2.0
       has-property-descriptors: 1.0.2
 
   sharp@0.33.5:
@@ -7404,9 +7337,9 @@ snapshots:
 
   side-channel@1.0.6:
     dependencies:
-      call-bind: 1.0.7
+      call-bind: 1.0.8
       es-errors: 1.3.0
-      get-intrinsic: 1.2.4
+      get-intrinsic: 1.2.7
       object-inspect: 1.13.3
 
   signal-exit@3.0.7: {}
