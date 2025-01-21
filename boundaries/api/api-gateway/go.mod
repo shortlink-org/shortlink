@@ -13,7 +13,7 @@ require (
 	github.com/shortlink-org/shortlink v0.0.0-20250113102113-f544d69dc18f
 	github.com/spf13/viper v1.19.0
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.3.2
-	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.58.0
+	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.59.0
 	go.opentelemetry.io/otel/trace v1.34.0
 	golang.org/x/sync v0.10.0
 	google.golang.org/grpc v1.69.4
