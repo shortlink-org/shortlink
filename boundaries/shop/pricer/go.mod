@@ -5,7 +5,7 @@ go 1.23.5
 require (
 	github.com/google/uuid v1.6.0
 	github.com/google/wire v0.6.0
-	github.com/open-policy-agent/opa v1.0.0
+	github.com/open-policy-agent/opa v1.0.1
 	github.com/shopspring/decimal v1.4.0
 	github.com/shortlink-org/shortlink v0.0.0-20250116173323-6c21e9c9756e
 	github.com/spf13/viper v1.19.0
