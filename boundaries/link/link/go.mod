@@ -5,7 +5,7 @@ go 1.23.5
 require (
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
 	github.com/authzed/authzed-go v1.2.1
-	github.com/dgraph-io/badger/v4 v4.5.0
+	github.com/dgraph-io/badger/v4 v4.5.1
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/go-redis/cache/v9 v9.0.0
 	github.com/golang-migrate/migrate/v4 v4.18.1
@@ -45,7 +45,7 @@ require (
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/containerd/continuity v0.4.3 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
-	github.com/dgraph-io/ristretto/v2 v2.0.0 // indirect
+	github.com/dgraph-io/ristretto/v2 v2.1.0 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/dnwe/otelsarama v0.0.0-20231212173111-631a0a53d5d4 // indirect
 	github.com/docker/cli v26.1.4+incompatible // indirect
@@ -67,7 +67,7 @@ require (
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/golang/snappy v0.0.5-0.20220116011046-fa5810519dcb // indirect
-	github.com/google/flatbuffers v24.3.25+incompatible // indirect
+	github.com/google/flatbuffers v24.12.23+incompatible // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/grafana/pyroscope-go v1.2.0 // indirect
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.8 // indirect
