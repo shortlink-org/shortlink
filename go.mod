@@ -11,7 +11,7 @@ require (
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/authzed/authzed-go v1.2.1
 	github.com/c-bata/go-prompt v0.2.6
-	github.com/chromedp/chromedp v0.11.2
+	github.com/chromedp/chromedp v0.12.1
 	github.com/couchbase/gocb/v2 v2.9.3
 	github.com/cucumber/godog v0.15.0
 	github.com/dgraph-io/badger/v4 v4.5.1
@@ -108,7 +108,7 @@ require (
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/certifi/gocertifi v0.0.0-20210507211836-431795d63e8d // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
-	github.com/chromedp/cdproto v0.0.0-20241022234722-4d5d5faf59fb // indirect
+	github.com/chromedp/cdproto v0.0.0-20250120090109-d38428e4d9c8 // indirect
 	github.com/chromedp/sysutil v1.1.0 // indirect
 	github.com/codemodus/kace v0.5.1 // indirect
 	github.com/containerd/console v1.0.4 // indirect
@@ -182,7 +182,7 @@ require (
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
 	github.com/lithammer/fuzzysearch v1.1.8 // indirect
 	github.com/magiconair/properties v1.8.7 // indirect
-	github.com/mailru/easyjson v0.7.7 // indirect
+	github.com/mailru/easyjson v0.9.0 // indirect
 	github.com/mattn/go-colorable v0.1.13 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
 	github.com/mattn/go-runewidth v0.0.16 // indirect
