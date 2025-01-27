@@ -65,13 +65,13 @@ importers:
         version: 0.22.10(encoding@0.1.13)(graphql@16.8.1)
       '@nx/detox':
         specifier: 20.3.3
-        version: 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(detox@20.32.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@22.10.10)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3))))(eslint@9.18.0)(nx@20.3.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3))(typescript@5.7.3)(webpack@5.95.0)
+        version: 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(detox@20.32.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@22.10.10)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3))))(eslint@9.19.0)(nx@20.3.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3))(typescript@5.7.3)(webpack@5.95.0)
       '@nx/eslint-plugin':
         specifier: 20.3.3
-        version: 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@typescript-eslint/parser@8.21.0(eslint@9.18.0)(typescript@5.7.3))(eslint-config-prettier@10.0.1(eslint@9.18.0))(eslint@9.18.0)(nx@20.3.3)(typescript@5.7.3)
+        version: 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@typescript-eslint/parser@8.21.0(eslint@9.19.0)(typescript@5.7.3))(eslint-config-prettier@10.0.1(eslint@9.19.0))(eslint@9.19.0)(nx@20.3.3)(typescript@5.7.3)
       '@nx/expo':
         specifier: ^20.3.3
-        version: 20.3.3(@babel/traverse@7.25.9)(@rspack/core@1.1.5)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(encoding@0.1.13)(eslint@9.18.0)(nx@20.3.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3))(typescript@5.7.3)(webpack@5.95.0)
+        version: 20.3.3(@babel/traverse@7.25.9)(@rspack/core@1.1.5)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(encoding@0.1.13)(eslint@9.19.0)(nx@20.3.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3))(typescript@5.7.3)(webpack@5.95.0)
       '@nx/jest':
         specifier: 20.3.3
         version: 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(nx@20.3.3)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3))(typescript@5.7.3)
@@ -80,7 +80,7 @@ importers:
         version: 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(nx@20.3.3)(typescript@5.7.3)
       '@nx/linter':
         specifier: 19.8.4
-        version: 19.8.4(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.18.0)(nx@20.3.3)
+        version: 19.8.4(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.19.0)(nx@20.3.3)
       '@nx/workspace':
         specifier: 20.3.3
         version: 20.3.3
@@ -104,10 +104,10 @@ importers:
         version: 19.0.8
       '@typescript-eslint/eslint-plugin':
         specifier: ^8.21.0
-        version: 8.21.0(@typescript-eslint/parser@8.21.0(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)(typescript@5.7.3)
+        version: 8.21.0(@typescript-eslint/parser@8.21.0(eslint@9.19.0)(typescript@5.7.3))(eslint@9.19.0)(typescript@5.7.3)
       '@typescript-eslint/parser':
         specifier: ^8.21.0
-        version: 8.21.0(eslint@9.18.0)(typescript@5.7.3)
+        version: 8.21.0(eslint@9.19.0)(typescript@5.7.3)
       babel-jest:
         specifier: ^29.7.0
         version: 29.7.0(@babel/core@7.25.8)
@@ -121,23 +121,23 @@ importers:
         specifier: ^14.5.0
         version: 14.5.0(@types/node@22.10.10)(encoding@0.1.13)(typescript@5.7.3)
       eslint:
-        specifier: ^9.18.0
-        version: 9.18.0
+        specifier: ^9.19.0
+        version: 9.19.0
       eslint-config-prettier:
         specifier: ^10.0.1
-        version: 10.0.1(eslint@9.18.0)
+        version: 10.0.1(eslint@9.19.0)
       eslint-plugin-import:
         specifier: ^2.31.0
-        version: 2.31.0(@typescript-eslint/parser@8.21.0(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)
+        version: 2.31.0(@typescript-eslint/parser@8.21.0(eslint@9.19.0)(typescript@5.7.3))(eslint@9.19.0)
       eslint-plugin-jsx-a11y:
         specifier: 6.10.2
-        version: 6.10.2(eslint@9.18.0)
+        version: 6.10.2(eslint@9.19.0)
       eslint-plugin-react:
         specifier: 7.37.4
-        version: 7.37.4(eslint@9.18.0)
+        version: 7.37.4(eslint@9.19.0)
       eslint-plugin-react-hooks:
         specifier: 5.1.0
-        version: 5.1.0(eslint@9.18.0)
+        version: 5.1.0(eslint@9.19.0)
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@22.10.10)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3))
@@ -1053,8 +1053,8 @@ packages:
     resolution: {integrity: sha512-grOjVNN8P3hjJn/eIETF1wwd12DdnwFDoyceUJLYYdkpbwq3nLi+4fqrTAONx7XDALqlL220wC/RHSC/QTI/0w==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@eslint/js@9.18.0':
-    resolution: {integrity: sha512-fK6L7rxcq6/z+AaQMtiFTkvbHkBLNlwyRxHpKawP0x3u9+NC6MQTnFW+AdpwC6gfHTW0051cokQgtTN2FqlxQA==}
+  '@eslint/js@9.19.0':
+    resolution: {integrity: sha512-rbq9/g38qjfqFLOVPvwjIvFFdNziEC5S65jmjPw5r6A//QH+W91akh9irMwjDN8zKUTak6W9EsAv4m/7Wnw0UQ==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
   '@eslint/object-schema@2.1.4':
@@ -3879,8 +3879,8 @@ packages:
     resolution: {integrity: sha512-UyLnSehNt62FFhSwjZlHmeokpRK59rcz29j+F1/aDgbkbRTk7wIc9XzdoasMUbRNKDM0qQt/+BJ4BrpFeABemw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  eslint@9.18.0:
-    resolution: {integrity: sha512-+waTfRWQlSbpt3KWE+CjrPPYnbq9kfZIYUqapc0uBXyjTp8aYXZDsUH16m39Ryq3NjAVP4tjuF7KaukeqoCoaA==}
+  eslint@9.19.0:
+    resolution: {integrity: sha512-ug92j0LepKlbbEv6hD911THhoRHmbdXt2gX+VDABAW/Ir7D3nqKdv5Pf5vtlyY6HQMTEP2skXY43ueqTCWssEA==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
     hasBin: true
     peerDependencies:
@@ -9399,9 +9399,9 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  '@eslint-community/eslint-utils@4.4.0(eslint@9.18.0)':
+  '@eslint-community/eslint-utils@4.4.0(eslint@9.19.0)':
     dependencies:
-      eslint: 9.18.0
+      eslint: 9.19.0
       eslint-visitor-keys: 3.4.3
 
   '@eslint-community/regexpp@4.12.1': {}
@@ -9432,7 +9432,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@eslint/js@9.18.0': {}
+  '@eslint/js@9.19.0': {}
 
   '@eslint/object-schema@2.1.4': {}
 
@@ -10419,13 +10419,13 @@ snapshots:
       - '@swc/core'
       - debug
 
-  '@nx/detox@20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(detox@20.32.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@22.10.10)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3))))(eslint@9.18.0)(nx@20.3.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3))(typescript@5.7.3)(webpack@5.95.0)':
+  '@nx/detox@20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(detox@20.32.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@22.10.10)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3))))(eslint@9.19.0)(nx@20.3.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3))(typescript@5.7.3)(webpack@5.95.0)':
     dependencies:
       '@nx/devkit': 20.3.3(nx@20.3.3)
-      '@nx/eslint': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.18.0)(nx@20.3.3)
+      '@nx/eslint': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.19.0)(nx@20.3.3)
       '@nx/jest': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(nx@20.3.3)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3))(typescript@5.7.3)
       '@nx/js': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(nx@20.3.3)(typescript@5.7.3)
-      '@nx/react': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.18.0)(nx@20.3.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)(webpack@5.95.0)
+      '@nx/react': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.19.0)(nx@20.3.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)(webpack@5.95.0)
       detox: 20.32.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@22.10.10)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3)))
       tslib: 2.8.1
     transitivePeerDependencies:
@@ -10494,13 +10494,13 @@ snapshots:
       tslib: 2.8.1
       yargs-parser: 21.1.1
 
-  '@nx/eslint-plugin@20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@typescript-eslint/parser@8.21.0(eslint@9.18.0)(typescript@5.7.3))(eslint-config-prettier@10.0.1(eslint@9.18.0))(eslint@9.18.0)(nx@20.3.3)(typescript@5.7.3)':
+  '@nx/eslint-plugin@20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@typescript-eslint/parser@8.21.0(eslint@9.19.0)(typescript@5.7.3))(eslint-config-prettier@10.0.1(eslint@9.19.0))(eslint@9.19.0)(nx@20.3.3)(typescript@5.7.3)':
     dependencies:
       '@nx/devkit': 20.3.3(nx@20.3.3)
       '@nx/js': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(nx@20.3.3)(typescript@5.7.3)
-      '@typescript-eslint/parser': 8.21.0(eslint@9.18.0)(typescript@5.7.3)
-      '@typescript-eslint/type-utils': 8.21.0(eslint@9.18.0)(typescript@5.7.3)
-      '@typescript-eslint/utils': 8.21.0(eslint@9.18.0)(typescript@5.7.3)
+      '@typescript-eslint/parser': 8.21.0(eslint@9.19.0)(typescript@5.7.3)
+      '@typescript-eslint/type-utils': 8.21.0(eslint@9.19.0)(typescript@5.7.3)
+      '@typescript-eslint/utils': 8.21.0(eslint@9.19.0)(typescript@5.7.3)
       chalk: 4.1.2
       confusing-browser-globals: 1.0.11
       globals: 15.9.0
@@ -10508,7 +10508,7 @@ snapshots:
       semver: 7.6.3
       tslib: 2.8.1
     optionalDependencies:
-      eslint-config-prettier: 10.0.1(eslint@9.18.0)
+      eslint-config-prettier: 10.0.1(eslint@9.19.0)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -10522,12 +10522,12 @@ snapshots:
       - typescript
       - verdaccio
 
-  '@nx/eslint@19.8.4(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.18.0)(nx@20.3.3)':
+  '@nx/eslint@19.8.4(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.19.0)(nx@20.3.3)':
     dependencies:
       '@nx/devkit': 19.8.4(nx@20.3.3)
       '@nx/js': 19.8.4(@babel/traverse@7.25.9)(@types/node@22.10.10)(nx@20.3.3)(typescript@5.4.5)
-      '@nx/linter': 19.8.4(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.18.0)(nx@20.3.3)
-      eslint: 9.18.0
+      '@nx/linter': 19.8.4(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.19.0)(nx@20.3.3)
+      eslint: 9.19.0
       semver: 7.6.3
       tslib: 2.8.1
       typescript: 5.4.5
@@ -10544,11 +10544,11 @@ snapshots:
       - supports-color
       - verdaccio
 
-  '@nx/eslint@20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.18.0)(nx@20.3.3)':
+  '@nx/eslint@20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.19.0)(nx@20.3.3)':
     dependencies:
       '@nx/devkit': 20.3.3(nx@20.3.3)
       '@nx/js': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(nx@20.3.3)(typescript@5.6.3)
-      eslint: 9.18.0
+      eslint: 9.19.0
       semver: 7.6.3
       tslib: 2.8.1
       typescript: 5.6.3
@@ -10565,13 +10565,13 @@ snapshots:
       - supports-color
       - verdaccio
 
-  '@nx/expo@20.3.3(@babel/traverse@7.25.9)(@rspack/core@1.1.5)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(encoding@0.1.13)(eslint@9.18.0)(nx@20.3.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3))(typescript@5.7.3)(webpack@5.95.0)':
+  '@nx/expo@20.3.3(@babel/traverse@7.25.9)(@rspack/core@1.1.5)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(encoding@0.1.13)(eslint@9.19.0)(nx@20.3.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3))(typescript@5.7.3)(webpack@5.95.0)':
     dependencies:
       '@nx/devkit': 20.3.3(nx@20.3.3)
-      '@nx/eslint': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.18.0)(nx@20.3.3)
+      '@nx/eslint': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.19.0)(nx@20.3.3)
       '@nx/jest': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(nx@20.3.3)(ts-node@10.9.2(@types/node@22.10.10)(typescript@5.7.3))(typescript@5.7.3)
       '@nx/js': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(nx@20.3.3)(typescript@5.7.3)
-      '@nx/react': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.18.0)(nx@20.3.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)(webpack@5.95.0)
+      '@nx/react': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.19.0)(nx@20.3.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)(webpack@5.95.0)
       '@nx/web': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(nx@20.3.3)(typescript@5.7.3)
       '@nx/webpack': 20.3.3(@babel/traverse@7.25.9)(@rspack/core@1.1.5)(@types/node@22.10.10)(nx@20.3.3)(typescript@5.7.3)
       enhanced-resolve: 5.17.1
@@ -10782,9 +10782,9 @@ snapshots:
       - supports-color
       - typescript
 
-  '@nx/linter@19.8.4(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.18.0)(nx@20.3.3)':
+  '@nx/linter@19.8.4(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.19.0)(nx@20.3.3)':
     dependencies:
-      '@nx/eslint': 19.8.4(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.18.0)(nx@20.3.3)
+      '@nx/eslint': 19.8.4(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.19.0)(nx@20.3.3)
     transitivePeerDependencies:
       - '@babel/traverse'
       - '@swc-node/register'
@@ -10894,10 +10894,10 @@ snapshots:
   '@nx/nx-win32-x64-msvc@20.3.3':
     optional: true
 
-  '@nx/react@20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.18.0)(nx@20.3.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)(webpack@5.95.0)':
+  '@nx/react@20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.19.0)(nx@20.3.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)(webpack@5.95.0)':
     dependencies:
       '@nx/devkit': 20.3.3(nx@20.3.3)
-      '@nx/eslint': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.18.0)(nx@20.3.3)
+      '@nx/eslint': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(@zkochan/js-yaml@0.0.7)(eslint@9.19.0)(nx@20.3.3)
       '@nx/js': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(nx@20.3.3)(typescript@5.7.3)
       '@nx/module-federation': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(nx@20.3.3)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.3)
       '@nx/web': 20.3.3(@babel/traverse@7.25.9)(@types/node@22.10.10)(nx@20.3.3)(typescript@5.7.3)
@@ -11849,15 +11849,15 @@ snapshots:
     dependencies:
       '@types/yargs-parser': 21.0.3
 
-  '@typescript-eslint/eslint-plugin@8.21.0(@typescript-eslint/parser@8.21.0(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0)(typescript@5.7.3)':
+  '@typescript-eslint/eslint-plugin@8.21.0(@typescript-eslint/parser@8.21.0(eslint@9.19.0)(typescript@5.7.3))(eslint@9.19.0)(typescript@5.7.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.1
-      '@typescript-eslint/parser': 8.21.0(eslint@9.18.0)(typescript@5.7.3)
+      '@typescript-eslint/parser': 8.21.0(eslint@9.19.0)(typescript@5.7.3)
       '@typescript-eslint/scope-manager': 8.21.0
-      '@typescript-eslint/type-utils': 8.21.0(eslint@9.18.0)(typescript@5.7.3)
-      '@typescript-eslint/utils': 8.21.0(eslint@9.18.0)(typescript@5.7.3)
+      '@typescript-eslint/type-utils': 8.21.0(eslint@9.19.0)(typescript@5.7.3)
+      '@typescript-eslint/utils': 8.21.0(eslint@9.19.0)(typescript@5.7.3)
       '@typescript-eslint/visitor-keys': 8.21.0
-      eslint: 9.18.0
+      eslint: 9.19.0
       graphemer: 1.4.0
       ignore: 5.3.1
       natural-compare: 1.4.0
@@ -11866,14 +11866,14 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/parser@8.21.0(eslint@9.18.0)(typescript@5.7.3)':
+  '@typescript-eslint/parser@8.21.0(eslint@9.19.0)(typescript@5.7.3)':
     dependencies:
       '@typescript-eslint/scope-manager': 8.21.0
       '@typescript-eslint/types': 8.21.0
       '@typescript-eslint/typescript-estree': 8.21.0(typescript@5.7.3)
       '@typescript-eslint/visitor-keys': 8.21.0
       debug: 4.3.7(supports-color@8.1.1)
-      eslint: 9.18.0
+      eslint: 9.19.0
       typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
@@ -11883,12 +11883,12 @@ snapshots:
       '@typescript-eslint/types': 8.21.0
       '@typescript-eslint/visitor-keys': 8.21.0
 
-  '@typescript-eslint/type-utils@8.21.0(eslint@9.18.0)(typescript@5.7.3)':
+  '@typescript-eslint/type-utils@8.21.0(eslint@9.19.0)(typescript@5.7.3)':
     dependencies:
       '@typescript-eslint/typescript-estree': 8.21.0(typescript@5.7.3)
-      '@typescript-eslint/utils': 8.21.0(eslint@9.18.0)(typescript@5.7.3)
+      '@typescript-eslint/utils': 8.21.0(eslint@9.19.0)(typescript@5.7.3)
       debug: 4.3.7(supports-color@8.1.1)
-      eslint: 9.18.0
+      eslint: 9.19.0
       ts-api-utils: 2.0.0(typescript@5.7.3)
       typescript: 5.7.3
     transitivePeerDependencies:
@@ -11910,13 +11910,13 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@typescript-eslint/utils@8.21.0(eslint@9.18.0)(typescript@5.7.3)':
+  '@typescript-eslint/utils@8.21.0(eslint@9.19.0)(typescript@5.7.3)':
     dependencies:
-      '@eslint-community/eslint-utils': 4.4.0(eslint@9.18.0)
+      '@eslint-community/eslint-utils': 4.4.0(eslint@9.19.0)
       '@typescript-eslint/scope-manager': 8.21.0
       '@typescript-eslint/types': 8.21.0
       '@typescript-eslint/typescript-estree': 8.21.0(typescript@5.7.3)
-      eslint: 9.18.0
+      eslint: 9.19.0
       typescript: 5.7.3
     transitivePeerDependencies:
       - supports-color
@@ -13795,9 +13795,9 @@ snapshots:
     optionalDependencies:
       source-map: 0.6.1
 
-  eslint-config-prettier@10.0.1(eslint@9.18.0):
+  eslint-config-prettier@10.0.1(eslint@9.19.0):
     dependencies:
-      eslint: 9.18.0
+      eslint: 9.19.0
 
   eslint-import-resolver-node@0.3.9:
     dependencies:
@@ -13807,17 +13807,17 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.21.0(eslint@9.18.0)(typescript@5.7.3))(eslint-import-resolver-node@0.3.9)(eslint@9.18.0):
+  eslint-module-utils@2.12.0(@typescript-eslint/parser@8.21.0(eslint@9.19.0)(typescript@5.7.3))(eslint-import-resolver-node@0.3.9)(eslint@9.19.0):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
-      '@typescript-eslint/parser': 8.21.0(eslint@9.18.0)(typescript@5.7.3)
-      eslint: 9.18.0
+      '@typescript-eslint/parser': 8.21.0(eslint@9.19.0)(typescript@5.7.3)
+      eslint: 9.19.0
       eslint-import-resolver-node: 0.3.9
     transitivePeerDependencies:
       - supports-color
 
-  eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.21.0(eslint@9.18.0)(typescript@5.7.3))(eslint@9.18.0):
+  eslint-plugin-import@2.31.0(@typescript-eslint/parser@8.21.0(eslint@9.19.0)(typescript@5.7.3))(eslint@9.19.0):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.8
@@ -13826,9 +13826,9 @@ snapshots:
       array.prototype.flatmap: 1.3.2
       debug: 3.2.7
       doctrine: 2.1.0
-      eslint: 9.18.0
+      eslint: 9.19.0
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.21.0(eslint@9.18.0)(typescript@5.7.3))(eslint-import-resolver-node@0.3.9)(eslint@9.18.0)
+      eslint-module-utils: 2.12.0(@typescript-eslint/parser@8.21.0(eslint@9.19.0)(typescript@5.7.3))(eslint-import-resolver-node@0.3.9)(eslint@9.19.0)
       hasown: 2.0.2
       is-core-module: 2.15.1
       is-glob: 4.0.3
@@ -13840,13 +13840,13 @@ snapshots:
       string.prototype.trimend: 1.0.8
       tsconfig-paths: 3.15.0
     optionalDependencies:
-      '@typescript-eslint/parser': 8.21.0(eslint@9.18.0)(typescript@5.7.3)
+      '@typescript-eslint/parser': 8.21.0(eslint@9.19.0)(typescript@5.7.3)
     transitivePeerDependencies:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
       - supports-color
 
-  eslint-plugin-jsx-a11y@6.10.2(eslint@9.18.0):
+  eslint-plugin-jsx-a11y@6.10.2(eslint@9.19.0):
     dependencies:
       aria-query: 5.3.2
       array-includes: 3.1.8
@@ -13856,7 +13856,7 @@ snapshots:
       axobject-query: 4.1.0
       damerau-levenshtein: 1.0.8
       emoji-regex: 9.2.2
-      eslint: 9.18.0
+      eslint: 9.19.0
       hasown: 2.0.2
       jsx-ast-utils: 3.3.5
       language-tags: 1.0.9
@@ -13865,11 +13865,11 @@ snapshots:
       safe-regex-test: 1.0.3
       string.prototype.includes: 2.0.1
 
-  eslint-plugin-react-hooks@5.1.0(eslint@9.18.0):
+  eslint-plugin-react-hooks@5.1.0(eslint@9.19.0):
     dependencies:
-      eslint: 9.18.0
+      eslint: 9.19.0
 
-  eslint-plugin-react@7.37.4(eslint@9.18.0):
+  eslint-plugin-react@7.37.4(eslint@9.19.0):
     dependencies:
       array-includes: 3.1.8
       array.prototype.findlast: 1.2.5
@@ -13877,7 +13877,7 @@ snapshots:
       array.prototype.tosorted: 1.1.4
       doctrine: 2.1.0
       es-iterator-helpers: 1.2.1
-      eslint: 9.18.0
+      eslint: 9.19.0
       estraverse: 5.3.0
       hasown: 2.0.2
       jsx-ast-utils: 3.3.5
@@ -13905,14 +13905,14 @@ snapshots:
 
   eslint-visitor-keys@4.2.0: {}
 
-  eslint@9.18.0:
+  eslint@9.19.0:
     dependencies:
-      '@eslint-community/eslint-utils': 4.4.0(eslint@9.18.0)
+      '@eslint-community/eslint-utils': 4.4.0(eslint@9.19.0)
       '@eslint-community/regexpp': 4.12.1
       '@eslint/config-array': 0.19.0
       '@eslint/core': 0.10.0
       '@eslint/eslintrc': 3.2.0
-      '@eslint/js': 9.18.0
+      '@eslint/js': 9.19.0
       '@eslint/plugin-kit': 0.2.5
       '@humanfs/node': 0.16.6
       '@humanwhocodes/module-importer': 1.0.1
