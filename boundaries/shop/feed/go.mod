@@ -3,14 +3,14 @@ module github.com/shortlink-org/shortlink/boundaries/shop/feed
 go 1.23.5
 
 require (
-	github.com/google/cel-go v0.22.1
+	github.com/google/cel-go v0.23.0
 	github.com/shopspring/decimal v1.4.0
 	github.com/stretchr/testify v1.10.0
 	gopkg.in/yaml.v2 v2.4.0
 )
 
 require (
-	cel.dev/expr v0.18.0 // indirect
+	cel.dev/expr v0.19.1 // indirect
 	github.com/antlr4-go/antlr/v4 v4.13.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/kr/pretty v0.3.1 // indirect
