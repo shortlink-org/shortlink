@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/boundaries/shop/feed
 go 1.23.5
 
 require (
-	github.com/google/cel-go v0.23.1
+	github.com/google/cel-go v0.23.2
 	github.com/shopspring/decimal v1.4.0
 	github.com/stretchr/testify v1.10.0
 	gopkg.in/yaml.v2 v2.4.0
