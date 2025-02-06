@@ -19,13 +19,13 @@ dependencies = [
     "setuptools>=75.8.0", # not directly required, pinned by Snyk to avoid a vulnerability
 # Opentelemetry dependencies
     "pyroscope-io==0.8.8",
-    "opentelemetry-api==1.29.0",
+    "opentelemetry-api==1.30.0",
     "opentelemetry-sdk",
     "opentelemetry-exporter-prometheus",
-    'opentelemetry-exporter-otlp==1.29.0',
-    'opentelemetry-exporter-otlp-proto-common==1.29.0',
-    'opentelemetry-exporter-otlp-proto-grpc==1.29.0',
-    'opentelemetry-exporter-otlp-proto-http==1.29.0',
+    'opentelemetry-exporter-otlp==1.30.0',
+    'opentelemetry-exporter-otlp-proto-common==1.30.0',
+    'opentelemetry-exporter-otlp-proto-grpc==1.30.0',
+    'opentelemetry-exporter-otlp-proto-http==1.30.0',
     "opentelemetry-instrumentation-redis",
     "opentelemetry-instrumentation-sqlalchemy",
 # For testing dependencies
