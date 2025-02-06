@@ -19,7 +19,7 @@ require (
 	github.com/dnwe/otelsarama v0.0.0-20231212173111-631a0a53d5d4
 	github.com/edgedb/edgedb-go v0.17.2
 	github.com/exaring/otelpgx v0.9.0
-	github.com/go-chi/chi/v5 v5.2.0
+	github.com/go-chi/chi/v5 v5.2.1
 	github.com/go-redis/cache/v9 v9.0.0
 	github.com/go-sql-driver/mysql v1.8.1
 	github.com/golang-migrate/migrate/v4 v4.18.2
