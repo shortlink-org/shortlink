@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/api/api-gateway
 
-go 1.23.5
+go 1.23.6
 
 require (
 	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.5.1-20240420204150-bbba30c24796.2
@@ -10,7 +10,6 @@ require (
 	github.com/graph-gophers/graphql-go v1.5.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.26.0
 	github.com/segmentio/encoding v0.4.1
-	github.com/shortlink-org/shortlink v0.0.0-20250113102113-f544d69dc18f
 	github.com/spf13/viper v1.19.0
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.3.2
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.59.0

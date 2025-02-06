@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/platform/csi
 
-go 1.23.5
+go 1.23.6
 
 require (
 	github.com/container-storage-interface/spec v1.11.0
@@ -8,7 +8,6 @@ require (
 	github.com/google/uuid v1.6.0
 	github.com/google/wire v0.6.0
 	github.com/kubernetes-csi/csi-test/v5 v5.3.1
-	github.com/shortlink-org/shortlink v0.0.0-20250113102113-f544d69dc18f
 	github.com/spf13/cobra v1.8.1
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.10.0

@@ -1,12 +1,11 @@
 module github.com/shortlink-org/shortlink/boundaries/notification/notify
 
-go 1.23.5
+go 1.23.6
 
 require (
 	github.com/go-telegram-bot-api/telegram-bot-api/v5 v5.5.1
 	github.com/google/wire v0.6.0
 	github.com/segmentio/encoding v0.4.1
-	github.com/shortlink-org/shortlink v0.0.0-20250116173323-6c21e9c9756e
 	github.com/spf13/viper v1.19.0
 	go.opentelemetry.io/otel/trace v1.34.0
 	golang.org/x/sync v0.10.0

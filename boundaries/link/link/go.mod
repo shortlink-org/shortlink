@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/link/link
 
-go 1.23.5
+go 1.23.6
 
 require (
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
@@ -18,7 +18,6 @@ require (
 	github.com/prometheus/client_golang v1.20.5
 	github.com/redis/rueidis v1.0.30-0.20240224222815-152800b84f6d
 	github.com/segmentio/encoding v0.4.1
-	github.com/shortlink-org/shortlink v0.0.0-20250113102113-f544d69dc18f
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.10.0
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d

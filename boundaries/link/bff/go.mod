@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/link/bff
 
-go 1.23.5
+go 1.23.6
 
 require (
 	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.5.1-20240420204150-bbba30c24796.2
@@ -12,7 +12,6 @@ require (
 	github.com/oapi-codegen/runtime v1.1.1
 	github.com/riandyrn/otelchi v0.12.0
 	github.com/segmentio/encoding v0.4.1
-	github.com/shortlink-org/shortlink v0.0.0-20250113102113-f544d69dc18f
 	github.com/spf13/viper v1.19.0
 	go.opentelemetry.io/otel/trace v1.34.0
 	golang.org/x/sync v0.10.0

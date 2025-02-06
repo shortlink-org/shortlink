@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/billing/billing
 
-go 1.23.5
+go 1.23.6
 
 require (
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
@@ -15,7 +15,6 @@ require (
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/segmentio/encoding v0.4.1
 	github.com/shopspring/decimal v1.4.0
-	github.com/shortlink-org/shortlink v0.0.0-20250113102113-f544d69dc18f
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.10.0
 	github.com/stripe/stripe-go/v81 v81.3.0
