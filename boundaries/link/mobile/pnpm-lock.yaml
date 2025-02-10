@@ -118,8 +118,8 @@ importers:
         specifier: ^20.33.0
         version: 20.33.0(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@22.13.1)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.13.1)(typescript@5.7.3)))
       eas-cli:
-        specifier: ^15.0.5
-        version: 15.0.5(@types/node@22.13.1)(encoding@0.1.13)(typescript@5.7.3)
+        specifier: ^15.0.9
+        version: 15.0.9(@types/node@22.13.1)(encoding@0.1.13)(typescript@5.7.3)
       eslint:
         specifier: ^9.19.0
         version: 9.19.0
@@ -1027,9 +1027,6 @@ packages:
 
   '@expo/config-plugins@9.0.12':
     resolution: {integrity: sha512-/Ko/NM+GzvJyRkq8PITm8ms0KY5v0wmN1OQFYRMkcJqOi3PjlhndW+G6bHpJI9mkQXBaUnHwAiGLqIC3+MQ5Wg==}
-
-  '@expo/config-plugins@9.0.14':
-    resolution: {integrity: sha512-Lx1ebV95rTFKKQmbu4wMPLz65rKn7mqSpfANdCx+KwRxuLY2JQls8V4h3lQjG6dW8NWf9qV5QaEFAgNB6VMyOQ==}
 
   '@expo/config-plugins@9.0.15':
     resolution: {integrity: sha512-elKY/zIpAJ40RH26iwfyp+hwgeyPgIXX0SrCSOcjeJLsMsCmMac9ewvb+AN8y4k+N7m5lD/dMZupsaateKTFwA==}
@@ -3586,8 +3583,8 @@ packages:
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
 
-  eas-cli@15.0.5:
-    resolution: {integrity: sha512-mOPxDYYFooRHwqN0hH+UvGFo7ir8UX8dh/QLkhvsH0XSkRF2oL4Ui6BqrtD7NDxHsXn8L4YcAMTk9Yxkb355AQ==}
+  eas-cli@15.0.9:
+    resolution: {integrity: sha512-Aby43Q+sb6ptV7K6kS8XRQwxsbCFV9kmOn7I/xTJV9BpSMXmkW1Lp1qMZmLUO7hYQdgXJuDDAOILl+lfenFyNw==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -9412,26 +9409,7 @@ snapshots:
 
   '@expo/config-plugins@9.0.12':
     dependencies:
-      '@expo/config-types': 52.0.3
-      '@expo/json-file': 9.0.1
-      '@expo/plist': 0.2.1
-      '@expo/sdk-runtime-versions': 1.0.0
-      chalk: 4.1.2
-      debug: 4.3.7(supports-color@8.1.1)
-      getenv: 1.0.0
-      glob: 10.4.5
-      resolve-from: 5.0.0
-      semver: 7.6.3
-      slash: 3.0.0
-      slugify: 1.6.6
-      xcode: 3.0.1
-      xml2js: 0.6.0
-    transitivePeerDependencies:
-      - supports-color
-
-  '@expo/config-plugins@9.0.14':
-    dependencies:
-      '@expo/config-types': 52.0.3
+      '@expo/config-types': 52.0.4
       '@expo/json-file': 9.0.1
       '@expo/plist': 0.2.1
       '@expo/sdk-runtime-versions': 1.0.0
@@ -9474,8 +9452,8 @@ snapshots:
   '@expo/config@10.0.6':
     dependencies:
       '@babel/code-frame': 7.10.4
-      '@expo/config-plugins': 9.0.14
-      '@expo/config-types': 52.0.3
+      '@expo/config-plugins': 9.0.15
+      '@expo/config-types': 52.0.4
       '@expo/json-file': 9.0.1
       deepmerge: 4.3.1
       getenv: 1.0.0
@@ -9723,8 +9701,8 @@ snapshots:
   '@expo/prebuild-config@8.0.17':
     dependencies:
       '@expo/config': 10.0.8
-      '@expo/config-plugins': 9.0.14
-      '@expo/config-types': 52.0.3
+      '@expo/config-plugins': 9.0.15
+      '@expo/config-types': 52.0.4
       '@expo/image-utils': 0.6.4
       '@expo/json-file': 9.0.1
       '@react-native/normalize-colors': 0.76.2
@@ -9739,7 +9717,7 @@ snapshots:
   '@expo/prebuild-config@8.0.25':
     dependencies:
       '@expo/config': 10.0.8
-      '@expo/config-plugins': 9.0.14
+      '@expo/config-plugins': 9.0.15
       '@expo/config-types': 52.0.3
       '@expo/image-utils': 0.6.4
       '@expo/json-file': 9.0.1
@@ -13321,7 +13299,7 @@ snapshots:
 
   duplexer@0.1.2: {}
 
-  eas-cli@15.0.5(@types/node@22.13.1)(encoding@0.1.13)(typescript@5.7.3):
+  eas-cli@15.0.9(@types/node@22.13.1)(encoding@0.1.13)(typescript@5.7.3):
     dependencies:
       '@expo/apple-utils': 2.1.6
       '@expo/code-signing-certificates': 0.0.5
