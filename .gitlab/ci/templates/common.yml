@@ -10,7 +10,7 @@ variables:
 # DEFAULT ==============================================================================================================
 default:
   services:
-    - name: docker:27.5.0-rc.1-dind
+    - name: docker:28.0.0-rc.1-dind
       command: ["--experimental"]
       alias: localhost # necessary for correct addressing to services running in docker
 
