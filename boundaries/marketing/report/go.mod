@@ -8,7 +8,7 @@ require (
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.10.0
 	go.opentelemetry.io/otel/trace v1.34.0
-	go.temporal.io/api v1.44.0
+	go.temporal.io/api v1.44.1
 	go.temporal.io/sdk v1.32.1
 )
 
