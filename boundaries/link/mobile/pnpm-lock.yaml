@@ -160,8 +160,8 @@ importers:
         specifier: 20.4.2
         version: 20.4.2
       prettier:
-        specifier: ^3.4.2
-        version: 3.4.2
+        specifier: ^3.5.0
+        version: 3.5.0
       react-test-renderer:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
@@ -3494,7 +3494,7 @@ packages:
 
   detox-copilot@0.0.27:
     resolution: {integrity: sha512-H2febTNp0arVx2A8rvM1C2BwDiBEP/2Ya8Hd1mVyV66rR5u8om1gdIypaRGm+plpTLCHhlefe4+7qLtHgVzpng==}
-    deprecated: This package has been renamed to @pilot/core. Please update your dependencies accordingly.
+    deprecated: This package has been renamed to @wix-pilot/core. Please update your dependencies accordingly.
 
   detox@20.33.0:
     resolution: {integrity: sha512-9KZC3NgCav/IvuWm/EaKNIL5lV2bJf23PPK67OHS2dMhJsDsNBRWP9k3RN7hzLzzUwAXMMoOmk+S1OpOsazNFA==}
@@ -6554,8 +6554,8 @@ packages:
     resolution: {integrity: sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==}
     engines: {node: '>= 0.8.0'}
 
-  prettier@3.4.2:
-    resolution: {integrity: sha512-e9MewbtFo+Fevyuxn/4rrcDAaq0IYxPGLvObpQjiZBMAzB9IGmzlnG9RZy3FFas+eBMu2vA0CszMeduow5dIuQ==}
+  prettier@3.5.0:
+    resolution: {integrity: sha512-quyMrVt6svPS7CjQ9gKb3GLEX/rl3BCL2oa/QkNcXv4YNVBC9olt3s+H7ukto06q7B1Qz46PbrKLO34PR6vXcA==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -17196,7 +17196,7 @@ snapshots:
 
   prelude-ls@1.2.1: {}
 
-  prettier@3.4.2: {}
+  prettier@3.5.0: {}
 
   pretty-bytes@5.6.0: {}
 
