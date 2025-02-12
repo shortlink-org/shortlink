@@ -7,7 +7,6 @@ require (
 	github.com/google/wire v0.6.0
 	github.com/open-policy-agent/opa v1.1.0
 	github.com/shopspring/decimal v1.4.0
-	github.com/shortlink-org/shortlink v0.0.0-20250212053035-93af9e06f5b3
 	github.com/spf13/viper v1.19.0
 	go.opentelemetry.io/otel/trace v1.34.0
 )

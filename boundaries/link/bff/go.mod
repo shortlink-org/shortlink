@@ -12,7 +12,6 @@ require (
 	github.com/oapi-codegen/runtime v1.1.1
 	github.com/riandyrn/otelchi v0.12.1
 	github.com/segmentio/encoding v0.4.1
-	github.com/shortlink-org/shortlink v0.0.0-20250206115312-662a08d2cf73
 	github.com/spf13/viper v1.19.0
 	go.opentelemetry.io/otel/trace v1.34.0
 	golang.org/x/sync v0.11.0
