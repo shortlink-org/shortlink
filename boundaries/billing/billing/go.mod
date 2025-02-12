@@ -11,7 +11,7 @@ require (
 	github.com/google/wire v0.6.0
 	github.com/jackc/pgx/v5 v5.7.2
 	github.com/ory/dockertest/v3 v3.11.0
-	github.com/riandyrn/otelchi v0.12.0
+	github.com/riandyrn/otelchi v0.12.1
 	github.com/robfig/cron/v3 v3.0.1
 	github.com/segmentio/encoding v0.4.1
 	github.com/shopspring/decimal v1.4.0
