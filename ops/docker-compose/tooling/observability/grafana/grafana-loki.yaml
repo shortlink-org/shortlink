@@ -33,7 +33,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: grafana/promtail:3.4.1
+    image: grafana/promtail:3.4.2
     container_name: promtail
     init: true
     command: -config.file=/etc/promtail/config.yml
