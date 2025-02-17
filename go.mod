@@ -7,7 +7,7 @@ require (
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
 	github.com/PuerkitoBio/goquery v1.10.2
 	github.com/Unleash/unleash-client-go/v4 v4.2.0
-	github.com/XSAM/otelsql v0.36.0
+	github.com/XSAM/otelsql v0.37.0
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/authzed/authzed-go v1.3.0
 	github.com/c-bata/go-prompt v0.2.6
