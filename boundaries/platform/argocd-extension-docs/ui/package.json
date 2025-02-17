@@ -10,7 +10,7 @@
     "build": "webpack --config ./webpack.config.js && tar -C dist -cvf dist/extension.tar resources"
   },
   "devDependencies": {
-    "@types/react": "^19.0.9",
+    "@types/react": "^19.0.10",
     "raw-loader": "^4.0.2",
     "react": "^19.0.0",
     "ts-loader": "^9.5.2"
