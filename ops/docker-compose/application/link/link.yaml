@@ -43,7 +43,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: prom/prometheus:v3.1.0
+    image: prom/prometheus:v3.2.0
     profiles:
       - prometheus
     volumes:
