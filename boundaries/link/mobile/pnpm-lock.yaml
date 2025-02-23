@@ -118,8 +118,8 @@ importers:
         specifier: ^20.34.3
         version: 20.34.3(@jest/environment@29.7.0)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@29.7.0)(jest@29.7.0(@types/node@22.13.5)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.13.5)(typescript@5.7.3)))
       eas-cli:
-        specifier: ^15.0.10
-        version: 15.0.10(@types/node@22.13.5)(encoding@0.1.13)(typescript@5.7.3)
+        specifier: ^15.0.12
+        version: 15.0.12(@types/node@22.13.5)(encoding@0.1.13)(typescript@5.7.3)
       eslint:
         specifier: ^9.20.1
         version: 9.20.1
@@ -980,8 +980,8 @@ packages:
     resolution: {integrity: sha512-lB05FkqEdUg2AA0xEbUz0SnkXT1LcCTa438W4IWTUh4hdOnVbQyOJ81OrDXsJk/LSiJHubgGEFoR5EHq1NsH1A==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
 
-  '@expo/apple-utils@2.1.6':
-    resolution: {integrity: sha512-6UkfLL/1AIRa082rlh26WG2K5Hzd67c8CIdNlHvrFmMEHlGl1PcVFZoUnNRFEROeTmrXW5/Sv4gJfmLXLTq3cQ==}
+  '@expo/apple-utils@2.1.11':
+    resolution: {integrity: sha512-rfwTPGlyFXhtCSdaKUOEu277tFfL3ulkL3tJKx6/TnRg1nK40a748VBTQZ8CczRrlpU49egJRYvjXBt/M11wWA==}
     hasBin: true
 
   '@expo/bunyan@4.0.1':
@@ -3617,8 +3617,8 @@ packages:
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
 
-  eas-cli@15.0.10:
-    resolution: {integrity: sha512-N2C+apWlJ2BEKEb/U4wN+FV7hVbjjBMkYrgo7jZ6pRLqm1gQh5BInHwp4phkIIVWYwc6I/+CWsIXpvrGlZQOXQ==}
+  eas-cli@15.0.12:
+    resolution: {integrity: sha512-LFLtkp/wVzP5UT1pXBdR9PD+wyfYmGTPNtLi6XhUhKOBf3leaIMYYZ3LKzu4lw4liD9Fsj3rPSfPTLr880pZPQ==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -9203,7 +9203,7 @@ snapshots:
       '@eslint/core': 0.10.0
       levn: 0.4.1
 
-  '@expo/apple-utils@2.1.6': {}
+  '@expo/apple-utils@2.1.11': {}
 
   '@expo/bunyan@4.0.1':
     dependencies:
@@ -9688,7 +9688,7 @@ snapshots:
       lodash.get: 4.4.2
       this-file: 2.0.3
       uuid: 9.0.1
-      yaml: 2.6.0
+      yaml: 2.7.0
 
   '@expo/timeago.js@1.0.0': {}
 
@@ -13249,9 +13249,9 @@ snapshots:
 
   duplexer@0.1.2: {}
 
-  eas-cli@15.0.10(@types/node@22.13.5)(encoding@0.1.13)(typescript@5.7.3):
+  eas-cli@15.0.12(@types/node@22.13.5)(encoding@0.1.13)(typescript@5.7.3):
     dependencies:
-      '@expo/apple-utils': 2.1.6
+      '@expo/apple-utils': 2.1.11
       '@expo/code-signing-certificates': 0.0.5
       '@expo/config': 10.0.6
       '@expo/config-plugins': 9.0.12
