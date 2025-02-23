@@ -166,8 +166,8 @@ importers:
         specifier: 19.0.0
         version: 19.0.0(react@19.0.0)
       ts-jest:
-        specifier: ^29.2.5
-        version: 29.2.5(@babel/core@7.26.8)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.8))(jest@29.7.0(@types/node@22.13.5)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.13.5)(typescript@5.7.3)))(typescript@5.7.3)
+        specifier: ^29.2.6
+        version: 29.2.6(@babel/core@7.26.8)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.8))(jest@29.7.0(@types/node@22.13.5)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.13.5)(typescript@5.7.3)))(typescript@5.7.3)
       ts-node:
         specifier: 10.9.2
         version: 10.9.2(@types/node@22.13.5)(typescript@5.7.3)
@@ -7608,8 +7608,8 @@ packages:
   ts-interface-checker@0.1.13:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
 
-  ts-jest@29.2.5:
-    resolution: {integrity: sha512-KD8zB2aAZrcKIdGk4OwpJggeLcH1FgrICqDSROWqlnJXGCXK4Mn6FcdK2B6670Xr73lHMG1kHw8R87A0ecZ+vA==}
+  ts-jest@29.2.6:
+    resolution: {integrity: sha512-yTNZVZqc8lSixm+QGVFcPe6+yj7+TWZwIesuOWvfcn4B9bz5x4NDzVCQQjOs7Hfouu36aEqfEbo9Qpo+gq8dDg==}
     engines: {node: ^14.15.0 || ^16.10.0 || ^18.0.0 || >=20.0.0}
     hasBin: true
     peerDependencies:
@@ -10181,6 +10181,12 @@ snapshots:
     dependencies:
       semver: 7.7.1
 
+  '@nrwl/devkit@19.8.4(nx@19.8.4)':
+    dependencies:
+      '@nx/devkit': 19.8.4(nx@19.8.4)
+    transitivePeerDependencies:
+      - nx
+
   '@nrwl/devkit@19.8.4(nx@20.4.5)':
     dependencies:
       '@nx/devkit': 19.8.4(nx@20.4.5)
@@ -10259,7 +10265,7 @@ snapshots:
 
   '@nx/devkit@19.8.4(nx@19.8.4)':
     dependencies:
-      '@nrwl/devkit': 19.8.4(nx@20.4.5)
+      '@nrwl/devkit': 19.8.4(nx@19.8.4)
       ejs: 3.1.10
       enquirer: 2.3.6
       ignore: 5.3.2
@@ -18254,7 +18260,7 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  ts-jest@29.2.5(@babel/core@7.26.8)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.8))(jest@29.7.0(@types/node@22.13.5)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.13.5)(typescript@5.7.3)))(typescript@5.7.3):
+  ts-jest@29.2.6(@babel/core@7.26.8)(@jest/transform@29.7.0)(@jest/types@29.6.3)(babel-jest@29.7.0(@babel/core@7.26.8))(jest@29.7.0(@types/node@22.13.5)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.13.5)(typescript@5.7.3)))(typescript@5.7.3):
     dependencies:
       bs-logger: 0.2.6
       ejs: 3.1.10
