@@ -36,7 +36,7 @@ tonic = { version = "0.12.3", features = ["tls-roots"] }
 
 [dependencies.uuid]
 features = ["serde", "v4"]
-version = "1.13.2"
+version = "1.14.0"
 
 [profile.dev]
 debug = 0
