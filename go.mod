@@ -39,7 +39,7 @@ require (
 	github.com/minio/minio-go/v7 v7.0.87
 	github.com/nats-io/nats.go v1.39.1
 	github.com/neo4j/neo4j-go-driver/v5 v5.27.0
-	github.com/ory/client-go v1.16.7
+	github.com/ory/client-go v1.17.1
 	github.com/ory/dockertest/v3 v3.11.0
 	github.com/prometheus/client_golang v1.21.0
 	github.com/prometheus/client_model v0.6.1
@@ -260,7 +260,7 @@ require (
 	golang.org/x/exp v0.0.0-20240909161429-701f63a606c0 // indirect
 	golang.org/x/mod v0.23.0 // indirect
 	golang.org/x/net v0.35.0 // indirect
-	golang.org/x/oauth2 v0.26.0 // indirect
+	golang.org/x/oauth2 v0.27.0 // indirect
 	golang.org/x/sys v0.30.0 // indirect
 	golang.org/x/term v0.29.0 // indirect
 	golang.org/x/text v0.22.0 // indirect
