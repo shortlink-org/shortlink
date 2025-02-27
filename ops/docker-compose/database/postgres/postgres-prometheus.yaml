@@ -12,7 +12,7 @@ services:
     depends_on:
       - postgres
       - coredns
-    image: quay.io/prometheuscommunity/postgres-exporter:v0.17.0
+    image: quay.io/prometheuscommunity/postgres-exporter:v0.17.1
     profiles:
       - prometheus
     restart: on-failure
