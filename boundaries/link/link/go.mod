@@ -22,7 +22,7 @@ require (
 	github.com/spf13/viper v1.19.0
 	github.com/stretchr/testify v1.10.0
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
-	go.mongodb.org/mongo-driver/v2 v2.0.1
+	go.mongodb.org/mongo-driver/v2 v2.1.0
 	go.opentelemetry.io/otel/trace v1.34.0
 	go.uber.org/atomic v1.11.0
 	go.uber.org/goleak v1.3.0
