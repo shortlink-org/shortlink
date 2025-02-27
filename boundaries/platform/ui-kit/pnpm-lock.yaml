@@ -109,8 +109,8 @@ importers:
         version: 2.2.1(vite@6.2.0(@types/node@22.13.1)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.38.2)(yaml@2.6.1))
     devDependencies:
       '@chromatic-com/storybook':
-        specifier: ^3.2.4
-        version: 3.2.4(react@19.0.0)(storybook@8.5.8(prettier@3.4.1))
+        specifier: ^3.2.5
+        version: 3.2.5(react@19.0.0)(storybook@8.5.8(prettier@3.4.1))
       '@storybook/addon-a11y':
         specifier: 8.5.8
         version: 8.5.8(storybook@8.5.8(prettier@3.4.1))
@@ -396,8 +396,8 @@ packages:
     resolution: {integrity: sha512-eUuWapzEGWFEpHFxgEaBG8e3n6S8L3MSu0oda755rOfabWPnh0Our1AozNFVUxGFIhbKgd1ksprsoDGMinTOTA==}
     engines: {node: '>=6.9.0'}
 
-  '@chromatic-com/storybook@3.2.4':
-    resolution: {integrity: sha512-5/bOOYxfwZ2BktXeqcCpOVAoR6UCoeART5t9FVy22hoo8F291zOuX4y3SDgm10B1GVU/ZTtJWPT2X9wZFlxYLg==}
+  '@chromatic-com/storybook@3.2.5':
+    resolution: {integrity: sha512-Y388ft6po5FmGKdkcqz3r2sW6aMF5DSBaatC0jvT5bI/Dh27RJw3gPTmXJcZVNjteNl6tpiP3qxZ9MswAk5luw==}
     engines: {node: '>=16.0.0', yarn: '>=1.22.18'}
     peerDependencies:
       storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
@@ -4321,7 +4321,7 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@chromatic-com/storybook@3.2.4(react@19.0.0)(storybook@8.5.8(prettier@3.4.1))':
+  '@chromatic-com/storybook@3.2.5(react@19.0.0)(storybook@8.5.8(prettier@3.4.1))':
     dependencies:
       chromatic: 11.25.2
       filesize: 10.1.6
