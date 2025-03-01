@@ -3,7 +3,7 @@ package edgedb
 import (
 	"context"
 
-	"github.com/edgedb/edgedb-go"
+	"github.com/geldata/gel-go"
 	"github.com/spf13/viper"
 )
 
