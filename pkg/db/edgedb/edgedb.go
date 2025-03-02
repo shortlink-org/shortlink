@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/geldata/gel-go"
+	"github.com/geldata/gel-go/gelcfg"
 	"github.com/spf13/viper"
 )
 
@@ -14,7 +15,7 @@ type Config struct {
 
 // Store implementation of db interface
 type Store struct {
-	client *edgedb.Client
+	client *gel.Client
 	config Config
 }
 
@@ -26,8 +27,8 @@ func (s *Store) Init(ctx context.Context) error {
 	s.setConfig()
 
 	// Connect to EdgeDB
-	s.client, err = edgedb.CreateClientDSN(ctx, s.config.URI, edgedb.Options{
-		Database: "shortlink",
+	s.client, err = gel.CreateClientDSN(s.config.URI, gelcfg.Options{
+		Branch: "shortlink",
 	})
 	if err != nil {
 		return err
