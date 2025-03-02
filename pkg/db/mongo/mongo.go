@@ -9,7 +9,6 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo"
 	"go.mongodb.org/mongo-driver/v2/mongo/options"
 	"go.mongodb.org/mongo-driver/v2/mongo/readpref"
-	"go.opentelemetry.io/contrib/instrumentation/go.mongodb.org/mongo-driver/mongo/otelmongo"
 
 	storeOptions "github.com/shortlink-org/shortlink/pkg/db/options"
 )
@@ -26,16 +25,18 @@ func (s *Store) Init(ctx context.Context) error {
 		ApplyURI(s.config.URI).
 		SetCompressors([]string{"snappy", "zlib", "zstd"}).
 		SetAppName(viper.GetString("SERVICE_NAME")).
-		SetMonitor(otelmongo.NewMonitor()).
+		// TODO: wait new version
+		// link: https://github.com/open-telemetry/opentelemetry-go-contrib/issues/6419
+		// SetMonitor(otelmongo.NewMonitor()).
 		SetRetryReads(true).
 		SetRetryWrites(true)
 
-	s.client, err = mongo.Connect(ctx, opts)
+	s.client, err = mongo.Connect(opts)
 	if err != nil {
 		return err
 	}
 
-	// Check connect
+	// Check connecting
 	err = s.client.Ping(ctx, readpref.Primary())
 	if err != nil {
 		return err

@@ -7,7 +7,7 @@ run:
   # Default: 1m
   timeout: 15m
 
-  go: 1.23
+  go: 1.24
 
   # Include test files or not.
   # Default: true
@@ -341,7 +341,53 @@ linters-settings:
     require-explanation: true
     # Enable to require nolint directives to mention the specific linter being suppressed.
     # Default: false
-    require-specific: false
+    require-specific: true
+
+  nonamedreturns:
+    # Report named error if it is assigned inside defer.
+    # Default: false
+    report-error-in-defer: true
+
+  paralleltest:
+    # Ignore missing calls to `t.Parallel()` and only report incorrect uses of it.
+    # Default: false
+    ignore-missing: true
+    # Ignore missing calls to `t.Parallel()` in subtests. Top-level tests are
+    # still required to have `t.Parallel`, but subtests are allowed to skip it.
+    # Default: false
+    ignore-missing-subtests: true
+
+  perfsprint:
+    # Enable/disable optimization of integer formatting.
+    # Default: true
+    integer-format: true
+    # Optimizes even if it requires an int or uint type cast.
+    # Default: true
+    int-conversion: true
+    # Enable/disable optimization of error formatting.
+    # Default: true
+    error-format: true
+    # Optimizes into `err.Error()` even if it is only equivalent for non-nil errors.
+    # Default: false
+    err-error: true
+    # Optimizes `fmt.Errorf`.
+    # Default: true
+    errorf: true
+    # Enable/disable optimization of string formatting.
+    # Default: true
+    string-format: true
+    # Optimizes `fmt.Sprintf` with only one argument.
+    # Default: true
+    sprintf1: true
+    # Optimizes into strings concatenation.
+    # Default: true
+    strconcat: true
+    # Enable/disable optimization of bool formatting.
+    # Default: true
+    bool-format: true
+    # Enable/disable optimization of hex formatting.
+    # Default: true
+    hex-format: true
 
   prealloc:
     # IMPORTANT: we don't recommend using this linter before doing performance profiling.
@@ -358,6 +404,16 @@ linters-settings:
     strict: true
 
   revive:
+    # Maximum number of open files at the same time.
+    # See https://github.com/mgechev/revive#command-line-flags
+    # Defaults to unlimited.
+    max-open-files: 2048
+
+    # When set to false, ignores files with "GENERATED" header, similar to golint.
+    # See https://github.com/mgechev/revive#configuration for details.
+    # Default: false
+    ignore-generated-header: true
+
     # Sets the default severity.
     # See https://github.com/mgechev/revive#configuration
     # Default: warning
@@ -366,6 +422,17 @@ linters-settings:
     # Enable all available rules.
     # Default: false
     enable-all-rules: true
+
+    # Enable validation of comment directives.
+    # See https://github.com/mgechev/revive#comment-directives
+    directives:
+      - name: specify-disable-reason
+        severity: error
+
+    # Sets the default failure confidence.
+    # This means that linting errors with less than 0.8 confidence will be ignored.
+    # Default: 0.8
+    confidence: 0.8
 
     rules:
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#add-constant
@@ -460,6 +527,9 @@ linters-settings:
       - name: early-return
         severity: warning
         disabled: false
+        arguments:
+          - "preserveScope"
+          - "allowJump"
       # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#empty-block
       - name: empty-block
         severity: warning
@@ -497,7 +567,14 @@ linters-settings:
         disabled: true
         arguments:
           - This is the text that must appear at the top of source files.
-      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#flag-parameter
+      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#filename-format
+      - name: filename-format
+        severity: warning
+        disabled: false
+        exclude: [""]
+        arguments:
+          - "^[_a-z][_a-z0-9]*\\.go$"
+      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#flag-parameter
       - name: flag-parameter
         severity: warning
         disabled: true
@@ -588,15 +665,22 @@ linters-settings:
       - name: receiver-naming
         severity: warning
         disabled: false
-      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#redefines-builtin-id
+      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#redefines-builtin-id
       - name: redefines-builtin-id
         severity: warning
         disabled: false
-      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#string-of-int
-      - name: string-of-int
+        exclude: [""]
+      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#redundant-build-tag
+      - name: redundant-build-tag
         severity: warning
         disabled: false
-      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#string-format
+        exclude: [""]
+      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#redundant-import-alias
+      - name: redundant-import-alias
+        severity: warning
+        disabled: false
+        exclude: [""]
+      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#string-format
       - name: string-format
         severity: warning
         disabled: false
@@ -609,7 +693,12 @@ linters-settings:
           - - panic
             - '/^[^\n]*$/'
             - must not contain line breaks
-      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#struct-tag
+      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#string-of-int
+      - name: string-of-int
+        severity: warning
+        disabled: false
+        exclude: [""]
+      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#struct-tag
       - name: struct-tag
         severity: warning
         disabled: false
@@ -702,11 +791,6 @@ linters-settings:
     # https://staticcheck.io/docs/options#initialisms
     initialisms: ["ACL", "API", "ASCII", "CPU", "CSS", "DNS", "EOF", "GUID", "HTML", "HTTP", "HTTPS", "ID", "IP", "JSON", "QPS", "RAM", "RPC", "SLA", "SMTP", "SQL", "SSH", "TCP", "TLS", "TTL", "UDP", "UI", "GID", "UID", "UUID", "URI", "URL", "UTF8", "VM", "XML", "XMPP", "XSRF", "XSS"]
 
-  tenv:
-    # The option `all` will run against whole test files (`_test.go`) regardless of method/function signatures.
-    # By default, only methods that take `*testing.T`, `*testing.B`, and `testing.TB` as arguments are checked.
-    all: true
-
   testpackage:
     # regexp pattern to skip files
     skip-regexp: (export|internal)_test\.go
@@ -759,6 +843,12 @@ linters-settings:
     ignore-names:
       - err
 
+  fatcontext:
+    # Check for potential fat contexts in struct pointers.
+    # May generate false positives.
+    # Default: false
+    check-struct-pointers: true
+
   forbidigo:
     tests: false
 
@@ -789,18 +879,15 @@ linters:
   enable-all: true
 
   disable:
-    - gomnd # replaced by mnd
-    - execinquery # deprecated
     - interfacebloat # we don't use limit of methods in interfaces
     - ireturn # return interface{} is allowed
     - copyloopvar # no actual after go 1.22
-    - exportloopref # deprecated
+    - tenv # replaced by usetesting
     - musttag
     - gochecknoinits
     - inamedparam
     - exhaustruct
     - wrapcheck
-    - paralleltest
     - forbidigo
     - gochecknoglobals
     - testpackage
@@ -809,14 +896,12 @@ linters:
     - importas
     - containedctx
     - gomoddirectives
-    - nonamedreturns
     - wsl
     - tagliatelle
     - nilnil
     - maintidx
     - dupl
     - gofumpt
-    - perfsprint # maybe enable in the future
 
 issues:
 

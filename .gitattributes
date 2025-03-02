@@ -5,7 +5,7 @@
 # do not show lock files while doing git diff
 package-lock.json -diff
 yarn.lock -diff
-go.sum -diff
+go.sum -diff linguist-generated
 
 # config for Gitlab 16.10+ --------------------------------------------------------------------------------
 # Collapse all files with a .txt extension
