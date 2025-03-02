@@ -1,15 +1,13 @@
 package dag
 
-import (
-	"fmt"
-)
+import "errors"
 
 type VertexAlreadyExistsError struct {
 	Id string
 }
 
 func (e *VertexAlreadyExistsError) Error() string {
-	return fmt.Sprintf("dag already contains a vertex with the id: %s", e.Id)
+	return "dag already contains a vertex with the id: " + e.Id
 }
 
 type VertexNotFoundError struct {
@@ -17,7 +15,7 @@ type VertexNotFoundError struct {
 }
 
 func (e *VertexNotFoundError) Error() string {
-	return fmt.Sprintf("not found vertex by id: %s", e.Id)
+	return "not found vertex by id: " + e.Id
 }
 
-var ErrIncorrectTypeAssertion = fmt.Errorf("incorrect type assertion")
+var ErrIncorrectTypeAssertion = errors.New("incorrect type assertion")

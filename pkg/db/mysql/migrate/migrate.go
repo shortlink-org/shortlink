@@ -4,7 +4,6 @@ import (
 	"context"
 	"database/sql"
 	"embed"
-	"fmt"
 	"strings"
 
 	"github.com/golang-migrate/migrate/v4"
@@ -27,7 +26,7 @@ func Migration(_ context.Context, store db.DB, fs embed.FS, tableName string) er
 	}
 
 	driverDB, err := mysql.WithInstance(client, &mysql.Config{
-		MigrationsTable: fmt.Sprintf("schema_migrations_%s", strings.ReplaceAll(tableName, "-", "_")),
+		MigrationsTable: "schema_migrations_" + strings.ReplaceAll(tableName, "-", "_"),
 	})
 	if err != nil {
 		return err

@@ -2,7 +2,6 @@ package zap
 
 import (
 	"context"
-	"fmt"
 
 	"go.opentelemetry.io/otel/attribute"
 
@@ -20,7 +19,7 @@ func (log *Logger) Fatal(msg string, fields ...field.Fields) {
 func (log *Logger) FatalWithContext(ctx context.Context, msg string, fields ...field.Fields) {
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
-		log.Logger.Ctx(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.Logger.Ctx(ctx).Error("Error send span to openTelemetry: " + err.Error())
 	}
 
 	zapFields := log.converter(fields...)
@@ -38,7 +37,7 @@ func (log *Logger) WarnWithContext(ctx context.Context, msg string, fields ...fi
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
 		//nolint:revive // TODO: fix
-		log.Logger.Ctx(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.Logger.Ctx(ctx).Error("Error send span to openTelemetry: " + err.Error())
 	}
 
 	zapFields := log.converter(fields...)
@@ -61,7 +60,7 @@ func (log *Logger) ErrorWithContext(ctx context.Context, msg string, fields ...f
 	fields, err := tracer.NewTraceFromContext(ctx, msg, tags, fields...)
 	if err != nil {
 		//nolint:revive // TODO: fix
-		log.Logger.Ctx(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.Logger.Ctx(ctx).Error("Error send span to openTelemetry: " + err.Error())
 	}
 
 	zapFields := log.converter(fields...)
@@ -79,7 +78,7 @@ func (log *Logger) InfoWithContext(ctx context.Context, msg string, fields ...fi
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
 		//nolint:revive // TODO: fix
-		log.Logger.Ctx(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.Logger.Ctx(ctx).Error("Error send span to openTelemetry: " + err.Error())
 	}
 
 	zapFields := log.converter(fields...)
@@ -97,7 +96,7 @@ func (log *Logger) DebugWithContext(ctx context.Context, msg string, fields ...f
 	fields, err := tracer.NewTraceFromContext(ctx, msg, nil, fields...)
 	if err != nil {
 		//nolint:revive // TODO: fix
-		log.Logger.Ctx(ctx).Error(fmt.Sprintf("Error send span to openTelemetry: %s", err.Error()))
+		log.Logger.Ctx(ctx).Error("Error send span to openTelemetry: " + err.Error())
 	}
 
 	zapFields := log.converter(fields...)

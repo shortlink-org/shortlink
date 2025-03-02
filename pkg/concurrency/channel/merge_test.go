@@ -34,7 +34,7 @@ func TestMerge(t *testing.T) {
 	// Merge channels
 	chMerged := Merge(ch1, ch2)
 
-	ctx := context.Background()
+	ctx := t.Context()
 	ctx, cancel := context.WithTimeout(ctx, 1*time.Second)
 	defer cancel()
 

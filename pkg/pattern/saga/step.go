@@ -2,7 +2,6 @@ package saga
 
 import (
 	"context"
-	"fmt"
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
@@ -23,7 +22,7 @@ type Step struct {
 
 func (s *Step) Run() error {
 	// start tracing
-	newCtx, span := otel.Tracer(fmt.Sprintf("saga: %s", s.name)).Start(s.ctx, fmt.Sprintf("saga: %s", s.name))
+	newCtx, span := otel.Tracer("saga: "+s.name).Start(s.ctx, "saga: "+s.name)
 	defer span.End()
 
 	span.SetAttributes(attribute.String("step", s.name), attribute.String("status", "run"))
@@ -51,7 +50,7 @@ func (s *Step) Run() error {
 
 func (s *Step) Reject() error {
 	// start tracing
-	newCtx, span := otel.Tracer(fmt.Sprintf("saga: %s", s.name)).Start(s.ctx, fmt.Sprintf("saga: %s", s.name))
+	newCtx, span := otel.Tracer("saga: "+s.name).Start(s.ctx, "saga: "+s.name)
 	defer span.End()
 
 	span.SetAttributes(attribute.String("step", s.name), attribute.String("status", "reject"))

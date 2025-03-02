@@ -1,7 +1,6 @@
 package server_test
 
 import (
-	"context"
 	"sync"
 	"testing"
 
@@ -16,7 +15,7 @@ import (
 )
 
 func Test_Raft(t *testing.T) {
-	ctx := context.Background()
+	ctx := t.Context()
 
 	// Init logger
 	conf := config.Configuration{

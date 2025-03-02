@@ -70,6 +70,7 @@ func (b *Batch[T]) run() {
 			b.flushItems()
 			b.wg.Wait()
 			b.closePendingChannels()
+
 			return
 		case <-ticker.C:
 			b.flushItems()

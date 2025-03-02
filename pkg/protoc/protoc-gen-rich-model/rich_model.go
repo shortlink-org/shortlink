@@ -78,7 +78,7 @@ func generateRichModel(gen *protogen.Plugin, file *protogen.File, message *proto
 	}
 
 	// Adjust the filename to follow the '<typeName>.ddd.go' pattern
-	filename := fmt.Sprintf("%s_ddd.go", strings.ToLower(message.GoIdent.GoName))
+	filename := strings.ToLower(message.GoIdent.GoName) + "_ddd.go"
 
 	g := gen.NewGeneratedFile(filename, file.GoImportPath)
 	printHeader(gen, g, file)

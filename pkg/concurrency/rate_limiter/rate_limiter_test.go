@@ -14,7 +14,7 @@ func TestRateLimiter(t *testing.T) {
 	sum := int64(0)
 
 	// Use a context with a timeout to prevent test from running indefinitely
-	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, cancel := context.WithTimeout(t.Context(), 5*time.Second)
 	defer cancel()
 
 	rl, err := New(ctx, 100, 5*time.Millisecond)

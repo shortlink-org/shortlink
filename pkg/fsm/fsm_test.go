@@ -63,7 +63,7 @@ func TestTrafficLightFSM(t *testing.T) {
 	}
 
 	// Create a context for the test.
-	ctx := context.Background()
+	ctx := t.Context()
 
 	// Test initial state.
 	require.Equal(t, StateRed, trafficLight.GetCurrentState(), "Initial state should be Red")

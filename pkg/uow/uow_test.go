@@ -1,7 +1,6 @@
 package uow
 
 import (
-	"context"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -18,7 +17,7 @@ type Entity struct {
 
 func TestCommit(t *testing.T) {
 	unitOfWorkMock := &uow.UnitOfWork[Entity]{}
-	ctx := context.Background()
+	ctx := t.Context()
 
 	unitOfWorkMock.On("Commit", ctx).Return(nil)
 
@@ -30,7 +29,7 @@ func TestCommit(t *testing.T) {
 
 func TestRollback(t *testing.T) {
 	unitOfWorkMock := &uow.UnitOfWork[Entity]{}
-	ctx := context.Background()
+	ctx := t.Context()
 
 	unitOfWorkMock.On("Rollback", ctx).Return(nil)
 

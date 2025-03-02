@@ -114,5 +114,6 @@ func (f *FSM) TriggerEvent(ctx context.Context, event Event) error {
 func (f *FSM) GetCurrentState() State {
 	f.mu.RLock()
 	defer f.mu.RUnlock()
+
 	return f.CurrentState
 }

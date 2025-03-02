@@ -1,7 +1,6 @@
 package logger
 
 import (
-	"context"
 	"log/slog"
 	"testing"
 
@@ -32,5 +31,5 @@ func TestNewStructLogger(t *testing.T) {
 
 func TestEnabled(t *testing.T) {
 	sl := &StructLogger{}
-	require.True(t, sl.Enabled(context.Background(), slog.LevelDebug), "Expected Enabled to return true for LevelDebug")
+	require.True(t, sl.Enabled(t.Context(), slog.LevelDebug), "Expected Enabled to return true for LevelDebug")
 }

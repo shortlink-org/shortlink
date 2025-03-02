@@ -18,7 +18,7 @@ type SpecificationError struct {
 }
 
 func (e *SpecificationError) Error() string {
-	return fmt.Sprintf("Specification failed: %s", e.Reason)
+	return "Specification failed: " + e.Reason
 }
 
 type IsAdult struct{}

@@ -2,7 +2,6 @@ package saga
 
 import (
 	"context"
-	"fmt"
 
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
@@ -73,7 +72,7 @@ func (s *Saga) Play(initSteps map[string]*Step) error {
 	}
 
 	// start tracing
-	newCtx, span := otel.Tracer(fmt.Sprintf("saga: %s", s.name)).Start(s.ctx, fmt.Sprintf("saga: %s", s.name))
+	newCtx, span := otel.Tracer("saga: "+s.name).Start(s.ctx, "saga: "+s.name)
 	defer span.End()
 
 	span.SetAttributes(attribute.String("saga", s.name))
