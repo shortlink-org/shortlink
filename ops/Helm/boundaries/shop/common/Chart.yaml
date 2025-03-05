@@ -21,7 +21,7 @@ dependencies:
     version: 0.9.6
     repository: "file://../../../shortlink-template"
   - name: redis
-    version: 20.10.0
+    version: 20.11.2
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: redis.enabled
     tags:
