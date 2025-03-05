@@ -41,7 +41,7 @@ require (
 	github.com/neo4j/neo4j-go-driver/v5 v5.27.0
 	github.com/ory/client-go v1.17.2
 	github.com/ory/dockertest/v3 v3.11.0
-	github.com/prometheus/client_golang v1.21.0
+	github.com/prometheus/client_golang v1.21.1
 	github.com/prometheus/client_model v0.6.1
 	github.com/pterm/pterm v0.12.80
 	github.com/rabbitmq/amqp091-go v1.10.0
