@@ -27,6 +27,7 @@ import (
 
 // New - return implementation of db
 func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, metrics *metric.MeterProvider) (*Store, error) {
+	//nolint:exhaustruct // fix later, use constructor
 	store := &Store{}
 
 	// Set configuration
