@@ -14,7 +14,7 @@ fmt: ## Format source using goimports
 	@goimports -l -local -w internal
 
 golint: ## Linter for golang
-	@docker run --rm -it -v $(pwd):/app -w /app/ golangci/golangci-lint:v1.64.5 golangci-lint run ./internal/...
+	@docker run --rm -it -v $(pwd):/app -w /app/ golangci/golangci-lint:v1.64.6 golangci-lint run ./internal/...
 
 test: ## Run all unit test
 	export CGO_ENABLED=1
