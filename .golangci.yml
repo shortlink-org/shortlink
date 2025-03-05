@@ -7,12 +7,6 @@ run:
   # Default: 1m
   timeout: 15m
 
-  go: 1.24
-
-  # Include test files or not.
-  # Default: true
-  tests: true
-
   # If set we pass it to "go list -mod={option}". From "go help modules":
   # If invoked with -mod=readonly, the go command is disallowed from the implicit
   # automatic updating of go.mod described above. Instead, it fails when any changes
@@ -43,23 +37,6 @@ linters-settings:
     # The maximal code complexity to report.
     max-complexity: 25
 
-    # If true, order of declarations is not checked at all.
-    # Default: true (disabled)
-    disable-dec-order-check: false
-
-    # If true, `init` func can be anywhere in file (does not have to be declared before all other functions).
-    # Default: true (disabled)
-    disable-init-func-first-check: false
-
-    # If true, multiple global `type`, `const` and `var` declarations are allowed.
-    # Default: true (disabled)
-    disable-dec-num-check: false
-
-  dogsled:
-    # Checks assignments with too many blank identifiers.
-    # Default: 2
-    max-blank-identifiers: 3
-
   errcheck:
     # Report about not checking of errors in type assertions: `a := b.(MyStruct)`.
     # Such cases aren't reported by default.
@@ -76,14 +53,9 @@ linters-settings:
     # Default: false
     disable-default-exclusions: false
 
-    # List of functions to exclude from checking, where each entry is a single function to exclude.
-    # See https://github.com/kisielk/errcheck#excluding-functions for details.
-    exclude-functions:
-      - io.Copy(*bytes.Buffer)
-      - io.Copy(os.Stdout)
-
   errchkjson:
     check-error-free-encoding: true
+    report-no-exported: true
 
   exhaustive:
     # Program elements to check for exhaustiveness.
@@ -101,16 +73,19 @@ linters-settings:
     # Consider enums only in package scopes, not in inner scopes.
     # Default: false
     package-scope-only: true
+    explicit-exhaustive-switch: true
+    explicit-exhaustive-map: true
+    default-case-required: true
 
   funlen:
     # Checks the number of lines in a function.
     # If lower than 0, disable the check.
     # Default: 60
-    lines: -1
+    lines: 120
     # Checks the number of statements in a function.
     # If lower than 0, disable the check.
     # Default: 40
-    statements: -1
+    statements: 60
 
   gci:
     sections:
@@ -136,14 +111,6 @@ linters-settings:
     # Check that each sentence starts with a capital letter.
     # Default: false
     capital: true
-
-  godox:
-    # Report any comments starting with keywords, this is useful for TODO or FIXME comments that
-    # might be left in the code accidentally and should be resolved before merging.
-    # Default: TODO, BUG, and FIXME.
-    keywords:
-      - OPTIMIZE # marks code that should be optimized before merging
-      - HACK # marks hack-around that should be removed before merging
 
   gofumpt:
     # Choose whether to use the extra rules.
@@ -224,11 +191,6 @@ linters-settings:
     # A high index indicates better maintainability (it's kind of the opposite of complexity).
     # Default: 20
     under: 30
-
-  maligned:
-    # Print struct with more effective memory layout or not.
-    # Default: false
-    suggest-new: true
 
   misspell:
     # Correct spellings using locale preferences for US or UK.
@@ -357,20 +319,11 @@ linters-settings:
     # Default: false
     default-rpc-path: true
 
-  varcheck:
-    # Check usage of exported fields and variables.
-    # Default: false
-    exported-fields: true
-
   varnamelen:
     # The longest distance, in source lines, that is being considered a "small scope".
     # Variables used in at most this many lines will be ignored.
     # Default: 5
     max-distance: 6
-    # The minimum length of a variable's name that is considered "long".
-    # Variable names that are at least this long will be ignored.
-    # Default: 3
-    min-name-length: 1
     # Check method receiver names.
     # Default: false
     check-receiver: true
@@ -397,23 +350,9 @@ linters-settings:
     # Default: false
     check-struct-pointers: true
 
-  forbidigo:
-    tests: false
-
   whitespace:
-    # Enforces newlines (or comments) after every multi-line if statement.
-    # Default: false
     multi-if: true
-    # Enforces newlines (or comments) after every multi-line function signature.
-    # Default: false
-    multi-func: false
-
-  wsl:
-    allow-cuddle-declarations: false
-    allow-assign-and-anything: false
-    allow-assign-and-call: false
-    allow-separated-leading-comment: false
-    force-case-trailing-whitespace: 0
+    multi-func: true
 
 #  custom:
 #    value-object:
@@ -440,11 +379,6 @@ issues:
   skip-files:
     - ".*mocks.+"
     - "wire_gen.go"
-
-  # The list of ids of default excludes to include or disable.
-  # Default: []
-  include:
-    - EXC0002 # disable excluding of issues about comments from golint.
 
   # Show only new issues: if there are unstaged changes or untracked files,
   # only those changes are analyzed, else only changes in HEAD~ are analyzed.
