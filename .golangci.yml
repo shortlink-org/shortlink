@@ -860,7 +860,6 @@ linters:
   disable:
     - interfacebloat # we don't use limit of methods in interfaces
     - ireturn # return interface{} is allowed
-    - copyloopvar # no actual after go 1.22
     - tenv # replaced by usetesting
     - musttag
     - gochecknoinits
@@ -872,11 +871,6 @@ linters:
     - testpackage
     - testifylint
     - depguard
-    - importas
-    - containedctx
-    - gomoddirectives
-    - wsl
-    - tagliatelle
     - nilnil
     - maintidx
     - dupl
