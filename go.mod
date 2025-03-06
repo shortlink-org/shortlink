@@ -11,7 +11,7 @@ require (
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/authzed/authzed-go v1.3.0
 	github.com/c-bata/go-prompt v0.2.6
-	github.com/chromedp/chromedp v0.13.0
+	github.com/chromedp/chromedp v0.13.1
 	github.com/couchbase/gocb/v2 v2.9.4
 	github.com/cucumber/godog v0.15.0
 	github.com/dgraph-io/badger/v4 v4.6.0
