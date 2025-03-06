@@ -40,8 +40,8 @@ importers:
         specifier: ^5.8.2
         version: 5.8.2
       wxt:
-        specifier: ^0.19.28
-        version: 0.19.28(@types/node@22.2.0)(lightningcss@1.29.1)(rollup@4.34.6)
+        specifier: ^0.19.29
+        version: 0.19.29(@types/node@22.2.0)(lightningcss@1.29.1)(rollup@4.34.6)
 
 packages:
 
@@ -1262,10 +1262,6 @@ packages:
     resolution: {integrity: sha512-cD31W1v3GqUlQvbBCGcXmd2Nj9SvLDOP1oQ0YFuLETufzSPaKp11rYBsSOm7rCsW3OnIRAFM3OxRhceaXNYHkA==}
     engines: {node: '>=12'}
 
-  consola@3.2.3:
-    resolution: {integrity: sha512-I5qxpzLv+sJhTVEoLYNcTW+bThDCPsit0vLNKShZx6rLtpilNpmmeTPaeqJb9ZE9dV3DGaeby6Vuhrw38WjeyQ==}
-    engines: {node: ^14.18.0 || >=16.10.0}
-
   consola@3.4.0:
     resolution: {integrity: sha512-EiPU8G6dQG0GFHNR8ljnZFki/8a+cQwEQ+7wpxdChl02Q8HXlwEZWD5lqAF8vC2sEC3Tehr8hy7vErz88LHyUA==}
     engines: {node: ^14.18.0 || >=16.10.0}
@@ -1399,10 +1395,6 @@ packages:
 
   dotenv-expand@12.0.1:
     resolution: {integrity: sha512-LaKRbou8gt0RNID/9RoI+J2rvXsBRPMV7p+ElHlPhcSARbCPDYcYG2s1TIzAfWv4YSgyY5taidWzzs31lNV3yQ==}
-    engines: {node: '>=12'}
-
-  dotenv@16.4.5:
-    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
     engines: {node: '>=12'}
 
   dotenv@16.4.7:
@@ -2137,9 +2129,6 @@ packages:
   node-addon-api@7.1.1:
     resolution: {integrity: sha512-5m3bsyrjFWE1xf7nz7YXdN4udnVtXK6/Yfgn5qnahL6bCkf2yKt4k3nuTKAtT4r3IG8JNR2ncsIMdZuAzJjHQQ==}
 
-  node-fetch-native@1.6.4:
-    resolution: {integrity: sha512-IhOigYzAKHd244OC0JIMIUrjzctirCmPkaIfhDeGcEETWof5zKYUW7e7MYvChGWh/4CJeXEgsRyGzuF334rOOQ==}
-
   node-fetch-native@1.6.6:
     resolution: {integrity: sha512-8Mc2HhqPdlIfedsuZoc3yioPuzp6b+L5jRCRY1QzuWZh2EGJVQrGppC6V6cF0bLdbW0+O2YpqCA25aF/1lvipQ==}
 
@@ -2853,8 +2842,8 @@ packages:
       utf-8-validate:
         optional: true
 
-  wxt@0.19.28:
-    resolution: {integrity: sha512-rChoeK1kRK6GzSY2CgnFtCzRhKJD2pT6tjqrJ6NhJPYfkhvhDs4i3eVTYMxyaVyhPYrMxaXW/De0FO5Eu4nWlQ==}
+  wxt@0.19.29:
+    resolution: {integrity: sha512-n6DRR34OAFczJfZOwJeY5dn+j+w2BTquW2nAX32vk3FMLWUhzpv5svMvSUTyNiFq3P0o3U7YxfxHdmKJnXZHBA==}
     hasBin: true
 
   xdg-basedir@5.1.0:
@@ -3805,7 +3794,7 @@ snapshots:
 
   citty@0.1.6:
     dependencies:
-      consola: 3.2.3
+      consola: 3.4.0
 
   cli-boxes@3.0.0: {}
 
@@ -3886,8 +3875,6 @@ snapshots:
       unique-string: 3.0.0
       write-file-atomic: 3.0.3
       xdg-basedir: 5.1.0
-
-  consola@3.2.3: {}
 
   consola@3.4.0: {}
 
@@ -4000,9 +3987,7 @@ snapshots:
 
   dotenv-expand@12.0.1:
     dependencies:
-      dotenv: 16.4.5
-
-  dotenv@16.4.5: {}
+      dotenv: 16.4.7
 
   dotenv@16.4.7: {}
 
@@ -4278,9 +4263,9 @@ snapshots:
   giget@1.2.3:
     dependencies:
       citty: 0.1.6
-      consola: 3.2.3
+      consola: 3.4.0
       defu: 6.1.4
-      node-fetch-native: 1.6.4
+      node-fetch-native: 1.6.6
       nypm: 0.3.12
       ohash: 1.1.4
       pathe: 1.1.2
@@ -4739,8 +4724,6 @@ snapshots:
 
   node-addon-api@7.1.1: {}
 
-  node-fetch-native@1.6.4: {}
-
   node-fetch-native@1.6.6: {}
 
   node-forge@1.3.1: {}
@@ -4779,7 +4762,7 @@ snapshots:
   nypm@0.3.12:
     dependencies:
       citty: 0.1.6
-      consola: 3.2.3
+      consola: 3.4.0
       execa: 8.0.1
       pathe: 1.1.2
       pkg-types: 1.3.1
@@ -4798,7 +4781,7 @@ snapshots:
   ofetch@1.3.4:
     dependencies:
       destr: 2.0.3
-      node-fetch-native: 1.6.4
+      node-fetch-native: 1.6.6
       ufo: 1.5.4
 
   ohash@1.1.4: {}
@@ -4954,8 +4937,8 @@ snapshots:
     dependencies:
       cac: 6.7.14
       cli-highlight: 2.1.11
-      consola: 3.2.3
-      dotenv: 16.4.5
+      consola: 3.4.0
+      dotenv: 16.4.7
       extract-zip: 2.0.1
       formdata-node: 6.0.3
       listr2: 8.2.4
@@ -5479,7 +5462,7 @@ snapshots:
 
   ws@8.18.0: {}
 
-  wxt@0.19.28(@types/node@22.2.0)(lightningcss@1.29.1)(rollup@4.34.6):
+  wxt@0.19.29(@types/node@22.2.0)(lightningcss@1.29.1)(rollup@4.34.6):
     dependencies:
       '@1natsu/wait-element': 4.1.2
       '@aklinker1/rollup-plugin-visualizer': 5.12.0(rollup@4.34.6)
@@ -5494,9 +5477,9 @@ snapshots:
       cac: 6.7.14
       chokidar: 4.0.3
       ci-info: 4.1.0
-      consola: 3.2.3
+      consola: 3.4.0
       defu: 6.1.4
-      dotenv: 16.4.5
+      dotenv: 16.4.7
       dotenv-expand: 12.0.1
       esbuild: 0.25.0
       fast-glob: 3.3.3
