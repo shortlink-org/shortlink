@@ -151,8 +151,8 @@ importers:
         specifier: ~52.0.5
         version: 52.0.5(@babel/core@7.26.8)(encoding@0.1.13)(expo@52.0.37(@babel/core@7.26.8)(@babel/preset-env@7.26.8(@babel/core@7.26.8))(encoding@0.1.13)(graphql@16.8.1)(react-native@0.78.0(@babel/core@7.26.8)(@babel/preset-env@7.26.8(@babel/core@7.26.8))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(jest@29.7.0(@types/node@22.13.9)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.13.9)(typescript@5.8.2)))(react-dom@19.0.0(react@19.0.0))(react-native@0.78.0(@babel/core@7.26.8)(@babel/preset-env@7.26.8(@babel/core@7.26.8))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)(webpack@5.97.1)
       metro:
-        specifier: 0.81.3
-        version: 0.81.3
+        specifier: 0.82.0
+        version: 0.82.0
       metro-resolver:
         specifier: ^0.81.3
         version: 0.81.3
@@ -5603,96 +5603,96 @@ packages:
     resolution: {integrity: sha512-YZziRs0MgA3pzCkkvOoQRXjIoVjvrpi/yRlJnObyIvMP6lFdtyG4nUGIwGY9VXnBvxmXD6mPY2e+NSw6JAyiRg==}
     engines: {node: '>=18'}
 
-  metro-babel-transformer@0.81.2:
-    resolution: {integrity: sha512-Xn9JgF+CghIcDI6VTtGZFIxl7fPifePIX7mAkJ4/h8wtD9VAJsja6ymXgQ4Mftei2JOMEfCog0MYs4Us43/v8Q==}
-    engines: {node: '>=18.18'}
-
   metro-babel-transformer@0.81.3:
     resolution: {integrity: sha512-ENqtnPy2mQZFOuKrbqHRcAwZuaYe43X+30xIF0xlkLuMyCvc0CsFzrrSK9EqrQwexhVlqaRALb0GQbBMcE/y8g==}
+    engines: {node: '>=18.18'}
+
+  metro-babel-transformer@0.82.0:
+    resolution: {integrity: sha512-g+Cic/4M54So7tAuMg278R52UuiXfxXFXN2gfP7OLiATuvbQXyHmmG/zEckLyfPIcBT4i5UEO8PcXFbIgGY5FA==}
     engines: {node: '>=18.18'}
 
   metro-cache-key@0.80.12:
     resolution: {integrity: sha512-o4BspKnugg/pE45ei0LGHVuBJXwRgruW7oSFAeSZvBKA/sGr0UhOGY3uycOgWInnS3v5yTTfiBA9lHlNRhsvGA==}
     engines: {node: '>=18'}
 
-  metro-cache-key@0.81.2:
-    resolution: {integrity: sha512-+D5ySTFvvtWp1Med1ZWnEFqi8/nl8piFkTk6NFZbtCLGmNJIQhUtIW+i5foQ4YN9Mz1XARFn89652+jkRkXKhA==}
-    engines: {node: '>=18.18'}
-
   metro-cache-key@0.81.3:
     resolution: {integrity: sha512-KPsPSRUd6uRva7k7k/DqiiD8td7URQWx0RkX/Cj5+bed5zSXEg/XoQA+b+DmMxS5C7TqP61Fh3XvHx6TQRW82A==}
+    engines: {node: '>=18.18'}
+
+  metro-cache-key@0.82.0:
+    resolution: {integrity: sha512-CO2ztO54ibCk39C51i32a5+eviZkBzU/IEaF3XJ9CjE7ApFP5epD2v7J1ARMLQyBC1rbx0h2kslV9J2I7ROpZg==}
     engines: {node: '>=18.18'}
 
   metro-cache@0.80.12:
     resolution: {integrity: sha512-p5kNHh2KJ0pbQI/H7ZBPCEwkyNcSz7OUkslzsiIWBMPQGFJ/xArMwkV7I+GJcWh+b4m6zbLxE5fk6fqbVK1xGA==}
     engines: {node: '>=18'}
 
-  metro-cache@0.81.2:
-    resolution: {integrity: sha512-z07UNa4UjJ35LnQhDGrGk/qryRY3ERkYwvzkzYUpwpKZUGqWI5HnOurYzSuQSSxADV+s/NSLSFAB1yzdK8tluQ==}
-    engines: {node: '>=18.18'}
-
   metro-cache@0.81.3:
     resolution: {integrity: sha512-6UelMQYjlto/79tTXu0vsTxAX4e+Bkf0tgtDL1BNx3wd68pBg8qKIYpJPaUlOIaNUzFXTBDjYwUverkEW0KAtA==}
+    engines: {node: '>=18.18'}
+
+  metro-cache@0.82.0:
+    resolution: {integrity: sha512-L/XUQTNDXWNwtc7SWGDnaZegHbfF66zsICeKz9qIMcS6+ubKkrYJ8mlsMhTPBEHKmzbenGL/9GnKx5GAqc8i3g==}
     engines: {node: '>=18.18'}
 
   metro-config@0.80.12:
     resolution: {integrity: sha512-4rwOWwrhm62LjB12ytiuR5NgK1ZBNr24/He8mqCsC+HXZ+ATbrewLNztzbAZHtFsrxP4D4GLTGgh96pCpYLSAQ==}
     engines: {node: '>=18'}
 
-  metro-config@0.81.2:
-    resolution: {integrity: sha512-CzRiGh0XNANORfGB9REZ0PcpLxehWLmDgSE7XN59uAxhY0qOXccGG81J1WfkeT2zO1B/UoDWHDT5cPP1w7E3cQ==}
-    engines: {node: '>=18.18'}
-
   metro-config@0.81.3:
     resolution: {integrity: sha512-WpTaT0iQr5juVY50Y/cyacG2ggZqF38VshEQepT+ovPK8E/xUVxlbO5yxLSXUxxUXX3Hka9r6g64+y2WC6c/xQ==}
+    engines: {node: '>=18.18'}
+
+  metro-config@0.82.0:
+    resolution: {integrity: sha512-CN9y2MM+j/K13tGADUtEyDkVSob+qmG370DApBv/5m0kEEyt8+BW3n+PWTpZcs2XfXNnvj4/+KYMz4ngJsoKlA==}
     engines: {node: '>=18.18'}
 
   metro-core@0.80.12:
     resolution: {integrity: sha512-QqdJ/yAK+IpPs2HU/h5v2pKEdANBagSsc6DRSjnwSyJsCoHlmyJKCaCJ7KhWGx+N4OHxh37hoA8fc2CuZbx0Fw==}
     engines: {node: '>=18'}
 
-  metro-core@0.81.2:
-    resolution: {integrity: sha512-OHWL/NiILmsuAkj90GNIJBMbcRCIcJ7piyT17B2EFWR2F/L1Jny7Dq7NCgWeqqRueLH7ystXUdrfcM8bKeMp8Q==}
-    engines: {node: '>=18.18'}
-
   metro-core@0.81.3:
     resolution: {integrity: sha512-WZ+qohnpvvSWdPj1VJPUrZz+2ik29M+UUpMU6YrmzQUfDyZ6JYHhzlw5WVBtwpt/+2xTsIyrZ2C1fByT/DsLQA==}
+    engines: {node: '>=18.18'}
+
+  metro-core@0.82.0:
+    resolution: {integrity: sha512-0UeWfwTiXgQd8BnSuXqs7mtXZ6Meu0Zxtef5hWhdA9wh6wieLD2dh3FROGgDgKDlXskvgnYBcD7s7ScANw+/7w==}
     engines: {node: '>=18.18'}
 
   metro-file-map@0.80.12:
     resolution: {integrity: sha512-sYdemWSlk66bWzW2wp79kcPMzwuG32x1ZF3otI0QZTmrnTaaTiGyhE66P1z6KR4n2Eu5QXiABa6EWbAQv0r8bw==}
     engines: {node: '>=18'}
 
-  metro-file-map@0.81.2:
-    resolution: {integrity: sha512-k8binQShV1vzMB2rIPMlnf267ZSq78+L42vH9Y3YzmhIfumAz8Noy3ndG7zKdvOLcMjlOxzBChu1Laz3s5cgIw==}
-    engines: {node: '>=18.18'}
-
   metro-file-map@0.81.3:
     resolution: {integrity: sha512-F+t4lnVRoauJxtr9xmI4pWIOE77/vl0IrHDGeJSI9cW6LmuqxkpOlZHTKpbs/hMAo6+KhG2JMJACQDvXDLd/GA==}
+    engines: {node: '>=18.18'}
+
+  metro-file-map@0.82.0:
+    resolution: {integrity: sha512-6VZD3Zfh2p9xWyjfDn3yE14IyXl2NlVLvhRkmiEz1yb3rWDcNrdGo9UlkwkTPM7eyrPHoYl1gOsaT7hFHNqZiA==}
     engines: {node: '>=18.18'}
 
   metro-minify-terser@0.80.12:
     resolution: {integrity: sha512-muWzUw3y5k+9083ZoX9VaJLWEV2Jcgi+Oan0Mmb/fBNMPqP9xVDuy4pOMn/HOiGndgfh/MK7s4bsjkyLJKMnXQ==}
     engines: {node: '>=18'}
 
-  metro-minify-terser@0.81.2:
-    resolution: {integrity: sha512-GWjm6ZcNMnOFyh7hjzNfAEnOqZiHYTVIKGmB/zDNMf/Eq89w6rxHXZRM41iu1YyP2IhdqrqnhwHA+Ze8v6CMtg==}
-    engines: {node: '>=18.18'}
-
   metro-minify-terser@0.81.3:
     resolution: {integrity: sha512-912AYv3OmwcbUwzCdWbdQRk+RV6kXXluHKlhBdYFD3kr4Ece691rzlofU/Mlt9qZrhHtctD5Q8cFqOEf9Z69bQ==}
+    engines: {node: '>=18.18'}
+
+  metro-minify-terser@0.82.0:
+    resolution: {integrity: sha512-NEbtPAEr9Vemk9Y5gT4hA+Z670n2jBpU1sRSwOEX+uYDie62lNLv/wmkD6CQ6Tykn5T0pPfPV3UFQPYjdMMfFw==}
     engines: {node: '>=18.18'}
 
   metro-resolver@0.80.12:
     resolution: {integrity: sha512-PR24gYRZnYHM3xT9pg6BdbrGbM/Cu1TcyIFBVlAk7qDAuHkUNQ1nMzWumWs+kwSvtd9eZGzHoucGJpTUEeLZAw==}
     engines: {node: '>=18'}
 
-  metro-resolver@0.81.2:
-    resolution: {integrity: sha512-bu4Esd90SWkOhDADQsQTxIOG85sZnvAXtk51hT0aovN66M4x3rQmGPBRokfJpgAd3/XOZCu0KPbjoB5etyqT0Q==}
-    engines: {node: '>=18.18'}
-
   metro-resolver@0.81.3:
     resolution: {integrity: sha512-XnjENY1c6jcsEfFVIjN/8McUIInCVgGxv5eva+9ZWeCTyiAE/L5HPj2ai/Myb349+6QuSMR0dscTkKCnOwWXdw==}
+    engines: {node: '>=18.18'}
+
+  metro-resolver@0.82.0:
+    resolution: {integrity: sha512-t8GS5JwE++vRmHMfj/6TFLFbc2eObJd5G1eDZHRUZreCywGQp9NW3gWSTIxM1iOYU8XpkgKnKZMqdRMQG2gcjA==}
     engines: {node: '>=18.18'}
 
   metro-runtime@0.80.12:
@@ -5703,12 +5703,12 @@ packages:
     resolution: {integrity: sha512-pqu5j5d01rjF85V/K8SDDJ0NR3dRp6bE3z5bKVVb5O2Rx0nbR9KreUxYALQCRCcQHaYySqCg5fYbGKBHC295YQ==}
     engines: {node: '>=18.18'}
 
-  metro-runtime@0.81.2:
-    resolution: {integrity: sha512-xk3rU6yKaa2b8B/Hk/ZhPtNzW4H07h/yq9iKBCof0F68CaN+qncdVOOIz2NGqEH7V3wAqDv4xoOfbgtbFO5rxA==}
-    engines: {node: '>=18.18'}
-
   metro-runtime@0.81.3:
     resolution: {integrity: sha512-neuGRMC2pgGKIFPbmbrxW41/SmvL7OX4i1LN+saUY2t1cZfxf9haQHUMCGhO3498uEL2N+ulKRSlQrHt6XwGaw==}
+    engines: {node: '>=18.18'}
+
+  metro-runtime@0.82.0:
+    resolution: {integrity: sha512-G7ysHYg0VzAT3R3PTtJd+a9uVfmX5RcHoAxRfCiAp2UTpY+d/pU8TCyaVFiusAKeH5KasexQNzLfwkw2xrDydA==}
     engines: {node: '>=18.18'}
 
   metro-source-map@0.80.12:
@@ -5719,12 +5719,12 @@ packages:
     resolution: {integrity: sha512-1i8ROpNNiga43F0ZixAXoFE/SS3RqcRDCCslpynb+ytym0VI7pkTH1woAN2HI9pczYtPrp3Nq0AjRpsuY35ieA==}
     engines: {node: '>=18.18'}
 
-  metro-source-map@0.81.2:
-    resolution: {integrity: sha512-/mJYbZIGswFbfxt0ouaBYw22YvqQiaCB+ql8reeA37bNjd4lHvozND7/w8NO2x7FjTfsmPBh50Iqi/mTuZFiZA==}
-    engines: {node: '>=18.18'}
-
   metro-source-map@0.81.3:
     resolution: {integrity: sha512-BHJJurmDQRn3hCbBawh/UHzPz3duMpwpE3ofImO2DoWHYzn6nSg/D4wfCN4y14d9fFLE4e0I+BAOX1HWNP4jsw==}
+    engines: {node: '>=18.18'}
+
+  metro-source-map@0.82.0:
+    resolution: {integrity: sha512-EJR2Fa5bPUFhEJRq1wLkudlVhaWA8WT0AEbyUqJM/VW4woXNEzaNWOt3m3o3JPDIbSK7kyV943b9FTInCYIU9A==}
     engines: {node: '>=18.18'}
 
   metro-symbolicate@0.80.12:
@@ -5737,13 +5737,13 @@ packages:
     engines: {node: '>=18.18'}
     hasBin: true
 
-  metro-symbolicate@0.81.2:
-    resolution: {integrity: sha512-jEZoh3XldJazigetID+4Sy41OszGdixEOvB8zI0v2k7sXgHh+Rw8J/R7UuYCxQp+f89MqCjeGLLN7qNHuvRSCQ==}
+  metro-symbolicate@0.81.3:
+    resolution: {integrity: sha512-LQLT6WopQmIz2SDSVh3Lw7nLzF58HpsrPYqRB7RpRXBYhYmPFIjiGaP8qqtKHXczM/5YAOJzpgt8t/OGZgh6Eg==}
     engines: {node: '>=18.18'}
     hasBin: true
 
-  metro-symbolicate@0.81.3:
-    resolution: {integrity: sha512-LQLT6WopQmIz2SDSVh3Lw7nLzF58HpsrPYqRB7RpRXBYhYmPFIjiGaP8qqtKHXczM/5YAOJzpgt8t/OGZgh6Eg==}
+  metro-symbolicate@0.82.0:
+    resolution: {integrity: sha512-RyrS63AtgwhfHBmeAbW3egRUJ7dkWq48FqXvpjN1/WjofGjKLEPkFTmL9HmLOOIceIEH1q5YnyvI9uKXizSnhA==}
     engines: {node: '>=18.18'}
     hasBin: true
 
@@ -5751,24 +5751,24 @@ packages:
     resolution: {integrity: sha512-WQWp00AcZvXuQdbjQbx1LzFR31IInlkCDYJNRs6gtEtAyhwpMMlL2KcHmdY+wjDO9RPcliZ+Xl1riOuBecVlPA==}
     engines: {node: '>=18'}
 
-  metro-transform-plugins@0.81.2:
-    resolution: {integrity: sha512-St1zsbZ4SWA48yJBIqUuMFR4GROyu7A8auhJl/5km/Pj09vGXEri2CgOD0ReuXa/P1X9/jrOU5cIafi5csjwvw==}
-    engines: {node: '>=18.18'}
-
   metro-transform-plugins@0.81.3:
     resolution: {integrity: sha512-4JMUXhBB5y4h3dyA272k7T7+U3+J4fSBcct0Y8Yur9ziZB/dK8fieEQg5ZPfEGsgOGI+54zTzOUqga6AgmZSNg==}
+    engines: {node: '>=18.18'}
+
+  metro-transform-plugins@0.82.0:
+    resolution: {integrity: sha512-jk74Vn+Wvd+QP2HbsA3KgrFRzgWky3UKGnZwAjs7MQgHmfto9tqLNWyQywMmmPTV6f7bCBE6uUOYl9YFI4mUSg==}
     engines: {node: '>=18.18'}
 
   metro-transform-worker@0.80.12:
     resolution: {integrity: sha512-KAPFN1y3eVqEbKLx1I8WOarHPqDMUa8WelWxaJCNKO/yHCP26zELeqTJvhsQup+8uwB6EYi/sp0b6TGoh6lOEA==}
     engines: {node: '>=18'}
 
-  metro-transform-worker@0.81.2:
-    resolution: {integrity: sha512-U1kmzJEExrB6SZN9TLxuFCZPdCq5+ofkWBiVn6U/9YxTft6HzXGNN0ebdL2Yut5ry3oaYmOtR26faKAOGiiG0Q==}
-    engines: {node: '>=18.18'}
-
   metro-transform-worker@0.81.3:
     resolution: {integrity: sha512-KZqm9sVyBKRygUxRm+yP4DguE9R1EEv28KJhIxghNp5dcdVXBYUPe1xHoc3QVdzD9c3tf8JFzA2FBlKTlwMwNg==}
+    engines: {node: '>=18.18'}
+
+  metro-transform-worker@0.82.0:
+    resolution: {integrity: sha512-YP1nvSYqEkFF3XNfsj7d+rNuH1syYSG9rqV1nFU1G91ixgZBCZlyLLhVu3fGFTbOZUDHezhlMWs0xFU9r3VTmw==}
     engines: {node: '>=18.18'}
 
   metro@0.80.12:
@@ -5776,13 +5776,13 @@ packages:
     engines: {node: '>=18'}
     hasBin: true
 
-  metro@0.81.2:
-    resolution: {integrity: sha512-3jvcYBmSEFWtXJC3BX9/pKyme0gEyrZfHuDvuZiS46+3u8rcNlk0bjnGS/qxIW/h8icyVuQRaoH/Q1VdQJHvuQ==}
+  metro@0.81.3:
+    resolution: {integrity: sha512-upilFs7z1uLKvdzFYHiVKrGT/uC7h7d53R0g/FaJoQvLfA8jQG2V69jeOcGi4wCsFYvl1zBSZvKxpQb0nA3giQ==}
     engines: {node: '>=18.18'}
     hasBin: true
 
-  metro@0.81.3:
-    resolution: {integrity: sha512-upilFs7z1uLKvdzFYHiVKrGT/uC7h7d53R0g/FaJoQvLfA8jQG2V69jeOcGi4wCsFYvl1zBSZvKxpQb0nA3giQ==}
+  metro@0.82.0:
+    resolution: {integrity: sha512-3rSgYWSx7G8IgmyG6jmBem5HvJRrLyxAU0nEBUqFRplyY7HYrfpDoRIb+syMeJlvdrNQHVvqG+tey3VCW+GLsQ==}
     engines: {node: '>=18.18'}
     hasBin: true
 
@@ -6101,12 +6101,12 @@ packages:
     resolution: {integrity: sha512-1PEbvI+AFvOcgdNcO79FtDI1TUO8S3lhiKOyAiyWQF3sFDDKS+aw2/BZvGlArFnSmqckwOOB9chQuIX0/OahoQ==}
     engines: {node: '>=18.18'}
 
-  ob1@0.81.2:
-    resolution: {integrity: sha512-K0hJXOlU4j7c4chNLaDDzVyg5yjYjbmDSQbVMXdAcTtqZndwYHfmBIO06riFMgpg2KOevxeB1pIwzqJuES2SuA==}
-    engines: {node: '>=18.18'}
-
   ob1@0.81.3:
     resolution: {integrity: sha512-wd8zdH0DWsn2iDVn2zT/QURihcqoc73K8FhNCmQ16qkJaoYJLNb/N+huOwdCgsbNP8Lk/s1+dPnDETx+RzsrWA==}
+    engines: {node: '>=18.18'}
+
+  ob1@0.82.0:
+    resolution: {integrity: sha512-1apk2U4j/vpKpKBQw7QyQftL5eOnRdDkK7SKj8QUqRJX8PRuqKLMHknfFRBiX70+/anjkWYvKIiX2vUmvPkvAA==}
     engines: {node: '>=18.18'}
 
   object-assign@4.1.1:
@@ -11335,8 +11335,8 @@ snapshots:
       debug: 2.6.9
       invariant: 2.2.4
       metro: 0.81.3
-      metro-config: 0.81.2
-      metro-core: 0.81.2
+      metro-config: 0.81.3
+      metro-core: 0.81.3
       readline: 1.3.0
       semver: 7.7.1
     optionalDependencies:
@@ -16018,7 +16018,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  metro-babel-transformer@0.81.2:
+  metro-babel-transformer@0.81.3:
     dependencies:
       '@babel/core': 7.26.8
       flow-enums-runtime: 0.0.6
@@ -16027,7 +16027,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  metro-babel-transformer@0.81.3:
+  metro-babel-transformer@0.82.0:
     dependencies:
       '@babel/core': 7.26.8
       flow-enums-runtime: 0.0.6
@@ -16040,11 +16040,11 @@ snapshots:
     dependencies:
       flow-enums-runtime: 0.0.6
 
-  metro-cache-key@0.81.2:
+  metro-cache-key@0.81.3:
     dependencies:
       flow-enums-runtime: 0.0.6
 
-  metro-cache-key@0.81.3:
+  metro-cache-key@0.82.0:
     dependencies:
       flow-enums-runtime: 0.0.6
 
@@ -16054,17 +16054,17 @@ snapshots:
       flow-enums-runtime: 0.0.6
       metro-core: 0.80.12
 
-  metro-cache@0.81.2:
-    dependencies:
-      exponential-backoff: 3.1.2
-      flow-enums-runtime: 0.0.6
-      metro-core: 0.81.2
-
   metro-cache@0.81.3:
     dependencies:
       exponential-backoff: 3.1.2
       flow-enums-runtime: 0.0.6
       metro-core: 0.81.3
+
+  metro-cache@0.82.0:
+    dependencies:
+      exponential-backoff: 3.1.2
+      flow-enums-runtime: 0.0.6
+      metro-core: 0.82.0
 
   metro-config@0.80.12:
     dependencies:
@@ -16076,21 +16076,6 @@ snapshots:
       metro-cache: 0.80.12
       metro-core: 0.80.12
       metro-runtime: 0.80.12
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-
-  metro-config@0.81.2:
-    dependencies:
-      connect: 3.7.0
-      cosmiconfig: 5.2.1
-      flow-enums-runtime: 0.0.6
-      jest-validate: 29.7.0
-      metro: 0.81.2
-      metro-cache: 0.81.2
-      metro-core: 0.81.2
-      metro-runtime: 0.81.2
     transitivePeerDependencies:
       - bufferutil
       - supports-color
@@ -16111,23 +16096,38 @@ snapshots:
       - supports-color
       - utf-8-validate
 
+  metro-config@0.82.0:
+    dependencies:
+      connect: 3.7.0
+      cosmiconfig: 5.2.1
+      flow-enums-runtime: 0.0.6
+      jest-validate: 29.7.0
+      metro: 0.82.0
+      metro-cache: 0.82.0
+      metro-core: 0.82.0
+      metro-runtime: 0.82.0
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
   metro-core@0.80.12:
     dependencies:
       flow-enums-runtime: 0.0.6
       lodash.throttle: 4.1.1
       metro-resolver: 0.80.12
 
-  metro-core@0.81.2:
-    dependencies:
-      flow-enums-runtime: 0.0.6
-      lodash.throttle: 4.1.1
-      metro-resolver: 0.81.2
-
   metro-core@0.81.3:
     dependencies:
       flow-enums-runtime: 0.0.6
       lodash.throttle: 4.1.1
       metro-resolver: 0.81.3
+
+  metro-core@0.82.0:
+    dependencies:
+      flow-enums-runtime: 0.0.6
+      lodash.throttle: 4.1.1
+      metro-resolver: 0.82.0
 
   metro-file-map@0.80.12:
     dependencies:
@@ -16147,7 +16147,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  metro-file-map@0.81.2:
+  metro-file-map@0.81.3:
     dependencies:
       debug: 2.6.9
       fb-watchman: 2.0.2
@@ -16161,9 +16161,9 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  metro-file-map@0.81.3:
+  metro-file-map@0.82.0:
     dependencies:
-      debug: 2.6.9
+      debug: 4.4.0(supports-color@8.1.1)
       fb-watchman: 2.0.2
       flow-enums-runtime: 0.0.6
       graceful-fs: 4.2.11
@@ -16180,12 +16180,12 @@ snapshots:
       flow-enums-runtime: 0.0.6
       terser: 5.38.2
 
-  metro-minify-terser@0.81.2:
+  metro-minify-terser@0.81.3:
     dependencies:
       flow-enums-runtime: 0.0.6
       terser: 5.38.2
 
-  metro-minify-terser@0.81.3:
+  metro-minify-terser@0.82.0:
     dependencies:
       flow-enums-runtime: 0.0.6
       terser: 5.38.2
@@ -16194,11 +16194,11 @@ snapshots:
     dependencies:
       flow-enums-runtime: 0.0.6
 
-  metro-resolver@0.81.2:
+  metro-resolver@0.81.3:
     dependencies:
       flow-enums-runtime: 0.0.6
 
-  metro-resolver@0.81.3:
+  metro-resolver@0.82.0:
     dependencies:
       flow-enums-runtime: 0.0.6
 
@@ -16212,12 +16212,12 @@ snapshots:
       '@babel/runtime': 7.26.7
       flow-enums-runtime: 0.0.6
 
-  metro-runtime@0.81.2:
+  metro-runtime@0.81.3:
     dependencies:
       '@babel/runtime': 7.26.7
       flow-enums-runtime: 0.0.6
 
-  metro-runtime@0.81.3:
+  metro-runtime@0.82.0:
     dependencies:
       '@babel/runtime': 7.26.7
       flow-enums-runtime: 0.0.6
@@ -16251,21 +16251,6 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  metro-source-map@0.81.2:
-    dependencies:
-      '@babel/traverse': 7.26.9
-      '@babel/traverse--for-generate-function-map': '@babel/traverse@7.26.9'
-      '@babel/types': 7.26.9
-      flow-enums-runtime: 0.0.6
-      invariant: 2.2.4
-      metro-symbolicate: 0.81.2
-      nullthrows: 1.1.1
-      ob1: 0.81.2
-      source-map: 0.5.7
-      vlq: 1.0.1
-    transitivePeerDependencies:
-      - supports-color
-
   metro-source-map@0.81.3:
     dependencies:
       '@babel/traverse': 7.26.9
@@ -16276,6 +16261,21 @@ snapshots:
       metro-symbolicate: 0.81.3
       nullthrows: 1.1.1
       ob1: 0.81.3
+      source-map: 0.5.7
+      vlq: 1.0.1
+    transitivePeerDependencies:
+      - supports-color
+
+  metro-source-map@0.82.0:
+    dependencies:
+      '@babel/traverse': 7.26.9
+      '@babel/traverse--for-generate-function-map': '@babel/traverse@7.26.9'
+      '@babel/types': 7.26.9
+      flow-enums-runtime: 0.0.6
+      invariant: 2.2.4
+      metro-symbolicate: 0.82.0
+      nullthrows: 1.1.1
+      ob1: 0.82.0
       source-map: 0.5.7
       vlq: 1.0.1
     transitivePeerDependencies:
@@ -16304,22 +16304,22 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  metro-symbolicate@0.81.2:
+  metro-symbolicate@0.81.3:
     dependencies:
       flow-enums-runtime: 0.0.6
       invariant: 2.2.4
-      metro-source-map: 0.81.2
+      metro-source-map: 0.81.3
       nullthrows: 1.1.1
       source-map: 0.5.7
       vlq: 1.0.1
     transitivePeerDependencies:
       - supports-color
 
-  metro-symbolicate@0.81.3:
+  metro-symbolicate@0.82.0:
     dependencies:
       flow-enums-runtime: 0.0.6
       invariant: 2.2.4
-      metro-source-map: 0.81.3
+      metro-source-map: 0.82.0
       nullthrows: 1.1.1
       source-map: 0.5.7
       vlq: 1.0.1
@@ -16337,7 +16337,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  metro-transform-plugins@0.81.2:
+  metro-transform-plugins@0.81.3:
     dependencies:
       '@babel/core': 7.26.8
       '@babel/generator': 7.26.9
@@ -16348,7 +16348,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  metro-transform-plugins@0.81.3:
+  metro-transform-plugins@0.82.0:
     dependencies:
       '@babel/core': 7.26.8
       '@babel/generator': 7.26.9
@@ -16379,26 +16379,6 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  metro-transform-worker@0.81.2:
-    dependencies:
-      '@babel/core': 7.26.8
-      '@babel/generator': 7.26.9
-      '@babel/parser': 7.26.9
-      '@babel/types': 7.26.9
-      flow-enums-runtime: 0.0.6
-      metro: 0.81.2
-      metro-babel-transformer: 0.81.2
-      metro-cache: 0.81.2
-      metro-cache-key: 0.81.2
-      metro-minify-terser: 0.81.2
-      metro-source-map: 0.81.2
-      metro-transform-plugins: 0.81.2
-      nullthrows: 1.1.1
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-
   metro-transform-worker@0.81.3:
     dependencies:
       '@babel/core': 7.26.8
@@ -16413,6 +16393,26 @@ snapshots:
       metro-minify-terser: 0.81.3
       metro-source-map: 0.81.3
       metro-transform-plugins: 0.81.3
+      nullthrows: 1.1.1
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
+  metro-transform-worker@0.82.0:
+    dependencies:
+      '@babel/core': 7.26.8
+      '@babel/generator': 7.26.9
+      '@babel/parser': 7.26.9
+      '@babel/types': 7.26.9
+      flow-enums-runtime: 0.0.6
+      metro: 0.82.0
+      metro-babel-transformer: 0.82.0
+      metro-cache: 0.82.0
+      metro-cache-key: 0.82.0
+      metro-minify-terser: 0.82.0
+      metro-source-map: 0.82.0
+      metro-transform-plugins: 0.82.0
       nullthrows: 1.1.1
     transitivePeerDependencies:
       - bufferutil
@@ -16468,53 +16468,6 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  metro@0.81.2:
-    dependencies:
-      '@babel/code-frame': 7.26.2
-      '@babel/core': 7.26.8
-      '@babel/generator': 7.26.9
-      '@babel/parser': 7.26.9
-      '@babel/template': 7.26.9
-      '@babel/traverse': 7.26.9
-      '@babel/types': 7.26.9
-      accepts: 1.3.8
-      chalk: 4.1.2
-      ci-info: 2.0.0
-      connect: 3.7.0
-      debug: 2.6.9
-      error-stack-parser: 2.1.4
-      flow-enums-runtime: 0.0.6
-      graceful-fs: 4.2.11
-      hermes-parser: 0.25.1
-      image-size: 1.2.0
-      invariant: 2.2.4
-      jest-worker: 29.7.0
-      jsc-safe-url: 0.2.4
-      lodash.throttle: 4.1.1
-      metro-babel-transformer: 0.81.2
-      metro-cache: 0.81.2
-      metro-cache-key: 0.81.2
-      metro-config: 0.81.2
-      metro-core: 0.81.2
-      metro-file-map: 0.81.2
-      metro-resolver: 0.81.2
-      metro-runtime: 0.81.2
-      metro-source-map: 0.81.2
-      metro-symbolicate: 0.81.2
-      metro-transform-plugins: 0.81.2
-      metro-transform-worker: 0.81.2
-      mime-types: 2.1.35
-      nullthrows: 1.1.1
-      serialize-error: 2.1.0
-      source-map: 0.5.7
-      throat: 5.0.0
-      ws: 7.5.10
-      yargs: 17.7.2
-    transitivePeerDependencies:
-      - bufferutil
-      - supports-color
-      - utf-8-validate
-
   metro@0.81.3:
     dependencies:
       '@babel/code-frame': 7.26.2
@@ -16550,6 +16503,53 @@ snapshots:
       metro-symbolicate: 0.81.3
       metro-transform-plugins: 0.81.3
       metro-transform-worker: 0.81.3
+      mime-types: 2.1.35
+      nullthrows: 1.1.1
+      serialize-error: 2.1.0
+      source-map: 0.5.7
+      throat: 5.0.0
+      ws: 7.5.10
+      yargs: 17.7.2
+    transitivePeerDependencies:
+      - bufferutil
+      - supports-color
+      - utf-8-validate
+
+  metro@0.82.0:
+    dependencies:
+      '@babel/code-frame': 7.26.2
+      '@babel/core': 7.26.8
+      '@babel/generator': 7.26.9
+      '@babel/parser': 7.26.9
+      '@babel/template': 7.26.9
+      '@babel/traverse': 7.26.9
+      '@babel/types': 7.26.9
+      accepts: 1.3.8
+      chalk: 4.1.2
+      ci-info: 2.0.0
+      connect: 3.7.0
+      debug: 4.4.0(supports-color@8.1.1)
+      error-stack-parser: 2.1.4
+      flow-enums-runtime: 0.0.6
+      graceful-fs: 4.2.11
+      hermes-parser: 0.25.1
+      image-size: 1.2.0
+      invariant: 2.2.4
+      jest-worker: 29.7.0
+      jsc-safe-url: 0.2.4
+      lodash.throttle: 4.1.1
+      metro-babel-transformer: 0.82.0
+      metro-cache: 0.82.0
+      metro-cache-key: 0.82.0
+      metro-config: 0.82.0
+      metro-core: 0.82.0
+      metro-file-map: 0.82.0
+      metro-resolver: 0.82.0
+      metro-runtime: 0.82.0
+      metro-source-map: 0.82.0
+      metro-symbolicate: 0.82.0
+      metro-transform-plugins: 0.82.0
+      metro-transform-worker: 0.82.0
       mime-types: 2.1.35
       nullthrows: 1.1.1
       serialize-error: 2.1.0
@@ -16914,11 +16914,11 @@ snapshots:
     dependencies:
       flow-enums-runtime: 0.0.6
 
-  ob1@0.81.2:
+  ob1@0.81.3:
     dependencies:
       flow-enums-runtime: 0.0.6
 
-  ob1@0.81.3:
+  ob1@0.82.0:
     dependencies:
       flow-enums-runtime: 0.0.6
 
