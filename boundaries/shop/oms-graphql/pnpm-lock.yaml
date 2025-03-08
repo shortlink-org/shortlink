@@ -9,76 +9,76 @@ importers:
   .:
     dependencies:
       '@tailcallhq/tailcall':
-        specifier: ^1.4.24
-        version: 1.4.24
+        specifier: ^1.5.1
+        version: 1.5.1
 
 packages:
 
   '@scarf/scarf@1.4.0':
     resolution: {integrity: sha512-xxeapPiUXdZAE3che6f3xogoJPeZgig6omHEy1rIY5WVsB3H2BHNnZH+gHG6x91SCWyQCzWGsuL2Hh3ClO5/qQ==}
 
-  '@tailcallhq/core-darwin-arm64@1.4.24':
-    resolution: {integrity: sha512-O51wOC/UjJRz++gxSKeL+tCLDzPzS+iB7QfEx15RUZJ6VhKx7MtXg6bZuzW4LeQ4B9jB4T3bi6Ag57jCiCJhsQ==}
+  '@tailcallhq/core-darwin-arm64@1.5.1':
+    resolution: {integrity: sha512-htwrA12MJmrwYLkeZdc1qmBsHmsACSvpDNsSTFM3ymfNwwnEvV3kYZlC6ByBC0L2pVTuqex71YAyKQTf4VUEiw==}
     cpu: [arm64]
     os: [darwin]
     hasBin: true
 
-  '@tailcallhq/core-darwin-x64@1.4.24':
-    resolution: {integrity: sha512-4cTSXL+BVO876DDDt/y94KqDhNwHGEsJ/uakF5/w66WNk/mh+ETFD1IcKniRn6UYJGv3q2MNYwEnyXDJaJ6Z1g==}
+  '@tailcallhq/core-darwin-x64@1.5.1':
+    resolution: {integrity: sha512-rM/rEQsrU5b3FKE574qTV3irsS+vyVh3lzLaPqKguERb2wiMEwk9rR9CCp3ilj8Sdqb6BRlXFlxM1cttx3z2MQ==}
     cpu: [x64]
     os: [darwin]
     hasBin: true
 
-  '@tailcallhq/core-linux-arm64-gnu@1.4.24':
-    resolution: {integrity: sha512-znEVAf/8d2jz/BQAqTMkurfq95LkAZw02H35tgg+bLksh1LjvUVVjglTUuVQkqeyna3T/5MuFLibEisjW9faqQ==}
+  '@tailcallhq/core-linux-arm64-gnu@1.5.1':
+    resolution: {integrity: sha512-ErWNKsC6sdtGjsw1bTCZ7Q1D3AWDJGYYQLpPudMwVtyZ7s2T5fHjcT01BS4vO/7PxPriExQutfMjDe7gWAN5jA==}
     cpu: [arm64]
     os: [linux]
     hasBin: true
 
-  '@tailcallhq/core-linux-arm64-musl@1.4.24':
-    resolution: {integrity: sha512-TTPOIkNnum2RsNHuTr345Y+k76YgJDgn6exJvZW0sRbA0yV1BHCpY6u28ixcV0TN6oJ/rGOtbmzZ03tlhRg9Mw==}
+  '@tailcallhq/core-linux-arm64-musl@1.5.1':
+    resolution: {integrity: sha512-OiNR7WR9XTVQinSEjWShYiEGoJGxENII9EqF/hECThq7VbwD5zKs/dBjZ0p0XxJHJTvOhHDthEnp5D57XNdX+w==}
     cpu: [arm64]
     os: [linux]
     hasBin: true
 
-  '@tailcallhq/core-linux-ia32-gnu@1.4.24':
-    resolution: {integrity: sha512-P7w/oM5gbZxBQuopoo4YRqwe3OWIfw0gz5COEFKQDT4iAprFjLmbb4BA99/uXGUFxXIcDWqggb/pbv61inATcg==}
+  '@tailcallhq/core-linux-ia32-gnu@1.5.1':
+    resolution: {integrity: sha512-wCsj1xWuG7/lKKrrYSa+lJAM7L+ky6KIH98XHcEnmlHuY120JIFuwQ8+UaeWbs1UBMYIrnv+7VS2oRSgHUvkRA==}
     cpu: [ia32]
     os: [linux]
     hasBin: true
 
-  '@tailcallhq/core-linux-x64-gnu@1.4.24':
-    resolution: {integrity: sha512-P95Gw9f4nskWnn05sXb7ug9x+e7/IzaF3nUeysqlLcmk+a5gVkJYwKquDH31+FDMTREbg7wcryO6x7l3H+VQQg==}
+  '@tailcallhq/core-linux-x64-gnu@1.5.1':
+    resolution: {integrity: sha512-Mxi7BfLmHHufurtPIEdDh7sYPpraEthBMDivzwxidOWxQFh5gjCx8IBDeEXISwUP9lCLMzatJpys5aFBEI/9FA==}
     cpu: [x64]
     os: [linux]
     hasBin: true
 
-  '@tailcallhq/core-linux-x64-musl@1.4.24':
-    resolution: {integrity: sha512-JLbgscDwwHc+2k33pbjd9f0AUGS0881GOnIzTLm5EDFJtn21Fpzva1AUXxOej3j7RmOH0222fA9XI1Y45QZ7Kg==}
+  '@tailcallhq/core-linux-x64-musl@1.5.1':
+    resolution: {integrity: sha512-cRinH+D/h2HCBC2XlZvmUSLo1ltm1Fvvy5io3DJyp6GvOzXywND9atItOBPFItxln/+x0r92tdLDHTQZC2BF4A==}
     cpu: [x64]
     os: [linux]
     hasBin: true
 
-  '@tailcallhq/core-win32-arm64-msvc@1.4.24':
-    resolution: {integrity: sha512-K0waEDAJFRaOOtsH1G0utHJDfs9wORTaiPQSqBugtrhHnpRMQm0Vh33mbn0vo/7fWD6W3bgWEgU9dhpM3clM4g==}
+  '@tailcallhq/core-win32-arm64-msvc@1.5.1':
+    resolution: {integrity: sha512-4MBDLSlgjGBHkECA3cCwkzFXBIKLb5AnR/fF6Guc0QSIIkLIbo/qVYud7i+DeJ8AxmwJ7zxNVorSzXdaYXeMPQ==}
     cpu: [arm64]
     os: [win32]
     hasBin: true
 
-  '@tailcallhq/core-win32-ia32-msvc@1.4.24':
-    resolution: {integrity: sha512-z0OBkhzAyZTAj/EJoWNuo60WV2/2kyRPeyCznWIWTFIvAoSAupkqKvi+Bq/kHTsBfC+106uJ8qxXg+k5cz197w==}
+  '@tailcallhq/core-win32-ia32-msvc@1.5.1':
+    resolution: {integrity: sha512-5W1CnelRG2C8AXAnmN7qoQZ3cARhLG0TjXk8TY3xIbCmy4IkhWivM4qDwc1V3DVQRge60F4jSKg5VhA4CQTpTg==}
     cpu: [ia32]
     os: [win32]
     hasBin: true
 
-  '@tailcallhq/core-win32-x64-msvc@1.4.24':
-    resolution: {integrity: sha512-yoLPmCP2tjE03MGe3Xcx4hikbMklpzu/q75PM1+5rdO8OqMfHwFWcD6OJtbVNZwNWeqb/OpF9W+NIfYtAp6DOg==}
+  '@tailcallhq/core-win32-x64-msvc@1.5.1':
+    resolution: {integrity: sha512-8KLqDD6CMw+VUlnTnRdbgd6ma5aIzjPHWKFnxoN+rSTRKRbOlZrdM947LL5ZvEfBTnYIduaC6GfLo226jyOeQA==}
     cpu: [x64]
     os: [win32]
     hasBin: true
 
-  '@tailcallhq/tailcall@1.4.24':
-    resolution: {integrity: sha512-RkDCcfJo7w0czt3StZN+GoHkhuNfagGWb0BvyTDAQj1Pi0ImiMJlYcZxb2BkPC/OFhkNiwL+wqvvSk/uzWxAlA==}
+  '@tailcallhq/tailcall@1.5.1':
+    resolution: {integrity: sha512-fqdhNCbayX6b5wy7XrLquRtgoABPU+gJ83LfyvrKMAQoQMAnsbQK23B7KEsDWchEIEdnQYhigVsCbGQjvBCLSQ==}
 
   detect-libc@2.0.3:
     resolution: {integrity: sha512-bwy0MGW55bG41VqxxypOsdSdGqLwXPI/focwgTYCFMbdUiBAxLg9CFzG08sz2aqzknwiX7Hkl0bQENjg8iLByw==}
@@ -88,50 +88,50 @@ snapshots:
 
   '@scarf/scarf@1.4.0': {}
 
-  '@tailcallhq/core-darwin-arm64@1.4.24':
+  '@tailcallhq/core-darwin-arm64@1.5.1':
     optional: true
 
-  '@tailcallhq/core-darwin-x64@1.4.24':
+  '@tailcallhq/core-darwin-x64@1.5.1':
     optional: true
 
-  '@tailcallhq/core-linux-arm64-gnu@1.4.24':
+  '@tailcallhq/core-linux-arm64-gnu@1.5.1':
     optional: true
 
-  '@tailcallhq/core-linux-arm64-musl@1.4.24':
+  '@tailcallhq/core-linux-arm64-musl@1.5.1':
     optional: true
 
-  '@tailcallhq/core-linux-ia32-gnu@1.4.24':
+  '@tailcallhq/core-linux-ia32-gnu@1.5.1':
     optional: true
 
-  '@tailcallhq/core-linux-x64-gnu@1.4.24':
+  '@tailcallhq/core-linux-x64-gnu@1.5.1':
     optional: true
 
-  '@tailcallhq/core-linux-x64-musl@1.4.24':
+  '@tailcallhq/core-linux-x64-musl@1.5.1':
     optional: true
 
-  '@tailcallhq/core-win32-arm64-msvc@1.4.24':
+  '@tailcallhq/core-win32-arm64-msvc@1.5.1':
     optional: true
 
-  '@tailcallhq/core-win32-ia32-msvc@1.4.24':
+  '@tailcallhq/core-win32-ia32-msvc@1.5.1':
     optional: true
 
-  '@tailcallhq/core-win32-x64-msvc@1.4.24':
+  '@tailcallhq/core-win32-x64-msvc@1.5.1':
     optional: true
 
-  '@tailcallhq/tailcall@1.4.24':
+  '@tailcallhq/tailcall@1.5.1':
     dependencies:
       '@scarf/scarf': 1.4.0
       detect-libc: 2.0.3
     optionalDependencies:
-      '@tailcallhq/core-darwin-arm64': 1.4.24
-      '@tailcallhq/core-darwin-x64': 1.4.24
-      '@tailcallhq/core-linux-arm64-gnu': 1.4.24
-      '@tailcallhq/core-linux-arm64-musl': 1.4.24
-      '@tailcallhq/core-linux-ia32-gnu': 1.4.24
-      '@tailcallhq/core-linux-x64-gnu': 1.4.24
-      '@tailcallhq/core-linux-x64-musl': 1.4.24
-      '@tailcallhq/core-win32-arm64-msvc': 1.4.24
-      '@tailcallhq/core-win32-ia32-msvc': 1.4.24
-      '@tailcallhq/core-win32-x64-msvc': 1.4.24
+      '@tailcallhq/core-darwin-arm64': 1.5.1
+      '@tailcallhq/core-darwin-x64': 1.5.1
+      '@tailcallhq/core-linux-arm64-gnu': 1.5.1
+      '@tailcallhq/core-linux-arm64-musl': 1.5.1
+      '@tailcallhq/core-linux-ia32-gnu': 1.5.1
+      '@tailcallhq/core-linux-x64-gnu': 1.5.1
+      '@tailcallhq/core-linux-x64-musl': 1.5.1
+      '@tailcallhq/core-win32-arm64-msvc': 1.5.1
+      '@tailcallhq/core-win32-ia32-msvc': 1.5.1
+      '@tailcallhq/core-win32-x64-msvc': 1.5.1
 
   detect-libc@2.0.3: {}
