@@ -3,14 +3,14 @@ module github.com/shortlink-org/shortlink/docs/ADR/decisions/proof/ADR-0007
 go 1.24.1
 
 require (
-	github.com/bytedance/sonic v1.13.0
+	github.com/bytedance/sonic v1.13.1
 	github.com/google/uuid v1.6.0
 	github.com/segmentio/encoding v0.4.1
 	github.com/stretchr/testify v1.10.0
 )
 
 require (
-	github.com/bytedance/sonic/loader v0.2.2 // indirect
+	github.com/bytedance/sonic/loader v0.2.4 // indirect
 	github.com/cloudwego/base64x v0.1.5 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/klauspost/cpuid/v2 v2.2.9 // indirect
