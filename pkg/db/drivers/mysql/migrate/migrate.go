@@ -22,24 +22,36 @@ func Migration(_ context.Context, store db.DB, fs embed.FS, tableName string) er
 
 	driverMigrations, err := iofs.New(fs, "migrations")
 	if err != nil {
-		return err
+		return &MigrationError{
+			Err:         err,
+			Description: "failed to create migration source",
+		}
 	}
 
 	driverDB, err := mysql.WithInstance(client, &mysql.Config{
 		MigrationsTable: "schema_migrations_" + strings.ReplaceAll(tableName, "-", "_"),
 	})
 	if err != nil {
-		return err
+		return &MigrationError{
+			Err:         err,
+			Description: "failed to create migration driver",
+		}
 	}
 
-	m, err := migrate.NewWithInstance("iofs", driverMigrations, "mysql", driverDB)
+	migration, err := migrate.NewWithInstance("iofs", driverMigrations, "mysql", driverDB)
 	if err != nil {
-		return err
+		return &MigrationError{
+			Err:         err,
+			Description: "failed to create migration instance",
+		}
 	}
 
-	err = m.Up()
+	err = migration.Up()
 	if err != nil && err.Error() != "no change" {
-		return err
+		return &MigrationError{
+			Err:         err,
+			Description: "failed to apply migration",
+		}
 	}
 
 	return nil

@@ -26,27 +26,21 @@ func (s *Store) Init(ctx context.Context) error {
 	// Graceful shutdown
 	go func() {
 		<-ctx.Done()
-
-		_ = s.close()
+		// Nothing to do
 	}()
 
 	return nil
 }
 
 // GetConn - get connect
-func (s *Store) GetConn() any {
-	return nil
-}
-
-// close - close
-func (s *Store) close() error {
+func (*Store) GetConn() any {
 	return nil
 }
 
 // setConfig - set configuration
 func (s *Store) setConfig() {
 	viper.AutomaticEnv()
-	viper.SetDefault("STORE_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode write to db. Select: 0 (MODE_SINGLE_WRITE), 1 (MODE_BATCH_WRITE)
+	viper.SetDefault("STORE_MODE_WRITE", options.MODE_SINGLE_WRITE) // mode writes to db. Select: 0 (MODE_SINGLE_WRITE), 1 (MODE_BATCH_WRITE)
 
 	s.config = Config{
 		mode: viper.GetInt("STORE_MODE_WRITE"),

@@ -34,7 +34,7 @@ func (s *Store) Init(ctx context.Context) error {
 	if err != nil {
 		return &StoreError{
 			Op:      "CreateClientDSN",
-			Err:     fmt.Errorf("%w: %w", ErrEdgeDBConnect, err),
+			Err:     fmt.Errorf("%w: %w", ErrConnect, err),
 			Details: "failed to connect to EdgeDB at " + s.config.URI,
 		}
 	}
@@ -56,7 +56,16 @@ func (s *Store) GetConn() any {
 
 // close - close
 func (s *Store) close() error {
-	return s.client.Close()
+	err := s.client.Close()
+	if err != nil {
+		return &StoreError{
+			Op:      "close",
+			Err:     fmt.Errorf("%w: %w", ErrClose, err),
+			Details: "failed to close EdgeDB connection",
+		}
+	}
+
+	return nil
 }
 
 // setConfig - set configuration

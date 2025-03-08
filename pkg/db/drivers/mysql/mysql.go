@@ -107,7 +107,11 @@ func (s *Store) setConfig() error {
 	// parse uri
 	uri, err := url.Parse(viper.GetString("STORE_MYSQL_URI"))
 	if err != nil {
-		return err
+		return &StoreError{
+			Op:      "setConfig",
+			Err:     ErrInvalidDSN,
+			Details: "parsing MySQL URI from environment variable",
+		}
 	}
 
 	values := uri.Query()

@@ -52,7 +52,16 @@ func (s *Store) GetConn() any {
 
 // Close - close
 func (s *Store) close() error {
-	return s.client.Close()
+	err := s.client.Close()
+	if err != nil {
+		return &StoreError{
+			Op:      "close",
+			Err:     fmt.Errorf("%w: %w", ErrBadgerClose, err),
+			Details: "closing Badger DB",
+		}
+	}
+
+	return nil
 }
 
 // setConfig - set configuration

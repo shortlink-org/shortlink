@@ -21,15 +21,10 @@ type Store struct {
 
 // Init - initialize
 func (s *Store) Init(ctx context.Context) error {
+	var err error
+
 	// Set configuration
-	err := s.setConfig()
-	if err != nil {
-		return &StoreError{
-			Op:      "setConfig",
-			Err:     err,
-			Details: "failed to set configuration for Couchbase",
-		}
-	}
+	s.setConfig()
 
 	s.client, err = gocb.Connect(s.config.uri, s.config.options)
 	if err != nil {
@@ -52,7 +47,7 @@ func (s *Store) Init(ctx context.Context) error {
 }
 
 // setConfig - set configuration
-func (s *Store) setConfig() error {
+func (s *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_COUCHBASE_URI", "couchbase://localhost") // Couchbase URI (e.g. couchbase://localhost)
 
@@ -60,6 +55,4 @@ func (s *Store) setConfig() error {
 		uri:     viper.GetString("STORE_COUCHBASE_URI"),
 		options: gocb.ClusterOptions{},
 	}
-
-	return nil
 }

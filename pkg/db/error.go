@@ -4,8 +4,7 @@ import (
 	"errors"
 )
 
-// Common errors for db package
-
+// ErrGetConnection - error gets connection
 var ErrGetConnection = errors.New("error get connection")
 
 // UnknownStoreTypeError - unknown store type error

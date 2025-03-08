@@ -10,6 +10,8 @@ import (
 // Migration - apply migration to db
 // TODO: not support v2
 // issue: https://github.com/golang-migrate/migrate/issues/1145
+//
+//nolint:revive,gocritic // fix later
 func Migration(_ context.Context, store db.DB, fs embed.FS, tableName string) error {
 	// client, ok := store.GetConn().(*mongo.Client)
 	// if !ok {

@@ -5,7 +5,10 @@ import (
 	"fmt"
 )
 
-var ErrEdgeDBConnect = errors.New("failed to connect to EdgeDB")
+var (
+	ErrConnect = errors.New("failed to connect to EdgeDB")
+	ErrClose   = errors.New("failed to close EdgeDB connection")
+)
 
 type StoreError struct {
 	Op      string

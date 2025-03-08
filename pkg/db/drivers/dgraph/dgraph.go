@@ -88,7 +88,7 @@ func (s *Store) migrate(ctx context.Context) error {
 	}()
 
 	// TODO: use migration tool
-	op := &api.Operation{
+	operation := &api.Operation{
 		Schema: `
 type Link {
 	url: string
@@ -106,7 +106,16 @@ updated_at: datetime .
 `,
 	}
 
-	return s.client.Alter(ctx, op)
+	err := s.client.Alter(ctx, operation)
+	if err != nil {
+		return &StoreError{
+			Op:      "Alter",
+			Err:     err,
+			Details: "failed to alter Dgraph schema",
+		}
+	}
+
+	return nil
 }
 
 // setConfig - set configuration

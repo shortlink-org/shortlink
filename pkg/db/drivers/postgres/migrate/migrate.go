@@ -23,7 +23,10 @@ func Migration(_ context.Context, store db.DB, fs embed.FS, tableName string) er
 
 	driverMigrations, err := iofs.New(fs, "migrations")
 	if err != nil {
-		return err
+		return &MigrationError{
+			Err:         err,
+			Description: "failed to create migration source",
+		}
 	}
 
 	conn := stdlib.OpenDBFromPool(client)
@@ -32,19 +35,25 @@ func Migration(_ context.Context, store db.DB, fs embed.FS, tableName string) er
 		MigrationsTable: "schema_migrations_" + strings.ReplaceAll(tableName, "-", "_"),
 	})
 	if err != nil {
-		return err
+		return &MigrationError{
+			Err:         err,
+			Description: "failed to create migration driver",
+		}
 	}
 
-	m, err := migrate.NewWithInstance("iofs", driverMigrations, "postgres", driverDB)
+	migration, err := migrate.NewWithInstance("iofs", driverMigrations, "postgres", driverDB)
 	if err != nil {
-		return err
+		return &MigrationError{
+			Err:         err,
+			Description: "failed to create migration instance",
+		}
 	}
 
-	err = m.Up()
+	err = migration.Up()
 	if err != nil && err.Error() != "no change" {
 		return &MigrationError{
-			error: err,
-			Table: tableName,
+			Err:         err,
+			Description: "failed to apply migration",
 		}
 	}
 

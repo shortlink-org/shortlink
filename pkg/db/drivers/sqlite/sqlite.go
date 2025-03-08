@@ -82,7 +82,16 @@ func (s *Store) GetConn() any {
 
 // close - close connection
 func (s *Store) close() error {
-	return s.client.Close()
+	err := s.client.Close()
+	if err != nil {
+		return &StoreError{
+			Op:      "close",
+			Err:     err,
+			Details: "failed to close connection",
+		}
+	}
+
+	return nil
 }
 
 // setConfig - set configuration

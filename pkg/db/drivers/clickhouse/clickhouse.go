@@ -34,7 +34,7 @@ func (s *Store) Init(ctx context.Context) error {
 	if err := s.client.Ping(ctx); err != nil {
 		return &StoreError{
 			Op:      "init",
-			Err:     fmt.Errorf("%w: %w", ErrClickhousePing, err),
+			Err:     fmt.Errorf("%w: %w", ErrPing, err),
 			Details: "pinging Clickhouse after connection",
 		}
 	}
@@ -56,7 +56,16 @@ func (s *Store) GetConn() any {
 
 // Close - close
 func (s *Store) close() error {
-	return s.client.Close()
+	err := s.client.Close()
+	if err != nil {
+		return &StoreError{
+			Op:      "close",
+			Err:     fmt.Errorf("%w: %w", ErrClose, err),
+			Details: "closing Clickhouse connection",
+		}
+	}
+
+	return nil
 }
 
 // setConfig - set configuration

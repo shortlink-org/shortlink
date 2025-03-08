@@ -7,10 +7,10 @@ import (
 
 // Common error variables for Clickhouse store operations.
 var (
-	// ErrClickhousePing indicates that a Ping to the Clickhouse database failed.
-	ErrClickhousePing = errors.New("failed to ping Clickhouse database")
-	// ErrClickhouseConnect indicates that connecting to Clickhouse failed.
-	ErrClickhouseConnect = errors.New("failed to connect to Clickhouse database")
+	// ErrPing indicates that a Ping to the Clickhouse database failed.
+	ErrPing = errors.New("failed to ping Clickhouse database")
+	// ErrClose indicates that closing the Clickhouse connection failed.
+	ErrClose = errors.New("failed to close Clickhouse connection")
 )
 
 // StoreError is a custom error type for Clickhouse store operations with additional details.
