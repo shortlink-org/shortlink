@@ -8,9 +8,9 @@ import (
 type insecureMetadataCreds map[string]string
 
 // RequireTransportSecurity returns false to indicate that transport security is not required.
-func (c insecureMetadataCreds) RequireTransportSecurity() bool { return false }
+func (insecureMetadataCreds) RequireTransportSecurity() bool { return false }
 
 // GetRequestMetadata returns the static metadata.
-func (c insecureMetadataCreds) GetRequestMetadata(ctx context.Context, uri ...string) (map[string]string, error) {
+func (c insecureMetadataCreds) GetRequestMetadata(_ context.Context, _ ...string) (map[string]string, error) {
 	return c, nil
 }

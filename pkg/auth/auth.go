@@ -17,7 +17,7 @@ func New(log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Mon
 
 	config, err := rpc.SetClientConfig(tracer, monitor, log)
 	if err != nil {
-		return nil, err
+		return nil, &ConfigurationError{Cause: err}
 	}
 
 	options := config.GetOptions()
@@ -27,7 +27,7 @@ func New(log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Mon
 
 	client, err := authzed.NewClient(config.GetURI(), options...)
 	if err != nil {
-		return nil, err
+		return nil, &ClientInitError{Cause: err}
 	}
 
 	return client, nil

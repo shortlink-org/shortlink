@@ -89,9 +89,11 @@ linters-settings:
 
   gci:
     sections:
-      - standard
-      - default
+      - standard # Standard section: captures all standard packages.
+      - default # Default section: contains all imports that could not be matched to another section type.
       - prefix(github.com/shortlink-org/shortlink)
+    skip-generated: true
+    custom-order: true
 
   gocritic:
     enable-all: true
@@ -369,6 +371,7 @@ linters:
     - tenv # deprecated. replaced by usetesting
     - depguard
     - gomoddirectives
+    - importas # doesn't work correctly
 
 issues:
 
