@@ -19,10 +19,17 @@ func New() *SyncMap {
 	}
 }
 
+// Get returns the value stored in the map for a key
 func (s *SyncMap) Get(key any) any {
-	return s.m.Load().(map[any]any)[key] //nolint:forcetypeassert // ignore
+	m, ok := s.m.Load().(map[any]any)
+	if !ok {
+		return nil
+	}
+
+	return m[key]
 }
 
+// Set stores a value in the map for a key
 func (s *SyncMap) Set(key, value any) {
 	m, ok := s.m.Load().(map[any]any)
 	if !ok {

@@ -98,6 +98,7 @@ linters-settings:
   exhaustruct:
     exclude:
       - '^github\.com/go-redis/cache/v9\.Options$'
+      - '^github\.com/shortlink-org/shortlink/pkg/concurrency/rate_limiter\.RateLimiter$'
 
   gocritic:
     enable-all: true
@@ -169,6 +170,8 @@ linters-settings:
     # Enable all analyzers.
     # Default: false
     enable-all: true
+    disable:
+      - fieldalignment # save readability of code, we use this optimization for building pipelines
 
   iface:
     enable:
@@ -309,9 +312,79 @@ linters-settings:
         disabled: false
         exclude: [ "" ]
         arguments: [ 15 ]
+      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#var-naming
+      - name: var-naming
+        severity: warning
+        disabled: false
+        exclude: [""]
+        arguments:
+          - ["ID"] # AllowList
+          - ["VM"] # DenyList
+          - - skipPackageNameChecks: true
+
+      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#cognitive-complexity
+      - name: cognitive-complexity
+        severity: warning
+        disabled: false
+        exclude: [""]
+        arguments: [10]
 
   testifylint:
     enable-all: true
+
+  stylecheck:
+    checks:
+      # Incorrect or missing package comment.
+      # https://staticcheck.dev/docs/checks/#ST1000
+      - ST1000
+      # Dot imports are discouraged.
+      # https://staticcheck.dev/docs/checks/#ST1001
+      - ST1001
+      # Incorrectly formatted error string.
+      # https://staticcheck.dev/docs/checks/#ST1005
+      - ST1005
+      # Poorly chosen receiver name.
+      # https://staticcheck.dev/docs/checks/#ST1006
+      - ST1006
+      # A function's error value should be its last return value.
+      # https://staticcheck.dev/docs/checks/#ST1008
+      - ST1008
+      # Poorly chosen name for variable of type 'time.Duration'.
+      # https://staticcheck.dev/docs/checks/#ST1011
+      - ST1011
+      # Poorly chosen name for error variable.
+      # https://staticcheck.dev/docs/checks/#ST1012
+      - ST1012
+      # Should use constants for HTTP error codes, not magic numbers.
+      # https://staticcheck.dev/docs/checks/#ST1013
+      - ST1013
+      # A switch's default case should be the first or last case.
+      # https://staticcheck.dev/docs/checks/#ST1015
+      - ST1015
+      # Use consistent method receiver names.
+      # https://staticcheck.dev/docs/checks/#ST1016
+      - ST1016
+      # Don't use Yoda conditions.
+      # https://staticcheck.dev/docs/checks/#ST1017
+      - ST1017
+      # Avoid zero-width and control characters in string literals.
+      # https://staticcheck.dev/docs/checks/#ST1018
+      - ST1018
+      # Importing the same package multiple times.
+      # https://staticcheck.dev/docs/checks/#ST1019
+      - ST1019
+      # The documentation of an exported function should start with the function's name.
+      # https://staticcheck.dev/docs/checks/#ST1020
+      - ST1020
+      # The documentation of an exported type should start with type's name.
+      # https://staticcheck.dev/docs/checks/#ST1021
+      - ST1021
+      # The documentation of an exported variable or constant should start with variable's name.
+      # https://staticcheck.dev/docs/checks/#ST1022
+      - ST1022
+      # Redundant type in variable declaration.
+      # https://staticcheck.dev/docs/checks/#ST1023
+      - ST1023
 
   usestdlibvars:
     # Suggest the use of time.Month
@@ -328,29 +401,16 @@ linters-settings:
     default-rpc-path: true
 
   varnamelen:
-    # The longest distance, in source lines, that is being considered a "small scope".
-    # Variables used in at most this many lines will be ignored.
-    # Default: 5
     max-distance: 6
-    # Check method receiver names.
-    # Default: false
-    check-receiver: true
-    # Check named return values.
-    # Default: false
+    check-receiver: false
     check-return: true
-    # Ignore "ok" variables that hold the bool return value of a type assertion.
-    # Default: false
-    ignore-type-assert-ok: true
-    # Ignore "ok" variables that hold the bool return value of a map index.
-    # Default: false
-    ignore-map-index-ok: true
-    # Ignore "ok" variables that hold the bool return value of a channel receive.
-    # Default: false
-    ignore-chan-recv-ok: true
-    # Optional list of variable names that should be ignored completely.
-    # Default: []
+    check-type-param: true
     ignore-names:
       - err
+      - wg # wait group
+      - wp # worker pool
+      - rl # rate limiter
+      - T # generic type
 
   fatcontext:
     # Check for potential fat contexts in struct pointers.
@@ -403,3 +463,10 @@ issues:
 
   # Fix found issues (if it's supported by the linter).
   fix: false
+
+  exclude-rules:
+    - path: (.+)_test.go
+      linters:
+        - wrapcheck
+        - varnamelen
+        - nilnil

@@ -1,4 +1,4 @@
-package rate_limiter
+package rate_limiter_test
 
 import (
 	"context"
@@ -8,6 +8,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 	"golang.org/x/sync/errgroup"
+
+	"github.com/shortlink-org/shortlink/pkg/concurrency/rate_limiter"
 )
 
 func TestRateLimiter(t *testing.T) {
@@ -17,7 +19,7 @@ func TestRateLimiter(t *testing.T) {
 	ctx, cancel := context.WithTimeout(t.Context(), 5*time.Second)
 	defer cancel()
 
-	rl, err := New(ctx, 100, 5*time.Millisecond)
+	rl, err := rate_limiter.New(ctx, 100, 5*time.Millisecond)
 	require.NoError(t, err)
 
 	var wg errgroup.Group

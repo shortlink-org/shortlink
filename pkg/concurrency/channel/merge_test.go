@@ -1,4 +1,4 @@
-package channel
+package channel_test
 
 import (
 	"context"
@@ -8,6 +8,8 @@ import (
 
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
+
+	"github.com/shortlink-org/shortlink/pkg/concurrency/channel"
 )
 
 func TestMain(m *testing.M) {
@@ -32,9 +34,10 @@ func TestMerge(t *testing.T) {
 	close(ch2)
 
 	// Merge channels
-	chMerged := Merge(ch1, ch2)
+	chMerged := channel.Merge(ch1, ch2)
 
 	ctx := t.Context()
+
 	ctx, cancel := context.WithTimeout(ctx, 1*time.Second)
 	defer cancel()
 

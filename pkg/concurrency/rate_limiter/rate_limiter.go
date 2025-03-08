@@ -2,35 +2,40 @@ package rate_limiter
 
 import (
 	"context"
+	"errors"
 	"sync"
 	"time"
 )
 
-type RateLimiter struct {
-	mu  sync.Mutex
-	ctx context.Context
+var ErrRateLimiterCanceled = errors.New("rate limiter context canceled")
 
-	limit   int64
+type RateLimiter struct {
+	mu   sync.Mutex
+	done chan struct{}
+
 	limiter chan struct{}
 	ticker  *time.Ticker
+	limit   int64
 }
 
 func New(ctx context.Context, limit int64, interval time.Duration) (*RateLimiter, error) {
 	ticker := time.NewTicker(interval)
+	done := make(chan struct{})
 
 	rl := &RateLimiter{
-		ctx:     ctx,
-		limit:   limit,
 		limiter: make(chan struct{}, limit),
 		ticker:  ticker,
+		limit:   limit,
+		done:    done,
 	}
 
 	go rl.refill()
 
-	// Graceful shutdown
+	// Graceful shutdown: when the context is canceled, signal via the done channel.
 	go func() {
 		<-ctx.Done()
-		rl.ticker.Stop()
+		close(done)
+		ticker.Stop()
 		close(rl.limiter)
 	}()
 
@@ -44,8 +49,8 @@ func (r *RateLimiter) Wait() error {
 	select {
 	case <-r.limiter:
 		return nil
-	case <-r.ctx.Done():
-		return r.ctx.Err()
+	case <-r.done:
+		return ErrRateLimiterCanceled
 	}
 }
 
@@ -54,13 +59,14 @@ func (r *RateLimiter) refill() {
 	for {
 		select {
 		case <-r.ticker.C:
+			// Refill up to 'limit' tokens.
 			for range r.limit {
 				select {
 				case r.limiter <- struct{}{}:
 				default:
 				}
 			}
-		case <-r.ctx.Done():
+		case <-r.done:
 			r.ticker.Stop()
 			return
 		}

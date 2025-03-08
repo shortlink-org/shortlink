@@ -13,14 +13,14 @@ type Worker struct {
 }
 
 func NewWorker(taskQueue <-chan Task, result chan<- Result) *Worker {
-	w := &Worker{
+	worker := &Worker{
 		taskQueue: taskQueue,
 		result:    result,
 	}
 
-	go w.run()
+	go worker.run()
 
-	return w
+	return worker
 }
 
 func (w *Worker) run() {

@@ -5,18 +5,21 @@ import (
 )
 
 // Merge merges multiple channels into one.
-func Merge[T any](cs ...<-chan T) <-chan T {
+func Merge[T any](items ...<-chan T) <-chan T {
 	out := make(chan T)
+
 	var wg sync.WaitGroup
 
-	wg.Add(len(cs))
-	for _, c := range cs {
+	wg.Add(len(items))
+
+	for _, item := range items {
 		go func(c <-chan T) {
 			for n := range c {
 				out <- n
 			}
+
 			wg.Done()
-		}(c)
+		}(item)
 	}
 
 	go func() {

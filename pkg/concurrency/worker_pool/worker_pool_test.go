@@ -1,4 +1,4 @@
-package worker_pool
+package worker_pool_test
 
 import (
 	"os"
@@ -6,6 +6,8 @@ import (
 	"testing"
 
 	"go.uber.org/goleak"
+
+	"github.com/shortlink-org/shortlink/pkg/concurrency/worker_pool"
 )
 
 func TestMain(m *testing.M) {
@@ -15,7 +17,7 @@ func TestMain(m *testing.M) {
 }
 
 func Test_WorkerPool(t *testing.T) {
-	wp := New(10)
+	wp := worker_pool.New(10)
 
 	f := func() (any, error) {
 		// some operation

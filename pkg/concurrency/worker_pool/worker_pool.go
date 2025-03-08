@@ -1,9 +1,5 @@
 package worker_pool
 
-type WP interface {
-	Push(task ...func()) error
-}
-
 type WorkerPool struct {
 	taskQueue chan Task
 	Result    chan Result
