@@ -8,16 +8,13 @@ import (
 
 // Batch is a structure for batch processing
 type Batch[T any] struct {
-	mu sync.Mutex
-
+	ctx      context.Context
 	callback func([]*Item[T]) error
 	items    []*Item[T]
-
+	wg       sync.WaitGroup
 	interval time.Duration
 	size     int
-
-	wg  sync.WaitGroup
-	ctx context.Context
+	mu       sync.Mutex
 }
 
 // Item represents an item that can be pushed to the batch.

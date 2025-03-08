@@ -5,103 +5,110 @@ package batch
 
 import (
 	"context"
+	"sync"
 	"time"
 
 	"github.com/spf13/viper"
 )
 
 // New creates a new batch with a specified callback function.
-func New[T any](ctx context.Context, cb func([]*Item[T]) error, opts ...Option[T]) (*Batch[T], error) {
+func New[T any](ctx context.Context, callback func([]*Item[T]) error, opts ...Option[T]) (*Batch[T], error) {
 	viper.SetDefault("BATCH_INTERVAL", "100ms")
 	viper.SetDefault("BATCH_SIZE", 100)
 
-	b := &Batch[T]{
-		callback: cb,
+	batch := &Batch[T]{
+		ctx: ctx,
+		mu:  sync.Mutex{},
+		wg:  sync.WaitGroup{},
+
+		callback: callback,
+		items:    []*Item[T]{},
 		interval: viper.GetDuration("BATCH_INTERVAL"),
 		size:     viper.GetInt("BATCH_SIZE"),
-		ctx:      ctx,
 	}
 
 	// Apply options
 	for _, opt := range opts {
-		opt(b)
+		opt(batch)
 	}
 
-	go b.run()
+	go batch.run()
 
-	return b, nil
+	return batch, nil
 }
 
 // Push adds an item to the batch.
-func (b *Batch[T]) Push(item T) chan T {
+func (batch *Batch[T]) Push(item T) chan T {
 	newItem := &Item[T]{
 		CallbackChannel: make(chan T, 1),
 		Item:            item,
 	}
 
 	select {
-	case <-b.ctx.Done():
+	case <-batch.ctx.Done():
 		close(newItem.CallbackChannel)
 		return newItem.CallbackChannel
 	default:
 	}
 
-	b.mu.Lock()
-	b.items = append(b.items, newItem)
-	shouldFlush := len(b.items) >= b.size
-	b.mu.Unlock()
+	batch.mu.Lock()
+	batch.items = append(batch.items, newItem)
+	shouldFlush := len(batch.items) >= batch.size
+	batch.mu.Unlock()
 
 	// If the batch is full, flush it
 	if shouldFlush {
-		go b.flushItems()
+		go batch.flushItems()
 	}
 
 	return newItem.CallbackChannel
 }
 
 // run starts a loop flushing at the specified interval.
-func (b *Batch[T]) run() {
-	ticker := time.NewTicker(b.interval)
+func (batch *Batch[T]) run() {
+	ticker := time.NewTicker(batch.interval)
 	defer ticker.Stop()
 
 	for {
 		select {
-		case <-b.ctx.Done():
-			b.flushItems()
-			b.wg.Wait()
-			b.closePendingChannels()
+		case <-batch.ctx.Done():
+			batch.flushItems()
+			batch.wg.Wait()
+			batch.closePendingChannels()
 
 			return
 		case <-ticker.C:
-			b.flushItems()
+			batch.flushItems()
 		}
 	}
 }
 
-func (b *Batch[T]) closePendingChannels() {
-	b.mu.Lock()
-	defer b.mu.Unlock()
+func (batch *Batch[T]) closePendingChannels() {
+	batch.mu.Lock()
+	defer batch.mu.Unlock()
 
-	for _, item := range b.items {
+	for _, item := range batch.items {
 		close(item.CallbackChannel)
 	}
 }
 
 // flushItems flushes all items to the callback function.
-func (b *Batch[T]) flushItems() {
-	b.mu.Lock()
-	items := b.items
-	b.items = nil
-	b.mu.Unlock()
+func (batch *Batch[T]) flushItems() {
+	batch.mu.Lock()
+	items := batch.items
+	batch.items = nil
+	batch.mu.Unlock()
 
 	if len(items) == 0 {
 		return
 	}
 
-	b.wg.Add(1)
+	batch.wg.Add(1)
+
 	go func() {
-		defer b.wg.Done()
-		if err := b.callback(items); err != nil {
+		defer batch.wg.Done()
+
+		if err := batch.callback(items); err != nil {
 			// Handle error if necessary
 		}
 	}()
