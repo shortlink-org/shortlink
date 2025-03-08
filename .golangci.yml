@@ -95,6 +95,10 @@ linters-settings:
     skip-generated: true
     custom-order: true
 
+  exhaustruct:
+    exclude:
+      - '^github\.com/go-redis/cache/v9\.Options$'
+
   gocritic:
     enable-all: true
     disabled-checks:

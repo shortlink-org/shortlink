@@ -21,6 +21,7 @@ func New(ctx context.Context, tracer trace.TracerProvider, monitor *monitoring.M
 	viper.SetDefault("LOCAL_CACHE_METRICS_ENABLED", true)
 
 	store := redis.New(tracer, monitor.Metrics)
+
 	err := store.Init(ctx)
 	if err != nil {
 		return nil, &InitCacheError{err}
