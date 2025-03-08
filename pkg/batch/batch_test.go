@@ -27,7 +27,7 @@ func TestNew(t *testing.T) {
 
 		aggrCB := func(args []*Item[string]) error {
 			for _, item := range args {
-				time.Sleep(time.Microsecond * 100) // Emulate long work
+				time.Sleep(100 * time.Microsecond) // Emulate long work
 
 				item.CallbackChannel <- item.Item
 				close(item.CallbackChannel)
@@ -36,35 +36,43 @@ func TestNew(t *testing.T) {
 			return nil
 		}
 
-		b, err := New(ctx, aggrCB)
-		require.NoError(t, err)
+		b, errChan := New(ctx, aggrCB)
+		require.NotNil(t, b)
+		require.NotNil(t, errChan)
 
 		requests := []string{"A", "B", "C", "D"}
 		for _, request := range requests {
 			res := b.Push(request)
 
-			req := request // Capture range variable
 			eg.Go(func() error {
 				val, ok := <-res
 				require.True(t, ok)
-				require.Equal(t, req, val)
+				require.Equal(t, request, val)
+
 				return nil
 			})
 		}
 
-		err = eg.Wait()
-		require.NoError(t, err)
+		require.NoError(t, eg.Wait())
+
+		// Cancel the context to trigger cleanup.
+		cancelFunc()
+
+		// Drain the error channel (should be closed without any error)
+		for range errChan {
+			// No errors expected.
+		}
 	})
 
 	t.Run("Check context cancellation", func(t *testing.T) {
-		ctx, cancelFunc := context.WithTimeout(context.Background(), time.Millisecond*10)
+		ctx, cancelFunc := context.WithTimeout(context.Background(), 10*time.Millisecond)
 		defer cancelFunc()
 
 		eg, ctx := errgroup.WithContext(ctx)
 
 		aggrCB := func(args []*Item[string]) error {
 			for _, item := range args {
-				time.Sleep(time.Second * 10) // Emulate long work
+				time.Sleep(10 * time.Second) // Emulate long work
 
 				item.CallbackChannel <- item.Item
 				close(item.CallbackChannel)
@@ -74,9 +82,9 @@ func TestNew(t *testing.T) {
 		}
 
 		requests := []string{"A", "B", "C", "D"}
-
-		b, err := New(ctx, aggrCB)
-		require.NoError(t, err)
+		b, errChan := New(ctx, aggrCB)
+		require.NotNil(t, b)
+		require.NotNil(t, errChan)
 
 		for _, request := range requests {
 			res := b.Push(request)
@@ -84,11 +92,11 @@ func TestNew(t *testing.T) {
 			eg.Go(func() error {
 				_, ok := <-res
 				require.False(t, ok)
+
 				return nil
 			})
 		}
 
-		err = eg.Wait()
-		require.NoError(t, err)
+		require.NoError(t, eg.Wait())
 	})
 }

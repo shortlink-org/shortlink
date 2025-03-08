@@ -1,14 +1,14 @@
 package batch
 
 import (
-	"context"
 	"sync"
 	"time"
 )
 
 // Batch is a structure for batch processing
 type Batch[T any] struct {
-	ctx      context.Context
+	done     chan struct{}
+	errChan  chan error
 	callback func([]*Item[T]) error
 	items    []*Item[T]
 	wg       sync.WaitGroup

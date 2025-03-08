@@ -97,6 +97,8 @@ linters-settings:
 
   gocritic:
     enable-all: true
+    disabled-checks:
+      - unnamedResult
 
   godot:
     # Comments to be checked: `declarations`, `toplevel`, or `all`.

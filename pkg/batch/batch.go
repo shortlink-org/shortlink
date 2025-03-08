@@ -11,20 +11,26 @@ import (
 	"github.com/spf13/viper"
 )
 
+const defaultErrChanBuffer = 10
+
 // New creates a new batch with a specified callback function.
-func New[T any](ctx context.Context, callback func([]*Item[T]) error, opts ...Option[T]) (*Batch[T], error) {
+func New[T any](ctx context.Context, callback func([]*Item[T]) error, opts ...Option[T]) (*Batch[T], <-chan error) {
 	viper.SetDefault("BATCH_INTERVAL", "100ms")
 	viper.SetDefault("BATCH_SIZE", 100)
+	viper.SetDefault("BATCH_ERROR_BUFFER", defaultErrChanBuffer)
 
 	batch := &Batch[T]{
-		ctx: ctx,
-		mu:  sync.Mutex{},
-		wg:  sync.WaitGroup{},
+		mu: sync.Mutex{},
+		wg: sync.WaitGroup{},
 
 		callback: callback,
 		items:    []*Item[T]{},
 		interval: viper.GetDuration("BATCH_INTERVAL"),
 		size:     viper.GetInt("BATCH_SIZE"),
+		// Instead of storing ctx, use a done channel.
+		done: make(chan struct{}),
+		// Buffered error channel to report errors from callback.
+		errChan: make(chan error, viper.GetInt("BATCH_ERROR_BUFFER")),
 	}
 
 	// Apply options
@@ -32,9 +38,15 @@ func New[T any](ctx context.Context, callback func([]*Item[T]) error, opts ...Op
 		opt(batch)
 	}
 
+	// Launch a goroutine to monitor the passed context.
+	go func() {
+		<-ctx.Done()
+		close(batch.done)
+	}()
+
 	go batch.run()
 
-	return batch, nil
+	return batch, batch.errChan
 }
 
 // Push adds an item to the batch.
@@ -44,8 +56,9 @@ func (batch *Batch[T]) Push(item T) chan T {
 		Item:            item,
 	}
 
+	// Check for cancellation using the done channel.
 	select {
-	case <-batch.ctx.Done():
+	case <-batch.done:
 		close(newItem.CallbackChannel)
 		return newItem.CallbackChannel
 	default:
@@ -56,7 +69,7 @@ func (batch *Batch[T]) Push(item T) chan T {
 	shouldFlush := len(batch.items) >= batch.size
 	batch.mu.Unlock()
 
-	// If the batch is full, flush it
+	// If the batch is full, flush it.
 	if shouldFlush {
 		go batch.flushItems()
 	}
@@ -71,10 +84,11 @@ func (batch *Batch[T]) run() {
 
 	for {
 		select {
-		case <-batch.ctx.Done():
+		case <-batch.done:
 			batch.flushItems()
 			batch.wg.Wait()
 			batch.closePendingChannels()
+			close(batch.errChan)
 
 			return
 		case <-ticker.C:
@@ -83,6 +97,7 @@ func (batch *Batch[T]) run() {
 	}
 }
 
+// closePendingChannels closes all pending channels.
 func (batch *Batch[T]) closePendingChannels() {
 	batch.mu.Lock()
 	defer batch.mu.Unlock()
@@ -97,19 +112,48 @@ func (batch *Batch[T]) flushItems() {
 	batch.mu.Lock()
 	items := batch.items
 	batch.items = nil
+
+	// Check if cancellation has already occurred while still holding the lock.
+	doneClosed := false
+
+	select {
+	case <-batch.done:
+		doneClosed = true
+	default:
+	}
+
 	batch.mu.Unlock()
 
 	if len(items) == 0 {
 		return
 	}
 
+	if doneClosed {
+		for _, item := range items {
+			close(item.CallbackChannel)
+		}
+
+		return
+	}
+
 	batch.wg.Add(1)
 
-	go func() {
+	go func(items []*Item[T]) {
 		defer batch.wg.Done()
 
-		if err := batch.callback(items); err != nil {
-			// Handle error if necessary
+		// Check cancellation again before proceeding.
+		select {
+		case <-batch.done:
+			for _, item := range items {
+				close(item.CallbackChannel)
+			}
+		default:
+			if err := batch.callback(items); err != nil {
+				select {
+				case batch.errChan <- err:
+				default:
+				}
+			}
 		}
-	}()
+	}(items)
 }

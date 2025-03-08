@@ -1,15 +1,16 @@
 ## Batch Processing
 
-This package offers a robust batch processing system for aggregating and processing items efficiently in batches.
-It's designed with concurrency and efficiency in mind, aligning with Go's concurrency patterns.
+This package offers a robust batch processing system for aggregating and processing items efficiently in batches. 
+It's designed with concurrency and efficiency in mind, following Go's concurrency patterns.
 
 ### Features
 
 - **Batch processing:** Groups items for efficient bulk processing.
 - **Concurrency Safe:** Thread-safe for reliable operation under concurrent loads.
-- **Configurable:** Allows for custom batch sizes and tick intervals.
-- **Context Support:** Supports graceful shutdowns and cancellations.
+- **Configurable:** Custom batch sizes and flush intervals via options.
+- **Context Support:** Graceful shutdowns and cancellations without storing contexts.
 - **Generics:** Utilizes Go's generics for type safety.
+- **Error Reporting:** Callback errors are reported through an error channel.
 
 ### Usage
 
@@ -27,40 +28,47 @@ import (
 )
 
 func main() {
-	ctx := context.Background()
+  ctx, cancel := context.WithCancel(context.Background())
+  defer cancel()
 
-	// Define the callback function
-	callback := func(items []*batch.Item[string]) error {
-		for _, item := range items {
-			// Process item
-			time.Sleep(time.Millisecond * 10) // Simulate work
-			item.CallbackChannel <- item.Item + " processed"
-			close(item.CallbackChannel)
-		}
-		return nil
-	}
+  // Define the callback function to process a batch of items.
+  callback := func(items []*batch.Item[string]) error {
+    for _, item := range items {
+      // Simulate processing work.
+      time.Sleep(10 * time.Millisecond)
+      item.CallbackChannel <- item.Item + " processed"
+      close(item.CallbackChannel)
+    }
+    
+    return nil
+  }
 
-	// Create a new batch processor
-	b, err := batch.New(ctx, callback, batch.WithSize, batch.WithInterval[string](time.Second))
-	if err != nil {
-		panic(err)
-	}
+  // Create a new batch processor with custom options.
+  // Note: New returns an error channel to report callback errors.
+  b, errChan := batch.New(ctx, callback, batch.WithSize[string](5), batch.WithInterval[string](time.Second))
 
-	// Push items into the batch processor
-	for i := 0; i < 20; i++ {
-		resChan := b.Push(fmt.Sprintf("Item %d", i))
-		go func(ch chan string) {
-			result, ok := <-ch
-			if ok {
-				fmt.Println(result)
-			} else {
-				fmt.Println("Channel closed before processing")
-			}
-		}(resChan)
-	}
+  // Process errors from the error channel.
+  go func() {
+    for err := range errChan {
+      fmt.Println("Error:", err)
+    }
+  }()
 
-	// Wait to ensure all items are processed
-	time.Sleep(2 * time.Second)
+  // Push items into the batch processor.
+  for i := 0; i < 20; i++ {
+    resChan := b.Push(fmt.Sprintf("Item %d", i))
+    
+    go func(ch chan string) {
+      if result, ok := <-ch; ok {
+        fmt.Println(result)
+      } else {
+        fmt.Println("Channel closed before processing")
+      }
+    }(resChan)
+  }
+
+  // Wait to ensure all items are processed.
+  time.Sleep(2 * time.Second)
 }
 ```
 
