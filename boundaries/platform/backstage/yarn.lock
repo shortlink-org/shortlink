@@ -7037,6 +7037,26 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@backstage/theme@npm:^0.6.2, @backstage/theme@npm:^0.6.4":
+  version: 0.6.4
+  resolution: "@backstage/theme@npm:0.6.4"
+  dependencies:
+    "@emotion/react": "npm:^11.10.5"
+    "@emotion/styled": "npm:^11.10.5"
+    "@mui/material": "npm:^5.12.2"
+  peerDependencies:
+    "@material-ui/core": ^4.12.2
+    "@types/react": ^17.0.0 || ^18.0.0
+    react: ^17.0.0 || ^18.0.0
+    react-dom: ^17.0.0 || ^18.0.0
+    react-router-dom: ^6.3.0
+  peerDependenciesMeta:
+    "@types/react":
+      optional: true
+  checksum: 10c0/e80c6d41b79ad4d4a6dea7c2481b78e6888f5925bcdec27a6eb23a9baa890510c5205d8f55502f1ae509e414269dd640d8659d2b51d2640a0b579944009a19b2
+  languageName: node
+  linkType: hard
+
 "@backstage/theme@npm:^0.6.3":
   version: 0.6.3
   resolution: "@backstage/theme@npm:0.6.3"
@@ -7054,26 +7074,6 @@ __metadata:
     "@types/react":
       optional: true
   checksum: 10c0/5226c77443b44ae4db5ffacd8e7c5d42683998a59283958a7d80018e9128cd3a0453adf848ea5433b6b79a137cdfcc38a6669439a19ae032de78f5e7f798a771
-  languageName: node
-  linkType: hard
-
-"@backstage/theme@npm:^0.6.4":
-  version: 0.6.4
-  resolution: "@backstage/theme@npm:0.6.4"
-  dependencies:
-    "@emotion/react": "npm:^11.10.5"
-    "@emotion/styled": "npm:^11.10.5"
-    "@mui/material": "npm:^5.12.2"
-  peerDependencies:
-    "@material-ui/core": ^4.12.2
-    "@types/react": ^17.0.0 || ^18.0.0
-    react: ^17.0.0 || ^18.0.0
-    react-dom: ^17.0.0 || ^18.0.0
-    react-router-dom: ^6.3.0
-  peerDependenciesMeta:
-    "@types/react":
-      optional: true
-  checksum: 10c0/e80c6d41b79ad4d4a6dea7c2481b78e6888f5925bcdec27a6eb23a9baa890510c5205d8f55502f1ae509e414269dd640d8659d2b51d2640a0b579944009a19b2
   languageName: node
   linkType: hard
 
@@ -12121,21 +12121,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@roadiehq/backstage-plugin-prometheus@npm:^2.11.3":
-  version: 2.11.3
-  resolution: "@roadiehq/backstage-plugin-prometheus@npm:2.11.3"
+"@roadiehq/backstage-plugin-prometheus@npm:^2.11.4":
+  version: 2.11.4
+  resolution: "@roadiehq/backstage-plugin-prometheus@npm:2.11.4"
   dependencies:
-    "@backstage/catalog-model": "npm:^1.6.0"
-    "@backstage/core-components": "npm:^0.14.10"
-    "@backstage/core-plugin-api": "npm:^1.9.3"
-    "@backstage/plugin-catalog-react": "npm:^1.12.3"
-    "@backstage/theme": "npm:^0.5.6"
+    "@backstage/catalog-model": "npm:^1.7.1"
+    "@backstage/core-components": "npm:^0.16.1"
+    "@backstage/core-plugin-api": "npm:^1.10.1"
+    "@backstage/plugin-catalog-react": "npm:^1.14.2"
+    "@backstage/theme": "npm:^0.6.2"
     "@material-ui/core": "npm:^4.12.2"
-    "@material-ui/icons": "npm:^4.9.1"
     "@material-ui/lab": "npm:4.0.0-alpha.45"
     "@types/recharts": "npm:^1.8.14"
-    classnames: "npm:^2.2.6"
-    history: "npm:^5.0.0"
     lodash: "npm:^4.17.21"
     luxon: "npm:^3.0.0"
     nunjucks: "npm:^3.2.4"
@@ -12145,7 +12142,7 @@ __metadata:
   peerDependencies:
     react: ^16.13.1 || ^17.0.0 || ^18.0.0
     react-dom: ^16.13.1 || ^17.0.0 || ^18.0.0
-  checksum: 10c0/0e13cb70638396aa548d3f409acc1569c43fb79e1dcb525e38b8cde7c88b6a0616d888b3b6ab6a18cf11f29b1faf56af060f7a64ca96e8c52589c3df97745958
+  checksum: 10c0/2a39fb6769acd7aa297caca6c912a8cd0cd023552f8de7a9b23cccfdce22d3fee137f59488fcf5bdd9a6e1053e9cb6e2ff36563c102486ae6e36f93d8e939636
   languageName: node
   linkType: hard
 
@@ -16267,7 +16264,7 @@ __metadata:
     "@mui/icons-material": "npm:6.4.7"
     "@mui/material": "npm:^6.4.7"
     "@roadiehq/backstage-plugin-argo-cd": "npm:^2.8.7"
-    "@roadiehq/backstage-plugin-prometheus": "npm:^2.11.3"
+    "@roadiehq/backstage-plugin-prometheus": "npm:^2.11.4"
     "@testing-library/jest-dom": "npm:^6.6.3"
     "@testing-library/react": "npm:^16.2.0"
     "@testing-library/user-event": "npm:^14.6.1"
