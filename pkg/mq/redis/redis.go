@@ -6,7 +6,7 @@ import (
 	"github.com/redis/rueidis"
 
 	"github.com/shortlink-org/shortlink/pkg/db"
-	"github.com/shortlink-org/shortlink/pkg/db/redis"
+	"github.com/shortlink-org/shortlink/pkg/db/drivers/redis"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/mq/query"

@@ -17,8 +17,8 @@ import (
 	"go.uber.org/goleak"
 
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
+	db "github.com/shortlink-org/shortlink/pkg/db/drivers/postgres"
 	"github.com/shortlink-org/shortlink/pkg/db/options"
-	db "github.com/shortlink-org/shortlink/pkg/db/postgres"
 )
 
 func TestMain(m *testing.M) {

@@ -16,7 +16,7 @@ import (
 	"go.uber.org/goleak"
 
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/mock"
-	db "github.com/shortlink-org/shortlink/pkg/db/dgraph"
+	db "github.com/shortlink-org/shortlink/pkg/db/drivers/dgraph"
 )
 
 func TestMain(m *testing.M) {

@@ -15,8 +15,8 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/postgres/schema/crud"
 	"github.com/shortlink-org/shortlink/pkg/batch"
 	"github.com/shortlink-org/shortlink/pkg/db"
+	"github.com/shortlink-org/shortlink/pkg/db/drivers/postgres/migrate"
 	"github.com/shortlink-org/shortlink/pkg/db/options"
-	"github.com/shortlink-org/shortlink/pkg/db/postgres/migrate"
 )
 
 var (

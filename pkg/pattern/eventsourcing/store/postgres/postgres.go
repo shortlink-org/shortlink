@@ -11,7 +11,7 @@ import (
 	"go.opentelemetry.io/otel"
 
 	"github.com/shortlink-org/shortlink/pkg/db"
-	"github.com/shortlink-org/shortlink/pkg/db/postgres/migrate"
+	"github.com/shortlink-org/shortlink/pkg/db/drivers/postgres/migrate"
 	eventsourcing "github.com/shortlink-org/shortlink/pkg/pattern/eventsourcing/domain/eventsourcing/v1"
 )
 

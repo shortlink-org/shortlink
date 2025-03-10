@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/redis/go-redis/v9"
-	"github.com/user/shortlink/pkg/errors"
+	"github.com/syndtr/goleveldb/leveldb/errors"
 )
 
 // RedisClient wraps the Redis client with additional error handling
@@ -75,4 +75,4 @@ func (r *RedisClient) Pipeline() redis.Pipeliner {
 // Client returns the underlying Redis client
 func (r *RedisClient) Client() *redis.Client {
 	return r.client
-} 
+}

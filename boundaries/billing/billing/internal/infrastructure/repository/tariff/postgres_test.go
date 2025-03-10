@@ -12,7 +12,7 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 
-	db "github.com/shortlink-org/shortlink/pkg/db/postgres"
+	db "github.com/shortlink-org/shortlink/pkg/db/drivers/postgres"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/config"
 	"github.com/shortlink-org/shortlink/pkg/pattern/eventsourcing"

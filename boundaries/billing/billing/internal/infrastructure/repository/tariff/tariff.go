@@ -11,7 +11,7 @@ import (
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/billing/billing/internal/domain/tariff/v1"
 	"github.com/shortlink-org/shortlink/pkg/db"
-	"github.com/shortlink-org/shortlink/pkg/db/postgres/migrate"
+	"github.com/shortlink-org/shortlink/pkg/db/drivers/postgres/migrate"
 )
 
 var (

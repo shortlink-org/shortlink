@@ -10,7 +10,7 @@ import (
 	"go.opentelemetry.io/otel/trace"
 
 	db2 "github.com/shortlink-org/shortlink/pkg/db"
-	"github.com/shortlink-org/shortlink/pkg/db/redis"
+	"github.com/shortlink-org/shortlink/pkg/db/drivers/redis"
 	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 )
 

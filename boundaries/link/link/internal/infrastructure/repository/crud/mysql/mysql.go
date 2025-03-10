@@ -15,7 +15,7 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/mysql/schema/crud"
 	types "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
 	"github.com/shortlink-org/shortlink/pkg/db"
-	"github.com/shortlink-org/shortlink/pkg/db/mysql/migrate"
+	"github.com/shortlink-org/shortlink/pkg/db/drivers/mysql/migrate"
 )
 
 var (

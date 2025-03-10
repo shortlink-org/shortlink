@@ -11,7 +11,7 @@ import (
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/require"
 
-	db "github.com/shortlink-org/shortlink/pkg/db/mongo"
+	db "github.com/shortlink-org/shortlink/pkg/db/drivers/mongo"
 	"github.com/shortlink-org/shortlink/pkg/db/options"
 )
 
