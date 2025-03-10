@@ -206,8 +206,7 @@ linters-settings:
 
   nestif:
     # Minimal complexity of if statements to report.
-    # Default: 5
-    min-complexity: 8
+    min-complexity: 30
 
   nlreturn:
     # Size of the block (including return statement that is still "OK")
@@ -306,28 +305,42 @@ linters-settings:
         severity: warning
         disabled: false
         exclude: [ "" ]
-        arguments: [ 15 ]
-      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#var-naming
-      - name: var-naming
-        disabled: true
+        arguments: [ 30 ]
       # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#cognitive-complexity
       - name: cognitive-complexity
         severity: warning
         disabled: false
         exclude: [""]
-        arguments: [10]
+        arguments: [40]
       # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#import-alias-naming
       - name: import-alias-naming
         severity: warning
         disabled: false
         exclude: [ "" ]
         arguments:
-          - "^[a-zA-Z][a-zA-Z0-9]{0,}$"
+          - "^[a-zA-Z][a-zA-Z0-9_]{0,}$"
+      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#function-length
+      - name: function-length
+        severity: warning
+        disabled: false
+        arguments: [ 75, 0 ]
+      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#var-naming
+      - name: var-naming
+        disabled: true
       # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#blank-imports
       - name: blank-imports
         disabled: true
       # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#unexported-naming
       - name: unexported-naming
+        disabled: true
+      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#increment-decrement
+      - name: increment-decrement
+        disabled: true
+      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#empty-block
+      - name: empty-block
+        disabled: true
+      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#confusing-naming
+      - name: confusing-naming
         disabled: true
 
   testifylint:
@@ -412,6 +425,8 @@ linters-settings:
       - wp # worker pool
       - rl # rate limiter
       - T # generic type
+      - i # index
+      - in # input
 
   fatcontext:
     # Check for potential fat contexts in struct pointers.
@@ -441,6 +456,7 @@ linters:
     - godox # incorrect results
     - depguard
     - gomoddirectives
+    - gochecknoglobals # very noisy
 
 issues:
 
@@ -473,3 +489,5 @@ issues:
         - wrapcheck
         - varnamelen
         - nilnil
+        - gochecknoinits
+        - err113
