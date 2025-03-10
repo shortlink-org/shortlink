@@ -18,6 +18,6 @@ dependencies:
     repository: https://opendatadiscovery.github.io/charts
     condition: odd-platform.enabled
   - name: postgresql
-    version: 16.4.16
+    version: 16.5.0
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: postgresql.enabled
