@@ -86,16 +86,6 @@ updates:
     schedule:
       interval: daily
 
-  - package-ecosystem: docker
-    directory: /boundaries/shortdb/shortdb-operator
-    schedule:
-      interval: daily
-
-  - package-ecosystem: gomod
-    directory: /boundaries/shortdb/shortdb-operator
-    schedule:
-      interval: daily
-
   - package-ecosystem: npm
     directory: /boundaries/ui/mobile/expo/apps/shortlink
     schedule:
