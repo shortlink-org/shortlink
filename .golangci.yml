@@ -438,12 +438,6 @@ linters-settings:
     multi-if: true
     multi-func: true
 
-#  custom:
-#    value-object:
-#      path: pkg/golangci-lint/value-object/bin/value-object.so
-#      description: "Check that a struct is a value object."
-#      original-url: github.com/shortlink-org/shortlink/pkg/golangci-lint/value-object
-
 linters:
   # Enable all available linters.
   # Default: false
@@ -455,7 +449,6 @@ linters:
     - exhaustruct # hard to use
     - godox # incorrect results
     - depguard
-    - gomoddirectives
     - gochecknoglobals # very noisy
 
 issues:
