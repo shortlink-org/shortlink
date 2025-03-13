@@ -3,7 +3,6 @@ package session_interceptor
 import (
 	"context"
 
-	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware/v2"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
 
@@ -39,6 +38,12 @@ func SessionUnaryServerInterceptor() grpc.UnaryServerInterceptor {
 	}
 }
 
+// sessionWrappedServerStream overrides Context() to return the derived context
+type sessionWrappedServerStream struct {
+	grpc.ServerStream
+	ctxFunc func() context.Context
+}
+
 // SessionStreamServerInterceptor - extracts user-id from gRPC metadata and adds it to context for streams
 func SessionStreamServerInterceptor() grpc.StreamServerInterceptor {
 	return func(
@@ -52,8 +57,7 @@ func SessionStreamServerInterceptor() grpc.StreamServerInterceptor {
 			return handler(srv, stream)
 		}
 
-		wrapped := grpc_middleware.WrapServerStream(stream)
-		ctx := wrapped.Context()
+		ctx := stream.Context()
 
 		md, ok := metadata.FromIncomingContext(ctx)
 		if !ok {
@@ -65,8 +69,16 @@ func SessionStreamServerInterceptor() grpc.StreamServerInterceptor {
 			return session.ErrUserIDNotFound
 		}
 
-		wrapped.WrappedContext = session.WithUserID(ctx, userIDs[0])
+		// Create a derived context with user-id
+		newCtx := session.WithUserID(ctx, userIDs[0])
 
+		// Wrap the stream but store only a function that returns newCtx
+		wrapped := &sessionWrappedServerStream{
+			ServerStream: stream,
+			ctxFunc:      func() context.Context { return newCtx },
+		}
+
+		// Invoke the handler with our wrapped stream
 		return handler(srv, wrapped)
 	}
 }

@@ -47,9 +47,10 @@ type server struct {
 
 // InitServer - initialize gRPC server
 func InitServer(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*Server, error) {
-	viper.SetDefault("GRPC_SERVER_ENABLED", true) // gRPC server enable
+	viper.SetDefault("GRPC_SERVER_ENABLED", true) // gRPC grpServer enable
 
 	if !viper.GetBool("GRPC_SERVER_ENABLED") {
+		//nolint:nilnil // it's correct logic
 		return nil, nil
 	}
 
@@ -59,24 +60,25 @@ func InitServer(ctx context.Context, log logger.Logger, tracer trace.TracerProvi
 	}
 
 	endpoint := fmt.Sprintf("%s:%d", config.host, config.port)
+
 	lis, err := net.Listen("tcp", endpoint)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("failed to listen: %w", err)
 	}
 
-	// Initialize the gRPC server.
+	// Initialize the gRPC grpServer.
 	rpc := grpc.NewServer(config.optionsNewServer...)
 
-	r := &Server{
+	grpServer := &Server{
 		Server: rpc,
 		Run: func() {
-			// Register reflection service on gRPC server.
+			// Register reflection service on gRPC grpServer.
 			reflection.Register(rpc)
 
 			// After all your registrations, make sure all of the Prometheus metrics are initialized.
 			config.serverMetrics.InitializeMetrics(rpc)
 
-			log.Info("Run gRPC server", field.Fields{"port": config.port, "host": config.host})
+			log.Info("Run gRPC grpServer", field.Fields{"port": config.port, "host": config.host})
 			err = rpc.Serve(lis)
 			if err != nil {
 				log.Error(err.Error())
@@ -89,11 +91,15 @@ func InitServer(ctx context.Context, log logger.Logger, tracer trace.TracerProvi
 	go func() {
 		<-ctx.Done()
 
-		log.Info("Shutdown gRPC server")
+		log.Info("Shutdown gRPC grpServer")
 		rpc.GracefulStop()
 	}()
 
-	return r, err
+	if err != nil {
+		return nil, fmt.Errorf("failed to serve: %w", err)
+	}
+
+	return grpServer, nil
 }
 
 // setConfig - set configuration
@@ -145,8 +151,10 @@ func (s *server) WithMetrics(monitor *monitoring.Monitoring) {
 	)
 	monitor.Prometheus.MustRegister(s.serverMetrics)
 
-	s.interceptorUnaryServerList = append(s.interceptorUnaryServerList, s.serverMetrics.UnaryServerInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
-	s.interceptorStreamServerList = append(s.interceptorStreamServerList, s.serverMetrics.StreamServerInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
+	exemplarFromCtx := grpc_prometheus.WithExemplarFromContext(exemplarFromContext)
+
+	s.interceptorUnaryServerList = append(s.interceptorUnaryServerList, s.serverMetrics.UnaryServerInterceptor(exemplarFromCtx))
+	s.interceptorStreamServerList = append(s.interceptorStreamServerList, s.serverMetrics.StreamServerInterceptor(exemplarFromCtx))
 }
 
 // WithTracer - setup tracing
@@ -167,23 +175,25 @@ func (s *server) WithRecovery(monitor *monitoring.Monitoring) {
 		Name: "grpc_req_panics_recovered_total",
 		Help: "Total number of gRPC requests recovered from internal panic.",
 	})
-	grpcPanicRecoveryHandler := func(p any) (err error) {
+	grpcPanicRecoveryHandler := func(in any) error {
 		panicsTotal.Inc()
 		s.log.Error("recovered from panic", field.Fields{
-			"panic": p,
+			"panic": in,
 			"stack": debug.Stack(),
 		})
 
-		return status.Errorf(codes.Internal, "%s", p)
+		return status.Errorf(codes.Internal, "%s", in)
 	}
 
-	// Create a server. Recovery handlers should typically be last in the chain so that other middleware
-	// (e.g., logging) can operate in the recovered state instead of being directly affected by any panic
-	s.interceptorUnaryServerList = append(s.interceptorUnaryServerList, grpc_recovery.UnaryServerInterceptor(grpc_recovery.WithRecoveryHandler(grpcPanicRecoveryHandler)))
+	recoveryHandler := grpc_recovery.WithRecoveryHandler(grpcPanicRecoveryHandler)
 
 	// Create a server. Recovery handlers should typically be last in the chain so that other middleware
 	// (e.g., logging) can operate in the recovered state instead of being directly affected by any panic
-	s.interceptorStreamServerList = append(s.interceptorStreamServerList, grpc_recovery.StreamServerInterceptor(grpc_recovery.WithRecoveryHandler(grpcPanicRecoveryHandler)))
+	s.interceptorUnaryServerList = append(s.interceptorUnaryServerList, grpc_recovery.UnaryServerInterceptor(recoveryHandler))
+
+	// Create a server. Recovery handlers should typically be last in the chain so that other middleware
+	// (e.g., logging) can operate in the recovered state instead of being directly affected by any panic
+	s.interceptorStreamServerList = append(s.interceptorStreamServerList, grpc_recovery.StreamServerInterceptor(recoveryHandler))
 }
 
 // WithLogger - setup logger
@@ -211,7 +221,7 @@ func (s *server) WithTLS() error {
 	if isEnableTLS {
 		creds, errTLSFromFile := credentials.NewServerTLSFromFile(certFile, keyFile)
 		if errTLSFromFile != nil {
-			return errTLSFromFile
+			return fmt.Errorf("failed to setup TLS: %w", errTLSFromFile)
 		}
 
 		s.optionsNewServer = append(s.optionsNewServer, grpc.Creds(creds))

@@ -4,13 +4,12 @@ import (
 	"context"
 	"runtime/pprof"
 
-	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware/v2"
 	"google.golang.org/grpc"
 )
 
 // UnaryServerInterceptor returns a new unary server interceptors that adds pprof labels.
 func UnaryServerInterceptor() grpc.UnaryServerInterceptor {
-	return func(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp any, err error) {
+	return func(ctx context.Context, req any, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (any, error) {
 		// Extract method information and create labels
 		labels := pprof.Labels("method", info.FullMethod)
 		ctx = pprof.WithLabels(ctx, labels)
@@ -21,21 +20,27 @@ func UnaryServerInterceptor() grpc.UnaryServerInterceptor {
 	}
 }
 
+// pprofWrappedServerStream overrides the Context() method to return the labeled ctx
+type pprofWrappedServerStream struct {
+	grpc.ServerStream
+	ctxFunc func() context.Context
+}
+
 // StreamServerInterceptor returns a new streaming server interceptor that adds pprof labels.
 func StreamServerInterceptor() grpc.StreamServerInterceptor {
 	return func(srv any, stream grpc.ServerStream, info *grpc.StreamServerInfo, handler grpc.StreamHandler) error {
-		// Wrap the server stream and extract the context
-		wrapped := grpc_middleware.WrapServerStream(stream)
-		ctx := wrapped.Context()
+		ctx := stream.Context()
 
 		// Create labels and add them to the context
 		labels := pprof.Labels("method", info.FullMethod)
 		ctx = pprof.WithLabels(ctx, labels)
-
-		// Update the context of the wrapped stream
-		wrapped.WrappedContext = ctx
-
 		pprof.SetGoroutineLabels(ctx)
+
+		// Wrap the server stream in a custom type that overrides the Context() method
+		wrapped := &pprofWrappedServerStream{
+			ServerStream: stream,
+			ctxFunc:      func() context.Context { return ctx },
+		}
 
 		// Proceed with handler and catch any panic
 		return handler(srv, wrapped)

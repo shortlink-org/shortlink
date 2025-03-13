@@ -2,6 +2,7 @@ package session_interceptor
 
 import (
 	"context"
+	"fmt"
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/metadata"
@@ -16,19 +17,27 @@ func SessionUnaryClientInterceptor() grpc.UnaryClientInterceptor {
 		method string,
 		req any,
 		resp any,
-		cc *grpc.ClientConn,
+		clientConn *grpc.ClientConn,
 		invoker grpc.UnaryInvoker,
 		opts ...grpc.CallOption,
 	) error {
-		sess := session.GetSession(ctx)
+		sess, err := session.GetSession(ctx)
+		if err != nil {
+			return fmt.Errorf("failed to get session: %w", err)
+		}
+
 		if sess != nil {
 			ctx = metadata.AppendToOutgoingContext(ctx, "user-id", sess.GetId())
 		} else {
-			userId := session.GetUserID(ctx)
+			userId, err := session.GetUserID(ctx)
+			if err != nil {
+				return fmt.Errorf("failed to get user id: %w", err)
+			}
+
 			ctx = metadata.AppendToOutgoingContext(ctx, "user-id", userId)
 		}
 
-		return invoker(ctx, method, req, resp, cc, opts...)
+		return invoker(ctx, method, req, resp, clientConn, opts...)
 	}
 }
 
@@ -37,16 +46,20 @@ func SessionStreamClientInterceptor() grpc.StreamClientInterceptor {
 	return func(
 		ctx context.Context,
 		desc *grpc.StreamDesc,
-		cc *grpc.ClientConn,
+		clientConnect *grpc.ClientConn,
 		method string,
 		streamer grpc.Streamer,
 		opts ...grpc.CallOption,
 	) (grpc.ClientStream, error) {
-		sess := session.GetSession(ctx)
+		sess, err := session.GetSession(ctx)
+		if err != nil {
+			return nil, fmt.Errorf("failed to get session: %w", err)
+		}
+
 		if sess != nil {
 			ctx = metadata.AppendToOutgoingContext(ctx, "user-id", sess.GetId())
 		}
 
-		return streamer(ctx, desc, cc, method, opts...)
+		return streamer(ctx, desc, clientConnect, method, opts...)
 	}
 }

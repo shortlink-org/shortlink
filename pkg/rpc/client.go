@@ -34,7 +34,7 @@ func (c *Client) GetURI() string {
 }
 
 // InitClient - set up a connection to the server.
-func InitClient(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*grpc.ClientConn, func(), error) {
+func InitClient(_ context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*grpc.ClientConn, func(), error) {
 	config, err := SetClientConfig(tracer, monitor, log)
 	if err != nil {
 		return nil, nil, err
@@ -46,7 +46,7 @@ func InitClient(ctx context.Context, log logger.Logger, tracer trace.TracerProvi
 		config.optionsNewClient...,
 	)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, fmt.Errorf("failed to connect to gRPC server: %w", err)
 	}
 
 	log.Info("Run gRPC Client", field.Fields{"port": config.port, "host": config.host})
@@ -131,7 +131,7 @@ func (c *Client) withTLS() error {
 	if isEnableTLS {
 		creds, err := credentials.NewClientTLSFromFile(certFile, "")
 		if err != nil {
-			return err
+			return fmt.Errorf("failed to setup TLS: %w", err)
 		}
 
 		c.optionsNewClient = append(c.optionsNewClient, grpc.WithTransportCredentials(creds))
@@ -170,8 +170,10 @@ func (c *Client) withMetrics(monitor *monitoring.Monitoring) {
 		),
 	)
 
-	c.interceptorUnaryClientList = append(c.interceptorUnaryClientList, clientMetrics.UnaryClientInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
-	c.interceptorStreamClientList = append(c.interceptorStreamClientList, clientMetrics.StreamClientInterceptor(grpc_prometheus.WithExemplarFromContext(exemplarFromContext)))
+	exemplarFromCtx := grpc_prometheus.WithExemplarFromContext(exemplarFromContext)
+
+	c.interceptorUnaryClientList = append(c.interceptorUnaryClientList, clientMetrics.UnaryClientInterceptor(exemplarFromCtx))
+	c.interceptorStreamClientList = append(c.interceptorStreamClientList, clientMetrics.StreamClientInterceptor(exemplarFromCtx))
 
 	defer func() {
 		if err := recover(); err != nil { //nolint:staticcheck // ignore SA1019: recover from panic by calling a function
