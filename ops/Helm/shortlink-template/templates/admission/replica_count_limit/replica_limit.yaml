@@ -1,7 +1,0 @@
-{{- if .Values.admission.replica_count_limit.enabled }}
-apiVersion: rules.shortlink.best/v1 # defined via a CustomResourceDefinition
-kind: ReplicaLimit
-metadata:
-  name: replica-limit-max
-maxReplicas: 1000
-{{- end }}
