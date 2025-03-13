@@ -4,8 +4,6 @@ Main DI-package
 package di
 
 import (
-	"context"
-
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
 	redisCache "github.com/redis/go-redis/v9"
@@ -32,22 +30,21 @@ import (
 
 // Service - helpers
 type Service struct {
-	// Common
-	Ctx context.Context
+	// Common ---------------------------------------------------
 	Cfg *config.Config
 	Log logger.Logger
 
 	// Security
 	Auth *authzed.Client
 
-	// Delivery
+	// Delivery -------------------------------------------------
 	DB        db.DB
 	Cache     redisCache.UniversalClient
 	MQ        mq.MQ
 	ServerRPC *rpc.Server
 	ClientRPC *grpc.ClientConn
 
-	// Observability
+	// Observability --------------------------------------------
 	Tracer        trace.TracerProvider
 	Monitoring    *monitoring.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
@@ -78,39 +75,38 @@ var FullSet = wire.NewSet(
 	rpc.InitClient,
 )
 
+// NewFullService - constructor for Service
 func NewFullService(
-	// Common
-	ctx context.Context,
+	// Common ---------------------------------------------------
 	cfg *config.Config,
 	log logger.Logger,
 
-	// Delivery
+	// Delivery -------------------------------------------------
 	serverRPC *rpc.Server,
 	clientRPC *grpc.ClientConn,
 	dataBus mq.MQ,
 	store_db db.DB,
 	shortcache redisCache.UniversalClient,
 
-	// Observability
+	// Observability --------------------------------------------
 	monitor *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 ) (*Service, error) {
 	return &Service{
-		// Common
-		Ctx: ctx,
+		// Common ---------------------------------------------------
 		Cfg: cfg,
 		Log: log,
 
-		// Delivery
+		// Delivery -------------------------------------------------
 		MQ:        dataBus,
 		DB:        store_db,
 		Cache:     shortcache,
 		ClientRPC: clientRPC,
 		ServerRPC: serverRPC,
 
-		// Observability
+		// Observability --------------------------------------------
 		Tracer:        tracer,
 		Monitoring:    monitor,
 		PprofEndpoint: pprofHTTP,

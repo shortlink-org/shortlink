@@ -10,6 +10,7 @@ import (
 	pypprof "github.com/grafana/pyroscope-go/godeltaprof/http/pprof"
 	"github.com/spf13/viper"
 
+	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"
 	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
@@ -77,7 +78,7 @@ func New(ctx context.Context, log logger.Logger) (PprofEndpoint, error) {
 		},
 	})
 	if err != nil {
-		return nil, err
+		return nil, &error_di.BaseError{Err: err}
 	}
 
 	log.Info("Run pyroscope", field.Fields{

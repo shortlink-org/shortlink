@@ -5,6 +5,7 @@ import (
 
 	"go.uber.org/automaxprocs/maxprocs"
 
+	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
@@ -16,7 +17,7 @@ func New(log logger.Logger) (AutoMaxPro, func(), error) {
 		log.Info(fmt.Sprintf(s, args...))
 	}))
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, &error_di.BaseError{Err: err}
 	}
 
 	cleanup := func() {

@@ -319,6 +319,13 @@ linters-settings:
         exclude: [ "" ]
         arguments:
           - "^[a-zA-Z][a-zA-Z0-9_]{0,}$"
+      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#argument-limit
+      - name: argument-limit
+        severity: warning
+        disabled: false
+        exclude:
+          - "**/di/*.go"
+        arguments: [ 4 ]
       # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#function-length
       - name: function-length
         severity: warning

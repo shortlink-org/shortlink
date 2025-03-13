@@ -7,12 +7,15 @@ import (
 	"errors"
 
 	"github.com/spf13/viper"
+
+	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
 type Config struct{}
 
 // Init - read .env and ENV variables
-func New() (*Config, error) {
+func New(log logger.Logger) (*Config, error) {
 	viper.SetConfigName(".env")
 	viper.SetConfigType("dotenv")
 	viper.AddConfigPath(".") // look for config in the working directory
@@ -20,13 +23,11 @@ func New() (*Config, error) {
 
 	if err := viper.ReadInConfig(); err != nil {
 		var typeErr viper.ConfigFileNotFoundError
-		if errors.As(err, &typeErr) {
-			// TODO: logger this fact
-			// return errors.New("The .env file has not been found in the current directory")
-			return nil, nil
+		if !errors.As(err, &typeErr) {
+			return nil, &error_di.BaseError{Err: err}
 		}
 
-		return nil, err
+		log.Warn("The .env file has not been found in the current directory")
 	}
 
 	config := &Config{}
@@ -34,7 +35,7 @@ func New() (*Config, error) {
 	// Enable feature toggle
 	err := config.FeatureToogleRun()
 	if err != nil {
-		return nil, err
+		return nil, &error_di.BaseError{Err: err}
 	}
 
 	return config, nil

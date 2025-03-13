@@ -8,10 +8,14 @@ import (
 	"github.com/uber-go/tally/v4/prometheus"
 	sdktally "go.temporal.io/sdk/contrib/tally"
 
+	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
 )
 
+// newPrometheusScope creates a new Prometheus scope.
+//
+//nolint:ireturn // It's make by specification
 func newPrometheusScope(c *prometheus.Configuration, monitor *monitoring.Monitoring, log logger.Logger) (tally.Scope, error) {
 	reporter, err := c.NewReporter(
 		prometheus.ConfigurationOptions{
@@ -22,7 +26,7 @@ func newPrometheusScope(c *prometheus.Configuration, monitor *monitoring.Monitor
 		},
 	)
 	if err != nil {
-		return nil, err
+		return nil, &error_di.BaseError{Err: err}
 	}
 
 	scopeOpts := tally.ScopeOptions{

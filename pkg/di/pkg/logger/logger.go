@@ -6,10 +6,14 @@ import (
 
 	"github.com/spf13/viper"
 
+	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/config"
 )
 
+// New creates a new logger instance
+//
+//nolint:ireturn // It's made by design
 func New(_ context.Context) (logger.Logger, func(), error) {
 	viper.SetDefault("LOG_LEVEL", config.INFO_LEVEL)
 	viper.SetDefault("LOG_TIME_FORMAT", time.RFC3339Nano)
@@ -21,7 +25,7 @@ func New(_ context.Context) (logger.Logger, func(), error) {
 
 	log, err := logger.New(logger.Zap, conf)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, &error_di.BaseError{Err: err}
 	}
 
 	cleanup := func() {
