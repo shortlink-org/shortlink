@@ -28,7 +28,7 @@ postgres = "0.19.10"
 tokio-postgres = { version = "^0.7.13" }
 refinery = { version = "0.8.15", features = ["tokio-postgres"] }
 hyper-util = "0.1.10"
-http-body-util = "0.1.2"
+http-body-util = "0.1.3"
 log = "0.4.26"
 bufbuild_registry_community_neoeinstein-prost = { version = "0.4.0-20240925012807-1610ffa05635.1", registry = "buf" }
 bufbuild_registry_community_neoeinstein-tonic = { version = "0.4.1-20240925012807-1610ffa05635.1", registry = "buf" }
