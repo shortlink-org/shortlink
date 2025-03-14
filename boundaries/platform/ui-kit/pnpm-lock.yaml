@@ -67,7 +67,7 @@ importers:
         version: 11.0.1
       material-react-table:
         specifier: ^3.2.1
-        version: 3.2.1(rgospudohy72si6xpzka5kq5ue)
+        version: 3.2.1(4422595ca570a5ae9bb2ff205a3069f4)
       next:
         specifier: ^15.2.2
         version: 15.2.2(@babel/core@7.26.8)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -109,8 +109,8 @@ importers:
         version: 2.2.1(vite@6.2.1(@types/node@22.13.10)(jiti@2.4.2)(lightningcss@1.29.1)(terser@5.39.0)(yaml@2.6.1))
     devDependencies:
       '@chromatic-com/storybook':
-        specifier: ^3.2.5
-        version: 3.2.5(react@19.0.0)(storybook@8.6.4(prettier@3.4.1))
+        specifier: ^3.2.6
+        version: 3.2.6(react@19.0.0)(storybook@8.6.4(prettier@3.4.1))
       '@storybook/addon-a11y':
         specifier: 8.6.4
         version: 8.6.4(storybook@8.6.4(prettier@3.4.1))
@@ -405,8 +405,8 @@ packages:
     resolution: {integrity: sha512-eUuWapzEGWFEpHFxgEaBG8e3n6S8L3MSu0oda755rOfabWPnh0Our1AozNFVUxGFIhbKgd1ksprsoDGMinTOTA==}
     engines: {node: '>=6.9.0'}
 
-  '@chromatic-com/storybook@3.2.5':
-    resolution: {integrity: sha512-Y388ft6po5FmGKdkcqz3r2sW6aMF5DSBaatC0jvT5bI/Dh27RJw3gPTmXJcZVNjteNl6tpiP3qxZ9MswAk5luw==}
+  '@chromatic-com/storybook@3.2.6':
+    resolution: {integrity: sha512-FDmn5Ry2DzQdik+eq2sp/kJMMT36Ewe7ONXUXM2Izd97c7r6R/QyGli8eyh/F0iyqVvbLveNYFyF0dBOJNwLqw==}
     engines: {node: '>=16.0.0', yarn: '>=1.22.18'}
     peerDependencies:
       storybook: ^8.2.0 || ^8.3.0-0 || ^8.4.0-0 || ^8.5.0-0 || ^8.6.0-0
@@ -4208,7 +4208,7 @@ snapshots:
       '@babel/helper-string-parser': 7.25.9
       '@babel/helper-validator-identifier': 7.25.9
 
-  '@chromatic-com/storybook@3.2.5(react@19.0.0)(storybook@8.6.4(prettier@3.4.1))':
+  '@chromatic-com/storybook@3.2.6(react@19.0.0)(storybook@8.6.4(prettier@3.4.1))':
     dependencies:
       chromatic: 11.27.0
       filesize: 10.1.6
@@ -6855,7 +6855,7 @@ snapshots:
 
   map-or-similar@1.5.0: {}
 
-  material-react-table@3.2.1(rgospudohy72si6xpzka5kq5ue):
+  material-react-table@3.2.1(4422595ca570a5ae9bb2ff205a3069f4):
     dependencies:
       '@emotion/react': 11.13.5(@types/react@19.0.10)(react@19.0.0)
       '@emotion/styled': 11.13.5(@emotion/react@11.13.5(@types/react@19.0.10)(react@19.0.0))(@types/react@19.0.10)(react@19.0.0)
