@@ -7,7 +7,7 @@
 | Bounded Context             | Description              | Type subdomain | Docs                                             |
 |-----------------------------|--------------------------|----------------|--------------------------------------------------|
 | API Gateway                 | Gateway for all services | Supporting     | [docs](./boundaries/api/README.md)               |
-| Auth Boundary               | Auth services            | Generic        | [docs](./boundaries/auth/README.md)              |
+| Auth Boundary               | Auth services            | Generic        | [docs](https://github.com/shortlink-org/auth)    |
 | Billing Boundary [External] | Payment services         | Generic        | [docs](https://github.com/shortlink-org/billing) |
 | Chat Boundary               | Chat services            | Supporting     | [docs](./boundaries/chat/README.md)              |
 | Delivery Boundary           | Delivery services        | Supporting     | [docs](./boundaries/delivery/README.md)          |
