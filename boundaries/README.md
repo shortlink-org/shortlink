@@ -9,7 +9,7 @@
 | API Gateway                 | Gateway for all services | Supporting     | [docs](./boundaries/api/README.md)               |
 | Auth Boundary               | Auth services            | Generic        | [docs](https://github.com/shortlink-org/auth)    |
 | Billing Boundary [External] | Payment services         | Generic        | [docs](https://github.com/shortlink-org/billing) |
-| Chat Boundary               | Chat services            | Supporting     | [docs](./boundaries/chat/README.md)              |
+| Chat Boundary [External]    | Chat services            | Supporting     | [docs](https://github.com/shortlink-org/chat)    |
 | Delivery Boundary           | Delivery services        | Supporting     | [docs](./boundaries/delivery/README.md)          |
 | DS Boundary                 | Data Science services    | Supporting     | [docs](./boundaries/ds/README.md)                |
 | Link Boundary [External]    | Link services            | Core           | [docs](https://github.com/shortlink-org/link)    |
