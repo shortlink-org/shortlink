@@ -8,6 +8,7 @@
 |----------------------------------|--------------------------|----------------|-------------------------------------------------------|
 | API Gateway                      | Gateway for all services | Supporting     | [docs](./boundaries/api/README.md)                    |
 | Auth Boundary                    | Auth services            | Generic        | [docs](https://github.com/shortlink-org/auth)         |
+| Accounting Boundary [External]   | Accounting services      | Supporting     | [docs](https://github.com/shortlink-org/accounting)   |
 | Billing Boundary [External]      | Payment services         | Generic        | [docs](https://github.com/shortlink-org/billing)      |
 | Chat Boundary [External]         | Chat services            | Supporting     | [docs](https://github.com/shortlink-org/chat)         |
 | Delivery Boundary [External]     | Delivery services        | Supporting     | [docs](https://github.com/shortlink-org/delivery)     |
@@ -19,7 +20,3 @@
 | Search Boundary [External]       | Search services          | Supporting     | [docs](https://github.com/shortlink-org/search)       |
 | Shop Boundary [External]         | Shop services            | Supporting     | [docs](https://github.com/shortlink-org/shop)         |
 | ShortDB Boundary [External]      | ShortDB services         | Supporting     | [docs](https://github.com/shortlink-org/shortdb)      |
-
-#### Draft context
- 
-- [accounting](./draft/accounting)
