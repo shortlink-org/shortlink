@@ -1,7 +1,0 @@
-BEGIN
-    ISOLATION LEVEL READ COMMITTED;
-
-ALTER TABLE link.links DROP COLUMN created_at;
-ALTER TABLE link.links DROP COLUMN updated_at;
-
-COMMIT;
