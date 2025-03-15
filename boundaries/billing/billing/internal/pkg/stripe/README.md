@@ -1,1 +1,0 @@
-## PROVIDER: stripe

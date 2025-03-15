@@ -5,9 +5,6 @@ use (
 
 	./boundaries/api/api-gateway
 
-	./boundaries/billing/billing
-	./boundaries/billing/wallet
-
 	./boundaries/link/bff
 	./boundaries/link/link
 	./boundaries/link/supplies/knative/kafka-to-elasticsearch
@@ -18,11 +15,6 @@ use (
 
 	./boundaries/platform/istio-extension
 	./boundaries/platform/shortctl
-
-	./boundaries/shop/email-subscription
-	./boundaries/shop/feed
-	./boundaries/shop/oms
-	./boundaries/shop/pricer
 
 	./docs/ADR/decisions/proof/ADR-0007
 
