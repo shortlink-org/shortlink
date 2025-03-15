@@ -7,5 +7,5 @@ terraform {
       source = "terraform-providers/postgresql"
     }
   }
-  required_version = ">= 1.11.1"
+  required_version = ">= 1.11.2"
 }
