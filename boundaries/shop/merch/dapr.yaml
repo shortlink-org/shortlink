@@ -1,9 +1,0 @@
-version: 1
-apps:
-  - appDirPath: ./usecases/order-processor/
-    appID: order-processor
-    appPort: 6006
-    command: ["go", "run", "."]
-  - appID: checkout
-    appDirPath: ./usecases/checkout/
-    command: ["go", "run", "."]
