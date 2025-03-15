@@ -16,7 +16,7 @@
 | Marketing Boundary          | Marketing services       | Supporting     | [docs](./boundaries/marketing/README.md)         |
 | Notification Boundary       | Notification services    | Generic        | [docs](./boundaries/notification/README.md)      |
 | Platform Boundary           | Platform services        | Supporting     | [docs](./boundaries/platform/README.md)          |
-| Search Boundary             | Search services          | Supporting     | [docs](./boundaries/search/README.md)            |
+| Search Boundary [External]  | Search services          | Supporting     | [docs](https://github.com/shortlink-org/search)  |
 | Shop Boundary [External]    | Shop services            | Supporting     | [docs](https://github.com/shortlink-org/shop)    |
 | ShortDB Boundary [External] | ShortDB services         | Supporting     | [docs](https://github.com/shortlink-org/shortdb) |
 
