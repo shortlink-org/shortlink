@@ -10,7 +10,7 @@ require (
 	github.com/XSAM/otelsql v0.37.0
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/authzed/authzed-go v1.3.0
-	github.com/chromedp/chromedp v0.13.1
+	github.com/chromedp/chromedp v0.13.2
 	github.com/couchbase/gocb/v2 v2.9.4
 	github.com/cucumber/godog v0.15.0
 	github.com/dgraph-io/badger/v4 v4.6.0
@@ -100,7 +100,7 @@ require (
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/certifi/gocertifi v0.0.0-20210507211836-431795d63e8d // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
-	github.com/chromedp/cdproto v0.0.0-20250307225615-b9fffb6d31ad // indirect
+	github.com/chromedp/cdproto v0.0.0-20250319231242-a755498943c8 // indirect
 	github.com/chromedp/sysutil v1.1.0 // indirect
 	github.com/codemodus/kace v0.5.1 // indirect
 	github.com/containerd/continuity v0.4.5 // indirect
