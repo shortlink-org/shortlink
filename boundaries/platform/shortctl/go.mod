@@ -5,7 +5,7 @@ go 1.24.1
 require (
 	github.com/pterm/pterm v0.12.80
 	github.com/spf13/cobra v1.9.1
-	github.com/spf13/viper v1.19.0
+	github.com/spf13/viper v1.20.1
 )
 
 require (
@@ -14,6 +14,7 @@ require (
 	atomicgo.dev/schedule v0.1.0 // indirect
 	github.com/containerd/console v1.0.4 // indirect
 	github.com/fsnotify/fsnotify v1.8.0 // indirect
+	github.com/go-viper/mapstructure/v2 v2.2.1 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/gookit/color v1.5.4 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
