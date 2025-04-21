@@ -3,7 +3,7 @@ services:
   registry:
     depends_on:
       - coredns
-    image: registry:2
+    image: registry:3
     container_name: registry
     init: true
     restart: on-failure
