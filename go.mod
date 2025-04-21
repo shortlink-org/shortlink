@@ -9,7 +9,7 @@ require (
 	github.com/Unleash/unleash-client-go/v4 v4.3.0
 	github.com/XSAM/otelsql v0.37.0
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
-	github.com/authzed/authzed-go v1.3.0
+	github.com/authzed/authzed-go v1.4.0
 	github.com/chromedp/chromedp v0.13.6
 	github.com/couchbase/gocb/v2 v2.9.4
 	github.com/cucumber/godog v0.15.0
@@ -81,7 +81,7 @@ require (
 	go.uber.org/goleak v1.3.0
 	go.uber.org/zap v1.27.0
 	golang.org/x/sync v0.13.0
-	google.golang.org/grpc v1.71.0
+	google.golang.org/grpc v1.71.1
 	google.golang.org/protobuf v1.36.6
 	gopkg.in/yaml.v3 v3.0.1
 )
