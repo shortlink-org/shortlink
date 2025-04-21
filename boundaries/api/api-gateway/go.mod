@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/api/api-gateway
 
-go 1.24.1
+go 1.24.2
 
 require (
 	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.5.1-20240420204150-bbba30c24796.2
