@@ -11,7 +11,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: rabbitmq:4.0-management-alpine
+    image: rabbitmq:4.1-management-alpine
     hostname: rabbitmq
     container_name: rabbitmq
     init: true
