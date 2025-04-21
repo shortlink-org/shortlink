@@ -20,7 +20,7 @@ require (
 	github.com/geldata/gel-go v1.1.2
 	github.com/go-chi/chi/v5 v5.2.1
 	github.com/go-redis/cache/v9 v9.0.0
-	github.com/go-sql-driver/mysql v1.9.0
+	github.com/go-sql-driver/mysql v1.9.2
 	github.com/golang-migrate/migrate/v4 v4.18.2
 	github.com/golang/glog v1.2.4
 	github.com/google/cel-go v0.24.1
