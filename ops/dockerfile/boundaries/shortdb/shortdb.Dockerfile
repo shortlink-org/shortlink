@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.14
+# syntax=docker/dockerfile:1.16
 
 # Link: https://github.com/moby/buildkit/blob/master/docs/attestations/sbom.md
 # enable scanning for the intermediate build stage
