@@ -20,7 +20,6 @@ We will use the following structure:
 ├── ops/Helm/{{boundary context}}/{{serviceName}}/Chart.yaml
 ├── .gitlab/ci/workflows/matrix_build_base.yml
 ├── .gitlab/ci/workflows/matrix_build_helm.yml
-├── ops/argocd/boundaries/{{boundary context}}/{{serviceName}}/application.yaml
 └── boundaries/{{serviceName}}
     ├── application/
     ├── docs/
