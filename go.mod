@@ -16,7 +16,7 @@ require (
 	github.com/dgraph-io/badger/v4 v4.6.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/dnwe/otelsarama v0.0.0-20240308230250-9388d9d40bc0
-	github.com/exaring/otelpgx v0.9.0
+	github.com/exaring/otelpgx v0.9.3
 	github.com/geldata/gel-go v1.2.1
 	github.com/go-chi/chi/v5 v5.2.1
 	github.com/go-redis/cache/v9 v9.0.0
@@ -31,7 +31,7 @@ require (
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.1
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.1
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb
-	github.com/jackc/pgx/v5 v5.7.2
+	github.com/jackc/pgx/v5 v5.7.4
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a
 	github.com/lib/pq v1.10.9
 	github.com/mattn/go-sqlite3 v1.14.28
