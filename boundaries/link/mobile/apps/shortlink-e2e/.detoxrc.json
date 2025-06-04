@@ -1,0 +1,89 @@
+{
+  "testRunner": {
+    "args": {
+      "$0": "jest",
+      "config": "./jest.config.json"
+    },
+    "jest": {
+      "setupTimeout": 120000
+    }
+  },
+  "apps": {
+    "ios.debug": {
+      "type": "ios.app",
+      "build": "cd ../../apps/shortlink/ios && xcodebuild -workspace Shortlink.xcworkspace -scheme Shortlink -configuration Debug -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14' -derivedDataPath ./build -quiet",
+      "binaryPath": "../../apps/shortlink/ios/build/Build/Products/Debug-iphonesimulator/Shortlink.app"
+    },
+    "ios.release": {
+      "type": "ios.app",
+      "build": "cd ../../apps/shortlink/ios && xcodebuild -workspace Shortlink.xcworkspace -scheme Shortlink -configuration Release -sdk iphonesimulator -destination 'platform=iOS Simulator,name=iPhone 14' -derivedDataPath ./build -quiet",
+      "binaryPath": "../../apps/shortlink/ios/build/Build/Products/Release-iphonesimulator/Shortlink.app"
+    },
+
+    "ios.local": {
+      "type": "ios.app",
+      "build": "npx nx run shortlink:build --platform ios --profile preview --wait --local --no-interactive --output=../../apps/shortlink/dist/Shortlink.tar.gz",
+      "binaryPath": "../../apps/shortlink/dist/Shortlink.app"
+    },
+
+    "android.debug": {
+      "type": "android.apk",
+      "build": "cd ../../apps/shortlink/android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug",
+      "binaryPath": "../../apps/shortlink/android/app/build/outputs/apk/debug/app-debug.apk"
+    },
+    "android.release": {
+      "type": "android.apk",
+      "build": "cd ../../apps/shortlink/android && ./gradlew assembleRelease assembleAndroidTest -DtestBuildType=release",
+      "binaryPath": "../../apps/shortlink/android/app/build/outputs/apk/release/app-release.apk"
+    },
+
+    "android.local": {
+      "type": "android.apk",
+      "build": "npx nx run shortlink:build --platform android --profile preview --wait --local --no-interactive --output=../../apps/shortlink/dist/Shortlink.apk",
+      "binaryPath": "../../apps/shortlink/dist/Shortlink.apk"
+    }
+  },
+  "devices": {
+    "simulator": {
+      "type": "ios.simulator",
+      "device": {
+        "type": "iPhone 14"
+      }
+    },
+    "emulator": {
+      "type": "android.emulator",
+      "device": {
+        "avdName": "Pixel_4a_API_30"
+      }
+    }
+  },
+  "configurations": {
+    "ios.sim.release": {
+      "device": "simulator",
+      "app": "ios.release"
+    },
+    "ios.sim.debug": {
+      "device": "simulator",
+      "app": "ios.debug"
+    },
+
+    "ios.sim.local": {
+      "device": "simulator",
+      "app": "ios.local"
+    },
+
+    "android.emu.release": {
+      "device": "emulator",
+      "app": "android.release"
+    },
+    "android.emu.debug": {
+      "device": "emulator",
+      "app": "android.debug"
+    },
+
+    "android.emu.local": {
+      "device": "emulator",
+      "app": "android.local"
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+    "language": "de-DE",
+    "messages": [
+        {
+            "id": "BFF Web run on port {Port}",
+            "message": "BFF Web run on port {Port}",
+            "translation": "BFF Web läuft auf Port {Port}",
+            "placeholders": [
+                {
+                    "id": "Port",
+                    "string": "%[1]d",
+                    "type": "int",
+                    "underlyingType": "int",
+                    "argNum": 1,
+                    "expr": "config.Http.Port"
+                }
+            ]
+        }
+    ]
+}

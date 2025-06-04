@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package infrastructure.repository.crud.types.v1;
+
+option go_package = "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/field_mask.proto";
+
+// Link
+message Link {
+  // URL
+  string url = 1;
+  // Hash by URL + salt
+  string hash = 2;
+  // Describe of link
+  string describe = 3;
+
+  // Create at
+  google.protobuf.Timestamp created_at = 4;
+  // Update at
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+// Link list
+message Links {
+  // Links
+  repeated Link link = 1;
+}

@@ -1,0 +1,89 @@
+/**
+ * This injects Tailwind's base styles and any base styles registered by
+ * plugins.
+ */
+@tailwind base;
+
+/**
+ * This injects Tailwind's component classes and any component classes
+ * registered by plugins.
+ */
+@tailwind components;
+
+/**
+ * This injects Tailwind's utility classes and any utility classes registered
+ * by plugins.
+ */
+@tailwind utilities;
+
+/**
+ * Use this directive to control where Tailwind injects the hover, focus,
+ * responsive, dark mode, and other variants of each class.
+ *
+ * If omitted, Tailwind will append these classes to the very end of
+ * your stylesheet by default.
+ */
+@tailwind variants;
+
+html,
+body,
+#__next {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  justify-content: center;
+}
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 dark:bg-gray-800 dark:text-gray-100;
+    @apply min-h-screen;
+  }
+
+  ::selection {
+    @apply text-white bg-indigo-500;
+  }
+
+  .btn {
+    @apply inline-block px-5 py-3 rounded-lg hover:bg-indigo-600 transition duration-300 shadow-lg bg-indigo-500 text-white capitalize tracking-wider font-semibold text-sm sm:text-xl focus:outline-none focus:ring-4 focus:ring-indigo-500 whitespace-nowrap;
+  }
+}
+
+.bg-white {
+  @media (prefers-reduced-transparency: reduce) {
+    --tw-bg-opacity: 0;
+  }
+}
+
+/* switch dark mode */
+.toggleWrapper {
+  overflow: hidden;
+  min-width: 6em;
+  transition: transform 0.3s ease-in-out;
+  position: inherit !important;
+  top: auto !important;
+  left: auto !important;
+}
+
+/* TYPOGRAPHY */
+body,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+a,
+span,
+div,
+li,
+ul,
+ol,
+button,
+input,
+textarea,
+select {
+  text-wrap: pretty;
+}

@@ -1,0 +1,79 @@
+{
+  "name": "shortlink-e2e",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/shortlink-e2e/src",
+  "projectType": "application",
+  "targets": {
+    "build-ios": {
+      "executor": "@nx/detox:build",
+      "options": {
+        "detoxConfiguration": "ios.sim.local"
+      },
+      "configurations": {
+        "bare": {
+          "detoxConfiguration": "ios.sim.debug"
+        },
+        "production": {
+          "detoxConfiguration": "ios.sim.release"
+        }
+      }
+    },
+    "test-ios": {
+      "executor": "@nx/detox:test",
+      "options": {
+        "detoxConfiguration": "ios.sim.local",
+        "buildTarget": "shortlink-e2e:build-ios"
+      },
+      "configurations": {
+        "bare": {
+          "detoxConfiguration": "ios.sim.debug",
+          "buildTarget": "shortlink-e2e:build-ios:bare"
+        },
+        "production": {
+          "detoxConfiguration": "ios.sim.release",
+          "buildTarget": "shortlink-e2e:build-ios:production"
+        }
+      }
+    },
+    "build-android": {
+      "executor": "@nx/detox:build",
+      "options": {
+        "detoxConfiguration": "android.emu.local"
+      },
+      "configurations": {
+        "bare": {
+          "detoxConfiguration": "android.emu.debug"
+        },
+        "production": {
+          "detoxConfiguration": "android.emu.release"
+        }
+      }
+    },
+    "test-android": {
+      "executor": "@nx/detox:test",
+      "options": {
+        "detoxConfiguration": "android.emu.local",
+        "buildTarget": "shortlink-e2e:build-android"
+      },
+      "configurations": {
+        "bare": {
+          "detoxConfiguration": "android.emu.debug",
+          "buildTarget": "shortlink-e2e:build-android:bare"
+        },
+        "production": {
+          "detoxConfiguration": "android.emu.release",
+          "buildTarget": "shortlink-e2e:build-android:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/shortlink-e2e/**/*.{ts,tsx,js,jsx}"]
+      }
+    }
+  },
+  "tags": [],
+  "implicitDependencies": ["shortlink"]
+}
