@@ -50,7 +50,7 @@ argo-cd:
 # SCHEDULE =============================================================================================================
 delete_renovate_branch:
   stage: .pre
-  image: alpine:3.21
+  image: alpine:3.22
   script:
     # TODO: add function to delete branch
     - echo "Delete renovate branch"
