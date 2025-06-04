@@ -16,8 +16,8 @@
     "build-image": "docker build ../.. -f Dockerfile --tag backstage"
   },
   "dependencies": {
-    "@axis-backstage/plugin-readme-backend": "^0.12.0",
-    "@backstage-community/plugin-todo-backend": "^0.7.0",
+    "@axis-backstage/plugin-readme-backend": "^0.13.0",
+    "@backstage-community/plugin-todo-backend": "^0.10.0",
     "@backstage/backend-common": "^0.25.0",
     "@backstage/backend-tasks": "^0.6.1",
     "@backstage/catalog-client": "^1.9.1",
@@ -26,7 +26,7 @@
     "@backstage/plugin-app-backend": "^0.5.1",
     "@backstage/plugin-auth-backend": "^0.24.5",
     "@backstage/plugin-auth-node": "^0.6.2",
-    "@backstage/plugin-catalog-backend": "^1.32.1",
+    "@backstage/plugin-catalog-backend": "^2.0.0",
     "@backstage/plugin-permission-common": "^0.8.4",
     "@backstage/plugin-permission-node": "^0.9.1",
     "@backstage/plugin-proxy-backend": "^0.6.1",
@@ -36,19 +36,19 @@
     "@backstage/plugin-search-backend-node": "^1.3.10",
     "@backstage/plugin-techdocs-backend": "^2.0.1",
     "app": "link:packages/app",
-    "better-sqlite3": "^11.9.1",
+    "better-sqlite3": "^11.10.0",
     "dockerode": "^4.0.6",
     "express": "^5.1.0",
     "express-promise-router": "^4.1.1",
-    "pg": "^8.14.1",
+    "pg": "^8.16.0",
     "winston": "^3.17.0"
   },
   "devDependencies": {
     "@backstage/cli": "^0.32.0",
-    "@types/dockerode": "^3.3.38",
+    "@types/dockerode": "^3.3.39",
     "@types/express": "^5.0.2",
     "@types/express-serve-static-core": "^5.0.6",
-    "@types/luxon": "^3.4.2"
+    "@types/luxon": "^3.6.2"
   },
   "files": [
     "dist"

@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.14
+# syntax=docker/dockerfile:1.16
 
 # Link: https://github.com/moby/buildkit/blob/master/docs/attestations/sbom.md
 # enable scanning for the intermediate build stage
@@ -47,7 +47,7 @@ RUN --mount=type=cache,target=/root/.cache/go-build \
   -trimpath \
   -o app $CMD_PATH
 
-FROM alpine:3.21
+FROM alpine:3.22
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-${CMD_PATH}"

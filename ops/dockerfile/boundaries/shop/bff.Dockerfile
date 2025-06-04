@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.14
+# syntax=docker/dockerfile:1.16
 
 # Link: https://github.com/moby/buildkit/blob/master/docs/attestations/sbom.md
 # enable scanning for the intermediate build stage
@@ -6,7 +6,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM --platform=$BUILDPLATFORM node:23.10.0-alpine
+FROM --platform=$BUILDPLATFORM node:23.11.1-alpine
 
 # WARNING: if container limit < MAX_OLD_SPACE_SIZE => Killed
 # Docs: https://developer.ibm.com/languages/node-js/articles/nodejs-memory-management-in-container-environments/

@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.14
+# syntax=docker/dockerfile:1.16
 
 # Link: https://github.com/moby/buildkit/blob/master/docs/attestations/sbom.md
 # enable scanning for the intermediate build stage
@@ -7,7 +7,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
 # Install dependencies only when needed
-FROM --platform=$BUILDPLATFORM node:23.10.0-alpine AS development-builder
+FROM --platform=$BUILDPLATFORM node:23.11.1-alpine AS development-builder
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-shop-ui"

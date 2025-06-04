@@ -10,13 +10,13 @@ variables:
 # DEFAULT ==============================================================================================================
 default:
   services:
-    - name: docker:28.0.0-rc.1-dind
+    - name: docker:28.2.0-rc.1-dind
       command: ["--experimental"]
       alias: localhost # necessary for correct addressing to services running in docker
 
 env:
   stage: .pre
-  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine:3.21
+  image: ${CI_DEPENDENCY_PROXY_GROUP_IMAGE_PREFIX}/alpine:3.22
   script:
     - env
   when: manual

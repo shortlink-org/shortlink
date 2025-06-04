@@ -31,13 +31,13 @@
     "@backstage/cli": "^0.32.0",
     "concurrently": "^9.1.2",
     "lerna": "^8.2.2",
-    "node-gyp": "^11.1.0",
+    "node-gyp": "^11.2.0",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3"
   },
   "resolutions": {
-    "@types/react": "^19.0.12",
-    "@types/react-dom": "^19.0.4"
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mjs,cjs}": [
@@ -49,8 +49,8 @@
     ]
   },
   "dependencies": {
-    "@types/react": "^19.0.12",
-    "@types/react-dom": "^19.0.4"
+    "@types/react": "^19.1.6",
+    "@types/react-dom": "^19.1.5"
   },
-  "packageManager": "yarn@4.7.0"
+  "packageManager": "yarn@4.9.2"
 }

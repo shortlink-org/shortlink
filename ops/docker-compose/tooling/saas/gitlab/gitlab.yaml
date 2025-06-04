@@ -9,7 +9,7 @@ services:
 
   nginx:
     <<: *network
-    image: nginx:1.27.5-alpine
+    image: nginx:1.28.0-alpine
     container_name: nginx
     restart: always
     ports:
@@ -19,7 +19,7 @@ services:
 
   gitlab_postgres:
     <<: *network
-    image: postgres:17.4-alpine
+    image: postgres:17.5-alpine
     container_name: gitlab_postgres
     restart: always
     environment:
@@ -35,7 +35,7 @@ services:
     depends_on:
       - coredns
       - gitlab_postgres
-    image: gitlab/gitlab-ce:17.9.2-ce.0
+    image: gitlab/gitlab-ce:18.0.1-ce.0
     hostname: localhost
     container_name: gitlab
     restart: always

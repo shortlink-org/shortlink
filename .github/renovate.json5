@@ -13,13 +13,13 @@
   },
   commitBody: 'Signed-off-by: {{{gitAuthor}}}',
   'docker-compose': {
-    fileMatch: [
-      '^.*/?ops/docker-compose/.*.ya?ml$',
+    managerFilePatterns: [
+      '/^.*/?ops/docker-compose/.*.ya?ml$/',
     ],
   },
   gitlabci: {
-    fileMatch: [
-      '^.*/?ops/gitlab/.*.ya?ml$',
+    managerFilePatterns: [
+      '/^.*/?ops/gitlab/.*.ya?ml$/',
     ],
   },
   packageRules: [
