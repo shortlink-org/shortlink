@@ -12,7 +12,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: redis:7.4-alpine
+    image: redis:8.0-alpine
     init: true
     restart: always
     container_name: redis
