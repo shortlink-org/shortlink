@@ -5,12 +5,13 @@ go 1.24.3
 require (
 	github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.15.2
 	github.com/cloudevents/sdk-go/v2 v2.15.2
-	github.com/elastic/go-elasticsearch/v8 v8.17.1
+	github.com/elastic/go-elasticsearch/v8 v8.18.0
+	github.com/elastic/go-elasticsearch/v9 v9.0.0
 )
 
 require (
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
-	github.com/elastic/elastic-transport-go/v8 v8.6.1 // indirect
+	github.com/elastic/elastic-transport-go/v8 v8.7.0 // indirect
 	github.com/go-logr/logr v1.4.2 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
