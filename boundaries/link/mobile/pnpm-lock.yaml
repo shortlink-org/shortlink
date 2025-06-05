@@ -36,8 +36,8 @@ importers:
         specifier: ^0.78.0
         version: 0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0)
       react-native-paper:
-        specifier: ^5.13.1
-        version: 5.13.1(react-native-safe-area-context@5.3.0(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native-vector-icons@10.0.3)(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
+        specifier: ^5.14.5
+        version: 5.14.5(react-native-safe-area-context@5.3.0(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
       react-native-safe-area-context:
         specifier: ^5.3.0
         version: 5.3.0(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
@@ -3662,9 +3662,6 @@ packages:
   cli-spinners@2.9.2:
     resolution: {integrity: sha512-ywqV+5MmyL4E7ybXgKys4DugZbX0FC6LnwrhjuykIjnK9k8OQacQ7axGKnjDXWNhns0xot3bZI5h55H8yo9cJg==}
     engines: {node: '>=6'}
-
-  cliui@7.0.4:
-    resolution: {integrity: sha512-OcRE68cOsVMXp1Yvonl/fzkQOyjLSu/8bhPDfQt0e0/Eb283TKP20Fs2MqoPsr9SwA595rRCA+QMzYc9nBP+JQ==}
 
   cliui@8.0.1:
     resolution: {integrity: sha512-BSeNnyus75C4//NQ9gQt1/csTXyo/8Sb+afLAkzAptFuMsod9HFokGNudZpi/oQV73hnVK+sR+5PVRMd+Dr7YQ==}
@@ -7397,13 +7394,12 @@ packages:
       react: '*'
       react-native: '*'
 
-  react-native-paper@5.13.1:
-    resolution: {integrity: sha512-8frKVKJ5JBd8WL1G3tpcYzOgK40kxkD/U+yLHGKNeLnD6v1Qc9W6DxWTHWN7lsX/DPYnhgvw1aKkYaPTmDj5pg==}
+  react-native-paper@5.14.5:
+    resolution: {integrity: sha512-eaIH5bUQjJ/mYm4AkI6caaiyc7BcHDwX6CqNDi6RIxfxfWxROsHpll1oBuwn/cFvknvA8uEAkqLk/vzVihI3AQ==}
     peerDependencies:
       react: '*'
       react-native: '*'
       react-native-safe-area-context: '*'
-      react-native-vector-icons: '*'
 
   react-native-safe-area-context@5.3.0:
     resolution: {integrity: sha512-glV9bwuozTjf/JDBIBm+ITnukHNaUT3nucgdeADwjtHsfEN3RL5UO6nq99vvdWv5j/O9yCZBvFncM1BBQ+UvpQ==}
@@ -7428,10 +7424,6 @@ packages:
     peerDependencies:
       react: '*'
       react-native: '*'
-
-  react-native-vector-icons@10.0.3:
-    resolution: {integrity: sha512-ZgVlV5AdQgnPHHvBEihGf2xwyziT1acpXV1U+WfCgCv3lcEeCRsmwAsBU+kUSNsU+8TcWVsX04kdI6qUaS8D7w==}
-    hasBin: true
 
   react-native-web@0.19.13:
     resolution: {integrity: sha512-etv3bN8rJglrRCp/uL4p7l8QvUNUC++QwDbdZ8CB7BvZiMvsxfFIRM1j04vxNldG3uo2puRd6OSWR3ibtmc29A==}
@@ -8741,11 +8733,6 @@ packages:
   url-parse@1.5.10:
     resolution: {integrity: sha512-WypcfiRhfeUP9vvF0j6rw0J3hrWrw6iZv3+22h6iRMJ/8z1Tj6XfLP4DsUix5MhMPnXpiHDoKyoZ/bdCkwBCiQ==}
 
-  use-latest-callback@0.1.11:
-    resolution: {integrity: sha512-8nhb73STSD/z3GTHklvNjL8F9wMOo0bj0AFnulpIYuFTm6aQlT3ZcNbXF2YurKImIY8+kpSFSDHZZyQmurGrhw==}
-    peerDependencies:
-      react: '>=16.8'
-
   use-latest-callback@0.2.3:
     resolution: {integrity: sha512-7vI3fBuyRcP91pazVboc4qu+6ZqM8izPWX9k7cRnT8hbD5svslcknsh3S9BUhaK11OmgTV4oWZZVSeQAiV53SQ==}
     peerDependencies:
@@ -9092,20 +9079,12 @@ packages:
     engines: {node: '>= 14'}
     hasBin: true
 
-  yargs-parser@20.2.9:
-    resolution: {integrity: sha512-y11nGElTIV+CT3Zv9t7VKl+Q3hTQoT9a1Qzezhhl6Rp21gJ/IVTW7Z3y9EWXhuUBC2Shnf+DX0antecpAwSP8w==}
-    engines: {node: '>=10'}
-
   yargs-parser@21.1.1:
     resolution: {integrity: sha512-tVpsJW7DdjecAiFpbIB1e3qxIQsE6NoPc5/eTdrbbIC4h0LVsWhnoa3g+m2HclBIujHzsxZ4VJVA+GUuc2/LBw==}
     engines: {node: '>=12'}
 
   yargs-unparser@2.0.0:
     resolution: {integrity: sha512-7pRTIA9Qc1caZ0bZ6RYRGbHJthJWuakf+WmHK0rVeLkNrrGhfoabBNdue6kdINI6r4if7ocq9aD/n7xwKOdzOA==}
-    engines: {node: '>=10'}
-
-  yargs@16.2.0:
-    resolution: {integrity: sha512-D1mvvtDG0L5ft/jGWkLpG1+m0eQxOfaBvTNELraWj22wSVUMWxZUvYgJYcKh6jGGIkJFhH4IZPQhR4TKpc8mBw==}
     engines: {node: '>=10'}
 
   yargs@17.7.2:
@@ -15406,12 +15385,6 @@ snapshots:
 
   cli-spinners@2.9.2: {}
 
-  cliui@7.0.4:
-    dependencies:
-      string-width: 4.2.3
-      strip-ansi: 6.0.1
-      wrap-ansi: 7.0.0
-
   cliui@8.0.1:
     dependencies:
       string-width: 4.2.3
@@ -18815,7 +18788,7 @@ snapshots:
   metro-source-map@0.81.3:
     dependencies:
       '@babel/traverse': 7.26.10
-      '@babel/traverse--for-generate-function-map': '@babel/traverse@7.26.10'
+      '@babel/traverse--for-generate-function-map': '@babel/traverse@7.27.4'
       '@babel/types': 7.27.6
       flow-enums-runtime: 0.0.6
       invariant: 2.2.4
@@ -18830,7 +18803,7 @@ snapshots:
   metro-source-map@0.82.4:
     dependencies:
       '@babel/traverse': 7.26.10
-      '@babel/traverse--for-generate-function-map': '@babel/traverse@7.26.10'
+      '@babel/traverse--for-generate-function-map': '@babel/traverse@7.27.4'
       '@babel/types': 7.26.10
       flow-enums-runtime: 0.0.6
       invariant: 2.2.4
@@ -20173,15 +20146,14 @@ snapshots:
       react: 19.0.0
       react-native: 0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0)
 
-  react-native-paper@5.13.1(react-native-safe-area-context@5.3.0(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native-vector-icons@10.0.3)(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0):
+  react-native-paper@5.14.5(react-native-safe-area-context@5.3.0(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0))(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0):
     dependencies:
       '@callstack/react-theme-provider': 3.0.9(react@19.0.0)
       color: 3.2.1
       react: 19.0.0
       react-native: 0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0)
       react-native-safe-area-context: 5.3.0(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0)
-      react-native-vector-icons: 10.0.3
-      use-latest-callback: 0.1.11(react@19.0.0)
+      use-latest-callback: 0.2.3(react@19.0.0)
 
   react-native-safe-area-context@5.3.0(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0))(react@19.0.0):
     dependencies:
@@ -20214,11 +20186,6 @@ snapshots:
       react: 19.0.0
       react-native: 0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.0.10)(react@19.0.0)
       warn-once: 0.1.1
-
-  react-native-vector-icons@10.0.3:
-    dependencies:
-      prop-types: 15.8.1
-      yargs: 16.2.0
 
   react-native-web@0.19.13(encoding@0.1.13)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
@@ -21662,10 +21629,6 @@ snapshots:
       querystringify: 2.2.0
       requires-port: 1.0.0
 
-  use-latest-callback@0.1.11(react@19.0.0):
-    dependencies:
-      react: 19.0.0
-
   use-latest-callback@0.2.3(react@19.0.0):
     dependencies:
       react: 19.0.0
@@ -21986,8 +21949,6 @@ snapshots:
 
   yaml@2.7.0: {}
 
-  yargs-parser@20.2.9: {}
-
   yargs-parser@21.1.1: {}
 
   yargs-unparser@2.0.0:
@@ -21996,16 +21957,6 @@ snapshots:
       decamelize: 4.0.0
       flat: 5.0.2
       is-plain-obj: 2.1.0
-
-  yargs@16.2.0:
-    dependencies:
-      cliui: 7.0.4
-      escalade: 3.2.0
-      get-caller-file: 2.0.5
-      require-directory: 2.1.1
-      string-width: 4.2.3
-      y18n: 5.0.8
-      yargs-parser: 20.2.9
 
   yargs@17.7.2:
     dependencies:
