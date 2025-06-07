@@ -1,9 +1,0 @@
-include:
-  - local: .gitlab/ci/templates/common.yml
-  - local: .gitlab/ci/pipelines/addons/argocd/stages/**
-
-stages:
-  - .pre
-  - secrets
-  - deploy
-  - application
