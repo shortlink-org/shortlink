@@ -1,11 +1,9 @@
-go 1.24.1
+go 1.24.3
 
 use (
 	.
 
 	./boundaries/api/api-gateway
-
-	./boundaries/notification/notify
 
 	./boundaries/platform/istio-extension
 	./boundaries/platform/shortctl
