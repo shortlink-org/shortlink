@@ -5,7 +5,7 @@ go 1.24.3
 require (
 	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.5.1-20240420204150-bbba30c24796.2
 	github.com/cloudevents/sdk-go/observability/opentelemetry/v2 v2.15.2
-	github.com/cloudevents/sdk-go/v2 v2.16.0
+	github.com/cloudevents/sdk-go/v2 v2.16.1
 	github.com/google/wire v0.6.0
 	github.com/graph-gophers/graphql-go v1.6.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.26.3
@@ -15,7 +15,7 @@ require (
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.3.2
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.61.0
 	go.opentelemetry.io/otel/trace v1.36.0
-	golang.org/x/sync v0.14.0
+	golang.org/x/sync v0.15.0
 	google.golang.org/grpc v1.72.2
 	google.golang.org/protobuf v1.36.6
 )
