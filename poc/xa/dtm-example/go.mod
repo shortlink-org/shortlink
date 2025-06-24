@@ -4,7 +4,7 @@ go 1.24.3
 
 require (
 	github.com/dtm-labs/dtmcli v1.14.2
-	github.com/go-chi/chi/v5 v5.2.2
+	github.com/go-chi/chi/v5 v5.2.1
 	github.com/go-chi/render v1.0.3
 )
 
