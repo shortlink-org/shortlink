@@ -58,8 +58,8 @@ importers:
         version: 2.8.1
     devDependencies:
       '@config-plugins/detox':
-        specifier: ~9.0.0
-        version: 9.0.0(expo@53.0.12(@babel/core@7.26.10)(graphql@16.8.1)(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))
+        specifier: ~11.0.0
+        version: 11.0.0(expo@53.0.12(@babel/core@7.26.10)(graphql@16.8.1)(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))
       '@expo/cli':
         specifier: ~0.22.20
         version: 0.22.20(encoding@0.1.13)(graphql@16.8.1)
@@ -1344,10 +1344,10 @@ packages:
     peerDependencies:
       react: '>=16.3.0'
 
-  '@config-plugins/detox@9.0.0':
-    resolution: {integrity: sha512-GJJlUvHIOdrkRvb3g0dxsEt2KhNIMyZGTdXK4kFWJX5MTUy5ynUytzV69pRbg2LxQ8UoGnNYIVyf9Yfuq+6xtg==}
+  '@config-plugins/detox@11.0.0':
+    resolution: {integrity: sha512-4RJxky7gA+SrEqwZnaNxvj3mDdSqOSPzKebMebJIAeZFdBgjhfWAdaAQuiy7DTCj+pybPHtPK97vqJY8147wWQ==}
     peerDependencies:
-      expo: ^52
+      expo: ^53
 
   '@cspotcode/source-map-support@0.8.1':
     resolution: {integrity: sha512-IchNf6dN4tHoMFIn/7OE8LWZ19Y6q/67Bmf6vnGREv8RSbBVb9LPJxEcnwrcwX6ixSvaiGoomAUvu4YSxXrVgw==}
@@ -11336,7 +11336,7 @@ snapshots:
       hoist-non-react-statics: 3.3.2
       react: 19.1.0
 
-  '@config-plugins/detox@9.0.0(expo@53.0.12(@babel/core@7.26.10)(graphql@16.8.1)(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))':
+  '@config-plugins/detox@11.0.0(expo@53.0.12(@babel/core@7.26.10)(graphql@16.8.1)(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))':
     dependencies:
       expo: 53.0.12(@babel/core@7.26.10)(graphql@16.8.1)(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
       expo-build-properties: 0.13.2(expo@53.0.12(@babel/core@7.26.10)(graphql@16.8.1)(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))
@@ -16535,7 +16535,7 @@ snapshots:
     dependencies:
       ajv: 8.17.1
       expo: 53.0.12(@babel/core@7.26.10)(graphql@16.8.1)(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
-      semver: 7.7.1
+      semver: 7.7.2
 
   expo-constants@17.1.6(expo@53.0.12(@babel/core@7.26.10)(graphql@16.8.1)(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.78.0(@babel/core@7.26.10)(@babel/preset-env@7.26.8(@babel/core@7.26.10))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0)):
     dependencies:
