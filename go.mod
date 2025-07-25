@@ -12,7 +12,7 @@ require (
 	github.com/authzed/authzed-go v1.4.0
 	github.com/chromedp/chromedp v0.13.6
 	github.com/couchbase/gocb/v2 v2.10.0
-	github.com/cucumber/godog v0.15.0
+	github.com/cucumber/godog v0.15.1
 	github.com/dgraph-io/badger/v4 v4.7.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/dnwe/otelsarama v0.0.0-20240308230250-9388d9d40bc0
@@ -50,7 +50,7 @@ require (
 	github.com/segmentio/encoding v0.4.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.9.1
-	github.com/spf13/pflag v1.0.6
+	github.com/spf13/pflag v1.0.7
 	github.com/spf13/viper v1.20.1
 	github.com/stretchr/testify v1.10.0
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
