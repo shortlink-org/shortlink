@@ -6,7 +6,6 @@ require (
 	github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.15.2
 	github.com/cloudevents/sdk-go/v2 v2.15.2
 	github.com/elastic/go-elasticsearch/v8 v8.18.1
-	github.com/elastic/go-elasticsearch/v9 v9.0.0
 )
 
 require (
@@ -28,6 +27,6 @@ require (
 	go.opentelemetry.io/otel/trace v1.35.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
-	golang.org/x/net v0.37.0 // indirect
+	golang.org/x/net v0.38.0 // indirect
 	golang.org/x/time v0.11.0 // indirect
 )
