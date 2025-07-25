@@ -16,7 +16,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.28
 	github.com/ory/dockertest/v3 v3.12.0
 	github.com/prometheus/client_golang v1.22.0
-	github.com/redis/rueidis v1.0.60
+	github.com/redis/rueidis v1.0.63
 	github.com/segmentio/encoding v0.4.1
 	github.com/shortlink-org/shortlink v0.0.0-20250604085821-bdae4069040b
 	github.com/spf13/viper v1.20.1
