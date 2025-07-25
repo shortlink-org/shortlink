@@ -13,7 +13,7 @@ importers:
         version: 0.20.17
       '@react-navigation/native-stack':
         specifier: ^7.3.21
-        version: 7.3.21(@react-navigation/native@6.1.17(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.3.0(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native-screens@4.9.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
+        version: 7.3.21(@react-navigation/native@6.1.17(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.5.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native-screens@4.9.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
       expo:
         specifier: ^53.0.20
         version: 53.0.20(@babel/core@7.27.4)(graphql@16.8.1)(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
@@ -37,10 +37,10 @@ importers:
         version: 0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0)
       react-native-paper:
         specifier: ^5.14.5
-        version: 5.14.5(react-native-safe-area-context@5.3.0(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
+        version: 5.14.5(react-native-safe-area-context@5.5.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
       react-native-safe-area-context:
-        specifier: ^5.3.0
-        version: 5.3.0(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
+        specifier: ^5.5.2
+        version: 5.5.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
       react-native-screens:
         specifier: ^4.9.2
         version: 4.9.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
@@ -7039,8 +7039,8 @@ packages:
       react-native: '*'
       react-native-safe-area-context: '*'
 
-  react-native-safe-area-context@5.3.0:
-    resolution: {integrity: sha512-glV9bwuozTjf/JDBIBm+ITnukHNaUT3nucgdeADwjtHsfEN3RL5UO6nq99vvdWv5j/O9yCZBvFncM1BBQ+UvpQ==}
+  react-native-safe-area-context@5.5.2:
+    resolution: {integrity: sha512-t4YVbHa9uAGf+pHMabGrb0uHrD5ogAusSu842oikJ3YKXcYp6iB4PTGl0EZNkUIR3pCnw/CXKn42OCfhsS0JIw==}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -11853,23 +11853,23 @@ snapshots:
       react-is: 16.13.1
       use-latest-callback: 0.2.4(react@19.1.0)
 
-  '@react-navigation/elements@2.5.2(@react-navigation/native@6.1.17(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.3.0(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)':
+  '@react-navigation/elements@2.5.2(@react-navigation/native@6.1.17(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.5.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)':
     dependencies:
       '@react-navigation/native': 6.1.17(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
       color: 4.2.3
       react: 19.1.0
       react-native: 0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0)
-      react-native-safe-area-context: 5.3.0(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
+      react-native-safe-area-context: 5.5.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
       use-latest-callback: 0.2.4(react@19.1.0)
       use-sync-external-store: 1.5.0(react@19.1.0)
 
-  '@react-navigation/native-stack@7.3.21(@react-navigation/native@6.1.17(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.3.0(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native-screens@4.9.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)':
+  '@react-navigation/native-stack@7.3.21(@react-navigation/native@6.1.17(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.5.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native-screens@4.9.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)':
     dependencies:
-      '@react-navigation/elements': 2.5.2(@react-navigation/native@6.1.17(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.3.0(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
+      '@react-navigation/elements': 2.5.2(@react-navigation/native@6.1.17(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native-safe-area-context@5.5.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
       '@react-navigation/native': 6.1.17(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
       react: 19.1.0
       react-native: 0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0)
-      react-native-safe-area-context: 5.3.0(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
+      react-native-safe-area-context: 5.5.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
       react-native-screens: 4.9.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
       warn-once: 0.1.1
     transitivePeerDependencies:
@@ -18023,16 +18023,16 @@ snapshots:
       react: 19.1.0
       react-native: 0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0)
 
-  react-native-paper@5.14.5(react-native-safe-area-context@5.3.0(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0):
+  react-native-paper@5.14.5(react-native-safe-area-context@5.5.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0):
     dependencies:
       '@callstack/react-theme-provider': 3.0.9(react@19.1.0)
       color: 3.2.1
       react: 19.1.0
       react-native: 0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0)
-      react-native-safe-area-context: 5.3.0(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
+      react-native-safe-area-context: 5.5.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
       use-latest-callback: 0.2.4(react@19.1.0)
 
-  react-native-safe-area-context@5.3.0(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0):
+  react-native-safe-area-context@5.5.2(react-native@0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0):
     dependencies:
       react: 19.1.0
       react-native: 0.80.2(@babel/core@7.27.4)(@types/react@19.1.8)(react@19.1.0)
