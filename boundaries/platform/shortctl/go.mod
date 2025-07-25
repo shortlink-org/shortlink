@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/platform/shortctl
 
-go 1.24.3
+go 1.24.5
 
 require (
 	github.com/pterm/pterm v0.12.80
