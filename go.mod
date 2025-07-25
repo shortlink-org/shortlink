@@ -62,7 +62,7 @@ require (
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.3.2
 	github.com/uptrace/opentelemetry-go-extra/otelzap v0.3.2
 	go.etcd.io/etcd/client/v3 v3.6.3
-	go.mongodb.org/mongo-driver/v2 v2.2.1
+	go.mongodb.org/mongo-driver/v2 v2.2.2
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.61.0
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.61.0
 	go.opentelemetry.io/otel v1.36.0
