@@ -45,11 +45,11 @@ importers:
         specifier: ^4.9.2
         version: 4.9.2(react-native@0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
       react-native-svg:
-        specifier: ^15.11.2
-        version: 15.11.2(react-native@0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
+        specifier: ^15.12.0
+        version: 15.12.0(react-native@0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
       react-native-svg-transformer:
         specifier: ^1.5.1
-        version: 1.5.1(react-native-svg@15.11.2(react-native@0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(typescript@5.8.3)
+        version: 1.5.1(react-native-svg@15.12.0(react-native@0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(typescript@5.8.3)
       react-native-web:
         specifier: ~0.20.0
         version: 0.20.0(encoding@0.1.13)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
@@ -7241,8 +7241,8 @@ packages:
       react-native: '>=0.59.0'
       react-native-svg: '>=12.0.0'
 
-  react-native-svg@15.11.2:
-    resolution: {integrity: sha512-+YfF72IbWQUKzCIydlijV1fLuBsQNGMT6Da2kFlo1sh+LE3BIm/2Q7AR1zAAR6L0BFLi1WaQPLfFUC9bNZpOmw==}
+  react-native-svg@15.12.0:
+    resolution: {integrity: sha512-iE25PxIJ6V0C6krReLquVw6R0QTsRTmEQc4K2Co3P6zsimU/jltcDBKYDy1h/5j9S/fqmMeXnpM+9LEWKJKI6A==}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -18746,19 +18746,19 @@ snapshots:
       react-native: 0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0)
       warn-once: 0.1.1
 
-  react-native-svg-transformer@1.5.1(react-native-svg@15.11.2(react-native@0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(typescript@5.8.3):
+  react-native-svg-transformer@1.5.1(react-native-svg@15.12.0(react-native@0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0))(react-native@0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(typescript@5.8.3):
     dependencies:
       '@svgr/core': 8.1.0(typescript@5.8.3)
       '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@5.8.3))
       '@svgr/plugin-svgo': 8.1.0(@svgr/core@8.1.0(typescript@5.8.3))(typescript@5.8.3)
       path-dirname: 1.0.2
       react-native: 0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0)
-      react-native-svg: 15.11.2(react-native@0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
+      react-native-svg: 15.12.0(react-native@0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  react-native-svg@15.11.2(react-native@0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0):
+  react-native-svg@15.12.0(react-native@0.78.0(@babel/core@7.27.4)(@babel/preset-env@7.26.8(@babel/core@7.27.4))(@react-native-community/cli-server-api@14.1.0)(@types/react@19.1.8)(react@19.1.0))(react@19.1.0):
     dependencies:
       css-select: 5.1.0
       css-tree: 1.1.3
