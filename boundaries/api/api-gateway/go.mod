@@ -8,7 +8,7 @@ require (
 	github.com/cloudevents/sdk-go/v2 v2.16.0
 	github.com/google/wire v0.6.0
 	github.com/graph-gophers/graphql-go v1.6.0
-	github.com/grpc-ecosystem/grpc-gateway/v2 v2.26.3
+	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.1
 	github.com/segmentio/encoding v0.4.1
 	github.com/shortlink-org/shortlink v0.0.0-20250320185953-73466f74ab65
 	github.com/spf13/viper v1.20.1
@@ -154,7 +154,7 @@ require (
 	golang.org/x/oauth2 v0.30.0 // indirect
 	golang.org/x/sys v0.34.0 // indirect
 	golang.org/x/text v0.27.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20250528174236-200df99c418a // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20250528174236-200df99c418a // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20250603155806-513f23925822 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20250603155806-513f23925822 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
