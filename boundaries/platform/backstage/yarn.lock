@@ -8334,9 +8334,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@cypress/request@npm:^3.0.8":
-  version: 3.0.8
-  resolution: "@cypress/request@npm:3.0.8"
+"@cypress/request@npm:^3.0.9":
+  version: 3.0.9
+  resolution: "@cypress/request@npm:3.0.9"
   dependencies:
     aws-sign2: "npm:~0.7.0"
     aws4: "npm:^1.8.0"
@@ -8344,7 +8344,7 @@ __metadata:
     combined-stream: "npm:~1.0.6"
     extend: "npm:~3.0.2"
     forever-agent: "npm:~0.6.1"
-    form-data: "npm:~4.0.0"
+    form-data: "npm:~4.0.4"
     http-signature: "npm:~1.4.0"
     is-typedarray: "npm:~1.0.0"
     isstream: "npm:~0.1.2"
@@ -8356,7 +8356,7 @@ __metadata:
     tough-cookie: "npm:^5.0.0"
     tunnel-agent: "npm:^0.6.0"
     uuid: "npm:^8.3.2"
-  checksum: 10c0/76cabf6ad64df224bab9b66869f71c4fb63315f9775ef1769da9da6c8d6d470899bee7f5b800379020efb6c7f37fd16a4a8e25c61319e14cd720bd3f606a38fd
+  checksum: 10c0/9ebcd3f3d49706e730671bcb0bb86488fe23a2079f12d44b6c762777118fc0286b5ce5c73fb6cacf0ae291fa89a7562ca8a2b43a2486e26906fd84a386ed6967
   languageName: node
   linkType: hard
 
@@ -17489,7 +17489,7 @@ __metadata:
     "@types/node": "npm:^22.15.29"
     "@types/react-dom": "npm:^19.1.7"
     cross-env: "npm:^10.0.0"
-    cypress: "npm:^14.4.1"
+    cypress: "npm:^14.5.3"
     eslint-plugin-cypress: "npm:^5.1.0"
     history: "npm:^5.3.0"
     react: "npm:^19.1.1"
@@ -20764,11 +20764,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cypress@npm:^14.4.1":
-  version: 14.4.1
-  resolution: "cypress@npm:14.4.1"
+"cypress@npm:^14.5.3":
+  version: 14.5.3
+  resolution: "cypress@npm:14.5.3"
   dependencies:
-    "@cypress/request": "npm:^3.0.8"
+    "@cypress/request": "npm:^3.0.9"
     "@cypress/xvfb": "npm:^1.2.4"
     "@types/sinonjs__fake-timers": "npm:8.1.1"
     "@types/sizzle": "npm:^2.3.2"
@@ -20794,6 +20794,7 @@ __metadata:
     figures: "npm:^3.2.0"
     fs-extra: "npm:^9.1.0"
     getos: "npm:^3.2.1"
+    hasha: "npm:5.2.2"
     is-installed-globally: "npm:~0.4.0"
     lazy-ass: "npm:^1.6.0"
     listr2: "npm:^3.8.3"
@@ -20813,7 +20814,7 @@ __metadata:
     yauzl: "npm:^2.10.0"
   bin:
     cypress: bin/cypress
-  checksum: 10c0/56926fc8e5d250b5025f2ce035a261ffa65dec25c6e98539d497633363bfae963799771196ded4b8609d35a48c06208d1cdf72e209191abf873a064c8e9001a3
+  checksum: 10c0/64f56b00ac16696c3627546a35d6e71c9b1c74d9c780e0dcc00b05e4f954a10714ba33884d1b0b49d2296670d156fbfa2999671671133abcf8dacdf44b70315b
   languageName: node
   linkType: hard
 
@@ -23964,7 +23965,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"form-data@npm:^4.0.0, form-data@npm:~4.0.0":
+"form-data@npm:^4.0.0":
   version: 4.0.0
   resolution: "form-data@npm:4.0.0"
   dependencies:
@@ -23983,6 +23984,19 @@ __metadata:
     combined-stream: "npm:^1.0.6"
     mime-types: "npm:^2.1.12"
   checksum: 10c0/706ef1e5649286b6a61e5bb87993a9842807fd8f149cd2548ee807ea4fb882247bdf7f6e64ac4720029c0cd5c80343de0e22eee1dc9e9882e12db9cc7bc016a4
+  languageName: node
+  linkType: hard
+
+"form-data@npm:~4.0.4":
+  version: 4.0.4
+  resolution: "form-data@npm:4.0.4"
+  dependencies:
+    asynckit: "npm:^0.4.0"
+    combined-stream: "npm:^1.0.8"
+    es-set-tostringtag: "npm:^2.1.0"
+    hasown: "npm:^2.0.2"
+    mime-types: "npm:^2.1.12"
+  checksum: 10c0/373525a9a034b9d57073e55eab79e501a714ffac02e7a9b01be1c820780652b16e4101819785e1e18f8d98f0aee866cc654d660a435c378e16a72f2e7cac9695
   languageName: node
   linkType: hard
 
@@ -25124,6 +25138,16 @@ __metadata:
     inherits: "npm:^2.0.3"
     minimalistic-assert: "npm:^1.0.1"
   checksum: 10c0/41ada59494eac5332cfc1ce6b7ebdd7b88a3864a6d6b08a3ea8ef261332ed60f37f10877e0c825aaa4bddebf164fbffa618286aeeec5296675e2671cbfa746c4
+  languageName: node
+  linkType: hard
+
+"hasha@npm:5.2.2":
+  version: 5.2.2
+  resolution: "hasha@npm:5.2.2"
+  dependencies:
+    is-stream: "npm:^2.0.0"
+    type-fest: "npm:^0.8.0"
+  checksum: 10c0/9d10d4e665a37beea6e18ba3a0c0399a05b26e505c5ff2fe9115b64fedb3ca95f68c89cf15b08ee4d09fd3064b5e1bfc8e8247353c7aa6b7388471d0f86dca74
   languageName: node
   linkType: hard
 
@@ -38008,7 +38032,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"type-fest@npm:^0.8.1":
+"type-fest@npm:^0.8.0, type-fest@npm:^0.8.1":
   version: 0.8.1
   resolution: "type-fest@npm:0.8.1"
   checksum: 10c0/dffbb99329da2aa840f506d376c863bd55f5636f4741ad6e65e82f5ce47e6914108f44f340a0b74009b0cb5d09d6752ae83203e53e98b1192cf80ecee5651636
