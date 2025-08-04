@@ -29,15 +29,15 @@
   },
   "devDependencies": {
     "@backstage/cli": "^0.32.0",
-    "concurrently": "^9.1.2",
-    "lerna": "^8.2.2",
-    "node-gyp": "^11.2.0",
+    "concurrently": "^9.2.0",
+    "lerna": "^8.2.3",
+    "node-gyp": "^11.3.0",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3"
   },
   "resolutions": {
-    "@types/react": "^19.1.6",
-    "@types/react-dom": "^19.1.5"
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx,mjs,cjs}": [
@@ -49,8 +49,8 @@
     ]
   },
   "dependencies": {
-    "@types/react": "^19.1.6",
-    "@types/react-dom": "^19.1.5"
+    "@types/react": "^19.1.9",
+    "@types/react-dom": "^19.1.7"
   },
   "packageManager": "yarn@4.9.2"
 }

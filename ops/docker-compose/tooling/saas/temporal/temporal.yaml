@@ -17,7 +17,7 @@ services:
       - coredns
       - elasticsearch
       - cassandra
-    image: temporalio/auto-setup:1.27.2
+    image: temporalio/auto-setup:1.28.0
     restart: on-failure
     container_name: temporal
     environment:
@@ -55,7 +55,7 @@ services:
     depends_on:
       - coredns
       - temporal
-    image: temporalio/ui:v2.37.4
+    image: temporalio/ui:2.39.0
     restart: on-failure
     container_name: temporal-ui
     environment:
