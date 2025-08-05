@@ -30,7 +30,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/notify"
-	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
+	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 	"github.com/shortlink-org/shortlink/pkg/s3"
 	"go.opentelemetry.io/otel/trace"

@@ -14,7 +14,7 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/domain"
 	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 	"github.com/shortlink-org/shortlink/pkg/logger"
-	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
+	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 )
 
 // RunAPIServer - start HTTP-server

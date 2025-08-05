@@ -7,7 +7,7 @@ import (
 	"google.golang.org/grpc"
 
 	"github.com/shortlink-org/shortlink/pkg/logger"
-	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
+	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 

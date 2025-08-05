@@ -26,7 +26,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/logger"
-	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
+	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 
 	api "github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http"

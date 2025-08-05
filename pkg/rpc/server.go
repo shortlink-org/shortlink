@@ -21,7 +21,7 @@ import (
 
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
-	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
+	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 	grpc_logger "github.com/shortlink-org/shortlink/pkg/rpc/middleware/logger"
 	pprof_interceptor "github.com/shortlink-org/shortlink/pkg/rpc/middleware/pprof"
 	session_interceptor "github.com/shortlink-org/shortlink/pkg/rpc/middleware/session"

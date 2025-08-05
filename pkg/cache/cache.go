@@ -11,7 +11,7 @@ import (
 
 	db2 "github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/db/drivers/redis"
-	"github.com/shortlink-org/shortlink/pkg/observability/monitoring"
+	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 )
 
 // New returns a new cache.Client.
