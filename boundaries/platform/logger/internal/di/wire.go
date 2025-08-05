@@ -77,20 +77,20 @@ func NewLoggerApplication(log logger.Logger) (*logger_application.Service, error
 }
 
 func NewLoggerService(
-	// Common
+// Common
 	log logger.Logger,
 	config *config.Config,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
-	// Observability
+// Observability
 	monitoring *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 
-	// Application
+// Application
 	loggerService *logger_application.Service,
 
-	// Delivery
+// Delivery
 	loggerMQ *logger_mq.Event,
 ) (*LoggerService, error) {
 	return &LoggerService{
