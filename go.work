@@ -1,12 +1,11 @@
-go 1.24.3
+go 1.24.5
+
+toolchain go1.24.6
 
 use (
 	.
 
 	./boundaries/api/api-gateway
-
-	./boundaries/platform/istio-extension
-	./boundaries/platform/shortctl
 
 	./docs/ADR/decisions/proof/ADR-0007
 

@@ -157,11 +157,6 @@ updates:
       interval: daily
 
   - package-ecosystem: gomod
-    directory: /boundaries/platform/istio-extension
-    schedule:
-      interval: daily
-
-  - package-ecosystem: gomod
     directory: /boundaries/link/link
     schedule:
       interval: daily
