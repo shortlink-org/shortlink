@@ -118,8 +118,8 @@ importers:
         specifier: ^20.34.5
         version: 20.34.5(@jest/environment@30.0.5)(@jest/types@29.6.3)(@types/bunyan@1.8.11)(jest-environment-jsdom@29.7.0)(jest-environment-node@30.0.5)(jest@29.7.0(@types/node@22.13.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.13.10)(typescript@5.8.3)))
       eas-cli:
-        specifier: ^16.17.3
-        version: 16.17.3(@types/node@22.13.10)(encoding@0.1.13)(typescript@5.8.3)
+        specifier: ^16.17.4
+        version: 16.17.4(@types/node@22.13.10)(encoding@0.1.13)(typescript@5.8.3)
       eslint:
         specifier: ^9.22.0
         version: 9.22.0
@@ -3975,8 +3975,8 @@ packages:
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
 
-  eas-cli@16.17.3:
-    resolution: {integrity: sha512-6+1Y19oCXv+ycppzK+BvxOAB50QDlJlAtvlNB4Dir0WjHhEXjRJubTcCsHGHhOD8mCed84kC41K0XfdjKGYJ5Q==}
+  eas-cli@16.17.4:
+    resolution: {integrity: sha512-da2+5aV7v8eLoMo+KHNepGplo/PrudWQiTUM7tryxo1rU4CqItM/Q/FqV33D5kLiUMjG5XjX15n+X6het1YEeg==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -4550,10 +4550,6 @@ packages:
     peerDependenciesMeta:
       vue-template-compiler:
         optional: true
-
-  form-data@4.0.1:
-    resolution: {integrity: sha512-tzN8e4TX8+kkxGPK8D5u0FNmjPUjw3lwC9lSLxxoB/+GtsJG91CO8bSWy73APlgAZzZbXEYZJuxjkHH2w+Ezhw==}
-    engines: {node: '>= 6'}
 
   form-data@4.0.4:
     resolution: {integrity: sha512-KrGhL9Q4zjj0kiUt5OO4Mr/A/jlI2jDYs5eHBpYHPcBEVSiipAvn2Ko2HnPe20rmcuuvMHNdZFp+4IlGTMF0Ow==}
@@ -13907,7 +13903,7 @@ snapshots:
 
   duplexer@0.1.2: {}
 
-  eas-cli@16.17.3(@types/node@22.13.10)(encoding@0.1.13)(typescript@5.8.3):
+  eas-cli@16.17.4(@types/node@22.13.10)(encoding@0.1.13)(typescript@5.8.3):
     dependencies:
       '@expo/apple-utils': 2.1.12
       '@expo/code-signing-certificates': 0.0.5
@@ -14832,12 +14828,6 @@ snapshots:
       tapable: 2.2.1
       typescript: 5.8.3
       webpack: 5.99.9
-
-  form-data@4.0.1:
-    dependencies:
-      asynckit: 0.4.0
-      combined-stream: 1.0.8
-      mime-types: 2.1.35
 
   form-data@4.0.4:
     dependencies:
@@ -16320,7 +16310,7 @@ snapshots:
       decimal.js: 10.5.0
       domexception: 4.0.0
       escodegen: 2.1.0
-      form-data: 4.0.1
+      form-data: 4.0.4
       html-encoding-sniffer: 3.0.0
       http-proxy-agent: 5.0.0
       https-proxy-agent: 5.0.1
