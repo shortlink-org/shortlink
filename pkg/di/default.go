@@ -59,7 +59,7 @@ var DefaultSet = wire.NewSet(
 	config.New,
 	logger_di.New,
 	traicing_di.New,
-	monitoring.New,
+	metrics.New,
 	cache.New,
 	profiling.New,
 	permission.New,
@@ -77,18 +77,18 @@ var FullSet = wire.NewSet(
 
 // NewFullService - constructor for Service
 func NewFullService(
-	// Common ---------------------------------------------------
+// Common ---------------------------------------------------
 	cfg *config.Config,
 	log logger.Logger,
 
-	// Delivery -------------------------------------------------
+// Delivery -------------------------------------------------
 	serverRPC *rpc.Server,
 	clientRPC *grpc.ClientConn,
 	dataBus mq.MQ,
 	store_db db.DB,
 	shortcache redisCache.UniversalClient,
 
-	// Observability --------------------------------------------
+// Observability --------------------------------------------
 	monitor *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
