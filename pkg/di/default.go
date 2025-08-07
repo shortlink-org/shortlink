@@ -46,7 +46,7 @@ type Service struct {
 
 	// Observability --------------------------------------------
 	Tracer        trace.TracerProvider
-	Monitoring    *monitoring.Monitoring
+	Monitoring    *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 }
@@ -77,19 +77,19 @@ var FullSet = wire.NewSet(
 
 // NewFullService - constructor for Service
 func NewFullService(
-// Common ---------------------------------------------------
+	// Common ---------------------------------------------------
 	cfg *config.Config,
 	log logger.Logger,
 
-// Delivery -------------------------------------------------
+	// Delivery -------------------------------------------------
 	serverRPC *rpc.Server,
 	clientRPC *grpc.ClientConn,
 	dataBus mq.MQ,
 	store_db db.DB,
 	shortcache redisCache.UniversalClient,
 
-// Observability --------------------------------------------
-	monitor *monitoring.Monitoring,
+	// Observability --------------------------------------------
+	monitor *metrics.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
