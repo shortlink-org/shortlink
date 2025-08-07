@@ -10,7 +10,7 @@ require (
 	github.com/XSAM/otelsql v0.39.0
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/authzed/authzed-go v1.4.1
-	github.com/chromedp/chromedp v0.14.0
+	github.com/chromedp/chromedp v0.14.1
 	github.com/couchbase/gocb/v2 v2.10.1
 	github.com/dgraph-io/badger/v4 v4.7.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
