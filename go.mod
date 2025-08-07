@@ -45,7 +45,7 @@ require (
 	github.com/redis/go-redis/v9 v9.11.0
 	github.com/redis/rueidis v1.0.64
 	github.com/redis/rueidis/rueidiscompat v1.0.63
-	github.com/redis/rueidis/rueidisotel v1.0.63
+	github.com/redis/rueidis/rueidisotel v1.0.64
 	github.com/segmentio/encoding v0.4.1
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.9.1
