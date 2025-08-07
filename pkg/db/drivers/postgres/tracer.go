@@ -16,7 +16,7 @@ func (*Tracer) TraceQueryStart(ctx context.Context, _ *pgx.Conn, _ pgx.TraceQuer
 	span := trace.SpanFromContext(ctx)
 
 	span.SetAttributes(
-		semconv.DBSystemPostgreSQL,
+		semconv.DBSystemNamePostgreSQL,
 	)
 
 	return ctx

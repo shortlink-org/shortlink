@@ -57,7 +57,7 @@ func (s *Store) Init(ctx context.Context) error {
 
 	// Register DB stats to meter
 	err = otelsql.RegisterDBStatsMetrics(s.client, otelsql.WithAttributes(
-		semconv.DBSystemMySQL,
+		semconv.DBSystemNameMySQL,
 	))
 	if err != nil {
 		return &StoreError{

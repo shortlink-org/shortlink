@@ -38,7 +38,7 @@ func (s *Store) Init(ctx context.Context) error {
 	}
 
 	options := []otelsql.Option{
-		otelsql.WithAttributes(semconv.DBSystemSqlite),
+		otelsql.WithAttributes(semconv.DBSystemNameSQLite),
 		otelsql.WithDBName("SQLite"),
 	}
 
