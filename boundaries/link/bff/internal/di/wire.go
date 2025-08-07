@@ -1,4 +1,4 @@
-//go:generate wire
+//go:generate go tool wire
 //go:build wireinject
 
 // The build tag makes sure the stub is not built in the final build.

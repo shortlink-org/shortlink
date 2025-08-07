@@ -1,4 +1,4 @@
-//go:generate wire
+//go:generate go tool wire
 //go:build wireinject
 
 // The build tag makes sure the stub is not built in the final build.
@@ -54,12 +54,12 @@ func NewWSServer(ctx context.Context, log logger.Logger) (*ws.WS, error) {
 }
 
 func NewWSService(
-	// Common
+// Common
 	log logger.Logger,
 	config *config.Config,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
-	// Observability
+// Observability
 	monitoring *monitoring.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
