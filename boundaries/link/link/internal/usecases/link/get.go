@@ -7,6 +7,7 @@ import (
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/auth/session"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/pattern/saga"
 )
 
@@ -22,7 +23,15 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 		SAGA_STEP_GET_FROM_STORE   = "SAGA_STEP_GET_FROM_STORE"
 	)
 
-	userID := session.GetUserID(ctx)
+	userID, err := session.GetUserID(ctx)
+	if err != nil {
+		uc.log.Error("failed to get user ID from session", field.Fields{
+			"error": err.Error(),
+		})
+
+		return nil, err
+	}
+
 	resp := &domain.Link{}
 
 	// create a new saga for a get link by hash
@@ -72,7 +81,7 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 	}
 
 	// Run saga
-	err := sagaGetLink.Play(nil)
+	err = sagaGetLink.Play(nil)
 	if err != nil {
 		return nil, err
 	}

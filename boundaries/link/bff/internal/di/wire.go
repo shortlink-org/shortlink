@@ -44,7 +44,7 @@ type BFFWebService struct {
 
 	// Observability
 	Tracer        trace.TracerProvider
-	Monitoring    *monitoring.Monitoring
+	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 }
 
@@ -99,7 +99,7 @@ func NewAPIApplication(
 
 	// Observability
 	tracer trace.TracerProvider,
-	monitoring *monitoring.Monitoring,
+	metrics *metrics.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint,
 
 	// Infrastructure
@@ -118,7 +118,7 @@ func NewAPIApplication(
 
 		// Observability
 		Tracer:        tracer,
-		Monitoring:    monitoring,
+		Metrics:       metrics,
 		PprofEndpoint: pprofEndpoint,
 		AutoMaxPro:    autoMaxPro,
 
@@ -147,7 +147,7 @@ func NewBFFWebService(
 
 	// Observability
 	tracer trace.TracerProvider,
-	monitoring *monitoring.Monitoring,
+	metrics *metrics.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint,
 
 	// Delivery
@@ -160,7 +160,7 @@ func NewBFFWebService(
 
 		// Observability
 		Tracer:        tracer,
-		Monitoring:    monitoring,
+		Metrics:       metrics,
 		PprofEndpoint: pprofEndpoint,
 		AutoMaxPro:    autoMaxPro,
 

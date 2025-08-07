@@ -46,7 +46,7 @@ type server struct {
 }
 
 // InitServer - initialize gRPC server
-func InitServer(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*Server, error) {
+func InitServer(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *metrics.Monitoring) (*Server, error) {
 	viper.SetDefault("GRPC_SERVER_ENABLED", true) // gRPC grpServer enable
 
 	if !viper.GetBool("GRPC_SERVER_ENABLED") {
@@ -103,7 +103,7 @@ func InitServer(ctx context.Context, log logger.Logger, tracer trace.TracerProvi
 }
 
 // setConfig - set configuration
-func setServerConfig(log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*server, error) {
+func setServerConfig(log logger.Logger, tracer trace.TracerProvider, monitor *metrics.Monitoring) (*server, error) {
 	viper.SetDefault("GRPC_SERVER_PORT", "50051") // gRPC port
 	grpc_port := viper.GetInt("GRPC_SERVER_PORT")
 
@@ -143,7 +143,7 @@ func setServerConfig(log logger.Logger, tracer trace.TracerProvider, monitor *mo
 }
 
 // WithMetrics - setup metrics.
-func (s *server) WithMetrics(monitor *monitoring.Monitoring) {
+func (s *server) WithMetrics(monitor *metrics.Monitoring) {
 	s.serverMetrics = grpc_prometheus.NewServerMetrics(
 		grpc_prometheus.WithServerHandlingTimeHistogram(
 			grpc_prometheus.WithHistogramBuckets([]float64{0.001, 0.01, 0.1, 0.3, 0.6, 1, 3, 6, 9, 20, 30, 60, 90, 120}),
@@ -169,7 +169,7 @@ func (s *server) WithTracer(tracer trace.TracerProvider) {
 }
 
 // WithRecovery - setup recovery
-func (s *server) WithRecovery(monitor *monitoring.Monitoring) {
+func (s *server) WithRecovery(monitor *metrics.Monitoring) {
 	// Setup metric for panic recoveries.
 	panicsTotal := promauto.With(monitor.Prometheus).NewCounter(prometheus.CounterOpts{
 		Name: "grpc_req_panics_recovered_total",

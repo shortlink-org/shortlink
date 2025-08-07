@@ -15,7 +15,7 @@ import (
 // New returns a new instance of the Temporal client.
 //
 //nolint:ireturn // It's make by specification
-func New(log logger.Logger, monitor *monitoring.Monitoring) (client.Client, error) {
+func New(log logger.Logger, monitor *metrics.Monitoring) (client.Client, error) {
 	metrics, err := newPrometheusScope(&prometheus.Configuration{
 		ListenAddress: "0.0.0.0:9090",
 		TimerType:     "histogram",

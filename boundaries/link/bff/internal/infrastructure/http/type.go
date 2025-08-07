@@ -40,7 +40,7 @@ type Config struct {
 
 	// Observability
 	Tracer        trace.TracerProvider
-	Monitoring    *monitoring.Monitoring
+	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 

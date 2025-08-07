@@ -16,7 +16,7 @@ import (
 // newPrometheusScope creates a new Prometheus scope.
 //
 //nolint:ireturn // It's make by specification
-func newPrometheusScope(c *prometheus.Configuration, monitor *monitoring.Monitoring, log logger.Logger) (tally.Scope, error) {
+func newPrometheusScope(c *prometheus.Configuration, monitor *metrics.Monitoring, log logger.Logger) (tally.Scope, error) {
 	reporter, err := c.NewReporter(
 		prometheus.ConfigurationOptions{
 			Registry: monitor.Prometheus,

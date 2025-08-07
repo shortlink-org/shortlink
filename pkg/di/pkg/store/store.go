@@ -14,7 +14,7 @@ import (
 // New - return implementation of db
 //
 //nolint:ireturn // It's make by specification
-func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (db.DB, error) {
+func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *metrics.Monitoring) (db.DB, error) {
 	store, err := db.New(ctx, log, tracer, monitor.Metrics)
 	if err != nil {
 		return nil, &error_di.BaseError{Err: err}

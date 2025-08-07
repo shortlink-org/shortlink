@@ -11,7 +11,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 )
 
-func Permission(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*authzed.Client, error) {
+func Permission(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *metrics.Monitoring) (*authzed.Client, error) {
 	permission, err := auth.New(log, tracer, monitor)
 	if err != nil {
 		return nil, err

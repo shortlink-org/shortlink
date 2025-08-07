@@ -171,7 +171,7 @@ type BFFWebService struct {
 
 	// Observability
 	Tracer        trace.TracerProvider
-	Monitoring    *monitoring.Monitoring
+	Monitoring    *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 }
 
@@ -204,7 +204,7 @@ func NewSitemapServiceClient(runRPCClient *grpc.ClientConn) (sitemapv1grpc.Sitem
 func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer,
 	log logger.Logger, config2 *config.Config, autoMaxPro2 autoMaxPro.AutoMaxPro,
 
-	tracer trace.TracerProvider, monitoring2 *monitoring.Monitoring,
+	tracer trace.TracerProvider, monitoring2 *metrics.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint,
 
 	rpcServer *rpc.Server,
@@ -221,7 +221,7 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer,
 		Config: config2,
 
 		Tracer:        tracer,
-		Monitoring:    monitoring2,
+		Metrics:       monitoring2,
 		PprofEndpoint: pprofEndpoint,
 		AutoMaxPro:    autoMaxPro2,
 
@@ -243,7 +243,7 @@ func NewBFFWebService(ctx2 context.Context,
 
 	log logger.Logger, config2 *config.Config, autoMaxPro2 autoMaxPro.AutoMaxPro,
 
-	tracer trace.TracerProvider, monitoring2 *monitoring.Monitoring,
+	tracer trace.TracerProvider, monitoring2 *metrics.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint,
 
 	httpAPIServer *http.Server,

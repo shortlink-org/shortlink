@@ -209,7 +209,7 @@ type MetaDataService struct {
 
 	// Observability
 	Tracer        trace.TracerProvider
-	Monitoring    *monitoring.Monitoring
+	Monitoring    *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 
@@ -305,7 +305,7 @@ func NewMetaDataRPCServer(log logger.Logger, runRPCServer *rpc.Server, parsersUC
 
 func NewMetaDataService(
 
-	log logger.Logger, config2 *config.Config, monitoring2 *monitoring.Monitoring,
+	log logger.Logger, config2 *config.Config, monitoring2 *metrics.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,

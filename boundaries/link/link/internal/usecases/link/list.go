@@ -28,7 +28,15 @@ func (uc *UC) List(ctx context.Context, filter *types.FilterLink, cursor string,
 	)
 
 	// Set default values
-	userID := session.GetUserID(ctx)
+	userID, err := session.GetUserID(ctx)
+	if err != nil {
+		uc.log.Error("failed to get user ID from session", field.Fields{
+			"error": err.Error(),
+		})
+
+		return nil, nil, err
+	}
+
 	links := &domain.Links{}
 	nextToken := ""
 
@@ -112,7 +120,7 @@ func (uc *UC) List(ctx context.Context, filter *types.FilterLink, cursor string,
 	}
 
 	// Run saga
-	err := sagaListLink.Play(nil)
+	err = sagaListLink.Play(nil)
 	if err != nil {
 		uc.log.ErrorWithContext(ctx, "Error get list of links", field.Fields{"error": err})
 		return nil, nil, err

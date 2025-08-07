@@ -11,6 +11,7 @@ import (
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/auth/session"
+	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/pattern/saga"
 )
 
@@ -32,7 +33,14 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 	// Observability
 	NewLinkHistogramObserve(ctx)
 
-	userID := session.GetUserID(ctx)
+	userID, err := session.GetUserID(ctx)
+	if err != nil {
+		uc.log.Error("failed to get user ID from session", field.Fields{
+			"error": err.Error(),
+		})
+
+		return nil, err
+	}
 
 	// saga for create a new link
 	sagaAddLink, errs := saga.New(SAGA_NAME, saga.SetLogger(uc.log)).
@@ -125,7 +133,7 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 	}
 
 	// Run saga
-	err := sagaAddLink.Play(nil)
+	err = sagaAddLink.Play(nil)
 	if err != nil {
 		return nil, err
 	}

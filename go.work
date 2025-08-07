@@ -5,6 +5,10 @@ use (
 
 	./boundaries/api/api-gateway
 
+	./boundaries/link/bff
+	./boundaries/link/link
+	./boundaries/link/supplies/knative/kafka-to-elasticsearch
+
 	./docs/ADR/decisions/proof/ADR-0007
 
 	./pkg/golangci-lint/value-object

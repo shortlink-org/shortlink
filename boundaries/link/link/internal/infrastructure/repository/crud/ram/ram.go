@@ -52,7 +52,7 @@ func New(ctx context.Context) (*Store, error) {
 		}
 
 		var err error
-		s.config.job, err = batch.New[*domain.Link](ctx, cb)
+		s.config.job, err = batch.NewSync[*domain.Link](ctx, cb)
 		if err != nil {
 			return nil, err
 		}

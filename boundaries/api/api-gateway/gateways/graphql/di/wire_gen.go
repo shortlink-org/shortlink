@@ -174,7 +174,7 @@ type APIService struct {
 
 	// Observability
 	Tracer        trace.TracerProvider
-	Monitoring    *monitoring.Monitoring
+	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 }
@@ -214,7 +214,7 @@ func NewAPIApplication(ctx2 context.Context,
 	log logger.Logger,
 	rpcServer *rpc.Server,
 	tracer trace.TracerProvider,
-	monitor *monitoring.Monitoring,
+	monitor *metrics.Monitoring,
 
 	link_rpc linkv1grpc.LinkServiceClient,
 	link_command linkv1grpc2.LinkCommandServiceClient,
@@ -241,7 +241,7 @@ func NewAPIApplication(ctx2 context.Context,
 
 func NewAPIService(
 
-	log logger.Logger, config2 *config.Config, monitoring2 *monitoring.Monitoring,
+	log logger.Logger, config2 *config.Config, monitoring2 *metrics.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
@@ -254,7 +254,7 @@ func NewAPIService(
 		Config: config2,
 
 		Tracer:        tracer,
-		Monitoring:    monitoring2,
+		Metrics:       monitoring2,
 		PprofEndpoint: pprofHTTP,
 		AutoMaxPro:    autoMaxProcsOption,
 

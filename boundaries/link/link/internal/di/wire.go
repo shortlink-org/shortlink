@@ -44,7 +44,7 @@ type LinkService struct {
 
 	// Observability
 	Tracer        trace.TracerProvider
-	Monitoring    *monitoring.Monitoring
+	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 
 	// Security
@@ -123,7 +123,7 @@ func NewLinkService(
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	// Observability
-	monitoring *monitoring.Monitoring,
+	metrics *metrics.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 
@@ -157,7 +157,7 @@ func NewLinkService(
 
 		// Observability
 		Tracer:        tracer,
-		Monitoring:    monitoring,
+		Metrics:       metrics,
 		PprofEndpoint: pprofHTTP,
 
 		// Security

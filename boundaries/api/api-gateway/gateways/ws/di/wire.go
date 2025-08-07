@@ -34,7 +34,7 @@ type WSService struct {
 
 	// Observability
 	Tracer        trace.TracerProvider
-	Monitoring    *monitoring.Monitoring
+	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 }
 
@@ -54,13 +54,13 @@ func NewWSServer(ctx context.Context, log logger.Logger) (*ws.WS, error) {
 }
 
 func NewWSService(
-// Common
+	// Common
 	log logger.Logger,
 	config *config.Config,
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
-// Observability
-	monitoring *monitoring.Monitoring,
+	// Observability
+	metrics *metrics.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 
@@ -73,7 +73,7 @@ func NewWSService(
 
 		// Observability
 		Tracer:        tracer,
-		Monitoring:    monitoring,
+		Metrics:       metrics,
 		PprofEndpoint: pprofHTTP,
 		AutoMaxPro:    autoMaxProcsOption,
 

@@ -34,7 +34,7 @@ func (c *Client) GetURI() string {
 }
 
 // InitClient - set up a connection to the server.
-func InitClient(_ context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*grpc.ClientConn, func(), error) {
+func InitClient(_ context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *metrics.Monitoring) (*grpc.ClientConn, func(), error) {
 	config, err := SetClientConfig(tracer, monitor, log)
 	if err != nil {
 		return nil, nil, err
@@ -59,7 +59,7 @@ func InitClient(_ context.Context, log logger.Logger, tracer trace.TracerProvide
 }
 
 // setConfig - set configuration
-func SetClientConfig(tracer trace.TracerProvider, monitor *monitoring.Monitoring, log logger.Logger) (*Client, error) {
+func SetClientConfig(tracer trace.TracerProvider, monitor *metrics.Monitoring, log logger.Logger) (*Client, error) {
 	viper.AutomaticEnv()
 
 	viper.SetDefault("GRPC_CLIENT_PORT", "50051") // gRPC port
@@ -145,7 +145,7 @@ func (c *Client) withTLS() error {
 }
 
 // withTracer - setup tracing
-func (c *Client) withTracer(tracer trace.TracerProvider, monitor *monitoring.Monitoring) {
+func (c *Client) withTracer(tracer trace.TracerProvider, monitor *metrics.Monitoring) {
 	if tracer == nil {
 		return
 	}
@@ -159,7 +159,7 @@ func (c *Client) withTracer(tracer trace.TracerProvider, monitor *monitoring.Mon
 }
 
 // withMetrics - setup metrics.
-func (c *Client) withMetrics(monitor *monitoring.Monitoring) {
+func (c *Client) withMetrics(monitor *metrics.Monitoring) {
 	if monitor == nil {
 		return
 	}

@@ -45,7 +45,7 @@ type MetaDataService struct {
 
 	// Observability
 	Tracer        trace.TracerProvider
-	Monitoring    *monitoring.Monitoring
+	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 
 	// Delivery
@@ -157,7 +157,7 @@ func NewMetaDataService(
 	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	// Observability
-	monitoring *monitoring.Monitoring,
+	metrics *metrics.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 
@@ -178,7 +178,7 @@ func NewMetaDataService(
 
 		// Observability
 		Tracer:        tracer,
-		Monitoring:    monitoring,
+		Metrics:       metrics,
 		PprofEndpoint: pprofHTTP,
 		AutoMaxPro:    autoMaxProcsOption,
 

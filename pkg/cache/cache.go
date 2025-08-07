@@ -15,7 +15,7 @@ import (
 )
 
 // New returns a new cache.Client.
-func New(ctx context.Context, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*cache.Cache, error) {
+func New(ctx context.Context, tracer trace.TracerProvider, monitor *metrics.Monitoring) (*cache.Cache, error) {
 	viper.SetDefault("LOCAL_CACHE_TTL", "5m")
 	viper.SetDefault("LOCAL_CACHE_COUNT", 1000)
 	viper.SetDefault("LOCAL_CACHE_METRICS_ENABLED", true)

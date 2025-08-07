@@ -16,7 +16,7 @@ import (
 //go:embed permissions/*
 var permissions embed.FS //nolint:unused // ignore
 
-func New(_ context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *monitoring.Monitoring) (*authzed.Client, error) {
+func New(_ context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *metrics.Monitoring) (*authzed.Client, error) {
 	permission, err := auth.New(log, tracer, monitor)
 	if err != nil {
 		return nil, &error_di.BaseError{Err: err}

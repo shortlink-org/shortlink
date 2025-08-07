@@ -50,7 +50,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	configConfig, err := config.New()
+	configConfig, err := config.New(logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
@@ -69,7 +69,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	monitoringMonitoring, cleanup5, err := monitoring.New(context, logger, tracerProvider)
+	monitoring, cleanup5, err := metrics.New(context, logger, tracerProvider)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -86,7 +86,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	client, err := permission.New(context, logger, tracerProvider, monitoringMonitoring)
+	client, err := permission.New(context, logger, tracerProvider, monitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -104,7 +104,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	db, err := store.New(context, logger, tracerProvider, monitoringMonitoring)
+	db, err := store.New(context, logger, tracerProvider, monitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -113,7 +113,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	cacheCache, err := cache.New(context, tracerProvider, monitoringMonitoring)
+	cacheCache, err := cache.New(context, tracerProvider, monitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -185,7 +185,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	server, err := rpc.InitServer(context, logger, tracerProvider, monitoringMonitoring)
+	server, err := rpc.InitServer(context, logger, tracerProvider, monitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -230,7 +230,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(logger, configConfig, autoMaxProAutoMaxPro, monitoringMonitoring, tracerProvider, pprofEndpoint, client, uc, service, sitemapService, event, response, v1LinkRPC, linkRPC, v1Sitemap, crudStore, cqsStore, queryStore)
+	linkService, err := NewLinkService(logger, configConfig, autoMaxProAutoMaxPro, monitoring, tracerProvider, pprofEndpoint, client, uc, service, sitemapService, event, response, v1LinkRPC, linkRPC, v1Sitemap, crudStore, cqsStore, queryStore)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -258,7 +258,7 @@ type LinkService struct {
 
 	// Observability
 	Tracer        trace.TracerProvider
-	Monitoring    *monitoring.Monitoring
+	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 
 	// Security
@@ -285,7 +285,7 @@ type LinkService struct {
 }
 
 // LinkService =========================================================================================================
-var LinkSet = wire.NewSet(di.DefaultSet, mq_di.New, rpc.InitServer, rpc.InitClient, store.New, api_mq.New, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, NewLinkApplication, link_cqrs.New, sitemap.New, crud.New, cqs.New, query.New, NewLinkService)
+var LinkSet = wire.NewSet(di.DefaultSet, store.New, mq_di.New, api_mq.New, rpc.InitServer, rpc.InitClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, NewLinkApplication, link_cqrs.New, sitemap.New, crud.New, cqs.New, query.New, NewLinkService)
 
 func NewLinkApplication(log logger.Logger, mq2 mq.MQ, store2 *crud.Store, authPermission *authzed.Client) (*link.UC, error) {
 	linkService, err := link.New(log, mq2, nil, store2, authPermission)
@@ -304,7 +304,7 @@ func NewRunRPCServer(runRPCServer *rpc.Server, _ *v1.LinkRPC, _ *v1_2.LinkRPC) (
 func NewLinkService(
 
 	log logger.Logger, config2 *config.Config,
-	autoMaxProcsOption autoMaxPro.AutoMaxPro, monitoring2 *monitoring.Monitoring,
+	autoMaxProcsOption autoMaxPro.AutoMaxPro, metrics2 *metrics.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 
@@ -331,7 +331,7 @@ func NewLinkService(
 		AutoMaxPro: autoMaxProcsOption,
 
 		Tracer:        tracer,
-		Monitoring:    monitoring2,
+		Metrics:       metrics2,
 		PprofEndpoint: pprofHTTP,
 
 		authPermission: authPermission,

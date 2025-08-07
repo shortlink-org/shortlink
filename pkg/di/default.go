@@ -46,7 +46,7 @@ type Service struct {
 
 	// Observability --------------------------------------------
 	Tracer        trace.TracerProvider
-	Monitoring    *metrics.Monitoring
+	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 	AutoMaxPro    autoMaxPro.AutoMaxPro
 }
@@ -108,7 +108,7 @@ func NewFullService(
 
 		// Observability --------------------------------------------
 		Tracer:        tracer,
-		Monitoring:    monitor,
+		Metrics:       monitor,
 		PprofEndpoint: pprofHTTP,
 		AutoMaxPro:    autoMaxProcsOption,
 	}, nil
