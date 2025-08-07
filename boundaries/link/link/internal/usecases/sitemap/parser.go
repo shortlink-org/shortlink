@@ -46,7 +46,7 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 	if err != nil {
 		return err
 	}
-	defer resp.Body.Close()
+	defer resp.Body.Close() //nolint:errcheck // ignore close error
 
 	if resp.StatusCode != http.StatusOK {
 		return &IncorrectResponseCodeError{

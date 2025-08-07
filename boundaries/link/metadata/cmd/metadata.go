@@ -26,7 +26,7 @@ func main() {
 
 	defer func() {
 		if r := recover(); r != nil {
-			service.Log.Error(r.(string)) //nolint:forcetypeassert // simple type assertion
+			service.Log.Error(r.(string)) //nolint:forcetypeassert,errcheck // simple type assertion
 		}
 	}()
 

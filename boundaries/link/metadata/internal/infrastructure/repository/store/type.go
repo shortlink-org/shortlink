@@ -7,7 +7,7 @@ import (
 )
 
 type Repository interface {
-	Get(context.Context, string) (*rpc.Meta, error)
+	Get(ctx context.Context, id string) (*rpc.Meta, error)
 	Add(context.Context, *rpc.Meta) error
 }
 

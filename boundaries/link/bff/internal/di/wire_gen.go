@@ -41,7 +41,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	configConfig, err := config.New()
+	configConfig, err := config.New(logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
@@ -60,7 +60,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	monitoringMonitoring, cleanup5, err := monitoring.New(context, logger, tracerProvider)
+	monitoring, cleanup5, err := metrics.New(context, logger, tracerProvider)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -78,7 +78,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		return nil, nil, err
 	}
 	printer := i18n.New(context)
-	server, err := rpc.InitServer(context, logger, tracerProvider, monitoringMonitoring)
+	server, err := rpc.InitServer(context, logger, tracerProvider, monitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -87,7 +87,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup6, err := rpc.InitClient(context, logger, tracerProvider, monitoringMonitoring)
+	clientConn, cleanup6, err := rpc.InitClient(context, logger, tracerProvider, monitoring)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -136,7 +136,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	httpServer, err := NewAPIApplication(context, printer, logger, configConfig, autoMaxProAutoMaxPro, tracerProvider, monitoringMonitoring, pprofEndpoint, server, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
+	httpServer, err := NewAPIApplication(context, printer, logger, configConfig, autoMaxProAutoMaxPro, tracerProvider, monitoring, pprofEndpoint, server, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
 	if err != nil {
 		cleanup6()
 		cleanup5()
@@ -146,7 +146,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	bffWebService := NewBFFWebService(context, logger, configConfig, autoMaxProAutoMaxPro, tracerProvider, monitoringMonitoring, pprofEndpoint, httpServer)
+	bffWebService := NewBFFWebService(context, logger, configConfig, autoMaxProAutoMaxPro, tracerProvider, monitoring, pprofEndpoint, httpServer)
 	return bffWebService, func() {
 		cleanup6()
 		cleanup5()
@@ -171,7 +171,7 @@ type BFFWebService struct {
 
 	// Observability
 	Tracer        trace.TracerProvider
-	Monitoring    *metrics.Monitoring
+	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
 }
 
@@ -204,7 +204,7 @@ func NewSitemapServiceClient(runRPCClient *grpc.ClientConn) (sitemapv1grpc.Sitem
 func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer,
 	log logger.Logger, config2 *config.Config, autoMaxPro2 autoMaxPro.AutoMaxPro,
 
-	tracer trace.TracerProvider, monitoring2 *metrics.Monitoring,
+	tracer trace.TracerProvider, metrics2 *metrics.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint,
 
 	rpcServer *rpc.Server,
@@ -221,7 +221,7 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer,
 		Config: config2,
 
 		Tracer:        tracer,
-		Metrics:       monitoring2,
+		Metrics:       metrics2,
 		PprofEndpoint: pprofEndpoint,
 		AutoMaxPro:    autoMaxPro2,
 
@@ -243,7 +243,7 @@ func NewBFFWebService(ctx2 context.Context,
 
 	log logger.Logger, config2 *config.Config, autoMaxPro2 autoMaxPro.AutoMaxPro,
 
-	tracer trace.TracerProvider, monitoring2 *metrics.Monitoring,
+	tracer trace.TracerProvider, metrics2 *metrics.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint,
 
 	httpAPIServer *http.Server,
@@ -254,7 +254,7 @@ func NewBFFWebService(ctx2 context.Context,
 		Config: config2,
 
 		Tracer:        tracer,
-		Monitoring:    monitoring2,
+		Metrics:       metrics2,
 		PprofEndpoint: pprofEndpoint,
 		AutoMaxPro:    autoMaxPro2,
 

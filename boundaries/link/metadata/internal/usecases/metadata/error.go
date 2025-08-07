@@ -1,7 +1,5 @@
 package metadata
 
-import (
-	"fmt"
-)
+import "errors"
 
-var ErrSaga = fmt.Errorf("error in saga")
+var ErrSaga = errors.New("error in saga")

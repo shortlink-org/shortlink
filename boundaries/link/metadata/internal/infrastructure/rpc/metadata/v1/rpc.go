@@ -39,6 +39,7 @@ func New(log logger.Logger, runRPCServer *rpc.Server, parsersUC *parsers.UC, scr
 	// Register services
 	if runRPCServer != nil {
 		RegisterMetadataServiceServer(runRPCServer.Server, server)
+
 		go runRPCServer.Run()
 	}
 

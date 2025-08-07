@@ -63,5 +63,5 @@ func withCookie(ctx context.Context, cookie string) context.Context {
 }
 
 func GetCookie(ctx context.Context) string {
-	return ctx.Value(contextCookieKey).(string) //nolint:forcetypeassert // simple type assertion
+	return ctx.Value(contextCookieKey).(string) //nolint:forcetypeassert,errcheck // simple type assertion
 }

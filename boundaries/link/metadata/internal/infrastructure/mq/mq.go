@@ -35,6 +35,7 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload any) notify.Re
 		return notify.Response[any]{}
 	}
 
+	//nolint:revive // not required default case because we handle all cases
 	switch event {
 	case metadata.METHOD_ADD:
 		return e.add(ctx, payload)

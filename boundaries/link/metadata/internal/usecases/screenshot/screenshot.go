@@ -32,6 +32,7 @@ func (s *UC) Set(ctx context.Context, linkURL string) error {
 
 	// capture screenshot of an element
 	var screenshot []byte
+
 	err := chromedp.Run(newCtx, elementScreenshot(linkURL, &screenshot))
 	if err != nil {
 		return err

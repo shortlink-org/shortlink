@@ -17,6 +17,7 @@ type Service struct {
 func New(ctx context.Context, store *s3.Client) (*Service, error) {
 	// create bucket if not exists
 	bucketName := "screenshot"
+
 	err := store.CreateBucket(ctx, bucketName, minio.MakeBucketOptions{})
 	if err != nil {
 		return nil, err

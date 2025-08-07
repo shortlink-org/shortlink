@@ -55,7 +55,7 @@ func (r *UC) Set(ctx context.Context, url string) (*v1.Meta, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+	defer resp.Body.Close() //nolint:errcheck // ignore close error
 
 	// Load the HTML document
 	doc, err := goquery.NewDocumentFromReader(resp.Body)

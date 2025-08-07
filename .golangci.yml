@@ -1,492 +1,222 @@
-# This file contains all available configuration options
-# with their default values (in comments).
+version: "2"
 
-# Options for analysis running.
 run:
-  # Timeout for analysis, e.g. 30s, 5m.
-  # Default: 1m
   timeout: 15m
-
-  # If set we pass it to "go list -mod={option}". From "go help modules":
-  # If invoked with -mod=readonly, the go command is disallowed from the implicit
-  # automatic updating of go.mod described above. Instead, it fails when any changes
-  # to go.mod are needed. This setting is most useful to check that go.mod does
-  # not need updates, such as in a continuous integration and testing system.
-  # If invoked with -mod=vendor, the go command assumes that the vendor
-  # directory holds the correct copies of dependencies and ignores
-  # the dependency descriptions in go.mod.
-  #
-  # Allowed values: readonly|vendor|mod
-  # By default, it isn't set.
   modules-download-mode: readonly
-
-  # Allow multiple parallel golangci-lint instances running.
-  # If false (default) - golangci-lint acquires file lock on start.
   allow-parallel-runners: true
 
-# output configuration options
 output:
-
-  # Sort results by: filepath, line and column.
   sort-results: true
 
-# All available settings of specific linters.
-linters-settings:
-
-  cyclop:
-    # The maximal code complexity to report.
-    max-complexity: 25
-
-  errcheck:
-    # Report about not checking of errors in type assertions: `a := b.(MyStruct)`.
-    # Such cases aren't reported by default.
-    # Default: false
-    check-type-assertions: true
-
-    # report about assignment of errors to blank identifier: `num, _ := strconv.Atoi(numStr)`.
-    # Such cases aren't reported by default.
-    # Default: false
-    check-blank: true
-
-    # To disable the errcheck built-in exclude list.
-    # See `-excludeonly` option in https://github.com/kisielk/errcheck#excluding-functions for details.
-    # Default: false
-    disable-default-exclusions: false
-
-  errchkjson:
-    check-error-free-encoding: true
-    report-no-exported: true
-
-  exhaustive:
-    # Program elements to check for exhaustiveness.
-    # Default: [ switch ]
-    check:
-      - switch
-      - map
-    # Check switch statements in generated files also.
-    # Default: false
-    check-generated: true
-    # Presence of "default" case in switch statements satisfies exhaustiveness,
-    # even if all enum members are not listed.
-    # Default: false
-    default-signifies-exhaustive: true
-    # Consider enums only in package scopes, not in inner scopes.
-    # Default: false
-    package-scope-only: true
-    explicit-exhaustive-switch: true
-    explicit-exhaustive-map: true
-    default-case-required: true
-
-  funlen:
-    # Checks the number of lines in a function.
-    # If lower than 0, disable the check.
-    # Default: 60
-    lines: 120
-    # Checks the number of statements in a function.
-    # If lower than 0, disable the check.
-    # Default: 40
-    statements: 60
-
-  gci:
-    sections:
-      - standard # Standard section: captures all standard packages.
-      - default # Default section: contains all imports that could not be matched to another section type.
-      - prefix(github.com/shortlink-org/shortlink)
-    skip-generated: true
-    custom-order: true
-
-  gocritic:
-    enable-all: true
-    disabled-checks:
-      - unnamedResult
-
-  godot:
-    # Comments to be checked: `declarations`, `toplevel`, or `all`.
-    # Default: declarations
-    scope: toplevel
-    # List of regexps for excluding particular comment lines from check.
-    exclude:
-      # Exclude todo and fixme comments.
-      - "^fixme:"
-      - "^todo:"
-    # Check that each sentence ends with a period.
-    # Default: true
-    period: false
-    # Check that each sentence starts with a capital letter.
-    # Default: false
-    capital: true
-
-  gofumpt:
-    # Choose whether to use the extra rules.
-    # Default: false
-    extra-rules: true
-
-  goimports:
-    # Put imports beginning with prefix after 3rd-party packages.
-    # It's a comma-separated list of prefixes.
-    local-prefixes: github.com/shortlink-org/shortlink
-
-  mnd:
-    # List of enabled checks, see https://github.com/tommy-muehle/go-mnd/#checks for description.
-    checks:
-      - argument
-      - case
-      - condition
-      - operation
-      - return
-      - assign
-    # List of numbers to exclude from analysis.
-    # The numbers should be written as string.
-    # Values always ignored: "1", "1.0", "0" and "0.0"
-    ignored-numbers:
-      - '0666'
-      - '0755'
-      - '42'
-      - '3'
-      - '5'
-      - '100'
-      - '1000'
-
-  gosec:
-    # To specify the configuration of rules.
-    # The configuration of rules is not fully documented by gosec:
-    # https://github.com/securego/gosec#configuration
-    # https://github.com/securego/gosec/blob/569328eade2ccbad4ce2d0f21ee158ab5356a5cf/rules/rulelist.go#L60-L102
-    config:
-      G306: "0600"
-      G101:
-        pattern: "(?i)example"
-        ignore_entropy: false
-        entropy_threshold: "80.0"
-        per_char_threshold: "3.0"
-        truncate: "32"
-
-  govet:
-    # Enable all analyzers.
-    # Default: false
-    enable-all: true
-    disable:
-      - fieldalignment # save readability of code, we use this optimization for building pipelines
-
-  iface:
-    enable:
-      - identical # Identifies interfaces in the same package that have identical method sets.
-      - unused # Identifies interfaces that are not used anywhere in the same package where the interface is defined.
-      - opaque # Identifies functions that return interfaces, but the actual returned value is always a single concrete implementation.
-
-  importas:
-    # Do not allow unaliased imports of aliased packages.
-    # Default: false
-    no-unaliased: true
-    # Do not allow non-required aliases.
-    # Default: false
-    no-extra-aliases: true
-
-  lll:
-    # Max line length, lines longer will be reported.
-    # '\t' is counted as 1 character by default, and can be changed with the tab-width option.
-    # Default: 120.
-    line-length: 200
-
-  loggercheck:
-    slog: true
-    zap: true
-
-  maintidx:
-    # Show functions with maintainability index lower than N.
-    # A high index indicates better maintainability (it's kind of the opposite of complexity).
-    # Default: 20
-    under: 30
-
-  misspell:
-    # Correct spellings using locale preferences for US or UK.
-    # Setting locale to US will correct the British spelling of 'colour' to 'color'.
-    # Default is to use a neutral variety of English.
-    locale: US
-
-  nestif:
-    # Minimal complexity of if statements to report.
-    min-complexity: 30
-
-  nlreturn:
-    # Size of the block (including return statement that is still "OK")
-    # so no return split required.
-    # Default: 1
-    block-size: 2
-
-  nolintlint:
-    # Disable to ensure that all nolint directives actually have an effect.
-    # Default: false
-    allow-unused: true
-    # Enable to require an explanation of nonzero length after each nolint directive.
-    # Default: false
-    require-explanation: true
-    # Enable to require nolint directives to mention the specific linter being suppressed.
-    # Default: false
-    require-specific: true
-
-  nonamedreturns:
-    # Report named error if it is assigned inside defer.
-    # Default: false
-    report-error-in-defer: true
-
-  paralleltest:
-    # Ignore missing calls to `t.Parallel()` and only report incorrect uses of it.
-    # Default: false
-    ignore-missing: true
-    # Ignore missing calls to `t.Parallel()` in subtests. Top-level tests are
-    # still required to have `t.Parallel`, but subtests are allowed to skip it.
-    # Default: false
-    ignore-missing-subtests: true
-
-  perfsprint:
-    # Optimizes into `err.Error()` even if it is only equivalent for non-nil errors.
-    # Default: false
-    err-error: true
-
-  prealloc:
-    # IMPORTANT: we don't recommend using this linter before doing performance profiling.
-    # For most programs usage of prealloc will be a premature optimization.
-
-    # Report pre-allocation suggestions on for loops.
-    # Default: false
-    for-loops: true
-
-  promlinter:
-    # Promlinter cannot infer all metrics name in static analysis.
-    # Enable strict mode will also include the errors caused by failing to parse the args.
-    # Default: false
-    strict: true
-
-  revive:
-    # Maximum number of open files at the same time.
-    # See https://github.com/mgechev/revive#command-line-flags
-    # Defaults to unlimited.
-    max-open-files: 2048
-
-    # When set to false, ignores files with "GENERATED" header, similar to golint.
-    # See https://github.com/mgechev/revive#configuration for details.
-    # Default: false
-    ignore-generated-header: true
-
-    # Enable all available rules.
-    # Default: false
-    enable-all-rules: true
-
-    # Enable validation of comment directives.
-    # See https://github.com/mgechev/revive#comment-directives
-    directives:
-      - name: specify-disable-reason
-        severity: error
-
-    # Sets the default failure confidence.
-    # This means that linting errors with less than 0.8 confidence will be ignored.
-    # Default: 0.8
-    confidence: 0.8
-
-    rules:
-      # https://github.com/mgechev/revive/blob/master/RULES_DESCRIPTIONS.md#add-constant
-      - name: add-constant
-        severity: warning
-        disabled: false
-        arguments:
-          - maxLitCount: "15"
-            allowStrs: '"",":",": ",";",")",","'
-            allowInts: "0,1,2,3,5,10,100,1000,10000"
-            allowFloats: "0.0,0.,1.0,1.,2.0,2."
-      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#line-length-limit
-      - name: line-length-limit
-        severity: warning
-        disabled: false
-        exclude: [ "" ]
-        arguments: [ 160 ]
-      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#cyclomatic
-      - name: cyclomatic
-        severity: warning
-        disabled: false
-        exclude: [ "" ]
-        arguments: [ 30 ]
-      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#cognitive-complexity
-      - name: cognitive-complexity
-        severity: warning
-        disabled: false
-        exclude: [""]
-        arguments: [40]
-      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#import-alias-naming
-      - name: import-alias-naming
-        severity: warning
-        disabled: false
-        exclude: [ "" ]
-        arguments:
-          - "^[a-zA-Z][a-zA-Z0-9_]{0,}$"
-      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#argument-limit
-      - name: argument-limit
-        severity: warning
-        disabled: false
-        exclude:
-          - "**/di/*.go"
-        arguments: [ 4 ]
-      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#function-length
-      - name: function-length
-        severity: warning
-        disabled: false
-        arguments: [ 75, 0 ]
-      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#var-naming
-      - name: var-naming
-        disabled: true
-      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#blank-imports
-      - name: blank-imports
-        disabled: true
-      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#unexported-naming
-      - name: unexported-naming
-        disabled: true
-      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#increment-decrement
-      - name: increment-decrement
-        disabled: true
-      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#empty-block
-      - name: empty-block
-        disabled: true
-      # https://github.com/mgechev/revive/blob/HEAD/RULES_DESCRIPTIONS.md#confusing-naming
-      - name: confusing-naming
-        disabled: true
-
-  testifylint:
-    enable-all: true
-
-  stylecheck:
-    checks:
-      # Incorrect or missing package comment.
-      # https://staticcheck.dev/docs/checks/#ST1000
-      - ST1000
-      # Dot imports are discouraged.
-      # https://staticcheck.dev/docs/checks/#ST1001
-      - ST1001
-      # Incorrectly formatted error string.
-      # https://staticcheck.dev/docs/checks/#ST1005
-      - ST1005
-      # Poorly chosen receiver name.
-      # https://staticcheck.dev/docs/checks/#ST1006
-      - ST1006
-      # A function's error value should be its last return value.
-      # https://staticcheck.dev/docs/checks/#ST1008
-      - ST1008
-      # Poorly chosen name for variable of type 'time.Duration'.
-      # https://staticcheck.dev/docs/checks/#ST1011
-      - ST1011
-      # Poorly chosen name for error variable.
-      # https://staticcheck.dev/docs/checks/#ST1012
-      - ST1012
-      # Should use constants for HTTP error codes, not magic numbers.
-      # https://staticcheck.dev/docs/checks/#ST1013
-      - ST1013
-      # A switch's default case should be the first or last case.
-      # https://staticcheck.dev/docs/checks/#ST1015
-      - ST1015
-      # Use consistent method receiver names.
-      # https://staticcheck.dev/docs/checks/#ST1016
-      - ST1016
-      # Don't use Yoda conditions.
-      # https://staticcheck.dev/docs/checks/#ST1017
-      - ST1017
-      # Avoid zero-width and control characters in string literals.
-      # https://staticcheck.dev/docs/checks/#ST1018
-      - ST1018
-      # Importing the same package multiple times.
-      # https://staticcheck.dev/docs/checks/#ST1019
-      - ST1019
-      # The documentation of an exported function should start with the function's name.
-      # https://staticcheck.dev/docs/checks/#ST1020
-      - ST1020
-      # The documentation of an exported type should start with type's name.
-      # https://staticcheck.dev/docs/checks/#ST1021
-      - ST1021
-      # The documentation of an exported variable or constant should start with variable's name.
-      # https://staticcheck.dev/docs/checks/#ST1022
-      - ST1022
-      # Redundant type in variable declaration.
-      # https://staticcheck.dev/docs/checks/#ST1023
-      - ST1023
-
-  usestdlibvars:
-    # Suggest the use of time.Month
-    # Default: false
-    time-month: true
-    # Suggest the use of time.Layout
-    # Default: false
-    time-layout: true
-    # Suggest the use of crypto.Hash
-    # Default: false
-    crypto-hash: true
-    # Suggest the use of pc.DefaultXXPath
-    # Default: false
-    default-rpc-path: true
-
-  varnamelen:
-    max-distance: 6
-    check-receiver: false
-    check-return: true
-    check-type-param: true
-    ignore-names:
-      - err
-      - wg # wait group
-      - wp # worker pool
-      - rl # rate limiter
-      - T # generic type
-      - i # index
-      - in # input
-
-  fatcontext:
-    # Check for potential fat contexts in struct pointers.
-    # May generate false positives.
-    # Default: false
-    check-struct-pointers: true
-
-  whitespace:
-    multi-if: true
-    multi-func: true
-
 linters:
-  # Enable all available linters.
-  # Default: false
-  enable-all: true
-
+  # Enable every linter, then prune the noisy ones
+  default: all
   disable:
-    - tenv # deprecated. replaced by usetesting
-    - importas # doesn't work correctly
-    - exhaustruct # hard to use
-    - godox # incorrect results
+    - importas        # noisy / incorrect results
+    - exhaustruct     # hard to use with current codebase
+    - godox           # incorrect results in our project
     - depguard
-    - gochecknoglobals # very noisy
+    - gochecknoglobals
 
-issues:
+  exclusions:
+    paths:
+      - "ops"                     # Ops manifests, etc.
+      - ".*mocks.+"              # Generated mocks
+      - "wire_gen.go"            # Wire‑generated
+    rules:
+      - path: "(.+)_test.go"
+        linters:
+          - wrapcheck
+          - varnamelen
+          - nilnil
+          - gochecknoinits
+          - err113
+    generated: strict              # Skip all generated files across linters/formatters
 
-  skip-dirs:
-    - "ops"
+  # Per‑linter tuning ---------------------------------------------------------
+  settings:
 
-  skip-files:
-    - ".*mocks.+"
-    - "wire_gen.go"
+    wsl_v5:
+      allow-first-in-block: true
+      allow-whole-block: false
+      branch-max-lines: 2
 
-  # Show only new issues: if there are unstaged changes or untracked files,
-  # only those changes are analyzed, else only changes in HEAD~ are analyzed.
-  # It's a super-useful option for integration of golangci-lint into existing large codebase.
-  # It's not practical to fix all existing issues at the moment of integration:
-  # much better don't allow issues in new code.
-  #
-  # Default: false.
-  new: false
+    cyclop:
+      max-complexity: 25
 
-  # Show only new issues created after git revision `REV`.
-  #  new-from-rev: HEAD
+    errcheck:
+      check-type-assertions: true
+      check-blank: true
+      disable-default-exclusions: false
 
-  # Fix found issues (if it's supported by the linter).
-  fix: false
+    errchkjson:
+      check-error-free-encoding: true
+      report-no-exported: true
 
-  exclude-rules:
-    - path: (.+)_test.go
-      linters:
-        - wrapcheck
-        - varnamelen
-        - nilnil
-        - gochecknoinits
-        - err113
+    exhaustive:
+      check: [switch, map]
+      default-signifies-exhaustive: true
+      package-scope-only: true
+      explicit-exhaustive-switch: true
+      explicit-exhaustive-map: true
+      default-case-required: true
+
+    funlen:
+      lines: 120
+      statements: 60
+
+    gocritic:
+      enable-all: true
+      disabled-checks: [unnamedResult]
+
+    godot:
+      scope: toplevel
+      exclude: ["^fixme:", "^todo:"]
+      period: false
+      capital: true
+
+    mnd:
+      checks: [argument, case, condition, operation, return, assign]
+      ignored-numbers: ["0666", "0755", "42", "3", "5", "100", "1000"]
+
+    gosec:
+      config:
+        G306: "0600"
+        G101:
+          pattern: "(?i)example"
+          ignore_entropy: false
+          entropy_threshold: "80.0"
+          per_char_threshold: "3.0"
+          truncate: "32"
+
+    govet:
+      enable-all: true
+      disable: [fieldalignment]
+
+    iface:
+      enable: [identical, unused, opaque]
+
+    lll:
+      line-length: 200
+
+    loggercheck:
+      slog: true
+      zap: true
+
+    maintidx:
+      under: 30
+
+    misspell:
+      locale: US
+
+    nestif:
+      min-complexity: 30
+
+    nlreturn:
+      block-size: 2
+
+    nolintlint:
+      allow-unused: true
+      require-explanation: true
+      require-specific: true
+
+    nonamedreturns:
+      report-error-in-defer: true
+
+    paralleltest:
+      ignore-missing: true
+      ignore-missing-subtests: true
+
+    perfsprint:
+      err-error: true
+
+    prealloc:
+      for-loops: true
+
+    promlinter:
+      strict: true
+
+    # ▶️ Revive — full ruleset (best‑practice Aug 2025) ----------------------
+    revive:
+      max-open-files: 2048
+      directives:
+        - name: specify-disable-reason
+          severity: error
+      # Only the rules listed below are active; everything else is off by default.
+      rules:
+        - name: add-constant
+          severity: warning
+          arguments:
+            - maxLitCount: "15"
+              allowStrs: '"",":",": ",";",")",","'
+              allowInts: "0,1,2,3,5,10,100,1000,10000"
+              allowFloats: "0.0,0.,1.0,1.,2.0,2."
+        - name: line-length-limit
+          severity: warning
+          arguments: [160]
+        - name: cyclomatic
+          severity: warning
+          arguments: [30]
+        - name: cognitive-complexity
+          severity: warning
+          arguments: [40]
+        - name: import-alias-naming
+          severity: warning
+          arguments: ["^[a-zA-Z][a-zA-Z0-9_]{0,}$"]
+        - name: argument-limit
+          severity: warning
+          arguments: [4]
+        - name: function-length
+          severity: warning
+          arguments: [75, 0]
+        - name: enforce-switch-style   # new in revive v1.11
+          severity: warning           # requires a default as last case
+        # Disabled / noisy checks
+        - name: var-naming
+          disabled: true
+        - name: blank-imports
+          disabled: true
+        - name: unexported-naming
+          disabled: true
+        - name: increment-decrement
+          disabled: true
+        - name: empty-block
+          disabled: true
+        - name: confusing-naming
+          disabled: true
+
+    testifylint:
+      enable-all: true
+
+    usestdlibvars:
+      time-month: true
+      time-layout: true
+      crypto-hash: true
+      default-rpc-path: true
+
+    varnamelen:
+      max-distance: 6
+      check-receiver: false
+      check-return: true
+      check-type-param: true
+      ignore-names: [err, wg, wp, rl, T, i, in]
+
+    fatcontext:
+      check-struct-pointers: true
+
+    whitespace:
+      multi-if: true
+      multi-func: true
+
+formatters:
+  enable: [gci, gofmt, gofumpt, goimports]
+  exclusions:
+    generated: strict
+  settings:
+    gci:
+      sections: [standard, default, prefix(github.com/shortlink-org/shortlink)]
+      custom-order: true
+    gofumpt:
+      extra-rules: true
+    goimports:
+      local-prefixes: github.com/shortlink-org/shortlink
