@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/api/api-gateway
 
-go 1.24.5
+go 1.24.6
 
 require (
 	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.5.1-20240420204150-bbba30c24796.2
@@ -10,7 +10,7 @@ require (
 	github.com/graph-gophers/graphql-go v1.6.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.1
 	github.com/segmentio/encoding v0.4.1
-	github.com/shortlink-org/shortlink v0.0.0-20250320185953-73466f74ab65
+	github.com/shortlink-org/shortlink v0.0.0-20250806204432-a022ce0d8093
 	github.com/spf13/viper v1.20.1
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.3.2
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.62.0
@@ -51,7 +51,7 @@ require (
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-redis/cache/v9 v9.0.0 // indirect
 	github.com/go-sql-driver/mysql v1.9.3 // indirect
-	github.com/go-viper/mapstructure/v2 v2.3.0 // indirect
+	github.com/go-viper/mapstructure/v2 v2.4.0 // indirect
 	github.com/golang-migrate/migrate/v4 v4.18.3 // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/golang/snappy v1.0.0 // indirect
@@ -90,8 +90,8 @@ require (
 	github.com/nats-io/nkeys v0.4.11 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/neo4j/neo4j-go-driver/v5 v5.28.1 // indirect
-	github.com/onsi/ginkgo/v2 v2.23.3 // indirect
-	github.com/onsi/gomega v1.36.3 // indirect
+	github.com/onsi/ginkgo/v2 v2.23.4 // indirect
+	github.com/onsi/gomega v1.37.0 // indirect
 	github.com/ory/client-go v1.21.1 // indirect
 	github.com/ory/dockertest/v3 v3.12.0 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
