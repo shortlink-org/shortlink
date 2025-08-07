@@ -27,7 +27,7 @@ require (
 	github.com/google/wire v0.6.0
 	github.com/grafana/pyroscope-go v1.2.4
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.8
-	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.0.1
+	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.2
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb
 	github.com/jackc/pgx/v5 v5.7.5
