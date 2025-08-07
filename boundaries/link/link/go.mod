@@ -123,7 +123,7 @@ require (
 	github.com/rabbitmq/amqp091-go v1.10.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20201227073835-cf1acfcdf475 // indirect
 	github.com/redis/go-redis/v9 v9.11.0 // indirect
-	github.com/redis/rueidis/rueidiscompat v1.0.63 // indirect
+	github.com/redis/rueidis/rueidiscompat v1.0.64 // indirect
 	github.com/redis/rueidis/rueidisotel v1.0.64 // indirect
 	github.com/sagikazarmark/locafero v0.7.0 // indirect
 	github.com/samber/lo v1.51.0 // indirect
