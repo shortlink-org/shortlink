@@ -1,7 +1,7 @@
 package config
 
 import (
-	"github.com/Unleash/unleash-client-go/v4"
+	"github.com/Unleash/unleash-go-sdk/v5"
 	"github.com/spf13/viper"
 
 	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"

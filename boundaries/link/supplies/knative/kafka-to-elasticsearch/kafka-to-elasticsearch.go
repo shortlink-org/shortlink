@@ -9,7 +9,7 @@ import (
 	"github.com/cloudevents/sdk-go/observability/opencensus/v2/client"
 	cloudevents "github.com/cloudevents/sdk-go/v2"
 	cehttp "github.com/cloudevents/sdk-go/v2/protocol/http"
-	"github.com/elastic/go-elasticsearch/v8"
+	elasticsearch "github.com/elastic/go-elasticsearch/v9"
 )
 
 type Service struct {
