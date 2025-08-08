@@ -6,7 +6,7 @@ require (
 	github.com/IBM/sarama v1.45.2
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
 	github.com/PuerkitoBio/goquery v1.10.3
-	github.com/Unleash/unleash-client-go/v4 v4.5.0
+	github.com/Unleash/unleash-client-go/v5 v5.0.3
 	github.com/XSAM/otelsql v0.39.0
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/authzed/authzed-go v1.4.1
