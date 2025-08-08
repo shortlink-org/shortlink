@@ -12,7 +12,7 @@ require (
 	github.com/authzed/authzed-go v1.4.1
 	github.com/chromedp/chromedp v0.14.1
 	github.com/couchbase/gocb/v2 v2.10.1
-	github.com/dgraph-io/badger/v4 v4.7.0
+	github.com/dgraph-io/badger/v4 v4.8.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/dnwe/otelsarama v0.0.0-20240308230250-9388d9d40bc0
 	github.com/exaring/otelpgx v0.9.3
