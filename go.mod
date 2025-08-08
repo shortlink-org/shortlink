@@ -46,7 +46,7 @@ require (
 	github.com/redis/rueidis v1.0.64
 	github.com/redis/rueidis/rueidiscompat v1.0.64
 	github.com/redis/rueidis/rueidisotel v1.0.64
-	github.com/segmentio/encoding v0.4.1
+	github.com/segmentio/encoding v0.5.3
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.9.1
 	github.com/spf13/viper v1.20.1

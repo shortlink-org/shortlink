@@ -11,7 +11,7 @@ require (
 	github.com/google/wire v0.6.0
 	github.com/oapi-codegen/runtime v1.1.2
 	github.com/riandyrn/otelchi v0.12.1
-	github.com/segmentio/encoding v0.4.1
+	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/shortlink v0.0.0-20250806204432-a022ce0d8093
 	github.com/spf13/viper v1.20.1
 	go.opentelemetry.io/otel/trace v1.37.0
