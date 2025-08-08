@@ -9,7 +9,7 @@ require (
 	github.com/google/wire v0.6.0
 	github.com/graph-gophers/graphql-go v1.6.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.1
-	github.com/segmentio/encoding v0.4.1
+	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/shortlink v0.0.0-20250806204432-a022ce0d8093
 	github.com/spf13/viper v1.20.1
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.3.2
