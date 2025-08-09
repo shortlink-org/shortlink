@@ -18,8 +18,8 @@ importers:
         specifier: ^1.3.1
         version: 1.3.1(@ory/client@1.21.3)(next@15.3.3(@babel/core@7.26.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))
       '@reduxjs/toolkit':
-        specifier: ^2.6.1
-        version: 2.6.1(react-redux@9.2.0(@types/react@18.3.18)(react@19.0.0-rc-fb9a90fa48-20240614)(redux@5.0.1))(react@19.0.0-rc-fb9a90fa48-20240614)
+        specifier: ^2.8.2
+        version: 2.8.2(react-redux@9.2.0(@types/react@18.3.18)(react@19.0.0-rc-fb9a90fa48-20240614)(redux@5.0.1))(react@19.0.0-rc-fb9a90fa48-20240614)
       '@sentry/nextjs':
         specifier: ^10.3.0
         version: 10.3.0(@opentelemetry/context-async-hooks@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/core@2.0.1(@opentelemetry/api@1.9.0))(@opentelemetry/sdk-trace-base@2.0.1(@opentelemetry/api@1.9.0))(next@15.3.3(@babel/core@7.26.8)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(webpack@5.97.1(esbuild@0.24.2))
@@ -2245,8 +2245,8 @@ packages:
   '@redux-saga/types@1.2.1':
     resolution: {integrity: sha512-1dgmkh+3so0+LlBWRhGA33ua4MYr7tUOj+a9Si28vUi0IUFNbff1T3sgpeDJI/LaC75bBYnQ0A3wXjn0OrRNBA==}
 
-  '@reduxjs/toolkit@2.6.1':
-    resolution: {integrity: sha512-SSlIqZNYhqm/oMkXbtofwZSt9lrncblzo6YcZ9zoX+zLngRBrCOjK4lNLdkNucJF58RHOWrD9txT3bT3piH7Zw==}
+  '@reduxjs/toolkit@2.8.2':
+    resolution: {integrity: sha512-MYlOhQ0sLdw4ud48FoC5w0dH9VfWQjtCjreKwYTT3l+r427qYC5Y8PihNutepr8XrNaBUDQo9khWUwQxZaqt5A==}
     peerDependencies:
       react: ^16.9.0 || ^17.0.0 || ^18 || ^19
       react-redux: ^7.2.1 || ^8.1.3 || ^9.0.0
@@ -2527,6 +2527,12 @@ packages:
     engines: {node: '>= 14'}
     peerDependencies:
       webpack: '>=4.40.0'
+
+  '@standard-schema/spec@1.0.0':
+    resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
+
+  '@standard-schema/utils@0.3.0':
+    resolution: {integrity: sha512-e7Mew686owMaPJVNNLs55PUvgz371nKgwsc4vxE49zsODpJEnxgxRo2y/OKrqueavXgZNMDVj3DdHFlaSAeU8g==}
 
   '@storybook/addon-actions@6.5.16':
     resolution: {integrity: sha512-aADjilFmuD6TNGz2CRPSupnyiA/IGkPJHDBTqMpsDXTUr8xnuD122xkIhg6UxmCM2y1c+ncwYXy3WPK2xXK57g==}
@@ -8877,8 +8883,10 @@ snapshots:
 
   '@redux-saga/types@1.2.1': {}
 
-  '@reduxjs/toolkit@2.6.1(react-redux@9.2.0(@types/react@18.3.18)(react@19.0.0-rc-fb9a90fa48-20240614)(redux@5.0.1))(react@19.0.0-rc-fb9a90fa48-20240614)':
+  '@reduxjs/toolkit@2.8.2(react-redux@9.2.0(@types/react@18.3.18)(react@19.0.0-rc-fb9a90fa48-20240614)(redux@5.0.1))(react@19.0.0-rc-fb9a90fa48-20240614)':
     dependencies:
+      '@standard-schema/spec': 1.0.0
+      '@standard-schema/utils': 0.3.0
       immer: 10.1.1
       redux: 5.0.1
       redux-thunk: 3.1.0(redux@5.0.1)
@@ -9199,6 +9207,10 @@ snapshots:
     transitivePeerDependencies:
       - encoding
       - supports-color
+
+  '@standard-schema/spec@1.0.0': {}
+
+  '@standard-schema/utils@0.3.0': {}
 
   '@storybook/addon-actions@6.5.16(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)':
     dependencies:
