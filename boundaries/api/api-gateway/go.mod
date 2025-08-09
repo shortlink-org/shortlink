@@ -22,7 +22,7 @@ require (
 
 require (
 	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250613105001-9f2d3c737feb.1 // indirect
-	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.6-20240420204150-bbba30c24796.1 // indirect
+	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.7-20240420204150-bbba30c24796.1 // indirect
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/IBM/sarama v1.45.2 // indirect
 	github.com/Masterminds/semver/v3 v3.3.1 // indirect
