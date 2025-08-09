@@ -8,7 +8,6 @@ import (
 
 	_ "github.com/golang-migrate/migrate/v4/database/mongodb"
 	"github.com/spf13/viper"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 
@@ -109,7 +108,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 
-	val := collection.FindOne(ctx, bson.D{bson.E(primitive.E{Key: "hash", Value: id})})
+	val := collection.FindOne(ctx, bson.D{bson.E{Key: "hash", Value: id}})
 
 	if val.Err() != nil {
 		return nil, &v1.NotFoundByHashError{Hash: id}
@@ -185,7 +184,7 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
 	defer cancel()
 
-	_, err := collection.DeleteOne(ctx, bson.D{bson.E(primitive.E{Key: "hash", Value: id})})
+	_, err := collection.DeleteOne(ctx, bson.D{bson.E{Key: "hash", Value: id}})
 	if err != nil {
 		return &v1.NotFoundByHashError{Hash: id}
 	}
