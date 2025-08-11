@@ -19,11 +19,11 @@ importers:
         version: 19.1.1(react@19.1.1)
     devDependencies:
       '@types/react':
-        specifier: ^19.1.9
-        version: 19.1.9
+        specifier: ^19.1.10
+        version: 19.1.10
       '@types/react-dom':
         specifier: ^19.1.7
-        version: 19.1.7(@types/react@19.1.9)
+        version: 19.1.7(@types/react@19.1.10)
       '@vitejs/plugin-react':
         specifier: ^5.0.0
         version: 5.0.0(vite@6.3.5(@types/node@22.2.0)(jiti@2.4.2)(lightningcss@1.30.1))
@@ -962,8 +962,8 @@ packages:
     peerDependencies:
       '@types/react': ^19.0.0
 
-  '@types/react@19.1.9':
-    resolution: {integrity: sha512-WmdoynAX8Stew/36uTSVMcLJJ1KRh6L3IZRx1PZ7qJtBqT3dYTgyDTx8H1qoRghErydW7xw9mSJ3wS//tCRpFA==}
+  '@types/react@19.1.10':
+    resolution: {integrity: sha512-EhBeSYX0Y6ye8pNebpKrwFJq7BoQ8J5SO6NlvNwwHjSj6adXJViPQrKlsyPw7hLBLvckEMO1yxeGdR82YBBlDg==}
 
   '@types/webextension-polyfill@0.12.1':
     resolution: {integrity: sha512-xPTFWwQ8BxPevPF2IKsf4hpZNss4LxaOLZXypQH4E63BDLmcwX/RMGdI4tB4VO4Nb6xDBH3F/p4gz4wvof1o9w==}
@@ -3583,11 +3583,11 @@ snapshots:
     dependencies:
       undici-types: 6.13.0
 
-  '@types/react-dom@19.1.7(@types/react@19.1.9)':
+  '@types/react-dom@19.1.7(@types/react@19.1.10)':
     dependencies:
-      '@types/react': 19.1.9
+      '@types/react': 19.1.10
 
-  '@types/react@19.1.9':
+  '@types/react@19.1.10':
     dependencies:
       csstype: 3.1.3
 
