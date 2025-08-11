@@ -1,13 +1,14 @@
-import { FrontendApi, Configuration } from '@ory/client'
+import { Configuration, FrontendApi } from '@ory/client'
 
-// Create a configured Ory client instance
+const NEXT_PUBLIC_API_URI = `${process.env.NEXT_PUBLIC_API_URI || ''}/api/auth`
+
 const ory = new FrontendApi(
   new Configuration({
-    basePath: process.env.NEXT_PUBLIC_ORY_SDK_URL || 'http://localhost:4433',
+    basePath: NEXT_PUBLIC_API_URI,
     baseOptions: {
       withCredentials: true,
     },
-  })
+  }),
 )
 
 export default ory
