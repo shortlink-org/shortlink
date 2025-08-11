@@ -2,7 +2,7 @@
 
 import Balancer from 'react-wrap-balancer'
 
-import UndrawBackInTheDay from '../public/assets/images/undraw_back_in_the_day_knsh.svg'
+import UndrawBackInTheDay from '../components/assets/images/undraw_back_in_the_day_knsh.svg'
 
 export default function Error() {
   return (

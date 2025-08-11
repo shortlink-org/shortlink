@@ -1,40 +1,50 @@
 'use client'
 
 // @ts-ignore
-import { ToggleDarkMode } from '@shortlink-org/ui-kit'
-import SearchForm from '@shortlink-org/ui-kit/src/ui/SearchForm/SearchForm'
+import { ToggleDarkMode, SearchForm } from '@shortlink-org/ui-kit'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import Link from 'next/link'
-
-// Importing icons
 import MenuIcon from '@mui/icons-material/Menu'
-
 import Notification from './notification'
 import Profile from './profile'
 import secondMenu from './secondMenu'
 import React from 'react'
 
-// @ts-ignore
 export default function Header({ hasSession, setOpen }) {
   return (
-    <nav className={'bg-indigo-500 text-white grid grid-cols-[auto_1fr_auto] z-100 p-2 justify-center items-center dark:bg-slate-800'}>
-      <div className={'flex flex-row mx-2'}>
-        <IconButton color="inherit" aria-label="menu" onClick={setOpen} edge="start" disabled={!hasSession}>
+    <nav className="bg-indigo-600 dark:bg-slate-800 text-white grid grid-cols-[auto_1fr_auto] items-center p-2 shadow-md z-50">
+      {/* Left: Menu + Brand */}
+      <div className="flex items-center gap-3">
+        <IconButton
+          color="inherit"
+          aria-label="menu"
+          onClick={setOpen}
+          edge="start"
+          disabled={!hasSession}
+          className="hover:bg-indigo-500 dark:hover:bg-slate-700 transition-colors"
+        >
           <MenuIcon />
         </IconButton>
 
-        <Button href="/" component={Link} color="secondary">
-          <Typography className={'mx-5'} component="h1" variant="h6" color="inherit" noWrap>
+        <Link href="/" passHref>
+          <Typography
+            component="h1"
+            variant="h6"
+            className="font-bold tracking-wide text-white hover:text-gray-100 transition-colors"
+            noWrap
+          >
             Shortlink
           </Typography>
-        </Button>
+        </Link>
       </div>
 
+      {/* Center: Spacer (or could add nav links) */}
       <div />
 
-      <div className={'flex flex-row justify-center items-center'}>
+      {/* Right: Controls */}
+      <div className="flex items-center gap-3">
         <ToggleDarkMode id="ToggleDarkMode" />
 
         {secondMenu()}
@@ -42,13 +52,25 @@ export default function Header({ hasSession, setOpen }) {
         <SearchForm />
 
         {hasSession ? (
-          <div className={'flex flex-row mx-2'}>
+          <div className="flex items-center gap-3">
             <Profile />
-
             <Notification />
           </div>
         ) : (
-          <Button component={Link} href="/auth/login" type="submit" variant="outlined" color="secondary">
+          <Button
+            component={Link}
+            href="/auth/login"
+            variant="outlined"
+            sx={{
+              color: 'white',
+              borderColor: 'white',
+              textTransform: 'none',
+              '&:hover': {
+                backgroundColor: 'rgba(255,255,255,0.1)',
+                borderColor: 'white',
+              },
+            }}
+          >
             Log in
           </Button>
         )}

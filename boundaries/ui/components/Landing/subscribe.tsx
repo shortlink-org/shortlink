@@ -1,4 +1,4 @@
-import UndrawDesigner from '../../public/assets/images/undraw_designer_re_5v95.svg'
+import UndrawDesigner from '../assets/images/undraw_designer_re_5v95.svg';
 
 export default function Subscribe() {
   return (
@@ -55,7 +55,7 @@ export default function Subscribe() {
           </div>
 
           <div className="flex items-center justify-center w-full mt-3 lg:mt-0 sm:w-1/2 p-3">
-            <UndrawDesigner />
+            <UndrawDesigner className="w-full h-auto max-w-md" />
           </div>
         </div>
       </div>

@@ -108,15 +108,35 @@ const NEXT_CONFIG = {
       fullUrl: true,
     },
   },
-  webpack: (config, { isServer, buildId }) => {
+  webpack: (config) => {
+    // 1) Find Next's existing file/asset rule that handles SVGs
+    const fileLoaderRule = config.module.rules.find(
+      (rule) => rule.test && rule.test.test && rule.test.test('.svg')
+    );
+  
+    // 2) Exclude .svg from that rule so it won't treat them as files
+    if (fileLoaderRule) {
+      fileLoaderRule.exclude = /\.svg$/i;
+    }
+  
+    // 3) Use SVGR to turn SVGs imported from JS/TS into React components
     config.module.rules.push({
       test: /\.svg$/i,
-      issuer: /\.[jt]sx?$/,
-      use: ['@svgr/webpack'],
-    })
-
-    return config
-  },
+      issuer: { and: [/\.(js|ts)x?$/] },
+      use: [
+        {
+          loader: '@svgr/webpack',
+          options: {
+            svgo: true,
+            titleProp: true,
+            ref: true,
+          },
+        },
+      ],
+    });
+  
+    return config;
+  },  
   bundlePagesRouterDependencies: true,
   experimental: {
     webVitalsAttribution: ['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'],

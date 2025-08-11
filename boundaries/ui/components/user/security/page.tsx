@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 import { Layout } from 'components'
 import withAuthSync from 'components/Private'
 import Security from 'components/Profile/Security'
-import ory from 'pkg/sdk'
+import { FrontendApi } from '@ory/client'
 
 // <NextSeo
 // title="Security"
@@ -28,6 +28,7 @@ function SecurityContent() {
   const [hasSession, setHasSession] = useState<boolean>(false)
 
   useEffect(() => {
+    const ory = new FrontendApi()
     ory
       .toSession()
       .then(({ data }) => {

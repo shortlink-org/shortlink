@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, Fragment } from 'react'
 
-import ory from '../../pkg/sdk'
+import { FrontendApi } from '@ory/client'
 
 // @ts-ignore
 function classNames(...classes) {
@@ -16,6 +16,7 @@ export default function Profile() {
   const router = useRouter()
 
   useEffect(() => {
+    const ory = new FrontendApi()
     ory
       .createBrowserLogoutFlow()
       .then(({ data }) => {
@@ -43,11 +44,13 @@ export default function Profile() {
     {
       name: 'Sign out',
       link: `#`,
-      onClick: () =>
+      onClick: () => {
+        const ory = new FrontendApi()
         ory
           .updateLogoutFlow({ token: logoutToken })
           .then(() => router.push('/auth/login'))
-          .then(() => window.location.reload()),
+          .then(() => window.location.reload())
+      },
     },
   ]
 

@@ -1,20 +1,4 @@
-/**
- * This imports Tailwind's base styles and any base styles registered by
- * plugins.
- */
-@import "tailwindcss/base";
-
-/**
- * This imports Tailwind's component classes and any component classes
- * registered by plugins.
- */
-@import "tailwindcss/components";
-
-/**
- * This imports Tailwind's utility classes and any utility classes registered
- * by plugins.
- */
-@import "tailwindcss/utilities";
+@import "tailwindcss";
 
 html,
 body,

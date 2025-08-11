@@ -2,7 +2,7 @@ import { AxiosError } from 'axios'
 import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-import ory from '../pkg/sdk'
+import { FrontendApi } from '@ory/client'
 
 export default function withAuthSync(Child: any) {
   return (props?: any) => {
@@ -11,6 +11,7 @@ export default function withAuthSync(Child: any) {
     const router = useRouter()
 
     useEffect(() => {
+      const ory = new FrontendApi()
       ory
         .toSession()
         .then(({ data }) => {

@@ -28,7 +28,7 @@ const Footer: React.FC<FooterProps> = ({ className = '' }) => (
           </Link>
         </li>
         <li className="my-2 cursor-pointer">
-          <Link href="https://github.com/shortlink-org/shortlink" passHref legacyBehavior>
+          <Link href="https://github.com/shortlink-org/shortlink">
             <span className="text-gray-400 hover:text-gray-800 dark:text-gray-300 dark:hover:text-white transition-colors duration-200">
               Github
             </span>

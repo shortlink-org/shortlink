@@ -4,7 +4,7 @@ import Script from 'next/script'
 import { Organization, WithContext } from 'schema-dts'
 
 import Providers from './providers'
-import '../public/assets/styles.css'
+import './globals.css'
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin'],
@@ -97,10 +97,18 @@ const jsonLd: WithContext<Organization> = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${robotoMono.className} font-sans`} suppressHydrationWarning>
-      <Script id="json-ld" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-
-      <body className="bg-white text-black dark:bg-black dark:text-white h-screen w-screen">
+    <html 
+      lang="en" 
+      className={`${robotoMono.className} font-sans`} 
+      suppressHydrationWarning
+    >
+      <head>
+        <Script id="json-ld" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+      </head>
+      <body 
+        className="bg-white text-black dark:bg-black dark:text-white h-screen w-screen"
+        suppressHydrationWarning
+      >
         <Providers>{children}</Providers>
       </body>
     </html>

@@ -1,5 +1,5 @@
 // @ts-nocheck
-import UndrawWelcome from '../../public/assets/images/undraw_welcome_cats_thqn.svg'
+import UndrawWelcome from '../assets/images/undraw_welcome_cats_thqn.svg'
 
 export default function Welcome({ nickname }) {
   return (
