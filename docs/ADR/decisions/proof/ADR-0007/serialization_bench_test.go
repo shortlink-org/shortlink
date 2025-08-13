@@ -1,12 +1,12 @@
 package ADR_0007
 
 import (
-	"encoding/json"
+	"encoding/json/v2"
 	"testing"
 
 	"github.com/bytedance/sonic"
 	"github.com/google/uuid"
-	enc "github.com/segmentio/encoding/json"
+	enc "encoding/json/v2"
 	"github.com/stretchr/testify/require"
 )
 

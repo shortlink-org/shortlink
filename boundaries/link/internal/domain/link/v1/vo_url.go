@@ -3,7 +3,7 @@ package v1
 import (
 	"net/url"
 
-	"github.com/segmentio/encoding/json"
+	"encoding/json/v2"
 )
 
 type Url struct {

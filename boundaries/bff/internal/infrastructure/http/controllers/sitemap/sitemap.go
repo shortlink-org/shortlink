@@ -3,7 +3,7 @@ package sitemap
 import (
 	"net/http"
 
-	"github.com/segmentio/encoding/json"
+	"encoding/json/v2"
 
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/api"
 )

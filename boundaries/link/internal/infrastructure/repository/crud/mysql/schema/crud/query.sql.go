@@ -8,7 +8,7 @@ package crud
 import (
 	"context"
 	"database/sql"
-	"encoding/json"
+	"encoding/json/v2"
 
 	"github.com/google/uuid"
 )

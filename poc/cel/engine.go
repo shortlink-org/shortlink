@@ -7,7 +7,7 @@ import (
 	"github.com/golang/glog"
 	"github.com/google/cel-go/cel"
 	"github.com/google/cel-go/common/types/ref"
-	"github.com/segmentio/encoding/json"
+	"encoding/json/v2"
 	"google.golang.org/protobuf/encoding/prototext"
 	"google.golang.org/protobuf/proto"
 )

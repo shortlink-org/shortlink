@@ -3,7 +3,7 @@ package postgres
 import (
 	"context"
 
-	"github.com/segmentio/encoding/json"
+	"encoding/json/v2"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	repository_err "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/error"

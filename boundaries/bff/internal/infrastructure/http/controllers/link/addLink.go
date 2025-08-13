@@ -3,7 +3,7 @@ package link
 import (
 	"net/http"
 
-	"github.com/segmentio/encoding/json"
+	"encoding/json/v2"
 
 	v1 "buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go/infrastructure/rpc/link/v1"
 

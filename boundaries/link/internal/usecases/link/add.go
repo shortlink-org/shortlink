@@ -4,7 +4,7 @@ import (
 	"context"
 	"errors"
 
-	"github.com/segmentio/encoding/json"
+	"encoding/json/v2"
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"google.golang.org/grpc/status"
