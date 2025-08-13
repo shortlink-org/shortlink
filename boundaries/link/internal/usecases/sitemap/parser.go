@@ -6,7 +6,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/segmentio/encoding/json"
+	"encoding/json/v2"
 
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/sitemap/v1"

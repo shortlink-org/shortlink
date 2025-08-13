@@ -5,7 +5,7 @@ import (
 	"net/http"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
-	"github.com/segmentio/encoding/json"
+	"encoding/json/v2"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc/status"
 

@@ -4,7 +4,7 @@ import (
 	"context"
 	"strings"
 
-	"github.com/segmentio/encoding/json"
+	"encoding/json/v2"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 

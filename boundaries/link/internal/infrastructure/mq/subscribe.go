@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/segmentio/encoding/json"
+	"encoding/json/v2"
 
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/mq/query"
