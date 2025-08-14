@@ -2,7 +2,6 @@
 dep: ## Install dependencies for this project
 	# install protoc addons
 	@go install moul.io/protoc-gen-gotemplate@latest
-	@go install github.com/cloudflare/cfssl/cmd/...@latest
 	@go install golang.org/x/tools/cmd/goimports@latest
 	@go install github.com/vektra/mockery/v2@latest
 	@go install github.com/oapi-codegen/oapi-codegen/v2/cmd/oapi-codegen@latest

@@ -2,7 +2,6 @@ package permission
 
 import (
 	"context"
-	"embed"
 
 	"github.com/authzed/authzed-go/v1"
 	"go.opentelemetry.io/otel/trace"
@@ -11,13 +10,20 @@ import (
 	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
+	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
-//go:embed permissions/*
-var permissions embed.FS //nolint:unused // ignore
-
 func New(_ context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *metrics.Monitoring) (*authzed.Client, error) {
-	permission, err := auth.New(log, tracer, monitor)
+	// Initialize gRPC Client's interceptor.
+	opts := []rpc.Option{
+		rpc.WithSession(),
+		rpc.WithMetrics(monitor),
+		rpc.WithTracer(tracer, monitor),
+		rpc.WithTimeout(),
+		rpc.WithLogger(log),
+	}
+
+	permission, err := auth.New(opts...)
 	if err != nil {
 		return nil, &error_di.BaseError{Err: err}
 	}

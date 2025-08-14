@@ -9,9 +9,12 @@ Link UC DI-package
 package link_di
 
 import (
+	"context"
+
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
 	"go.opentelemetry.io/otel/trace"
+	"google.golang.org/grpc"
 
 	api_mq "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/mq"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/cqrs/cqs"
@@ -80,7 +83,7 @@ var LinkSet = wire.NewSet(
 	mq_di.New,
 	api_mq.New,
 	rpc.InitServer,
-	rpc.InitClient,
+	NewRPCClient,
 	link_rpc.New,
 	cqrs.New,
 	sitemap_rpc.New,
@@ -101,6 +104,29 @@ var LinkSet = wire.NewSet(
 
 	NewLinkService,
 )
+
+func NewRPCClient(
+	ctx context.Context,
+	log logger.Logger,
+	metrics *metrics.Monitoring,
+	tracer trace.TracerProvider,
+) (*grpc.ClientConn, func(), error) {
+	// Initialize gRPC Client's interceptor.
+	opts := []rpc.Option{
+		rpc.WithSession(),
+		rpc.WithMetrics(metrics),
+		rpc.WithTracer(tracer, metrics),
+		rpc.WithTimeout(),
+		rpc.WithLogger(log),
+	}
+
+	runRPCClient, cleanup, err := rpc.InitClient(ctx, log, opts...)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return runRPCClient, cleanup, nil
+}
 
 func NewLinkApplication(log logger.Logger, mq mq.MQ, store *crud.Store, authPermission *authzed.Client) (*link.UC, error) {
 	linkService, err := link.New(log, mq, nil, store, authPermission)

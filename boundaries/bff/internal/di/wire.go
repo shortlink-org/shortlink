@@ -55,7 +55,7 @@ var BFFWebServiceSet = wire.NewSet(
 
 	// Delivery
 	rpc.InitServer,
-	rpc.InitClient,
+	NewRPCClient,
 
 	// Infrastructure
 	NewLinkRPCClient,
@@ -68,6 +68,29 @@ var BFFWebServiceSet = wire.NewSet(
 	NewAPIApplication,
 	NewBFFWebService,
 )
+
+func NewRPCClient(
+	ctx context.Context,
+	log logger.Logger,
+	metrics *metrics.Monitoring,
+	tracer trace.TracerProvider,
+) (*grpc.ClientConn, func(), error) {
+	// Initialize gRPC Client's interceptor.
+	opts := []rpc.Option{
+		rpc.WithSession(),
+		rpc.WithMetrics(metrics),
+		rpc.WithTracer(tracer, metrics),
+		rpc.WithTimeout(),
+		rpc.WithLogger(log),
+	}
+
+	runRPCClient, cleanup, err := rpc.InitClient(ctx, log, opts...)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return runRPCClient, cleanup, nil
+}
 
 func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (link_rpc.LinkServiceClient, error) {
 	return link_rpc.NewLinkServiceClient(runRPCClient), nil

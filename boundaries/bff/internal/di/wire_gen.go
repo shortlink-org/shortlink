@@ -87,7 +87,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup6, err := rpc.InitClient(context, logger, tracerProvider, monitoring)
+	clientConn, cleanup6, err := NewRPCClient(context, logger, monitoring, tracerProvider)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -176,7 +176,9 @@ type BFFWebService struct {
 }
 
 // BFFWebService =======================================================================================================
-var BFFWebServiceSet = wire.NewSet(di.DefaultSet, i18n.New, rpc.InitServer, rpc.InitClient, NewLinkRPCClient,
+var BFFWebServiceSet = wire.NewSet(di.DefaultSet, i18n.New, rpc.InitServer, NewRPCClient,
+
+	NewLinkRPCClient,
 	NewLinkCommandRPCClient,
 	NewLinkQueryRPCClient,
 	NewSitemapServiceClient,
@@ -184,6 +186,22 @@ var BFFWebServiceSet = wire.NewSet(di.DefaultSet, i18n.New, rpc.InitServer, rpc.
 	NewAPIApplication,
 	NewBFFWebService,
 )
+
+func NewRPCClient(ctx2 context.Context,
+
+	log logger.Logger, metrics2 *metrics.Monitoring,
+	tracer trace.TracerProvider,
+) (*grpc.ClientConn, func(), error) {
+
+	opts := []rpc.Option{rpc.WithSession(), rpc.WithMetrics(metrics2), rpc.WithTracer(tracer, metrics2), rpc.WithTimeout(), rpc.WithLogger(log)}
+
+	runRPCClient, cleanup, err := rpc.InitClient(ctx2, log, opts...)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return runRPCClient, cleanup, nil
+}
 
 func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (linkv1grpc.LinkServiceClient, error) {
 	return linkv1grpc.NewLinkServiceClient(runRPCClient), nil

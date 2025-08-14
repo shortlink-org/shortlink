@@ -49,7 +49,7 @@ var APISet = wire.NewSet(
 	di.DefaultSet,
 
 	// Delivery
-	rpc.InitClient,
+	NewRPCClient,
 
 	// Infrastructure
 	NewLinkRPCClient,
@@ -62,6 +62,29 @@ var APISet = wire.NewSet(
 	NewAPIApplication,
 	NewAPIService,
 )
+
+func NewRPCClient(
+	ctx context.Context,
+	log logger.Logger,
+	metrics *metrics.Monitoring,
+	tracer trace.TracerProvider,
+) (*grpc.ClientConn, func(), error) {
+	// Initialize gRPC Client's interceptor.
+	opts := []rpc.Option{
+		rpc.WithSession(),
+		rpc.WithMetrics(metrics),
+		rpc.WithTracer(tracer, metrics),
+		rpc.WithTimeout(),
+		rpc.WithLogger(log),
+	}
+
+	runRPCClient, cleanup, err := rpc.InitClient(ctx, log, opts...)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return runRPCClient, cleanup, nil
+}
 
 func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (link_rpc.LinkServiceClient, error) {
 	LinkServiceClient := link_rpc.NewLinkServiceClient(runRPCClient)

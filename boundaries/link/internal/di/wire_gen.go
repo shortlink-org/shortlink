@@ -7,6 +7,7 @@
 package link_di
 
 import (
+	"context"
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/mq"
@@ -36,6 +37,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 	"go.opentelemetry.io/otel/trace"
+	"google.golang.org/grpc"
 )
 
 // Injectors from wire.go:
@@ -285,7 +287,23 @@ type LinkService struct {
 }
 
 // LinkService =========================================================================================================
-var LinkSet = wire.NewSet(di.DefaultSet, store.New, mq_di.New, api_mq.New, rpc.InitServer, rpc.InitClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, NewLinkApplication, link_cqrs.New, sitemap.New, crud.New, cqs.New, query.New, NewLinkService)
+var LinkSet = wire.NewSet(di.DefaultSet, store.New, mq_di.New, api_mq.New, rpc.InitServer, NewRPCClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, NewLinkApplication, link_cqrs.New, sitemap.New, crud.New, cqs.New, query.New, NewLinkService)
+
+func NewRPCClient(ctx2 context.Context,
+
+	log logger.Logger, metrics2 *metrics.Monitoring,
+	tracer trace.TracerProvider,
+) (*grpc.ClientConn, func(), error) {
+
+	opts := []rpc.Option{rpc.WithSession(), rpc.WithMetrics(metrics2), rpc.WithTracer(tracer, metrics2), rpc.WithTimeout(), rpc.WithLogger(log)}
+
+	runRPCClient, cleanup, err := rpc.InitClient(ctx2, log, opts...)
+	if err != nil {
+		return nil, nil, err
+	}
+
+	return runRPCClient, cleanup, nil
+}
 
 func NewLinkApplication(log logger.Logger, mq2 mq.MQ, store2 *crud.Store, authPermission *authzed.Client) (*link.UC, error) {
 	linkService, err := link.New(log, mq2, nil, store2, authPermission)
