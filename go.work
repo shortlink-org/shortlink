@@ -1,13 +1,13 @@
-go 1.24.6
+go 1.25.0
 
 use (
 	.
 
 	./boundaries/api/api-gateway
 
-	./boundaries/link/bff
-	./boundaries/link/link
-	./boundaries/link/supplies/knative/kafka-to-elasticsearch
+	./boundaries/bff
+	./boundaries/link
+	./boundaries/supplies/knative/kafka-to-elasticsearch
 
 	./docs/ADR/decisions/proof/ADR-0007
 

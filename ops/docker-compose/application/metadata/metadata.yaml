@@ -15,14 +15,14 @@ services:
       context: .
       dockerfile: ops/dockerfile/go.Dockerfile
       args:
-        CMD_PATH: "./boundaries/link/metadata/cmd"
+        CMD_PATH: "./boundaries/metadata/cmd"
       shm_size: 1gb
       cache_from:
         - shortlink-metadata
     develop:
       watch:
         - action: rebuild
-          path: ./boundaries/link/metadata
+          path: ./boundaries/metadata
     image: shortlink-metadata
     container_name: metadata
     init: true

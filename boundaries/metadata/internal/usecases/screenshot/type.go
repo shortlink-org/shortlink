@@ -1,7 +1,7 @@
 package screenshot
 
 import (
-	s3Repository "github.com/shortlink-org/shortlink/boundaries/link/metadata/internal/infrastructure/repository/media"
+	s3Repository "github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/media"
 )
 
 const (

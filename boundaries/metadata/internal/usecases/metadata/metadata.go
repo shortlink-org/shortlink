@@ -4,9 +4,9 @@ import (
 	"context"
 	"fmt"
 
-	domain "github.com/shortlink-org/shortlink/boundaries/link/metadata/internal/domain/metadata/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/metadata/internal/usecases/parsers"
-	"github.com/shortlink-org/shortlink/boundaries/link/metadata/internal/usecases/screenshot"
+	domain "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
+	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/parsers"
+	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/screenshot"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/pattern/saga"

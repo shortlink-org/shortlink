@@ -13,7 +13,7 @@ import (
 	"google.golang.org/protobuf/reflect/protoreflect"
 	"google.golang.org/protobuf/runtime/protoimpl"
 
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/metadata/internal/domain/metadata/v1"
+	v1 "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
 )
 
 const (

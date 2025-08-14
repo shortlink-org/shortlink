@@ -10,7 +10,7 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
 
-	metadata "github.com/shortlink-org/shortlink/boundaries/link/metadata/internal/domain/metadata/v1"
+	metadata "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/notify"
 )

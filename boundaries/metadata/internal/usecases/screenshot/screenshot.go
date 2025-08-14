@@ -10,7 +10,7 @@ import (
 
 	"github.com/chromedp/chromedp"
 
-	s3Repository "github.com/shortlink-org/shortlink/boundaries/link/metadata/internal/infrastructure/repository/media"
+	s3Repository "github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/media"
 )
 
 func New(ctx context.Context, media *s3Repository.Service) (*UC, error) {

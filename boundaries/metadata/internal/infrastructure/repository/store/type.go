@@ -3,7 +3,7 @@ package storeRepository
 import (
 	"context"
 
-	rpc "github.com/shortlink-org/shortlink/boundaries/link/metadata/internal/domain/metadata/v1"
+	rpc "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
 )
 
 type Repository interface {
