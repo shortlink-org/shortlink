@@ -22,11 +22,13 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/metadata"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/parsers"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/screenshot"
+
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
 	mq_di "github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
+	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/store"
 	"github.com/shortlink-org/shortlink/pkg/logger"
@@ -62,6 +64,7 @@ type MetaDataService struct {
 // MetaDataService =====================================================================================================
 var MetaDataSet = wire.NewSet(
 	di.DefaultSet,
+	permission.New,
 	mq_di.New,
 	store.New,
 	rpc.InitServer,

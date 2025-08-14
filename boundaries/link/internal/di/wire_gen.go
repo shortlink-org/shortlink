@@ -287,7 +287,7 @@ type LinkService struct {
 }
 
 // LinkService =========================================================================================================
-var LinkSet = wire.NewSet(di.DefaultSet, store.New, mq_di.New, api_mq.New, rpc.InitServer, NewRPCClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, NewLinkApplication, link_cqrs.New, sitemap.New, crud.New, cqs.New, query.New, NewLinkService)
+var LinkSet = wire.NewSet(di.DefaultSet, permission.New, store.New, mq_di.New, api_mq.New, rpc.InitServer, NewRPCClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, NewLinkApplication, link_cqrs.New, sitemap.New, crud.New, cqs.New, query.New, NewLinkService)
 
 func NewRPCClient(ctx2 context.Context,
 

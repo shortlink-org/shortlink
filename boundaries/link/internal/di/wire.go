@@ -27,10 +27,12 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/link"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/link_cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/sitemap"
+
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
 	mq_di "github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
+	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/store"
 	"github.com/shortlink-org/shortlink/pkg/logger"
@@ -77,6 +79,7 @@ type LinkService struct {
 var LinkSet = wire.NewSet(
 	// Common
 	di.DefaultSet,
+	permission.New,
 	store.New,
 
 	// Delivery

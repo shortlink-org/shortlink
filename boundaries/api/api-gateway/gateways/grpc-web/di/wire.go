@@ -24,6 +24,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
+	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
@@ -48,6 +49,7 @@ type APIService struct {
 // APIService ==========================================================================================================
 var APISet = wire.NewSet(
 	di.DefaultSet,
+	permission.New,
 
 	// Delivery
 	rpc.InitServer,

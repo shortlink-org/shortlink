@@ -20,16 +20,17 @@ import (
 	link_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
 	sitemap_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
 
-	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/pkg/i18n"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
+	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 
 	api "github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/pkg/i18n"
 )
 
 type BFFWebService struct {
@@ -51,6 +52,7 @@ type BFFWebService struct {
 // BFFWebService =======================================================================================================
 var BFFWebServiceSet = wire.NewSet(
 	di.DefaultSet,
+	permission.New,
 	i18n.New,
 
 	// Delivery

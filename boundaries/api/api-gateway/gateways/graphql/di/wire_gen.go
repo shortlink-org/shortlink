@@ -18,6 +18,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/context"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/logger"
+	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/pkg/logger"
@@ -181,7 +182,7 @@ type APIService struct {
 }
 
 // APIService ==========================================================================================================
-var APISet = wire.NewSet(di.DefaultSet, rpc.InitServer, NewRPCClient,
+var APISet = wire.NewSet(di.DefaultSet, permission.New, rpc.InitServer, NewRPCClient,
 
 	NewLinkRPCClient,
 	NewLinkCommandRPCClient,

@@ -12,7 +12,6 @@ import (
 	shortctx "github.com/shortlink-org/shortlink/pkg/di/pkg/context"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/flags"
 	logger_di "github.com/shortlink-org/shortlink/pkg/di/pkg/logger"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	traicing_di "github.com/shortlink-org/shortlink/pkg/di/pkg/traicing"
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
@@ -29,5 +28,4 @@ var DefaultSet = wire.NewSet(
 	metrics.New,
 	cache.New,
 	profiling.New,
-	permission.New,
 )

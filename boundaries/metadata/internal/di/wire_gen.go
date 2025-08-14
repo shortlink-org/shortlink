@@ -24,6 +24,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/context"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
+	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/store"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/traicing"
@@ -226,7 +227,7 @@ type MetaDataService struct {
 }
 
 // MetaDataService =====================================================================================================
-var MetaDataSet = wire.NewSet(di.DefaultSet, mq_di.New, store.New, rpc.InitServer, s3.New, InitMetadataMQ,
+var MetaDataSet = wire.NewSet(di.DefaultSet, permission.New, mq_di.New, store.New, rpc.InitServer, s3.New, InitMetadataMQ,
 	NewMetaDataRPCServer,
 
 	NewParserUC,
