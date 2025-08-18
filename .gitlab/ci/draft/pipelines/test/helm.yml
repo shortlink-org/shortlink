@@ -1,5 +1,5 @@
 include:
-  - local: .gitlab/ci/templates/common.yml
+  - component: $CI_SERVER_FQDN/shortlink-org/gitlab-templates/common@main
 
 stages:
   - test

@@ -1,0 +1,6 @@
+include:
+  - component: $CI_SERVER_FQDN/shortlink-org/gitlab-templates/docker_pipeline@main
+
+build:
+  extends:
+    - .template_build

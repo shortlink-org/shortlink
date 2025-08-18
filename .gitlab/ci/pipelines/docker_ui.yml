@@ -1,0 +1,8 @@
+include:
+  - component: $CI_SERVER_FQDN/shortlink-org/gitlab-templates/docker_pipeline@main
+  - component: $CI_SERVER_FQDN/shortlink-org/gitlab-templates/pnpm_cache@main
+
+build:
+  extends:
+    - .pnpm_cache
+    - .template_build

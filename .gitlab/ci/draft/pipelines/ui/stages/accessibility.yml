@@ -1,0 +1,73 @@
+include:
+  # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Verify/Browser-Performance.gitlab-ci.yml
+  - template: Verify/Browser-Performance.gitlab-ci.yml
+  # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Verify/Accessibility.gitlab-ci.yml
+  - template: Verify/Accessibility.gitlab-ci.yml
+
+  # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/DAST.latest.gitlab-ci.yml
+  - template: Security/DAST.gitlab-ci.yml
+  # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/DAST-API.gitlab-ci.yml
+  - template: Security/DAST-API.gitlab-ci.yml
+  # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Security/BAS.latest.gitlab-ci.yml
+  - template: Security/BAS.latest.gitlab-ci.yml
+
+# Configure the scanning tool through the environment variables.
+# List of the variables: https://docs.gitlab.com/ee/user/application_security/dast/#available-variables
+# How to set: https://docs.gitlab.com/ee/ci/yaml/#variables
+
+# TODO: fix
+# Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/accessibility_testing.html
+a11y:
+  variables:
+    a11y_urls: $ENVIRONMENT_URL
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
+    - if: $CI_COMMIT_BRANCH
+      when: on_success
+
+# TODO: fix
+# Read more about the feature here: https://docs.gitlab.com/ee/user/project/merge_requests/browser_performance_testing.html
+browser_performance:
+  stage: accessibility
+  variables:
+    URL: $ENVIRONMENT_URL
+  allow_failure: true
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
+    - if: $CI_COMMIT_BRANCH
+      when: on_success
+
+# TODO: fix
+# Read more about this feature here: https://docs.gitlab.com/ee/user/application_security/dast/
+dast:
+  stage: accessibility
+  variables:
+    GIT_STRATEGY: none
+    DAST_WEBSITE: $ENVIRONMENT_URL
+    DAST_FULL_SCAN_ENABLED: "true" # do a full scan
+    DAST_ZAP_USE_AJAX_SPIDER: "true" # use the ajax spider
+    GITLAB_FEATURES: dast
+    DAST_BROWSER_SCAN: "true"
+  before_script:
+    - echo "${DAST_WEBSITE}" > environment_url.txt
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
+    - if: $CI_COMMIT_BRANCH
+      when: on_success
+
+dast_api:
+  stage: accessibility
+  variables:
+    DAST_API_BETA: 1
+    DAST_API_POSTMAN_COLLECTION: ./boundaries/link/bff/docs/postman/shortlink.postman_collection.json
+    # DAST_API_OPENAPI: ./docs/api.swagger.json
+    DAST_API_API: $ENVIRONMENT_URL
+    DAST_API_TARGET_URL: $ENVIRONMENT_URL
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: on_success
+    - if: $CI_COMMIT_BRANCH
+      when: on_success

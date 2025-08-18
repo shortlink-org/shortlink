@@ -1,0 +1,18 @@
+# NOTE:
+# APPLICATION     - Name application
+# REGISTRY_IMAGE  - Registry image
+# DOCKERFILE_PATH - Path to Dockerfile
+# CMD_PATH        - Path to a binary file
+.matrix_build_docker_ui:
+  parallel:
+    matrix:
+      - APPLICATION: link-ui
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui
+        DOCKERFILE_PATH: ops/dockerfile/link-ui.Dockerfile
+        DOCKERFILE_ARGS: >-
+          --build-arg API_URI=${API_URI}
+          --build-arg NEXT_PUBLIC_API_URI=${NEXT_PUBLIC_API_URI}
+
+.matrix_build_docker:
+  parallel:
+    matrix: []

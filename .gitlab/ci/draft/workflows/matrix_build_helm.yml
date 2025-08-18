@@ -1,0 +1,54 @@
+.matrix_build_helm:
+  parallel:
+    matrix:
+      # Common
+      - HELM_CHART_NAME: shortlink-template
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+      - HELM_CHART_NAME: shortlink-workflows
+        HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
+
+      # PLATFORM
+      - HELM_CHART_NAME: backstage
+        HELM_CHART_PATH: ops/Helm/boundaries/platform/$HELM_CHART_NAME
+      - HELM_CHART_NAME: logger
+        HELM_CHART_PATH: ops/Helm/boundaries/platform/$HELM_CHART_NAME
+      - HELM_CHART_NAME: landscape
+        HELM_CHART_PATH: ops/Helm/boundaries/platform/$HELM_CHART_NAME
+
+      # Link
+      - HELM_CHART_NAME: bff-link
+        HELM_CHART_PATH: ops/Helm/boundaries/link/$HELM_CHART_NAME
+      - HELM_CHART_NAME: link
+        HELM_CHART_PATH: ops/Helm/boundaries/link/$HELM_CHART_NAME
+      - HELM_CHART_NAME: metadata
+        HELM_CHART_PATH: ops/Helm/boundaries/link/$HELM_CHART_NAME
+      - HELM_CHART_NAME: proxy
+        HELM_CHART_PATH: ops/Helm/boundaries/link/$HELM_CHART_NAME
+
+      # Auth
+      - HELM_CHART_NAME: auth
+        HELM_CHART_PATH: ops/Helm/boundaries/auth/$HELM_CHART_NAME
+
+      # Billing
+      - HELM_CHART_NAME: billing
+        HELM_CHART_PATH: ops/Helm/boundaries/billing/$HELM_CHART_NAME
+
+      # Notify
+      - HELM_CHART_NAME: bot
+        HELM_CHART_PATH: ops/Helm/boundaries/notification/$HELM_CHART_NAME
+      - HELM_CHART_NAME: notify
+        HELM_CHART_PATH: ops/Helm/boundaries/notification/$HELM_CHART_NAME
+
+      # Marketing
+      - HELM_CHART_NAME: landing
+        HELM_CHART_PATH: ops/Helm/boundaries/marketing/$HELM_CHART_NAME
+      - HELM_CHART_NAME: referral
+        HELM_CHART_PATH: ops/Helm/boundaries/marketing/$HELM_CHART_NAME
+
+      # Shop
+      - HELM_CHART_NAME: common
+        HELM_CHART_PATH: ops/Helm/boundaries/shop/$HELM_CHART_NAME
+      - HELM_CHART_NAME: admin
+        HELM_CHART_PATH: ops/Helm/boundaries/shop/$HELM_CHART_NAME
+      - HELM_CHART_NAME: temporal
+        HELM_CHART_PATH: ops/Helm/boundaries/shop/$HELM_CHART_NAME

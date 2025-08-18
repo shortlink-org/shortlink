@@ -1,17 +1,17 @@
 include:
-  - local: .gitlab/ci/templates/common.yml
+  - component: $CI_SERVER_FQDN/shortlink-org/gitlab-templates/common@main
   # TODO: don't work again after gitlab update
   #  - local: .gitlab/ci/stages/**.yml
-  - local: .gitlab/ci/stages/.pre.yml
-  - local: .gitlab/ci/stages/test.yml
-  - local: .gitlab/ci/stages/build.yml
-  - local: .gitlab/ci/stages/deploy.yml
-    rules:
-      - if: $CI_COMMIT_TAG
-  - local: .gitlab/ci/stages/qa.yml
-  - local: .gitlab/ci/stages/release.yml
-    rules:
-      - if: $CI_COMMIT_TAG
+#  - local: .gitlab/ci/stages/.pre.yml
+#  - local: .gitlab/ci/stages/test.yml
+#  - local: .gitlab/ci/stages/build.yml
+#  - local: .gitlab/ci/stages/deploy.yml
+#    rules:
+#      - if: $CI_COMMIT_TAG
+#  - local: .gitlab/ci/stages/qa.yml
+#  - local: .gitlab/ci/stages/release.yml
+#    rules:
+#      - if: $CI_COMMIT_TAG
 #  - local: .gitlab/ci/stages/.post.yml
 #    rules:
 #      - if: $CI_COMMIT_TAG
@@ -21,6 +21,7 @@ stages:
   - build
   - deploy
   - qa
+  - accessibility
   - release
 
 workflow:
