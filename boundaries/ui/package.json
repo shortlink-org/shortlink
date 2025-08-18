@@ -5,7 +5,7 @@
   "repository": "https://github.com/shortlink-org/shortlink.git",
   "private": true,
   "scripts": {
-    "build": "NODE_ENV=production pnpm next build",
+    "build": "NODE_ENV=production pnpm next build --turbopack",
     "start": "NODE_OPTIONS='--max-http-header-size=131072' pnpm next dev",
     "start:dev": "cp .env.dev .env.local && pnpm start",
     "start:k8s": "cp .env.k8s .env.local && pnpm start",
@@ -50,6 +50,7 @@
     "@ory/integrations": "^1.3.1",
     "@reduxjs/toolkit": "^2.8.2",
     "@sentry/nextjs": "^10.5.0",
+    "@shortlink-org/eslint-plugin-shortlink": "0.20250809.193608",
     "@shortlink-org/ui-kit": "^0.20250811.204524",
     "@tailwindcss/aspect-ratio": "^0.4.2",
     "@tailwindcss/container-queries": "^0.1.1",

@@ -141,6 +141,18 @@ const NEXT_CONFIG = {
   experimental: {
     webVitalsAttribution: ['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'],
     // typedRoutes: true,
+
+    // Forward browser logs to the terminal for easier debugging
+    browserDebugInfoInTerminal: true,
+
+    // Activate new client-side router improvements
+    clientSegmentCache: true,
+
+    // Explore route composition and segment overrides via DevTools
+    devtoolSegmentExplorer: true,
+
+    // Enable support for `global-not-found`
+    globalNotFound: true,
   },
 }
 
