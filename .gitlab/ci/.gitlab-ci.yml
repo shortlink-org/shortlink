@@ -1,5 +1,6 @@
 include:
   - component: $CI_SERVER_FQDN/shortlink-org/gitlab-templates/common@main
+  - local: .gitlab/ci/stages/build.yml
   # TODO: don't work again after gitlab update
   #  - local: .gitlab/ci/stages/**.yml
 #  - local: .gitlab/ci/stages/.pre.yml
