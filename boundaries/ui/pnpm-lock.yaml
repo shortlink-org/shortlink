@@ -33,11 +33,11 @@ importers:
         specifier: ^8.10.0
         version: 8.10.0(93dc32690e41bc58cd594a2340e75006)
       '@ory/client':
-        specifier: ^1.21.4
-        version: 1.21.4
+        specifier: ^1.21.5
+        version: 1.21.5
       '@ory/integrations':
         specifier: ^1.3.1
-        version: 1.3.1(@ory/client@1.21.4)(next@15.4.6(@babel/core@7.28.0)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))
+        version: 1.3.1(@ory/client@1.21.5)(next@15.4.6(@babel/core@7.28.0)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))
       '@reduxjs/toolkit':
         specifier: ^2.8.2
         version: 2.8.2(react-redux@9.2.0(@types/react@19.1.10)(react@19.0.0-rc-fb9a90fa48-20240614)(redux@5.0.1))(react@19.0.0-rc-fb9a90fa48-20240614)
@@ -2391,8 +2391,8 @@ packages:
     peerDependencies:
       '@opentelemetry/api': ^1.1.0
 
-  '@ory/client@1.21.4':
-    resolution: {integrity: sha512-/IGbJwSnkhzbt/Kj9PzIk1CRJIIzoi/bVuRMgeE8fVlhTtilmzdxHmyHikAE8r6VR2ZW2t2I50LEzbqQ+8Q+Zw==}
+  '@ory/client@1.21.5':
+    resolution: {integrity: sha512-VjYdxp8cVyIPvGU265DPvgStwczi80qB7nx4ZBixEXu7u+TM4cnIGCAKXq9xi6MR7UMnbuIfyXHgJ69hr6o4PA==}
 
   '@ory/integrations@1.3.1':
     resolution: {integrity: sha512-lh5YdpIJVLG76G5NUgvMuxsl81ep/W98ImJwOQkVIOzSFeWVMxZI0Xpndvche7TSE8MWqtrb0xfWXTV05uEezQ==}
@@ -9525,15 +9525,15 @@ snapshots:
       '@opentelemetry/api': 1.9.0
       '@opentelemetry/core': 2.0.1(@opentelemetry/api@1.9.0)
 
-  '@ory/client@1.21.4':
+  '@ory/client@1.21.5':
     dependencies:
       axios: 1.11.0
     transitivePeerDependencies:
       - debug
 
-  '@ory/integrations@1.3.1(@ory/client@1.21.4)(next@15.4.6(@babel/core@7.28.0)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))':
+  '@ory/integrations@1.3.1(@ory/client@1.21.5)(next@15.4.6(@babel/core@7.28.0)(@opentelemetry/api@1.9.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))':
     dependencies:
-      '@ory/client': 1.21.4
+      '@ory/client': 1.21.5
       '@types/tldjs': 2.3.4
       cookie: 1.0.2
       istextorbinary: 9.5.0
