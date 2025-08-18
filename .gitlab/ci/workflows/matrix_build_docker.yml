@@ -8,7 +8,7 @@
     matrix:
       - APPLICATION: link-ui
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui
-        DOCKERFILE_PATH: ops/dockerfile/link-ui.Dockerfile
+        DOCKERFILE_PATH: ui/ops/Dockerfile
         DOCKERFILE_ARGS: >-
           --build-arg API_URI=${API_URI}
           --build-arg NEXT_PUBLIC_API_URI=${NEXT_PUBLIC_API_URI}
