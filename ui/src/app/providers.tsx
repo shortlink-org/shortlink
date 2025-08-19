@@ -46,7 +46,7 @@ const theme = createTheme({
 // })
 
 // @ts-ignore
-export function Providers({ children, ...props }) {
+export function Providers({ children, ...props }: { children: React.ReactNode; [key: string]: any }) {
   const storeRef = useRef<AppStore | null>(null)
   if (!storeRef.current) {
     // Create the store instance the first time this renders

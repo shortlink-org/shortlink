@@ -9,7 +9,7 @@ import { useRouter } from 'next/navigation'
 import { firebaseCloudMessaging } from '../config/firebase.config'
 
 // @ts-ignore
-function PushNotificationLayout({ children }) {
+function PushNotificationLayout({ children }: { children: React.ReactNode }) {
   const router = useRouter()
 
   // @ts-ignore

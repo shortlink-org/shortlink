@@ -1,4 +1,6 @@
-export default function SocialAuth(): JSX.Element {
+import React from 'react'
+
+export default function SocialAuth(): React.JSX.Element {
   return (
     <div className="grid grid-cols-3 gap-x-3">
       <button

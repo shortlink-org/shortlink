@@ -31,9 +31,9 @@ function Page() {
     hash: '',
   })
 
-  const handleChange = (e: { target: { name: any; value: any } }) => setURL({ ...url, [e.target.name]: e.target.value })
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setURL({ ...url, [e.target.name]: e.target.value })
 
-  const handleClose = (event: any, reason: string) => {
+  const handleClose = (event: React.SyntheticEvent | Event, reason: string) => {
     if (reason === 'clickaway') {
       return
     }

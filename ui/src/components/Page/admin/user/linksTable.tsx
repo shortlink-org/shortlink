@@ -5,7 +5,19 @@ import { formatRelative } from 'date-fns'
 import { ContentCopy } from '@mui/icons-material'
 
 type AppProps = {
-  data: any
+  data: Array<{
+    url: string
+    hash: string
+    describe?: string
+    createdAt: string
+    updatedAt: string
+  }>
+}
+
+type CellProps = {
+  cell: {
+    getValue: () => string
+  }
 }
 
 const columns = [
@@ -41,7 +53,7 @@ const columns = [
     filterVariant: 'date',
     filterFn: 'lessThan',
     sortingFn: 'datetime',
-    Cell: ({ cell }: any) =>
+    Cell: ({ cell }: CellProps) =>
       formatRelative(new Date(cell.getValue()), new Date(), {
         // @ts-ignore
         addSuffix: true,
@@ -59,7 +71,7 @@ const columns = [
     filterVariant: 'date',
     filterFn: 'lessThan',
     sortingFn: 'datetime',
-    Cell: ({ cell }: any) =>
+    Cell: ({ cell }: CellProps) =>
       formatRelative(new Date(cell.getValue()), new Date(), {
         // @ts-ignore
         addSuffix: true,

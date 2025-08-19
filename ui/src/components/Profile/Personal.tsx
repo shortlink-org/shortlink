@@ -2,7 +2,7 @@
 import * as React from 'react'
 import _ from 'lodash'
 
-export default function Personal({ session }) {
+export default function Personal({ session }: { session: string }) {
   return (
     <div className="mt-10 sm:mt-0">
       <div className="md:grid md:grid-cols-3 md:gap-6">

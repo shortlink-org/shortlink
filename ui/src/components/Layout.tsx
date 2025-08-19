@@ -10,7 +10,7 @@ import ory from '../pkg/sdk'
 import { AxiosError } from 'axios'
 
 // @ts-ignore
-export function Layout({ children }) {
+export function Layout({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<string>('No valid Ory Session was found.\nPlease sign in to receive one.')
   const [hasSession, setHasSession] = useState<boolean>(false)
   const [open, setOpen] = useState(false)

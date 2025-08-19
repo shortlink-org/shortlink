@@ -1,6 +1,6 @@
 // @ts-nocheck
 
-export default function Welcome({ nickname }) {
+export default function Welcome({ nickname }: { nickname: string }) {
   return (
     <div className="md:w-auto flex items-center content-center my-6 flex-auto bg-indigo-600 text-white rounded shadow-xl px-5 w-full">
       <div className="flex flex-wrap content-center items-center">
