@@ -14,12 +14,29 @@ discovery.docker "docker_containers" {
 
 // Extract container name from __meta_docker_container_name label and add as label
 discovery.relabel "docker_containers" {
-    targets = discovery.docker.docker_containers.targets
+  targets = discovery.docker.docker_containers.targets
 
-    rule {
-        source_labels = ["__meta_docker_container_name"]
-        target_label  = "container"
-    }
+  // container name without the leading "/"
+  rule {
+    source_labels = ["__meta_docker_container_name"]
+    regex         = "^/(.*)$"
+    target_label  = "container"
+    replacement   = "$1"
+  }
+
+  // docker compose service label if present
+  rule {
+    source_labels = ["__meta_docker_container_label_com_docker_compose_service"]
+    target_label  = "compose_service"
+    regex         = "(.*)"
+    replacement   = "$1"
+  }
+
+  // stable instance label
+  rule {
+    target_label = "instance"
+    replacement  = constants.hostname
+  }
 }
 
 // Scrape logs from docker containers and send to be processed
@@ -107,9 +124,24 @@ otelcol.processor.memory_limiter "default" {
   }
 }
 
-otelcol.processor.batch "default" {
+otelcol.processor.transform "promote_resource_attrs" {
+  // Copy low-cardinality resource attrs to metric attrs
+  metric_statements = [
+    // OTel canonical keys (kept small to avoid cardinality blowups)
+    "set(attributes[\"service_name\"], resource.attributes[\"service.name\"])",
+    "set(attributes[\"service_namespace\"], resource.attributes[\"service.namespace\"])",
+    "set(attributes[\"service_instance_id\"], resource.attributes[\"service.instance.id\"])",
+    "set(attributes[\"deployment_environment\"], resource.attributes[\"deployment.environment.name\"])",
+  ]
+
   output {
     metrics = [otelcol.exporter.prometheus.grafanacloud.input]
+  }
+}
+
+otelcol.processor.batch "default" {
+  output {
+    metrics = [otelcol.processor.transform.promote_resource_attrs.input]
     logs    = [otelcol.exporter.loki.grafanacloud.input]
     traces  = [otelcol.exporter.otlp.grafanacloud.input]
   }
