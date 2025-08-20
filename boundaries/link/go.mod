@@ -4,7 +4,7 @@ go 1.25.0
 
 require (
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
-	github.com/authzed/authzed-go v1.4.1
+	github.com/authzed/authzed-go v1.5.0
 	github.com/dgraph-io/badger/v4 v4.8.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/go-redis/cache/v9 v9.0.0
