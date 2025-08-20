@@ -30,7 +30,7 @@ require (
 	github.com/XSAM/otelsql v0.39.0 // indirect
 	github.com/ajg/form v1.5.1 // indirect
 	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
-	github.com/authzed/authzed-go v1.4.1 // indirect
+	github.com/authzed/authzed-go v1.5.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/cenkalti/backoff/v5 v5.0.2 // indirect

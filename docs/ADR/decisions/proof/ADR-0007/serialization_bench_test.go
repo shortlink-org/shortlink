@@ -1,68 +1,79 @@
 package ADR_0007
 
 import (
-	"encoding/json"
+	jsonv2 "encoding/json/v2"
 	"testing"
 
-	"github.com/bytedance/sonic"
 	"github.com/google/uuid"
 	enc "github.com/segmentio/encoding/json"
 	"github.com/stretchr/testify/require"
 )
 
-var (
-	payload = struct {
-		Name    string    `json:"name"`
-		Balance int64     `json:"ballance"`
-		User    int64     `json:"user"`
-		Quality int64     `json:"quality"`
-		Uid     uuid.UUID `json:"uid"`
-	}{
-		Balance: 100,
-		User:    1,
-		Name:    "test",
-		Uid:     mustNewV7(nil),
-		Quality: 100,
-	}
-)
+type Payload struct {
+	Name    string    `json:"name"`
+	Balance int64     `json:"balance"`
+	User    int64     `json:"user"`
+	Quality int64     `json:"quality"`
+	Uid     uuid.UUID `json:"uid"`
+}
 
-// simple benchmark json serialization
-func BenchmarkMarshal(b *testing.B) {
+var payload = Payload{
+	Balance: 100,
+	User:    1,
+	Name:    "test",
+	Uid:     mustNewV7(nil),
+	Quality: 100,
+}
+
+func BenchmarkMarshalJSONv2(b *testing.B) {
 	b.ReportAllocs()
-	b.ResetTimer()
-
 	for i := 0; i < b.N; i++ {
-		_, err := json.Marshal(payload)
-		if err != nil {
+		if _, err := jsonv2.Marshal(payload); err != nil {
 			b.Fatal(err)
 		}
 	}
 }
 
-// simple benchmark segmentio/encoding serialization
 func BenchmarkMarshalSegmentio(b *testing.B) {
 	b.ReportAllocs()
-	b.ResetTimer()
-
 	for i := 0; i < b.N; i++ {
-		_, err := enc.Marshal(payload)
-		if err != nil {
+		if _, err := enc.Marshal(payload); err != nil {
 			b.Fatal(err)
 		}
 	}
 }
 
-// simple benchmark sonic serialization
-func BenchmarkMarshalSonic(b *testing.B) {
+func BenchmarkUnmarshalJSONv2(b *testing.B) {
+	data, _ := jsonv2.Marshal(payload)
 	b.ReportAllocs()
 	b.ResetTimer()
-
 	for i := 0; i < b.N; i++ {
-		_, err := sonic.Marshal(payload)
-		if err != nil {
+		var out Payload
+		if err := jsonv2.Unmarshal(data, &out); err != nil {
 			b.Fatal(err)
 		}
 	}
+}
+
+func BenchmarkUnmarshalSegmentio(b *testing.B) {
+	data, _ := enc.Marshal(payload)
+	b.ReportAllocs()
+	b.ResetTimer()
+	for i := 0; i < b.N; i++ {
+		var out Payload
+		if err := enc.Unmarshal(data, &out); err != nil {
+			b.Fatal(err)
+		}
+	}
+}
+
+func TestUnmarshalRoundTrip(t *testing.T) {
+	data, err := jsonv2.Marshal(payload)
+	require.NoError(t, err)
+
+	var got Payload
+	require.NoError(t, jsonv2.Unmarshal(data, &got))
+	require.Equal(t, payload, got)
 }
 
 func mustNewV7(t *testing.T) uuid.UUID {
@@ -70,6 +81,5 @@ func mustNewV7(t *testing.T) uuid.UUID {
 	if t != nil {
 		require.NoError(t, err)
 	}
-
 	return id
 }

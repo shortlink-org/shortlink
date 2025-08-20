@@ -28,7 +28,7 @@ require (
 	github.com/Masterminds/semver/v3 v3.3.1 // indirect
 	github.com/Unleash/unleash-client-go/v4 v4.5.0 // indirect
 	github.com/XSAM/otelsql v0.39.0 // indirect
-	github.com/authzed/authzed-go v1.4.1 // indirect
+	github.com/authzed/authzed-go v1.5.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/cenkalti/backoff/v5 v5.0.2 // indirect
