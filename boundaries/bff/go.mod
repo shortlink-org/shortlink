@@ -4,7 +4,7 @@ go 1.25.0
 
 require (
 	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.5.1-20240420204150-bbba30c24796.2
-	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.7-20240420204150-bbba30c24796.1
+	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.8-20240420204150-bbba30c24796.1
 	github.com/go-chi/chi/v5 v5.2.2
 	github.com/go-chi/cors v1.2.2
 	github.com/go-chi/render v1.0.3
@@ -18,7 +18,7 @@ require (
 	golang.org/x/sync v0.16.0
 	golang.org/x/text v0.28.0
 	google.golang.org/grpc v1.74.2
-	google.golang.org/protobuf v1.36.7
+	google.golang.org/protobuf v1.36.8
 )
 
 require (
