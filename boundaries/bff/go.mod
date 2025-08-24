@@ -8,7 +8,7 @@ require (
 	github.com/go-chi/chi/v5 v5.2.2
 	github.com/go-chi/cors v1.2.2
 	github.com/go-chi/render v1.0.3
-	github.com/google/wire v0.6.0
+	github.com/google/wire v0.7.0
 	github.com/oapi-codegen/runtime v1.1.2
 	github.com/riandyrn/otelchi v0.12.1
 	github.com/segmentio/encoding v0.5.3

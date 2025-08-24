@@ -24,7 +24,7 @@ require (
 	github.com/golang/glog v1.2.5
 	github.com/google/cel-go v0.26.0
 	github.com/google/uuid v1.6.0
-	github.com/google/wire v0.6.0
+	github.com/google/wire v0.7.0
 	github.com/grafana/pyroscope-go v1.2.4
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.8
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0
