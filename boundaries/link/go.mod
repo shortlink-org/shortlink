@@ -20,7 +20,7 @@ require (
 	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/shortlink v0.0.0-20250806204432-a022ce0d8093
 	github.com/spf13/viper v1.20.1
-	github.com/stretchr/testify v1.10.0
+	github.com/stretchr/testify v1.11.0
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
 	go.mongodb.org/mongo-driver/v2 v2.3.0
 	go.opentelemetry.io/otel/trace v1.37.0
