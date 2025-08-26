@@ -6,9 +6,9 @@ package di
 import (
 	"github.com/google/wire"
 
+	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/shortlink/pkg/cache"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
 	shortctx "github.com/shortlink-org/shortlink/pkg/di/pkg/context"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/flags"
 	logger_di "github.com/shortlink-org/shortlink/pkg/di/pkg/logger"

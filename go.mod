@@ -6,7 +6,6 @@ require (
 	github.com/IBM/sarama v1.46.0
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
 	github.com/PuerkitoBio/goquery v1.10.3
-	github.com/Unleash/unleash-go-sdk/v5 v5.0.3
 	github.com/XSAM/otelsql v0.39.0
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/authzed/authzed-go v1.5.0
@@ -47,6 +46,7 @@ require (
 	github.com/redis/rueidis/rueidiscompat v1.0.64
 	github.com/redis/rueidis/rueidisotel v1.0.64
 	github.com/segmentio/encoding v0.5.3
+	github.com/shortlink-org/go-sdk/config v0.0.0-20250826205430-1be25e9fc081
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.9.1
 	github.com/spf13/viper v1.20.1
@@ -106,6 +106,7 @@ require (
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/Nvveen/Gotty v0.0.0-20120604004816-cd527374f1e5 // indirect
 	github.com/OpenPeeDeeP/depguard/v2 v2.2.1 // indirect
+	github.com/Unleash/unleash-go-sdk/v5 v5.0.3 // indirect
 	github.com/alecthomas/chroma/v2 v2.20.0 // indirect
 	github.com/alecthomas/go-check-sumtype v0.3.1 // indirect
 	github.com/alexkohler/nakedret/v2 v2.0.6 // indirect
@@ -174,7 +175,7 @@ require (
 	github.com/fatih/structtag v1.2.0 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/firefart/nonamedreturns v1.0.6 // indirect
-	github.com/fsnotify/fsnotify v1.8.0 // indirect
+	github.com/fsnotify/fsnotify v1.9.0 // indirect
 	github.com/fzipp/gocyclo v0.6.0 // indirect
 	github.com/ghostiam/protogetter v0.3.15 // indirect
 	github.com/go-critic/go-critic v0.13.0 // indirect

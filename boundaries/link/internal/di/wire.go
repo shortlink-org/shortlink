@@ -28,9 +28,9 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/link_cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/sitemap"
 
+	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/config"
 	mq_di "github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
