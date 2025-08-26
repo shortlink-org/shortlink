@@ -25,8 +25,8 @@ require (
 	github.com/google/cel-go v0.26.0
 	github.com/google/uuid v1.6.0
 	github.com/google/wire v0.7.0
-	github.com/grafana/pyroscope-go v1.2.4
-	github.com/grafana/pyroscope-go/godeltaprof v0.1.8
+	github.com/grafana/pyroscope-go v1.2.7
+	github.com/grafana/pyroscope-go/godeltaprof v0.1.9
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.2
 	github.com/heptiolabs/healthcheck v0.0.0-20211123025425-613501dd5deb
