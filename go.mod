@@ -46,7 +46,7 @@ require (
 	github.com/redis/rueidis/rueidiscompat v1.0.64
 	github.com/redis/rueidis/rueidisotel v1.0.64
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/config v0.0.0-20250826205430-1be25e9fc081
+	github.com/shortlink-org/go-sdk/config v0.0.0-20250826211159-82e90734f4da
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.9.1
 	github.com/spf13/viper v1.20.1

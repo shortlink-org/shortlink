@@ -10,6 +10,7 @@ import (
 	"context"
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
+	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/mq"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/cqrs/cqs"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/cqrs/query"
@@ -24,7 +25,6 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/cache"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
-	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/context"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
@@ -52,7 +52,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	configConfig, err := config.New(logger)
+	configConfig, err := config.New()
 	if err != nil {
 		cleanup2()
 		cleanup()

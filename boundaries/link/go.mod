@@ -18,7 +18,7 @@ require (
 	github.com/prometheus/client_golang v1.23.0
 	github.com/redis/rueidis v1.0.64
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/config v0.0.0-20250826205430-1be25e9fc081
+	github.com/shortlink-org/go-sdk/config v0.0.0-20250826210521-292aac0b289d
 	github.com/shortlink-org/shortlink v0.0.0-20250806204432-a022ce0d8093
 	github.com/spf13/viper v1.20.1
 	github.com/stretchr/testify v1.11.0
