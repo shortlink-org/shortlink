@@ -5,8 +5,8 @@ import (
 
 	"go.uber.org/automaxprocs/maxprocs"
 
+	"github.com/shortlink-org/go-sdk/logger"
 	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"
-	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
 type AutoMaxPro *string

@@ -9,10 +9,9 @@ import (
 	"github.com/IBM/sarama"
 	"github.com/dnwe/otelsarama"
 	"github.com/heptiolabs/healthcheck"
+	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/spf13/viper"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
-	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/mq/query"
 )
 
@@ -77,9 +76,7 @@ func (mq *Kafka) Init(ctx context.Context, log logger.Logger) error {
 		<-ctx.Done()
 
 		if errClose := mq.close(); errClose != nil {
-			log.Error("Kafka close error", field.Fields{
-				"error": errClose.Error(),
-			})
+			log.Error("Kafka close error", errClose)
 		}
 	}()
 

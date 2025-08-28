@@ -47,18 +47,16 @@ require (
 	github.com/redis/rueidis/rueidisotel v1.0.64
 	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250826211159-82e90734f4da
-	github.com/sirupsen/logrus v1.9.3
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20250828121506-ed6b3e0c8136
 	github.com/spf13/cobra v1.9.1
 	github.com/spf13/viper v1.20.1
-	github.com/stretchr/testify v1.11.0
+	github.com/stretchr/testify v1.11.1
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
 	github.com/uber-go/tally/v4 v4.1.17
 	github.com/uptrace/go-clickhouse v0.3.1
 	github.com/uptrace/go-clickhouse/chdebug v0.3.1
 	github.com/uptrace/go-clickhouse/chotel v0.3.1
-	github.com/uptrace/opentelemetry-go-extra/otellogrus v0.3.2
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.3.2
-	github.com/uptrace/opentelemetry-go-extra/otelzap v0.3.2
 	go.etcd.io/etcd/client/v3 v3.6.4
 	go.mongodb.org/mongo-driver/v2 v2.3.0
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.62.0
@@ -77,7 +75,6 @@ require (
 	go.uber.org/atomic v1.11.0
 	go.uber.org/automaxprocs v1.6.0
 	go.uber.org/goleak v1.3.0
-	go.uber.org/zap v1.27.0
 	golang.org/x/sync v0.16.0
 	google.golang.org/grpc v1.75.0
 	google.golang.org/protobuf v1.36.8
@@ -332,6 +329,7 @@ require (
 	github.com/securego/gosec/v2 v2.22.7 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
 	github.com/sigurn/crc16 v0.0.0-20240131213347-83fcde1e29d1 // indirect
+	github.com/sirupsen/logrus v1.9.3 // indirect
 	github.com/sivchari/containedctx v1.0.3 // indirect
 	github.com/sonatard/noctx v0.4.0 // indirect
 	github.com/sourcegraph/conc v0.3.0 // indirect
@@ -354,7 +352,6 @@ require (
 	github.com/twmb/murmur3 v1.1.8 // indirect
 	github.com/ultraware/funlen v0.2.0 // indirect
 	github.com/ultraware/whitespace v0.2.0 // indirect
-	github.com/uptrace/opentelemetry-go-extra/otelutil v0.3.2 // indirect
 	github.com/uudashr/gocognit v1.2.0 // indirect
 	github.com/uudashr/iface v1.4.1 // indirect
 	github.com/vmihailenco/go-tinylfu v0.2.2 // indirect
@@ -392,6 +389,7 @@ require (
 	go.opentelemetry.io/proto/otlp v1.7.0 // indirect
 	go.temporal.io/api v1.49.1 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
+	go.uber.org/zap v1.27.0 // indirect
 	golang.org/x/crypto v0.41.0 // indirect
 	golang.org/x/exp v0.0.0-20250305212735-054e65f0b394 // indirect
 	golang.org/x/exp/typeparams v0.0.0-20250620022241-b7579e27df2b // indirect

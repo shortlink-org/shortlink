@@ -11,7 +11,6 @@ import (
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/pkg/auth/session"
-	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/pattern/saga"
 )
 

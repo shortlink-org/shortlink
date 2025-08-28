@@ -5,11 +5,11 @@ package mq
 
 import (
 	"context"
+	"log/slog"
 
 	"github.com/spf13/viper"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
-	"github.com/shortlink-org/shortlink/pkg/logger/field"
+	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/pkg/mq/kafka"
 	"github.com/shortlink-org/shortlink/pkg/mq/nats"
 	"github.com/shortlink-org/shortlink/pkg/mq/query"
@@ -52,9 +52,7 @@ func (mq *DataBus) Init(ctx context.Context, log logger.Logger) error {
 		return err
 	}
 
-	mq.log.Info("run MQ", field.Fields{
-		"mq": mq.typeMQ,
-	})
+	mq.log.Info("run MQ", slog.String("mq", mq.typeMQ))
 
 	return nil
 }

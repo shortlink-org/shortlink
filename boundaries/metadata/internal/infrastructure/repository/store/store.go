@@ -8,10 +8,9 @@ import (
 
 	"github.com/spf13/viper"
 
+	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/store/ram"
 	"github.com/shortlink-org/shortlink/pkg/db"
-	"github.com/shortlink-org/shortlink/pkg/logger"
-	"github.com/shortlink-org/shortlink/pkg/logger/field"
 	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 

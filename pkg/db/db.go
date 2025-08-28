@@ -10,6 +10,7 @@ import (
 	"go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 
+	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/pkg/db/drivers/badger"
 	"github.com/shortlink-org/shortlink/pkg/db/drivers/cockroachdb"
 	"github.com/shortlink-org/shortlink/pkg/db/drivers/dgraph"
@@ -21,8 +22,6 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/db/drivers/ram"
 	"github.com/shortlink-org/shortlink/pkg/db/drivers/redis"
 	"github.com/shortlink-org/shortlink/pkg/db/drivers/sqlite"
-	"github.com/shortlink-org/shortlink/pkg/logger"
-	"github.com/shortlink-org/shortlink/pkg/logger/field"
 )
 
 // New - return implementation of db

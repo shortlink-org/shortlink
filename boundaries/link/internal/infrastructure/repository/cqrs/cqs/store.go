@@ -9,11 +9,10 @@ import (
 	"github.com/go-redis/cache/v9"
 	"github.com/spf13/viper"
 
+	"github.com/shortlink-org/go-sdk/logger"
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/cqrs/cqs/postgres"
 	"github.com/shortlink-org/shortlink/pkg/db"
-	"github.com/shortlink-org/shortlink/pkg/logger"
-	"github.com/shortlink-org/shortlink/pkg/logger/field"
 )
 
 // New return implementation of db

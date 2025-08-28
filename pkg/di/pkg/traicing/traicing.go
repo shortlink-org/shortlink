@@ -6,8 +6,8 @@ import (
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/trace"
 
+	"github.com/shortlink-org/go-sdk/logger"
 	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"
-	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/observability/traicing"
 )
 

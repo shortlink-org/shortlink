@@ -14,7 +14,6 @@ import (
 
 	api_di "github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/graphql/di"
 	"github.com/shortlink-org/shortlink/pkg/graceful_shutdown"
-	"github.com/shortlink-org/shortlink/pkg/logger/field"
 )
 
 func main() {

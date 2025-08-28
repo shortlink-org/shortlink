@@ -24,6 +24,7 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/screenshot"
 
 	"github.com/shortlink-org/go-sdk/config"
+	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
@@ -31,7 +32,6 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/store"
-	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/notify"
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
