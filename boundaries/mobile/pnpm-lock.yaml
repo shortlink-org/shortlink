@@ -118,8 +118,8 @@ importers:
         specifier: ^20.40.2
         version: 20.40.2(@jest/environment@30.0.5)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.0.5)(jest-environment-jsdom@30.0.5)(jest-environment-node@30.0.5)(jest@30.0.5(@types/node@22.18.0)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.0)(typescript@5.9.2)))
       eas-cli:
-        specifier: ^16.17.4
-        version: 16.17.4(@types/node@22.18.0)(encoding@0.1.13)(typescript@5.9.2)
+        specifier: ^16.18.0
+        version: 16.18.0(@types/node@22.18.0)(encoding@0.1.13)(typescript@5.9.2)
       eslint:
         specifier: ^9.34.0
         version: 9.34.0
@@ -1184,8 +1184,8 @@ packages:
   '@expo/eas-build-job@1.0.173':
     resolution: {integrity: sha512-OtayVwXQaQEjJkpeKYvB4N6lsXVX+QSEz5okNx/d+8esI2KCjxOy/hzaqKBTovkxRlmWgE3XLw8RhrjAaBY2Gw==}
 
-  '@expo/eas-json@16.13.2':
-    resolution: {integrity: sha512-WFcIlM+rZZLgHCmTF86XcXnSQItkzvY7d+FV4n6mDRnV39T16dSLaZ2Vj2xp6kseJs8UVoGD4WYLChr8D+ahzg==}
+  '@expo/eas-json@16.18.0':
+    resolution: {integrity: sha512-OVx6HdKyoJdbtuYrVjJXbdhCQWC62JO6hxYw29l7q39at+OfM10/2KEHuohLz/gOpV3KiVP5m/KvwBKL49D2bg==}
     engines: {node: '>=18.0.0'}
 
   '@expo/env@1.0.7':
@@ -4091,8 +4091,8 @@ packages:
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
 
-  eas-cli@16.17.4:
-    resolution: {integrity: sha512-da2+5aV7v8eLoMo+KHNepGplo/PrudWQiTUM7tryxo1rU4CqItM/Q/FqV33D5kLiUMjG5XjX15n+X6het1YEeg==}
+  eas-cli@16.18.0:
+    resolution: {integrity: sha512-r9CZxE1y9C60E4+B55D3EIMxXOCywGAftdahiRvaQ8c1X653I6hn4wTGo4hnX8hznyHqPQ81Xsgpnud6G8ru8A==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -9873,7 +9873,7 @@ snapshots:
       semver: 7.7.2
       zod: 3.25.76
 
-  '@expo/eas-json@16.13.2':
+  '@expo/eas-json@16.18.0':
     dependencies:
       '@babel/code-frame': 7.23.5
       '@expo/eas-build-job': 1.0.173
@@ -10104,7 +10104,7 @@ snapshots:
       '@segment/loosely-validate-event': 2.0.0
       fetch-retry: 4.1.1
       md5: 2.3.0
-      node-fetch: 2.6.7(encoding@0.1.13)
+      node-fetch: 2.7.0(encoding@0.1.13)
       remove-trailing-slash: 0.1.1
       uuid: 8.3.2
     transitivePeerDependencies:
@@ -10122,14 +10122,14 @@ snapshots:
       '@expo/logger': 1.0.117
       '@expo/spawn-async': 1.7.2
       arg: 5.0.2
-      fs-extra: 11.2.0
+      fs-extra: 11.3.1
       joi: 17.13.3
       jsep: 1.4.0
       lodash.clonedeep: 4.5.0
       lodash.get: 4.4.2
       this-file: 2.0.3
       uuid: 9.0.1
-      yaml: 2.6.0
+      yaml: 2.8.1
 
   '@expo/sudo-prompt@9.3.2': {}
 
@@ -12537,7 +12537,7 @@ snapshots:
 
   '@urql/exchange-retry@1.2.0(graphql@16.8.1)':
     dependencies:
-      '@urql/core': 4.0.11(graphql@16.8.1)
+      '@urql/core': 5.2.0(graphql@16.8.1)
       wonka: 6.3.5
     transitivePeerDependencies:
       - graphql
@@ -13976,14 +13976,14 @@ snapshots:
 
   duplexer@0.1.2: {}
 
-  eas-cli@16.17.4(@types/node@22.18.0)(encoding@0.1.13)(typescript@5.9.2):
+  eas-cli@16.18.0(@types/node@22.18.0)(encoding@0.1.13)(typescript@5.9.2):
     dependencies:
       '@expo/apple-utils': 2.1.12
       '@expo/code-signing-certificates': 0.0.5
       '@expo/config': 10.0.6
       '@expo/config-plugins': 9.0.12
       '@expo/eas-build-job': 1.0.173
-      '@expo/eas-json': 16.13.2
+      '@expo/eas-json': 16.18.0
       '@expo/env': 1.0.7
       '@expo/json-file': 8.3.3
       '@expo/logger': 1.0.117
@@ -15046,7 +15046,7 @@ snapshots:
     dependencies:
       array-union: 2.1.0
       dir-glob: 3.0.1
-      fast-glob: 3.3.2
+      fast-glob: 3.3.3
       ignore: 5.3.2
       merge2: 1.4.1
       slash: 3.0.0
