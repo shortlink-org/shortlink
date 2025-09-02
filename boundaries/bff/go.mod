@@ -10,7 +10,7 @@ require (
 	github.com/go-chi/render v1.0.3
 	github.com/google/wire v0.7.0
 	github.com/oapi-codegen/runtime v1.1.2
-	github.com/riandyrn/otelchi v0.12.1
+	github.com/riandyrn/otelchi v0.12.2
 	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250826211159-82e90734f4da
 	github.com/shortlink-org/go-sdk/logger v0.0.0-20250828121506-ed6b3e0c8136
