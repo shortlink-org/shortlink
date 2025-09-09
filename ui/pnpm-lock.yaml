@@ -129,8 +129,8 @@ importers:
         specifier: ^1.4.5
         version: 1.4.5(@babel/core@7.28.3)(@emotion/react@11.14.0(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@mui/system@7.3.2(@emotion/react@11.14.0(@types/react@19.1.12)(react@19.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@types/react@19.1.12)(react@19.1.1))(@opentelemetry/api@1.9.0)(@storybook/addon-actions@6.5.16(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@storybook/addons@6.5.16(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@storybook/client-api@6.5.16(react-dom@19.1.1(react@19.1.1))(react@19.1.1))(@storybook/test@8.5.0-alpha.17(storybook@8.5.0-alpha.21(prettier@3.6.2)))(@types/node@24.3.0)(postcss@8.5.6)(rollup@4.46.3)(storybook@8.5.0-alpha.21(prettier@3.6.2))(typescript@5.9.2)(vite@5.4.11(@types/node@24.3.0)(lightningcss@1.30.1)(terser@5.43.1))(webpack@5.97.1(esbuild@0.24.2))
       uuid:
-        specifier: ^11.1.0
-        version: 11.1.0
+        specifier: ^13.0.0
+        version: 13.0.0
     devDependencies:
       '@mdx-js/loader':
         specifier: 3.1.1
@@ -6868,8 +6868,8 @@ packages:
     resolution: {integrity: sha512-dsNgbLaTrd6l3MMxTtouOCFw4CBFc/3a+GgYA2YyrJvyQ1u6q4pcu3ktLoUZ/VN/Aw9WsauazbgsgdfVWgAKQg==}
     deprecated: Package no longer supported and required. Use the uuid package or crypto.randomUUID instead
 
-  uuid@11.1.0:
-    resolution: {integrity: sha512-0/A9rDy9P7cJ+8w1c9WD9V//9Wj15Ce2MPz8Ri6032usz+NfePxx5AcN3bN+r6ZL6jEo066/yNYB3tn4pQEx+A==}
+  uuid@13.0.0:
+    resolution: {integrity: sha512-XQegIaBTVUjSHliKqcnFqYypAd4S+WCYt5NIeRs6w/UAry7z8Y9j5ZwRRL4kzq9U3sD6v+85er9FvkEaBpji2w==}
     hasBin: true
 
   uuid@8.3.2:
@@ -14822,7 +14822,7 @@ snapshots:
 
   uuid-browser@3.1.0: {}
 
-  uuid@11.1.0: {}
+  uuid@13.0.0: {}
 
   uuid@8.3.2: {}
 
