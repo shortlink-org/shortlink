@@ -49,7 +49,7 @@ require (
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250826211159-82e90734f4da
 	github.com/shortlink-org/go-sdk/logger v0.0.0-20250828121506-ed6b3e0c8136
 	github.com/spf13/cobra v1.10.1
-	github.com/spf13/viper v1.20.1
+	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
 	github.com/uber-go/tally/v4 v4.1.17

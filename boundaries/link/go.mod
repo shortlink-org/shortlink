@@ -21,7 +21,7 @@ require (
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250826211159-82e90734f4da
 	github.com/shortlink-org/go-sdk/logger v0.0.0-20250828121506-ed6b3e0c8136
 	github.com/shortlink-org/shortlink v0.0.0-20250806204432-a022ce0d8093
-	github.com/spf13/viper v1.20.1
+	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
 	go.mongodb.org/mongo-driver/v2 v2.3.0
