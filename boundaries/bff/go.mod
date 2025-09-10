@@ -16,7 +16,7 @@ require (
 	github.com/shortlink-org/go-sdk/logger v0.0.0-20250828121506-ed6b3e0c8136
 	github.com/shortlink-org/shortlink v0.0.0-20250806204432-a022ce0d8093
 	github.com/spf13/viper v1.20.1
-	go.opentelemetry.io/otel/trace v1.37.0
+	go.opentelemetry.io/otel/trace v1.38.0
 	golang.org/x/sync v0.16.0
 	golang.org/x/text v0.28.0
 	google.golang.org/grpc v1.75.0
