@@ -6,7 +6,7 @@ require (
 	github.com/IBM/sarama v1.46.0
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
 	github.com/PuerkitoBio/goquery v1.10.3
-	github.com/XSAM/otelsql v0.39.0
+	github.com/XSAM/otelsql v0.40.0
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
 	github.com/authzed/authzed-go v1.5.0
 	github.com/chromedp/chromedp v0.14.1
