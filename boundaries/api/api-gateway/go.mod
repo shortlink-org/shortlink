@@ -7,7 +7,7 @@ require (
 	github.com/cloudevents/sdk-go/observability/opentelemetry/v2 v2.16.1
 	github.com/cloudevents/sdk-go/v2 v2.16.1
 	github.com/google/wire v0.7.0
-	github.com/graph-gophers/graphql-go v1.7.2
+	github.com/graph-gophers/graphql-go v1.8.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.2
 	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250826211159-82e90734f4da
