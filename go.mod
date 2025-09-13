@@ -15,7 +15,7 @@ require (
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/dnwe/otelsarama v0.0.0-20240308230250-9388d9d40bc0
 	github.com/exaring/otelpgx v0.9.3
-	github.com/geldata/gel-go v1.4.1
+	github.com/geldata/gel-go v1.4.2
 	github.com/go-chi/chi/v5 v5.2.3
 	github.com/go-redis/cache/v9 v9.0.0
 	github.com/go-sql-driver/mysql v1.9.3
