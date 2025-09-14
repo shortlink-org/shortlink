@@ -3,6 +3,11 @@
     <deployment type="docker-compose.yml">
       <settings>
         <option name="envFilePath" value="$PROJECT_DIR$/.env" />
+        <option name="envFilePaths">
+          <list>
+            <option value="$PROJECT_DIR$/.env" />
+          </list>
+        </option>
         <option name="envVars">
           <list>
             <DockerEnvVarImpl>
@@ -17,7 +22,7 @@
             <option value="ops/docker-compose/tooling/services/coredns.yaml" />
           </list>
         </option>
-        <option name="sourceFilePath" value="ops/docker-compose/database/aerospike/aerospike.yaml" />
+        <option name="sourceFilePath" value="../gitops/ops/docker-compose/database/aerospike/aerospike.yaml" />
         <option name="upAlwaysRecreate" value="true" />
         <option name="upDetach" value="false" />
       </settings>

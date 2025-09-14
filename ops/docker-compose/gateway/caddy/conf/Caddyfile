@@ -1,7 +1,0 @@
-ui.local {
-  reverse_proxy * ui-next:80
-}
-
-shortlink.local {
-  reverse_proxy * shortlink:7070
-}
