@@ -18,8 +18,8 @@ importers:
         specifier: ^54.0.7
         version: 54.0.7(@babel/core@7.28.0)(graphql@16.8.1)(react-native@0.81.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.1.12)(react@19.1.1))(react@19.1.1)
       expo-insights:
-        specifier: ^0.9.3
-        version: 0.9.3(expo@54.0.7(@babel/core@7.28.0)(graphql@16.8.1)(react-native@0.81.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.1.12)(react@19.1.1))(react@19.1.1))
+        specifier: ^0.10.7
+        version: 0.10.7(expo@54.0.7(@babel/core@7.28.0)(graphql@16.8.1)(react-native@0.81.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.1.12)(react@19.1.1))(react@19.1.1))
       expo-splash-screen:
         specifier: ^31.0.10
         version: 31.0.10(expo@54.0.7(@babel/core@7.28.0)(graphql@16.8.1)(react-native@0.81.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.1.12)(react@19.1.1))(react@19.1.1))
@@ -4473,8 +4473,8 @@ packages:
       expo: '*'
       react-native: '*'
 
-  expo-eas-client@0.14.4:
-    resolution: {integrity: sha512-TSL1BbBFIuXchJmPgbPnB7cGpOOuSGJcQ/L7gij/+zPjExwvKm5ckA5dlSulwoFhH8zQt4vb7bfISPSAWQVWBw==}
+  expo-eas-client@1.0.7:
+    resolution: {integrity: sha512-Q/b1X0fM+3beqqvffok14pjxMF600NxopdSr9WJY61fF4xllcVnALS0kEudffp9ihMOfcb5xWYqzKj6jMqYDIw==}
 
   expo-file-system@19.0.14:
     resolution: {integrity: sha512-0CA7O5IYhab11TlxQlJAx0Xm9pdkk/zEHNiW+Hh/T4atWi9U/J38CIp7iNYSrBvy9dC3rJbze5D1ANcKKr4mSQ==}
@@ -4489,8 +4489,8 @@ packages:
       react: '*'
       react-native: '*'
 
-  expo-insights@0.9.3:
-    resolution: {integrity: sha512-ictylDUdERHPXUM4suEYLJGGvlSOB7btDSA0FtlZeVWWOcyTWQlSF5t1Wj3lCCljzjMm/pIj8k9hp8CXCl0gsg==}
+  expo-insights@0.10.7:
+    resolution: {integrity: sha512-Ie6LnONNLx7ExnURlLQdJFgrV8Zry/ro1KWH4J47or8oMQkYQp7jcu6WdQoDFpfaCKxJvVJvwTLx1Ybl/lOCug==}
     peerDependencies:
       expo: '*'
 
@@ -14600,7 +14600,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  expo-eas-client@0.14.4: {}
+  expo-eas-client@1.0.7: {}
 
   expo-file-system@19.0.14(expo@54.0.7(@babel/core@7.28.0)(graphql@16.8.1)(react-native@0.81.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.1.12)(react@19.1.1))(react@19.1.1))(react-native@0.81.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.1.12)(react@19.1.1)):
     dependencies:
@@ -14614,10 +14614,10 @@ snapshots:
       react: 19.1.1
       react-native: 0.81.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.1.12)(react@19.1.1)
 
-  expo-insights@0.9.3(expo@54.0.7(@babel/core@7.28.0)(graphql@16.8.1)(react-native@0.81.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.1.12)(react@19.1.1))(react@19.1.1)):
+  expo-insights@0.10.7(expo@54.0.7(@babel/core@7.28.0)(graphql@16.8.1)(react-native@0.81.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.1.12)(react@19.1.1))(react@19.1.1)):
     dependencies:
       expo: 54.0.7(@babel/core@7.28.0)(graphql@16.8.1)(react-native@0.81.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.1.12)(react@19.1.1))(react@19.1.1)
-      expo-eas-client: 0.14.4
+      expo-eas-client: 1.0.7
 
   expo-keep-awake@15.0.7(expo@54.0.7(@babel/core@7.28.0)(graphql@16.8.1)(react-native@0.81.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.1.12)(react@19.1.1))(react@19.1.1))(react@19.1.1):
     dependencies:
