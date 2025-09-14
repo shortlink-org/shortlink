@@ -11,7 +11,7 @@ ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 ###############################################################################
 # Build-stage arguments
 ###############################################################################
-ARG NODE_VERSION=24.7.0-alpine
+ARG NODE_VERSION=24.8.0-alpine
 
 ########################
 # 1️⃣  Builder stage
