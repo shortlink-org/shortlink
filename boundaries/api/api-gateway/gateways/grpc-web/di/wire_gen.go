@@ -16,7 +16,6 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/grpc-web/infrastructure/server"
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/grpc-web/infrastructure/server/v1"
 	"github.com/shortlink-org/shortlink/pkg/di"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/context"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"

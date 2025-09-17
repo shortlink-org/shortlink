@@ -16,7 +16,6 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/pkg/i18n"
 	"github.com/shortlink-org/shortlink/pkg/di"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/context"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"

@@ -20,7 +20,6 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/screenshot"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/di"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/context"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/mq"

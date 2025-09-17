@@ -31,7 +31,6 @@ import (
 	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/pkg/di"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	mq_di "github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
@@ -149,7 +148,6 @@ func NewLinkService(
 	// Common
 	log logger.Logger,
 	config *config.Config,
-	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	// Observability
 	metrics *metrics.Monitoring,
@@ -180,9 +178,8 @@ func NewLinkService(
 ) (*LinkService, error) {
 	return &LinkService{
 		// Common
-		Log:        log,
-		Config:     config,
-		AutoMaxPro: autoMaxProcsOption,
+		Log:    log,
+		Config: config,
 
 		// Observability
 		Tracer:        tracer,

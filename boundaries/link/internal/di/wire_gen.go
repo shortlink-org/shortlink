@@ -24,7 +24,6 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/sitemap"
 	"github.com/shortlink-org/shortlink/pkg/cache"
 	"github.com/shortlink-org/shortlink/pkg/di"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/context"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/mq"

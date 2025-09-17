@@ -16,7 +16,6 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/link"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/sitemap"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"

@@ -15,7 +15,6 @@ import (
 	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/graphql/infrastructure/server"
 	"github.com/shortlink-org/shortlink/pkg/di"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/context"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"

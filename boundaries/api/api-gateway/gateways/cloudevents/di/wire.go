@@ -23,7 +23,6 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/domain"
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/cloudevents/infrastructure/server"
 	"github.com/shortlink-org/shortlink/pkg/di"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
@@ -151,7 +150,6 @@ func NewAPIService(
 	// Common
 	log logger.Logger,
 	config *config.Config,
-	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	// Observability
 	metrics *metrics.Monitoring,
@@ -169,7 +167,6 @@ func NewAPIService(
 		Tracer:        tracer,
 		Metrics:       metrics,
 		PprofEndpoint: pprofHTTP,
-		AutoMaxPro:    autoMaxProcsOption,
 
 		service: service,
 	}, nil

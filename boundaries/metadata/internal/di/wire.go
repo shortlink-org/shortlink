@@ -27,7 +27,6 @@ import (
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/di"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/autoMaxPro"
 	mq_di "github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
@@ -157,7 +156,6 @@ func NewMetaDataService(
 	// Common
 	log logger.Logger,
 	config *config.Config,
-	autoMaxProcsOption autoMaxPro.AutoMaxPro,
 
 	// Observability
 	metrics *metrics.Monitoring,
@@ -183,7 +181,6 @@ func NewMetaDataService(
 		Tracer:        tracer,
 		Metrics:       metrics,
 		PprofEndpoint: pprofHTTP,
-		AutoMaxPro:    autoMaxProcsOption,
 
 		// Application
 		service: service,
