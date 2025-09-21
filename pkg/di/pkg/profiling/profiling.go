@@ -47,9 +47,7 @@ func New(ctx context.Context, log logger.Logger) (PprofEndpoint, error) {
 			log.Error(err.Error())
 		}
 	}()
-	log.Info("Run profiling", field.Fields{
-		"addr": "0.0.0.0:7071",
-	})
+	log.Info("Run profiling", "addr", "0.0.0.0:7071")
 
 	// These 2 lines are only required if you're using mutex or block profiling
 	// to read the explanation below for how to set these rates:
@@ -80,9 +78,7 @@ func New(ctx context.Context, log logger.Logger) (PprofEndpoint, error) {
 		return nil, &error_di.BaseError{Err: err}
 	}
 
-	log.Info("Run pyroscope", field.Fields{
-		"addr": viper.GetString("PYROSCOPE_ADDRESS"),
-	})
+	log.Info("Run pyroscope", "addr", viper.GetString("PYROSCOPE_ADDRESS"))
 
 	return pprofMux, nil
 }

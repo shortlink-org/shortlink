@@ -34,16 +34,11 @@ func Init(ctx context.Context, cnf Config, log logger.Logger) (*trace.TracerProv
 	cleanup := func() {
 		errShutdown := tp.Shutdown(ctx)
 		if errShutdown != nil {
-			log.Error(`Tracing disable`, field.Fields{
-				"uri": cnf.URI,
-				"err": errShutdown,
-			})
+		log.Error("Tracing disable", "uri", cnf.URI, "err", errShutdown)
 		}
 	}
 
-	log.Info(`Tracing enable`, field.Fields{
-		"uri": cnf.URI,
-	})
+	log.Info("Tracing enable", "uri", cnf.URI)
 
 	// Gracefully shutdown the trace provider on exit
 	go func() {
@@ -51,9 +46,7 @@ func Init(ctx context.Context, cnf Config, log logger.Logger) (*trace.TracerProv
 
 		// Shutdown will flush any remaining spans and shut down the exporter.
 		if errShutdown := tp.Shutdown(ctx); errShutdown != nil {
-			log.Error("error shutting down trace provider", field.Fields{
-				"err": errShutdown.Error(),
-			})
+			log.Error("error shutting down trace provider", "err", errShutdown.Error())
 		}
 	}()
 
