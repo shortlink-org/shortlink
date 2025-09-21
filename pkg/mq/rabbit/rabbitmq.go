@@ -6,7 +6,7 @@ import (
 
 	amqp "github.com/rabbitmq/amqp091-go"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 )
 
 type MQ struct {

@@ -6,7 +6,7 @@ import (
 	"context"
 	"testing"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 
 	"github.com/stretchr/testify/require"
 )

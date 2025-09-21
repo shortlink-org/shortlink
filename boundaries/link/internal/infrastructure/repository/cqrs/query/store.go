@@ -9,7 +9,7 @@ import (
 	"github.com/go-redis/cache/v9"
 	"github.com/spf13/viper"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 	v12 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link_cqrs/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/cqrs/query/postgres"
 	types "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"

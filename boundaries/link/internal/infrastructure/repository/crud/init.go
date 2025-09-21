@@ -11,7 +11,7 @@ import (
 	"github.com/go-redis/cache/v9"
 	"github.com/spf13/viper"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/badger"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/dgraph"

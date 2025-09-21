@@ -6,7 +6,7 @@ import (
 
 	"golang.org/x/sync/singleflight"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 )
 
 type Option func(*singleFlight)

@@ -6,7 +6,7 @@ import (
 
 	otellog "go.opentelemetry.io/otel/log"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 )
 
 // ScopeRecords represents the records for a single instrumentation scope.

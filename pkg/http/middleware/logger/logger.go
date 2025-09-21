@@ -6,7 +6,7 @@ import (
 
 	"github.com/go-chi/chi/v5/middleware"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 )
 
 type chilogger struct {

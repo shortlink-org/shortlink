@@ -19,7 +19,7 @@ import (
 	"google.golang.org/grpc/reflection"
 	"google.golang.org/grpc/status"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 	grpc_logger "github.com/shortlink-org/shortlink/pkg/rpc/middleware/logger"
 	pprof_interceptor "github.com/shortlink-org/shortlink/pkg/rpc/middleware/pprof"

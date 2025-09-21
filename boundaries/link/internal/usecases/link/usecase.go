@@ -6,7 +6,7 @@ package link
 import (
 	"github.com/authzed/authzed-go/v1"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud"
 	"github.com/shortlink-org/shortlink/pkg/mq"

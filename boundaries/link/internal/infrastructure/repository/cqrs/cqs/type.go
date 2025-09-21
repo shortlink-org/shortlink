@@ -5,7 +5,7 @@ import (
 
 	"github.com/go-redis/cache/v9"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 )
 

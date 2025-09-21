@@ -5,7 +5,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 )
 
 var ErrCreateLink = errors.New("error create a new link")

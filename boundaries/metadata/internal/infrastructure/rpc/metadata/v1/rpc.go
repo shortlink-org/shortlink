@@ -6,7 +6,7 @@ package v1
 import (
 	"context"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/metadata"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/parsers"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/screenshot"

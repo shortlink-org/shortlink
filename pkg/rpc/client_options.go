@@ -8,7 +8,7 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 	grpc_logger "github.com/shortlink-org/shortlink/pkg/rpc/middleware/logger"
 	session_interceptor "github.com/shortlink-org/shortlink/pkg/rpc/middleware/session"

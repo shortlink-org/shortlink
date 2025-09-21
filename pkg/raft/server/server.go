@@ -5,7 +5,7 @@ import (
 	"math/rand"
 	"time"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 	api "github.com/shortlink-org/shortlink/pkg/raft/rpc/v1"
 	v1 "github.com/shortlink-org/shortlink/pkg/raft/v1"
 	"github.com/shortlink-org/shortlink/pkg/rpc"

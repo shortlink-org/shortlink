@@ -28,8 +28,8 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/link_cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/sitemap"
 
-	"github.com/shortlink-org/shortlink/pkg/config"
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/config"
+	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	mq_di "github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"

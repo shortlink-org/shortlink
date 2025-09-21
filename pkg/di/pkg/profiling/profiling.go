@@ -10,7 +10,7 @@ import (
 	pypprof "github.com/grafana/pyroscope-go/godeltaprof/http/pprof"
 	"github.com/spf13/viper"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"
 	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 )

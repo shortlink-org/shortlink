@@ -5,7 +5,7 @@ Link Service. Infrastructure layer. RPC EndpointRPC Endpoint
 package v1
 
 import (
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 	sitemap_application "github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/sitemap"
 	"github.com/shortlink-org/shortlink/pkg/rpc"
 )

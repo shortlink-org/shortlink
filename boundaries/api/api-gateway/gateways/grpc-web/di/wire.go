@@ -19,8 +19,8 @@ import (
 	link_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
 	sitemap_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
 
-	"github.com/shortlink-org/shortlink/pkg/config"
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/config"
+	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/grpc-web/infrastructure/server"
 	api_application "github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/grpc-web/infrastructure/server/v1"
 	"github.com/shortlink-org/shortlink/pkg/di"

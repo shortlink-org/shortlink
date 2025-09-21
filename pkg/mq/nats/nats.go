@@ -7,7 +7,7 @@ import (
 	"github.com/nats-io/nats.go"
 	"github.com/spf13/viper"
 
-	"github.com/shortlink-org/shortlink/pkg/logger"
+	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/pkg/mq/query"
 )
 
