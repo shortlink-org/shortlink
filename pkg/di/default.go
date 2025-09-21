@@ -19,7 +19,6 @@ import (
 // DefaultSet ==========================================================================================================
 var DefaultSet = wire.NewSet(
 	shortctx.New,
-	autoMaxPro.New,
 	flags.New,
 	config.New,
 	logger_di.New,
