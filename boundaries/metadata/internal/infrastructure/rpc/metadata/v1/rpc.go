@@ -6,11 +6,11 @@ package v1
 import (
 	"context"
 
+	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/metadata"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/parsers"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/screenshot"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 type Metadata struct {

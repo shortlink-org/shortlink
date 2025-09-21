@@ -29,6 +29,7 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/sitemap"
 
 	"github.com/shortlink-org/go-sdk/config"
+	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	mq_di "github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
@@ -37,7 +38,6 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/store"
 	"github.com/shortlink-org/shortlink/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 type LinkService struct {

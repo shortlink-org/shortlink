@@ -7,7 +7,7 @@ import (
 	ory "github.com/ory/client-go"
 	"github.com/spf13/viper"
 
-	"github.com/shortlink-org/shortlink/pkg/auth/session"
+	"github.com/shortlink-org/go-sdk/auth/session"
 )
 
 const (

@@ -34,7 +34,7 @@ import (
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
+	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 )

@@ -1,7 +1,7 @@
 package run
 
 import (
-	"github.com/shortlink-org/shortlink/pkg/rpc"
+	rpc "github.com/shortlink-org/go-sdk/grpc"
 )
 
 type Response struct{}

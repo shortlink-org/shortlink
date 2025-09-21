@@ -8,9 +8,9 @@ import (
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"go.opentelemetry.io/otel/trace"
 
+	"github.com/shortlink-org/go-sdk/auth/session"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	types "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
-	"github.com/shortlink-org/shortlink/pkg/auth/session"
 	"github.com/shortlink-org/shortlink/pkg/pattern/saga"
 )
 

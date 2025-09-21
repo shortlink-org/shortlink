@@ -7,10 +7,10 @@ import (
 	"github.com/spf13/viper"
 	"github.com/stretchr/testify/require"
 
+	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/pkg/raft/server"
 	v1 "github.com/shortlink-org/shortlink/pkg/raft/v1"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 func Test_Raft(t *testing.T) {

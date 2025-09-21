@@ -2,6 +2,7 @@ package metrics
 
 import (
 	"context"
+	"log/slog"
 	"net/http"
 	"time"
 
@@ -57,7 +58,7 @@ func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider) (*
 			log.Error(errListenAndServe.Error())
 		}
 	}()
-	log.Info("Run monitoring", field.Fields{
+	log.Info("Run monitoring", slog.String{
 		"addr": "0.0.0.0:9090",
 	})
 

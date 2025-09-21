@@ -5,10 +5,10 @@ import (
 	"math/rand"
 	"time"
 
+	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
 	api "github.com/shortlink-org/shortlink/pkg/raft/rpc/v1"
 	v1 "github.com/shortlink-org/shortlink/pkg/raft/v1"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 )
 
 type Server struct {

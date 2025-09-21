@@ -24,6 +24,7 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/screenshot"
 
 	"github.com/shortlink-org/go-sdk/config"
+	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/di"
@@ -34,7 +35,6 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/notify"
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
-	"github.com/shortlink-org/shortlink/pkg/rpc"
 	"github.com/shortlink-org/shortlink/pkg/s3"
 )
 

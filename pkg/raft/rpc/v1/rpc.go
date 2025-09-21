@@ -3,7 +3,7 @@ package v1
 import (
 	"google.golang.org/grpc"
 
-	"github.com/shortlink-org/shortlink/pkg/rpc"
+	rpc "github.com/shortlink-org/go-sdk/grpc"
 )
 
 type Server struct {

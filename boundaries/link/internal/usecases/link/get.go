@@ -5,8 +5,8 @@ import (
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
 
+	"github.com/shortlink-org/go-sdk/auth/session"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/pkg/auth/session"
 	"github.com/shortlink-org/shortlink/pkg/pattern/saga"
 )
 
