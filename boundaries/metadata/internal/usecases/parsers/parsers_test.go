@@ -11,7 +11,7 @@ import (
 
 	meta_store "github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/store"
 
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 	rpc "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
 )
 

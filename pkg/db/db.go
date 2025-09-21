@@ -10,7 +10,7 @@ import (
 	"go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/db/drivers/badger"
 	"github.com/shortlink-org/shortlink/pkg/db/drivers/cockroachdb"
 	"github.com/shortlink-org/shortlink/pkg/db/drivers/dgraph"

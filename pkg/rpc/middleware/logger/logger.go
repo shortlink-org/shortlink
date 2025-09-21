@@ -6,7 +6,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
 func printLog(ctx context.Context, log logger.Logger, err error, fields field.Fields) {

@@ -5,7 +5,7 @@ MQ Endpoint
 package api_mq
 
 import (
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 	link_application "github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/link"
 	"github.com/shortlink-org/shortlink/pkg/mq"
 )

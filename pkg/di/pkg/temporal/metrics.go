@@ -8,7 +8,7 @@ import (
 	"github.com/uber-go/tally/v4/prometheus"
 	sdktally "go.temporal.io/sdk/contrib/tally"
 
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 )

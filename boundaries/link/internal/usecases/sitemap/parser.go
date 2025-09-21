@@ -8,7 +8,7 @@ import (
 
 	"github.com/segmentio/encoding/json"
 
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/sitemap/v1"
 	http_client "github.com/shortlink-org/shortlink/pkg/http/client"

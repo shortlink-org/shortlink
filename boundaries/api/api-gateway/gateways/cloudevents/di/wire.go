@@ -18,8 +18,8 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 
-	"github.com/shortlink-org/go-sdk/config"
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/config"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/domain"
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/cloudevents/infrastructure/server"
 	"github.com/shortlink-org/shortlink/pkg/di"

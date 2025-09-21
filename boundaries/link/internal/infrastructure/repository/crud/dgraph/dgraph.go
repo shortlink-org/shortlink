@@ -9,7 +9,7 @@ import (
 	"github.com/dgraph-io/dgo/v2/protos/api"
 	"github.com/segmentio/encoding/json"
 
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	types "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
 	"github.com/shortlink-org/shortlink/pkg/db"

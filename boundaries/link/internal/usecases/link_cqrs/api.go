@@ -4,7 +4,7 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 	link "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link_cqrs/v1"
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"

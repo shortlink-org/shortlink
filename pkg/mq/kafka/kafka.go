@@ -9,7 +9,7 @@ import (
 	"github.com/IBM/sarama"
 	"github.com/dnwe/otelsarama"
 	"github.com/heptiolabs/healthcheck"
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/shortlink/pkg/mq/query"

@@ -7,7 +7,7 @@ import (
 	"github.com/minio/minio-go/v7/pkg/credentials"
 	"github.com/spf13/viper"
 
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
 type Client struct {

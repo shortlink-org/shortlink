@@ -3,7 +3,7 @@ package server
 import (
 	"time"
 
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
 type Option func(*Server)

@@ -9,7 +9,7 @@ import (
 
 	"github.com/spf13/viper"
 
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/mq/kafka"
 	"github.com/shortlink-org/shortlink/pkg/mq/nats"
 	"github.com/shortlink-org/shortlink/pkg/mq/query"

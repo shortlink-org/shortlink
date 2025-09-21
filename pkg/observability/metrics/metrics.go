@@ -16,7 +16,7 @@ import (
 	api "go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 	"github.com/shortlink-org/shortlink/pkg/observability/common"
 )

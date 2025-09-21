@@ -9,7 +9,7 @@ package metadata_di
 import (
 	"context"
 	"github.com/google/wire"
-	"github.com/shortlink-org/go-sdk/config"
+	"github.com/shortlink-org/shortlink/pkg/config"
 	v1_2 "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/mq"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/media"
@@ -27,7 +27,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/store"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/traicing"
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/notify"
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"

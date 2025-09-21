@@ -1,7 +1,7 @@
 package saga
 
 import (
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 )
 
 type Options struct {

@@ -23,8 +23,8 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/parsers"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/screenshot"
 
-	"github.com/shortlink-org/go-sdk/config"
-	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/shortlink/pkg/config"
+	"github.com/shortlink-org/shortlink/pkg/logger"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	mq_di "github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
