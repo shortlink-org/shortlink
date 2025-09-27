@@ -15,8 +15,7 @@ updates:
   - package-ecosystem: github-actions
     directory: /
     schedule:
-      interval: weekly
-      day: "monday"
+      interval: daily
     open-pull-requests-limit: 5
     reviewers:
       - "shortlink-org/maintainers"
