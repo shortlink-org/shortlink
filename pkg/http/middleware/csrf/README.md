@@ -25,11 +25,14 @@ The middleware can be configured using the following environment variables:
 
 ```bash
 # Set trusted origins directly
-export CSRF_TRUSTED_ORIGINS="https://example.com,https://www.example.com,https://app.mysite.com"
+export CSRF_TRUSTED_ORIGINS="https://shortlink.best,https://www.shortlink.best,https://api.shortlink.best"
+
+# Development with localhost
+export CSRF_TRUSTED_ORIGINS="http://localhost:3000,http://127.0.0.1:3000,https://localhost:3000,https://127.0.0.1:3000"
 
 # Or use a custom environment variable name
 export CSRF_TRUSTED_ORIGINS_ENV="MY_TRUSTED_ORIGINS"
-export MY_TRUSTED_ORIGINS="https://example.com,https://www.example.com"
+export MY_TRUSTED_ORIGINS="https://shortlink.best,https://www.shortlink.best"
 ```
 
 ## Usage
@@ -51,8 +54,10 @@ import csrf_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/c
 // Create middleware with custom config
 csrfMiddleware := csrf_middleware.New(csrf_middleware.Config{
     TrustedOrigins: []string{
-        "https://example.com",
-        "https://www.example.com",
+        "https://shortlink.best",
+        "https://www.shortlink.best",
+        "http://localhost:3000",
+        "http://127.0.0.1:3000",
     },
 })
 
