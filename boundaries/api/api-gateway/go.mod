@@ -4,8 +4,8 @@ go 1.25.1
 
 require (
 	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.5.1-20240420204150-bbba30c24796.2
-	github.com/cloudevents/sdk-go/observability/opentelemetry/v2 v2.16.1
-	github.com/cloudevents/sdk-go/v2 v2.16.1
+	github.com/cloudevents/sdk-go/observability/opentelemetry/v2 v2.16.2
+	github.com/cloudevents/sdk-go/v2 v2.16.2
 	github.com/google/wire v0.7.0
 	github.com/graph-gophers/graphql-go v1.8.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.2
