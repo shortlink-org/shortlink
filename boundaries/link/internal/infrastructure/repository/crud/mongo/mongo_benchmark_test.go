@@ -46,7 +46,7 @@ func BenchmarkMongoSerial(b *testing.B) {
 		store, err := New(ctx, st)
 		require.NoError(b, err, "Could not create store")
 
-		for i := 0; i < b.N; i++ {
+		for b.Loop() {
 			source, err := getLink()
 			require.NoError(b, err)
 
@@ -66,7 +66,7 @@ func BenchmarkMongoSerial(b *testing.B) {
 		storeBatchMode, err := New(newCtx, st)
 		require.NoError(b, err, "Could not create store in batch mode")
 
-		for i := 0; i < b.N; i++ {
+		for b.Loop() {
 			source, err := getLink()
 			require.NoError(b, err)
 

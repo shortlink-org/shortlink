@@ -27,7 +27,7 @@ var payload = Payload{
 
 func BenchmarkMarshalJSONv2(b *testing.B) {
 	b.ReportAllocs()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		if _, err := jsonv2.Marshal(payload); err != nil {
 			b.Fatal(err)
 		}
@@ -36,7 +36,7 @@ func BenchmarkMarshalJSONv2(b *testing.B) {
 
 func BenchmarkMarshalSegmentio(b *testing.B) {
 	b.ReportAllocs()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		if _, err := enc.Marshal(payload); err != nil {
 			b.Fatal(err)
 		}
@@ -47,7 +47,7 @@ func BenchmarkUnmarshalJSONv2(b *testing.B) {
 	data, _ := jsonv2.Marshal(payload)
 	b.ReportAllocs()
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		var out Payload
 		if err := jsonv2.Unmarshal(data, &out); err != nil {
 			b.Fatal(err)
@@ -59,7 +59,7 @@ func BenchmarkUnmarshalSegmentio(b *testing.B) {
 	data, _ := enc.Marshal(payload)
 	b.ReportAllocs()
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		var out Payload
 		if err := enc.Unmarshal(data, &out); err != nil {
 			b.Fatal(err)

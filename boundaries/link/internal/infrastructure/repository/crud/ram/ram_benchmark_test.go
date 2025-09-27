@@ -27,7 +27,7 @@ func BenchmarkRAMSerial(b *testing.B) {
 		// create a db
 		store := Store{}
 
-		for i := 0; i < b.N; i++ {
+		for b.Loop() {
 			source, err := getLink()
 			require.NoError(b, err)
 
@@ -45,7 +45,7 @@ func BenchmarkRAMSerial(b *testing.B) {
 		// Set config
 		b.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 
-		for i := 0; i < b.N; i++ {
+		for b.Loop() {
 			source, err := getLink()
 			require.NoError(b, err)
 

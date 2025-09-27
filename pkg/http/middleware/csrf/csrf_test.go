@@ -334,7 +334,7 @@ func BenchmarkMiddleware(b *testing.B) {
 	rr := httptest.NewRecorder()
 
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		protectedHandler.ServeHTTP(rr, req)
 	}
 }
@@ -355,7 +355,7 @@ func BenchmarkMiddlewareWithOrigin(b *testing.B) {
 	rr := httptest.NewRecorder()
 
 	b.ResetTimer()
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		protectedHandler.ServeHTTP(rr, req)
 	}
 }
