@@ -14,7 +14,8 @@ func FuzzBatch(f *testing.F) {
 	f.Add([]byte("byte slice"))
 
 	f.Fuzz(func(t *testing.T, input []byte) {
-		// Create a context with a timeout, cancel := context.WithTimeout(t.Context(), 60*time.Second)
+		// Create a context with a timeout
+		ctx, cancel := context.WithTimeout(t.Context(), 60*time.Second)
 		defer cancel()
 
 		// Define a callback function for handling byte slices
