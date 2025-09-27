@@ -16,6 +16,7 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/sitemap"
 	"github.com/shortlink-org/shortlink/pkg/http/handler"
 	auth_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/auth"
+	csrf_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/csrf"
 	logger_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/logger"
 	metrics_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/metrics"
 	pprof_labels_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/pprof_labels"
@@ -40,9 +41,9 @@ func (api *Server) run(config Config) error {
 	// CORS
 	cors := cors2.New(cors2.Options{
 		AllowedOrigins:   []string{"*"},
-		AllowedMethods:   []string{"GET", "POST", "DELETE", "OPTIONS"},
-		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token"},
-		ExposedHeaders:   []string{""},
+		AllowedMethods:   []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token", "X-Requested-With"},
+		ExposedHeaders:   []string{"X-CSRF-Token"},
 		AllowCredentials: true,
 		MaxAge:           MAX_AGE,
 	})
@@ -59,6 +60,9 @@ func (api *Server) run(config Config) error {
 	// through ctx.Done() that the request has timed out and further
 	// processing should be stopped.
 	r.Use(middleware.Timeout(config.Http.Timeout))
+
+	// CSRF Protection - must be early in the middleware stack
+	r.Use(csrf_middleware.Middleware())
 
 	// Additional middleware
 	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
@@ -109,6 +113,10 @@ func New(params Config) (*Server, error) {
 	viper.SetDefault("API_PORT", 7070) //nolint:mnd
 	// Request Timeout (seconds)
 	viper.SetDefault("API_TIMEOUT", "60s")
+	
+	// CSRF Protection settings
+	viper.SetDefault("CSRF_TRUSTED_ORIGINS", "")
+	viper.SetDefault("CSRF_TRUSTED_ORIGINS_ENV", "CSRF_TRUSTED_ORIGINS")
 
 	params.Http = http_server.Config{
 		Port:    viper.GetInt("API_PORT"),
