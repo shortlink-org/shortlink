@@ -20,6 +20,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestCockroachDB(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "cockroachdb")
+	t.Attr("component", "db")
+	t.Attr("driver", "cockroachdb")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "cockroachdb")
+		t.Attr("component", "db")
+		t.Attr("driver", "cockroachdb")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
 

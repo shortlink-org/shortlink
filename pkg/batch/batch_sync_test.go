@@ -11,7 +11,19 @@ import (
 )
 
 func TestNewSync(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "batch")
+	t.Attr("component", "batch")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "batch")
+		t.Attr("component", "batch")
+	
 	t.Run("Returns cleanly after context cancellation", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "batch")
+		t.Attr("component", "batch")
+
 		ctx, cancel := context.WithCancel(context.Background())
 
 		aggrCB := func(args []*Item[string]) error {
@@ -50,6 +62,14 @@ func TestNewSync(t *testing.T) {
 // This test validates both size-based and time-based flush mechanisms using synctest
 // to eliminate timing dependencies and ensure consistent test execution.
 func TestBatchProcessingWithSynctest(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "batch")
+	t.Attr("component", "batch")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "batch")
+		t.Attr("component", "batch")
+	
 	synctest.Test(t, func(t *testing.T) {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
@@ -121,6 +141,14 @@ func TestBatchProcessingWithSynctest(t *testing.T) {
 // when the batch context is cancelled. Ensures that pending items are handled correctly
 // and no goroutines are leaked during cancellation scenarios.
 func TestBatchCancellationWithSynctest(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "batch")
+	t.Attr("component", "batch")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "batch")
+		t.Attr("component", "batch")
+	
 	synctest.Test(t, func(t *testing.T) {
 		ctx, cancel := context.WithCancel(context.Background())
 		var processedCount int64
@@ -170,6 +198,14 @@ func TestBatchCancellationWithSynctest(t *testing.T) {
 // Verifies that batches are flushed according to the configured interval when
 // the size threshold is not reached, ensuring predictable batch processing behavior.
 func TestBatchTimeBasedFlushWithSynctest(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "batch")
+	t.Attr("component", "batch")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "batch")
+		t.Attr("component", "batch")
+	
 	synctest.Test(t, func(t *testing.T) {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()

@@ -26,6 +26,14 @@ var payload = Payload{
 }
 
 func BenchmarkMarshalJSONv2(b *testing.B) {
+	b.Attr("type", "unit")
+	b.Attr("package", "ADR-0007")
+	b.Attr("component", "unknown")
+
+		b.Attr("type", "unit")
+		b.Attr("package", "ADR-0007")
+		b.Attr("component", "unknown")
+	
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		if _, err := jsonv2.Marshal(payload); err != nil {
@@ -35,6 +43,14 @@ func BenchmarkMarshalJSONv2(b *testing.B) {
 }
 
 func BenchmarkMarshalSegmentio(b *testing.B) {
+	b.Attr("type", "unit")
+	b.Attr("package", "ADR-0007")
+	b.Attr("component", "unknown")
+
+		b.Attr("type", "unit")
+		b.Attr("package", "ADR-0007")
+		b.Attr("component", "unknown")
+	
 	b.ReportAllocs()
 	for i := 0; i < b.N; i++ {
 		if _, err := enc.Marshal(payload); err != nil {
@@ -44,6 +60,14 @@ func BenchmarkMarshalSegmentio(b *testing.B) {
 }
 
 func BenchmarkUnmarshalJSONv2(b *testing.B) {
+	b.Attr("type", "unit")
+	b.Attr("package", "ADR-0007")
+	b.Attr("component", "unknown")
+
+		b.Attr("type", "unit")
+		b.Attr("package", "ADR-0007")
+		b.Attr("component", "unknown")
+	
 	data, _ := jsonv2.Marshal(payload)
 	b.ReportAllocs()
 	b.ResetTimer()
@@ -56,6 +80,14 @@ func BenchmarkUnmarshalJSONv2(b *testing.B) {
 }
 
 func BenchmarkUnmarshalSegmentio(b *testing.B) {
+	b.Attr("type", "unit")
+	b.Attr("package", "ADR-0007")
+	b.Attr("component", "unknown")
+
+		b.Attr("type", "unit")
+		b.Attr("package", "ADR-0007")
+		b.Attr("component", "unknown")
+	
 	data, _ := enc.Marshal(payload)
 	b.ReportAllocs()
 	b.ResetTimer()
@@ -68,6 +100,14 @@ func BenchmarkUnmarshalSegmentio(b *testing.B) {
 }
 
 func TestUnmarshalRoundTrip(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "ADR-0007")
+	t.Attr("component", "unknown")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "ADR-0007")
+		t.Attr("component", "unknown")
+	
 	data, err := jsonv2.Marshal(payload)
 	require.NoError(t, err)
 

@@ -17,6 +17,14 @@ import (
 )
 
 func TestRedPanda(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "kafka")
+	t.Attr("component", "mq")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "kafka")
+		t.Attr("component", "mq")
+	
 	// Set configuration
 	viper.SetDefault("SERVICE_NAME", "shortlink")
 	t.Setenv("MQ_KAFKA_SARAMA_VERSION", "DEFAULT")
@@ -96,6 +104,10 @@ func TestRedPanda(t *testing.T) {
 	}
 
 	t.Run("Subscribe", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "kafka")
+		t.Attr("component", "mq")
+
 		respCh := make(chan query.ResponseMessage)
 		msg := query.Response{
 			Chan: respCh,

@@ -20,6 +20,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestClickHouse(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "clickhouse")
+	t.Attr("component", "db")
+	t.Attr("driver", "clickhouse")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "clickhouse")
+		t.Attr("component", "db")
+		t.Attr("driver", "clickhouse")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
 
@@ -53,6 +63,11 @@ func TestClickHouse(t *testing.T) {
 	})
 
 	t.Run("Close", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "clickhouse")
+		t.Attr("component", "db")
+		t.Attr("driver", "clickhouse")
+
 		cancel()
 	})
 }

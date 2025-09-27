@@ -19,6 +19,14 @@ func TestMain(m *testing.M) {
 }
 
 func TestMerge(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "channel")
+	t.Attr("component", "concurrency")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "channel")
+		t.Attr("component", "concurrency")
+	
 	// Create two channels
 	ch1 := make(chan any, 5)
 	ch2 := make(chan any, 5)

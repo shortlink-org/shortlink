@@ -20,6 +20,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestAerospike(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "aerospike")
+	t.Attr("component", "db")
+	t.Attr("driver", "aerospike")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "aerospike")
+		t.Attr("component", "db")
+		t.Attr("driver", "aerospike")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
 
@@ -55,6 +65,11 @@ func TestAerospike(t *testing.T) {
 	})
 
 	t.Run("Close", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "aerospike")
+		t.Attr("component", "db")
+		t.Attr("driver", "aerospike")
+
 		cancel()
 	})
 }

@@ -24,6 +24,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestLevelDB(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "leveldb")
+	t.Attr("component", "link")
+	t.Attr("driver", "leveldb")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "leveldb")
+		t.Attr("component", "link")
+		t.Attr("driver", "leveldb")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 
 	st := db.Store{}
@@ -36,6 +46,11 @@ func TestLevelDB(t *testing.T) {
 	}
 
 	t.Run("Create", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "leveldb")
+		t.Attr("component", "link")
+		t.Attr("driver", "leveldb")
+
 		link, err := store.Add(ctx, mock.AddLink)
 		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
@@ -43,6 +58,11 @@ func TestLevelDB(t *testing.T) {
 	})
 
 	t.Run("Get", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "leveldb")
+		t.Attr("component", "link")
+		t.Attr("driver", "leveldb")
+
 		link, err := store.Get(ctx, mock.GetLink.Hash)
 		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
@@ -50,12 +70,22 @@ func TestLevelDB(t *testing.T) {
 	})
 
 	t.Run("Get list", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "leveldb")
+		t.Attr("component", "link")
+		t.Attr("driver", "leveldb")
+
 		links, err := store.List(ctx, nil)
 		require.NoError(t, err)
 		assert.Equal(t, len(links.Link), 1)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "leveldb")
+		t.Attr("component", "link")
+		t.Attr("driver", "leveldb")
+
 		require.NoError(t, store.Delete(ctx, mock.GetLink.Hash))
 	})
 

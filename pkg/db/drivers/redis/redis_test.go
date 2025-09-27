@@ -22,6 +22,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestRedis(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "redis")
+	t.Attr("component", "db")
+	t.Attr("driver", "redis")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "redis")
+		t.Attr("component", "db")
+		t.Attr("driver", "redis")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
 

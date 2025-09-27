@@ -31,6 +31,16 @@ func TestMain(m *testing.M) {
 var linkUniqId atomic.Int64
 
 func TestPostgres(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "postgres")
+	t.Attr("component", "pattern")
+	t.Attr("driver", "postgres")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "postgres")
+		t.Attr("component", "pattern")
+		t.Attr("driver", "postgres")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 
 	st := &db.Store{}
@@ -89,6 +99,11 @@ func TestPostgres(t *testing.T) {
 	}
 
 	t.Run("TestEventSourcingSaveAndLoad", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "postgres")
+		t.Attr("component", "pattern")
+		t.Attr("driver", "postgres")
+
 		eventUID := mustNewV7(t).String()
 
 		// Create a dummy event
@@ -120,6 +135,11 @@ func TestPostgres(t *testing.T) {
 	})
 
 	t.Run("TestEventSourcingSaveMultipleEvents", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "postgres")
+		t.Attr("component", "pattern")
+		t.Attr("driver", "postgres")
+
 		// Create multiple dummy events with unique aggregate IDs
 		events := []*eventsourcing.Event{
 			{
@@ -160,6 +180,11 @@ func TestPostgres(t *testing.T) {
 	})
 
 	t.Run("TestEventSourcingSaveEventExistingAggregate", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "postgres")
+		t.Attr("component", "pattern")
+		t.Attr("driver", "postgres")
+
 		eventUID := mustNewV7(t).String()
 
 		// Create a dummy event with an existing aggregate ID but a different version
@@ -197,6 +222,11 @@ func TestPostgres(t *testing.T) {
 	})
 
 	t.Run("TestEventSourcingLoadNoEvents", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "postgres")
+		t.Attr("component", "pattern")
+		t.Attr("driver", "postgres")
+
 		// Try to load events for a non-existent aggregate ID
 		_, events, err := eventSourcing.Load(ctx, mustNewV7(t).String())
 		require.NoError(t, err, "Error occurred while loading events")
@@ -206,6 +236,11 @@ func TestPostgres(t *testing.T) {
 	})
 
 	t.Run("TestEventSourcingUpdateAggregate", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "postgres")
+		t.Attr("component", "pattern")
+		t.Attr("driver", "postgres")
+
 		eventUID := mustNewV7(t).String()
 
 		// Create a dummy event

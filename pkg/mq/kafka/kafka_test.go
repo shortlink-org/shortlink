@@ -25,6 +25,14 @@ func TestMain(m *testing.M) {
 }
 
 func TestKafka(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "kafka")
+	t.Attr("component", "mq")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "kafka")
+		t.Attr("component", "mq")
+	
 	viper.SetDefault("SERVICE_NAME", "shortlink")
 
 	ctx, cancel := context.WithCancel(context.Background())
@@ -104,6 +112,10 @@ func TestKafka(t *testing.T) {
 	}
 
 	t.Run("Subscribe", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "kafka")
+		t.Attr("component", "mq")
+
 		respCh := make(chan query.ResponseMessage)
 		msg := query.Response{
 			Chan: respCh,

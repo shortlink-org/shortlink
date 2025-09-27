@@ -20,6 +20,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestPostgres(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "postgres")
+	t.Attr("component", "db")
+	t.Attr("driver", "postgres")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "postgres")
+		t.Attr("component", "db")
+		t.Attr("driver", "postgres")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
 

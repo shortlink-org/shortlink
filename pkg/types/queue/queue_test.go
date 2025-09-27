@@ -6,8 +6,20 @@ import (
 
 // TestQueue conducts a series of subtests on the Queue.
 func TestQueue(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "queue")
+	t.Attr("component", "types")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "queue")
+		t.Attr("component", "types")
+	
 	// Subtest for Push and Pop
 	t.Run("PushPop", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "queue")
+		t.Attr("component", "types")
+
 		q := New[int]()
 		q.Push(1)
 		q.Push(2)
@@ -31,6 +43,10 @@ func TestQueue(t *testing.T) {
 
 	// Subtest for Size
 	t.Run("Size", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "queue")
+		t.Attr("component", "types")
+
 		q := New[int]()
 		q.Push(1)
 		q.Push(2)
@@ -42,6 +58,10 @@ func TestQueue(t *testing.T) {
 
 	// Subtest for Clean
 	t.Run("Clean", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "queue")
+		t.Attr("component", "types")
+
 		q := New[int]()
 		q.Push(1)
 		q.Push(2)

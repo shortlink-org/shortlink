@@ -9,6 +9,14 @@ import (
 )
 
 func TestRaftBuilder(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "v1")
+	t.Attr("component", "raft")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "v1")
+		t.Attr("component", "raft")
+	
 	testCases := []struct {
 		name          string
 		id            uuid.UUID
@@ -39,6 +47,10 @@ func TestRaftBuilder(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
+			t.Attr("type", "unit")
+			t.Attr("package", "v1")
+			t.Attr("component", "raft")
+
 			builder := NewRaftBuilder().
 				SetPeerIDs(tc.peerIDs).
 				SetName(tc.nameField).

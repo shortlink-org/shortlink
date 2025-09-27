@@ -18,6 +18,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestLevelDB(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "leveldb")
+	t.Attr("component", "db")
+	t.Attr("driver", "leveldb")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "leveldb")
+		t.Attr("component", "db")
+		t.Attr("driver", "leveldb")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
 

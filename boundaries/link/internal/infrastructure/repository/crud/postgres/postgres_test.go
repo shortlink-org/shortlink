@@ -34,6 +34,16 @@ func TestMain(m *testing.M) {
 var linkUniqId atomic.Int64
 
 func TestPostgres(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "postgres")
+	t.Attr("component", "link")
+	t.Attr("driver", "postgres")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "postgres")
+		t.Attr("component", "link")
+		t.Attr("driver", "postgres")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 
 	st := &db.Store{}
@@ -100,6 +110,11 @@ func TestPostgres(t *testing.T) {
 		Build()
 
 	t.Run("Create [single]", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "postgres")
+		t.Attr("component", "link")
+		t.Attr("driver", "postgres")
+
 		link, err := store.Add(ctx, mockLink)
 		require.NoError(t, err)
 		assert.Equal(t, mockLink.GetHash(), link.GetHash())
@@ -107,6 +122,11 @@ func TestPostgres(t *testing.T) {
 	})
 
 	t.Run("Create [batch]", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "postgres")
+		t.Attr("component", "link")
+		t.Attr("driver", "postgres")
+
 		// Set config
 		t.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 
@@ -152,6 +172,11 @@ func TestPostgres(t *testing.T) {
 	})
 
 	t.Run("Get by hash", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "postgres")
+		t.Attr("component", "link")
+		t.Attr("driver", "postgres")
+
 		link, err := store.Get(ctx, mockLink.GetHash())
 		require.NoError(t, err)
 		assert.Equal(t, link.GetHash(), mockLink.GetHash())
@@ -159,12 +184,22 @@ func TestPostgres(t *testing.T) {
 	})
 
 	t.Run("Get list", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "postgres")
+		t.Attr("component", "link")
+		t.Attr("driver", "postgres")
+
 		links, err := store.List(ctx, nil)
 		require.NoError(t, err)
 		assert.Equal(t, 8, len(links.GetLinks()))
 	})
 
 	t.Run("Delete", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "postgres")
+		t.Attr("component", "link")
+		t.Attr("driver", "postgres")
+
 		require.NoError(t, store.Delete(ctx, mockLink.GetHash()))
 	})
 }

@@ -25,6 +25,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestMysql(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "mysql")
+	t.Attr("component", "link")
+	t.Attr("driver", "mysql")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "mysql")
+		t.Attr("component", "link")
+		t.Attr("driver", "mysql")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 
 	st := &db.Store{}
@@ -84,6 +94,11 @@ func TestMysql(t *testing.T) {
 	}
 
 	t.Run("Create", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "mysql")
+		t.Attr("component", "link")
+		t.Attr("driver", "mysql")
+
 		link, err := store.Add(ctx, mock.AddLink)
 		if err != nil {
 			t.Fatalf("Could not add link: %s", err)
@@ -93,6 +108,11 @@ func TestMysql(t *testing.T) {
 	})
 
 	t.Run("Get", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "mysql")
+		t.Attr("component", "link")
+		t.Attr("driver", "mysql")
+
 		link, err := store.Get(ctx, mock.GetLink.Hash)
 		if err != nil {
 			t.Fatalf("Could not get link: %s", err)
@@ -102,12 +122,22 @@ func TestMysql(t *testing.T) {
 	})
 
 	t.Run("Get list", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "mysql")
+		t.Attr("component", "link")
+		t.Attr("driver", "mysql")
+
 		links, err := store.List(ctx, nil)
 		require.NoError(t, err)
 		assert.Equal(t, len(links.Link), 1)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "mysql")
+		t.Attr("component", "link")
+		t.Attr("driver", "mysql")
+
 		require.NoError(t, store.Delete(ctx, mock.GetLink.Hash))
 	})
 }

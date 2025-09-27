@@ -15,6 +15,14 @@ func TestMain(m *testing.M) {
 }
 
 func TestPartitionedMapSetAndGet(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "partmap")
+	t.Attr("component", "types")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "partmap")
+		t.Attr("component", "types")
+	
 	m, err := New(&HashSumPartitioner{10}, 10)
 	if err != nil {
 		t.Fatalf("Failed to create PartitionedMap: %v", err)
@@ -39,6 +47,14 @@ func TestPartitionedMapSetAndGet(t *testing.T) {
 }
 
 func TestPartitionedMapDelete(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "partmap")
+	t.Attr("component", "types")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "partmap")
+		t.Attr("component", "types")
+	
 	m, err := New(&HashSumPartitioner{10}, 10)
 	if err != nil {
 		t.Fatalf("Failed to create PartitionedMap: %v", err)
@@ -65,6 +81,14 @@ func TestPartitionedMapDelete(t *testing.T) {
 }
 
 func TestPartitionedMapLen(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "partmap")
+	t.Attr("component", "types")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "partmap")
+		t.Attr("component", "types")
+	
 	m, err := New(&HashSumPartitioner{10}, 10)
 	if err != nil {
 		t.Fatalf("Failed to create PartitionedMap: %v", err)

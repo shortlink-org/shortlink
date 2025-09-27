@@ -7,6 +7,14 @@ import (
 )
 
 func BenchmarkStd(b *testing.B) {
+	b.Attr("type", "unit")
+	b.Attr("package", "partmap")
+	b.Attr("component", "types")
+
+		b.Attr("type", "unit")
+		b.Attr("package", "partmap")
+		b.Attr("component", "types")
+	
 	b.Run("set std concurrently", func(b *testing.B) {
 		m := make(map[string]int)
 		var wg sync.WaitGroup
@@ -30,6 +38,14 @@ func BenchmarkStd(b *testing.B) {
 }
 
 func BenchmarkSyncStd(b *testing.B) {
+	b.Attr("type", "unit")
+	b.Attr("package", "partmap")
+	b.Attr("component", "types")
+
+		b.Attr("type", "unit")
+		b.Attr("package", "partmap")
+		b.Attr("component", "types")
+	
 	b.Run("set sync map std concurrently", func(b *testing.B) {
 		var m sync.Map
 		var wg sync.WaitGroup
@@ -50,6 +66,14 @@ func BenchmarkSyncStd(b *testing.B) {
 }
 
 func BenchmarkPartitioned(b *testing.B) {
+	b.Attr("type", "unit")
+	b.Attr("package", "partmap")
+	b.Attr("component", "types")
+
+		b.Attr("type", "unit")
+		b.Attr("package", "partmap")
+		b.Attr("component", "types")
+	
 	m, err := New(&HashSumPartitioner{1000}, 1000)
 	if err != nil {
 		b.Fatalf("Failed to create PartMap: %v", err)

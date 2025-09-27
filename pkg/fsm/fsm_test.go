@@ -10,6 +10,14 @@ import (
 
 // TestTrafficLightFSM verifies the functionality of the Traffic Light FSM with context support.
 func TestTrafficLightFSM(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "fsm")
+	t.Attr("component", "fsm")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "fsm")
+		t.Attr("component", "fsm")
+	
 	// Define traffic light states.
 	const (
 		StateRed    State = "Red"

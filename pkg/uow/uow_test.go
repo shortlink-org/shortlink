@@ -16,6 +16,14 @@ type Entity struct {
 }
 
 func TestCommit(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "uow")
+	t.Attr("component", "uow")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "uow")
+		t.Attr("component", "uow")
+	
 	unitOfWorkMock := &uow.UnitOfWork[Entity]{}
 	ctx := t.Context()
 
@@ -28,6 +36,14 @@ func TestCommit(t *testing.T) {
 }
 
 func TestRollback(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "uow")
+	t.Attr("component", "uow")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "uow")
+		t.Attr("component", "uow")
+	
 	unitOfWorkMock := &uow.UnitOfWork[Entity]{}
 	ctx := t.Context()
 
@@ -40,6 +56,14 @@ func TestRollback(t *testing.T) {
 }
 
 func TestRegisterNew(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "uow")
+	t.Attr("component", "uow")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "uow")
+		t.Attr("component", "uow")
+	
 	entity := Entity{ID: 1, Name: "Test Entity"}
 	unitOfWorkMock := &uow.UnitOfWork[Entity]{}
 

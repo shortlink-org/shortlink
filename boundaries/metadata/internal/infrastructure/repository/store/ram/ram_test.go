@@ -11,6 +11,16 @@ import (
 )
 
 func TestRAM(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "ram")
+	t.Attr("component", "metadata")
+	t.Attr("driver", "ram")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "ram")
+		t.Attr("component", "metadata")
+		t.Attr("driver", "ram")
+	
 	// InitStore
 	store := Store{}
 
@@ -18,6 +28,11 @@ func TestRAM(t *testing.T) {
 
 	// Run tests
 	t.Run("Create", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "ram")
+		t.Attr("component", "metadata")
+		t.Attr("driver", "ram")
+
 		// errAdd := store.Add(ctx, &v1.Meta{
 		// 	FieldMask:   nil,
 		// 	Id:          "1",
@@ -29,6 +44,11 @@ func TestRAM(t *testing.T) {
 	})
 
 	t.Run("Get", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "ram")
+		t.Attr("component", "metadata")
+		t.Attr("driver", "ram")
+
 		meta, err := store.Get(ctx, "1")
 		require.NoError(t, err)
 		assert.Equal(t, meta.Description, "123")

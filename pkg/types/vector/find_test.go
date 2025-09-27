@@ -7,6 +7,14 @@ import (
 )
 
 func TestFind(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "vector")
+	t.Attr("component", "types")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "vector")
+		t.Attr("component", "types")
+	
 	tests := []struct {
 		slice    []int
 		element  int
@@ -21,6 +29,10 @@ func TestFind(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run("", func(t *testing.T) {
+			t.Attr("type", "unit")
+			t.Attr("package", "vector")
+			t.Attr("component", "types")
+
 			result := Find(tt.slice, tt.element)
 			require.Equal(t, tt.expected, result)
 		})

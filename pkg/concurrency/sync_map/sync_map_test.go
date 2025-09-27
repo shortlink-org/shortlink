@@ -9,6 +9,14 @@ import (
 )
 
 func Test_SyncMap(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "sync_map")
+	t.Attr("component", "concurrency")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "sync_map")
+		t.Attr("component", "concurrency")
+	
 	sm := sync_map.New()
 
 	for i := range 1000 {

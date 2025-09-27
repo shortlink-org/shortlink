@@ -14,6 +14,14 @@ import (
 )
 
 func Test_Raft(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "server")
+	t.Attr("component", "raft")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "server")
+		t.Attr("component", "raft")
+	
 	ctx := t.Context()
 
 	// Init logger

@@ -25,6 +25,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestRAM(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "ram")
+	t.Attr("component", "link")
+	t.Attr("driver", "ram")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "ram")
+		t.Attr("component", "link")
+		t.Attr("driver", "ram")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -32,6 +42,11 @@ func TestRAM(t *testing.T) {
 	require.NoError(t, err)
 
 	t.Run("Create [single]", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "ram")
+		t.Attr("component", "link")
+		t.Attr("driver", "ram")
+
 		createdLink, err := store.Add(ctx, mock.AddLink)
 		require.NoError(t, err, "Failed to add Link to store")
 		assert.Equal(t, mock.AddLink.GetHash(), createdLink.GetHash(), "Hashes should match")
@@ -40,6 +55,11 @@ func TestRAM(t *testing.T) {
 	})
 
 	t.Run("Create [batch]", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "ram")
+		t.Attr("component", "link")
+		t.Attr("driver", "ram")
+
 		// Set config
 		t.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 
@@ -64,6 +84,11 @@ func TestRAM(t *testing.T) {
 	})
 
 	t.Run("Get", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "ram")
+		t.Attr("component", "link")
+		t.Attr("driver", "ram")
+
 		retrievedLink, err := store.Get(ctx, mock.GetLink.GetHash())
 		require.NoError(t, err, "Failed to get Link from store")
 		assert.Equal(t, mock.GetLink.GetHash(), retrievedLink.GetHash(), "Hashes should match")
@@ -71,6 +96,11 @@ func TestRAM(t *testing.T) {
 	})
 
 	t.Run("Get list", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "ram")
+		t.Attr("component", "link")
+		t.Attr("driver", "ram")
+
 		// Set up data needed for the test
 		// Add multiple links
 		for i := 0; i < 5; i++ {
@@ -86,6 +116,11 @@ func TestRAM(t *testing.T) {
 	})
 
 	t.Run("Delete", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "ram")
+		t.Attr("component", "link")
+		t.Attr("driver", "ram")
+
 		// Set up data needed for the test
 		linkBuilder := v1.NewLinkBuilder().
 			SetURL("http://example.com/delete").

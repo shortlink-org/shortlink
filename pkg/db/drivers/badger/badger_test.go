@@ -18,6 +18,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestBadger(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "badger")
+	t.Attr("component", "db")
+	t.Attr("driver", "badger")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "badger")
+		t.Attr("component", "db")
+		t.Attr("driver", "badger")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
 
@@ -25,6 +35,11 @@ func TestBadger(t *testing.T) {
 	require.NoError(t, err)
 
 	t.Run("Close", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "badger")
+		t.Attr("component", "db")
+		t.Attr("driver", "badger")
+
 		cancel()
 	})
 }

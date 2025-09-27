@@ -25,6 +25,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestSQLite(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "sqlite")
+	t.Attr("component", "link")
+	t.Attr("driver", "sqlite")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "sqlite")
+		t.Attr("component", "link")
+		t.Attr("driver", "sqlite")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 
 	st := &db.Store{}
@@ -40,28 +50,53 @@ func TestSQLite(t *testing.T) {
 	require.NoError(t, err)
 
 	t.Run("Create", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "sqlite")
+		t.Attr("component", "link")
+		t.Attr("driver", "sqlite")
+
 		link, err := store.Add(ctx, mock.AddLink)
 		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
 
 	t.Run("Get", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "sqlite")
+		t.Attr("component", "link")
+		t.Attr("driver", "sqlite")
+
 		link, err := store.Get(ctx, mock.GetLink.Hash)
 		require.NoError(t, err)
 		assert.Equal(t, link.Hash, mock.GetLink.Hash)
 	})
 
 	t.Run("Get list", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "sqlite")
+		t.Attr("component", "link")
+		t.Attr("driver", "sqlite")
+
 		links, err := store.List(ctx, nil)
 		require.NoError(t, err)
 		assert.Equal(t, len(links.Link), 1)
 	})
 
 	t.Run("Delete", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "sqlite")
+		t.Attr("component", "link")
+		t.Attr("driver", "sqlite")
+
 		require.NoError(t, store.Delete(ctx, mock.GetLink.Hash))
 	})
 
 	t.Run("Close", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "sqlite")
+		t.Attr("component", "link")
+		t.Attr("driver", "sqlite")
+
 		errDeleteFile := os.Remove(viper.GetString("STORE_SQLITE_PATH"))
 		require.NoError(t, errDeleteFile)
 	})

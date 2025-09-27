@@ -10,6 +10,14 @@ import (
 )
 
 func TestPostgresORMGeneration(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "protoc-gen-go-orm")
+	t.Attr("component", "protoc")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "protoc-gen-go-orm")
+		t.Attr("component", "protoc")
+	
 	// Path to the proto file
 	protoPath := "fixtures/link.proto"
 
@@ -48,6 +56,10 @@ func TestPostgresORMGeneration(t *testing.T) {
 }
 
 // func TestFilterLink_BuildFilter(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "protoc-gen-go-orm")
+	t.Attr("component", "protoc")
+
 // 	tests := []struct {
 // 		name         string
 // 		filter       *example.FilterLink
@@ -132,6 +144,10 @@ func TestPostgresORMGeneration(t *testing.T) {
 //
 // 	for _, tt := range tests {
 // 		t.Run(tt.name, func(t *testing.T) {
+			t.Attr("type", "unit")
+			t.Attr("package", "protoc-gen-go-orm")
+			t.Attr("component", "protoc")
+
 // 			query := squirrel.Select("*").From("links")
 // 			query = tt.filter.BuildFilter(query)
 // 			sql, args, err := query.ToSql()

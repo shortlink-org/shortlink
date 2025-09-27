@@ -22,6 +22,14 @@ func TestMain(m *testing.M) {
 }
 
 func TestNATS(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "nats")
+	t.Attr("component", "mq")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "nats")
+		t.Attr("component", "mq")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	mq := New()
 
@@ -48,6 +56,10 @@ func TestNATS(t *testing.T) {
 	}
 
 	t.Run("Subscribe", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "nats")
+		t.Attr("component", "mq")
+
 		respCh := make(chan query.ResponseMessage)
 		msg := query.Response{
 			Chan: respCh,

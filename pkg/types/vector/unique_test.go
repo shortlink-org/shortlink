@@ -7,6 +7,14 @@ import (
 )
 
 func TestUnique(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "vector")
+	t.Attr("component", "types")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "vector")
+		t.Attr("component", "types")
+	
 	tests := []struct {
 		slice    []int
 		expected []int
@@ -20,6 +28,10 @@ func TestUnique(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run("", func(t *testing.T) {
+			t.Attr("type", "unit")
+			t.Attr("package", "vector")
+			t.Attr("component", "types")
+
 			result := Unique(tt.slice)
 			require.ElementsMatch(t, tt.expected, result)
 		})

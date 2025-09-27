@@ -21,6 +21,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestETCD(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "etcd")
+	t.Attr("component", "db")
+	t.Attr("driver", "etcd")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "etcd")
+		t.Attr("component", "db")
+		t.Attr("driver", "etcd")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
 

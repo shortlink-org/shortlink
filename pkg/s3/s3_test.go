@@ -26,6 +26,14 @@ func TestMain(m *testing.M) {
 }
 
 func TestMinio(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "s3")
+	t.Attr("component", "s3")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "s3")
+		t.Attr("component", "s3")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 
 	log, err := logger.New(logger.Zap, config.Configuration{})
@@ -93,6 +101,10 @@ func TestMinio(t *testing.T) {
 	})
 
 	t.Run("UploadFile", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "s3")
+		t.Attr("component", "s3")
+
 		err := client.CreateBucket(ctx, "test", minio.MakeBucketOptions{})
 		if err != nil {
 			t.Fatal(err)
@@ -127,6 +139,10 @@ func TestMinio(t *testing.T) {
 	})
 
 	t.Run("DownloadFile", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "s3")
+		t.Attr("component", "s3")
+
 		err := client.DownloadFile(ctx, "test", "test", "./fixtures/download.json")
 		if err != nil {
 			t.Fatal(err)
@@ -134,6 +150,10 @@ func TestMinio(t *testing.T) {
 	})
 
 	t.Run("ListFiles", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "s3")
+		t.Attr("component", "s3")
+
 		files, err := client.ListFiles(ctx, "test")
 		if err != nil {
 			t.Fatal(err)
@@ -143,6 +163,10 @@ func TestMinio(t *testing.T) {
 	})
 
 	t.Run("FileExists", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "s3")
+		t.Attr("component", "s3")
+
 		exists, err := client.FileExists(ctx, "test", "test")
 		if err != nil {
 			t.Fatal(err)
@@ -152,6 +176,10 @@ func TestMinio(t *testing.T) {
 	})
 
 	t.Run("DeleteFile", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "s3")
+		t.Attr("component", "s3")
+
 		err := client.RemoveFile(ctx, "test", "test")
 		if err != nil {
 			t.Fatal(err)
@@ -159,6 +187,10 @@ func TestMinio(t *testing.T) {
 	})
 
 	t.Run("FileNoExists", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "s3")
+		t.Attr("component", "s3")
+
 		exists, err := client.FileExists(ctx, "test", "test")
 		// The specified key does not exist
 		if err != nil {
@@ -169,6 +201,10 @@ func TestMinio(t *testing.T) {
 	})
 
 	t.Run("RemoveBucket", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "s3")
+		t.Attr("component", "s3")
+
 		err := client.RemoveBucket(ctx, "test")
 		if err != nil {
 			t.Fatal(err)

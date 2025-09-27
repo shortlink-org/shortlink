@@ -20,6 +20,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestMongo(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "mongo")
+	t.Attr("component", "db")
+	t.Attr("driver", "mongo")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "mongo")
+		t.Attr("component", "db")
+		t.Attr("driver", "mongo")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
 

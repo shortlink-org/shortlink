@@ -20,6 +20,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestNeo4j(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "neo4j")
+	t.Attr("component", "db")
+	t.Attr("driver", "neo4j")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "neo4j")
+		t.Attr("component", "db")
+		t.Attr("driver", "neo4j")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
 

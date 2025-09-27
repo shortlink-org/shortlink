@@ -16,6 +16,16 @@ import (
 )
 
 func BenchmarkMongoSerial(b *testing.B) {
+	b.Attr("type", "unit")
+	b.Attr("package", "mongo")
+	b.Attr("component", "link")
+	b.Attr("driver", "mongo")
+
+		b.Attr("type", "unit")
+		b.Attr("package", "mongo")
+		b.Attr("component", "link")
+		b.Attr("driver", "mongo")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 

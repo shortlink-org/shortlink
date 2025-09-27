@@ -20,6 +20,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestEdgeDB(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "edgedb")
+	t.Attr("component", "db")
+	t.Attr("driver", "edgedb")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "edgedb")
+		t.Attr("component", "db")
+		t.Attr("driver", "edgedb")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
 

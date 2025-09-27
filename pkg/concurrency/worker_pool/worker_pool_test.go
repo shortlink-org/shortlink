@@ -22,6 +22,14 @@ func TestMain(m *testing.M) {
 }
 
 func Test_WorkerPool(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "worker_pool")
+	t.Attr("component", "concurrency")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "worker_pool")
+		t.Attr("component", "concurrency")
+	
 	wp := worker_pool.New(10)
 
 	f := func() (any, error) {
@@ -60,6 +68,14 @@ func Test_WorkerPool(t *testing.T) {
 // Tests that tasks are properly distributed across workers, executed concurrently,
 // and results are collected correctly without timing dependencies.
 func TestWorkerPoolWithSynctest(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "worker_pool")
+	t.Attr("component", "concurrency")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "worker_pool")
+		t.Attr("component", "concurrency")
+	
 	synctest.Test(t, func(t *testing.T) {
 		const numWorkers = 3
 		const numTasks = 10
@@ -113,6 +129,14 @@ func TestWorkerPoolWithSynctest(t *testing.T) {
 // Tests single worker task execution with controlled timing to ensure tasks are
 // processed correctly and results are returned as expected.
 func TestWorkerPoolSimpleWithSynctest(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "worker_pool")
+	t.Attr("component", "concurrency")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "worker_pool")
+		t.Attr("component", "concurrency")
+	
 	synctest.Test(t, func(t *testing.T) {
 		// Test isolated worker functionality without complex pool management
 		var taskExecuted int64

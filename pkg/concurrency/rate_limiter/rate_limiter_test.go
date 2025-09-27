@@ -14,6 +14,14 @@ import (
 )
 
 func TestRateLimiter(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "rate_limiter")
+	t.Attr("component", "concurrency")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "rate_limiter")
+		t.Attr("component", "concurrency")
+	
 	sum := int64(0)
 
 	// Use a context with a timeout to prevent test from running indefinitely
@@ -47,6 +55,14 @@ func TestRateLimiter(t *testing.T) {
 // Tests that tokens are properly consumed and that subsequent requests block until
 // token refill occurs, ensuring correct rate limiting enforcement.
 func TestRateLimiterWithSynctest(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "rate_limiter")
+	t.Attr("component", "concurrency")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "rate_limiter")
+		t.Attr("component", "concurrency")
+	
 	synctest.Test(t, func(t *testing.T) {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
@@ -90,6 +106,14 @@ func TestRateLimiterWithSynctest(t *testing.T) {
 // Ensures that blocked rate limiter operations return the appropriate cancellation error
 // and that resources are cleaned up correctly when the context is cancelled.
 func TestRateLimiterCancellation(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "rate_limiter")
+	t.Attr("component", "concurrency")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "rate_limiter")
+		t.Attr("component", "concurrency")
+	
 	synctest.Test(t, func(t *testing.T) {
 		ctx, cancel := context.WithCancel(context.Background())
 		
@@ -125,6 +149,14 @@ func TestRateLimiterCancellation(t *testing.T) {
 // a simplified token bucket implementation. Tests token consumption and refill behavior
 // in a controlled environment to ensure rate limiting mechanics work correctly.
 func TestSimpleRateLimiterWithSynctest(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "rate_limiter")
+	t.Attr("component", "concurrency")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "rate_limiter")
+		t.Attr("component", "concurrency")
+	
 	synctest.Test(t, func(t *testing.T) {
 		// Create a simple rate limiter scenario without persistent background goroutines
 		limiter := make(chan struct{}, 2)

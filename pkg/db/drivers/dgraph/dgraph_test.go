@@ -23,6 +23,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestDgraph(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "dgraph")
+	t.Attr("component", "db")
+	t.Attr("driver", "dgraph")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "dgraph")
+		t.Attr("component", "db")
+		t.Attr("driver", "dgraph")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
 

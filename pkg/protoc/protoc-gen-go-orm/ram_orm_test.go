@@ -10,6 +10,14 @@ import (
 )
 
 func TestRAMORMGeneration(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "protoc-gen-go-orm")
+	t.Attr("component", "protoc")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "protoc-gen-go-orm")
+		t.Attr("component", "protoc")
+	
 	// Path to the proto file
 	protoPath := "fixtures/link.proto"
 

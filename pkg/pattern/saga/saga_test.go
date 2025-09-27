@@ -29,6 +29,14 @@ func TestMain(m *testing.M) {
 }
 
 func TestNewSaga(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "saga")
+	t.Attr("component", "pattern")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "saga")
+		t.Attr("component", "pattern")
+	
 	// Init logger
 	conf := config.Configuration{
 		Level: config.DEBUG_LEVEL,
@@ -37,6 +45,10 @@ func TestNewSaga(t *testing.T) {
 	require.NoError(t, err, "Error init a logger")
 
 	t.Run("create simple saga", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "saga")
+		t.Attr("component", "pattern")
+
 		const SAGA_NAME = "Number magic"
 		const SAGA_STEP_A = "A"
 		const SAGA_STEP_B = "B"
@@ -147,6 +159,10 @@ func TestNewSaga(t *testing.T) {
 	})
 
 	t.Run("create simple saga with reject", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "saga")
+		t.Attr("component", "pattern")
+
 		const SAGA_NAME = "Number magic"
 		const SAGA_STEP_A = "A"
 		const SAGA_STEP_B = "B"
@@ -272,6 +288,10 @@ func TestNewSaga(t *testing.T) {
 	})
 
 	t.Run("check error case", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "saga")
+		t.Attr("component", "pattern")
+
 		const SAGA_NAME = "Error Check Saga"
 		const SAGA_STEP_A = "A"
 		const SAGA_STEP_B = "B"

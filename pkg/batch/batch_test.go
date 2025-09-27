@@ -20,7 +20,19 @@ func TestMain(m *testing.M) {
 }
 
 func TestNew(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "batch")
+	t.Attr("component", "batch")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "batch")
+		t.Attr("component", "batch")
+	
 	t.Run("Create a new batch", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "batch")
+		t.Attr("component", "batch")
+
 		ctx, cancelFunc := context.WithCancel(context.Background())
 		defer cancelFunc()
 		eg, ctx := errgroup.WithContext(ctx)
@@ -65,6 +77,10 @@ func TestNew(t *testing.T) {
 	})
 
 	t.Run("Check context cancellation", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "batch")
+		t.Attr("component", "batch")
+
 		ctx, cancelFunc := context.WithTimeout(context.Background(), 10*time.Millisecond)
 		defer cancelFunc()
 

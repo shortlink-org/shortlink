@@ -20,6 +20,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestMySQL(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "mysql")
+	t.Attr("component", "db")
+	t.Attr("driver", "mysql")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "mysql")
+		t.Attr("component", "db")
+		t.Attr("driver", "mysql")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
 

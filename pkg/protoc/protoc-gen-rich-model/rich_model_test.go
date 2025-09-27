@@ -13,6 +13,14 @@ import (
 
 // TestGenerateRichModel tests the generateRichModel function of the plugin
 func TestGenerateRichModel(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "protoc-gen-rich-model")
+	t.Attr("component", "protoc")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "protoc-gen-rich-model")
+		t.Attr("component", "protoc")
+	
 	// Define the base directory for fixtures
 	baseFixturesDir := "fixtures"
 

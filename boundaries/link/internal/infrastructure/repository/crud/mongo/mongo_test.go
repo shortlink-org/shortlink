@@ -32,6 +32,16 @@ func TestMain(m *testing.M) {
 var linkUniqId atomic.Int64
 
 func TestMongo(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "mongo")
+	t.Attr("component", "link")
+	t.Attr("driver", "mongo")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "mongo")
+		t.Attr("component", "link")
+		t.Attr("driver", "mongo")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 
 	st := &db.Store{}
@@ -73,6 +83,11 @@ func TestMongo(t *testing.T) {
 	require.NoError(t, err, "Could not create MongoDB store")
 
 	t.Run("Create [single]", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "mongo")
+		t.Attr("component", "link")
+		t.Attr("driver", "mongo")
+
 		createdLink, err := store.Add(ctx, mock.AddLink)
 		require.NoError(t, err, "Failed to add Link to store")
 		assert.Equal(t, mock.AddLink.GetHash(), createdLink.GetHash(), "Hashes should match")
@@ -81,6 +96,11 @@ func TestMongo(t *testing.T) {
 	})
 
 	t.Run("Create [batch]", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "mongo")
+		t.Attr("component", "link")
+		t.Attr("driver", "mongo")
+
 		// Set config to batch mode
 		t.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 
@@ -106,6 +126,11 @@ func TestMongo(t *testing.T) {
 	})
 
 	t.Run("Get", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "mongo")
+		t.Attr("component", "link")
+		t.Attr("driver", "mongo")
+
 		retrievedLink, err := store.Get(ctx, mock.GetLink.GetHash())
 		require.NoError(t, err, "Failed to get Link from store")
 		assert.Equal(t, mock.GetLink.GetHash(), retrievedLink.GetHash(), "Hashes should match")
@@ -113,6 +138,11 @@ func TestMongo(t *testing.T) {
 	})
 
 	t.Run("Get list", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "mongo")
+		t.Attr("component", "link")
+		t.Attr("driver", "mongo")
+
 		// Set up data needed for the test
 		// Add multiple links
 		for i := 0; i < 5; i++ {
@@ -128,6 +158,11 @@ func TestMongo(t *testing.T) {
 	})
 
 	t.Run("Get list using filter", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "mongo")
+		t.Attr("component", "link")
+		t.Attr("driver", "mongo")
+
 		// Set up data needed for the test
 		linkBuilder := v1.NewLinkBuilder().
 			SetURL("http://example.com/filter").
@@ -152,6 +187,11 @@ func TestMongo(t *testing.T) {
 	})
 
 	t.Run("Delete", func(t *testing.T) {
+		t.Attr("type", "unit")
+		t.Attr("package", "mongo")
+		t.Attr("component", "link")
+		t.Attr("driver", "mongo")
+
 		// Set up data needed for the test
 		linkBuilder := v1.NewLinkBuilder().
 			SetURL("http://example.com/delete").

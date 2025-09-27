@@ -18,6 +18,16 @@ func TestMain(m *testing.M) {
 }
 
 func TestSQLite(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "sqlite")
+	t.Attr("component", "db")
+	t.Attr("driver", "sqlite")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "sqlite")
+		t.Attr("component", "db")
+		t.Attr("driver", "sqlite")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	store := Store{}
 

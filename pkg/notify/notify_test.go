@@ -39,6 +39,14 @@ func (mockSubscriber[T]) Notify(ctx context.Context, event uint32, payload T) Re
 }
 
 func TestSubscribe(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "notify")
+	t.Attr("component", "notify")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "notify")
+		t.Attr("component", "notify")
+	
 	sub := mockSubscriber[any]{}
 
 	// Subscribe to Event
@@ -48,6 +56,14 @@ func TestSubscribe(t *testing.T) {
 }
 
 func TestUnsubscribe(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "notify")
+	t.Attr("component", "notify")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "notify")
+		t.Attr("component", "notify")
+	
 	sub := mockSubscriber[any]{}
 
 	// Subscribe to Event
@@ -63,6 +79,14 @@ func TestUnsubscribe(t *testing.T) {
 
 // TODO: Need kafka-service or add mock
 func TestPublish(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "notify")
+	t.Attr("component", "notify")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "notify")
+		t.Attr("component", "notify")
+	
 	ctx := context.Background()
 	sub := mockSubscriber[any]{}
 
@@ -97,6 +121,14 @@ func TestPublish(t *testing.T) {
 }
 
 func TestClean(t *testing.T) {
+	t.Attr("type", "unit")
+	t.Attr("package", "notify")
+	t.Attr("component", "notify")
+
+		t.Attr("type", "unit")
+		t.Attr("package", "notify")
+		t.Attr("component", "notify")
+	
 	sub := mockSubscriber[any]{}
 
 	// Subscribe to Event

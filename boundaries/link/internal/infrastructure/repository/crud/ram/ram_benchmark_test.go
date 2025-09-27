@@ -18,6 +18,16 @@ import (
 var linkUniqId atomic.Int64
 
 func BenchmarkRAMSerial(b *testing.B) {
+	b.Attr("type", "unit")
+	b.Attr("package", "ram")
+	b.Attr("component", "link")
+	b.Attr("driver", "ram")
+
+		b.Attr("type", "unit")
+		b.Attr("package", "ram")
+		b.Attr("component", "link")
+		b.Attr("driver", "ram")
+	
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
 
@@ -56,6 +66,16 @@ func BenchmarkRAMSerial(b *testing.B) {
 }
 
 func BenchmarkRAMParallel(b *testing.B) {
+	b.Attr("type", "unit")
+	b.Attr("package", "ram")
+	b.Attr("component", "link")
+	b.Attr("driver", "ram")
+
+		b.Attr("type", "unit")
+		b.Attr("package", "ram")
+		b.Attr("component", "link")
+		b.Attr("driver", "ram")
+	
 	ctx := context.Background()
 
 	b.Run("Create [single]", func(b *testing.B) {
