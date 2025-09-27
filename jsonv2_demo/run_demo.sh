@@ -1,13 +1,15 @@
 #!/bin/bash
 
-echo "=== Go Experimental encoding/json/v2 Demo ==="
-echo "Setting GOEXPERIMENT=jsonv2 to enable experimental features"
+echo "=== Go Experimental Features Demo ==="
+echo "Setting GOEXPERIMENT=greenteagc,jsonv2 to enable experimental features"
+echo "- greenteagc: New garbage collector"
+echo "- jsonv2: Enhanced JSON processing"
 echo ""
 
-# Set the experimental flag and run the demo
-export GOEXPERIMENT=jsonv2
+# Set the experimental flags and run the demo
+export GOEXPERIMENT=greenteagc,jsonv2
 
-echo "Building with GOEXPERIMENT=jsonv2..."
+echo "Building with GOEXPERIMENT=greenteagc,jsonv2..."
 go build -o demo main.go
 
 if [ $? -eq 0 ]; then
@@ -30,5 +32,5 @@ fi
 
 echo ""
 echo "=== Alternative: Running directly with go run ==="
-export GOEXPERIMENT=jsonv2
+export GOEXPERIMENT=greenteagc,jsonv2
 go run main.go

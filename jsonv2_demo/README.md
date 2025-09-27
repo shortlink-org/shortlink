@@ -1,11 +1,13 @@
-# Go Experimental encoding/json/v2 Demo
+# Go Experimental Features Demo
 
-This demonstration shows how to enable and use the experimental `encoding/json/v2` package introduced in Go 1.25.
+This demonstration shows how to enable and use experimental features in Go 1.25, including:
+- `encoding/json/v2`: Enhanced JSON processing package
+- `greenteagc`: New garbage collector implementation
 
 ## Requirements
 
 - Go 1.25.1 or later
-- Set `GOEXPERIMENT=jsonv2` environment variable
+- Set `GOEXPERIMENT=greenteagc,jsonv2` environment variable
 
 ## What is encoding/json/v2?
 
@@ -16,17 +18,27 @@ The experimental `encoding/json/v2` package is a major revision of the existing 
 - **Lower-level Control**: The `encoding/json/jsontext` package provides fine-grained JSON processing
 - **Improved Error Messages**: More detailed and helpful error reporting
 
-## Enabling the Experiment
+## What is Green Tea GC?
 
-To enable the experimental json/v2 package, set the `GOEXPERIMENT` environment variable:
+The experimental `greenteagc` is a new garbage collector implementation that aims to improve:
+- **Reduced Pause Times**: Lower stop-the-world garbage collection pauses
+- **Better Memory Utilization**: More efficient memory management patterns
+- **Improved Scalability**: Better performance for applications with large heap sizes
+- **Enhanced Throughput**: Better performance for allocation-heavy workloads
+
+## Enabling the Experiments
+
+To enable both experimental features, set the `GOEXPERIMENT` environment variable:
 
 ```bash
-export GOEXPERIMENT=jsonv2
+export GOEXPERIMENT=greenteagc,jsonv2
 ```
 
-This enables two new packages:
-- `encoding/json/v2`: The main enhanced JSON package
-- `encoding/json/jsontext`: Lower-level JSON processing
+This enables:
+- `greenteagc`: New garbage collector
+- `jsonv2`: Enhanced JSON processing
+- `encoding/json/v2`: The main enhanced JSON package (when using builtin)
+- `encoding/json/jsontext`: Lower-level JSON processing (when using builtin)
 
 ## Running the Demo
 
@@ -38,25 +50,44 @@ chmod +x run_demo.sh
 
 ### Method 2: Manual execution
 ```bash
-export GOEXPERIMENT=jsonv2
+export GOEXPERIMENT=greenteagc,jsonv2
 go run main.go
 ```
 
 ### Method 3: Build and run
 ```bash
-export GOEXPERIMENT=jsonv2
+export GOEXPERIMENT=greenteagc,jsonv2
 go build -o demo main.go
 ./demo
 ```
 
+### Method 4: Run GC-intensive demo
+```bash
+export GOEXPERIMENT=greenteagc,jsonv2
+go run gc_demo.go
+```
+
+### Method 5: Run performance benchmark
+```bash
+export GOEXPERIMENT=greenteagc,jsonv2
+go run benchmark.go
+```
+
 ## Features Demonstrated
 
+### JSON/v2 Features
 1. **Basic Marshaling/Unmarshaling**: Comparison between json/v1 and json/v2
 2. **Performance Comparison**: Benchmark showing speed differences
-3. **Custom Marshaling**: Implementing custom MarshalJSONV2/UnmarshalJSONV2 methods
-4. **Marshal Options**: Using the new options system for pretty printing
-5. **Low-level Processing**: Manual JSON construction with jsontext package
-6. **Streaming**: Building JSON incrementally with the encoder
+3. **Custom Marshaling**: Implementing custom JSON marshaling methods
+4. **Marshal Options**: Using enhanced marshaling capabilities
+5. **Low-level Processing**: Complex JSON construction and processing
+6. **Streaming**: Building JSON incrementally
+
+### Green Tea GC Features
+1. **Memory Usage Monitoring**: Track allocation patterns and GC behavior
+2. **GC-Intensive Workloads**: Heavy allocation scenarios to test GC performance
+3. **Pause Time Analysis**: Measure garbage collection pause times
+4. **Memory Pressure Testing**: Large dataset processing to trigger GC cycles
 
 ## Key Differences from encoding/json
 

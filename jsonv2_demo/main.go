@@ -43,15 +43,49 @@ func (c *CustomData) UnmarshalJSON(data []byte) error {
 	return nil
 }
 
+// Helper function to check if GOEXPERIMENT contains a specific experiment
+func contains(s, substr string) bool {
+	// Check if substr is in the comma-separated GOEXPERIMENT string
+	return len(s) >= len(substr) && (s == substr || 
+		(len(s) > len(substr) && (s[:len(substr)+1] == substr+"," || 
+		s[len(s)-len(substr)-1:] == ","+substr || 
+		containsMiddle(s, ","+substr+","))))
+}
+
+func containsMiddle(s, substr string) bool {
+	for i := 0; i <= len(s)-len(substr); i++ {
+		if s[i:i+len(substr)] == substr {
+			return true
+		}
+	}
+	return false
+}
+
 func main() {
-	fmt.Println("=== Go Experimental encoding/json/v2 Demo ===")
+	fmt.Println("=== Go Experimental Features Demo ===")
 	fmt.Println()
 
-	// Check if GOEXPERIMENT=jsonv2 is enabled
+	// Check experimental features
 	if goexp := os.Getenv("GOEXPERIMENT"); goexp != "" {
 		fmt.Printf("GOEXPERIMENT: %s\n", goexp)
+		
+		// Check for specific experiments
+		experiments := map[string]string{
+			"jsonv2":     "Enhanced JSON processing with better performance",
+			"greenteagc": "New garbage collector with improved pause times",
+		}
+		
+		fmt.Println("\nEnabled experimental features:")
+		for exp, desc := range experiments {
+			if contains(goexp, exp) {
+				fmt.Printf("✓ %s: %s\n", exp, desc)
+			} else {
+				fmt.Printf("✗ %s: %s\n", exp, desc)
+			}
+		}
 	} else {
-		fmt.Println("GOEXPERIMENT not set - json/v2 features may not be available")
+		fmt.Println("GOEXPERIMENT not set - experimental features not available")
+		fmt.Println("Use: export GOEXPERIMENT=greenteagc,jsonv2")
 	}
 	fmt.Println()
 
