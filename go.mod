@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink
 go 1.25.1
 
 require (
-	github.com/IBM/sarama v1.46.0
+	github.com/IBM/sarama v1.46.1
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
 	github.com/PuerkitoBio/goquery v1.10.3
 	github.com/XSAM/otelsql v0.40.0
@@ -15,7 +15,7 @@ require (
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/dnwe/otelsarama v0.0.0-20240308230250-9388d9d40bc0
 	github.com/exaring/otelpgx v0.9.3
-	github.com/geldata/gel-go v1.4.2
+	github.com/geldata/gel-go v1.4.3
 	github.com/go-chi/chi/v5 v5.2.3
 	github.com/go-redis/cache/v9 v9.0.0
 	github.com/go-sql-driver/mysql v1.9.3
