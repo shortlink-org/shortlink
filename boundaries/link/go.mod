@@ -16,7 +16,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.32
 	github.com/ory/dockertest/v3 v3.12.0
 	github.com/prometheus/client_golang v1.23.2
-	github.com/redis/rueidis v1.0.64
+	github.com/redis/rueidis v1.0.66
 	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20250921105413-6ee4ef9f264a
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc

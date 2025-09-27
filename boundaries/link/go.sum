@@ -505,6 +505,7 @@ github.com/opencontainers/image-spec v1.1.1/go.mod h1:qpqAh3Dmcf36wStyyWU+kCeDgr
 github.com/opencontainers/runc v1.2.5 h1:8KAkq3Wrem8bApgOHyhRI/8IeLXIfmZ6Qaw6DNSLnA4=
 github.com/opencontainers/runc v1.2.5/go.mod h1:dOQeFo29xZKBNeRBI0B19mJtfHv68YgCTh1X+YphA+4=
 github.com/ory/client-go v1.22.2 h1:qXrWAycckVfs0MtC4DgU4ty+C8Rf6YkhWYCc2glO7gU=
+github.com/ory/client-go v1.22.2/go.mod h1:su2VvmoLLprWfIQg+CvVWrCMUDRXvpLef5k4raV1Fd0=
 github.com/ory/dockertest/v3 v3.12.0 h1:3oV9d0sDzlSQfHtIaB5k6ghUCVMVLpAY8hwrqoCyRCw=
 github.com/ory/dockertest/v3 v3.12.0/go.mod h1:aKNDTva3cp8dwOWwb9cWuX84aH5akkxXRvO7KCwWVjE=
 github.com/pelletier/go-toml/v2 v2.2.4 h1:mye9XuhQ6gvn5h28+VilKrrPoQVanw5PMw/TB0t5Ec4=
@@ -552,6 +553,8 @@ github.com/redis/go-redis/v9 v9.14.0 h1:u4tNCjXOyzfgeLN+vAZaW1xUooqWDqVEsZN0U01j
 github.com/redis/go-redis/v9 v9.14.0/go.mod h1:huWgSWd8mW6+m0VPhJjSSQ+d6Nh1VICQ6Q5lHuCH/Iw=
 github.com/redis/rueidis v1.0.64 h1:XqgbueDuNV3qFdVdQwAHJl1uNt90zUuAJuzqjH4cw6Y=
 github.com/redis/rueidis v1.0.64/go.mod h1:Lkhr2QTgcoYBhxARU7kJRO8SyVlgUuEkcJO1Y8MCluA=
+github.com/redis/rueidis v1.0.66 h1:7rvyrl0vL/cAEkE97+L5v3MJ3Vg8IKz+KIxUTfT+yJk=
+github.com/redis/rueidis v1.0.66/go.mod h1:Lkhr2QTgcoYBhxARU7kJRO8SyVlgUuEkcJO1Y8MCluA=
 github.com/redis/rueidis/mock v1.0.64 h1:OJQKyHVIL4JcNA0z7QKpM5lzZChHBEn53r9Sb1IMOPI=
 github.com/redis/rueidis/mock v1.0.64/go.mod h1:lARBcheexuuCpUBdK2+LRGdQ2EAvNeSChPjJFbQy+nQ=
 github.com/redis/rueidis/rueidiscompat v1.0.64 h1:M8JbLP4LyHQhBLBRsUQIzui8/LyTtdESNIMVveqm4RY=
@@ -582,10 +585,15 @@ github.com/segmentio/encoding v0.5.3 h1:OjMgICtcSFuNvQCdwqMCv9Tg7lEOXGwm1J5RPQcc
 github.com/segmentio/encoding v0.5.3/go.mod h1:HS1ZKa3kSN32ZHVZ7ZLPLXWvOVIiZtyJnO1gPH1sKt0=
 github.com/shopspring/decimal v0.0.0-20180709203117-cd690d0c9e24/go.mod h1:M+9NzErvs504Cn4c5DxATwIqPbtswREoFCre64PpcG4=
 github.com/shortlink-org/go-sdk/auth v0.0.0-20250921105413-6ee4ef9f264a h1:DaF+/bo+QwC1EDSRd1kijynp0WwGlcLbzSsyAU6BZZU=
+github.com/shortlink-org/go-sdk/auth v0.0.0-20250921105413-6ee4ef9f264a/go.mod h1:aRyqX8iYW/Dpgfm5EQY5I3xN7YIZvx/TCDfNAFB4dqA=
 github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc h1:mBfyzxiC1LBjRjNQL5Obb+r9IxQ5RTehoq93i2gYS9M=
+github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc/go.mod h1:knX22tU1FqXSxNZGqaTKtrt5XRcc43NDAuE3tZsQ+IU=
 github.com/shortlink-org/go-sdk/grpc v0.0.0-20250921110119-283ac43a0ddc h1:4COHtLjzfH5CyNfqw+4VFOdzFRqIvC9EqE9oW38560Y=
+github.com/shortlink-org/go-sdk/grpc v0.0.0-20250921110119-283ac43a0ddc/go.mod h1:3DKKsdO0wwRovQTm7bRkxn6N2GmmkotJzRA7ne6YPEg=
 github.com/shortlink-org/go-sdk/logger v0.0.0-20250921110119-283ac43a0ddc h1:jiaam86ZUzGTvXXumBMqT0EtY4Mt2p1FKvAH+IWQ+gk=
+github.com/shortlink-org/go-sdk/logger v0.0.0-20250921110119-283ac43a0ddc/go.mod h1:LbbOBkx9+gQdPl8OXI4iRbuYug3ongRSfQMwVRazBZM=
 github.com/shortlink-org/shortlink v0.0.0-20250917223100-9578c5d6d178 h1:TVcW4HmtxOcsHyqnsVFK8X4NFwK+ot3ZaLyhSw0sNUs=
+github.com/shortlink-org/shortlink v0.0.0-20250917223100-9578c5d6d178/go.mod h1:ozaR63RBgM+WkL5/Dmq6HOF83dSwhpdtnm3d+LM1T/Y=
 github.com/sirupsen/logrus v1.4.1/go.mod h1:ni0Sbl8bgC9z8RoU9G6nDWqqs/fq4eDPysMBDgk/93Q=
 github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6MwdIuYE2rE=
 github.com/sirupsen/logrus v1.6.0/go.mod h1:7uNnSEd1DgxDLC74fIahvMZmmYsHGZGEOFrfsX/uA88=
@@ -854,6 +862,7 @@ golang.org/x/oauth2 v0.0.0-20190604053449-0f29369cfe45/go.mod h1:gOpvHmFTYa4Iltr
 golang.org/x/oauth2 v0.0.0-20191202225959-858c2ad4c8b6/go.mod h1:gOpvHmFTYa4IltrdGE7lF6nIHvwfUNPOp7c8zoXwtLw=
 golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d/go.mod h1:gOpvHmFTYa4IltrdGE7lF6nIHvwfUNPOp7c8zoXwtLw=
 golang.org/x/oauth2 v0.31.0 h1:8Fq0yVZLh4j4YA47vHKFTa9Ew5XIrCP8LC6UeNZnLxo=
+golang.org/x/oauth2 v0.31.0/go.mod h1:lzm5WQJQwKZ3nwavOZ3IS5Aulzxi68dUSgRHujetwEA=
 golang.org/x/sync v0.0.0-20180314180146-1d60e4601c6f/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
 golang.org/x/sync v0.0.0-20181108010431-42b317875d0f/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
 golang.org/x/sync v0.0.0-20181221193216-37e7f081c4d4/go.mod h1:RxMgew5VJxzue5/jJTE5uejpjVlOe/izrB70Jof72aM=
