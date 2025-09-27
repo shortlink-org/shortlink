@@ -5,6 +5,7 @@ package sqlite
 import (
 	"context"
 	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/spf13/viper"
@@ -62,12 +63,16 @@ func TestSQLite(t *testing.T) {
 	})
 
 	t.Run("Close", func(t *testing.T) {
-		// Use os.OpenRoot to safely remove the SQLite database file
-		root, err := os.OpenRoot("/tmp")
+		// Use os.OpenRoot to safely remove the SQLite database file using ENV path
+		dbPath := viper.GetString("STORE_SQLITE_PATH")
+		dir := filepath.Dir(dbPath)
+		filename := filepath.Base(dbPath)
+		
+		root, err := os.OpenRoot(dir)
 		require.NoError(t, err)
 		defer root.Close()
 
-		errDeleteFile := root.Remove("links-test.sqlite")
+		errDeleteFile := root.Remove(filename)
 		require.NoError(t, errDeleteFile)
 	})
 
