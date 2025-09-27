@@ -31,7 +31,7 @@ func TestGetFreePort(t *testing.T) {
 }
 
 func BenchmarkGetFreePort(b *testing.B) {
-	for i := 0; i < b.N; i++ {
+	for b.Loop() {
 		GetFreePort()
 	}
 }
