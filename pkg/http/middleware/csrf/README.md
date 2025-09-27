@@ -71,6 +71,8 @@ r.Use(csrfMiddleware)
 3. Cross-origin requests from untrusted origins are blocked unless they meet CSRF safety criteria
 4. Same-origin requests and requests from trusted origins are allowed through
 
+For more details on Go's built-in CSRF protection, see the [official Go documentation](https://pkg.go.dev/net/http#NewCrossOriginProtection).
+
 ## CORS Headers
 
 When using this middleware, ensure your CORS configuration includes:
