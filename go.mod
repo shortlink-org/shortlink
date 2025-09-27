@@ -388,7 +388,7 @@ require (
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.38.0 // indirect
 	go.opentelemetry.io/otel/metric v1.38.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.7.1 // indirect
-	go.temporal.io/api v1.51.0 // indirect
+	go.temporal.io/api v1.53.0 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
