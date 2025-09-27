@@ -1,10 +1,11 @@
 /*
-Tracing wrapping
+Tracing wrapping with Go 1.25 FlightRecorder support
 */
 package traicing
 
 import (
 	"context"
+	"log/slog"
 
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel"
@@ -18,7 +19,8 @@ import (
 )
 
 // Init returns an instance of Tracer Provider that samples 100% of traces and logs all spans to stdout.
-func Init(ctx context.Context, cnf Config, log logger.Logger) (*trace.TracerProvider, func(), error) {
+// It also initializes Go 1.25 FlightRecorder if configured.
+func Init(ctx context.Context, cnf Config, log *logger.SlogLogger) (*trace.TracerProvider, func(), error) {
 	// Setup resource.
 	res, err := common.NewResource(ctx, cnf.ServiceName, cnf.ServiceVersion)
 	if err != nil {
@@ -31,29 +33,57 @@ func Init(ctx context.Context, cnf Config, log logger.Logger) (*trace.TracerProv
 		return nil, nil, err
 	}
 
-	cleanup := func() {
-		errShutdown := tp.Shutdown(ctx)
-		if errShutdown != nil {
-			log.Error(`Tracing disable`, field.Fields{
-				"uri": cnf.URI,
-				"err": errShutdown,
-			})
+	// Initialize Flight Recorder if configured
+	var flightRecorder *FlightRecorder
+	if cnf.FlightRecorder != nil && cnf.FlightRecorder.Enabled {
+		flightRecorder, err = NewFlightRecorder(*cnf.FlightRecorder, log)
+		if err != nil {
+			log.Error("Failed to create flight recorder", slog.Any("err", err))
+		} else if flightRecorder != nil {
+			if err := flightRecorder.Start(); err != nil {
+				log.Error("Failed to start flight recorder", slog.Any("err", err))
+			} else {
+				// Set as global flight recorder for easy access
+				SetGlobalFlightRecorder(flightRecorder)
+			}
 		}
 	}
 
-	log.Info(`Tracing enable`, field.Fields{
-		"uri": cnf.URI,
-	})
+	cleanup := func() {
+		// Stop flight recorder first
+		if flightRecorder != nil {
+			if err := flightRecorder.Stop(); err != nil {
+				log.Error("Error stopping flight recorder", slog.Any("err", err))
+			}
+		}
 
-	// Gracefully shutdown the trace provider on exit
+		// Then shutdown trace provider
+		errShutdown := tp.Shutdown(ctx)
+		if errShutdown != nil {
+			log.Error(`Tracing disable`, 
+				slog.String("uri", cnf.URI),
+				slog.Any("err", errShutdown))
+		}
+	}
+
+	log.Info(`Tracing enable`, 
+		slog.String("uri", cnf.URI),
+		slog.Bool("flight_recorder", cnf.FlightRecorder != nil && cnf.FlightRecorder.Enabled))
+
+	// Gracefully shutdown the trace provider and flight recorder on exit
 	go func() {
 		<-ctx.Done()
 
+		// Stop flight recorder
+		if flightRecorder != nil {
+			if err := flightRecorder.Stop(); err != nil {
+				log.Error("error stopping flight recorder", slog.String("err", err.Error()))
+			}
+		}
+
 		// Shutdown will flush any remaining spans and shut down the exporter.
 		if errShutdown := tp.Shutdown(ctx); errShutdown != nil {
-			log.Error("error shutting down trace provider", field.Fields{
-				"err": errShutdown.Error(),
-			})
+			log.Error("error shutting down trace provider", slog.String("err", errShutdown.Error()))
 		}
 	}()
 
