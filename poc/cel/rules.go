@@ -1,15 +1,21 @@
 package main
 
 import (
-	"os"
-	"path/filepath"
-
 	"github.com/google/cel-go/cel"
 	"github.com/google/cel-go/checker/decls"
+	"github.com/shortlink-org/shortlink/pkg/fsroot"
 )
 
 func loadRules(path string) (map[string]string, error) {
-	files, err := os.ReadDir(path)
+	// Create a SafeFS rooted at the specified path to restrict file access
+	fs, err := fsroot.NewSafeFS(path)
+	if err != nil {
+		return nil, err
+	}
+	defer fs.Close()
+
+	// Read the directory contents using SafeFS
+	files, err := fs.ReadDir(".")
 	if err != nil {
 		return nil, err
 	}
@@ -17,10 +23,10 @@ func loadRules(path string) (map[string]string, error) {
 	rules := make(map[string]string)
 	for _, file := range files {
 		if !file.IsDir() {
-			filename := filepath.Join(path, file.Name())
-			content, errReadDir := os.ReadFile(filename)
-			if errReadDir != nil {
-				return nil, errReadDir
+			// Read file content using SafeFS (no need for filepath.Join)
+			content, errReadFile := fs.ReadFile(file.Name())
+			if errReadFile != nil {
+				return nil, errReadFile
 			}
 			rules[file.Name()] = string(content)
 		}

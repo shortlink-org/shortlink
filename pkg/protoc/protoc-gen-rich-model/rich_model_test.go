@@ -3,12 +3,12 @@
 package main
 
 import (
-	"os"
 	"os/exec"
 	"path/filepath"
 	"testing"
 
 	"github.com/stretchr/testify/require"
+	"github.com/shortlink-org/shortlink/pkg/fsroot"
 )
 
 // TestGenerateRichModel tests the generateRichModel function of the plugin
@@ -36,9 +36,13 @@ func TestGenerateRichModel(t *testing.T) {
 	output, err := cmd.CombinedOutput()
 	require.NoError(t, err, "protoc failed with output:\n%s", output)
 
-	// Read the generated file for Link
-	linkGeneratedFileName := filepath.Join(outputDir, "link_ddd.go")
-	linkContent, err := os.ReadFile(linkGeneratedFileName)
+	// Create SafeFS rooted at the output directory to safely read generated files
+	fs, err := fsroot.NewSafeFS(outputDir)
+	require.NoError(t, err, "Failed to create SafeFS for output directory")
+	defer fs.Close()
+
+	// Read the generated file for Link using SafeFS
+	linkContent, err := fs.ReadFile("link_ddd.go")
 	require.NoError(t, err, "Failed to read generated file for Link")
 
 	// Check if the content of the generated file is as expected

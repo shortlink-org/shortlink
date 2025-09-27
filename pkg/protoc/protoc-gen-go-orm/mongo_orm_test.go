@@ -3,10 +3,11 @@
 package main_test
 
 import (
-	"os"
 	"os/exec"
 	"strings"
 	"testing"
+
+	"github.com/shortlink-org/shortlink/pkg/fsroot"
 )
 
 func TestMongoORMGeneration(t *testing.T) {
@@ -26,10 +27,15 @@ func TestMongoORMGeneration(t *testing.T) {
 		t.Fatalf("protoc failed: %s, %v", string(output), err)
 	}
 
-	// Check if the output file exists and contains PostgreSQL-specific ORM code
-	// You would specify the expected output filename based on your plugin's file naming scheme
-	expectedFile := "./output/link.mongo.orm.go"
-	data, err := os.ReadFile(expectedFile)
+	// Create SafeFS rooted at the output directory to safely read generated files
+	fs, err := fsroot.NewSafeFS("./output")
+	if err != nil {
+		t.Fatalf("Failed to create SafeFS for output directory: %v", err)
+	}
+	defer fs.Close()
+
+	// Check if the output file exists and contains MongoDB-specific ORM code
+	data, err := fs.ReadFile("link.mongo.orm.go")
 	if err != nil {
 		t.Fatalf("Failed to read generated file: %v", err)
 	}
