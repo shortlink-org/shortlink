@@ -136,11 +136,7 @@ func (batch *Batch[T]) flushItems() {
 		return
 	}
 
-	batch.wg.Add(1)
-
-	go func(items []*Item[T]) {
-		defer batch.wg.Done()
-
+	batch.wg.Go(func() {
 		// Check cancellation again before proceeding.
 		select {
 		case <-batch.done:
@@ -155,5 +151,5 @@ func (batch *Batch[T]) flushItems() {
 				}
 			}
 		}
-	}(items)
+	})
 }
