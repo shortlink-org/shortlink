@@ -97,7 +97,6 @@ err = service.StartRecording(ctx)
 traceID, err := service.CaptureTrace(ctx, "error_occurred")
 ```
 
-For detailed implementation documentation, see [`FLIGHT_RECORDER_IMPLEMENTATION.md`](./FLIGHT_RECORDER_IMPLEMENTATION.md).
 
 #### Additional Packages
 

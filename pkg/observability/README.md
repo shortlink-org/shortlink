@@ -24,7 +24,6 @@ The `tracing` package offers comprehensive observability capabilities including:
 - **Signal Support**: Manual trace capture via SIGUSR1/SIGUSR2 signals
 - **Health Monitoring**: Built-in health check functionality
 
-For detailed FlightRecorder documentation, see [`FLIGHT_RECORDER_IMPLEMENTATION.md`](../../FLIGHT_RECORDER_IMPLEMENTATION.md).
 
 ### References
 
