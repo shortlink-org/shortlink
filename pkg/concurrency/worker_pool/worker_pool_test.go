@@ -56,7 +56,9 @@ func Test_WorkerPool(t *testing.T) {
 	})
 }
 
-// TestWorkerPoolWithSynctest demonstrates deterministic worker pool testing
+// TestWorkerPoolWithSynctest validates worker pool task execution and result collection.
+// Tests that tasks are properly distributed across workers, executed concurrently,
+// and results are collected correctly without timing dependencies.
 func TestWorkerPoolWithSynctest(t *testing.T) {
 	synctest.Test(t, func(t *testing.T) {
 		const numWorkers = 3
@@ -69,14 +71,14 @@ func TestWorkerPoolWithSynctest(t *testing.T) {
 		var resultWg sync.WaitGroup
 		resultWg.Add(1)
 
-		// Create tasks that simulate some work
+		// Define task function that simulates processing work
 		taskFunc := func() (any, error) {
-			// Simulate some processing time
+			// Simulate processing time - executes instantly in synctest
 			time.Sleep(10 * time.Millisecond)
 			return atomic.AddInt64(&completedTasks, 1), nil
 		}
 
-		// Collect results in background
+		// Start background result collector goroutine
 		go func() {
 			defer resultWg.Done()
 			for result := range wp.Result {
@@ -87,19 +89,19 @@ func TestWorkerPoolWithSynctest(t *testing.T) {
 			}
 		}()
 
-		// Submit all tasks
+		// Submit all tasks to the worker pool for concurrent execution
 		for i := 0; i < numTasks; i++ {
 			wp.Push(taskFunc)
 		}
 
-		// Wait for all tasks to complete
+		// Wait for all tasks to be processed and results collected
 		resultWg.Wait()
 
-		// Close the worker pool to stop background goroutines
+		// Properly shutdown worker pool and cleanup resources
 		wp.Close()
 		close(wp.Result)
 		
-		// Wait for workers to finish
+		// Ensure all worker goroutines have terminated
 		synctest.Wait()
 
 		require.Equal(t, int64(numTasks), atomic.LoadInt64(&completedTasks))
@@ -107,24 +109,26 @@ func TestWorkerPoolWithSynctest(t *testing.T) {
 	})
 }
 
-// TestWorkerPoolSimpleWithSynctest demonstrates basic synctest usage with controlled execution
+// TestWorkerPoolSimpleWithSynctest validates basic worker functionality in isolation.
+// Tests single worker task execution with controlled timing to ensure tasks are
+// processed correctly and results are returned as expected.
 func TestWorkerPoolSimpleWithSynctest(t *testing.T) {
 	synctest.Test(t, func(t *testing.T) {
-		// Simple test that doesn't rely on long-running background goroutines
+		// Test isolated worker functionality without complex pool management
 		var taskExecuted int64
 		
 		taskFunc := func() (any, error) {
-			// Simulate processing with time
+			// Simulate task processing time
 			time.Sleep(50 * time.Millisecond)
 			atomic.AddInt64(&taskExecuted, 1)
 			return "completed", nil
 		}
 
-		// Create a minimal worker pool scenario
+		// Create minimal worker setup with buffered channels
 		taskQueue := make(chan worker_pool.Task, 1)
 		result := make(chan worker_pool.Result, 1)
 
-		// Single worker
+		// Launch single worker to process tasks
 		go func() {
 			for task := range taskQueue {
 				res, err := task()
@@ -132,15 +136,15 @@ func TestWorkerPoolSimpleWithSynctest(t *testing.T) {
 			}
 		}()
 
-		// Submit task
+		// Submit task and signal completion
 		taskQueue <- taskFunc
 		close(taskQueue)
 
-		// Get result
+		// Retrieve task result
 		res := <-result
 		close(result)
 
-		// Wait for all operations to complete
+		// Ensure all concurrent operations have completed
 		synctest.Wait()
 
 		require.Equal(t, int64(1), atomic.LoadInt64(&taskExecuted))

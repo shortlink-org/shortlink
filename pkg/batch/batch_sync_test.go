@@ -46,7 +46,9 @@ func TestNewSync(t *testing.T) {
 	})
 }
 
-// TestBatchProcessingWithSynctest demonstrates deterministic batch testing
+// TestBatchProcessingWithSynctest verifies batch processing behavior with deterministic timing.
+// This test validates both size-based and time-based flush mechanisms using synctest
+// to eliminate timing dependencies and ensure consistent test execution.
 func TestBatchProcessingWithSynctest(t *testing.T) {
 	synctest.Test(t, func(t *testing.T) {
 		ctx, cancel := context.WithCancel(context.Background())
@@ -65,39 +67,39 @@ func TestBatchProcessingWithSynctest(t *testing.T) {
 			return nil
 		}
 
-		// Create batch with 100ms interval and size 3
+		// Configure batch with 100ms flush interval and size threshold of 3 items
 		batch, errChan := New(ctx, aggrCB, WithInterval[string](100*time.Millisecond), WithSize[string](3))
 
-		// Add items that don't reach the batch size
+		// Add items below the size threshold to test time-based flushing
 		ch1 := batch.Push("item1")
 		ch2 := batch.Push("item2")
 
-		// Wait for potential flush (shouldn't happen yet)
+		// Ensure no premature flushing occurs before size threshold is met
 		synctest.Wait()
 
-		// Verify items haven't been processed yet (batch size not reached)
+		// Verify no processing has occurred yet since size threshold not reached
 		require.Equal(t, int64(0), atomic.LoadInt64(&callbackCount))
 
-		// Add third item to trigger size-based flush
+		// Add third item to trigger size-based flush mechanism
 		ch3 := batch.Push("item3")
 
-		// Wait for flush to complete
+		// Allow size-based flush to complete
 		synctest.Wait()
 
-		// Verify items were processed
+		// Verify size-based flush processed all three items
 		require.Equal(t, int64(1), atomic.LoadInt64(&callbackCount))
 		require.Equal(t, "item1", <-ch1)
 		require.Equal(t, "item2", <-ch2)
 		require.Equal(t, "item3", <-ch3)
 
-		// Add one more item
+		// Add single item to test time-based flush behavior
 		ch4 := batch.Push("item4")
 
-		// Wait for time-based flush (100ms interval)
-		// In synctest, time advances instantly when all goroutines are blocked
+		// Allow time-based flush to occur (100ms interval)
+		// synctest advances time instantly when all goroutines reach stable state
 		synctest.Wait()
 
-		// Verify the single item was processed
+		// Verify time-based flush processed the remaining item
 		require.Equal(t, int64(2), atomic.LoadInt64(&callbackCount))
 		require.Equal(t, "item4", <-ch4)
 
@@ -115,7 +117,9 @@ func TestBatchProcessingWithSynctest(t *testing.T) {
 	})
 }
 
-// TestBatchCancellationWithSynctest tests proper cleanup when context is cancelled
+// TestBatchCancellationWithSynctest verifies proper resource cleanup and graceful shutdown
+// when the batch context is cancelled. Ensures that pending items are handled correctly
+// and no goroutines are leaked during cancellation scenarios.
 func TestBatchCancellationWithSynctest(t *testing.T) {
 	synctest.Test(t, func(t *testing.T) {
 		ctx, cancel := context.WithCancel(context.Background())
@@ -162,7 +166,9 @@ func TestBatchCancellationWithSynctest(t *testing.T) {
 	})
 }
 
-// TestBatchTimeBasedFlushWithSynctest tests time-based flushing behavior
+// TestBatchTimeBasedFlushWithSynctest validates the time-based flush mechanism.
+// Verifies that batches are flushed according to the configured interval when
+// the size threshold is not reached, ensuring predictable batch processing behavior.
 func TestBatchTimeBasedFlushWithSynctest(t *testing.T) {
 	synctest.Test(t, func(t *testing.T) {
 		ctx, cancel := context.WithCancel(context.Background())

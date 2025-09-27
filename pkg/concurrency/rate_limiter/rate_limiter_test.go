@@ -43,38 +43,40 @@ func TestRateLimiter(t *testing.T) {
 	require.Equal(t, int64(10000), atomic.LoadInt64(&sum))
 }
 
-// TestRateLimiterWithSynctest demonstrates testing rate limiter with controlled time
+// TestRateLimiterWithSynctest validates rate limiter token consumption and refill behavior.
+// Tests that tokens are properly consumed and that subsequent requests block until
+// token refill occurs, ensuring correct rate limiting enforcement.
 func TestRateLimiterWithSynctest(t *testing.T) {
 	synctest.Test(t, func(t *testing.T) {
 		ctx, cancel := context.WithCancel(context.Background())
 		defer cancel()
 		
-		// Create rate limiter with 2 tokens, refilling every 100ms
+		// Initialize rate limiter with 2 initial tokens, refilling every 100ms
 		rl, err := rate_limiter.New(ctx, 2, 100*time.Millisecond)
 		require.NoError(t, err)
 		
-		// First two requests should succeed immediately
+		// Consume both available tokens - should succeed immediately
 		require.NoError(t, rl.Wait())
 		require.NoError(t, rl.Wait())
 		
-		// The third request should block until the next refill
+		// Third request should block waiting for token refill
 		done := make(chan error, 1)
 		go func() {
 			done <- rl.Wait()
 		}()
 		
-		// Ensure the goroutine is blocked
+		// Verify the third request is blocked waiting for refill
 		synctest.Wait()
 		
-		// No completion yet since we haven't advanced time
+		// Confirm request is still blocking before refill occurs
 		select {
 		case <-done:
-			t.Fatal("request should be blocked")
+			t.Fatal("request should be blocked waiting for token refill")
 		default:
 		}
 		
-		// After refill time passes, the request should complete
-		// In synctest, time advances automatically when all goroutines are blocked
+		// Allow refill interval to pass and verify request completes
+		// synctest automatically advances time when all goroutines are blocked
 		err = <-done
 		require.NoError(t, err)
 		
@@ -84,39 +86,44 @@ func TestRateLimiterWithSynctest(t *testing.T) {
 	})
 }
 
-// TestRateLimiterCancellation tests proper cleanup when context is cancelled
+// TestRateLimiterCancellation verifies proper error handling during context cancellation.
+// Ensures that blocked rate limiter operations return the appropriate cancellation error
+// and that resources are cleaned up correctly when the context is cancelled.
 func TestRateLimiterCancellation(t *testing.T) {
 	synctest.Test(t, func(t *testing.T) {
 		ctx, cancel := context.WithCancel(context.Background())
 		
+		// Create rate limiter with single token and long refill interval
 		rl, err := rate_limiter.New(ctx, 1, 1*time.Second)
 		require.NoError(t, err)
 		
-		// Use the token
+		// Consume the available token
 		require.NoError(t, rl.Wait())
 		
-		// Start a goroutine that will block waiting for the next token
+		// Launch goroutine that will block waiting for token refill
 		done := make(chan error, 1)
 		go func() {
 			done <- rl.Wait()
 		}()
 		
-		// Ensure the goroutine is blocked
+		// Verify the goroutine is blocked waiting for token
 		synctest.Wait()
 		
-		// Cancel the context
+		// Cancel context while request is blocked
 		cancel()
 		
-		// The blocked wait should return with cancellation error
+		// Verify blocked request returns appropriate cancellation error
 		err = <-done
 		require.Equal(t, rate_limiter.ErrRateLimiterCanceled, err)
 		
-		// Wait for cleanup
+		// Allow cleanup operations to complete
 		synctest.Wait()
 	})
 }
 
-// TestSimpleRateLimiterWithSynctest demonstrates basic rate limiting in controlled environment
+// TestSimpleRateLimiterWithSynctest validates basic rate limiting functionality using
+// a simplified token bucket implementation. Tests token consumption and refill behavior
+// in a controlled environment to ensure rate limiting mechanics work correctly.
 func TestSimpleRateLimiterWithSynctest(t *testing.T) {
 	synctest.Test(t, func(t *testing.T) {
 		// Create a simple rate limiter scenario without persistent background goroutines
