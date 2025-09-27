@@ -62,20 +62,26 @@ func SaveTraceOnError(err error, log logger.Logger) {
 func SaveTraceOnSignal(signal string, log logger.Logger) {
 	fr := GetGlobalFlightRecorder()
 	if fr == nil || !fr.IsRunning() {
-		log.Warn("Flight recorder not available for signal trace", slog.String("signal", signal))
+		if log != nil {
+			log.Warn("Flight recorder not available for signal trace", slog.String("signal", signal))
+		}
 		return
 	}
 
 	filename := fmt.Sprintf("signal_%s_trace_%d.out", signal, time.Now().Unix())
 	if err := fr.WriteToFile(filename); err != nil {
-		log.Error("Failed to save signal trace", 
-			slog.Any("err", err),
-			slog.String("filename", filename),
-			slog.String("signal", signal))
+		if log != nil {
+			log.Error("Failed to save signal trace", 
+				slog.Any("err", err),
+				slog.String("filename", filename),
+				slog.String("signal", signal))
+		}
 	} else {
-		log.Info("Signal trace saved", 
-			slog.String("filename", filename),
-			slog.String("signal", signal))
+		if log != nil {
+			log.Info("Signal trace saved", 
+				slog.String("filename", filename),
+				slog.String("signal", signal))
+		}
 	}
 }
 
@@ -83,17 +89,21 @@ func SaveTraceOnSignal(signal string, log logger.Logger) {
 func SaveTraceWithContext(ctx context.Context, reason string, metadata map[string]interface{}, log logger.Logger) {
 	fr := GetGlobalFlightRecorder()
 	if fr == nil || !fr.IsRunning() {
-		log.Warn("Flight recorder not available", slog.String("reason", reason))
+		if log != nil {
+			log.Warn("Flight recorder not available", slog.String("reason", reason))
+		}
 		return
 	}
 
 	filename := fmt.Sprintf("%s_trace_%d.out", reason, time.Now().Unix())
 	if err := fr.WriteToFile(filename); err != nil {
-		log.Error("Failed to save trace with context", 
-			slog.Any("err", err),
-			slog.String("filename", filename),
-			slog.String("reason", reason),
-			slog.Any("metadata", metadata))
+		if log != nil {
+			log.Error("Failed to save trace with context", 
+				slog.Any("err", err),
+				slog.String("filename", filename),
+				slog.String("reason", reason),
+				slog.Any("metadata", metadata))
+		}
 	} else {
 		// Also save metadata to a separate file
 		metadataFile := fmt.Sprintf("%s_metadata_%d.txt", reason, time.Now().Unix())
@@ -112,11 +122,13 @@ func SaveTraceWithContext(ctx context.Context, reason string, metadata map[strin
 			}
 		}
 
-		log.Info("Trace with context saved", 
-			slog.String("filename", filename),
-			slog.String("metadata_file", metadataFile),
-			slog.String("reason", reason),
-			slog.Any("metadata", metadata))
+		if log != nil {
+			log.Info("Trace with context saved", 
+				slog.String("filename", filename),
+				slog.String("metadata_file", metadataFile),
+				slog.String("reason", reason),
+				slog.Any("metadata", metadata))
+		}
 	}
 }
 
