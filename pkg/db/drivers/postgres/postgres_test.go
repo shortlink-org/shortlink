@@ -25,10 +25,9 @@ func TestPostgres(t *testing.T) {
 	t.Attr("component", "db")
 	t.Attr("driver", "postgres")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "postgres")
-		t.Attr("component", "db")
-		t.Attr("driver", "postgres"), cancel := context.WithCancel(t.Context())
+	ctx, cancel := context.WithCancel(t.Context())
+	defer cancel()
+	
 	store := Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
