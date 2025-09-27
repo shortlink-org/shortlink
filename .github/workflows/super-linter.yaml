@@ -39,6 +39,7 @@ jobs:
     name: Lint Code Base
     # Set the agent to run on
     runs-on: ubuntu-latest
+    timeout-minutes: 20
 
     ##################
     # Load all steps #
@@ -62,13 +63,13 @@ jobs:
       # Run Linter against code base #
       ################################
       - name: Lint Code Base
-        uses: github/super-linter@45fc0d88288beee4701c62761281edfee85655d7 # v5.0.0
+        uses: github/super-linter@b92721f792f381cedc002ecdbb9847a15ece5bb8 # v6.10.0
         env:
           FILTER_REGEX_EXCLUDE: .*(README\.md|Chart\.yaml|NOTES.txt).*
           VALIDATE_ALL_CODEBASE: false
           DEFAULT_BRANCH: main
           VALIDATE_ANSIBLE: false
           ANSIBLE_DIRECTORY: ops/ansible
-          VALIDATE_KUBERNETES_KUBEVAL: false
+          VALIDATE_KUBERNETES_KUBECONFORM: false
           VALIDATE_JSCPD: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

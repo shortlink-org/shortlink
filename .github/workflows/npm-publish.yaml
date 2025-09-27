@@ -14,6 +14,7 @@ jobs:
   build:
     if: github.repository == 'shortlink-org/shortlink'
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     permissions:
       contents: read
       id-token: write
@@ -29,13 +30,13 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10.17.0
+          version: 9.12.3
           run_install: false
 
       - name: Install Node.js
         uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
-          node-version: '23.x'
+          node-version: '22.x'
           cache: 'pnpm'
           cache-dependency-path: './boundaries/platform/ui-kit/pnpm-lock.yaml'
           registry-url: 'https://registry.npmjs.org'
