@@ -41,7 +41,7 @@ require (
 	github.com/rabbitmq/amqp091-go v1.10.0
 	github.com/redis/go-redis/v9 v9.14.0
 	github.com/redis/rueidis v1.0.66
-	github.com/redis/rueidis/rueidiscompat v1.0.64
+	github.com/redis/rueidis/rueidiscompat v1.0.66
 	github.com/redis/rueidis/rueidisotel v1.0.66
 	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20250921105413-6ee4ef9f264a
