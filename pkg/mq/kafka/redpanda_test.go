@@ -27,9 +27,7 @@ func TestRedPanda(t *testing.T) {
 	
 	// Set configuration
 	viper.SetDefault("SERVICE_NAME", "shortlink")
-	t.Setenv("MQ_KAFKA_SARAMA_VERSION", "DEFAULT")
-
-	ctx, cancel := context.WithCancel(context.Background())
+	t.Setenv("MQ_KAFKA_SARAMA_VERSION", "DEFAULT"), cancel := context.WithCancel(t.Context())
 	mq := Kafka{}
 
 	log, err := logger.New(logger.Zap, config.Configuration{})

@@ -9,7 +9,8 @@ package link
 	t.Attr("package", "link")
 	t.Attr("component", "link")
 
-// 	ctx := context.Background()
+//
+
 //
 // 	log, err := logger.New(logger.Zap, config.Configuration{
 // 		Level:      viper.GetInt("LOG_LEVEL"),
@@ -47,7 +48,7 @@ package link
 // 			mockPermissionsServiceClient.On("WriteRelationships", mock.Anything, mock.Anything).Return(&permission.WriteRelationshipsResponse{}, nil).Once()
 // 			mockMetadata.On("Set", mock.Anything, mock.Anything).Return(&metadata_rpc.MetadataServiceSetResponse{}, nil).Once()
 //
-// 			_, err := linkService.Add(context.Background(), &v1.Link{})
+// 			_, err := linkService.Add(t.Context(), &v1.Link{})
 // 			assert.NoError(t, err)
 // 		})
 // 	})
@@ -65,7 +66,7 @@ package link
 // 			mockRepository.On("Get", mock.Anything, mock.Anything).Return(&v1.Link{}, nil).Once()
 // 			mockPermissionsServiceClient.On("CheckPermission", mock.Anything, mock.Anything).Return(&permission.CheckPermissionResponse{}, nil).Once()
 //
-// 			_, err := linkService.Get(context.Background(), "somehash")
+// 			_, err := linkService.Get(t.Context(), "somehash")
 // 			assert.NoError(t, err)
 // 		})
 //
@@ -76,7 +77,7 @@ package link
 
 // 			mockPermissionsServiceClient.On("CheckPermission", mock.Anything, mock.Anything).Return(nil, errors.New("permission denied")).Once()
 //
-// 			_, err := linkService.Get(context.Background(), "somehash")
+// 			_, err := linkService.Get(t.Context(), "somehash")
 // 			assert.Error(t, err)
 // 		})
 //
@@ -88,7 +89,7 @@ package link
 // 			mockRepository.On("Get", mock.Anything, mock.Anything).Return(nil, errors.New("not found")).Once()
 // 			mockPermissionsServiceClient.On("CheckPermission", mock.Anything, mock.Anything).Return(&permission.CheckPermissionResponse{}, nil).Once()
 //
-// 			_, err := linkService.Get(context.Background(), "somehash")
+// 			_, err := linkService.Get(t.Context(), "somehash")
 // 			assert.Error(t, err)
 // 		})
 // 	})
@@ -143,7 +144,7 @@ package link
 // 			mockRepository.On("Delete", mock.Anything, mock.Anything).Return(nil).Once()
 // 			mockPermissionsServiceClient.On("DeleteRelationships", mock.Anything, mock.Anything).Return(&permission.DeleteRelationshipsResponse{}, nil).Once()
 //
-// 			_, err := linkService.Delete(context.Background(), "somehash")
+// 			_, err := linkService.Delete(t.Context(), "somehash")
 // 			assert.NoError(t, err)
 // 		})
 //
@@ -154,7 +155,7 @@ package link
 
 // 			mockPermissionsServiceClient.On("DeleteRelationships", mock.Anything, mock.Anything).Return(nil, errors.New("permission denied")).Once()
 //
-// 			_, err := linkService.Delete(context.Background(), "somehash")
+// 			_, err := linkService.Delete(t.Context(), "somehash")
 // 			assert.Error(t, err)
 // 		})
 // 	})
@@ -172,7 +173,7 @@ package link
 
 // 			mockRepository.On("Update", mock.Anything, mock.Anything).Return(&v1.Link{}, nil).Once()
 //
-// 			_, err := linkService.Update(context.Background(), &v1.Link{})
+// 			_, err := linkService.Update(t.Context(), &v1.Link{})
 // 			assert.NoError(t, err)
 // 		})
 // 	})

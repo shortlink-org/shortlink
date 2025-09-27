@@ -24,7 +24,7 @@ func TestRAM(t *testing.T) {
 	// InitStore
 	store := Store{}
 
-	ctx := context.Background()
+		ctx := t.Context()
 
 	// Run tests
 	t.Run("Create", func(t *testing.T) {

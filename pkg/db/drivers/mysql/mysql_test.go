@@ -28,9 +28,7 @@ func TestMySQL(t *testing.T) {
 		t.Attr("type", "unit")
 		t.Attr("package", "mysql")
 		t.Attr("component", "db")
-		t.Attr("driver", "mysql")
-	
-	ctx, cancel := context.WithCancel(context.Background())
+		t.Attr("driver", "mysql"), cancel := context.WithCancel(t.Context())
 	store := Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)

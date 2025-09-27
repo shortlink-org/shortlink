@@ -1,6 +1,7 @@
 package metrics_middleware
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"testing"
@@ -20,6 +21,7 @@ func Test_NewMetrics(t *testing.T) {
 		t.Attr("package", "metrics")
 		t.Attr("component", "http")
 	
+
 	// middlewares
 	middlewares, err := NewMetrics()
 	require.NoError(t, err)

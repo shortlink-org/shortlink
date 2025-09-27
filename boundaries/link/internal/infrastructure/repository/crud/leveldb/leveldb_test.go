@@ -32,9 +32,7 @@ func TestLevelDB(t *testing.T) {
 		t.Attr("type", "unit")
 		t.Attr("package", "leveldb")
 		t.Attr("component", "link")
-		t.Attr("driver", "leveldb")
-	
-	ctx, cancel := context.WithCancel(context.Background())
+		t.Attr("driver", "leveldb"), cancel := context.WithCancel(t.Context())
 
 	st := db.Store{}
 

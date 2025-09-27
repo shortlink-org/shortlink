@@ -47,7 +47,7 @@ func TestCache(t *testing.T) {
 	err = pool.Retry(func() error {
 		t.Setenv("STORE_REDIS_URI", fmt.Sprintf("localhost:%s", resource.GetPort("6379/tcp")))
 
-		ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+		ctx, cancel := context.WithTimeout(t.Context(), 5*time.Second)
 		defer cancel()
 
 		_, errCache := cache.New(ctx)
@@ -75,8 +75,8 @@ func TestCache(t *testing.T) {
 		t.Attr("component", "cache")
 		t.Attr("driver", "redis")
 		t.Attr("operation", "set-get")
-		
-		ctx := context.Background()
+
+		ctx := t.Context()
 		c, err := cache.New(ctx)
 		require.NoError(t, err)
 

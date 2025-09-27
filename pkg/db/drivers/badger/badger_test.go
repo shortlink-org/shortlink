@@ -26,9 +26,7 @@ func TestBadger(t *testing.T) {
 		t.Attr("type", "unit")
 		t.Attr("package", "badger")
 		t.Attr("component", "db")
-		t.Attr("driver", "badger")
-	
-	ctx, cancel := context.WithCancel(context.Background())
+		t.Attr("driver", "badger"), cancel := context.WithCancel(t.Context())
 	store := Store{}
 
 	err := store.Init(ctx)

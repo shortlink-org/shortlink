@@ -22,7 +22,6 @@ func Test_Raft(t *testing.T) {
 		t.Attr("package", "server")
 		t.Attr("component", "raft")
 	
-	ctx := t.Context()
 
 	// Init logger
 	conf := config.Configuration{

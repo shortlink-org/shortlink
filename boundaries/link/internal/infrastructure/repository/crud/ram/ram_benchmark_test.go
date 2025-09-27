@@ -26,9 +26,7 @@ func BenchmarkRAMSerial(b *testing.B) {
 		b.Attr("type", "unit")
 		b.Attr("package", "ram")
 		b.Attr("component", "link")
-		b.Attr("driver", "ram")
-	
-	ctx, cancel := context.WithCancel(context.Background())
+		b.Attr("driver", "ram"), cancel := context.WithCancel(t.Context())
 	defer cancel()
 
 	b.Run("Create [single]", func(b *testing.B) {
@@ -75,8 +73,8 @@ func BenchmarkRAMParallel(b *testing.B) {
 		b.Attr("package", "ram")
 		b.Attr("component", "link")
 		b.Attr("driver", "ram")
-	
-	ctx := context.Background()
+
+		ctx := t.Context()
 
 	b.Run("Create [single]", func(b *testing.B) {
 		b.ReportAllocs()

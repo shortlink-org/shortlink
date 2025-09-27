@@ -26,9 +26,7 @@ func TestRAM(t *testing.T) {
 		t.Attr("type", "unit")
 		t.Attr("package", "ram")
 		t.Attr("component", "db")
-		t.Attr("driver", "ram")
-	
-	ctx, cancel := context.WithCancel(context.Background())
+		t.Attr("driver", "ram"), cancel := context.WithCancel(t.Context())
 
 	// InitStore
 	store := Store{}

@@ -1,6 +1,7 @@
 package uow
 
 import (
+	"context"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -64,6 +65,7 @@ func TestRegisterNew(t *testing.T) {
 		t.Attr("package", "uow")
 		t.Attr("component", "uow")
 	
+
 	entity := Entity{ID: 1, Name: "Test Entity"}
 	unitOfWorkMock := &uow.UnitOfWork[Entity]{}
 

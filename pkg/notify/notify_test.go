@@ -86,8 +86,7 @@ func TestPublish(t *testing.T) {
 		t.Attr("type", "unit")
 		t.Attr("package", "notify")
 		t.Attr("component", "notify")
-	
-	ctx := context.Background()
+
 	sub := mockSubscriber[any]{}
 
 	// Subscribe to Event

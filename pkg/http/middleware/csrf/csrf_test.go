@@ -1,6 +1,7 @@
 package csrf
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"os"
@@ -19,6 +20,7 @@ func TestMiddleware(t *testing.T) {
 		t.Attr("package", "csrf")
 		t.Attr("component", "http")
 	
+
 	tests := []struct {
 		name           string
 		envVar         string
@@ -119,6 +121,7 @@ func TestMiddleware(t *testing.T) {
 	}
 }
 
+
 func TestNew(t *testing.T) {
 	t.Attr("type", "unit")
 	t.Attr("package", "csrf")
@@ -200,6 +203,7 @@ func TestNew(t *testing.T) {
 			// Assert response
 			assert.Equal(t, tt.expectedStatus, rr.Code, tt.description)
 		})
+
 	}
 }
 
@@ -287,6 +291,7 @@ func TestConfigureTrustedOrigins(t *testing.T) {
 			}
 
 			// Clean up
+
 			os.Unsetenv(tt.envVar)
 		})
 	}
@@ -331,6 +336,7 @@ func TestCustomEnvironmentVariable(t *testing.T) {
 	protectedHandler.ServeHTTP(rr, req)
 
 	assert.Equal(t, http.StatusOK, rr.Code, 
+
 		"Should allow origin from custom environment variable")
 
 	// Clean up
@@ -389,6 +395,7 @@ func BenchmarkMiddleware(b *testing.B) {
 
 	middleware := Middleware()
 	protectedHandler := middleware(handler)
+
 
 	req := httptest.NewRequest("GET", "/test", nil)
 	rr := httptest.NewRecorder()

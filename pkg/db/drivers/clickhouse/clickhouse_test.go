@@ -28,9 +28,7 @@ func TestClickHouse(t *testing.T) {
 		t.Attr("type", "unit")
 		t.Attr("package", "clickhouse")
 		t.Attr("component", "db")
-		t.Attr("driver", "clickhouse")
-	
-	ctx, cancel := context.WithCancel(context.Background())
+		t.Attr("driver", "clickhouse"), cancel := context.WithCancel(t.Context())
 	store := Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)

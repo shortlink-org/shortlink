@@ -33,7 +33,7 @@ func TestNew(t *testing.T) {
 		t.Attr("package", "batch")
 		t.Attr("component", "batch")
 
-		ctx, cancelFunc := context.WithCancel(context.Background())
+		ctx, cancelFunc := context.WithCancel(t.Context())
 		defer cancelFunc()
 		eg, ctx := errgroup.WithContext(ctx)
 
@@ -81,7 +81,7 @@ func TestNew(t *testing.T) {
 		t.Attr("package", "batch")
 		t.Attr("component", "batch")
 
-		ctx, cancelFunc := context.WithTimeout(context.Background(), 10*time.Millisecond)
+		ctx, cancelFunc := context.WithTimeout(t.Context(), 10*time.Millisecond)
 		defer cancelFunc()
 
 		eg, ctx := errgroup.WithContext(ctx)

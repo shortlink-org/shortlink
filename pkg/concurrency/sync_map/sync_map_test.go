@@ -1,6 +1,7 @@
 package sync_map_test
 
 import (
+	"context"
 	"testing"
 
 	"github.com/stretchr/testify/require"
@@ -17,6 +18,7 @@ func Test_SyncMap(t *testing.T) {
 		t.Attr("package", "sync_map")
 		t.Attr("component", "concurrency")
 	
+
 	sm := sync_map.New()
 
 	for i := range 1000 {

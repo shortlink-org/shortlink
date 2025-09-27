@@ -26,9 +26,7 @@ func TestSQLite(t *testing.T) {
 		t.Attr("type", "unit")
 		t.Attr("package", "sqlite")
 		t.Attr("component", "db")
-		t.Attr("driver", "sqlite")
-	
-	ctx, cancel := context.WithCancel(context.Background())
+		t.Attr("driver", "sqlite"), cancel := context.WithCancel(t.Context())
 	store := Store{}
 
 	err := store.Init(ctx)

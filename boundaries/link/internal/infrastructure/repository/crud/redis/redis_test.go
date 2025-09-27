@@ -34,9 +34,7 @@ func TestRedis(t *testing.T) {
 		t.Attr("type", "unit")
 		t.Attr("package", "redis")
 		t.Attr("component", "link")
-		t.Attr("driver", "redis")
-	
-	ctx, cancel := context.WithCancel(context.Background())
+		t.Attr("driver", "redis"), cancel := context.WithCancel(t.Context())
 
 	st := db.Store{}
 

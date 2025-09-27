@@ -1,6 +1,7 @@
 package partmap
 
 import (
+	"context"
 	"strconv"
 	"sync"
 	"testing"
@@ -15,6 +16,7 @@ func BenchmarkStd(b *testing.B) {
 		b.Attr("package", "partmap")
 		b.Attr("component", "types")
 	
+
 	b.Run("set std concurrently", func(b *testing.B) {
 		m := make(map[string]int)
 		var wg sync.WaitGroup
@@ -36,6 +38,7 @@ func BenchmarkStd(b *testing.B) {
 		wg.Wait()
 	})
 }
+
 
 func BenchmarkSyncStd(b *testing.B) {
 	b.Attr("type", "unit")
@@ -62,6 +65,7 @@ func BenchmarkSyncStd(b *testing.B) {
 			}(i)
 		}
 		wg.Wait()
+
 	})
 }
 

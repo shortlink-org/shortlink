@@ -1,6 +1,7 @@
 package thunk
 
 import (
+	"context"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
@@ -15,6 +16,7 @@ func TestThunkFib(t *testing.T) {
 		t.Attr("package", "thunk")
 		t.Attr("component", "types")
 	
+
 	cache := make([]*Thunk[int], 41) //nolint:revive // it's test
 
 	fib := func(n int) int {

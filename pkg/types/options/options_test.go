@@ -1,6 +1,7 @@
 package options
 
 import (
+	"context"
 	"testing"
 )
 
@@ -13,6 +14,7 @@ func TestOption(t *testing.T) {
 		t.Attr("package", "options")
 		t.Attr("component", "types")
 	
+
 	o := New[string]()
 
 	val, err := o.Take()

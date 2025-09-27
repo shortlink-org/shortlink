@@ -1,6 +1,7 @@
 package ADR_0007
 
 import (
+	"context"
 	jsonv2 "encoding/json/v2"
 	"testing"
 
@@ -108,6 +109,7 @@ func TestUnmarshalRoundTrip(t *testing.T) {
 		t.Attr("package", "ADR-0007")
 		t.Attr("component", "unknown")
 	
+
 	data, err := jsonv2.Marshal(payload)
 	require.NoError(t, err)
 

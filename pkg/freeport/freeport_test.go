@@ -3,6 +3,7 @@
 package freeport
 
 import (
+	"context"
 	"net"
 	"os"
 	"strconv"
@@ -23,6 +24,7 @@ func TestGetFreePort(t *testing.T) {
 	t.Attr("package", "freeport")
 	t.Attr("component", "freeport")
 	
+
 	port, err := GetFreePort()
 	require.NoError(t, err)
 

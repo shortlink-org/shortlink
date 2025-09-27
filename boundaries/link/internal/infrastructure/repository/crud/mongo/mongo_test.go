@@ -40,9 +40,7 @@ func TestMongo(t *testing.T) {
 		t.Attr("type", "unit")
 		t.Attr("package", "mongo")
 		t.Attr("component", "link")
-		t.Attr("driver", "mongo")
-	
-	ctx, cancel := context.WithCancel(context.Background())
+		t.Attr("driver", "mongo"), cancel := context.WithCancel(t.Context())
 
 	st := &db.Store{}
 

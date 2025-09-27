@@ -56,7 +56,6 @@ func TestNewSaga(t *testing.T) {
 		const SAGA_STEP_D = "D"
 		const SAGA_STEP_E = "E"
 
-		ctx := context.Background()
 
 		// Example amount
 		wallet := &Wallet{
@@ -171,7 +170,6 @@ func TestNewSaga(t *testing.T) {
 		const SAGA_STEP_E = "E"
 		const SAGA_STEP_FAIL = "STEP_FAIL"
 
-		ctx := context.Background()
 
 		// Example amount
 		wallet := &Wallet{
@@ -296,7 +294,6 @@ func TestNewSaga(t *testing.T) {
 		const SAGA_STEP_A = "A"
 		const SAGA_STEP_B = "B"
 
-		ctx := context.Background()
 
 		wallet := &Wallet{
 			value: 0,

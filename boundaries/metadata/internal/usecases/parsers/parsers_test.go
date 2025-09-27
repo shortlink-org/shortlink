@@ -29,8 +29,7 @@ func TestSet(t *testing.T) {
 		t.Attr("type", "unit")
 		t.Attr("package", "parsers")
 		t.Attr("component", "metadata")
-	
-	ctx := context.Background()
+
 	url := "https://github.com/"
 
 	// Init logger

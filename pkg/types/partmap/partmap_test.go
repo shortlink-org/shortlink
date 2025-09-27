@@ -1,6 +1,7 @@
 package partmap
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"testing"
@@ -23,6 +24,7 @@ func TestPartitionedMapSetAndGet(t *testing.T) {
 		t.Attr("package", "partmap")
 		t.Attr("component", "types")
 	
+
 	m, err := New(&HashSumPartitioner{10}, 10)
 	if err != nil {
 		t.Fatalf("Failed to create PartitionedMap: %v", err)
@@ -45,6 +47,7 @@ func TestPartitionedMapSetAndGet(t *testing.T) {
 		t.Errorf("Expected value '%s', got '%s'", testValue, val)
 	}
 }
+
 
 func TestPartitionedMapDelete(t *testing.T) {
 	t.Attr("type", "unit")
@@ -77,6 +80,7 @@ func TestPartitionedMapDelete(t *testing.T) {
 	_, ok := m.Get(testKey)
 	if ok {
 		t.Errorf("Expected key '%s' to be deleted", testKey)
+
 	}
 }
 

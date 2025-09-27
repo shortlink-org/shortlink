@@ -30,6 +30,7 @@ func Test_WorkerPool(t *testing.T) {
 		t.Attr("package", "worker_pool")
 		t.Attr("component", "concurrency")
 	
+
 	wp := worker_pool.New(10)
 
 	f := func() (any, error) {
@@ -66,6 +67,7 @@ func Test_WorkerPool(t *testing.T) {
 
 // TestWorkerPoolWithSynctest validates worker pool task execution and result collection.
 // Tests that tasks are properly distributed across workers, executed concurrently,
+
 // and results are collected correctly without timing dependencies.
 func TestWorkerPoolWithSynctest(t *testing.T) {
 	t.Attr("type", "unit")
@@ -124,6 +126,7 @@ func TestWorkerPoolWithSynctest(t *testing.T) {
 		require.Len(t, results, numTasks)
 	})
 }
+
 
 // TestWorkerPoolSimpleWithSynctest validates basic worker functionality in isolation.
 // Tests single worker task execution with controlled timing to ensure tasks are

@@ -28,9 +28,7 @@ func TestAerospike(t *testing.T) {
 		t.Attr("type", "unit")
 		t.Attr("package", "aerospike")
 		t.Attr("component", "db")
-		t.Attr("driver", "aerospike")
-	
-	ctx, cancel := context.WithCancel(context.Background())
+		t.Attr("driver", "aerospike"), cancel := context.WithCancel(t.Context())
 	store := Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)

@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"context"
 	"net/url"
 	"testing"
 
@@ -17,6 +18,7 @@ func TestRaftBuilder(t *testing.T) {
 		t.Attr("package", "v1")
 		t.Attr("component", "raft")
 	
+
 	testCases := []struct {
 		name          string
 		id            uuid.UUID

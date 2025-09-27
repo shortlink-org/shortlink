@@ -32,9 +32,7 @@ func TestMinio(t *testing.T) {
 
 		t.Attr("type", "unit")
 		t.Attr("package", "s3")
-		t.Attr("component", "s3")
-	
-	ctx, cancel := context.WithCancel(context.Background())
+		t.Attr("component", "s3"), cancel := context.WithCancel(t.Context())
 
 	log, err := logger.New(logger.Zap, config.Configuration{})
 	require.NoError(t, err, "Error init a logger")

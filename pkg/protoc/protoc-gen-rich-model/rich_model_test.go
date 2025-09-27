@@ -3,6 +3,7 @@
 package main
 
 import (
+	"context"
 	"os"
 	"os/exec"
 	"path/filepath"
@@ -21,6 +22,7 @@ func TestGenerateRichModel(t *testing.T) {
 		t.Attr("package", "protoc-gen-rich-model")
 		t.Attr("component", "protoc")
 	
+
 	// Define the base directory for fixtures
 	baseFixturesDir := "fixtures"
 

@@ -24,9 +24,7 @@ func BenchmarkPostgresSerial(b *testing.B) {
 		b.Attr("type", "unit")
 		b.Attr("package", "postgres")
 		b.Attr("component", "link")
-		b.Attr("driver", "postgres")
-	
-	ctx, cancel := context.WithCancel(context.Background())
+		b.Attr("driver", "postgres"), cancel := context.WithCancel(t.Context())
 
 	st := &db.Store{}
 
@@ -126,9 +124,7 @@ func BenchmarkPostgresParallel(b *testing.B) {
 		b.Attr("type", "unit")
 		b.Attr("package", "postgres")
 		b.Attr("component", "link")
-		b.Attr("driver", "postgres")
-	
-	ctx, cancel := context.WithCancel(context.Background())
+		b.Attr("driver", "postgres"), cancel := context.WithCancel(t.Context())
 
 	st := &db.Store{}
 
