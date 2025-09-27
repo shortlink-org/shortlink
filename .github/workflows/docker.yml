@@ -11,11 +11,14 @@ concurrency:
 
 permissions:
   contents: read
+  packages: write
+  id-token: write
 
 jobs:
   Build-and-Push-Docker-Image:
     runs-on: ubuntu-latest
     name: Docker Build, Tag, Push
+    timeout-minutes: 30
 
     strategy:
       matrix:
@@ -40,7 +43,7 @@ jobs:
         id: meta
         uses: docker/metadata-action@c1e51972afc2121e065aed6d45c65596fe445f3f # v5.8.0
         with:
-          images: name/app
+          images: ghcr.io/${{ github.repository_owner }}/shortlink-${{ matrix.service }}
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@184bdaa0721073962dff0199f1fb9940f07167d1 # v3.5.0
@@ -50,20 +53,31 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push
+        id: build
         uses: docker/build-push-action@263435318d21b8e681c14492fe198d362a7d2c83 # v6.18.0
         with:
           context: .
           file: ops/dockerfile/go.Dockerfile
+          platforms: linux/amd64,linux/arm64
           build-args: |
             CMD_PATH=${{ format('./boundaries/{0}/cmd', matrix.service) }}
           push: true
-          tags: latest
+          tags: ${{ steps.meta.outputs.tags }}
           provenance: true
           sbom: true
           labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
       # sign container images
       - name: Install cosign
-        uses: sigstore/cosign-installer@d7543c93d881b35a8faa02e8e3605f69b7a1ce62 # v3.10.0
+        uses: sigstore/cosign-installer@dc72c7d5c4d10cd6bcb8cf6e3fd625a9e5e537da # v3.7.0
         with:
-          cosign-release: 'v1.13.1'
+          cosign-release: 'v2.4.1'
+      
+      - name: Sign container image
+        env:
+          DIGEST: ${{ steps.build.outputs.digest }}
+          TAGS: ${{ steps.meta.outputs.tags }}
+        run: |
+          echo "${TAGS}" | xargs -I {} cosign sign --yes {}@${DIGEST}
