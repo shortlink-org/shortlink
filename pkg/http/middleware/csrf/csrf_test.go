@@ -270,9 +270,9 @@ func TestConfigureTrustedOrigins(t *testing.T) {
 					req.Header.Set("Origin", expectedOrigin)
 					rr := httptest.NewRecorder()
 					protectedHandler.ServeHTTP(rr, req)
-					
+
 					// If the origin was properly configured, it should be allowed
-					assert.Equal(t, http.StatusOK, rr.Code, 
+					assert.Equal(t, http.StatusOK, rr.Code,
 						"Expected origin %s to be allowed", expectedOrigin)
 				}
 			}
@@ -318,7 +318,7 @@ func TestCustomEnvironmentVariable(t *testing.T) {
 	rr := httptest.NewRecorder()
 	protectedHandler.ServeHTTP(rr, req)
 
-	assert.Equal(t, http.StatusOK, rr.Code, 
+	assert.Equal(t, http.StatusOK, rr.Code,
 
 		"Should allow origin from custom environment variable")
 
@@ -352,7 +352,7 @@ func TestViperConfiguration(t *testing.T) {
 	rr := httptest.NewRecorder()
 	protectedHandler.ServeHTTP(rr, req)
 
-	assert.Equal(t, http.StatusOK, rr.Code, 
+	assert.Equal(t, http.StatusOK, rr.Code,
 		"Should allow origin configured via viper")
 
 	viper.Reset()

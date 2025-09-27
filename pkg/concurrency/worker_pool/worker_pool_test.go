@@ -73,7 +73,7 @@ func TestWorkerPoolWithSynctest(t *testing.T) {
 	synctest.Test(t, func(t *testing.T) {
 		const numWorkers = 3
 		const numTasks = 10
-		
+
 		wp := worker_pool.New(numWorkers)
 
 		var completedTasks int64
@@ -110,7 +110,7 @@ func TestWorkerPoolWithSynctest(t *testing.T) {
 		// Properly shutdown worker pool and cleanup resources
 		wp.Close()
 		close(wp.Result)
-		
+
 		// Ensure all worker goroutines have terminated
 		synctest.Wait()
 
@@ -131,7 +131,7 @@ func TestWorkerPoolSimpleWithSynctest(t *testing.T) {
 	synctest.Test(t, func(t *testing.T) {
 		// Test isolated worker functionality without complex pool management
 		var taskExecuted int64
-		
+
 		taskFunc := func() (any, error) {
 			// Simulate task processing time
 			time.Sleep(50 * time.Millisecond)

@@ -28,7 +28,7 @@ func TestPostgres(t *testing.T) {
 
 	ctx, cancel := context.WithCancel(t.Context())
 	defer cancel()
-	
+
 	store := Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)

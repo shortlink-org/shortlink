@@ -62,7 +62,7 @@ func TestBatchProcessingWithSynctest(t *testing.T) {
 
 	synctest.Test(t, func(t *testing.T) {, cancel := context.WithCancel(t.Context())
 		defer cancel()
-		
+
 		var processedItems []string
 		var callbackCount int64
 
@@ -114,7 +114,7 @@ func TestBatchProcessingWithSynctest(t *testing.T) {
 
 		// Cancel to clean up and wait for error channel to close
 		cancel()
-		
+
 		// Wait for error channel to close and check no errors occurred
 		var errors []error
 		for err := range errChan {
@@ -188,7 +188,7 @@ func TestBatchTimeBasedFlushWithSynctest(t *testing.T) {
 
 	synctest.Test(t, func(t *testing.T) {, cancel := context.WithCancel(t.Context())
 		defer cancel()
-		
+
 		var flushCount int64
 
 		aggrCB := func(items []*Item[string]) error {
@@ -205,7 +205,7 @@ func TestBatchTimeBasedFlushWithSynctest(t *testing.T) {
 
 		// Add items over multiple intervals
 		ch1 := batch.Push("item1")
-		
+
 		// Wait for first interval flush
 		synctest.Wait()
 		require.Equal(t, int64(1), atomic.LoadInt64(&flushCount))

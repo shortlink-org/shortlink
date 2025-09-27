@@ -57,36 +57,36 @@ func TestRateLimiterWithSynctest(t *testing.T) {
 
 	synctest.Test(t, func(t *testing.T) {, cancel := context.WithCancel(t.Context())
 		defer cancel()
-		
+
 		// Initialize rate limiter with 2 initial tokens, refilling every 100ms
 		rl, err := rate_limiter.New(ctx, 2, 100*time.Millisecond)
 		require.NoError(t, err)
-		
+
 		// Consume both available tokens - should succeed immediately
 		require.NoError(t, rl.Wait())
 		require.NoError(t, rl.Wait())
-		
+
 		// Third request should block waiting for token refill
 		done := make(chan error, 1)
 		go func() {
 			done <- rl.Wait()
 		}()
-		
+
 		// Verify the third request is blocked waiting for refill
 		synctest.Wait()
-		
+
 		// Confirm request is still blocking before refill occurs
 		select {
 		case <-done:
 			t.Fatal("request should be blocked waiting for token refill")
 		default:
 		}
-		
+
 		// Allow refill interval to pass and verify request completes
 		// synctest automatically advances time when all goroutines are blocked
 		err = <-done
 		require.NoError(t, err)
-		
+
 		// Cancel to clean up background goroutines
 		cancel()
 		synctest.Wait()
@@ -102,30 +102,30 @@ func TestRateLimiterCancellation(t *testing.T) {
 	t.Attr("component", "concurrency")
 
 	synctest.Test(t, func(t *testing.T) {, cancel := context.WithCancel(t.Context())
-		
+
 		// Create rate limiter with single token and long refill interval
 		rl, err := rate_limiter.New(ctx, 1, 1*time.Second)
 		require.NoError(t, err)
-		
+
 		// Consume the available token
 		require.NoError(t, rl.Wait())
-		
+
 		// Launch goroutine that will block waiting for token refill
 		done := make(chan error, 1)
 		go func() {
 			done <- rl.Wait()
 		}()
-		
+
 		// Verify the goroutine is blocked waiting for token
 		synctest.Wait()
-		
+
 		// Cancel context while request is blocked
 		cancel()
-		
+
 		// Verify blocked request returns appropriate cancellation error
 		err = <-done
 		require.Equal(t, rate_limiter.ErrRateLimiterCanceled, err)
-		
+
 		// Allow cleanup operations to complete
 		synctest.Wait()
 	})
