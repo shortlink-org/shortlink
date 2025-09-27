@@ -37,7 +37,7 @@ func TestKafka(t *testing.T) {
 	
 	mq := Kafka{}
 
-	log, err := logger.New(logger.Zap, config.Configuration{})
+	log, err := logger.New(logger.Zap, logger.Config{})
 	require.NoError(t, err, "Cannot create logger")
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)

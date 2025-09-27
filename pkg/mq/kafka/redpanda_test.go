@@ -23,10 +23,14 @@ func TestRedPanda(t *testing.T) {
 
 	// Set configuration
 	viper.SetDefault("SERVICE_NAME", "shortlink")
-	t.Setenv("MQ_KAFKA_SARAMA_VERSION", "DEFAULT"), cancel := context.WithCancel(t.Context())
+	t.Setenv("MQ_KAFKA_SARAMA_VERSION", "DEFAULT")
+	
+	ctx, cancel := context.WithCancel(t.Context())
+	defer cancel()
+	
 	mq := Kafka{}
 
-	log, err := logger.New(logger.Zap, config.Configuration{})
+	log, err := logger.New(logger.Zap, logger.Config{})
 	require.NoError(t, err, "Cannot create logger")
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)

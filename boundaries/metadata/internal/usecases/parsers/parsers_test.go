@@ -27,10 +27,10 @@ func TestSet(t *testing.T) {
 	t.Attr("component", "metadata")
 
 	url := "https://github.com/"
+	ctx := t.Context()
 
 	// Init logger
-	conf := config.Configuration{}
-	log, err := logger.New(logger.Zap, conf)
+	log, err := logger.New(logger.Zap, logger.Config{})
 	require.NoError(t, err, "Error init a logger")
 
 	// Create store
