@@ -3,11 +3,10 @@
 package main_test
 
 import (
+	"os"
 	"os/exec"
 	"strings"
 	"testing"
-
-	"github.com/shortlink-org/shortlink/pkg/fsroot"
 )
 
 func TestMongoORMGeneration(t *testing.T) {
@@ -27,15 +26,15 @@ func TestMongoORMGeneration(t *testing.T) {
 		t.Fatalf("protoc failed: %s, %v", string(output), err)
 	}
 
-	// Create SafeFS rooted at the output directory to safely read generated files
-	fs, err := fsroot.NewSafeFS("./output")
+	// Use os.OpenRoot to restrict file access to the output directory
+	root, err := os.OpenRoot("./output")
 	if err != nil {
-		t.Fatalf("Failed to create SafeFS for output directory: %v", err)
+		t.Fatalf("Failed to open root for output directory: %v", err)
 	}
-	defer fs.Close()
+	defer root.Close()
 
 	// Check if the output file exists and contains MongoDB-specific ORM code
-	data, err := fs.ReadFile("link.mongo.orm.go")
+	data, err := root.ReadFile("link.mongo.orm.go")
 	if err != nil {
 		t.Fatalf("Failed to read generated file: %v", err)
 	}

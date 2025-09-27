@@ -17,7 +17,6 @@ import (
 	"go.uber.org/goleak"
 
 	"github.com/shortlink-org/go-sdk/logger"
-	"github.com/shortlink-org/shortlink/pkg/fsroot"
 )
 
 func TestMain(m *testing.M) {
@@ -86,15 +85,15 @@ func TestMinio(t *testing.T) {
 			t.Fatalf("Could not purge resource: %s", err)
 		}
 
-		// Create SafeFS for fixture directory and safely remove downloaded file
-		fs, err := fsroot.NewSafeFS("./fixtures")
+		// Use os.OpenRoot to restrict file access to fixture directory and safely remove downloaded file
+		root, err := os.OpenRoot("./fixtures")
 		if err != nil {
 			t.Fatal(err)
 		}
-		defer fs.Close()
+		defer root.Close()
 
 		// drop downloaded file
-		err = fs.Remove("download.json")
+		err = root.Remove("download.json")
 		if err != nil {
 			t.Fatal(err)
 		}
@@ -106,15 +105,15 @@ func TestMinio(t *testing.T) {
 			t.Fatal(err)
 		}
 
-		// Create SafeFS for fixture directory and safely read test file
-		fs, err := fsroot.NewSafeFS("./fixtures")
+		// Use os.OpenRoot to restrict file access to fixture directory and safely read test file
+		root, err := os.OpenRoot("./fixtures")
 		if err != nil {
 			t.Fatal(err)
 		}
-		defer fs.Close()
+		defer root.Close()
 
 		// read file
-		file, err := fs.Open("test.json")
+		file, err := root.Open("test.json")
 		if err != nil {
 			t.Fatal(err)
 		}

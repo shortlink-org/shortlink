@@ -2,7 +2,6 @@ package main
 
 import (
 	"os"
-	"path/filepath"
 
 	"github.com/google/cel-go/cel"
 	"github.com/google/cel-go/checker/decls"

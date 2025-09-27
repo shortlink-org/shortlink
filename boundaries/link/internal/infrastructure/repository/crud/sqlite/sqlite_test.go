@@ -14,7 +14,6 @@ import (
 
 	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/mock"
 	db "github.com/shortlink-org/shortlink/pkg/db/drivers/sqlite"
-	"github.com/shortlink-org/shortlink/pkg/fsroot"
 )
 
 func TestMain(m *testing.M) {
@@ -63,13 +62,12 @@ func TestSQLite(t *testing.T) {
 	})
 
 	t.Run("Close", func(t *testing.T) {
-		// Use SafeFS to safely remove the SQLite database file
-		dbPath := viper.GetString("STORE_SQLITE_PATH")
-		fs, err := fsroot.NewSafeFS("/tmp")
+		// Use os.OpenRoot to safely remove the SQLite database file
+		root, err := os.OpenRoot("/tmp")
 		require.NoError(t, err)
-		defer fs.Close()
+		defer root.Close()
 
-		errDeleteFile := fs.Remove("links-test.sqlite")
+		errDeleteFile := root.Remove("links-test.sqlite")
 		require.NoError(t, errDeleteFile)
 	})
 
