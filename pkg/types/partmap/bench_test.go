@@ -16,14 +16,12 @@ func BenchmarkStd(b *testing.B) {
 		b.ReportAllocs()
 
 		for i := range b.N {
-			wg.Add(1)
-			go func(i int) {
+			wg.Go(func() {
 				key := strconv.Itoa(i)
 				mu.Lock()
 				m[key] = i
 				mu.Unlock()
-				wg.Done()
-			}(i)
+			})
 		}
 		wg.Wait()
 	})
@@ -38,12 +36,10 @@ func BenchmarkSyncStd(b *testing.B) {
 		b.ReportAllocs()
 
 		for i := range b.N {
-			wg.Add(1)
-			go func(i int) {
+			wg.Go(func() {
 				key := strconv.Itoa(i)
 				m.Store(key, i)
-				wg.Done()
-			}(i)
+			})
 		}
 		wg.Wait()
 	})
@@ -62,14 +58,12 @@ func BenchmarkPartitioned(b *testing.B) {
 		b.ReportAllocs()
 
 		for i := range b.N {
-			wg.Add(1)
-			go func(i int) {
+			wg.Go(func() {
 				key := strconv.Itoa(i)
 				if err := m.Set(key, i); err != nil {
 					b.Errorf("Failed to set value in PartMap: %v", err)
 				}
-				wg.Done()
-			}(i)
+			})
 		}
 		wg.Wait()
 	})

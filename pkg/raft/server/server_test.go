@@ -60,33 +60,25 @@ func Test_Raft(t *testing.T) {
 
 	// Step 2. We wait for the election process to complete =====================
 	wg := sync.WaitGroup{}
-	wg.Add(1)
 
-	for {
-		if node1.GetStatus() == v1.RaftStatus_RAFT_STATUS_LEADER {
-			log.InfoWithContext(ctx, "Node 1 is the leader")
+	wg.Go(func() {
+		for {
+			if node1.GetStatus() == v1.RaftStatus_RAFT_STATUS_LEADER {
+				log.InfoWithContext(ctx, "Node 1 is the leader")
+				break
+			}
 
-			wg.Done()
+			if node2.GetStatus() == v1.RaftStatus_RAFT_STATUS_LEADER {
+				log.InfoWithContext(ctx, "Node 2 is the leader")
+				break
+			}
 
-			break
+			if node3.GetStatus() == v1.RaftStatus_RAFT_STATUS_LEADER {
+				log.InfoWithContext(ctx, "Node 3 is the leader")
+				break
+			}
 		}
-
-		if node2.GetStatus() == v1.RaftStatus_RAFT_STATUS_LEADER {
-			log.InfoWithContext(ctx, "Node 2 is the leader")
-
-			wg.Done()
-
-			break
-		}
-
-		if node3.GetStatus() == v1.RaftStatus_RAFT_STATUS_LEADER {
-			log.InfoWithContext(ctx, "Node 3 is the leader")
-
-			wg.Done()
-
-			break
-		}
-	}
+	})
 
 	wg.Wait()
 }
