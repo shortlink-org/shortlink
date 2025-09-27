@@ -30,7 +30,11 @@ func TestKafka(t *testing.T) {
 	t.Attr("package", "kafka")
 	t.Attr("component", "mq")
 
-	viper.SetDefault("SERVICE_NAME", "shortlink"), cancel := context.WithCancel(t.Context())
+	viper.SetDefault("SERVICE_NAME", "shortlink")
+	
+	ctx, cancel := context.WithCancel(t.Context())
+	defer cancel()
+	
 	mq := Kafka{}
 
 	log, err := logger.New(logger.Zap, config.Configuration{})
