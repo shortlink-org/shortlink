@@ -38,11 +38,18 @@ func (api *Server) run(config Config) error {
 
 	r := chi.NewRouter()
 
-	// CORS
+	// CORS configuration with CSRF support
 	cors := cors2.New(cors2.Options{
-		AllowedOrigins:   []string{"*"},
-		AllowedMethods:   []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		AllowedOrigins: []string{"*"},
+		// HTTP methods: Added PUT and PATCH to support RESTful API operations
+		// These methods are commonly used for updating resources (PUT for full updates, PATCH for partial updates)
+		// Along with standard methods: GET (read), POST (create), DELETE (remove), OPTIONS (preflight)
+		AllowedMethods: []string{"GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"},
+		// Headers: Include CSRF token headers and common request headers
+		// X-CSRF-Token: Required for CSRF protection token validation
+		// X-Requested-With: Standard header for AJAX requests, helps identify the request type
 		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token", "X-Requested-With"},
+		// Expose CSRF token header so clients can read it for subsequent requests
 		ExposedHeaders:   []string{"X-CSRF-Token"},
 		AllowCredentials: true,
 		MaxAge:           MAX_AGE,
