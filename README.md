@@ -45,6 +45,72 @@ made along with its context and consequences.
 >
 > Also, each boundary context and service has its own ADR. You can find them in the relevant sections.
 
+### Core Packages
+
+The ShortLink project provides a comprehensive set of reusable packages that implement modern software engineering practices and clean architecture principles.
+
+#### Observability Package (`pkg/observability`)
+
+Advanced observability capabilities with comprehensive tracing, metrics, and logging support:
+
+- **Enhanced Tracing with FlightRecorder**: Implements Go 1.25 `trace.FlightRecorder` for "perfect tracing"
+  - **Domain Layer**: Core business logic and interfaces (`pkg/observability/traicing/domain/`)
+    - `recorder.go` - Core recorder interfaces and value objects
+    - `errors.go` - Domain-specific error definitions
+  - **Application Layer**: Use cases and service orchestration (`pkg/observability/traicing/application/`)
+    - `service.go` - High-level recorder operations and business workflows
+  - **Infrastructure Layer**: External integrations and implementations (`pkg/observability/traicing/infrastructure/`)
+    - `recorder.go` - Go 1.25 FlightRecorder adapter
+    - `repository.go` - File system and storage implementations
+    - `events.go` - Logging and monitoring event handlers
+  - **Factory Pattern**: Dependency injection and component wiring (`pkg/observability/traicing/factory.go`)
+
+**Key Features:**
+- **Clean Architecture**: Follows hexagonal architecture with clear separation of concerns
+- **Perfect Tracing**: Continuous, low-overhead tracing with configurable rolling buffer (default: 1 minute, 3MB)
+- **Professional Error Handling**: Comprehensive error types and validation
+- **Thread-Safe Operations**: Mutex-protected operations with proper resource management
+- **Multiple Storage Backends**: Filesystem and in-memory storage implementations
+- **Event-Driven Architecture**: Composite event handling for logging, metrics, and monitoring
+- **Dependency Injection**: Factory pattern for clean component assembly
+
+**Configuration Options:**
+```bash
+FLIGHT_RECORDER_ENABLED=true     # Enable/disable flight recorder
+FLIGHT_RECORDER_MIN_AGE=1m       # Minimum trace data retention
+FLIGHT_RECORDER_MAX_BYTES=3145728 # Maximum buffer size (3MB)
+```
+
+**Usage Example:**
+```go
+// Create factory with configuration
+config := traicing.DefaultFactoryConfig(logger)
+factory, err := traicing.NewFactory(config)
+
+// Create service with all dependencies wired
+service, err := factory.CreateRecorderService()
+
+// Start recording
+err = service.StartRecording(ctx)
+
+// Capture trace on significant events
+traceID, err := service.CaptureTrace(ctx, "error_occurred")
+```
+
+For detailed implementation documentation, see [`FLIGHT_RECORDER_IMPLEMENTATION.md`](./FLIGHT_RECORDER_IMPLEMENTATION.md).
+
+#### Additional Packages
+
+- **Database (`pkg/db`)**: Multi-database support with connection pooling and health checks
+- **Dependency Injection (`pkg/di`)**: Structured dependency injection with lifecycle management
+- **HTTP Utilities (`pkg/http`)**: Middleware, routing, and server utilities
+- **Concurrency (`pkg/concurrency`)**: Advanced concurrency patterns and utilities
+- **Caching (`pkg/cache`)**: Multi-backend caching with TTL and eviction policies
+- **Message Queue (`pkg/mq`)**: Multi-provider message queue abstractions
+- **Pattern Implementations (`pkg/pattern`)**: Common software patterns (CQRS, Event Sourcing, etc.)
+
+Each package follows clean architecture principles with proper separation of concerns, comprehensive testing, and professional documentation.
+
 ### License
 
 > [!WARNING]
