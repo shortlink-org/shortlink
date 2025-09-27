@@ -21,6 +21,7 @@ var (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m)
 
 	os.Exit(m.Run())
@@ -43,10 +44,6 @@ func TestSubscribe(t *testing.T) {
 	t.Attr("package", "notify")
 	t.Attr("component", "notify")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "notify")
-		t.Attr("component", "notify")
-	
 	sub := mockSubscriber[any]{}
 
 	// Subscribe to Event
@@ -60,10 +57,6 @@ func TestUnsubscribe(t *testing.T) {
 	t.Attr("package", "notify")
 	t.Attr("component", "notify")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "notify")
-		t.Attr("component", "notify")
-	
 	sub := mockSubscriber[any]{}
 
 	// Subscribe to Event
@@ -82,10 +75,6 @@ func TestPublish(t *testing.T) {
 	t.Attr("type", "unit")
 	t.Attr("package", "notify")
 	t.Attr("component", "notify")
-
-		t.Attr("type", "unit")
-		t.Attr("package", "notify")
-		t.Attr("component", "notify")
 
 	sub := mockSubscriber[any]{}
 
@@ -124,10 +113,6 @@ func TestClean(t *testing.T) {
 	t.Attr("package", "notify")
 	t.Attr("component", "notify")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "notify")
-		t.Attr("component", "notify")
-	
 	sub := mockSubscriber[any]{}
 
 	// Subscribe to Event

@@ -13,6 +13,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m)
 
 	os.Exit(m.Run())
@@ -22,7 +23,6 @@ func TestNewURL(t *testing.T) {
 	t.Attr("type", "unit")
 	t.Attr("package", "v1")
 	t.Attr("component", "link")
-	
 
 	source := "http://test.com"
 

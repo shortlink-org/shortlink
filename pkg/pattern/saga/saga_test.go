@@ -23,6 +23,7 @@ type Wallet struct {
 }
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m)
 
 	os.Exit(m.Run())
@@ -33,10 +34,6 @@ func TestNewSaga(t *testing.T) {
 	t.Attr("package", "saga")
 	t.Attr("component", "pattern")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "saga")
-		t.Attr("component", "pattern")
-	
 	// Init logger
 	conf := config.Configuration{
 		Level: config.DEBUG_LEVEL,

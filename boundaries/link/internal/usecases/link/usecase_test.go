@@ -34,14 +34,14 @@ package link
 // 	}
 //
 // 	t.Run("Add", func(t *testing.T) {
-		t.Attr("type", "unit")
-		t.Attr("package", "link")
-		t.Attr("component", "link")
+	t.Attr("type", "unit")
+	t.Attr("package", "link")
+	t.Attr("component", "link")
 
 // 		t.Run("Success", func(t *testing.T) {
-			t.Attr("type", "unit")
-			t.Attr("package", "link")
-			t.Attr("component", "link")
+	t.Attr("type", "unit")
+	t.Attr("package", "link")
+	t.Attr("component", "link")
 
 // 			mockRepository.On("Add", mock.Anything, mock.Anything).Return(&v1.Link{}, nil).Once()
 // 			mockMQ.On("Publish", mock.Anything, mock.Anything, mock.Anything, mock.Anything).Return(nil).Once()
@@ -54,14 +54,14 @@ package link
 // 	})
 //
 // 	t.Run("Get", func(t *testing.T) {
-		t.Attr("type", "unit")
-		t.Attr("package", "link")
-		t.Attr("component", "link")
+	t.Attr("type", "unit")
+	t.Attr("package", "link")
+	t.Attr("component", "link")
 
 // 		t.Run("Success", func(t *testing.T) {
-			t.Attr("type", "unit")
-			t.Attr("package", "link")
-			t.Attr("component", "link")
+	t.Attr("type", "unit")
+	t.Attr("package", "link")
+	t.Attr("component", "link")
 
 // 			mockRepository.On("Get", mock.Anything, mock.Anything).Return(&v1.Link{}, nil).Once()
 // 			mockPermissionsServiceClient.On("CheckPermission", mock.Anything, mock.Anything).Return(&permission.CheckPermissionResponse{}, nil).Once()
@@ -71,9 +71,9 @@ package link
 // 		})
 //
 // 		t.Run("Permission Denied", func(t *testing.T) {
-			t.Attr("type", "unit")
-			t.Attr("package", "link")
-			t.Attr("component", "link")
+	t.Attr("type", "unit")
+	t.Attr("package", "link")
+	t.Attr("component", "link")
 
 // 			mockPermissionsServiceClient.On("CheckPermission", mock.Anything, mock.Anything).Return(nil, errors.New("permission denied")).Once()
 //
@@ -82,9 +82,9 @@ package link
 // 		})
 //
 // 		t.Run("Link Not Found", func(t *testing.T) {
-			t.Attr("type", "unit")
-			t.Attr("package", "link")
-			t.Attr("component", "link")
+	t.Attr("type", "unit")
+	t.Attr("package", "link")
+	t.Attr("component", "link")
 
 // 			mockRepository.On("Get", mock.Anything, mock.Anything).Return(nil, errors.New("not found")).Once()
 // 			mockPermissionsServiceClient.On("CheckPermission", mock.Anything, mock.Anything).Return(&permission.CheckPermissionResponse{}, nil).Once()
@@ -95,14 +95,14 @@ package link
 // 	})
 //
 // 	t.Run("List", func(t *testing.T) {
-		t.Attr("type", "unit")
-		t.Attr("package", "link")
-		t.Attr("component", "link")
+	t.Attr("type", "unit")
+	t.Attr("package", "link")
+	t.Attr("component", "link")
 
 // 		t.Run("Success", func(t *testing.T) {
-			t.Attr("type", "unit")
-			t.Attr("package", "link")
-			t.Attr("component", "link")
+	t.Attr("type", "unit")
+	t.Attr("package", "link")
+	t.Attr("component", "link")
 
 // 			mockPermissionsService_LookupResourcesClient := new(mockPermission.MockPermissionsService_LookupResourcesClient)
 // 			mockPermissionsService_LookupResourcesClient.On("Recv").Return(&permission.LookupResourcesResponse{}, nil).Times(2)
@@ -120,9 +120,9 @@ package link
 // 		})
 //
 // 		t.Run("Permission Denied", func(t *testing.T) {
-			t.Attr("type", "unit")
-			t.Attr("package", "link")
-			t.Attr("component", "link")
+	t.Attr("type", "unit")
+	t.Attr("package", "link")
+	t.Attr("component", "link")
 
 // 			mockPermissionsServiceClient.On("LookupResources", mock.Anything, mock.Anything).Return(nil, errors.New("permission denied")).Once()
 //
@@ -132,14 +132,14 @@ package link
 // 	})
 //
 // 	t.Run("Delete", func(t *testing.T) {
-		t.Attr("type", "unit")
-		t.Attr("package", "link")
-		t.Attr("component", "link")
+	t.Attr("type", "unit")
+	t.Attr("package", "link")
+	t.Attr("component", "link")
 
 // 		t.Run("Success", func(t *testing.T) {
-			t.Attr("type", "unit")
-			t.Attr("package", "link")
-			t.Attr("component", "link")
+	t.Attr("type", "unit")
+	t.Attr("package", "link")
+	t.Attr("component", "link")
 
 // 			mockRepository.On("Delete", mock.Anything, mock.Anything).Return(nil).Once()
 // 			mockPermissionsServiceClient.On("DeleteRelationships", mock.Anything, mock.Anything).Return(&permission.DeleteRelationshipsResponse{}, nil).Once()
@@ -149,9 +149,9 @@ package link
 // 		})
 //
 // 		t.Run("Permission Denied", func(t *testing.T) {
-			t.Attr("type", "unit")
-			t.Attr("package", "link")
-			t.Attr("component", "link")
+	t.Attr("type", "unit")
+	t.Attr("package", "link")
+	t.Attr("component", "link")
 
 // 			mockPermissionsServiceClient.On("DeleteRelationships", mock.Anything, mock.Anything).Return(nil, errors.New("permission denied")).Once()
 //
@@ -161,15 +161,15 @@ package link
 // 	})
 //
 // 	t.Run("Update", func(t *testing.T) {
-		t.Attr("type", "unit")
-		t.Attr("package", "link")
-		t.Attr("component", "link")
+	t.Attr("type", "unit")
+	t.Attr("package", "link")
+	t.Attr("component", "link")
 
 // 		// Assuming you implement the Update method in your service
 // 		t.Run("Success", func(t *testing.T) {
-			t.Attr("type", "unit")
-			t.Attr("package", "link")
-			t.Attr("component", "link")
+	t.Attr("type", "unit")
+	t.Attr("package", "link")
+	t.Attr("component", "link")
 
 // 			mockRepository.On("Update", mock.Anything, mock.Anything).Return(&v1.Link{}, nil).Once()
 //

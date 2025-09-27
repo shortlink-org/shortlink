@@ -11,10 +11,6 @@ func TestUnique(t *testing.T) {
 	t.Attr("package", "vector")
 	t.Attr("component", "types")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "vector")
-		t.Attr("component", "types")
-	
 	tests := []struct {
 		slice    []int
 		expected []int

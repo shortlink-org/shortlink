@@ -14,11 +14,6 @@ func TestSpanMiddleware(t *testing.T) {
 	t.Attr("package", "span")
 	t.Attr("component", "http")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "span")
-		t.Attr("component", "http")
-	
-
 	// Test handler that does nothing
 	testHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {})
 

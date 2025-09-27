@@ -18,6 +18,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"),
 		goleak.IgnoreTopFunction("github.com/go-sql-driver/mysql.(*mysqlConn).startWatcher.func1"))
 
@@ -29,11 +30,6 @@ func TestMysql(t *testing.T) {
 	t.Attr("package", "mysql")
 	t.Attr("component", "link")
 	t.Attr("driver", "mysql")
-
-		t.Attr("type", "unit")
-		t.Attr("package", "mysql")
-		t.Attr("component", "link")
-		t.Attr("driver", "mysql"), cancel := context.WithCancel(t.Context())
 
 	st := &db.Store{}
 

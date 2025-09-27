@@ -16,11 +16,6 @@ func TestMiddleware(t *testing.T) {
 	t.Attr("package", "csrf")
 	t.Attr("component", "http")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "csrf")
-		t.Attr("component", "http")
-	
-
 	tests := []struct {
 		name           string
 		envVar         string
@@ -127,10 +122,6 @@ func TestNew(t *testing.T) {
 	t.Attr("package", "csrf")
 	t.Attr("component", "http")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "csrf")
-		t.Attr("component", "http")
-	
 	tests := []struct {
 		name           string
 		config         Config
@@ -212,10 +203,6 @@ func TestConfigureTrustedOrigins(t *testing.T) {
 	t.Attr("package", "csrf")
 	t.Attr("component", "http")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "csrf")
-		t.Attr("component", "http")
-	
 	tests := []struct {
 		name     string
 		envVar   string
@@ -302,10 +289,6 @@ func TestCustomEnvironmentVariable(t *testing.T) {
 	t.Attr("package", "csrf")
 	t.Attr("component", "http")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "csrf")
-		t.Attr("component", "http")
-	
 	// Test using a custom environment variable name
 	customEnvVar := "MY_TRUSTED_ORIGINS"
 	customValue := "https://shortlink.best,https://api.shortlink.best"
@@ -349,10 +332,6 @@ func TestViperConfiguration(t *testing.T) {
 	t.Attr("package", "csrf")
 	t.Attr("component", "http")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "csrf")
-		t.Attr("component", "http")
-	
 	// Test configuration via viper instead of environment variable
 	viper.Reset()
 	viper.Set("CSRF_TRUSTED_ORIGINS", "https://shortlink.best,https://api.shortlink.best")
@@ -381,14 +360,10 @@ func TestViperConfiguration(t *testing.T) {
 
 // Benchmark tests
 func BenchmarkMiddleware(b *testing.B) {
-	b.Attr("type", "unit")
+	b.Attr("type", "benchmark")
 	b.Attr("package", "csrf")
 	b.Attr("component", "http")
 
-		b.Attr("type", "unit")
-		b.Attr("package", "csrf")
-		b.Attr("component", "http")
-	
 	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 	})
@@ -407,14 +382,10 @@ func BenchmarkMiddleware(b *testing.B) {
 }
 
 func BenchmarkMiddlewareWithOrigin(b *testing.B) {
-	b.Attr("type", "unit")
+	b.Attr("type", "benchmark")
 	b.Attr("package", "csrf")
 	b.Attr("component", "http")
 
-		b.Attr("type", "unit")
-		b.Attr("package", "csrf")
-		b.Attr("component", "http")
-	
 	os.Setenv("CSRF_TRUSTED_ORIGINS", "https://shortlink.best")
 	defer os.Unsetenv("CSRF_TRUSTED_ORIGINS")
 

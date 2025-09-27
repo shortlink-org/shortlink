@@ -12,6 +12,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"))
 
 	os.Exit(m.Run())
@@ -23,10 +24,6 @@ func TestBadger(t *testing.T) {
 	t.Attr("component", "db")
 	t.Attr("driver", "badger")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "badger")
-		t.Attr("component", "db")
-		t.Attr("driver", "badger"), cancel := context.WithCancel(t.Context())
 	store := Store{}
 
 	err := store.Init(ctx)

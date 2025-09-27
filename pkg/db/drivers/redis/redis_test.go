@@ -16,6 +16,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m)
 
 	os.Exit(m.Run())
@@ -27,10 +28,6 @@ func TestRedis(t *testing.T) {
 	t.Attr("component", "db")
 	t.Attr("driver", "redis")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "redis")
-		t.Attr("component", "db")
-		t.Attr("driver", "redis"), cancel := context.WithCancel(t.Context())
 	store := Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)

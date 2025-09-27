@@ -18,11 +18,6 @@ func Test_Raft(t *testing.T) {
 	t.Attr("package", "server")
 	t.Attr("component", "raft")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "server")
-		t.Attr("component", "raft")
-	
-
 	// Init logger
 	conf := config.Configuration{
 		Level: config.INFO_LEVEL,

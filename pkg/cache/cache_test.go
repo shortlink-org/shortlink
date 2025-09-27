@@ -21,11 +21,6 @@ func TestCache(t *testing.T) {
 	t.Attr("package", "cache")
 	t.Attr("component", "cache")
 
-	t.Attr("type", "integration")
-	t.Attr("package", "cache")
-	t.Attr("component", "cache")
-	t.Attr("driver", "redis")
-	
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
 	pool, err := dockertest.NewPool("")
 	require.NoError(t, err, "Could not connect to docker")
@@ -69,12 +64,6 @@ func TestCache(t *testing.T) {
 		t.Attr("type", "unit")
 		t.Attr("package", "cache")
 		t.Attr("component", "cache")
-
-		t.Attr("type", "integration")
-		t.Attr("package", "cache")
-		t.Attr("component", "cache")
-		t.Attr("driver", "redis")
-		t.Attr("operation", "set-get")
 
 		ctx := t.Context()
 		c, err := cache.New(ctx)

@@ -19,6 +19,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m)
 
 	os.Exit(m.Run())
@@ -30,10 +31,6 @@ func TestRAM(t *testing.T) {
 	t.Attr("component", "link")
 	t.Attr("driver", "ram")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "ram")
-		t.Attr("component", "link")
-		t.Attr("driver", "ram"), cancel := context.WithCancel(t.Context())
 	defer cancel()
 
 	store, err := New(ctx)

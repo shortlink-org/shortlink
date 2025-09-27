@@ -17,11 +17,6 @@ func TestGracefulShutdown(t *testing.T) {
 	t.Attr("package", "graceful_shutdown")
 	t.Attr("component", "graceful_shutdown")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "graceful_shutdown")
-		t.Attr("component", "graceful_shutdown")
-	
-
 	go func() {
 		time.Sleep(time.Second) // wait for GracefulShutdown to start listening for signals
 

@@ -19,6 +19,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("github.com/rcrowley/go-metrics.(*meterArbiter).tick"))
 
 	os.Exit(m.Run())
@@ -29,10 +30,6 @@ func TestKafka(t *testing.T) {
 	t.Attr("package", "kafka")
 	t.Attr("component", "mq")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "kafka")
-		t.Attr("component", "mq")
-	
 	viper.SetDefault("SERVICE_NAME", "shortlink"), cancel := context.WithCancel(t.Context())
 	mq := Kafka{}
 

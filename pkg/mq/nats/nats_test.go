@@ -16,6 +16,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m)
 
 	os.Exit(m.Run())
@@ -26,9 +27,6 @@ func TestNATS(t *testing.T) {
 	t.Attr("package", "nats")
 	t.Attr("component", "mq")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "nats")
-		t.Attr("component", "mq"), cancel := context.WithCancel(t.Context())
 	mq := New()
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)

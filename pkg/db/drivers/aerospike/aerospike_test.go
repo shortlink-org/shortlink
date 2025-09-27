@@ -14,6 +14,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m)
 
 	os.Exit(m.Run())
@@ -25,10 +26,6 @@ func TestAerospike(t *testing.T) {
 	t.Attr("component", "db")
 	t.Attr("driver", "aerospike")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "aerospike")
-		t.Attr("component", "db")
-		t.Attr("driver", "aerospike"), cancel := context.WithCancel(t.Context())
 	store := Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)

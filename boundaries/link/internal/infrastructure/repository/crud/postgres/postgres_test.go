@@ -22,6 +22,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	// TODO: research how correct close store
 	// pgxpool: https://github.com/jackc/pgx/pull/1642
 	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("database/sql.(*DB).connectionOpener"),
@@ -38,11 +39,6 @@ func TestPostgres(t *testing.T) {
 	t.Attr("package", "postgres")
 	t.Attr("component", "link")
 	t.Attr("driver", "postgres")
-
-		t.Attr("type", "unit")
-		t.Attr("package", "postgres")
-		t.Attr("component", "link")
-		t.Attr("driver", "postgres"), cancel := context.WithCancel(t.Context())
 
 	st := &db.Store{}
 

@@ -12,11 +12,6 @@ func TestThunkFib(t *testing.T) {
 	t.Attr("package", "thunk")
 	t.Attr("component", "types")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "thunk")
-		t.Attr("component", "types")
-	
-
 	cache := make([]*Thunk[int], 41) //nolint:revive // it's test
 
 	fib := func(n int) int {
@@ -40,10 +35,6 @@ func TestMemoizedFib(t *testing.T) {
 	t.Attr("package", "thunk")
 	t.Attr("component", "types")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "thunk")
-		t.Attr("component", "types")
-	
 	mem := map[int]int{
 		0: 0,
 		1: 1,

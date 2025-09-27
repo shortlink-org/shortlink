@@ -15,6 +15,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m)
 
 	os.Exit(m.Run())
@@ -26,10 +27,6 @@ func TestETCD(t *testing.T) {
 	t.Attr("component", "db")
 	t.Attr("driver", "etcd")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "etcd")
-		t.Attr("component", "db")
-		t.Attr("driver", "etcd"), cancel := context.WithCancel(t.Context())
 	store := Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)

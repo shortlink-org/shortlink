@@ -20,6 +20,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"))
 
 	os.Exit(m.Run())
@@ -30,11 +31,6 @@ func TestRedis(t *testing.T) {
 	t.Attr("package", "redis")
 	t.Attr("component", "link")
 	t.Attr("driver", "redis")
-
-		t.Attr("type", "unit")
-		t.Attr("package", "redis")
-		t.Attr("component", "link")
-		t.Attr("driver", "redis"), cancel := context.WithCancel(t.Context())
 
 	st := db.Store{}
 

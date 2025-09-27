@@ -16,11 +16,6 @@ func TestRAM(t *testing.T) {
 	t.Attr("component", "metadata")
 	t.Attr("driver", "ram")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "ram")
-		t.Attr("component", "metadata")
-		t.Attr("driver", "ram")
-	
 	// InitStore
 	store := Store{}
 

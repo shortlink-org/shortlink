@@ -10,6 +10,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m)
 
 	os.Exit(m.Run())
@@ -19,11 +20,6 @@ func TestPartitionedMapSetAndGet(t *testing.T) {
 	t.Attr("type", "unit")
 	t.Attr("package", "partmap")
 	t.Attr("component", "types")
-
-		t.Attr("type", "unit")
-		t.Attr("package", "partmap")
-		t.Attr("component", "types")
-	
 
 	m, err := New(&HashSumPartitioner{10}, 10)
 	if err != nil {
@@ -54,10 +50,6 @@ func TestPartitionedMapDelete(t *testing.T) {
 	t.Attr("package", "partmap")
 	t.Attr("component", "types")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "partmap")
-		t.Attr("component", "types")
-	
 	m, err := New(&HashSumPartitioner{10}, 10)
 	if err != nil {
 		t.Fatalf("Failed to create PartitionedMap: %v", err)
@@ -89,10 +81,6 @@ func TestPartitionedMapLen(t *testing.T) {
 	t.Attr("package", "partmap")
 	t.Attr("component", "types")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "partmap")
-		t.Attr("component", "types")
-	
 	m, err := New(&HashSumPartitioner{10}, 10)
 	if err != nil {
 		t.Fatalf("Failed to create PartitionedMap: %v", err)

@@ -21,10 +21,6 @@ func TestRedPanda(t *testing.T) {
 	t.Attr("package", "kafka")
 	t.Attr("component", "mq")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "kafka")
-		t.Attr("component", "mq")
-	
 	// Set configuration
 	viper.SetDefault("SERVICE_NAME", "shortlink")
 	t.Setenv("MQ_KAFKA_SARAMA_VERSION", "DEFAULT"), cancel := context.WithCancel(t.Context())

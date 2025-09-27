@@ -23,7 +23,6 @@ func TestGetFreePort(t *testing.T) {
 	t.Attr("type", "unit")
 	t.Attr("package", "freeport")
 	t.Attr("component", "freeport")
-	
 
 	port, err := GetFreePort()
 	require.NoError(t, err)
@@ -40,7 +39,7 @@ func BenchmarkGetFreePort(b *testing.B) {
 	b.Attr("type", "benchmark")
 	b.Attr("package", "freeport")
 	b.Attr("component", "freeport")
-	
+
 	for i := 0; i < b.N; i++ {
 		GetFreePort()
 	}

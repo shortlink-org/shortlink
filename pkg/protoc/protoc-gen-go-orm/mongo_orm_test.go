@@ -14,10 +14,6 @@ func TestMongoORMGeneration(t *testing.T) {
 	t.Attr("package", "protoc-gen-go-orm")
 	t.Attr("component", "protoc")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "protoc-gen-go-orm")
-		t.Attr("component", "protoc")
-	
 	// Path to the proto file
 	protoPath := "fixtures/link.proto"
 
@@ -88,9 +84,9 @@ func TestMongoORMGeneration(t *testing.T) {
 //
 // 	for _, tt := range tests {
 // 		t.Run(tt.name, func(t *testing.T) {
-			t.Attr("type", "unit")
-			t.Attr("package", "protoc-gen-go-orm")
-			t.Attr("component", "protoc")
+	t.Attr("type", "unit")
+	t.Attr("package", "protoc-gen-go-orm")
+	t.Attr("component", "protoc")
 
 // 			actual := tt.filter.BuildMongoFilter()
 // 			require.Equal(t, tt.expected, actual, "Mongo filter does not match expected")

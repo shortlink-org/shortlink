@@ -17,6 +17,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"),
 		goleak.IgnoreTopFunction("github.com/syndtr/goleveldb/leveldb.(*DB).mpoolDrain"))
 
@@ -28,11 +29,6 @@ func TestLevelDB(t *testing.T) {
 	t.Attr("package", "leveldb")
 	t.Attr("component", "link")
 	t.Attr("driver", "leveldb")
-
-		t.Attr("type", "unit")
-		t.Attr("package", "leveldb")
-		t.Attr("component", "link")
-		t.Attr("driver", "leveldb"), cancel := context.WithCancel(t.Context())
 
 	st := db.Store{}
 

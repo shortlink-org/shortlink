@@ -17,6 +17,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m,
 		goleak.IgnoreTopFunction("github.com/golang/glog.(*fileSink).flushDaemon"),
 		goleak.IgnoreTopFunction("database/sql.(*DB).connectionOpener"))
@@ -29,11 +30,6 @@ func TestSQLite(t *testing.T) {
 	t.Attr("package", "sqlite")
 	t.Attr("component", "link")
 	t.Attr("driver", "sqlite")
-
-		t.Attr("type", "unit")
-		t.Attr("package", "sqlite")
-		t.Attr("component", "link")
-		t.Attr("driver", "sqlite"), cancel := context.WithCancel(t.Context())
 
 	st := &db.Store{}
 

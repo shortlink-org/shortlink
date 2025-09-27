@@ -10,10 +10,6 @@ func TestQueue(t *testing.T) {
 	t.Attr("package", "queue")
 	t.Attr("component", "types")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "queue")
-		t.Attr("component", "types")
-	
 	// Subtest for Push and Pop
 	t.Run("PushPop", func(t *testing.T) {
 		t.Attr("type", "unit")

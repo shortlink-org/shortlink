@@ -16,6 +16,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m)
 
 	os.Exit(m.Run())
@@ -25,11 +26,6 @@ func Test_WorkerPool(t *testing.T) {
 	t.Attr("type", "unit")
 	t.Attr("package", "worker_pool")
 	t.Attr("component", "concurrency")
-
-		t.Attr("type", "unit")
-		t.Attr("package", "worker_pool")
-		t.Attr("component", "concurrency")
-	
 
 	wp := worker_pool.New(10)
 
@@ -74,10 +70,6 @@ func TestWorkerPoolWithSynctest(t *testing.T) {
 	t.Attr("package", "worker_pool")
 	t.Attr("component", "concurrency")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "worker_pool")
-		t.Attr("component", "concurrency")
-	
 	synctest.Test(t, func(t *testing.T) {
 		const numWorkers = 3
 		const numTasks = 10
@@ -136,10 +128,6 @@ func TestWorkerPoolSimpleWithSynctest(t *testing.T) {
 	t.Attr("package", "worker_pool")
 	t.Attr("component", "concurrency")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "worker_pool")
-		t.Attr("component", "concurrency")
-	
 	synctest.Test(t, func(t *testing.T) {
 		// Test isolated worker functionality without complex pool management
 		var taskExecuted int64

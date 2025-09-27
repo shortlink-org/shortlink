@@ -17,11 +17,6 @@ func Test_NewMetrics(t *testing.T) {
 	t.Attr("package", "metrics")
 	t.Attr("component", "http")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "metrics")
-		t.Attr("component", "http")
-	
-
 	// middlewares
 	middlewares, err := NewMetrics()
 	require.NoError(t, err)

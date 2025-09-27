@@ -15,14 +15,10 @@ func TestNewSync(t *testing.T) {
 	t.Attr("package", "batch")
 	t.Attr("component", "batch")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "batch")
-		t.Attr("component", "batch")
-	
 	t.Run("Returns cleanly after context cancellation", func(t *testing.T) {
 		t.Attr("type", "unit")
 		t.Attr("package", "batch")
-		t.Attr("component", "batch"), cancel := context.WithCancel(t.Context())
+		t.Attr("component", "batch")
 
 		aggrCB := func(args []*Item[string]) error {
 			for _, item := range args {
@@ -64,10 +60,6 @@ func TestBatchProcessingWithSynctest(t *testing.T) {
 	t.Attr("package", "batch")
 	t.Attr("component", "batch")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "batch")
-		t.Attr("component", "batch")
-	
 	synctest.Test(t, func(t *testing.T) {, cancel := context.WithCancel(t.Context())
 		defer cancel()
 		
@@ -142,10 +134,6 @@ func TestBatchCancellationWithSynctest(t *testing.T) {
 	t.Attr("package", "batch")
 	t.Attr("component", "batch")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "batch")
-		t.Attr("component", "batch")
-	
 	synctest.Test(t, func(t *testing.T) {, cancel := context.WithCancel(t.Context())
 		var processedCount int64
 
@@ -198,10 +186,6 @@ func TestBatchTimeBasedFlushWithSynctest(t *testing.T) {
 	t.Attr("package", "batch")
 	t.Attr("component", "batch")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "batch")
-		t.Attr("component", "batch")
-	
 	synctest.Test(t, func(t *testing.T) {, cancel := context.WithCancel(t.Context())
 		defer cancel()
 		

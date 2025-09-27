@@ -10,11 +10,6 @@ func TestOption(t *testing.T) {
 	t.Attr("package", "options")
 	t.Attr("component", "types")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "options")
-		t.Attr("component", "types")
-	
-
 	o := New[string]()
 
 	val, err := o.Take()

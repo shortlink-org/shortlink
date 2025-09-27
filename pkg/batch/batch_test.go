@@ -14,6 +14,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m)
 
 	os.Exit(m.Run())
@@ -24,10 +25,6 @@ func TestNew(t *testing.T) {
 	t.Attr("package", "batch")
 	t.Attr("component", "batch")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "batch")
-		t.Attr("component", "batch")
-	
 	t.Run("Create a new batch", func(t *testing.T) {
 		t.Attr("type", "unit")
 		t.Attr("package", "batch")

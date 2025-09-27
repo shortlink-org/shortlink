@@ -17,11 +17,6 @@ func TestLink(t *testing.T) {
 	t.Attr("package", "db")
 	t.Attr("component", "db")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "db")
-		t.Attr("component", "db")
-
-
 	// Init logger
 	conf := config.Configuration{}
 	log, err := logger.New(logger.Zap, conf)

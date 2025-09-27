@@ -18,10 +18,6 @@ func TestRateLimiter(t *testing.T) {
 	t.Attr("package", "rate_limiter")
 	t.Attr("component", "concurrency")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "rate_limiter")
-		t.Attr("component", "concurrency")
-	
 	sum := int64(0)
 
 	// Use a context with a timeout to prevent test from running indefinitely
@@ -59,10 +55,6 @@ func TestRateLimiterWithSynctest(t *testing.T) {
 	t.Attr("package", "rate_limiter")
 	t.Attr("component", "concurrency")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "rate_limiter")
-		t.Attr("component", "concurrency")
-	
 	synctest.Test(t, func(t *testing.T) {, cancel := context.WithCancel(t.Context())
 		defer cancel()
 		
@@ -109,10 +101,6 @@ func TestRateLimiterCancellation(t *testing.T) {
 	t.Attr("package", "rate_limiter")
 	t.Attr("component", "concurrency")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "rate_limiter")
-		t.Attr("component", "concurrency")
-	
 	synctest.Test(t, func(t *testing.T) {, cancel := context.WithCancel(t.Context())
 		
 		// Create rate limiter with single token and long refill interval
@@ -151,10 +139,6 @@ func TestSimpleRateLimiterWithSynctest(t *testing.T) {
 	t.Attr("package", "rate_limiter")
 	t.Attr("component", "concurrency")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "rate_limiter")
-		t.Attr("component", "concurrency")
-	
 	synctest.Test(t, func(t *testing.T) {
 		// Create a simple rate limiter scenario without persistent background goroutines
 		limiter := make(chan struct{}, 2)

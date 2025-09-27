@@ -16,6 +16,7 @@ import (
 )
 
 func TestMain(m *testing.M) {
+
 	goleak.VerifyTestMain(m, goleak.IgnoreTopFunction("google.golang.org/grpc/internal/grpcsync.(*CallbackSerializer).run"),
 		goleak.IgnoreTopFunction("google.golang.org/grpc.(*addrConn).resetTransport"))
 
@@ -28,10 +29,6 @@ func TestDgraph(t *testing.T) {
 	t.Attr("component", "db")
 	t.Attr("driver", "dgraph")
 
-		t.Attr("type", "unit")
-		t.Attr("package", "dgraph")
-		t.Attr("component", "db")
-		t.Attr("driver", "dgraph"), cancel := context.WithCancel(t.Context())
 	store := Store{}
 
 	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
