@@ -20,7 +20,7 @@ import (
 
 // Init returns an instance of Tracer Provider that samples 100% of traces and logs all spans to stdout.
 // It also initializes Go 1.25 FlightRecorder if configured.
-func Init(ctx context.Context, cnf Config, log *logger.SlogLogger) (*trace.TracerProvider, func(), error) {
+func Init(ctx context.Context, cnf Config, log logger.Logger) (*trace.TracerProvider, func(), error) {
 	// Setup resource.
 	res, err := common.NewResource(ctx, cnf.ServiceName, cnf.ServiceVersion)
 	if err != nil {

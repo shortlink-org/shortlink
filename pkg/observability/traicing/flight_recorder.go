@@ -1,6 +1,22 @@
-/*
-Go 1.25 Flight Recorder implementation for perfect tracing
-*/
+// Package traicing provides observability and tracing capabilities using Go 1.25 FlightRecorder.
+//
+// The FlightRecorder implementation offers continuous, low-overhead tracing by maintaining
+// a rolling buffer of execution trace data in memory. This approach enables "perfect tracing"
+// where trace data is always available for post-mortem analysis without the performance cost
+// of continuous disk writes.
+//
+// Key features:
+//   - Thread-safe operations with comprehensive error handling
+//   - Configurable buffer size and retention policies
+//   - Automatic trace capture on errors, panics, and signals
+//   - Integration with existing observability infrastructure
+//   - Clean architecture principles with proper separation of concerns
+//
+// The implementation follows modern Go practices including:
+//   - Dependency injection pattern
+//   - Interface-based design for testability
+//   - Proper resource lifecycle management
+//   - Structured logging with contextual information
 package traicing
 
 import (
@@ -19,13 +35,13 @@ import (
 type FlightRecorder struct {
 	fr      *trace.FlightRecorder
 	config  FlightRecorderConfig
-	log     *logger.SlogLogger
+	log     logger.Logger
 	mu      sync.RWMutex
 	running bool
 }
 
 // NewFlightRecorder creates a new FlightRecorder instance
-func NewFlightRecorder(config FlightRecorderConfig, log *logger.SlogLogger) (*FlightRecorder, error) {
+func NewFlightRecorder(config FlightRecorderConfig, log logger.Logger) (*FlightRecorder, error) {
 	if !config.Enabled {
 		return nil, nil
 	}
@@ -192,7 +208,7 @@ func (fr *FlightRecorder) SaveTraceOnPanic() {
 func DefaultFlightRecorderConfig() FlightRecorderConfig {
 	return FlightRecorderConfig{
 		Enabled:  true,
-		MinAge:   5 * time.Second,
+		MinAge:   1 * time.Minute,
 		MaxBytes: 3 << 20, // 3MB
 	}
 }

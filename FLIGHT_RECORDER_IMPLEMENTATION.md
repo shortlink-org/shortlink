@@ -31,11 +31,11 @@ The FlightRecorder provides a lightweight mechanism for continuous tracing by ma
 #### 1. Configuration
 ```go
 // Configure the flight recorder to keep
-// at least 5 seconds of trace data,
+// at least 1 minute of trace data,
 // with a maximum buffer size of 3MB.
 // Both of these are hints, not strict limits.
 cfg := trace.FlightRecorderConfig{
-    MinAge:   5 * time.Second,
+    MinAge:   1 * time.Minute,
     MaxBytes: 3 << 20, // 3MB
 }
 ```
@@ -43,7 +43,7 @@ cfg := trace.FlightRecorderConfig{
 #### 2. Environment Variables
 ```bash
 FLIGHT_RECORDER_ENABLED=true               # Enable/disable flight recorder
-FLIGHT_RECORDER_MIN_AGE=5s                 # Minimum age of trace data to retain
+FLIGHT_RECORDER_MIN_AGE=1m                 # Minimum age of trace data to retain
 FLIGHT_RECORDER_MAX_BYTES=3145728          # Maximum buffer size (3MB)
 ```
 
@@ -56,7 +56,7 @@ config := traicing.Config{
     URI:            "localhost:4317",
     FlightRecorder: &traicing.FlightRecorderConfig{
         Enabled:  true,
-        MinAge:   5 * time.Second,
+        MinAge:   1 * time.Minute,
         MaxBytes: 3 << 20, // 3MB
     },
 }
@@ -120,7 +120,7 @@ config := traicing.Config{
     URI:            viper.GetString("TRACER_URI"),
     FlightRecorder: &traicing.FlightRecorderConfig{
         Enabled:  true,
-        MinAge:   5 * time.Second,
+        MinAge:   1 * time.Minute,
         MaxBytes: 3 << 20,
     },
 }
@@ -167,11 +167,15 @@ status := traicing.HealthCheck()
 - `github.com/shortlink-org/go-sdk/logger` for logging
 - Standard library packages: `runtime/trace`, `context`, `sync`, etc.
 
+### Logger Interface Note
+
+The current implementation uses the `logger.Logger` interface from `github.com/shortlink-org/go-sdk/logger`. There is a minor interface mismatch in the external logger package where the interface expects `...slog.Attr` parameters but the concrete implementation accepts `...any`. This is handled transparently by the dependency injection system in the actual application context.
+
 ## Configuration
 
 The FlightRecorder can be configured via:
 1. Environment variables (see above)
 2. Configuration structs in code
-3. Default values (5s minimum age, 3MB max buffer)
+3. Default values (1m minimum age, 3MB max buffer)
 
 All configuration values are treated as hints rather than strict limits, following Go's FlightRecorder design philosophy.

@@ -19,11 +19,11 @@ import (
 )
 
 // ExampleFlightRecorderUsage demonstrates how to use the FlightRecorder
-func ExampleFlightRecorderUsage(log *logger.SlogLogger) {
+func ExampleFlightRecorderUsage(log logger.Logger) {
 	// Example 1: Basic FlightRecorder setup with the provided configuration
 	cfg := FlightRecorderConfig{
 		Enabled:  true,
-		MinAge:   5 * time.Second,
+		MinAge:   1 * time.Minute,
 		MaxBytes: 3 << 20, // 3MB
 	}
 
@@ -73,7 +73,7 @@ func ExampleFlightRecorderUsage(log *logger.SlogLogger) {
 }
 
 // setupSignalHandling sets up signal handling for trace saving
-func setupSignalHandling(log *logger.SlogLogger) {
+func setupSignalHandling(log logger.Logger) {
 	c := make(chan os.Signal, 1)
 	signal.Notify(c, syscall.SIGUSR1, syscall.SIGUSR2)
 
@@ -92,7 +92,7 @@ func setupSignalHandling(log *logger.SlogLogger) {
 }
 
 // ExamplePanicRecovery demonstrates panic recovery with trace saving
-func ExamplePanicRecovery(log *logger.SlogLogger) {
+func ExamplePanicRecovery(log logger.Logger) {
 	middleware := NewRecorderMiddleware(log)
 	
 	riskyFunction := func() {
@@ -117,35 +117,7 @@ func ExamplePanicRecovery(log *logger.SlogLogger) {
 }
 
 // ExampleHealthCheck demonstrates how to check FlightRecorder status
-func ExampleHealthCheck(log *logger.SlogLogger) {
+func ExampleHealthCheck(log logger.Logger) {
 	status := HealthCheck()
 	log.Info("FlightRecorder health check", slog.Any("status", status))
-}
-
-// ExampleEnvironmentVariables shows the environment variables that can be used
-func ExampleEnvironmentVariables() {
-	fmt.Println(`
-FlightRecorder Environment Variables:
-
-FLIGHT_RECORDER_ENABLED=true               # Enable/disable flight recorder
-FLIGHT_RECORDER_MIN_AGE=5s                 # Minimum age of trace data to retain
-FLIGHT_RECORDER_MAX_BYTES=3145728          # Maximum buffer size (3MB)
-
-Example usage:
-export FLIGHT_RECORDER_ENABLED=true
-export FLIGHT_RECORDER_MIN_AGE=10s
-export FLIGHT_RECORDER_MAX_BYTES=5242880   # 5MB
-
-You can also configure it programmatically:
-config := traicing.Config{
-    ServiceName:    "my-service",
-    ServiceVersion: "1.0.0",
-    URI:            "localhost:4317",
-    FlightRecorder: &traicing.FlightRecorderConfig{
-        Enabled:  true,
-        MinAge:   5 * time.Second,
-        MaxBytes: 3 << 20, // 3MB
-    },
-}
-	`)
 }

@@ -35,7 +35,7 @@ func GetGlobalFlightRecorder() *FlightRecorder {
 }
 
 // SaveTraceOnError saves trace data when an error occurs  
-func SaveTraceOnError(err error, log *logger.SlogLogger) {
+func SaveTraceOnError(err error, log logger.Logger) {
 	if err == nil {
 		return
 	}
@@ -59,7 +59,7 @@ func SaveTraceOnError(err error, log *logger.SlogLogger) {
 }
 
 // SaveTraceOnSignal saves trace data when receiving a specific signal (like SIGUSR1)
-func SaveTraceOnSignal(signal string, log *logger.SlogLogger) {
+func SaveTraceOnSignal(signal string, log logger.Logger) {
 	fr := GetGlobalFlightRecorder()
 	if fr == nil || !fr.IsRunning() {
 		log.Warn("Flight recorder not available for signal trace", slog.String("signal", signal))
@@ -80,7 +80,7 @@ func SaveTraceOnSignal(signal string, log *logger.SlogLogger) {
 }
 
 // SaveTraceWithContext saves trace data with additional context information
-func SaveTraceWithContext(ctx context.Context, reason string, metadata map[string]interface{}, log *logger.SlogLogger) {
+func SaveTraceWithContext(ctx context.Context, reason string, metadata map[string]interface{}, log logger.Logger) {
 	fr := GetGlobalFlightRecorder()
 	if fr == nil || !fr.IsRunning() {
 		log.Warn("Flight recorder not available", slog.String("reason", reason))
@@ -122,11 +122,11 @@ func SaveTraceWithContext(ctx context.Context, reason string, metadata map[strin
 
 // RecorderMiddleware provides middleware functions for easy integration
 type RecorderMiddleware struct {
-	log *logger.SlogLogger
+	log logger.Logger
 }
 
 // NewRecorderMiddleware creates a new middleware instance
-func NewRecorderMiddleware(log *logger.SlogLogger) *RecorderMiddleware {
+func NewRecorderMiddleware(log logger.Logger) *RecorderMiddleware {
 	return &RecorderMiddleware{log: log}
 }
 
