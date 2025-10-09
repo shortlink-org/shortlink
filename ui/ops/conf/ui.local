@@ -10,6 +10,13 @@ server {
 
     root   /usr/share/nginx/html;
 
+    # Handle /next prefix for Next.js basePath
+    location /next/ {
+        # Remove /next prefix and try files
+        rewrite ^/next(.*)$ $1 break;
+        try_files $uri $uri/ $uri.html =404;
+    }
+
     location ~* \.(?:ico|gif|jpe?g|png|woff2?|eot|otf|ttf|svg|js|css)$ {
         try_files $uri $uri/;
     }
