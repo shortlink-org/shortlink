@@ -10,7 +10,7 @@ import MenuIcon from '@mui/icons-material/Menu'
 import Notification from './notification'
 import Profile from './profile'
 import secondMenu from './secondMenu'
-import React from 'react'
+import { useEffect, useState } from 'react'
 
 interface HeaderProps {
   hasSession: boolean
@@ -18,6 +18,12 @@ interface HeaderProps {
 }
 
 export default function Header({ hasSession, setOpen }: HeaderProps) {
+  const [origin, setOrigin] = useState('')
+
+  useEffect(() => {
+    setOrigin(window.location.origin)
+  }, [])
+
   return (
     <nav className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 dark:from-slate-800 dark:via-slate-700 dark:to-slate-800 text-white shadow-lg border-b border-indigo-500/20 dark:border-slate-600/20 backdrop-blur-sm z-50">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -91,7 +97,7 @@ export default function Header({ hasSession, setOpen }: HeaderProps) {
             ) : (
               <Button
                 component={Link}
-                href="/auth/login"
+                href={`${origin}/auth/login`}
                 variant="outlined"
                 sx={{
                   color: 'white',
