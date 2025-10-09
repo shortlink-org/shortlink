@@ -3,6 +3,9 @@ server {
     listen [::]:8080;
     server_name _;
 
+    # Prevent port in redirects
+    port_in_redirect off;
+
     gzip on;
     gzip_proxied any;
     gzip_comp_level 4;
@@ -11,11 +14,11 @@ server {
     root   /usr/share/nginx/html;
 
     location ~* \.(?:ico|gif|jpe?g|png|woff2?|eot|otf|ttf|svg|js|css)$ {
-        try_files $uri $uri/;
+        try_files $uri =404;
     }
 
     location / {
-        try_files $uri $uri/ @htmlext;
+        try_files $uri @htmlext;
     }
 
     location ~ \.html$ {
