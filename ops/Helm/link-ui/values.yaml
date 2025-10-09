@@ -17,6 +17,11 @@ ingress:
     nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     nginx.ingress.kubernetes.io/use-regex: "true"
+    # Prevent port in redirects
+    nginx.ingress.kubernetes.io/backend-protocol: "HTTP"
+    nginx.ingress.kubernetes.io/proxy-redirect-from: "~^http://([^:]+):\d+(.+)$"
+    nginx.ingress.kubernetes.io/proxy-redirect-to: "https://$1$2"
+    nginx.ingress.kubernetes.io/upstream-vhost: $host
 
   hostname: shortlink.best
   paths:
