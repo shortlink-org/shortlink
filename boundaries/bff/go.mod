@@ -82,7 +82,7 @@ require (
 	github.com/neo4j/neo4j-go-driver/v5 v5.28.3 // indirect
 	github.com/onsi/ginkgo/v2 v2.23.4 // indirect
 	github.com/onsi/gomega v1.37.0 // indirect
-	github.com/ory/client-go v1.22.2 // indirect
+	github.com/ory/client-go v1.22.3 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/planetscale/vtprotobuf v0.6.1-0.20241121165744-79df5c4772f2 // indirect
@@ -93,9 +93,9 @@ require (
 	github.com/prometheus/otlptranslator v0.0.2 // indirect
 	github.com/prometheus/procfs v0.17.0 // indirect
 	github.com/redis/go-redis/v9 v9.14.0 // indirect
-	github.com/redis/rueidis v1.0.64 // indirect
-	github.com/redis/rueidis/rueidiscompat v1.0.64 // indirect
-	github.com/redis/rueidis/rueidisotel v1.0.64 // indirect
+	github.com/redis/rueidis v1.0.66 // indirect
+	github.com/redis/rueidis/rueidiscompat v1.0.66 // indirect
+	github.com/redis/rueidis/rueidisotel v1.0.66 // indirect
 	github.com/sagikazarmark/locafero v0.11.0 // indirect
 	github.com/samber/lo v1.51.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
