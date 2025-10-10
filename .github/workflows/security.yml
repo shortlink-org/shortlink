@@ -55,6 +55,6 @@ jobs:
         uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
 
       - name: FOSSA Scan
-        uses: fossas/fossa-action@c4aa6d1b02a9ade9de96a2ec5da5a47cb6fe1c6d # v1.4.0
+        uses: fossas/fossa-action@09bcf127dc0ccb4b5a023f6f906728878e8610ba # v1.4.0
         with:
           api-key: ${{ secrets.FOSSA_API_KEY }}
