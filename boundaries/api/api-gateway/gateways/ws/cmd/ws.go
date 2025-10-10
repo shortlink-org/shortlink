@@ -27,9 +27,7 @@ func main() {
 
 	cleanup()
 
-	service.Log.Info("Service stopped", field.Fields{
-		"signal": signal.String(),
-	})
+	service.Log.Info("Service stopped", slog.String("signal", signal.String()))
 
 	// Exit Code 143: Graceful Termination (SIGTERM)
 	os.Exit(143) //nolint:gocritic // exit code 143 is used to indicate graceful termination
