@@ -7,11 +7,13 @@ Link-service
 package main
 
 import (
+	"log/slog"
 	"os"
 
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/go-sdk/graceful_shutdown"
+
 	link_di "github.com/shortlink-org/shortlink/boundaries/link/link/internal/di"
 )
 

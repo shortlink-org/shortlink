@@ -13,6 +13,7 @@ import (
 
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
+	"github.com/prometheus/client_golang/prometheus"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 
@@ -31,6 +32,7 @@ import (
 	"github.com/shortlink-org/go-sdk/config"
 	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
+
 	"github.com/shortlink-org/shortlink/pkg/di"
 	mq_di "github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
@@ -79,6 +81,7 @@ var LinkSet = wire.NewSet(
 	di.DefaultSet,
 	permission.New,
 	store.New,
+	NewPrometheusRegistry,
 
 	// Delivery
 	mq_di.New,
@@ -106,6 +109,10 @@ var LinkSet = wire.NewSet(
 	NewLinkService,
 )
 
+func NewPrometheusRegistry(metrics *metrics.Monitoring) *prometheus.Registry {
+	return metrics.Prometheus
+}
+
 func NewRPCClient(
 	ctx context.Context,
 	log logger.Logger,
@@ -115,8 +122,8 @@ func NewRPCClient(
 	// Initialize gRPC Client's interceptor.
 	opts := []rpc.Option{
 		rpc.WithSession(),
-		rpc.WithMetrics(metrics),
-		rpc.WithTracer(tracer, metrics),
+		rpc.WithMetrics(metrics.Prometheus),
+		rpc.WithTracer(tracer, metrics.Prometheus, metrics.Metrics),
 		rpc.WithTimeout(),
 		rpc.WithLogger(log),
 	}
