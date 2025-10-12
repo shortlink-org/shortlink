@@ -2,6 +2,7 @@ package v1
 
 import (
 	"context"
+	"log/slog"
 	"net/http"
 
 	"github.com/grpc-ecosystem/grpc-gateway/v2/runtime"
@@ -15,7 +16,7 @@ import (
 
 	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
-	"github.com/shortlink-org/shortlink/pkg/http/server"
+	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 )
 
 // API ...
@@ -61,9 +62,7 @@ func (api *API) Run(
 	api.http = http_server.New(ctx, mux, config, tracer)
 
 	// Start HTTP server (and proxy calls to gRPC server endpoint)
-	log.Info("Run HTTP server", field.Fields{
-		"port": config.Port,
-	})
+	log.Info("Run HTTP server", slog.Int("port", config.Port))
 	err = api.http.ListenAndServe()
 	if err != nil {
 		return err

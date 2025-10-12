@@ -1,10 +1,10 @@
 module github.com/shortlink-org/shortlink/boundaries/link/link
 
-go 1.25.1
+go 1.25.2
 
 require (
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
-	github.com/authzed/authzed-go v1.5.0
+	github.com/authzed/authzed-go v1.6.0
 	github.com/dgraph-io/badger/v4 v4.8.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/go-redis/cache/v9 v9.0.0
@@ -20,8 +20,9 @@ require (
 	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20250921105413-6ee4ef9f264a
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20250921110119-283ac43a0ddc
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20250921110119-283ac43a0ddc
+	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251012192239-ed21e319d1d2
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251012192239-ed21e319d1d2
 	github.com/shortlink-org/shortlink v0.0.0-20250917223100-9578c5d6d178
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
@@ -35,7 +36,7 @@ require (
 )
 
 require (
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250613105001-9f2d3c737feb.1 // indirect
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.8-20250717185734-6c6e0d3c608e.1 // indirect
 	cel.dev/expr v0.24.0 // indirect
 	dario.cat/mergo v1.0.1 // indirect
 	filippo.io/edwards25519 v1.1.0 // indirect

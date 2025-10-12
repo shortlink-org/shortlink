@@ -6,12 +6,13 @@
 /*
 BFF Web Service DI-package
 */
-package bff_web_di
+package bff_di
 
 import (
 	"context"
 
 	"github.com/google/wire"
+	"github.com/prometheus/client_golang/prometheus"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
@@ -23,6 +24,7 @@ import (
 	"github.com/shortlink-org/go-sdk/config"
 	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
+
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
@@ -34,10 +36,9 @@ import (
 
 type BFFWebService struct {
 	// Common
-	Log        logger.Logger
-	Config     *config.Config
-	i18n       *message.Printer
-	AutoMaxPro autoMaxPro.AutoMaxPro
+	Log    logger.Logger
+	Config *config.Config
+	i18n   *message.Printer
 
 	// Delivery
 	httpAPIServer *api.Server
@@ -53,6 +54,7 @@ var BFFWebServiceSet = wire.NewSet(
 	di.DefaultSet,
 	permission.New,
 	i18n.New,
+	NewPrometheusRegistry,
 
 	// Delivery
 	rpc.InitServer,
@@ -70,6 +72,10 @@ var BFFWebServiceSet = wire.NewSet(
 	NewBFFWebService,
 )
 
+func NewPrometheusRegistry(metrics *metrics.Monitoring) *prometheus.Registry {
+	return metrics.Prometheus
+}
+
 func NewRPCClient(
 	ctx context.Context,
 	log logger.Logger,
@@ -79,8 +85,8 @@ func NewRPCClient(
 	// Initialize gRPC Client's interceptor.
 	opts := []rpc.Option{
 		rpc.WithSession(),
-		rpc.WithMetrics(metrics),
-		rpc.WithTracer(tracer, metrics),
+		rpc.WithMetrics(metrics.Prometheus),
+		rpc.WithTracer(tracer, metrics.Prometheus, metrics.Metrics),
 		rpc.WithTimeout(),
 		rpc.WithLogger(log),
 	}
@@ -119,7 +125,6 @@ func NewAPIApplication(
 	i18n *message.Printer,
 	log logger.Logger,
 	config *config.Config,
-	autoMaxPro autoMaxPro.AutoMaxPro,
 
 	// Observability
 	tracer trace.TracerProvider,
@@ -144,7 +149,6 @@ func NewAPIApplication(
 		Tracer:        tracer,
 		Metrics:       metrics,
 		PprofEndpoint: pprofEndpoint,
-		AutoMaxPro:    autoMaxPro,
 
 		// Delivery
 		RpcServer: rpcServer,
@@ -154,7 +158,7 @@ func NewAPIApplication(
 		Link_command: link_command,
 		Link_query:   link_query,
 		Sitemap_rpc:  sitemap_rpc,
-	})
+	}, log)
 	if err != nil {
 		return nil, err
 	}
@@ -167,7 +171,6 @@ func NewBFFWebService(
 	ctx context.Context,
 	log logger.Logger,
 	config *config.Config,
-	autoMaxPro autoMaxPro.AutoMaxPro,
 
 	// Observability
 	tracer trace.TracerProvider,
@@ -186,7 +189,6 @@ func NewBFFWebService(
 		Tracer:        tracer,
 		Metrics:       metrics,
 		PprofEndpoint: pprofEndpoint,
-		AutoMaxPro:    autoMaxPro,
 
 		// Delivery
 		httpAPIServer: httpAPIServer,

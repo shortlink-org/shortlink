@@ -13,8 +13,9 @@ import (
 
 	"github.com/spf13/viper"
 
+	"github.com/shortlink-org/go-sdk/graceful_shutdown"
+
 	bff_web_di "github.com/shortlink-org/shortlink/boundaries/link/bff/internal/di"
-	"github.com/shortlink-org/shortlink/pkg/graceful_shutdown"
 )
 
 func main() {

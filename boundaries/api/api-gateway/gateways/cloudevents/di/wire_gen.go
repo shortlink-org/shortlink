@@ -161,7 +161,6 @@ type APIService struct {
 	// Common
 	Log        logger.Logger
 	Config     *config.Config
-	AutoMaxPro autoMaxPro.AutoMaxPro
 
 	// Applications
 	service domain.API

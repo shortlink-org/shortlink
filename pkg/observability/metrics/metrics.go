@@ -58,9 +58,9 @@ func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider) (*
 			log.Error(errListenAndServe.Error())
 		}
 	}()
-	log.Info("Run monitoring", slog.String{
-		"addr": "0.0.0.0:9090",
-	})
+	log.Info("Run monitoring",
+		slog.String("addr", "0.0.0.0:9090"),
+	)
 
 	// Create a new OTLP exporter for sending metrics to the OpenTelemetry Collector.
 	_, err = otlpmetricgrpc.New(ctx)

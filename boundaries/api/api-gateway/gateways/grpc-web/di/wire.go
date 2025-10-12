@@ -32,9 +32,8 @@ import (
 
 type APIService struct {
 	// Common
-	Log        logger.Logger
-	Config     *config.Config
-	AutoMaxPro autoMaxPro.AutoMaxPro
+	Log    logger.Logger
+	Config *config.Config
 
 	// Applications
 	service *api_application.API

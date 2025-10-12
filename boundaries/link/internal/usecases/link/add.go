@@ -3,6 +3,7 @@ package link
 import (
 	"context"
 	"errors"
+	"log/slog"
 
 	"github.com/segmentio/encoding/json"
 
@@ -34,9 +35,9 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 
 	userID, err := session.GetUserID(ctx)
 	if err != nil {
-		uc.log.Error("failed to get user ID from session", field.Fields{
-			"error": err.Error(),
-		})
+		uc.log.Error("failed to get user ID from session",
+			slog.String("error", err.Error()),
+		)
 
 		return nil, err
 	}

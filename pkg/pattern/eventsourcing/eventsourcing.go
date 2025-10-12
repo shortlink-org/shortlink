@@ -5,6 +5,7 @@ package eventsourcing
 
 import (
 	"context"
+	"log/slog"
 
 	"github.com/spf13/viper"
 
@@ -36,9 +37,9 @@ func New(ctx context.Context, log logger.Logger, store db.DB) (EventSourcing, er
 		}
 	}
 
-	log.Info("run db", field.Fields{
-		"db": e.typeStore,
-	})
+	log.Info("run db",
+		slog.String("db", e.typeStore),
+	)
 
 	return e.repository, nil
 }

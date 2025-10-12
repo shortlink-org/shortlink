@@ -2,6 +2,7 @@ package nats
 
 import (
 	"context"
+	"log/slog"
 	"net/url"
 
 	"github.com/nats-io/nats.go"
@@ -35,9 +36,9 @@ func (mq *MQ) Init(ctx context.Context, log logger.Logger) error {
 		<-ctx.Done()
 
 		if errClose := mq.close(); errClose != nil {
-			log.Error("NATS close", field.Fields{
-				"error": errClose.Error(),
-			})
+			log.Error("NATS close",
+				slog.String("error", errClose.Error()),
+			)
 		}
 	}()
 

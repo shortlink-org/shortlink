@@ -10,8 +10,8 @@ import (
 
 	"github.com/spf13/viper"
 
+	"github.com/shortlink-org/go-sdk/graceful_shutdown"
 	metadata_di "github.com/shortlink-org/shortlink/boundaries/metadata/internal/di"
-	"github.com/shortlink-org/shortlink/pkg/graceful_shutdown"
 )
 
 func main() {

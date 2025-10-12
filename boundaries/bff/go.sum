@@ -1,5 +1,4 @@
-buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250613105001-9f2d3c737feb.1 h1:AUL6VF5YWL01j/1H/DQbPUSDkEwYqwVCNw7yhbpOxSQ=
-buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250613105001-9f2d3c737feb.1/go.mod h1:avRlCjnFzl98VPaeCtJ24RrV/wwHFzB8sWXhj26+n/U=
+buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.8-20250717185734-6c6e0d3c608e.1 h1:sjY1k5uszbIZfv11HO2keV4SLhNA47SabPO886v7Rvo=
 buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.5.1-20240420204150-bbba30c24796.2 h1:+Vt+Ytcaz7na5nWNegyr/HE8Tl7ygwzJDY+pYHHG3T0=
 buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.5.1-20240420204150-bbba30c24796.2/go.mod h1:BdDG0fVKFbuaTT6vEjTOkp0mrF5awZAkT1spDHwcnsg=
 buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.9-20240420204150-bbba30c24796.1 h1:S6nFdoglyf6qBguTf0VOm0IF9j7sOBgUIYqeLiNGm54=
@@ -64,8 +63,7 @@ github.com/ajg/form v1.5.1/go.mod h1:uL1WgH+h2mgNtvBq0339dVnzXdBETtL2LeUXaIv25UY
 github.com/apache/arrow/go/arrow v0.0.0-20200601151325-b2287a20f230/go.mod h1:QNYViu/X0HXDHw7m3KXzWSVXIbfUvJqBFe6Gj8/pYA0=
 github.com/apapsch/go-jsonmerge/v2 v2.0.0 h1:axGnT1gRIfimI7gJifB699GoE/oq+F2MU7Dml6nw9rQ=
 github.com/apapsch/go-jsonmerge/v2 v2.0.0/go.mod h1:lvDnEdqiQrp0O42VQGgmlKpxL1AP2+08jFMw88y4klk=
-github.com/authzed/authzed-go v1.5.0 h1:jdzDa/zZCswr/hVWUq12KNXeGY40/H8LT6ksmXV3/rI=
-github.com/authzed/authzed-go v1.5.0/go.mod h1:Ey+McG0h4Dl9G+BPynGjsDo8YSg+9YyVFSTuh5sHRh0=
+github.com/authzed/authzed-go v1.6.0 h1:5SLZicFo33OweDtYOrWg7e/bHNIcbUeCBfNCb9I7v5o=
 github.com/authzed/grpcutil v0.0.0-20240123194739-2ea1e3d2d98b h1:wbh8IK+aMLTCey9sZasO7b6BWLAJnHHvb79fvWCXwxw=
 github.com/authzed/grpcutil v0.0.0-20240123194739-2ea1e3d2d98b/go.mod h1:s3qC7V7XIbiNWERv7Lfljy/Lx25/V1Qlexb0WJuA8uQ=
 github.com/aws/aws-sdk-go v1.17.7/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN924inxo=
@@ -502,8 +500,9 @@ github.com/segmentio/encoding v0.5.3/go.mod h1:HS1ZKa3kSN32ZHVZ7ZLPLXWvOVIiZtyJn
 github.com/shopspring/decimal v0.0.0-20180709203117-cd690d0c9e24/go.mod h1:M+9NzErvs504Cn4c5DxATwIqPbtswREoFCre64PpcG4=
 github.com/shortlink-org/go-sdk/auth v0.0.0-20250921105413-6ee4ef9f264a h1:DaF+/bo+QwC1EDSRd1kijynp0WwGlcLbzSsyAU6BZZU=
 github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc h1:mBfyzxiC1LBjRjNQL5Obb+r9IxQ5RTehoq93i2gYS9M=
-github.com/shortlink-org/go-sdk/grpc v0.0.0-20250921110119-283ac43a0ddc h1:4COHtLjzfH5CyNfqw+4VFOdzFRqIvC9EqE9oW38560Y=
-github.com/shortlink-org/go-sdk/logger v0.0.0-20250921110119-283ac43a0ddc h1:jiaam86ZUzGTvXXumBMqT0EtY4Mt2p1FKvAH+IWQ+gk=
+github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2 h1:v/8oSwVNG4eizmFYvX7UzsKgyvX8lxcVal2vrN9d31U=
+github.com/shortlink-org/go-sdk/grpc v0.0.0-20251012192239-ed21e319d1d2 h1:WI6tXpCzk0+cuPQu1KeQKfYOgvv8k0Dn5zdZ3P39pxI=
+github.com/shortlink-org/go-sdk/logger v0.0.0-20251012192239-ed21e319d1d2 h1:lgMVsubLa3J6Rm5g3NwXkmuWTpAGFRa0rfpz/BA5YnU=
 github.com/shortlink-org/shortlink v0.0.0-20250917223100-9578c5d6d178 h1:TVcW4HmtxOcsHyqnsVFK8X4NFwK+ot3ZaLyhSw0sNUs=
 github.com/sirupsen/logrus v1.4.1/go.mod h1:ni0Sbl8bgC9z8RoU9G6nDWqqs/fq4eDPysMBDgk/93Q=
 github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6MwdIuYE2rE=

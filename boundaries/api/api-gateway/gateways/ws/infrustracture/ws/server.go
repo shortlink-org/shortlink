@@ -2,6 +2,7 @@ package ws
 
 import (
 	"context"
+	"log/slog"
 	"net/http"
 
 	"github.com/spf13/viper"
@@ -29,10 +30,10 @@ func (ws *WS) Run(ctx context.Context, log logger.Logger) (*WS, error) {
 		return nil
 	})
 
-	log.Info("WS server started", field.Fields{
-		"port":      8080,
-		"base_path": viper.GetString("BASE_PATH"),
-	})
+	log.Info("WS server started",
+		slog.Int("port", 8080),
+		slog.String("base_path", viper.GetString("BASE_PATH")),
+	)
 
 	return server, nil
 }

@@ -5,8 +5,8 @@ import (
 
 	"github.com/spf13/viper"
 
+	"github.com/shortlink-org/go-sdk/graceful_shutdown"
 	api_di "github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/ws/di"
-	"github.com/shortlink-org/shortlink/pkg/graceful_shutdown"
 )
 
 func main() {

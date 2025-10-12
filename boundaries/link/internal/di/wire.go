@@ -42,9 +42,8 @@ import (
 
 type LinkService struct {
 	// Common
-	Log        logger.Logger
-	Config     *config.Config
-	AutoMaxPro autoMaxPro.AutoMaxPro
+	Log    logger.Logger
+	Config *config.Config
 
 	// Observability
 	Tracer        trace.TracerProvider

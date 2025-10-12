@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"log/slog"
 
 	"github.com/shortlink-org/go-sdk/logger"
 )
@@ -22,12 +23,12 @@ func (e NotFoundByHash) Error() string {
 // errorHelper is a helper function to log errors
 func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {
 	if len(errs) > 0 {
-		errList := field.Fields{}
-		for index := range errs {
-			errList[fmt.Sprintf("stack error: %d", index)] = errs[index]
+		attrs := make([]slog.Attr, 0, len(errs))
+		for index, err := range errs {
+			attrs = append(attrs, slog.Any(fmt.Sprintf("stack error: %d", index), err))
 		}
 
-		log.ErrorWithContext(ctx, "Error create a new link", errList)
+		log.ErrorWithContext(ctx, "Error create a new link", attrs...)
 
 		return ErrCreateLink
 	}

@@ -25,9 +25,8 @@ import (
 
 type WSService struct {
 	// Common
-	Log        logger.Logger
-	Config     *config.Config
-	AutoMaxPro autoMaxPro.AutoMaxPro
+	Log    logger.Logger
+	Config *config.Config
 
 	// Applications
 	service *ws.WS

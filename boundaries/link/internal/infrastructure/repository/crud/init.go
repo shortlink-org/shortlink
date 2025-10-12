@@ -6,6 +6,7 @@ package crud
 import (
 	"context"
 	"fmt"
+	"log/slog"
 	"time"
 
 	"github.com/go-redis/cache/v9"
@@ -88,9 +89,9 @@ func New(ctx context.Context, log logger.Logger, store db.DB, c *cache.Cache) (*
 		return nil, db.UnknownStoreTypeError{StoreType: s.typeStore}
 	}
 
-	log.Info("init linkStore", field.Fields{
-		"store": s.typeStore,
-	})
+	log.Info("init linkStore",
+		slog.String("store", s.typeStore),
+	)
 
 	return s, nil
 }

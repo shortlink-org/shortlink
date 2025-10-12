@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/link/bff
 
-go 1.25.1
+go 1.25.2
 
 require (
 	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.5.1-20240420204150-bbba30c24796.2
@@ -10,11 +10,13 @@ require (
 	github.com/go-chi/render v1.0.3
 	github.com/google/wire v0.7.0
 	github.com/oapi-codegen/runtime v1.1.2
+	github.com/prometheus/client_golang v1.23.2
 	github.com/riandyrn/otelchi v0.12.2
 	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20250921110119-283ac43a0ddc
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20250921110119-283ac43a0ddc
+	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251012192239-ed21e319d1d2
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251012192239-ed21e319d1d2
 	github.com/shortlink-org/shortlink v0.0.0-20250917223100-9578c5d6d178
 	github.com/spf13/viper v1.21.0
 	go.opentelemetry.io/otel/trace v1.38.0
@@ -25,14 +27,14 @@ require (
 )
 
 require (
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250613105001-9f2d3c737feb.1 // indirect
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.8-20250717185734-6c6e0d3c608e.1 // indirect
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/Masterminds/semver/v3 v3.3.1 // indirect
 	github.com/Unleash/unleash-go-sdk/v5 v5.0.3 // indirect
 	github.com/XSAM/otelsql v0.40.0 // indirect
 	github.com/ajg/form v1.5.1 // indirect
 	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
-	github.com/authzed/authzed-go v1.5.0 // indirect
+	github.com/authzed/authzed-go v1.6.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/cenkalti/backoff/v5 v5.0.3 // indirect
@@ -87,7 +89,6 @@ require (
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/planetscale/vtprotobuf v0.6.1-0.20241121165744-79df5c4772f2 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
-	github.com/prometheus/client_golang v1.23.2 // indirect
 	github.com/prometheus/client_model v0.6.2 // indirect
 	github.com/prometheus/common v0.66.1 // indirect
 	github.com/prometheus/otlptranslator v0.0.2 // indirect

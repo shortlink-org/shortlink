@@ -1,6 +1,7 @@
 package logger_middleware
 
 import (
+	"log/slog"
 	"net/http"
 	"time"
 
@@ -28,15 +29,13 @@ func (c chilogger) middleware(next http.Handler) http.Handler {
 		defer func() {
 			latency := time.Since(start)
 
-			fields := field.Fields{
-				"status":  ww.Status(),
-				"took":    latency,
-				"remote":  r.RemoteAddr,
-				"request": r.RequestURI,
-				"method":  r.Method,
-			}
-
-			c.log.InfoWithContext(r.Context(), "request completed", fields)
+			c.log.InfoWithContext(r.Context(), "request completed",
+				slog.Int("status", ww.Status()),
+				slog.Duration("took", latency),
+				slog.String("remote", r.RemoteAddr),
+				slog.String("request", r.RequestURI),
+				slog.String("method", r.Method),
+			)
 		}()
 
 		next.ServeHTTP(ww, r)

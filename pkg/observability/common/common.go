@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"go.opentelemetry.io/otel/sdk/resource"
-	semconv "go.opentelemetry.io/otel/semconv/v1.34.0"
+	semconv "go.opentelemetry.io/otel/semconv/v1.37.0"
 )
 
 func NewResource(ctx context.Context, serviceName, serviceVersion string) (*resource.Resource, error) {

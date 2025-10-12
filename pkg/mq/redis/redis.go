@@ -2,6 +2,7 @@ package redis
 
 import (
 	"context"
+	"log/slog"
 
 	"github.com/redis/rueidis"
 
@@ -38,9 +39,9 @@ func (r *Redis) Init(ctx context.Context, log logger.Logger) error {
 		<-ctx.Done()
 
 		if errClose := r.close(); errClose != nil {
-			log.Error("Redis close error", field.Fields{
-				"error": errClose.Error(),
-			})
+			log.Error("Redis close error",
+				slog.String("error", errClose.Error()),
+			)
 		}
 	}()
 

@@ -2,6 +2,7 @@ package singleflight_middleware
 
 import (
 	"fmt"
+	"log/slog"
 	"net/http"
 
 	"golang.org/x/sync/singleflight"
@@ -60,12 +61,12 @@ func (s *singleFlight) middleware(next http.Handler) http.Handler {
 				return
 			}
 
-			_, err = fmt.Fprint(w, response)
-			if err != nil {
-				s.log.Error("failed to write response", field.Fields{
-					"error": err,
-				})
-			}
+		_, err = fmt.Fprint(w, response)
+		if err != nil {
+			s.log.Error("failed to write response",
+				slog.Any("error", err),
+			)
+		}
 		} else {
 			next.ServeHTTP(w, r)
 		}

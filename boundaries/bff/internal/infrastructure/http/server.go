@@ -6,6 +6,7 @@ import (
 	cors2 "github.com/go-chi/cors"
 	"github.com/go-chi/render"
 	"github.com/riandyrn/otelchi"
+	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/spf13/viper"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -48,7 +49,7 @@ func (api *Server) run(config Config) error {
 		// Headers: Include CSRF token headers and common request headers
 		// X-CSRF-Token: Required for CSRF protection token validation
 		// X-Requested-With: Standard header for AJAX requests, helps identify the request type
-		AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token", "X-Requested-With"},
+		AllowedHeaders: []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token", "X-Requested-With"},
 		// Expose CSRF token header so clients can read it for subsequent requests
 		ExposedHeaders:   []string{"X-CSRF-Token"},
 		AllowCredentials: true,
@@ -69,7 +70,7 @@ func (api *Server) run(config Config) error {
 	r.Use(middleware.Timeout(config.Http.Timeout))
 
 	// CSRF Protection - must be early in the middleware stack
-	r.Use(csrf_middleware.Middleware())
+	r.Use(csrf_middleware.Middleware(api.log))
 
 	// Additional middleware
 	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
@@ -115,12 +116,12 @@ func (api *Server) run(config Config) error {
 }
 
 // New API Provider for DI
-func New(params Config) (*Server, error) {
+func New(params Config, log logger.Logger) (*Server, error) {
 	// API port
 	viper.SetDefault("API_PORT", 7070) //nolint:mnd
 	// Request Timeout (seconds)
 	viper.SetDefault("API_TIMEOUT", "60s")
-	
+
 	// CSRF Protection settings
 	viper.SetDefault("CSRF_TRUSTED_ORIGINS", "")
 	viper.SetDefault("CSRF_TRUSTED_ORIGINS_ENV", "CSRF_TRUSTED_ORIGINS")
@@ -130,7 +131,9 @@ func New(params Config) (*Server, error) {
 		Timeout: viper.GetDuration("API_TIMEOUT"),
 	}
 
-	api := &Server{}
+	api := &Server{
+		log: log,
+	}
 	g := errgroup.Group{}
 
 	g.Go(func() error {

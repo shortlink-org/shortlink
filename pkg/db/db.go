@@ -5,6 +5,7 @@ package db
 
 import (
 	"context"
+	"log/slog"
 
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/sdk/metric"
@@ -63,9 +64,9 @@ func New(ctx context.Context, log logger.Logger, tracer trace.TracerProvider, me
 		return nil, err
 	}
 
-	log.Info("run db", field.Fields{
-		"db": store.typeStore,
-	})
+	log.Info("run db",
+		slog.String("db", store.typeStore),
+	)
 
 	return store, nil
 }

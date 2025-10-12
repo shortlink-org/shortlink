@@ -3,6 +3,7 @@ package kafka
 import (
 	"context"
 	"errors"
+	"log/slog"
 	"sync"
 	"time"
 
@@ -76,7 +77,9 @@ func (mq *Kafka) Init(ctx context.Context, log logger.Logger) error {
 		<-ctx.Done()
 
 		if errClose := mq.close(); errClose != nil {
-			log.Error("Kafka close error", errClose)
+			log.Error("Kafka close error",
+				slog.Any("error", errClose),
+			)
 		}
 	}()
 

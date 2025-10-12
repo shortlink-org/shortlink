@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"log/slog"
 	"math/rand"
 	"time"
 
@@ -72,10 +73,10 @@ func New(ctx context.Context, serverRPC *rpc.Server, peers []string, options ...
 	// run timer
 	go server.runTimer(ctx)
 
-	server.logger.InfoWithContext(ctx, "raft server started", field.Fields{
-		"election_reset_timer": server.electionResetTimer,
-		"status":               v1.RaftStatus_name[int32(server.raft.GetStatus())],
-	})
+	server.logger.InfoWithContext(ctx, "raft server started",
+		slog.Duration("election_reset_timer", server.electionResetTimer),
+		slog.String("status", v1.RaftStatus_name[int32(server.raft.GetStatus())]),
+	)
 
 	return server, nil
 }
@@ -85,9 +86,9 @@ func (s *Server) runTimer(ctx context.Context) {
 	electionResetTimer := time.NewTimer(s.electionResetTimer)
 
 	if s.logger != nil {
-		s.logger.Info("election timer started", field.Fields{
-			"election_reset_timer": s.electionResetTimer.Milliseconds(),
-		})
+		s.logger.Info("election timer started",
+			slog.Int64("election_reset_timer", s.electionResetTimer.Milliseconds()),
+		)
 	}
 
 	for {
@@ -118,9 +119,9 @@ func (s *Server) sendHeartbeat(ctx context.Context) {
 		})
 
 		if err != nil && s.logger != nil {
-			s.logger.ErrorWithContext(ctx, "failed to send heartbeat", field.Fields{
-				"peer_id": peerID,
-			})
+			s.logger.ErrorWithContext(ctx, "failed to send heartbeat",
+				slog.String("peer_id", peerID),
+			)
 		}
 	}
 }
@@ -135,9 +136,9 @@ func (s *Server) candidatePromotion(ctx context.Context) {
 	s.raft.SetStatus(v1.RaftStatus_RAFT_STATUS_CANDIDATE)
 
 	if s.logger != nil {
-		s.logger.InfoWithContext(ctx, "node promoted to candidate", field.Fields{
-			"id": s.raft.GetID(),
-		})
+		s.logger.InfoWithContext(ctx, "node promoted to candidate",
+			slog.Any("id", s.raft.GetID()),
+		)
 	}
 
 	// sent vote requests to all peers
