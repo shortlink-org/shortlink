@@ -65,13 +65,13 @@ importers:
         version: 54.0.11(expo@54.0.13(@babel/core@7.28.0)(graphql@16.8.1)(react-native@0.81.4(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.1.14)(react@19.1.1))(react@19.1.1))(graphql@16.8.1)(react-native@0.81.4(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.1.14)(react@19.1.1))
       '@nx/detox':
         specifier: 21.5.3
-        version: 21.5.3(@babel/core@7.28.0)(@babel/traverse@7.28.4)(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@types/node@22.18.10)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(detox@20.40.2(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))))(eslint@9.34.0)(nx@21.5.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))(typescript@5.9.3)(vite@6.3.5(@types/node@22.18.10)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(vitest@3.2.4(@types/node@22.18.10)(jsdom@26.1.0)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(webpack@5.101.3)
+        version: 21.5.3(@babel/core@7.28.0)(@babel/traverse@7.28.4)(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@types/node@22.18.10)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(detox@20.43.0(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))))(eslint@9.34.0)(nx@21.5.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))(typescript@5.9.3)(vite@6.3.5(@types/node@22.18.10)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(vitest@3.2.4(@types/node@22.18.10)(jsdom@26.1.0)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(webpack@5.101.3)
       '@nx/eslint-plugin':
         specifier: 21.5.3
         version: 21.5.3(@babel/traverse@7.28.4)(@typescript-eslint/parser@8.46.0(eslint@9.34.0)(typescript@5.9.3))(eslint-config-prettier@10.1.8(eslint@9.34.0))(eslint@9.34.0)(nx@21.5.3)(typescript@5.9.3)
       '@nx/expo':
         specifier: ^21.5.3
-        version: 21.5.3(@babel/core@7.28.0)(@babel/traverse@7.28.4)(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@types/node@22.18.10)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(detox@20.40.2(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))))(eslint@9.34.0)(metro-config@0.83.3)(metro-resolver@0.83.3)(nx@21.5.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))(typescript@5.9.3)(vite@6.3.5(@types/node@22.18.10)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(vitest@3.2.4(@types/node@22.18.10)(jsdom@26.1.0)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(webpack@5.101.3)
+        version: 21.5.3(@babel/core@7.28.0)(@babel/traverse@7.28.4)(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@types/node@22.18.10)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(detox@20.43.0(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))))(eslint@9.34.0)(metro-config@0.83.3)(metro-resolver@0.83.3)(nx@21.5.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))(typescript@5.9.3)(vite@6.3.5(@types/node@22.18.10)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(vitest@3.2.4(@types/node@22.18.10)(jsdom@26.1.0)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(webpack@5.101.3)
       '@nx/jest':
         specifier: 21.5.3
         version: 21.5.3(@babel/traverse@7.28.4)(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(nx@21.5.3)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))(typescript@5.9.3)
@@ -115,8 +115,8 @@ importers:
         specifier: ~54.0.4
         version: 54.0.4(@babel/core@7.28.0)(@babel/runtime@7.28.2)(expo@54.0.13(@babel/core@7.28.0)(graphql@16.8.1)(react-native@0.81.4(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.1.14)(react@19.1.1))(react@19.1.1))(react-refresh@0.14.2)
       detox:
-        specifier: ^20.40.2
-        version: 20.40.2(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3)))
+        specifier: ^20.43.0
+        version: 20.43.0(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3)))
       eas-cli:
         specifier: ^16.20.4
         version: 16.20.4(@types/node@22.18.10)(encoding@0.1.13)(typescript@5.9.3)
@@ -3290,8 +3290,8 @@ packages:
   '@webassemblyjs/wast-printer@1.14.1':
     resolution: {integrity: sha512-kPSSXE6De1XOR820C90RIo2ogvZG+c3KiHzqUoO/F34Y2shGzesfqv7o57xrxovZJH/MetF5UjroJ/R/3isoiw==}
 
-  '@wix-pilot/core@3.4.1':
-    resolution: {integrity: sha512-9WvI+FuDYQ1IJsyHRfZphehlbOXIOswlxowwJZ0FlUaebGhR78T61qY1e532HHlJfKyuIu1IwdSQ2tg5L+hUhg==}
+  '@wix-pilot/core@3.4.2':
+    resolution: {integrity: sha512-O8V2NLfPEKI2IviJXG4g/vNbMfsBZNBhzAKFUOOaOR9TTDUJYlZUttqjhjP/fPnaDky0/hrfGES15sO0N7zEkw==}
     peerDependencies:
       expect: '*'
     peerDependenciesMeta:
@@ -4380,8 +4380,8 @@ packages:
     engines: {node: '>= 4.0.0'}
     hasBin: true
 
-  detox@20.40.2:
-    resolution: {integrity: sha512-gb9o8Gg5yVd2+xjVLDb5IbS4tg96r9nX/MNCgHqYMUxKcW49oOMlGcodp+f6w29x8HLEn1aKdwGYXEPl9xNZHw==}
+  detox@20.43.0:
+    resolution: {integrity: sha512-xEKwFw3t9jeMm85KDq1S51wt40L5wWoxskhIw8Q58slu9PGz18KZA7pGJtwr2px+RPX+oss1Vpxuaif71nTKsQ==}
     engines: {node: '>=14'}
     hasBin: true
     peerDependencies:
@@ -11591,14 +11591,14 @@ snapshots:
       - '@swc/core'
       - debug
 
-  '@nx/detox@21.5.3(@babel/core@7.28.0)(@babel/traverse@7.28.4)(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@types/node@22.18.10)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(detox@20.40.2(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))))(eslint@9.34.0)(nx@21.5.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))(typescript@5.9.3)(vite@6.3.5(@types/node@22.18.10)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(vitest@3.2.4(@types/node@22.18.10)(jsdom@26.1.0)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(webpack@5.101.3)':
+  '@nx/detox@21.5.3(@babel/core@7.28.0)(@babel/traverse@7.28.4)(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@types/node@22.18.10)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(detox@20.43.0(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))))(eslint@9.34.0)(nx@21.5.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))(typescript@5.9.3)(vite@6.3.5(@types/node@22.18.10)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(vitest@3.2.4(@types/node@22.18.10)(jsdom@26.1.0)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(webpack@5.101.3)':
     dependencies:
       '@nx/devkit': 21.5.3(nx@21.5.3)
       '@nx/eslint': 21.5.3(@babel/traverse@7.28.4)(@zkochan/js-yaml@0.0.7)(eslint@9.34.0)(nx@21.5.3)
       '@nx/jest': 21.5.3(@babel/traverse@7.28.4)(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(nx@21.5.3)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))(typescript@5.9.3)
       '@nx/js': 21.5.3(@babel/traverse@7.28.4)(nx@21.5.3)
       '@nx/react': 21.5.3(@babel/core@7.28.0)(@babel/traverse@7.28.4)(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@zkochan/js-yaml@0.0.7)(eslint@9.34.0)(nx@21.5.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))(typescript@5.9.3)(vite@6.3.5(@types/node@22.18.10)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(vitest@3.2.4(@types/node@22.18.10)(jsdom@26.1.0)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(webpack@5.101.3)
-      detox: 20.40.2(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3)))
+      detox: 20.43.0(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3)))
       tslib: 2.8.1
     transitivePeerDependencies:
       - '@babel/core'
@@ -11738,7 +11738,7 @@ snapshots:
       - supports-color
       - verdaccio
 
-  '@nx/expo@21.5.3(@babel/core@7.28.0)(@babel/traverse@7.28.4)(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@types/node@22.18.10)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(detox@20.40.2(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))))(eslint@9.34.0)(metro-config@0.83.3)(metro-resolver@0.83.3)(nx@21.5.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))(typescript@5.9.3)(vite@6.3.5(@types/node@22.18.10)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(vitest@3.2.4(@types/node@22.18.10)(jsdom@26.1.0)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(webpack@5.101.3)':
+  '@nx/expo@21.5.3(@babel/core@7.28.0)(@babel/traverse@7.28.4)(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@types/node@22.18.10)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(detox@20.43.0(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))))(eslint@9.34.0)(metro-config@0.83.3)(metro-resolver@0.83.3)(nx@21.5.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))(typescript@5.9.3)(vite@6.3.5(@types/node@22.18.10)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(vitest@3.2.4(@types/node@22.18.10)(jsdom@26.1.0)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(webpack@5.101.3)':
     dependencies:
       '@nx/devkit': 21.5.3(nx@21.5.3)
       '@nx/eslint': 21.5.3(@babel/traverse@7.28.4)(@zkochan/js-yaml@0.0.7)(eslint@9.34.0)(nx@21.5.3)
@@ -11751,7 +11751,7 @@ snapshots:
       tsconfig-paths: 4.2.0
       tslib: 2.8.1
     optionalDependencies:
-      '@nx/detox': 21.5.3(@babel/core@7.28.0)(@babel/traverse@7.28.4)(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@types/node@22.18.10)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(detox@20.40.2(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))))(eslint@9.34.0)(nx@21.5.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))(typescript@5.9.3)(vite@6.3.5(@types/node@22.18.10)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(vitest@3.2.4(@types/node@22.18.10)(jsdom@26.1.0)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(webpack@5.101.3)
+      '@nx/detox': 21.5.3(@babel/core@7.28.0)(@babel/traverse@7.28.4)(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@types/node@22.18.10)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(detox@20.43.0(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))))(eslint@9.34.0)(nx@21.5.3)(react-dom@19.1.1(react@19.1.1))(react@19.1.1)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))(typescript@5.9.3)(vite@6.3.5(@types/node@22.18.10)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(vitest@3.2.4(@types/node@22.18.10)(jsdom@26.1.0)(less@4.4.0)(lightningcss@1.30.1)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.43.1)(yaml@2.8.1))(webpack@5.101.3)
       '@nx/rollup': 21.5.3(@babel/core@7.28.0)(@babel/traverse@7.28.4)(@types/babel__core@7.20.5)(nx@21.5.3)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))(typescript@5.9.3)
     transitivePeerDependencies:
       - '@babel/core'
@@ -13500,7 +13500,7 @@ snapshots:
       '@webassemblyjs/ast': 1.14.1
       '@xtuc/long': 4.2.2
 
-  '@wix-pilot/core@3.4.1(expect@30.1.2)':
+  '@wix-pilot/core@3.4.2(expect@30.1.2)':
     dependencies:
       chalk: 4.1.2
       pngjs: 7.0.0
@@ -13508,10 +13508,10 @@ snapshots:
     optionalDependencies:
       expect: 30.1.2
 
-  '@wix-pilot/detox@1.0.13(@wix-pilot/core@3.4.1(expect@30.1.2))(detox@20.40.2(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))))(expect@30.1.2)':
+  '@wix-pilot/detox@1.0.13(@wix-pilot/core@3.4.2(expect@30.1.2))(detox@20.43.0(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))))(expect@30.1.2)':
     dependencies:
-      '@wix-pilot/core': 3.4.1(expect@30.1.2)
-      detox: 20.40.2(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3)))
+      '@wix-pilot/core': 3.4.2(expect@30.1.2)
+      detox: 20.43.0(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3)))
       expect: 30.1.2
 
   '@xmldom/xmldom@0.7.13': {}
@@ -14686,10 +14686,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  detox@20.40.2(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))):
+  detox@20.43.0(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))):
     dependencies:
-      '@wix-pilot/core': 3.4.1(expect@30.1.2)
-      '@wix-pilot/detox': 1.0.13(@wix-pilot/core@3.4.1(expect@30.1.2))(detox@20.40.2(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))))(expect@30.1.2)
+      '@wix-pilot/core': 3.4.2(expect@30.1.2)
+      '@wix-pilot/detox': 1.0.13(@wix-pilot/core@3.4.2(expect@30.1.2))(detox@20.43.0(@jest/environment@30.1.2)(@jest/types@30.0.5)(@types/bunyan@1.8.11)(expect@30.1.2)(jest-environment-jsdom@30.1.2)(jest-environment-node@30.1.2)(jest@30.1.3(@types/node@22.18.10)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@22.18.10)(typescript@5.9.3))))(expect@30.1.2)
       ajv: 8.17.1
       bunyan: 1.8.15
       bunyan-debug-stream: 3.1.1(bunyan@1.8.15)
@@ -14711,7 +14711,7 @@ snapshots:
       proper-lockfile: 3.2.0
       resolve-from: 5.0.0
       sanitize-filename: 1.6.3
-      semver: 7.7.2
+      semver: 7.7.3
       serialize-error: 8.1.0
       shell-quote: 1.8.3
       signal-exit: 3.0.7
