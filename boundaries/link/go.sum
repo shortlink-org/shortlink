@@ -1,4 +1,5 @@
 buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.8-20250717185734-6c6e0d3c608e.1 h1:sjY1k5uszbIZfv11HO2keV4SLhNA47SabPO886v7Rvo=
+buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.8-20250717185734-6c6e0d3c608e.1/go.mod h1:8EQ5GzyGJQ5tEIwMSxCl8RKJYsjCpAwkdcENoioXT6g=
 cel.dev/expr v0.24.0 h1:56OvJKSH3hDGL0ml5uSxZmz3/3Pq4tJ+fb1unVLAFcY=
 cel.dev/expr v0.24.0/go.mod h1:hLPLo1W4QUmuYdA72RBX06QTs6MXw941piREPl3Yfiw=
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
@@ -47,6 +48,7 @@ github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03
 github.com/BurntSushi/xgb v0.0.0-20160522181843-27f122750802/go.mod h1:IVnqGOEym/WlBOVXweHU+Q+/VP0lqqI8lqeDx9IjBqo=
 github.com/ClickHouse/clickhouse-go v1.3.12/go.mod h1:EaI/sW7Azgz9UATzd5ZdZHRUhHgv5+JMS9NSr2smCJI=
 github.com/IBM/sarama v1.46.1 h1:AlDkvyQm4LKktoQZxv0sbTfH3xukeH7r/UFBbUmFV9M=
+github.com/IBM/sarama v1.46.1/go.mod h1:ipyOREIx+o9rMSrrPGLZHGuT0mzecNzKd19Quq+Q8AA=
 github.com/Masterminds/semver/v3 v3.3.1 h1:QtNSWtVZ3nBfk8mAOu/B6v7FMJ+NHTIgUPi7rj+4nv4=
 github.com/Masterminds/semver/v3 v3.3.1/go.mod h1:4V+yj/TJE1HU9XfppCwVMZq3I84lprf4nC11bSS5beM=
 github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d h1:X+jk+3EiJRWurmOM/7hq0BU9XjiNvi+3wJ3D6F0ska4=
@@ -64,6 +66,7 @@ github.com/antlr4-go/antlr/v4 v4.13.1 h1:SqQKkuVZ+zWkMMNkjy5FZe5mr5WURWnlpmOuzYW
 github.com/antlr4-go/antlr/v4 v4.13.1/go.mod h1:GKmUxMtwp6ZgGwZSva4eWPC5mS6vUAmOABFgjdkM7Nw=
 github.com/apache/arrow/go/arrow v0.0.0-20200601151325-b2287a20f230/go.mod h1:QNYViu/X0HXDHw7m3KXzWSVXIbfUvJqBFe6Gj8/pYA0=
 github.com/authzed/authzed-go v1.6.0 h1:5SLZicFo33OweDtYOrWg7e/bHNIcbUeCBfNCb9I7v5o=
+github.com/authzed/authzed-go v1.6.0/go.mod h1:LiQgZqudrGl4luQptauVeB9gdtULEd+pVoJTmIWuKGw=
 github.com/authzed/grpcutil v0.0.0-20240123194739-2ea1e3d2d98b h1:wbh8IK+aMLTCey9sZasO7b6BWLAJnHHvb79fvWCXwxw=
 github.com/authzed/grpcutil v0.0.0-20240123194739-2ea1e3d2d98b/go.mod h1:s3qC7V7XIbiNWERv7Lfljy/Lx25/V1Qlexb0WJuA8uQ=
 github.com/aws/aws-sdk-go v1.17.7/go.mod h1:KmX6BPdI08NWTb3/sm4ZGu5ShLoqVDhKgpiN924inxo=
@@ -451,6 +454,7 @@ github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822/go.mod h1:+n7T8m
 github.com/mutecomm/go-sqlcipher/v4 v4.4.0/go.mod h1:PyN04SaWalavxRGH9E8ZftG6Ju7rsPrGmQRjrEaVpiY=
 github.com/nakagami/firebirdsql v0.0.0-20190310045651-3c02a58cfed8/go.mod h1:86wM1zFnC6/uDBfZGNwB65O+pR2OFi5q/YQaEUid1qA=
 github.com/nats-io/nats.go v1.46.0 h1:iUcX+MLT0HHXskGkz+Sg20sXrPtJLsOojMDTDzOHSb8=
+github.com/nats-io/nats.go v1.46.0/go.mod h1:iRWIPokVIFbVijxuMQq4y9ttaBTMe0SFdlZfMDd+33g=
 github.com/nats-io/nkeys v0.4.11 h1:q44qGV008kYd9W1b1nEBkNzvnWxtRSQ7A8BoqRrcfa0=
 github.com/nats-io/nkeys v0.4.11/go.mod h1:szDimtgmfOi9n25JpfIdGw12tZFYXqhGxjhVxsatHVE=
 github.com/nats-io/nuid v1.0.1 h1:5iA8DT8V7q8WK2EScv2padNa/rTESc1KdnPw4TC2paw=
@@ -501,6 +505,7 @@ github.com/opencontainers/image-spec v1.1.1/go.mod h1:qpqAh3Dmcf36wStyyWU+kCeDgr
 github.com/opencontainers/runc v1.2.5 h1:8KAkq3Wrem8bApgOHyhRI/8IeLXIfmZ6Qaw6DNSLnA4=
 github.com/opencontainers/runc v1.2.5/go.mod h1:dOQeFo29xZKBNeRBI0B19mJtfHv68YgCTh1X+YphA+4=
 github.com/ory/client-go v1.22.3 h1:ys5amOhTgABFAhTu+70IWUVGDqTYk3Pt9zwh15tfmF4=
+github.com/ory/client-go v1.22.3/go.mod h1:su2VvmoLLprWfIQg+CvVWrCMUDRXvpLef5k4raV1Fd0=
 github.com/ory/dockertest/v3 v3.12.0 h1:3oV9d0sDzlSQfHtIaB5k6ghUCVMVLpAY8hwrqoCyRCw=
 github.com/ory/dockertest/v3 v3.12.0/go.mod h1:aKNDTva3cp8dwOWwb9cWuX84aH5akkxXRvO7KCwWVjE=
 github.com/pelletier/go-toml/v2 v2.2.4 h1:mye9XuhQ6gvn5h28+VilKrrPoQVanw5PMw/TB0t5Ec4=
@@ -548,9 +553,13 @@ github.com/redis/go-redis/v9 v9.14.0 h1:u4tNCjXOyzfgeLN+vAZaW1xUooqWDqVEsZN0U01j
 github.com/redis/go-redis/v9 v9.14.0/go.mod h1:huWgSWd8mW6+m0VPhJjSSQ+d6Nh1VICQ6Q5lHuCH/Iw=
 github.com/redis/rueidis v1.0.66 h1:7rvyrl0vL/cAEkE97+L5v3MJ3Vg8IKz+KIxUTfT+yJk=
 github.com/redis/rueidis v1.0.66/go.mod h1:Lkhr2QTgcoYBhxARU7kJRO8SyVlgUuEkcJO1Y8MCluA=
+github.com/redis/rueidis v1.0.67 h1:v2BIArP50KkRsEkhPWyVg4pcwI3rPVehl6EYyWlPHrM=
+github.com/redis/rueidis v1.0.67/go.mod h1:Lkhr2QTgcoYBhxARU7kJRO8SyVlgUuEkcJO1Y8MCluA=
 github.com/redis/rueidis/mock v1.0.66 h1:ofRbUqzAhR/LJ6MRDx+a3bvrhOEWbw70a3r2dL5L+RE=
 github.com/redis/rueidis/rueidiscompat v1.0.66 h1:v0auL7Sa1DbQdNAzjQPW992jBzNQa4vVL/azjyXijOQ=
+github.com/redis/rueidis/rueidiscompat v1.0.66/go.mod h1:9pCNrbs5yatBRzcFRT79eW7ic8U7/jCeiI2hKpJulQk=
 github.com/redis/rueidis/rueidisotel v1.0.66 h1:NTAQPMjylShxLd+qzSdjco3IaJ5TGzd9G13SAENzKIU=
+github.com/redis/rueidis/rueidisotel v1.0.66/go.mod h1:4y3g55J99LpHE3N23F0doxKtPK4fRhJM+MRr7L3bwHk=
 github.com/remyoudompheng/bigfft v0.0.0-20190728182440-6a916e37a237/go.mod h1:qqbHyh8v60DhA7CoWK5oRCqLrMHRGoxYCSS9EjAz6Eo=
 github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec h1:W09IVJc94icq4NjY3clb7Lk8O1qJ8BdBEF8z0ibU0rE=
 github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec/go.mod h1:qqbHyh8v60DhA7CoWK5oRCqLrMHRGoxYCSS9EjAz6Eo=
@@ -579,8 +588,11 @@ github.com/shortlink-org/go-sdk/auth v0.0.0-20250921105413-6ee4ef9f264a/go.mod h
 github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc h1:mBfyzxiC1LBjRjNQL5Obb+r9IxQ5RTehoq93i2gYS9M=
 github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc/go.mod h1:knX22tU1FqXSxNZGqaTKtrt5XRcc43NDAuE3tZsQ+IU=
 github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2 h1:v/8oSwVNG4eizmFYvX7UzsKgyvX8lxcVal2vrN9d31U=
+github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2/go.mod h1:sHq1QGsPbwmEsbysAbJqtBegP7ex0UfEM/d85ZNsf84=
 github.com/shortlink-org/go-sdk/grpc v0.0.0-20251012192239-ed21e319d1d2 h1:WI6tXpCzk0+cuPQu1KeQKfYOgvv8k0Dn5zdZ3P39pxI=
+github.com/shortlink-org/go-sdk/grpc v0.0.0-20251012192239-ed21e319d1d2/go.mod h1:TAGTW67/lvaYJNGZ94xL3l8KkKfCPxXhJMrVcgv3pGU=
 github.com/shortlink-org/go-sdk/logger v0.0.0-20251012192239-ed21e319d1d2 h1:lgMVsubLa3J6Rm5g3NwXkmuWTpAGFRa0rfpz/BA5YnU=
+github.com/shortlink-org/go-sdk/logger v0.0.0-20251012192239-ed21e319d1d2/go.mod h1:9vy6MPUoeF8BRzAw2+aYS7wJoiMXkByVVTsZO2jg98I=
 github.com/shortlink-org/shortlink v0.0.0-20250917223100-9578c5d6d178 h1:TVcW4HmtxOcsHyqnsVFK8X4NFwK+ot3ZaLyhSw0sNUs=
 github.com/shortlink-org/shortlink v0.0.0-20250917223100-9578c5d6d178/go.mod h1:ozaR63RBgM+WkL5/Dmq6HOF83dSwhpdtnm3d+LM1T/Y=
 github.com/sirupsen/logrus v1.4.1/go.mod h1:ni0Sbl8bgC9z8RoU9G6nDWqqs/fq4eDPysMBDgk/93Q=
