@@ -10,16 +10,12 @@ func Merge[T any](items ...<-chan T) <-chan T {
 
 	var wg sync.WaitGroup
 
-	wg.Add(len(items))
-
 	for _, item := range items {
-		go func(c <-chan T) {
-			for n := range c {
+		wg.Go(func() {
+			for n := range item {
 				out <- n
 			}
-
-			wg.Done()
-		}(item)
+		})
 	}
 
 	go func() {

@@ -5,6 +5,7 @@ package storeRepository
 
 import (
 	"context"
+	"log/slog"
 
 	"github.com/spf13/viper"
 
@@ -33,9 +34,9 @@ func (s *MetaStore) Use(_ context.Context, log logger.Logger, _ db.DB) (*MetaSto
 		s.Store = &ram.Store{}
 	}
 
-	log.Info("init metaStore", field.Fields{
-		"db": s.typeStore,
-	})
+	log.Info("init metaStore",
+		slog.String("db", s.typeStore),
+	)
 
 	return s, nil
 }

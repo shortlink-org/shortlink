@@ -59,27 +59,27 @@ func (mq *DataBus) Init(ctx context.Context, log logger.Logger) error {
 
 // Subscribe - subscribe to a topic
 func (mq *DataBus) Subscribe(ctx context.Context, target string, message query.Response) error {
-	mq.log.Info("subscribe to topic", field.Fields{
-		"topic": target,
-	})
+	mq.log.Info("subscribe to topic",
+		slog.String("topic", target),
+	)
 
 	return mq.mq.Subscribe(ctx, target, message)
 }
 
 // UnSubscribe - unsubscribe to a topic
 func (mq *DataBus) UnSubscribe(target string) error {
-	mq.log.Info("unsubscribe to topic", field.Fields{
-		"topic": target,
-	})
+	mq.log.Info("unsubscribe to topic",
+		slog.String("topic", target),
+	)
 
 	return mq.mq.UnSubscribe(target)
 }
 
 // Publish - publish to a topic
 func (mq *DataBus) Publish(ctx context.Context, target string, key, payload []byte) error {
-	mq.log.Info("publish to topic", field.Fields{
-		"topic": target,
-	})
+	mq.log.Info("publish to topic",
+		slog.String("topic", target),
+	)
 
 	return mq.mq.Publish(ctx, target, key, payload)
 }

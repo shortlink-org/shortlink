@@ -9,7 +9,10 @@ package metadata_di
 import (
 	"context"
 	"github.com/google/wire"
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/shortlink-org/go-sdk/config"
+	"github.com/shortlink-org/go-sdk/grpc"
+	"github.com/shortlink-org/go-sdk/logger"
 	v1_2 "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/mq"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/media"
@@ -27,11 +30,9 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/store"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/traicing"
-	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/notify"
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
-	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/shortlink/pkg/s3"
 	"go.opentelemetry.io/otel/trace"
 )
@@ -54,22 +55,14 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	autoMaxProAutoMaxPro, cleanup3, err := autoMaxPro.New(logger)
+	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
+	monitoring, cleanup4, err := metrics.New(context, logger, tracerProvider)
 	if err != nil {
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	monitoring, cleanup5, err := metrics.New(context, logger, tracerProvider)
-	if err != nil {
-		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
@@ -77,7 +70,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	pprofEndpoint, err := profiling.New(context, logger)
 	if err != nil {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -86,7 +78,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	db, err := store.New(context, logger, tracerProvider, monitoring)
 	if err != nil {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -95,7 +86,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	metaStore, err := NewMetaDataStore(context, logger, db)
 	if err != nil {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -104,7 +94,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	uc, err := NewParserUC(metaStore)
 	if err != nil {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -113,7 +102,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	mq, err := mq_di.New(context, logger)
 	if err != nil {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -122,16 +110,15 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	event, err := InitMetadataMQ(context, mq)
 	if err != nil {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	server, err := rpc.InitServer(context, logger, tracerProvider, monitoring)
+	registry := NewPrometheusRegistry(monitoring)
+	server, err := grpc.InitServer(context, logger, tracerProvider, registry)
 	if err != nil {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -140,7 +127,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	client, err := s3.New(context, logger)
 	if err != nil {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -149,7 +135,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	service, err := NewMetaDataMediaStore(context, client)
 	if err != nil {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -158,7 +143,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	screenshotUC, err := NewScreenshotUC(context, service)
 	if err != nil {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -167,7 +151,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	metadataUC, err := NewMetadataUC(logger, uc, screenshotUC)
 	if err != nil {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -176,16 +159,14 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}
 	metadata, err := NewMetaDataRPCServer(logger, server, uc, screenshotUC, metadataUC)
 	if err != nil {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	metaDataService, err := NewMetaDataService(logger, configConfig, autoMaxProAutoMaxPro, monitoring, tracerProvider, pprofEndpoint, uc, event, metadata, metaStore)
+	metaDataService, err := NewMetaDataService(logger, configConfig, monitoring, tracerProvider, pprofEndpoint, uc, event, metadata, metaStore)
 	if err != nil {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -193,7 +174,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		return nil, nil, err
 	}
 	return metaDataService, func() {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -205,9 +185,8 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 
 type MetaDataService struct {
 	// Common
-	Log        logger.Logger
-	Config     *config.Config
-	AutoMaxPro autoMaxPro.AutoMaxPro
+	Log    logger.Logger
+	Config *config.Config
 
 	// Observability
 	Tracer        trace.TracerProvider
@@ -226,7 +205,9 @@ type MetaDataService struct {
 }
 
 // MetaDataService =====================================================================================================
-var MetaDataSet = wire.NewSet(di.DefaultSet, permission.New, mq_di.New, store.New, rpc.InitServer, s3.New, InitMetadataMQ,
+var MetaDataSet = wire.NewSet(di.DefaultSet, permission.New, mq_di.New, store.New, grpc.InitServer, s3.New, NewPrometheusRegistry,
+
+	InitMetadataMQ,
 	NewMetaDataRPCServer,
 
 	NewParserUC,
@@ -238,6 +219,10 @@ var MetaDataSet = wire.NewSet(di.DefaultSet, permission.New, mq_di.New, store.Ne
 
 	NewMetaDataService,
 )
+
+func NewPrometheusRegistry(metrics2 *metrics.Monitoring) *prometheus.Registry {
+	return metrics2.Prometheus
+}
 
 func InitMetadataMQ(ctx2 context.Context, dataBus mq.MQ) (*metadata_mq.Event, error) {
 	metadataMQ, err := metadata_mq.New(dataBus)
@@ -295,7 +280,7 @@ func NewMetadataUC(log logger.Logger, parsersUC *parsers.UC, screenshotUC *scree
 	return metadataService, nil
 }
 
-func NewMetaDataRPCServer(log logger.Logger, runRPCServer *rpc.Server, parsersUC *parsers.UC, screenshotUC *screenshot.UC, metadataUC *metadata.UC) (*v1.Metadata, error) {
+func NewMetaDataRPCServer(log logger.Logger, runRPCServer *grpc.Server, parsersUC *parsers.UC, screenshotUC *screenshot.UC, metadataUC *metadata.UC) (*v1.Metadata, error) {
 	metadataRPCServer, err := v1.New(log, runRPCServer, parsersUC, screenshotUC, metadataUC)
 	if err != nil {
 		return nil, err
@@ -306,8 +291,7 @@ func NewMetaDataRPCServer(log logger.Logger, runRPCServer *rpc.Server, parsersUC
 
 func NewMetaDataService(
 
-	log logger.Logger, config2 *config.Config,
-	autoMaxProcsOption autoMaxPro.AutoMaxPro, metrics2 *metrics.Monitoring,
+	log logger.Logger, config2 *config.Config, metrics2 *metrics.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 
@@ -326,7 +310,6 @@ func NewMetaDataService(
 		Tracer:        tracer,
 		Metrics:       metrics2,
 		PprofEndpoint: pprofHTTP,
-		AutoMaxPro:    autoMaxProcsOption,
 
 		service: service,
 

@@ -25,7 +25,7 @@
 npm ci
 npm start
 
-// Ready on http://127.0.0.1:3000/next/auth/login
+// Ready on http://127.0.0.1:3000/next
 ```
 
 ### ENV

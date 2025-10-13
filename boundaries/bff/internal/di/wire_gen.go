@@ -4,7 +4,7 @@
 //go:build !wireinject
 // +build !wireinject
 
-package bff_web_di
+package bff_di
 
 import (
 	linkv1grpc2 "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
@@ -12,7 +12,10 @@ import (
 	"buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
 	"context"
 	"github.com/google/wire"
+	"github.com/prometheus/client_golang/prometheus"
 	"github.com/shortlink-org/go-sdk/config"
+	"github.com/shortlink-org/go-sdk/grpc"
+	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/pkg/i18n"
 	"github.com/shortlink-org/shortlink/pkg/di"
@@ -21,12 +24,10 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/traicing"
-	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
-	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
-	"google.golang.org/grpc"
+	grpc2 "google.golang.org/grpc"
 )
 
 // Injectors from wire.go:
@@ -47,22 +48,14 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	autoMaxProAutoMaxPro, cleanup3, err := autoMaxPro.New(logger)
+	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	tracerProvider, cleanup4, err := traicing_di.New(context, logger)
+	monitoring, cleanup4, err := metrics.New(context, logger, tracerProvider)
 	if err != nil {
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	monitoring, cleanup5, err := metrics.New(context, logger, tracerProvider)
-	if err != nil {
-		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
@@ -70,7 +63,6 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 	}
 	pprofEndpoint, err := profiling.New(context, logger)
 	if err != nil {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -78,18 +70,17 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		return nil, nil, err
 	}
 	printer := i18n.New(context)
-	server, err := rpc.InitServer(context, logger, tracerProvider, monitoring)
+	registry := NewPrometheusRegistry(monitoring)
+	server, err := grpc.InitServer(context, logger, tracerProvider, registry)
 	if err != nil {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup6, err := NewRPCClient(context, logger, monitoring, tracerProvider)
+	clientConn, cleanup5, err := NewRPCClient(context, logger, monitoring, tracerProvider)
 	if err != nil {
-		cleanup5()
 		cleanup4()
 		cleanup3()
 		cleanup2()
@@ -98,7 +89,6 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 	}
 	linkServiceClient, err := NewLinkRPCClient(clientConn)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -108,7 +98,6 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 	}
 	linkCommandServiceClient, err := NewLinkCommandRPCClient(clientConn)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -118,7 +107,6 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 	}
 	linkQueryServiceClient, err := NewLinkQueryRPCClient(clientConn)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -128,7 +116,6 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 	}
 	sitemapServiceClient, err := NewSitemapServiceClient(clientConn)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -136,9 +123,8 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	httpServer, err := NewAPIApplication(context, printer, logger, configConfig, autoMaxProAutoMaxPro, tracerProvider, monitoring, pprofEndpoint, server, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
+	httpServer, err := NewAPIApplication(context, printer, logger, configConfig, tracerProvider, monitoring, pprofEndpoint, server, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
 	if err != nil {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -146,9 +132,8 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	bffWebService := NewBFFWebService(context, logger, configConfig, autoMaxProAutoMaxPro, tracerProvider, monitoring, pprofEndpoint, httpServer)
+	bffWebService := NewBFFWebService(context, logger, configConfig, tracerProvider, monitoring, pprofEndpoint, httpServer)
 	return bffWebService, func() {
-		cleanup6()
 		cleanup5()
 		cleanup4()
 		cleanup3()
@@ -161,10 +146,9 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 
 type BFFWebService struct {
 	// Common
-	Log        logger.Logger
-	Config     *config.Config
-	i18n       *message.Printer
-	AutoMaxPro autoMaxPro.AutoMaxPro
+	Log    logger.Logger
+	Config *config.Config
+	i18n   *message.Printer
 
 	// Delivery
 	httpAPIServer *http.Server
@@ -176,7 +160,7 @@ type BFFWebService struct {
 }
 
 // BFFWebService =======================================================================================================
-var BFFWebServiceSet = wire.NewSet(di.DefaultSet, permission.New, i18n.New, rpc.InitServer, NewRPCClient,
+var BFFWebServiceSet = wire.NewSet(di.DefaultSet, permission.New, i18n.New, NewPrometheusRegistry, grpc.InitServer, NewRPCClient,
 
 	NewLinkRPCClient,
 	NewLinkCommandRPCClient,
@@ -187,15 +171,19 @@ var BFFWebServiceSet = wire.NewSet(di.DefaultSet, permission.New, i18n.New, rpc.
 	NewBFFWebService,
 )
 
+func NewPrometheusRegistry(metrics2 *metrics.Monitoring) *prometheus.Registry {
+	return metrics2.Prometheus
+}
+
 func NewRPCClient(ctx2 context.Context,
 
 	log logger.Logger, metrics2 *metrics.Monitoring,
 	tracer trace.TracerProvider,
-) (*grpc.ClientConn, func(), error) {
+) (*grpc2.ClientConn, func(), error) {
 
-	opts := []rpc.Option{rpc.WithSession(), rpc.WithMetrics(metrics2), rpc.WithTracer(tracer, metrics2), rpc.WithTimeout(), rpc.WithLogger(log)}
+	opts := []grpc.Option{grpc.WithSession(), grpc.WithMetrics(metrics2.Prometheus), grpc.WithTracer(tracer, metrics2.Prometheus, metrics2.Metrics), grpc.WithTimeout(), grpc.WithLogger(log)}
 
-	runRPCClient, cleanup, err := rpc.InitClient(ctx2, log, opts...)
+	runRPCClient, cleanup, err := grpc.InitClient(ctx2, log, opts...)
 	if err != nil {
 		return nil, nil, err
 	}
@@ -203,29 +191,29 @@ func NewRPCClient(ctx2 context.Context,
 	return runRPCClient, cleanup, nil
 }
 
-func NewLinkRPCClient(runRPCClient *grpc.ClientConn) (linkv1grpc.LinkServiceClient, error) {
+func NewLinkRPCClient(runRPCClient *grpc2.ClientConn) (linkv1grpc.LinkServiceClient, error) {
 	return linkv1grpc.NewLinkServiceClient(runRPCClient), nil
 }
 
-func NewLinkCommandRPCClient(runRPCClient *grpc.ClientConn) (linkv1grpc2.LinkCommandServiceClient, error) {
+func NewLinkCommandRPCClient(runRPCClient *grpc2.ClientConn) (linkv1grpc2.LinkCommandServiceClient, error) {
 	return linkv1grpc2.NewLinkCommandServiceClient(runRPCClient), nil
 }
 
-func NewLinkQueryRPCClient(runRPCClient *grpc.ClientConn) (linkv1grpc2.LinkQueryServiceClient, error) {
+func NewLinkQueryRPCClient(runRPCClient *grpc2.ClientConn) (linkv1grpc2.LinkQueryServiceClient, error) {
 	return linkv1grpc2.NewLinkQueryServiceClient(runRPCClient), nil
 }
 
-func NewSitemapServiceClient(runRPCClient *grpc.ClientConn) (sitemapv1grpc.SitemapServiceClient, error) {
+func NewSitemapServiceClient(runRPCClient *grpc2.ClientConn) (sitemapv1grpc.SitemapServiceClient, error) {
 	return sitemapv1grpc.NewSitemapServiceClient(runRPCClient), nil
 }
 
 func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer,
-	log logger.Logger, config2 *config.Config, autoMaxPro2 autoMaxPro.AutoMaxPro,
+	log logger.Logger, config2 *config.Config,
 
 	tracer trace.TracerProvider, metrics2 *metrics.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint,
 
-	rpcServer *rpc.Server,
+	rpcServer *grpc.Server,
 	link_rpc linkv1grpc.LinkServiceClient,
 	link_command linkv1grpc2.LinkCommandServiceClient,
 	link_query linkv1grpc2.LinkQueryServiceClient,
@@ -241,7 +229,6 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer,
 		Tracer:        tracer,
 		Metrics:       metrics2,
 		PprofEndpoint: pprofEndpoint,
-		AutoMaxPro:    autoMaxPro2,
 
 		RpcServer: rpcServer,
 
@@ -249,7 +236,7 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer,
 		Link_command: link_command,
 		Link_query:   link_query,
 		Sitemap_rpc:  sitemap_rpc,
-	})
+	}, log)
 	if err != nil {
 		return nil, err
 	}
@@ -259,7 +246,7 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer,
 
 func NewBFFWebService(ctx2 context.Context,
 
-	log logger.Logger, config2 *config.Config, autoMaxPro2 autoMaxPro.AutoMaxPro,
+	log logger.Logger, config2 *config.Config,
 
 	tracer trace.TracerProvider, metrics2 *metrics.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint,
@@ -274,7 +261,6 @@ func NewBFFWebService(ctx2 context.Context,
 		Tracer:        tracer,
 		Metrics:       metrics2,
 		PprofEndpoint: pprofEndpoint,
-		AutoMaxPro:    autoMaxPro2,
 
 		httpAPIServer: httpAPIServer,
 	}

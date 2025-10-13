@@ -34,17 +34,13 @@ func Test_WorkerPool(t *testing.T) {
 
 	go func() {
 		for range 1000 {
-			wg.Add(1)
 			wp.Push(f)
+			wg.Go(func() {
+				<-wp.Result
+			})
 		}
 
 		close(done)
-	}()
-
-	go func() {
-		for range wp.Result {
-			wg.Done()
-		}
 	}()
 
 	<-done

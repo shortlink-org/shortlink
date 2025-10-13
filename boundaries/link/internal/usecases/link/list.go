@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"io"
+	"log/slog"
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"go.opentelemetry.io/otel/trace"
@@ -29,9 +30,9 @@ func (uc *UC) List(ctx context.Context, filter *types.FilterLink, cursor string,
 	// Set default values
 	userID, err := session.GetUserID(ctx)
 	if err != nil {
-		uc.log.Error("failed to get user ID from session", field.Fields{
-			"error": err.Error(),
-		})
+		uc.log.Error("failed to get user ID from session",
+			slog.String("error", err.Error()),
+		)
 
 		return nil, nil, err
 	}
@@ -121,7 +122,7 @@ func (uc *UC) List(ctx context.Context, filter *types.FilterLink, cursor string,
 	// Run saga
 	err = sagaListLink.Play(nil)
 	if err != nil {
-		uc.log.ErrorWithContext(ctx, "Error get list of links", field.Fields{"error": err})
+		uc.log.ErrorWithContext(ctx, "Error get list of links", slog.Any("error", err))
 		return nil, nil, err
 	}
 

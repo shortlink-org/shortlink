@@ -2,6 +2,7 @@ package rabbit
 
 import (
 	"context"
+	"log/slog"
 	"sync"
 
 	amqp "github.com/rabbitmq/amqp091-go"
@@ -47,9 +48,9 @@ func (mq *MQ) Init(ctx context.Context, log logger.Logger) error {
 		<-ctx.Done()
 
 		if errClose := mq.close(); errClose != nil {
-			log.Error("RabbitMQ close error", field.Fields{
-				"error": errClose.Error(),
-			})
+			log.Error("RabbitMQ close error",
+				slog.String("error", errClose.Error()),
+			)
 		}
 	}()
 

@@ -12,6 +12,7 @@ import (
 	"context"
 
 	"github.com/google/wire"
+	"github.com/prometheus/client_golang/prometheus"
 	"go.opentelemetry.io/otel/trace"
 
 	metadata_domain "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
@@ -26,6 +27,7 @@ import (
 	"github.com/shortlink-org/go-sdk/config"
 	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
+
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	mq_di "github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
@@ -40,9 +42,8 @@ import (
 
 type MetaDataService struct {
 	// Common
-	Log        logger.Logger
-	Config     *config.Config
-	AutoMaxPro autoMaxPro.AutoMaxPro
+	Log    logger.Logger
+	Config *config.Config
 
 	// Observability
 	Tracer        trace.TracerProvider
@@ -68,6 +69,7 @@ var MetaDataSet = wire.NewSet(
 	store.New,
 	rpc.InitServer,
 	s3.New,
+	NewPrometheusRegistry,
 
 	// Delivery
 	InitMetadataMQ,
@@ -84,6 +86,10 @@ var MetaDataSet = wire.NewSet(
 
 	NewMetaDataService,
 )
+
+func NewPrometheusRegistry(metrics *metrics.Monitoring) *prometheus.Registry {
+	return metrics.Prometheus
+}
 
 func InitMetadataMQ(ctx context.Context, dataBus mq.MQ) (*metadata_mq.Event, error) {
 	metadataMQ, err := metadata_mq.New(dataBus)

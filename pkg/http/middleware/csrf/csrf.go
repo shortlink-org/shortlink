@@ -2,20 +2,22 @@ package csrf
 
 import (
 	"log"
+	"log/slog"
 	"net/http"
 	"os"
 	"strings"
 
+	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/spf13/viper"
 )
 
 // Middleware creates a CSRF protection middleware using Go's built-in CrossOriginProtection
-func Middleware() func(http.Handler) http.Handler {
+func Middleware(log logger.Logger) func(http.Handler) http.Handler {
 	// Initialize CrossOriginProtection
 	antiCSRF := http.NewCrossOriginProtection()
 
 	// Configure trusted origins from environment variables
-	configureTrustedOrigins(antiCSRF)
+	configureTrustedOrigins(antiCSRF, log)
 
 	// Return a middleware function that wraps the handler with CSRF protection
 	return func(next http.Handler) http.Handler {
@@ -24,7 +26,7 @@ func Middleware() func(http.Handler) http.Handler {
 }
 
 // configureTrustedOrigins sets up trusted origins from environment variables
-func configureTrustedOrigins(antiCSRF *http.CrossOriginProtection) {
+func configureTrustedOrigins(antiCSRF *http.CrossOriginProtection, log logger.Logger) {
 	// Set default environment variable names
 	viper.SetDefault("CSRF_TRUSTED_ORIGINS_ENV", "CSRF_TRUSTED_ORIGINS")
 	viper.SetDefault("CSRF_TRUSTED_ORIGINS", "")
@@ -44,14 +46,14 @@ func configureTrustedOrigins(antiCSRF *http.CrossOriginProtection) {
 			trimmedOrigin := strings.TrimSpace(origin)
 			if trimmedOrigin != "" {
 				if err := antiCSRF.AddTrustedOrigin(trimmedOrigin); err != nil {
-					log.Printf("Failed to add trusted origin %s: %v", trimmedOrigin, err)
+					log.Error("CSRF trusted origin configuration error", slog.String("origin", trimmedOrigin), slog.Any("error", err))
 				} else {
-					log.Printf("Added trusted origin: %s", trimmedOrigin)
+					log.Info("CSRF trusted origin added", slog.String("origin", trimmedOrigin))
 				}
 			}
 		}
 	} else {
-		log.Println("No CSRF trusted origins configured. All cross-origin requests will be protected.")
+		log.Info("No CSRF trusted origins configured. All cross-origin requests will be protected.")
 	}
 }
 

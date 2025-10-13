@@ -3,6 +3,7 @@ package partmap
 import (
 	"strconv"
 	"sync"
+	"sync/atomic"
 	"testing"
 )
 
@@ -11,19 +12,19 @@ func BenchmarkStd(b *testing.B) {
 		m := make(map[string]int)
 		var wg sync.WaitGroup
 		var mu sync.RWMutex
+		var counter int64
 
 		b.ResetTimer()
 		b.ReportAllocs()
 
-		for i := range b.N {
-			wg.Add(1)
-			go func(i int) {
-				key := strconv.Itoa(i)
+		for b.Loop() {
+			wg.Go(func() {
+				i := atomic.AddInt64(&counter, 1)
+				key := strconv.FormatInt(i, 10)
 				mu.Lock()
-				m[key] = i
+				m[key] = int(i)
 				mu.Unlock()
-				wg.Done()
-			}(i)
+			})
 		}
 		wg.Wait()
 	})
@@ -33,17 +34,17 @@ func BenchmarkSyncStd(b *testing.B) {
 	b.Run("set sync map std concurrently", func(b *testing.B) {
 		var m sync.Map
 		var wg sync.WaitGroup
+		var counter int64
 
 		b.ResetTimer()
 		b.ReportAllocs()
 
-		for i := range b.N {
-			wg.Add(1)
-			go func(i int) {
-				key := strconv.Itoa(i)
-				m.Store(key, i)
-				wg.Done()
-			}(i)
+		for b.Loop() {
+			wg.Go(func() {
+				i := atomic.AddInt64(&counter, 1)
+				key := strconv.FormatInt(i, 10)
+				m.Store(key, int(i))
+			})
 		}
 		wg.Wait()
 	})
@@ -57,19 +58,19 @@ func BenchmarkPartitioned(b *testing.B) {
 
 	b.Run("set partitioned concurrently", func(b *testing.B) {
 		var wg sync.WaitGroup
+		var counter int64
 
 		b.ResetTimer()
 		b.ReportAllocs()
 
-		for i := range b.N {
-			wg.Add(1)
-			go func(i int) {
-				key := strconv.Itoa(i)
-				if err := m.Set(key, i); err != nil {
+		for b.Loop() {
+			wg.Go(func() {
+				i := atomic.AddInt64(&counter, 1)
+				key := strconv.FormatInt(i, 10)
+				if err := m.Set(key, int(i)); err != nil {
 					b.Errorf("Failed to set value in PartMap: %v", err)
 				}
-				wg.Done()
-			}(i)
+			})
 		}
 		wg.Wait()
 	})

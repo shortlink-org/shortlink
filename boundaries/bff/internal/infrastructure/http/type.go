@@ -14,6 +14,7 @@ import (
 	"github.com/shortlink-org/go-sdk/config"
 	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
+
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/link"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/sitemap"
@@ -26,6 +27,7 @@ import (
 type Server struct {
 	ctx    context.Context
 	jsonpb protojson.MarshalOptions
+	log    logger.Logger
 }
 
 // Config HTTP-server config
@@ -41,7 +43,6 @@ type Config struct {
 	Tracer        trace.TracerProvider
 	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
-	AutoMaxPro    autoMaxPro.AutoMaxPro
 
 	// Delivery
 	RpcServer *rpc.Server

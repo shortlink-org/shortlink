@@ -2,6 +2,7 @@ package s3
 
 import (
 	"context"
+	"log/slog"
 
 	"github.com/minio/minio-go/v7"
 	"github.com/minio/minio-go/v7/pkg/credentials"
@@ -34,9 +35,9 @@ func New(ctx context.Context, log logger.Logger) (*Client, error) {
 		return nil, ErrConnectionFailed
 	}
 
-	log.Info("S3 client created", field.Fields{
-		"endpoint": viper.GetString("S3_ENDPOINT"),
-	})
+	log.Info("S3 client created",
+		slog.String("endpoint", viper.GetString("S3_ENDPOINT")),
+	)
 
 	return &Client{
 		client: client,

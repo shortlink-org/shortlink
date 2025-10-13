@@ -8,7 +8,7 @@ import (
 
 	"github.com/stretchr/testify/require"
 
-	"github.com/shortlink-org/shortlink/pkg/graceful_shutdown"
+	"github.com/shortlink-org/go-sdk/graceful_shutdown"
 )
 
 func TestGracefulShutdown(t *testing.T) {

@@ -5,6 +5,7 @@ package query
 
 import (
 	"context"
+	"log/slog"
 
 	"github.com/go-redis/cache/v9"
 	"github.com/spf13/viper"
@@ -38,9 +39,9 @@ func New(ctx context.Context, log logger.Logger, store db.DB, cacheStore *cache.
 		}
 	}
 
-	log.Info("init queryStore", field.Fields{
-		"store": s.typeStore,
-	})
+	log.Info("init queryStore",
+		slog.String("store", s.typeStore),
+	)
 
 	return s, nil
 }

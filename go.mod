@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink
 
-go 1.25.1
+go 1.25.2
 
 require (
 	github.com/IBM/sarama v1.46.1
@@ -8,7 +8,7 @@ require (
 	github.com/PuerkitoBio/goquery v1.10.3
 	github.com/XSAM/otelsql v0.40.0
 	github.com/aerospike/aerospike-client-go v4.5.2+incompatible
-	github.com/authzed/authzed-go v1.5.0
+	github.com/authzed/authzed-go v1.6.0
 	github.com/chromedp/chromedp v0.14.1
 	github.com/couchbase/gocb/v2 v2.11.1
 	github.com/dgraph-io/badger/v4 v4.8.0
@@ -46,8 +46,9 @@ require (
 	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20250921105413-6ee4ef9f264a
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20250921110119-283ac43a0ddc
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20250921110119-283ac43a0ddc
+	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251012192239-ed21e319d1d2
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251012192239-ed21e319d1d2
 	github.com/spf13/cobra v1.10.1
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
@@ -81,7 +82,7 @@ require (
 require (
 	4d63.com/gocheckcompilerdirectives v1.3.0 // indirect
 	4d63.com/gochecknoglobals v0.2.2 // indirect
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250613105001-9f2d3c737feb.1 // indirect
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.8-20250717185734-6c6e0d3c608e.1 // indirect
 	cel.dev/expr v0.24.0 // indirect
 	codeberg.org/chavacava/garif v0.2.0 // indirect
 	dario.cat/mergo v1.0.1 // indirect

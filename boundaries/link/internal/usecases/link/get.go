@@ -2,6 +2,7 @@ package link
 
 import (
 	"context"
+	"log/slog"
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
 
@@ -24,9 +25,9 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 
 	userID, err := session.GetUserID(ctx)
 	if err != nil {
-		uc.log.Error("failed to get user ID from session", field.Fields{
-			"error": err.Error(),
-		})
+		uc.log.Error("failed to get user ID from session",
+			slog.String("error", err.Error()),
+		)
 
 		return nil, err
 	}

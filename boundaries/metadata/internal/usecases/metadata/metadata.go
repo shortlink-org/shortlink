@@ -3,6 +3,7 @@ package metadata
 import (
 	"context"
 	"fmt"
+	"log/slog"
 
 	"github.com/shortlink-org/go-sdk/logger"
 	domain "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
@@ -33,12 +34,12 @@ func New(log logger.Logger, parsersUC *parsers.UC, screenshotUC *screenshot.UC) 
 
 func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {
 	if len(errs) > 0 {
-		errList := field.Fields{}
-		for index := range errs {
-			errList[fmt.Sprintf("stack error: %d", index)] = errs[index]
+		attrs := make([]slog.Attr, 0, len(errs))
+		for index, err := range errs {
+			attrs = append(attrs, slog.Any(fmt.Sprintf("stack error: %d", index), err))
 		}
 
-		log.ErrorWithContext(ctx, "Error in saga", errList)
+		log.ErrorWithContext(ctx, "Error in saga", attrs...)
 
 		return ErrSaga
 	}

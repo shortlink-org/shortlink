@@ -6,6 +6,7 @@ import (
 	"embed"
 	"fmt"
 	"io/fs"
+	"log/slog"
 	"net/http"
 	"path/filepath"
 
@@ -93,7 +94,7 @@ func (api *API) Run(
 	handler := api.GetHandler(tracer)
 
 	path := fmt.Sprintf("%s/query", viper.GetString("BASE_PATH"))
-	log.Info("Run GraphQL API", field.Fields{"base_path": path})
+	log.Info("Run GraphQL API", slog.String("base_path", path))
 
 	http.Handle(path, http.TimeoutHandler(handler, config.Timeout, http_server.TimeoutMessage))
 	err := http.ListenAndServe(fmt.Sprintf(":%d", config.Port), nil)

@@ -1,10 +1,10 @@
 module github.com/shortlink-org/shortlink/boundaries/link/link
 
-go 1.25.1
+go 1.25.2
 
 require (
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
-	github.com/authzed/authzed-go v1.5.0
+	github.com/authzed/authzed-go v1.6.0
 	github.com/dgraph-io/badger/v4 v4.8.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/go-redis/cache/v9 v9.0.0
@@ -20,8 +20,9 @@ require (
 	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20250921105413-6ee4ef9f264a
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20250921110119-283ac43a0ddc
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20250921110119-283ac43a0ddc
+	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251012192239-ed21e319d1d2
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251012192239-ed21e319d1d2
 	github.com/shortlink-org/shortlink v0.0.0-20250917223100-9578c5d6d178
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
@@ -35,7 +36,7 @@ require (
 )
 
 require (
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.6-20250613105001-9f2d3c737feb.1 // indirect
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.8-20250717185734-6c6e0d3c608e.1 // indirect
 	cel.dev/expr v0.24.0 // indirect
 	dario.cat/mergo v1.0.1 // indirect
 	filippo.io/edwards25519 v1.1.0 // indirect
@@ -114,7 +115,7 @@ require (
 	github.com/moby/term v0.5.2 // indirect
 	github.com/montanaflynn/stats v0.7.1 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
-	github.com/nats-io/nats.go v1.45.0 // indirect
+	github.com/nats-io/nats.go v1.46.0 // indirect
 	github.com/nats-io/nkeys v0.4.11 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/ncruces/go-strftime v0.1.9 // indirect
@@ -124,7 +125,7 @@ require (
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.1 // indirect
 	github.com/opencontainers/runc v1.2.5 // indirect
-	github.com/ory/client-go v1.22.2 // indirect
+	github.com/ory/client-go v1.22.3 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/pganalyze/pg_query_go/v6 v6.1.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.22 // indirect
@@ -142,8 +143,8 @@ require (
 	github.com/rabbitmq/amqp091-go v1.10.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9 // indirect
 	github.com/redis/go-redis/v9 v9.14.0 // indirect
-	github.com/redis/rueidis/rueidiscompat v1.0.64 // indirect
-	github.com/redis/rueidis/rueidisotel v1.0.64 // indirect
+	github.com/redis/rueidis/rueidiscompat v1.0.66 // indirect
+	github.com/redis/rueidis/rueidisotel v1.0.66 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
 	github.com/riza-io/grpc-go v0.2.0 // indirect
 	github.com/sagikazarmark/locafero v0.11.0 // indirect
