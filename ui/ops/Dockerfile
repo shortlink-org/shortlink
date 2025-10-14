@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.18
+# syntax=docker/dockerfile:1.19
 
 ###############################################################################
 # Global BuildKit options (optional SBOM attestation―leave if you need them)
@@ -11,7 +11,7 @@ ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 ###############################################################################
 # Build-stage arguments
 ###############################################################################
-ARG NODE_VERSION=24.9.0-alpine
+ARG NODE_VERSION=24.10.0-alpine
 
 ########################
 # 1️⃣  Builder stage
