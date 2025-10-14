@@ -1,0 +1,49 @@
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Project
+metadata:
+  name: shortlink
+
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Warehouse
+metadata:
+  name: shortlink
+spec:
+  subscriptions:
+    - image:
+        imageSelectionStrategy: SemVer
+        repoURL: registry.gitlab.com/shortlink-org/shortlink/link
+        semverConstraint: ^0.17.93
+
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: {{ .name | default (include "helpers.fullname" .) }}-stage
+spec:
+  subscriptions:
+    warehouse: shortlink
+  promotionMechanisms:
+    gitRepoUpdates:
+      - repoURL: https://github.com/shortlink-org/shortlink.git
+        writeBranch: stage/prod
+    argoCDAppUpdates:
+      - appName: {{ .name | default (include "helpers.fullname" .) }}-prod
+        appNamespace: shortlink
+
+---
+apiVersion: kargo.akuity.io/v1alpha1
+kind: Stage
+metadata:
+  name: {{ .name | default (include "helpers.fullname" .) }}-production
+spec:
+  subscriptions:
+    upstreamStages:
+      - name: test
+  promotionMechanisms:
+    gitRepoUpdates:
+      - repoURL: https://github.com/shortlink-org/shortlink.git
+        writeBranch: stage/prod
+    argoCDAppUpdates:
+      - appName: {{ .name | default (include "helpers.fullname" .) }}-prod
+        appNamespace: shortlink

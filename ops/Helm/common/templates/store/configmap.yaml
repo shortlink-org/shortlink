@@ -1,0 +1,35 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: shortlink-init-sql
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+data:
+  init.sql: |
+    -- link database
+    \c link;
+    CREATE SCHEMA AUTHORIZATION link;
+    GRANT ALL PRIVILEGES ON DATABASE link TO link;
+    ALTER DATABASE link OWNER TO link;
+
+    GRANT CONNECT ON DATABASE link TO grafana;
+    GRANT USAGE ON SCHEMA link TO grafana;
+    ALTER DEFAULT PRIVILEGES IN SCHEMA link GRANT SELECT ON TABLES TO grafana;
+
+    ALTER DATABASE link SET statement_timeout = '180s';
+
+    -- proxy database
+    \c proxy;
+    CREATE SCHEMA AUTHORIZATION proxy;
+    GRANT ALL PRIVILEGES ON DATABASE proxy TO proxy;
+    ALTER DATABASE proxy OWNER TO proxy;
+
+    GRANT CONNECT ON DATABASE proxy TO grafana;
+    GRANT USAGE ON SCHEMA proxy TO grafana;
+    ALTER DEFAULT PRIVILEGES IN SCHEMA proxy GRANT SELECT ON TABLES TO grafana;
+
+    ALTER DATABASE proxy SET statement_timeout = '180s';
+
+    -- Grant grafana access to pg_statio_user_tables via pg_read_all_stats role
+    GRANT pg_read_all_stats TO grafana;
+    GRANT pg_read_all_settings TO grafana;

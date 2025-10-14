@@ -1,0 +1,11 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: GRPCRoute
+metadata:
+  name: example-route
+spec:
+  parentRefs:
+    - name: shortlink-gateway
+  rules:
+    - backendRefs:
+        - name: shortlink-link
+          port: 50051

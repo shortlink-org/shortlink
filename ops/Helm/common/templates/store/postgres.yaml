@@ -1,0 +1,132 @@
+apiVersion: postgres-operator.crunchydata.com/v1beta1
+kind: PostgresCluster
+metadata:
+  name: shortlink-postgres
+  annotations:
+    argocd.argoproj.io/sync-wave: "1"
+spec:
+  postgresVersion: 17
+  metadata:
+    annotations:
+      sidecar.istio.io/inject: "false"
+  instances:
+    - name: shortlink
+      replicas: 1
+      metadata:
+        annotations:
+          sidecar.istio.io/inject: "false"
+      dataVolumeClaimSpec:
+        storageClassName: local-path
+        accessModes:
+          - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: 150Mi
+          # NOTE: wait new version chart > 5.6.0
+          # limit:
+          #   storage: 2Gi
+      walVolumeClaimSpec:
+        storageClassName: local-path
+        accessModes:
+          - "ReadWriteOnce"
+        resources:
+          requests:
+            storage: 1Gi
+  databaseInitSQL:
+    name: shortlink-init-sql
+    key: init.sql
+  backups:
+    pgbackrest:
+      metadata:
+        annotations:
+          sidecar.istio.io/inject: "false"
+      repos:
+        - name: repo1
+          schedules:
+            full: "0 1 * * 0"
+            differential: "0 1 * * 1-6"
+          volume:
+            volumeClaimSpec:
+              storageClassName: local-path
+              accessModes:
+                - "ReadWriteOnce"
+              resources:
+                requests:
+                  storage: 1Gi
+  proxy:
+    pgBouncer:
+      metadata:
+        annotations:
+          sidecar.istio.io/inject: "false"
+      replicas: 1
+      port: 5432
+      config:
+        global:
+          pool_mode: transaction
+      resources:
+        requests:
+          cpu: 2m
+          memory: 56Mi
+        limits:
+          cpu: 800m
+          memory: 4Gi
+  monitoring:
+    pgmonitor:
+      exporter:
+        image: registry.developers.crunchydata.com/crunchydata/crunchy-postgres-exporter:latest
+  patroni:
+    dynamicConfiguration:
+      synchronous_mode: true
+      postgresql:
+        parameters:
+          # https://pgtune.leopard.in.ua/#/
+          max_connections: 100
+          shared_buffers: 256MB
+          effective_cache_size: 768MB
+          maintenance_work_mem: 64MB
+          checkpoint_completion_target: 0.9
+          wal_buffers: 7864kB
+          default_statistics_target: 100
+          random_page_cost: 1.1
+          effective_io_concurrency: 200
+          work_mem: 8MB
+          huge_pages: off
+          min_wal_size: 1GB
+          max_wal_size: 4GB
+          max_worker_processes: 8
+          max_parallel_workers_per_gather: 4
+          max_parallel_workers: 8
+          max_parallel_maintenance_workers: 4
+          # Synchronous Replication
+          synchronous_commit: 'on'
+          # Partitioning
+          enable_partition_pruning: 'on'
+          # TODO: enabled pgrouting,timescaledb,postgis,pgmonitor_bgw
+          shared_preload_libraries: pg_stat_statements,auto_explain,pgaudit,pg_prewarm,uuid-ossp,pg_partman_bgw
+          pgmonitor_bgw.dbname: postgres,link
+          pgmonitor_bgw.role: "postgres"
+    syncPeriodSeconds: 60
+    leaderLeaseDurationSeconds: 300
+  users:
+    - name: admin
+      databases:
+        - postgres
+        - link
+      options: "SUPERUSER"
+    - name: grafana
+      databases:
+        - postgres
+        - link
+    - name: partman
+      databases:
+        - postgres
+        - partman
+        - link
+
+    - name: link
+      databases:
+        - link
+      options: "SUPERUSER"
+    - name: proxy
+      databases:
+        - proxy

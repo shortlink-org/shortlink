@@ -1,0 +1,42 @@
+apiVersion: tests.testkube.io/v3
+kind: Test
+metadata:
+  name: shortlink-link-k6-rpc-sitemap-v1
+  labels:
+    {{- with .Values.commonLabels }}
+      {{- include "common.tplvalues.render" (dict "value" . "context" $) | nindent 4 }}
+      {{- end }}
+      {{- include "helpers.labels" . | nindent 4 }}
+spec:
+  type: k6/script
+  content:
+    type: git-dir
+    repository:
+      type: git
+      uri: https://github.com/shortlink-org/shortlink.git
+      branch: main
+      path: boundaries/link/link/tests/e2e
+  executionRequest:
+    activeDeadlineSeconds: 60
+    variables:
+      K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM:
+        name: K6_PROMETHEUS_RW_TREND_AS_NATIVE_HISTOGRAM
+        value: "true"
+        type: basic
+      K6_PROMETHEUS_RW_SERVER_URL:
+        name: K6_PROMETHEUS_RW_SERVER_URL
+        value: "http://prometheus-prometheus.prometheus-operator:9090"
+        type: basic
+      K6_PROJECT_ID:
+        name: K6_PROJECT_ID
+        valueFrom:
+          secretKeyRef:
+            name: secret-env
+            key: K6_PROJECT_ID
+        type: secret
+      K6_OUT:
+        name: K6_OUT
+        value: "experimental-prometheus-rw"
+        type: basic
+    args:
+      - k6_rpc_sitemap_v1.js

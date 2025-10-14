@@ -1,0 +1,16 @@
+{{- if and .Values.secret.enabled -}}
+apiVersion: v1
+kind: Secret
+metadata:
+  name: {{ include "helpers.fullname" . }}-grpc
+  labels:
+    {{ include "helpers.labels" . | nindent 4 }}
+type: Opaque
+data:
+  shortlink-server.pem: |
+    {{ .Values.secret.grpcServerCert | b64enc }}
+  shortlink-server-key.pem: |
+    {{ .Values.secret.grpcServerKey | b64enc }}
+  intermediate_ca.pem: |
+    {{ .Values.secret.grpcIntermediateCA | b64enc }}
+{{- end }}

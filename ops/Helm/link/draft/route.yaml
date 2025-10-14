@@ -1,0 +1,21 @@
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: GRPCRoute
+metadata:
+  name: shortlink-link-grpc-route
+spec:
+  parentRefs:
+    - name: internal-gateway
+  rules:
+    - matches:
+        - method:
+            service: infrastructure.rpc.link.v1.LinkService
+      backendRefs:
+        - name: shortlink-link
+          port: 50051
+    - matches:
+        - method:
+            service:
+              grpc.reflection.v1.ServerReflection
+      backendRefs:
+        - name: shortlink-link
+          port: 50051

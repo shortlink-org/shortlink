@@ -1,0 +1,12 @@
+input:
+  - values.yaml
+
+#draft: 2020
+#indent: 4
+#output: values.schema.json
+
+schemaRoot:
+#  id: https://example.com/schema
+  title: Helm Values Schema
+  description: Schema for Helm values
+  additionalProperties: true

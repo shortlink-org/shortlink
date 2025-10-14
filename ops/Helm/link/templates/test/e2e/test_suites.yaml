@@ -1,0 +1,21 @@
+apiVersion: tests.testkube.io/v3
+kind: TestSuite
+metadata:
+  name: shortlink-link
+  labels:
+    {{- with .Values.commonLabels }}
+      {{- include "common.tplvalues.render" (dict "value" . "context" $) | nindent 4 }}
+    {{- end }}
+    {{- include "helpers.labels" . | nindent 4 }}
+spec:
+  description: Test suite for shortlink link page
+  steps:
+    - stopOnFailure: false
+      execute:
+        - test: shortlink-link-k6-rpc-link-v1
+    - stopOnFailure: false
+      execute:
+        - test: shortlink-link-k6-rpc-cqrs-link-v1
+    - stopOnFailure: false
+      execute:
+        - test: shortlink-link-k6-rpc-sitemap-v1

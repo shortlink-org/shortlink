@@ -1,0 +1,16 @@
+# More on direct exchange and other exchange types, see: https://www.rabbitmq.com/tutorials/amqp-concepts.html#exchanges.
+
+{{- if and .Values.deploy.env.MQ_ENABLED (eq .Values.deploy.env.MQ_TYPE "rabbitmq") }}
+apiVersion: rabbitmq.com/v1beta1
+kind: Exchange
+metadata:
+  name: shortlink.link.event.new.yaml
+spec:
+  name: shortlink.link.event.new
+  vhost: "/"   # default to '/' if not provided
+  type: fanout # default to 'direct' if not provided
+  autoDelete: false
+  durable: true
+  rabbitmqClusterReference:
+    name: rabbitmq
+{{- end }}

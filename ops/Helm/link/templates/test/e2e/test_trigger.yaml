@@ -1,0 +1,22 @@
+apiVersion: tests.testkube.io/v1
+kind: TestTrigger
+metadata:
+  name: shortlink-link
+  labels:
+    {{- with .Values.commonLabels }}
+      {{- include "common.tplvalues.render" (dict "value" . "context" $) | nindent 4 }}
+    {{- end }}
+    {{- include "helpers.labels" . | nindent 4 }}
+spec:
+  resource: deployment
+  resourceSelector:
+    labelSelector:
+      matchLabels:
+        {{- include "shortlink-common.matchLabels" . | indent 8 }}
+  event: modified
+  action: run
+  execution: testsuite
+  testSelector:
+    labelSelector:
+      matchLabels:
+        {{- include "shortlink-common.matchLabels" . | nindent 8 }}
