@@ -37,7 +37,7 @@ require (
 	github.com/ory/dockertest/v3 v3.12.0
 	github.com/prometheus/client_golang v1.23.2
 	github.com/rabbitmq/amqp091-go v1.10.0
-	github.com/redis/go-redis/v9 v9.14.0
+	github.com/redis/go-redis/v9 v9.14.1
 	github.com/redis/rueidis v1.0.67
 	github.com/redis/rueidis/rueidiscompat v1.0.67
 	github.com/redis/rueidis/rueidisotel v1.0.67
