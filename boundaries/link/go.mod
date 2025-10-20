@@ -18,12 +18,14 @@ require (
 	github.com/prometheus/client_golang v1.23.2
 	github.com/redis/rueidis v1.0.67
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20250921105413-6ee4ef9f264a
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251020191755-f189d2ad24db
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251012192239-ed21e319d1d2
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251012192239-ed21e319d1d2
-	github.com/shortlink-org/shortlink v0.0.0-20250917223100-9578c5d6d178
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251013080359-ba916664d78d
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251020185847-0813d0c3cdf6
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251020184915-37726c1b58ed
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251020190310-a7b9b7d8b202
+	github.com/shortlink-org/shortlink v0.0.0-20251014200117-559da2c2e232
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d

@@ -20,10 +20,10 @@ import (
 	link_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
 	sitemap_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
 
+	http_server "github.com/shortlink-org/go-sdk/http/server"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/graphql/infrastructure/server/resolver"
 	"github.com/shortlink-org/shortlink/pkg/db"
-	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 )
 
 //go:embed schema/*.graphqls

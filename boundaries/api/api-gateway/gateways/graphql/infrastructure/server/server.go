@@ -7,8 +7,8 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
 
-	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
-	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
+	http_server "github.com/shortlink-org/go-sdk/http/server"
+	"github.com/shortlink-org/go-sdk/observability/metrics"
 
 	link_cqrs "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
 	link_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"

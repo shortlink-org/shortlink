@@ -10,9 +10,9 @@ import (
 
 	"github.com/PuerkitoBio/goquery"
 
+	http_client "github.com/shortlink-org/go-sdk/http/client"
 	v1 "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
 	meta_store "github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/store"
-	http_client "github.com/shortlink-org/shortlink/pkg/http/client"
 	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 

@@ -9,9 +9,9 @@ import (
 	"github.com/spf13/viper"
 	"go.opentelemetry.io/otel/trace"
 
+	"github.com/shortlink-org/go-sdk/observability/metrics"
 	db2 "github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/db/drivers/redis"
-	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 )
 
 // New returns a new cache.Client.

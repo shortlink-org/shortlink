@@ -6,9 +6,9 @@ import (
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"
-	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 )
 
 // New - return implementation of db

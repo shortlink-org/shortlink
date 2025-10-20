@@ -28,6 +28,7 @@ import (
 	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
 
+	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/shortlink/pkg/db"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	mq_di "github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
@@ -36,7 +37,6 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/store"
 	"github.com/shortlink-org/shortlink/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/notify"
-	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 	"github.com/shortlink-org/shortlink/pkg/s3"
 )
 

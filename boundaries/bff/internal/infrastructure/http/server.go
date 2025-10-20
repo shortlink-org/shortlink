@@ -11,18 +11,18 @@ import (
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/protobuf/encoding/protojson"
 
+	"github.com/shortlink-org/go-sdk/http/handler"
+	auth_middleware "github.com/shortlink-org/go-sdk/http/middleware/auth"
+	csrf_middleware "github.com/shortlink-org/go-sdk/http/middleware/csrf"
+	logger_middleware "github.com/shortlink-org/go-sdk/http/middleware/logger"
+	metrics_middleware "github.com/shortlink-org/go-sdk/http/middleware/metrics"
+	pprof_labels_middleware "github.com/shortlink-org/go-sdk/http/middleware/pprof_labels"
+	span_middleware "github.com/shortlink-org/go-sdk/http/middleware/span"
+	http_server "github.com/shortlink-org/go-sdk/http/server"
 	serverAPI "github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/api"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/link"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/sitemap"
-	"github.com/shortlink-org/shortlink/pkg/http/handler"
-	auth_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/auth"
-	csrf_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/csrf"
-	logger_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/logger"
-	metrics_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/metrics"
-	pprof_labels_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/pprof_labels"
-	span_middleware "github.com/shortlink-org/shortlink/pkg/http/middleware/span"
-	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 )
 
 // MAX_AGE CORS - 5 minutes

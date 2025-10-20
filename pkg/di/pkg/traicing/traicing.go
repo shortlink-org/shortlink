@@ -7,8 +7,8 @@ import (
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/go-sdk/observability/traicing"
 	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"
-	"github.com/shortlink-org/shortlink/pkg/observability/traicing"
 )
 
 // New returns a new instance of the TracerProvider.

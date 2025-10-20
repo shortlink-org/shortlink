@@ -12,8 +12,8 @@ import (
 	sitemap_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
 	"go.opentelemetry.io/otel/trace"
 
+	http_server "github.com/shortlink-org/go-sdk/http/server"
 	"github.com/shortlink-org/go-sdk/logger"
-	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
 )
 
 // API - general describe of API

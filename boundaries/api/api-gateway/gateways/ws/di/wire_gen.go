@@ -18,7 +18,7 @@ import (
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/traicing"
 	"github.com/shortlink-org/go-sdk/logger"
-	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
+	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"go.opentelemetry.io/otel/trace"
 )
 

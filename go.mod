@@ -34,21 +34,21 @@ require (
 	github.com/minio/minio-go/v7 v7.0.95
 	github.com/nats-io/nats.go v1.46.1
 	github.com/neo4j/neo4j-go-driver/v5 v5.28.4
-	github.com/ory/client-go v1.22.6
 	github.com/ory/dockertest/v3 v3.12.0
 	github.com/prometheus/client_golang v1.23.2
-	github.com/prometheus/client_model v0.6.2
 	github.com/rabbitmq/amqp091-go v1.10.0
 	github.com/redis/go-redis/v9 v9.14.0
 	github.com/redis/rueidis v1.0.67
 	github.com/redis/rueidis/rueidiscompat v1.0.67
 	github.com/redis/rueidis/rueidisotel v1.0.67
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20250921105413-6ee4ef9f264a
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251020191755-f189d2ad24db
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251012192239-ed21e319d1d2
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251012192239-ed21e319d1d2
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251013080359-ba916664d78d
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251020185847-0813d0c3cdf6
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251020184915-37726c1b58ed
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251020190310-a7b9b7d8b202
 	github.com/spf13/cobra v1.10.1
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
@@ -60,13 +60,7 @@ require (
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.3.2
 	go.etcd.io/etcd/client/v3 v3.6.5
 	go.mongodb.org/mongo-driver/v2 v2.3.1
-	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.63.0
 	go.opentelemetry.io/otel v1.38.0
-	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v1.38.0
-	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.38.0
-	go.opentelemetry.io/otel/exporters/prometheus v0.60.0
-	go.opentelemetry.io/otel/log v0.14.0
-	go.opentelemetry.io/otel/sdk v1.38.0
 	go.opentelemetry.io/otel/sdk/metric v1.38.0
 	go.opentelemetry.io/otel/trace v1.38.0
 	go.temporal.io/sdk v1.37.0
@@ -301,6 +295,7 @@ require (
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.1 // indirect
 	github.com/opencontainers/runc v1.2.5 // indirect
+	github.com/ory/client-go v1.22.6 // indirect
 	github.com/pelletier/go-toml v1.9.5 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/philhofer/fwd v1.2.0 // indirect
@@ -309,6 +304,7 @@ require (
 	github.com/planetscale/vtprotobuf v0.6.1-0.20241121165744-79df5c4772f2 // indirect
 	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/polyfloyd/go-errorlint v1.8.0 // indirect
+	github.com/prometheus/client_model v0.6.2 // indirect
 	github.com/prometheus/common v0.66.1 // indirect
 	github.com/prometheus/otlptranslator v0.0.2 // indirect
 	github.com/prometheus/procfs v0.17.0 // indirect
@@ -389,8 +385,13 @@ require (
 	go.mongodb.org/mongo-driver v1.17.2 // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.63.0 // indirect
+	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.63.0 // indirect
+	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v1.38.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.38.0 // indirect
+	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.38.0 // indirect
+	go.opentelemetry.io/otel/exporters/prometheus v0.60.0 // indirect
 	go.opentelemetry.io/otel/metric v1.38.0 // indirect
+	go.opentelemetry.io/otel/sdk v1.38.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.7.1 // indirect
 	go.temporal.io/api v1.53.0 // indirect
 	go.uber.org/automaxprocs v1.6.0 // indirect

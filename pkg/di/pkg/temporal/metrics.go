@@ -9,8 +9,8 @@ import (
 	sdktally "go.temporal.io/sdk/contrib/tally"
 
 	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/go-sdk/observability/metrics"
 	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"
-	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 )
 
 // newPrometheusScope creates a new Prometheus scope.

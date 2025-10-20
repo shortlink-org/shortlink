@@ -25,10 +25,10 @@ import (
 	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
 
+	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
-	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 
 	api "github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/pkg/i18n"

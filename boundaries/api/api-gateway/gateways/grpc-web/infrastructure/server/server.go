@@ -12,10 +12,10 @@ import (
 	sitemap_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
 
 	rpc "github.com/shortlink-org/go-sdk/grpc"
+	http_server "github.com/shortlink-org/go-sdk/http/server"
 	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/grpc-web/infrastructure/server/v1"
-	http_server "github.com/shortlink-org/shortlink/pkg/http/server"
-	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 )
 
 // RunAPIServer - start HTTP-server

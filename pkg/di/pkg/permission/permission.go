@@ -10,8 +10,8 @@ import (
 	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
 
+	"github.com/shortlink-org/go-sdk/observability/metrics"
 	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"
-	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 )
 
 func New(_ context.Context, log logger.Logger, tracer trace.TracerProvider, monitor *metrics.Monitoring) (*authzed.Client, error) {

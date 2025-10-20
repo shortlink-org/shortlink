@@ -33,13 +33,13 @@ import (
 	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
 
+	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/shortlink/pkg/di"
 	mq_di "github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 	"github.com/shortlink-org/shortlink/pkg/di/pkg/store"
 	"github.com/shortlink-org/shortlink/pkg/mq"
-	"github.com/shortlink-org/shortlink/pkg/observability/metrics"
 )
 
 type LinkService struct {
