@@ -9,10 +9,10 @@ import (
 
 	"github.com/spf13/viper"
 
+	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/go-sdk/notify"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/store/ram"
-	"github.com/shortlink-org/shortlink/pkg/db"
-	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 
 // Use return implementation of db

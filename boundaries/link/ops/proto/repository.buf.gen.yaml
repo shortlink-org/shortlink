@@ -18,7 +18,7 @@ plugins:
       - orm=postgres
       - pkg=filter
       - filter=Link
-      - common_path=github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1
+      - common_path=github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1
     strategy: all
   - local: protoc-gen-go-orm
     out: internal/infrastructure/repository/crud/mongo/filter
@@ -27,7 +27,7 @@ plugins:
       - orm=mongo
       - pkg=filter
       - filter=Link
-      - common_path=github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1
+      - common_path=github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1
     strategy: all
   - local: protoc-gen-go-orm
     out: internal/infrastructure/repository/crud/ram/filter
@@ -36,5 +36,5 @@ plugins:
       - orm=ram
       - pkg=filter
       - filter=Link
-      - common_path=github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1
+      - common_path=github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1
     strategy: all

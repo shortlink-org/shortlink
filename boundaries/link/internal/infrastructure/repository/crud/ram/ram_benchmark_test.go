@@ -11,8 +11,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/atomic"
 
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/pkg/db/options"
+	"github.com/shortlink-org/go-sdk/db/options"
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
 var linkUniqId atomic.Int64

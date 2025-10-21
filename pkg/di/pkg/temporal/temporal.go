@@ -9,7 +9,6 @@ import (
 
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
-	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"
 )
 
 // New returns a new instance of the Temporal client.
@@ -21,13 +20,13 @@ func New(log logger.Logger, monitor *metrics.Monitoring) (client.Client, error) 
 		TimerType:     "histogram",
 	}, monitor, log)
 	if err != nil {
-		return nil, &error_di.BaseError{Err: err}
+		return nil, err
 	}
 
 	// create Interceptor
 	tracingInterceptor, err := opentelemetry.NewTracingInterceptor(opentelemetry.TracerOptions{})
 	if err != nil {
-		return nil, &error_di.BaseError{Err: err}
+		return nil, err
 	}
 
 	// Create the clientConnect object just once per process
@@ -36,7 +35,7 @@ func New(log logger.Logger, monitor *metrics.Monitoring) (client.Client, error) 
 		Interceptors:   []interceptor.ClientInterceptor{tracingInterceptor},
 	})
 	if err != nil {
-		return nil, &error_di.BaseError{Err: err}
+		return nil, err
 	}
 
 	return clientConnect, nil

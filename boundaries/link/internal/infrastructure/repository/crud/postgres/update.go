@@ -5,9 +5,9 @@ import (
 
 	"github.com/segmentio/encoding/json"
 
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	repository_err "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/error"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/postgres/schema/crud"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	repository_err "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/error"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/postgres/schema/crud"
 )
 
 // Update - update link

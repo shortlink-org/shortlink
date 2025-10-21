@@ -10,8 +10,8 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"go.opentelemetry.io/otel"
 
-	"github.com/shortlink-org/shortlink/pkg/db"
-	"github.com/shortlink-org/shortlink/pkg/db/drivers/postgres/migrate"
+	"github.com/shortlink-org/go-sdk/db"
+	"github.com/shortlink-org/go-sdk/db/drivers/postgres/migrate"
 	eventsourcing "github.com/shortlink-org/shortlink/pkg/pattern/eventsourcing/domain/eventsourcing/v1"
 )
 

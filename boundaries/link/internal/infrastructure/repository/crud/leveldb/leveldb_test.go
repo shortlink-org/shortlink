@@ -12,8 +12,8 @@ import (
 	"github.com/syndtr/goleveldb/leveldb"
 	"go.uber.org/goleak"
 
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/mock"
-	db "github.com/shortlink-org/shortlink/pkg/db/drivers/leveldb"
+	db "github.com/shortlink-org/go-sdk/db/drivers/leveldb"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mock"
 )
 
 func TestMain(m *testing.M) {

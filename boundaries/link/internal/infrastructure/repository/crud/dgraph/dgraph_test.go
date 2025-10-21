@@ -15,8 +15,8 @@ import (
 	"github.com/stretchr/testify/require"
 	"go.uber.org/goleak"
 
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/mock"
-	db "github.com/shortlink-org/shortlink/pkg/db/drivers/dgraph"
+	db "github.com/shortlink-org/go-sdk/db/drivers/dgraph"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mock"
 )
 
 func TestMain(m *testing.M) {

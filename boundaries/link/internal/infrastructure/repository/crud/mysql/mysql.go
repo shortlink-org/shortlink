@@ -11,11 +11,11 @@ import (
 	"github.com/google/uuid"
 	"github.com/segmentio/encoding/json"
 
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/mysql/schema/crud"
-	types "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
-	"github.com/shortlink-org/shortlink/pkg/db"
-	"github.com/shortlink-org/shortlink/pkg/db/drivers/mysql/migrate"
+	"github.com/shortlink-org/go-sdk/db"
+	"github.com/shortlink-org/go-sdk/db/drivers/mysql/migrate"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mysql/schema/crud"
+	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 var (

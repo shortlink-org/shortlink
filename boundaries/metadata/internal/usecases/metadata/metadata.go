@@ -6,10 +6,10 @@ import (
 	"log/slog"
 
 	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/go-sdk/saga"
 	domain "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/parsers"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/screenshot"
-	"github.com/shortlink-org/shortlink/pkg/pattern/saga"
 )
 
 type UC struct {

@@ -7,10 +7,10 @@ import (
 	"github.com/Masterminds/squirrel"
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	v12 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link_cqrs/v1"
-	v13 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
-	"github.com/shortlink-org/shortlink/pkg/db"
+	"github.com/shortlink-org/go-sdk/db"
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	v12 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link_cqrs/v1"
+	v13 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)

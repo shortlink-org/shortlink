@@ -5,7 +5,7 @@ import (
 	"net/url"
 	"time"
 
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
 // Link represents the Data Transfer Object for Link.

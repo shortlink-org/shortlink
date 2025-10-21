@@ -7,7 +7,7 @@
 package filter
 
 import (
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 type FilterLink domain.FilterLink

@@ -1,7 +1,7 @@
 package resolver
 
 import (
-	"github.com/shortlink-org/shortlink/pkg/db"
+	"github.com/shortlink-org/go-sdk/db"
 
 	link_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
 )

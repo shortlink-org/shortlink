@@ -6,8 +6,8 @@ package api_mq
 
 import (
 	"github.com/shortlink-org/go-sdk/logger"
-	link_application "github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/link"
-	"github.com/shortlink-org/shortlink/pkg/mq"
+	"github.com/shortlink-org/go-sdk/mq"
+	link_application "github.com/shortlink-org/shortlink/boundaries/link/internal/usecases/link"
 )
 
 type Event struct {

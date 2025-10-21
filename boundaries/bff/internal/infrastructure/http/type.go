@@ -17,10 +17,10 @@ import (
 
 	http_server "github.com/shortlink-org/go-sdk/http/server"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
+	"github.com/shortlink-org/go-sdk/observability/profiling"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/link"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/sitemap"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
 )
 
 // API HTTP-server

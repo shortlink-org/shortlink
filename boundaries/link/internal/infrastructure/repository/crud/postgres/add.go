@@ -6,10 +6,10 @@ import (
 
 	"google.golang.org/protobuf/encoding/protojson"
 
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/postgres/schema/crud"
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
-	"github.com/shortlink-org/shortlink/pkg/db/options"
+	"github.com/shortlink-org/go-sdk/db/options"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/postgres/schema/crud"
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 // Add - an add link

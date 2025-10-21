@@ -3,8 +3,8 @@ package postgres
 import (
 	"github.com/jackc/pgx/v5/pgxpool"
 
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/postgres/schema/crud"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/postgres/schema/crud"
 	"github.com/shortlink-org/shortlink/pkg/batch"
 )
 

@@ -1,7 +1,7 @@
 package v1
 
 import (
-	"github.com/shortlink-org/shortlink/pkg/notify"
+	"github.com/shortlink-org/go-sdk/notify"
 )
 
 // Link CRUD methods

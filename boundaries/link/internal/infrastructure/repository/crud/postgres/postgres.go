@@ -11,12 +11,12 @@ import (
 	"github.com/jackc/pgx/v5/pgxpool"
 	"github.com/spf13/viper"
 
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/postgres/schema/crud"
+	"github.com/shortlink-org/go-sdk/db"
+	"github.com/shortlink-org/go-sdk/db/drivers/postgres/migrate"
+	"github.com/shortlink-org/go-sdk/db/options"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/postgres/schema/crud"
 	"github.com/shortlink-org/shortlink/pkg/batch"
-	"github.com/shortlink-org/shortlink/pkg/db"
-	"github.com/shortlink-org/shortlink/pkg/db/drivers/postgres/migrate"
-	"github.com/shortlink-org/shortlink/pkg/db/options"
 )
 
 var (

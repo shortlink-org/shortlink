@@ -10,9 +10,9 @@ import (
 	"go.opentelemetry.io/otel/trace"
 
 	"github.com/shortlink-org/go-sdk/auth/session"
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	types "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
-	"github.com/shortlink-org/shortlink/pkg/pattern/saga"
+	"github.com/shortlink-org/go-sdk/saga"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 // List - get a list of links

@@ -16,12 +16,12 @@ import (
 	"go.uber.org/atomic"
 	"go.uber.org/goleak"
 
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/mock"
-	filter2 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/mongo/filter"
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
-	db "github.com/shortlink-org/shortlink/pkg/db/drivers/mongo"
-	"github.com/shortlink-org/shortlink/pkg/db/options"
+	db "github.com/shortlink-org/go-sdk/db/drivers/mongo"
+	"github.com/shortlink-org/go-sdk/db/options"
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mock"
+	filter2 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mongo/filter"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 func TestMain(m *testing.M) {

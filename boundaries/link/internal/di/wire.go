@@ -14,32 +14,34 @@ import (
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
 	"github.com/prometheus/client_golang/prometheus"
+	shortctx "github.com/shortlink-org/go-sdk/context"
+	"github.com/shortlink-org/go-sdk/flags"
+	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/go-sdk/observability/tracing"
+	api "go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 
-	api_mq "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/mq"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/cqrs/cqs"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/cqrs/query"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud"
-	cqrs "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/cqrs/link/v1"
-	link_rpc "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/run"
-	sitemap_rpc "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/sitemap/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/link"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/link_cqrs"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/sitemap"
+	api_mq "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/mq"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/cqs"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/query"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud"
+	cqrs "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/cqrs/link/v1"
+	link_rpc "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/run"
+	sitemap_rpc "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/sitemap/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/usecases/link"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/usecases/link_cqrs"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/usecases/sitemap"
 
+	"github.com/shortlink-org/go-sdk/auth/permission"
+	"github.com/shortlink-org/go-sdk/cache"
 	"github.com/shortlink-org/go-sdk/config"
+	"github.com/shortlink-org/go-sdk/db"
 	rpc "github.com/shortlink-org/go-sdk/grpc"
-	"github.com/shortlink-org/go-sdk/logger"
-
+	"github.com/shortlink-org/go-sdk/mq"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
-	"github.com/shortlink-org/shortlink/pkg/di"
-	mq_di "github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/store"
-	"github.com/shortlink-org/shortlink/pkg/mq"
+	"github.com/shortlink-org/go-sdk/observability/profiling"
 )
 
 type LinkService struct {
@@ -75,16 +77,29 @@ type LinkService struct {
 	queryStore *query.Store
 }
 
+// DefaultSet ==========================================================================================================
+var DefaultSet = wire.NewSet(
+	shortctx.New,
+	flags.New,
+	config.New,
+	logger.NewDefault,
+	tracing.New,
+	metrics.New,
+	cache.New,
+	profiling.New,
+)
+
 // LinkService =========================================================================================================
 var LinkSet = wire.NewSet(
 	// Common
-	di.DefaultSet,
+	DefaultSet,
 	permission.New,
-	store.New,
 	NewPrometheusRegistry,
+	NewMeterProvider,
+	db.New,
 
 	// Delivery
-	mq_di.New,
+	mq.New,
 	api_mq.New,
 	rpc.InitServer,
 	NewRPCClient,
@@ -111,6 +126,10 @@ var LinkSet = wire.NewSet(
 
 func NewPrometheusRegistry(metrics *metrics.Monitoring) *prometheus.Registry {
 	return metrics.Prometheus
+}
+
+func NewMeterProvider(metrics *metrics.Monitoring) *api.MeterProvider {
+	return metrics.Metrics
 }
 
 func NewRPCClient(

@@ -9,8 +9,8 @@ import (
 
 	"github.com/spf13/viper"
 
+	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/logger"
-	"github.com/shortlink-org/shortlink/pkg/db"
 	es_postgres "github.com/shortlink-org/shortlink/pkg/pattern/eventsourcing/store/postgres"
 )
 

@@ -11,31 +11,30 @@ import (
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/shortlink-org/go-sdk/auth/permission"
+	"github.com/shortlink-org/go-sdk/cache"
 	"github.com/shortlink-org/go-sdk/config"
+	"github.com/shortlink-org/go-sdk/context"
+	"github.com/shortlink-org/go-sdk/db"
+	"github.com/shortlink-org/go-sdk/flags"
 	"github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/mq"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/cqrs/cqs"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/cqrs/query"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/cqrs/link/v1"
-	v1_2 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/run"
-	v1_3 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/rpc/sitemap/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/link"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/link_cqrs"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/usecases/sitemap"
-	"github.com/shortlink-org/shortlink/pkg/cache"
-	"github.com/shortlink-org/shortlink/pkg/di"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/context"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/logger"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/store"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/traicing"
-	"github.com/shortlink-org/shortlink/pkg/mq"
+	"github.com/shortlink-org/go-sdk/mq"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
+	"github.com/shortlink-org/go-sdk/observability/profiling"
+	"github.com/shortlink-org/go-sdk/observability/tracing"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/mq"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/cqs"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/query"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/cqrs/link/v1"
+	v1_2 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/run"
+	v1_3 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/sitemap/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/usecases/link"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/usecases/link_cqrs"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/usecases/sitemap"
+	"go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 	grpc2 "google.golang.org/grpc"
 )
@@ -47,7 +46,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	logger, cleanup2, err := logger_di.New(context)
+	loggerLogger, cleanup2, err := logger.NewDefault(context)
 	if err != nil {
 		cleanup()
 		return nil, nil, err
@@ -58,20 +57,20 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	tracerProvider, cleanup3, err := traicing_di.New(context, logger)
+	tracerProvider, cleanup3, err := tracing.New(context, loggerLogger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	monitoring, cleanup4, err := metrics.New(context, logger, tracerProvider)
+	monitoring, cleanup4, err := metrics.New(context, loggerLogger, tracerProvider)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint, err := profiling.New(context, logger)
+	pprofEndpoint, err := profiling.New(context, loggerLogger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -79,7 +78,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	client, err := permission.New(context, logger, tracerProvider, monitoring)
+	client, err := permission.New(context, loggerLogger, tracerProvider, monitoring)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -87,7 +86,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	mq, err := mq_di.New(context, logger)
+	mqMQ, err := mq.New(context, loggerLogger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -95,7 +94,8 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	db, err := store.New(context, logger, tracerProvider, monitoring)
+	meterProvider := NewMeterProvider(monitoring)
+	dbDB, err := db.New(context, loggerLogger, tracerProvider, meterProvider)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -111,7 +111,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	crudStore, err := crud.New(context, logger, db, cacheCache)
+	store, err := crud.New(context, loggerLogger, dbDB, cacheCache)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -119,7 +119,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	uc, err := NewLinkApplication(logger, mq, crudStore, client)
+	uc, err := NewLinkApplication(loggerLogger, mqMQ, store, client)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -127,7 +127,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	cqsStore, err := cqs.New(context, logger, db, cacheCache)
+	cqsStore, err := cqs.New(context, loggerLogger, dbDB, cacheCache)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -135,7 +135,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	queryStore, err := query.New(context, logger, db, cacheCache)
+	queryStore, err := query.New(context, loggerLogger, dbDB, cacheCache)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -143,7 +143,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := link_cqrs.New(logger, cqsStore, queryStore)
+	service, err := link_cqrs.New(loggerLogger, cqsStore, queryStore)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -151,7 +151,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	sitemapService, err := sitemap.New(logger, mq)
+	sitemapService, err := sitemap.New(loggerLogger, mqMQ)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -159,7 +159,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := api_mq.New(mq, logger, uc)
+	event, err := api_mq.New(mqMQ, loggerLogger, uc)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -168,7 +168,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		return nil, nil, err
 	}
 	registry := NewPrometheusRegistry(monitoring)
-	server, err := grpc.InitServer(context, logger, tracerProvider, registry)
+	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -176,7 +176,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkRPC, err := v1.New(server, service, logger)
+	linkRPC, err := v1.New(server, service, loggerLogger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -184,7 +184,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	v1LinkRPC, err := v1_2.New(server, uc, logger)
+	v1LinkRPC, err := v1_2.New(server, uc, loggerLogger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -200,7 +200,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	v1Sitemap, err := v1_3.New(server, sitemapService, logger)
+	v1Sitemap, err := v1_3.New(server, sitemapService, loggerLogger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -208,7 +208,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(logger, configConfig, monitoring, tracerProvider, pprofEndpoint, client, uc, service, sitemapService, event, response, v1LinkRPC, linkRPC, v1Sitemap, crudStore, cqsStore, queryStore)
+	linkService, err := NewLinkService(loggerLogger, configConfig, monitoring, tracerProvider, pprofEndpoint, client, uc, service, sitemapService, event, response, v1LinkRPC, linkRPC, v1Sitemap, store, cqsStore, queryStore)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -259,11 +259,22 @@ type LinkService struct {
 	queryStore *query.Store
 }
 
+// DefaultSet ==========================================================================================================
+var DefaultSet = wire.NewSet(ctx.New, flags.New, config.New, logger.NewDefault, tracing.New, metrics.New, cache.New, profiling.New)
+
 // LinkService =========================================================================================================
-var LinkSet = wire.NewSet(di.DefaultSet, permission.New, store.New, NewPrometheusRegistry, mq_di.New, api_mq.New, grpc.InitServer, NewRPCClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, NewLinkApplication, link_cqrs.New, sitemap.New, crud.New, cqs.New, query.New, NewLinkService)
+var LinkSet = wire.NewSet(
+
+	DefaultSet, permission.New, NewPrometheusRegistry,
+	NewMeterProvider, db.New, mq.New, api_mq.New, grpc.InitServer, NewRPCClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, NewLinkApplication, link_cqrs.New, sitemap.New, crud.New, cqs.New, query.New, NewLinkService,
+)
 
 func NewPrometheusRegistry(metrics2 *metrics.Monitoring) *prometheus.Registry {
 	return metrics2.Prometheus
+}
+
+func NewMeterProvider(metrics2 *metrics.Monitoring) *metric.MeterProvider {
+	return metrics2.Metrics
 }
 
 func NewRPCClient(ctx2 context.Context,
@@ -282,8 +293,8 @@ func NewRPCClient(ctx2 context.Context,
 	return runRPCClient, cleanup, nil
 }
 
-func NewLinkApplication(log logger.Logger, mq2 mq.MQ, store2 *crud.Store, authPermission *authzed.Client) (*link.UC, error) {
-	linkService, err := link.New(log, mq2, nil, store2, authPermission)
+func NewLinkApplication(log logger.Logger, mq2 mq.MQ, store *crud.Store, authPermission *authzed.Client) (*link.UC, error) {
+	linkService, err := link.New(log, mq2, nil, store, authPermission)
 	if err != nil {
 		return nil, err
 	}

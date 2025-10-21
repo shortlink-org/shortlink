@@ -1,4 +1,4 @@
-module github.com/shortlink-org/shortlink/boundaries/link/link
+module github.com/shortlink-org/shortlink/boundaries/link
 
 go 1.25.3
 
@@ -18,18 +18,26 @@ require (
 	github.com/prometheus/client_golang v1.23.2
 	github.com/redis/rueidis v1.0.67
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251020191755-f189d2ad24db
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251021180704-1b5969f32d91
+	github.com/shortlink-org/go-sdk/cache v0.0.0-20251021175913-b17872633dfc
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc
+	github.com/shortlink-org/go-sdk/context v0.0.0-20251021195826-431949cf96c8
+	github.com/shortlink-org/go-sdk/db v0.0.0-20251021180704-1b5969f32d91
+	github.com/shortlink-org/go-sdk/flags v0.0.0-20251021194325-00e3be024b85
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251013080359-ba916664d78d
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251020193241-87e94558595e
 	github.com/shortlink-org/go-sdk/http v0.0.0-20251020193241-87e94558595e
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251020185847-0813d0c3cdf6
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251021155345-15d6cb691b95
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251021194846-de438b0be785
+	github.com/shortlink-org/go-sdk/mq v0.0.0-20251021195122-5f907cfec097
+	github.com/shortlink-org/go-sdk/notify v0.0.0-20251021194325-00e3be024b85
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251021202009-dcc19c352b8b
+	github.com/shortlink-org/go-sdk/saga v0.0.0-20251021195826-431949cf96c8
 	github.com/shortlink-org/shortlink v0.0.0-20251014200117-559da2c2e232
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
 	go.mongodb.org/mongo-driver/v2 v2.3.1
+	go.opentelemetry.io/otel/sdk/metric v1.38.0
 	go.opentelemetry.io/otel/trace v1.38.0
 	go.uber.org/atomic v1.11.0
 	go.uber.org/goleak v1.3.0
@@ -188,7 +196,6 @@ require (
 	go.opentelemetry.io/otel/exporters/prometheus v0.60.0 // indirect
 	go.opentelemetry.io/otel/metric v1.38.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.38.0 // indirect
-	go.opentelemetry.io/otel/sdk/metric v1.38.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.7.1 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect

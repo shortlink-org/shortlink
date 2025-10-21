@@ -10,9 +10,9 @@ import (
 
 	http_client "github.com/shortlink-org/go-sdk/http/client"
 	"github.com/shortlink-org/go-sdk/logger"
-	link "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/sitemap/v1"
-	"github.com/shortlink-org/shortlink/pkg/mq"
+	"github.com/shortlink-org/go-sdk/mq"
+	link "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/sitemap/v1"
 )
 
 type Service struct {

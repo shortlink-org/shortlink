@@ -7,10 +7,10 @@ import (
 	"github.com/authzed/authzed-go/v1"
 
 	"github.com/shortlink-org/go-sdk/logger"
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud"
-	"github.com/shortlink-org/shortlink/pkg/mq"
-	"github.com/shortlink-org/shortlink/pkg/notify"
+	"github.com/shortlink-org/go-sdk/mq"
+	"github.com/shortlink-org/go-sdk/notify"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud"
 )
 
 type UC struct {

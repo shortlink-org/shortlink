@@ -11,8 +11,8 @@ import (
 	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/require"
 
-	db "github.com/shortlink-org/shortlink/pkg/db/drivers/postgres"
-	"github.com/shortlink-org/shortlink/pkg/db/options"
+	db "github.com/shortlink-org/go-sdk/db/drivers/postgres"
+	"github.com/shortlink-org/go-sdk/db/options"
 )
 
 func BenchmarkPostgresSerial(b *testing.B) {

@@ -13,13 +13,16 @@ require (
 	github.com/prometheus/client_golang v1.23.2
 	github.com/riandyrn/otelchi v0.12.2
 	github.com/segmentio/encoding v0.5.3
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251021180704-1b5969f32d91
+	github.com/shortlink-org/go-sdk/cache v0.0.0-20251021175913-b17872633dfc
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc
+	github.com/shortlink-org/go-sdk/context v0.0.0-20251021195826-431949cf96c8
+	github.com/shortlink-org/go-sdk/flags v0.0.0-20251021194325-00e3be024b85
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251013080359-ba916664d78d
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251020193241-87e94558595e
 	github.com/shortlink-org/go-sdk/http v0.0.0-20251020193241-87e94558595e
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251020185847-0813d0c3cdf6
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251021155345-15d6cb691b95
-	github.com/shortlink-org/shortlink v0.0.0-20251014200117-559da2c2e232
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251021155345-15d6cb691b95
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251021195826-431949cf96c8
 	github.com/spf13/viper v1.21.0
 	go.opentelemetry.io/otel/trace v1.38.0
 	golang.org/x/sync v0.17.0
@@ -61,6 +64,7 @@ require (
 	github.com/golang/snappy v1.0.0 // indirect
 	github.com/google/flatbuffers v25.2.10+incompatible // indirect
 	github.com/google/pprof v0.0.0-20250607225305-033d6d78b36a // indirect
+	github.com/google/subcommands v1.2.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/grafana/pyroscope-go v1.2.7 // indirect
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.9 // indirect
@@ -102,7 +106,7 @@ require (
 	github.com/sagikazarmark/locafero v0.11.0 // indirect
 	github.com/samber/lo v1.51.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251020191755-f189d2ad24db // indirect
+	github.com/shortlink-org/go-sdk/db v0.0.0-20251021172021-f38879dace30 // indirect
 	github.com/sourcegraph/conc v0.3.1-0.20240121214520-5f936abd7ae8 // indirect
 	github.com/spf13/afero v1.15.0 // indirect
 	github.com/spf13/cast v1.10.0 // indirect
@@ -138,10 +142,14 @@ require (
 	go.yaml.in/yaml/v2 v2.4.2 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/crypto v0.43.0 // indirect
+	golang.org/x/mod v0.29.0 // indirect
 	golang.org/x/net v0.46.0 // indirect
 	golang.org/x/oauth2 v0.32.0 // indirect
 	golang.org/x/sys v0.37.0 // indirect
+	golang.org/x/tools v0.38.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20250929231259-57b25ae835d4 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250929231259-57b25ae835d4 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
+
+tool github.com/google/wire/cmd/wire

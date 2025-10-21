@@ -6,11 +6,11 @@ import (
 
 	"github.com/spf13/viper"
 
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/ram/filter"
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
+	"github.com/shortlink-org/go-sdk/db/options"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/ram/filter"
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 	"github.com/shortlink-org/shortlink/pkg/batch"
-	"github.com/shortlink-org/shortlink/pkg/db/options"
 )
 
 // Config - config

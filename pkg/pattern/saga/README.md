@@ -36,7 +36,7 @@ package main
 import (
 	"context"
 	
-  "github.com/shortlink-org/shortlink/pkg/pattern/saga"
+  "github.com/shortlink-org/go-sdk/saga"
 )
 
 func (l *linkUseCase) addLinkSaga(ctx, link link.Link) error {

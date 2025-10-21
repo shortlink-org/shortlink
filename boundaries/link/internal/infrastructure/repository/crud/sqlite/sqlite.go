@@ -7,9 +7,9 @@ import (
 	"github.com/Masterminds/squirrel"
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
 
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	types "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
-	"github.com/shortlink-org/shortlink/pkg/db"
+	"github.com/shortlink-org/go-sdk/db"
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 // Store implementation of db interface

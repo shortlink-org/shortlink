@@ -13,6 +13,9 @@ import (
 
 	"github.com/google/wire"
 	"github.com/prometheus/client_golang/prometheus"
+	shortctx "github.com/shortlink-org/go-sdk/context"
+	"github.com/shortlink-org/go-sdk/flags"
+	"github.com/shortlink-org/go-sdk/observability/tracing"
 	"go.opentelemetry.io/otel/trace"
 
 	metadata_domain "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
@@ -28,16 +31,15 @@ import (
 	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
 
+	"github.com/shortlink-org/go-sdk/auth/permission"
+	"github.com/shortlink-org/go-sdk/cache"
+	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
-	"github.com/shortlink-org/shortlink/pkg/db"
-	"github.com/shortlink-org/shortlink/pkg/di"
-	mq_di "github.com/shortlink-org/shortlink/pkg/di/pkg/mq"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/store"
-	"github.com/shortlink-org/shortlink/pkg/mq"
-	"github.com/shortlink-org/shortlink/pkg/notify"
-	"github.com/shortlink-org/shortlink/pkg/s3"
+
+	"github.com/shortlink-org/go-sdk/mq"
+	"github.com/shortlink-org/go-sdk/notify"
+	"github.com/shortlink-org/go-sdk/observability/profiling"
+	"github.com/shortlink-org/go-sdk/s3"
 )
 
 type MetaDataService struct {
@@ -61,12 +63,24 @@ type MetaDataService struct {
 	metadataStore *meta_store.MetaStore
 }
 
+// DefaultSet ==========================================================================================================
+var DefaultSet = wire.NewSet(
+	shortctx.New,
+	flags.New,
+	config.New,
+	logger.New,
+	tracing.New,
+	metrics.New,
+	cache.New,
+	profiling.New,
+)
+
 // MetaDataService =====================================================================================================
 var MetaDataSet = wire.NewSet(
-	di.DefaultSet,
+	DefaultSet,
 	permission.New,
-	mq_di.New,
-	store.New,
+	mq.New,
+	db.New,
 	rpc.InitServer,
 	s3.New,
 	NewPrometheusRegistry,

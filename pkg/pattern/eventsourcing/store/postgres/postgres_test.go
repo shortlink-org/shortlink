@@ -14,7 +14,7 @@ import (
 	"go.uber.org/atomic"
 	"go.uber.org/goleak"
 
-	db "github.com/shortlink-org/shortlink/pkg/db/drivers/postgres"
+	db "github.com/shortlink-org/go-sdk/db/drivers/postgres"
 	eventsourcing "github.com/shortlink-org/shortlink/pkg/pattern/eventsourcing/domain/eventsourcing/v1"
 )
 

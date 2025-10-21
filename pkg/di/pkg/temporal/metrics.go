@@ -10,7 +10,6 @@ import (
 
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
-	error_di "github.com/shortlink-org/shortlink/pkg/di/pkg/error"
 )
 
 // newPrometheusScope creates a new Prometheus scope.
@@ -26,7 +25,7 @@ func newPrometheusScope(c *prometheus.Configuration, monitor *metrics.Monitoring
 		},
 	)
 	if err != nil {
-		return nil, &error_di.BaseError{Err: err}
+		return nil, err
 	}
 
 	scopeOpts := tally.ScopeOptions{

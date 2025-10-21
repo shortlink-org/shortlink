@@ -10,9 +10,9 @@ import (
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
 
+	"github.com/shortlink-org/go-sdk/mq"
+	"github.com/shortlink-org/go-sdk/notify"
 	metadata "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
-	"github.com/shortlink-org/shortlink/pkg/mq"
-	"github.com/shortlink-org/shortlink/pkg/notify"
 )
 
 type Event struct {

@@ -7,10 +7,10 @@ import (
 
 	"github.com/syndtr/goleveldb/leveldb"
 
+	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/logger"
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	types "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
-	"github.com/shortlink-org/shortlink/pkg/db"
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 // Store implementation of db interface

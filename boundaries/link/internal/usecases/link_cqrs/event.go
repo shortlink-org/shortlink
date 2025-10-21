@@ -3,8 +3,8 @@ package link_cqrs
 import (
 	"context"
 
-	link "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/pkg/notify"
+	"github.com/shortlink-org/go-sdk/notify"
+	link "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
 func (s *Service) EventHandlers() {

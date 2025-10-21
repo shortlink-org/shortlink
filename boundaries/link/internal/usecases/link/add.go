@@ -11,8 +11,8 @@ import (
 	"google.golang.org/grpc/status"
 
 	"github.com/shortlink-org/go-sdk/auth/session"
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/pkg/pattern/saga"
+	"github.com/shortlink-org/go-sdk/saga"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
 // Add - create a new link

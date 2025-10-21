@@ -6,10 +6,10 @@ import (
 	"log/slog"
 
 	"github.com/shortlink-org/go-sdk/logger"
-	link "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link/v1"
-	domain "github.com/shortlink-org/shortlink/boundaries/link/link/internal/domain/link_cqrs/v1"
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/link/internal/infrastructure/repository/crud/types/v1"
-	"github.com/shortlink-org/shortlink/pkg/pattern/saga"
+	"github.com/shortlink-org/go-sdk/saga"
+	link "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link_cqrs/v1"
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {

@@ -13,6 +13,10 @@ import (
 
 	"github.com/google/wire"
 	"github.com/prometheus/client_golang/prometheus"
+	shortctx "github.com/shortlink-org/go-sdk/context"
+	"github.com/shortlink-org/go-sdk/flags"
+	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/go-sdk/observability/tracing"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
@@ -23,12 +27,11 @@ import (
 
 	"github.com/shortlink-org/go-sdk/config"
 	rpc "github.com/shortlink-org/go-sdk/grpc"
-	"github.com/shortlink-org/go-sdk/logger"
 
+	"github.com/shortlink-org/go-sdk/auth/permission"
+	"github.com/shortlink-org/go-sdk/cache"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
-	"github.com/shortlink-org/shortlink/pkg/di"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/permission"
-	"github.com/shortlink-org/shortlink/pkg/di/pkg/profiling"
+	"github.com/shortlink-org/go-sdk/observability/profiling"
 
 	api "github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/pkg/i18n"
@@ -49,9 +52,21 @@ type BFFWebService struct {
 	PprofEndpoint profiling.PprofEndpoint
 }
 
+// DefaultSet ==========================================================================================================
+var DefaultSet = wire.NewSet(
+	shortctx.New,
+	flags.New,
+	config.New,
+	logger.New,
+	tracing.New,
+	metrics.New,
+	cache.New,
+	profiling.New,
+)
+
 // BFFWebService =======================================================================================================
 var BFFWebServiceSet = wire.NewSet(
-	di.DefaultSet,
+	DefaultSet,
 	permission.New,
 	i18n.New,
 	NewPrometheusRegistry,

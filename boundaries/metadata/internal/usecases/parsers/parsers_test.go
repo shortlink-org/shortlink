@@ -26,8 +26,7 @@ func TestSet(t *testing.T) {
 	url := "https://github.com/"
 
 	// Init logger
-	conf := config.Configuration{}
-	log, err := logger.New(logger.Zap, conf)
+	log, err := logger.New(logger.Configuration{})
 	require.NoError(t, err, "Error init a logger")
 
 	// Create store
