@@ -15,4 +15,16 @@
 
 .matrix_build_docker:
   parallel:
-    matrix: []
+    matrix:
+      - APPLICATION: bff
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bff
+        DOCKERFILE_PATH: bff/ops/Dockerfile
+      - APPLICATION: proxy
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/proxy
+        DOCKERFILE_PATH: proxy/ops/Dockerfile
+      - APPLICATION: link
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/link
+        DOCKERFILE_PATH: proxy/ops/Dockerfile
+      - APPLICATION: metadata
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/metadata
+        DOCKERFILE_PATH: proxy/ops/Dockerfile
