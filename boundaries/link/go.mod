@@ -22,9 +22,9 @@ require (
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2
 	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251013080359-ba916664d78d
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251020185847-0813d0c3cdf6
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251020184915-37726c1b58ed
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251020190310-a7b9b7d8b202
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251020193241-87e94558595e
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251020185847-0813d0c3cdf6
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251021155345-15d6cb691b95
 	github.com/shortlink-org/shortlink v0.0.0-20251014200117-559da2c2e232
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
@@ -117,7 +117,7 @@ require (
 	github.com/moby/term v0.5.2 // indirect
 	github.com/montanaflynn/stats v0.7.1 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
-	github.com/nats-io/nats.go v1.46.1 // indirect
+	github.com/nats-io/nats.go v1.47.0 // indirect
 	github.com/nats-io/nkeys v0.4.11 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/ncruces/go-strftime v0.1.9 // indirect
@@ -144,7 +144,7 @@ require (
 	github.com/prometheus/procfs v0.17.0 // indirect
 	github.com/rabbitmq/amqp091-go v1.10.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9 // indirect
-	github.com/redis/go-redis/v9 v9.14.0 // indirect
+	github.com/redis/go-redis/v9 v9.14.1 // indirect
 	github.com/redis/rueidis/rueidiscompat v1.0.67 // indirect
 	github.com/redis/rueidis/rueidisotel v1.0.67 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect

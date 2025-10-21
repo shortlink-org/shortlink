@@ -16,9 +16,9 @@ require (
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2
 	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251013080359-ba916664d78d
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251020185847-0813d0c3cdf6
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251020184915-37726c1b58ed
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251020190310-a7b9b7d8b202
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251020193241-87e94558595e
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251020185847-0813d0c3cdf6
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251021155345-15d6cb691b95
 	github.com/shortlink-org/shortlink v0.0.0-20251014200117-559da2c2e232
 	github.com/spf13/viper v1.21.0
 	go.opentelemetry.io/otel/trace v1.38.0
@@ -95,7 +95,7 @@ require (
 	github.com/prometheus/common v0.66.1 // indirect
 	github.com/prometheus/otlptranslator v0.0.2 // indirect
 	github.com/prometheus/procfs v0.17.0 // indirect
-	github.com/redis/go-redis/v9 v9.14.0 // indirect
+	github.com/redis/go-redis/v9 v9.14.1 // indirect
 	github.com/redis/rueidis v1.0.67 // indirect
 	github.com/redis/rueidis/rueidiscompat v1.0.67 // indirect
 	github.com/redis/rueidis/rueidisotel v1.0.67 // indirect

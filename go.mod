@@ -46,9 +46,9 @@ require (
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2
 	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251013080359-ba916664d78d
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251020185847-0813d0c3cdf6
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251020184915-37726c1b58ed
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251020190310-a7b9b7d8b202
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251020193241-87e94558595e
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251020185847-0813d0c3cdf6
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251021155345-15d6cb691b95
 	github.com/spf13/cobra v1.10.1
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
@@ -411,7 +411,6 @@ require (
 	golang.org/x/tools v0.38.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20250929231259-57b25ae835d4 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250929231259-57b25ae835d4 // indirect
-	gopkg.in/DATA-DOG/go-sqlmock.v1 v1.3.0 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 	honnef.co/go/tools v0.6.1 // indirect
 	k8s.io/klog/v2 v2.100.1 // indirect
