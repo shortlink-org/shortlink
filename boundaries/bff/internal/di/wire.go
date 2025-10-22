@@ -17,6 +17,7 @@ import (
 	"github.com/shortlink-org/go-sdk/flags"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/go-sdk/observability/tracing"
+	"go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
@@ -57,7 +58,7 @@ var DefaultSet = wire.NewSet(
 	shortctx.New,
 	flags.New,
 	config.New,
-	logger.New,
+	logger.NewDefault,
 	tracing.New,
 	metrics.New,
 	cache.New,
@@ -70,6 +71,7 @@ var BFFWebServiceSet = wire.NewSet(
 	permission.New,
 	i18n.New,
 	NewPrometheusRegistry,
+	NewMeterProvider,
 
 	// Delivery
 	rpc.InitServer,
@@ -89,6 +91,10 @@ var BFFWebServiceSet = wire.NewSet(
 
 func NewPrometheusRegistry(metrics *metrics.Monitoring) *prometheus.Registry {
 	return metrics.Prometheus
+}
+
+func NewMeterProvider(metrics *metrics.Monitoring) *metric.MeterProvider {
+	return metrics.Metrics
 }
 
 func NewRPCClient(

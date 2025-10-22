@@ -6,7 +6,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM --platform=$BUILDPLATFORM node:22.20.0-alpine AS builder
+FROM --platform=$BUILDPLATFORM node:25-alpine AS builder
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-proxy"
@@ -34,7 +34,7 @@ RUN apk update && \
 RUN mkdir -p /home/node/.npm/_cacache
 
 WORKDIR /app
-COPY ./boundaries/link/proxy /app/
+COPY . .
 
 # version for npm: npm ci --cache .npm --prefer-offline --force
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile

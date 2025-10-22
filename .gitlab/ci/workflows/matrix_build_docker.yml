@@ -1,8 +1,9 @@
 # NOTE:
 # APPLICATION     - Name application
 # REGISTRY_IMAGE  - Registry image
+# WORKDIR         - Working directory
 # DOCKERFILE_PATH - Path to Dockerfile
-# CMD_PATH        - Path to a binary file
+# DOCKERFILE_ARGS - Additional Docker build arguments
 .matrix_build_docker_ui:
   parallel:
     matrix:
@@ -17,14 +18,18 @@
   parallel:
     matrix:
       - APPLICATION: bff
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/bff
-        DOCKERFILE_PATH: bff/ops/Dockerfile
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
+        WORKDIR: boundaries/$APPLICATION
+        DOCKERFILE_PATH: ops/Dockerfile
       - APPLICATION: proxy
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/proxy
-        DOCKERFILE_PATH: proxy/ops/Dockerfile
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
+        WORKDIR: boundaries/$APPLICATION
+        DOCKERFILE_PATH: ops/Dockerfile
       - APPLICATION: link
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/link
-        DOCKERFILE_PATH: proxy/ops/Dockerfile
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
+        WORKDIR: boundaries/$APPLICATION
+        DOCKERFILE_PATH: ops/Dockerfile
       - APPLICATION: metadata
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/metadata
-        DOCKERFILE_PATH: proxy/ops/Dockerfile
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
+        WORKDIR: boundaries/$APPLICATION
+        DOCKERFILE_PATH: ops/Dockerfile

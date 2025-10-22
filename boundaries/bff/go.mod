@@ -21,9 +21,10 @@ require (
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2
 	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251020193241-87e94558595e
 	github.com/shortlink-org/go-sdk/http v0.0.0-20251020193241-87e94558595e
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251021155345-15d6cb691b95
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251021195826-431949cf96c8
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251021202009-dcc19c352b8b
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251021202009-dcc19c352b8b
 	github.com/spf13/viper v1.21.0
+	go.opentelemetry.io/otel/sdk/metric v1.38.0
 	go.opentelemetry.io/otel/trace v1.38.0
 	golang.org/x/sync v0.17.0
 	golang.org/x/text v0.30.0
@@ -137,7 +138,6 @@ require (
 	go.opentelemetry.io/otel/exporters/prometheus v0.60.0 // indirect
 	go.opentelemetry.io/otel/metric v1.38.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.38.0 // indirect
-	go.opentelemetry.io/otel/sdk/metric v1.38.0 // indirect
 	go.opentelemetry.io/proto/otlp v1.7.1 // indirect
 	go.yaml.in/yaml/v2 v2.4.2 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect

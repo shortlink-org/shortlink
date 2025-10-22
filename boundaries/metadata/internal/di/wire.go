@@ -16,6 +16,7 @@ import (
 	shortctx "github.com/shortlink-org/go-sdk/context"
 	"github.com/shortlink-org/go-sdk/flags"
 	"github.com/shortlink-org/go-sdk/observability/tracing"
+	"go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 
 	metadata_domain "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
@@ -68,7 +69,7 @@ var DefaultSet = wire.NewSet(
 	shortctx.New,
 	flags.New,
 	config.New,
-	logger.New,
+	logger.NewDefault,
 	tracing.New,
 	metrics.New,
 	cache.New,
@@ -84,6 +85,7 @@ var MetaDataSet = wire.NewSet(
 	rpc.InitServer,
 	s3.New,
 	NewPrometheusRegistry,
+	NewMeterProvider,
 
 	// Delivery
 	InitMetadataMQ,
@@ -103,6 +105,10 @@ var MetaDataSet = wire.NewSet(
 
 func NewPrometheusRegistry(metrics *metrics.Monitoring) *prometheus.Registry {
 	return metrics.Prometheus
+}
+
+func NewMeterProvider(metrics *metrics.Monitoring) *metric.MeterProvider {
+	return metrics.Metrics
 }
 
 func InitMetadataMQ(ctx context.Context, dataBus mq.MQ) (*metadata_mq.Event, error) {

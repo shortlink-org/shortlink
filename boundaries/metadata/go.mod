@@ -17,10 +17,10 @@ require (
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/http v0.0.0-20251021180704-1b5969f32d91
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251021192417-6218b024ab7d
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251021202009-dcc19c352b8b
 	github.com/shortlink-org/go-sdk/mq v0.0.0-20251021195122-5f907cfec097
 	github.com/shortlink-org/go-sdk/notify v0.0.0-20251021191943-67e98a78aaa8
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251021195826-431949cf96c8
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251021202009-dcc19c352b8b
 	github.com/shortlink-org/go-sdk/s3 v0.0.0-20251021192555-9ac02a468cc5
 	github.com/shortlink-org/go-sdk/saga v0.0.0-20251021193340-462530d92d33
 	github.com/spf13/viper v1.21.0
