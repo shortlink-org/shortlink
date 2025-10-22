@@ -1,5 +1,5 @@
 .matrix_build_helm:
   parallel:
     matrix:
-      - HELM_CHART_NAME: link-ui
+      - HELM_CHART_NAME: ui
         HELM_CHART_PATH: ops/Helm/$HELM_CHART_NAME
