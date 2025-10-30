@@ -25,20 +25,46 @@ ENV DEBUG=pyroscope
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
-RUN corepack enable
 
-# Install dependencies
 RUN apk update && \
-    apk add --no-cache curl tini
+    apk add --no-cache curl tini && \
+    npm install -g pnpm
 
 RUN mkdir -p /home/node/.npm/_cacache
 
 WORKDIR /app
-COPY . .
+
+# ⚡ Copy only package manifests first to improve caching
+COPY package.json pnpm-lock.yaml ./
 
 # version for npm: npm ci --cache .npm --prefer-offline --force
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+
+# 📦 Copy the rest of the application
+COPY . .
+
+# 🏗️ Build the application
 RUN pnpm build
+
+FROM node:25-alpine AS runtime
+
+RUN apk add --no-cache tini curl \
+    && npm install -g pnpm \
+    && addgroup -S nodegroup \
+    && adduser -S nodeuser -G nodegroup
+
+ENV NODE_ENV=production
+ENV PNPM_HOME="/pnpm"
+ENV PATH="$PNPM_HOME:$PATH"
+
+WORKDIR /app
+
+COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/node_modules ./node_modules
+COPY prisma ./prisma
+
+USER nodeuser
 
 ENTRYPOINT ["/sbin/tini", "--"]
 
