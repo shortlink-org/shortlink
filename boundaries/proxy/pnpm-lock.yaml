@@ -42,8 +42,8 @@ importers:
         specifier: 1.37.0
         version: 1.37.0
       '@pyroscope/nodejs':
-        specifier: 0.4.5
-        version: 0.4.5
+        specifier: 0.4.7
+        version: 0.4.7
       '@types/express':
         specifier: ^5.0.5
         version: 5.0.5
@@ -124,8 +124,8 @@ packages:
   '@dabh/diagnostics@2.0.8':
     resolution: {integrity: sha512-R4MSXTVnuMzGD7bzHdW2ZhhdPC/igELENcq5IjEverBvq5hn1SXCWcsi6eSsdWP0/Ur+SItRRjAktmdoX/8R/Q==}
 
-  '@datadog/pprof@5.12.0':
-    resolution: {integrity: sha512-qX32upm9eqObGVGvqHpjQB2bXVPTX0ccXTW3mUqUWXgJrAKyHtTfo9PqfoXhflYs0WD9el9xl9c0bM1RS4vRmQ==}
+  '@datadog/pprof@5.9.0':
+    resolution: {integrity: sha512-7KretVkHUANWe31u9cGJpxmUkyrXsCD+fmlZQUz/zk9mtQNC4uBIKX53VUFfrVj/bxAhEEIPw5XTYiMc5RJLsw==}
     engines: {node: '>=16'}
 
   '@godaddy/terminus@4.12.1':
@@ -680,8 +680,8 @@ packages:
   '@protobufjs/utf8@1.1.0':
     resolution: {integrity: sha512-Vvn3zZrhQZkkBE8LSuW3em98c0FwgO4nxzv6OdSxPKJIEKY2bGbHn+mhGIPerzI4twdxaP8/0+06HBpwf345Lw==}
 
-  '@pyroscope/nodejs@0.4.5':
-    resolution: {integrity: sha512-39YVwmLA2QhmLEd/yZjkjvAdU16kH0CiH6KY4wd1O4Lz7CszLW3/q2b33RAegdpnFmu8pPMhDcrPl/79mkjI0g==}
+  '@pyroscope/nodejs@0.4.7':
+    resolution: {integrity: sha512-dcmiyVcb333y6YUFZ7/waei83ZEXZhEoe7YqdktF9M6AxVfFEIHi/0CpiDYgPJ+vyhJfAEP9rxa88gnT2aQLyQ==}
     engines: {node: '>=v18'}
 
   '@so-ric/colorspace@1.1.6':
@@ -1630,7 +1630,7 @@ snapshots:
       enabled: 2.0.0
       kuler: 2.0.0
 
-  '@datadog/pprof@5.12.0':
+  '@datadog/pprof@5.9.0':
     dependencies:
       delay: 5.0.0
       node-gyp-build: 3.9.0
@@ -2403,9 +2403,9 @@ snapshots:
 
   '@protobufjs/utf8@1.1.0': {}
 
-  '@pyroscope/nodejs@0.4.5':
+  '@pyroscope/nodejs@0.4.7':
     dependencies:
-      '@datadog/pprof': 5.12.0
+      '@datadog/pprof': 5.9.0
       debug: 4.4.3
       p-limit: 3.1.0
       regenerator-runtime: 0.13.11
