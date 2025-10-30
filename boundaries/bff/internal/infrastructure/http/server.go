@@ -91,12 +91,12 @@ func (api *Server) run(config Config) error {
 
 	// Init routes
 	controller := &Controller{
-		link.NewController(config.Log, config.Link_rpc),
-		cqrs.LinkCQRSController{
+		Controller: link.NewController(config.Log, config.Link_rpc),
+		LinkCQRSController: cqrs.LinkCQRSController{
 			LinkCommandServiceClient: config.Link_command,
 			LinkQueryServiceClient:   config.Link_query,
 		},
-		sitemap.SitemapController{
+		SitemapController: sitemap.SitemapController{
 			// SitemapServiceClient: config.Sitemap_rpc,
 		},
 	}
