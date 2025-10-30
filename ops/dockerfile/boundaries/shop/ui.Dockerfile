@@ -7,7 +7,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
 # Install dependencies only when needed
-FROM --platform=$BUILDPLATFORM node:23.11.1-alpine AS development-builder
+FROM --platform=$BUILDPLATFORM node:24.11.0-alpine AS development-builder
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-shop-ui"
