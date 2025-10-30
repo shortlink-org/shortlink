@@ -53,11 +53,11 @@ func NewWSServer(ctx context.Context, log logger.Logger) (*ws.WS, error) {
 }
 
 func NewWSService(
-// Common
+	// Common
 	log logger.Logger,
 	config *config.Config,
 
-// Observability
+	// Observability
 	metrics *metrics.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
