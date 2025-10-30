@@ -8,7 +8,7 @@
   parallel:
     matrix:
       - APPLICATION: link-ui
-        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui
+        REGISTRY_IMAGE: boundaries/$CI_REGISTRY_IMAGE/ui
         DOCKERFILE_PATH: ui/ops/Dockerfile
         DOCKERFILE_ARGS: >-
           --build-arg API_URI=${API_URI}
