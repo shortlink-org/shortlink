@@ -2,5 +2,7 @@ packages:
   - src/*
 
 onlyBuiltDependencies:
+  - '@datadog/pprof'
   - '@prisma/client'
+  - '@prisma/engines'
   - prisma

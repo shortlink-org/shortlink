@@ -7,9 +7,10 @@
 .matrix_build_docker_ui:
   parallel:
     matrix:
-      - APPLICATION: link-ui
-        REGISTRY_IMAGE: boundaries/$CI_REGISTRY_IMAGE/ui
-        DOCKERFILE_PATH: ui/ops/Dockerfile
+      - APPLICATION: ui
+        REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/ui
+        WORKDIR: boundaries/$APPLICATION
+        DOCKERFILE_PATH: ops/Dockerfile
         DOCKERFILE_ARGS: >-
           --build-arg API_URI=${API_URI}
           --build-arg NEXT_PUBLIC_API_URI=${NEXT_PUBLIC_API_URI}
