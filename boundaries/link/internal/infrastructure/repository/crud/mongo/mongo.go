@@ -11,6 +11,7 @@ import (
 	"go.mongodb.org/mongo-driver/v2/bson"
 	"go.mongodb.org/mongo-driver/v2/mongo"
 
+	"github.com/shortlink-org/go-sdk/batch"
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/db/drivers/mongo/migrate"
 	"github.com/shortlink-org/go-sdk/db/options"
@@ -18,7 +19,6 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mongo/dto"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mongo/filter"
 	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
-	"github.com/shortlink-org/shortlink/pkg/batch"
 )
 
 //go:embed migrations/*.json

@@ -19,6 +19,7 @@ require (
 	github.com/redis/rueidis v1.0.67
 	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20251021180704-1b5969f32d91
+	github.com/shortlink-org/go-sdk/batch v0.0.0-20251030204511-03300dcd994f
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20251021175913-b17872633dfc
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc
 	github.com/shortlink-org/go-sdk/context v0.0.0-20251021195826-431949cf96c8
@@ -32,7 +33,6 @@ require (
 	github.com/shortlink-org/go-sdk/notify v0.0.0-20251021194325-00e3be024b85
 	github.com/shortlink-org/go-sdk/observability v0.0.0-20251021202009-dcc19c352b8b
 	github.com/shortlink-org/go-sdk/saga v0.0.0-20251021195826-431949cf96c8
-	github.com/shortlink-org/shortlink v0.0.0-20251014200117-559da2c2e232
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d

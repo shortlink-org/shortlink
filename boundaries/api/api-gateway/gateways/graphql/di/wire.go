@@ -25,7 +25,6 @@ import (
 	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/go-sdk/observability/profiling"
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/graphql/infrastructure/server"
-	"github.com/shortlink-org/shortlink/pkg/di"
 )
 
 type APIService struct {

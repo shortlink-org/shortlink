@@ -20,7 +20,6 @@ import (
 	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/go-sdk/observability/profiling"
 	"github.com/shortlink-org/shortlink/boundaries/api/api-gateway/gateways/ws/infrustracture/ws"
-	"github.com/shortlink-org/shortlink/pkg/di"
 )
 
 type WSService struct {

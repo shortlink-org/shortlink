@@ -3,8 +3,8 @@ package mongo
 import (
 	"go.mongodb.org/mongo-driver/v2/mongo"
 
+	"github.com/shortlink-org/go-sdk/batch"
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/pkg/batch"
 )
 
 // Config - config

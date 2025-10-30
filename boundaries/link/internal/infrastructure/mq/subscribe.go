@@ -6,9 +6,9 @@ import (
 
 	"github.com/segmentio/encoding/json"
 
+	"github.com/shortlink-org/go-sdk/mq/query"
 	"github.com/shortlink-org/go-sdk/notify"
 	link "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
-	"github.com/shortlink-org/shortlink/pkg/mq/query"
 )
 
 func (e *Event) SubscribeNewLink() error {
