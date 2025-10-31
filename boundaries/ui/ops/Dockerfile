@@ -43,7 +43,7 @@ RUN corepack enable && corepack prepare pnpm@latest --activate
 
 WORKDIR /app
 
-COPY ./ui/ ./
+COPY . .
 
 # Create npmrc with proper configuration
 RUN echo '@shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/' > .npmrc \
@@ -95,9 +95,9 @@ RUN apk add --no-cache curl \
 ###############################################################################
 # NGINX configuration & static assets
 ###############################################################################
-COPY ./ui/ops/conf/ui.local     /etc/nginx/conf.d/default.conf
-COPY ./ui/ops/conf/nginx.conf   /etc/nginx/nginx.conf
-COPY ./ui/ops/conf/templates    /etc/nginx/template
+COPY ./ops/conf/ui.local     /etc/nginx/conf.d/default.conf
+COPY ./ops/conf/nginx.conf   /etc/nginx/nginx.conf
+COPY ./ops/conf/templates    /etc/nginx/template
 
 # Next.js export build from the builder stage
 COPY --from=builder /app/out /usr/share/nginx/html
