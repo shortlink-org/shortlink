@@ -6,7 +6,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM --platform=$BUILDPLATFORM node:25-alpine AS builder
+FROM --platform=$BUILDPLATFORM node:25.1.0-alpine AS builder
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-proxy"
@@ -49,7 +49,7 @@ RUN pnpm prisma generate
 # 🏗️ Build the application
 RUN pnpm build
 
-FROM node:25-alpine AS runtime
+FROM node:25.1.0-alpine AS runtime
 
 RUN apk add --no-cache tini curl \
     && npm install -g pnpm \
