@@ -38,12 +38,7 @@ if (isEnableSentry) {
   const { withSentryConfig } = require('@sentry/nextjs')
 
   const config = {
-    // For all available options, see:
-    // https://github.com/getsentry/sentry-webpack-plugin#options
-
-    // Suppresses source map uploading logs during build
     silent: true,
-
     org: 'batazor',
     project: 'shortlink-next',
   }
@@ -108,9 +103,12 @@ const NEXT_CONFIG = {
     },
   },
   bundlePagesRouterDependencies: true,
+
+  // Enable React Compiler for improved performance
+  reactCompiler: true,
+
   experimental: {
     webVitalsAttribution: ['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'],
-    // typedRoutes: true,
 
     // Forward browser logs to the terminal for easier debugging
     browserDebugInfoInTerminal: true,
@@ -120,6 +118,9 @@ const NEXT_CONFIG = {
 
     // Enable support for `global-not-found`
     globalNotFound: true,
+
+    // Enable FS cache for Turbopack
+    turbopackFileSystemCacheForDev: true,
   },
 }
 
