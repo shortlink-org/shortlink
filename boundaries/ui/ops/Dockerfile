@@ -56,7 +56,8 @@ RUN echo '@shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/' > .np
  && echo 'prefer-offline=true' >> .npmrc
 
 # Install & build with cache for pnpm store
-RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
+RUN npm install -g patch-package \
+ && --mount=type=cache,id=pnpm-store,target=/pnpm/store \
     rm -rf node_modules package-lock.json \
  && pnpm install --config.frozen-lockfile=true --include=dev \
  && pnpm run build
