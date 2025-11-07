@@ -19,4 +19,11 @@ deprecated: false
 dependencies:
   - name: shortlink-template
     version: 0.9.6
-    repository: "file://../../../shortlink-template"
+    repository: oci://ghcr.io/shortlink-org/charts
+  - name: redis
+    version: 23.2.2
+    repository: oci://registry-1.docker.io/bitnamicharts
+    condition: redis.enabled
+    tags:
+      - redis
+      - store
