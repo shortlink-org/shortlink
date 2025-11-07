@@ -45,7 +45,7 @@ deploy:
   annotations: {}
 
   image:
-    repository: registry.gitlab.com/shortlink-org/shortlink/bff-link
+    repository: registry.gitlab.com/shortlink-org/shortlink/bff
     tag: latest
     # -- Global imagePullPolicy
     # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
