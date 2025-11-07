@@ -5,7 +5,7 @@ metadata:
   annotations:
     argocd.argoproj.io/sync-wave: "1"
 spec:
-  postgresVersion: 17
+  postgresVersion: 18
   metadata:
     annotations:
       sidecar.istio.io/inject: "false"
