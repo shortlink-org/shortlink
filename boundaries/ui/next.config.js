@@ -88,7 +88,6 @@ const NEXT_CONFIG = {
   },
   images: {
     loader: 'custom',
-    domains: ['images.unsplash.com'],
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
@@ -108,35 +107,6 @@ const NEXT_CONFIG = {
       fullUrl: true,
     },
   },
-  webpack: (config) => {
-    // 1) Find Next's existing file/asset rule that handles SVGs
-    const fileLoaderRule = config.module.rules.find(
-      (rule) => rule.test && rule.test.test && rule.test.test('.svg')
-    );
-  
-    // 2) Exclude .svg from that rule so it won't treat them as files
-    if (fileLoaderRule) {
-      fileLoaderRule.exclude = /\.svg$/i;
-    }
-  
-    // 3) Use SVGR to turn SVGs imported from JS/TS into React components
-    config.module.rules.push({
-      test: /\.svg$/i,
-      issuer: { and: [/\.(js|ts)x?$/] },
-      use: [
-        {
-          loader: '@svgr/webpack',
-          options: {
-            svgo: true,
-            titleProp: true,
-            ref: true,
-          },
-        },
-      ],
-    });
-  
-    return config;
-  },  
   bundlePagesRouterDependencies: true,
   experimental: {
     webVitalsAttribution: ['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'],
@@ -147,9 +117,6 @@ const NEXT_CONFIG = {
 
     // Activate new client-side router improvements
     clientSegmentCache: true,
-
-    // Explore route composition and segment overrides via DevTools
-    devtoolSegmentExplorer: true,
 
     // Enable support for `global-not-found`
     globalNotFound: true,
