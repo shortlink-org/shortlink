@@ -3,7 +3,7 @@ kind: PGUpgrade
 metadata:
   name: pg-upgrade-17-to-18
 spec:
-  shutdown: true
+  shutdown: false
   postgresClusterName: shortlink-postgres
   fromPostgresVersion: 17
   toPostgresVersion: 18
