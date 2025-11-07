@@ -1,5 +1,68 @@
 # Common default values for shortlink.
 # This is a YAML-formatted file.
 # Declare variables to be passed into your templates.
+
 redis:
-  enabled: true
+  fullnameOverride: redis
+
+  master:
+    kind: Deployment
+
+    persistence:
+      enabled: false
+      storageClass: local-path
+
+    resources:
+      limits:
+        cpu: 100m
+        memory: 300Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+
+  auth:
+    enabled: false
+    password: ""
+
+  metrics:
+    enabled: true
+
+    resources:
+      limits:
+        cpu: 50m
+        memory: 512Mi
+      requests:
+        cpu: 5m
+        memory: 36Mi
+
+    serviceMonitor:
+      enabled: true
+      additionalLabels:
+        release: prometheus-operator
+
+      podMonitor:
+        enabled: true
+        additionalLabels:
+          release: prometheus-operator
+
+      prometheusRule:
+        enabled: true
+        additionalLabels:
+          release: prometheus-operator
+
+    prometheusRule:
+      enabled: true
+
+  replica:
+    replicaCount: 0
+
+    resources:
+      limits:
+        cpu: 500m
+        memory: 256Mi
+      requests:
+        cpu: 10m
+        memory: 64Mi
+
+    persistence:
+      enabled: false
