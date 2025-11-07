@@ -15,7 +15,7 @@ server {
     }
 
     location / {
-        try_files $uri $uri/ @htmlext;
+        try_files $uri.html $uri $uri/ @htmlext;
     }
 
     location ~ \.html$ {
