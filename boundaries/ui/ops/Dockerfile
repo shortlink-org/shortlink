@@ -45,6 +45,9 @@ WORKDIR /app
 
 COPY . .
 
+# Set development environment for build (stage can be overridden at runtime)
+ENV NODE_ENV=development
+
 # Create npmrc with proper configuration
 RUN echo '@shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/' > .npmrc \
  && echo 'registry=https://registry.npmjs.org/' >> .npmrc \
@@ -69,6 +72,9 @@ FROM ghcr.io/nginxinc/nginx-unprivileged:1.27-alpine AS runtime
 ARG CI_COMMIT_SHA
 ARG CI_COMMIT_TAG
 ARG BUILD_DATE
+
+# Set production environment
+ENV NODE_ENV=production
 
 ###############################################################################
 # OCI labels (single instruction = single layer)
