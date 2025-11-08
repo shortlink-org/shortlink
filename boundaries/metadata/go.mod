@@ -16,7 +16,7 @@ require (
 	github.com/shortlink-org/go-sdk/flags v0.0.0-20251021194325-00e3be024b85
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251021180704-1b5969f32d91
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251021180704-1b5969f32d91
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251104190226-1675eff9fff6
 	github.com/shortlink-org/go-sdk/logger v0.0.0-20251021202009-dcc19c352b8b
 	github.com/shortlink-org/go-sdk/mq v0.0.0-20251021195122-5f907cfec097
 	github.com/shortlink-org/go-sdk/notify v0.0.0-20251021191943-67e98a78aaa8
@@ -112,7 +112,7 @@ require (
 	github.com/nats-io/nkeys v0.4.11 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/neo4j/neo4j-go-driver/v5 v5.28.4 // indirect
-	github.com/ory/client-go v1.22.6 // indirect
+	github.com/ory/client-go v1.22.8 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/philhofer/fwd v1.2.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.22 // indirect
