@@ -1,0 +1,74 @@
+{
+  "folders": [
+    {
+      "name": "shortlink",
+      "path": "."
+    },
+    {
+      "name": "API Gateway",
+      "path": "boundaries/api/api-gateway"
+    },
+    {
+      "name": "BFF",
+      "path": "boundaries/bff"
+    },
+    {
+      "name": "Link Service",
+      "path": "boundaries/link"
+    },
+    {
+      "name": "Metadata Service",
+      "path": "boundaries/metadata"
+    },
+    {
+      "name": "Proxy",
+      "path": "boundaries/proxy"
+    },
+    {
+      "name": "UI",
+      "path": "boundaries/ui"
+    },
+    {
+      "name": "Mobile",
+      "path": "boundaries/mobile"
+    },
+    {
+      "name": "Chrome Extension",
+      "path": "boundaries/chrome-extension"
+    },
+    {
+      "name": "Auth Service",
+      "path": "../auth/auth"
+    },
+    {
+      "name": "Auth UI",
+      "path": "../auth/ui"
+    },
+    {
+      "name": "Go SDK",
+      "path": "../go-sdk"
+    },
+    {
+      "name": "Common",
+      "path": "boundaries/common"
+    },
+    {
+      "name": "Ops",
+      "path": "ops"
+    },
+    {
+      "name": "Docs",
+      "path": "docs"
+    }
+  ],
+  "settings": {
+    "files.exclude": {
+      "**/.git": true,
+      "**/node_modules": true,
+      "**/vendor": true,
+      "**/dist": true,
+      "**/.next": true,
+      "**/out": true
+    }
+  }
+}

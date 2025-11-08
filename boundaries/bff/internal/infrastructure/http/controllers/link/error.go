@@ -1,51 +1,116 @@
 package link
 
 import (
-	"fmt"
+	"strings"
 
-	"google.golang.org/grpc/codes"
+	"github.com/segmentio/encoding/json"
+	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/status"
+
+	"github.com/shortlink-org/go-sdk/auth/session"
+
+	domainerrors "github.com/shortlink-org/shortlink/boundaries/link/bff/internal/domain/errors"
 )
 
-// ErrorDetail represents a structured error message
+// ============================================================
+// Response Models
+// ============================================================
+
+// ErrorDetail represents a structured error message for clients (JSON response)
 type ErrorDetail struct {
-	Code string `json:"code"`
-	Desc string `json:"desc"`
+	Code     string         `json:"code"`
+	Title    string         `json:"title"`
+	Detail   string         `json:"detail"`
+	Action   string         `json:"action,omitempty"`
+	Metadata map[string]any `json:"metadata,omitempty"`
 }
 
-// ErrorResponse is used to send a detailed error response
+// ErrorResponse is used to send a detailed structured error payload
 type ErrorResponse struct {
 	Messages []ErrorDetail `json:"messages"`
 }
 
-// ErrMessages creates an ErrorResponse from a given error
+// ============================================================
+// Conversion Logic
+// ============================================================
+
+// ErrMessages builds an ErrorResponse from any given error (domain or gRPC)
 func ErrMessages(err error) *ErrorResponse {
 	st, ok := status.FromError(err)
 	if !ok {
-		// If not a gRPC status error, treat as Internal
+		// Not a gRPC status — wrap as unknown domain error
+		domainErr := domainerrors.NewUnknown(err.Error())
 		return &ErrorResponse{
 			Messages: []ErrorDetail{{
-				Code: codes.Internal.String(),
-				Desc: err.Error(),
+				Code:   domainErr.Code,
+				Title:  domainErr.Title,
+				Detail: domainErr.Detail,
+				Action: domainErr.Action,
 			}},
 		}
 	}
 
-	// Create an ErrorDetail for each gRPC status error
-	var details []ErrorDetail
-	for _, d := range st.Details() {
-		switch t := d.(type) {
-		default:
-			// Handle other types or log them
-			fmt.Printf("Unhandled error type: %T\n", t)
-		}
+	// Map gRPC status to domain error
+	domainErr := mapStatusToResponse(st)
+	metadata := map[string]any{
+		"grpc_status_code": st.Code().String(),
 	}
-	details = append(details, ErrorDetail{
-		Code: st.Code().String(),
-		Desc: st.Message(),
-	})
+
+	// Include any additional gRPC error details (for diagnostics)
+	var grpcDetails []string
+	for _, d := range st.Details() {
+		raw, err := json.Marshal(d)
+		if err != nil {
+			continue
+		}
+		grpcDetails = append(grpcDetails, string(raw))
+	}
+
+	if len(grpcDetails) > 0 {
+		metadata["grpc_details"] = grpcDetails
+	}
 
 	return &ErrorResponse{
-		Messages: details,
+		Messages: []ErrorDetail{{
+			Code:     domainErr.Code,
+			Title:    domainErr.Title,
+			Detail:   domainErr.Detail,
+			Action:   domainErr.Action,
+			Metadata: metadata,
+		}},
+	}
+}
+
+// ============================================================
+// Mapper from gRPC status to Domain Error
+// ============================================================
+
+func mapStatusToResponse(st *status.Status) *domainerrors.Error {
+	// Check structured gRPC details (errdetails.ErrorInfo)
+	for _, d := range st.Details() {
+		if info, ok := d.(*errdetails.ErrorInfo); ok {
+			switch info.GetReason() {
+			case domainerrors.CodeSessionNotFound:
+				return domainerrors.NewSessionNotFound()
+			case domainerrors.CodeUserNotIdentified:
+				return domainerrors.NewUserNotIdentified()
+			case domainerrors.CodeSessionMetadataMissing:
+				return domainerrors.NewSessionMetadataMissing()
+			}
+		}
+	}
+
+	message := st.Message()
+
+	// Fallback to string-based inference (for backward compatibility)
+	switch {
+	case strings.Contains(message, session.ErrSessionNotFound.Error()):
+		return domainerrors.NewSessionNotFound()
+	case strings.Contains(message, session.ErrUserIDNotFound.Error()):
+		return domainerrors.NewUserNotIdentified()
+	case strings.Contains(message, session.ErrMetadataNotFound.Error()):
+		return domainerrors.NewSessionMetadataMissing()
+	default:
+		return domainerrors.NewUnknown(message)
 	}
 }
