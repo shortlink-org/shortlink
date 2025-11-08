@@ -21,7 +21,7 @@ services:
     depends_on:
       - coredns
       - hydra_migrate
-    image: oryd/hydra:v2.3
+    image: oryd/hydra:v25.4
     command: serve -c /etc/config/hydra/hydra.yml all --dev
     container_name: hydra
     init: true
@@ -45,7 +45,7 @@ services:
     <<: *network
     depends_on:
       - coredns
-    image: oryd/hydra:v2.3
+    image: oryd/hydra:v25.4
     environment:
       - DSN=sqlite:///var/lib/sqlite/db.sqlite?_fk=true
     command: migrate -c /etc/config/hydra/hydra.yml sql -e --yes
