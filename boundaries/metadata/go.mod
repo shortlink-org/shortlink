@@ -8,19 +8,19 @@ require (
 	github.com/google/wire v0.7.0
 	github.com/minio/minio-go/v7 v7.0.97
 	github.com/prometheus/client_golang v1.23.2
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251021180704-1b5969f32d91
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251108103956-0a3cbbf03637
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/config v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/context v0.0.0-20251021193340-462530d92d33
 	github.com/shortlink-org/go-sdk/db v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/flags v0.0.0-20251021194325-00e3be024b85
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251021180704-1b5969f32d91
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251021180704-1b5969f32d91
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251108115131-18dc85978c3b
 	github.com/shortlink-org/go-sdk/http v0.0.0-20251104190226-1675eff9fff6
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251021202009-dcc19c352b8b
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251108103956-0a3cbbf03637
 	github.com/shortlink-org/go-sdk/mq v0.0.0-20251021195122-5f907cfec097
 	github.com/shortlink-org/go-sdk/notify v0.0.0-20251021191943-67e98a78aaa8
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251021202009-dcc19c352b8b
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251030220300-1e2beabd19b6
 	github.com/shortlink-org/go-sdk/s3 v0.0.0-20251021192555-9ac02a468cc5
 	github.com/shortlink-org/go-sdk/saga v0.0.0-20251021193340-462530d92d33
 	github.com/spf13/viper v1.21.0
@@ -80,7 +80,7 @@ require (
 	github.com/grafana/pyroscope-go/godeltaprof v0.1.9 // indirect
 	github.com/grafana/regexp v0.0.0-20240518133315-a468a5bfb3bc // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0 // indirect
-	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.2 // indirect
+	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.3 // indirect
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.3 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
