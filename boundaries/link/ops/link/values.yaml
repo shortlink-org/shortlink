@@ -46,6 +46,10 @@ deploy:
   image:
     repository: registry.gitlab.com/shortlink-org/shortlink/link
     tag: latest
+    # -- Global imagePullPolicy
+    # Default: 'Always' if image tag is 'latest', else 'IfNotPresent'
+    # Ref: http://kubernetes.io/docs/user-guide/images/#pre-pulling-images
+    pullPolicy: Always
 
   resources:
     # -- We usually recommend not to specify default resources and to leave this as a conscious
