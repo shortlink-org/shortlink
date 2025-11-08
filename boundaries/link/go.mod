@@ -18,7 +18,7 @@ require (
 	github.com/prometheus/client_golang v1.23.2
 	github.com/redis/rueidis v1.0.67
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251108123242-22e2ef4e6b01
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251108145352-f59577605d0a
 	github.com/shortlink-org/go-sdk/batch v0.0.0-20251030204511-03300dcd994f
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20251021175913-b17872633dfc
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc
@@ -26,12 +26,12 @@ require (
 	github.com/shortlink-org/go-sdk/db v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/flags v0.0.0-20251021194325-00e3be024b85
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251108145352-f59577605d0a
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251104190226-1675eff9fff6
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251108203914-f363e5ad1155
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251108203914-f363e5ad1155
 	github.com/shortlink-org/go-sdk/logger v0.0.0-20251108103956-0a3cbbf03637
 	github.com/shortlink-org/go-sdk/mq v0.0.0-20251021195122-5f907cfec097
 	github.com/shortlink-org/go-sdk/notify v0.0.0-20251021194325-00e3be024b85
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251030220300-1e2beabd19b6
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251108115131-18dc85978c3b
 	github.com/shortlink-org/go-sdk/saga v0.0.0-20251021195826-431949cf96c8
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
@@ -206,7 +206,7 @@ require (
 	golang.org/x/mod v0.29.0 // indirect
 	golang.org/x/net v0.46.0 // indirect
 	golang.org/x/oauth2 v0.32.0 // indirect
-	golang.org/x/sync v0.17.0 // indirect
+	golang.org/x/sync v0.18.0 // indirect
 	golang.org/x/sys v0.37.0 // indirect
 	golang.org/x/text v0.30.0 // indirect
 	golang.org/x/tools v0.38.0 // indirect
