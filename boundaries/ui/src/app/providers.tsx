@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef, Suspense } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
 import { ThemeProvider, createTheme } from '@mui/material/styles'
@@ -45,14 +45,16 @@ const theme = createTheme({
 //   ],
 // })
 
-// @ts-ignore
-export function Providers({ children, ...props }: { children: React.ReactNode; [key: string]: any }) {
-  const storeRef = useRef<AppStore | null>(null)
-  if (!storeRef.current) {
-    // Create the store instance the first time this renders
-    // @ts-ignore
-    storeRef.current = makeStore()
-  }
+const loadingFallback = <div className="h-full justify-center">Loading...</div>
+
+export function Providers({ children, ..._props }: { children: React.ReactNode; [key: string]: any }) {
+  const [store, setStore] = useState<AppStore | null>(null)
+
+  useEffect(() => {
+    if (!store) {
+      setStore(makeStore())
+    }
+  }, [store])
 
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
@@ -67,8 +69,8 @@ export function Providers({ children, ...props }: { children: React.ReactNode; [
             <Layout>
               <div className="text-black dark:bg-gray-800 dark:text-white">
                 <BalancerProvider>
-                  <Suspense fallback={<div className={'h-full justify-center'}>Loading...</div>}>
-                    <Provider store={storeRef.current}>{children}</Provider>
+                  <Suspense fallback={loadingFallback}>
+                    {store ? <Provider store={store}>{children}</Provider> : loadingFallback}
                   </Suspense>
                 </BalancerProvider>
               </div>

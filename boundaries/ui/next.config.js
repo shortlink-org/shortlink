@@ -54,7 +54,6 @@ const NEXT_CONFIG = {
   productionBrowserSourceMaps: isProd,
   reactStrictMode: true,
   generateEtags: true,
-  cacheComponents: true,
   env: {
     // ShortLink API
     NEXT_PUBLIC_SERVICE_NAME: 'shortlink-next',
