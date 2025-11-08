@@ -8,14 +8,14 @@ require (
 	github.com/google/wire v0.7.0
 	github.com/minio/minio-go/v7 v7.0.97
 	github.com/prometheus/client_golang v1.23.2
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251108103956-0a3cbbf03637
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251108123242-22e2ef4e6b01
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/config v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/context v0.0.0-20251021193340-462530d92d33
 	github.com/shortlink-org/go-sdk/db v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/flags v0.0.0-20251021194325-00e3be024b85
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251021180704-1b5969f32d91
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251108115131-18dc85978c3b
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251108143817-e529660812a7
 	github.com/shortlink-org/go-sdk/http v0.0.0-20251104190226-1675eff9fff6
 	github.com/shortlink-org/go-sdk/logger v0.0.0-20251108103956-0a3cbbf03637
 	github.com/shortlink-org/go-sdk/mq v0.0.0-20251021195122-5f907cfec097
