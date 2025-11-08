@@ -15,14 +15,17 @@ import Typography from '@mui/material/Typography'
 import React, { useState } from 'react'
 import { CopyToClipboard } from 'react-copy-to-clipboard'
 
+import { createLinkUseCase } from '@/application/link'
+import { CreateLinkCommand } from '@/domain/link/link.types'
 import withAuthSync from '@/components/Private'
 import Header from '@/components/Page/Header'
 
 function Page() {
   const [open, setOpen] = useState(false)
 
-  const [url, setURL] = useState({
+  const [form, setForm] = useState<CreateLinkCommand>({
     url: '',
+    describe: '',
   })
 
   const [response, setResponse] = useState({
@@ -31,9 +34,9 @@ function Page() {
     hash: '',
   })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setURL({ ...url, [e.target.name]: e.target.value })
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => setForm({ ...form, [e.target.name]: e.target.value })
 
-  const handleClose = (event: React.SyntheticEvent | Event, reason: string) => {
+  const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
     if (reason === 'clickaway') {
       return
     }
@@ -44,24 +47,18 @@ function Page() {
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault()
     try {
-      // TODO: use store.actions
-      const res = await fetch(`/api/links`, {
-        method: 'POST',
-        body: JSON.stringify(url),
-        headers: { 'Content-Type': 'application/json' },
-      })
-      const json = await res.json()
+      const result = await createLinkUseCase.execute(form)
 
-      if (res.status === 201) {
+      if (result.kind === 'success') {
         setResponse({
           type: 'success',
-          message: 'Success add your link.',
-          hash: json.hash,
+          message: 'Link created successfully.',
+          hash: result.link.hash,
         })
       } else {
         setResponse({
           type: 'error',
-          message: json.error,
+          message: result.error.detail,
           hash: '',
         })
       }
@@ -72,7 +69,7 @@ function Page() {
       setResponse({
         hash: '',
         type: 'error',
-        message: 'An error occured while submitting the form',
+        message: 'Could not create the link. Please try again later.',
       })
       setOpen(true)
     }
@@ -104,9 +101,16 @@ function Page() {
               autoComplete="off"
               onSubmit={handleSubmit}
             >
-              <TextField variant="outlined" label="Your URL" name="url" required fullWidth onChange={handleChange} />
+              <TextField variant="outlined" label="Your URL" name="url" required fullWidth value={form.url} onChange={handleChange} />
 
-              <TextField variant="outlined" label="Describe" name="describe" fullWidth onChange={handleChange} />
+              <TextField
+                variant="outlined"
+                label="Describe"
+                name="describe"
+                fullWidth
+                value={form.describe ?? ''}
+                onChange={handleChange}
+              />
 
               <Button variant="contained" className="bg-sky-600 hover:bg-sky-700" type="submit">
                 Add
@@ -150,7 +154,7 @@ function Page() {
           onClose={handleClose}
         >
           {/* @ts-ignore */}
-          <Alert onClose={() => handleClose} severity={response.type}>
+          <Alert onClose={handleClose} severity={response.type}>
             {response.message}
           </Alert>
         </Snackbar>

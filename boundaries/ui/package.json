@@ -21,8 +21,10 @@
     "sitemap": "pnpm dlx next-sitemap --config config/sitemap.config.js",
     "cypress": "NODE_ENV=test pnpm dlx cypress open",
     "cypress:headless": "NODE_ENV=test cypress run",
-    "e2e": "NODE_ENV=test start-server-and-test start http://localhost:3000 cypress",
-    "e2e:headless": "NODE_ENV=test start-server-and-test start http://localhost:3000 cypress:headless",
+    "e2e": "playwright test",
+    "e2e:headed": "playwright test --headed",
+    "playwright:codegen": "playwright codegen http://localhost:3000/add-link",
+    "playwright:report": "allure serve playwright-report/allure-results",
     "preinstall": "npx only-allow pnpm"
   },
   "husky": {
@@ -86,6 +88,7 @@
     "@redux-devtools/extension": "^3.3.0",
     "@svgr/webpack": "^8.1.0",
     "@tailwindcss/postcss": "^4.1.17",
+    "allure-playwright": "^3.4.2",
     "@types/express": "^5.0.5",
     "@types/lodash": "^4.17.20",
     "@types/material-ui": "^0.21.18",
@@ -93,6 +96,7 @@
     "@types/react": "19.2.2",
     "@types/react-copy-to-clipboard": "^5.0.7",
     "autoprefixer": "^10.4.21",
+    "@playwright/test": "^1.56.1",
     "cypress": "^15.6.0",
     "eslint": "^9.39.1",
     "eslint-config-prettier": "^10.1.8",
