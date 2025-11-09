@@ -4,11 +4,11 @@
   "description": "Proxy service for redirect to original URL",
   "main": "server.ts",
   "scripts": {
-    "build": "pnpm tsc --skipLibCheck",
-    "start": "pnpm tsc --skipLibCheck && NODE_ENV=development node ./dist/app.js",
+    "build": "tsc --skipLibCheck",
+    "start": "pnpm run build && NODE_ENV=development node ./dist/app.js",
     "prod": "NODE_ENV=production node ./dist/app.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "migrate:deploy": "cd prisma && pnpm prisma migrate deploy",
+    "migrate:deploy": "pnpm exec prisma migrate deploy --schema=./prisma/schema.prisma",
     "preinstall": "npx only-allow pnpm"
   },
   "keywords": [
