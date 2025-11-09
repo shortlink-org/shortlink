@@ -8,6 +8,11 @@ import (
 	"github.com/segmentio/encoding/json"
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	otelcodes "go.opentelemetry.io/otel/codes"
+	"go.opentelemetry.io/otel/trace"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
 	"github.com/shortlink-org/go-sdk/auth/session"
@@ -84,17 +89,54 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 				}},
 			}
 
+			ctx, span := otel.Tracer("link.uc.permission").Start(ctx, "authzed.api.v1.PermissionsService/WriteRelationships",
+				trace.WithSpanKind(trace.SpanKindClient),
+			)
+			defer span.End()
+
+			span.SetAttributes(
+				attribute.String("rpc.system", "grpc"),
+				attribute.String("rpc.service", "authzed.api.v1.PermissionsService"),
+				attribute.String("rpc.method", "WriteRelationships"),
+				attribute.String("link.hash", in.GetHash()),
+				attribute.String("user.id", userID),
+			)
+
 			_, err := uc.permission.PermissionsServiceClient.WriteRelationships(ctx, relationship)
 			if err != nil {
 				st, ok := status.FromError(err)
 				if ok {
-					if int32(st.Code()) == int32(permission.ErrorReason_ERROR_REASON_TOO_MANY_PRECONDITIONS_IN_REQUEST) {
+					span.SetAttributes(attribute.String("grpc.code", st.Code().String()))
+					switch st.Code() {
+					case codes.AlreadyExists:
+						span.SetAttributes(attribute.Bool("permission.already_exists", true))
+						span.AddEvent("permission relationship already existed")
+						span.SetStatus(otelcodes.Ok, "relationship already exists")
+
 						return nil
+					default:
+						if int32(st.Code()) == int32(permission.ErrorReason_ERROR_REASON_TOO_MANY_PRECONDITIONS_IN_REQUEST) {
+							span.SetStatus(otelcodes.Ok, "skipped: too many preconditions")
+
+							return nil
+						}
 					}
+
+					span.RecordError(err)
+					span.SetStatus(otelcodes.Error, st.Message())
+				} else {
+					span.RecordError(err)
+					span.SetStatus(otelcodes.Error, err.Error())
 				}
 
 				return err
 			}
+
+			span.SetAttributes(
+				attribute.Bool("permission.already_exists", false),
+				attribute.String("grpc.code", codes.OK.String()),
+			)
+			span.SetStatus(otelcodes.Ok, "relationship created")
 
 			return nil
 		}).Reject(func(ctx context.Context, thenErr error) error {

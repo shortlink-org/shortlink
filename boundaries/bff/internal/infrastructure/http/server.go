@@ -19,6 +19,7 @@ import (
 	pprof_labels_middleware "github.com/shortlink-org/go-sdk/http/middleware/pprof_labels"
 	span_middleware "github.com/shortlink-org/go-sdk/http/middleware/span"
 	http_server "github.com/shortlink-org/go-sdk/http/server"
+
 	serverAPI "github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/api"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/link"
