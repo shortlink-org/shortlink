@@ -20,18 +20,18 @@ require (
 	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20251108145352-f59577605d0a
 	github.com/shortlink-org/go-sdk/batch v0.0.0-20251030204511-03300dcd994f
-	github.com/shortlink-org/go-sdk/cache v0.0.0-20251021175913-b17872633dfc
+	github.com/shortlink-org/go-sdk/cache v0.0.0-20251109062829-3e4d690eb1d1
 	github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc
 	github.com/shortlink-org/go-sdk/context v0.0.0-20251021195826-431949cf96c8
 	github.com/shortlink-org/go-sdk/db v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/flags v0.0.0-20251021194325-00e3be024b85
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251108203914-f363e5ad1155
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251108203914-f363e5ad1155
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251108103956-0a3cbbf03637
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251109191356-fc3563311067
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251109191356-fc3563311067
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251108203914-f363e5ad1155
 	github.com/shortlink-org/go-sdk/mq v0.0.0-20251021195122-5f907cfec097
 	github.com/shortlink-org/go-sdk/notify v0.0.0-20251021194325-00e3be024b85
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251108115131-18dc85978c3b
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251108145352-f59577605d0a
 	github.com/shortlink-org/go-sdk/saga v0.0.0-20251021195826-431949cf96c8
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
@@ -152,7 +152,7 @@ require (
 	github.com/prometheus/procfs v0.17.0 // indirect
 	github.com/rabbitmq/amqp091-go v1.10.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9 // indirect
-	github.com/redis/go-redis/v9 v9.14.1 // indirect
+	github.com/redis/go-redis/v9 v9.16.0 // indirect
 	github.com/redis/rueidis/rueidiscompat v1.0.67 // indirect
 	github.com/redis/rueidis/rueidisotel v1.0.67 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
