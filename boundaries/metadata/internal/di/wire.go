@@ -28,17 +28,15 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/parsers"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/screenshot"
 
-	"github.com/shortlink-org/go-sdk/config"
-	rpc "github.com/shortlink-org/go-sdk/grpc"
-	"github.com/shortlink-org/go-sdk/logger"
-
 	"github.com/shortlink-org/go-sdk/auth/permission"
 	"github.com/shortlink-org/go-sdk/cache"
+	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db"
-	"github.com/shortlink-org/go-sdk/observability/metrics"
-
+	rpc "github.com/shortlink-org/go-sdk/grpc"
+	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/go-sdk/mq"
 	"github.com/shortlink-org/go-sdk/notify"
+	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/go-sdk/observability/profiling"
 	"github.com/shortlink-org/go-sdk/s3"
 )
@@ -179,23 +177,23 @@ func NewMetaDataRPCServer(log logger.Logger, runRPCServer *rpc.Server, parsersUC
 }
 
 func NewMetaDataService(
-	// Common
+// Common
 	log logger.Logger,
 	config *config.Config,
 
-	// Observability
+// Observability
 	metrics *metrics.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 
-	// Application
+// Application
 	service *parsers.UC,
 
-	// Delivery
+// Delivery
 	metadataMQ *metadata_mq.Event,
 	metadataRPCServer *metadata_rpc.Metadata,
 
-	// Repository
+// Repository
 	metadataStore *meta_store.MetaStore,
 ) (*MetaDataService, error) {
 	return &MetaDataService{
