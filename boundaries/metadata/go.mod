@@ -8,21 +8,21 @@ require (
 	github.com/google/wire v0.7.0
 	github.com/minio/minio-go/v7 v7.0.97
 	github.com/prometheus/client_golang v1.23.2
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251108123242-22e2ef4e6b01
-	github.com/shortlink-org/go-sdk/cache v0.0.0-20251021180704-1b5969f32d91
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251108145352-f59577605d0a
+	github.com/shortlink-org/go-sdk/cache v0.0.0-20251109062829-3e4d690eb1d1
 	github.com/shortlink-org/go-sdk/config v0.0.0-20251021180704-1b5969f32d91
-	github.com/shortlink-org/go-sdk/context v0.0.0-20251021193340-462530d92d33
+	github.com/shortlink-org/go-sdk/context v0.0.0-20251021195826-431949cf96c8
 	github.com/shortlink-org/go-sdk/db v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/flags v0.0.0-20251021194325-00e3be024b85
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251021180704-1b5969f32d91
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251108143817-e529660812a7
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251104190226-1675eff9fff6
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251108103956-0a3cbbf03637
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251109191356-fc3563311067
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251109191356-fc3563311067
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251108203914-f363e5ad1155
 	github.com/shortlink-org/go-sdk/mq v0.0.0-20251021195122-5f907cfec097
-	github.com/shortlink-org/go-sdk/notify v0.0.0-20251021191943-67e98a78aaa8
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251030220300-1e2beabd19b6
+	github.com/shortlink-org/go-sdk/notify v0.0.0-20251021194325-00e3be024b85
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251108145352-f59577605d0a
 	github.com/shortlink-org/go-sdk/s3 v0.0.0-20251021192555-9ac02a468cc5
-	github.com/shortlink-org/go-sdk/saga v0.0.0-20251021193340-462530d92d33
+	github.com/shortlink-org/go-sdk/saga v0.0.0-20251021195826-431949cf96c8
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	go.opentelemetry.io/otel/sdk/metric v1.38.0
@@ -74,6 +74,7 @@ require (
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/golang/snappy v1.0.0 // indirect
 	github.com/google/flatbuffers v25.2.10+incompatible // indirect
+	github.com/google/pprof v0.0.0-20250607225305-033d6d78b36a // indirect
 	github.com/google/subcommands v1.2.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/grafana/pyroscope-go v1.2.7 // indirect
@@ -111,6 +112,9 @@ require (
 	github.com/nats-io/nkeys v0.4.11 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/neo4j/neo4j-go-driver/v5 v5.28.4 // indirect
+	github.com/onsi/ginkgo/v2 v2.23.4 // indirect
+	github.com/onsi/gomega v1.38.0 // indirect
+	github.com/opencontainers/runc v1.2.8 // indirect
 	github.com/ory/client-go v1.22.8 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/philhofer/fwd v1.2.0 // indirect
@@ -124,7 +128,7 @@ require (
 	github.com/prometheus/procfs v0.17.0 // indirect
 	github.com/rabbitmq/amqp091-go v1.10.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9 // indirect
-	github.com/redis/go-redis/v9 v9.14.1 // indirect
+	github.com/redis/go-redis/v9 v9.16.0 // indirect
 	github.com/redis/rueidis v1.0.67 // indirect
 	github.com/redis/rueidis/rueidiscompat v1.0.67 // indirect
 	github.com/redis/rueidis/rueidisotel v1.0.67 // indirect
@@ -150,7 +154,7 @@ require (
 	github.com/xdg-go/stringprep v1.0.4 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20240726163527-a2c0da244d78 // indirect
 	go.mongodb.org/mongo-driver v1.17.2 // indirect
-	go.mongodb.org/mongo-driver/v2 v2.3.1 // indirect
+	go.mongodb.org/mongo-driver/v2 v2.4.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.1.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.63.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.63.0 // indirect
@@ -169,7 +173,7 @@ require (
 	golang.org/x/mod v0.29.0 // indirect
 	golang.org/x/net v0.46.0 // indirect
 	golang.org/x/oauth2 v0.32.0 // indirect
-	golang.org/x/sync v0.17.0 // indirect
+	golang.org/x/sync v0.18.0 // indirect
 	golang.org/x/sys v0.37.0 // indirect
 	golang.org/x/text v0.30.0 // indirect
 	golang.org/x/tools v0.38.0 // indirect

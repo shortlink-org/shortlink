@@ -4,6 +4,7 @@ run:
   timeout: 15m
   modules-download-mode: readonly
   allow-parallel-runners: true
+  tests: true
 
 output:
   sort-results: true
@@ -17,6 +18,7 @@ linters:
     - godox           # incorrect results in our project
     - depguard
     - gochecknoglobals
+    - wsl # deprecated
 
   exclusions:
     paths:

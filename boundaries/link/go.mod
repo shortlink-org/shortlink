@@ -21,13 +21,13 @@ require (
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20251108145352-f59577605d0a
 	github.com/shortlink-org/go-sdk/batch v0.0.0-20251030204511-03300dcd994f
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20251109062829-3e4d690eb1d1
-	github.com/shortlink-org/go-sdk/config v0.0.0-20250921110119-283ac43a0ddc
+	github.com/shortlink-org/go-sdk/config v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/context v0.0.0-20251021195826-431949cf96c8
 	github.com/shortlink-org/go-sdk/db v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/flags v0.0.0-20251021194325-00e3be024b85
-	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251012192239-ed21e319d1d2
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251109191356-fc3563311067
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251109191356-fc3563311067
+	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251021180704-1b5969f32d91
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251110183106-fe7375901906
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251110183106-fe7375901906
 	github.com/shortlink-org/go-sdk/logger v0.0.0-20251108203914-f363e5ad1155
 	github.com/shortlink-org/go-sdk/mq v0.0.0-20251021195122-5f907cfec097
 	github.com/shortlink-org/go-sdk/notify v0.0.0-20251021194325-00e3be024b85
@@ -117,7 +117,7 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a // indirect
 	github.com/jzelinskie/stringz v0.0.3 // indirect
-	github.com/klauspost/compress v1.18.0 // indirect
+	github.com/klauspost/compress v1.18.1 // indirect
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0 // indirect
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
 	github.com/mattn/go-isatty v0.0.20 // indirect
