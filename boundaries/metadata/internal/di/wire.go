@@ -177,23 +177,23 @@ func NewMetaDataRPCServer(log logger.Logger, runRPCServer *rpc.Server, parsersUC
 }
 
 func NewMetaDataService(
-// Common
+	// Common
 	log logger.Logger,
 	config *config.Config,
 
-// Observability
+	// Observability
 	metrics *metrics.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
 
-// Application
+	// Application
 	service *parsers.UC,
 
-// Delivery
+	// Delivery
 	metadataMQ *metadata_mq.Event,
 	metadataRPCServer *metadata_rpc.Metadata,
 
-// Repository
+	// Repository
 	metadataStore *meta_store.MetaStore,
 ) (*MetaDataService, error) {
 	return &MetaDataService{
