@@ -6,9 +6,6 @@ run:
   allow-parallel-runners: true
   tests: true
 
-output:
-  sort-results: true
-
 linters:
   # Enable every linter, then prune the noisy ones
   default: all
