@@ -8,15 +8,15 @@ require (
 	github.com/google/wire v0.7.0
 	github.com/minio/minio-go/v7 v7.0.97
 	github.com/prometheus/client_golang v1.23.2
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251108145352-f59577605d0a
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251110183106-fe7375901906
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20251109062829-3e4d690eb1d1
 	github.com/shortlink-org/go-sdk/config v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/context v0.0.0-20251021195826-431949cf96c8
 	github.com/shortlink-org/go-sdk/db v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/flags v0.0.0-20251021194325-00e3be024b85
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251021180704-1b5969f32d91
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251109191356-fc3563311067
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251109191356-fc3563311067
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251110183106-fe7375901906
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251110183106-fe7375901906
 	github.com/shortlink-org/go-sdk/logger v0.0.0-20251108203914-f363e5ad1155
 	github.com/shortlink-org/go-sdk/mq v0.0.0-20251021195122-5f907cfec097
 	github.com/shortlink-org/go-sdk/notify v0.0.0-20251021194325-00e3be024b85
@@ -99,7 +99,7 @@ require (
 	github.com/jcmturner/rpc/v2 v2.0.3 // indirect
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a // indirect
 	github.com/jzelinskie/stringz v0.0.3 // indirect
-	github.com/klauspost/compress v1.18.0 // indirect
+	github.com/klauspost/compress v1.18.1 // indirect
 	github.com/klauspost/cpuid/v2 v2.2.11 // indirect
 	github.com/klauspost/crc32 v1.3.0 // indirect
 	github.com/lib/pq v1.10.9 // indirect
@@ -114,7 +114,6 @@ require (
 	github.com/neo4j/neo4j-go-driver/v5 v5.28.4 // indirect
 	github.com/onsi/ginkgo/v2 v2.23.4 // indirect
 	github.com/onsi/gomega v1.38.0 // indirect
-	github.com/opencontainers/runc v1.2.8 // indirect
 	github.com/ory/client-go v1.22.8 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/philhofer/fwd v1.2.0 // indirect

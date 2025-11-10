@@ -13,7 +13,7 @@ require (
 	github.com/prometheus/client_golang v1.23.2
 	github.com/riandyrn/otelchi v0.12.2
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251108145352-f59577605d0a
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251110183106-fe7375901906
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20251109062829-3e4d690eb1d1
 	github.com/shortlink-org/go-sdk/config v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/context v0.0.0-20251021195826-431949cf96c8
@@ -93,7 +93,6 @@ require (
 	github.com/neo4j/neo4j-go-driver/v5 v5.28.4 // indirect
 	github.com/onsi/ginkgo/v2 v2.23.4 // indirect
 	github.com/onsi/gomega v1.38.0 // indirect
-	github.com/opencontainers/runc v1.2.8 // indirect
 	github.com/ory/client-go v1.22.8 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/pkg/errors v0.9.1 // indirect

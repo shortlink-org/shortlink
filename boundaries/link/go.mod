@@ -18,7 +18,7 @@ require (
 	github.com/prometheus/client_golang v1.23.2
 	github.com/redis/rueidis v1.0.67
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251108145352-f59577605d0a
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251110183106-fe7375901906
 	github.com/shortlink-org/go-sdk/batch v0.0.0-20251030204511-03300dcd994f
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20251109062829-3e4d690eb1d1
 	github.com/shortlink-org/go-sdk/config v0.0.0-20251021180704-1b5969f32d91
