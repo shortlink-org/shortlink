@@ -6,9 +6,10 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 # scan the build context only if the build is run to completion
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
-FROM --platform=$BUILDPLATFORM node:25.1.0-alpine AS builder
+# 🧱 Using Debian-based image to support glibc binaries (Datadog, pprof, etc.)
+FROM --platform=$BUILDPLATFORM node:25.1.0-bookworm-slim AS builder
 
-LABEL maintainer=batazor111@gmail.com
+LABEL maintainer="batazor111@gmail.com"
 LABEL org.opencontainers.image.title="shortlink-proxy"
 LABEL org.opencontainers.image.description="shortlink-proxy"
 LABEL org.opencontainers.image.authors="Login Viktor @batazor"
@@ -26,9 +27,11 @@ ENV DEBUG=pyroscope
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
-RUN apk update && \
-    apk add --no-cache curl tini && \
-    npm install -g pnpm
+# 📦 install dependencies
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends curl tini python3 make g++ && \
+    npm install -g pnpm && \
+    rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /home/node/.npm/_cacache
 
@@ -40,7 +43,7 @@ COPY package.json pnpm-lock.yaml ./
 # version for npm: npm ci --cache .npm --prefer-offline --force
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 
-# 📦 Copy the rest of the application
+# 📦 Copy app files
 COPY . .
 
 # 🔧 Generate Prisma Client
@@ -49,12 +52,16 @@ RUN pnpm prisma generate
 # 🏗️ Build the application
 RUN pnpm build
 
-FROM node:25.1.0-alpine AS runtime
+# -----------------------------
+# Runtime image
+# -----------------------------
+FROM node:25.1.0-bookworm-slim AS runtime
 
-RUN apk add --no-cache tini curl \
-    && npm install -g pnpm \
-    && addgroup -S nodegroup \
-    && adduser -S nodeuser -G nodegroup
+RUN apt-get update -y && \
+    apt-get install -y --no-install-recommends tini curl && \
+    npm install -g pnpm && \
+    useradd -m -u 1001 nodeuser && \
+    rm -rf /var/lib/apt/lists/*
 
 ENV NODE_ENV=production
 ENV PNPM_HOME="/pnpm"
@@ -69,7 +76,7 @@ COPY prisma ./prisma
 
 USER nodeuser
 
-ENTRYPOINT ["/sbin/tini", "--"]
+ENTRYPOINT ["/usr/bin/tini", "--"]
 
 HEALTHCHECK \
   --interval=5s \
