@@ -43,7 +43,7 @@ COPY package.json pnpm-lock.yaml ./
 # version for npm: npm ci --cache .npm --prefer-offline --force
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
     --mount=type=cache,target=/root/.npm \
-    pnpm install --frozen-lockfile --prod
+    pnpm install --frozen-lockfile
 
 # 📦 Copy app files
 COPY . .
