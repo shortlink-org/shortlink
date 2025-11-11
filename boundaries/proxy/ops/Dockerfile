@@ -30,7 +30,8 @@ ENV PATH="$PNPM_HOME:$PATH"
 # 📦 install dependencies
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends curl tini python3 make g++ && \
-    npm install -g pnpm && \
+    corepack enable && \
+    corepack prepare pnpm@latest --activate && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /home/node/.npm/_cacache
@@ -59,8 +60,11 @@ RUN pnpm build
 # -----------------------------
 FROM node:25.1.0-bookworm-slim AS runtime
 
+# Minimal system deps
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends tini curl && \
+    corepack enable && \
+    corepack prepare pnpm@latest --activate && \
     useradd -m -u 1001 nodeuser && \
     rm -rf /var/lib/apt/lists/*
 
@@ -70,7 +74,6 @@ ENV PATH="$PNPM_HOME:$PATH"
 
 WORKDIR /app
 
-COPY --from=builder /usr/local/bin/pnpm /usr/local/bin/pnpm
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/node_modules ./node_modules
