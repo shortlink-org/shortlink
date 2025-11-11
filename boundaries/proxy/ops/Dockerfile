@@ -7,7 +7,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
 # 🧱 Using Debian-based image to support glibc binaries (Datadog, pprof, etc.)
-FROM --platform=$BUILDPLATFORM node:25.1.0-bookworm-slim AS builder
+FROM --platform=$TARGETPLATFORM node:25.1.0-bookworm-slim AS builder
 
 LABEL maintainer="batazor111@gmail.com"
 LABEL org.opencontainers.image.title="shortlink-proxy"
@@ -41,7 +41,9 @@ WORKDIR /app
 COPY package.json pnpm-lock.yaml ./
 
 # version for npm: npm ci --cache .npm --prefer-offline --force
-RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+    --mount=type=cache,target=/root/.npm \
+    pnpm install --frozen-lockfile --prod
 
 # 📦 Copy app files
 COPY . .
@@ -59,7 +61,6 @@ FROM node:25.1.0-bookworm-slim AS runtime
 
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends tini curl && \
-    npm install -g pnpm && \
     useradd -m -u 1001 nodeuser && \
     rm -rf /var/lib/apt/lists/*
 
@@ -69,6 +70,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 
 WORKDIR /app
 
+COPY --from=builder /usr/local/bin/pnpm /usr/local/bin/pnpm
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/node_modules ./node_modules
