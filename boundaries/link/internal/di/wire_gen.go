@@ -17,6 +17,7 @@ import (
 	"github.com/shortlink-org/go-sdk/context"
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/flags"
+	"github.com/shortlink-org/go-sdk/flight_trace"
 	"github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/go-sdk/mq"
@@ -71,6 +72,14 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		return nil, nil, err
 	}
 	pprofEndpoint, err := profiling.New(context, loggerLogger)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	recorder, err := flight_trace.New(context)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -168,7 +177,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		return nil, nil, err
 	}
 	registry := NewPrometheusRegistry(monitoring)
-	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry)
+	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry, recorder)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -208,7 +217,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(loggerLogger, configConfig, monitoring, tracerProvider, pprofEndpoint, client, uc, service, sitemapService, event, response, v1LinkRPC, linkRPC, v1Sitemap, store, cqsStore, queryStore)
+	linkService, err := NewLinkService(loggerLogger, configConfig, monitoring, tracerProvider, pprofEndpoint, recorder, client, uc, service, sitemapService, event, response, v1LinkRPC, linkRPC, v1Sitemap, store, cqsStore, queryStore)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -235,6 +244,7 @@ type LinkService struct {
 	Tracer        trace.TracerProvider
 	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
+	FlightTrace   *flight_trace.Recorder
 
 	// Security
 	authPermission *authzed.Client
@@ -260,7 +270,7 @@ type LinkService struct {
 }
 
 // DefaultSet ==========================================================================================================
-var DefaultSet = wire.NewSet(ctx.New, flags.New, config.New, logger.NewDefault, tracing.New, metrics.New, cache.New, profiling.New)
+var DefaultSet = wire.NewSet(ctx.New, flags.New, config.New, logger.NewDefault, tracing.New, metrics.New, cache.New, profiling.New, flight_trace.New)
 
 // LinkService =========================================================================================================
 var LinkSet = wire.NewSet(
@@ -312,6 +322,7 @@ func NewLinkService(
 	log logger.Logger, config2 *config.Config, metrics2 *metrics.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
+	flightTrace *flight_trace.Recorder,
 
 	authPermission *authzed.Client,
 
@@ -337,6 +348,7 @@ func NewLinkService(
 		Tracer:        tracer,
 		Metrics:       metrics2,
 		PprofEndpoint: pprofHTTP,
+		FlightTrace:   flightTrace,
 
 		authPermission: authPermission,
 

@@ -15,6 +15,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	shortctx "github.com/shortlink-org/go-sdk/context"
 	"github.com/shortlink-org/go-sdk/flags"
+	"github.com/shortlink-org/go-sdk/flight_trace"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/go-sdk/observability/tracing"
 	"go.opentelemetry.io/otel/sdk/metric"
@@ -51,6 +52,7 @@ type BFFWebService struct {
 	Tracer        trace.TracerProvider
 	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
+	FlightTrace   *flight_trace.Recorder
 }
 
 // DefaultSet ==========================================================================================================
@@ -63,6 +65,7 @@ var DefaultSet = wire.NewSet(
 	metrics.New,
 	cache.New,
 	profiling.New,
+	flight_trace.New,
 )
 
 // BFFWebService =======================================================================================================
@@ -151,6 +154,7 @@ func NewAPIApplication(
 	tracer trace.TracerProvider,
 	metrics *metrics.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint,
+	flightTrace *flight_trace.Recorder,
 
 	// Infrastructure
 	rpcServer *rpc.Server,
@@ -170,6 +174,7 @@ func NewAPIApplication(
 		Tracer:        tracer,
 		Metrics:       metrics,
 		PprofEndpoint: pprofEndpoint,
+		FlightTrace:  flightTrace,
 
 		// Delivery
 		RpcServer: rpcServer,
@@ -197,6 +202,7 @@ func NewBFFWebService(
 	tracer trace.TracerProvider,
 	metrics *metrics.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint,
+	flightTrace *flight_trace.Recorder,
 
 	// Delivery
 	httpAPIServer *api.Server,
@@ -210,6 +216,7 @@ func NewBFFWebService(
 		Tracer:        tracer,
 		Metrics:       metrics,
 		PprofEndpoint: pprofEndpoint,
+		FlightTrace:   flightTrace,
 
 		// Delivery
 		httpAPIServer: httpAPIServer,

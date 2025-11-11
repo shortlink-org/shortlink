@@ -25,8 +25,9 @@ require (
 	github.com/shortlink-org/go-sdk/context v0.0.0-20251021195826-431949cf96c8
 	github.com/shortlink-org/go-sdk/db v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/flags v0.0.0-20251021194325-00e3be024b85
+	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251111075828-6e8fd832d9fe
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251021180704-1b5969f32d91
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251110183106-fe7375901906
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251111091720-925bfb153ad6
 	github.com/shortlink-org/go-sdk/http v0.0.0-20251110183106-fe7375901906
 	github.com/shortlink-org/go-sdk/logger v0.0.0-20251108203914-f363e5ad1155
 	github.com/shortlink-org/go-sdk/mq v0.0.0-20251021195122-5f907cfec097

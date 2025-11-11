@@ -16,6 +16,7 @@ import (
 	"github.com/prometheus/client_golang/prometheus"
 	shortctx "github.com/shortlink-org/go-sdk/context"
 	"github.com/shortlink-org/go-sdk/flags"
+	"github.com/shortlink-org/go-sdk/flight_trace"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/go-sdk/observability/tracing"
 	api "go.opentelemetry.io/otel/sdk/metric"
@@ -53,6 +54,7 @@ type LinkService struct {
 	Tracer        trace.TracerProvider
 	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
+	FlightTrace   *flight_trace.Recorder
 
 	// Security
 	authPermission *authzed.Client
@@ -87,6 +89,7 @@ var DefaultSet = wire.NewSet(
 	metrics.New,
 	cache.New,
 	profiling.New,
+	flight_trace.New,
 )
 
 // LinkService =========================================================================================================
@@ -178,6 +181,7 @@ func NewLinkService(
 	metrics *metrics.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
+	flightTrace *flight_trace.Recorder,
 
 	// Security
 	authPermission *authzed.Client,
@@ -210,6 +214,7 @@ func NewLinkService(
 		Tracer:        tracer,
 		Metrics:       metrics,
 		PprofEndpoint: pprofHTTP,
+		FlightTrace:   flightTrace,
 
 		// Security
 		authPermission: authPermission,

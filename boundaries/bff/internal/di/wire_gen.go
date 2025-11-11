@@ -18,6 +18,7 @@ import (
 	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/context"
 	"github.com/shortlink-org/go-sdk/flags"
+	"github.com/shortlink-org/go-sdk/flight_trace"
 	"github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
@@ -63,6 +64,14 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		return nil, nil, err
 	}
 	pprofEndpoint, err := profiling.New(context, loggerLogger)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	recorder, err := flight_trace.New(context)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -124,7 +133,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	httpServer, err := NewAPIApplication(context, printer, loggerLogger, configConfig, tracerProvider, monitoring, pprofEndpoint, server, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
+	httpServer, err := NewAPIApplication(context, printer, loggerLogger, configConfig, tracerProvider, monitoring, pprofEndpoint, recorder, server, linkServiceClient, linkCommandServiceClient, linkQueryServiceClient, sitemapServiceClient)
 	if err != nil {
 		cleanup5()
 		cleanup4()
@@ -133,7 +142,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	bffWebService := NewBFFWebService(context, loggerLogger, configConfig, tracerProvider, monitoring, pprofEndpoint, httpServer)
+	bffWebService := NewBFFWebService(context, loggerLogger, configConfig, tracerProvider, monitoring, pprofEndpoint, recorder, httpServer)
 	return bffWebService, func() {
 		cleanup5()
 		cleanup4()
@@ -158,10 +167,11 @@ type BFFWebService struct {
 	Tracer        trace.TracerProvider
 	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
+	FlightTrace   *flight_trace.Recorder
 }
 
 // DefaultSet ==========================================================================================================
-var DefaultSet = wire.NewSet(ctx.New, flags.New, config.New, logger.NewDefault, tracing.New, metrics.New, cache.New, profiling.New)
+var DefaultSet = wire.NewSet(ctx.New, flags.New, config.New, logger.NewDefault, tracing.New, metrics.New, cache.New, profiling.New, flight_trace.New)
 
 // BFFWebService =======================================================================================================
 var BFFWebServiceSet = wire.NewSet(
@@ -222,6 +232,7 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer,
 
 	tracer trace.TracerProvider, metrics2 *metrics.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint,
+	flightTrace *flight_trace.Recorder,
 
 	rpcServer *grpc.Server,
 	link_rpc linkv1grpc.LinkServiceClient,
@@ -239,6 +250,7 @@ func NewAPIApplication(ctx2 context.Context, i18n2 *message.Printer,
 		Tracer:        tracer,
 		Metrics:       metrics2,
 		PprofEndpoint: pprofEndpoint,
+		FlightTrace:   flightTrace,
 
 		RpcServer: rpcServer,
 
@@ -260,6 +272,7 @@ func NewBFFWebService(ctx2 context.Context,
 
 	tracer trace.TracerProvider, metrics2 *metrics.Monitoring,
 	pprofEndpoint profiling.PprofEndpoint,
+	flightTrace *flight_trace.Recorder,
 
 	httpAPIServer *http.Server,
 ) *BFFWebService {
@@ -271,6 +284,7 @@ func NewBFFWebService(ctx2 context.Context,
 		Tracer:        tracer,
 		Metrics:       metrics2,
 		PprofEndpoint: pprofEndpoint,
+		FlightTrace:   flightTrace,
 
 		httpAPIServer: httpAPIServer,
 	}

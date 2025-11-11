@@ -13,9 +13,21 @@ import (
 
 	"github.com/google/wire"
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/shortlink-org/go-sdk/auth/permission"
+	"github.com/shortlink-org/go-sdk/cache"
+	"github.com/shortlink-org/go-sdk/config"
 	shortctx "github.com/shortlink-org/go-sdk/context"
+	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/flags"
+	"github.com/shortlink-org/go-sdk/flight_trace"
+	rpc "github.com/shortlink-org/go-sdk/grpc"
+	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/shortlink-org/go-sdk/mq"
+	"github.com/shortlink-org/go-sdk/notify"
+	"github.com/shortlink-org/go-sdk/observability/metrics"
+	"github.com/shortlink-org/go-sdk/observability/profiling"
 	"github.com/shortlink-org/go-sdk/observability/tracing"
+	"github.com/shortlink-org/go-sdk/s3"
 	"go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 
@@ -27,18 +39,6 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/metadata"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/parsers"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/screenshot"
-
-	"github.com/shortlink-org/go-sdk/auth/permission"
-	"github.com/shortlink-org/go-sdk/cache"
-	"github.com/shortlink-org/go-sdk/config"
-	"github.com/shortlink-org/go-sdk/db"
-	rpc "github.com/shortlink-org/go-sdk/grpc"
-	"github.com/shortlink-org/go-sdk/logger"
-	"github.com/shortlink-org/go-sdk/mq"
-	"github.com/shortlink-org/go-sdk/notify"
-	"github.com/shortlink-org/go-sdk/observability/metrics"
-	"github.com/shortlink-org/go-sdk/observability/profiling"
-	"github.com/shortlink-org/go-sdk/s3"
 )
 
 type MetaDataService struct {
@@ -50,6 +50,7 @@ type MetaDataService struct {
 	Tracer        trace.TracerProvider
 	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
+	FlightTrace   *flight_trace.Recorder
 
 	// Delivery
 	metadataMQ        *metadata_mq.Event
@@ -72,6 +73,7 @@ var DefaultSet = wire.NewSet(
 	metrics.New,
 	cache.New,
 	profiling.New,
+	flight_trace.New,
 )
 
 // MetaDataService =====================================================================================================
@@ -185,6 +187,7 @@ func NewMetaDataService(
 	metrics *metrics.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
+	flightTrace *flight_trace.Recorder,
 
 	// Application
 	service *parsers.UC,
@@ -205,6 +208,7 @@ func NewMetaDataService(
 		Tracer:        tracer,
 		Metrics:       metrics,
 		PprofEndpoint: pprofHTTP,
+		FlightTrace:   flightTrace,
 
 		// Application
 		service: service,

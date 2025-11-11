@@ -6,6 +6,7 @@ import (
 	cors2 "github.com/go-chi/cors"
 	"github.com/go-chi/render"
 	"github.com/riandyrn/otelchi"
+	flight_trace_middleware "github.com/shortlink-org/go-sdk/http/middleware/flight_trace"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/spf13/viper"
 	"golang.org/x/sync/errgroup"
@@ -80,6 +81,7 @@ func (api *Server) run(config Config) error {
 	r.Use(span_middleware.Span())
 	r.Use(auth_middleware.Auth())
 	r.Use(pprof_labels_middleware.Labels)
+	r.Use(flight_trace_middleware.DebugTraceMiddleware(config.FlightTrace, config.Log))
 
 	// Metrics
 	metrics, err := metrics_middleware.NewMetrics()

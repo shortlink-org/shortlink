@@ -3,6 +3,7 @@ package http
 import (
 	"context"
 
+	"github.com/shortlink-org/go-sdk/flight_trace"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/protobuf/encoding/protojson"
@@ -44,6 +45,7 @@ type Config struct {
 	Tracer        trace.TracerProvider
 	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
+	FlightTrace   *flight_trace.Recorder
 
 	// Delivery
 	RpcServer *rpc.Server

@@ -13,14 +13,14 @@ require (
 	github.com/prometheus/client_golang v1.23.2
 	github.com/riandyrn/otelchi v0.12.2
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251110183106-fe7375901906
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251111075828-6e8fd832d9fe
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20251109062829-3e4d690eb1d1
 	github.com/shortlink-org/go-sdk/config v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/context v0.0.0-20251021195826-431949cf96c8
 	github.com/shortlink-org/go-sdk/flags v0.0.0-20251021194325-00e3be024b85
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251110183106-fe7375901906
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251110183106-fe7375901906
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251111085836-327e429f65fb
 	github.com/shortlink-org/go-sdk/logger v0.0.0-20251108203914-f363e5ad1155
 	github.com/shortlink-org/go-sdk/observability v0.0.0-20251108145352-f59577605d0a
 	github.com/spf13/viper v1.21.0
@@ -110,6 +110,7 @@ require (
 	github.com/samber/lo v1.51.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
 	github.com/shortlink-org/go-sdk/db v0.0.0-20251021180704-1b5969f32d91 // indirect
+	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251111075828-6e8fd832d9fe // indirect
 	github.com/sourcegraph/conc v0.3.1-0.20240121214520-5f936abd7ae8 // indirect
 	github.com/spf13/afero v1.15.0 // indirect
 	github.com/spf13/cast v1.10.0 // indirect

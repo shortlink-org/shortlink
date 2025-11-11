@@ -16,6 +16,7 @@ import (
 	"github.com/shortlink-org/go-sdk/context"
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/flags"
+	"github.com/shortlink-org/go-sdk/flight_trace"
 	"github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/go-sdk/mq"
@@ -75,6 +76,14 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	recorder, err := flight_trace.New(context)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	meterProvider := NewMeterProvider(monitoring)
 	dbDB, err := db.New(context, loggerLogger, tracerProvider, meterProvider)
 	if err != nil {
@@ -117,7 +126,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		return nil, nil, err
 	}
 	registry := NewPrometheusRegistry(monitoring)
-	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry)
+	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry, recorder)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -165,7 +174,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	metaDataService, err := NewMetaDataService(loggerLogger, configConfig, monitoring, tracerProvider, pprofEndpoint, uc, event, metadata, metaStore)
+	metaDataService, err := NewMetaDataService(loggerLogger, configConfig, monitoring, tracerProvider, pprofEndpoint, recorder, uc, event, metadata, metaStore)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -192,6 +201,7 @@ type MetaDataService struct {
 	Tracer        trace.TracerProvider
 	Metrics       *metrics.Monitoring
 	PprofEndpoint profiling.PprofEndpoint
+	FlightTrace   *flight_trace.Recorder
 
 	// Delivery
 	metadataMQ        *metadata_mq.Event
@@ -205,7 +215,7 @@ type MetaDataService struct {
 }
 
 // DefaultSet ==========================================================================================================
-var DefaultSet = wire.NewSet(ctx.New, flags.New, config.New, logger.NewDefault, tracing.New, metrics.New, cache.New, profiling.New)
+var DefaultSet = wire.NewSet(ctx.New, flags.New, config.New, logger.NewDefault, tracing.New, metrics.New, cache.New, profiling.New, flight_trace.New)
 
 // MetaDataService =====================================================================================================
 var MetaDataSet = wire.NewSet(
@@ -303,6 +313,7 @@ func NewMetaDataService(
 	log logger.Logger, config2 *config.Config, metrics2 *metrics.Monitoring,
 	tracer trace.TracerProvider,
 	pprofHTTP profiling.PprofEndpoint,
+	flightTrace *flight_trace.Recorder,
 
 	service *parsers.UC,
 
@@ -319,6 +330,7 @@ func NewMetaDataService(
 		Tracer:        tracer,
 		Metrics:       metrics2,
 		PprofEndpoint: pprofHTTP,
+		FlightTrace:   flightTrace,
 
 		service: service,
 
