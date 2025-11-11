@@ -26,7 +26,7 @@ RUN landscape2 build \
           --output-dir build
 
 # Production image, copy all the files and run next
-FROM ghcr.io/nginxinc/nginx-unprivileged:1.29-alpine-otel
+FROM ghcr.io/nginx/nginx-unprivileged:1.29-alpine-otel
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-landscape"

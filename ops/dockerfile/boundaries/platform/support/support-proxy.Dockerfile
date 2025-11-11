@@ -1,5 +1,5 @@
 # Production image, copy all the files and run next
-FROM --platform=$BUILDPLATFORM ghcr.io/nginxinc/nginx-unprivileged:1.29-alpine-otel
+FROM --platform=$BUILDPLATFORM ghcr.io/nginx/nginx-unprivileged:1.29-alpine-otel
 
 # Delete default config
 RUN rm /etc/nginx/conf.d/default.conf
