@@ -4,6 +4,7 @@ server {
     server_name _;
     absolute_redirect off;
     port_in_redirect off;
+
     location ~ ^/(.*)/$ {
         try_files /$1.html =404;
     }
@@ -21,6 +22,7 @@ server {
     }
 
     location / {
+        otel_trace_sample_ratio $adaptive_sample;
         try_files $uri.html $uri $uri/ @htmlext;
     }
 
