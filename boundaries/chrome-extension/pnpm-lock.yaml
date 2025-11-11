@@ -19,11 +19,11 @@ importers:
         version: 19.2.0(react@19.2.0)
     devDependencies:
       '@types/react':
-        specifier: ^19.2.2
-        version: 19.2.2
+        specifier: ^19.2.3
+        version: 19.2.3
       '@types/react-dom':
         specifier: ^19.2.2
-        version: 19.2.2(@types/react@19.2.2)
+        version: 19.2.2(@types/react@19.2.3)
       '@vitejs/plugin-react':
         specifier: ^5.1.0
         version: 5.1.0(vite@7.2.2(jiti@2.6.1)(lightningcss@1.30.2))
@@ -928,8 +928,8 @@ packages:
     peerDependencies:
       '@types/react': ^19.2.0
 
-  '@types/react@19.2.2':
-    resolution: {integrity: sha512-6mDvHUFSjyT2B2yeNx2nUgMxh9LtOWvkhIU3uePn2I2oyNymUAX1NIsdgviM4CH+JSrp2D2hsMvJOkxY+0wNRA==}
+  '@types/react@19.2.3':
+    resolution: {integrity: sha512-k5dJVszUiNr1DSe8Cs+knKR6IrqhqdhpUwzqhkS8ecQTSf3THNtbfIp/umqHMpX2bv+9dkx3fwDv/86LcSfvSg==}
 
   '@types/yauzl@2.10.3':
     resolution: {integrity: sha512-oJoftv0LSuaDZE3Le4DbKX+KS9G36NzOeSap90UIK0yMA/NhKJhqlSGtNDORNRaIbQfzjXDrQa0ytJ6mNRGz/Q==}
@@ -3324,11 +3324,11 @@ snapshots:
     dependencies:
       undici-types: 6.13.0
 
-  '@types/react-dom@19.2.2(@types/react@19.2.2)':
+  '@types/react-dom@19.2.2(@types/react@19.2.3)':
     dependencies:
-      '@types/react': 19.2.2
+      '@types/react': 19.2.3
 
-  '@types/react@19.2.2':
+  '@types/react@19.2.3':
     dependencies:
       csstype: 3.1.3
 
