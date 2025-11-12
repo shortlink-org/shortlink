@@ -18,6 +18,7 @@ require (
 	github.com/shortlink-org/go-sdk/config v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/context v0.0.0-20251021195826-431949cf96c8
 	github.com/shortlink-org/go-sdk/flags v0.0.0-20251021194325-00e3be024b85
+	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251111075828-6e8fd832d9fe
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251021180704-1b5969f32d91
 	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251110183106-fe7375901906
 	github.com/shortlink-org/go-sdk/http v0.0.0-20251111085836-327e429f65fb
@@ -28,7 +29,7 @@ require (
 	go.opentelemetry.io/otel/sdk/metric v1.38.0
 	go.opentelemetry.io/otel/trace v1.38.0
 	golang.org/x/sync v0.18.0
-	golang.org/x/text v0.30.0
+	golang.org/x/text v0.31.0
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20250929231259-57b25ae835d4
 	google.golang.org/grpc v1.76.0
 	google.golang.org/protobuf v1.36.10
@@ -110,7 +111,6 @@ require (
 	github.com/samber/lo v1.51.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
 	github.com/shortlink-org/go-sdk/db v0.0.0-20251021180704-1b5969f32d91 // indirect
-	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251111075828-6e8fd832d9fe // indirect
 	github.com/sourcegraph/conc v0.3.1-0.20240121214520-5f936abd7ae8 // indirect
 	github.com/spf13/afero v1.15.0 // indirect
 	github.com/spf13/cast v1.10.0 // indirect
