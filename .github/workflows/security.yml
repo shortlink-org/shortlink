@@ -36,7 +36,7 @@ jobs:
           fetch-depth: 0
 
       - name: TruffleHog OSS
-        uses: trufflesecurity/trufflehog@f15cb8b37b9b70056bc82a8eb7151f75fad27a71 # v3.90.13
+        uses: trufflesecurity/trufflehog@cb6aeefd6e2498240d0418e63f69684d28337e7b # v3.91.0
         with:
           extra_args: --debug --only-verified
 
