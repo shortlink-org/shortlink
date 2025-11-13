@@ -1,4 +1,4 @@
-if (process.env.PYROSCOPE_ENABLED === 'true') {
+if (process.env.DD_PROFILING_ENABLED === 'true') {
   try {
     const Pyroscope = require('@pyroscope/nodejs')
 
