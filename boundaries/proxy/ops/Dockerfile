@@ -60,11 +60,9 @@ RUN pnpm build
 # -----------------------------
 FROM node:25.2.0-bookworm-slim AS runtime
 
-# Minimal system deps
 RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends tini curl && \
-    corepack enable && \
-    corepack prepare pnpm@latest --activate && \
+    apt-get install -y --no-install-recommends curl tini && \
+    npm install -g pnpm && \
     useradd -m -u 1001 nodeuser && \
     rm -rf /var/lib/apt/lists/*
 
@@ -90,3 +88,4 @@ HEALTHCHECK \
   CMD curl -f localhost:3020/ready || exit 1
 
 CMD ["pnpm", "prod"]
+
