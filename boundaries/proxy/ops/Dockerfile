@@ -7,7 +7,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
 # 🧱 Using Debian-based image to support glibc binaries (Datadog, pprof, etc.)
-FROM --platform=$TARGETPLATFORM node:25.2.0-bookworm-slim AS builder
+FROM node:25.2.0-bookworm-slim AS builder
 
 LABEL maintainer="batazor111@gmail.com"
 LABEL org.opencontainers.image.title="shortlink-proxy"
@@ -30,8 +30,7 @@ ENV PATH="$PNPM_HOME:$PATH"
 # 📦 install dependencies
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends curl tini python3 make g++ && \
-    corepack enable && \
-    corepack prepare pnpm@latest --activate && \
+    npm install -g pnpm && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /home/node/.npm/_cacache
@@ -60,9 +59,10 @@ RUN pnpm build
 # -----------------------------
 FROM node:25.2.0-bookworm-slim AS runtime
 
+# Minimal system deps
 RUN apt-get update -y && \
-    apt-get install -y --no-install-recommends curl tini && \
-    npm install -g pnpm && \
+    apt-get install -y --no-install-recommends tini curl && \
+    npm install -g pnpm@9 && \
     useradd -m -u 1001 nodeuser && \
     rm -rf /var/lib/apt/lists/*
 
@@ -88,4 +88,3 @@ HEALTHCHECK \
   CMD curl -f localhost:3020/ready || exit 1
 
 CMD ["pnpm", "prod"]
-
