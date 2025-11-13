@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.19
+# syntax=docker/dockerfile:1.20
 
 ###############################################################################
 # Global BuildKit options (optional SBOM attestation―leave if you need them)
