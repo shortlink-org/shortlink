@@ -52,6 +52,7 @@ deploy:
     OTEL_EXPORTER_OTLP_ENDPOINT: grpc://grafana-tempo.grafana:4317
     API_LINK_SERVICE: http://shortlink-api.shortlink:7070
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
+    PYROSCOPE_ENABLED: "false"
 
   imagePullSecrets: []
 
