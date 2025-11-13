@@ -7,7 +7,7 @@ ARG BUILDKIT_SBOM_SCAN_STAGE=true
 ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
 
 # 🧱 Using Debian-based image to support glibc binaries (Datadog, pprof, etc.)
-FROM --platform=$TARGETPLATFORM node:25.1.0-bookworm-slim AS builder
+FROM --platform=$TARGETPLATFORM node:25.2.0-bookworm-slim AS builder
 
 LABEL maintainer="batazor111@gmail.com"
 LABEL org.opencontainers.image.title="shortlink-proxy"
@@ -58,7 +58,7 @@ RUN pnpm build
 # -----------------------------
 # Runtime image
 # -----------------------------
-FROM node:25.1.0-bookworm-slim AS runtime
+FROM node:25.2.0-bookworm-slim AS runtime
 
 # Minimal system deps
 RUN apt-get update -y && \
