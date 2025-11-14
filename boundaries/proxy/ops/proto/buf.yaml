@@ -6,8 +6,7 @@ deps:
   - buf.build/googleapis/googleapis
 lint:
   use:
-    - DEFAULT
-    - FIELD_NO_DESCRIPTOR
+    - STANDARD
   except:
     - ENUM_FIRST_VALUE_ZERO
     - FIELD_NOT_REQUIRED
@@ -27,4 +26,3 @@ breaking:
     - FIELD_WIRE_JSON_COMPATIBLE_CARDINALITY
     - FIELD_WIRE_JSON_COMPATIBLE_TYPE
     - FILE_SAME_PACKAGE
-

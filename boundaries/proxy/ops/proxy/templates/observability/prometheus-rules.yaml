@@ -1,0 +1,118 @@
+{{/* vim: set filetype=mustache: */}}
+
+{{- if .Values.monitoring.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: proxy-business-metrics
+spec:
+  groups:
+    - name: proxy-business-health
+      rules:
+
+        # ---------------------------------------------------------
+        # Redirect Success Rate Low
+        # ---------------------------------------------------------
+        - alert: RedirectSuccessRateLow
+          expr: |
+            (
+              sum(rate(redirects_total{
+                namespace="{{ .Release.Namespace }}",
+                pod=~"{{ include "helpers.fullname" . }}-.*",
+                outcome="success"
+              }[5m]))
+            )
+            /
+            clamp_min(
+              sum(rate(redirects_total{
+                namespace="{{ .Release.Namespace }}",
+                pod=~"{{ include "helpers.fullname" . }}-.*"
+              }[5m])),
+              1
+            )
+            < 0.9
+            AND
+            sum(rate(redirects_total{
+              namespace="{{ .Release.Namespace }}",
+              pod=~"{{ include "helpers.fullname" . }}-.*"
+            }[5m])) > 5
+          for: 10m
+          labels:
+            severity: critical
+            service: proxy
+            alert_owner: link-team
+          annotations:
+            summary: Redirect success rate is below 90%
+            description: |
+              Success rate stayed <90% for 10m in namespace {{ .Release.Namespace }}.
+              Indicates systemic redirect degradation.
+
+            grafana_link: >
+              {{ .Values.monitoring.grafana.url }}/d/ednhutpmfb0u8f/proxy-service
+                ?var-namespace={{ .Release.Namespace }}
+                &var-pod={{ $labels.pod | default "*" }}
+
+
+        # ---------------------------------------------------------
+        # Redirect Not Found Spike
+        # ---------------------------------------------------------
+        - alert: RedirectNotFoundSpike
+          expr: |
+            sum(rate(redirects_total{
+              namespace="{{ .Release.Namespace }}",
+              pod=~"{{ include "helpers.fullname" . }}-.*",
+              outcome="not_found"
+            }[5m])) > 5
+            AND
+            sum(rate(redirects_total{
+              namespace="{{ .Release.Namespace }}",
+              pod=~"{{ include "helpers.fullname" . }}-.*"
+            }[5m])) > 5
+          for: 15m
+          labels:
+            severity: warning
+            service: proxy
+            alert_owner: link-team
+          annotations:
+            summary: Redirect not_found spike detected
+            description: |
+              not_found ratio exceeded 5 req/min for 15m.
+              Usually caused by bad external links or bots.
+
+            grafana_link: >
+              {{ .Values.monitoring.grafana.url }}/d/ednhutpmfb0u8f/proxy-service
+                ?var-namespace={{ .Release.Namespace }}
+                &var-pod={{ $labels.pod | default "*" }}
+
+
+        # ---------------------------------------------------------
+        # Redirect Error Rate High
+        # ---------------------------------------------------------
+        - alert: RedirectErrorRateHigh
+          expr: |
+            sum(rate(redirects_total{
+              namespace="{{ .Release.Namespace }}",
+              pod=~"{{ include "helpers.fullname" . }}-.*",
+              outcome="error"
+            }[5m])) > 1
+            AND
+            sum(rate(redirects_total{
+              namespace="{{ .Release.Namespace }}",
+              pod=~"{{ include "helpers.fullname" . }}-.*"
+            }[5m])) > 5
+          for: 10m
+          labels:
+            severity: warning
+            service: proxy
+            alert_owner: link-team
+          annotations:
+            summary: Redirect error rate is elevated
+            description: |
+              Redirects returning errors exceeded 1 req/min for 10m.
+
+            grafana_link: >
+              {{ .Values.monitoring.grafana.url }}/d/ednhutpmfb0u8f/proxy-service
+                ?var-namespace={{ .Release.Namespace }}
+                &var-pod={{ $labels.pod | default "*" }}
+
+{{- end }}

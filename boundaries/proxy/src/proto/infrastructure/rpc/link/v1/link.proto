@@ -44,7 +44,7 @@ service LinkService {
   // Update updates a link.
   rpc Update(UpdateRequest) returns(UpdateResponse) {}
   // Delete deletes a link by hash.
-  rpc Delete(DeleteRequest) returns(google.protobuf.Empty) {}
+  rpc Delete(DeleteRequest) returns(DeleteResponse) {}
 }
 
 // GetRequest is the request message for LinkService.Get.
@@ -106,3 +106,6 @@ message DeleteRequest {
   // Hash is the hash of the link.
   string hash = 1;
 }
+
+// DeleteResponse is the response message for LinkService.Delete.
+message DeleteResponse {}

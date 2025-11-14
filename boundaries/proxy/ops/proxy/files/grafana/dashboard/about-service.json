@@ -3,10 +3,7 @@
     "list": [
       {
         "builtIn": 1,
-        "datasource": {
-          "type": "grafana",
-          "uid": "-- Grafana --"
-        },
+        "datasource": { "type": "grafana", "uid": "-- Grafana --" },
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -15,95 +12,371 @@
       }
     ]
   },
+
   "description": "Proxy service for redirecting to the original URL",
   "editable": true,
-  "fiscalYearStartMonth": 0,
-  "graphTooltip": 0,
-  "id": 560,
-  "links": [],
+  "schemaVersion": 39,
+  "style": "dark",
+  "timezone": "browser",
+  "title": "Proxy service (Enhanced, Row Layout)",
+  "version": 5,
+  "tags": ["proxy", "service", "business", "sre", "enhanced", "rows"],
+
+  "templating": {
+    "list": [
+      {
+        "name": "namespace",
+        "label": "Namespace",
+        "type": "query",
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "refresh": 2,
+        "multi": false,
+        "includeAll": false,
+        "query": "label_values(kube_pod_info, namespace)",
+        "current": { "text": "default", "value": "default" }
+      },
+      {
+        "name": "pod",
+        "label": "Pod",
+        "type": "query",
+        "datasource": { "type": "prometheus", "uid": "prometheus" },
+        "refresh": 2,
+        "multi": true,
+        "includeAll": true,
+        "query": "label_values(kube_pod_info{namespace=\"$namespace\"}, pod)"
+      },
+      {
+        "name": "log_level",
+        "label": "Log Level",
+        "type": "custom",
+        "query": "info,warning,error,debug",
+        "current": { "text": "info", "value": "info" },
+        "includeAll": true,
+        "multi": false
+      },
+      {
+        "name": "log_query",
+        "label": "Log Query",
+        "type": "textbox",
+        "query": "",
+        "current": { "text": "", "value": "" }
+      }
+    ]
+  },
+
+  "time": { "from": "now-6h", "to": "now" },
+
   "panels": [
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "gridPos": {
-        "h": 4,
-        "w": 2,
-        "x": 0,
-        "y": 0
-      },
+      "type": "text",
+      "title": "Logo",
       "id": 1,
+      "gridPos": { "h": 4, "w": 4, "x": 0, "y": 0 },
       "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
-        },
-        "content": "![logo](https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/link/proxy/docs/public/logo.webp)",
-        "mode": "markdown"
+        "mode": "markdown",
+        "content": "![logo](https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/link/proxy/docs/public/logo.webp)"
       },
-      "pluginVersion": "11.0.0",
+      "datasource": { "type": "prometheus", "uid": "prometheus" }
+    },
+
+    {
+      "type": "text",
+      "title": "About service",
+      "id": 2,
+      "gridPos": { "h": 4, "w": 20, "x": 4, "y": 0 },
+      "options": {
+        "mode": "markdown",
+        "content": "### Proxy Service\n\n> Handles all redirects and link resolution.\n> Provides business-level and technical metrics."
+      }
+    },
+
+    {
+      "type": "row",
+      "title": "Business Metrics",
+      "id": 100,
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 4 }
+    },
+
+    {
+      "type": "timeseries",
+      "title": "Success Rate (Business KPI)",
+      "id": 10,
+      "gridPos": { "h": 7, "w": 12, "x": 0, "y": 5 },
+      "datasource": { "uid": "prometheus", "type": "prometheus" },
       "targets": [
         {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "prometheus"
-          },
-          "expr": "",
-          "instant": false,
-          "range": true,
+          "expr": "sum(rate(redirects_total{namespace=\"$namespace\", outcome=\"success\"}[5m])) / clamp_min(sum(rate(redirects_total{namespace=\"$namespace\"}[5m])), 0.001)",
           "refId": "A"
         }
       ],
-      "title": "Logo",
-      "type": "text"
+      "fieldConfig": {
+        "defaults": {
+          "min": 0,
+          "max": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              { "color": "red", "value": 0 },
+              { "color": "orange", "value": 0.9 },
+              { "color": "green", "value": 0.95 }
+            ]
+          }
+        }
+      }
+    },
+
+    {
+      "type": "timeseries",
+      "title": "Redirect RPS",
+      "id": 11,
+      "gridPos": { "h": 7, "w": 12, "x": 12, "y": 5 },
+      "datasource": { "uid": "prometheus", "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "sum(rate(redirects_total{namespace=\"$namespace\"}[1m]))",
+          "refId": "A"
+        }
+      ]
+    },
+
+    {
+      "type": "timeseries",
+      "title": "Error Rate",
+      "id": 12,
+      "gridPos": { "h": 7, "w": 12, "x": 0, "y": 12 },
+      "datasource": { "uid": "prometheus", "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "sum(rate(redirects_total{namespace=\"$namespace\", outcome=\"error\"}[5m]))",
+          "refId": "A"
+        }
+      ]
+    },
+
+    {
+      "type": "timeseries",
+      "title": "Not Found Rate",
+      "id": 13,
+      "gridPos": { "h": 7, "w": 12, "x": 12, "y": 12 },
+      "datasource": { "uid": "prometheus", "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "sum(rate(redirects_total{namespace=\"$namespace\", outcome=\"not_found\"}[5m]))",
+          "refId": "A"
+        }
+      ]
     },
     {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "prometheus"
-      },
-      "description": "Proxy service for redirecting to the original URL",
-      "gridPos": {
-        "h": 4,
-        "w": 8,
-        "x": 2,
-        "y": 0
-      },
-      "id": 2,
-      "options": {
-        "code": {
-          "language": "plaintext",
-          "showLineNumbers": false,
-          "showMiniMap": false
+      "type": "row",
+      "title": "Technical Metrics",
+      "id": 200,
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 19 }
+    },
+
+    {
+      "type": "timeseries",
+      "title": "CPU Usage",
+      "id": 14,
+      "gridPos": { "h": 7, "w": 12, "x": 0, "y": 20 },
+      "datasource": { "uid": "prometheus", "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod=~\"$pod\", container!=\"\"}[5m]))",
+          "refId": "A"
+        }
+      ]
+    },
+
+    {
+      "type": "timeseries",
+      "title": "Memory Usage",
+      "id": 15,
+      "gridPos": { "h": 7, "w": 12, "x": 12, "y": 20 },
+      "datasource": { "uid": "prometheus", "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "sum(container_memory_usage_bytes{namespace=\"$namespace\", pod=~\"$pod\", container!=\"\"})",
+          "refId": "A"
+        }
+      ]
+    },
+
+    {
+      "type": "timeseries",
+      "title": "Pod Restarts (5m rate)",
+      "id": 16,
+      "gridPos": { "h": 7, "w": 12, "x": 0, "y": 27 },
+      "datasource": { "uid": "prometheus", "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "sum(rate(kube_pod_container_status_restarts_total{namespace=\"$namespace\", pod=~\"$pod\"}[5m]))",
+          "refId": "A"
+        }
+      ]
+    },
+
+    {
+      "type": "stat",
+      "id": 17,
+      "title": "Available Replicas",
+      "gridPos": { "h": 7, "w": 12, "x": 12, "y": 27 },
+      "datasource": { "uid": "prometheus", "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "kube_deployment_status_replicas_available{namespace=\"$namespace\"}",
+          "refId": "A"
+        }
+      ]
+    },
+
+    {
+      "type": "timeseries",
+      "title": "CPU Requests vs Limits",
+      "id": 42,
+      "gridPos": { "h": 7, "w": 12, "x": 0, "y": 34 },
+      "datasource": { "uid": "prometheus", "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "sum(kube_pod_container_resource_requests_cpu_cores{namespace=\"$namespace\", pod=~\"$pod\"})",
+          "refId": "A",
+          "legendFormat": "CPU Requests"
         },
-        "content": "### Proxy\n\n> Proxy service for redirecting to the original URL",
-        "mode": "markdown"
+        {
+          "expr": "sum(kube_pod_container_resource_limits_cpu_cores{namespace=\"$namespace\", pod=~\"$pod\"})",
+          "refId": "B",
+          "legendFormat": "CPU Limits"
+        },
+        {
+          "expr": "sum(rate(container_cpu_usage_seconds_total{namespace=\"$namespace\", pod=~\"$pod\", container!=\"\"}[5m]))",
+          "refId": "C",
+          "legendFormat": "CPU Usage"
+        }
+      ]
+    },
+
+    {
+      "type": "timeseries",
+      "title": "Memory Requests vs Limits",
+      "id": 43,
+      "gridPos": { "h": 7, "w": 12, "x": 12, "y": 34 },
+      "datasource": { "uid": "prometheus", "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "sum(kube_pod_container_resource_requests_memory_bytes{namespace=\"$namespace\", pod=~\"$pod\"})",
+          "refId": "A",
+          "legendFormat": "Mem Requests"
+        },
+        {
+          "expr": "sum(kube_pod_container_resource_limits_memory_bytes{namespace=\"$namespace\", pod=~\"$pod\"})",
+          "refId": "B",
+          "legendFormat": "Mem Limits"
+        },
+        {
+          "expr": "sum(container_memory_usage_bytes{namespace=\"$namespace\", pod=~\"$pod\", container!=\"\"})",
+          "refId": "C",
+          "legendFormat": "Mem Usage"
+        }
+      ]
+    },
+
+    {
+      "type": "row",
+      "title": "Logs",
+      "id": 300,
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 41 }
+    },
+
+    {
+      "type": "logs",
+      "title": "Enhanced Loki Logs (namespace=$namespace, level=$log_level, query=$log_query)",
+      "id": 41,
+      "datasource": { "type": "loki", "uid": "loki" },
+      "gridPos": { "h": 12, "w": 24, "x": 0, "y": 42 },
+      "options": {
+        "dedupStrategy": "none",
+        "enableLogDetails": true,
+        "prettifyLogMessage": true,
+        "showCommonLabels": false,
+        "showLabels": true,
+        "wrapLogMessage": true,
+        "timezone": "browser",
+        "sortOrder": "Descending",
+        "live": true,
+        "showTime": true
       },
-      "pluginVersion": "11.0.0",
-      "title": "About service",
-      "type": "text"
+      "targets": [
+        {
+          "refId": "A",
+          "expr": "{namespace=\"$namespace\"} |= \"$log_level\" |= \"$log_query\"",
+          "queryType": "range",
+          "datasource": { "type": "loki", "uid": "loki" }
+        }
+      ]
+    },
+
+    {
+      "type": "alertlist",
+      "title": "Active Alerts (Namespace: $namespace)",
+      "id": 40,
+      "gridPos": { "h": 8, "w": 24, "x": 0, "y": 54 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "options": {
+        "wrap": true,
+        "show": "current"
+      }
+    },
+
+    {
+      "type": "row",
+      "title": "Dependencies",
+      "id": 400,
+      "collapsed": false,
+      "gridPos": { "h": 1, "w": 24, "x": 0, "y": 62 }
+    },
+
+    {
+      "id": 44,
+      "type": "stat",
+      "title": "Dependency Health: Redis",
+      "gridPos": { "h": 6, "w": 8, "x": 0, "y": 63 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "min(up{job=\"redis\", namespace=\"$namespace\"})",
+          "refId": "A"
+        }
+      ]
+    },
+
+    {
+      "id": 45,
+      "type": "stat",
+      "title": "Dependency Health: RabbitMQ",
+      "gridPos": { "h": 6, "w": 8, "x": 8, "y": 63 },
+      "datasource": { "type": "prometheus", "uid": "prometheus" },
+      "targets": [
+        {
+          "expr": "min(up{job=\"rabbitmq\", namespace=\"$namespace\"})",
+          "refId": "A"
+        }
+      ]
+    },
+
+    {
+      "id": 46,
+      "type": "stat",
+      "title": "All Dependencies Healthy",
+      "gridPos": { "h": 6, "w": 8, "x": 16, "y": 63 },
+      "datasource": { "uid": "prometheus", "type": "prometheus" },
+      "targets": [
+        {
+          "expr": "min(up{job=~\"redis|rabbitmq\", namespace=\"$namespace\"})",
+          "refId": "A"
+        }
+      ]
     }
-  ],
-  "schemaVersion": 39,
-  "tags": [
-    "proxy",
-    "service",
-    "summary"
-  ],
-  "templating": {
-    "list": []
-  },
-  "time": {
-    "from": "now-6h",
-    "to": "now"
-  },
-  "timeRangeUpdatedDuringEditOrView": false,
-  "timepicker": {},
-  "timezone": "browser",
-  "title": "Proxy service",
-  "uid": "ednhutpmfb0u8f",
-  "version": 2,
-  "weekStart": ""
+  ]
 }
