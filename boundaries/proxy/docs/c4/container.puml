@@ -1,0 +1,30 @@
+@startuml Container Diagram - Proxy Service
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Container Diagram - Proxy Service
+
+Person(user, "User", "Пользователь")
+
+System_Boundary(proxyService, "Proxy Service") {
+    Container(webApp, "Web Application", "Express.js", "HTTP сервер для обработки редиректов")
+    Container(application, "Application Layer", "TypeScript", "Use Cases, Application Services, Pipeline")
+    Container(domain, "Domain Layer", "TypeScript", "Entities, Value Objects, Domain Services")
+    Container(infrastructure, "Infrastructure Layer", "TypeScript", "Repositories, Adapters, ACL, Messaging")
+}
+
+System_Ext(linkService, "Link Service", "gRPC сервис для управления ссылками")
+System_Ext(messageBus, "Message Bus", "AMQP брокер")
+System_Ext(observability, "Observability", "OpenTelemetry, Prometheus")
+
+Rel(user, webApp, "HTTPS", "GET /s/{hash}")
+Rel(webApp, application, "Вызывает", "Application Services")
+Rel(application, domain, "Использует", "Domain Entities")
+Rel(application, infrastructure, "Использует", "Repositories, Adapters")
+Rel(infrastructure, linkService, "gRPC/Connect", "GetLinkByHash")
+Rel(infrastructure, messageBus, "AMQP", "Publish Events")
+Rel(infrastructure, observability, "OTLP", "Metrics & Traces")
+Rel(domain, application, "События", "Domain Events")
+
+@enduml

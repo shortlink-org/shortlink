@@ -1,0 +1,20 @@
+@startuml Context Diagram - Proxy Service
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Context Diagram - Proxy Service
+
+Person(user, "User", "Пользователь, который переходит по короткой ссылке")
+
+System(proxy, "Proxy Service", "Сервис для редиректа коротких ссылок на оригинальные URL")
+System(linkService, "Link Service", "Сервис для управления короткими ссылками (gRPC)")
+System(messageBus, "Message Bus", "AMQP брокер для публикации событий")
+System(observability, "Observability Stack", "OpenTelemetry, Prometheus, Grafana для мониторинга")
+
+Rel(user, proxy, "Переходит по короткой ссылке", "HTTPS")
+Rel(proxy, linkService, "Получает информацию о ссылке", "gRPC/Connect")
+Rel(proxy, messageBus, "Публикует события редиректа", "AMQP")
+Rel(proxy, observability, "Отправляет метрики и трейсы", "OTLP")
+
+@enduml

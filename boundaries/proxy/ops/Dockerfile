@@ -48,9 +48,6 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
 # 📦 Copy app files
 COPY . .
 
-# 🔧 Generate Prisma Client
-RUN pnpm prisma generate
-
 # 🏗️ Build the application
 RUN pnpm build
 
@@ -75,8 +72,6 @@ WORKDIR /app
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/package.json ./package.json
 COPY --from=builder /app/node_modules ./node_modules
-COPY prisma ./prisma
-
 USER nodeuser
 
 ENTRYPOINT ["/usr/bin/tini", "--"]
@@ -87,4 +82,7 @@ HEALTHCHECK \
   --retries=3 \
   CMD curl -f localhost:3020/ready || exit 1
 
-CMD ["pnpm", "prod"]
+# Используем Permissions API для Zero-Trust безопасности
+# Ограничиваем доступ к файловой системе и сети
+# Переменные окружения контролируются на уровне Kubernetes/Docker
+CMD ["node", "--permission", "--allow-fs-read=/app", "--allow-net", "./dist/app.js"]

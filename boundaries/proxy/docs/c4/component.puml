@@ -1,0 +1,80 @@
+@startuml Component Diagram - Proxy Service Application Layer
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+
+LAYOUT_WITH_LEGEND()
+
+title Component Diagram - Proxy Service (Application & Infrastructure Layers)
+
+Container_Boundary(webApp, "Web Application") {
+    Component(proxyController, "ProxyController", "Express Controller", "HTTP endpoint для редиректа")
+    Component(validationMiddleware, "Validation Middleware", "Express Middleware", "Валидация запросов")
+    Component(errorHandler, "Error Handler", "Express Middleware", "Обработка ошибок")
+}
+
+Container_Boundary(application, "Application Layer") {
+    Component(linkAppService, "LinkApplicationService", "Application Service", "Оркестрация use cases")
+    Component(getLinkUseCase, "GetLinkByHashUseCase", "Use Case", "Получение ссылки по хешу")
+    Component(publishEventUseCase, "PublishEventUseCase", "Use Case", "Публикация событий")
+    Component(pipeline, "UseCasePipeline", "Pipeline", "Выполнение use cases через interceptors")
+    Component(loggingInterceptor, "LoggingInterceptor", "Interceptor", "Логирование use cases")
+    Component(metricsInterceptor, "MetricsInterceptor", "Interceptor", "Метрики use cases")
+    Component(authInterceptor, "AuthorizationInterceptor", "Interceptor", "Авторизация")
+    Component(eventDispatcher, "EventDispatcher", "Event Handler", "Диспетчеризация событий")
+    Component(linkRedirectedHandler, "LinkRedirectedEventHandler", "Event Handler", "Обработка события редиректа")
+}
+
+Container_Boundary(domain, "Domain Layer") {
+    Component(linkEntity, "Link", "Entity", "Доменная сущность ссылки")
+    Component(hashVO, "Hash", "Value Object", "Хеш ссылки")
+    Component(linkDomainService, "LinkDomainService", "Domain Service", "Доменная логика")
+    Component(linkRedirectedEvent, "LinkRedirectedEvent", "Domain Event", "Событие редиректа")
+}
+
+Container_Boundary(infrastructure, "Infrastructure Layer") {
+    Component(linkRepository, "LinkServiceRepository", "Repository", "Реализация репозитория")
+    Component(linkACL, "LinkServiceACL", "ACL", "Преобразование protobuf <-> Domain")
+    Component(connectAdapter, "LinkServiceConnectAdapter", "Adapter", "gRPC/Connect адаптер")
+    Component(tracingInterceptor, "TracingInterceptor", "Connect Interceptor", "OpenTelemetry трейсинг")
+    Component(grpcMetricsInterceptor, "MetricsInterceptor", "Connect Interceptor", "gRPC метрики")
+    Component(retryInterceptor, "RetryInterceptor", "Connect Interceptor", "Retry логика")
+    Component(grpcLoggingInterceptor, "LoggingInterceptor", "Connect Interceptor", "gRPC логирование")
+    Component(amqpPublisher, "AMQPEventPublisher", "Event Publisher", "Публикация в AMQP")
+    Component(winstonLogger, "WinstonLogger", "Logger", "Структурированное логирование")
+    Component(otelMetrics, "OpenTelemetryGrpcMetrics", "Metrics", "OpenTelemetry метрики")
+    Component(otelTracing, "OpenTelemetryGrpcTracing", "Tracing", "OpenTelemetry трейсинг")
+}
+
+System_Ext(linkService, "Link Service", "gRPC")
+System_Ext(messageBus, "Message Bus", "AMQP")
+System_Ext(observability, "Observability", "OTLP")
+
+Rel(proxyController, validationMiddleware, "Использует")
+Rel(validationMiddleware, linkAppService, "Вызывает")
+Rel(linkAppService, pipeline, "Использует")
+Rel(pipeline, loggingInterceptor, "Применяет")
+Rel(pipeline, metricsInterceptor, "Применяет")
+Rel(pipeline, authInterceptor, "Применяет")
+Rel(pipeline, getLinkUseCase, "Выполняет")
+Rel(pipeline, publishEventUseCase, "Выполняет")
+Rel(getLinkUseCase, linkRepository, "Использует")
+Rel(linkRepository, linkACL, "Использует")
+Rel(linkACL, connectAdapter, "Использует")
+Rel(connectAdapter, tracingInterceptor, "Применяет")
+Rel(connectAdapter, grpcMetricsInterceptor, "Применяет")
+Rel(connectAdapter, retryInterceptor, "Применяет")
+Rel(connectAdapter, grpcLoggingInterceptor, "Применяет")
+Rel(connectAdapter, linkService, "gRPC")
+Rel(publishEventUseCase, eventDispatcher, "Использует")
+Rel(eventDispatcher, linkRedirectedHandler, "Вызывает")
+Rel(linkRedirectedHandler, amqpPublisher, "Использует")
+Rel(amqpPublisher, messageBus, "AMQP")
+Rel(getLinkUseCase, linkEntity, "Возвращает")
+Rel(getLinkUseCase, hashVO, "Использует")
+Rel(linkAppService, linkDomainService, "Использует")
+Rel(publishEventUseCase, linkRedirectedEvent, "Создает")
+Rel(winstonLogger, observability, "Логи с trace_id")
+Rel(otelMetrics, observability, "Метрики")
+Rel(otelTracing, observability, "Трейсы")
+Rel(errorHandler, winstonLogger, "Логирует ошибки")
+
+@enduml

@@ -1,0 +1,30 @@
+import { Link } from "../entities/Link.js";
+import { Hash } from "../entities/Hash.js";
+
+/**
+ * Интерфейс репозитория для работы со ссылками
+ * Работает с domain entities, не с protobuf или Prisma моделями
+ */
+export interface ILinkRepository {
+  /**
+   * Находит ссылку по хешу
+   * @param hash - хеш ссылки
+   * @returns Promise с доменной сущностью Link или null если не найдена
+   */
+  findByHash(hash: Hash): Promise<Link | null>;
+
+  /**
+   * Сохраняет ссылку
+   * @param link - доменная сущность ссылки
+   * @returns Promise с сохраненной ссылкой
+   */
+  save(link: Link): Promise<Link>;
+
+  /**
+   * Проверяет существование ссылки по хешу
+   * @param hash - хеш ссылки
+   * @returns Promise<boolean> - true если ссылка существует
+   */
+  exists(hash: Hash): Promise<boolean>;
+}
+

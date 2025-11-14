@@ -1,0 +1,21 @@
+version: v2
+managed:
+  enabled: true
+plugins:
+  # TypeScript protobuf runtime
+  # Генерирует базовые TypeScript типы из proto файлов
+  # Пути относительны к boundaries/proxy (корень проекта proxy)
+  - remote: buf.build/bufbuild/es
+    out: src/proto
+    opt:
+      - target=ts
+  # Connect RPC client + server code
+  # Генерирует TypeScript клиент и сервер для Connect RPC
+  # Упрощает DI и тестирование через createPromiseClient
+  # Примечание: connect-es плагин опционален, можно использовать unary transport API без генерации
+  # Для использования connect-es нужно установить @connectrpc/protoc-gen-connect-es локально
+  # - local: protoc-gen-connect-es
+  #   out: src/proto
+  #   opt:
+  #     - target=ts
+

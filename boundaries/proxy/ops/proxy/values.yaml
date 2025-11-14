@@ -50,7 +50,7 @@ deploy:
     MQ_ENABLED: false
     MQ_TYPE: rabbitmq
     OTEL_EXPORTER_OTLP_ENDPOINT: grpc://grafana-tempo.grafana:4317
-    API_LINK_SERVICE: http://shortlink-api.shortlink:7070
+    LINK_SERVICE_GRPC_URL: shortlink-api.shortlink:50051
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
     DD_PROFILING_ENABLED: false
     DD_TRACE_ENABLED: false

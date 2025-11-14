@@ -1,0 +1,47 @@
+{
+  "version": 1,
+  "resources": {
+    "fs": {
+      "read": [
+        "/app",
+        "/app/.env",
+        "/app/dist",
+        "/app/prisma"
+      ],
+      "write": []
+    },
+    "env": [
+      "PORT",
+      "NODE_ENV",
+      "SERVICE_NAME",
+      "LINK_SERVICE_GRPC_URL",
+      "EXTERNAL_SERVICE_TIMEOUT",
+      "EXTERNAL_SERVICE_RETRY_COUNT",
+      "OTEL_EXPORTER_OTLP_ENDPOINT",
+      "OTEL_SERVICE_NAME",
+      "OTEL_RESOURCE_ATTRIBUTES",
+      "DD_PROFILING_ENABLED",
+      "DD_TRACE_ENABLED",
+      "DD_NATIVE_METRICS",
+      "PYROSCOPE_SERVER_ADDRESS",
+      "MQ_ENABLED",
+      "MQ_TYPE",
+      "MQ_RABBIT_URI",
+      "GRPC_CLIENT_HOST"
+    ],
+    "net": {
+      "allow": [
+        "link-service:3000",
+        "link-service:50051",
+        "shortlink-api.shortlink:7070",
+        "istio-ingress.istio-ingress",
+        "grafana-tempo.grafana:4317",
+        "pyroscope:4040",
+        "localhost:3020",
+        "127.0.0.1:3020"
+      ],
+      "deny": []
+    }
+  }
+}
+
