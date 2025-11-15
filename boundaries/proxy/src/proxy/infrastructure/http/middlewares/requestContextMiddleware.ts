@@ -2,7 +2,7 @@ import type { RequestHandler } from "express";
 import { randomUUID } from "node:crypto";
 import { performance } from "node:perf_hooks";
 
-import { RequestContext } from "../../../observability/RequestContext";
+import { RequestContext } from "../../observability/RequestContext.js";
 
 /**
  * Bootstraps a per-request AsyncContext scope, adding trace metadata that downstream
@@ -21,4 +21,3 @@ export const requestContextMiddleware: RequestHandler = (req, _res, next) => {
     next();
   });
 };
-

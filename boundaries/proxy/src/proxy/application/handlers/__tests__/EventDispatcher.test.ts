@@ -52,6 +52,7 @@ describe("EventDispatcher", () => {
         hash: { value: "test-hash" } as any,
         link: {} as any,
         occurredAt: new Date(),
+        timestamp: new Date(),
       };
 
       dispatcher.register("LinkRedirected", mockHandler1);
@@ -74,6 +75,7 @@ describe("EventDispatcher", () => {
         hash: { value: "test-hash" } as any,
         link: {} as any,
         occurredAt: new Date(),
+        timestamp: new Date(),
       };
 
       vi.mocked(mockHandler1.canHandle).mockReturnValue(false);
@@ -94,6 +96,7 @@ describe("EventDispatcher", () => {
         hash: { value: "test-hash" } as any,
         link: {} as any,
         occurredAt: new Date(),
+        timestamp: new Date(),
       };
 
       // Act & Assert (should not throw)
@@ -107,6 +110,7 @@ describe("EventDispatcher", () => {
         hash: { value: "test-hash" } as any,
         link: {} as any,
         occurredAt: new Date(),
+        timestamp: new Date(),
       };
 
       let handler1Start: number | null = null;

@@ -3,6 +3,23 @@ import { LoggingInterceptor } from "../LoggingInterceptor.js";
 import { UseCaseExecutionContext } from "../IUseCaseInterceptor.js";
 import { ILogger } from "../../../../infrastructure/logging/ILogger.js";
 
+const createContext = <TRequest = any, TResponse = any>(
+  overrides: Partial<UseCaseExecutionContext<TRequest, TResponse>> = {}
+): UseCaseExecutionContext<TRequest, TResponse> => {
+  const base: UseCaseExecutionContext<TRequest, TResponse> = {
+    useCaseName: "TestUseCase",
+    request: {} as TRequest,
+    metadata: new Map<string, unknown>(),
+    startTime: Date.now(),
+  };
+
+  return {
+    ...base,
+    ...overrides,
+    metadata: overrides.metadata ?? base.metadata,
+  };
+};
+
 describe("LoggingInterceptor", () => {
   let interceptor: LoggingInterceptor;
   let mockLogger: ILogger;
@@ -21,11 +38,9 @@ describe("LoggingInterceptor", () => {
   describe("before", () => {
     it("should log debug message with use case name and request", () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
+      const context = createContext({
         request: { hash: "test-hash" },
-        metadata: new Map(),
-      };
+      });
 
       // Act
       const result = interceptor.before(context);
@@ -43,16 +58,14 @@ describe("LoggingInterceptor", () => {
 
     it("should sanitize sensitive fields in request", () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
+      const context = createContext({
         request: {
           hash: "test-hash",
           password: "secret123",
           token: "abc123",
           apiKey: "key123",
         },
-        metadata: new Map(),
-      };
+      });
 
       // Act
       interceptor.before(context);
@@ -74,13 +87,9 @@ describe("LoggingInterceptor", () => {
   describe("after", () => {
     it("should log info message with duration on success", () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
-        request: {},
-        response: { link: {} },
+      const context = createContext({
         duration: 150,
-        metadata: new Map(),
-      };
+      });
 
       // Act
       interceptor.after(context);
@@ -98,13 +107,9 @@ describe("LoggingInterceptor", () => {
 
     it("should handle zero duration", () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
-        request: {},
-        response: {},
+      const context = createContext({
         duration: 0,
-        metadata: new Map(),
-      };
+      });
 
       // Act
       interceptor.after(context);
@@ -123,13 +128,10 @@ describe("LoggingInterceptor", () => {
     it("should log error message with error details", () => {
       // Arrange
       const error = new Error("Test error");
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
-        request: {},
+      const context = createContext({
         error,
         duration: 50,
-        metadata: new Map(),
-      };
+      });
 
       // Act
       interceptor.onError(context);
@@ -150,11 +152,7 @@ describe("LoggingInterceptor", () => {
   describe("finally", () => {
     it("should not throw when called", () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
-        request: {},
-        metadata: new Map(),
-      };
+      const context = createContext();
 
       // Act & Assert
       expect(() => interceptor.finally(context)).not.toThrow();

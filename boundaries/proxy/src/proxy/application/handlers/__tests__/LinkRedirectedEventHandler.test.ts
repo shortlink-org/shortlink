@@ -19,6 +19,7 @@ describe("LinkRedirectedEventHandler", () => {
         hash: new Hash("testhash123"),
         link: new Link(new Hash("testhash123"), "https://example.com"),
         occurredAt: new Date(),
+        timestamp: new Date(),
       };
 
       // Act
@@ -51,6 +52,7 @@ describe("LinkRedirectedEventHandler", () => {
         hash: new Hash("testhash123"),
         link: new Link(new Hash("testhash123"), "https://example.com"),
         occurredAt: new Date(),
+        timestamp: new Date(),
       };
 
       // Act & Assert

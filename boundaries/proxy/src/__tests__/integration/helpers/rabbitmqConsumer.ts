@@ -1,11 +1,11 @@
-import { connect, Connection, Channel, ConsumeMessage } from "amqplib";
+import { connect, type ChannelModel, type Channel, type ConsumeMessage } from "amqplib";
 
 /**
  * Helper для подписки на сообщения из RabbitMQ в тестах
  * Позволяет проверять, что сообщения действительно публикуются
  */
 export class RabbitMQTestConsumer {
-  private connection: Connection | undefined;
+  private connection: ChannelModel | undefined;
   private channel: Channel | undefined;
   private queueName: string | undefined;
   private messages: ConsumeMessage[] = [];

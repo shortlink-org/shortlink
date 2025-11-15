@@ -1,5 +1,5 @@
 import { injectable, inject } from "inversify";
-import { connect, Connection, ConfirmChannel } from "amqplib";
+import { connect, type ChannelModel, type ConfirmChannel } from "amqplib";
 import {
   IMessageBus,
   MessageBusPublishOptions,
@@ -15,7 +15,7 @@ import TYPES from "../../../types.js";
  */
 @injectable()
 export class RabbitMQMessageBus implements IMessageBus {
-  private connection: Connection | undefined;
+  private connection: ChannelModel | undefined;
   private channel: ConfirmChannel | undefined;
   private isConnecting: boolean = false;
   private connected: boolean = false;

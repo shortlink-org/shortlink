@@ -1,6 +1,6 @@
 import type { RequestHandler } from "express";
 
-import { RequestContext } from "../../../observability/RequestContext";
+import { RequestContext } from "../../observability/RequestContext.js";
 
 export const notFoundHandler: RequestHandler = (req, res) => {
   const traceId = RequestContext.getTraceId();
@@ -8,8 +8,9 @@ export const notFoundHandler: RequestHandler = (req, res) => {
   res.status(404).json({
     error: {
       trace_id: traceId ?? "unknown",
-      message: `Route ${req.method} ${req.originalUrl ?? req.url} was not found`,
+      message: `Route ${req.method} ${
+        req.originalUrl ?? req.url
+      } was not found`,
     },
   });
 };
-

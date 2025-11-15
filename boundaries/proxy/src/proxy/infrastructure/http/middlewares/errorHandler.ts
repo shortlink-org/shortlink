@@ -1,6 +1,6 @@
 import type { ErrorRequestHandler } from "express";
 
-import { RequestContext } from "../../../observability/RequestContext";
+import { RequestContext } from "../../observability/RequestContext.js";
 
 const isProduction = process.env.NODE_ENV === "production";
 
@@ -52,8 +52,9 @@ export const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
   res.status(statusCode).json({
     error: {
       trace_id: traceId ?? "unknown",
-      message: isProduction ? "Internal Server Error" : err?.message ?? "Internal Server Error",
+      message: isProduction
+        ? "Internal Server Error"
+        : err?.message ?? "Internal Server Error",
     },
   });
 };
-

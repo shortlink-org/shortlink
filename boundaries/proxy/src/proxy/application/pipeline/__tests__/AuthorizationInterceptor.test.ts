@@ -8,6 +8,23 @@ import {
 import { UseCaseExecutionContext } from "../IUseCaseInterceptor.js";
 import { ILogger } from "../../../../infrastructure/logging/ILogger.js";
 
+const createContext = <TRequest = any, TResponse = any>(
+  overrides: Partial<UseCaseExecutionContext<TRequest, TResponse>> = {}
+): UseCaseExecutionContext<TRequest, TResponse> => {
+  const base: UseCaseExecutionContext<TRequest, TResponse> = {
+    useCaseName: "TestUseCase",
+    request: {} as TRequest,
+    metadata: new Map<string, unknown>(),
+    startTime: Date.now(),
+  };
+
+  return {
+    ...base,
+    ...overrides,
+    metadata: overrides.metadata ?? base.metadata,
+  };
+};
+
 describe("AuthorizationInterceptor", () => {
   let interceptor: AuthorizationInterceptor;
   let mockLogger: ILogger;
@@ -34,11 +51,9 @@ describe("AuthorizationInterceptor", () => {
   describe("before", () => {
     it("should allow request when authorized", async () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
+      const context = createContext({
         request: { hash: "test-hash" },
-        metadata: new Map(),
-      };
+      });
 
       vi.mocked(mockAuthorizationChecker.isAuthorized).mockResolvedValue(true);
 
@@ -56,11 +71,9 @@ describe("AuthorizationInterceptor", () => {
 
     it("should throw AuthorizationError when not authorized", async () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
+      const context = createContext({
         request: { hash: "test-hash" },
-        metadata: new Map(),
-      };
+      });
 
       vi.mocked(mockAuthorizationChecker.isAuthorized).mockResolvedValue(false);
 
@@ -78,11 +91,9 @@ describe("AuthorizationInterceptor", () => {
 
     it("should handle synchronous authorization check", async () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
+      const context = createContext({
         request: {},
-        metadata: new Map(),
-      };
+      });
 
       const syncChecker: IAuthorizationChecker = {
         isAuthorized: vi.fn().mockReturnValue(true),
@@ -104,12 +115,10 @@ describe("AuthorizationInterceptor", () => {
   describe("after", () => {
     it("should not throw when called", () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
+      const context = createContext({
         request: {},
-        response: {},
-        metadata: new Map(),
-      };
+        response: undefined,
+      });
 
       // Act & Assert
       expect(() => interceptor.after(context)).not.toThrow();
@@ -120,12 +129,10 @@ describe("AuthorizationInterceptor", () => {
     it("should log warning for AuthorizationError", () => {
       // Arrange
       const error = new AuthorizationError("Access denied");
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
+      const context = createContext({
         request: {},
         error,
-        metadata: new Map(),
-      };
+      });
 
       // Act
       interceptor.onError(context);
@@ -142,12 +149,10 @@ describe("AuthorizationInterceptor", () => {
     it("should not log for non-authorization errors", () => {
       // Arrange
       const error = new Error("Other error");
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
+      const context = createContext({
         request: {},
         error,
-        metadata: new Map(),
-      };
+      });
 
       // Act
       interceptor.onError(context);
@@ -168,11 +173,9 @@ describe("DefaultAuthorizationChecker", () => {
   describe("isAuthorized", () => {
     it("should allow public use cases", () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
+      const context = createContext({
         useCaseName: "GetLinkByHashUseCase",
-        request: {},
-        metadata: new Map(),
-      };
+      });
 
       // Act
       const result = checker.isAuthorized(
@@ -187,11 +190,10 @@ describe("DefaultAuthorizationChecker", () => {
 
     it("should allow use cases when user is in context", () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
+      const context = createContext({
         useCaseName: "PrivateUseCase",
-        request: {},
-        metadata: new Map([["user", { id: "123" }]]),
-      };
+        metadata: new Map<string, unknown>([["user", { id: "123" }]]),
+      });
 
       // Act
       const result = checker.isAuthorized("PrivateUseCase", {}, context);
@@ -202,11 +204,10 @@ describe("DefaultAuthorizationChecker", () => {
 
     it("should deny use cases when user is not in context", () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
+      const context = createContext({
         useCaseName: "PrivateUseCase",
-        request: {},
-        metadata: new Map(),
-      };
+        metadata: new Map<string, unknown>(),
+      });
 
       // Act
       const result = checker.isAuthorized("PrivateUseCase", {}, context);
@@ -217,11 +218,10 @@ describe("DefaultAuthorizationChecker", () => {
 
     it("should deny when user is null", () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
+      const context = createContext({
         useCaseName: "PrivateUseCase",
-        request: {},
-        metadata: new Map([["user", null]]),
-      };
+        metadata: new Map<string, unknown>([["user", null]]),
+      });
 
       // Act
       const result = checker.isAuthorized("PrivateUseCase", {}, context);

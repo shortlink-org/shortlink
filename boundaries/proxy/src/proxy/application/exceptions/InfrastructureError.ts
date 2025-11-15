@@ -8,9 +8,11 @@ export class InfrastructureError extends ApplicationError {
   constructor(
     message: string,
     public readonly service?: string,
-    public readonly originalError?: Error
+    public readonly originalError?: Error,
+    code: string = "INFRASTRUCTURE_ERROR",
+    statusCode: number = 503
   ) {
-    super(message, "INFRASTRUCTURE_ERROR", 503);
+    super(message, code, statusCode);
     this.name = "InfrastructureError";
     Object.setPrototypeOf(this, InfrastructureError.prototype);
   }
@@ -23,12 +25,16 @@ export class ExternalServiceError extends InfrastructureError {
   constructor(
     message: string,
     service: string,
-    public readonly statusCode?: number,
+    statusCode?: number,
     originalError?: Error
   ) {
-    super(message, service, originalError);
-    this.code = "EXTERNAL_SERVICE_ERROR";
-    this.statusCode = statusCode || 503;
+    super(
+      message,
+      service,
+      originalError,
+      "EXTERNAL_SERVICE_ERROR",
+      statusCode ?? 503
+    );
     this.name = "ExternalServiceError";
     Object.setPrototypeOf(this, ExternalServiceError.prototype);
   }

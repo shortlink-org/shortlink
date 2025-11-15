@@ -1,5 +1,5 @@
 import * as express from "express";
-import { controller, httpGet, response } from "inversify-express-utils";
+import { controller, httpGet, request, response } from "inversify-express-utils";
 import { getPrometheusExporter } from "../../../infrastructure/telemetry.js";
 
 /**
@@ -32,6 +32,7 @@ export class MetricsController {
    */
   @httpGet("/")
   public async getMetrics(
+    @request() req: express.Request,
     @response() res: express.Response
   ): Promise<void> {
     const exporter = getPrometheusExporter();
@@ -42,11 +43,7 @@ export class MetricsController {
     }
 
     try {
-      // PrometheusExporter.getMetricsRequestHandler() returns Express middleware
-      const handler = exporter.getMetricsRequestHandler();
-      const req = {} as express.Request;
-      const next = () => {};
-      await handler(req, res, next);
+      exporter.getMetricsRequestHandler(req, res);
     } catch (error) {
       res.status(500).send(`# Error collecting metrics: ${error}\n`);
     }

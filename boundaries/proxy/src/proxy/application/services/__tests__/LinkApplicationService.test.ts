@@ -110,7 +110,7 @@ describe("LinkApplicationService", () => {
       // Arrange
       const hash = new Hash("nonexistent123");
       const request: HandleRedirectRequest = { hash };
-      const notFoundError = new LinkNotFoundError("Link not found");
+      const notFoundError = new LinkNotFoundError(hash);
 
       vi.mocked(mockGetLinkByHashUseCase.execute).mockRejectedValue(notFoundError);
 

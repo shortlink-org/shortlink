@@ -5,7 +5,6 @@ import { OTLPTraceExporter } from "@opentelemetry/exporter-trace-otlp-grpc";
 import { PrometheusExporter } from "@opentelemetry/exporter-prometheus";
 import { resourceFromAttributes } from "@opentelemetry/resources";
 import type { SpanExporter } from "@opentelemetry/sdk-trace-base";
-import { PeriodicExportingMetricReader } from "@opentelemetry/sdk-metrics";
 
 const DEFAULT_SERVICE_NAME = "proxy-service";
 const DEFAULT_COLLECTOR_ENDPOINT = "grpc://grafana-tempo.grafana:4317";
@@ -51,12 +50,12 @@ export function initializeTelemetry(): PrometheusExporter | null {
     DEFAULT_SERVICE_NAME;
 
   // Configure Prometheus metrics exporter
-  // PrometheusExporter will be used to get metrics in Prometheus format
-  prometheusExporter = new PrometheusExporter();
-
-  const metricReader = new PeriodicExportingMetricReader({
-    exporter: prometheusExporter,
-    exportIntervalMillis: 10000, // Export metrics every 10 seconds
+  // PrometheusExporter exposes an HTTP server that Prometheus scrapes
+  const metricsPort = Number(process.env.METRICS_PORT ?? 9464);
+  const metricsHost = process.env.METRICS_HOST;
+  prometheusExporter = new PrometheusExporter({
+    port: metricsPort,
+    host: metricsHost,
   });
 
   const sdk = new NodeSDK({
@@ -64,7 +63,7 @@ export function initializeTelemetry(): PrometheusExporter | null {
       "service.name": serviceName,
     }),
     traceExporter,
-    metricReader,
+    metricReader: prometheusExporter,
     instrumentations: [getNodeAutoInstrumentations()],
   });
 

@@ -3,6 +3,23 @@ import { MetricsInterceptor } from "../MetricsInterceptor.js";
 import { UseCaseExecutionContext } from "../IUseCaseInterceptor.js";
 import * as otel from "@opentelemetry/api";
 
+const createContext = <TRequest = any, TResponse = any>(
+  overrides: Partial<UseCaseExecutionContext<TRequest, TResponse>> = {}
+): UseCaseExecutionContext<TRequest, TResponse> => {
+  const base: UseCaseExecutionContext<TRequest, TResponse> = {
+    useCaseName: "TestUseCase",
+    request: {} as TRequest,
+    metadata: new Map<string, unknown>(),
+    startTime: Date.now(),
+  };
+
+  return {
+    ...base,
+    ...overrides,
+    metadata: overrides.metadata ?? base.metadata,
+  };
+};
+
 // Mock OpenTelemetry
 vi.mock("@opentelemetry/api", () => {
   const mockCounter = {
@@ -43,11 +60,9 @@ describe("MetricsInterceptor", () => {
   describe("before", () => {
     it("should return request unchanged", () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
+      const context = createContext({
         request: { hash: "test-hash" },
-        metadata: new Map(),
-      };
+      });
 
       // Act
       const result = interceptor.before(context);
@@ -60,13 +75,9 @@ describe("MetricsInterceptor", () => {
   describe("after", () => {
     it("should record success metrics", () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
-        request: {},
-        response: { link: {} },
+      const context = createContext({
         duration: 150,
-        metadata: new Map(),
-      };
+      });
 
       // Act
       interceptor.after(context);
@@ -83,13 +94,9 @@ describe("MetricsInterceptor", () => {
 
     it("should handle zero duration", () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
-        request: {},
-        response: {},
+      const context = createContext({
         duration: 0,
-        metadata: new Map(),
-      };
+      });
 
       // Act
       interceptor.after(context);
@@ -105,13 +112,10 @@ describe("MetricsInterceptor", () => {
     it("should record error metrics", () => {
       // Arrange
       const error = new Error("Test error");
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
-        request: {},
+      const context = createContext({
         error,
         duration: 50,
-        metadata: new Map(),
-      };
+      });
 
       // Act
       interceptor.onError(context);
@@ -132,13 +136,10 @@ describe("MetricsInterceptor", () => {
 
     it("should handle unknown error type", () => {
       // Arrange
-      const context: UseCaseExecutionContext<any, any> = {
-        useCaseName: "TestUseCase",
-        request: {},
-        error: null,
+      const context = createContext({
+        error: undefined,
         duration: 50,
-        metadata: new Map(),
-      };
+      });
 
       // Act
       interceptor.onError(context);

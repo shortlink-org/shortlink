@@ -99,7 +99,9 @@ export class RabbitMQTestContainer {
     if (!this.startedContainer) {
       throw new Error("RabbitMQ container is not started. Call start() first.");
     }
-    return this.startedContainer.getHttpUrl();
+    const host = this.startedContainer.getHost();
+    const port = this.startedContainer.getMappedPort(15672);
+    return `http://${host}:${port}`;
   }
 }
 

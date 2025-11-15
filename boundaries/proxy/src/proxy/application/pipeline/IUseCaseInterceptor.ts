@@ -19,7 +19,7 @@ export interface UseCaseExecutionContext<TRequest, TResponse> {
   /**
    * Результат выполнения Use Case (заполняется после выполнения)
    */
-  response?: Result<TResponse, any>;
+  response?: Result<TResponse, any> | TResponse;
 
   /**
    * Ошибка выполнения (если произошла)

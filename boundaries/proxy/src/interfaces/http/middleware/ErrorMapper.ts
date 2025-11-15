@@ -69,7 +69,8 @@ export class ErrorMapper {
         message: error.message,
         path: req.path,
       });
-      this.sendError(res, error.statusCode, {
+      const statusCode = error.statusCode ?? 503;
+      this.sendError(res, statusCode, {
         code: error.code,
         message: error.message,
         service: error.service,
@@ -134,6 +135,7 @@ export class ErrorMapper {
       message: string;
       field?: string;
       details?: Record<string, unknown>;
+      service?: string;
     }
   ): void {
     res.status(statusCode).json({
