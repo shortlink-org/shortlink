@@ -20,6 +20,7 @@ import {
   MetricsInterceptor,
 } from "../../../proxy/application/pipeline/index.js";
 import { ILinkCache } from "../../../proxy/infrastructure/cache/RedisLinkCache.js";
+import { DomainEvent } from "../../../proxy/domain/events/index.js";
 
 /**
  * End-to-end интеграционные тесты для полного flow
@@ -28,17 +29,17 @@ import { ILinkCache } from "../../../proxy/infrastructure/cache/RedisLinkCache.j
 describe("Redirect Flow E2E Integration Tests", () => {
   let app: express.Application;
   let container: Container;
-  let publishMock: ReturnType<typeof vi.fn>;
-  let getLinkByHashMock: ReturnType<typeof vi.fn>;
-  let cacheGetMock: ReturnType<typeof vi.fn>;
-  let cacheSetPositiveMock: ReturnType<typeof vi.fn>;
-  let cacheSetNegativeMock: ReturnType<typeof vi.fn>;
-  let cacheClearMock: ReturnType<typeof vi.fn>;
-  let loggerInfoMock: ReturnType<typeof vi.fn>;
-  let loggerWarnMock: ReturnType<typeof vi.fn>;
-  let loggerErrorMock: ReturnType<typeof vi.fn>;
-  let loggerDebugMock: ReturnType<typeof vi.fn>;
-  let loggerHttpMock: ReturnType<typeof vi.fn>;
+  let publishMock: ReturnType<typeof vi.fn<(event: DomainEvent) => Promise<void>>>;
+  let getLinkByHashMock: ReturnType<typeof vi.fn<(hash: Hash) => Promise<Link | null>>>;
+  let cacheGetMock: ReturnType<typeof vi.fn<(hash: Hash) => Promise<Link | null | undefined>>>;
+  let cacheSetPositiveMock: ReturnType<typeof vi.fn<(hash: Hash, link: Link) => Promise<void>>>;
+  let cacheSetNegativeMock: ReturnType<typeof vi.fn<(hash: Hash) => Promise<void>>>;
+  let cacheClearMock: ReturnType<typeof vi.fn<(hash: Hash) => Promise<void>>>;
+  let loggerInfoMock: ReturnType<typeof vi.fn<(message: string, meta?: any) => void>>;
+  let loggerWarnMock: ReturnType<typeof vi.fn<(message: string, meta?: any) => void>>;
+  let loggerErrorMock: ReturnType<typeof vi.fn<(message: string, error?: any, meta?: any) => void>>;
+  let loggerDebugMock: ReturnType<typeof vi.fn<(message: string, meta?: any) => void>>;
+  let loggerHttpMock: ReturnType<typeof vi.fn<(message: string) => void>>;
   let mockEventPublisher: IEventPublisher;
   let mockLinkServiceAdapter: ILinkServiceAdapter;
   let mockLinkCache: ILinkCache;
@@ -49,21 +50,21 @@ describe("Redirect Flow E2E Integration Tests", () => {
     container = new Container();
 
     // Мокаем Event Publisher
-    publishMock = vi.fn().mockResolvedValue(undefined);
+    publishMock = vi.fn<(event: DomainEvent) => Promise<void>>().mockResolvedValue(undefined);
     mockEventPublisher = {
       publish: publishMock,
     };
 
     // Мокаем Adapter
-    getLinkByHashMock = vi.fn();
+    getLinkByHashMock = vi.fn<(hash: Hash) => Promise<Link | null>>();
     mockLinkServiceAdapter = {
       getLinkByHash: getLinkByHashMock,
     };
 
-    cacheGetMock = vi.fn().mockResolvedValue(undefined);
-    cacheSetPositiveMock = vi.fn().mockResolvedValue(undefined);
-    cacheSetNegativeMock = vi.fn().mockResolvedValue(undefined);
-    cacheClearMock = vi.fn().mockResolvedValue(undefined);
+    cacheGetMock = vi.fn<(hash: Hash) => Promise<Link | null | undefined>>().mockResolvedValue(undefined);
+    cacheSetPositiveMock = vi.fn<(hash: Hash, link: Link) => Promise<void>>().mockResolvedValue(undefined);
+    cacheSetNegativeMock = vi.fn<(hash: Hash) => Promise<void>>().mockResolvedValue(undefined);
+    cacheClearMock = vi.fn<(hash: Hash) => Promise<void>>().mockResolvedValue(undefined);
     mockLinkCache = {
       get: cacheGetMock,
       setPositive: cacheSetPositiveMock,
@@ -72,11 +73,11 @@ describe("Redirect Flow E2E Integration Tests", () => {
     };
 
     // Мокаем Logger
-    loggerInfoMock = vi.fn();
-    loggerWarnMock = vi.fn();
-    loggerErrorMock = vi.fn();
-    loggerDebugMock = vi.fn();
-    loggerHttpMock = vi.fn();
+    loggerInfoMock = vi.fn<(message: string, meta?: any) => void>();
+    loggerWarnMock = vi.fn<(message: string, meta?: any) => void>();
+    loggerErrorMock = vi.fn<(message: string, error?: any, meta?: any) => void>();
+    loggerDebugMock = vi.fn<(message: string, meta?: any) => void>();
+    loggerHttpMock = vi.fn<(message: string) => void>();
     mockLogger = {
       info: loggerInfoMock,
       warn: loggerWarnMock,
