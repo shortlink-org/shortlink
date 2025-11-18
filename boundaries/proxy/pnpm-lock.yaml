@@ -12,11 +12,11 @@ importers:
         specifier: 2.10.1
         version: 2.10.1
       '@connectrpc/connect':
-        specifier: 2.1.0
-        version: 2.1.0(@bufbuild/protobuf@2.10.1)
+        specifier: 2.1.1
+        version: 2.1.1(@bufbuild/protobuf@2.10.1)
       '@connectrpc/connect-node':
         specifier: 2.1.0
-        version: 2.1.0(@bufbuild/protobuf@2.10.1)(@connectrpc/connect@2.1.0(@bufbuild/protobuf@2.10.1))
+        version: 2.1.0(@bufbuild/protobuf@2.10.1)(@connectrpc/connect@2.1.1(@bufbuild/protobuf@2.10.1))
       '@godaddy/terminus':
         specifier: ^4.12.1
         version: 4.12.1
@@ -239,8 +239,8 @@ packages:
       '@bufbuild/protobuf': ^2.7.0
       '@connectrpc/connect': 2.1.0
 
-  '@connectrpc/connect@2.1.0':
-    resolution: {integrity: sha512-xhiwnYlJNHzmFsRw+iSPIwXR/xweTvTw8x5HiwWp10sbVtd4OpOXbRgE7V58xs1EC17fzusF1f5uOAy24OkBuA==}
+  '@connectrpc/connect@2.1.1':
+    resolution: {integrity: sha512-JzhkaTvM73m2K1URT6tv53k2RwngSmCXLZJgK580qNQOXRzZRR/BCMfZw3h+90JpnG6XksP5bYT+cz0rpUzUWQ==}
     peerDependencies:
       '@bufbuild/protobuf': ^2.7.0
 
@@ -3690,12 +3690,12 @@ snapshots:
 
   '@colors/colors@1.6.0': {}
 
-  '@connectrpc/connect-node@2.1.0(@bufbuild/protobuf@2.10.1)(@connectrpc/connect@2.1.0(@bufbuild/protobuf@2.10.1))':
+  '@connectrpc/connect-node@2.1.0(@bufbuild/protobuf@2.10.1)(@connectrpc/connect@2.1.1(@bufbuild/protobuf@2.10.1))':
     dependencies:
       '@bufbuild/protobuf': 2.10.1
-      '@connectrpc/connect': 2.1.0(@bufbuild/protobuf@2.10.1)
+      '@connectrpc/connect': 2.1.1(@bufbuild/protobuf@2.10.1)
 
-  '@connectrpc/connect@2.1.0(@bufbuild/protobuf@2.10.1)':
+  '@connectrpc/connect@2.1.1(@bufbuild/protobuf@2.10.1)':
     dependencies:
       '@bufbuild/protobuf': 2.10.1
 
