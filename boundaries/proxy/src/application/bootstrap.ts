@@ -16,6 +16,12 @@ import { logPermissions } from "../infrastructure/permissions.js";
 import TYPES from "../types.js";
 import { IMessageBus } from "../proxy/domain/interfaces/IMessageBus.js";
 import { IEventPublisher } from "../proxy/application/use-cases/PublishEventUseCase.js";
+import { StandardMetrics } from "../proxy/infrastructure/metrics/StandardMetrics.js";
+
+// Build information - injected at build time
+const version = process.env.APP_VERSION || "dev";
+const commit = process.env.APP_COMMIT || "none";
+const buildTime = process.env.APP_BUILD_TIME || "unknown";
 
 // Improved type guard (короче, безопаснее)
 type ExchangeInitializer = {
@@ -46,6 +52,11 @@ function bootstrap(): http.Server {
 
   // 1. Telemetry & Profiling
   initializeTelemetry();
+
+  // Initialize standard metrics and set build info (ADR-0014)
+  const standardMetrics = new StandardMetrics();
+  standardMetrics.setBuildInfo(version, commit, buildTime);
+  log.info(`[Bootstrap] Service initialized - version: ${version}, commit: ${commit}, build_time: ${buildTime}`);
 
   initializeProfiling().catch((err) => {
     console.error("[Bootstrap] Failed to initialize profiling:", err);

@@ -16,16 +16,31 @@ import (
 	"github.com/shortlink-org/go-sdk/graceful_shutdown"
 
 	bff_web_di "github.com/shortlink-org/shortlink/boundaries/link/bff/internal/di"
+	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/pkg"
+)
+
+var (
+	// Build information injected at compile time
+	version   = "dev"
+	commit    = "none"
+	buildTime = "unknown"
 )
 
 func main() {
 	viper.SetDefault("SERVICE_NAME", "shortlink-bff-link")
+
+	// Set build info metrics as per ADR-0014
+	pkg.SetBuildInfo(version, commit, buildTime)
 
 	// Init a new service
 	service, cleanup, err := bff_web_di.InitializeBFFWebService()
 	if err != nil { // TODO: use as helpers
 		panic(err)
 	}
+	service.Log.Info("Service initialized", 
+		slog.String("version", version), 
+		slog.String("commit", commit), 
+		slog.String("build_time", buildTime))
 
 	defer func() {
 		if r := recover(); r != nil {
