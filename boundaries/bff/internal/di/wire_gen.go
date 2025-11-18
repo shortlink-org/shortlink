@@ -81,7 +81,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 	}
 	printer := i18n.New(context)
 	registry := NewPrometheusRegistry(monitoring)
-	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry)
+	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry, recorder)
 	if err != nil {
 		cleanup4()
 		cleanup3()
