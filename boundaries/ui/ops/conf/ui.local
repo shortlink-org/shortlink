@@ -1,49 +1,56 @@
 server {
-    listen      8080;
-    listen [::]:8080;
+    listen 8080 default_server;
+    listen [::]:8080 default_server;
     server_name _;
+    root /usr/share/nginx/html;
+    index index.html;
+    charset utf-8;
+
     absolute_redirect off;
     port_in_redirect off;
 
-    # Support for URL/ → file.html
+    add_header X-DNS-Prefetch-Control "off" always;
+    add_header X-Frame-Options "SAMEORIGIN" always;
+    add_header X-Download-Options "noopen" always;
+    add_header X-Content-Type-Options "nosniff" always;
+    add_header X-XSS-Protection "1; mode=block" always;
+
+    location = /favicon.ico {
+        access_log off;
+        log_not_found off;
+    }
+
+    location = /robots.txt {
+        access_log off;
+        log_not_found off;
+    }
+
     location ~ ^/(.*)/$ {
         try_files /$1.html =404;
     }
 
-    # GZIP settings
-    gzip on;
-    gzip_proxied any;
-    gzip_comp_level 4;
-    gzip_types text/css application/javascript image/svg+xml;
-
-    # Static assets
     location ~* \.(?:ico|gif|jpe?g|png|woff2?|eot|otf|ttf|svg|js|css)$ {
         try_files $uri $uri/ =404;
     }
 
-    # Main routing
     location / {
         try_files $uri.html $uri $uri/ @htmlext;
     }
 
-    # Direct .html access
     location ~ \.html$ {
         try_files $uri =404;
     }
 
-    # Rewrite to .html
     location @htmlext {
         rewrite ^(.*)$ $1.html last;
     }
 
-    # Liveness
     location = /live {
         access_log off;
         default_type application/json;
         return 200 '{"status":"healthy"}';
     }
 
-    # Readiness
     location = /ready {
         access_log off;
         default_type application/json;
