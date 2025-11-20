@@ -3,6 +3,7 @@
 package mysql
 
 import (
+"github.com/shortlink-org/go-sdk/config"
 	"bytes"
 	"context"
 	"database/sql"
@@ -24,7 +25,7 @@ var (
 )
 
 // New store
-func New(ctx context.Context, store db.DB) (*Store, error) {
+func New(ctx context.Context, store db.DB, _ *config.Config) (*Store, error) {
 	client, ok := store.GetConn().(*sql.DB)
 	if !ok {
 		return nil, db.ErrGetConnection

@@ -1,6 +1,7 @@
 package badger
 
 import (
+"github.com/shortlink-org/go-sdk/config"
 	"context"
 
 	"github.com/segmentio/encoding/json"
@@ -17,7 +18,7 @@ type Store struct {
 }
 
 // New store
-func New(_ context.Context) (*Store, error) {
+func New(_ context.Context, _ *config.Config) (*Store, error) {
 	return &Store{}, nil
 }
 
