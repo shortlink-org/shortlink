@@ -1,18 +1,15 @@
-import { injectable, inject } from "inversify";
 import { IUseCaseInterceptor, UseCaseExecutionContext } from "./IUseCaseInterceptor.js";
 import { ILogger } from "../../../infrastructure/logging/ILogger.js";
-import TYPES from "../../../types.js";
 
 /**
  * Интерцептор для логирования выполнения Use Cases
  * Логирует вход, выход, ошибки и время выполнения
  */
-@injectable()
 export class LoggingInterceptor<TRequest = any, TResponse = any>
   implements IUseCaseInterceptor<TRequest, TResponse>
 {
   constructor(
-    @inject(TYPES.INFRASTRUCTURE.Logger) private readonly logger: ILogger
+    private readonly logger: ILogger
   ) {}
 
   before(context: UseCaseExecutionContext<TRequest, TResponse>): TRequest {

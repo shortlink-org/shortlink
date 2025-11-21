@@ -27,7 +27,7 @@ describe("RedisLinkCache", () => {
   let mockConfig: CacheConfig;
   let mockRedis: any;
 
-  beforeEach(() => {
+  beforeEach(async () => {
     // Mock logger
     mockLogger = {
       info: vi.fn(),
@@ -46,7 +46,7 @@ describe("RedisLinkCache", () => {
       keyPrefix: "shortlink:proxy",
     } as CacheConfig;
 
-    // Create Redis mock instance
+    // Create Redis mock instance with proper status
     mockRedis = {
       get: vi.fn(),
       setex: vi.fn(),
@@ -57,10 +57,17 @@ describe("RedisLinkCache", () => {
       status: "ready",
     };
 
-    // Mock Redis constructor
+    // Mock Redis constructor to return our mock instance
     vi.mocked(Redis).mockImplementation(() => mockRedis);
 
     cache = new RedisLinkCache(mockLogger, mockConfig);
+    
+    // Ensure Redis is available after initialization
+    // Wait a bit for connect() to complete
+    await new Promise(resolve => setTimeout(resolve, 10));
+    
+    // Ensure status is set to "ready" after initialization
+    mockRedis.status = "ready";
   });
 
   afterEach(() => {

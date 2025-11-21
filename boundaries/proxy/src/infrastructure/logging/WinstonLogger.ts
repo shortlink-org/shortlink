@@ -1,4 +1,3 @@
-import { injectable } from "inversify";
 import winston from "winston";
 import { trace } from "@opentelemetry/api";
 import { ILogger } from "./ILogger.js";
@@ -8,7 +7,6 @@ import { ILogger } from "./ILogger.js";
  * Инкапсулирует Winston логику в infrastructure слое
  * Автоматически добавляет trace_id и span_id из OpenTelemetry context
  */
-@injectable()
 export class WinstonLogger implements ILogger {
   private logger: winston.Logger;
 
@@ -79,4 +77,3 @@ export class WinstonLogger implements ILogger {
     this.logger.info(message, this.enrichMeta({ severity: "http" }));
   }
 }
-

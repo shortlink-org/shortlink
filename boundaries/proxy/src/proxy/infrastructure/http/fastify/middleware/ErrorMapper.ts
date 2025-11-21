@@ -1,0 +1,185 @@
+import type { FastifyRequest } from "fastify";
+import { DomainError } from "../../../../domain/exceptions/index.js";
+import { InvalidHashError } from "../../../../domain/exceptions/index.js";
+import { LinkNotFoundError } from "../../../../domain/exceptions/index.js";
+import {
+  ApplicationError,
+  ValidationError,
+  InfrastructureError,
+  ExternalServiceError,
+} from "../../../../application/exceptions/index.js";
+import type { ILogger } from "../../../../../infrastructure/logging/ILogger.js";
+
+/**
+ * Error response structure
+ */
+export interface ErrorResponse {
+  statusCode: number;
+  payload: {
+    error: {
+      code: string;
+      message: string;
+      field?: string;
+      details?: Record<string, unknown>;
+      service?: string;
+      timestamp: string;
+    };
+  };
+}
+
+/**
+ * Maps domain and application errors to HTTP responses.
+ * Transforms typed errors into standardized HTTP responses for Fastify.
+ */
+export class ErrorMapper {
+  constructor(private readonly logger: ILogger) {}
+
+  /**
+   * Maps error to HTTP response
+   */
+  mapToHttpResponse(error: unknown, request?: FastifyRequest): ErrorResponse {
+    // Domain Errors
+    if (error instanceof InvalidHashError) {
+      return {
+        statusCode: 400,
+        payload: {
+          error: {
+            code: "INVALID_HASH",
+            message: error.message,
+            field: "hash",
+            timestamp: new Date().toISOString(),
+          },
+        },
+      };
+    }
+
+    if (error instanceof LinkNotFoundError) {
+      return {
+        statusCode: 404,
+        payload: {
+          error: {
+            code: "LINK_NOT_FOUND",
+            message: error.message,
+            timestamp: new Date().toISOString(),
+          },
+        },
+      };
+    }
+
+    if (error instanceof DomainError) {
+      return {
+        statusCode: 400,
+        payload: {
+          error: {
+            code: "DOMAIN_ERROR",
+            message: error.message,
+            timestamp: new Date().toISOString(),
+          },
+        },
+      };
+    }
+
+    // Application Errors
+    if (error instanceof ValidationError) {
+      return {
+        statusCode: error.statusCode,
+        payload: {
+          error: {
+            code: error.code,
+            message: error.message,
+            field: error.field,
+            details: error.details,
+            timestamp: new Date().toISOString(),
+          },
+        },
+      };
+    }
+
+    if (error instanceof ExternalServiceError) {
+      this.logger.warn("External service error", {
+        service: error.service,
+        statusCode: error.statusCode,
+        message: error.message,
+        path: request?.url,
+      });
+      const statusCode = error.statusCode ?? 503;
+      return {
+        statusCode,
+        payload: {
+          error: {
+            code: error.code,
+            message: error.message,
+            service: error.service,
+            timestamp: new Date().toISOString(),
+          },
+        },
+      };
+    }
+
+    if (error instanceof InfrastructureError) {
+      this.logger.error("Infrastructure error", error.originalError || error, {
+        service: error.service,
+        path: request?.url,
+        method: request?.method,
+      });
+      return {
+        statusCode: error.statusCode,
+        payload: {
+          error: {
+            code: error.code,
+            message: error.message,
+            service: error.service,
+            timestamp: new Date().toISOString(),
+          },
+        },
+      };
+    }
+
+    if (error instanceof ApplicationError) {
+      return {
+        statusCode: error.statusCode,
+        payload: {
+          error: {
+            code: error.code,
+            message: error.message,
+            timestamp: new Date().toISOString(),
+          },
+        },
+      };
+    }
+
+    // Generic Error
+    if (error instanceof Error) {
+      this.logger.error("Unhandled error", error, {
+        path: request?.url,
+        method: request?.method,
+      });
+      return {
+        statusCode: 500,
+        payload: {
+          error: {
+            code: "INTERNAL_SERVER_ERROR",
+            message: "An unexpected error occurred",
+            timestamp: new Date().toISOString(),
+          },
+        },
+      };
+    }
+
+    // Unknown error type
+    this.logger.error("Unknown error type", error, {
+      path: request?.url,
+      method: request?.method,
+    });
+    return {
+      statusCode: 500,
+      payload: {
+        error: {
+          code: "INTERNAL_SERVER_ERROR",
+          message: "An unexpected error occurred",
+          timestamp: new Date().toISOString(),
+        },
+      },
+    };
+  }
+}

@@ -1,4 +1,3 @@
-import { injectable, inject } from "inversify";
 import { createConnectTransport } from "@connectrpc/connect-node";
 import type { Transport } from "@connectrpc/connect";
 import { LinkServiceACL } from "../anti-corruption/LinkServiceACL.js";
@@ -9,7 +8,6 @@ import { ExternalServicesConfig } from "../../../infrastructure/config/ExternalS
 import { ILogger } from "../../../infrastructure/logging/ILogger.js";
 import { IGrpcMetrics } from "../metrics/IGrpcMetrics.js";
 import { IGrpcTracing } from "../tracing/IGrpcTracing.js";
-import TYPES from "../../../types.js";
 import {
   createLoggingInterceptor,
   createRetryInterceptor,
@@ -30,27 +28,23 @@ import { create, fromBinary, toBinary } from "@bufbuild/protobuf";
  * Использует @connectrpc/connect через unary transport API
  * Работает с типами из @bufbuild/protobuf без генерации connect-es файлов
  */
-@injectable()
 export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
   private readonly transport: Transport;
 
   constructor(
-    @inject(Symbol.for("LinkServiceACL")) private readonly acl: LinkServiceACL,
-    @inject(Symbol.for("ExternalServicesConfig"))
-    private readonly config: ExternalServicesConfig,
-    @inject(TYPES.INFRASTRUCTURE.Logger) private readonly logger: ILogger,
-    @inject(TYPES.INFRASTRUCTURE.GrpcMetrics)
-    private readonly metrics: IGrpcMetrics,
-    @inject(TYPES.INFRASTRUCTURE.GrpcTracing)
-    private readonly tracing: IGrpcTracing
+    private readonly linkServiceACL: LinkServiceACL,
+    private readonly externalServicesConfig: ExternalServicesConfig,
+    private readonly logger: ILogger,
+    private readonly grpcMetrics: IGrpcMetrics,
+    private readonly grpcTracing: IGrpcTracing
   ) {
     // Создаем Connect interceptors
     const interceptors = [
       // Порядок важен: сначала трейсинг, потом метрики, потом retry, потом логирование
-      createTracingInterceptor(this.tracing),
-      createMetricsInterceptor(this.metrics),
+      createTracingInterceptor(this.grpcTracing),
+      createMetricsInterceptor(this.grpcMetrics),
       createRetryInterceptor(this.logger, {
-        maxAttempts: this.config.retryCount,
+        maxAttempts: this.externalServicesConfig.retryCount,
         initialDelayMs: 100,
         maxDelayMs: 5000,
         backoffMultiplier: 2,
@@ -60,7 +54,7 @@ export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
 
     // Создаем Connect transport один раз при инициализации с interceptors
     this.transport = createConnectTransport({
-      baseUrl: `http://${this.config.linkServiceGrpcUrl}`,
+      baseUrl: `http://${this.externalServicesConfig.linkServiceGrpcUrl}`,
       httpVersion: "2",
       interceptors,
     });
@@ -90,8 +84,8 @@ export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
       },
     } as any; // Временный any для обхода проблем с типизацией Connect 2.x
 
-    const signal = AbortSignal.timeout(this.config.requestTimeout);
-    const timeoutMs = this.config.requestTimeout;
+    const signal = AbortSignal.timeout(this.externalServicesConfig.requestTimeout);
+    const timeoutMs = this.externalServicesConfig.requestTimeout;
 
     // Преобразуем GetRequest в бинарный формат для Connect
     const requestBinary = toBinary(GetRequestSchema, request);
@@ -119,7 +113,7 @@ export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
       // Преобразуем protobuf Link в доменную сущность через ACL
       // Используем Link из domain/link/v1/link_pb (который уже использует @bufbuild/protobuf)
       const protoLink = getResponse.link;
-      const domainLink = this.acl.toDomainEntityFromProto(protoLink);
+      const domainLink = this.linkServiceACL.toDomainEntityFromProto(protoLink);
 
       return domainLink;
     } catch (error: any) {

@@ -1,60 +1,48 @@
 import { defineConfig } from "vitest/config";
 import path from "path";
-import fs from "fs";
-
-// Функция для создания alias, который разрешает .js → .ts
-function createJsToTsAlias() {
-  const srcDir = path.resolve(__dirname, "./src");
-  const aliases: Record<string, string> = {};
-  
-  // Рекурсивно находим все .ts файлы в src/
-  function findTsFiles(dir: string, basePath: string = "") {
-    const entries = fs.readdirSync(dir, { withFileTypes: true });
-    
-    for (const entry of entries) {
-      const fullPath = path.join(dir, entry.name);
-      const relativePath = path.join(basePath, entry.name);
-      
-      if (entry.isDirectory()) {
-        findTsFiles(fullPath, relativePath);
-      } else if (entry.isFile() && entry.name.endsWith(".ts")) {
-        // Создаем alias для .js версии файла
-        const jsPath = relativePath.replace(/\.ts$/, ".js");
-        aliases[`${jsPath}`] = fullPath;
-      }
-    }
-  }
-  
-  findTsFiles(srcDir);
-  return aliases;
-}
 
 export default defineConfig({
+  resolve: {
+    // Modern TS + ESM resolution rules (best for Fastify + Testcontainers)
+    conditions: ["import", "module", "default"],
+    extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
+
+    // Clean CA/DDD structure aliases
+    alias: {
+      "@/domain": path.resolve(__dirname, "./src/proxy/domain"),
+      "@/application": path.resolve(__dirname, "./src/proxy/application"),
+      "@/infrastructure": path.resolve(__dirname, "./src/proxy/infrastructure"),
+    },
+  },
+
   test: {
     globals: true,
     environment: "node",
+
+    // 🟢 REQUIRED for Testcontainers stability
+    // "forks" = Node.js child_process pool (NOT worker threads)
+    // This avoids issues with Docker socket sharing.
+    pool: "forks",
+
+    // 🚫 Disable per-test-file isolation
+    // Required when integration tests share container-based state
+    isolate: false,
+
+    // 🟢 Long timeouts for container startup (safe defaults)
+    testTimeout: 60_000,
+    hookTimeout: 60_000,
+
+    // Load the protobuf loader + global test setup
     setupFiles: ["./src/__tests__/proto-init.ts", "./src/__tests__/setup.ts"],
-    include: ["src/**/*.{test,spec}.ts"],
-    testTimeout: 30000, // Увеличиваем таймаут для e2e тестов с Testcontainers
-    hookTimeout: 120000, // Увеличиваем таймаут для beforeAll/afterAll хуков
-    resolve: {
-      // Разрешаем импорты с .js расширением к .ts файлам (ESM стандарт TypeScript)
-      // Порядок важен: сначала проверяем .ts файлы
-      extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
-      alias: {
-        // Настройка для path aliases из tsconfig.json
-        "@/domain": path.resolve(__dirname, "./src/proxy/domain"),
-        "@/application": path.resolve(__dirname, "./src/proxy/application"),
-        "@/infrastructure": path.resolve(__dirname, "./src/proxy/infrastructure"),
-        // Добавляем динамические aliases для .js → .ts
-        ...createJsToTsAlias(),
-      },
-    },
+
+    // Unit + Integration tests
+    include: ["src/**/*.{test,spec}.ts", "tests/**/*.spec.ts"],
+
+    // Vitest/Vite Edge case for BufBuild protobuf
     server: {
-      deps: {
-        inline: ["@bufbuild/protobuf"],
-      },
+      deps: { inline: ["@bufbuild/protobuf"] },
     },
+
     coverage: {
       provider: "v8",
       reporter: ["text", "json", "html"],
@@ -68,4 +56,3 @@ export default defineConfig({
     },
   },
 });
-

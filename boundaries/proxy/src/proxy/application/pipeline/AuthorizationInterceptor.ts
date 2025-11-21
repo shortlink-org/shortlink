@@ -1,8 +1,6 @@
-import { injectable, inject } from "inversify";
 import { IUseCaseInterceptor, UseCaseExecutionContext } from "./IUseCaseInterceptor.js";
 import { ILogger } from "../../../infrastructure/logging/ILogger.js";
 import { ApplicationError } from "../exceptions/ApplicationError.js";
-import TYPES from "../../../types.js";
 
 /**
  * Ошибка авторизации
@@ -38,13 +36,11 @@ export interface IAuthorizationChecker {
  * Интерцептор для авторизации Use Cases
  * Проверяет права доступа перед выполнением Use Case
  */
-@injectable()
 export class AuthorizationInterceptor<TRequest = any, TResponse = any>
   implements IUseCaseInterceptor<TRequest, TResponse>
 {
   constructor(
-    @inject(TYPES.INFRASTRUCTURE.Logger) private readonly logger: ILogger,
-    @inject(TYPES.INFRASTRUCTURE.AuthorizationChecker)
+    private readonly logger: ILogger,
     private readonly authorizationChecker: IAuthorizationChecker
   ) {}
 
@@ -88,7 +84,6 @@ export class AuthorizationInterceptor<TRequest = any, TResponse = any>
  * Простая реализация IAuthorizationChecker для демонстрации
  * В реальном приложении должна проверять права пользователя
  */
-@injectable()
 export class DefaultAuthorizationChecker implements IAuthorizationChecker {
   /**
    * Use Cases, которые не требуют авторизации (публичные)

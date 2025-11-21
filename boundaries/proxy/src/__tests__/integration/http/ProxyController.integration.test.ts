@@ -1,23 +1,19 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import request from "supertest";
-import { Container } from "inversify";
-import * as express from "express";
+import type { FastifyInstance } from "fastify";
 import { createTestServer } from "../helpers/testServer.js";
 import { LinkApplicationService } from "../../../proxy/application/services/LinkApplicationService.js";
 import { Hash } from "../../../proxy/domain/entities/Hash.js";
 import { Link } from "../../../proxy/domain/entities/Link.js";
 import { LinkNotFoundError } from "../../../proxy/domain/exceptions/index.js";
 import { Result, ok, err } from "neverthrow";
-import TYPES from "../../../types.js";
-import { ILogger } from "../../../infrastructure/logging/ILogger.js";
+import type { ILogger } from "../../../infrastructure/logging/ILogger.js";
 
 /**
- * Integration тесты для HTTP endpoints
- * Тестируют реальный Express сервер с полным middleware stack
+ * Integration tests for HTTP endpoints
+ * Tests real Fastify server with full middleware stack
  */
 describe("ProxyController Integration Tests", () => {
-  let app: express.Application;
-  let container: Container;
+  let app: FastifyInstance;
   let mockLinkApplicationService: {
     handleRedirect: ReturnType<typeof vi.fn>;
   };
@@ -30,15 +26,12 @@ describe("ProxyController Integration Tests", () => {
   };
 
   beforeEach(async () => {
-    // Создаем новый контейнер для каждого теста
-    container = new Container();
-
-    // Мокаем LinkApplicationService
+    // Mock LinkApplicationService
     mockLinkApplicationService = {
       handleRedirect: vi.fn(),
     } as any;
 
-    // Мокаем Logger
+    // Mock Logger
     mockLogger = {
       info: vi.fn(),
       warn: vi.fn(),
@@ -47,19 +40,16 @@ describe("ProxyController Integration Tests", () => {
       http: vi.fn(),
     } as any;
 
-    // Биндим моки в контейнер
-    container
-      .bind<LinkApplicationService>(TYPES.APPLICATION.LinkApplicationService)
-      .toConstantValue(mockLinkApplicationService as any);
-
-    container.bind<ILogger>(TYPES.INFRASTRUCTURE.Logger).toConstantValue(mockLogger as any);
-
-    // Создаем Express приложение с тестовым контейнером
-    app = await createTestServer(container);
+    // Create Fastify server with mocked dependencies
+    app = await createTestServer({
+      linkApplicationService: mockLinkApplicationService as any,
+      logger: mockLogger as any,
+    } as any);
   });
 
-  afterEach(() => {
+  afterEach(async () => {
     vi.clearAllMocks();
+    await app.close();
   });
 
   describe("GET /s/:hash", () => {
@@ -72,10 +62,13 @@ describe("ProxyController Integration Tests", () => {
       );
 
       // Act
-      const response = await request(app).get("/s/testhash123");
+      const response = await app.inject({
+        method: "GET",
+        url: "/s/testhash123",
+      });
 
       // Assert
-      expect(response.status).toBe(301);
+      expect(response.statusCode).toBe(301);
       expect(response.headers.location).toBe("https://example.com");
       expect(mockLinkApplicationService.handleRedirect).toHaveBeenCalledWith({
         hash: expect.objectContaining({ value: "testhash123" }),
@@ -90,12 +83,15 @@ describe("ProxyController Integration Tests", () => {
       );
 
       // Act
-      const response = await request(app).get("/s/nonexistent");
+      const response = await app.inject({
+        method: "GET",
+        url: "/s/nonexistent",
+      });
 
       // Assert
-      expect(response.status).toBe(404);
-      expect(response.body.error).toHaveProperty("code", "LINK_NOT_FOUND");
-      expect(response.body.error).toHaveProperty("message");
+      expect(response.statusCode).toBe(404);
+      expect(response.json()).toHaveProperty("error.code", "LINK_NOT_FOUND");
+      expect(response.json()).toHaveProperty("error.message");
       expect(mockLinkApplicationService.handleRedirect).toHaveBeenCalledWith({
         hash: expect.objectContaining({ value: "nonexistent" }),
       });
@@ -103,21 +99,27 @@ describe("ProxyController Integration Tests", () => {
 
     it("should return 400 when hash is invalid", async () => {
       // Act
-      const response = await request(app).get("/s/invalid-hash!");
+      const response = await app.inject({
+        method: "GET",
+        url: "/s/invalid-hash!",
+      });
 
       // Assert
-      expect(response.status).toBe(400);
-      expect(response.body.error).toHaveProperty("code");
-      expect(response.body.error).toHaveProperty("message");
+      expect(response.statusCode).toBe(400);
+      expect(response.json()).toHaveProperty("error.code");
+      expect(response.json()).toHaveProperty("error.message");
       expect(mockLinkApplicationService.handleRedirect).not.toHaveBeenCalled();
     });
 
-    it("should return 400 when hash is empty", async () => {
+    it("should return 404 when hash is empty", async () => {
       // Act
-      const response = await request(app).get("/s/");
+      const response = await app.inject({
+        method: "GET",
+        url: "/s/",
+      });
 
       // Assert
-      expect(response.status).toBe(404); // Express route не найден
+      expect(response.statusCode).toBe(404); // Fastify route not found
     });
 
     it("should handle application service errors", async () => {
@@ -128,13 +130,15 @@ describe("ProxyController Integration Tests", () => {
       );
 
       // Act
-      const response = await request(app).get("/s/testhash");
+      const response = await app.inject({
+        method: "GET",
+        url: "/s/testhash",
+      });
 
       // Assert
-      expect(response.status).toBe(500);
-      expect(response.body.error).toHaveProperty("code");
-      expect(response.body.error).toHaveProperty("message");
+      expect(response.statusCode).toBe(500);
+      expect(response.json()).toHaveProperty("error.code");
+      expect(response.json()).toHaveProperty("error.message");
     });
   });
 });
-

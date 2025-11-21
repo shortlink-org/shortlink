@@ -1,6 +1,5 @@
 import { metrics, trace, context } from "@opentelemetry/api";
 import type { Counter, Histogram, Meter } from "@opentelemetry/api";
-import { inject, injectable } from "inversify";
 import { Result, ok, err } from "neverthrow";
 import { Hash } from "../../domain/entities/Hash.js";
 import { Link } from "../../domain/entities/Link.js";
@@ -21,7 +20,6 @@ import {
   LoggingInterceptor,
   MetricsInterceptor,
 } from "../pipeline/index.js";
-import TYPES from "../../../types.js";
 
 /**
  * Request DTO для handleRedirect
@@ -42,7 +40,6 @@ export interface HandleRedirectResponse {
  * Application Service для оркестрации Use Cases работы со ссылками
  * Координирует выполнение нескольких Use Cases для сложных бизнес-операций
  */
-@injectable()
 export class LinkApplicationService {
   private readonly pipeline: UseCasePipeline;
   private readonly interceptors: Array<
@@ -53,17 +50,11 @@ export class LinkApplicationService {
   private readonly redirectLatency: Histogram;
 
   constructor(
-    @inject(TYPES.APPLICATION.GetLinkByHashUseCase)
     private readonly getLinkByHashUseCase: GetLinkByHashUseCase,
-    @inject(TYPES.APPLICATION.PublishEventUseCase)
     private readonly publishEventUseCase: PublishEventUseCase,
-    @inject(TYPES.INFRASTRUCTURE.Logger)
     private readonly logger: ILogger,
-    @inject(TYPES.APPLICATION.UseCasePipeline)
     private readonly useCasePipeline: UseCasePipeline,
-    @inject(TYPES.APPLICATION.LoggingInterceptor)
     private readonly loggingInterceptor: LoggingInterceptor,
-    @inject(TYPES.APPLICATION.MetricsInterceptor)
     private readonly metricsInterceptor: MetricsInterceptor
   ) {
     this.pipeline = useCasePipeline;
@@ -87,7 +78,7 @@ export class LinkApplicationService {
    * Простой фасад для GetLinkByHashUseCase
    */
   getByHash(hash: string): Promise<GetLinkResponse> {
-    return this.getLinkByHashUseCase.execute(new GetLinkRequest(hash));
+    return this.getLinkByHashUseCase.execute({ hash });
   }
 
   /**

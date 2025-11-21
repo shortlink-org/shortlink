@@ -1,4 +1,3 @@
-import { injectable } from "inversify";
 import { trace, Span, SpanStatusCode, context } from "@opentelemetry/api";
 import { IGrpcTracing } from "./IGrpcTracing.js";
 
@@ -6,7 +5,6 @@ import { IGrpcTracing } from "./IGrpcTracing.js";
  * Реализация трейсинга gRPC вызовов через OpenTelemetry Tracing API
  * Создает spans для каждого gRPC вызова для распределенного трейсинга
  */
-@injectable()
 export class OpenTelemetryGrpcTracing implements IGrpcTracing {
   private readonly tracer = trace.getTracer("proxy-service", "1.0.0");
 

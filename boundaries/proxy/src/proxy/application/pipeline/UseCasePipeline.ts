@@ -1,4 +1,3 @@
-import { injectable } from "inversify";
 import { IUseCase } from "../use-cases/IUseCase.js";
 import { Result } from "neverthrow";
 import {
@@ -10,7 +9,6 @@ import {
  * Pipeline для выполнения Use Case с интерцепторами
  * Реализует паттерн Chain of Responsibility для cross-cutting concerns
  */
-@injectable()
 export class UseCasePipeline {
   /**
    * Выполняет Use Case с цепочкой интерцепторов

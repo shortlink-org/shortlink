@@ -1,13 +1,10 @@
-import { injectable, inject } from "inversify";
 import { IUseCaseInterceptor, UseCaseExecutionContext } from "./IUseCaseInterceptor.js";
 import { metrics, Meter, Counter, Histogram } from "@opentelemetry/api";
-import TYPES from "../../../types.js";
 
 /**
  * Интерцептор для сбора метрик выполнения Use Cases
  * Собирает метрики: количество запросов, время выполнения, ошибки
  */
-@injectable()
 export class MetricsInterceptor<TRequest = any, TResponse = any>
   implements IUseCaseInterceptor<TRequest, TResponse>
 {

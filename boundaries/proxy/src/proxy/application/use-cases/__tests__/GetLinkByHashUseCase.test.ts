@@ -41,7 +41,7 @@ describe("GetLinkByHashUseCase", () => {
         new Date("2024-01-01"),
         new Date("2024-01-02")
       );
-      const request = new GetLinkRequest("abc123");
+      const request: GetLinkRequest = { hash: "abc123" };
 
       mockLinkRepository.findByHash.mockResolvedValue(link);
 
@@ -49,7 +49,7 @@ describe("GetLinkByHashUseCase", () => {
       const result = await useCase.execute(request);
 
       // Assert
-      expect(result).toBeInstanceOf(GetLinkResponse);
+      expect(result).toHaveProperty("link");
       expect(result.link).toEqual(link);
       expect(result.link.hash.value).toBe("abc123");
       expect(result.link.url).toBe("https://example.com");
@@ -59,7 +59,7 @@ describe("GetLinkByHashUseCase", () => {
 
     it("should throw LinkNotFoundError when link not found", async () => {
       // Arrange
-      const request = new GetLinkRequest("nonexistent");
+      const request: GetLinkRequest = { hash: "nonexistent" };
 
       mockLinkRepository.findByHash.mockResolvedValue(null);
 
@@ -70,7 +70,7 @@ describe("GetLinkByHashUseCase", () => {
 
     it("should handle repository errors", async () => {
       // Arrange
-      const request = new GetLinkRequest("error");
+      const request: GetLinkRequest = { hash: "error" };
       const repositoryError = new Error("Database connection failed");
 
       mockLinkRepository.findByHash.mockRejectedValue(repositoryError);

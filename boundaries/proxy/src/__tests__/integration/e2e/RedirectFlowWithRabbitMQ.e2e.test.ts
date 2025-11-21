@@ -8,26 +8,21 @@ import {
   afterEach,
   vi,
 } from "vitest";
-import request from "supertest";
-import { Container } from "inversify";
-import * as express from "express";
+import type { FastifyInstance } from "fastify";
 import { createTestServer } from "../helpers/testServer.js";
 import { RabbitMQTestContainer } from "../helpers/rabbitmqContainer.js";
 import { RabbitMQTestConsumer } from "../helpers/rabbitmqConsumer.js";
 import { LinkApplicationService } from "../../../proxy/application/services/LinkApplicationService.js";
 import { GetLinkByHashUseCase } from "../../../proxy/application/use-cases/GetLinkByHashUseCase.js";
 import { PublishEventUseCase } from "../../../proxy/application/use-cases/PublishEventUseCase.js";
-import { ILinkRepository } from "../../../proxy/domain/repositories/ILinkRepository.js";
-import { ILinkServiceAdapter } from "../../../proxy/infrastructure/adapters/ILinkServiceAdapter.js";
 import { LinkServiceRepository } from "../../../proxy/infrastructure/repositories/LinkServiceRepository.js";
 import { Hash } from "../../../proxy/domain/entities/Hash.js";
 import { Link } from "../../../proxy/domain/entities/Link.js";
-import TYPES from "../../../types.js";
-import { ILogger } from "../../../infrastructure/logging/ILogger.js";
+import type { ILogger } from "../../../infrastructure/logging/ILogger.js";
 import { IMessageBus } from "../../../proxy/domain/interfaces/IMessageBus.js";
 import { RabbitMQMessageBus } from "../../../proxy/infrastructure/messaging/RabbitMQMessageBus.js";
 import { AMQPEventPublisher } from "../../../proxy/infrastructure/messaging/AMQPEventPublisher.js";
-import { IEventPublisher } from "../../../proxy/application/use-cases/PublishEventUseCase.js";
+import type { IEventPublisher } from "../../../proxy/application/use-cases/PublishEventUseCase.js";
 import {
   UseCasePipeline,
   LoggingInterceptor,
@@ -36,7 +31,8 @@ import {
 import { WinstonLogger } from "../../../infrastructure/logging/WinstonLogger.js";
 import { LinkSchema } from "../../../proto/infrastructure/rpc/link/v1/link_pb.js";
 import { fromBinary } from "@bufbuild/protobuf";
-import { ILinkCache } from "../../../proxy/infrastructure/cache/RedisLinkCache.js";
+import type { ILinkCache } from "../../../proxy/infrastructure/cache/RedisLinkCache.js";
+import type { ILinkServiceAdapter } from "../../../proxy/infrastructure/adapters/ILinkServiceAdapter.js";
 
 /**
  * End-to-end интеграционные тесты с реальным RabbitMQ через Testcontainers
@@ -47,14 +43,21 @@ import { ILinkCache } from "../../../proxy/infrastructure/cache/RedisLinkCache.j
  * - Тесты используют Testcontainers для изоляции
  */
 describe("Redirect Flow E2E with RabbitMQ (Testcontainers)", () => {
-  let app: express.Application;
-  let container: Container;
+  let app: FastifyInstance;
   let rabbitMQContainer: RabbitMQTestContainer;
   let rabbitMQConsumer: RabbitMQTestConsumer;
-  let getLinkByHashMock: ReturnType<typeof vi.fn<(hash: Hash) => Promise<Link | null>>>;
-  let cacheGetMock: ReturnType<typeof vi.fn<(hash: Hash) => Promise<Link | null | undefined>>>;
-  let cacheSetPositiveMock: ReturnType<typeof vi.fn<(hash: Hash, link: Link) => Promise<void>>>;
-  let cacheSetNegativeMock: ReturnType<typeof vi.fn<(hash: Hash) => Promise<void>>>;
+  let getLinkByHashMock: ReturnType<
+    typeof vi.fn<(hash: Hash) => Promise<Link | null>>
+  >;
+  let cacheGetMock: ReturnType<
+    typeof vi.fn<(hash: Hash) => Promise<Link | null | undefined>>
+  >;
+  let cacheSetPositiveMock: ReturnType<
+    typeof vi.fn<(hash: Hash, link: Link) => Promise<void>>
+  >;
+  let cacheSetNegativeMock: ReturnType<
+    typeof vi.fn<(hash: Hash) => Promise<void>>
+  >;
   let cacheClearMock: ReturnType<typeof vi.fn<(hash: Hash) => Promise<void>>>;
   let mockLinkServiceAdapter: ILinkServiceAdapter;
   let mockLinkCache: ILinkCache;
@@ -82,31 +85,33 @@ describe("Redirect Flow E2E with RabbitMQ (Testcontainers)", () => {
   }, 30000);
 
   beforeEach(async () => {
-    // Создаем новый контейнер для каждого теста
-    container = new Container();
-
     // Мокаем LinkServiceAdapter
     getLinkByHashMock = vi.fn<(hash: Hash) => Promise<Link | null>>();
     mockLinkServiceAdapter = {
       getLinkByHash: getLinkByHashMock,
-    };
+    } as any;
 
-    cacheGetMock = vi.fn<(hash: Hash) => Promise<Link | null | undefined>>().mockResolvedValue(undefined);
-    cacheSetPositiveMock = vi.fn<(hash: Hash, link: Link) => Promise<void>>().mockResolvedValue(undefined);
-    cacheSetNegativeMock = vi.fn<(hash: Hash) => Promise<void>>().mockResolvedValue(undefined);
-    cacheClearMock = vi.fn<(hash: Hash) => Promise<void>>().mockResolvedValue(undefined);
+    cacheGetMock = vi
+      .fn<(hash: Hash) => Promise<Link | null | undefined>>()
+      .mockResolvedValue(undefined);
+    cacheSetPositiveMock = vi
+      .fn<(hash: Hash, link: Link) => Promise<void>>()
+      .mockResolvedValue(undefined);
+    cacheSetNegativeMock = vi
+      .fn<(hash: Hash) => Promise<void>>()
+      .mockResolvedValue(undefined);
+    cacheClearMock = vi
+      .fn<(hash: Hash) => Promise<void>>()
+      .mockResolvedValue(undefined);
     mockLinkCache = {
       get: cacheGetMock,
       setPositive: cacheSetPositiveMock,
       setNegative: cacheSetNegativeMock,
       clear: cacheClearMock,
-    };
+    } as any;
 
     // Создаем реальный Logger
     const logger = new WinstonLogger();
-    container
-      .bind<ILogger>(TYPES.INFRASTRUCTURE.Logger)
-      .toConstantValue(logger);
 
     // Создаем реальный RabbitMQMessageBus с URL из Testcontainers
     // Устанавливаем переменные окружения для конфигурации
@@ -116,66 +121,20 @@ describe("Redirect Flow E2E with RabbitMQ (Testcontainers)", () => {
     messageBus = new RabbitMQMessageBus(logger);
     await messageBus.connect();
 
-    container
-      .bind<IMessageBus>(TYPES.INFRASTRUCTURE.MessageBus)
-      .toConstantValue(messageBus);
-
     // Создаем реальный AMQPEventPublisher
     const eventPublisher = new AMQPEventPublisher(messageBus, logger);
     // Инициализируем exchange заранее (не лениво)
     await eventPublisher.initializeExchanges();
-    container
-      .bind<IEventPublisher>(TYPES.INFRASTRUCTURE.EventPublisher)
-      .toConstantValue(eventPublisher);
 
-    // Биндим реальный LinkServiceRepository
-    container
-      .bind<ILinkRepository>(TYPES.REPOSITORY.LinkRepository)
-      .to(LinkServiceRepository)
-      .inSingletonScope();
-
-    container
-      .bind<ILinkServiceAdapter>(TYPES.INFRASTRUCTURE.LinkServiceAdapter)
-      .toConstantValue(mockLinkServiceAdapter);
-
-    container
-      .bind<ILinkCache>(TYPES.INFRASTRUCTURE.LinkCache)
-      .toConstantValue(mockLinkCache);
-
-    // Биндим реальные Use Cases и Application Service
-    container
-      .bind<GetLinkByHashUseCase>(TYPES.APPLICATION.GetLinkByHashUseCase)
-      .to(GetLinkByHashUseCase)
-      .inSingletonScope();
-
-    container
-      .bind<PublishEventUseCase>(TYPES.APPLICATION.PublishEventUseCase)
-      .to(PublishEventUseCase)
-      .inSingletonScope();
-
-    container
-      .bind<LinkApplicationService>(TYPES.APPLICATION.LinkApplicationService)
-      .to(LinkApplicationService)
-      .inSingletonScope();
-
-    // Биндим Pipeline и Interceptors
-    container
-      .bind<UseCasePipeline>(TYPES.APPLICATION.UseCasePipeline)
-      .to(UseCasePipeline)
-      .inSingletonScope();
-
-    container
-      .bind<LoggingInterceptor>(TYPES.APPLICATION.LoggingInterceptor)
-      .to(LoggingInterceptor)
-      .inSingletonScope();
-
-    container
-      .bind<MetricsInterceptor>(TYPES.APPLICATION.MetricsInterceptor)
-      .to(MetricsInterceptor)
-      .inSingletonScope();
-
-    // Создаем Express приложение с тестовым контейнером
-    app = await createTestServer(container);
+    // Создаем Fastify сервер с реальными зависимостями, но мокированными адаптерами
+    app = await createTestServer({
+      linkServiceAdapter: mockLinkServiceAdapter,
+      linkCache: mockLinkCache,
+      eventPublisher,
+      messageBus,
+      logger,
+      // Остальные зависимости будут взяты из контейнера
+    } as any);
 
     // Создаем consumer для подписки на события
     rabbitMQConsumer = new RabbitMQTestConsumer();
@@ -187,6 +146,9 @@ describe("Redirect Flow E2E with RabbitMQ (Testcontainers)", () => {
   }, 30000); // Увеличиваем таймаут для подключения к RabbitMQ
 
   afterEach(async () => {
+    // Закрываем Fastify сервер
+    await app.close();
+
     // Очищаем consumer
     await rabbitMQConsumer.disconnect();
 
@@ -212,10 +174,13 @@ describe("Redirect Flow E2E with RabbitMQ (Testcontainers)", () => {
       rabbitMQConsumer.clearMessages();
 
       // Act
-      const response = await request(app).get("/s/testhash123");
+      const response = await app.inject({
+        method: "GET",
+        url: "/s/testhash123",
+      });
 
       // Assert - проверяем редирект
-      expect(response.status).toBe(301);
+      expect(response.statusCode).toBe(301);
       expect(response.headers.location).toBe("https://example.com");
 
       // Ждем получения сообщения из RabbitMQ (увеличиваем таймаут для надежности)
@@ -240,10 +205,13 @@ describe("Redirect Flow E2E with RabbitMQ (Testcontainers)", () => {
       rabbitMQConsumer.clearMessages();
 
       // Act
-      const response = await request(app).get("/s/nonexistent");
+      const response = await app.inject({
+        method: "GET",
+        url: "/s/nonexistent",
+      });
 
       // Assert
-      expect(response.status).toBe(404);
+      expect(response.statusCode).toBe(404);
 
       // Ждем немного, чтобы убедиться, что сообщение не было отправлено
       await new Promise((resolve) => setTimeout(resolve, 1000));
@@ -264,12 +232,18 @@ describe("Redirect Flow E2E with RabbitMQ (Testcontainers)", () => {
       rabbitMQConsumer.clearMessages();
 
       // Act
-      const response1 = await request(app).get("/s/hash1");
-      const response2 = await request(app).get("/s/hash2");
+      const response1 = await app.inject({
+        method: "GET",
+        url: "/s/hash1",
+      });
+      const response2 = await app.inject({
+        method: "GET",
+        url: "/s/hash2",
+      });
 
       // Assert
-      expect(response1.status).toBe(301);
-      expect(response2.status).toBe(301);
+      expect(response1.statusCode).toBe(301);
+      expect(response2.statusCode).toBe(301);
 
       // Ждем получения обоих сообщений (увеличиваем таймаут для надежности)
       const messages = await rabbitMQConsumer.waitForMessages(2, 10000);
@@ -297,10 +271,13 @@ describe("Redirect Flow E2E with RabbitMQ (Testcontainers)", () => {
       rabbitMQConsumer.clearMessages();
 
       // Act
-      const response = await request(app).get("/s/testhash");
+      const response = await app.inject({
+        method: "GET",
+        url: "/s/testhash",
+      });
 
       // Assert - редирект должен выполниться, даже если RabbitMQ недоступен
-      expect(response.status).toBe(301);
+      expect(response.statusCode).toBe(301);
       expect(response.headers.location).toBe("https://example.com");
 
       // Сообщение не должно быть отправлено (RabbitMQ недоступен)

@@ -1,4 +1,3 @@
-import { injectable, inject } from "inversify";
 import Redis from "ioredis";
 import { metrics, trace, context } from "@opentelemetry/api";
 import type { Meter, Counter, Histogram } from "@opentelemetry/api";
@@ -6,7 +5,6 @@ import { Link } from "../../domain/entities/Link.js";
 import { Hash } from "../../domain/entities/Hash.js";
 import { ILogger } from "../../../infrastructure/logging/ILogger.js";
 import { CacheConfig } from "../../../infrastructure/config/CacheConfig.js";
-import TYPES from "../../../types.js";
 
 /**
  * Интерфейс для кэша ссылок
@@ -44,7 +42,6 @@ export interface ILinkCache {
  * Использует ioredis для работы с Redis
  * Gracefully деградирует при недоступности Redis - не ломает работу приложения
  */
-@injectable()
 export class RedisLinkCache implements ILinkCache {
   private readonly redis: Redis | null = null;
   private readonly enabled: boolean;
@@ -61,13 +58,13 @@ export class RedisLinkCache implements ILinkCache {
   private readonly cacheMissCounter: Counter;
 
   constructor(
-    @inject(TYPES.INFRASTRUCTURE.Logger) private readonly logger: ILogger,
-    @inject(Symbol.for("CacheConfig")) private readonly config: CacheConfig
+    private readonly logger: ILogger,
+    private readonly cacheConfig: CacheConfig
   ) {
-    this.enabled = config.enabled;
-    this.keyPrefix = config.keyPrefix;
-    this.ttlPositive = config.ttlPositive;
-    this.ttlNegative = config.ttlNegative;
+    this.enabled = cacheConfig.enabled;
+    this.keyPrefix = cacheConfig.keyPrefix;
+    this.ttlPositive = cacheConfig.ttlPositive;
+    this.ttlNegative = cacheConfig.ttlNegative;
 
     // Initialize OpenTelemetry metrics
     this.meter = metrics.getMeter("proxy-service", "1.0.0");
@@ -100,7 +97,7 @@ export class RedisLinkCache implements ILinkCache {
 
     if (this.enabled) {
       try {
-        this.redis = new Redis(config.redisUrl, {
+        this.redis = new Redis(cacheConfig.redisUrl, {
           retryStrategy: (times) => {
             // Экспоненциальная задержка с максимумом 3 секунды
             const delay = Math.min(times * 50, 3000);
@@ -115,12 +112,12 @@ export class RedisLinkCache implements ILinkCache {
         // Обработка ошибок подключения
         this.redis.on("error", (error) => {
           this.logger.error("Redis connection error", error, {
-            redisUrl: config.redisUrl,
+            redisUrl: cacheConfig.redisUrl,
           });
         });
 
         this.redis.on("connect", () => {
-          this.logger.debug("Redis connected", { redisUrl: config.redisUrl });
+          this.logger.debug("Redis connected", { redisUrl: cacheConfig.redisUrl });
         });
 
         this.redis.on("close", () => {
@@ -130,12 +127,12 @@ export class RedisLinkCache implements ILinkCache {
         // Подключаемся асинхронно, не блокируя конструктор
         this.redis.connect().catch((error) => {
           this.logger.error("Failed to connect to Redis", error, {
-            redisUrl: config.redisUrl,
+            redisUrl: cacheConfig.redisUrl,
           });
         });
       } catch (error) {
         this.logger.error("Failed to initialize Redis", error, {
-          redisUrl: config.redisUrl,
+          redisUrl: cacheConfig.redisUrl,
         });
       }
     } else {

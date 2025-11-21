@@ -1,4 +1,3 @@
-import { injectable } from "inversify";
 import { DomainEvent, LinkRedirectedEvent } from "../../domain/events/index.js";
 import { IEventHandler } from "./IEventHandler.js";
 
@@ -10,7 +9,6 @@ import { IEventHandler } from "./IEventHandler.js";
  * Статистика собирается через eBPF, поэтому обработчик может быть пустым
  * или использоваться для других реакций на событие редиректа
  */
-@injectable()
 export class LinkRedirectedEventHandler
   implements IEventHandler<LinkRedirectedEvent>
 {

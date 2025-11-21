@@ -1,13 +1,11 @@
 import { metrics } from "@opentelemetry/api";
 import type { Counter, Meter } from "@opentelemetry/api";
-import { injectable, inject } from "inversify";
 import { Link } from "../../domain/entities/Link.js";
 import { Hash } from "../../domain/entities/Hash.js";
 import { ILinkRepository } from "../../domain/repositories/ILinkRepository.js";
 import { ILinkServiceAdapter } from "../adapters/ILinkServiceAdapter.js";
 import { ILinkCache } from "../cache/RedisLinkCache.js";
 import { ILogger } from "../../../infrastructure/logging/ILogger.js";
-import TYPES from "../../../types.js";
 
 /**
  * Реализация ILinkRepository через внешний Link Service
@@ -15,17 +13,14 @@ import TYPES from "../../../types.js";
  * Работает с domain entities, не с protobuf или HTTP моделями
  * Интегрирован с Redis кэшем для оптимизации производительности
  */
-@injectable()
 export class LinkServiceRepository implements ILinkRepository {
   private readonly meter: Meter;
   private readonly linkServiceErrorCounter: Counter;
 
   constructor(
-    @inject(TYPES.INFRASTRUCTURE.LinkServiceAdapter)
     private readonly linkServiceAdapter: ILinkServiceAdapter,
-    @inject(TYPES.INFRASTRUCTURE.LinkCache)
-    private readonly cache: ILinkCache,
-    @inject(TYPES.INFRASTRUCTURE.Logger) private readonly logger: ILogger
+    private readonly linkCache: ILinkCache,
+    private readonly logger: ILogger
   ) {
     this.meter = metrics.getMeter("proxy-service", "1.0.0");
     this.linkServiceErrorCounter = this.meter.createCounter(
@@ -39,7 +34,7 @@ export class LinkServiceRepository implements ILinkRepository {
 
   async findByHash(hash: Hash): Promise<Link | null> {
     // Проверяем кэш сначала
-    const cached = await this.cache.get(hash);
+    const cached = await this.linkCache.get(hash);
 
     // Если найден положительный результат в кэше
     if (cached !== undefined && cached !== null) {
@@ -67,9 +62,9 @@ export class LinkServiceRepository implements ILinkRepository {
 
       // Сохраняем результат в кэш
       if (link !== null) {
-        await this.cache.setPositive(hash, link);
+        await this.linkCache.setPositive(hash, link);
       } else {
-        await this.cache.setNegative(hash);
+        await this.linkCache.setNegative(hash);
       }
 
       return link;

@@ -1,4 +1,3 @@
-import { injectable, inject } from "inversify";
 import { DomainEvent } from "../../domain/events/index.js";
 import { IEventPublisher } from "../../application/use-cases/PublishEventUseCase.js";
 import { LinkMapper } from "../../domain/mappers/LinkMapper.js";
@@ -11,7 +10,6 @@ import { ILogger } from "../../../infrastructure/logging/ILogger.js";
 import { IMessageBus } from "../../domain/interfaces/IMessageBus.js";
 import { MQ_EVENT_LINK_NEW } from "../../domain/event.js";
 import { toBinary } from "@bufbuild/protobuf";
-import TYPES from "../../../types.js";
 import { context, propagation, trace } from "@opentelemetry/api";
 
 /**
@@ -19,12 +17,10 @@ import { context, propagation, trace } from "@opentelemetry/api";
  * Преобразует доменные события в protobuf для сериализации
  * Использует IMessageBus абстракцию вместо прямого использования AMQP
  */
-@injectable()
 export class AMQPEventPublisher implements IEventPublisher {
   constructor(
-    @inject(TYPES.INFRASTRUCTURE.MessageBus)
     private readonly messageBus: IMessageBus,
-    @inject(TYPES.INFRASTRUCTURE.Logger) private readonly logger: ILogger
+    private readonly logger: ILogger
   ) {}
 
   /**

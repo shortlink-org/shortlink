@@ -1,4 +1,3 @@
-import { injectable } from "inversify";
 import { metrics, Meter, Counter, Histogram } from "@opentelemetry/api";
 import { IGrpcMetrics } from "./IGrpcMetrics.js";
 
@@ -6,7 +5,6 @@ import { IGrpcMetrics } from "./IGrpcMetrics.js";
  * Реализация метрик gRPC вызовов через OpenTelemetry Metrics API
  * Использует OpenTelemetry для сбора метрик, которые можно экспортировать в Prometheus/Grafana
  */
-@injectable()
 export class OpenTelemetryGrpcMetrics implements IGrpcMetrics {
   private readonly meter: Meter;
   private readonly requestCounter: Counter;

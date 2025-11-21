@@ -1,4 +1,3 @@
-import { injectable, inject } from "inversify";
 import { connect, type ChannelModel, type ConfirmChannel } from "amqplib";
 import {
   IMessageBus,
@@ -6,14 +5,12 @@ import {
 } from "../../domain/interfaces/IMessageBus.js";
 import { ILogger } from "../../../infrastructure/logging/ILogger.js";
 import { ConfigReader } from "../../../infrastructure/config/ConfigReader.js";
-import TYPES from "../../../types.js";
 
 /**
  * Реализация IMessageBus для RabbitMQ через AMQP
  * Инкапсулирует логику подключения и публикации сообщений
  * Каждый модуль сам читает свою конфигурацию (децентрализованный подход)
  */
-@injectable()
 export class RabbitMQMessageBus implements IMessageBus {
   private connection: ChannelModel | undefined;
   private channel: ConfirmChannel | undefined;
@@ -25,7 +22,7 @@ export class RabbitMQMessageBus implements IMessageBus {
   private readonly rabbitUri: string;
 
   constructor(
-    @inject(TYPES.INFRASTRUCTURE.Logger) private readonly logger: ILogger
+    private readonly logger: ILogger
   ) {
     // Модуль сам читает свою конфигурацию
     this.enabled = ConfigReader.boolean("MQ_ENABLED", false);

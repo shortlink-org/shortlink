@@ -1,8 +1,6 @@
-import { inject, injectable } from "inversify";
 import { Result, ok } from "neverthrow";
 import { DomainEvent } from "../../domain/events/index.js";
 import { IUseCase } from "./IUseCase.js";
-import TYPES from "../../../types.js";
 
 /**
  * Request DTO для PublishEventUseCase
@@ -31,12 +29,10 @@ export interface IEventPublisher {
  * Use Case для публикации доменных событий
  * Публикует события в message bus (AMQP)
  */
-@injectable()
 export class PublishEventUseCase
   implements IUseCase<PublishEventRequest, Result<PublishEventResponse, never>>
 {
   constructor(
-    @inject(TYPES.INFRASTRUCTURE.EventPublisher)
     private readonly eventPublisher: IEventPublisher
   ) {}
 

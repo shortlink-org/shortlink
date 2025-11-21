@@ -1,8 +1,9 @@
 /**
  * Request DTO для получения ссылки по хешу
+ * Application Boundary Contract (ABC): Single input DTO для GetLinkByHashUseCase
  * Application DTO - чистый, без зависимостей от Express, Prisma, HTTP, gRPC
  */
-export class GetLinkRequest {
-  constructor(public readonly hash: string) {}
+export interface GetLinkRequest {
+  hash: string;
 }
 
