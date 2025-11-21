@@ -12,6 +12,7 @@ import (
 	"github.com/go-redis/cache/v9"
 	"github.com/spf13/viper"
 
+	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/logger"
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
@@ -28,7 +29,7 @@ import (
 )
 
 // New return implementation of db
-func New(ctx context.Context, log logger.Logger, store db.DB, c *cache.Cache) (*Store, error) { //nolint:gocognit // ignore
+func New(ctx context.Context, log logger.Logger, store db.DB, c *cache.Cache, cfg *config.Config) (*Store, error) { //nolint:gocognit // ignore
 	s := &Store{
 		log:   log,
 		cache: c,
@@ -41,47 +42,47 @@ func New(ctx context.Context, log logger.Logger, store db.DB, c *cache.Cache) (*
 
 	switch s.typeStore {
 	case "postgres":
-		s.store, err = postgres.New(ctx, store)
+		s.store, err = postgres.New(ctx, store, cfg)
 		if err != nil {
 			return nil, err
 		}
 	case "mysql":
-		s.store, err = mysql.New(ctx, store)
+		s.store, err = mysql.New(ctx, store, cfg)
 		if err != nil {
 			return nil, err
 		}
 	case "mongo":
-		s.store, err = mongo.New(ctx, store)
+		s.store, err = mongo.New(ctx, store, cfg)
 		if err != nil {
 			return nil, err
 		}
 	case "redis":
-		s.store, err = redis.New(ctx, store)
+		s.store, err = redis.New(ctx, store, cfg)
 		if err != nil {
 			return nil, err
 		}
 	case "dgraph":
-		s.store, err = dgraph.New(ctx, store, log)
+		s.store, err = dgraph.New(ctx, store, log, cfg)
 		if err != nil {
 			return nil, err
 		}
 	case "leveldb":
-		s.store, err = leveldb.New(ctx, store, log)
+		s.store, err = leveldb.New(ctx, store, log, cfg)
 		if err != nil {
 			return nil, err
 		}
 	case "badger":
-		s.store, err = badger.New(ctx)
+		s.store, err = badger.New(ctx, cfg)
 		if err != nil {
 			return nil, err
 		}
 	case "sqlite":
-		s.store, err = sqlite.New(ctx, store)
+		s.store, err = sqlite.New(ctx, store, cfg)
 		if err != nil {
 			return nil, err
 		}
 	case "ram":
-		s.store, err = ram.New(ctx)
+		s.store, err = ram.New(ctx, cfg)
 		if err != nil {
 			return nil, err
 		}

@@ -40,7 +40,10 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 		return err
 	}
 
-	client := http_client.New()
+	client, err := http_client.New()
+	if err != nil {
+		return err
+	}
 
 	resp, err := client.Do(req)
 	if err != nil {

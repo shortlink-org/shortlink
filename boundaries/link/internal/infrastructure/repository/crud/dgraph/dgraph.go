@@ -1,6 +1,7 @@
 package dgraph
 
 import (
+"github.com/shortlink-org/go-sdk/config"
 	"bytes"
 	"context"
 	"fmt"
@@ -41,7 +42,7 @@ type Store struct {
 }
 
 // New store
-func New(ctx context.Context, store db.DB, log logger.Logger) (*Store, error) {
+func New(ctx context.Context, store db.DB, log logger.Logger, _ *config.Config) (*Store, error) {
 	conn, ok := store.GetConn().(*dgo.Dgraph)
 	if !ok {
 		return nil, db.ErrGetConnection
