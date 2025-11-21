@@ -9,9 +9,13 @@ import (
 // NotFoundError - not found link
 type NotFoundError struct {
 	Link v1.Link
+	Hash string
 }
 
 func (e *NotFoundError) Error() string {
+	if e.Hash != "" {
+		return fmt.Sprintf("Not found link: %s", e.Hash)
+	}
 	return fmt.Sprintf("Not found link: %s", e.Link.GetHash())
 }
 
