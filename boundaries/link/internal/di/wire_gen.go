@@ -47,30 +47,31 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	if err != nil {
 		return nil, nil, err
 	}
+	loggerLogger, cleanup2, err := logger.NewDefault(context)
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
 	configConfig, err := config.New()
 	if err != nil {
+		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	loggerLogger, cleanup2, err := logger.NewDefault(context, configConfig)
-	if err != nil {
-		cleanup()
-		return nil, nil, err
-	}
-	tracerProvider, cleanup3, err := tracing.New(context, loggerLogger, configConfig)
+	tracerProvider, cleanup3, err := tracing.New(context, loggerLogger)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	monitoring, cleanup4, err := metrics.New(context, loggerLogger, tracerProvider, configConfig)
+	monitoring, cleanup4, err := metrics.New(context, loggerLogger, tracerProvider)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint, err := profiling.New(context, loggerLogger, configConfig)
+	pprofEndpoint, err := profiling.New(context, loggerLogger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -78,7 +79,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	recorder, err := flight_trace.New(context, configConfig)
+	recorder, err := flight_trace.New(context)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -86,7 +87,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	client, err := permission.New(loggerLogger, tracerProvider, monitoring, configConfig)
+	client, err := permission.New(context, loggerLogger, tracerProvider, monitoring)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -94,7 +95,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	mqMQ, err := mq.New(context, loggerLogger, configConfig)
+	mqMQ, err := mq.New(context, loggerLogger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -103,7 +104,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		return nil, nil, err
 	}
 	meterProvider := NewMeterProvider(monitoring)
-	dbDB, err := db.New(context, loggerLogger, tracerProvider, meterProvider, configConfig)
+	dbDB, err := db.New(context, loggerLogger, tracerProvider, meterProvider)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -111,7 +112,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	cacheCache, err := cache.New(context, tracerProvider, monitoring, configConfig)
+	cacheCache, err := cache.New(context, tracerProvider, monitoring)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -119,7 +120,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	store, err := crud.New(context, loggerLogger, dbDB, cacheCache)
+	store, err := crud.New(context, loggerLogger, dbDB, cacheCache, configConfig)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -176,7 +177,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		return nil, nil, err
 	}
 	registry := NewPrometheusRegistry(monitoring)
-	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry, recorder, configConfig)
+	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry, recorder)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -295,7 +296,7 @@ func NewRPCClient(ctx2 context.Context,
 
 	opts := []grpc.Option{grpc.WithSession(), grpc.WithMetrics(metrics2.Prometheus), grpc.WithTracer(tracer, metrics2.Prometheus, metrics2.Metrics), grpc.WithTimeout(), grpc.WithLogger(log)}
 
-	runRPCClient, cleanup, err := grpc.InitClient(ctx2, log, cfg, opts...)
+	runRPCClient, cleanup, err := grpc.InitClient(ctx2, log, opts...)
 	if err != nil {
 		return nil, nil, err
 	}

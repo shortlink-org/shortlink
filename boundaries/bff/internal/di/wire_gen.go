@@ -39,30 +39,31 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 	if err != nil {
 		return nil, nil, err
 	}
+	loggerLogger, cleanup2, err := logger.NewDefault(context)
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
 	configConfig, err := config.New()
-	if err != nil {
-		cleanup()
-		return nil, nil, err
-	}
-	loggerLogger, cleanup2, err := logger.NewDefault(context, configConfig)
-	if err != nil {
-		cleanup()
-		return nil, nil, err
-	}
-	tracerProvider, cleanup3, err := tracing.New(context, loggerLogger, configConfig)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	monitoring, cleanup4, err := metrics.New(context, loggerLogger, tracerProvider, configConfig)
+	tracerProvider, cleanup3, err := tracing.New(context, loggerLogger)
+	if err != nil {
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	monitoring, cleanup4, err := metrics.New(context, loggerLogger, tracerProvider)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint, err := profiling.New(context, loggerLogger, configConfig)
+	pprofEndpoint, err := profiling.New(context, loggerLogger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -70,7 +71,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	recorder, err := flight_trace.New(context, configConfig)
+	recorder, err := flight_trace.New(context)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -80,7 +81,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 	}
 	printer := i18n.New(context)
 	registry := NewPrometheusRegistry(monitoring)
-	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry, recorder, configConfig)
+	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry, recorder)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -203,7 +204,7 @@ func NewRPCClient(ctx2 context.Context,
 
 	opts := []grpc.Option{grpc.WithSession(), grpc.WithMetrics(metrics2.Prometheus), grpc.WithTracer(tracer, metrics2.Prometheus, metrics2.Metrics), grpc.WithTimeout(), grpc.WithLogger(log)}
 
-	runRPCClient, cleanup, err := grpc.InitClient(ctx2, log, cfg, opts...)
+	runRPCClient, cleanup, err := grpc.InitClient(ctx2, log, opts...)
 	if err != nil {
 		return nil, nil, err
 	}
