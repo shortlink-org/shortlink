@@ -16,7 +16,10 @@ func (e *NotFoundError) Error() string {
 	if e.Hash != "" {
 		return fmt.Sprintf("Not found link: %s", e.Hash)
 	}
-	return fmt.Sprintf("Not found link: %s", e.Link.GetHash())
+	if hash := e.Link.GetHash(); hash != "" {
+		return fmt.Sprintf("Not found link: %s", hash)
+	}
+	return "Not found link"
 }
 
 // NotFoundByHashError - not found link by hash
