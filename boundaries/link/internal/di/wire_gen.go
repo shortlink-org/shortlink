@@ -120,7 +120,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	store, err := crud.New(context, loggerLogger, dbDB, cacheCache)
+	store, err := crud.New(context, loggerLogger, dbDB, cacheCache, configConfig)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -289,7 +289,8 @@ func NewMeterProvider(metrics2 *metrics.Monitoring) *metric.MeterProvider {
 
 func NewRPCClient(ctx2 context.Context,
 
-	log logger.Logger, metrics2 *metrics.Monitoring,
+	log logger.Logger,
+	cfg *config.Config, metrics2 *metrics.Monitoring,
 	tracer trace.TracerProvider,
 ) (*grpc2.ClientConn, func(), error) {
 

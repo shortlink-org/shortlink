@@ -50,7 +50,10 @@ func (r *UC) Set(ctx context.Context, url string) (*v1.Meta, error) {
 		return nil, err
 	}
 
-	client := http_client.New()
+	client, err := http_client.New()
+	if err != nil {
+		return nil, err
+	}
 
 	resp, err := client.Do(req)
 	if err != nil {

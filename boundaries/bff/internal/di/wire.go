@@ -103,6 +103,7 @@ func NewMeterProvider(metrics *metrics.Monitoring) *metric.MeterProvider {
 func NewRPCClient(
 	ctx context.Context,
 	log logger.Logger,
+	cfg *config.Config,
 	metrics *metrics.Monitoring,
 	tracer trace.TracerProvider,
 ) (*grpc.ClientConn, func(), error) {

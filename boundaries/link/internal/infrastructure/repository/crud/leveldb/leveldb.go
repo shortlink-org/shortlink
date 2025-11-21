@@ -1,6 +1,7 @@
 package leveldb
 
 import (
+"github.com/shortlink-org/go-sdk/config"
 	"context"
 
 	"github.com/segmentio/encoding/json"
@@ -19,7 +20,7 @@ type Store struct {
 }
 
 // New store
-func New(ctx context.Context, store db.DB, log logger.Logger) (*Store, error) {
+func New(ctx context.Context, store db.DB, log logger.Logger, _ *config.Config) (*Store, error) {
 	conn, ok := store.GetConn().(*leveldb.DB)
 	if !ok {
 		return nil, db.ErrGetConnection

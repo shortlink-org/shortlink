@@ -12,6 +12,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/go-sdk/batch"
+	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/db/drivers/postgres/migrate"
 	"github.com/shortlink-org/go-sdk/db/options"
@@ -27,7 +28,7 @@ var (
 )
 
 // New store
-func New(ctx context.Context, store db.DB) (*Store, error) {
+func New(ctx context.Context, store db.DB, cfg *config.Config) (*Store, error) {
 	var ok bool
 	s := &Store{}
 
@@ -73,7 +74,7 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 		}
 
 		var err error
-		s.config.job, err = batch.NewSync[*domain.Link](ctx, cb)
+		s.config.job, err = batch.NewSync[*domain.Link](ctx, cfg, cb)
 		if err != nil {
 			return nil, err
 		}

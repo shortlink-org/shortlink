@@ -43,12 +43,21 @@ func (api *API) Run(
 
 	log.Info("Run Cloud-Events API")
 
+	// Create HTTP client
+	httpClient, err := http_client.New()
+	if err != nil {
+		return err
+	}
+
 	// New endpoint (HTTP)
 	p, err := cloudevents.NewHTTP(
-		cloudevents.WithRoundTripper(otelhttp.NewTransport(http_client.New().Transport)),
+		cloudevents.WithRoundTripper(otelhttp.NewTransport(httpClient.Transport)),
 		cloudevents.WithPort(config.Port),
 		cloudevents.WithPath(viper.GetString("BASE_PATH")),
 	)
+	if err != nil {
+		return err
+	}
 
 	c, err := cloudevents.NewClient(p, client.WithObservabilityService(otelObs.NewOTelObservabilityService()))
 	if err != nil {

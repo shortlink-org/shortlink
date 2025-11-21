@@ -12,6 +12,7 @@ import (
 	"go.mongodb.org/mongo-driver/v2/mongo"
 
 	"github.com/shortlink-org/go-sdk/batch"
+	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/db/drivers/mongo/migrate"
 	"github.com/shortlink-org/go-sdk/db/options"
@@ -25,7 +26,7 @@ import (
 var migrations embed.FS
 
 // New store
-func New(ctx context.Context, store db.DB) (*Store, error) {
+func New(ctx context.Context, store db.DB, cfg *config.Config) (*Store, error) {
 	var ok bool
 	s := &Store{}
 
@@ -69,7 +70,7 @@ func New(ctx context.Context, store db.DB) (*Store, error) {
 		}
 
 		var err error
-		s.config.job, err = batch.NewSync[*v1.Link](ctx, cb)
+		s.config.job, err = batch.NewSync[*v1.Link](ctx, cfg, cb)
 		if err != nil {
 			return nil, err
 		}

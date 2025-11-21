@@ -7,6 +7,7 @@ import (
 	"github.com/spf13/viper"
 
 	"github.com/shortlink-org/go-sdk/batch"
+	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db/options"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/ram/filter"
@@ -26,7 +27,7 @@ type Store struct {
 }
 
 // New store
-func New(ctx context.Context) (*Store, error) {
+func New(ctx context.Context, cfg *config.Config) (*Store, error) {
 	s := &Store{}
 
 	// Set configuration
@@ -52,7 +53,7 @@ func New(ctx context.Context) (*Store, error) {
 		}
 
 		var err error
-		s.config.job, err = batch.NewSync[*domain.Link](ctx, cb)
+		s.config.job, err = batch.NewSync[*domain.Link](ctx, cfg, cb)
 		if err != nil {
 			return nil, err
 		}

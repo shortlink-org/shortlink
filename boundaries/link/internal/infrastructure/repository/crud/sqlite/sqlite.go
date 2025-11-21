@@ -1,6 +1,7 @@
 package sqlite
 
 import (
+"github.com/shortlink-org/go-sdk/config"
 	"context"
 	"database/sql"
 
@@ -18,7 +19,7 @@ type Store struct {
 }
 
 // New store
-func New(_ context.Context, store db.DB) (*Store, error) {
+func New(_ context.Context, store db.DB, _ *config.Config) (*Store, error) {
 	conn, ok := store.GetConn().(*sql.DB)
 	if !ok {
 		return nil, db.ErrGetConnection

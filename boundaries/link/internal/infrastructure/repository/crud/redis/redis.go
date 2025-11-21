@@ -1,6 +1,7 @@
 package redis
 
 import (
+"github.com/shortlink-org/go-sdk/config"
 	"context"
 
 	"github.com/segmentio/encoding/json"
@@ -18,7 +19,7 @@ type Store struct {
 }
 
 // New store
-func New(ctx context.Context, store db.DB) (*Store, error) {
+func New(ctx context.Context, store db.DB, _ *config.Config) (*Store, error) {
 	conn, ok := store.GetConn().(rueidis.Client)
 	if !ok {
 		return nil, db.ErrGetConnection

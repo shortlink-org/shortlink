@@ -89,7 +89,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	clientConn, cleanup5, err := NewRPCClient(context, loggerLogger, monitoring, tracerProvider)
+	clientConn, cleanup5, err := NewRPCClient(context, loggerLogger, configConfig, monitoring, tracerProvider)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -197,7 +197,8 @@ func NewMeterProvider(metrics2 *metrics.Monitoring) *metric.MeterProvider {
 
 func NewRPCClient(ctx2 context.Context,
 
-	log logger.Logger, metrics2 *metrics.Monitoring,
+	log logger.Logger,
+	cfg *config.Config, metrics2 *metrics.Monitoring,
 	tracer trace.TracerProvider,
 ) (*grpc2.ClientConn, func(), error) {
 
