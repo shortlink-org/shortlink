@@ -9,6 +9,7 @@ import (
 	"github.com/shortlink-org/go-sdk/batch"
 	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db/options"
+
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/ram/filter"
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
@@ -53,7 +54,7 @@ func New(ctx context.Context, cfg *config.Config) (*Store, error) {
 		}
 
 		var err error
-		s.config.job, err = batch.NewSync[*domain.Link](ctx, cfg, cb)
+		s.config.job, err = batch.NewSync[*domain.Link](ctx, cb)
 		if err != nil {
 			return nil, err
 		}

@@ -13,17 +13,6 @@ require (
 	github.com/prometheus/client_golang v1.23.2
 	github.com/riandyrn/otelchi v0.12.2
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251111075828-6e8fd832d9fe
-	github.com/shortlink-org/go-sdk/cache v0.0.0-20251109062829-3e4d690eb1d1
-	github.com/shortlink-org/go-sdk/config v0.0.0-20251021180704-1b5969f32d91
-	github.com/shortlink-org/go-sdk/context v0.0.0-20251021195826-431949cf96c8
-	github.com/shortlink-org/go-sdk/flags v0.0.0-20251021194325-00e3be024b85
-	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251111173054-8c030dab4702
-	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251021180704-1b5969f32d91
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251118124145-283155d8fcc5
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251111085836-327e429f65fb
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251108203914-f363e5ad1155
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251118124145-283155d8fcc5
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	go.opentelemetry.io/otel/sdk/metric v1.38.0
@@ -94,7 +83,7 @@ require (
 	github.com/neo4j/neo4j-go-driver/v5 v5.28.4 // indirect
 	github.com/onsi/ginkgo/v2 v2.23.4 // indirect
 	github.com/onsi/gomega v1.38.0 // indirect
-	github.com/ory/client-go v1.22.8 // indirect
+	github.com/ory/client-go v1.22.11 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/planetscale/vtprotobuf v0.6.1-0.20241121165744-79df5c4772f2 // indirect
@@ -145,7 +134,7 @@ require (
 	golang.org/x/crypto v0.45.0 // indirect
 	golang.org/x/mod v0.29.0 // indirect
 	golang.org/x/net v0.47.0 // indirect
-	golang.org/x/oauth2 v0.32.0 // indirect
+	golang.org/x/oauth2 v0.33.0 // indirect
 	golang.org/x/sys v0.38.0 // indirect
 	golang.org/x/tools v0.38.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20251022142026-3a174f9686a8 // indirect

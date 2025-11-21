@@ -16,6 +16,7 @@ import (
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/db/drivers/postgres/migrate"
 	"github.com/shortlink-org/go-sdk/db/options"
+
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/postgres/schema/crud"
 )
@@ -74,7 +75,7 @@ func New(ctx context.Context, store db.DB, cfg *config.Config) (*Store, error) {
 		}
 
 		var err error
-		s.config.job, err = batch.NewSync[*domain.Link](ctx, cfg, cb)
+		s.config.job, err = batch.NewSync[*domain.Link](ctx, cb)
 		if err != nil {
 			return nil, err
 		}

@@ -16,6 +16,7 @@ import (
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/db/drivers/mongo/migrate"
 	"github.com/shortlink-org/go-sdk/db/options"
+
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mongo/dto"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mongo/filter"
@@ -70,7 +71,7 @@ func New(ctx context.Context, store db.DB, cfg *config.Config) (*Store, error) {
 		}
 
 		var err error
-		s.config.job, err = batch.NewSync[*v1.Link](ctx, cfg, cb)
+		s.config.job, err = batch.NewSync[*v1.Link](ctx, cb)
 		if err != nil {
 			return nil, err
 		}
