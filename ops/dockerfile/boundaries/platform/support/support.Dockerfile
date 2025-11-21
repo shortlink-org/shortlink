@@ -1,4 +1,4 @@
-FROM --platform=$BUILDPLATFORM php:8.4-fpm-alpine
+FROM --platform=$BUILDPLATFORM php:8.5-fpm-alpine
 
 ENV PYROSCOPE_APPLICATION_NAME=support.delivery.shortlink
 ENV PYROSCOPE_SERVER_ADDRESS=http://pyroscope:4040/
