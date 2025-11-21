@@ -1,5 +1,4 @@
 import * as express from "express";
-import * as bodyParser from "body-parser";
 import helmet from "helmet";
 import morgan from "morgan";
 import log from "../logger.js";
@@ -17,13 +16,13 @@ const MORGAN_FORMAT = ":method :url :status :res[content-length] - :response-tim
  * @param app - Express application instance
  */
 export function configureMiddleware(app: express.Application): void {
-  // Body parsing middleware
+  // Body parsing middleware (built-in to Express 5.x)
   app.use(
-    bodyParser.urlencoded({
+    express.urlencoded({
       extended: true,
     })
   );
-  app.use(bodyParser.json());
+  app.use(express.json());
 
   // Security headers
   app.use(helmet());
