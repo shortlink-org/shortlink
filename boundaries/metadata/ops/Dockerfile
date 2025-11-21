@@ -73,6 +73,10 @@ RUN \
   apk add --no-cache curl tini
 
 RUN addgroup -S golang && adduser -S -g golang golang
+
+# Create flight dump directory with proper permissions
+RUN mkdir -p /tmp/flight_dumps && chown -R golang:golang /tmp/flight_dumps && chmod 755 /tmp/flight_dumps
+
 USER golang
 
 ENTRYPOINT ["/sbin/tini", "--"]
