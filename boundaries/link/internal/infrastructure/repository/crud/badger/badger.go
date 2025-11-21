@@ -50,7 +50,7 @@ func (b *Store) Get(_ context.Context, id string) (*domain.Link, error) {
 		return nil
 	})
 	if err != nil {
-		return nil, &v1.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundError{Hash: id}
 	}
 
 	var response domain.Link
@@ -96,7 +96,7 @@ func (b *Store) List(_ context.Context, _ *v1.FilterLink) (*domain.Links, error)
 		return nil
 	})
 	if err != nil {
-		return nil, &domain.NotFoundError{Link: &domain.Link{}}
+		return nil, &domain.NotFoundError{Hash: ""}
 	}
 
 	response := domain.NewLinks()

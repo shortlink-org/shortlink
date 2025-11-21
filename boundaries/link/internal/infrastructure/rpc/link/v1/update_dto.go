@@ -11,7 +11,8 @@ func (in *UpdateRequest) ToEntity() (*domain.Link, error) {
 		Build()
 
 	if err != nil {
-		return nil, err
+		// Wrap builder validation errors as InvalidInputError
+		return nil, domain.NewInvalidInputError(err.Error())
 	}
 
 	return link, nil

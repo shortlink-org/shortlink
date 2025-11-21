@@ -62,7 +62,7 @@ func (l *Store) Add(_ context.Context, source *v1.Link) (*v1.Link, error) {
 func (l *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	value, err := l.client.Get([]byte(id), nil)
 	if err != nil {
-		return nil, &v1.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundError{Hash: id}
 	}
 
 	var response v1.Link
@@ -87,7 +87,7 @@ func (l *Store) List(_ context.Context, _ *types.FilterLink) (*v1.Links, error) 
 		var response v1.Link
 		err := json.Unmarshal(value, &response)
 		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}}
+			return nil, &v1.NotFoundError{Hash: ""}
 		}
 
 		links.Push(&response)
@@ -96,7 +96,7 @@ func (l *Store) List(_ context.Context, _ *types.FilterLink) (*v1.Links, error) 
 	iterator.Release()
 	err := iterator.Error()
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}}
+		return nil, &v1.NotFoundError{Hash: ""}
 	}
 
 	return links, nil

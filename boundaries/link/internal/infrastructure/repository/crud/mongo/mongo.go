@@ -4,6 +4,7 @@ import (
 	"context"
 	"embed"
 	"errors"
+	"fmt"
 	"time"
 
 	_ "github.com/golang-migrate/migrate/v4/database/mongodb"
@@ -113,13 +114,13 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	val := collection.FindOne(ctx, bson.D{bson.E{Key: "hash", Value: id}})
 
 	if val.Err() != nil {
-		return nil, &v1.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundError{Hash: id}
 	}
 
 	var response dto.Link
 
 	if err := val.Decode(&response); err != nil {
-		return nil, &v1.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundError{Hash: id}
 	}
 
 	link, err := response.ToDomain()
@@ -142,11 +143,11 @@ func (s *Store) List(ctx context.Context, params *types.FilterLink) (*v1.Links, 
 
 	cur, err := collection.Find(ctx, filterQuery)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}}
+		return nil, &v1.NotFoundError{Hash: ""}
 	}
 
 	if cur.Err() != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}}
+		return nil, &v1.NotFoundError{Hash: ""}
 	}
 
 	links := v1.NewLinks()
@@ -154,7 +155,7 @@ func (s *Store) List(ctx context.Context, params *types.FilterLink) (*v1.Links, 
 	for cur.Next(ctx) {
 		var elem dto.Link
 		if errDecode := cur.Decode(&elem); errDecode != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}}
+			return nil, &v1.NotFoundError{Hash: ""}
 		}
 
 		// convert to domain
@@ -188,7 +189,7 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 
 	_, err := collection.DeleteOne(ctx, bson.D{bson.E{Key: "hash", Value: id}})
 	if err != nil {
-		return &v1.NotFoundByHashError{Hash: id}
+		return &v1.NotFoundError{Hash: id}
 	}
 
 	return nil
@@ -211,7 +212,7 @@ func (s *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, err
 		var writeErr mongo.WriteException
 		if errors.As(err, &writeErr) {
 			if writeErr.HasErrorCode(11000) {
-				return nil, &v1.NotUniqError{Link: source}
+				return nil, v1.NewConflictError(fmt.Sprintf("duplicate link: url=%s", source.GetUrl().String()))
 			}
 		}
 

@@ -4,19 +4,6 @@ import (
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
-func (in *AddRequest) ToEntity() (*domain.Link, error) {
-	link, err := domain.NewLinkBuilder().
-		SetURL(in.Link.GetUrl()).
-		SetDescribe(in.Link.GetDescribe()).
-		Build()
-
-	if err != nil {
-		return nil, domain.NewInvalidInputError(err.Error())
-	}
-
-	return link, nil
-}
-
 // ToAddResponse converts domain Link to AddResponse
 func ToAddResponse(link *domain.Link) *AddResponse {
 	return &AddResponse{
@@ -29,3 +16,4 @@ func ToAddResponse(link *domain.Link) *AddResponse {
 		},
 	}
 }
+

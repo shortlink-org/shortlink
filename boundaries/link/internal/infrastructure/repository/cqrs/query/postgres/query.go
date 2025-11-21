@@ -40,22 +40,22 @@ func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 
 	rows, err := s.client.Query(ctx, q, args...)
 	if err != nil {
-		return nil, &v1.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundError{Hash: id}
 	}
 	if rows.Err() != nil {
-		return nil, &v1.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundError{Hash: id}
 	}
 
 	var response v12.LinkView
 	for rows.Next() {
 		// err = rows.Scan(&response.Url, &response.Hash, &response.Describe, &response.ImageUrl, &response.MetaDescription, &response.MetaKeywords)
 		// if err != nil {
-		// 	return nil, &v1.NotFoundByHashError{Hash: id}
+		// 	return nil, &v1.NotFoundError{Hash: id}
 		// }
 	}
 
 	if response.GetHash() == "" {
-		return nil, &v1.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundError{Hash: id}
 	}
 
 	return &response, nil
@@ -74,7 +74,7 @@ func (s *Store) List(ctx context.Context, filter *v13.FilterLink) (*v12.LinksVie
 
 	rows, err := s.client.Query(ctx, q, args...)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}}
+		return nil, &v1.NotFoundError{Hash: ""}
 	}
 
 	response := &v12.LinksView{

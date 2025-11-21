@@ -3,32 +3,27 @@ package v1
 import (
 	"context"
 
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
 func (l *LinkRPC) Add(ctx context.Context, in *AddRequest) (*AddResponse, error) {
+	// Transport-level validation — only check "empty payload"
 	if in.GetLink() == nil {
-		return nil, ErrEmptyPayload
+		return nil, mapDomainErrorToGRPC(
+			domain.NewInvalidInputError("link payload is empty"),
+		)
 	}
 
 	entity, err := in.ToEntity()
 	if err != nil {
-		return nil, status.Error(codes.InvalidArgument, err.Error())
+		// ToEntity() → returns DomainError: InvalidInputError
+		return nil, mapDomainErrorToGRPC(err)
 	}
 
 	resp, err := l.service.Add(ctx, entity)
 	if err != nil {
-		return nil, status.Error(codes.InvalidArgument, err.Error())
+		return nil, mapDomainErrorToGRPC(err)
 	}
 
-	return &AddResponse{
-		Link: &Link{
-			Url:       resp.GetUrl().String(),
-			Hash:      resp.GetHash(),
-			Describe:  resp.GetDescribe(),
-			CreatedAt: resp.GetCreatedAt().GetTimestamp(),
-			UpdatedAt: resp.GetUpdatedAt().GetTimestamp(),
-		},
-	}, nil
+	return ToAddResponse(resp), nil
 }

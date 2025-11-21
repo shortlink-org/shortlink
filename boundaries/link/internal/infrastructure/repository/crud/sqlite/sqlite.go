@@ -58,7 +58,7 @@ func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 
 	stmt, err := lite.client.Prepare(q)
 	if err != nil {
-		return nil, &v1.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundError{Hash: id}
 	}
 	defer stmt.Close() //nolint:errcheck // ignore
 
@@ -70,7 +70,7 @@ func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 
 	err = stmt.QueryRowContext(ctx, args...).Scan(&link, &hash, &describe)
 	if err != nil {
-		return nil, &v1.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundError{Hash: id}
 	}
 
 	response, err := v1.NewLinkBuilder().SetURL(link).Build()
@@ -92,7 +92,7 @@ func (lite *Store) List(ctx context.Context, _ *types.FilterLink) (*v1.Links, er
 
 	rows, err := lite.client.QueryContext(ctx, q, args...)
 	if err != nil || rows.Err() != nil {
-		return nil, &v1.NotFoundError{Link: &v1.Link{}}
+		return nil, &v1.NotFoundError{Hash: ""}
 	}
 	defer func() {
 		_ = rows.Close()
@@ -109,7 +109,7 @@ func (lite *Store) List(ctx context.Context, _ *types.FilterLink) (*v1.Links, er
 
 		err = rows.Scan(&link, &hash, &desc)
 		if err != nil {
-			return nil, &v1.NotFoundError{Link: &v1.Link{}}
+			return nil, &v1.NotFoundError{Hash: ""}
 		}
 
 		result, err := v1.NewLinkBuilder().SetURL(link).SetDescribe(desc).Build()
@@ -136,7 +136,7 @@ func (lite *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 
 	_, err = lite.client.ExecContext(ctx, q, args...)
 	if err != nil {
-		return nil, &v1.NotFoundError{Link: source}
+		return nil, &v1.NotFoundError{Hash: source.GetHash()}
 	}
 
 	return source, nil
@@ -158,7 +158,7 @@ func (lite *Store) Delete(ctx context.Context, id string) error {
 
 	_, err = lite.client.ExecContext(ctx, q, args...)
 	if err != nil {
-		return &v1.NotFoundByHashError{Hash: id}
+		return &v1.NotFoundError{Hash: id}
 	}
 
 	return nil

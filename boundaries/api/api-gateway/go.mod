@@ -10,15 +10,15 @@ require (
 	github.com/graph-gophers/graphql-go v1.8.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.3
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251121161402-f3f7d0339b82
-	github.com/shortlink-org/go-sdk/config v0.0.0-20251121161402-f3f7d0339b82
-	github.com/shortlink-org/go-sdk/db v0.0.0-20251121161402-f3f7d0339b82
-	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251121161402-f3f7d0339b82
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251121161402-f3f7d0339b82
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251121161402-f3f7d0339b82
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251121161402-f3f7d0339b82
-	github.com/shortlink-org/go-sdk/notify v0.0.0-20251121161402-f3f7d0339b82
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251121161402-f3f7d0339b82
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251121191713-160ea5dd70ad
+	github.com/shortlink-org/go-sdk/config v0.0.0-20251121191713-160ea5dd70ad
+	github.com/shortlink-org/go-sdk/db v0.0.0-20251121191713-160ea5dd70ad
+	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251121191713-160ea5dd70ad
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251121191713-160ea5dd70ad
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251121191713-160ea5dd70ad
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251121191713-160ea5dd70ad
+	github.com/shortlink-org/go-sdk/notify v0.0.0-20251121191713-160ea5dd70ad
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251121191713-160ea5dd70ad
 	github.com/spf13/viper v1.21.0
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.3.2
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.63.0

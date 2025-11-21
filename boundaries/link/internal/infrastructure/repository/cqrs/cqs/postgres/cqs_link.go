@@ -33,7 +33,7 @@ func (s *Store) LinkAdd(ctx context.Context, source *v1.Link) (*v1.Link, error) 
 	}
 
 	if errScan.Error() != "" {
-		return nil, &v1.NotFoundError{Link: source}
+		return nil, &v1.NotFoundError{Hash: source.GetHash()}
 	}
 
 	resp, err := v1.NewLinkBuilder().
@@ -72,7 +72,7 @@ func (s *Store) LinkUpdate(ctx context.Context, source *v1.Link) (*v1.Link, erro
 		return source, nil
 	}
 	if errScan.Error() != "" {
-		return nil, &v1.NotFoundError{Link: source}
+		return nil, &v1.NotFoundError{Hash: source.GetHash()}
 	}
 
 	resp, err := v1.NewLinkBuilder().
@@ -97,7 +97,7 @@ func (s *Store) LinkDelete(ctx context.Context, id string) error {
 
 	_, err = s.client.Exec(ctx, q, args...)
 	if err != nil {
-		return &v1.NotFoundByHashError{Hash: id}
+		return &v1.NotFoundError{Hash: id}
 	}
 
 	return nil

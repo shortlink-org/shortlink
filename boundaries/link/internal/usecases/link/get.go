@@ -87,7 +87,7 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 	}
 
 	if resp == nil {
-		return nil, NotFoundByHash{Hash: hash}
+		return nil, domain.NewNotFoundError(hash)
 	}
 
 	return resp, nil

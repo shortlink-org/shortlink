@@ -67,12 +67,12 @@ func New(ctx context.Context, cfg *config.Config) (*Store, error) {
 func (s *Store) Get(_ context.Context, id string) (*domain.Link, error) {
 	response, ok := s.links.Load(id)
 	if !ok {
-		return nil, &v1.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundError{Hash: id}
 	}
 
 	v, ok := response.(*domain.Link)
 	if !ok {
-		return nil, &v1.NotFoundByHashError{Hash: id}
+		return nil, &v1.NotFoundError{Hash: id}
 	}
 
 	return v, nil

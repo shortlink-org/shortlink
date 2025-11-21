@@ -63,7 +63,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*domain.LinkView, error
 	}
 
 	if resp == nil {
-		return nil, &link.NotFoundByHashError{Hash: hash}
+		return nil, &link.NotFoundError{Hash: hash}
 	}
 
 	return resp, nil

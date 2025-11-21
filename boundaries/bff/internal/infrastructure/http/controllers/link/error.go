@@ -1,10 +1,12 @@
 package link
 
 import (
+	"net/http"
 	"strings"
 
 	"github.com/segmentio/encoding/json"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
+	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
 	"github.com/shortlink-org/go-sdk/auth/session"
@@ -110,7 +112,51 @@ func mapStatusToResponse(st *status.Status) *domainerrors.Error {
 		return domainerrors.NewUserNotIdentified()
 	case strings.Contains(message, session.ErrMetadataNotFound.Error()):
 		return domainerrors.NewSessionMetadataMissing()
-	default:
+		default:
 		return domainerrors.NewUnknown(message)
+	}
+}
+
+// ============================================================
+// Mapper from gRPC status codes to HTTP status codes
+// ============================================================
+
+// grpcStatusToHTTP maps gRPC status codes to HTTP status codes
+func grpcStatusToHTTP(err error) int {
+	st, ok := status.FromError(err)
+	if !ok {
+		// Not a gRPC status error, return 500
+		return http.StatusInternalServerError
+	}
+
+	switch st.Code() {
+	case codes.InvalidArgument:
+		return http.StatusBadRequest
+	case codes.NotFound:
+		return http.StatusNotFound
+	case codes.PermissionDenied:
+		return http.StatusForbidden
+	case codes.AlreadyExists:
+		return http.StatusConflict
+	case codes.Internal:
+		return http.StatusInternalServerError
+	case codes.Unauthenticated:
+		return http.StatusUnauthorized
+	case codes.FailedPrecondition:
+		return http.StatusBadRequest
+	case codes.Aborted:
+		return http.StatusConflict
+	case codes.OutOfRange:
+		return http.StatusBadRequest
+	case codes.Unimplemented:
+		return http.StatusNotImplemented
+	case codes.Unavailable:
+		return http.StatusServiceUnavailable
+	case codes.DeadlineExceeded:
+		return http.StatusRequestTimeout
+	case codes.ResourceExhausted:
+		return http.StatusTooManyRequests
+	default:
+		return http.StatusInternalServerError
 	}
 }

@@ -26,7 +26,8 @@ func (c *Controller) AddLink(w http.ResponseWriter, r *http.Request) {
 	// Save link
 	result, err := c.linkServiceClient.Add(r.Context(), &v1.AddRequest{Link: dto.MakeAddLinkRequest(request)})
 	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
+		httpStatus := grpcStatusToHTTP(err)
+		w.WriteHeader(httpStatus)
 		_ = json.NewEncoder(w).Encode(ErrMessages(err)) //nolint:errcheck
 
 		return
