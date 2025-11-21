@@ -15,6 +15,7 @@ import (
 	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/logger"
+
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/badger"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/dgraph"
@@ -72,7 +73,7 @@ func New(ctx context.Context, log logger.Logger, store db.DB, c *cache.Cache, cf
 			return nil, err
 		}
 	case "badger":
-		s.store, err = badger.New(ctx, cfg)
+		s.store, err = badger.New(ctx)
 		if err != nil {
 			return nil, err
 		}

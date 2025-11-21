@@ -75,7 +75,7 @@ func New(ctx context.Context, store db.DB, cfg *config.Config) (*Store, error) {
 		}
 
 		var err error
-		s.config.job, err = batch.NewSync[*domain.Link](ctx, cb)
+		s.config.job, err = batch.NewSync[*domain.Link](ctx, cfg, cb)
 		if err != nil {
 			return nil, err
 		}

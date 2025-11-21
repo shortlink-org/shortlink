@@ -44,31 +44,30 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	loggerLogger, cleanup2, err := logger.NewDefault(context)
-	if err != nil {
-		cleanup()
-		return nil, nil, err
-	}
 	configConfig, err := config.New()
 	if err != nil {
-		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	tracerProvider, cleanup3, err := tracing.New(context, loggerLogger)
+	loggerLogger, cleanup2, err := logger.NewDefault(context, configConfig)
+	if err != nil {
+		cleanup()
+		return nil, nil, err
+	}
+	tracerProvider, cleanup3, err := tracing.New(context, loggerLogger, configConfig)
 	if err != nil {
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	monitoring, cleanup4, err := metrics.New(context, loggerLogger, tracerProvider)
+	monitoring, cleanup4, err := metrics.New(context, loggerLogger, tracerProvider, configConfig)
 	if err != nil {
 		cleanup3()
 		cleanup2()
 		cleanup()
 		return nil, nil, err
 	}
-	pprofEndpoint, err := profiling.New(context, loggerLogger)
+	pprofEndpoint, err := profiling.New(context, loggerLogger, tracerProvider, configConfig)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -76,7 +75,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	recorder, err := flight_trace.New(context)
+	recorder, err := flight_trace.New(context, configConfig)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -85,7 +84,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		return nil, nil, err
 	}
 	meterProvider := NewMeterProvider(monitoring)
-	dbDB, err := db.New(context, loggerLogger, tracerProvider, meterProvider)
+	dbDB, err := db.New(context, loggerLogger, tracerProvider, meterProvider, configConfig)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -109,7 +108,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	mqMQ, err := mq.New(context, loggerLogger)
+	mqMQ, err := mq.New(context, loggerLogger, configConfig)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -126,7 +125,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		return nil, nil, err
 	}
 	registry := NewPrometheusRegistry(monitoring)
-	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry, recorder)
+	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry, recorder, configConfig)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -134,7 +133,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	client, err := s3.New(context, loggerLogger)
+	client, err := s3.New(context, loggerLogger, configConfig)
 	if err != nil {
 		cleanup4()
 		cleanup3()

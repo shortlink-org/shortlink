@@ -13,6 +13,17 @@ require (
 	github.com/prometheus/client_golang v1.23.2
 	github.com/riandyrn/otelchi v0.12.2
 	github.com/segmentio/encoding v0.5.3
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251121161402-f3f7d0339b82
+	github.com/shortlink-org/go-sdk/cache v0.0.0-20251121161402-f3f7d0339b82
+	github.com/shortlink-org/go-sdk/config v0.0.0-20251121161402-f3f7d0339b82
+	github.com/shortlink-org/go-sdk/context v0.0.0-20251121161402-f3f7d0339b82
+	github.com/shortlink-org/go-sdk/flags v0.0.0-20251121161402-f3f7d0339b82
+	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251121161402-f3f7d0339b82
+	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251121161402-f3f7d0339b82
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251121161402-f3f7d0339b82
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251121161402-f3f7d0339b82
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251121161402-f3f7d0339b82
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251121161402-f3f7d0339b82
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	go.opentelemetry.io/otel/sdk/metric v1.38.0
@@ -25,14 +36,14 @@ require (
 )
 
 require (
-	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.8-20250717185734-6c6e0d3c608e.1 // indirect
+	buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.10-20250912141014-52f32327d4b0.1 // indirect
 	filippo.io/edwards25519 v1.1.0 // indirect
-	github.com/Masterminds/semver/v3 v3.3.1 // indirect
+	github.com/Masterminds/semver/v3 v3.4.0 // indirect
 	github.com/Unleash/unleash-go-sdk/v5 v5.0.3 // indirect
 	github.com/XSAM/otelsql v0.40.0 // indirect
 	github.com/ajg/form v1.5.1 // indirect
 	github.com/apapsch/go-jsonmerge/v2 v2.0.0 // indirect
-	github.com/authzed/authzed-go v1.6.0 // indirect
+	github.com/authzed/authzed-go v1.7.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/cenkalti/backoff/v5 v5.0.3 // indirect
@@ -92,14 +103,14 @@ require (
 	github.com/prometheus/common v0.66.1 // indirect
 	github.com/prometheus/otlptranslator v0.0.2 // indirect
 	github.com/prometheus/procfs v0.17.0 // indirect
-	github.com/redis/go-redis/v9 v9.16.0 // indirect
-	github.com/redis/rueidis v1.0.67 // indirect
-	github.com/redis/rueidis/rueidiscompat v1.0.67 // indirect
-	github.com/redis/rueidis/rueidisotel v1.0.67 // indirect
+	github.com/redis/go-redis/v9 v9.17.0 // indirect
+	github.com/redis/rueidis v1.0.68 // indirect
+	github.com/redis/rueidis/rueidiscompat v1.0.68 // indirect
+	github.com/redis/rueidis/rueidisotel v1.0.68 // indirect
 	github.com/sagikazarmark/locafero v0.11.0 // indirect
-	github.com/samber/lo v1.51.0 // indirect
+	github.com/samber/lo v1.52.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
-	github.com/shortlink-org/go-sdk/db v0.0.0-20251021180704-1b5969f32d91 // indirect
+	github.com/shortlink-org/go-sdk/db v0.0.0-20251121161402-f3f7d0339b82 // indirect
 	github.com/sourcegraph/conc v0.3.1-0.20240121214520-5f936abd7ae8 // indirect
 	github.com/spf13/afero v1.15.0 // indirect
 	github.com/spf13/cast v1.10.0 // indirect
@@ -132,11 +143,11 @@ require (
 	go.yaml.in/yaml/v2 v2.4.2 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/crypto v0.45.0 // indirect
-	golang.org/x/mod v0.29.0 // indirect
+	golang.org/x/mod v0.30.0 // indirect
 	golang.org/x/net v0.47.0 // indirect
 	golang.org/x/oauth2 v0.33.0 // indirect
 	golang.org/x/sys v0.38.0 // indirect
-	golang.org/x/tools v0.38.0 // indirect
+	golang.org/x/tools v0.39.0 // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20251022142026-3a174f9686a8 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

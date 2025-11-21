@@ -72,16 +72,16 @@ func (api *Server) run(config Config) error {
 	r.Use(middleware.Timeout(config.Http.Timeout))
 
 	// CSRF Protection - must be early in the middleware stack
-	r.Use(csrf_middleware.Middleware(api.log))
+	r.Use(csrf_middleware.Middleware(api.log, config.Config))
 
 	// Additional middleware
 	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
 	r.Use(logger_middleware.Logger(config.Log))
 	r.Use(middleware.Recoverer)
 	r.Use(span_middleware.Span())
-	r.Use(auth_middleware.Auth())
+	r.Use(auth_middleware.Auth(config.Config))
 	r.Use(pprof_labels_middleware.Labels)
-	r.Use(flight_trace_middleware.DebugTraceMiddleware(config.FlightTrace, config.Log))
+	r.Use(flight_trace_middleware.DebugTraceMiddleware(config.FlightTrace, config.Log, config.Config))
 
 	// Metrics
 	metrics, err := metrics_middleware.NewMetrics()
@@ -106,7 +106,7 @@ func (api *Server) run(config Config) error {
 
 	r.Mount(viper.GetString("BASE_PATH"), serverAPI.HandlerFromMux(controller, r))
 
-	srv := http_server.New(config.Ctx, r, config.Http, config.Tracer)
+	srv := http_server.New(config.Ctx, r, config.Http, config.Tracer, config.Config)
 
 	// start HTTP-server
 	config.Log.Info(config.I18n.Sprintf("BFF Web run on port %d", config.Http.Port))

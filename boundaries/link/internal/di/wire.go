@@ -151,7 +151,7 @@ func NewRPCClient(
 		rpc.WithLogger(log),
 	}
 
-	runRPCClient, cleanup, err := rpc.InitClient(ctx, log, opts...)
+	runRPCClient, cleanup, err := rpc.InitClient(ctx, log, cfg, opts...)
 	if err != nil {
 		return nil, nil, err
 	}
