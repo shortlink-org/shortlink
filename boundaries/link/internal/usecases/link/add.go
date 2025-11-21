@@ -17,6 +17,7 @@ import (
 
 	"github.com/shortlink-org/go-sdk/auth/session"
 	"github.com/shortlink-org/go-sdk/saga"
+
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
@@ -72,7 +73,7 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 		Then(func(ctx context.Context) error {
 			relationship := &permission.WriteRelationshipsRequest{
 				Updates: []*permission.RelationshipUpdate{{
-					Operation: permission.RelationshipUpdate_OPERATION_CREATE,
+					Operation: permission.RelationshipUpdate_OPERATION_TOUCH,
 					Relationship: &permission.Relationship{
 						Resource: &permission.ObjectReference{
 							ObjectType: "link",
