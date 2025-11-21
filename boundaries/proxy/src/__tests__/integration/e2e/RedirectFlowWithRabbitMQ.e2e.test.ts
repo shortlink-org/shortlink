@@ -51,11 +51,11 @@ describe("Redirect Flow E2E with RabbitMQ (Testcontainers)", () => {
   let container: Container;
   let rabbitMQContainer: RabbitMQTestContainer;
   let rabbitMQConsumer: RabbitMQTestConsumer;
-  let getLinkByHashMock: ReturnType<typeof vi.fn>;
-  let cacheGetMock: ReturnType<typeof vi.fn>;
-  let cacheSetPositiveMock: ReturnType<typeof vi.fn>;
-  let cacheSetNegativeMock: ReturnType<typeof vi.fn>;
-  let cacheClearMock: ReturnType<typeof vi.fn>;
+  let getLinkByHashMock: ReturnType<typeof vi.fn<(hash: Hash) => Promise<Link | null>>>;
+  let cacheGetMock: ReturnType<typeof vi.fn<(hash: Hash) => Promise<Link | null | undefined>>>;
+  let cacheSetPositiveMock: ReturnType<typeof vi.fn<(hash: Hash, link: Link) => Promise<void>>>;
+  let cacheSetNegativeMock: ReturnType<typeof vi.fn<(hash: Hash) => Promise<void>>>;
+  let cacheClearMock: ReturnType<typeof vi.fn<(hash: Hash) => Promise<void>>>;
   let mockLinkServiceAdapter: ILinkServiceAdapter;
   let mockLinkCache: ILinkCache;
   let messageBus: IMessageBus;
@@ -86,15 +86,15 @@ describe("Redirect Flow E2E with RabbitMQ (Testcontainers)", () => {
     container = new Container();
 
     // Мокаем LinkServiceAdapter
-    getLinkByHashMock = vi.fn();
+    getLinkByHashMock = vi.fn<(hash: Hash) => Promise<Link | null>>();
     mockLinkServiceAdapter = {
       getLinkByHash: getLinkByHashMock,
     };
 
-    cacheGetMock = vi.fn().mockResolvedValue(undefined);
-    cacheSetPositiveMock = vi.fn().mockResolvedValue(undefined);
-    cacheSetNegativeMock = vi.fn().mockResolvedValue(undefined);
-    cacheClearMock = vi.fn().mockResolvedValue(undefined);
+    cacheGetMock = vi.fn<(hash: Hash) => Promise<Link | null | undefined>>().mockResolvedValue(undefined);
+    cacheSetPositiveMock = vi.fn<(hash: Hash, link: Link) => Promise<void>>().mockResolvedValue(undefined);
+    cacheSetNegativeMock = vi.fn<(hash: Hash) => Promise<void>>().mockResolvedValue(undefined);
+    cacheClearMock = vi.fn<(hash: Hash) => Promise<void>>().mockResolvedValue(undefined);
     mockLinkCache = {
       get: cacheGetMock,
       setPositive: cacheSetPositiveMock,

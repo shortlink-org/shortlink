@@ -31,12 +31,12 @@
   "author": "@batazor",
   "license": "MIT",
   "engines": {
-    "node": ">=25.0.0"
+    "node": ">=25.2.1"
   },
   "dependencies": {
     "@bufbuild/protobuf": "2.10.1",
     "@connectrpc/connect": "2.1.1",
-    "@connectrpc/connect-node": "2.1.0",
+    "@connectrpc/connect-node": "2.1.1",
     "@godaddy/terminus": "^4.12.1",
     "@opentelemetry/api": "1.9.0",
     "@opentelemetry/auto-instrumentations-node": "0.67.0",
@@ -49,7 +49,7 @@
     "@opentelemetry/sdk-trace-base": "2.2.0",
     "@opentelemetry/sdk-trace-node": "2.2.0",
     "@opentelemetry/semantic-conventions": "1.38.0",
-    "@pyroscope/nodejs": "0.4.7",
+    "@pyroscope/nodejs": "0.4.8",
     "@types/express": "^5.0.5",
     "@types/morgan": "1.9.10",
     "amqplib": "^0.10.9",
@@ -72,7 +72,7 @@
   },
   "devDependencies": {
     "@eslint/js": "9.39.1",
-    "@prisma/client": "6.19.0",
+    "@prisma/client": "7.0.0",
     "@testcontainers/rabbitmq": "^11.8.1",
     "@testcontainers/redis": "^11.8.1",
     "@types/amqplib": "0.10.8",
@@ -81,19 +81,19 @@
     "@types/node": "^24.10.1",
     "@types/supertest": "6.0.3",
     "@types/swagger-jsdoc": "6.0.4",
-    "@typescript-eslint/eslint-plugin": "8.46.4",
-    "@typescript-eslint/parser": "8.46.4",
-    "@vitest/coverage-v8": "^4.0.10",
+    "@typescript-eslint/eslint-plugin": "8.47.0",
+    "@typescript-eslint/parser": "8.47.0",
+    "@vitest/coverage-v8": "^4.0.12",
     "eslint": "9.39.1",
     "eslint-plugin-import": "2.32.0",
-    "eslint-plugin-n": "14.0.0",
+    "eslint-plugin-n": "17.23.1",
     "globals": "16.5.0",
-    "prisma": "6.19.0",
+    "prisma": "7.0.0",
     "supertest": "7.1.4",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3",
     "vite-tsconfig-paths": "^5.1.4",
-    "vitest": "^4.0.10"
+    "vitest": "^4.0.12"
   },
   "packageManager": "pnpm@10.22.0+sha512.bf049efe995b28f527fd2b41ae0474ce29186f7edcb3bf545087bd61fbbebb2bf75362d1307fda09c2d288e1e499787ac12d4fcb617a974718a6051f2eee741c"
 }
