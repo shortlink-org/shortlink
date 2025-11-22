@@ -1,5 +1,5 @@
 import { IUseCaseInterceptor, UseCaseExecutionContext } from "./IUseCaseInterceptor.js";
-import { ILogger } from "../../../infrastructure/logging/ILogger.js";
+import { ILogger } from "../../infrastructure/logging/ILogger.js";
 import { ApplicationError } from "../exceptions/ApplicationError.js";
 
 /**

@@ -13,10 +13,11 @@ import { registerMetricsRoutes } from "./metricsRoutes.js";
  */
 export async function registerRoutes(
   fastify: FastifyInstance,
-  opts: FastifyPluginOptions & { container: AwilixContainer<ContainerDependencies> }
+  opts: FastifyPluginOptions & {
+    container: AwilixContainer<ContainerDependencies>;
+  }
 ): Promise<void> {
   // Register all route modules
   await fastify.register(registerProxyRoutes, opts);
   await fastify.register(registerMetricsRoutes, opts);
 }
-

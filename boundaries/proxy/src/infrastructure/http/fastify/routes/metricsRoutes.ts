@@ -30,7 +30,9 @@ const metricsSchema = {
  */
 export async function registerMetricsRoutes(
   fastify: FastifyInstance,
-  opts: FastifyPluginOptions & { container: AwilixContainer<ContainerDependencies> }
+  opts: FastifyPluginOptions & {
+    container: AwilixContainer<ContainerDependencies>;
+  }
 ): Promise<void> {
   const container = opts.container;
   const metricsController = container.resolve("metricsController");
@@ -43,11 +45,11 @@ export async function registerMetricsRoutes(
     },
     async (request, reply) => {
       // Get controller from request-scoped container
-      const requestContainer = (request as any).container as AwilixContainer<ContainerDependencies>;
+      const requestContainer = (request as any)
+        .container as AwilixContainer<ContainerDependencies>;
       const controller = requestContainer.resolve("metricsController");
 
       await controller.getMetrics(request, reply);
     }
   );
 }
-

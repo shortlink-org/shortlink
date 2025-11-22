@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { LoggingInterceptor } from "../LoggingInterceptor.js";
 import { UseCaseExecutionContext } from "../IUseCaseInterceptor.js";
-import { ILogger } from "../../../../infrastructure/logging/ILogger.js";
+import { ILogger } from "../../../infrastructure/logging/ILogger.js";
 
 const createContext = <TRequest = any, TResponse = any>(
   overrides: Partial<UseCaseExecutionContext<TRequest, TResponse>> = {}

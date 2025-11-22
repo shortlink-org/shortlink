@@ -1,5 +1,5 @@
 import type { Interceptor } from "@connectrpc/connect";
-import { ILogger } from "../../../logging/ILogger.js";
+import { ILogger } from "../../../../logging/ILogger.js";
 
 /**
  * Connect interceptor для логирования запросов и ответов

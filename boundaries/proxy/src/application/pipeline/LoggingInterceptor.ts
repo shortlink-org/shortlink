@@ -1,5 +1,5 @@
 import { IUseCaseInterceptor, UseCaseExecutionContext } from "./IUseCaseInterceptor.js";
-import { ILogger } from "../../../infrastructure/logging/ILogger.js";
+import { ILogger } from "../../infrastructure/logging/ILogger.js";
 
 /**
  * Интерцептор для логирования выполнения Use Cases

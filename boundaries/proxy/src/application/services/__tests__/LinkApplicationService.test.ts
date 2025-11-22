@@ -5,7 +5,7 @@ import { PublishEventUseCase } from "../../use-cases/PublishEventUseCase.js";
 import { UseCasePipeline } from "../../pipeline/UseCasePipeline.js";
 import { LoggingInterceptor } from "../../pipeline/LoggingInterceptor.js";
 import { MetricsInterceptor } from "../../pipeline/MetricsInterceptor.js";
-import { ILogger } from "../../../../infrastructure/logging/ILogger.js";
+import { ILogger } from "../../../infrastructure/logging/ILogger.js";
 import { Hash } from "../../../domain/entities/Hash.js";
 import { Link } from "../../../domain/entities/Link.js";
 import { LinkNotFoundError } from "../../../domain/exceptions/index.js";

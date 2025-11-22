@@ -1,5 +1,5 @@
 import type { FastifyInstance } from "fastify";
-import { createDIContainer, createRequestScope, type ContainerDependencies } from "../../../container/index.js";
+import { createDIContainer, createRequestScope, type ContainerDependencies } from "../../../di/container.js";
 import { buildServer } from "../../../infrastructure/http/fastify/server.js";
 import type { AwilixContainer } from "awilix";
 import { asValue } from "awilix";

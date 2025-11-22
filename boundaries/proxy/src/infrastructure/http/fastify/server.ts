@@ -9,7 +9,7 @@ import type { ContainerDependencies } from "../../../di/container.js";
 import { createRequestScope } from "../../../di/container.js";
 import { registerRoutes } from "./routes/index.js";
 import { errorHandler } from "./middleware/errorHandler.js";
-import type { ILogger } from "../logging/ILogger.js";
+import type { ILogger } from "../../logging/ILogger.js";
 
 /**
  * Fastify server configuration options

@@ -21,9 +21,7 @@ export class RabbitMQMessageBus implements IMessageBus {
   private readonly enabled: boolean;
   private readonly rabbitUri: string;
 
-  constructor(
-    private readonly logger: ILogger
-  ) {
+  constructor(private readonly logger: ILogger) {
     // Модуль сам читает свою конфигурацию
     this.enabled = ConfigReader.boolean("MQ_ENABLED", false);
     this.rabbitUri = ConfigReader.string(

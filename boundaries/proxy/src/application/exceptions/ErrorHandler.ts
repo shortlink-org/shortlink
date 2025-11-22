@@ -2,7 +2,7 @@ import { DomainError } from "../../domain/exceptions/DomainError.js";
 import { LinkNotFoundError } from "../../domain/exceptions/LinkNotFoundError.js";
 import { InvalidHashError } from "../../domain/exceptions/InvalidHashError.js";
 import { ApplicationError, ValidationError } from "./index.js";
-import { ILogger } from "../../../infrastructure/logging/ILogger.js";
+import { ILogger } from "../../infrastructure/logging/ILogger.js";
 
 /**
  * Утилита для централизованной обработки ошибок в Use Cases

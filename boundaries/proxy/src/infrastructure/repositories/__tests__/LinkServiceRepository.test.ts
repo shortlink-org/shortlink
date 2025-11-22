@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { LinkServiceRepository } from "../LinkServiceRepository.js";
 import { ILinkServiceAdapter } from "../../adapters/ILinkServiceAdapter.js";
 import { ILinkCache } from "../../cache/RedisLinkCache.js";
-import { ILogger } from "../../../logging/ILogger.js";
+import { ILogger } from "../../logging/ILogger.js";
 import { Hash } from "../../../domain/entities/Hash.js";
 import { Link } from "../../../domain/entities/Link.js";
 
@@ -220,4 +220,3 @@ describe("LinkServiceRepository", () => {
     });
   });
 });
-

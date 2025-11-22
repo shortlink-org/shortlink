@@ -88,7 +88,9 @@ const redirectSchema = {
  */
 export async function registerProxyRoutes(
   fastify: FastifyInstance,
-  opts: FastifyPluginOptions & { container: AwilixContainer<ContainerDependencies> }
+  opts: FastifyPluginOptions & {
+    container: AwilixContainer<ContainerDependencies>;
+  }
 ): Promise<void> {
   const container = opts.container;
   const proxyController = container.resolve("proxyController");
@@ -119,11 +121,11 @@ export async function registerProxyRoutes(
     },
     async (request, reply) => {
       // Get controller from request-scoped container
-      const requestContainer = (request as any).container as AwilixContainer<ContainerDependencies>;
+      const requestContainer = (request as any)
+        .container as AwilixContainer<ContainerDependencies>;
       const controller = requestContainer.resolve("proxyController");
 
       await controller.redirect(request, reply);
     }
   );
 }
-

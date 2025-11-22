@@ -14,7 +14,7 @@ import {
   GetLinkRequest,
   GetLinkResponse,
 } from "../dto/index.js";
-import { ILogger } from "../../../infrastructure/logging/ILogger.js";
+import { ILogger } from "../../infrastructure/logging/ILogger.js";
 import {
   UseCasePipeline,
   LoggingInterceptor,
