@@ -1,7 +1,7 @@
 import type { FastifyInstance } from "fastify";
 import type { AwilixContainer } from "awilix";
-import type { ContainerDependencies } from "../container/index.js";
-import type { IMessageBus } from "../proxy/domain/interfaces/IMessageBus.js";
+import type { ContainerDependencies } from "../di/container.js";
+import type { IMessageBus } from "../domain/interfaces/IMessageBus.js";
 
 const READY_ENDPOINT = "/ready";
 

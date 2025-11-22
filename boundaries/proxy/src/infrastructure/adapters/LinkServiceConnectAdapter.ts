@@ -20,7 +20,7 @@ import {
   GetRequestSchema,
   GetResponse,
   GetResponseSchema,
-} from "../../../proto/infrastructure/rpc/link/v1/link_pb.js";
+} from "../../../infrastructure/proto/infrastructure/rpc/link/v1/link_pb.js";
 import { create, fromBinary, toBinary } from "@bufbuild/protobuf";
 
 /**

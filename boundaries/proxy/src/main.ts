@@ -3,18 +3,18 @@ import * as dotenv from "dotenv";
 // 1. Load environment variables FIRST (before logger, before configs)
 dotenv.config();
 
-import { createDIContainer } from "./container/index.js";
-import { buildServer } from "./proxy/infrastructure/http/fastify/server.js";
+import { createDIContainer } from "./di/container.js";
+import { buildServer } from "./infrastructure/http/fastify/server.js";
 import { initializeTelemetry } from "./infrastructure/telemetry.js";
 import { initializeProfiling } from "./infrastructure/profiling.js";
 import { configureHealthChecks } from "./infrastructure/health.js";
 import { AppConfig } from "./infrastructure/config/index.js";
 import { logPermissions } from "./infrastructure/permissions.js";
-import type { IMessageBus } from "./proxy/domain/interfaces/IMessageBus.js";
-import type { IEventPublisher } from "./proxy/application/use-cases/PublishEventUseCase.js";
+import type { IMessageBus } from "./domain/interfaces/IMessageBus.js";
+import type { IEventPublisher } from "./application/use-cases/PublishEventUseCase.js";
 import type { FastifyInstance } from "fastify";
 import type { AwilixContainer } from "awilix";
-import type { ContainerDependencies } from "./container/index.js";
+import type { ContainerDependencies } from "./di/container.js";
 
 // Improved type guard
 type ExchangeInitializer = {

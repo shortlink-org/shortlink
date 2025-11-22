@@ -1,10 +1,10 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import type { FastifyInstance } from "fastify";
 import { createTestServer } from "../helpers/testServer.js";
-import { LinkApplicationService } from "../../../proxy/application/services/LinkApplicationService.js";
-import { Hash } from "../../../proxy/domain/entities/Hash.js";
-import { Link } from "../../../proxy/domain/entities/Link.js";
-import { LinkNotFoundError } from "../../../proxy/domain/exceptions/index.js";
+import { LinkApplicationService } from "../../../application/services/LinkApplicationService.js";
+import { Hash } from "../../../domain/entities/Hash.js";
+import { Link } from "../../../domain/entities/Link.js";
+import { LinkNotFoundError } from "../../../domain/exceptions/index.js";
 import { Result, ok, err } from "neverthrow";
 import type { ILogger } from "../../../infrastructure/logging/ILogger.js";
 

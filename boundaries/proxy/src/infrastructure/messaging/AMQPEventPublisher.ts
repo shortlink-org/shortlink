@@ -4,7 +4,7 @@ import { LinkMapper } from "../../domain/mappers/LinkMapper.js";
 import {
   Link as LinkProto,
   LinkSchema,
-} from "../../../proto/infrastructure/rpc/link/v1/link_pb.js";
+} from "../../../infrastructure/proto/infrastructure/rpc/link/v1/link_pb.js";
 import { LinkRedirectedEvent } from "../../domain/events/index.js";
 import { ILogger } from "../../../infrastructure/logging/ILogger.js";
 import { IMessageBus } from "../../domain/interfaces/IMessageBus.js";

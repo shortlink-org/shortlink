@@ -63,7 +63,7 @@ export function initializeTelemetry(): PrometheusExporter | null {
       "service.name": serviceName,
     }),
     traceExporter,
-    metricReader: prometheusExporter,
+    metricReaders: [prometheusExporter],
     instrumentations: [getNodeAutoInstrumentations()],
   });
 

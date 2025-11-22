@@ -1,22 +1,22 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import type { FastifyInstance } from "fastify";
 import { createTestServer } from "../helpers/testServer.js";
-import { LinkApplicationService } from "../../../proxy/application/services/LinkApplicationService.js";
-import { GetLinkByHashUseCase } from "../../../proxy/application/use-cases/GetLinkByHashUseCase.js";
-import { PublishEventUseCase } from "../../../proxy/application/use-cases/PublishEventUseCase.js";
-import { LinkServiceRepository } from "../../../proxy/infrastructure/repositories/LinkServiceRepository.js";
-import { Hash } from "../../../proxy/domain/entities/Hash.js";
-import { Link } from "../../../proxy/domain/entities/Link.js";
+import { LinkApplicationService } from "../../../application/services/LinkApplicationService.js";
+import { GetLinkByHashUseCase } from "../../../application/use-cases/GetLinkByHashUseCase.js";
+import { PublishEventUseCase } from "../../../application/use-cases/PublishEventUseCase.js";
+import { LinkServiceRepository } from "../../../infrastructure/repositories/LinkServiceRepository.js";
+import { Hash } from "../../../domain/entities/Hash.js";
+import { Link } from "../../../domain/entities/Link.js";
 import type { ILogger } from "../../../infrastructure/logging/ILogger.js";
 import {
   UseCasePipeline,
   LoggingInterceptor,
   MetricsInterceptor,
-} from "../../../proxy/application/pipeline/index.js";
-import type { ILinkCache } from "../../../proxy/infrastructure/cache/RedisLinkCache.js";
-import type { IEventPublisher } from "../../../proxy/application/use-cases/PublishEventUseCase.js";
-import type { ILinkServiceAdapter } from "../../../proxy/infrastructure/adapters/ILinkServiceAdapter.js";
-import type { DomainEvent } from "../../../proxy/domain/events/index.js";
+} from "../../../application/pipeline/index.js";
+import type { ILinkCache } from "../../../infrastructure/cache/RedisLinkCache.js";
+import type { IEventPublisher } from "../../../application/use-cases/PublishEventUseCase.js";
+import type { ILinkServiceAdapter } from "../../../infrastructure/adapters/ILinkServiceAdapter.js";
+import type { DomainEvent } from "../../../domain/events/index.js";
 
 /**
  * End-to-end интеграционные тесты для полного flow

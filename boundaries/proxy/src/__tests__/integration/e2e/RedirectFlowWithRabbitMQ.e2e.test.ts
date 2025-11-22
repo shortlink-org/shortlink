@@ -12,27 +12,27 @@ import type { FastifyInstance } from "fastify";
 import { createTestServer } from "../helpers/testServer.js";
 import { RabbitMQTestContainer } from "../helpers/rabbitmqContainer.js";
 import { RabbitMQTestConsumer } from "../helpers/rabbitmqConsumer.js";
-import { LinkApplicationService } from "../../../proxy/application/services/LinkApplicationService.js";
-import { GetLinkByHashUseCase } from "../../../proxy/application/use-cases/GetLinkByHashUseCase.js";
-import { PublishEventUseCase } from "../../../proxy/application/use-cases/PublishEventUseCase.js";
-import { LinkServiceRepository } from "../../../proxy/infrastructure/repositories/LinkServiceRepository.js";
-import { Hash } from "../../../proxy/domain/entities/Hash.js";
-import { Link } from "../../../proxy/domain/entities/Link.js";
+import { LinkApplicationService } from "../../../application/services/LinkApplicationService.js";
+import { GetLinkByHashUseCase } from "../../../application/use-cases/GetLinkByHashUseCase.js";
+import { PublishEventUseCase } from "../../../application/use-cases/PublishEventUseCase.js";
+import { LinkServiceRepository } from "../../../infrastructure/repositories/LinkServiceRepository.js";
+import { Hash } from "../../../domain/entities/Hash.js";
+import { Link } from "../../../domain/entities/Link.js";
 import type { ILogger } from "../../../infrastructure/logging/ILogger.js";
-import { IMessageBus } from "../../../proxy/domain/interfaces/IMessageBus.js";
-import { RabbitMQMessageBus } from "../../../proxy/infrastructure/messaging/RabbitMQMessageBus.js";
-import { AMQPEventPublisher } from "../../../proxy/infrastructure/messaging/AMQPEventPublisher.js";
-import type { IEventPublisher } from "../../../proxy/application/use-cases/PublishEventUseCase.js";
+import { IMessageBus } from "../../../domain/interfaces/IMessageBus.js";
+import { RabbitMQMessageBus } from "../../../infrastructure/messaging/RabbitMQMessageBus.js";
+import { AMQPEventPublisher } from "../../../infrastructure/messaging/AMQPEventPublisher.js";
+import type { IEventPublisher } from "../../../application/use-cases/PublishEventUseCase.js";
 import {
   UseCasePipeline,
   LoggingInterceptor,
   MetricsInterceptor,
-} from "../../../proxy/application/pipeline/index.js";
+} from "../../../application/pipeline/index.js";
 import { WinstonLogger } from "../../../infrastructure/logging/WinstonLogger.js";
-import { LinkSchema } from "../../../proto/infrastructure/rpc/link/v1/link_pb.js";
+import { LinkSchema } from "../../../infrastructure/proto/infrastructure/rpc/link/v1/link_pb.js";
 import { fromBinary } from "@bufbuild/protobuf";
-import type { ILinkCache } from "../../../proxy/infrastructure/cache/RedisLinkCache.js";
-import type { ILinkServiceAdapter } from "../../../proxy/infrastructure/adapters/ILinkServiceAdapter.js";
+import type { ILinkCache } from "../../../infrastructure/cache/RedisLinkCache.js";
+import type { ILinkServiceAdapter } from "../../../infrastructure/adapters/ILinkServiceAdapter.js";
 
 /**
  * End-to-end интеграционные тесты с реальным RabbitMQ через Testcontainers

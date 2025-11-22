@@ -1,12 +1,12 @@
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
-import { LinkServiceConnectAdapter } from "../../../proxy/infrastructure/adapters/LinkServiceConnectAdapter.js";
-import { LinkServiceACL } from "../../../proxy/infrastructure/anti-corruption/LinkServiceACL.js";
+import { LinkServiceConnectAdapter } from "../../../infrastructure/adapters/LinkServiceConnectAdapter.js";
+import { LinkServiceACL } from "../../../infrastructure/anti-corruption/LinkServiceACL.js";
 import { ExternalServicesConfig } from "../../../infrastructure/config/ExternalServicesConfig.js";
 import { ILogger } from "../../../infrastructure/logging/ILogger.js";
-import { IGrpcMetrics } from "../../../proxy/infrastructure/metrics/IGrpcMetrics.js";
-import { IGrpcTracing } from "../../../proxy/infrastructure/tracing/IGrpcTracing.js";
-import { Hash } from "../../../proxy/domain/entities/Hash.js";
-import { Link } from "../../../proxy/domain/entities/Link.js";
+import { IGrpcMetrics } from "../../../infrastructure/metrics/IGrpcMetrics.js";
+import { IGrpcTracing } from "../../../infrastructure/tracing/IGrpcTracing.js";
+import { Hash } from "../../../domain/entities/Hash.js";
+import { Link } from "../../../domain/entities/Link.js";
 import {
   GetRequest,
   GetRequestSchema,
@@ -14,7 +14,7 @@ import {
   GetResponseSchema,
   Link as LinkProto,
   LinkSchema,
-} from "../../../proto/infrastructure/rpc/link/v1/link_pb.js";
+} from "../../../infrastructure/proto/infrastructure/rpc/link/v1/link_pb.js";
 import { create, fromBinary, toBinary } from "@bufbuild/protobuf";
 import type { Transport } from "@connectrpc/connect";
 
