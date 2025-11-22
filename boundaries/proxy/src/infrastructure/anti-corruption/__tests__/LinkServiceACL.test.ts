@@ -2,7 +2,7 @@ import { describe, it, expect, beforeEach } from "vitest";
 import { LinkServiceACL } from "../LinkServiceACL.js";
 import { Link } from "../../../domain/entities/Link.js";
 import { Hash } from "../../../domain/entities/Hash.js";
-import { Link as LinkProto, LinkSchema } from "../../../proto/infrastructure/rpc/link/v1/link_pb.js";
+import { Link as LinkProto, LinkSchema } from "../../proto/infrastructure/rpc/link/v1/link_pb.js";
 import { create } from "@bufbuild/protobuf";
 import { TimestampSchema } from "@bufbuild/protobuf/wkt";
 

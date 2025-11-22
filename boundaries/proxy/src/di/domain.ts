@@ -1,4 +1,4 @@
-import { LinkDomainService } from "../../domain/services/LinkDomainService.js";
+import { LinkDomainService } from "../domain/services/LinkDomainService.js";
 
 export const DOMAIN = {
   linkDomainService: LinkDomainService,
