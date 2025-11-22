@@ -82,7 +82,7 @@ HEALTHCHECK \
   --retries=3 \
   CMD curl -f localhost:3020/ready || exit 1
 
-# Используем Permissions API для Zero-Trust безопасности
-# Ограничиваем доступ к файловой системе и сети
-# Переменные окружения контролируются на уровне Kubernetes/Docker
-CMD ["node", "--permission", "--allow-fs-read=/app", "--allow-net", "./dist/app.js"]
+# Using Permissions API for Zero-Trust security
+# Restricting access to filesystem and network
+# Environment variables are controlled at the Kubernetes/Docker level
+CMD ["node", "--permission", "--allow-fs-read=/app", "--allow-net", "./dist/main.js"]
