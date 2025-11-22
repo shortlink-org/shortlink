@@ -8,7 +8,7 @@ import {
   InfrastructureError,
   ExternalServiceError,
 } from "../../../../application/exceptions/index.js";
-import type { ILogger } from "../../../../../infrastructure/logging/ILogger.js";
+import type { ILogger } from "../../../logging/ILogger.js";
 
 /**
  * Error response structure

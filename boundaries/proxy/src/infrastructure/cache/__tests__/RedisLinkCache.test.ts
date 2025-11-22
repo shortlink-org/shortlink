@@ -2,8 +2,8 @@ import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { RedisLinkCache } from "../RedisLinkCache.js";
 import { Hash } from "../../../domain/entities/Hash.js";
 import { Link } from "../../../domain/entities/Link.js";
-import { ILogger } from "../../../../infrastructure/logging/ILogger.js";
-import { CacheConfig } from "../../../../infrastructure/config/CacheConfig.js";
+import { ILogger } from "../../logging/ILogger.js";
+import { CacheConfig } from "../../config/CacheConfig.js";
 import Redis from "ioredis";
 
 // Mock ioredis

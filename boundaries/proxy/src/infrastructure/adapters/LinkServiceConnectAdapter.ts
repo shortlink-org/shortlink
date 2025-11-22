@@ -4,8 +4,8 @@ import { LinkServiceACL } from "../anti-corruption/LinkServiceACL.js";
 import { ILinkServiceAdapter } from "./ILinkServiceAdapter.js";
 import { Link } from "../../domain/entities/Link.js";
 import { Hash } from "../../domain/entities/Hash.js";
-import { ExternalServicesConfig } from "../../../infrastructure/config/ExternalServicesConfig.js";
-import { ILogger } from "../../../infrastructure/logging/ILogger.js";
+import { ExternalServicesConfig } from "../config/ExternalServicesConfig.js";
+import { ILogger } from "../logging/ILogger.js";
 import { IGrpcMetrics } from "../metrics/IGrpcMetrics.js";
 import { IGrpcTracing } from "../tracing/IGrpcTracing.js";
 import {
@@ -20,7 +20,7 @@ import {
   GetRequestSchema,
   GetResponse,
   GetResponseSchema,
-} from "../../../infrastructure/proto/infrastructure/rpc/link/v1/link_pb.js";
+} from "../proto/infrastructure/rpc/link/v1/link_pb.js";
 import { create, fromBinary, toBinary } from "@bufbuild/protobuf";
 
 /**

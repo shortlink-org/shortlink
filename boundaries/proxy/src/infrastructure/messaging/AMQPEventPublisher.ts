@@ -4,9 +4,9 @@ import { LinkMapper } from "../../domain/mappers/LinkMapper.js";
 import {
   Link as LinkProto,
   LinkSchema,
-} from "../../../infrastructure/proto/infrastructure/rpc/link/v1/link_pb.js";
+} from "../proto/infrastructure/rpc/link/v1/link_pb.js";
 import { LinkRedirectedEvent } from "../../domain/events/index.js";
-import { ILogger } from "../../../infrastructure/logging/ILogger.js";
+import { ILogger } from "../logging/ILogger.js";
 import { IMessageBus } from "../../domain/interfaces/IMessageBus.js";
 import { MQ_EVENT_LINK_NEW } from "../../domain/event.js";
 import { toBinary } from "@bufbuild/protobuf";

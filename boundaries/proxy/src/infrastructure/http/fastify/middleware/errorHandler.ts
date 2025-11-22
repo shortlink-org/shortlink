@@ -1,5 +1,5 @@
 import type { FastifyError, FastifyRequest, FastifyReply } from "fastify";
-import type { ILogger } from "../../../../../infrastructure/logging/ILogger.js";
+import type { ILogger } from "../../../logging/ILogger.js";
 import { ErrorMapper } from "./ErrorMapper.js";
 
 /**

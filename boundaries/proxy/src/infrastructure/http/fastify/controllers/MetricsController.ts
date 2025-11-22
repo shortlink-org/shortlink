@@ -1,5 +1,5 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
-import { getPrometheusExporter } from "../../../../../infrastructure/telemetry.js";
+import { getPrometheusExporter } from "../../../telemetry.js";
 
 /**
  * HTTP Controller for Prometheus metrics.

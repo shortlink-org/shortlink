@@ -5,7 +5,7 @@ import { Hash } from "../../domain/entities/Hash.js";
 import { ILinkRepository } from "../../domain/repositories/ILinkRepository.js";
 import { ILinkServiceAdapter } from "../adapters/ILinkServiceAdapter.js";
 import { ILinkCache } from "../cache/RedisLinkCache.js";
-import { ILogger } from "../../../infrastructure/logging/ILogger.js";
+import { ILogger } from "../logging/ILogger.js";
 
 /**
  * Реализация ILinkRepository через внешний Link Service

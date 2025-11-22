@@ -5,11 +5,11 @@ import formbody from "@fastify/formbody";
 import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
 import type { AwilixContainer } from "awilix";
-import type { ContainerDependencies } from "../../../../container/index.js";
-import { createRequestScope } from "../../../../container/index.js";
+import type { ContainerDependencies } from "../../../di/container.js";
+import { createRequestScope } from "../../../di/container.js";
 import { registerRoutes } from "./routes/index.js";
 import { errorHandler } from "./middleware/errorHandler.js";
-import type { ILogger } from "../../../../infrastructure/logging/ILogger.js";
+import type { ILogger } from "../logging/ILogger.js";
 
 /**
  * Fastify server configuration options

@@ -1,6 +1,6 @@
 import type { FastifyInstance, FastifyPluginOptions } from "fastify";
 import type { AwilixContainer } from "awilix";
-import type { ContainerDependencies } from "../../../../../container/index.js";
+import type { ContainerDependencies } from "../../../../di/container.js";
 import { z } from "zod";
 
 /**

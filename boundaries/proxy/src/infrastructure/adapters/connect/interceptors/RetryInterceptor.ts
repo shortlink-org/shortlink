@@ -1,5 +1,5 @@
 import type { Interceptor } from "@connectrpc/connect";
-import { ILogger } from "../../../../../infrastructure/logging/ILogger.js";
+import { ILogger } from "../../../logging/ILogger.js";
 
 /**
  * Конфигурация для retry interceptor

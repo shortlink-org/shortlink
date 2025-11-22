@@ -1,7 +1,7 @@
 import type { FastifyRequest, FastifyReply } from "fastify";
 import { LinkApplicationService } from "../../../../application/services/LinkApplicationService.js";
 import { Hash } from "../../../../domain/entities/Hash.js";
-import type { ILogger } from "../../../../../infrastructure/logging/ILogger.js";
+import type { ILogger } from "../../../logging/ILogger.js";
 
 /**
  * HTTP Controller for redirect handling.

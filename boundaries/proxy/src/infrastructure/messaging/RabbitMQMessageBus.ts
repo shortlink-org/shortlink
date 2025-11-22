@@ -3,8 +3,8 @@ import {
   IMessageBus,
   MessageBusPublishOptions,
 } from "../../domain/interfaces/IMessageBus.js";
-import { ILogger } from "../../../infrastructure/logging/ILogger.js";
-import { ConfigReader } from "../../../infrastructure/config/ConfigReader.js";
+import { ILogger } from "../logging/ILogger.js";
+import { ConfigReader } from "../config/ConfigReader.js";
 
 /**
  * Реализация IMessageBus для RabbitMQ через AMQP

@@ -3,8 +3,8 @@ import { metrics, trace, context } from "@opentelemetry/api";
 import type { Meter, Counter, Histogram } from "@opentelemetry/api";
 import { Link } from "../../domain/entities/Link.js";
 import { Hash } from "../../domain/entities/Hash.js";
-import { ILogger } from "../../../infrastructure/logging/ILogger.js";
-import { CacheConfig } from "../../../infrastructure/config/CacheConfig.js";
+import { ILogger } from "../logging/ILogger.js";
+import { CacheConfig } from "../config/CacheConfig.js";
 
 /**
  * Интерфейс для кэша ссылок
