@@ -85,4 +85,5 @@ HEALTHCHECK \
 # Using Permissions API for Zero-Trust security
 # Restricting access to filesystem and network
 # Environment variables are controlled at the Kubernetes/Docker level
-CMD ["node", "--permission", "--allow-fs-read=/app", "--allow-net", "./dist/main.js"]
+# Allow /etc read for node-gyp-build to detect system type (Alpine/Debian)
+CMD ["node", "--permission", "--allow-fs-read=/app", "--allow-fs-read=/etc", "--allow-net", "./dist/main.js"]

@@ -3,6 +3,7 @@ package s3Repository
 import (
 	"bytes"
 	"context"
+	"errors"
 	"net/url"
 
 	"github.com/minio/minio-go/v7"
@@ -20,7 +21,17 @@ func New(ctx context.Context, store *s3.Client) (*Service, error) {
 
 	err := store.CreateBucket(ctx, bucketName, minio.MakeBucketOptions{})
 	if err != nil {
-		return nil, err
+		// Check if error is because bucket already exists - this is fine
+		var minioErr minio.ErrorResponse
+		if errors.As(err, &minioErr) {
+			if minioErr.Code == "BucketAlreadyExists" || minioErr.Code == "BucketAlreadyOwnedByYou" {
+				// Bucket exists, which is fine - continue without error
+				err = nil
+			}
+		}
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	return &Service{
