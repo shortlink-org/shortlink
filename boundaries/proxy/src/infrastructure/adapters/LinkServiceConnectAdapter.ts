@@ -72,19 +72,20 @@ export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
     // Полностью типобезопасно через @bufbuild/protobuf типы
     // Connect 2.x сигнатура: unary(method, signal, timeoutMs, header, message, contextValues)
     // Interceptors автоматически обработают логирование, метрики, трейсинг и retry
+    // createMethodUrl ожидает method.parent.typeName, а не method.service.typeName
     const methodDesc = {
-      service: {
+      name: "Get",
+      kind: "unary" as const,
+      I: GetRequestSchema,
+      O: GetResponseSchema,
+      parent: {
         typeName: "infrastructure.rpc.link.v1.LinkService",
-      },
-      method: {
-        name: "Get",
-        kind: "unary" as const,
-        I: GetRequestSchema,
-        O: GetResponseSchema,
       },
     } as any; // Временный any для обхода проблем с типизацией Connect 2.x
 
-    const signal = AbortSignal.timeout(this.externalServicesConfig.requestTimeout);
+    const signal = AbortSignal.timeout(
+      this.externalServicesConfig.requestTimeout
+    );
     const timeoutMs = this.externalServicesConfig.requestTimeout;
 
     // Преобразуем GetRequest в бинарный формат для Connect
@@ -103,7 +104,10 @@ export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
       // response - это UnaryResponse, который содержит message в бинарном формате
       // Преобразуем бинарный ответ обратно в GetResponse
       const responseBinary = (response as any).message || response;
-      const getResponse = fromBinary(GetResponseSchema, responseBinary as Uint8Array);
+      const getResponse = fromBinary(
+        GetResponseSchema,
+        responseBinary as Uint8Array
+      );
 
       if (!getResponse || !getResponse.link) {
         // NOT_FOUND обрабатывается interceptors (метрики и трейсинг)
@@ -136,4 +140,3 @@ export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
     }
   }
 }
-

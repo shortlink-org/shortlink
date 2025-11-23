@@ -241,6 +241,89 @@ describe("LinkServiceConnectAdapter Integration Tests", () => {
       // Assert
       expect(mockACL.toDomainEntityFromProto).toHaveBeenCalledWith(protoLink);
     });
+
+    it("should pass method descriptor with correct structure to transport.unary", async () => {
+      // Arrange
+      const hash = new Hash("testhash");
+      const protoLink = create(LinkSchema, {
+        hash: "testhash",
+        url: "https://example.com",
+      });
+      const domainLink = new Link(hash, "https://example.com");
+
+      const getResponse = create(GetResponseSchema, {
+        link: protoLink,
+      });
+
+      mockTransport.unary = vi.fn().mockResolvedValue({
+        message: toBinary(GetResponseSchema, getResponse),
+      } as any);
+
+      mockACL.toDomainEntityFromProto.mockReturnValue(domainLink);
+
+      // Act
+      await adapter.getLinkByHash(hash);
+
+      // Assert - проверяем структуру method descriptor
+      expect(mockTransport.unary).toHaveBeenCalledTimes(1);
+      const methodDesc = mockTransport.unary.mock.calls[0][0];
+
+      // Метод должен передаваться напрямую, а не обернутый в объект с методом
+      expect(methodDesc).toBeDefined();
+      expect(methodDesc.name).toBe("Get");
+      expect(methodDesc.kind).toBe("unary");
+      expect(methodDesc.I).toBe(GetRequestSchema);
+      expect(methodDesc.O).toBe(GetResponseSchema);
+
+      // Критично: должен быть parent.typeName, а не service.typeName
+      // createMethodUrl ожидает method.parent.typeName
+      expect(methodDesc.parent).toBeDefined();
+      expect(methodDesc.parent.typeName).toBe(
+        "infrastructure.rpc.link.v1.LinkService"
+      );
+
+      // Не должно быть service на верхнем уровне или внутри method
+      expect(methodDesc.service).toBeUndefined();
+      expect((methodDesc as any).method).toBeUndefined();
+    });
+
+    it("should pass binary request data to transport.unary", async () => {
+      // Arrange
+      const hash = new Hash("testhash123");
+      const protoLink = create(LinkSchema, {
+        hash: "testhash123",
+        url: "https://example.com",
+      });
+      const domainLink = new Link(hash, "https://example.com");
+
+      const getResponse = create(GetResponseSchema, {
+        link: protoLink,
+      });
+
+      mockTransport.unary = vi.fn().mockResolvedValue({
+        message: toBinary(GetResponseSchema, getResponse),
+      } as any);
+
+      mockACL.toDomainEntityFromProto.mockReturnValue(domainLink);
+
+      // Act
+      await adapter.getLinkByHash(hash);
+
+      // Assert - проверяем, что передается бинарный формат запроса
+      expect(mockTransport.unary).toHaveBeenCalledTimes(1);
+      const callArgs = mockTransport.unary.mock.calls[0];
+
+      // Проверяем параметры вызова: method, signal, timeoutMs, headers, message, contextValues
+      expect(callArgs.length).toBeGreaterThanOrEqual(5);
+
+      // Пятый параметр - это бинарное сообщение (Uint8Array)
+      const requestBinary = callArgs[4];
+      expect(requestBinary).toBeInstanceOf(Uint8Array);
+
+      // Проверяем, что бинарные данные можно декодировать обратно
+      const decodedRequest = fromBinary(GetRequestSchema, requestBinary);
+      expect(decodedRequest.hash).toBe("testhash123");
+    });
   });
 });
 
