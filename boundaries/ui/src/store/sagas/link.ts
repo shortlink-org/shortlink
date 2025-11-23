@@ -1,26 +1,22 @@
-import { put, takeLatest } from 'redux-saga/effects'
+import { put, takeLatest, call } from 'redux-saga/effects'
 
 import * as t from '@/store/types'
 
 import API from './api'
 
-// @ts-ignore
-function* fetchLinkById(id) {
+function* fetchLinkById(action: { payload: string }) {
   try {
     // @ts-ignore
-    const response = yield API.links.getLink(id)
-
-    // @ts-ignore
-    const link = yield response.json()
+    const response = yield call(API.links.getLink, action.payload)
 
     yield put({
       type: t.LINK_FETCH_SUCCEEDED,
-      payload: link.data,
+      payload: response.data.link,
     })
-  } catch (error) {
+  } catch (error: any) {
     yield put({
       type: t.LINK_FETCH_FAILED,
-      payload: error.message,
+      payload: error.message || 'Failed to fetch link',
     })
   }
 }
@@ -32,16 +28,16 @@ function* watchFetchLinkById() {
 function* fetchLinkList() {
   try {
     // @ts-ignore
-    const response = yield API.links.listLinks()
+    const response = yield call(API.links.listLinks)
 
     yield put({
       type: t.LINK_FETCH_LIST_SUCCEEDED,
       payload: response.data,
     })
-  } catch (error) {
+  } catch (error: any) {
     yield put({
       type: t.LINK_FETCH_LIST_FAILED,
-      payload: error.message,
+      payload: error.message || 'Failed to fetch links',
     })
   }
 }
@@ -53,19 +49,16 @@ function* watchFetchLinkList() {
 function* addLink(action: { payload: any }) {
   try {
     // @ts-ignore
-    yield API.links.addLink(action.payload)
-
-    // @ts-ignore
-    const newLink = yield response.json()
+    const response = yield call(API.links.addLink, action.payload)
 
     yield put({
       type: t.LINK_ADD_SUCCEEDED,
-      payload: newLink.data,
+      payload: response.data.link,
     })
-  } catch (error) {
+  } catch (error: any) {
     yield put({
       type: t.LINK_ADD_FAILED,
-      payload: error.message,
+      payload: error.message || 'Failed to add link',
     })
   }
 }
@@ -78,19 +71,16 @@ function* watchAddLink() {
 function* deleteLink(action: { payload: string }) {
   try {
     // @ts-ignore
-    const response = yield API.links.deleteLink(action.payload)
-
-    // @ts-ignore
-    const deletedLink = yield response.json()
+    yield call(API.links.deleteLink, action.payload)
 
     yield put({
       type: t.LINK_DELETE_SUCCEEDED,
-      payload: deletedLink.data.id,
+      payload: action.payload, // hash
     })
-  } catch (error) {
+  } catch (error: any) {
     yield put({
       type: t.LINK_DELETE_FAILED,
-      payload: error.message,
+      payload: error.message || 'Failed to delete link',
     })
   }
 }
@@ -100,20 +90,19 @@ function* watchDeleteLink() {
   yield takeLatest(t.LINK_DELETE_REQUESTED, deleteLink)
 }
 
-// @ts-ignore
-function* updateLink(action) {
+function* updateLink(action: { payload: any }) {
   try {
     // @ts-ignore
-    const response = yield API.links.updateLink(action.payload._id, action.payload)
+    const response = yield call(API.links.updateLink, action.payload.hash, { link: action.payload })
 
     yield put({
       type: t.LINK_UPDATE_SUCCEEDED,
-      payload: response.data,
+      payload: response.data.link,
     })
-  } catch (error) {
+  } catch (error: any) {
     yield put({
       type: t.LINK_UPDATE_FAILED,
-      payload: error.message,
+      payload: error.message || 'Failed to update link',
     })
   }
 }

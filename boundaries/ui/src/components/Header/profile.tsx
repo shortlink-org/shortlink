@@ -39,7 +39,7 @@ export default function Profile() {
   const profile = [
     {
       name: 'Your Profile',
-      link: '/user/profile',
+      link: '/profile',
       icon: '👤',
     },
     {

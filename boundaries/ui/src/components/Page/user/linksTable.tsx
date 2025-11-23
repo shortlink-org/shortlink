@@ -4,15 +4,16 @@ import { Table } from '@shortlink-org/ui-kit'
 import { formatRelative } from 'date-fns'
 import { ContentCopy } from '@mui/icons-material'
 
-type AppProps = {
-  data: Array<{
-    url: string
-    hash: string
-    describe?: string
-    created_at: string
-    updated_at: string
-  }>
+export interface LinkTableItem {
+  url: string
+  hash: string
+  describe?: string
+  created_at: string
+  updated_at: string
+}
 
+type AppProps = {
+  data: LinkTableItem[]
   onRefresh?: () => void
 }
 
@@ -55,11 +56,17 @@ const columns = [
     filterVariant: 'date',
     filterFn: 'lessThan',
     sortingFn: 'datetime',
-    Cell: ({ cell }: CellProps) =>
-      formatRelative(new Date(cell.getValue()), new Date(), {
-        // @ts-ignore
-        addSuffix: true,
-      }),
+    Cell: ({ cell }: CellProps) => {
+      const dateValue = cell.getValue()
+      if (!dateValue) return ''
+      try {
+        return formatRelative(new Date(dateValue), new Date(), {
+          addSuffix: true,
+        })
+      } catch {
+        return dateValue
+      }
+    },
     muiFilterTextFieldProps: {
       sx: {
         minWidth: '250px',
@@ -73,11 +80,17 @@ const columns = [
     filterVariant: 'date',
     filterFn: 'lessThan',
     sortingFn: 'datetime',
-    Cell: ({ cell }: CellProps) =>
-      formatRelative(new Date(cell.getValue()), new Date(), {
-        // @ts-ignore
-        addSuffix: true,
-      }),
+    Cell: ({ cell }: CellProps) => {
+      const dateValue = cell.getValue()
+      if (!dateValue) return ''
+      try {
+        return formatRelative(new Date(dateValue), new Date(), {
+          addSuffix: true,
+        })
+      } catch {
+        return dateValue
+      }
+    },
     muiFilterTextFieldProps: {
       sx: {
         minWidth: '250px',

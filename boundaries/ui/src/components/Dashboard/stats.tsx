@@ -26,9 +26,11 @@ export default function Statistic({ count }: StatisticProps) {
         </div>
         <div className="lg:w-1/2">
           <p className="text-gray-800 dark:text-gray-300">
-            A table can be a great way to keep track of links. You can add links to the table, delete links from the table, and update links
-            in the table. This can be a great way to organize your links and keep track of them. You can also use the table to share links
-            with others. This can be a great way to share links with friends or family.
+            {count === 0
+              ? 'You don\'t have any saved links yet. Create your first link using the "Add URL" button in the menu.'
+              : count === 1
+                ? 'You have one saved link. You can manage it through the table: view, edit, or delete it.'
+                : `You have ${count} saved ${count === 1 ? 'link' : 'links'}. Use the table to manage your links: filter, sort, edit, and delete them.`}
           </p>
         </div>
       </div>
