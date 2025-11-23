@@ -123,6 +123,12 @@ export function initializeTelemetry(): PrometheusExporter | null {
 
   const collectorEndpoint =
     process.env.OTEL_EXPORTER_OTLP_ENDPOINT ?? DEFAULT_COLLECTOR_ENDPOINT;
+  const traceEndpoint =
+    process.env.OTEL_EXPORTER_OTLP_TRACES_ENDPOINT ?? collectorEndpoint;
+  const metricEndpoint =
+    process.env.OTEL_EXPORTER_OTLP_METRICS_ENDPOINT ?? collectorEndpoint;
+  const logsEndpoint =
+    process.env.OTEL_EXPORTER_OTLP_LOGS_ENDPOINT ?? collectorEndpoint;
 
   const serviceName =
     process.env.OTEL_SERVICE_NAME ??
@@ -131,7 +137,7 @@ export function initializeTelemetry(): PrometheusExporter | null {
 
   // --- Traces: OTLP gRPC exporter ---
   const traceExporter = new OTLPTraceExporter({
-    url: collectorEndpoint,
+    url: traceEndpoint,
   }) as unknown as SpanExporter;
 
   // --- Metrics: Prometheus pull + OTLP push ---
@@ -145,7 +151,7 @@ export function initializeTelemetry(): PrometheusExporter | null {
 
   // OTLP metrics (push) — to Alloy/Collector
   const otlpMetricExporter = new OTLPMetricExporter({
-    url: collectorEndpoint,
+    url: metricEndpoint,
   });
 
   const otlpMetricReader = new PeriodicExportingMetricReader({
@@ -157,7 +163,7 @@ export function initializeTelemetry(): PrometheusExporter | null {
 
   // --- Logs: OTLP gRPC exporter ---
   const otlpLogExporter = new OTLPLogExporter({
-    url: collectorEndpoint,
+    url: logsEndpoint,
   });
 
   const logRecordProcessor = new logs.BatchLogRecordProcessor(otlpLogExporter);

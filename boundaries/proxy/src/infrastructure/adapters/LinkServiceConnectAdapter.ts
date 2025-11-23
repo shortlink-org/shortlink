@@ -5,7 +5,7 @@ import {
   type Client as PromiseClient,
 } from "@connectrpc/connect";
 import type { DescService } from "@bufbuild/protobuf";
-import { createConnectTransport } from "@connectrpc/connect-node";
+import { createGrpcTransport } from "@connectrpc/connect-node";
 import { LinkServiceACL } from "../anti-corruption/LinkServiceACL.js";
 import { ILinkServiceAdapter } from "./ILinkServiceAdapter.js";
 import { Link } from "../../domain/entities/Link.js";
@@ -52,10 +52,9 @@ export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
       createLoggingInterceptor(this.logger),
     ];
 
-    // Create Connect transport with interceptors
-    const transport = createConnectTransport({
+    // Create gRPC transport with interceptors (legacy gRPC server)
+    const transport = createGrpcTransport({
       baseUrl: `http://${this.externalServicesConfig.linkServiceGrpcUrl}`,
-      httpVersion: "1.1", // ConnectRPC 2.x requires HTTP/1.1 with Node transport
       interceptors,
     });
 

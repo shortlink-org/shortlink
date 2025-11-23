@@ -2,12 +2,7 @@
   "version": 1,
   "resources": {
     "fs": {
-      "read": [
-        "/app",
-        "/app/.env",
-        "/app/dist",
-        "/app/prisma"
-      ],
+      "read": ["/app", "/app/.env", "/app/dist", "/app/prisma"],
       "write": []
     },
     "env": [
@@ -35,9 +30,10 @@
       "allow": [
         "link-service:3000",
         "link-service:50051",
-        "shortlink-api.shortlink:7070",
+        "shortlink-link-link.shortlink-link:50051",
         "istio-ingress.istio-ingress",
         "grafana-tempo.grafana:4317",
+        "grafana-alloy.grafana:4317",
         "pyroscope:4040",
         "localhost:3020",
         "127.0.0.1:3020",
@@ -47,4 +43,3 @@
     }
   }
 }
-
