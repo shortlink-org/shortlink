@@ -1,8 +1,8 @@
 deploy:
     env:
         S3_ENDPOINT: ENC[AES256_GCM,data:bs50QWmzLGNHsklyQD8fSJfwebyb8qg=,iv:wskoPcUYvI1Tjv5QdTDF+zpYQIjarLbpXu5erxCh1Ig=,tag:hxM09RQmq3HYZE+bgXgBUg==,type:str]
-        S3_ACCESS_KEY_ID: ENC[AES256_GCM,data:HtR7kDyqkrZqwrmwWnFESACQ8eM=,iv:VU8tzsxwvoxIQYGSdxCRfRCZqEkTtANLMbKh5oIjwr4=,tag:UZjMOZob+DNH4pkoec5/1w==,type:str]
-        S3_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:XQUAMfbPVGj0UFmw+GkTYCm3okdrJ6D8PKK5EBbt/Rjuc/xpuwAyKA==,iv:l0SQhONiGFFje3IamjDL2/e3uJjvyW7SxX1J968G4sg=,tag:JtSwBLgHmyA6xFktSXicGw==,type:str]
+        S3_ACCESS_KEY_ID: ENC[AES256_GCM,data:BoxnBHfY7ikjY6FjWdruglKONUY=,iv:KWsOkbVNoUsNl7sUPMuPFlfC+iIj4yw8Ui+YS2YEQhU=,tag:OM9A6xxKa3ZqyllS9V/58g==,type:str]
+        S3_SECRET_ACCESS_KEY: ENC[AES256_GCM,data:gWu+3rBBXSdN18OEpVBTVhMi5kG7mCY8mAEnrv23E7Uy9zioGT7o0Q==,iv:FKjpCV6aH3yihoOvP8Ij5t3yJHjT6R2xvufJ9xzVCkc=,tag:SFXQHqdxHuC5QNsslMGxIQ==,type:str]
         S3_USE_SSL: ENC[AES256_GCM,data:ud0F2XQ=,iv:qyoG93mraLjO0g/BK6d1PmzijuRyJF+6h4ZaorDF1k4=,tag:rsL57y0rhxD6YePEwaL5Uw==,type:str]
 sops:
     kms: []
@@ -10,8 +10,8 @@ sops:
     azure_kv: []
     hc_vault: []
     age: []
-    lastmodified: "2024-09-08T15:22:17Z"
-    mac: ENC[AES256_GCM,data:1ZlL1GnbtSk8eWVKDzUGxtOs/Ztw+lsbQQdeW4qsXNlLLG9QhVHDp/5i4KcfKatwTGX73+RKPtElfIkKfjnghusW8wFIt68fNab1X5NaZ5MOsXWM9W5XfAsUIE2qjYRcAvJow/qjhov8vx5UFWFX+dZ70MsIztI+S5ZBefDF72k=,iv:/htslDZMBxGYENkb5mppjBdUETLDCIi/sj9uPJK3jIQ=,tag:ek7TIY1b7FWKk5xOFhVX7g==,type:str]
+    lastmodified: "2025-11-23T12:45:44Z"
+    mac: ENC[AES256_GCM,data:eGzs1ulk8Hi/pT3KofPhdCgPnwE/Ay0JMVIZL+Txyv70EyfaKOqkSSPt/2lJKp9ZGUUm+auN1zOSGBLWqr68Tn65FbcnuGnbwhdVYQ1asAh1vlCFyWa/ih7BN2gl0ZVEwrcrjMGtIfIiuJo2OfFtpMGnM3VNNzAQ1s+sUrL1tOs=,iv:1A0uJVoxEx/ZosvFkoQ7x/On45TmiCLWfp457VxZxrc=,tag:+cFhwpCoTKE8929WR3iIWA==,type:str]
     pgp:
         - created_at: "2024-02-24T00:41:57Z"
           enc: |-
