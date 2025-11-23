@@ -20,6 +20,6 @@ proto-generate: ## Generate proto-files
 		--template=ops/proto/rpc.buf.gen.yaml
 
 	# repository ----------------------------------------------------------------------------------
-	@buf generate \
-		--path=internal/infrastructure \
-		--template=ops/proto/repository.buf.gen.yaml
+	# @buf generate \
+	#	--path=internal/infrastructure \
+	#	--template=ops/proto/repository.buf.gen.yaml

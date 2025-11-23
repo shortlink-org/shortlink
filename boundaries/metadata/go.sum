@@ -1,5 +1,9 @@
 buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.10-20250912141014-52f32327d4b0.1 h1:31on4W/yPcV4nZHL4+UCiCvLPsMqe/vJcNg8Rci0scc=
 buf.build/gen/go/bufbuild/protovalidate/protocolbuffers/go v1.36.10-20250912141014-52f32327d4b0.1/go.mod h1:fUl8CEN/6ZAMk6bP8ahBJPUJw7rbp+j4x+wCcYi2IG4=
+buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.10-20240420204150-bbba30c24796.1 h1:k37A6dIhiivLKlWbvXRFWhqn8aDa3UnFiRtY3V6Hl8Q=
+buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.10-20240420204150-bbba30c24796.1/go.mod h1:CkXAanu089c5qYMpb64t5IUCduF18GBOYQL6Iud4LG4=
+buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.10-20251123201407-1a9472e15af6.1 h1:R3OojVhBlxj/dNxrM8yKAg6ibnDleAUMu/Bu+iRssUc=
+buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.10-20251123201407-1a9472e15af6.1/go.mod h1:CkXAanu089c5qYMpb64t5IUCduF18GBOYQL6Iud4LG4=
 cloud.google.com/go v0.26.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 cloud.google.com/go v0.34.0/go.mod h1:aQUYkXzVsufM+DwF1aE+0xfcU+56JwCaLick0ClmMTw=
 cloud.google.com/go v0.38.0/go.mod h1:990N+gfupTy94rShfmMCWGDn0LpTmnzTp2qbd1dvSRU=
@@ -189,8 +193,6 @@ github.com/fsnotify/fsnotify v1.5.4/go.mod h1:OVB6XrOHzAwXMpEM7uPOzcehqUV2UqJxmV
 github.com/fsnotify/fsnotify v1.9.0 h1:2Ml+OJNzbYCTzsxtv8vKSFD9PbJjmhYF14k/jKC7S9k=
 github.com/fsnotify/fsnotify v1.9.0/go.mod h1:8jBTzvmWwFyi3Pb8djgCCO5IBqzKJ/Jwo8TRcHyHii0=
 github.com/fsouza/fake-gcs-server v1.17.0/go.mod h1:D1rTE4YCyHFNa99oyJJ5HyclvN/0uQR+pM/VdlL83bw=
-github.com/go-chi/chi/v5 v5.2.3 h1:WQIt9uxdsAbgIYgid+BpYc+liqQZGMHRaUwp0JUcvdE=
-github.com/go-chi/chi/v5 v5.2.3/go.mod h1:L2yAIGWB3H+phAw1NxKwWM+7eUH/lU8pOMm5hHcoops=
 github.com/go-gl/glfw v0.0.0-20190409004039-e6da0acd62b1/go.mod h1:vR7hzQXu2zJy9AVAgeJqvqgH9Q5CA+iKCZ2gyEVpxRU=
 github.com/go-gl/glfw/v3.3/glfw v0.0.0-20191125211704-12ad95a8df72/go.mod h1:tQ2UAYgL5IevRw8kRxooKSPJfGvJ9fJQFa0TUsXzTg8=
 github.com/go-gl/glfw/v3.3/glfw v0.0.0-20200222043503-6f7a984d4dc4/go.mod h1:tQ2UAYgL5IevRw8kRxooKSPJfGvJ9fJQFa0TUsXzTg8=
@@ -531,7 +533,6 @@ github.com/ory/client-go v1.22.11 h1:ycEV9I9+rnJX2ZqwxN52SN7UAtVy9XPog+YlunZgCu4
 github.com/ory/client-go v1.22.11/go.mod h1:TGbSGjqLnzhb44hJaXB3z2Eo5c6tf0U7qAjRaEGay9Y=
 github.com/ory/dockertest/v3 v3.12.0 h1:3oV9d0sDzlSQfHtIaB5k6ghUCVMVLpAY8hwrqoCyRCw=
 github.com/ory/dockertest/v3 v3.12.0/go.mod h1:aKNDTva3cp8dwOWwb9cWuX84aH5akkxXRvO7KCwWVjE=
-github.com/pelletier/go-toml v1.9.5 h1:4yBQzkHv+7BHq2PQUZF3Mx0IYxG7LsP222s7Agd3ve8=
 github.com/pelletier/go-toml/v2 v2.2.4 h1:mye9XuhQ6gvn5h28+VilKrrPoQVanw5PMw/TB0t5Ec4=
 github.com/pelletier/go-toml/v2 v2.2.4/go.mod h1:2gIqNv+qfxSVS7cM2xJQKtLSTLUE9V8t9Stt+h56mCY=
 github.com/philhofer/fwd v1.2.0 h1:e6DnBTl7vGY+Gz322/ASL4Gyp1FspeMvx1RNDoToZuM=
@@ -599,8 +600,6 @@ github.com/shortlink-org/go-sdk/auth v0.0.0-20251121191713-160ea5dd70ad h1:kudqz
 github.com/shortlink-org/go-sdk/auth v0.0.0-20251121191713-160ea5dd70ad/go.mod h1:6jlgx01nY+HaLZdaLOtyPqATBRgZakV3v1ghpESoYgY=
 github.com/shortlink-org/go-sdk/cache v0.0.0-20251121191713-160ea5dd70ad h1:xHAc0Fm6bT7NhHq0MvRsvFohHuBYLwzMUGfRewIHcro=
 github.com/shortlink-org/go-sdk/cache v0.0.0-20251121191713-160ea5dd70ad/go.mod h1:4mZ9M29oRW43QybDEp6hjp99X1cVVGGClhYqsEmgpkI=
-github.com/shortlink-org/go-sdk/config v0.0.0-20251121191713-160ea5dd70ad h1:Hi6rus4xPyqXExu5VxqqoRoYPd6zVc2811HhGNw3VDY=
-github.com/shortlink-org/go-sdk/config v0.0.0-20251121191713-160ea5dd70ad/go.mod h1:jeH7PRjBb3FWXfiAiHWpNJfTOQLmHl49M/KybKJqh/M=
 github.com/shortlink-org/go-sdk/config v0.0.0-20251123000513-53eee17f0f41 h1:k0upClEaEuCSndVunoFpgWR6DeqcYOFDY8eF6mVYN2k=
 github.com/shortlink-org/go-sdk/config v0.0.0-20251123000513-53eee17f0f41/go.mod h1:jeH7PRjBb3FWXfiAiHWpNJfTOQLmHl49M/KybKJqh/M=
 github.com/shortlink-org/go-sdk/context v0.0.0-20251121191713-160ea5dd70ad h1:hKBnpDZTh9s5Al+DdMoFy/uIMkhLIKAENq+YW6abydA=
@@ -615,12 +614,8 @@ github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251121191713-160ea5dd
 github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251121191713-160ea5dd70ad/go.mod h1:p6st+ap7ZlI8JPwfxOFOp3qcLuySV+dSJs5llbRytF8=
 github.com/shortlink-org/go-sdk/grpc v0.0.0-20251121191713-160ea5dd70ad h1:pTLPqmmmMKmJDcXG8VtOatxjmPNNCWxgaxxDSf7T/ng=
 github.com/shortlink-org/go-sdk/grpc v0.0.0-20251121191713-160ea5dd70ad/go.mod h1:pZP3Euxbk3tY8eLstiR4VAdum//Au/CltRFDGel9CJo=
-github.com/shortlink-org/go-sdk/http v0.0.0-20251121191713-160ea5dd70ad h1:84s4D+goIFgMrIQnLwfm3yQ8itHa7ZRDVopt0aDkySs=
-github.com/shortlink-org/go-sdk/http v0.0.0-20251121191713-160ea5dd70ad/go.mod h1:LueCp+eoHjbuNy01H9cJj2lTeZ5PWC3t8T8cFpCYvss=
 github.com/shortlink-org/go-sdk/http v0.0.0-20251123000513-53eee17f0f41 h1:kn+NhR+KVdEq4NpvWtDZ05NMmhgQHiiR2h4ghT7yObw=
 github.com/shortlink-org/go-sdk/http v0.0.0-20251123000513-53eee17f0f41/go.mod h1:nPMz03pnscGIwHXot4pteN62m+8GBtYcv7AX09hNGmc=
-github.com/shortlink-org/go-sdk/logger v0.0.0-20251121191713-160ea5dd70ad h1:YmmrclLPxnxMVywCmEW/IUzvPPbPm3yi6evM0nU/vDA=
-github.com/shortlink-org/go-sdk/logger v0.0.0-20251121191713-160ea5dd70ad/go.mod h1:vRz4bWO4eLZYWi3olOg8S+MsXcV0sU5+CBFpIC3ZcLk=
 github.com/shortlink-org/go-sdk/logger v0.0.0-20251123000513-53eee17f0f41 h1:E+bKZMgnn7i1YXyzmeTaLh3UiaExUl/iXuFkYNY1hOQ=
 github.com/shortlink-org/go-sdk/logger v0.0.0-20251123000513-53eee17f0f41/go.mod h1:x83o08c5XetjDSWWlG8ZjQSC5Z2xPMLcVP9aygkT6JI=
 github.com/shortlink-org/go-sdk/mq v0.0.0-20251121191713-160ea5dd70ad h1:OtBadBP2wop7KhXIRSdNGldEDEItip3cbSWsxpHRcBk=
@@ -633,6 +628,8 @@ github.com/shortlink-org/go-sdk/s3 v0.0.0-20251121191713-160ea5dd70ad h1:0Lchh4T
 github.com/shortlink-org/go-sdk/s3 v0.0.0-20251121191713-160ea5dd70ad/go.mod h1:leS9FaBA3W/2uK9AxzZOo/6hX5H1ygGhp8jX6U1Wa0g=
 github.com/shortlink-org/go-sdk/saga v0.0.0-20251121191713-160ea5dd70ad h1:T2SOO/4ERuQHSJfBdFYfIC8RPGFcReyxY7Bd4o7FZEQ=
 github.com/shortlink-org/go-sdk/saga v0.0.0-20251121191713-160ea5dd70ad/go.mod h1:hoaNZz+ooJUg/NS3Rvjkc22vkEwVSMyajJxf6S+QUTI=
+github.com/shortlink-org/shortlink/boundaries/link v0.0.0-20251123194311-568e7f6e3189 h1:y5Hb6SMlirc9mG+E6xYtrQEnl/0V5V5BJbBZkYNGWkI=
+github.com/shortlink-org/shortlink/boundaries/link v0.0.0-20251123194311-568e7f6e3189/go.mod h1:ZFT8R3S70pG/aExNDSfgX73e78tZiFJF/UbcxpIMquM=
 github.com/sirupsen/logrus v1.4.1/go.mod h1:ni0Sbl8bgC9z8RoU9G6nDWqqs/fq4eDPysMBDgk/93Q=
 github.com/sirupsen/logrus v1.4.2/go.mod h1:tLMulIdttU9McNUspp0xgXVQah82FyeX6MwdIuYE2rE=
 github.com/sirupsen/logrus v1.6.0/go.mod h1:7uNnSEd1DgxDLC74fIahvMZmmYsHGZGEOFrfsX/uA88=

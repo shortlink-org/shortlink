@@ -8,8 +8,6 @@ deps:
 lint:
   use:
     - COMMENTS
-    - DEFAULT
-    - FIELD_NO_DESCRIPTOR
   except:
     - ENUM_FIRST_VALUE_ZERO
     - FIELD_NOT_REQUIRED

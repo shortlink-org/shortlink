@@ -4,12 +4,14 @@ import (
 	"context"
 	"log/slog"
 
+	linkrpc "buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go/infrastructure/rpc/link/v1"
 	"github.com/segmentio/encoding/json"
 
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/go-sdk/mq/query"
-	link_domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
+
+const linkCreatedEvent = "shortlink.link.event.created"
 
 // SubscribeLinkCreated subscribes to link creation events from Kafka
 // When a link is created, it processes the link URL to extract metadata
@@ -19,10 +21,10 @@ func (e *Event) SubscribeLinkCreated(log logger.Logger) error {
 	}
 
 	go func() {
-		if err := e.mq.Subscribe(context.Background(), link_domain.MQ_EVENT_LINK_CREATED, getCreatedLink); err != nil {
+		if err := e.mq.Subscribe(context.Background(), linkCreatedEvent, getCreatedLink); err != nil {
 			log.ErrorWithContext(context.Background(), "failed to subscribe to link created events",
 				slog.String("error", err.Error()),
-				slog.String("event", link_domain.MQ_EVENT_LINK_CREATED),
+				slog.String("event", linkCreatedEvent),
 			)
 		}
 	}()
@@ -32,7 +34,7 @@ func (e *Event) SubscribeLinkCreated(log logger.Logger) error {
 			msg := <-getCreatedLink.Chan
 
 			// Convert: []byte to link.Link
-			myLink := &link_domain.Link{}
+			myLink := &linkrpc.Link{}
 			if err := json.Unmarshal(msg.Body, myLink); err != nil {
 				log.ErrorWithContext(msg.Context, "Error unmarshaling link created event",
 					slog.String("error", err.Error()),
@@ -42,16 +44,12 @@ func (e *Event) SubscribeLinkCreated(log logger.Logger) error {
 			}
 
 			// Get URL from link
-			url := myLink.GetUrl()
-			if url == nil {
+			linkURL := myLink.GetUrl()
+			if linkURL == "" {
 				log.ErrorWithContext(msg.Context, "Link URL is nil")
 				msg.Context.Done()
 				continue
 			}
-
-			// Convert Url to string - assuming Url has a String() method or similar
-			// If not, we may need to access the underlying value
-			linkURL := url.String()
 
 			// Process metadata for the link URL
 			_, err := e.metadataUC.Add(msg.Context, linkURL)
@@ -74,4 +72,3 @@ func (e *Event) SubscribeLinkCreated(log logger.Logger) error {
 
 	return nil
 }
-

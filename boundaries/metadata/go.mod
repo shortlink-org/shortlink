@@ -3,11 +3,13 @@ module github.com/shortlink-org/shortlink/boundaries/metadata
 go 1.25.4
 
 require (
+	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.10-20251123201407-1a9472e15af6.1
 	github.com/PuerkitoBio/goquery v1.11.0
 	github.com/chromedp/chromedp v0.14.2
 	github.com/google/wire v0.7.0
 	github.com/minio/minio-go/v7 v7.0.97
 	github.com/prometheus/client_golang v1.23.2
+	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/config v0.0.0-20251123000513-53eee17f0f41
@@ -24,6 +26,7 @@ require (
 	github.com/shortlink-org/go-sdk/observability v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/s3 v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/saga v0.0.0-20251121191713-160ea5dd70ad
+	github.com/shortlink-org/shortlink/boundaries/link v0.0.0-20251123194311-568e7f6e3189
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	go.opentelemetry.io/otel/sdk/metric v1.38.0
@@ -62,7 +65,6 @@ require (
 	github.com/felixge/fgprof v0.9.5 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/fsnotify/fsnotify v1.9.0 // indirect
-	github.com/go-chi/chi/v5 v5.2.3 // indirect
 	github.com/go-ini/ini v1.67.0 // indirect
 	github.com/go-json-experiment/json v0.0.0-20250725192818-e39067aee2d2 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
@@ -113,8 +115,6 @@ require (
 	github.com/nats-io/nkeys v0.4.11 // indirect
 	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/neo4j/neo4j-go-driver/v5 v5.28.4 // indirect
-	github.com/onsi/ginkgo/v2 v2.23.4 // indirect
-	github.com/onsi/gomega v1.38.0 // indirect
 	github.com/ory/client-go v1.22.11 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/philhofer/fwd v1.2.0 // indirect
@@ -135,6 +135,7 @@ require (
 	github.com/rs/xid v1.6.0 // indirect
 	github.com/sagikazarmark/locafero v0.12.0 // indirect
 	github.com/samber/lo v1.52.0 // indirect
+	github.com/segmentio/asm v1.2.0 // indirect
 	github.com/spf13/afero v1.15.0 // indirect
 	github.com/spf13/cast v1.10.0 // indirect
 	github.com/spf13/cobra v1.10.1 // indirect

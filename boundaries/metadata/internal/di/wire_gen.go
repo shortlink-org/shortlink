@@ -116,23 +116,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitMetadataMQ(context, mqMQ)
-	if err != nil {
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	registry := NewPrometheusRegistry(monitoring)
-	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry, recorder, configConfig)
-	if err != nil {
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
 	client, err := s3.New(context, loggerLogger, configConfig)
 	if err != nil {
 		cleanup4()
@@ -158,6 +141,23 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		return nil, nil, err
 	}
 	metadataUC, err := NewMetadataUC(loggerLogger, uc, screenshotUC)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	event, err := InitMetadataMQ(context, loggerLogger, mqMQ, metadataUC)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	registry := NewPrometheusRegistry(monitoring)
+	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry, recorder, configConfig)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -242,12 +242,16 @@ func NewMeterProvider(metrics2 *metrics.Monitoring) *metric.MeterProvider {
 	return metrics2.Metrics
 }
 
-func InitMetadataMQ(ctx2 context.Context, dataBus mq.MQ) (*metadata_mq.Event, error) {
-	metadataMQ, err := metadata_mq.New(dataBus)
+func InitMetadataMQ(ctx2 context.Context, log logger.Logger, dataBus mq.MQ, metadataUC *metadata.UC) (*metadata_mq.Event, error) {
+	metadataMQ, err := metadata_mq.New(dataBus, metadataUC)
 	if err != nil {
 		return nil, err
 	}
 	notify.Subscribe(v1_2.METHOD_ADD, metadataMQ)
+
+	if err := metadataMQ.SubscribeLinkCreated(log); err != nil {
+		return nil, err
+	}
 
 	return metadataMQ, nil
 }
