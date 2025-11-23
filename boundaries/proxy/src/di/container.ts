@@ -91,7 +91,8 @@ export interface ContainerDependencies {
  */
 export function createDIContainer(): AwilixContainer<ContainerDependencies> {
   const container = createContainer<ContainerDependencies>({
-    injectionMode: InjectionMode.PROXY,
+    // Use CLASSIC mode so controller method access doesn't trigger Awilix property resolution.
+    injectionMode: InjectionMode.CLASSIC,
   });
 
   // ============================================================================
