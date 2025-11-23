@@ -20,7 +20,7 @@ import {
   createMetricsInterceptor,
   createTracingInterceptor,
 } from "./connect/interceptors/index.js";
-import { LinkService } from "../proto/infrastructure/rpc/link/v1/link_pb.js";
+import { LinkService } from "@buf/shortlink-org_shortlink-link-link.bufbuild_es/infrastructure/rpc/link/v1/link_rpc_pb.js";
 
 const linkServiceDescriptor =
   LinkService as unknown as DescService & typeof LinkService;

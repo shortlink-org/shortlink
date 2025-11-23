@@ -2,7 +2,10 @@ import { describe, it, expect } from "vitest";
 import { LinkMapper } from "../LinkMapper.js";
 import { Link } from "../../entities/Link.js";
 import { Hash } from "../../entities/Hash.js";
-import { Link as LinkProto, LinkSchema } from "../../../infrastructure/proto/infrastructure/rpc/link/v1/link_pb.js";
+import {
+  Link as LinkProto,
+  LinkSchema,
+} from "@buf/shortlink-org_shortlink-link-link.bufbuild_es/infrastructure/rpc/link/v1/link_rpc_pb.js";
 import { create } from "@bufbuild/protobuf";
 import { TimestampSchema } from "@bufbuild/protobuf/wkt";
 
@@ -132,4 +135,3 @@ describe("LinkMapper", () => {
     });
   });
 });
-

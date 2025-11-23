@@ -1,7 +1,7 @@
 import { Link } from "../../domain/entities/Link.js";
 import { Hash } from "../../domain/entities/Hash.js";
 import { LinkMapper } from "../../domain/mappers/LinkMapper.js";
-import { Link as LinkProto } from "../proto/infrastructure/rpc/link/v1/link_pb.js";
+import { Link as LinkProto } from "@buf/shortlink-org_shortlink-link-link.bufbuild_es/infrastructure/rpc/link/v1/link_rpc_pb.js";
 
 /**
  * Anti-corruption Layer для Link Service
@@ -61,4 +61,3 @@ export class LinkServiceACL {
     return LinkMapper.toProto(domainLink);
   }
 }
-

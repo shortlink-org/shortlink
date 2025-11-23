@@ -29,7 +29,7 @@ import {
   MetricsInterceptor,
 } from "../../../application/pipeline/index.js";
 import { WinstonLogger } from "../../../infrastructure/logging/WinstonLogger.js";
-import { LinkSchema } from "../../../infrastructure/proto/infrastructure/rpc/link/v1/link_pb.js";
+import { LinkSchema } from "@buf/shortlink-org_shortlink-link-link.bufbuild_es/infrastructure/rpc/link/v1/link_rpc_pb.js";
 import { fromBinary } from "@bufbuild/protobuf";
 import type { ILinkCache } from "../../../infrastructure/cache/RedisLinkCache.js";
 import type { ILinkServiceAdapter } from "../../../infrastructure/adapters/ILinkServiceAdapter.js";

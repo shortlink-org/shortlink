@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@buf/shortlink-org_shortlink-link-link.bufbuild_es':
+        specifier: 2.10.1-20251123201407-1a9472e15af6.1
+        version: 2.10.1-20251123201407-1a9472e15af6.1(@bufbuild/protobuf@2.10.1)
       '@bufbuild/protobuf':
         specifier: 2.10.1
         version: 2.10.1
@@ -243,6 +246,11 @@ packages:
   '@boundaries/elements@1.1.1':
     resolution: {integrity: sha512-PdfbevdcQbJ1oIXSN0H8rRcWdNsnSWpMtoh+/afSovWavAiuazbnDD9iwAfDcDiJu0g3Xbhisl5epBmTrnaRyQ==}
     engines: {node: '>=18.18'}
+
+  '@buf/shortlink-org_shortlink-link-link.bufbuild_es@2.10.1-20251123201407-1a9472e15af6.1':
+    resolution: {tarball: https://buf.build/gen/npm/v1/@buf/shortlink-org_shortlink-link-link.bufbuild_es/-/shortlink-org_shortlink-link-link.bufbuild_es-2.10.1-20251123201407-1a9472e15af6.1.tgz}
+    peerDependencies:
+      '@bufbuild/protobuf': ^2.10.1
 
   '@bufbuild/protobuf@2.10.1':
     resolution: {integrity: sha512-ckS3+vyJb5qGpEYv/s1OebUHDi/xSNtfgw1wqKZo7MR9F2z+qXr0q5XagafAG/9O0QPVIUfST0smluYSTpYFkg==}
@@ -4164,6 +4172,10 @@ snapshots:
       - eslint-import-resolver-typescript
       - eslint-import-resolver-webpack
       - supports-color
+
+  '@buf/shortlink-org_shortlink-link-link.bufbuild_es@2.10.1-20251123201407-1a9472e15af6.1(@bufbuild/protobuf@2.10.1)':
+    dependencies:
+      '@bufbuild/protobuf': 2.10.1
 
   '@bufbuild/protobuf@2.10.1': {}
 
