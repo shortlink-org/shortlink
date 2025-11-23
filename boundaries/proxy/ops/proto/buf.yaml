@@ -1,7 +1,7 @@
 version: v2
 modules:
   # Путь к proto файлам относительно boundaries/proxy
-  - path: src/proto
+  - path: src/infrastructure/proto
 deps:
   - buf.build/googleapis/googleapis
 lint:

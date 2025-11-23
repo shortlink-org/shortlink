@@ -33,7 +33,7 @@ import (
 
 	metadata_domain "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
 	metadata_mq "github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/mq"
-	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/media"
+	s3Repository "github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/media"
 	meta_store "github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/store"
 	metadata_rpc "github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/rpc/metadata/v1"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/metadata"
@@ -111,14 +111,19 @@ func NewMeterProvider(metrics *metrics.Monitoring) *metric.MeterProvider {
 	return metrics.Metrics
 }
 
-func InitMetadataMQ(ctx context.Context, dataBus mq.MQ) (*metadata_mq.Event, error) {
-	metadataMQ, err := metadata_mq.New(dataBus)
+func InitMetadataMQ(ctx context.Context, log logger.Logger, dataBus mq.MQ, metadataUC *metadata.UC) (*metadata_mq.Event, error) {
+	metadataMQ, err := metadata_mq.New(dataBus, metadataUC)
 	if err != nil {
 		return nil, err
 	}
 
 	// Subscribe to Event
 	notify.Subscribe(metadata_domain.METHOD_ADD, metadataMQ)
+
+	// Subscribe to link creation events from Kafka
+	if err := metadataMQ.SubscribeLinkCreated(log); err != nil {
+		return nil, err
+	}
 
 	return metadataMQ, nil
 }

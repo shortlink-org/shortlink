@@ -1,5 +1,10 @@
+import {
+  createClient as createPromiseClient,
+  ConnectError,
+  Code,
+  type Client as PromiseClient,
+} from "@connectrpc/connect";
 import { createConnectTransport } from "@connectrpc/connect-node";
-import type { Transport } from "@connectrpc/connect";
 import { LinkServiceACL } from "../anti-corruption/LinkServiceACL.js";
 import { ILinkServiceAdapter } from "./ILinkServiceAdapter.js";
 import { Link } from "../../domain/entities/Link.js";
@@ -14,22 +19,13 @@ import {
   createMetricsInterceptor,
   createTracingInterceptor,
 } from "./connect/interceptors/index.js";
-// Импортируем типы из сгенерированных proto файлов
-import {
-  GetRequest,
-  GetRequestSchema,
-  GetResponse,
-  GetResponseSchema,
-} from "../proto/infrastructure/rpc/link/v1/link_pb.js";
-import { create, fromBinary, toBinary } from "@bufbuild/protobuf";
-
+import { LinkService } from "../proto/infrastructure/rpc/link/v1/link_connect.js";
 /**
- * Connect адаптер для получения ссылок из Link Service
- * Использует @connectrpc/connect через unary transport API
- * Работает с типами из @bufbuild/protobuf без генерации connect-es файлов
+ * Connect adapter for retrieving links from Link Service
+ * Uses official ConnectRPC client via createPromiseClient
  */
 export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
-  private readonly transport: Transport;
+  private readonly client: PromiseClient<typeof LinkService>;
 
   constructor(
     private readonly linkServiceACL: LinkServiceACL,
@@ -38,9 +34,9 @@ export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
     private readonly grpcMetrics: IGrpcMetrics,
     private readonly grpcTracing: IGrpcTracing
   ) {
-    // Создаем Connect interceptors
+    // Create Connect interceptors
     const interceptors = [
-      // Порядок важен: сначала трейсинг, потом метрики, потом retry, потом логирование
+      // Order matters: tracing first, then metrics, then retry, then logging
       createTracingInterceptor(this.grpcTracing),
       createMetricsInterceptor(this.grpcMetrics),
       createRetryInterceptor(this.logger, {
@@ -52,90 +48,54 @@ export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
       createLoggingInterceptor(this.logger),
     ];
 
-    // Создаем Connect transport один раз при инициализации с interceptors
-    this.transport = createConnectTransport({
+    // Create Connect transport with interceptors
+    const transport = createConnectTransport({
       baseUrl: `http://${this.externalServicesConfig.linkServiceGrpcUrl}`,
-      httpVersion: "2",
+      httpVersion: "1.1", // ConnectRPC 2.x requires HTTP/1.1 with Node transport
       interceptors,
     });
+
+    // Create client using official ConnectRPC pattern
+    this.client = createPromiseClient(LinkService, transport);
   }
 
   async getLinkByHash(hash: Hash): Promise<Link | null> {
     const hashValue = hash.value;
-
-    // Создаем GetRequest используя create() из @bufbuild/protobuf
-    const request = create(GetRequestSchema, {
-      hash: hashValue,
-    });
-
-    // Выполняем Connect вызов через unary transport API
-    // Полностью типобезопасно через @bufbuild/protobuf типы
-    // Connect 2.x сигнатура: unary(method, signal, timeoutMs, header, message, contextValues)
-    // Interceptors автоматически обработают логирование, метрики, трейсинг и retry
-    // createMethodUrl ожидает method.parent.typeName, а не method.service.typeName
-    const methodDesc = {
-      name: "Get",
-      kind: "unary" as const,
-      I: GetRequestSchema,
-      O: GetResponseSchema,
-      parent: {
-        typeName: "infrastructure.rpc.link.v1.LinkService",
-      },
-    } as any; // Временный any для обхода проблем с типизацией Connect 2.x
 
     const signal = AbortSignal.timeout(
       this.externalServicesConfig.requestTimeout
     );
     const timeoutMs = this.externalServicesConfig.requestTimeout;
 
-    // Преобразуем GetRequest в бинарный формат для Connect
-    const requestBinary = toBinary(GetRequestSchema, request);
-
     try {
-      const response = await this.transport.unary(
-        methodDesc,
-        signal,
-        timeoutMs,
-        undefined, // headers (опционально)
-        requestBinary as any, // Connect ожидает Record, но принимает Uint8Array
-        undefined // contextValues (опционально)
+      const res = await this.client.get(
+        { hash: hashValue },
+        { signal, timeoutMs }
       );
 
-      // response - это UnaryResponse, который содержит message в бинарном формате
-      // Преобразуем бинарный ответ обратно в GetResponse
-      const responseBinary = (response as any).message || response;
-      const getResponse = fromBinary(
-        GetResponseSchema,
-        responseBinary as Uint8Array
-      );
-
-      if (!getResponse || !getResponse.link) {
-        // NOT_FOUND обрабатывается interceptors (метрики и трейсинг)
+      if (!res || !res.link) {
+        // Successful response with empty link (unexpected server behavior)
+        // NOT_FOUND errors are handled in the catch block below
         return null;
       }
 
-      // Преобразуем protobuf Link в доменную сущность через ACL
-      // Используем Link из domain/link/v1/link_pb (который уже использует @bufbuild/protobuf)
-      const protoLink = getResponse.link;
-      const domainLink = this.linkServiceACL.toDomainEntityFromProto(protoLink);
+      // Convert protobuf Link to domain entity via ACL
+      const domainLink = this.linkServiceACL.toDomainEntityFromProto(res.link);
 
       return domainLink;
-    } catch (error: any) {
-      // Обрабатываем Connect ошибки
-      // Interceptors уже обработали логирование, метрики и трейсинг
-      // Здесь только бизнес-логика обработки ошибок
+    } catch (error: unknown) {
+      // Handle Connect errors
+      // Interceptors have already handled logging, metrics, and tracing
+      // Here we only handle business logic for error processing
 
-      // Проверяем NOT_FOUND
-      if (
-        error?.code === "NOT_FOUND" ||
-        error?.code === 5 ||
-        error?.status === 404
-      ) {
+      // Check for NOT_FOUND (gRPC status = NotFound)
+      // Interceptors don't transform or swallow NotFound - they only log/record metrics and propagate the error
+      if (error instanceof ConnectError && error.code === Code.NotFound) {
         return null;
       }
 
-      // Все остальные ошибки пробрасываем дальше
-      // Interceptors уже залогировали и записали метрики
+      // All other errors are re-thrown
+      // Interceptors have already logged and recorded metrics
       throw error;
     }
   }

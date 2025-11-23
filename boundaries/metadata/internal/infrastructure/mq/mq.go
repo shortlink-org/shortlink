@@ -12,19 +12,22 @@ import (
 
 	"github.com/shortlink-org/go-sdk/mq"
 	"github.com/shortlink-org/go-sdk/notify"
-	metadata "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
+	metadata_domain "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
+	metadata_uc "github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/metadata"
 )
 
 type Event struct {
-	mq mq.MQ
+	mq         mq.MQ
+	metadataUC *metadata_uc.UC
 
 	// Observer interface for subscribe on system event
 	// notify.Subscriber[link.Link]
 }
 
-func New(dataBus mq.MQ) (*Event, error) {
+func New(dataBus mq.MQ, metadataUC *metadata_uc.UC) (*Event, error) {
 	return &Event{
-		mq: dataBus,
+		mq:         dataBus,
+		metadataUC: metadataUC,
 	}, nil
 }
 
@@ -37,15 +40,15 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload any) notify.Re
 
 	//nolint:revive // not required default case because we handle all cases
 	switch event {
-	case metadata.METHOD_ADD:
+	case metadata_domain.METHOD_ADD:
 		return e.add(ctx, payload)
-	case metadata.METHOD_GET:
+	case metadata_domain.METHOD_GET:
 		panic("implement me")
-	case metadata.METHOD_LIST:
+	case metadata_domain.METHOD_LIST:
 		panic("implement me")
-	case metadata.METHOD_UPDATE:
+	case metadata_domain.METHOD_UPDATE:
 		panic("implement me")
-	case metadata.METHOD_DELETE:
+	case metadata_domain.METHOD_DELETE:
 		panic("implement me")
 	}
 
@@ -54,7 +57,7 @@ func (e *Event) Notify(ctx context.Context, event uint32, payload any) notify.Re
 
 func (e *Event) add(ctx context.Context, payload any) notify.Response[any] {
 	// TODO: send []byte
-	msg, ok := payload.(*metadata.Meta)
+	msg, ok := payload.(*metadata_domain.Meta)
 	if !ok {
 		return notify.Response[any]{
 			Name:    "RESPONSE_MQ_ADD",
@@ -72,7 +75,7 @@ func (e *Event) add(ctx context.Context, payload any) notify.Response[any] {
 		}
 	}
 
-	err = e.mq.Publish(ctx, metadata.MQ_EVENT_CQRS_NEW, nil, data)
+	err = e.mq.Publish(ctx, metadata_domain.MQ_EVENT_CQRS_NEW, nil, data)
 
 	return notify.Response[any]{
 		Name:    "RESPONSE_MQ_ADD",
