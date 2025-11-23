@@ -4,6 +4,7 @@ import helmet from "@fastify/helmet";
 import formbody from "@fastify/formbody";
 import swagger from "@fastify/swagger";
 import swaggerUi from "@fastify/swagger-ui";
+import { context, trace } from "@opentelemetry/api";
 import type { AwilixContainer } from "awilix";
 import type { ContainerDependencies } from "../../../di/container.js";
 import { createRequestScope } from "../../../di/container.js";
@@ -85,6 +86,18 @@ export async function buildServer(
   fastify.addHook("onRequest", async (request: any) => {
     const requestScope = createRequestScope(container);
     request.container = requestScope;
+  });
+
+  // Attach trace identifier to every outgoing response
+  fastify.addHook("onSend", async (request, reply, payload) => {
+    const span = trace.getSpan(context.active());
+    const traceId = span?.spanContext()?.traceId;
+
+    if (traceId) {
+      reply.header("trace-id", traceId);
+    }
+
+    return payload;
   });
 
   // Cleanup request scope after request completes
