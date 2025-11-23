@@ -39,7 +39,7 @@ ingress:
   paths:
     - path: /s(/|$)(.*)
       service:
-        name: proxy
+        name: shortlink-link-proxy
         port: 3020
 
 # ==============================================================================
