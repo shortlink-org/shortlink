@@ -13,16 +13,6 @@ export default function Profile() {
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
 
-  const validateUrl = (url: string): boolean => {
-    if (!url) return true // Optional field
-    try {
-      new URL(url.startsWith('http') ? url : `http://${url}`)
-      return true
-    } catch {
-      return false
-    }
-  }
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     

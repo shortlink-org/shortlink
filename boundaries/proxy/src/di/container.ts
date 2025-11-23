@@ -40,6 +40,7 @@ import { CONFIG, INFRA, DOMAIN, APP, CONTROLLERS } from "./index.js";
 import { WinstonLogger } from "../infrastructure/logging/WinstonLogger.js";
 import { RabbitMQMessageBus } from "../infrastructure/messaging/RabbitMQMessageBus.js";
 import { RedisLinkCache } from "../infrastructure/cache/RedisLinkCache.js";
+import { AMQPEventPublisher } from "../infrastructure/messaging/AMQPEventPublisher.js";
 
 /**
  * Container dependencies interface
@@ -102,8 +103,11 @@ export function createDIContainer(): AwilixContainer<ContainerDependencies> {
   });
 
   // Register INFRA classes (auto-register as singleton classes)
+  // Exclude eventPublisher - it needs explicit injection
   Object.entries(INFRA).forEach(([name, clazz]) => {
-    container.register(name, asClass(clazz as any).singleton());
+    if (name !== "eventPublisher") {
+      container.register(name, asClass(clazz as any).singleton());
+    }
   });
 
   // Register DOMAIN classes
@@ -141,6 +145,15 @@ export function createDIContainer(): AwilixContainer<ContainerDependencies> {
     "messageBus",
     asFunction((cradle) => {
       return new RabbitMQMessageBus(cradle.logger);
+    }).singleton()
+  );
+
+  // Event Publisher - depends on messageBus and logger
+  // Use asFunction to ensure dependencies are properly injected
+  container.register(
+    "eventPublisher",
+    asFunction((cradle) => {
+      return new AMQPEventPublisher(cradle.messageBus, cradle.logger);
     }).singleton()
   );
 

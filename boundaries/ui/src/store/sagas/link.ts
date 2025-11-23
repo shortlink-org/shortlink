@@ -22,7 +22,7 @@ function* fetchLinkById(action: { payload: string }) {
 }
 
 function* watchFetchLinkById() {
-  yield takeLatest(t.LINK_FETCH_REQUESTED, fetchLinkById)
+  yield takeLatest(t.LINK_FETCH_REQUESTED as any, fetchLinkById)
 }
 
 function* fetchLinkList() {
@@ -108,7 +108,7 @@ function* updateLink(action: { payload: any }) {
 }
 
 function* watchUpdateLink() {
-  yield takeLatest(t.LINK_UPDATE_REQUESTED, updateLink)
+  yield takeLatest(t.LINK_UPDATE_REQUESTED as any, updateLink)
 }
 
 export default [watchFetchLinkById(), watchFetchLinkList(), watchAddLink(), watchDeleteLink(), watchUpdateLink()]

@@ -11,6 +11,7 @@ import { IMessageBus } from "../../domain/interfaces/IMessageBus.js";
 import { MQ_EVENT_LINK_NEW } from "../../domain/event.js";
 import { toBinary } from "@bufbuild/protobuf";
 import { context, propagation, trace } from "@opentelemetry/api";
+import { RabbitMQMessageBus } from "./RabbitMQMessageBus.js";
 
 /**
  * Реализация IEventPublisher для публикации событий в AMQP (RabbitMQ)
@@ -189,6 +190,7 @@ export class AMQPEventPublisher implements IEventPublisher {
 
   /**
    * Проверяет, поддерживает ли message bus предварительную настройку exchange
+   * Использует безопасную проверку через instanceof, чтобы избежать активации Awilix proxy
    */
   private supportsExchangeSetup(bus: IMessageBus): bus is IMessageBus & {
     setupExchange: (
@@ -197,8 +199,18 @@ export class AMQPEventPublisher implements IEventPublisher {
       durable?: boolean
     ) => Promise<void>;
   } {
-    return (
-      typeof (bus as { setupExchange?: unknown }).setupExchange === "function"
-    );
+    // Проверяем через instanceof, чтобы избежать активации Awilix proxy
+    // RabbitMQMessageBus - единственный класс, который поддерживает setupExchange
+    if (bus instanceof RabbitMQMessageBus) {
+      return true;
+    }
+
+    // Fallback: проверка через имя конструктора (безопасно для proxy)
+    const constructorName = bus.constructor?.name;
+    if (constructorName === "RabbitMQMessageBus") {
+      return true;
+    }
+
+    return false;
   }
 }

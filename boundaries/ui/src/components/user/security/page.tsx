@@ -60,7 +60,7 @@ function SecurityContent() {
     <Layout>
       <Header title="Security" />
 
-      <Security session={session} />
+      <Security />
     </Layout>
   )
 }

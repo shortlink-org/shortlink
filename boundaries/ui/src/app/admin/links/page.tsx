@@ -21,7 +21,9 @@ function LinkTable() {
 
   // Преобразуем данные для таблицы (конвертируем TimestamppbTimestamp в строки)
   const tableData = state.list.map((link) => ({
-    ...link,
+    url: link.url || '',
+    hash: link.hash || '',
+    describe: link.describe,
     created_at: link.created_at
       ? new Date((link.created_at.seconds || 0) * 1000 + (link.created_at.nanos || 0) / 1000000).toISOString()
       : '',

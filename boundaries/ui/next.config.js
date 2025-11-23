@@ -113,9 +113,6 @@ const NEXT_CONFIG = {
     // Forward browser logs to the terminal for easier debugging
     browserDebugInfoInTerminal: true,
 
-    // Activate new client-side router improvements
-    clientSegmentCache: true,
-
     // Enable support for `global-not-found`
     globalNotFound: true,
 

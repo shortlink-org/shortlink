@@ -60,9 +60,7 @@ const columns = [
       const dateValue = cell.getValue()
       if (!dateValue) return ''
       try {
-        return formatRelative(new Date(dateValue), new Date(), {
-          addSuffix: true,
-        })
+        return formatRelative(new Date(dateValue), new Date())
       } catch {
         return dateValue
       }
@@ -84,9 +82,7 @@ const columns = [
       const dateValue = cell.getValue()
       if (!dateValue) return ''
       try {
-        return formatRelative(new Date(dateValue), new Date(), {
-          addSuffix: true,
-        })
+        return formatRelative(new Date(dateValue), new Date())
       } catch {
         return dateValue
       }

@@ -1,11 +1,10 @@
-import * as dotenv from "dotenv";
+// CRITICAL: Import telemetry-init FIRST to set up OpenTelemetry instrumentation
+// before any modules (amqplib, ioredis, winston) are loaded
+import "./telemetry-init.js";
 
-// 1. Load environment variables FIRST (before logger, before configs)
-dotenv.config();
-
+// Now safe to import other modules
 import { createDIContainer } from "./di/container.js";
 import { buildServer } from "./infrastructure/http/fastify/server.js";
-import { initializeTelemetry } from "./infrastructure/telemetry.js";
 import { initializeProfiling } from "./infrastructure/profiling.js";
 import { configureHealthChecks } from "./infrastructure/health.js";
 import { AppConfig } from "./infrastructure/config/index.js";
@@ -47,8 +46,7 @@ async function bootstrap(): Promise<{
     logPermissions();
   }
 
-  // 1. Telemetry & Profiling
-  initializeTelemetry();
+  // 1. Profiling (Telemetry already initialized at module load time)
   await initializeProfiling().catch((err: unknown) => {
     console.error("[Bootstrap] Failed to initialize profiling:", err);
   });
@@ -57,20 +55,26 @@ async function bootstrap(): Promise<{
   const container = createDIContainer();
   const logger = container.resolve("logger");
 
-  // 3. Message Bus (fire-and-forget)
+  // 3. Message Bus - must connect before starting server
   const messageBus = container.resolve<IMessageBus>("messageBus");
   const eventPublisher = container.resolve<IEventPublisher>("eventPublisher");
 
-  messageBus
-    .connect()
-    .then(async () => {
-      if (isExchangeInitializer(eventPublisher)) {
-        await eventPublisher.initializeExchanges();
-      }
-    })
-    .catch((err) => {
-      logger.error("[Bootstrap] Failed to connect Message Bus:", err);
-    });
+  try {
+    await messageBus.connect();
+
+    // Initialize exchanges if event publisher supports it
+    if (isExchangeInitializer(eventPublisher)) {
+      await eventPublisher.initializeExchanges();
+    }
+
+    logger.info("[Bootstrap] Message Bus connected and exchanges initialized");
+  } catch (err) {
+    logger.error("[Bootstrap] Failed to connect Message Bus:", err);
+    logger.error(
+      "[Bootstrap] Application cannot start without Message Bus. Exiting..."
+    );
+    process.exit(1);
+  }
 
   // 4. Build Fastify server
   const app = await buildServer(container);
