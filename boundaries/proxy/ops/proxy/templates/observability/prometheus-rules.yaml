@@ -48,9 +48,11 @@ spec:
               Indicates systemic redirect degradation.
 
             grafana_link: >
-              {{ .Values.monitoring.grafana.url }}/d/ednhutpmfb0u8f/proxy-service
-                ?var-namespace={{ .Release.Namespace }}
-                &var-pod={{ $labels.pod | default "*" }}
+              {{- if and .Values.monitoring.grafana .Values.monitoring.grafana.url }}
+              {{ .Values.monitoring.grafana.url }}/d/ednhutpmfb0u8f/proxy-service?var-namespace={{ .Release.Namespace }}&var-pod={{ "{{" }} $labels.pod | default "*" {{ "}}" }}
+              {{- else }}
+              https://grafana.shortlink.best/d/ednhutpmfb0u8f/proxy-service?var-namespace={{ .Release.Namespace }}&var-pod={{ "{{" }} $labels.pod | default "*" {{ "}}" }}
+              {{- end }}
 
 
         # ---------------------------------------------------------
@@ -80,9 +82,11 @@ spec:
               Usually caused by bad external links or bots.
 
             grafana_link: >
-              {{ .Values.monitoring.grafana.url }}/d/ednhutpmfb0u8f/proxy-service
-                ?var-namespace={{ .Release.Namespace }}
-                &var-pod={{ $labels.pod | default "*" }}
+              {{- if and .Values.monitoring.grafana .Values.monitoring.grafana.url }}
+              {{ .Values.monitoring.grafana.url }}/d/ednhutpmfb0u8f/proxy-service?var-namespace={{ .Release.Namespace }}&var-pod={{ "{{" }} $labels.pod | default "*" {{ "}}" }}
+              {{- else }}
+              https://grafana.shortlink.best/d/ednhutpmfb0u8f/proxy-service?var-namespace={{ .Release.Namespace }}&var-pod={{ "{{" }} $labels.pod | default "*" {{ "}}" }}
+              {{- end }}
 
 
         # ---------------------------------------------------------
@@ -111,8 +115,10 @@ spec:
               Redirects returning errors exceeded 1 req/min for 10m.
 
             grafana_link: >
-              {{ .Values.monitoring.grafana.url }}/d/ednhutpmfb0u8f/proxy-service
-                ?var-namespace={{ .Release.Namespace }}
-                &var-pod={{ $labels.pod | default "*" }}
+              {{- if and .Values.monitoring.grafana .Values.monitoring.grafana.url }}
+              {{ .Values.monitoring.grafana.url }}/d/ednhutpmfb0u8f/proxy-service?var-namespace={{ .Release.Namespace }}&var-pod={{ "{{" }} $labels.pod | default "*" {{ "}}" }}
+              {{- else }}
+              https://grafana.shortlink.best/d/ednhutpmfb0u8f/proxy-service?var-namespace={{ .Release.Namespace }}&var-pod={{ "{{" }} $labels.pod | default "*" {{ "}}" }}
+              {{- end }}
 
 {{- end }}

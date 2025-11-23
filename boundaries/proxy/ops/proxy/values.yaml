@@ -132,6 +132,8 @@ service:
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
   enabled: true
+  grafana:
+    url: https://grafana.shortlink.best
 
 # ==============================================================================
 # PodDisruptionBudget
