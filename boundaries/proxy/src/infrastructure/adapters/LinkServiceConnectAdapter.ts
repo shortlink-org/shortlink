@@ -4,6 +4,7 @@ import {
   Code,
   type Client as PromiseClient,
 } from "@connectrpc/connect";
+import type { DescService } from "@bufbuild/protobuf";
 import { createConnectTransport } from "@connectrpc/connect-node";
 import { LinkServiceACL } from "../anti-corruption/LinkServiceACL.js";
 import { ILinkServiceAdapter } from "./ILinkServiceAdapter.js";
@@ -19,7 +20,10 @@ import {
   createMetricsInterceptor,
   createTracingInterceptor,
 } from "./connect/interceptors/index.js";
-import { LinkService } from "../proto/infrastructure/rpc/link/v1/link_connect.js";
+import { LinkService } from "../proto/infrastructure/rpc/link/v1/link_pb.js";
+
+const linkServiceDescriptor =
+  LinkService as unknown as DescService & typeof LinkService;
 /**
  * Connect adapter for retrieving links from Link Service
  * Uses official ConnectRPC client via createPromiseClient
@@ -56,7 +60,10 @@ export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
     });
 
     // Create client using official ConnectRPC pattern
-    this.client = createPromiseClient(LinkService, transport);
+    this.client = createPromiseClient(
+      linkServiceDescriptor,
+      transport
+    ) as PromiseClient<typeof LinkService>;
   }
 
   async getLinkByHash(hash: Hash): Promise<Link | null> {
