@@ -55,6 +55,7 @@ deploy:
     OTEL_EXPORTER_OTLP_METRICS_ENDPOINT: grafana-alloy.grafana:4317
     OTEL_EXPORTER_OTLP_LOGS_ENDPOINT: grafana-alloy.grafana:4317
     LINK_SERVICE_GRPC_URL: shortlink-link-link.shortlink-link:50051
+    SERVICE_USER_ID: proxy-service
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
     DD_PROFILING_ENABLED: false
     DD_TRACE_ENABLED: false

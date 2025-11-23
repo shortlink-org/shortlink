@@ -19,6 +19,7 @@ import {
   createRetryInterceptor,
   createMetricsInterceptor,
   createTracingInterceptor,
+  createSessionInterceptor,
 } from "./connect/interceptors/index.js";
 import { LinkService } from "@buf/shortlink-org_shortlink-link-link.bufbuild_es/infrastructure/rpc/link/v1/link_rpc_pb.js";
 
@@ -40,7 +41,9 @@ export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
   ) {
     // Create Connect interceptors
     const interceptors = [
-      // Order matters: tracing first, then metrics, then retry, then logging
+      // Order matters: session metadata first so downstream interceptors/transport see it
+      createSessionInterceptor(this.externalServicesConfig.serviceUserId),
+      // Tracing/metrics order preserved after metadata enrichment
       createTracingInterceptor(this.grpcTracing),
       createMetricsInterceptor(this.grpcMetrics),
       createRetryInterceptor(this.logger, {

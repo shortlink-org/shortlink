@@ -20,6 +20,11 @@ export class ExternalServicesConfig {
    */
   readonly retryCount: number;
 
+  /**
+   * Service account user identifier that will be sent to Link Service gRPC metadata
+   */
+  readonly serviceUserId: string;
+
   constructor() {
     this.linkServiceGrpcUrl = ConfigReader.string(
       "LINK_SERVICE_GRPC_URL",
@@ -27,6 +32,6 @@ export class ExternalServicesConfig {
     );
     this.requestTimeout = ConfigReader.number("EXTERNAL_SERVICE_TIMEOUT", 5000);
     this.retryCount = ConfigReader.number("EXTERNAL_SERVICE_RETRY_COUNT", 3);
+    this.serviceUserId = ConfigReader.string("SERVICE_USER_ID", "proxy-service");
   }
 }
-

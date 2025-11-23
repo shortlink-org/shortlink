@@ -1,4 +1,4 @@
-# 6. Permissions API для Zero-Trust безопасности
+# 6. Permissions API for Zero-Trust Security
 
 Date: 2025-01-XX
 
@@ -8,29 +8,29 @@ Accepted
 
 ## Context
 
-Proxy Service работает в production окружении и должен следовать принципам Zero-Trust безопасности. Необходимо ограничить доступ приложения к системным ресурсам для минимизации attack surface.
+The Proxy Service operates in a production environment and must follow Zero-Trust security principles. It is necessary to restrict application access to system resources to minimize the attack surface.
 
-Проблемы без ограничений:
+Problems without restrictions:
 
-- Приложение имеет полный доступ к файловой системе
-- Доступ ко всем переменным окружения (включая секреты)
-- Возможность подключения к любым сетевым хостам
-- При компрометации кода злоумышленник получает полный доступ
+- The application has full access to the file system
+- Access to all environment variables (including secrets)
+- Ability to connect to any network hosts
+- If the code is compromised, an attacker gains full access
 
-Node.js 25+ предоставляет стабильный Permissions API, который позволяет ограничить доступ к:
+Node.js 25+ provides a stable Permissions API that allows restricting access to:
 
-- Файловой системе (`fs`)
-- Переменным окружения (`env`)
-- Сетевым хостам (`net`)
-- Процессам (`process`)
+- File system (`fs`)
+- Environment variables (`env`)
+- Network hosts (`net`)
+- Processes (`process`)
 
 ## Decision
 
-Использовать Node.js Permissions API для ограничения доступа Proxy Service к системным ресурсам.
+Use the Node.js Permissions API to restrict Proxy Service access to system resources.
 
-### Конфигурация
+### Configuration
 
-Разрешения задаются через флаги командной строки Node.js:
+Permissions are set through Node.js command-line flags:
 
 ```bash
 node --permission \
@@ -38,96 +38,96 @@ node --permission \
   --allow-net
 ```
 
-**Ограничения Node.js 25:**
+**Node.js 25 Limitations:**
 
-- `--allow-fs-read` - поддерживает указание конкретных путей
-- `--allow-net` - экспериментальный флаг, разрешает всю сеть (детальный контроль хостов недоступен)
-- `--allow-env` - не поддерживается в Node.js 25, переменные окружения контролируются на уровне Kubernetes/Docker
+- `--allow-fs-read` - supports specifying specific paths
+- `--allow-net` - experimental flag, allows all network access (detailed host control is not available)
+- `--allow-env` - not supported in Node.js 25, environment variables are controlled at the Kubernetes/Docker level
 
-Файл `permissions.json` используется как справочник разрешений (для документации).
+The `permissions.json` file is used as a permissions reference (for documentation).
 
-### Реализация
+### Implementation
 
-1. **Запуск с ограничениями**: Используются флаги `--permission`, `--allow-fs-read`, `--allow-net`
-2. **Production**: Автоматически применяются ограничения через скрипт `pnpm prod`
-3. **Development**: Используется режим без ограничений (`pnpm start:permissive`) для удобства разработки
-4. **Runtime проверка**: В production логируются разрешения при старте для аудита
+1. **Launch with restrictions**: Uses `--permission`, `--allow-fs-read`, `--allow-net` flags
+2. **Production**: Restrictions are automatically applied through the `pnpm prod` script
+3. **Development**: Uses unrestricted mode (`pnpm start:permissive`) for development convenience
+4. **Runtime check**: In production, permissions are logged at startup for audit
 
-### Разрешения
+### Permissions
 
-**Файловая система:**
+**File System:**
 
-- Чтение: `/app`, `/app/.env`, `/app/dist`, `/app/prisma`
-- Запись: запрещена (proxy service не пишет файлы)
+- Read: `/app`, `/app/.env`, `/app/dist`, `/app/prisma`
+- Write: prohibited (proxy service does not write files)
 
-**Переменные окружения:**
+**Environment Variables:**
 
-- Только необходимые: `PORT`, `NODE_ENV`, `SERVICE_NAME`, `LINK_SERVICE_GRPC_URL`, и т.д.
-- Полный список в `permissions.json`
+- Only necessary: `PORT`, `NODE_ENV`, `SERVICE_NAME`, `SERVICE_USER_ID`, `LINK_SERVICE_GRPC_URL`, etc.
+- Full list in `permissions.json`
 
-**Сеть:**
+**Network:**
 
-- Разрешены только необходимые хосты: Link Service, OpenTelemetry, Pyroscope, localhost
-- Все остальные хосты запрещены
+- Only necessary hosts allowed: Link Service, OpenTelemetry, Pyroscope, localhost
+- All other hosts are prohibited
 
 ## Consequences
 
-### Положительные
+### Positive
 
-- **Zero-Trust безопасность** - минимальные привилегии по умолчанию
-- **Защита от утечек** - даже при компрометации кода доступ ограничен
-- **Соответствие стандартам** - соответствует принципам Zero-Trust архитектуры
-- **Аудит** - все разрешения явно задокументированы в `permissions.json`
-- **Простота** - конфигурация в одном файле
+- **Zero-Trust security** - minimal privileges by default
+- **Leak protection** - even if code is compromised, access is limited
+- **Standards compliance** - complies with Zero-Trust architecture principles
+- **Audit** - all permissions are explicitly documented in `permissions.json`
+- **Simplicity** - configuration in a single file
 
-### Отрицательные
+### Negative
 
-- **Дополнительная конфигурация** - нужно поддерживать список разрешений
-- **Риск блокировки** - при добавлении новых зависимостей нужно обновлять разрешения
-- **Отладка** - ошибки доступа могут быть неочевидными
+- **Additional configuration** - need to maintain a permissions list
+- **Blocking risk** - when adding new dependencies, permissions need to be updated
+- **Debugging** - access errors may not be obvious
 
-### Риски и митигация
+### Risks and Mitigation
 
-**Риск**: Забыть добавить необходимое разрешение при добавлении новой зависимости
+**Risk**: Forgetting to add necessary permission when adding a new dependency
 
-- **Митигация**: Runtime проверка разрешений в production, логирование при старте
+- **Mitigation**: Runtime permission check in production, logging at startup
 
-**Риск**: Слишком строгие ограничения блокируют легитимные операции
+**Risk**: Too strict restrictions block legitimate operations
 
-- **Митигация**: Development режим без ограничений для тестирования, постепенное ужесточение
+- **Mitigation**: Development mode without restrictions for testing, gradual tightening
 
 ## Implementation Details
 
-### Файлы
+### Files
 
-- `permissions.json` - справочник разрешений (для документации)
-- `package.json` - скрипты с флагами `--permission`, `--allow-fs-read`, `--allow-net`
-- `ops/Dockerfile` - использование permissions в контейнере
-- `src/infrastructure/permissions.ts` - runtime проверка разрешений
-- `src/application/bootstrap.ts` - логирование разрешений при старте
+- `permissions.json` - permissions reference (for documentation)
+- `package.json` - scripts with `--permission`, `--allow-fs-read`, `--allow-net` flags
+- `ops/Dockerfile` - using permissions in container
+- `src/infrastructure/permissions.ts` - runtime permission check
+- `src/application/bootstrap.ts` - logging permissions at startup
 
-### Скрипты
+### Scripts
 
-- `pnpm prod` - production с ограничениями
-- `pnpm start:permissive` - development без ограничений
+- `pnpm prod` - production with restrictions
+- `pnpm start:permissive` - development without restrictions
 
 ## Alternatives Considered
 
-### Альтернатива 1: Использовать только Docker security context
+### Alternative 1: Use only Docker security context
 
-**Отклонено** - Docker security context ограничивает системные вызовы, но не ограничивает доступ Node.js к файлам/env/сети внутри контейнера
+**Rejected** - Docker security context restricts system calls, but does not restrict Node.js access to files/env/network inside the container
 
-### Альтернатива 2: Использовать SELinux/AppArmor
+### Alternative 2: Use SELinux/AppArmor
 
-**Отклонено** - более сложная настройка, требует root прав, менее гибко для контейнеров
+**Rejected** - more complex setup, requires root privileges, less flexible for containers
 
-### Альтернатива 3: Не использовать ограничения
+### Alternative 3: Do not use restrictions
 
-**Отклонено** - нарушает принципы Zero-Trust, увеличивает attack surface
+**Rejected** - violates Zero-Trust principles, increases attack surface
 
 ## References
 
 - [Node.js Permissions API](https://nodejs.org/api/permissions.html)
 - [Zero-Trust Architecture](https://www.nist.gov/publications/zero-trust-architecture)
-- `permissions.json` - справочник разрешений
-- `src/infrastructure/permissions.ts` - реализация проверки
+- `permissions.json` - permissions reference
+- `src/infrastructure/permissions.ts` - implementation check
