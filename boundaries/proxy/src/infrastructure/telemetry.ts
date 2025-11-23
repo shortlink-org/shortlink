@@ -24,7 +24,6 @@ import { RuntimeNodeInstrumentation } from "@opentelemetry/instrumentation-runti
 import { KafkaJsInstrumentation } from "@opentelemetry/instrumentation-kafkajs";
 import type { SpanExporter } from "@opentelemetry/sdk-trace-base";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
-import Pyroscope from "@pyroscope/nodejs";
 
 const DEFAULT_SERVICE_NAME = "proxy-service";
 const DEFAULT_COLLECTOR_ENDPOINT = "grpc://grafana-tempo.grafana:4317";
@@ -104,45 +103,12 @@ function registerSdkShutdownHook(sdk: NodeSDK): void {
 }
 
 /**
- * Initialize Pyroscope profiler (pprof → Pyroscope server).
- *
- * This is NOT OTLP profiles yet, but a direct push to Pyroscope.
- * Pyroscope is then integrated with the rest of telemetry in Grafana.
- */
-function initializePyroscopeProfiling(serviceName: string): void {
-  const serverAddress = process.env.PYROSCOPE_SERVER_ADDRESS;
-  if (!serverAddress) {
-    return;
-  }
-
-  try {
-    Pyroscope.init({
-      serverAddress,
-      appName: serviceName,
-      // Some tags for convenient filtering
-      tags: {
-        service: serviceName,
-        env: process.env.DEPLOY_ENV || process.env.NODE_ENV || "unknown",
-      },
-      // Example of enabling CPU-time for wall profiles:
-      // wall: { collectCpuTime: true },
-    });
-
-    Pyroscope.start();
-    console.log("[Telemetry] Pyroscope profiling enabled");
-  } catch (err) {
-    console.warn("[Telemetry] Failed to initialize Pyroscope profiler", err);
-  }
-}
-
-/**
  * Initialize OpenTelemetry SDK:
  *  - Traces → OTLP gRPC
  *  - Metrics → Prometheus + OTLP gRPC
  *  - Logs → OTLP gRPC
  *  - Runtime metrics auto-instrumentation
  *  - Winston auto log injection + sending to OTLP Logs SDK
- *  - Pyroscope pprof (if PYROSCOPE_SERVER_ADDRESS is set)
  *
  * Returns PrometheusExporter for /metrics endpoint.
  */
@@ -265,10 +231,9 @@ export function initializeTelemetry(): PrometheusExporter | null {
 
   sdkInstance = sdk;
   registerSdkShutdownHook(sdk);
-  initializePyroscopeProfiling(serviceName);
 
   console.log(
-    "[Telemetry] OpenTelemetry SDK initialized (traces+metrics+logs+profiling)"
+    "[Telemetry] OpenTelemetry SDK initialized (traces+metrics+logs)"
   );
 
   return prometheusExporter;
