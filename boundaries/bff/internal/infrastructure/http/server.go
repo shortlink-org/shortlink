@@ -1,6 +1,8 @@
 package http
 
 import (
+	"net/http"
+
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	cors2 "github.com/go-chi/cors"
@@ -8,6 +10,7 @@ import (
 	flight_trace_middleware "github.com/shortlink-org/go-sdk/http/middleware/flight_trace"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/spf13/viper"
+	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/protobuf/encoding/protojson"
 
@@ -50,8 +53,8 @@ func (api *Server) run(config Config) error {
 		// X-CSRF-Token: Required for CSRF protection token validation
 		// X-Requested-With: Standard header for AJAX requests, helps identify the request type
 		AllowedHeaders: []string{"Accept", "Authorization", "Content-Type", "X-CSRF-Token", "X-Requested-With"},
-		// Expose CSRF token header so clients can read it for subsequent requests
-		ExposedHeaders:   []string{"X-CSRF-Token"},
+		// Expose CSRF token header and trace-id so clients can read it for subsequent requests
+		ExposedHeaders:   []string{"X-CSRF-Token", "trace-id"},
 		AllowCredentials: true,
 		MaxAge:           MAX_AGE,
 	})
@@ -85,6 +88,22 @@ func (api *Server) run(config Config) error {
 		return err
 	}
 	r.Use(metrics)
+
+	// Add trace-id header to responses
+	r.Use(func(next http.Handler) http.Handler {
+		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+			// Get span from context
+			span := trace.SpanFromContext(r.Context())
+			if span.SpanContext().IsValid() {
+				traceID := span.SpanContext().TraceID().String()
+				if traceID != "" {
+					w.Header().Set("trace-id", traceID)
+				}
+			}
+
+			next.ServeHTTP(w, r)
+		})
+	})
 
 	r.NotFound(handler.NotFoundHandler)
 
