@@ -55,13 +55,49 @@ const serverState = new ServerState();
 const DEFAULT_HEALTH_CHECK_TIMEOUT_MS = 2000; // 2 seconds
 
 /**
+ * Maximum allowed timeout value (24 hours) to prevent overflow
+ */
+const MAX_TIMEOUT_MS = 24 * 60 * 60 * 1000;
+
+/**
+ * Safely parses a timeout value from environment variable
+ * Ensures the value is positive, valid, and within reasonable bounds
+ *
+ * @param envValue - Environment variable value
+ * @param defaultValue - Default value to use if parsing fails
+ * @returns Valid timeout in milliseconds (always positive)
+ */
+function parseTimeoutMs(
+  envValue: string | undefined,
+  defaultValue: number
+): number {
+  if (!envValue) {
+    return defaultValue;
+  }
+
+  const parsed = parseInt(envValue, 10);
+
+  // Check for NaN, negative values, or values that are too large
+  if (isNaN(parsed) || parsed < 0 || parsed > MAX_TIMEOUT_MS) {
+    console.warn(
+      `[HealthCheck] Invalid timeout value "${envValue}", using default ${defaultValue}ms`
+    );
+    return defaultValue;
+  }
+
+  return parsed;
+}
+
+/**
  * Creates a timeout promise that rejects after specified time
  */
 function createTimeout(timeoutMs: number): Promise<never> {
+  // Ensure timeout is always positive (safety check)
+  const safeTimeout = Math.max(0, timeoutMs);
   return new Promise((_, reject) => {
     setTimeout(() => {
-      reject(new Error(`Health check timeout after ${timeoutMs}ms`));
-    }, timeoutMs);
+      reject(new Error(`Health check timeout after ${safeTimeout}ms`));
+    }, safeTimeout);
   });
 }
 
@@ -94,16 +130,20 @@ async function withTimeout(
  * @returns Promise resolving to true if ready
  */
 async function onReadinessCheck(): Promise<boolean> {
-  const timeoutMs = parseInt(
-    process.env.HEALTH_CHECK_TIMEOUT_MS ||
-      String(DEFAULT_HEALTH_CHECK_TIMEOUT_MS),
-    10
+  const timeoutMs = parseTimeoutMs(
+    process.env.HEALTH_CHECK_TIMEOUT_MS,
+    DEFAULT_HEALTH_CHECK_TIMEOUT_MS
   );
 
   // Wrap the actual health check with timeout
   return await withTimeout(async () => {
     // Check server state first (fast, no external calls)
-    if (!serverState.getReady()) {
+    const isReady = serverState.getReady();
+    if (!isReady) {
+      console.warn("[HealthCheck] Server not ready:", {
+        isReady: serverState.getReady(),
+        isShuttingDown: serverState.getShuttingDown(),
+      });
       return false;
     }
 
@@ -227,10 +267,7 @@ export function configureHealthChecks(
 
     // Step 2: Wait for traffic to drain
     // Kubernetes typically takes a few seconds to update endpoints
-    const drainTime = parseInt(
-      process.env.SHUTDOWN_DRAIN_TIME_MS || "5000",
-      10
-    );
+    const drainTime = parseTimeoutMs(process.env.SHUTDOWN_DRAIN_TIME_MS, 5000);
     console.log(`[Shutdown] Waiting ${drainTime}ms for traffic to drain...`);
     await new Promise((resolve) => setTimeout(resolve, drainTime));
 

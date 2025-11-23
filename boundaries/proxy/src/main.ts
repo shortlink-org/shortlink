@@ -90,7 +90,13 @@ async function bootstrap(): Promise<{
       host: "0.0.0.0",
     });
 
+    // Mark server as ready after successful startup
+    const { getServerState } = await import("./infrastructure/health.js");
+    const serverState = getServerState();
+    serverState.setReady(true);
+
     logger.info(`App running on ${appConfig.port}`);
+    logger.info("[Bootstrap] Server marked as ready");
   } catch (err) {
     logger.error("[Bootstrap] HTTP server failed to start:", err);
     process.exit(1);

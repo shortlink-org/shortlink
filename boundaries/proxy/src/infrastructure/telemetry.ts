@@ -26,7 +26,7 @@ import type { SpanExporter } from "@opentelemetry/sdk-trace-base";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
 const DEFAULT_SERVICE_NAME = "proxy-service";
-const DEFAULT_COLLECTOR_ENDPOINT = "grpc://grafana-tempo.grafana:4317";
+const DEFAULT_COLLECTOR_ENDPOINT = "grafana-tempo.grafana:4317";
 const DEFAULT_DIAG_LOG_LEVEL = DiagLogLevel.WARN;
 
 /**
