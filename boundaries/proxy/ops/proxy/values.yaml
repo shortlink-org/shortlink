@@ -51,7 +51,8 @@ deploy:
     MQ_TYPE: kafka
     MQ_KAFKA_URI: shortlink-kafka-bootstrap.kafka:9092
     OTEL_EXPORTER_OTLP_ENDPOINT: grafana-tempo.grafana:4317
-    LINK_SERVICE_GRPC_URL: shortlink-api.shortlink:50051
+    OTEL_EXPORTER_OTLP_INSECURE: "true"
+    LINK_SERVICE_GRPC_URL: shortlink-link-link.shortlink-link:50051
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
     DD_PROFILING_ENABLED: false
     DD_TRACE_ENABLED: false
