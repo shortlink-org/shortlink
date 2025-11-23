@@ -124,8 +124,21 @@ export function createDIContainer(): AwilixContainer<ContainerDependencies> {
   });
 
   // Register CONTROLLERS classes
+  // ProxyController needs explicit injection to avoid PROXY mode issues
   Object.entries(CONTROLLERS).forEach(([name, clazz]) => {
-    container.register(name, asClass(clazz as any).singleton());
+    if (name === "proxyController") {
+      container.register(
+        "proxyController",
+        asClass(clazz as any)
+          .inject(() => ({
+            linkApplicationService: container.resolve("linkApplicationService"),
+            logger: container.resolve("logger"),
+          }))
+          .singleton()
+      );
+    } else {
+      container.register(name, asClass(clazz as any).singleton());
+    }
   });
 
   // ============================================================================
