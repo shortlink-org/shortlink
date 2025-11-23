@@ -163,6 +163,8 @@ github.com/fsnotify/fsnotify v1.5.4/go.mod h1:OVB6XrOHzAwXMpEM7uPOzcehqUV2UqJxmV
 github.com/fsnotify/fsnotify v1.9.0 h1:2Ml+OJNzbYCTzsxtv8vKSFD9PbJjmhYF14k/jKC7S9k=
 github.com/fsnotify/fsnotify v1.9.0/go.mod h1:8jBTzvmWwFyi3Pb8djgCCO5IBqzKJ/Jwo8TRcHyHii0=
 github.com/fsouza/fake-gcs-server v1.17.0/go.mod h1:D1rTE4YCyHFNa99oyJJ5HyclvN/0uQR+pM/VdlL83bw=
+github.com/go-chi/chi/v5 v5.2.3 h1:WQIt9uxdsAbgIYgid+BpYc+liqQZGMHRaUwp0JUcvdE=
+github.com/go-chi/chi/v5 v5.2.3/go.mod h1:L2yAIGWB3H+phAw1NxKwWM+7eUH/lU8pOMm5hHcoops=
 github.com/go-gl/glfw v0.0.0-20190409004039-e6da0acd62b1/go.mod h1:vR7hzQXu2zJy9AVAgeJqvqgH9Q5CA+iKCZ2gyEVpxRU=
 github.com/go-gl/glfw/v3.3/glfw v0.0.0-20191125211704-12ad95a8df72/go.mod h1:tQ2UAYgL5IevRw8kRxooKSPJfGvJ9fJQFa0TUsXzTg8=
 github.com/go-gl/glfw/v3.3/glfw v0.0.0-20200222043503-6f7a984d4dc4/go.mod h1:tQ2UAYgL5IevRw8kRxooKSPJfGvJ9fJQFa0TUsXzTg8=
@@ -439,6 +441,7 @@ github.com/ory/client-go v1.22.11 h1:ycEV9I9+rnJX2ZqwxN52SN7UAtVy9XPog+YlunZgCu4
 github.com/ory/client-go v1.22.11/go.mod h1:TGbSGjqLnzhb44hJaXB3z2Eo5c6tf0U7qAjRaEGay9Y=
 github.com/ory/dockertest/v3 v3.12.0 h1:3oV9d0sDzlSQfHtIaB5k6ghUCVMVLpAY8hwrqoCyRCw=
 github.com/ory/dockertest/v3 v3.12.0/go.mod h1:aKNDTva3cp8dwOWwb9cWuX84aH5akkxXRvO7KCwWVjE=
+github.com/pelletier/go-toml v1.9.5 h1:4yBQzkHv+7BHq2PQUZF3Mx0IYxG7LsP222s7Agd3ve8=
 github.com/pelletier/go-toml/v2 v2.2.4 h1:mye9XuhQ6gvn5h28+VilKrrPoQVanw5PMw/TB0t5Ec4=
 github.com/pelletier/go-toml/v2 v2.2.4/go.mod h1:2gIqNv+qfxSVS7cM2xJQKtLSTLUE9V8t9Stt+h56mCY=
 github.com/pierrec/lz4 v2.0.5+incompatible/go.mod h1:pdkljMzZIN41W+lC3N2tnIh5sFi+IEE17M5jbnwPHcY=
@@ -487,6 +490,8 @@ github.com/shortlink-org/go-sdk/auth v0.0.0-20251121191713-160ea5dd70ad h1:kudqz
 github.com/shortlink-org/go-sdk/auth v0.0.0-20251121191713-160ea5dd70ad/go.mod h1:6jlgx01nY+HaLZdaLOtyPqATBRgZakV3v1ghpESoYgY=
 github.com/shortlink-org/go-sdk/config v0.0.0-20251121191713-160ea5dd70ad h1:Hi6rus4xPyqXExu5VxqqoRoYPd6zVc2811HhGNw3VDY=
 github.com/shortlink-org/go-sdk/config v0.0.0-20251121191713-160ea5dd70ad/go.mod h1:jeH7PRjBb3FWXfiAiHWpNJfTOQLmHl49M/KybKJqh/M=
+github.com/shortlink-org/go-sdk/config v0.0.0-20251123000513-53eee17f0f41 h1:k0upClEaEuCSndVunoFpgWR6DeqcYOFDY8eF6mVYN2k=
+github.com/shortlink-org/go-sdk/config v0.0.0-20251123000513-53eee17f0f41/go.mod h1:jeH7PRjBb3FWXfiAiHWpNJfTOQLmHl49M/KybKJqh/M=
 github.com/shortlink-org/go-sdk/db v0.0.0-20251121191713-160ea5dd70ad h1:7GNyBsxFGkZCjtM3uFXlsS3g+iGq4hqn7I+fAEP6sVM=
 github.com/shortlink-org/go-sdk/db v0.0.0-20251121191713-160ea5dd70ad/go.mod h1:HRfdFEnxfhJ3NvU8RdhIHeU/ZhGBJ7XA3PqK/5Yon10=
 github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251121161402-f3f7d0339b82 h1:W3mB8/mfk2N//xV5i8Wv+p/SGXED09WeJd6zbSsOgC8=
@@ -497,8 +502,12 @@ github.com/shortlink-org/go-sdk/grpc v0.0.0-20251121191713-160ea5dd70ad h1:pTLPq
 github.com/shortlink-org/go-sdk/grpc v0.0.0-20251121191713-160ea5dd70ad/go.mod h1:pZP3Euxbk3tY8eLstiR4VAdum//Au/CltRFDGel9CJo=
 github.com/shortlink-org/go-sdk/http v0.0.0-20251121191713-160ea5dd70ad h1:84s4D+goIFgMrIQnLwfm3yQ8itHa7ZRDVopt0aDkySs=
 github.com/shortlink-org/go-sdk/http v0.0.0-20251121191713-160ea5dd70ad/go.mod h1:LueCp+eoHjbuNy01H9cJj2lTeZ5PWC3t8T8cFpCYvss=
+github.com/shortlink-org/go-sdk/http v0.0.0-20251123000513-53eee17f0f41 h1:kn+NhR+KVdEq4NpvWtDZ05NMmhgQHiiR2h4ghT7yObw=
+github.com/shortlink-org/go-sdk/http v0.0.0-20251123000513-53eee17f0f41/go.mod h1:nPMz03pnscGIwHXot4pteN62m+8GBtYcv7AX09hNGmc=
 github.com/shortlink-org/go-sdk/logger v0.0.0-20251121191713-160ea5dd70ad h1:YmmrclLPxnxMVywCmEW/IUzvPPbPm3yi6evM0nU/vDA=
 github.com/shortlink-org/go-sdk/logger v0.0.0-20251121191713-160ea5dd70ad/go.mod h1:vRz4bWO4eLZYWi3olOg8S+MsXcV0sU5+CBFpIC3ZcLk=
+github.com/shortlink-org/go-sdk/logger v0.0.0-20251123000513-53eee17f0f41 h1:E+bKZMgnn7i1YXyzmeTaLh3UiaExUl/iXuFkYNY1hOQ=
+github.com/shortlink-org/go-sdk/logger v0.0.0-20251123000513-53eee17f0f41/go.mod h1:x83o08c5XetjDSWWlG8ZjQSC5Z2xPMLcVP9aygkT6JI=
 github.com/shortlink-org/go-sdk/notify v0.0.0-20251121191713-160ea5dd70ad h1:kMJauVa0vopb6zbKNaps2foaSLVLRZLrix5AswducKY=
 github.com/shortlink-org/go-sdk/notify v0.0.0-20251121191713-160ea5dd70ad/go.mod h1:qghD6QQZf1NOxuLsKpxQ4oCst1XbOLxUOFKs2hD8Sm0=
 github.com/shortlink-org/go-sdk/observability v0.0.0-20251121191713-160ea5dd70ad h1:VGYly1xHEYGjPYiI+UfMzUlV8XecqUuVyKaKkaIRvJ4=

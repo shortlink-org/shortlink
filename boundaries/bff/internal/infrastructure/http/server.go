@@ -5,7 +5,6 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	cors2 "github.com/go-chi/cors"
 	"github.com/go-chi/render"
-	"github.com/riandyrn/otelchi"
 	flight_trace_middleware "github.com/shortlink-org/go-sdk/http/middleware/flight_trace"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/spf13/viper"
@@ -75,7 +74,6 @@ func (api *Server) run(config Config) error {
 	r.Use(csrf_middleware.Middleware(api.log, config.Config))
 
 	// Additional middleware
-	r.Use(otelchi.Middleware(viper.GetString("SERVICE_NAME")))
 	r.Use(logger_middleware.Logger(config.Log))
 	r.Use(middleware.Recoverer)
 	r.Use(span_middleware.Span())
@@ -104,7 +102,7 @@ func (api *Server) run(config Config) error {
 		},
 	}
 
-	r.Mount(viper.GetString("BASE_PATH"), serverAPI.HandlerFromMux(controller, r))
+	r.Mount(viper.GetString("BASE_PATH"), serverAPI.HandlerFromMux(controller, nil))
 
 	srv := http_server.New(config.Ctx, r, config.Http, config.Tracer, config.Config)
 

@@ -11,18 +11,17 @@ require (
 	github.com/google/wire v0.7.0
 	github.com/oapi-codegen/runtime v1.1.2
 	github.com/prometheus/client_golang v1.23.2
-	github.com/riandyrn/otelchi v0.12.2
 	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20251121191713-160ea5dd70ad
-	github.com/shortlink-org/go-sdk/config v0.0.0-20251121191713-160ea5dd70ad
+	github.com/shortlink-org/go-sdk/config v0.0.0-20251123000513-53eee17f0f41
 	github.com/shortlink-org/go-sdk/context v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/flags v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251121191713-160ea5dd70ad
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251121191713-160ea5dd70ad
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251121191713-160ea5dd70ad
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251123000513-53eee17f0f41
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251123000513-53eee17f0f41
 	github.com/shortlink-org/go-sdk/observability v0.0.0-20251121191713-160ea5dd70ad
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
@@ -107,16 +106,15 @@ require (
 	github.com/redis/rueidis v1.0.68 // indirect
 	github.com/redis/rueidis/rueidiscompat v1.0.68 // indirect
 	github.com/redis/rueidis/rueidisotel v1.0.68 // indirect
-	github.com/sagikazarmark/locafero v0.11.0 // indirect
+	github.com/sagikazarmark/locafero v0.12.0 // indirect
 	github.com/samber/lo v1.52.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
 	github.com/shortlink-org/go-sdk/db v0.0.0-20251121161402-f3f7d0339b82 // indirect
-	github.com/sourcegraph/conc v0.3.1-0.20240121214520-5f936abd7ae8 // indirect
 	github.com/spf13/afero v1.15.0 // indirect
 	github.com/spf13/cast v1.10.0 // indirect
 	github.com/spf13/cobra v1.10.1 // indirect
 	github.com/spf13/pflag v1.0.10 // indirect
-	github.com/stretchr/objx v0.5.2 // indirect
+	github.com/stretchr/objx v0.5.3 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d // indirect
 	github.com/twmb/murmur3 v1.1.8 // indirect

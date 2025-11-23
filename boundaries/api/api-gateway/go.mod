@@ -11,12 +11,12 @@ require (
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.3
 	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20251121191713-160ea5dd70ad
-	github.com/shortlink-org/go-sdk/config v0.0.0-20251121191713-160ea5dd70ad
+	github.com/shortlink-org/go-sdk/config v0.0.0-20251123000513-53eee17f0f41
 	github.com/shortlink-org/go-sdk/db v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251121191713-160ea5dd70ad
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251121191713-160ea5dd70ad
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251121191713-160ea5dd70ad
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251123000513-53eee17f0f41
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251123000513-53eee17f0f41
 	github.com/shortlink-org/go-sdk/notify v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/observability v0.0.0-20251121191713-160ea5dd70ad
 	github.com/spf13/viper v1.21.0
@@ -49,6 +49,7 @@ require (
 	github.com/felixge/fgprof v0.9.5 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/fsnotify/fsnotify v1.9.0 // indirect
+	github.com/go-chi/chi/v5 v5.2.3 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-sql-driver/mysql v1.9.3 // indirect

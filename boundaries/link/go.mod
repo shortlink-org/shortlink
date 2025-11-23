@@ -21,15 +21,15 @@ require (
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/batch v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20251121191713-160ea5dd70ad
-	github.com/shortlink-org/go-sdk/config v0.0.0-20251121191713-160ea5dd70ad
+	github.com/shortlink-org/go-sdk/config v0.0.0-20251123000513-53eee17f0f41
 	github.com/shortlink-org/go-sdk/context v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/db v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/flags v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251121191713-160ea5dd70ad
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251121191713-160ea5dd70ad
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251121191713-160ea5dd70ad
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251123000513-53eee17f0f41
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251123000513-53eee17f0f41
 	github.com/shortlink-org/go-sdk/mq v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/notify v0.0.0-20251121191713-160ea5dd70ad
 	github.com/shortlink-org/go-sdk/observability v0.0.0-20251121191713-160ea5dd70ad

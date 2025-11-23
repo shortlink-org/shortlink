@@ -9,6 +9,7 @@ import (
 
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/shortlink-org/go-sdk/db/options"
+
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/postgres/schema/crud"
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
@@ -61,6 +62,7 @@ func (s *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, err
 }
 
 func (s *Store) singleWrite(ctx context.Context, in *domain.Link) (*domain.Link, error) {
+	// Create DTO with protobuf timestamps for proper JSON serialization
 	dto := &v1.Link{
 		Url:       in.GetUrl().String(),
 		Hash:      in.GetHash(),
@@ -69,15 +71,15 @@ func (s *Store) singleWrite(ctx context.Context, in *domain.Link) (*domain.Link,
 		UpdatedAt: in.GetUpdatedAt().GetTimestamp(),
 	}
 
-	// save as JSONB
-	dataJson, err := protojson.Marshal(dto)
+	// Use protojson.Marshal for proper protobuf serialization (timestamps, etc.)
+	payload, err := protojson.Marshal(dto)
 	if err != nil {
 		return nil, domain.NewInternalErrorWithErr(err)
 	}
 
 	links := psql.Insert("link.links").
 		Columns("url", "hash", "describe", "json").
-		Values(in.GetUrl().String(), in.GetHash(), in.GetDescribe(), dataJson)
+		Values(in.GetUrl().String(), in.GetHash(), in.GetDescribe(), payload)
 
 	q, args, err := links.ToSql()
 	if err != nil {
@@ -125,7 +127,7 @@ func (s *Store) batchWrite(ctx context.Context, in *domain.Links) (*domain.Links
 	if err != nil {
 		// Map PostgreSQL errors (e.g., unique violation) to domain errors
 		mappedErr := mapPostgresError(err, "batch create failed")
-		
+
 		// If it's a conflict error, create individual errors for each link
 		var conflictErr *domain.ConflictError
 		if errors.As(mappedErr, &conflictErr) {
