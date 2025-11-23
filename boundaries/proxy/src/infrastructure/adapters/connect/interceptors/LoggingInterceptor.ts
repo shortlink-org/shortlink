@@ -2,19 +2,20 @@ import type { Interceptor } from "@connectrpc/connect";
 import { ILogger } from "../../../logging/ILogger.js";
 
 /**
- * Connect interceptor для логирования запросов и ответов
- * Логирует информацию о каждом Connect вызове
+ * Connect interceptor for logging requests and responses
+ * Logs information about each Connect call
  */
 export function createLoggingInterceptor(logger: ILogger): Interceptor {
   return (next) => async (req) => {
     const startTime = Date.now();
-    // В Connect 2.x req.method может иметь разную структуру
-    // Используем безопасный доступ к свойствам
+    // In Connect 2.x req.method may have different structure
+    // Use safe property access
     const method = (req as any).method?.name || "unknown";
     const service = (req as any).method?.service?.typeName || "unknown";
 
-    // Логируем начало запроса
-    logger.debug("Connect request started", {
+    // Log request start
+    logger.debug("connect.request.started", {
+      event: "connect.request.started",
       service,
       method,
       url: (req as any).url || "unknown",
@@ -23,30 +24,32 @@ export function createLoggingInterceptor(logger: ILogger): Interceptor {
     try {
       const response = await next(req);
 
-      // Логируем успешный ответ
+      // Log successful response
       const duration = Date.now() - startTime;
-      logger.debug("Connect request completed", {
+      logger.debug("connect.request.completed", {
+        event: "connect.request.completed",
         service,
         method,
-        duration,
+        durationMs: duration,
         status: "success",
       });
 
       return response;
     } catch (error: any) {
-      // Логируем ошибку
+      // Log error
+      // error object will be automatically serialized by WinstonLogger to { name, message, stack }
       const duration = Date.now() - startTime;
-      logger.error("Connect request failed", error, {
+      logger.error("connect.request.failed", {
+        event: "connect.request.failed",
         service,
         method,
-        duration,
+        durationMs: duration,
         status: "error",
         errorCode: error?.code,
-        errorMessage: error?.message,
+        error: error instanceof Error ? error : new Error(String(error)),
       });
 
       throw error;
     }
   };
 }
-

@@ -35,6 +35,7 @@ describe("RedisLinkCache Integration", () => {
       error: () => {},
       debug: () => {},
       http: () => {},
+      event: () => {},
     };
 
     try {

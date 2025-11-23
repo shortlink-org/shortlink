@@ -41,9 +41,7 @@ export async function buildServer(
 
   // Create Fastify instance
   const fastify = Fastify({
-    logger: config.logger ?? {
-      level: process.env.LOG_LEVEL ?? "info",
-    },
+    logger: config.logger ?? false,
     requestIdLogLabel: "reqId",
     disableRequestLogging: false,
   });

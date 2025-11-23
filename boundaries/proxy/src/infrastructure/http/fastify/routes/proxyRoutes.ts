@@ -28,7 +28,6 @@ const redirectSchema = {
         pattern: "^[a-zA-Z0-9]+$",
         minLength: 1,
         description: "Short link hash",
-        example: "abc123",
       },
     },
   },

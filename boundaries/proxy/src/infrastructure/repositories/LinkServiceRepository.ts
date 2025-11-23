@@ -70,7 +70,8 @@ export class LinkServiceRepository implements ILinkRepository {
       return link;
     } catch (error) {
       // При ошибке адаптера не сохраняем в кэш, но логируем
-      this.logger.error("Adapter error in findByHash", error, {
+      this.logger.error("Adapter error in findByHash", {
+        error: error instanceof Error ? error : new Error(String(error)),
         hash: hash.value,
       });
       this.linkServiceErrorCounter.add(1, {

@@ -36,7 +36,8 @@ export class ErrorHandler {
         });
       } else {
         // Неожиданные ошибки логируем как error
-        this.logger.error(`Unexpected error in Use Case: ${context?.useCaseName || "Unknown"}`, error, {
+        this.logger.error(`Unexpected error in Use Case: ${context?.useCaseName || "Unknown"}`, {
+          error: error instanceof Error ? error : new Error(String(error)),
           context,
         });
       }

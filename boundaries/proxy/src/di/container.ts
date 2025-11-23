@@ -1,6 +1,7 @@
 import {
   createContainer,
   asClass,
+  asFunction,
   InjectionMode,
   AwilixContainer,
 } from "awilix";
@@ -33,13 +34,7 @@ import type { ProxyController } from "../infrastructure/http/fastify/controllers
 import type { MetricsController } from "../infrastructure/http/fastify/controllers/MetricsController.js";
 
 // Registries
-import {
-  CONFIG,
-  INFRA,
-  DOMAIN,
-  APP,
-  CONTROLLERS,
-} from "./index.js";
+import { CONFIG, INFRA, DOMAIN, APP, CONTROLLERS } from "./index.js";
 
 // Special cases (require .inject())
 import { WinstonLogger } from "../infrastructure/logging/WinstonLogger.js";
@@ -141,13 +136,12 @@ export function createDIContainer(): AwilixContainer<ContainerDependencies> {
   );
 
   // Message Bus - depends on logger only
+  // Use asFunction to avoid PROXY mode auto-resolution issues with amqplib's debug dependency
   container.register(
     "messageBus",
-    asClass(RabbitMQMessageBus)
-      .inject(() => ({
-        logger: container.resolve("logger"),
-      }))
-      .singleton()
+    asFunction((cradle) => {
+      return new RabbitMQMessageBus(cradle.logger);
+    }).singleton()
   );
 
   return container;

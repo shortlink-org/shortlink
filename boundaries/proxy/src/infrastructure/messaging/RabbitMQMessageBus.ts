@@ -180,7 +180,8 @@ export class RabbitMQMessageBus implements IMessageBus {
         durable,
       });
     } catch (error) {
-      this.logger.error("Failed to setup exchange", error, {
+      this.logger.error("Failed to setup exchange", {
+        error: error instanceof Error ? error : new Error(String(error)),
         exchange,
         type,
         durable,
@@ -267,14 +268,11 @@ export class RabbitMQMessageBus implements IMessageBus {
                 ),
               };
 
-        this.logger.error(
-          "Failed to confirm message publication",
-          confirmErrorDetails,
-          {
-            exchange,
-            routingKey: routingKey || "none",
-          }
-        );
+        this.logger.error("Failed to confirm message publication", {
+          error: confirmErrorDetails,
+          exchange,
+          routingKey: routingKey || "none",
+        });
         throw confirmError;
       }
 
@@ -299,7 +297,8 @@ export class RabbitMQMessageBus implements IMessageBus {
               ),
             };
 
-      this.logger.error("Failed to publish message to AMQP", errorDetails, {
+      this.logger.error("Failed to publish message to AMQP", {
+        error: errorDetails,
         exchange,
         routingKey: routingKey || "none",
       });

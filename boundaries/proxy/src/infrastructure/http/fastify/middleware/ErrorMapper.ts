@@ -96,11 +96,14 @@ export class ErrorMapper {
     }
 
     if (error instanceof ExternalServiceError) {
-      this.logger.warn("External service error", {
+      this.logger.warn("http.error.external_service", {
+        event: "http.error.external_service",
         service: error.service,
         statusCode: error.statusCode,
         message: error.message,
         path: request?.url,
+        method: request?.method,
+        error: error.originalError || error,
       });
       const statusCode = error.statusCode ?? 503;
       return {
@@ -117,10 +120,14 @@ export class ErrorMapper {
     }
 
     if (error instanceof InfrastructureError) {
-      this.logger.error("Infrastructure error", error.originalError || error, {
+      this.logger.error("http.error.infrastructure", {
+        event: "http.error.infrastructure",
         service: error.service,
         path: request?.url,
         method: request?.method,
+        statusCode: error.statusCode,
+        errorCode: error.code,
+        error: error.originalError || error,
       });
       return {
         statusCode: error.statusCode,
@@ -150,9 +157,12 @@ export class ErrorMapper {
 
     // Generic Error
     if (error instanceof Error) {
-      this.logger.error("Unhandled error", error, {
+      this.logger.error("http.error.unhandled", {
+        event: "http.error.unhandled",
         path: request?.url,
         method: request?.method,
+        statusCode: 500,
+        error: error,
       });
       return {
         statusCode: 500,
@@ -167,9 +177,14 @@ export class ErrorMapper {
     }
 
     // Unknown error type
-    this.logger.error("Unknown error type", error, {
+    this.logger.error("http.error.unknown", {
+      event: "http.error.unknown",
       path: request?.url,
       method: request?.method,
+      statusCode: 500,
+      error: error instanceof Error ? error : new Error(String(error)),
+      errorType: typeof error,
+      errorString: String(error),
     });
     return {
       statusCode: 500,

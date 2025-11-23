@@ -111,7 +111,8 @@ export class RedisLinkCache implements ILinkCache {
 
         // Обработка ошибок подключения
         this.redis.on("error", (error) => {
-          this.logger.error("Redis connection error", error, {
+          this.logger.error("Redis connection error", {
+            error: error instanceof Error ? error : new Error(String(error)),
             redisUrl: cacheConfig.redisUrl,
           });
         });
@@ -126,12 +127,14 @@ export class RedisLinkCache implements ILinkCache {
 
         // Подключаемся асинхронно, не блокируя конструктор
         this.redis.connect().catch((error) => {
-          this.logger.error("Failed to connect to Redis", error, {
+          this.logger.error("Failed to connect to Redis", {
+            error: error instanceof Error ? error : new Error(String(error)),
             redisUrl: cacheConfig.redisUrl,
           });
         });
       } catch (error) {
-        this.logger.error("Failed to initialize Redis", error, {
+        this.logger.error("Failed to initialize Redis", {
+          error: error instanceof Error ? error : new Error(String(error)),
           redisUrl: cacheConfig.redisUrl,
         });
       }
@@ -247,11 +250,11 @@ export class RedisLinkCache implements ILinkCache {
         this.setCacheSpanAttributes(hash, "HIT");
         return link;
       } catch (parseError) {
-        this.logger.error(
-          "Failed to parse cached link",
-          parseError,
-          { hash: hash.value, cached }
-        );
+        this.logger.error("Failed to parse cached link", {
+          error: parseError instanceof Error ? parseError : new Error(String(parseError)),
+          hash: hash.value,
+          cached,
+        });
         this.errorCounter.add(1, {
           operation: "get",
           error_type: "parse_error",
@@ -269,7 +272,10 @@ export class RedisLinkCache implements ILinkCache {
       this.durationHistogram.record(duration, {
         operation: "get",
       });
-      this.logger.error("Cache get error", error, { hash: hash.value });
+      this.logger.error("Cache get error", {
+        error: error instanceof Error ? error : new Error(String(error)),
+        hash: hash.value,
+      });
       this.errorCounter.add(1, {
         operation: "get",
         error_type: "redis_error",
@@ -323,7 +329,10 @@ export class RedisLinkCache implements ILinkCache {
         operation: "set",
         type: "positive",
       });
-      this.logger.error("Cache set error", error, { hash: hash.value });
+      this.logger.error("Cache set error", {
+        error: error instanceof Error ? error : new Error(String(error)),
+        hash: hash.value,
+      });
       this.errorCounter.add(1, {
         operation: "set",
         type: "positive",
@@ -362,7 +371,10 @@ export class RedisLinkCache implements ILinkCache {
         operation: "set",
         type: "negative",
       });
-      this.logger.error("Cache set error", error, { hash: hash.value });
+      this.logger.error("Cache set error", {
+        error: error instanceof Error ? error : new Error(String(error)),
+        hash: hash.value,
+      });
       this.errorCounter.add(1, {
         operation: "set",
         type: "negative",
@@ -395,7 +407,10 @@ export class RedisLinkCache implements ILinkCache {
       this.durationHistogram.record(duration, {
         operation: "clear",
       });
-      this.logger.error("Cache clear error", error, { hash: hash.value });
+      this.logger.error("Cache clear error", {
+        error: error instanceof Error ? error : new Error(String(error)),
+        hash: hash.value,
+      });
       this.errorCounter.add(1, {
         operation: "clear",
         error_type: "redis_error",

@@ -55,7 +55,8 @@ export class AMQPEventPublisher implements IEventPublisher {
           true // durable
         );
       } catch (error) {
-        this.logger.error("Failed to setup exchange", error, {
+        this.logger.error("Failed to setup exchange", {
+          error: error instanceof Error ? error : new Error(String(error)),
           exchange: exchange.name,
         });
         // Продолжаем инициализацию других exchange даже если один не удался
@@ -116,7 +117,8 @@ export class AMQPEventPublisher implements IEventPublisher {
               ),
             };
 
-      this.logger.error("Failed to publish event to AMQP", errorDetails, {
+      this.logger.error("Failed to publish event to AMQP", {
+        error: errorDetails,
         eventType: event.type,
         exchange: this.getExchangeName(event.type),
       });

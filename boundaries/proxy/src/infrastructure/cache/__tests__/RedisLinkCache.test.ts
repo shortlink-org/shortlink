@@ -35,6 +35,7 @@ describe("RedisLinkCache", () => {
       error: vi.fn(),
       debug: vi.fn(),
       http: vi.fn(),
+      event: vi.fn(),
     };
 
     // Mock config

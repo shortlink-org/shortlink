@@ -38,6 +38,7 @@ describe("LinkServiceRepository", () => {
       error: vi.fn(),
       debug: vi.fn(),
       http: vi.fn(),
+      event: vi.fn(),
     };
 
     repository = new LinkServiceRepository(
