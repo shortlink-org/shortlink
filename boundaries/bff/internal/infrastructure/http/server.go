@@ -17,7 +17,6 @@ import (
 	logger_middleware "github.com/shortlink-org/go-sdk/http/middleware/logger"
 	metrics_middleware "github.com/shortlink-org/go-sdk/http/middleware/metrics"
 	pprof_labels_middleware "github.com/shortlink-org/go-sdk/http/middleware/pprof_labels"
-	span_middleware "github.com/shortlink-org/go-sdk/http/middleware/span"
 	http_server "github.com/shortlink-org/go-sdk/http/server"
 
 	serverAPI "github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/api"
@@ -76,7 +75,6 @@ func (api *Server) run(config Config) error {
 	// Additional middleware
 	r.Use(logger_middleware.Logger(config.Log))
 	r.Use(middleware.Recoverer)
-	r.Use(span_middleware.Span())
 	r.Use(auth_middleware.Auth(config.Config))
 	r.Use(pprof_labels_middleware.Labels)
 	r.Use(flight_trace_middleware.DebugTraceMiddleware(config.FlightTrace, config.Log, config.Config))

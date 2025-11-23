@@ -17,11 +17,13 @@ func (s *Store) Update(ctx context.Context, in *domain.Link) (*domain.Link, erro
 		return nil, err
 	}
 
+	// PostgreSQL JSONB requires string, but Column4 is []byte type from sqlc
+	// Convert to string first, then to []byte for the type compatibility
 	row, err := s.query.UpdateLink(ctx, crud.UpdateLinkParams{
 		Url:      in.GetUrl().String(),
 		Hash:     in.GetHash(),
 		Describe: in.GetDescribe(),
-		Column4:  payload,
+		Column4:  payload, // pgx will handle []byte to JSONB conversion
 	})
 	if err != nil {
 		return nil, err

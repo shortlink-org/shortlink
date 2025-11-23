@@ -79,7 +79,7 @@ func (s *Store) singleWrite(ctx context.Context, in *domain.Link) (*domain.Link,
 
 	links := psql.Insert("link.links").
 		Columns("url", "hash", "describe", "json").
-		Values(in.GetUrl().String(), in.GetHash(), in.GetDescribe(), payload)
+		Values(in.GetUrl().String(), in.GetHash(), in.GetDescribe(), string(payload))
 
 	q, args, err := links.ToSql()
 	if err != nil {
@@ -109,7 +109,7 @@ func (s *Store) batchWrite(ctx context.Context, in *domain.Links) (*domain.Links
 			UpdatedAt: list[key].GetUpdatedAt().GetTimestamp(),
 		}
 
-		// Marshal to JSONB as []byte
+		// Marshal to JSONB as string (PostgreSQL JSONB requires string, not []byte)
 		dataJson, err := protojson.Marshal(dto)
 		if err != nil {
 			return nil, domain.NewInternalErrorWithErr(err)
@@ -119,7 +119,7 @@ func (s *Store) batchWrite(ctx context.Context, in *domain.Links) (*domain.Links
 			Url:      list[key].GetUrl().String(),
 			Hash:     list[key].GetHash(),
 			Describe: list[key].GetDescribe(),
-			Json:     dataJson,
+			Json:     string(dataJson),
 		})
 	}
 
