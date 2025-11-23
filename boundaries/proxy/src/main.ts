@@ -38,7 +38,10 @@ function isExchangeInitializer(
   );
 }
 
-async function bootstrap(): Promise<FastifyInstance> {
+async function bootstrap(): Promise<{
+  app: FastifyInstance;
+  gracefulShutdownHandler: () => Promise<void>;
+}> {
   // 0. Validate Permissions API (production only)
   if (process.env.NODE_ENV === "production") {
     logPermissions();
@@ -72,9 +75,9 @@ async function bootstrap(): Promise<FastifyInstance> {
   // 4. Build Fastify server
   const app = await buildServer(container);
 
-  // 5. Health checks
+  // 5. Health checks and graceful shutdown handler
   const appConfig = container.resolve<AppConfig>("appConfig");
-  configureHealthChecks(app.server, container);
+  const gracefulShutdownHandler = configureHealthChecks(app, container);
 
   // 6. Start server
   try {
@@ -89,15 +92,17 @@ async function bootstrap(): Promise<FastifyInstance> {
     process.exit(1);
   }
 
-  return app;
+  return { app, gracefulShutdownHandler };
 }
 
 // Start app
 let app: FastifyInstance | undefined;
+let gracefulShutdownHandler: (() => Promise<void>) | undefined;
 
 bootstrap()
-  .then((instance) => {
+  .then(({ app: instance, gracefulShutdownHandler: handler }) => {
     app = instance;
+    gracefulShutdownHandler = handler;
   })
   .catch((error) => {
     console.error("Failed to start application", error);
@@ -106,7 +111,10 @@ bootstrap()
 
 // Graceful shutdown
 async function gracefulShutdown() {
-  if (app) {
+  if (gracefulShutdownHandler) {
+    await gracefulShutdownHandler();
+  } else if (app) {
+    // Fallback if handler not available
     await app.close();
   }
   process.exit(0);
