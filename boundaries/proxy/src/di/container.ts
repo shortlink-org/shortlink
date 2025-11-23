@@ -161,13 +161,14 @@ export function createDIContainer(): AwilixContainer<ContainerDependencies> {
   // Selects implementation based on MQ_TYPE environment variable
   container.register(
     "messageBus",
-    asFunction((cradle) => {
+    asFunction(() => {
+      const logger = container.resolve<ILogger>("logger");
       const mqType = ConfigReader.string("MQ_TYPE", "rabbitmq").toLowerCase();
-      
+
       if (mqType === "kafka") {
-        return new KafkaMessageBus(cradle.logger);
+        return new KafkaMessageBus(logger);
       } else {
-        return new RabbitMQMessageBus(cradle.logger);
+        return new RabbitMQMessageBus(logger);
       }
     }).singleton()
   );
@@ -177,13 +178,15 @@ export function createDIContainer(): AwilixContainer<ContainerDependencies> {
   // Selects implementation based on MQ_TYPE environment variable
   container.register(
     "eventPublisher",
-    asFunction((cradle) => {
+    asFunction(() => {
+      const messageBus = container.resolve<IMessageBus>("messageBus");
+      const logger = container.resolve<ILogger>("logger");
       const mqType = ConfigReader.string("MQ_TYPE", "rabbitmq").toLowerCase();
-      
+
       if (mqType === "kafka") {
-        return new KafkaEventPublisher(cradle.messageBus, cradle.logger);
+        return new KafkaEventPublisher(messageBus, logger);
       } else {
-        return new AMQPEventPublisher(cradle.messageBus, cradle.logger);
+        return new AMQPEventPublisher(messageBus, logger);
       }
     }).singleton()
   );

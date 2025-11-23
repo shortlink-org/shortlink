@@ -1,8 +1,6 @@
 package http
 
 import (
-	"net/http"
-
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	cors2 "github.com/go-chi/cors"
@@ -10,16 +8,16 @@ import (
 	flight_trace_middleware "github.com/shortlink-org/go-sdk/http/middleware/flight_trace"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/spf13/viper"
-	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/shortlink-org/go-sdk/http/handler"
-	auth_middleware "github.com/shortlink-org/go-sdk/http/middleware/auth"
+	auth_middleware 	"github.com/shortlink-org/go-sdk/http/middleware/auth"
 	csrf_middleware "github.com/shortlink-org/go-sdk/http/middleware/csrf"
 	logger_middleware "github.com/shortlink-org/go-sdk/http/middleware/logger"
 	metrics_middleware "github.com/shortlink-org/go-sdk/http/middleware/metrics"
 	pprof_labels_middleware "github.com/shortlink-org/go-sdk/http/middleware/pprof_labels"
+	span_middleware "github.com/shortlink-org/go-sdk/http/middleware/span"
 	http_server "github.com/shortlink-org/go-sdk/http/server"
 
 	serverAPI "github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/api"
@@ -89,21 +87,8 @@ func (api *Server) run(config Config) error {
 	}
 	r.Use(metrics)
 
-	// Add trace-id header to responses
-	r.Use(func(next http.Handler) http.Handler {
-		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			// Get span from context
-			span := trace.SpanFromContext(r.Context())
-			if span.SpanContext().IsValid() {
-				traceID := span.SpanContext().TraceID().String()
-				if traceID != "" {
-					w.Header().Set("trace-id", traceID)
-				}
-			}
-
-			next.ServeHTTP(w, r)
-		})
-	})
+	// Add trace-id header to responses (uses existing span from otelhttp.NewHandler)
+	r.Use(span_middleware.Span())
 
 	r.NotFound(handler.NotFoundHandler)
 

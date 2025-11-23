@@ -1,0 +1,19 @@
+# Cursor AI Rules for Shortlink Project
+
+## Git Operations
+
+**CRITICAL: Git Push Policy**
+
+- NEVER execute `git push` automatically without explicit user permission
+- ALWAYS ask the user before pushing changes to remote repository
+- When user says "commit and push" or similar, ask for confirmation before pushing
+- Only push when user explicitly confirms with "yes", "push", or similar affirmative response
+- If user says "commit" without mentioning push, only commit, do NOT push
+- If user says "сам не пуш" or "don't push", NEVER push, only commit
+
+## General Guidelines
+
+- Always check git status before making changes
+- Show diff before committing
+- Use clear, descriptive commit messages
+- Prefer pnpm for Node.js projects (project uses pnpm v10)

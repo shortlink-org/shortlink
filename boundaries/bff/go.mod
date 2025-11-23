@@ -20,7 +20,7 @@ require (
 	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251123090321-da200cd95544
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251123090321-da200cd95544
 	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251123090321-da200cd95544
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251123090321-da200cd95544
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251123143403-ea6670e2eba8
 	github.com/shortlink-org/go-sdk/logger v0.0.0-20251123090321-da200cd95544
 	github.com/shortlink-org/go-sdk/observability v0.0.0-20251123090321-da200cd95544
 	github.com/spf13/viper v1.21.0
