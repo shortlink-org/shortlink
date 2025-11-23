@@ -27,6 +27,8 @@
       "MQ_ENABLED",
       "MQ_TYPE",
       "MQ_RABBIT_URI",
+      "MQ_KAFKA_URI",
+      "MQ_KAFKA_CLIENT_ID",
       "GRPC_CLIENT_HOST"
     ],
     "net": {
@@ -38,7 +40,8 @@
         "grafana-tempo.grafana:4317",
         "pyroscope:4040",
         "localhost:3020",
-        "127.0.0.1:3020"
+        "127.0.0.1:3020",
+        "shortlink-kafka-bootstrap.kafka:9092"
       ],
       "deny": []
     }

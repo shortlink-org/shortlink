@@ -21,6 +21,7 @@ import {
 } from "@opentelemetry/semantic-conventions";
 import { WinstonInstrumentation } from "@opentelemetry/instrumentation-winston";
 import { RuntimeNodeInstrumentation } from "@opentelemetry/instrumentation-runtime-node";
+import { KafkaJsInstrumentation } from "@opentelemetry/instrumentation-kafkajs";
 import type { SpanExporter } from "@opentelemetry/sdk-trace-base";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 import Pyroscope from "@pyroscope/nodejs";
@@ -69,7 +70,7 @@ function configureDiagnostics(): void {
 }
 
 /**
- * Map SERVICE_NAME → OTEL_SERVICE_NAME if нужно
+ * Map SERVICE_NAME → OTEL_SERVICE_NAME if needed
  */
 function normalizeServiceNameEnv(): void {
   if (!process.env.OTEL_SERVICE_NAME && process.env.SERVICE_NAME) {
@@ -94,7 +95,7 @@ function registerSdkShutdownHook(sdk: NodeSDK): void {
     } catch (err) {
       console.error("[Telemetry] Error during OpenTelemetry SDK shutdown", err);
     } finally {
-      // Let the process exit naturally (не вызываем process.exit())
+      // Let the process exit naturally (don't call process.exit())
     }
   };
 
@@ -105,8 +106,8 @@ function registerSdkShutdownHook(sdk: NodeSDK): void {
 /**
  * Initialize Pyroscope profiler (pprof → Pyroscope server).
  *
- * This is NOT OTLP profiles yet, а прямой push в Pyroscope.
- * Pyroscope уже потом клеится с остальной телеметрией в Grafana.
+ * This is NOT OTLP profiles yet, but a direct push to Pyroscope.
+ * Pyroscope is then integrated with the rest of telemetry in Grafana.
  */
 function initializePyroscopeProfiling(serviceName: string): void {
   const serverAddress = process.env.PYROSCOPE_SERVER_ADDRESS;
@@ -118,12 +119,12 @@ function initializePyroscopeProfiling(serviceName: string): void {
     Pyroscope.init({
       serverAddress,
       appName: serviceName,
-      // Немного тегов для удобной фильтрации
+      // Some tags for convenient filtering
       tags: {
         service: serviceName,
         env: process.env.DEPLOY_ENV || process.env.NODE_ENV || "unknown",
       },
-      // Пример включения CPU-time для wall профилей:
+      // Example of enabling CPU-time for wall profiles:
       // wall: { collectCpuTime: true },
     });
 
@@ -140,14 +141,14 @@ function initializePyroscopeProfiling(serviceName: string): void {
  *  - Metrics → Prometheus + OTLP gRPC
  *  - Logs → OTLP gRPC
  *  - Runtime metrics auto-instrumentation
- *  - Winston auto log injection + sending в OTLP Logs SDK
- *  - Pyroscope pprof (если задан PYROSCOPE_SERVER_ADDRESS)
+ *  - Winston auto log injection + sending to OTLP Logs SDK
+ *  - Pyroscope pprof (if PYROSCOPE_SERVER_ADDRESS is set)
  *
- * Возвращает PrometheusExporter для /metrics endpoint.
+ * Returns PrometheusExporter for /metrics endpoint.
  */
 export function initializeTelemetry(): PrometheusExporter | null {
   if (sdkInstance) {
-    // Уже инициализировано (например, в тестах / dev hot reload)
+    // Already initialized (e.g., in tests / dev hot reload)
     return prometheusExporter;
   }
 
@@ -176,7 +177,7 @@ export function initializeTelemetry(): PrometheusExporter | null {
   };
   prometheusExporter = new PrometheusExporter(prometheusOptions);
 
-  // OTLP metrics (push) — в Alloy/Collector
+  // OTLP metrics (push) — to Alloy/Collector
   const otlpMetricExporter = new OTLPMetricExporter({
     url: collectorEndpoint,
   });
@@ -208,11 +209,11 @@ export function initializeTelemetry(): PrometheusExporter | null {
 
   // --- Instrumentations ---
   const winstonInstrumentation = new WinstonInstrumentation({
-    // добавляем trace_id/span_id/trace_flags в логи
+    // Add trace_id/span_id/trace_flags to logs
     disableLogCorrelation: false,
-    // и шлём сами логи в OTEL Logs SDK (через @opentelemetry/winston-transport)
+    // Send logs to OTEL Logs SDK (via @opentelemetry/winston-transport)
     disableLogSending: false,
-    // можно дописать поля через hook
+    // Can add additional fields via hook
     logHook: (span, record) => {
       record["service.name"] = serviceName;
       if (span) {
@@ -223,13 +224,21 @@ export function initializeTelemetry(): PrometheusExporter | null {
   });
 
   const runtimeInstrumentation = new RuntimeNodeInstrumentation({
-    // пример: можно включать/отключать отдельные метрики
+    // Example: can enable/disable individual metrics
     enabled: true,
+  });
+
+  const kafkaInstrumentation = new KafkaJsInstrumentation({
+    // Enable instrumentation for producer and consumer
+    enabled: true,
+    // Can configure operation filtering if needed
+    // consumerHook: (span, info) => { ... },
+    // producerHook: (span, info) => { ... },
   });
 
   const instrumentations = [
     getNodeAutoInstrumentations({
-      // При желании можно детюнить конкретные auto-instrumentations
+      // Can tune specific auto-instrumentations if desired
       "@opentelemetry/instrumentation-http": { enabled: true },
       "@opentelemetry/instrumentation-fastify": { enabled: true },
       "@opentelemetry/instrumentation-winston": {
@@ -240,6 +249,7 @@ export function initializeTelemetry(): PrometheusExporter | null {
     }),
     winstonInstrumentation,
     runtimeInstrumentation,
+    kafkaInstrumentation,
   ];
 
   // --- SDK init ---
@@ -265,7 +275,7 @@ export function initializeTelemetry(): PrometheusExporter | null {
 }
 
 /**
- * Explicit SDK shutdown helper (например, для тестов)
+ * Explicit SDK shutdown helper (e.g., for tests)
  */
 export async function shutdownTelemetry(): Promise<void> {
   if (!sdkInstance) return;
@@ -288,11 +298,11 @@ export function getPrometheusExporter(): PrometheusExporter | null {
 }
 
 /**
- * Fastify hook для семантического обогащения спанов:
- * - http.route (если вдруг auto-instr не проставил)
+ * Fastify hook for semantic span enrichment:
+ * - http.route (in case auto-instr didn't set it)
  * - client.address / user_agent
  *
- * Используешь так:
+ * Usage:
  *   fastify.register(semanticEnrichmentPlugin);
  */
 export async function semanticEnrichmentPlugin(

@@ -53,6 +53,9 @@ importers:
       '@opentelemetry/instrumentation':
         specifier: 0.208.0
         version: 0.208.0(@opentelemetry/api@1.9.0)
+      '@opentelemetry/instrumentation-kafkajs':
+        specifier: 0.18.0
+        version: 0.18.0(@opentelemetry/api@1.9.0)
       '@opentelemetry/instrumentation-runtime-node':
         specifier: 0.22.0
         version: 0.22.0(@opentelemetry/api@1.9.0)
@@ -107,6 +110,9 @@ importers:
       ioredis:
         specifier: ^5.8.2
         version: 5.8.2
+      kafkajs:
+        specifier: 2.2.4
+        version: 2.2.4
       neverthrow:
         specifier: 8.2.0
         version: 8.2.0
@@ -2867,6 +2873,10 @@ packages:
   json5@1.0.2:
     resolution: {integrity: sha512-g1MWMLBiz8FKi1e4w0UyVL3w+iJceWAFBAaBnnGKOpNa5f8TLktkbre1+s6oICydWAm+HRUGTmI+//xv2hvXYA==}
     hasBin: true
+
+  kafkajs@2.2.4:
+    resolution: {integrity: sha512-j/YeapB1vfPT2iOIUn/vxdyKEuhuY2PxMBvf5JWux6iSaukAccrMtXEY/Lb7OvavDhOWME589bpLrEdnVHjfjA==}
+    engines: {node: '>=14.0.0'}
 
   keyv@4.5.4:
     resolution: {integrity: sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==}
@@ -7254,6 +7264,8 @@ snapshots:
   json5@1.0.2:
     dependencies:
       minimist: 1.2.8
+
+  kafkajs@2.2.4: {}
 
   keyv@4.5.4:
     dependencies:

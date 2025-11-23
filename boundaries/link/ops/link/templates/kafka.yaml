@@ -1,3 +1,5 @@
+{{- if and .Values.deploy.env.MQ_ENABLED (eq .Values.deploy.env.MQ_TYPE "kafka") }}
+---
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
@@ -6,8 +8,51 @@ metadata:
   labels:
     strimzi.io/cluster: shortlink
 spec:
-  partitions: 3
-  replicas: 3
+  partitions: 1
+  replicas: 1
   config:
-    retention.ms: 7200000
-    segment.bytes: 1073741824
+    retention.ms: 7200000 # 2 hours
+    segment.bytes: 31457280 # 30MB
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: shortlink.link.event.created
+  namespace: kafka
+  labels:
+    strimzi.io/cluster: shortlink
+spec:
+  partitions: 1
+  replicas: 1
+  config:
+    retention.ms: 7200000 # 2 hours
+    segment.bytes: 31457280 # 30MB
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: shortlink.link.event.updated
+  namespace: kafka
+  labels:
+    strimzi.io/cluster: shortlink
+spec:
+  partitions: 1
+  replicas: 1
+  config:
+    retention.ms: 7200000 # 2 hours
+    segment.bytes: 31457280 # 30MB
+---
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: shortlink.link.event.deleted
+  namespace: kafka
+  labels:
+    strimzi.io/cluster: shortlink
+spec:
+  partitions: 1
+  replicas: 1
+  config:
+    retention.ms: 7200000 # 2 hours
+    segment.bytes: 31457280 # 30MB
+{{- end }}

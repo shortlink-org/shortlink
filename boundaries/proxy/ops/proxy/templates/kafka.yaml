@@ -1,0 +1,16 @@
+{{- if and .Values.deploy.env.MQ_ENABLED (eq .Values.deploy.env.MQ_TYPE "kafka") }}
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaTopic
+metadata:
+  name: shortlink.link.event.redirected
+  namespace: kafka
+  labels:
+    strimzi.io/cluster: shortlink
+spec:
+  partitions: 1
+  replicas: 1
+  config:
+    retention.ms: 7200000 # 2 hours
+    segment.bytes: 31457280 # 30MB
+{{- end }}
+

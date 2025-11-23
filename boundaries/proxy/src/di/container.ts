@@ -39,8 +39,11 @@ import { CONFIG, INFRA, DOMAIN, APP, CONTROLLERS } from "./index.js";
 // Special cases (require .inject())
 import { WinstonLogger } from "../infrastructure/logging/WinstonLogger.js";
 import { RabbitMQMessageBus } from "../infrastructure/messaging/RabbitMQMessageBus.js";
+import { KafkaMessageBus } from "../infrastructure/messaging/KafkaMessageBus.js";
 import { RedisLinkCache } from "../infrastructure/cache/RedisLinkCache.js";
 import { AMQPEventPublisher } from "../infrastructure/messaging/AMQPEventPublisher.js";
+import { KafkaEventPublisher } from "../infrastructure/messaging/KafkaEventPublisher.js";
+import { ConfigReader } from "../infrastructure/config/ConfigReader.js";
 
 /**
  * Container dependencies interface
@@ -141,19 +144,33 @@ export function createDIContainer(): AwilixContainer<ContainerDependencies> {
 
   // Message Bus - depends on logger only
   // Use asFunction to avoid PROXY mode auto-resolution issues with amqplib's debug dependency
+  // Selects implementation based on MQ_TYPE environment variable
   container.register(
     "messageBus",
     asFunction((cradle) => {
-      return new RabbitMQMessageBus(cradle.logger);
+      const mqType = ConfigReader.string("MQ_TYPE", "rabbitmq").toLowerCase();
+      
+      if (mqType === "kafka") {
+        return new KafkaMessageBus(cradle.logger);
+      } else {
+        return new RabbitMQMessageBus(cradle.logger);
+      }
     }).singleton()
   );
 
   // Event Publisher - depends on messageBus and logger
   // Use asFunction to ensure dependencies are properly injected
+  // Selects implementation based on MQ_TYPE environment variable
   container.register(
     "eventPublisher",
     asFunction((cradle) => {
-      return new AMQPEventPublisher(cradle.messageBus, cradle.logger);
+      const mqType = ConfigReader.string("MQ_TYPE", "rabbitmq").toLowerCase();
+      
+      if (mqType === "kafka") {
+        return new KafkaEventPublisher(cradle.messageBus, cradle.logger);
+      } else {
+        return new AMQPEventPublisher(cradle.messageBus, cradle.logger);
+      }
     }).singleton()
   );
 
