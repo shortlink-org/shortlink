@@ -8,11 +8,12 @@ import (
 	flight_trace_middleware "github.com/shortlink-org/go-sdk/http/middleware/flight_trace"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/spf13/viper"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"golang.org/x/sync/errgroup"
 	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/shortlink-org/go-sdk/http/handler"
-	auth_middleware 	"github.com/shortlink-org/go-sdk/http/middleware/auth"
+	auth_middleware "github.com/shortlink-org/go-sdk/http/middleware/auth"
 	csrf_middleware "github.com/shortlink-org/go-sdk/http/middleware/csrf"
 	logger_middleware "github.com/shortlink-org/go-sdk/http/middleware/logger"
 	metrics_middleware "github.com/shortlink-org/go-sdk/http/middleware/metrics"
@@ -79,6 +80,7 @@ func (api *Server) run(config Config) error {
 	r.Use(auth_middleware.Auth(config.Config))
 	r.Use(pprof_labels_middleware.Labels)
 	r.Use(flight_trace_middleware.DebugTraceMiddleware(config.FlightTrace, config.Log, config.Config))
+	r.Use(otelhttp.NewMiddleware(config.Config.GetString("SERVICE_NAME")))
 
 	// Metrics
 	metrics, err := metrics_middleware.NewMetrics()
