@@ -59,7 +59,7 @@ func (api *API) Run(
 		return err
 	}
 
-	api.http = http_server.New(ctx, mux, config, tracer)
+	api.http = http_server.New(ctx, mux, config)
 
 	// Start HTTP server (and proxy calls to gRPC server endpoint)
 	log.Info("Run HTTP server", slog.Int("port", config.Port))

@@ -108,7 +108,7 @@ func (api *Server) run(config Config) error {
 
 	r.Mount(viper.GetString("BASE_PATH"), serverAPI.HandlerFromMux(controller, nil))
 
-	srv := http_server.New(config.Ctx, r, config.Http, config.Tracer, config.Config)
+	srv := http_server.New(config.Ctx, r, config.Http, config.Config)
 
 	// start HTTP-server
 	config.Log.Info(config.I18n.Sprintf("BFF Web run on port %d", config.Http.Port))
