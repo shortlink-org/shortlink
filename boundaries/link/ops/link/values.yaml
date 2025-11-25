@@ -66,10 +66,8 @@ deploy:
   env:
     MQ_ENABLED: true
     MQ_TYPE: kafka
-    MQ_KAFKA_URI: shortlink-kafka-bootstrap.kafka:9092
-    MQ_KAFKA_SARAMA_VERSION: MAX
     # Watermill configuration
-    WATERMILL_KAFKA_BROKERS: shortlink-kafka-bootstrap.kafka:9092
+    WATERMILL_KAFKA_BROKERS: shortlink-kafka-bootstrap.kafka.svc.cluster.local:9092
     WATERMILL_KAFKA_CLIENT_ID: shortlink-link
     WATERMILL_KAFKA_CONSUMER_GROUP: shortlink-link
     WATERMILL_DLQ_ENABLED: false

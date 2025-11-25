@@ -21,13 +21,11 @@ import (
 	"github.com/shortlink-org/go-sdk/flight_trace"
 	"github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
-	"github.com/shortlink-org/go-sdk/mq"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/go-sdk/observability/profiling"
 	"github.com/shortlink-org/go-sdk/observability/tracing"
 	"github.com/shortlink-org/go-sdk/watermill"
 	"github.com/shortlink-org/go-sdk/watermill/backends/kafka"
-	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/mq"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/cqs"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/query"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud"
@@ -181,22 +179,6 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	mqMQ, err := mq.New(context, loggerLogger, configConfig)
-	if err != nil {
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
-	event, err := api_mq.New(mqMQ, loggerLogger, uc)
-	if err != nil {
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
 	registry := NewPrometheusRegistry(monitoring)
 	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry, recorder, configConfig)
 	if err != nil {
@@ -238,7 +220,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(loggerLogger, configConfig, monitoring, tracerProvider, pprofEndpoint, recorder, client, uc, service, sitemapService, event, response, v1LinkRPC, linkRPC, sitemap, store, cqsStore, queryStore)
+	linkService, err := NewLinkService(loggerLogger, configConfig, monitoring, tracerProvider, pprofEndpoint, recorder, client, uc, service, sitemapService, response, v1LinkRPC, linkRPC, sitemap, store, cqsStore, queryStore)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -271,7 +253,6 @@ type LinkService struct {
 	authPermission *authzed.Client
 
 	// Delivery
-	linkMQ            *api_mq.Event
 	run               *run.Response
 	linkRPCServer     *v1_2.LinkRPC
 	linkCQRSRPCServer *v1.LinkRPC
@@ -298,7 +279,7 @@ var LinkSet = wire.NewSet(
 
 	DefaultSet, permission.New, NewPrometheusRegistry,
 	NewMeterProvider, db.New, NewWatermillMeterProvider,
-	NewWatermillBackend, watermill.New, NewWatermillPublisher, mq.New, api_mq.New, grpc.InitServer, NewRPCClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, NewLinkApplication, link_cqrs.New, NewSitemapService, crud.New, cqs.New, query.New, NewLinkService,
+	NewWatermillBackend, watermill.New, NewWatermillPublisher, grpc.InitServer, NewRPCClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, NewLinkApplication, link_cqrs.New, NewSitemapService, crud.New, cqs.New, query.New, NewLinkService,
 )
 
 func NewPrometheusRegistry(metrics2 *metrics.Monitoring) *prometheus.Registry {
@@ -367,9 +348,7 @@ func NewLinkService(
 
 	linkService *link.UC,
 	linkCQRSService *link_cqrs.Service,
-	sitemapService *sitemap.Service,
-
-	linkMQ *api_mq.Event, run2 *run.Response,
+	sitemapService *sitemap.Service, run2 *run.Response,
 	linkRPCServer *v1_2.LinkRPC,
 	linkCQRSRPCServer *v1.LinkRPC,
 	sitemapRPCServer *v1_3.Sitemap,
@@ -399,7 +378,6 @@ func NewLinkService(
 		linkRPCServer:     linkRPCServer,
 		linkCQRSRPCServer: linkCQRSRPCServer,
 		sitemapRPCServer:  sitemapRPCServer,
-		linkMQ:            linkMQ,
 
 		linkStore: linkStore,
 

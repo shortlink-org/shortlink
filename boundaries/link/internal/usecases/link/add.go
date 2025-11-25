@@ -158,11 +158,19 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 		Then(func(ctx context.Context) error {
 			// If publisher is a nil, then we don't need to publish event
 			if uc.publisher == nil {
+				uc.log.Warn("Publisher is nil, skipping event publication",
+					slog.String("event_type", domain.MQ_EVENT_LINK_CREATED),
+					slog.String("link_hash", in.GetHash()),
+				)
 				return nil
 			}
 
 			data, err := json.Marshal(in)
 			if err != nil {
+				uc.log.Error("Failed to marshal link for event publication",
+					slog.String("error", err.Error()),
+					slog.String("link_hash", in.GetHash()),
+				)
 				return err
 			}
 
@@ -171,8 +179,18 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 
 			err = uc.publisher.Publish(domain.MQ_EVENT_LINK_CREATED, msg)
 			if err != nil {
+				uc.log.Error("Failed to publish link creation event",
+					slog.String("error", err.Error()),
+					slog.String("event_type", domain.MQ_EVENT_LINK_CREATED),
+					slog.String("link_hash", in.GetHash()),
+				)
 				return err
 			}
+
+			uc.log.Info("Link creation event published successfully",
+				slog.String("event_type", domain.MQ_EVENT_LINK_CREATED),
+				slog.String("link_hash", in.GetHash()),
+			)
 
 			return nil
 		}).Build()

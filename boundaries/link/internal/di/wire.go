@@ -25,7 +25,6 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 
-	api_mq "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/mq"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/cqs"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/query"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud"
@@ -42,7 +41,6 @@ import (
 	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db"
 	rpc "github.com/shortlink-org/go-sdk/grpc"
-	"github.com/shortlink-org/go-sdk/mq"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/go-sdk/observability/profiling"
 	"github.com/shortlink-org/go-sdk/watermill"
@@ -64,7 +62,6 @@ type LinkService struct {
 	authPermission *authzed.Client
 
 	// Delivery
-	linkMQ            *api_mq.Event
 	run               *run.Response
 	linkRPCServer     *link_rpc.LinkRPC
 	linkCQRSRPCServer *cqrs.LinkRPC
@@ -110,8 +107,6 @@ var LinkSet = wire.NewSet(
 	NewWatermillBackend,
 	watermill.New,
 	NewWatermillPublisher,
-	mq.New, // Still needed for api_mq subscriptions
-	api_mq.New,
 	rpc.InitServer,
 	NewRPCClient,
 	link_rpc.New,
@@ -217,7 +212,6 @@ func NewLinkService(
 	sitemapService *sitemap.Service,
 
 	// Delivery
-	linkMQ *api_mq.Event,
 	run *run.Response,
 	linkRPCServer *link_rpc.LinkRPC,
 	linkCQRSRPCServer *cqrs.LinkRPC,
@@ -254,7 +248,6 @@ func NewLinkService(
 		linkRPCServer:     linkRPCServer,
 		linkCQRSRPCServer: linkCQRSRPCServer,
 		sitemapRPCServer:  sitemapRPCServer,
-		linkMQ:            linkMQ,
 
 		// Repository
 		linkStore: linkStore,
