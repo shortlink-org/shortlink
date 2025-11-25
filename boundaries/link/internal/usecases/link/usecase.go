@@ -4,19 +4,14 @@ Link UC. Application layer
 package link
 
 import (
-	"github.com/ThreeDotsLabs/watermill/message"
 	"github.com/authzed/authzed-go/v1"
 
+	"github.com/shortlink-org/go-sdk/cqrs/bus"
 	"github.com/shortlink-org/go-sdk/logger"
-	"github.com/shortlink-org/go-sdk/notify"
-	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud"
 )
 
 type UC struct {
-	// Observer interface for subscribe on system event
-	notify.Subscriber[domain.Link]
-
 	// Common
 	log logger.Logger
 
@@ -24,7 +19,8 @@ type UC struct {
 	permission *authzed.Client
 
 	// Delivery
-	publisher message.Publisher
+	eventBus *bus.EventBus // CQRS EventBus for publishing events
+
 	// MetadataClient metadata_rpc.MetadataServiceClient
 
 	// Repository
@@ -32,7 +28,13 @@ type UC struct {
 }
 
 // New creates a new link usecase
-func New(log logger.Logger, publisher message.Publisher, metadataService any, store *crud.Store, permissionClient *authzed.Client) (*UC, error) {
+func New(
+	log logger.Logger,
+	metadataService any,
+	store *crud.Store,
+	permissionClient *authzed.Client,
+	eventBus *bus.EventBus,
+) (*UC, error) {
 	service := &UC{
 		log: log,
 
@@ -40,7 +42,8 @@ func New(log logger.Logger, publisher message.Publisher, metadataService any, st
 		permission: permissionClient,
 
 		// Delivery
-		publisher: publisher,
+		eventBus: eventBus,
+
 		// MetadataClient: metadataService,
 
 		// Repository

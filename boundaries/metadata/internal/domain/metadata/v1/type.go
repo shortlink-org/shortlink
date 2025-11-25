@@ -1,16 +1,14 @@
 package v1
 
-import (
-	"github.com/shortlink-org/go-sdk/notify"
-)
-
+// Metadata CRUD method IDs
+// These are kept for backward compatibility but are no longer used
+// Events are now handled via CQRS (go-sdk/cqrs)
 var (
-	// Link CRUD methods
-	METHOD_ADD    = notify.NewEventID()
-	METHOD_GET    = notify.NewEventID()
-	METHOD_LIST   = notify.NewEventID()
-	METHOD_UPDATE = notify.NewEventID()
-	METHOD_DELETE = notify.NewEventID()
+	METHOD_ADD    uint32 = 1
+	METHOD_GET    uint32 = 2
+	METHOD_LIST   uint32 = 3
+	METHOD_UPDATE uint32 = 4
+	METHOD_DELETE uint32 = 5
 )
 
 const (

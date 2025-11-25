@@ -11,10 +11,11 @@ package link_di
 import (
 	"context"
 
-	"github.com/ThreeDotsLabs/watermill/message"
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
 	shortctx "github.com/shortlink-org/go-sdk/context"
+	"github.com/shortlink-org/go-sdk/cqrs/bus"
+	cqrsmessage "github.com/shortlink-org/go-sdk/cqrs/message"
 	"github.com/shortlink-org/go-sdk/flags"
 	"github.com/shortlink-org/go-sdk/flight_trace"
 	"github.com/shortlink-org/go-sdk/logger"
@@ -24,10 +25,11 @@ import (
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
 
+	cqrs_registry "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/cqs"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/query"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud"
-	cqrs "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/cqrs/link/v1"
+	cqrs_rpc "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/cqrs/link/v1"
 	link_rpc "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/run"
 	sitemap_rpc "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/sitemap/v1"
@@ -63,7 +65,7 @@ type LinkService struct {
 	// Delivery
 	run               *run.Response
 	linkRPCServer     *link_rpc.LinkRPC
-	linkCQRSRPCServer *cqrs.LinkRPC
+	linkCQRSRPCServer *cqrs_rpc.LinkRPC
 	sitemapRPCServer  *sitemap_rpc.Sitemap
 
 	// Application
@@ -92,6 +94,24 @@ var DefaultSet = wire.NewSet(
 	flight_trace.New,
 )
 
+// CQRSSet =============================================================================================================
+// CQRS wire set for event-driven architecture components
+// Provides: EventRegistry, ShortlinkNamer, ProtoMarshaler, EventBus, CommandBus
+// Requires: message.Publisher (from watermill.Client)
+// Note: ShortlinkNamer is a singleton to ensure consistent naming across all components
+var CQRSSet = wire.NewSet(
+	// CQRS Registry and Namer (singleton)
+	cqrs_registry.NewEventRegistry,
+	cqrs_registry.NewShortlinkNamer,
+	// ProtoMarshaler (depends on namer)
+	cqrs_registry.NewProtoMarshaler,
+	// Bind concrete ProtoMarshaler to Marshaler interface
+	wire.Bind(new(cqrsmessage.Marshaler), new(*cqrsmessage.ProtoMarshaler)),
+	// EventBus and CommandBus (depend on namer and marshaler)
+	cqrs_registry.NewEventBus,
+	cqrs_registry.NewCommandBus,
+)
+
 // LinkService =========================================================================================================
 var LinkSet = wire.NewSet(
 	// Common
@@ -106,16 +126,19 @@ var LinkSet = wire.NewSet(
 	watermill_kafka.New,
 	wire.Value([]watermill.Option{}),
 	watermill.New,
-	wire.FieldsOf(new(*watermill.Client), "Publisher"),
+	wire.FieldsOf(new(*watermill.Client), "Publisher", "Subscriber"),
 	rpc.InitServer,
 	NewRPCClient,
 	link_rpc.New,
-	cqrs.New,
+	cqrs_rpc.New,
 	sitemap_rpc.New,
 	NewRunRPCServer,
 
 	link_rpc.NewLinkServiceClient,
 	// metadata_rpc.NewMetadataServiceClient,
+
+	// CQRS (using CQRSSet)
+	CQRSSet,
 
 	// Applications
 	NewLinkApplication,
@@ -154,8 +177,13 @@ func NewRPCClient(
 	return runRPCClient, cleanup, nil
 }
 
-func NewLinkApplication(log logger.Logger, publisher message.Publisher, store *crud.Store, authPermission *authzed.Client) (*link.UC, error) {
-	linkService, err := link.New(log, publisher, nil, store, authPermission)
+func NewLinkApplication(
+	log logger.Logger,
+	eventBus *bus.EventBus,
+	store *crud.Store,
+	authPermission *authzed.Client,
+) (*link.UC, error) {
+	linkService, err := link.New(log, nil, store, authPermission, eventBus)
 	if err != nil {
 		return nil, err
 	}
@@ -163,12 +191,12 @@ func NewLinkApplication(log logger.Logger, publisher message.Publisher, store *c
 	return linkService, nil
 }
 
-func NewSitemapService(log logger.Logger, publisher message.Publisher) (*sitemap.Service, error) {
-	return sitemap.New(log, publisher)
+func NewSitemapService(log logger.Logger, eventBus *bus.EventBus) (*sitemap.Service, error) {
+	return sitemap.New(log, eventBus)
 }
 
 // TODO: refactoring. maybe drop this function
-func NewRunRPCServer(runRPCServer *rpc.Server, _ *cqrs.LinkRPC, _ *link_rpc.LinkRPC) (*run.Response, error) {
+func NewRunRPCServer(runRPCServer *rpc.Server, _ *cqrs_rpc.LinkRPC, _ *link_rpc.LinkRPC) (*run.Response, error) {
 	return run.Run(runRPCServer)
 }
 
@@ -194,7 +222,7 @@ func NewLinkService(
 	// Delivery
 	run *run.Response,
 	linkRPCServer *link_rpc.LinkRPC,
-	linkCQRSRPCServer *cqrs.LinkRPC,
+	linkCQRSRPCServer *cqrs_rpc.LinkRPC,
 	sitemapRPCServer *sitemap_rpc.Sitemap,
 
 	// Repository

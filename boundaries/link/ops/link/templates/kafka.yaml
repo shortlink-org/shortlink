@@ -1,9 +1,11 @@
 {{- if and .Values.deploy.env.MQ_ENABLED (eq .Values.deploy.env.MQ_TYPE "kafka") }}
 ---
+# LinkCreated event topic - canonical name: link.link.created.v1
+# Follows ADR-0002 canonical event naming standard
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
-  name: shortlink.link.event.new
+  name: link.link.created.v1
   namespace: kafka
   labels:
     strimzi.io/cluster: shortlink
@@ -14,10 +16,12 @@ spec:
     retention.ms: 7200000 # 2 hours
     segment.bytes: 31457280 # 30MB
 ---
+# LinkUpdated event topic - canonical name: link.link.updated.v1
+# Follows ADR-0002 canonical event naming standard
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
-  name: shortlink.link.event.created
+  name: link.link.updated.v1
   namespace: kafka
   labels:
     strimzi.io/cluster: shortlink
@@ -28,24 +32,12 @@ spec:
     retention.ms: 7200000 # 2 hours
     segment.bytes: 31457280 # 30MB
 ---
+# LinkDeleted event topic - canonical name: link.link.deleted.v1
+# Follows ADR-0002 canonical event naming standard
 apiVersion: kafka.strimzi.io/v1beta2
 kind: KafkaTopic
 metadata:
-  name: shortlink.link.event.updated
-  namespace: kafka
-  labels:
-    strimzi.io/cluster: shortlink
-spec:
-  partitions: 1
-  replicas: 1
-  config:
-    retention.ms: 7200000 # 2 hours
-    segment.bytes: 31457280 # 30MB
----
-apiVersion: kafka.strimzi.io/v1beta2
-kind: KafkaTopic
-metadata:
-  name: shortlink.link.event.deleted
+  name: link.link.deleted.v1
   namespace: kafka
   labels:
     strimzi.io/cluster: shortlink

@@ -8,13 +8,14 @@ package link_di
 
 import (
 	"context"
-	"github.com/ThreeDotsLabs/watermill/message"
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
 	"github.com/shortlink-org/go-sdk/auth/permission"
 	"github.com/shortlink-org/go-sdk/cache"
 	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/context"
+	"github.com/shortlink-org/go-sdk/cqrs/bus"
+	"github.com/shortlink-org/go-sdk/cqrs/message"
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/flags"
 	"github.com/shortlink-org/go-sdk/flight_trace"
@@ -25,6 +26,7 @@ import (
 	"github.com/shortlink-org/go-sdk/observability/tracing"
 	"github.com/shortlink-org/go-sdk/watermill"
 	"github.com/shortlink-org/go-sdk/watermill/backends/kafka"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/cqs"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/query"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud"
@@ -114,6 +116,16 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		return nil, nil, err
 	}
 	publisher := watermillClient.Publisher
+	namer := cqrs.NewShortlinkNamer()
+	protoMarshaler := cqrs.NewProtoMarshaler(namer)
+	eventBus, err := cqrs.NewEventBus(publisher, protoMarshaler, namer)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	dbDB, err := db.New(context, loggerLogger, tracerProvider, meterProvider, configConfig)
 	if err != nil {
 		cleanup4()
@@ -138,7 +150,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	uc, err := NewLinkApplication(loggerLogger, publisher, store, client)
+	uc, err := NewLinkApplication(loggerLogger, eventBus, store, client)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -146,6 +158,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
+	subscriber := watermillClient.Subscriber
 	cqsStore, err := cqs.New(context, loggerLogger, dbDB, cacheCache)
 	if err != nil {
 		cleanup4()
@@ -162,7 +175,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := link_cqrs.New(loggerLogger, cqsStore, queryStore)
+	service, err := link_cqrs.New(loggerLogger, subscriber, protoMarshaler, cqsStore, queryStore)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -170,7 +183,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	sitemapService, err := NewSitemapService(loggerLogger, publisher)
+	sitemapService, err := NewSitemapService(loggerLogger, eventBus)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -277,10 +290,19 @@ type LinkService struct {
 // DefaultSet ==========================================================================================================
 var DefaultSet = wire.NewSet(ctx.New, flags.New, config.New, logger.NewDefault, tracing.New, metrics.New, cache.New, profiling.New, flight_trace.New)
 
+// CQRSSet =============================================================================================================
+// CQRS wire set for event-driven architecture components
+// Provides: EventRegistry, ShortlinkNamer, ProtoMarshaler, EventBus, CommandBus
+// Requires: message.Publisher (from watermill.Client)
+// Note: ShortlinkNamer is a singleton to ensure consistent naming across all components
+var CQRSSet = wire.NewSet(cqrs.NewEventRegistry, cqrs.NewShortlinkNamer, cqrs.NewProtoMarshaler, wire.Bind(new(message.Marshaler), new(*message.ProtoMarshaler)), cqrs.NewEventBus, cqrs.NewCommandBus)
+
 // LinkService =========================================================================================================
 var LinkSet = wire.NewSet(
 
-	DefaultSet, permission.New, wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"), wire.Bind(new(metric.MeterProvider), new(*metric2.MeterProvider)), db.New, wire.Bind(new(watermill.Backend), new(*kafka.Backend)), kafka.New, wire.Value([]watermill.Option{}), watermill.New, wire.FieldsOf(new(*watermill.Client), "Publisher"), grpc.InitServer, NewRPCClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, NewLinkApplication, link_cqrs.New, NewSitemapService, crud.New, cqs.New, query.New, NewLinkService,
+	DefaultSet, permission.New, wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"), wire.Bind(new(metric.MeterProvider), new(*metric2.MeterProvider)), db.New, wire.Bind(new(watermill.Backend), new(*kafka.Backend)), kafka.New, wire.Value([]watermill.Option{}), watermill.New, wire.FieldsOf(new(*watermill.Client), "Publisher", "Subscriber"), grpc.InitServer, NewRPCClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, CQRSSet,
+
+	NewLinkApplication, link_cqrs.New, NewSitemapService, crud.New, cqs.New, query.New, NewLinkService,
 )
 
 func NewRPCClient(ctx2 context.Context,
@@ -300,8 +322,13 @@ func NewRPCClient(ctx2 context.Context,
 	return runRPCClient, cleanup, nil
 }
 
-func NewLinkApplication(log logger.Logger, publisher message.Publisher, store *crud.Store, authPermission *authzed.Client) (*link.UC, error) {
-	linkService, err := link.New(log, publisher, nil, store, authPermission)
+func NewLinkApplication(
+	log logger.Logger,
+	eventBus *bus.EventBus,
+	store *crud.Store,
+	authPermission *authzed.Client,
+) (*link.UC, error) {
+	linkService, err := link.New(log, nil, store, authPermission, eventBus)
 	if err != nil {
 		return nil, err
 	}
@@ -309,8 +336,8 @@ func NewLinkApplication(log logger.Logger, publisher message.Publisher, store *c
 	return linkService, nil
 }
 
-func NewSitemapService(log logger.Logger, publisher message.Publisher) (*sitemap.Service, error) {
-	return sitemap.New(log, publisher)
+func NewSitemapService(log logger.Logger, eventBus *bus.EventBus) (*sitemap.Service, error) {
+	return sitemap.New(log, eventBus)
 }
 
 // TODO: refactoring. maybe drop this function

@@ -8,6 +8,7 @@ import {
 import { LinkRedirectedEvent } from "../../domain/events/index.js";
 import { ILogger } from "../logging/ILogger.js";
 import { IMessageBus } from "../../domain/interfaces/IMessageBus.js";
+import { EventTypeToTopic } from "../../domain/event.js";
 import { toBinary } from "@bufbuild/protobuf";
 
 /**
@@ -103,17 +104,12 @@ export class KafkaEventPublisher implements IEventPublisher {
   }
 
   /**
-   * Gets topic name for event type
-   * Kafka uses format: shortlink.{domain}.event.{event_name}
+   * Gets topic name for event type using canonical naming (ADR-0002)
+   * Uses domain-level constants for type safety and consistency
    */
   private getTopicName(eventType: string): string {
-    const topicMap: Record<string, string> = {
-      LinkRedirected: "shortlink.link.event.redirected",
-      LinkCreated: "shortlink.link.event.created",
-      LinkUpdated: "shortlink.link.event.updated",
-      LinkDeleted: "shortlink.link.event.deleted",
-    };
-
-    return topicMap[eventType] || `shortlink.event.${eventType.toLowerCase()}`;
+    return (
+      EventTypeToTopic[eventType] || `link.link.${eventType.toLowerCase()}.v1`
+    );
   }
 }

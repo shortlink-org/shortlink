@@ -8,25 +8,26 @@ package metadata_di
 
 import (
 	"context"
-	"github.com/ThreeDotsLabs/watermill/message"
+	message2 "github.com/ThreeDotsLabs/watermill/message"
 	"github.com/google/wire"
 	"github.com/shortlink-org/go-sdk/auth/permission"
 	"github.com/shortlink-org/go-sdk/cache"
 	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/context"
+	"github.com/shortlink-org/go-sdk/cqrs/bus"
+	"github.com/shortlink-org/go-sdk/cqrs/message"
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/flags"
 	"github.com/shortlink-org/go-sdk/flight_trace"
 	"github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
-	"github.com/shortlink-org/go-sdk/notify"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/go-sdk/observability/profiling"
 	"github.com/shortlink-org/go-sdk/observability/tracing"
 	"github.com/shortlink-org/go-sdk/s3"
 	"github.com/shortlink-org/go-sdk/watermill"
 	"github.com/shortlink-org/go-sdk/watermill/backends/kafka"
-	v1_2 "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
+	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/mq"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/media"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/store"
@@ -102,14 +103,6 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	uc, err := NewParserUC(metaStore)
-	if err != nil {
-		cleanup4()
-		cleanup3()
-		cleanup2()
-		cleanup()
-		return nil, nil, err
-	}
 	backend, err := kafka.New(context, loggerLogger, configConfig)
 	if err != nil {
 		cleanup4()
@@ -128,6 +121,24 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		return nil, nil, err
 	}
 	publisher := client.Publisher
+	namer := cqrs.NewShortlinkNamer()
+	protoMarshaler := cqrs.NewProtoMarshaler(namer)
+	eventBus, err := cqrs.NewEventBus(publisher, protoMarshaler, namer)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	uc, err := NewParserUC(metaStore, eventBus, loggerLogger)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
 	subscriber := client.Subscriber
 	s3Client, err := s3.New(context, loggerLogger, configConfig)
 	if err != nil {
@@ -161,7 +172,15 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitMetadataMQ(context, loggerLogger, publisher, subscriber, metadataUC)
+	typeRegistry, err := cqrs.NewEventRegistry()
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	event, err := InitMetadataMQ(context, loggerLogger, subscriber, metadataUC, typeRegistry, protoMarshaler)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -233,9 +252,18 @@ type MetaDataService struct {
 // DefaultSet ==========================================================================================================
 var DefaultSet = wire.NewSet(ctx.New, flags.New, config.New, logger.NewDefault, tracing.New, metrics.New, cache.New, profiling.New, flight_trace.New)
 
+// CQRSSet =============================================================================================================
+// CQRS wire set for event-driven architecture components
+// Provides: EventRegistry, ShortlinkNamer, ProtoMarshaler, EventBus, CommandBus
+// Requires: message.Publisher (from watermill.Client)
+// Note: ShortlinkNamer is a singleton to ensure consistent naming across all components
+var CQRSSet = wire.NewSet(cqrs.NewEventRegistry, cqrs.NewShortlinkNamer, cqrs.NewProtoMarshaler, wire.Bind(new(message.Marshaler), new(*message.ProtoMarshaler)), cqrs.NewEventBus, cqrs.NewCommandBus)
+
 // MetaDataService =====================================================================================================
 var MetaDataSet = wire.NewSet(
-	DefaultSet, permission.New, wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"), wire.Bind(new(metric.MeterProvider), new(*metric2.MeterProvider)), db.New, wire.Bind(new(watermill.Backend), new(*kafka.Backend)), kafka.New, wire.Value([]watermill.Option{}), watermill.New, wire.FieldsOf(new(*watermill.Client), "Publisher", "Subscriber"), grpc.InitServer, s3.New, InitMetadataMQ,
+	DefaultSet, permission.New, wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"), wire.Bind(new(metric.MeterProvider), new(*metric2.MeterProvider)), db.New, wire.Bind(new(watermill.Backend), new(*kafka.Backend)), kafka.New, wire.Value([]watermill.Option{}), watermill.New, wire.FieldsOf(new(*watermill.Client), "Publisher", "Subscriber"), grpc.InitServer, s3.New, CQRSSet,
+
+	InitMetadataMQ,
 	NewMetaDataRPCServer,
 
 	NewParserUC,
@@ -248,14 +276,20 @@ var MetaDataSet = wire.NewSet(
 	NewMetaDataService,
 )
 
-func InitMetadataMQ(ctx2 context.Context, log logger.Logger, publisher message.Publisher, subscriber message.Subscriber, metadataUC *metadata.UC) (*metadata_mq.Event, error) {
-	metadataMQ, err := metadata_mq.New(publisher, subscriber, metadataUC)
+func InitMetadataMQ(ctx2 context.Context,
+
+	log logger.Logger,
+	subscriber message2.Subscriber,
+	metadataUC *metadata.UC,
+	registry *bus.TypeRegistry,
+	marshaler message.Marshaler,
+) (*metadata_mq.Event, error) {
+	metadataMQ, err := metadata_mq.New(subscriber, metadataUC)
 	if err != nil {
 		return nil, err
 	}
-	notify.Subscribe(v1_2.METHOD_ADD, metadataMQ)
 
-	if err := metadataMQ.SubscribeLinkCreated(ctx2, log); err != nil {
+	if err := metadataMQ.SubscribeLinkCreated(ctx2, log, registry, marshaler); err != nil {
 		return nil, err
 	}
 
@@ -281,8 +315,8 @@ func NewMetaDataMediaStore(ctx2 context.Context, s3_2 *s3.Client) (*s3Repository
 	return client, nil
 }
 
-func NewParserUC(store *storeRepository.MetaStore) (*parsers.UC, error) {
-	metadataService, err := parsers.New(store)
+func NewParserUC(store *storeRepository.MetaStore, eventBus *bus.EventBus, log logger.Logger) (*parsers.UC, error) {
+	metadataService, err := parsers.New(store, eventBus, log)
 	if err != nil {
 		return nil, err
 	}

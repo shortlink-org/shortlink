@@ -4,31 +4,28 @@ import (
 	"context"
 	"encoding/xml"
 	"io"
+	"log/slog"
 	"net/http"
 
-	"github.com/segmentio/encoding/json"
-
-	"github.com/ThreeDotsLabs/watermill"
-	"github.com/ThreeDotsLabs/watermill/message"
+	"github.com/shortlink-org/go-sdk/cqrs/bus"
 	http_client "github.com/shortlink-org/go-sdk/http/client"
 	"github.com/shortlink-org/go-sdk/logger"
 	link "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/sitemap/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/dto"
 )
 
 type Service struct {
 	log logger.Logger
 
 	// Delivery
-	publisher message.Publisher
+	eventBus *bus.EventBus // CQRS EventBus for publishing events
 }
 
-func New(log logger.Logger, publisher message.Publisher) (*Service, error) {
+func New(log logger.Logger, eventBus *bus.EventBus) (*Service, error) {
 	service := &Service{
-		log: log,
-
-		// Delivery
-		publisher: publisher,
+		log:      log,
+		eventBus: eventBus,
 	}
 
 	return service, nil
@@ -70,27 +67,47 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 		return err
 	}
 
-	// send to link_rpc.add
+	// Publish LinkCreated events for each URL in sitemap
 	for key := range payload.GetUrl() {
 		newLink, err := link.NewLinkBuilder().
 			SetURL(payload.GetUrl()[key].GetLoc()).
 			Build()
 		if err != nil {
-			return err
+			s.log.Error("Failed to build link from sitemap URL",
+				slog.String("error", err.Error()),
+				slog.String("url", payload.GetUrl()[key].GetLoc()),
+			)
+			continue
 		}
 
-		data, errMarshal := json.Marshal(newLink)
-		if errMarshal != nil {
-			return errMarshal
+		// Convert domain Link to LinkData
+		linkData := dto.LinkData{
+			URL:       newLink.GetUrl().String(),
+			Hash:      newLink.GetHash(),
+			Describe:  newLink.GetDescribe(),
+			CreatedAt: newLink.GetCreatedAt().GetTime(),
+			UpdatedAt: newLink.GetUpdatedAt().GetTime(),
 		}
 
-		msg := message.NewMessage(watermill.NewUUID(), data)
-		msg.Metadata.Set("event_type", link.MQ_EVENT_LINK_NEW)
+		// Convert LinkData to LinkCreated event using DTO
+		event := dto.ToLinkCreatedEvent(linkData)
 
-		errPublish := s.publisher.Publish(link.MQ_EVENT_LINK_NEW, msg)
-		if errPublish != nil {
-			return errPublish
+		// Publish event using EventBus (canonical name: link.link.created.v1)
+		if err := s.eventBus.Publish(ctx, event); err != nil {
+			s.log.Error("Failed to publish link creation event from sitemap",
+				slog.String("error", err.Error()),
+				slog.String("event_type", "link.link.created.v1"),
+				slog.String("link_hash", newLink.GetHash()),
+				slog.String("url", payload.GetUrl()[key].GetLoc()),
+			)
+			continue
 		}
+
+		s.log.Info("Link creation event published from sitemap",
+			slog.String("event_type", "link.link.created.v1"),
+			slog.String("link_hash", newLink.GetHash()),
+			slog.String("url", payload.GetUrl()[key].GetLoc()),
+		)
 	}
 
 	return nil

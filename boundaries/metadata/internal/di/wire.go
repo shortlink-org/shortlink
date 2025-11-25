@@ -22,7 +22,6 @@ import (
 	"github.com/shortlink-org/go-sdk/flight_trace"
 	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
-	"github.com/shortlink-org/go-sdk/notify"
 	"github.com/shortlink-org/go-sdk/watermill"
 	watermill_kafka "github.com/shortlink-org/go-sdk/watermill/backends/kafka"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
@@ -33,7 +32,10 @@ import (
 	api "go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 
-	metadata_domain "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
+	"github.com/shortlink-org/go-sdk/cqrs/bus"
+	cqrsmessage "github.com/shortlink-org/go-sdk/cqrs/message"
+
+	cqrs_registry "github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/cqrs"
 	metadata_mq "github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/mq"
 	s3Repository "github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/media"
 	meta_store "github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/store"
@@ -78,6 +80,24 @@ var DefaultSet = wire.NewSet(
 	flight_trace.New,
 )
 
+// CQRSSet =============================================================================================================
+// CQRS wire set for event-driven architecture components
+// Provides: EventRegistry, ShortlinkNamer, ProtoMarshaler, EventBus, CommandBus
+// Requires: message.Publisher (from watermill.Client)
+// Note: ShortlinkNamer is a singleton to ensure consistent naming across all components
+var CQRSSet = wire.NewSet(
+	// CQRS Registry and Namer (singleton)
+	cqrs_registry.NewEventRegistry,
+	cqrs_registry.NewShortlinkNamer,
+	// ProtoMarshaler (depends on namer)
+	cqrs_registry.NewProtoMarshaler,
+	// Bind concrete ProtoMarshaler to Marshaler interface
+	wire.Bind(new(cqrsmessage.Marshaler), new(*cqrsmessage.ProtoMarshaler)),
+	// EventBus and CommandBus (depend on namer and marshaler)
+	cqrs_registry.NewEventBus,
+	cqrs_registry.NewCommandBus,
+)
+
 // MetaDataService =====================================================================================================
 var MetaDataSet = wire.NewSet(
 	DefaultSet,
@@ -92,6 +112,9 @@ var MetaDataSet = wire.NewSet(
 	wire.FieldsOf(new(*watermill.Client), "Publisher", "Subscriber"),
 	rpc.InitServer,
 	s3.New,
+
+	// CQRS (using CQRSSet)
+	CQRSSet,
 
 	// Delivery
 	InitMetadataMQ,
@@ -109,17 +132,24 @@ var MetaDataSet = wire.NewSet(
 	NewMetaDataService,
 )
 
-func InitMetadataMQ(ctx context.Context, log logger.Logger, publisher message.Publisher, subscriber message.Subscriber, metadataUC *metadata.UC) (*metadata_mq.Event, error) {
-	metadataMQ, err := metadata_mq.New(publisher, subscriber, metadataUC)
+func InitMetadataMQ(
+	ctx context.Context,
+	log logger.Logger,
+	subscriber message.Subscriber,
+	metadataUC *metadata.UC,
+	registry *bus.TypeRegistry,
+	marshaler cqrsmessage.Marshaler,
+) (*metadata_mq.Event, error) {
+	metadataMQ, err := metadata_mq.New(subscriber, metadataUC)
 	if err != nil {
 		return nil, err
 	}
 
-	// Subscribe to Event
-	notify.Subscribe(metadata_domain.METHOD_ADD, metadataMQ)
-
-	// Subscribe to link creation events from Kafka
-	if err := metadataMQ.SubscribeLinkCreated(ctx, log); err != nil {
+	// Subscribe to link creation events from Kafka using TypeRegistry and ProtoMarshaler
+	// TypeRegistry resolves event type, ProtoMarshaler handles deserialization
+	// This eliminates manual reflect usage - only proto reflection for field access
+	// Uses canonical topic name: link.link.created.v1
+	if err := metadataMQ.SubscribeLinkCreated(ctx, log, registry, marshaler); err != nil {
 		return nil, err
 	}
 
@@ -145,8 +175,8 @@ func NewMetaDataMediaStore(ctx context.Context, s3 *s3.Client) (*s3Repository.Se
 	return client, nil
 }
 
-func NewParserUC(store *meta_store.MetaStore) (*parsers.UC, error) {
-	metadataService, err := parsers.New(store)
+func NewParserUC(store *meta_store.MetaStore, eventBus *bus.EventBus, log logger.Logger) (*parsers.UC, error) {
+	metadataService, err := parsers.New(store, eventBus, log)
 	if err != nil {
 		return nil, err
 	}
@@ -163,8 +193,8 @@ func NewScreenshotUC(ctx context.Context, media *s3Repository.Service) (*screens
 	return metadataService, nil
 }
 
-func NewMetadataUC(log logger.Logger, parsersUC *parsers.UC, screenshotUC *screenshot.UC) (*metadata.UC, error) {
-	metadataService, err := metadata.New(log, parsersUC, screenshotUC)
+func NewMetadataUC(log logger.Logger, parsersUC *parsers.UC, screenshotUC *screenshot.UC, eventBus *bus.EventBus) (*metadata.UC, error) {
+	metadataService, err := metadata.New(log, parsersUC, screenshotUC, eventBus)
 	if err != nil {
 		return nil, err
 	}

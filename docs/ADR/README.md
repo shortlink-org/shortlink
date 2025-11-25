@@ -29,6 +29,7 @@ adr new Implement as Unix shell scripts
 - **Naming**
   - [ADR-0030](./decisions/0030-ubiquitous-language.md) - Ubiquitous Language [glossary]
   - [ADR-0002](./decisions/0002-implement-as-event-naming.md) - Implement as event naming
+  - [ADR-0041](./decisions/0041-process-for-adding-new-events.md) - Process for adding new events
   - [ADR-0009](./decisions/0009-naming-spans-and-attributes.md) - Naming spans and attributes
   - [ADR-0023](./decisions/0023-naming-prometheus-metrics.md) - Prometheus Metrics Naming
   - [ADR-0010](./decisions/0010-logger-format.md) - Logger format

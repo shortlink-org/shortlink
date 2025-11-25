@@ -28,8 +28,8 @@ proto-lock: ## Lock proto dependencies
 proto-generate: ## Generate proto-files
 	# Metadata service -----------------------------------------------------------------------------
 	@buf generate \
-		--path=boundaries/link/metadata/domain \
-		--path=boundaries/link/metadata/infrastructure \
+		--path=boundaries/metadata/internal/domain \
+		--path=boundaries/metadata/internal/infrastructure/rpc \
 		--template=ops/proto/metadata/buf.gen.yaml \
 		--config=ops/proto/metadata/buf.yaml
 

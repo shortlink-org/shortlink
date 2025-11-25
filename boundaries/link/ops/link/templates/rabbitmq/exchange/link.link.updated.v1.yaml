@@ -1,12 +1,15 @@
+# RabbitMQ Exchange for LinkUpdated event
+# Canonical name: link.link.updated.v1
+# Follows ADR-0002 canonical event naming standard
 # More on direct exchange and other exchange types, see: https://www.rabbitmq.com/tutorials/amqp-concepts.html#exchanges.
 
 {{- if and .Values.deploy.env.MQ_ENABLED (eq .Values.deploy.env.MQ_TYPE "rabbitmq") }}
 apiVersion: rabbitmq.com/v1beta1
 kind: Exchange
 metadata:
-  name: shortlink.link.event.created.yaml
+  name: link.link.updated.v1
 spec:
-  name: shortlink.link.event.created
+  name: link.link.updated.v1
   vhost: "/"   # default to '/' if not provided
   type: fanout # default to 'direct' if not provided
   autoDelete: false
@@ -14,3 +17,4 @@ spec:
   rabbitmqClusterReference:
     name: rabbitmq
 {{- end }}
+

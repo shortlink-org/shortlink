@@ -8,15 +8,19 @@ import {
 import { LinkRedirectedEvent } from "../../domain/events/index.js";
 import { ILogger } from "../logging/ILogger.js";
 import { IMessageBus } from "../../domain/interfaces/IMessageBus.js";
-import { MQ_EVENT_LINK_NEW } from "../../domain/event.js";
+import {
+  MQ_EVENT_LINK_NEW,
+  LinkEventTopics,
+  EventTypeToTopic,
+} from "../../domain/event.js";
 import { toBinary } from "@bufbuild/protobuf";
 import { context, propagation, trace } from "@opentelemetry/api";
 import { RabbitMQMessageBus } from "./RabbitMQMessageBus.js";
 
 /**
- * Реализация IEventPublisher для публикации событий в AMQP (RabbitMQ)
- * Преобразует доменные события в protobuf для сериализации
- * Использует IMessageBus абстракцию вместо прямого использования AMQP
+ * IEventPublisher implementation for publishing events to AMQP (RabbitMQ)
+ * Converts domain events to protobuf for serialization
+ * Uses IMessageBus abstraction instead of direct AMQP usage
  */
 export class AMQPEventPublisher implements IEventPublisher {
   constructor(
@@ -25,11 +29,11 @@ export class AMQPEventPublisher implements IEventPublisher {
   ) {}
 
   /**
-   * Инициализирует все необходимые exchange заранее (не лениво)
-   * Должен быть вызван после connect() messageBus
+   * Initializes all necessary exchanges in advance (not lazy)
+   * Must be called after connect() messageBus
    */
   async initializeExchanges(): Promise<void> {
-    // Проверяем, что messageBus имеет метод setupExchange
+    // Check that messageBus has setupExchange method
     const bus = this.messageBus;
 
     if (!this.supportsExchangeSetup(bus)) {
@@ -39,13 +43,14 @@ export class AMQPEventPublisher implements IEventPublisher {
       return;
     }
 
-    // Exchange имена согласно ADR-0002: shortlink.{domain}.event.{event_name}
+    // Exchange names following ADR-0002 canonical naming: {service}.{aggregate}.{event}.{version}
+    // Use constants from domain layer for type safety
     const exchanges = [
-      { name: MQ_EVENT_LINK_NEW, type: "fanout" as const },
-      { name: "shortlink.link.event.redirected", type: "fanout" as const },
-      { name: "shortlink.link.event.created", type: "fanout" as const },
-      { name: "shortlink.link.event.updated", type: "fanout" as const },
-      { name: "shortlink.link.event.deleted", type: "fanout" as const },
+      { name: MQ_EVENT_LINK_NEW, type: "fanout" as const }, // Legacy, keep for backward compatibility
+      { name: LinkEventTopics.REDIRECTED, type: "fanout" as const },
+      { name: LinkEventTopics.CREATED, type: "fanout" as const },
+      { name: LinkEventTopics.UPDATED, type: "fanout" as const },
+      { name: LinkEventTopics.DELETED, type: "fanout" as const },
     ];
 
     for (const exchange of exchanges) {
@@ -60,35 +65,35 @@ export class AMQPEventPublisher implements IEventPublisher {
           error: error instanceof Error ? error : new Error(String(error)),
           exchange: exchange.name,
         });
-        // Продолжаем инициализацию других exchange даже если один не удался
+        // Continue initializing other exchanges even if one fails
       }
     }
   }
 
   async publish(event: DomainEvent): Promise<void> {
     try {
-      // Преобразуем доменное событие в protobuf для сериализации
+      // Convert domain event to protobuf for serialization
       const protoEvent = this.toProto(event);
 
-      // Получаем имя exchange для типа события
+      // Get exchange name for event type
       const exchange = this.getExchangeName(event.type);
 
-      // Сериализуем protobuf объект в бинарный формат используя toBinary из @bufbuild/protobuf
+      // Serialize protobuf object to binary format using toBinary from @bufbuild/protobuf
       const binaryData = toBinary(LinkSchema, protoEvent);
       const messageBuffer = Buffer.from(binaryData);
 
-      // Извлекаем текущий trace context и сериализуем в заголовки сообщения
+      // Extract current trace context and serialize into message headers
       const headers = this.buildTraceHeaders();
       const traceparentValue =
         headers && typeof headers["traceparent"] === "string"
           ? (headers["traceparent"] as string)
           : undefined;
 
-      // Публикуем событие через Message Bus
-      // Exchange уже создан заранее через initializeExchanges(), поэтому не передаем exchangeType
+      // Publish event via Message Bus
+      // Exchange is already created in advance via initializeExchanges(), so we don't pass exchangeType
       await this.messageBus.publish(
         exchange,
-        undefined, // routingKey не используется для fanout exchange
+        undefined, // routingKey is not used for fanout exchange
         messageBuffer,
         {
           persistent: true,
@@ -103,7 +108,7 @@ export class AMQPEventPublisher implements IEventPublisher {
         traceparent: traceparentValue,
       });
     } catch (error) {
-      // Улучшенное логирование ошибок
+      // Enhanced error logging
       const errorDetails =
         error instanceof Error
           ? { message: error.message, stack: error.stack, name: error.name }
@@ -128,7 +133,7 @@ export class AMQPEventPublisher implements IEventPublisher {
   }
 
   /**
-   * Преобразует доменное событие в protobuf для сериализации
+   * Converts domain event to protobuf for serialization
    */
   private toProto(event: DomainEvent): LinkProto {
     if (event.type === "LinkRedirected") {
@@ -136,28 +141,22 @@ export class AMQPEventPublisher implements IEventPublisher {
       return LinkMapper.toProto(redirectedEvent.link);
     }
 
-    // Для других типов событий можно добавить преобразование
+    // Can add conversion for other event types
     throw new Error(`Unsupported event type: ${event.type}`);
   }
 
   /**
-   * Получает имя exchange для типа события
+   * Gets exchange name for event type using canonical naming (ADR-0002)
+   * Uses constants from domain layer for type safety
    */
   private getExchangeName(eventType: string): string {
-    const exchangeMap: Record<string, string> = {
-      LinkRedirected: "shortlink.link.event.redirected",
-      LinkCreated: "shortlink.link.event.created",
-      LinkUpdated: "shortlink.link.event.updated",
-      LinkDeleted: "shortlink.link.event.deleted",
-    };
-
     return (
-      exchangeMap[eventType] || `shortlink.event.${eventType.toLowerCase()}`
+      EventTypeToTopic[eventType] || `link.link.${eventType.toLowerCase()}.v1`
     );
   }
 
   /**
-   * Формирует заголовки сообщения с trace context согласно W3C Trace Context
+   * Builds message headers with trace context according to W3C Trace Context
    */
   private buildTraceHeaders(): Record<string, unknown> | undefined {
     const carrier: Record<string, unknown> = {};
@@ -189,8 +188,8 @@ export class AMQPEventPublisher implements IEventPublisher {
   }
 
   /**
-   * Проверяет, поддерживает ли message bus предварительную настройку exchange
-   * Использует безопасную проверку через instanceof, чтобы избежать активации Awilix proxy
+   * Checks if message bus supports exchange setup
+   * Uses safe instanceof check to avoid Awilix proxy activation
    */
   private supportsExchangeSetup(bus: IMessageBus): bus is IMessageBus & {
     setupExchange: (
@@ -199,13 +198,13 @@ export class AMQPEventPublisher implements IEventPublisher {
       durable?: boolean
     ) => Promise<void>;
   } {
-    // Проверяем через instanceof, чтобы избежать активации Awilix proxy
-    // RabbitMQMessageBus - единственный класс, который поддерживает setupExchange
+    // Check via instanceof to avoid Awilix proxy activation
+    // RabbitMQMessageBus is the only class that supports setupExchange
     if (bus instanceof RabbitMQMessageBus) {
       return true;
     }
 
-    // Fallback: проверка через имя конструктора (безопасно для proxy)
+    // Fallback: check via constructor name (safe for proxy)
     const constructorName = bus.constructor?.name;
     if (constructorName === "RabbitMQMessageBus") {
       return true;

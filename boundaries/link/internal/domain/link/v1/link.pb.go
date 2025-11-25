@@ -21,6 +21,14 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+// DEPRECATED: LinkEvent enum is deprecated and will be removed after migration to go-sdk/cqrs.
+// Use individual event messages from link_events.proto instead:
+//   - LinkCreated (canonical: link.link.created.v1) replaces LINK_EVENT_ADD
+//   - LinkUpdated (canonical: link.link.updated.v1) replaces LINK_EVENT_UPDATE
+//   - LinkDeleted (canonical: link.link.deleted.v1) replaces LINK_EVENT_DELETE
+//
+// See: internal/domain/link/v1/link_events.proto
+//
 // Link event
 type LinkEvent int32
 
@@ -28,14 +36,17 @@ const (
 	// Unspecified
 	LinkEvent_LINK_EVENT_UNSPECIFIED LinkEvent = 0
 	// Add link
+	// Deprecated: Use LinkCreated event from link_events.proto
 	LinkEvent_LINK_EVENT_ADD LinkEvent = 1
 	// Get link
 	LinkEvent_LINK_EVENT_GET LinkEvent = 2
 	// List link
 	LinkEvent_LINK_EVENT_LIST LinkEvent = 3
 	// Update link
+	// Deprecated: Use LinkUpdated event from link_events.proto
 	LinkEvent_LINK_EVENT_UPDATE LinkEvent = 4
 	// Delete link
+	// Deprecated: Use LinkDeleted event from link_events.proto
 	LinkEvent_LINK_EVENT_DELETE LinkEvent = 5
 )
 

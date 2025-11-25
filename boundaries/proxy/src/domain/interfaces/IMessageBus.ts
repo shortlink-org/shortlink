@@ -6,7 +6,7 @@ export interface IMessageBus {
   /**
    * Публикует сообщение в указанный exchange/routing key
    *
-   * @param exchange - имя exchange (например, "shortlink.link.event.redirected")
+   * @param exchange - имя exchange/topic (canonical naming: "link.link.redirected.v1")
    * @param routingKey - routing key для сообщения (опционально)
    * @param message - данные сообщения в виде Buffer
    * @param options - дополнительные опции (durable, persistent и т.д.)

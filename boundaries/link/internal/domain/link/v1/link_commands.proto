@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package domain.link.v1;
+
+option go_package = "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1";
+
+import "google/protobuf/timestamp.proto";
+
+// CreateLink command - canonical name: link.create_link.v1
+// Command to create a new link
+message CreateLink {
+  // URL of the link
+  string url = 1;
+  // Hash by URL + salt
+  string hash = 2;
+  // Describe of link
+  string describe = 3;
+  // Created at timestamp
+  google.protobuf.Timestamp created_at = 4;
+  // Updated at timestamp
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+// UpdateLink command - canonical name: link.update_link.v1
+// Command to update an existing link
+message UpdateLink {
+  // URL of the link
+  string url = 1;
+  // Hash by URL + salt
+  string hash = 2;
+  // Describe of link
+  string describe = 3;
+  // Created at timestamp
+  google.protobuf.Timestamp created_at = 4;
+  // Updated at timestamp
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+// DeleteLink command - canonical name: link.delete_link.v1
+// Command to delete an existing link
+message DeleteLink {
+  // Hash is the hash of the link to delete
+  string hash = 1;
+}
+

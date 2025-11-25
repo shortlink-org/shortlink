@@ -5,10 +5,6 @@ import (
 	"errors"
 	"log/slog"
 
-	"github.com/segmentio/encoding/json"
-
-	"github.com/ThreeDotsLabs/watermill"
-	"github.com/ThreeDotsLabs/watermill/message"
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
@@ -21,6 +17,7 @@ import (
 	"github.com/shortlink-org/go-sdk/saga"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/dto"
 )
 
 // Add - create a new link
@@ -156,39 +153,30 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_PUBLISH_EVENT_NEW_LINK).
 		Then(func(ctx context.Context) error {
-			// If publisher is a nil, then we don't need to publish event
-			if uc.publisher == nil {
-				uc.log.Warn("Publisher is nil, skipping event publication",
-					slog.String("event_type", domain.MQ_EVENT_LINK_CREATED),
-					slog.String("link_hash", in.GetHash()),
-				)
-				return nil
+			// Convert domain Link to LinkData (avoids import cycle)
+			linkData := dto.LinkData{
+				URL:       in.GetUrl().String(),
+				Hash:      in.GetHash(),
+				Describe:  in.GetDescribe(),
+				CreatedAt: in.GetCreatedAt().GetTime(),
+				UpdatedAt: in.GetUpdatedAt().GetTime(),
 			}
 
-			data, err := json.Marshal(in)
-			if err != nil {
-				uc.log.Error("Failed to marshal link for event publication",
-					slog.String("error", err.Error()),
-					slog.String("link_hash", in.GetHash()),
-				)
-				return err
-			}
+			// Convert LinkData to LinkCreated event using DTO
+			event := dto.ToLinkCreatedEvent(linkData)
 
-			msg := message.NewMessage(watermill.NewUUID(), data)
-			msg.Metadata.Set("event_type", domain.MQ_EVENT_LINK_CREATED)
-
-			err = uc.publisher.Publish(domain.MQ_EVENT_LINK_CREATED, msg)
-			if err != nil {
+			// Publish event using EventBus
+			if err := uc.eventBus.Publish(ctx, event); err != nil {
 				uc.log.Error("Failed to publish link creation event",
 					slog.String("error", err.Error()),
-					slog.String("event_type", domain.MQ_EVENT_LINK_CREATED),
+					slog.String("event_type", domain.LinkCreatedTopic),
 					slog.String("link_hash", in.GetHash()),
 				)
 				return err
 			}
 
 			uc.log.Info("Link creation event published successfully",
-				slog.String("event_type", domain.MQ_EVENT_LINK_CREATED),
+				slog.String("event_type", domain.LinkCreatedTopic),
 				slog.String("link_hash", in.GetHash()),
 			)
 

@@ -9,6 +9,7 @@ import (
 	"github.com/shortlink-org/go-sdk/auth/session"
 	"github.com/shortlink-org/go-sdk/saga"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/dto"
 )
 
 // Delete - delete link
@@ -78,6 +79,22 @@ func (uc *UC) Delete(ctx context.Context, hash string) (*domain.Link, error) {
 	err = sagaDeleteLink.Play(nil)
 	if err != nil {
 		return nil, err
+	}
+
+	// Publish LinkDeleted event
+	event := dto.ToLinkDeletedEvent(hash)
+	if err := uc.eventBus.Publish(ctx, event); err != nil {
+		uc.log.Error("Failed to publish link deleted event",
+			slog.String("error", err.Error()),
+			slog.String("event_type", domain.LinkDeletedTopic),
+			slog.String("link_hash", hash),
+		)
+		// Don't fail the delete if event publishing fails
+	} else {
+		uc.log.Info("Link deleted event published successfully",
+			slog.String("event_type", domain.LinkDeletedTopic),
+			slog.String("link_hash", hash),
+		)
 	}
 
 	return nil, nil

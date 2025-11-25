@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package domain.link.v1;
+
+option go_package = "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1";
+
+import "google/protobuf/timestamp.proto";
+
+// LinkCreated event - canonical name: link.link.created.v1
+// Published when a new link is created
+message LinkCreated {
+  // URL of the link
+  string url = 1;
+  // Hash by URL + salt
+  string hash = 2;
+  // Describe of link
+  string describe = 3;
+  // Created at timestamp
+  google.protobuf.Timestamp created_at = 4;
+  // Updated at timestamp
+  google.protobuf.Timestamp updated_at = 5;
+  // OccurredAt is the timestamp when the event occurred
+  google.protobuf.Timestamp occurred_at = 6;
+}
+
+// LinkUpdated event - canonical name: link.link.updated.v1
+// Published when an existing link is updated
+message LinkUpdated {
+  // URL of the link
+  string url = 1;
+  // Hash by URL + salt
+  string hash = 2;
+  // Describe of link
+  string describe = 3;
+  // Created at timestamp
+  google.protobuf.Timestamp created_at = 4;
+  // Updated at timestamp
+  google.protobuf.Timestamp updated_at = 5;
+  // OccurredAt is the timestamp when the event occurred
+  google.protobuf.Timestamp occurred_at = 6;
+}
+
+// LinkDeleted event - canonical name: link.link.deleted.v1
+// Published when a link is deleted
+message LinkDeleted {
+  // Hash is the hash of the deleted link
+  string hash = 1;
+  // OccurredAt is the timestamp when the event occurred
+  google.protobuf.Timestamp occurred_at = 2;
+}
+

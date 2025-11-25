@@ -5,13 +5,15 @@ package parsers
 
 import (
 	"context"
+	"log/slog"
 	"net/http"
 	"time"
 
 	"github.com/PuerkitoBio/goquery"
 
 	http_client "github.com/shortlink-org/go-sdk/http/client"
-	"github.com/shortlink-org/go-sdk/notify"
+	"github.com/shortlink-org/go-sdk/cqrs/bus"
+	"github.com/shortlink-org/go-sdk/logger"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
 	meta_store "github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/store"
@@ -19,11 +21,15 @@ import (
 
 type UC struct {
 	MetaStore *meta_store.MetaStore
+	EventBus  *bus.EventBus
+	log       logger.Logger
 }
 
-func New(store *meta_store.MetaStore) (*UC, error) {
+func New(store *meta_store.MetaStore, eventBus *bus.EventBus, log logger.Logger) (*UC, error) {
 	return &UC{
 		MetaStore: store,
+		EventBus:  eventBus,
+		log:       log,
 	}, nil
 }
 
@@ -72,7 +78,7 @@ func (r *UC) Set(ctx context.Context, url string) (*v1.Meta, error) {
 			meta.Description, _ = s.Attr("content")
 		}
 
-		if name, _ := s.Attr("name"); name == "keyworlds" {
+		if name, _ := s.Attr("name"); name == "keywords" {
 			meta.Keywords, _ = s.Attr("content")
 		}
 	})
@@ -82,9 +88,6 @@ func (r *UC) Set(ctx context.Context, url string) (*v1.Meta, error) {
 	if err != nil {
 		return nil, err
 	}
-
-	// publish event by this service
-	notify.Publish(newCtx, v1.METHOD_ADD, meta, nil)
 
 	return meta, nil
 }

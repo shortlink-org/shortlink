@@ -18,6 +18,7 @@ import { PublishEventUseCase } from "../../../application/use-cases/PublishEvent
 import { LinkServiceRepository } from "../../../infrastructure/repositories/LinkServiceRepository.js";
 import { Hash } from "../../../domain/entities/Hash.js";
 import { Link } from "../../../domain/entities/Link.js";
+import { LinkEventTopics } from "../../../domain/event.js";
 import type { ILogger } from "../../../infrastructure/logging/ILogger.js";
 import { IMessageBus } from "../../../domain/interfaces/IMessageBus.js";
 import { RabbitMQMessageBus } from "../../../infrastructure/messaging/RabbitMQMessageBus.js";
@@ -140,7 +141,7 @@ describe("Redirect Flow E2E with RabbitMQ (Testcontainers)", () => {
     rabbitMQConsumer = new RabbitMQTestConsumer();
     await rabbitMQConsumer.connect(
       amqpUrl,
-      "shortlink.link.event.redirected",
+      LinkEventTopics.REDIRECTED,
       "fanout"
     );
   }, 30000); // Увеличиваем таймаут для подключения к RabbitMQ

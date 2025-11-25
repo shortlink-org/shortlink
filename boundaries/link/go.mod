@@ -3,6 +3,7 @@ module github.com/shortlink-org/shortlink/boundaries/link
 go 1.25.4
 
 require (
+	github.com/IBM/sarama v1.46.3
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
 	github.com/ThreeDotsLabs/watermill v1.5.1
 	github.com/authzed/authzed-go v1.7.0
@@ -23,6 +24,7 @@ require (
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/config v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/context v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/cqrs v0.0.0-20251125223100-c627280ca6e5
 	github.com/shortlink-org/go-sdk/db v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/flags v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251125204117-ffa44b328293
@@ -30,15 +32,14 @@ require (
 	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/http v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/logger v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/mq v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/notify v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/observability v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/saga v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/watermill v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/watermill v0.0.0-20251125223100-c627280ca6e5
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
 	github.com/testcontainers/testcontainers-go v0.40.0
+	github.com/testcontainers/testcontainers-go/modules/kafka v0.40.0
 	github.com/testcontainers/testcontainers-go/modules/mongodb v0.40.0
 	github.com/testcontainers/testcontainers-go/modules/mysql v0.40.0
 	github.com/testcontainers/testcontainers-go/modules/postgres v0.40.0
@@ -60,7 +61,6 @@ require (
 	dario.cat/mergo v1.0.2 // indirect
 	filippo.io/edwards25519 v1.1.0 // indirect
 	github.com/Azure/go-ansiterm v0.0.0-20250102033503-faa5f7b0171c // indirect
-	github.com/IBM/sarama v1.46.3 // indirect
 	github.com/Masterminds/semver/v3 v3.4.0 // indirect
 	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/Unleash/unleash-go-sdk/v5 v5.0.3 // indirect
@@ -145,9 +145,6 @@ require (
 	github.com/montanaflynn/stats v0.7.1 // indirect
 	github.com/morikuni/aec v1.0.0 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
-	github.com/nats-io/nats.go v1.47.0 // indirect
-	github.com/nats-io/nkeys v0.4.12 // indirect
-	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/ncruces/go-strftime v0.1.9 // indirect
 	github.com/neo4j/neo4j-go-driver/v5 v5.28.4 // indirect
 	github.com/oklog/ulid v1.3.1 // indirect
@@ -171,7 +168,6 @@ require (
 	github.com/prometheus/common v0.67.4 // indirect
 	github.com/prometheus/otlptranslator v1.0.0 // indirect
 	github.com/prometheus/procfs v0.19.2 // indirect
-	github.com/rabbitmq/amqp091-go v1.10.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9 // indirect
 	github.com/redis/go-redis/v9 v9.17.0 // indirect
 	github.com/redis/rueidis/rueidiscompat v1.0.68 // indirect

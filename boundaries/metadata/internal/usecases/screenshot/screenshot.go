@@ -20,8 +20,7 @@ func New(ctx context.Context, media *s3Repository.Service) (*UC, error) {
 }
 
 func (s *UC) Get(ctx context.Context, linkURL string) (*url.URL, error) {
-	// return s.media.Get(ctx, linkURL)
-	panic("not implemented")
+	return s.media.Get(ctx, linkURL)
 }
 
 func (s *UC) Set(ctx context.Context, linkURL string) error {
