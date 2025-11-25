@@ -10,15 +10,15 @@ require (
 	github.com/graph-gophers/graphql-go v1.8.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.3
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/config v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/db v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/notify v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251125180156-05d50a07cca8
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/config v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/db v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/notify v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251125204117-ffa44b328293
 	github.com/spf13/viper v1.21.0
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.3.2
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.63.0
@@ -57,9 +57,8 @@ require (
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/golang/snappy v1.0.0 // indirect
 	github.com/google/flatbuffers v25.9.23+incompatible // indirect
-	github.com/google/pprof v0.0.0-20250403155104-27863c87afa6 // indirect
+	github.com/google/pprof v0.0.0-20251114195745-4902fdda35c8 // indirect
 	github.com/google/uuid v1.6.0 // indirect
-	github.com/grafana/regexp v0.0.0-20240518133315-a468a5bfb3bc // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/providers/prometheus v1.1.0 // indirect
 	github.com/grpc-ecosystem/go-grpc-middleware/v2 v2.3.3 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
@@ -89,14 +88,14 @@ require (
 	github.com/prometheus/client_golang v1.23.2 // indirect
 	github.com/prometheus/client_model v0.6.2 // indirect
 	github.com/prometheus/common v0.67.4 // indirect
-	github.com/prometheus/otlptranslator v0.0.2 // indirect
+	github.com/prometheus/otlptranslator v1.0.0 // indirect
 	github.com/prometheus/procfs v0.19.2 // indirect
 	github.com/redis/rueidis v1.0.68 // indirect
 	github.com/redis/rueidis/rueidisotel v1.0.68 // indirect
 	github.com/sagikazarmark/locafero v0.12.0 // indirect
 	github.com/samber/lo v1.52.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
-	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251125180156-05d50a07cca8 // indirect
+	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251125204117-ffa44b328293 // indirect
 	github.com/spf13/afero v1.15.0 // indirect
 	github.com/spf13/cast v1.10.0 // indirect
 	github.com/spf13/pflag v1.0.10 // indirect
@@ -108,7 +107,7 @@ require (
 	github.com/uptrace/opentelemetry-go-extra/otelsql v0.3.2 // indirect
 	github.com/uptrace/opentelemetry-go-extra/otelutil v0.3.2 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
-	github.com/xdg-go/scram v1.1.2 // indirect
+	github.com/xdg-go/scram v1.2.0 // indirect
 	github.com/xdg-go/stringprep v1.0.4 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20240726163527-a2c0da244d78 // indirect
 	go.mongodb.org/mongo-driver v1.17.6 // indirect
@@ -124,7 +123,7 @@ require (
 	go.opentelemetry.io/otel/sdk/metric v1.38.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
 	go.uber.org/multierr v1.11.0 // indirect
-	go.uber.org/zap v1.27.0 // indirect
+	go.uber.org/zap v1.27.1 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
 	golang.org/x/crypto v0.45.0 // indirect
@@ -132,7 +131,7 @@ require (
 	golang.org/x/oauth2 v0.33.0 // indirect
 	golang.org/x/sys v0.38.0 // indirect
 	golang.org/x/text v0.31.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20251111163417-95abcf5c77ba // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20251111163417-95abcf5c77ba // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20251124214823-79d6a2a48846 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20251124214823-79d6a2a48846 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )

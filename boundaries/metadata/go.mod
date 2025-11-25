@@ -10,23 +10,22 @@ require (
 	github.com/google/wire v0.7.0
 	github.com/minio/minio-go/v7 v7.0.97
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/cache v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/config v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/context v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/db v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/flags v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/mq v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/notify v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/s3 v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/saga v0.0.0-20251125180156-05d50a07cca8
-	github.com/shortlink-org/go-sdk/watermill v0.0.0-20251125180156-05d50a07cca8
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/cache v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/config v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/context v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/db v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/flags v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/notify v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/s3 v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/saga v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/watermill v0.0.0-20251125204117-ffa44b328293
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	go.opentelemetry.io/otel/metric v1.38.0
@@ -80,7 +79,7 @@ require (
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/golang/snappy v1.0.0 // indirect
 	github.com/google/flatbuffers v25.9.23+incompatible // indirect
-	github.com/google/pprof v0.0.0-20250607225305-033d6d78b36a // indirect
+	github.com/google/pprof v0.0.0-20251114195745-4902fdda35c8 // indirect
 	github.com/google/subcommands v1.2.0 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/grafana/otel-profiling-go v0.5.1 // indirect
@@ -113,9 +112,6 @@ require (
 	github.com/minio/md5-simd v1.1.2 // indirect
 	github.com/montanaflynn/stats v0.7.1 // indirect
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
-	github.com/nats-io/nats.go v1.47.0 // indirect
-	github.com/nats-io/nkeys v0.4.11 // indirect
-	github.com/nats-io/nuid v1.0.1 // indirect
 	github.com/neo4j/neo4j-go-driver/v5 v5.28.4 // indirect
 	github.com/oklog/ulid v1.3.1 // indirect
 	github.com/onsi/ginkgo/v2 v2.23.4 // indirect
@@ -132,7 +128,6 @@ require (
 	github.com/prometheus/common v0.67.4 // indirect
 	github.com/prometheus/otlptranslator v1.0.0 // indirect
 	github.com/prometheus/procfs v0.19.2 // indirect
-	github.com/rabbitmq/amqp091-go v1.10.0 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9 // indirect
 	github.com/redis/go-redis/v9 v9.17.0 // indirect
 	github.com/redis/rueidis v1.0.68 // indirect
@@ -157,7 +152,7 @@ require (
 	github.com/vmihailenco/msgpack/v5 v5.4.1 // indirect
 	github.com/vmihailenco/tagparser/v2 v2.0.0 // indirect
 	github.com/xdg-go/pbkdf2 v1.0.0 // indirect
-	github.com/xdg-go/scram v1.1.2 // indirect
+	github.com/xdg-go/scram v1.2.0 // indirect
 	github.com/xdg-go/stringprep v1.0.4 // indirect
 	github.com/youmark/pkcs8 v0.0.0-20240726163527-a2c0da244d78 // indirect
 	go.mongodb.org/mongo-driver v1.17.6 // indirect
@@ -170,7 +165,7 @@ require (
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.38.0 // indirect
 	go.opentelemetry.io/otel/exporters/prometheus v0.60.0 // indirect
 	go.opentelemetry.io/otel/sdk v1.38.0 // indirect
-	go.opentelemetry.io/proto/otlp v1.7.1 // indirect
+	go.opentelemetry.io/proto/otlp v1.9.0 // indirect
 	go.uber.org/atomic v1.11.0 // indirect
 	go.yaml.in/yaml/v2 v2.4.3 // indirect
 	go.yaml.in/yaml/v3 v3.0.4 // indirect
@@ -182,8 +177,8 @@ require (
 	golang.org/x/sys v0.38.0 // indirect
 	golang.org/x/text v0.31.0 // indirect
 	golang.org/x/tools v0.39.0 // indirect
-	google.golang.org/genproto/googleapis/api v0.0.0-20251111163417-95abcf5c77ba // indirect
-	google.golang.org/genproto/googleapis/rpc v0.0.0-20251111163417-95abcf5c77ba // indirect
+	google.golang.org/genproto/googleapis/api v0.0.0-20251124214823-79d6a2a48846 // indirect
+	google.golang.org/genproto/googleapis/rpc v0.0.0-20251124214823-79d6a2a48846 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
