@@ -12,13 +12,11 @@ import (
 	"context"
 
 	"github.com/google/wire"
-	"github.com/prometheus/client_golang/prometheus"
 	shortctx "github.com/shortlink-org/go-sdk/context"
 	"github.com/shortlink-org/go-sdk/flags"
 	"github.com/shortlink-org/go-sdk/flight_trace"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/go-sdk/observability/tracing"
-	"go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	"google.golang.org/grpc"
@@ -73,8 +71,7 @@ var BFFWebServiceSet = wire.NewSet(
 	DefaultSet,
 	permission.New,
 	i18n.New,
-	NewPrometheusRegistry,
-	NewMeterProvider,
+	wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"),
 
 	// Delivery
 	rpc.InitServer,
@@ -91,14 +88,6 @@ var BFFWebServiceSet = wire.NewSet(
 	NewAPIApplication,
 	NewBFFWebService,
 )
-
-func NewPrometheusRegistry(metrics *metrics.Monitoring) *prometheus.Registry {
-	return metrics.Prometheus
-}
-
-func NewMeterProvider(metrics *metrics.Monitoring) *metric.MeterProvider {
-	return metrics.Metrics
-}
 
 func NewRPCClient(
 	ctx context.Context,

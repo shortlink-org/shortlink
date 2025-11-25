@@ -9,7 +9,6 @@ package metadata_di
 import (
 	"context"
 	"github.com/google/wire"
-	"github.com/prometheus/client_golang/prometheus"
 	"github.com/shortlink-org/go-sdk/auth/permission"
 	"github.com/shortlink-org/go-sdk/cache"
 	"github.com/shortlink-org/go-sdk/config"
@@ -33,7 +32,6 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/metadata"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/parsers"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/screenshot"
-	"go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -83,7 +81,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	meterProvider := NewMeterProvider(monitoring)
+	meterProvider := monitoring.Metrics
 	dbDB, err := db.New(context, loggerLogger, tracerProvider, meterProvider, configConfig)
 	if err != nil {
 		cleanup4()
@@ -156,7 +154,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	registry := NewPrometheusRegistry(monitoring)
+	registry := monitoring.Prometheus
 	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry, recorder, configConfig)
 	if err != nil {
 		cleanup4()
@@ -218,10 +216,7 @@ var DefaultSet = wire.NewSet(ctx.New, flags.New, config.New, logger.NewDefault, 
 
 // MetaDataService =====================================================================================================
 var MetaDataSet = wire.NewSet(
-	DefaultSet, permission.New, mq.New, db.New, grpc.InitServer, s3.New, NewPrometheusRegistry,
-	NewMeterProvider,
-
-	InitMetadataMQ,
+	DefaultSet, permission.New, mq.New, db.New, grpc.InitServer, s3.New, wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"), InitMetadataMQ,
 	NewMetaDataRPCServer,
 
 	NewParserUC,
@@ -233,14 +228,6 @@ var MetaDataSet = wire.NewSet(
 
 	NewMetaDataService,
 )
-
-func NewPrometheusRegistry(metrics2 *metrics.Monitoring) *prometheus.Registry {
-	return metrics2.Prometheus
-}
-
-func NewMeterProvider(metrics2 *metrics.Monitoring) *metric.MeterProvider {
-	return metrics2.Metrics
-}
 
 func InitMetadataMQ(ctx2 context.Context, log logger.Logger, dataBus mq.MQ, metadataUC *metadata.UC) (*metadata_mq.Event, error) {
 	metadataMQ, err := metadata_mq.New(dataBus, metadataUC)

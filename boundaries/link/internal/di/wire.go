@@ -14,7 +14,6 @@ import (
 	"github.com/ThreeDotsLabs/watermill/message"
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
-	"github.com/prometheus/client_golang/prometheus"
 	shortctx "github.com/shortlink-org/go-sdk/context"
 	"github.com/shortlink-org/go-sdk/flags"
 	"github.com/shortlink-org/go-sdk/flight_trace"
@@ -98,15 +97,15 @@ var LinkSet = wire.NewSet(
 	// Common
 	DefaultSet,
 	permission.New,
-	NewPrometheusRegistry,
-	NewMeterProvider,
+	wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"),
+	wire.Bind(new(metric.MeterProvider), new(*api.MeterProvider)),
 	db.New,
 
 	// Delivery
-	NewWatermillMeterProvider,
-	NewWatermillBackend,
+	wire.Bind(new(watermill.Backend), new(*watermill_kafka.Backend)),
+	watermill_kafka.New,
 	watermill.New,
-	NewWatermillPublisher,
+	wire.FieldsOf(new(*watermill.Client), "Publisher"),
 	rpc.InitServer,
 	NewRPCClient,
 	link_rpc.New,
@@ -130,22 +129,6 @@ var LinkSet = wire.NewSet(
 	NewLinkService,
 )
 
-func NewPrometheusRegistry(metrics *metrics.Monitoring) *prometheus.Registry {
-	return metrics.Prometheus
-}
-
-func NewMeterProvider(metrics *metrics.Monitoring) *api.MeterProvider {
-	return metrics.Metrics
-}
-
-func NewWatermillMeterProvider(metrics *metrics.Monitoring) metric.MeterProvider {
-	return metrics.Metrics
-}
-
-func NewWatermillBackend(ctx context.Context, log logger.Logger, cfg *config.Config) (watermill.Backend, error) {
-	return watermill_kafka.New(ctx, log, cfg)
-}
-
 func NewRPCClient(
 	ctx context.Context,
 	log logger.Logger,
@@ -168,10 +151,6 @@ func NewRPCClient(
 	}
 
 	return runRPCClient, cleanup, nil
-}
-
-func NewWatermillPublisher(client *watermill.Client) message.Publisher {
-	return client.Publisher
 }
 
 func NewLinkApplication(log logger.Logger, publisher message.Publisher, store *crud.Store, authPermission *authzed.Client) (*link.UC, error) {

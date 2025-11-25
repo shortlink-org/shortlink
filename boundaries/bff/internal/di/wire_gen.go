@@ -12,7 +12,6 @@ import (
 	"buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
 	"context"
 	"github.com/google/wire"
-	"github.com/prometheus/client_golang/prometheus"
 	"github.com/shortlink-org/go-sdk/auth/permission"
 	"github.com/shortlink-org/go-sdk/cache"
 	"github.com/shortlink-org/go-sdk/config"
@@ -26,7 +25,6 @@ import (
 	"github.com/shortlink-org/go-sdk/observability/tracing"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/pkg/i18n"
-	"go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 	"golang.org/x/text/message"
 	grpc2 "google.golang.org/grpc"
@@ -79,7 +77,7 @@ func InitializeBFFWebService() (*BFFWebService, func(), error) {
 		return nil, nil, err
 	}
 	printer := i18n.New(context)
-	registry := NewPrometheusRegistry(monitoring)
+	registry := monitoring.Prometheus
 	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry, recorder, configConfig)
 	if err != nil {
 		cleanup4()
@@ -174,8 +172,7 @@ var DefaultSet = wire.NewSet(ctx.New, flags.New, config.New, logger.NewDefault, 
 
 // BFFWebService =======================================================================================================
 var BFFWebServiceSet = wire.NewSet(
-	DefaultSet, permission.New, i18n.New, NewPrometheusRegistry,
-	NewMeterProvider, grpc.InitServer, NewRPCClient,
+	DefaultSet, permission.New, i18n.New, wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"), grpc.InitServer, NewRPCClient,
 
 	NewLinkRPCClient,
 	NewLinkCommandRPCClient,
@@ -185,14 +182,6 @@ var BFFWebServiceSet = wire.NewSet(
 	NewAPIApplication,
 	NewBFFWebService,
 )
-
-func NewPrometheusRegistry(metrics2 *metrics.Monitoring) *prometheus.Registry {
-	return metrics2.Prometheus
-}
-
-func NewMeterProvider(metrics2 *metrics.Monitoring) *metric.MeterProvider {
-	return metrics2.Metrics
-}
 
 func NewRPCClient(ctx2 context.Context,
 

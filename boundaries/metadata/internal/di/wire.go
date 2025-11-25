@@ -12,7 +12,6 @@ import (
 	"context"
 
 	"github.com/google/wire"
-	"github.com/prometheus/client_golang/prometheus"
 	"github.com/shortlink-org/go-sdk/auth/permission"
 	"github.com/shortlink-org/go-sdk/cache"
 	"github.com/shortlink-org/go-sdk/config"
@@ -28,7 +27,6 @@ import (
 	"github.com/shortlink-org/go-sdk/observability/profiling"
 	"github.com/shortlink-org/go-sdk/observability/tracing"
 	"github.com/shortlink-org/go-sdk/s3"
-	"go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 
 	metadata_domain "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
@@ -84,8 +82,7 @@ var MetaDataSet = wire.NewSet(
 	db.New,
 	rpc.InitServer,
 	s3.New,
-	NewPrometheusRegistry,
-	NewMeterProvider,
+	wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"),
 
 	// Delivery
 	InitMetadataMQ,
@@ -102,14 +99,6 @@ var MetaDataSet = wire.NewSet(
 
 	NewMetaDataService,
 )
-
-func NewPrometheusRegistry(metrics *metrics.Monitoring) *prometheus.Registry {
-	return metrics.Prometheus
-}
-
-func NewMeterProvider(metrics *metrics.Monitoring) *metric.MeterProvider {
-	return metrics.Metrics
-}
 
 func InitMetadataMQ(ctx context.Context, log logger.Logger, dataBus mq.MQ, metadataUC *metadata.UC) (*metadata_mq.Event, error) {
 	metadataMQ, err := metadata_mq.New(dataBus, metadataUC)
