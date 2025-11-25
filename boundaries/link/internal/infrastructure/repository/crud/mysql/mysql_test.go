@@ -4,13 +4,13 @@ package mysql
 
 import (
 	"context"
-	"fmt"
 	"os"
 	"testing"
+	"time"
 
-	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	mysqlcontainer "github.com/testcontainers/testcontainers-go/modules/mysql"
 	"go.uber.org/goleak"
 
 	db "github.com/shortlink-org/go-sdk/db/drivers/mysql"
@@ -26,56 +26,12 @@ func TestMain(m *testing.M) {
 
 func TestMysql(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
+	t.Cleanup(cancel)
 
 	st := &db.Store{}
 
-	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
-	pool, err := dockertest.NewPool("")
-	require.NoError(t, err, "Could not connect to docker")
-
-	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("mysql", "8", []string{
-		"MYSQL_DATABASE=link",
-		"MYSQL_USER=shortlink",
-		"MYSQL_PASSWORD=shortlink",
-		"MYSQL_ROOT_PASSWORD=shortlink",
-	})
-	if err != nil {
-		// When you're done, kill and remove the container
-		if errPurge := pool.Purge(resource); errPurge != nil {
-			t.Fatalf("Could not purge resource: %s", errPurge)
-		}
-
-		t.Fatalf("Could not start resource: %s", err)
-	}
-
-	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
-	if err := pool.Retry(func() error {
-		t.Setenv("STORE_MYSQL_URI", fmt.Sprintf("shortlink:shortlink@(localhost:%s)/link", resource.GetPort("3306/tcp")))
-
-		errInit := st.Init(ctx)
-		if errInit != nil {
-			return errInit
-		}
-
-		return nil
-	}); err != nil {
-		// When you're done, kill and remove the container
-		if errPurge := pool.Purge(resource); errPurge != nil {
-			t.Fatalf("Could not purge resource: %s", errPurge)
-		}
-
-		require.NoError(t, err, "Could not connect to docker")
-	}
-
-	t.Cleanup(func() {
-		cancel()
-
-		// When you're done, kill and remove the container
-		if err := pool.Purge(resource); err != nil {
-			t.Fatalf("Could not purge resource: %s", err)
-		}
-	})
+	t.Setenv("STORE_MYSQL_URI", startMySQLContainer(t))
+	require.NoError(t, st.Init(ctx))
 
 	// new store
 	store, err := New(ctx, st)
@@ -110,4 +66,28 @@ func TestMysql(t *testing.T) {
 	t.Run("Delete", func(t *testing.T) {
 		require.NoError(t, store.Delete(ctx, mock.GetLink.Hash))
 	})
+}
+
+func startMySQLContainer(tb testing.TB) string {
+	tb.Helper()
+
+	ctx := context.Background()
+
+	container, err := mysqlcontainer.Run(
+		ctx,
+		"mysql:8",
+		mysqlcontainer.WithUsername("shortlink"),
+		mysqlcontainer.WithPassword("shortlink"),
+		mysqlcontainer.WithDatabase("link"),
+	)
+	require.NoError(tb, err)
+
+	tb.Cleanup(func() {
+		terminateCtx, terminateCancel := context.WithTimeout(context.Background(), 30*time.Second)
+		defer terminateCancel()
+
+		require.NoError(tb, container.Terminate(terminateCtx))
+	})
+
+	return container.MustConnectionString(ctx, "parseTime=true", "loc=UTC")
 }

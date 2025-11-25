@@ -4,11 +4,9 @@ package mongo
 
 import (
 	"context"
-	"fmt"
 	"strconv"
 	"testing"
 
-	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/require"
 
 	db "github.com/shortlink-org/go-sdk/db/drivers/mongo"
@@ -17,28 +15,12 @@ import (
 
 func BenchmarkMongoSerial(b *testing.B) {
 	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	b.Cleanup(cancel)
 
 	st := &db.Store{}
 
-	pool, err := dockertest.NewPool("")
-	require.NoError(b, err, "Could not connect to docker")
-
-	resource, err := pool.Run("mongo", "7.0", nil)
-	require.NoError(b, err, "Could not start resource")
-
-	if err := pool.Retry(func() error {
-		b.Setenv("STORE_MONGODB_URI", fmt.Sprintf("mongodb://localhost:%s/shortlink", resource.GetPort("27017/tcp")))
-		return st.Init(ctx)
-	}); err != nil {
-		require.NoError(b, err, "Could not connect to docker")
-	}
-
-	b.Cleanup(func() {
-		if err := pool.Purge(resource); err != nil {
-			b.Fatalf("Could not purge resource: %s", err)
-		}
-	})
+	b.Setenv("STORE_MONGODB_URI", startMongoContainer(b))
+	require.NoError(b, st.Init(ctx))
 
 	b.Run("Create [single]", func(b *testing.B) {
 		b.ReportAllocs()

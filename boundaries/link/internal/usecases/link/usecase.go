@@ -4,10 +4,10 @@ Link UC. Application layer
 package link
 
 import (
+	"github.com/ThreeDotsLabs/watermill/message"
 	"github.com/authzed/authzed-go/v1"
 
 	"github.com/shortlink-org/go-sdk/logger"
-	"github.com/shortlink-org/go-sdk/mq"
 	"github.com/shortlink-org/go-sdk/notify"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud"
@@ -24,7 +24,7 @@ type UC struct {
 	permission *authzed.Client
 
 	// Delivery
-	mq mq.MQ
+	publisher message.Publisher
 	// MetadataClient metadata_rpc.MetadataServiceClient
 
 	// Repository
@@ -32,7 +32,7 @@ type UC struct {
 }
 
 // New creates a new link usecase
-func New(log logger.Logger, dataBus mq.MQ, metadataService any, store *crud.Store, permissionClient *authzed.Client) (*UC, error) {
+func New(log logger.Logger, publisher message.Publisher, metadataService any, store *crud.Store, permissionClient *authzed.Client) (*UC, error) {
 	service := &UC{
 		log: log,
 
@@ -40,7 +40,7 @@ func New(log logger.Logger, dataBus mq.MQ, metadataService any, store *crud.Stor
 		permission: permissionClient,
 
 		// Delivery
-		mq: dataBus,
+		publisher: publisher,
 		// MetadataClient: metadataService,
 
 		// Repository

@@ -8,6 +8,7 @@ package link_di
 
 import (
 	"context"
+	"github.com/ThreeDotsLabs/watermill/message"
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
 	"github.com/prometheus/client_golang/prometheus"
@@ -24,6 +25,8 @@ import (
 	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/go-sdk/observability/profiling"
 	"github.com/shortlink-org/go-sdk/observability/tracing"
+	"github.com/shortlink-org/go-sdk/watermill"
+	"github.com/shortlink-org/go-sdk/watermill/backends/kafka"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/mq"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/cqs"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/query"
@@ -35,6 +38,7 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/usecases/link"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/usecases/link_cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/usecases/sitemap"
+	metric2 "go.opentelemetry.io/otel/metric"
 	"go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 	grpc2 "google.golang.org/grpc"
@@ -94,7 +98,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	mqMQ, err := mq.New(context, loggerLogger, configConfig)
+	backend, err := NewWatermillBackend(context, loggerLogger, configConfig)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -102,8 +106,18 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	meterProvider := NewMeterProvider(monitoring)
-	dbDB, err := db.New(context, loggerLogger, tracerProvider, meterProvider, configConfig)
+	meterProvider := NewWatermillMeterProvider(monitoring)
+	watermillClient, err := watermill.New(context, loggerLogger, configConfig, backend, meterProvider, tracerProvider)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	publisher := NewWatermillPublisher(watermillClient)
+	metricMeterProvider := NewMeterProvider(monitoring)
+	dbDB, err := db.New(context, loggerLogger, tracerProvider, metricMeterProvider, configConfig)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -127,7 +141,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	uc, err := NewLinkApplication(loggerLogger, mqMQ, store, client)
+	uc, err := NewLinkApplication(loggerLogger, publisher, store, client)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -159,7 +173,15 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	sitemapService, err := sitemap.New(loggerLogger, mqMQ)
+	sitemapService, err := NewSitemapService(loggerLogger, publisher)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	mqMQ, err := mq.New(context, loggerLogger, configConfig)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -208,7 +230,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	v1Sitemap, err := v1_3.New(server, sitemapService, loggerLogger)
+	sitemap, err := v1_3.New(server, sitemapService, loggerLogger)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -216,7 +238,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	linkService, err := NewLinkService(loggerLogger, configConfig, monitoring, tracerProvider, pprofEndpoint, recorder, client, uc, service, sitemapService, event, response, v1LinkRPC, linkRPC, v1Sitemap, store, cqsStore, queryStore)
+	linkService, err := NewLinkService(loggerLogger, configConfig, monitoring, tracerProvider, pprofEndpoint, recorder, client, uc, service, sitemapService, event, response, v1LinkRPC, linkRPC, sitemap, store, cqsStore, queryStore)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -275,7 +297,8 @@ var DefaultSet = wire.NewSet(ctx.New, flags.New, config.New, logger.NewDefault, 
 var LinkSet = wire.NewSet(
 
 	DefaultSet, permission.New, NewPrometheusRegistry,
-	NewMeterProvider, db.New, mq.New, api_mq.New, grpc.InitServer, NewRPCClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, NewLinkApplication, link_cqrs.New, sitemap.New, crud.New, cqs.New, query.New, NewLinkService,
+	NewMeterProvider, db.New, NewWatermillMeterProvider,
+	NewWatermillBackend, watermill.New, NewWatermillPublisher, mq.New, api_mq.New, grpc.InitServer, NewRPCClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, NewLinkApplication, link_cqrs.New, NewSitemapService, crud.New, cqs.New, query.New, NewLinkService,
 )
 
 func NewPrometheusRegistry(metrics2 *metrics.Monitoring) *prometheus.Registry {
@@ -284,6 +307,14 @@ func NewPrometheusRegistry(metrics2 *metrics.Monitoring) *prometheus.Registry {
 
 func NewMeterProvider(metrics2 *metrics.Monitoring) *metric.MeterProvider {
 	return metrics2.Metrics
+}
+
+func NewWatermillMeterProvider(metrics2 *metrics.Monitoring) metric2.MeterProvider {
+	return metrics2.Metrics
+}
+
+func NewWatermillBackend(ctx2 context.Context, log logger.Logger, cfg *config.Config) (watermill.Backend, error) {
+	return kafka.New(ctx2, log, cfg)
 }
 
 func NewRPCClient(ctx2 context.Context,
@@ -303,13 +334,21 @@ func NewRPCClient(ctx2 context.Context,
 	return runRPCClient, cleanup, nil
 }
 
-func NewLinkApplication(log logger.Logger, mq2 mq.MQ, store *crud.Store, authPermission *authzed.Client) (*link.UC, error) {
-	linkService, err := link.New(log, mq2, nil, store, authPermission)
+func NewWatermillPublisher(client *watermill.Client) message.Publisher {
+	return client.Publisher
+}
+
+func NewLinkApplication(log logger.Logger, publisher message.Publisher, store *crud.Store, authPermission *authzed.Client) (*link.UC, error) {
+	linkService, err := link.New(log, publisher, nil, store, authPermission)
 	if err != nil {
 		return nil, err
 	}
 
 	return linkService, nil
+}
+
+func NewSitemapService(log logger.Logger, publisher message.Publisher) (*sitemap.Service, error) {
+	return sitemap.New(log, publisher)
 }
 
 // TODO: refactoring. maybe drop this function

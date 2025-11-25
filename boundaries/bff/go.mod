@@ -12,19 +12,20 @@ require (
 	github.com/oapi-codegen/runtime v1.1.2
 	github.com/prometheus/client_golang v1.23.2
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251123090321-da200cd95544
-	github.com/shortlink-org/go-sdk/cache v0.0.0-20251123090321-da200cd95544
-	github.com/shortlink-org/go-sdk/config v0.0.0-20251123090321-da200cd95544
-	github.com/shortlink-org/go-sdk/context v0.0.0-20251123090321-da200cd95544
-	github.com/shortlink-org/go-sdk/flags v0.0.0-20251123090321-da200cd95544
-	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251123090321-da200cd95544
-	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251123090321-da200cd95544
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251123090321-da200cd95544
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251124200042-639931ca5cd1
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251123090321-da200cd95544
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251123090321-da200cd95544
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/cache v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/config v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/context v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/flags v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251124210328-ce2c639c8b61
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
+	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.63.0
 	go.opentelemetry.io/otel/sdk/metric v1.38.0
 	go.opentelemetry.io/otel/trace v1.38.0
 	golang.org/x/sync v0.18.0
@@ -108,7 +109,7 @@ require (
 	github.com/sagikazarmark/locafero v0.12.0 // indirect
 	github.com/samber/lo v1.52.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
-	github.com/shortlink-org/go-sdk/db v0.0.0-20251123075329-7b059affa1ac // indirect
+	github.com/shortlink-org/go-sdk/db v0.0.0-20251124210328-ce2c639c8b61 // indirect
 	github.com/spf13/afero v1.15.0 // indirect
 	github.com/spf13/cast v1.10.0 // indirect
 	github.com/spf13/cobra v1.10.1 // indirect
@@ -129,7 +130,6 @@ require (
 	go.mongodb.org/mongo-driver/v2 v2.4.0 // indirect
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.63.0 // indirect
-	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.63.0 // indirect
 	go.opentelemetry.io/otel v1.38.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.38.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.38.0 // indirect

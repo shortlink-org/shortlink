@@ -7,6 +7,8 @@ import (
 
 	"github.com/segmentio/encoding/json"
 
+	"github.com/ThreeDotsLabs/watermill"
+	"github.com/ThreeDotsLabs/watermill/message"
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
@@ -154,8 +156,8 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_PUBLISH_EVENT_NEW_LINK).
 		Then(func(ctx context.Context) error {
-			// If mq is a nil, then we don't need to publish event
-			if uc.mq == nil {
+			// If publisher is a nil, then we don't need to publish event
+			if uc.publisher == nil {
 				return nil
 			}
 
@@ -164,7 +166,10 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 				return err
 			}
 
-			err = uc.mq.Publish(ctx, domain.MQ_EVENT_LINK_CREATED, nil, data)
+			msg := message.NewMessage(watermill.NewUUID(), data)
+			msg.Metadata.Set("event_type", domain.MQ_EVENT_LINK_CREATED)
+
+			err = uc.publisher.Publish(domain.MQ_EVENT_LINK_CREATED, msg)
 			if err != nil {
 				return err
 			}

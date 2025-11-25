@@ -10,15 +10,15 @@ require (
 	github.com/graph-gophers/graphql-go v1.8.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.3
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251121191713-160ea5dd70ad
-	github.com/shortlink-org/go-sdk/config v0.0.0-20251123000513-53eee17f0f41
-	github.com/shortlink-org/go-sdk/db v0.0.0-20251121191713-160ea5dd70ad
-	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251121191713-160ea5dd70ad
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251121191713-160ea5dd70ad
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251123000513-53eee17f0f41
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251123000513-53eee17f0f41
-	github.com/shortlink-org/go-sdk/notify v0.0.0-20251121191713-160ea5dd70ad
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251121191713-160ea5dd70ad
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/config v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/db v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/notify v0.0.0-20251124210328-ce2c639c8b61
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251124210328-ce2c639c8b61
 	github.com/spf13/viper v1.21.0
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.3.2
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.63.0
@@ -49,7 +49,6 @@ require (
 	github.com/felixge/fgprof v0.9.5 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/fsnotify/fsnotify v1.9.0 // indirect
-	github.com/go-chi/chi/v5 v5.2.3 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-sql-driver/mysql v1.9.3 // indirect
@@ -97,7 +96,7 @@ require (
 	github.com/sagikazarmark/locafero v0.12.0 // indirect
 	github.com/samber/lo v1.52.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
-	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251121161402-f3f7d0339b82 // indirect
+	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251124210328-ce2c639c8b61 // indirect
 	github.com/spf13/afero v1.15.0 // indirect
 	github.com/spf13/cast v1.10.0 // indirect
 	github.com/spf13/pflag v1.0.10 // indirect

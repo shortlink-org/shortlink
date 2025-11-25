@@ -10,15 +10,15 @@ import (
 	"testing"
 	"time"
 
-	"github.com/ory/dockertest/v3"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	pgcontainer "github.com/testcontainers/testcontainers-go/modules/postgres"
 	"go.uber.org/atomic"
 	"go.uber.org/goleak"
 
 	db "github.com/shortlink-org/go-sdk/db/drivers/postgres"
 	"github.com/shortlink-org/go-sdk/db/options"
-	"github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
 func TestMain(m *testing.M) {
@@ -33,57 +33,18 @@ func TestMain(m *testing.M) {
 
 var linkUniqId atomic.Int64
 
+const (
+	postgresImage = "ghcr.io/dbsystel/postgresql-partman:16"
+)
+
 func TestPostgres(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
+	t.Cleanup(cancel)
 
 	st := &db.Store{}
 
-	// uses a sensible default on windows (tcp/http) and linux/osx (socket)
-	pool, err := dockertest.NewPool("")
-	require.NoError(t, err, "Could not connect to docker")
-
-	// pulls an image, creates a container based on it and runs it
-	resource, err := pool.Run("ghcr.io/dbsystel/postgresql-partman", "16", []string{
-		"POSTGRESQL_USERNAME=postgres",
-		"POSTGRESQL_PASSWORD=shortlink",
-		"POSTGRESQL_DATABASE=link",
-	})
-	if err != nil {
-		// When you're done, kill and remove the container
-		if errPurge := pool.Purge(resource); errPurge != nil {
-			t.Fatalf("Could not purge resource: %s", errPurge)
-		}
-
-		t.Fatalf("Could not start resource: %s", err)
-	}
-
-	// exponential backoff-retry, because the application in the container might not be ready to accept connections yet
-	if err := pool.Retry(func() error {
-		t.Setenv("STORE_POSTGRES_URI", fmt.Sprintf("postgres://postgres:shortlink@localhost:%s/link?sslmode=disable", resource.GetPort("5432/tcp")))
-
-		errInit := st.Init(ctx)
-		if errInit != nil {
-			return errInit
-		}
-
-		return nil
-	}); err != nil {
-		// When you're done, kill and remove the container
-		if errPurge := pool.Purge(resource); errPurge != nil {
-			t.Fatalf("Could not purge resource: %s", errPurge)
-		}
-
-		require.NoError(t, err, "Could not connect to docker")
-	}
-
-	t.Cleanup(func() {
-		cancel()
-
-		// When you're done, kill and remove the container
-		if err := pool.Purge(resource); err != nil {
-			t.Fatalf("Could not purge resource: %s", err)
-		}
-	})
+	t.Setenv("STORE_POSTGRES_URI", startPostgresContainer(t))
+	require.NoError(t, st.Init(ctx))
 
 	// new store
 	store, err := New(ctx, st)
@@ -185,4 +146,28 @@ func getLink() (*v1.Link, error) {
 	}
 
 	return data, nil
+}
+
+func startPostgresContainer(tb testing.TB) string {
+	tb.Helper()
+
+	ctx := context.Background()
+
+	container, err := pgcontainer.Run(
+		ctx,
+		postgresImage,
+		pgcontainer.WithUsername("postgres"),
+		pgcontainer.WithPassword("shortlink"),
+		pgcontainer.WithDatabase("link"),
+	)
+	require.NoError(tb, err)
+
+	tb.Cleanup(func() {
+		terminateCtx, terminateCancel := context.WithTimeout(context.Background(), 30*time.Second)
+		defer terminateCancel()
+
+		require.NoError(tb, container.Terminate(terminateCtx))
+	})
+
+	return container.MustConnectionString(ctx, "sslmode=disable")
 }

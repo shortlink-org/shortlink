@@ -8,11 +8,11 @@ import (
 	"os"
 	"strconv"
 	"testing"
+	"time"
 
-	"github.com/ory/dockertest/v3"
-	"github.com/ory/dockertest/v3/docker"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+	mongocontainer "github.com/testcontainers/testcontainers-go/modules/mongodb"
 	"go.uber.org/atomic"
 	"go.uber.org/goleak"
 
@@ -33,40 +33,12 @@ var linkUniqId atomic.Int64
 
 func TestMongo(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
+	t.Cleanup(cancel)
 
 	st := &db.Store{}
 
-	// Set up Docker MongoDB
-	pool, err := dockertest.NewPool("")
-	require.NoError(t, err, "Could not connect to Docker")
-
-	resource, err := pool.RunWithOptions(&dockertest.RunOptions{
-		Repository: "mongo",
-		Tag:        "7.0",
-	}, func(config *docker.HostConfig) {
-		config.AutoRemove = true
-		config.RestartPolicy = docker.RestartPolicy{Name: "no"}
-	})
-	require.NoError(t, err, "Could not start MongoDB Docker container")
-
-	// Exponential backoff-retry to ensure MongoDB is ready
-	if err := pool.Retry(func() error {
-		mongoURI := fmt.Sprintf("mongodb://localhost:%s/shortlink", resource.GetPort("27017/tcp"))
-		t.Setenv("STORE_MONGODB_URI", mongoURI)
-		return st.Init(ctx)
-	}); err != nil {
-		require.NoError(t, err, "Could not connect to MongoDB Docker container")
-	}
-
-	// Cleanup Docker resources after tests
-	t.Cleanup(func() {
-		cancel()
-
-		// When you're done, kill and remove the container
-		if err := pool.Purge(resource); err != nil {
-			t.Fatalf("Could not purge MongoDB Docker container: %s", err)
-		}
-	})
+	t.Setenv("STORE_MONGODB_URI", startMongoContainer(t))
+	require.NoError(t, st.Init(ctx))
 
 	// Initialize the store
 	store, err := New(ctx, st)
@@ -183,4 +155,25 @@ func getLink() (*v1.Link, error) {
 	}
 
 	return link, nil
+}
+
+func startMongoContainer(tb testing.TB) string {
+	tb.Helper()
+
+	ctx := context.Background()
+
+	container, err := mongocontainer.Run(ctx, "mongo:7.0")
+	require.NoError(tb, err)
+
+	tb.Cleanup(func() {
+		terminateCtx, terminateCancel := context.WithTimeout(context.Background(), 30*time.Second)
+		defer terminateCancel()
+
+		require.NoError(tb, container.Terminate(terminateCtx))
+	})
+
+	connStr, err := container.ConnectionString(ctx)
+	require.NoError(tb, err)
+
+	return connStr
 }

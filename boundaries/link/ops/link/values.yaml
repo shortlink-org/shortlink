@@ -68,6 +68,12 @@ deploy:
     MQ_TYPE: kafka
     MQ_KAFKA_URI: shortlink-kafka-bootstrap.kafka:9092
     MQ_KAFKA_SARAMA_VERSION: MAX
+    # Watermill configuration
+    WATERMILL_KAFKA_BROKERS: shortlink-kafka-bootstrap.kafka:9092
+    WATERMILL_KAFKA_CLIENT_ID: shortlink-link
+    WATERMILL_KAFKA_CONSUMER_GROUP: shortlink-link
+    WATERMILL_DLQ_ENABLED: false
+    WATERMILL_DLQ_MAX_RETRIES: 5
     TRACER_URI: grafana-tempo.grafana:4317
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
     SPICE_DB_API: shortlink.spicedb-operator:50051
@@ -127,13 +133,13 @@ networkPolicy:
     - from:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: shortlink  # Allow ingress from 'shortlink' namespace
+              kubernetes.io/metadata.name: shortlink # Allow ingress from 'shortlink' namespace
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: istio-system
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: istio-ingress  # Allow ingress from 'istio-ingress' namespace
+              kubernetes.io/metadata.name: istio-ingress # Allow ingress from 'istio-ingress' namespace
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: prometheus-operator

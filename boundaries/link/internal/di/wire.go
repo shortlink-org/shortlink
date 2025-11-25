@@ -11,6 +11,7 @@ package link_di
 import (
 	"context"
 
+	"github.com/ThreeDotsLabs/watermill/message"
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
 	"github.com/prometheus/client_golang/prometheus"
@@ -19,6 +20,7 @@ import (
 	"github.com/shortlink-org/go-sdk/flight_trace"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/go-sdk/observability/tracing"
+	"go.opentelemetry.io/otel/metric"
 	api "go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc"
@@ -43,6 +45,8 @@ import (
 	"github.com/shortlink-org/go-sdk/mq"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/go-sdk/observability/profiling"
+	"github.com/shortlink-org/go-sdk/watermill"
+	watermill_kafka "github.com/shortlink-org/go-sdk/watermill/backends/kafka"
 )
 
 type LinkService struct {
@@ -102,7 +106,11 @@ var LinkSet = wire.NewSet(
 	db.New,
 
 	// Delivery
-	mq.New,
+	NewWatermillMeterProvider,
+	NewWatermillBackend,
+	watermill.New,
+	NewWatermillPublisher,
+	mq.New, // Still needed for api_mq subscriptions
 	api_mq.New,
 	rpc.InitServer,
 	NewRPCClient,
@@ -117,7 +125,7 @@ var LinkSet = wire.NewSet(
 	// Applications
 	NewLinkApplication,
 	link_cqrs.New,
-	sitemap.New,
+	NewSitemapService,
 
 	// repository
 	crud.New,
@@ -133,6 +141,14 @@ func NewPrometheusRegistry(metrics *metrics.Monitoring) *prometheus.Registry {
 
 func NewMeterProvider(metrics *metrics.Monitoring) *api.MeterProvider {
 	return metrics.Metrics
+}
+
+func NewWatermillMeterProvider(metrics *metrics.Monitoring) metric.MeterProvider {
+	return metrics.Metrics
+}
+
+func NewWatermillBackend(ctx context.Context, log logger.Logger, cfg *config.Config) (watermill.Backend, error) {
+	return watermill_kafka.New(ctx, log, cfg)
 }
 
 func NewRPCClient(
@@ -159,13 +175,21 @@ func NewRPCClient(
 	return runRPCClient, cleanup, nil
 }
 
-func NewLinkApplication(log logger.Logger, mq mq.MQ, store *crud.Store, authPermission *authzed.Client) (*link.UC, error) {
-	linkService, err := link.New(log, mq, nil, store, authPermission)
+func NewWatermillPublisher(client *watermill.Client) message.Publisher {
+	return client.Publisher
+}
+
+func NewLinkApplication(log logger.Logger, publisher message.Publisher, store *crud.Store, authPermission *authzed.Client) (*link.UC, error) {
+	linkService, err := link.New(log, publisher, nil, store, authPermission)
 	if err != nil {
 		return nil, err
 	}
 
 	return linkService, nil
+}
+
+func NewSitemapService(log logger.Logger, publisher message.Publisher) (*sitemap.Service, error) {
+	return sitemap.New(log, publisher)
 }
 
 // TODO: refactoring. maybe drop this function
