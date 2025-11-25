@@ -104,6 +104,7 @@ var LinkSet = wire.NewSet(
 	// Delivery
 	wire.Bind(new(watermill.Backend), new(*watermill_kafka.Backend)),
 	watermill_kafka.New,
+	wire.Value([]watermill.Option{}),
 	watermill.New,
 	wire.FieldsOf(new(*watermill.Client), "Publisher"),
 	rpc.InitServer,

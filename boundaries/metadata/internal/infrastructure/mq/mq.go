@@ -7,26 +7,28 @@ package metadata_mq
 import (
 	"context"
 
+	"github.com/ThreeDotsLabs/watermill/message"
 	"github.com/spf13/viper"
 	"google.golang.org/protobuf/proto"
 
-	"github.com/shortlink-org/go-sdk/mq"
 	"github.com/shortlink-org/go-sdk/notify"
 	metadata_domain "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
 	metadata_uc "github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/metadata"
 )
 
 type Event struct {
-	mq         mq.MQ
+	publisher  message.Publisher
+	subscriber message.Subscriber
 	metadataUC *metadata_uc.UC
 
 	// Observer interface for subscribe on system event
 	// notify.Subscriber[link.Link]
 }
 
-func New(dataBus mq.MQ, metadataUC *metadata_uc.UC) (*Event, error) {
+func New(publisher message.Publisher, subscriber message.Subscriber, metadataUC *metadata_uc.UC) (*Event, error) {
 	return &Event{
-		mq:         dataBus,
+		publisher:  publisher,
+		subscriber: subscriber,
 		metadataUC: metadataUC,
 	}, nil
 }
@@ -75,7 +77,8 @@ func (e *Event) add(ctx context.Context, payload any) notify.Response[any] {
 		}
 	}
 
-	err = e.mq.Publish(ctx, metadata_domain.MQ_EVENT_CQRS_NEW, nil, data)
+	msg := message.NewMessage(message.NewUUID(), data)
+	err = e.publisher.Publish(metadata_domain.MQ_EVENT_CQRS_NEW, msg)
 
 	return notify.Response[any]{
 		Name:    "RESPONSE_MQ_ADD",

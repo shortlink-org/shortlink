@@ -8,6 +8,7 @@ package metadata_di
 
 import (
 	"context"
+	"github.com/ThreeDotsLabs/watermill/message"
 	"github.com/google/wire"
 	"github.com/shortlink-org/go-sdk/auth/permission"
 	"github.com/shortlink-org/go-sdk/cache"
@@ -18,12 +19,13 @@ import (
 	"github.com/shortlink-org/go-sdk/flight_trace"
 	"github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
-	"github.com/shortlink-org/go-sdk/mq"
 	"github.com/shortlink-org/go-sdk/notify"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/go-sdk/observability/profiling"
 	"github.com/shortlink-org/go-sdk/observability/tracing"
 	"github.com/shortlink-org/go-sdk/s3"
+	"github.com/shortlink-org/go-sdk/watermill"
+	"github.com/shortlink-org/go-sdk/watermill/backends/kafka"
 	v1_2 "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/mq"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/media"
@@ -32,6 +34,8 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/metadata"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/parsers"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/screenshot"
+	"go.opentelemetry.io/otel/metric"
+	metric2 "go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 )
 
@@ -106,7 +110,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	mqMQ, err := mq.New(context, loggerLogger, configConfig)
+	backend, err := kafka.New(context, loggerLogger, configConfig)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -114,7 +118,8 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	client, err := s3.New(context, loggerLogger, configConfig)
+	v := _wireValue
+	client, err := watermill.New(context, loggerLogger, configConfig, backend, meterProvider, tracerProvider, v...)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -122,7 +127,17 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	service, err := NewMetaDataMediaStore(context, client)
+	publisher := client.Publisher
+	subscriber := client.Subscriber
+	s3Client, err := s3.New(context, loggerLogger, configConfig)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	service, err := NewMetaDataMediaStore(context, s3Client)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -146,7 +161,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitMetadataMQ(context, loggerLogger, mqMQ, metadataUC)
+	event, err := InitMetadataMQ(context, loggerLogger, publisher, subscriber, metadataUC)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -187,6 +202,10 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 	}, nil
 }
 
+var (
+	_wireValue = []watermill.Option{}
+)
+
 // wire.go:
 
 type MetaDataService struct {
@@ -216,7 +235,7 @@ var DefaultSet = wire.NewSet(ctx.New, flags.New, config.New, logger.NewDefault, 
 
 // MetaDataService =====================================================================================================
 var MetaDataSet = wire.NewSet(
-	DefaultSet, permission.New, mq.New, db.New, grpc.InitServer, s3.New, wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"), InitMetadataMQ,
+	DefaultSet, permission.New, wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"), wire.Bind(new(metric.MeterProvider), new(*metric2.MeterProvider)), db.New, wire.Bind(new(watermill.Backend), new(*kafka.Backend)), kafka.New, wire.Value([]watermill.Option{}), watermill.New, wire.FieldsOf(new(*watermill.Client), "Publisher", "Subscriber"), grpc.InitServer, s3.New, InitMetadataMQ,
 	NewMetaDataRPCServer,
 
 	NewParserUC,
@@ -229,14 +248,14 @@ var MetaDataSet = wire.NewSet(
 	NewMetaDataService,
 )
 
-func InitMetadataMQ(ctx2 context.Context, log logger.Logger, dataBus mq.MQ, metadataUC *metadata.UC) (*metadata_mq.Event, error) {
-	metadataMQ, err := metadata_mq.New(dataBus, metadataUC)
+func InitMetadataMQ(ctx2 context.Context, log logger.Logger, publisher message.Publisher, subscriber message.Subscriber, metadataUC *metadata.UC) (*metadata_mq.Event, error) {
+	metadataMQ, err := metadata_mq.New(publisher, subscriber, metadataUC)
 	if err != nil {
 		return nil, err
 	}
 	notify.Subscribe(v1_2.METHOD_ADD, metadataMQ)
 
-	if err := metadataMQ.SubscribeLinkCreated(log); err != nil {
+	if err := metadataMQ.SubscribeLinkCreated(ctx2, log); err != nil {
 		return nil, err
 	}
 

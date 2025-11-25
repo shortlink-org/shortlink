@@ -11,7 +11,6 @@ import (
 	"github.com/ThreeDotsLabs/watermill/message"
 	"github.com/authzed/authzed-go/v1"
 	"github.com/google/wire"
-	"github.com/prometheus/client_golang/prometheus"
 	"github.com/shortlink-org/go-sdk/auth/permission"
 	"github.com/shortlink-org/go-sdk/cache"
 	"github.com/shortlink-org/go-sdk/config"
@@ -36,8 +35,8 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/usecases/link"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/usecases/link_cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/usecases/sitemap"
-	metric2 "go.opentelemetry.io/otel/metric"
-	"go.opentelemetry.io/otel/sdk/metric"
+	"go.opentelemetry.io/otel/metric"
+	metric2 "go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 	grpc2 "google.golang.org/grpc"
 )
@@ -96,7 +95,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	backend, err := NewWatermillBackend(context, loggerLogger, configConfig)
+	backend, err := kafka.New(context, loggerLogger, configConfig)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -104,8 +103,9 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	meterProvider := NewWatermillMeterProvider(monitoring)
-	watermillClient, err := watermill.New(context, loggerLogger, configConfig, backend, meterProvider, tracerProvider)
+	meterProvider := monitoring.Metrics
+	v := _wireValue
+	watermillClient, err := watermill.New(context, loggerLogger, configConfig, backend, meterProvider, tracerProvider, v...)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -113,9 +113,8 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	publisher := NewWatermillPublisher(watermillClient)
-	metricMeterProvider := NewMeterProvider(monitoring)
-	dbDB, err := db.New(context, loggerLogger, tracerProvider, metricMeterProvider, configConfig)
+	publisher := watermillClient.Publisher
+	dbDB, err := db.New(context, loggerLogger, tracerProvider, meterProvider, configConfig)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -179,7 +178,7 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	registry := NewPrometheusRegistry(monitoring)
+	registry := monitoring.Prometheus
 	server, err := grpc.InitServer(context, loggerLogger, tracerProvider, registry, recorder, configConfig)
 	if err != nil {
 		cleanup4()
@@ -236,6 +235,10 @@ func InitializeLinkService() (*LinkService, func(), error) {
 	}, nil
 }
 
+var (
+	_wireValue = []watermill.Option{}
+)
+
 // wire.go:
 
 type LinkService struct {
@@ -277,26 +280,8 @@ var DefaultSet = wire.NewSet(ctx.New, flags.New, config.New, logger.NewDefault, 
 // LinkService =========================================================================================================
 var LinkSet = wire.NewSet(
 
-	DefaultSet, permission.New, NewPrometheusRegistry,
-	NewMeterProvider, db.New, NewWatermillMeterProvider,
-	NewWatermillBackend, watermill.New, NewWatermillPublisher, grpc.InitServer, NewRPCClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, NewLinkApplication, link_cqrs.New, NewSitemapService, crud.New, cqs.New, query.New, NewLinkService,
+	DefaultSet, permission.New, wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"), wire.Bind(new(metric.MeterProvider), new(*metric2.MeterProvider)), db.New, wire.Bind(new(watermill.Backend), new(*kafka.Backend)), kafka.New, wire.Value([]watermill.Option{}), watermill.New, wire.FieldsOf(new(*watermill.Client), "Publisher"), grpc.InitServer, NewRPCClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, NewLinkApplication, link_cqrs.New, NewSitemapService, crud.New, cqs.New, query.New, NewLinkService,
 )
-
-func NewPrometheusRegistry(metrics2 *metrics.Monitoring) *prometheus.Registry {
-	return metrics2.Prometheus
-}
-
-func NewMeterProvider(metrics2 *metrics.Monitoring) *metric.MeterProvider {
-	return metrics2.Metrics
-}
-
-func NewWatermillMeterProvider(metrics2 *metrics.Monitoring) metric2.MeterProvider {
-	return metrics2.Metrics
-}
-
-func NewWatermillBackend(ctx2 context.Context, log logger.Logger, cfg *config.Config) (watermill.Backend, error) {
-	return kafka.New(ctx2, log, cfg)
-}
 
 func NewRPCClient(ctx2 context.Context,
 
@@ -313,10 +298,6 @@ func NewRPCClient(ctx2 context.Context,
 	}
 
 	return runRPCClient, cleanup, nil
-}
-
-func NewWatermillPublisher(client *watermill.Client) message.Publisher {
-	return client.Publisher
 }
 
 func NewLinkApplication(log logger.Logger, publisher message.Publisher, store *crud.Store, authPermission *authzed.Client) (*link.UC, error) {

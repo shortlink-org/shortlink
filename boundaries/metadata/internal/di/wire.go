@@ -11,6 +11,7 @@ package metadata_di
 import (
 	"context"
 
+	"github.com/ThreeDotsLabs/watermill/message"
 	"github.com/google/wire"
 	"github.com/shortlink-org/go-sdk/auth/permission"
 	"github.com/shortlink-org/go-sdk/cache"
@@ -21,12 +22,15 @@ import (
 	"github.com/shortlink-org/go-sdk/flight_trace"
 	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
-	"github.com/shortlink-org/go-sdk/mq"
 	"github.com/shortlink-org/go-sdk/notify"
+	"github.com/shortlink-org/go-sdk/watermill"
+	watermill_kafka "github.com/shortlink-org/go-sdk/watermill/backends/kafka"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/go-sdk/observability/profiling"
 	"github.com/shortlink-org/go-sdk/observability/tracing"
 	"github.com/shortlink-org/go-sdk/s3"
+	"go.opentelemetry.io/otel/metric"
+	api "go.opentelemetry.io/otel/sdk/metric"
 	"go.opentelemetry.io/otel/trace"
 
 	metadata_domain "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
@@ -78,11 +82,16 @@ var DefaultSet = wire.NewSet(
 var MetaDataSet = wire.NewSet(
 	DefaultSet,
 	permission.New,
-	mq.New,
+	wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"),
+	wire.Bind(new(metric.MeterProvider), new(*api.MeterProvider)),
 	db.New,
+	wire.Bind(new(watermill.Backend), new(*watermill_kafka.Backend)),
+	watermill_kafka.New,
+	wire.Value([]watermill.Option{}),
+	watermill.New,
+	wire.FieldsOf(new(*watermill.Client), "Publisher", "Subscriber"),
 	rpc.InitServer,
 	s3.New,
-	wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"),
 
 	// Delivery
 	InitMetadataMQ,
@@ -100,8 +109,8 @@ var MetaDataSet = wire.NewSet(
 	NewMetaDataService,
 )
 
-func InitMetadataMQ(ctx context.Context, log logger.Logger, dataBus mq.MQ, metadataUC *metadata.UC) (*metadata_mq.Event, error) {
-	metadataMQ, err := metadata_mq.New(dataBus, metadataUC)
+func InitMetadataMQ(ctx context.Context, log logger.Logger, publisher message.Publisher, subscriber message.Subscriber, metadataUC *metadata.UC) (*metadata_mq.Event, error) {
+	metadataMQ, err := metadata_mq.New(publisher, subscriber, metadataUC)
 	if err != nil {
 		return nil, err
 	}
@@ -110,7 +119,7 @@ func InitMetadataMQ(ctx context.Context, log logger.Logger, dataBus mq.MQ, metad
 	notify.Subscribe(metadata_domain.METHOD_ADD, metadataMQ)
 
 	// Subscribe to link creation events from Kafka
-	if err := metadataMQ.SubscribeLinkCreated(log); err != nil {
+	if err := metadataMQ.SubscribeLinkCreated(ctx, log); err != nil {
 		return nil, err
 	}
 
