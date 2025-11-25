@@ -4,7 +4,7 @@
 
 > [!NOTE]
 > This is a BFF service for web clients
-> 
+>
 > **HTTP REST API:** Implemented using 'chi' for optimal integration and high performance.
 
 ### Docs
@@ -19,6 +19,7 @@
 
 - [ADR-0001](./docs/ADR/decisions/0001-init.md) - Init project
 - [ADR-0002](./docs/ADR/decisions/0002-use-oapi-codegen.md) - Use `oapi-codegen` to generate API code
+- [ADR-0003](./docs/ADR/decisions/0003-c4-system.md) - C4 System
 
 ### Architecture
 
