@@ -219,6 +219,38 @@
       },
       "type": "object"
     },
+    "kafka": {
+      "properties": {
+        "topics": {
+          "properties": {
+            "partitions": {
+              "type": "integer"
+            },
+            "replicas": {
+              "type": "integer"
+            },
+            "retention": {
+              "properties": {
+                "ms": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            },
+            "segment": {
+              "properties": {
+                "bytes": {
+                  "type": "integer"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "type": "object"
+        }
+      },
+      "type": "object"
+    },
     "monitoring": {
       "properties": {
         "enabled": {
