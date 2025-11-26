@@ -5,7 +5,6 @@ package parsers
 
 import (
 	"context"
-	"log/slog"
 	"net/http"
 	"time"
 
