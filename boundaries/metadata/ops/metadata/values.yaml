@@ -47,6 +47,10 @@ deploy:
     MQ_ENABLED: true
     MQ_TYPE: "kafka"
     MQ_KAFKA_URI: "shortlink-kafka-bootstrap.kafka:9092"
+    # Watermill Kafka configuration
+    WATERMILL_KAFKA_BROKERS: "shortlink-kafka-bootstrap.kafka:9092"
+    WATERMILL_KAFKA_CLIENT_ID: "shortlink-metadata"
+    WATERMILL_KAFKA_CONSUMER_GROUP: "shortlink-metadata"
     TRACER_URI: grafana-tempo.grafana:4317
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
 

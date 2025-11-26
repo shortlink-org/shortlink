@@ -113,6 +113,17 @@ service:
       public: true
 
 # ==============================================================================
+# Kafka topics configuration
+kafka:
+  topics:
+    partitions: 1
+    replicas: 3 # Minimum replicas for production Kafka cluster
+    retention:
+      ms: 7200000 # 2 hours
+    segment:
+      bytes: 31457280 # 30MB
+
+# ==============================================================================
 # Prometheus Operator ServiceMonitor configuration
 monitoring:
   enabled: true

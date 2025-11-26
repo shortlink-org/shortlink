@@ -10,11 +10,11 @@ metadata:
   labels:
     strimzi.io/cluster: shortlink
 spec:
-  partitions: 1
-  replicas: 1
+  partitions: {{ .Values.kafka.topics.partitions | default 1 }}
+  replicas: {{ .Values.kafka.topics.replicas | default 3 }}
   config:
-    retention.ms: 7200000 # 2 hours
-    segment.bytes: 31457280 # 30MB
+    retention.ms: {{ .Values.kafka.topics.retention.ms | default 7200000 }}
+    segment.bytes: {{ .Values.kafka.topics.segment.bytes | default 31457280 }}
 ---
 # LinkUpdated event topic - canonical name: link.link.updated.v1
 # Follows ADR-0002 canonical event naming standard
@@ -26,11 +26,11 @@ metadata:
   labels:
     strimzi.io/cluster: shortlink
 spec:
-  partitions: 1
-  replicas: 1
+  partitions: {{ .Values.kafka.topics.partitions | default 1 }}
+  replicas: {{ .Values.kafka.topics.replicas | default 3 }}
   config:
-    retention.ms: 7200000 # 2 hours
-    segment.bytes: 31457280 # 30MB
+    retention.ms: {{ .Values.kafka.topics.retention.ms | default 7200000 }}
+    segment.bytes: {{ .Values.kafka.topics.segment.bytes | default 31457280 }}
 ---
 # LinkDeleted event topic - canonical name: link.link.deleted.v1
 # Follows ADR-0002 canonical event naming standard
@@ -42,9 +42,9 @@ metadata:
   labels:
     strimzi.io/cluster: shortlink
 spec:
-  partitions: 1
-  replicas: 1
+  partitions: {{ .Values.kafka.topics.partitions | default 1 }}
+  replicas: {{ .Values.kafka.topics.replicas | default 3 }}
   config:
-    retention.ms: 7200000 # 2 hours
-    segment.bytes: 31457280 # 30MB
+    retention.ms: {{ .Values.kafka.topics.retention.ms | default 7200000 }}
+    segment.bytes: {{ .Values.kafka.topics.segment.bytes | default 31457280 }}
 {{- end }}
