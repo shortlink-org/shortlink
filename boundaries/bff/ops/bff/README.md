@@ -63,7 +63,7 @@ object
 			<td>Annotations to be added to controller pods</td>
 		</tr>
 		<tr>
-			<td id="deploy--env--AUTH_URI"><a href="./values.yaml#L35">deploy.env.AUTH_URI</a></td>
+			<td id="deploy--env--AUTH_URI"><a href="./values.yaml#L36">deploy.env.AUTH_URI</a></td>
 			<td>
 string
 </td>
@@ -91,7 +91,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--SPICE_DB_API"><a href="./values.yaml#L36">deploy.env.SPICE_DB_API</a></td>
+			<td id="deploy--env--GRPC_CLIENT_TIMEOUT"><a href="./values.yaml#L35">deploy.env.GRPC_CLIENT_TIMEOUT</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"15s"
+</pre>
+</div>
+			</td>
+			<td>Deadline for outbound gRPC calls</td>
+		</tr>
+		<tr>
+			<td id="deploy--env--SPICE_DB_API"><a href="./values.yaml#L37">deploy.env.SPICE_DB_API</a></td>
 			<td>
 string
 </td>
@@ -105,21 +119,35 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--STORE_REDIS_URI"><a href="./values.yaml#L40">deploy.env.STORE_REDIS_URI</a></td>
+			<td id="deploy--env--SPICE_DB_TIMEOUT"><a href="./values.yaml#L38">deploy.env.SPICE_DB_TIMEOUT</a></td>
 			<td>
 string
 </td>
 			<td>
 				<div style="max-width: 300px;">
 <pre lang="json">
-"shortlink-redis-master.shortlink-link:6379"
+"5s"
+</pre>
+</div>
+			</td>
+			<td>Explicit timeout for Authzed client</td>
+		</tr>
+		<tr>
+			<td id="deploy--env--STORE_REDIS_URI"><a href="./values.yaml#L42">deploy.env.STORE_REDIS_URI</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"redis-master.shortlink-link:6379"
 </pre>
 </div>
 			</td>
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--STORE_TYPE"><a href="./values.yaml#L39">deploy.env.STORE_TYPE</a></td>
+			<td id="deploy--env--STORE_TYPE"><a href="./values.yaml#L41">deploy.env.STORE_TYPE</a></td>
 			<td>
 string
 </td>

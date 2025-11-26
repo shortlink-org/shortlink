@@ -14,24 +14,30 @@
                 },
                 "env": {
                     "properties": {
-                        "AUTH_URI": {
-                            "type": "string"
-                        },
-                        "GRPC_CLIENT_HOST": {
-                            "type": "string"
-                        },
-                        "SPICE_DB_API": {
-                            "type": "string"
-                        },
-                        "STORE_REDIS_URI": {
-                            "type": "string"
-                        },
-                        "STORE_TYPE": {
-                            "type": "string"
-                        },
-                        "TRACER_URI": {
-                            "type": "string"
-                        }
+                "AUTH_URI": {
+                    "type": "string"
+                },
+                "GRPC_CLIENT_HOST": {
+                    "type": "string"
+                },
+                "GRPC_CLIENT_TIMEOUT": {
+                    "type": "string"
+                },
+                "SPICE_DB_API": {
+                    "type": "string"
+                },
+                "SPICE_DB_TIMEOUT": {
+                    "type": "string"
+                },
+                "STORE_REDIS_URI": {
+                    "type": "string"
+                },
+                "STORE_TYPE": {
+                    "type": "string"
+                },
+                "TRACER_URI": {
+                    "type": "string"
+                }
                     },
                     "type": "object"
                 },

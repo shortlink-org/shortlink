@@ -14,7 +14,7 @@ require (
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/config v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/context v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/cqrs v0.0.0-20251125223100-c627280ca6e5
+	github.com/shortlink-org/go-sdk/cqrs v0.0.0-20251126174608-40adc27b4c9c
 	github.com/shortlink-org/go-sdk/db v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/flags v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251125204117-ffa44b328293

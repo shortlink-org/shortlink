@@ -35,7 +35,7 @@ Kubernetes: `>= 1.30.0 || >= v1.30.0-0`
 	</thead>
 	<tbody>
 		<tr>
-			<td id="deploy--env--GRPC_CLIENT_HOST"><a href="./values.yaml#L68">deploy.env.GRPC_CLIENT_HOST</a></td>
+			<td id="deploy--env--GRPC_CLIENT_HOST"><a href="./values.yaml#L76">deploy.env.GRPC_CLIENT_HOST</a></td>
 			<td>
 string
 </td>
@@ -47,6 +47,20 @@ string
 </div>
 			</td>
 			<td></td>
+		</tr>
+		<tr>
+			<td id="deploy--env--GRPC_CLIENT_TIMEOUT"><a href="./values.yaml#L77">deploy.env.GRPC_CLIENT_TIMEOUT</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"15s"
+</pre>
+</div>
+			</td>
+			<td>Deadline for Link service gRPC clients</td>
 		</tr>
 		<tr>
 			<td id="deploy--env--MQ_ENABLED"><a href="./values.yaml#L63">deploy.env.MQ_ENABLED</a></td>
@@ -105,7 +119,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--SPICE_DB_API"><a href="./values.yaml#L69">deploy.env.SPICE_DB_API</a></td>
+			<td id="deploy--env--SPICE_DB_API"><a href="./values.yaml#L78">deploy.env.SPICE_DB_API</a></td>
 			<td>
 string
 </td>
@@ -119,7 +133,21 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--STORE_REDIS_URI"><a href="./values.yaml#L73">deploy.env.STORE_REDIS_URI</a></td>
+			<td id="deploy--env--SPICE_DB_TIMEOUT"><a href="./values.yaml#L79">deploy.env.SPICE_DB_TIMEOUT</a></td>
+			<td>
+string
+</td>
+			<td>
+				<div style="max-width: 300px;">
+<pre lang="json">
+"5s"
+</pre>
+</div>
+			</td>
+			<td>Explicit timeout for Authzed client</td>
+		</tr>
+		<tr>
+			<td id="deploy--env--STORE_REDIS_URI"><a href="./values.yaml#L83">deploy.env.STORE_REDIS_URI</a></td>
 			<td>
 string
 </td>
@@ -133,7 +161,7 @@ string
 			<td></td>
 		</tr>
 		<tr>
-			<td id="deploy--env--STORE_TYPE"><a href="./values.yaml#L72">deploy.env.STORE_TYPE</a></td>
+			<td id="deploy--env--STORE_TYPE"><a href="./values.yaml#L82">deploy.env.STORE_TYPE</a></td>
 			<td>
 string
 </td>
@@ -147,7 +175,7 @@ string
 			<td>Default store config</td>
 		</tr>
 		<tr>
-			<td id="deploy--env--TRACER_URI"><a href="./values.yaml#L67">deploy.env.TRACER_URI</a></td>
+			<td id="deploy--env--TRACER_URI"><a href="./values.yaml#L75">deploy.env.TRACER_URI</a></td>
 			<td>
 string
 </td>

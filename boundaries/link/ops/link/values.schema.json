@@ -10,6 +10,9 @@
             "GRPC_CLIENT_HOST": {
               "type": "string"
             },
+            "GRPC_CLIENT_TIMEOUT": {
+              "type": "string"
+            },
             "MQ_ENABLED": {
               "type": "boolean"
             },
@@ -17,6 +20,9 @@
               "type": "string"
             },
             "SPICE_DB_API": {
+              "type": "string"
+            },
+            "SPICE_DB_TIMEOUT": {
               "type": "string"
             },
             "STORE_REDIS_URI": {
