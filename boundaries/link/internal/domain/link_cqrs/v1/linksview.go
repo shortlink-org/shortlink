@@ -1,8 +1,7 @@
 package v1
 
-// Links
+// LinksView aggregates CQRS link projections.
 type LinksView struct {
-	// Links
 	links []*LinkView
 }
 

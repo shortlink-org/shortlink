@@ -4,6 +4,7 @@ import (
 	"github.com/ThreeDotsLabs/watermill/message"
 	"github.com/shortlink-org/go-sdk/cqrs/bus"
 	cqrsmessage "github.com/shortlink-org/go-sdk/cqrs/message"
+
 	linkpb "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
@@ -75,4 +76,3 @@ func NewCommandBus(
 
 	return commandBus, nil
 }
-

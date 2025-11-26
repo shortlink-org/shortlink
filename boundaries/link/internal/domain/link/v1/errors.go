@@ -1,181 +1,210 @@
 package v1
 
-import (
-	"fmt"
+import "fmt"
 
-	"google.golang.org/grpc/codes"
-)
-
-// DomainErrorCode represents a domain error code
-type DomainErrorCode string
+type Code string
 
 const (
-	// CodeNotFound - resource not found
-	CodeNotFound DomainErrorCode = "not_found"
-	// CodeInvalidInput - invalid input/validation error
-	CodeInvalidInput DomainErrorCode = "invalid_input"
-	// CodePermissionDenied - permission denied
-	CodePermissionDenied DomainErrorCode = "permission_denied"
-	// CodeConflict - business logic conflict (e.g., duplicate, constraint violation)
-	CodeConflict DomainErrorCode = "conflict"
-	// CodeInternal - internal domain error
-	CodeInternal DomainErrorCode = "internal"
+	CodeNotFound         Code = "LINK_NOT_FOUND"
+	CodeInvalidInput     Code = "LINK_INVALID_INPUT"
+	CodeConflict         Code = "LINK_CONFLICT"
+	CodePermissionDenied Code = "LINK_PERMISSION_DENIED"
+	CodeInternal         Code = "LINK_INTERNAL"
 )
 
-// DomainError is the interface that all domain errors must implement
-// Domain owns the semantics of error mapping to transport codes
-type DomainError interface {
-	error
-	Code() DomainErrorCode
-	GRPCCode() codes.Code
+type LinkError struct {
+	code    Code
+	message string
+	cause   error
 }
 
-// baseError provides common error functionality
-// All domain errors should embed this anonymously
-type baseError struct {
-	code DomainErrorCode
-	grpc codes.Code
+func newLinkError(code Code, message string, cause error) *LinkError {
+	return &LinkError{
+		code:    code,
+		message: message,
+		cause:   cause,
+	}
 }
 
-func (e *baseError) Code() DomainErrorCode {
+func (e *LinkError) Error() string {
+	if e == nil {
+		return "link error"
+	}
+
+	if e.message != "" {
+		return e.message
+	}
+
+	return fmt.Sprintf("link error: %s", e.code)
+}
+
+func (e *LinkError) Code() Code {
+	if e == nil {
+		return ""
+	}
+
 	return e.code
 }
 
-func (e *baseError) GRPCCode() codes.Code {
-	return e.grpc
+func (e *LinkError) Unwrap() error {
+	if e == nil {
+		return nil
+	}
+
+	return e.cause
 }
 
-// NotFoundError - not found link
+func (e *LinkError) Is(target error) bool {
+	if e == nil {
+		return false
+	}
+
+	t, ok := target.(*LinkError)
+	if !ok || t == nil {
+		return false
+	}
+
+	return e.code == t.code
+}
+
+// ErrNotFound indicates the link with the provided hash does not exist.
+func ErrNotFound(hash string) *LinkError {
+	message := "link not found"
+	if hash != "" {
+		message = fmt.Sprintf("link not found: hash=%s", hash)
+	}
+
+	return newLinkError(CodeNotFound, message, nil)
+}
+
+// ErrInvalidInput represents validation errors in the domain layer.
+func ErrInvalidInput(message string) *LinkError {
+	if message == "" {
+		message = "invalid input"
+	}
+
+	return newLinkError(CodeInvalidInput, "invalid input: "+message, nil)
+}
+
+// ErrConflict represents business logic conflicts (duplicates, constraints, etc.).
+func ErrConflict(reason string) *LinkError {
+	if reason == "" {
+		reason = "unknown reason"
+	}
+
+	return newLinkError(CodeConflict, "link conflict: "+reason, nil)
+}
+
+// ErrPermissionDenied indicates the caller lacks required permissions.
+func ErrPermissionDenied(cause error) *LinkError {
+	return newLinkError(CodePermissionDenied, "permission denied", cause)
+}
+
+// ErrInternal wraps unexpected domain or infrastructure errors.
+func ErrInternal(message string, cause error) *LinkError {
+	if message == "" {
+		message = "internal error"
+	} else {
+		message = "internal error: " + message
+	}
+
+	return newLinkError(CodeInternal, message, cause)
+}
+
+// NotFoundError indicates the link with the provided hash does not exist.
 type NotFoundError struct {
-	baseError
 	Hash string
 }
 
 func (e *NotFoundError) Error() string {
-	return fmt.Sprintf("link not found: hash=%s", e.Hash)
+	if e == nil || e.Hash == "" {
+		return "link not found"
+	}
+
+	return "link not found: hash=" + e.Hash
 }
 
-// NewNotFoundError creates a new NotFoundError
+// NewNotFoundError creates a new NotFoundError.
 func NewNotFoundError(hash string) *NotFoundError {
-	return &NotFoundError{
-		baseError: baseError{
-			code: CodeNotFound,
-			grpc: codes.NotFound,
-		},
-		Hash: hash,
-	}
+	return &NotFoundError{Hash: hash}
 }
 
-// NotFoundByHashError - not found link by hash
-type NotFoundByHashError struct {
-	baseError
-	Hash string
-}
-
-func (e *NotFoundByHashError) Error() string {
-	return fmt.Sprintf("link not found: hash=%s", e.Hash)
-}
-
-// NewNotFoundByHashError creates a new NotFoundByHashError
-func NewNotFoundByHashError(hash string) *NotFoundByHashError {
-	return &NotFoundByHashError{
-		baseError: baseError{
-			code: CodeNotFound,
-			grpc: codes.NotFound,
-		},
-		Hash: hash,
-	}
-}
-
-// InvalidInputError - invalid input/validation error
+// InvalidInputError represents validation errors in the domain layer.
 type InvalidInputError struct {
-	baseError
 	Message string
 }
 
 func (e *InvalidInputError) Error() string {
-	return fmt.Sprintf("invalid input: %s", e.Message)
-}
-
-// NewInvalidInputError creates a new InvalidInputError
-func NewInvalidInputError(message string) *InvalidInputError {
-	return &InvalidInputError{
-		baseError: baseError{
-			code: CodeInvalidInput,
-			grpc: codes.InvalidArgument,
-		},
-		Message: message,
+	if e == nil || e.Message == "" {
+		return "invalid input"
 	}
+
+	return "invalid input: " + e.Message
 }
 
-// ConflictError - business logic conflict (e.g., duplicate, constraint violation)
+// NewInvalidInputError creates a new InvalidInputError.
+func NewInvalidInputError(message string) *InvalidInputError {
+	return &InvalidInputError{Message: message}
+}
+
+// ConflictError represents business logic conflicts (duplicates, constraints, etc.).
 type ConflictError struct {
-	baseError
 	Reason string
 }
 
 func (e *ConflictError) Error() string {
-	return fmt.Sprintf("link conflict: %s", e.Reason)
-}
-
-// NewConflictError creates a new ConflictError
-func NewConflictError(reason string) *ConflictError {
-	return &ConflictError{
-		baseError: baseError{
-			code: CodeConflict,
-			grpc: codes.FailedPrecondition,
-		},
-		Reason: reason,
+	if e == nil || e.Reason == "" {
+		return "link conflict"
 	}
+
+	return "link conflict: " + e.Reason
 }
 
-// InternalError - internal domain/infrastructure error
+// NewConflictError creates a new ConflictError.
+func NewConflictError(reason string) *ConflictError {
+	return &ConflictError{Reason: reason}
+}
+
+// InternalError wraps unexpected domain or infrastructure errors.
 type InternalError struct {
-	baseError
 	Message string
 	Err     error
 }
 
 func (e *InternalError) Error() string {
-	if e.Message != "" {
-		return fmt.Sprintf("internal error: %s", e.Message)
-	}
-	if e.Err != nil {
-		return fmt.Sprintf("internal error: %s", e.Err.Error())
-	}
-	return "internal error"
-}
-
-// NewInternalError creates a new InternalError
-func NewInternalError(message string) *InternalError {
-	return &InternalError{
-		baseError: baseError{
-			code: CodeInternal,
-			grpc: codes.Internal,
-		},
-		Message: message,
+	switch {
+	case e == nil:
+		return "internal error"
+	case e.Message != "":
+		return "internal error: " + e.Message
+	case e.Err != nil:
+		return "internal error: " + e.Err.Error()
+	default:
+		return "internal error"
 	}
 }
 
-// NewInternalErrorWithErr creates a new InternalError with wrapped error
-func NewInternalErrorWithErr(err error) *InternalError {
-	return &InternalError{
-		baseError: baseError{
-			code: CodeInternal,
-			grpc: codes.Internal,
-		},
-		Err: err,
-	}
-}
-
-// Unwrap returns the underlying error for error unwrapping support
+// Unwrap returns the underlying error for error unwrapping support.
 func (e *InternalError) Unwrap() error {
+	if e == nil {
+		return nil
+	}
+
 	return e.Err
 }
 
-// PermissionDeniedError - permission denied
+// NewInternalError creates a new InternalError.
+func NewInternalError(message string) *InternalError {
+	return &InternalError{Message: message}
+}
+
+// NewInternalErrorWithErr creates a new InternalError with wrapped error.
+func NewInternalErrorWithErr(err error) *InternalError {
+	return &InternalError{Err: err}
+}
+
+// PermissionDeniedError indicates the caller lacks required permissions.
 type PermissionDeniedError struct {
-	baseError
 	Err error
 }
 
@@ -183,20 +212,16 @@ func (e *PermissionDeniedError) Error() string {
 	return "permission denied"
 }
 
-// NewPermissionDeniedError creates a new PermissionDeniedError
-func NewPermissionDeniedError(err error) *PermissionDeniedError {
-	return &PermissionDeniedError{
-		baseError: baseError{
-			code: CodePermissionDenied,
-			grpc: codes.PermissionDenied,
-		},
-		Err: err,
+// Unwrap returns the underlying error for error unwrapping support.
+func (e *PermissionDeniedError) Unwrap() error {
+	if e == nil {
+		return nil
 	}
+
+	return e.Err
 }
 
-// Unwrap returns the underlying error for error unwrapping support
-// This allows errors.Is() and errors.As() to work correctly with wrapped errors
-// and enables OTEL to log the original error
-func (e *PermissionDeniedError) Unwrap() error {
-	return e.Err
+// NewPermissionDeniedError creates a new PermissionDeniedError.
+func NewPermissionDeniedError(err error) *PermissionDeniedError {
+	return &PermissionDeniedError{Err: err}
 }

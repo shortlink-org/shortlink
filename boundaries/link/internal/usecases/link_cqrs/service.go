@@ -6,6 +6,7 @@ import (
 	"github.com/ThreeDotsLabs/watermill/message"
 	cqrsmessage "github.com/shortlink-org/go-sdk/cqrs/message"
 	"github.com/shortlink-org/go-sdk/logger"
+
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/cqs"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/query"
 )
@@ -38,7 +39,8 @@ func New(
 	}
 
 	// Subscribe to events
-	if err := service.EventHandlers(context.Background()); err != nil {
+	err := service.EventHandlers(context.Background())
+	if err != nil {
 		return nil, err
 	}
 

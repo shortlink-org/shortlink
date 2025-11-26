@@ -27,6 +27,7 @@ You are an expert in Go, microservices architecture, and clean backend developme
 
 - Write **short, focused functions** with a single responsibility.
 - Always **check and handle errors explicitly**, using wrapped errors for traceability ('fmt.Errorf("context: %w", err)').
+- **Never return function calls directly**—assign results (especially errors) to variables, handle them, and then return to keep control flow explicit.
 - Avoid **global state**; use constructor functions to inject dependencies.
 - Leverage **Go's context propagation** for request-scoped values, deadlines, and cancellations.
 - Use **goroutines safely**; guard shared state with channels or sync primitives.

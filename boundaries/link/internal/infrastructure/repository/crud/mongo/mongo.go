@@ -4,19 +4,17 @@ import (
 	"context"
 	"embed"
 	"errors"
-	"fmt"
 	"time"
 
 	_ "github.com/golang-migrate/migrate/v4/database/mongodb"
-	"github.com/spf13/viper"
-	"go.mongodb.org/mongo-driver/v2/bson"
-	"go.mongodb.org/mongo-driver/v2/mongo"
-
 	"github.com/shortlink-org/go-sdk/batch"
 	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/db/drivers/mongo/migrate"
 	"github.com/shortlink-org/go-sdk/db/options"
+	"github.com/spf13/viper"
+	"go.mongodb.org/mongo-driver/v2/bson"
+	"go.mongodb.org/mongo-driver/v2/mongo"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mongo/dto"
@@ -30,10 +28,12 @@ var migrations embed.FS
 // New store
 func New(ctx context.Context, store db.DB, cfg *config.Config) (*Store, error) {
 	var ok bool
+
 	s := &Store{}
 
 	// Set configuration -----------------------------------------------------------------------------------------------
 	s.setConfig()
+
 	s.client, ok = store.GetConn().(*mongo.Client)
 	if !ok {
 		return nil, db.ErrGetConnection
@@ -58,13 +58,16 @@ func New(ctx context.Context, store db.DB, cfg *config.Config) (*Store, error) {
 			if errBatchWrite != nil {
 				for _, item := range items {
 					item.CallbackChannel <- nil
+
 					close(item.CallbackChannel)
 				}
+
 				return errBatchWrite
 			}
 
 			for i, link := range dataList.GetLinks() {
 				items[i].CallbackChannel <- link
+
 				close(items[i].CallbackChannel)
 			}
 
@@ -72,6 +75,7 @@ func New(ctx context.Context, store db.DB, cfg *config.Config) (*Store, error) {
 		}
 
 		var err error
+
 		s.config.job, err = batch.NewSync[*v1.Link](ctx, cfg, cb)
 		if err != nil {
 			return nil, err
@@ -92,6 +96,7 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 			if !ok || res == nil {
 				return nil, ErrWrite
 			}
+
 			return res, nil
 		case <-ctx.Done():
 			return nil, ctx.Err()
@@ -154,7 +159,8 @@ func (s *Store) List(ctx context.Context, params *types.FilterLink) (*v1.Links, 
 
 	for cur.Next(ctx) {
 		var elem dto.Link
-		if errDecode := cur.Decode(&elem); errDecode != nil {
+		errDecode := cur.Decode(&elem)
+		if errDecode != nil {
 			return nil, &v1.NotFoundError{Hash: ""}
 		}
 
@@ -212,7 +218,7 @@ func (s *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, err
 		var writeErr mongo.WriteException
 		if errors.As(err, &writeErr) {
 			if writeErr.HasErrorCode(11000) {
-				return nil, v1.NewConflictError(fmt.Sprintf("duplicate link: url=%s", source.GetUrl().String()))
+				return nil, v1.NewConflictError("duplicate link: url=" + source.GetUrl().String())
 			}
 		}
 
@@ -223,7 +229,7 @@ func (s *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, err
 }
 
 func (s *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, error) {
-	docs := make([]interface{}, len(sources))
+	docs := make([]any, len(sources))
 	for i, source := range sources {
 		// convert to DTO
 		link, err := dto.FromDomain(source)

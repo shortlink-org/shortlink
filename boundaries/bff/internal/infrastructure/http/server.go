@@ -5,21 +5,20 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	cors2 "github.com/go-chi/cors"
 	"github.com/go-chi/render"
-	flight_trace_middleware "github.com/shortlink-org/go-sdk/http/middleware/flight_trace"
-	"github.com/shortlink-org/go-sdk/logger"
-	"github.com/spf13/viper"
-	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
-	"golang.org/x/sync/errgroup"
-	"google.golang.org/protobuf/encoding/protojson"
-
 	"github.com/shortlink-org/go-sdk/http/handler"
 	auth_middleware "github.com/shortlink-org/go-sdk/http/middleware/auth"
 	csrf_middleware "github.com/shortlink-org/go-sdk/http/middleware/csrf"
+	flight_trace_middleware "github.com/shortlink-org/go-sdk/http/middleware/flight_trace"
 	logger_middleware "github.com/shortlink-org/go-sdk/http/middleware/logger"
 	metrics_middleware "github.com/shortlink-org/go-sdk/http/middleware/metrics"
 	pprof_labels_middleware "github.com/shortlink-org/go-sdk/http/middleware/pprof_labels"
 	span_middleware "github.com/shortlink-org/go-sdk/http/middleware/span"
 	http_server "github.com/shortlink-org/go-sdk/http/server"
+	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/spf13/viper"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+	"golang.org/x/sync/errgroup"
+	"google.golang.org/protobuf/encoding/protojson"
 
 	serverAPI "github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/api"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/cqrs"
@@ -87,6 +86,7 @@ func (api *Server) run(config Config) error {
 	if err != nil {
 		return err
 	}
+
 	r.Use(metrics)
 
 	// Add trace-id header to responses (uses existing span from otelhttp.NewHandler)
@@ -112,6 +112,7 @@ func (api *Server) run(config Config) error {
 
 	// start HTTP-server
 	config.Log.Info(config.I18n.Sprintf("BFF Web run on port %d", config.Http.Port))
+
 	err = srv.ListenAndServe()
 	if err != nil {
 		return err

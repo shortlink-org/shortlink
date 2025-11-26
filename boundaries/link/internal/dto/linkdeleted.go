@@ -3,8 +3,9 @@ package dto
 import (
 	"time"
 
-	linkpb "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"google.golang.org/protobuf/types/known/timestamppb"
+
+	linkpb "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
 // ToLinkDeletedEvent creates LinkDeleted event from hash
@@ -14,4 +15,3 @@ func ToLinkDeletedEvent(hash string) *linkpb.LinkDeleted {
 		OccurredAt: timestamppb.New(time.Now()),
 	}
 }
-

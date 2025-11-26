@@ -45,5 +45,6 @@ func (m *Url) UnmarshalJSON(data []byte) error {
 	}
 
 	m.URL = u
+
 	return nil
 }

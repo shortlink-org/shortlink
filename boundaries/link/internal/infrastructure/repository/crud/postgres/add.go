@@ -5,10 +5,9 @@ import (
 	"errors"
 	"fmt"
 
-	"google.golang.org/protobuf/encoding/protojson"
-
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/shortlink-org/go-sdk/db/options"
+	"google.golang.org/protobuf/encoding/protojson"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/postgres/schema/crud"
@@ -45,6 +44,7 @@ func (s *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, err
 			if !ok || res == nil {
 				return nil, domain.NewInternalError("batch write failed")
 			}
+
 			return res, nil
 		case <-ctx.Done():
 			return nil, domain.NewInternalErrorWithErr(ctx.Err())
@@ -89,7 +89,7 @@ func (s *Store) singleWrite(ctx context.Context, in *domain.Link) (*domain.Link,
 	_, err = s.client.Exec(ctx, q, args...)
 	if err != nil {
 		// Map PostgreSQL errors (e.g., unique violation) to domain errors
-		return nil, mapPostgresError(err, fmt.Sprintf("create failed: url=%s", in.GetUrl().String()))
+		return nil, mapPostgresError(err, "create failed: url="+in.GetUrl().String())
 	}
 
 	return in, nil
@@ -133,8 +133,9 @@ func (s *Store) batchWrite(ctx context.Context, in *domain.Links) (*domain.Links
 		if errors.As(mappedErr, &conflictErr) {
 			errs := make([]error, 0, len(list))
 			for key := range list {
-				errs = append(errs, domain.NewConflictError(fmt.Sprintf("duplicate link: hash=%s", list[key].GetHash())))
+				errs = append(errs, domain.NewConflictError("duplicate link: hash="+list[key].GetHash()))
 			}
+
 			return nil, errors.Join(errs...)
 		}
 

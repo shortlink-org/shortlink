@@ -13,6 +13,5 @@ func (c *Controller) DeleteLink(w http.ResponseWriter, r *http.Request, hash str
 	//
 	// 	return
 	// }
-
 	w.WriteHeader(http.StatusNoContent)
 }

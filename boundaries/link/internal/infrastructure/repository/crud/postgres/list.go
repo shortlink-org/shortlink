@@ -30,6 +30,7 @@ func (s *Store) List(ctx context.Context, params *v1.FilterLink) (*domain.Links,
 	defer rows.Close()
 
 	links := domain.NewLinks()
+
 	for rows.Next() {
 		var (
 			url       string
@@ -50,7 +51,6 @@ func (s *Store) List(ctx context.Context, params *v1.FilterLink) (*domain.Links,
 			SetCreatedAt(createdAt.Time).
 			SetUpdatedAt(updatedAt.Time).
 			Build()
-
 		if errBuilder != nil {
 			return nil, errBuilder
 		}

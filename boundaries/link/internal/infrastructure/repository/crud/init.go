@@ -5,16 +5,14 @@ package crud
 
 import (
 	"context"
-	"fmt"
 	"log/slog"
 	"time"
 
 	"github.com/go-redis/cache/v9"
-	"github.com/spf13/viper"
-
 	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/spf13/viper"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/badger"
@@ -91,7 +89,7 @@ func New(ctx context.Context, log logger.Logger, store db.DB, c *cache.Cache, cf
 		return nil, db.UnknownStoreTypeError{StoreType: s.typeStore}
 	}
 
-	log.Info("init linkStore",
+	log.InfoWithContext(ctx, "init linkStore",
 		slog.String("store", s.typeStore),
 	)
 
@@ -101,10 +99,11 @@ func New(ctx context.Context, log logger.Logger, store db.DB, c *cache.Cache, cf
 func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	link := &v1.Link{}
 
-	err := s.cache.Get(ctx, fmt.Sprintf(`link:%s`, id), &link)
+	err := s.cache.Get(ctx, "link:"+id, &link)
 	if err != nil {
 		s.log.ErrorWithContext(ctx, err.Error())
 	}
+
 	if err == nil && link.GetHash() != "" {
 		return link, nil
 	}
@@ -117,7 +116,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	// save cache
 	err = s.cache.Set(&cache.Item{
 		Ctx:   ctx,
-		Key:   fmt.Sprintf(`link:%s`, id),
+		Key:   "link:" + id,
 		Value: &response,
 		TTL:   5 * time.Minute, //nolint:mnd // ignore
 	})
@@ -155,7 +154,7 @@ func (s *Store) Update(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 	// update cache
 	err = s.cache.Set(&cache.Item{
 		Ctx:   ctx,
-		Key:   fmt.Sprintf(`link:%s`, in.GetHash()),
+		Key:   "link:" + in.GetHash(),
 		Value: &response,
 		TTL:   5 * time.Minute, //nolint:mnd // ignore
 	})
@@ -168,7 +167,7 @@ func (s *Store) Update(ctx context.Context, in *v1.Link) (*v1.Link, error) {
 
 func (s *Store) Delete(ctx context.Context, id string) error {
 	// drop from cache
-	err := s.cache.Delete(ctx, fmt.Sprintf(`link:%s`, id))
+	err := s.cache.Delete(ctx, "link:"+id)
 	if err != nil {
 		s.log.ErrorWithContext(ctx, err.Error())
 	}
@@ -185,5 +184,6 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 func (s *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_TYPE", "ram") // Select: postgres, mongo, redis, dgraph, sqlite, leveldb, badger, ram
+
 	s.typeStore = viper.GetString("STORE_TYPE")
 }

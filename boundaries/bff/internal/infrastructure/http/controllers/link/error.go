@@ -5,11 +5,10 @@ import (
 	"strings"
 
 	"github.com/segmentio/encoding/json"
+	"github.com/shortlink-org/go-sdk/auth/session"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-
-	"github.com/shortlink-org/go-sdk/auth/session"
 
 	domainerrors "github.com/shortlink-org/shortlink/boundaries/link/bff/internal/domain/errors"
 )
@@ -42,6 +41,7 @@ func ErrMessages(err error) *ErrorResponse {
 	if !ok {
 		// Not a gRPC status — wrap as unknown domain error
 		domainErr := domainerrors.NewUnknown(err.Error())
+
 		return &ErrorResponse{
 			Messages: []ErrorDetail{{
 				Code:   domainErr.Code,
@@ -60,11 +60,13 @@ func ErrMessages(err error) *ErrorResponse {
 
 	// Include any additional gRPC error details (for diagnostics)
 	var grpcDetails []string
+
 	for _, d := range st.Details() {
 		raw, err := json.Marshal(d)
 		if err != nil {
 			continue
 		}
+
 		grpcDetails = append(grpcDetails, string(raw))
 	}
 
@@ -112,7 +114,7 @@ func mapStatusToResponse(st *status.Status) *domainerrors.Error {
 		return domainerrors.NewUserNotIdentified()
 	case strings.Contains(message, session.ErrMetadataNotFound.Error()):
 		return domainerrors.NewSessionMetadataMissing()
-		default:
+	default:
 		return domainerrors.NewUnknown(message)
 	}
 }

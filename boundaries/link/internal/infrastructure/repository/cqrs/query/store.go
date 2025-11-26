@@ -8,10 +8,10 @@ import (
 	"log/slog"
 
 	"github.com/go-redis/cache/v9"
-	"github.com/spf13/viper"
-
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/spf13/viper"
+
 	v12 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link_cqrs/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/query/postgres"
 	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
@@ -39,7 +39,7 @@ func New(ctx context.Context, log logger.Logger, store db.DB, cacheStore *cache.
 		}
 	}
 
-	log.Info("init queryStore",
+	log.InfoWithContext(ctx, "init queryStore",
 		slog.String("store", s.typeStore),
 	)
 
@@ -58,5 +58,6 @@ func (s *Store) List(ctx context.Context, filter *types.FilterLink) (*v12.LinksV
 func (s *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_TYPE", "postgres") // Select: postgres
+
 	s.typeStore = viper.GetString("STORE_TYPE")
 }

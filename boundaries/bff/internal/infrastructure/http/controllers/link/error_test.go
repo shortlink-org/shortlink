@@ -3,12 +3,11 @@ package link
 import (
 	"testing"
 
+	"github.com/shortlink-org/go-sdk/auth/session"
 	"github.com/stretchr/testify/require"
 	"google.golang.org/genproto/googleapis/rpc/errdetails"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-
-	"github.com/shortlink-org/go-sdk/auth/session"
 
 	domainerrors "github.com/shortlink-org/shortlink/boundaries/link/bff/internal/domain/errors"
 )

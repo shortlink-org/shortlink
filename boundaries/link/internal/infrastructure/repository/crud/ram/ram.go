@@ -4,11 +4,10 @@ import (
 	"context"
 	"sync"
 
-	"github.com/spf13/viper"
-
 	"github.com/shortlink-org/go-sdk/batch"
 	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db/options"
+	"github.com/spf13/viper"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/ram/filter"
@@ -54,6 +53,7 @@ func New(ctx context.Context, cfg *config.Config) (*Store, error) {
 		}
 
 		var err error
+
 		s.config.job, err = batch.NewSync[*domain.Link](ctx, cfg, cb)
 		if err != nil {
 			return nil, err
@@ -113,6 +113,7 @@ func (s *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, err
 			if !ok || res == nil {
 				return nil, ErrWrite
 			}
+
 			return res, nil
 		case <-ctx.Done():
 			return nil, ctx.Err()

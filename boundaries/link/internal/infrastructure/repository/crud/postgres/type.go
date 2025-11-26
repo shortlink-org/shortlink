@@ -2,8 +2,8 @@ package postgres
 
 import (
 	"github.com/jackc/pgx/v5/pgxpool"
-
 	"github.com/shortlink-org/go-sdk/batch"
+
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/postgres/schema/crud"
 )

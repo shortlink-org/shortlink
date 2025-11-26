@@ -1,8 +1,6 @@
 package v1
 
 import (
-	"fmt"
-
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
@@ -14,11 +12,13 @@ type NotFoundError struct {
 
 func (e *NotFoundError) Error() string {
 	if e.Hash != "" {
-		return fmt.Sprintf("Not found link: %s", e.Hash)
+		return "Not found link: " + e.Hash
 	}
+
 	if hash := e.Link.GetHash(); hash != "" {
-		return fmt.Sprintf("Not found link: %s", hash)
+		return "Not found link: " + hash
 	}
+
 	return "Not found link"
 }
 
@@ -28,7 +28,7 @@ type NotFoundByHashError struct {
 }
 
 func (e *NotFoundByHashError) Error() string {
-	return fmt.Sprintf("Not found link by hash: %s", e.Hash)
+	return "Not found link by hash: " + e.Hash
 }
 
 // CreateLinkError - create link error
@@ -37,5 +37,5 @@ type CreateLinkError struct {
 }
 
 func (e *CreateLinkError) Error() string {
-	return fmt.Sprintf("Create link error: %s", e.Link.GetHash())
+	return "Create link error: " + e.Link.GetHash()
 }

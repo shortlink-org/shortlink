@@ -15,7 +15,7 @@ func (uc *UC) Update(ctx context.Context, in *domain.Link) (*domain.Link, error)
 	}
 
 	// Publish LinkUpdated event
-	linkData := dto.LinkData{
+	linkData := &dto.LinkData{
 		URL:       resp.GetUrl().String(),
 		Hash:      resp.GetHash(),
 		Describe:  resp.GetDescribe(),
@@ -24,15 +24,18 @@ func (uc *UC) Update(ctx context.Context, in *domain.Link) (*domain.Link, error)
 	}
 
 	event := dto.ToLinkUpdatedEvent(linkData)
+	if event == nil {
+		return nil, domain.NewInternalError("link updated event is nil")
+	}
 	if err := uc.eventBus.Publish(ctx, event); err != nil {
-		uc.log.Error("Failed to publish link updated event",
+		uc.log.ErrorWithContext(ctx, "Failed to publish link updated event",
 			slog.String("error", err.Error()),
 			slog.String("event_type", domain.LinkUpdatedTopic),
 			slog.String("link_hash", resp.GetHash()),
 		)
 		// Don't fail the update if event publishing fails
 	} else {
-		uc.log.Info("Link updated event published successfully",
+		uc.log.InfoWithContext(ctx, "Link updated event published successfully",
 			slog.String("event_type", domain.LinkUpdatedTopic),
 			slog.String("link_hash", resp.GetHash()),
 		)

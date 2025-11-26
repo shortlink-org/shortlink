@@ -8,10 +8,10 @@ import (
 	"log/slog"
 
 	"github.com/go-redis/cache/v9"
-	"github.com/spf13/viper"
-
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/spf13/viper"
+
 	link "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/cqs/postgres"
 )
@@ -38,7 +38,7 @@ func New(ctx context.Context, log logger.Logger, store db.DB, cacheStore *cache.
 		return nil, db.UnknownStoreTypeError{StoreType: s.typeStore}
 	}
 
-	log.Info("init cqsStore",
+	log.InfoWithContext(ctx, "init cqsStore",
 		slog.String("store", s.typeStore),
 	)
 
@@ -57,7 +57,7 @@ func (s *Store) LinkDelete(ctx context.Context, id string) error {
 	return s.store.LinkDelete(ctx, id)
 }
 
-// func (s *Store) MetadataUpdate(ctx context.Context, data *metadata.Meta) (*metadata.Meta, error) {
+// Func (s *Store) MetadataUpdate(ctx context.Context, data *metadata.Meta) (*metadata.Meta, error) {
 // 	return s.store.MetadataUpdate(ctx, data)
 // }
 
@@ -65,5 +65,6 @@ func (s *Store) LinkDelete(ctx context.Context, id string) error {
 func (s *Store) setConfig() {
 	viper.AutomaticEnv()
 	viper.SetDefault("STORE_TYPE", "postgres") // Select: postgres
+
 	s.typeStore = viper.GetString("STORE_TYPE")
 }

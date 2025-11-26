@@ -7,10 +7,10 @@ import (
 	"log/slog"
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
-	"go.opentelemetry.io/otel/trace"
-
 	"github.com/shortlink-org/go-sdk/auth/session"
 	"github.com/shortlink-org/go-sdk/saga"
+	"go.opentelemetry.io/otel/trace"
+
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
@@ -30,7 +30,7 @@ func (uc *UC) List(ctx context.Context, filter *types.FilterLink, cursor string,
 	// Set default values
 	userID, err := session.GetUserID(ctx)
 	if err != nil {
-		uc.log.Error("failed to get user ID from session",
+		uc.log.ErrorWithContext(ctx, "failed to get user ID from session",
 			slog.String("error", err.Error()),
 		)
 

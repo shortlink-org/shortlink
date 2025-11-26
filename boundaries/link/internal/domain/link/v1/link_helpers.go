@@ -1,6 +1,4 @@
-/*
-Link entity
-*/
+// Package v1 defines helpers for building link domain entities.
 package v1
 
 import (

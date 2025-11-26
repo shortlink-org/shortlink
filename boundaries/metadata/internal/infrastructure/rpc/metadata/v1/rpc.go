@@ -1,6 +1,4 @@
-/*
-Metadata UC. Infrastructure layer
-*/
+// Package v1 exposes the RPC transport layer for metadata use cases.
 package v1
 
 import (
@@ -8,6 +6,8 @@ import (
 
 	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
+
+	infraerrors "github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/errors"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/metadata"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/parsers"
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/usecases/screenshot"
@@ -25,7 +25,17 @@ type Metadata struct {
 	log logger.Logger
 }
 
-func New(log logger.Logger, runRPCServer *rpc.Server, parsersUC *parsers.UC, screenshotUC *screenshot.UC, metadataUC *metadata.UC) (*Metadata, error) {
+//nolint:revive // wiring requires passing multiple collaborators
+func New(
+	log logger.Logger,
+	runRPCServer *rpc.Server,
+	parsersUC *parsers.UC,
+	screenshotUC *screenshot.UC,
+	metadataUC *metadata.UC,
+) (
+	*Metadata,
+	error,
+) {
 	server := &Metadata{
 		// application
 		parserUC:     parsersUC,
@@ -50,7 +60,8 @@ func (m *Metadata) Get(ctx context.Context, req *MetadataServiceGetRequest) (*Me
 	// Get metadata
 	meta, err := m.parserUC.Get(ctx, req.GetUrl())
 	if err != nil {
-		return nil, err
+		dto := infraerrors.FromDomainError("metadata.rpc", err)
+		return nil, dto.ToGRPC()
 	}
 
 	// Get screenshotURL
@@ -71,7 +82,8 @@ func (m *Metadata) Set(ctx context.Context, req *MetadataServiceSetRequest) (*Me
 	// Set metadata
 	meta, err := m.metadataUC.Add(ctx, req.GetUrl())
 	if err != nil {
-		return nil, err
+		dto := infraerrors.FromDomainError("metadata.rpc", err)
+		return nil, dto.ToGRPC()
 	}
 
 	return &MetadataServiceSetResponse{

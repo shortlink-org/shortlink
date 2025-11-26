@@ -1,14 +1,14 @@
 package sqlite
 
 import (
-"github.com/shortlink-org/go-sdk/config"
 	"context"
 	"database/sql"
 
 	"github.com/Masterminds/squirrel"
 	_ "github.com/mattn/go-sqlite3" // Init SQLite-driver
-
+	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db"
+
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
@@ -51,6 +51,7 @@ func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	links := squirrel.Select("url, hash, describe").
 		From("links").
 		Where(squirrel.Eq{"hash": id})
+
 	q, args, err := links.ToSql()
 	if err != nil {
 		return nil, err
@@ -58,7 +59,7 @@ func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 
 	stmt, err := lite.client.Prepare(q)
 	if err != nil {
-		return nil, &v1.NotFoundError{Hash: id}
+		return nil, v1.ErrNotFound(id)
 	}
 	defer stmt.Close() //nolint:errcheck // ignore
 
@@ -70,7 +71,7 @@ func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 
 	err = stmt.QueryRowContext(ctx, args...).Scan(&link, &hash, &describe)
 	if err != nil {
-		return nil, &v1.NotFoundError{Hash: id}
+		return nil, v1.ErrNotFound(id)
 	}
 
 	response, err := v1.NewLinkBuilder().SetURL(link).Build()
@@ -85,6 +86,7 @@ func (lite *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 func (lite *Store) List(ctx context.Context, _ *types.FilterLink) (*v1.Links, error) {
 	links := squirrel.Select("url, hash, describe").
 		From("links")
+
 	q, args, err := links.ToSql()
 	if err != nil {
 		return nil, err
@@ -92,10 +94,13 @@ func (lite *Store) List(ctx context.Context, _ *types.FilterLink) (*v1.Links, er
 
 	rows, err := lite.client.QueryContext(ctx, q, args...)
 	if err != nil || rows.Err() != nil {
-		return nil, &v1.NotFoundError{Hash: ""}
+		return nil, v1.ErrNotFound("")
 	}
+
 	defer func() {
-		_ = rows.Close()
+		if errClose := rows.Close(); errClose != nil {
+			// best effort close; no logger available in SQLite store
+		}
 	}()
 
 	response := v1.NewLinks()
@@ -109,7 +114,7 @@ func (lite *Store) List(ctx context.Context, _ *types.FilterLink) (*v1.Links, er
 
 		err = rows.Scan(&link, &hash, &desc)
 		if err != nil {
-			return nil, &v1.NotFoundError{Hash: ""}
+			return nil, v1.ErrNotFound("")
 		}
 
 		result, err := v1.NewLinkBuilder().SetURL(link).SetDescribe(desc).Build()
@@ -136,7 +141,7 @@ func (lite *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 
 	_, err = lite.client.ExecContext(ctx, q, args...)
 	if err != nil {
-		return nil, &v1.NotFoundError{Hash: source.GetHash()}
+		return nil, v1.ErrNotFound(source.GetHash())
 	}
 
 	return source, nil
@@ -151,6 +156,7 @@ func (lite *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 func (lite *Store) Delete(ctx context.Context, id string) error {
 	links := squirrel.Delete("links").
 		Where(squirrel.Eq{"hash": id})
+
 	q, args, err := links.ToSql()
 	if err != nil {
 		return err
@@ -158,7 +164,7 @@ func (lite *Store) Delete(ctx context.Context, id string) error {
 
 	_, err = lite.client.ExecContext(ctx, q, args...)
 	if err != nil {
-		return &v1.NotFoundError{Hash: id}
+		return v1.ErrNotFound(id)
 	}
 
 	return nil

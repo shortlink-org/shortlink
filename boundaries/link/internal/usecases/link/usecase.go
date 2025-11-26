@@ -5,9 +5,9 @@ package link
 
 import (
 	"github.com/authzed/authzed-go/v1"
-
 	"github.com/shortlink-org/go-sdk/cqrs/bus"
 	"github.com/shortlink-org/go-sdk/logger"
+
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud"
 )
 

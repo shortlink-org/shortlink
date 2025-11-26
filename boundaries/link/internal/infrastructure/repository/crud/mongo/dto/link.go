@@ -1,35 +1,41 @@
 package dto
 
 import (
-	"errors"
 	"net/url"
 	"time"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
+var (
+	errEmptyURL      = v1.NewInvalidInputError("mongo dto: URL cannot be empty")
+	errEmptyHash     = v1.NewInvalidInputError("mongo dto: hash cannot be empty")
+	errNilDomainLink = v1.NewInternalError("mongo dto: domain Link is nil")
+)
+
 // Link represents the Data Transfer Object for Link.
 type Link struct {
 	// URL
-	Url url.URL `json:"url" bson:"url"`
+	Url url.URL `bson:"url" json:"url"`
 	// Hash by URL + salt
-	Hash string `json:"hash" bson:"hash"`
+	Hash string `bson:"hash" json:"hash"`
 	// Describe of a link
-	Describe string `json:"describe" bson:"describe"`
+	Describe string `bson:"describe" json:"describe"`
 
 	// Created at
-	CreatedAt time.Time `json:"created_at" bson:"created_at"`
+	CreatedAt time.Time `bson:"created_at" json:"created_at"`
 	// Updated at
-	UpdatedAt time.Time `json:"updated_at" bson:"updated_at"`
+	UpdatedAt time.Time `bson:"updated_at" json:"updated_at"`
 }
 
 // ToDomain converts the DTO Link to the domain Link.
 func (d *Link) ToDomain() (*v1.Link, error) {
 	if d.Url.String() == "" {
-		return nil, errors.New("URL cannot be empty")
+		return nil, errEmptyURL
 	}
+
 	if d.Hash == "" {
-		return nil, errors.New("Hash cannot be empty")
+		return nil, errEmptyHash
 	}
 
 	// Create a new domain.Link instance
@@ -39,7 +45,6 @@ func (d *Link) ToDomain() (*v1.Link, error) {
 		SetCreatedAt(d.CreatedAt).
 		SetUpdatedAt(d.UpdatedAt).
 		Build()
-
 	if err != nil {
 		return nil, err
 	}
@@ -50,7 +55,7 @@ func (d *Link) ToDomain() (*v1.Link, error) {
 // FromDomain converts the domain Link to the DTO Link.
 func FromDomain(d *v1.Link) (*Link, error) {
 	if d == nil {
-		return nil, errors.New("domain Link is nil")
+		return nil, errNilDomainLink
 	}
 
 	return &Link{

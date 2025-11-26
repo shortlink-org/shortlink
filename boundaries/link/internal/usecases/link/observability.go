@@ -8,16 +8,20 @@ import (
 	"go.opentelemetry.io/otel/trace"
 )
 
-func init() {
-	prometheus.MustRegister(newLinkHistogram)
-}
-
 var newLinkHistogram = prometheus.NewHistogram(prometheus.HistogramOpts{
 	Namespace: "link",
 	Subsystem: "application",
 	Name:      "new",
 	Help:      "New link event",
 })
+
+var _ = registerLinkHistogram()
+
+func registerLinkHistogram() struct{} {
+	prometheus.MustRegister(newLinkHistogram)
+
+	return struct{}{}
+}
 
 func NewLinkHistogramObserve(ctx context.Context) {
 	now := time.Now()

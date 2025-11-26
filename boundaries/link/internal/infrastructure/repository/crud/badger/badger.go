@@ -3,9 +3,8 @@ package badger
 import (
 	"context"
 
-	"github.com/segmentio/encoding/json"
-
 	"github.com/dgraph-io/badger/v4"
+	"github.com/segmentio/encoding/json"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
@@ -54,6 +53,7 @@ func (b *Store) Get(_ context.Context, id string) (*domain.Link, error) {
 	}
 
 	var response domain.Link
+
 	err = json.Unmarshal(valCopy, &response)
 	if err != nil {
 		return nil, err
@@ -72,6 +72,7 @@ func (b *Store) List(_ context.Context, _ *v1.FilterLink) (*domain.Links, error)
 
 		for iterator.Rewind(); iterator.Valid(); iterator.Next() {
 			var valCopy []byte
+
 			item := iterator.Item()
 
 			err := item.Value(func(val []byte) error {
@@ -103,6 +104,7 @@ func (b *Store) List(_ context.Context, _ *v1.FilterLink) (*domain.Links, error)
 
 	for _, item := range list {
 		l := &domain.Link{}
+
 		err = json.Unmarshal(item, l)
 		if err != nil {
 			return nil, err

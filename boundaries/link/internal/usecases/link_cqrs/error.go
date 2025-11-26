@@ -1,10 +1,8 @@
 package link_cqrs
 
-import (
-	"fmt"
-)
+import "errors"
 
 var (
-	ErrCreateLink = fmt.Errorf("error create a new link")
-	ErrNotFound   = fmt.Errorf("error not found link")
+	ErrCreateLink = errors.New("error create a new link")
+	ErrNotFound   = errors.New("error not found link")
 )

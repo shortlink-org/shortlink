@@ -46,13 +46,14 @@ func TestErrorConstructors(t *testing.T) {
 			require.Equal(t, tt.wantTitle, err.Title)
 			require.NotEmpty(t, err.Detail)
 			require.Equal(t, tt.wantAction, err.Action)
-			require.Nil(t, err.Cause)
+			require.NoError(t, err.Cause)
 		})
 	}
 }
 
 func TestNewUnknown(t *testing.T) {
 	const detail = "unexpected I/O failure"
+
 	err := NewUnknown(detail)
 
 	require.NotNil(t, err)
@@ -60,7 +61,7 @@ func TestNewUnknown(t *testing.T) {
 	require.Equal(t, "Unexpected error", err.Title)
 	require.Equal(t, detail, err.Detail)
 	require.Equal(t, "NONE", err.Action)
-	require.Nil(t, err.Cause)
+	require.NoError(t, err.Cause)
 }
 
 func TestWithCause(t *testing.T) {

@@ -3,9 +3,8 @@ package link
 import (
 	"net/http"
 
-	"github.com/segmentio/encoding/json"
-
 	v1 "buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go/infrastructure/rpc/link/v1"
+	"github.com/segmentio/encoding/json"
 
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/api"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/link/dto"
@@ -15,6 +14,7 @@ import (
 func (c *Controller) AddLink(w http.ResponseWriter, r *http.Request) {
 	// Parse request
 	var request api.AddLink
+
 	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -42,6 +42,7 @@ func (c *Controller) AddLink(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusCreated)
+
 	err = json.NewEncoder(w).Encode(response)
 	if err != nil {
 		c.log.Error(err.Error())

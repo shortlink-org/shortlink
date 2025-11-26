@@ -215,4 +215,5 @@ require (
 
 tool github.com/google/wire/cmd/wire
 
+//lint:file-ignore gomoddirectives reason: monorepo uses local boundary replacements
 replace github.com/shortlink-org/shortlink/boundaries/link => ../link

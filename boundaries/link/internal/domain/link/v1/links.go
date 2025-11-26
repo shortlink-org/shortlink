@@ -1,26 +1,48 @@
 package v1
 
-// Link list
+// Links aggregates link entries.
 type Links struct {
-	// Links
-	link []*Link
+	items []*Link
 }
 
-// GetLinks returns the value of the link field.
-func (m *Links) GetLinks() []*Link {
-	return m.link
-}
-
-// Count returns the number of links
-func (m *Links) Count() int {
-	return len(m.link)
-}
-
+// NewLinks creates an empty Links collection.
 func NewLinks() *Links {
-	return &Links{}
+	return &Links{
+		items: make([]*Link, 0),
+	}
 }
 
-// Push adds a new Link to the link slice
+// GetLinks returns a copy of the stored links slice to preserve invariants.
+func (m *Links) GetLinks() []*Link {
+	if m == nil || len(m.items) == 0 {
+		return []*Link{}
+	}
+
+	copied := make([]*Link, len(m.items))
+	copy(copied, m.items)
+
+	return copied
+}
+
+// Count returns the number of stored links.
+func (m *Links) Count() int {
+	if m == nil {
+		return 0
+	}
+
+	return len(m.items)
+}
+
+// Push adds new Link entries to the collection, filtering nil values.
 func (l *Links) Push(link ...*Link) {
-	l.link = append(l.link, link...)
+	if l == nil {
+		return
+	}
+
+	for _, item := range link {
+		if item == nil {
+			continue
+		}
+		l.items = append(l.items, item)
+	}
 }

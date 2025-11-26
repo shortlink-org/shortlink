@@ -17,4 +17,3 @@ const (
 	// Format: link.link.deleted.v1
 	LinkDeletedTopic = "link.link.deleted.v1"
 )
-

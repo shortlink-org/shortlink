@@ -3,8 +3,9 @@ package dto
 import (
 	"time"
 
-	linkpb "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"google.golang.org/protobuf/types/known/timestamppb"
+
+	linkpb "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
 // LinkData represents link data for conversion (avoids domain import cycle)
@@ -17,7 +18,11 @@ type LinkData struct {
 }
 
 // ToLinkCreatedEvent converts LinkData to LinkCreated event
-func ToLinkCreatedEvent(link LinkData) *linkpb.LinkCreated {
+func ToLinkCreatedEvent(link *LinkData) *linkpb.LinkCreated {
+	if link == nil {
+		return nil
+	}
+
 	return &linkpb.LinkCreated{
 		Url:        link.URL,
 		Hash:       link.Hash,
@@ -27,4 +32,3 @@ func ToLinkCreatedEvent(link LinkData) *linkpb.LinkCreated {
 		OccurredAt: timestamppb.New(time.Now()),
 	}
 }
-

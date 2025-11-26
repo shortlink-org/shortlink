@@ -1,9 +1,9 @@
 package v1
 
-// Link view
+// LinkView holds rendered link data for CQRS read models.
 type LinkView struct {
-	// URL
 	url Url
+
 	// Hash by URL + salt
 	hash string
 	// Describe of a link

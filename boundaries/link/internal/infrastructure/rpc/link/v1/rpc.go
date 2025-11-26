@@ -7,6 +7,7 @@ package v1
 import (
 	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/logger"
+
 	link_application "github.com/shortlink-org/shortlink/boundaries/link/internal/usecases/link"
 )
 

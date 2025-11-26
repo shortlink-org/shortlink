@@ -14,15 +14,15 @@ type Store struct {
 }
 
 // Get - get metadata by id
-func (s *Store) Get(_ context.Context, id string) (*rpc.Meta, error) {
-	response, ok := s.metadata.Load(id)
+func (s *Store) Get(_ context.Context, linkID string) (*rpc.Meta, error) {
+	response, ok := s.metadata.Load(linkID)
 	if !ok {
-		return nil, &errors.MetadataNotFoundByIdError{ID: id}
+		return nil, &errors.MetadataNotFoundByIdError{ID: linkID}
 	}
 
 	v, ok := response.(*rpc.Meta)
 	if !ok {
-		return nil, &errors.MetadataNotFoundByIdError{ID: id}
+		return nil, &errors.MetadataNotFoundByIdError{ID: linkID}
 	}
 
 	return v, nil

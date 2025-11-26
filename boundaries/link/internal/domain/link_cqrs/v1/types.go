@@ -19,6 +19,7 @@ func (t Time) GetTimestamp() *timestamppb.Timestamp {
 
 type Url url.URL
 
+//nolint:gocritic // copying url.URL here is acceptable for CQRS read models
 func (u Url) GetUrl() url.URL {
 	return url.URL(u)
 }

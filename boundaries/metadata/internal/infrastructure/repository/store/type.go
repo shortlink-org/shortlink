@@ -6,12 +6,13 @@ import (
 	rpc "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
 )
 
+// Repository defines metadata persistence operations.
 type Repository interface {
-	Get(ctx context.Context, id string) (*rpc.Meta, error)
-	Add(context.Context, *rpc.Meta) error
+	Get(ctx context.Context, linkID string) (*rpc.Meta, error)
+	Add(ctx context.Context, meta *rpc.Meta) error
 }
 
-// Store abstract type
+// MetaStore wraps a concrete Repository implementation selected via configuration.
 type MetaStore struct {
 	Store Repository
 	// notify.Subscriber[link.Link]

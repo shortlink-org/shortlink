@@ -27,6 +27,7 @@ func (s *Store) LinkAdd(ctx context.Context, source *v1.Link) (*v1.Link, error) 
 		hash     string
 		describe string
 	)
+
 	errScan := row.Scan(&link, &hash, &describe)
 	if errors.Is(errScan, pgx.ErrNoRows) {
 		return source, nil
@@ -67,10 +68,12 @@ func (s *Store) LinkUpdate(ctx context.Context, source *v1.Link) (*v1.Link, erro
 		hash     string
 		describe string
 	)
+
 	errScan := row.Scan(&link, &hash, &describe)
 	if errors.Is(errScan, pgx.ErrNoRows) {
 		return source, nil
 	}
+
 	if errScan.Error() != "" {
 		return nil, &v1.NotFoundError{Hash: source.GetHash()}
 	}
@@ -90,6 +93,7 @@ func (s *Store) LinkUpdate(ctx context.Context, source *v1.Link) (*v1.Link, erro
 func (s *Store) LinkDelete(ctx context.Context, id string) error {
 	request := psql.Delete("link.link_view").
 		Where(squirrel.Eq{"hash": id})
+
 	q, args, err := request.ToSql()
 	if err != nil {
 		return err

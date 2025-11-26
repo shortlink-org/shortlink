@@ -164,7 +164,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	metadataUC, err := NewMetadataUC(loggerLogger, uc, screenshotUC)
+	metadataUC, err := NewMetadataUC(loggerLogger, uc, screenshotUC, eventBus)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -333,8 +333,8 @@ func NewScreenshotUC(ctx2 context.Context, media *s3Repository.Service) (*screen
 	return metadataService, nil
 }
 
-func NewMetadataUC(log logger.Logger, parsersUC *parsers.UC, screenshotUC *screenshot.UC) (*metadata.UC, error) {
-	metadataService, err := metadata.New(log, parsersUC, screenshotUC)
+func NewMetadataUC(log logger.Logger, parsersUC *parsers.UC, screenshotUC *screenshot.UC, eventBus *bus.EventBus) (*metadata.UC, error) {
+	metadataService, err := metadata.New(log, parsersUC, screenshotUC, eventBus)
 	if err != nil {
 		return nil, err
 	}

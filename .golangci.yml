@@ -10,18 +10,18 @@ linters:
   # Enable every linter, then prune the noisy ones
   default: all
   disable:
-    - importas        # noisy / incorrect results
-    - exhaustruct     # hard to use with current codebase
-    - godox           # incorrect results in our project
+    - exhaustruct # hard to use with current codebase
+    - godox # incorrect results in our project
     - depguard
     - gochecknoglobals
     - wsl # deprecated
+    - gomoddirectives # monorepo boundaries rely on replace directives
 
   exclusions:
     paths:
-      - "ops"                     # Ops manifests, etc.
-      - ".*mocks.+"              # Generated mocks
-      - "wire_gen.go"            # Wire‑generated
+      - "ops" # Ops manifests, etc.
+      - ".*mocks.+" # Generated mocks
+      - "wire_gen.go" # Wire‑generated
     rules:
       - path: "(.+)_test.go"
         linters:
@@ -30,11 +30,10 @@ linters:
           - nilnil
           - gochecknoinits
           - err113
-    generated: strict              # Skip all generated files across linters/formatters
+    generated: strict # Skip all generated files across linters/formatters
 
   # Per‑linter tuning ---------------------------------------------------------
   settings:
-
     wsl_v5:
       allow-first-in-block: true
       allow-whole-block: false
@@ -164,12 +163,12 @@ linters:
           arguments: ["^[a-zA-Z][a-zA-Z0-9_]{0,}$"]
         - name: argument-limit
           severity: warning
-          arguments: [4]
+          arguments: [6]
         - name: function-length
           severity: warning
           arguments: [75, 0]
-        - name: enforce-switch-style   # new in revive v1.11
-          severity: warning           # requires a default as last case
+        - name: enforce-switch-style # new in revive v1.11
+          severity: warning # requires a default as last case
         # Disabled / noisy checks
         - name: var-naming
           disabled: true

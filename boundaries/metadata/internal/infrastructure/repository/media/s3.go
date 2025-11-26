@@ -4,10 +4,10 @@ import (
 	"bytes"
 	"context"
 	"errors"
+	"fmt"
 	"net/url"
 
 	"github.com/minio/minio-go/v7"
-
 	"github.com/shortlink-org/go-sdk/s3"
 )
 
@@ -29,8 +29,9 @@ func New(ctx context.Context, store *s3.Client) (*Service, error) {
 				err = nil
 			}
 		}
+
 		if err != nil {
-			return nil, err
+			return nil, fmt.Errorf("create bucket %s: %w", bucketName, err)
 		}
 	}
 
@@ -43,7 +44,12 @@ func (s *Service) Get(ctx context.Context, linkURL string) (*url.URL, error) {
 	// replace characters that are not allowed in the URL
 	linkURL = url.PathEscape(linkURL)
 
-	return s.store.GetFileURL(ctx, "screenshot", linkURL)
+	urlValue, err := s.store.GetFileURL(ctx, "screenshot", linkURL)
+	if err != nil {
+		return nil, fmt.Errorf("get screenshot url for %s: %w", linkURL, err)
+	}
+
+	return urlValue, nil
 }
 
 func (s *Service) Put(ctx context.Context, linkURL string, screenshot []byte) error {
@@ -55,7 +61,7 @@ func (s *Service) Put(ctx context.Context, linkURL string, screenshot []byte) er
 
 	err := s.store.UploadFile(ctx, "screenshot", linkURL, reader)
 	if err != nil {
-		return err
+		return fmt.Errorf("upload screenshot %s: %w", linkURL, err)
 	}
 
 	return nil
@@ -64,7 +70,7 @@ func (s *Service) Put(ctx context.Context, linkURL string, screenshot []byte) er
 func (s *Service) Delete(ctx context.Context, linkURL string) error {
 	err := s.store.RemoveFile(ctx, "screenshot", linkURL)
 	if err != nil {
-		return err
+		return fmt.Errorf("delete screenshot %s: %w", linkURL, err)
 	}
 
 	return nil

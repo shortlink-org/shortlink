@@ -14,4 +14,3 @@ const (
 	// Published when metadata is successfully extracted from a URL
 	MetadataExtractedTopic = "metadata.metadata.extracted.v1"
 )
-

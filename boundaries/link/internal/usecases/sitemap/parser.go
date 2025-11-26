@@ -10,6 +10,7 @@ import (
 	"github.com/shortlink-org/go-sdk/cqrs/bus"
 	http_client "github.com/shortlink-org/go-sdk/http/client"
 	"github.com/shortlink-org/go-sdk/logger"
+
 	link "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/sitemap/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/dto"
@@ -62,6 +63,7 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 	}
 
 	var payload domain.Sitemap
+
 	err = xml.Unmarshal(bodyBytes, &payload)
 	if err != nil {
 		return err
@@ -73,15 +75,16 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 			SetURL(payload.GetUrl()[key].GetLoc()).
 			Build()
 		if err != nil {
-			s.log.Error("Failed to build link from sitemap URL",
+			s.log.ErrorWithContext(ctx, "Failed to build link from sitemap URL",
 				slog.String("error", err.Error()),
 				slog.String("url", payload.GetUrl()[key].GetLoc()),
 			)
+
 			continue
 		}
 
 		// Convert domain Link to LinkData
-		linkData := dto.LinkData{
+		linkData := &dto.LinkData{
 			URL:       newLink.GetUrl().String(),
 			Hash:      newLink.GetHash(),
 			Describe:  newLink.GetDescribe(),
@@ -91,19 +94,28 @@ func (s *Service) Parse(ctx context.Context, url string) error {
 
 		// Convert LinkData to LinkCreated event using DTO
 		event := dto.ToLinkCreatedEvent(linkData)
+		if event == nil {
+			s.log.ErrorWithContext(ctx, "Failed to build link creation event from sitemap",
+				slog.String("link_hash", newLink.GetHash()),
+				slog.String("url", payload.GetUrl()[key].GetLoc()),
+			)
+
+			continue
+		}
 
 		// Publish event using EventBus (canonical name: link.link.created.v1)
 		if err := s.eventBus.Publish(ctx, event); err != nil {
-			s.log.Error("Failed to publish link creation event from sitemap",
+			s.log.ErrorWithContext(ctx, "Failed to publish link creation event from sitemap",
 				slog.String("error", err.Error()),
 				slog.String("event_type", "link.link.created.v1"),
 				slog.String("link_hash", newLink.GetHash()),
 				slog.String("url", payload.GetUrl()[key].GetLoc()),
 			)
+
 			continue
 		}
 
-		s.log.Info("Link creation event published from sitemap",
+		s.log.InfoWithContext(ctx, "Link creation event published from sitemap",
 			slog.String("event_type", "link.link.created.v1"),
 			slog.String("link_hash", newLink.GetHash()),
 			slog.String("url", payload.GetUrl()[key].GetLoc()),

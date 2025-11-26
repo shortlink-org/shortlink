@@ -12,6 +12,7 @@ import (
 func (c *Controller) UpdateLinks(w http.ResponseWriter, r *http.Request) {
 	// Parse request
 	var request api.UpdateLinkRequest
+
 	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
@@ -47,6 +48,7 @@ func (c *Controller) UpdateLinks(w http.ResponseWriter, r *http.Request) {
 	}
 
 	w.WriteHeader(http.StatusOK)
+
 	err = json.NewEncoder(w).Encode(response)
 	if err != nil {
 		c.log.Error(err.Error())

@@ -3,9 +3,8 @@ package link
 import (
 	"net/http"
 
-	"github.com/segmentio/encoding/json"
-
 	v1 "buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go/infrastructure/rpc/link/v1"
+	"github.com/segmentio/encoding/json"
 
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/api"
 )
@@ -13,7 +12,6 @@ import (
 // GetLinks - get links
 func (c *Controller) GetLinks(w http.ResponseWriter, r *http.Request, params api.GetLinksParams) {
 	// TODO: add mapper for filter
-
 	request := &v1.ListRequest{}
 
 	if params.Cursor != nil {
@@ -48,6 +46,7 @@ func (c *Controller) GetLinks(w http.ResponseWriter, r *http.Request, params api
 	}
 
 	w.WriteHeader(http.StatusOK)
+
 	err = json.NewEncoder(w).Encode(response)
 	if err != nil {
 		c.log.Error(err.Error())

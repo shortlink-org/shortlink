@@ -1,14 +1,13 @@
 package redis
 
 import (
-"github.com/shortlink-org/go-sdk/config"
 	"context"
 
-	"github.com/segmentio/encoding/json"
-
 	"github.com/redis/rueidis"
-
+	"github.com/segmentio/encoding/json"
+	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db"
+
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
@@ -76,7 +75,8 @@ func (s *Store) List(ctx context.Context, _ *types.FilterLink) (*v1.Links, error
 			return nil, &v1.NotFoundError{Hash: ""}
 		}
 
-		if err = json.Unmarshal(value, &response); err != nil {
+		err = json.Unmarshal(value, &response)
+		if err != nil {
 			return nil, &v1.NotFoundError{Hash: ""}
 		}
 

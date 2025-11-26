@@ -1,15 +1,13 @@
 package cqrs
 
 import (
+	"fmt"
+
+	linkpb "buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go/domain/link/v1"
 	"github.com/ThreeDotsLabs/watermill/message"
 	"github.com/shortlink-org/go-sdk/cqrs/bus"
 	cqrsmessage "github.com/shortlink-org/go-sdk/cqrs/message"
 
-	// Import Link events from buf.build
-	// Events are published via buf.build for cross-service consumption
-	linkpb "buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go/domain/link/v1"
-
-	// Import metadata service's own events
 	metadatapb "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
 )
 
@@ -20,23 +18,23 @@ func NewEventRegistry() (*bus.TypeRegistry, error) {
 
 	// Register Link Service events that metadata service consumes
 	// LinkCreated - metadata service processes new links to extract metadata
-	if err := registry.RegisterEvent(&linkpb.LinkCreated{}); err != nil {
-		return nil, err
+	err := registry.RegisterEvent(&linkpb.LinkCreated{})
+	if err != nil {
+		return nil, fmt.Errorf("register link created event: %w", err)
 	}
 
 	// Register metadata service's own events
 	// MetadataExtracted - published when metadata is successfully extracted from a URL
-	if err := registry.RegisterEvent(&metadatapb.MetadataExtracted{}); err != nil {
-		return nil, err
+	err = registry.RegisterEvent(&metadatapb.MetadataExtracted{})
+	if err != nil {
+		return nil, fmt.Errorf("register metadata extracted event: %w", err)
 	}
 
 	return registry, nil
 }
 
-// NewShortlinkNamer creates a singleton namer for "metadata" service
-// This namer is used consistently across EventBus, CommandBus, and ProtoMarshaler
-// to ensure stable canonical naming
-func NewShortlinkNamer() cqrsmessage.Namer {
+// NewShortlinkNamer creates a singleton namer for "metadata" service.
+func NewShortlinkNamer() cqrsmessage.Namer { //nolint:ireturn // CQRS components expect the interface type
 	return cqrsmessage.NewShortlinkNamer("metadata")
 }
 
@@ -71,4 +69,3 @@ func NewCommandBus(
 
 	return commandBus, nil
 }
-

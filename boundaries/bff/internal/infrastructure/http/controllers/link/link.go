@@ -2,7 +2,6 @@ package link
 
 import (
 	link_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
-
 	"github.com/shortlink-org/go-sdk/logger"
 )
 

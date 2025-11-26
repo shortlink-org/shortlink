@@ -16,4 +16,3 @@ func ToUpdateResponse(link *domain.Link) *UpdateResponse {
 		},
 	}
 }
-

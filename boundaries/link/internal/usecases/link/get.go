@@ -5,9 +5,9 @@ import (
 	"log/slog"
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
-
 	"github.com/shortlink-org/go-sdk/auth/session"
 	"github.com/shortlink-org/go-sdk/saga"
+
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
@@ -25,7 +25,7 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 
 	userID, err := session.GetUserID(ctx)
 	if err != nil {
-		uc.log.Error("failed to get user ID from session",
+		uc.log.ErrorWithContext(ctx, "failed to get user ID from session",
 			slog.String("error", err.Error()),
 		)
 
@@ -67,6 +67,7 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 		Needs(SAGA_STEP_CHECK_PERMISSION).
 		Then(func(ctx context.Context) error {
 			var err error
+
 			resp, err = uc.store.Get(ctx, hash)
 			if err != nil {
 				return err
@@ -87,7 +88,7 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 	}
 
 	if resp == nil {
-		return nil, domain.NewNotFoundError(hash)
+		return nil, domain.ErrNotFound(hash)
 	}
 
 	return resp, nil

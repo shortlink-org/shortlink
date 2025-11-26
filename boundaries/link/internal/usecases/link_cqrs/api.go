@@ -7,6 +7,7 @@ import (
 
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/go-sdk/saga"
+
 	link "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link_cqrs/v1"
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
@@ -47,6 +48,7 @@ func (s *Service) Get(ctx context.Context, hash string) (*domain.LinkView, error
 	_, errs = sagaGetLink.AddStep(SAGA_STEP_STORE_GET).
 		Then(func(ctx context.Context) error {
 			var err error
+
 			resp, err = s.queryStore.Get(ctx, hash)
 
 			return err
@@ -89,6 +91,7 @@ func (s *Service) List(ctx context.Context, filter *v1.FilterLink) (*domain.Link
 	_, errs = sagaGetLink.AddStep(SAGA_STEP_STORE_GET).
 		Then(func(ctx context.Context) error {
 			var err error
+
 			resp, err = s.queryStore.List(ctx, filter)
 
 			return err

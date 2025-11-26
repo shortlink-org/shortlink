@@ -6,15 +6,14 @@ import (
 	"log/slog"
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
+	"github.com/shortlink-org/go-sdk/auth/session"
+	"github.com/shortlink-org/go-sdk/saga"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	otelcodes "go.opentelemetry.io/otel/codes"
 	"go.opentelemetry.io/otel/trace"
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
-
-	"github.com/shortlink-org/go-sdk/auth/session"
-	"github.com/shortlink-org/go-sdk/saga"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/dto"
@@ -40,7 +39,7 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 
 	userID, err := session.GetUserID(ctx)
 	if err != nil {
-		uc.log.Error("failed to get user ID from session",
+		uc.log.ErrorWithContext(ctx, "failed to get user ID from session",
 			slog.String("error", err.Error()),
 		)
 
@@ -59,6 +58,7 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 		AddStep(SAGA_STEP_SAVE_TO_STORE).
 		Then(func(ctx context.Context) error {
 			var err error
+
 			_, err = uc.store.Add(ctx, in)
 
 			return err
@@ -107,6 +107,7 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 				st, ok := status.FromError(err)
 				if ok {
 					span.SetAttributes(attribute.String("grpc.code", st.Code().String()))
+
 					switch st.Code() {
 					case codes.AlreadyExists:
 						span.SetAttributes(attribute.Bool("permission.already_exists", true))
@@ -154,7 +155,7 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_PUBLISH_EVENT_NEW_LINK).
 		Then(func(ctx context.Context) error {
 			// Convert domain Link to LinkData (avoids import cycle)
-			linkData := dto.LinkData{
+			linkData := &dto.LinkData{
 				URL:       in.GetUrl().String(),
 				Hash:      in.GetHash(),
 				Describe:  in.GetDescribe(),
@@ -164,18 +165,23 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 
 			// Convert LinkData to LinkCreated event using DTO
 			event := dto.ToLinkCreatedEvent(linkData)
+			if event == nil {
+				return domain.NewInternalError("link creation event is nil")
+			}
 
 			// Publish event using EventBus
-			if err := uc.eventBus.Publish(ctx, event); err != nil {
-				uc.log.Error("Failed to publish link creation event",
+			err := uc.eventBus.Publish(ctx, event)
+			if err != nil {
+				uc.log.ErrorWithContext(ctx, "Failed to publish link creation event",
 					slog.String("error", err.Error()),
 					slog.String("event_type", domain.LinkCreatedTopic),
 					slog.String("link_hash", in.GetHash()),
 				)
+
 				return err
 			}
 
-			uc.log.Info("Link creation event published successfully",
+			uc.log.InfoWithContext(ctx, "Link creation event published successfully",
 				slog.String("event_type", domain.LinkCreatedTopic),
 				slog.String("link_hash", in.GetHash()),
 			)

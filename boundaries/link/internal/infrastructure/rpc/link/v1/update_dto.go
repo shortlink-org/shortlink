@@ -6,10 +6,9 @@ import (
 
 func (in *UpdateRequest) ToEntity() (*domain.Link, error) {
 	link, err := domain.NewLinkBuilder().
-		SetURL(in.Link.GetUrl()).
-		SetDescribe(in.Link.GetDescribe()).
+		SetURL(in.GetLink().GetUrl()).
+		SetDescribe(in.GetLink().GetDescribe()).
 		Build()
-
 	if err != nil {
 		// Wrap builder validation errors as InvalidInputError
 		return nil, domain.NewInvalidInputError(err.Error())

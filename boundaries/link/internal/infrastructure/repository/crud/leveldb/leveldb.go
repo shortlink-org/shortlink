@@ -1,15 +1,14 @@
 package leveldb
 
 import (
-"github.com/shortlink-org/go-sdk/config"
 	"context"
 
 	"github.com/segmentio/encoding/json"
-
-	"github.com/syndtr/goleveldb/leveldb"
-
+	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/logger"
+	"github.com/syndtr/goleveldb/leveldb"
+
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
@@ -36,7 +35,7 @@ func New(ctx context.Context, store db.DB, log logger.Logger, _ *config.Config) 
 
 		err := s.client.Close()
 		if err != nil {
-			log.Error(err.Error())
+			log.ErrorWithContext(ctx, err.Error())
 		}
 	}()
 
@@ -66,6 +65,7 @@ func (l *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	}
 
 	var response v1.Link
+
 	err = json.Unmarshal(value, &response)
 	if err != nil {
 		return nil, err
@@ -85,6 +85,7 @@ func (l *Store) List(_ context.Context, _ *types.FilterLink) (*v1.Links, error) 
 		value := iterator.Value()
 
 		var response v1.Link
+
 		err := json.Unmarshal(value, &response)
 		if err != nil {
 			return nil, &v1.NotFoundError{Hash: ""}
@@ -94,6 +95,7 @@ func (l *Store) List(_ context.Context, _ *types.FilterLink) (*v1.Links, error) 
 	}
 
 	iterator.Release()
+
 	err := iterator.Error()
 	if err != nil {
 		return nil, &v1.NotFoundError{Hash: ""}

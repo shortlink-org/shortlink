@@ -16,6 +16,7 @@ type SitemapController struct {
 func (c *SitemapController) AddSitemap(w http.ResponseWriter, r *http.Request) {
 	// Parse request
 	var request api.AddSitemapRequest
+
 	err := json.NewDecoder(r.Body).Decode(&request)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)

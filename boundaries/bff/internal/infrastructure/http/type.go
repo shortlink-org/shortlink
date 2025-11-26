@@ -3,22 +3,19 @@ package http
 import (
 	"context"
 
-	"github.com/shortlink-org/go-sdk/flight_trace"
-	"go.opentelemetry.io/otel/trace"
-	"golang.org/x/text/message"
-	"google.golang.org/protobuf/encoding/protojson"
-
 	link_cqrs "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
 	link_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/link/v1/linkv1grpc"
 	sitemap_rpc "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/sitemap/v1/sitemapv1grpc"
-
 	"github.com/shortlink-org/go-sdk/config"
+	"github.com/shortlink-org/go-sdk/flight_trace"
 	rpc "github.com/shortlink-org/go-sdk/grpc"
-	"github.com/shortlink-org/go-sdk/logger"
-
 	http_server "github.com/shortlink-org/go-sdk/http/server"
+	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/go-sdk/observability/profiling"
+	"go.opentelemetry.io/otel/trace"
+	"golang.org/x/text/message"
+	"google.golang.org/protobuf/encoding/protojson"
 
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/cqrs"
 	"github.com/shortlink-org/shortlink/boundaries/link/bff/internal/infrastructure/http/controllers/link"

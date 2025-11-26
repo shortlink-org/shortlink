@@ -3,10 +3,9 @@ package cqrs
 import (
 	"net/http"
 
+	link_cqrs "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
 	"github.com/go-chi/chi/v5"
 	"google.golang.org/protobuf/encoding/protojson"
-
-	link_cqrs "buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go/infrastructure/rpc/cqrs/link/v1/linkv1grpc"
 )
 
 var jsonpb protojson.MarshalOptions
@@ -78,7 +77,6 @@ func (c *LinkCQRSController) GetLinksByCQRS(w http.ResponseWriter, r *http.Reque
 	//
 	// 	return
 	// }
-
 	w.WriteHeader(http.StatusOK)
 	_, _ = w.Write(nil) //nolint:errcheck
 }

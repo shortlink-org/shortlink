@@ -9,13 +9,12 @@ import (
 	"github.com/Masterminds/squirrel"
 	_ "github.com/golang-migrate/migrate/v4/database/postgres"
 	"github.com/jackc/pgx/v5/pgxpool"
-	"github.com/spf13/viper"
-
 	"github.com/shortlink-org/go-sdk/batch"
 	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/db/drivers/postgres/migrate"
 	"github.com/shortlink-org/go-sdk/db/options"
+	"github.com/spf13/viper"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/postgres/schema/crud"
@@ -31,10 +30,12 @@ var (
 // New store
 func New(ctx context.Context, store db.DB, cfg *config.Config) (*Store, error) {
 	var ok bool
+
 	s := &Store{}
 
 	// Set configuration -----------------------------------------------------------------------------------------------
 	s.setConfig()
+
 	s.client, ok = store.GetConn().(*pgxpool.Pool)
 	if !ok {
 		return nil, db.ErrGetConnection
@@ -61,13 +62,16 @@ func New(ctx context.Context, store db.DB, cfg *config.Config) (*Store, error) {
 			if errBatchWrite != nil {
 				for _, item := range items {
 					item.CallbackChannel <- nil
+
 					close(item.CallbackChannel)
 				}
+
 				return errBatchWrite
 			}
 
 			for i, link := range dataList.GetLinks() {
 				items[i].CallbackChannel <- link
+
 				close(items[i].CallbackChannel)
 			}
 
@@ -75,6 +79,7 @@ func New(ctx context.Context, store db.DB, cfg *config.Config) (*Store, error) {
 		}
 
 		var err error
+
 		s.config.job, err = batch.NewSync[*domain.Link](ctx, cfg, cb)
 		if err != nil {
 			return nil, err

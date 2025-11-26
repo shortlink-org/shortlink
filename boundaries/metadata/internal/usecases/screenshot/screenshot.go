@@ -10,7 +10,13 @@ import (
 
 	"github.com/chromedp/chromedp"
 
+	domainerrors "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/errors"
 	s3Repository "github.com/shortlink-org/shortlink/boundaries/metadata/internal/infrastructure/repository/media"
+)
+
+const (
+	opScreenshotStoreGet = "metadata.screenshot.store.get"
+	opScreenshotStorePut = "metadata.screenshot.store.put"
 )
 
 func New(ctx context.Context, media *s3Repository.Service) (*UC, error) {
@@ -20,7 +26,12 @@ func New(ctx context.Context, media *s3Repository.Service) (*UC, error) {
 }
 
 func (s *UC) Get(ctx context.Context, linkURL string) (*url.URL, error) {
-	return s.media.Get(ctx, linkURL)
+	result, err := s.media.Get(ctx, linkURL)
+	if err != nil {
+		return nil, domainerrors.Normalize(opScreenshotStoreGet, err)
+	}
+
+	return result, nil
 }
 
 func (s *UC) Set(ctx context.Context, linkURL string) error {
@@ -32,15 +43,13 @@ func (s *UC) Set(ctx context.Context, linkURL string) error {
 	// capture screenshot of an element
 	var screenshot []byte
 
-	err := chromedp.Run(newCtx, elementScreenshot(linkURL, &screenshot))
-	if err != nil {
-		return err
+	if err := chromedp.Run(newCtx, elementScreenshot(linkURL, &screenshot)); err != nil {
+		return domainerrors.NewScreenshotUnavailableError(linkURL, err)
 	}
 
-	// err = s.media.Put(ctx, fmt.Sprintf("%s.png", linkURL), screenshot)
-	// if err != nil {
-	// 	return err
-	// }
+	if err := s.media.Put(ctx, linkURL, screenshot); err != nil {
+		return domainerrors.Normalize(opScreenshotStorePut, err)
+	}
 
 	return nil
 }

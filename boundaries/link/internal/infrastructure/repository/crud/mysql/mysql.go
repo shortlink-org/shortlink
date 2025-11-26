@@ -3,7 +3,6 @@
 package mysql
 
 import (
-"github.com/shortlink-org/go-sdk/config"
 	"bytes"
 	"context"
 	"database/sql"
@@ -11,18 +10,17 @@ import (
 
 	"github.com/google/uuid"
 	"github.com/segmentio/encoding/json"
-
+	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db"
 	"github.com/shortlink-org/go-sdk/db/drivers/mysql/migrate"
+
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mysql/schema/crud"
 	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
-var (
-	//go:embed migrations/*.sql
-	migrations embed.FS
-)
+//go:embed migrations/*.sql
+var migrations embed.FS
 
 // New store
 func New(ctx context.Context, store db.DB, _ *config.Config) (*Store, error) {
@@ -65,6 +63,7 @@ func (s Store) List(ctx context.Context, _ *types.FilterLink) (*domain.Links, er
 	}
 
 	resp := domain.NewLinks()
+
 	for item := range links {
 		link, err := domain.NewLinkBuilder().
 			SetURL(links[item].Url).
@@ -92,6 +91,7 @@ func (s Store) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 	}
 
 	link := in.GetUrl()
+
 	_, err = s.client.CreateLink(ctx, crud.CreateLinkParams{
 		ID:       linkId,
 		Url:      link.String(),
@@ -113,6 +113,7 @@ func (s Store) Update(ctx context.Context, in *domain.Link) (*domain.Link, error
 	}
 
 	link := in.GetUrl()
+
 	_, err = s.client.UpdateLink(ctx, crud.UpdateLinkParams{
 		Url:      link.String(),
 		Hash:     in.GetHash(),
