@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"log/slog"
+	"time"
 
 	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"github.com/shortlink-org/go-sdk/auth/session"
@@ -32,6 +33,7 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 		SAGA_STEP_ADD_PERMISSION         = "SAGA_STEP_ADD_PERMISSION"
 		SAGA_STEP_SAVE_TO_STORE          = "SAGA_STEP_SAVE_TO_STORE"
 		SAGA_STEP_PUBLISH_EVENT_NEW_LINK = "SAGA_STEP_PUBLISH_EVENT_NEW_LINK"
+		permissionWriteTimeout           = 5 * time.Second
 	)
 
 	// Observability
@@ -57,11 +59,27 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 	_, errs = sagaAddLink.
 		AddStep(SAGA_STEP_SAVE_TO_STORE).
 		Then(func(ctx context.Context) error {
-			var err error
+			ctx, span := otel.Tracer("link.uc.store").Start(ctx, "saga: SAGA_STEP_SAVE_TO_STORE",
+				trace.WithSpanKind(trace.SpanKindInternal),
+			)
+			defer span.End()
 
-			_, err = uc.store.Add(ctx, in)
+			span.SetAttributes(
+				attribute.String("step", SAGA_STEP_SAVE_TO_STORE),
+				attribute.String("status", "run"),
+				attribute.String("link.hash", in.GetHash()),
+				attribute.String("user.id", userID),
+			)
 
-			return err
+			_, err := uc.store.Add(ctx, in)
+			if err != nil {
+				span.RecordError(err)
+				span.SetStatus(otelcodes.Error, err.Error())
+				return err
+			}
+
+			span.SetStatus(otelcodes.Ok, "Link saved to store successfully")
+			return nil
 		}).Build()
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
@@ -89,7 +107,10 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 				}},
 			}
 
-			ctx, span := otel.Tracer("link.uc.permission").Start(ctx, "authzed.api.v1.PermissionsService/WriteRelationships",
+			permissionCtx, cancel := context.WithTimeout(ctx, permissionWriteTimeout)
+			defer cancel()
+
+			permissionCtx, span := otel.Tracer("link.uc.permission").Start(permissionCtx, "authzed.api.v1.PermissionsService/WriteRelationships",
 				trace.WithSpanKind(trace.SpanKindClient),
 			)
 			defer span.End()
@@ -102,7 +123,7 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 				attribute.String("user.id", userID),
 			)
 
-			_, err := uc.permission.PermissionsServiceClient.WriteRelationships(ctx, relationship)
+			_, err := uc.permission.PermissionsServiceClient.WriteRelationships(permissionCtx, relationship)
 			if err != nil {
 				st, ok := status.FromError(err)
 				if ok {
@@ -154,6 +175,18 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_PUBLISH_EVENT_NEW_LINK).
 		Then(func(ctx context.Context) error {
+			ctx, span := otel.Tracer("link.uc.event").Start(ctx, "saga: SAGA_STEP_PUBLISH_EVENT_NEW_LINK",
+				trace.WithSpanKind(trace.SpanKindInternal),
+			)
+			defer span.End()
+
+			span.SetAttributes(
+				attribute.String("step", SAGA_STEP_PUBLISH_EVENT_NEW_LINK),
+				attribute.String("status", "run"),
+				attribute.String("link.hash", in.GetHash()),
+				attribute.String("user.id", userID),
+			)
+
 			// Convert domain Link to LinkData (avoids import cycle)
 			linkData := &dto.LinkData{
 				URL:       in.GetUrl().String(),
@@ -166,12 +199,15 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 			// Convert LinkData to LinkCreated event using DTO
 			event := dto.ToLinkCreatedEvent(linkData)
 			if event == nil {
+				span.SetStatus(otelcodes.Error, "link creation event is nil")
 				return domain.NewInternalError("link creation event is nil")
 			}
 
 			// Publish event using EventBus
 			err := uc.eventBus.Publish(ctx, event)
 			if err != nil {
+				span.RecordError(err)
+				span.SetStatus(otelcodes.Error, err.Error())
 				uc.log.ErrorWithContext(ctx, "Failed to publish link creation event",
 					slog.String("error", err.Error()),
 					slog.String("event_type", domain.LinkCreatedTopic),
@@ -181,6 +217,10 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 				return err
 			}
 
+			span.SetAttributes(
+				attribute.String("event_type", domain.LinkCreatedTopic),
+			)
+			span.SetStatus(otelcodes.Ok, "Link creation event published successfully")
 			uc.log.InfoWithContext(ctx, "Link creation event published successfully",
 				slog.String("event_type", domain.LinkCreatedTopic),
 				slog.String("link_hash", in.GetHash()),
