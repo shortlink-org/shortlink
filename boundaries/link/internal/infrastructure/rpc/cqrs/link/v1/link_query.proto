@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package infrastructure.rpc.cqrs.link.v1;
 
-option go_package = "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/link/v1";
+option go_package = "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/cqrs/link/v1";
 
 import "infrastructure/rpc/cqrs/link/v1/link.proto";
 

@@ -19,7 +19,7 @@ func ToLinkUpdatedEvent(link *LinkData) *linkpb.LinkUpdated {
 		Hash:       link.Hash,
 		Describe:   link.Describe,
 		CreatedAt:  timestamppb.New(link.CreatedAt),
-		UpdatedAt:  timestamppb.New(link.UpdatedAt),
+		UpdatedAt: timestamppb.New(link.UpdatedAt),
 		OccurredAt: timestamppb.New(time.Now()),
 	}
 }

@@ -19,7 +19,6 @@ import (
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mongo/dto"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mongo/filter"
-	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 //go:embed migrations/*.json
@@ -137,7 +136,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 }
 
 // List - list
-func (s *Store) List(ctx context.Context, params *types.FilterLink) (*v1.Links, error) {
+func (s *Store) List(ctx context.Context, params *v1.FilterLink) (*v1.Links, error) {
 	collection := s.client.Database("shortlink").Collection("links")
 
 	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)

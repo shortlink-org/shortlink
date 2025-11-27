@@ -8,9 +8,8 @@ import (
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/go-sdk/saga"
 
-	link "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link_cqrs/v1"
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
+	linkdomain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
 func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {
@@ -65,13 +64,13 @@ func (s *Service) Get(ctx context.Context, hash string) (*domain.LinkView, error
 	}
 
 	if resp == nil {
-		return nil, &link.NotFoundError{Hash: hash}
+		return nil, linkdomain.ErrNotFound(hash)
 	}
 
 	return resp, nil
 }
 
-func (s *Service) List(ctx context.Context, filter *v1.FilterLink) (*domain.LinksView, error) {
+func (s *Service) List(ctx context.Context, filter *linkdomain.FilterLink) (*domain.LinksView, error) {
 	const (
 		SAGA_NAME           = "GET_LINKS_CQRS"
 		SAGA_STEP_STORE_GET = "SAGA_STEP_STORE_GET_CQRS"

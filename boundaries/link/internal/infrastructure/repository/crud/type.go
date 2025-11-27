@@ -7,13 +7,12 @@ import (
 	"github.com/shortlink-org/go-sdk/logger"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
-	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 // Repository abstract
 type Repository interface {
 	Get(ctx context.Context, id string) (*v1.Link, error)
-	List(ctx context.Context, filter *types.FilterLink) (*v1.Links, error)
+	List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, error)
 
 	Add(ctx context.Context, in *v1.Link) (*v1.Link, error)
 	Update(ctx context.Context, in *v1.Link) (*v1.Link, error)

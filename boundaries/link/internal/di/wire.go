@@ -149,6 +149,10 @@ var LinkSet = wire.NewSet(
 	crud.New,
 	cqs.New,
 	query.New,
+	// Bind concrete Store types to Repository interfaces
+	wire.Bind(new(crud.Repository), new(*crud.Store)),
+	wire.Bind(new(cqs.Repository), new(*cqs.Store)),
+	wire.Bind(new(query.Repository), new(*query.Store)),
 
 	NewLinkService,
 )
@@ -180,7 +184,7 @@ func NewRPCClient(
 func NewLinkApplication(
 	log logger.Logger,
 	eventBus *bus.EventBus,
-	store *crud.Store,
+	store crud.Repository,
 	authPermission *authzed.Client,
 ) (*link.UC, error) {
 	linkService, err := link.New(log, nil, store, authPermission, eventBus)

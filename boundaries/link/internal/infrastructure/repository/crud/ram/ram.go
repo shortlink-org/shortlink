@@ -11,7 +11,7 @@ import (
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/ram/filter"
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
 // Config - config
@@ -79,7 +79,7 @@ func (s *Store) Get(_ context.Context, id string) (*domain.Link, error) {
 }
 
 // List - list
-func (s *Store) List(_ context.Context, params *v1.FilterLink) (*domain.Links, error) {
+func (s *Store) List(_ context.Context, params *domain.FilterLink) (*domain.Links, error) {
 	links := domain.NewLinks()
 
 	// Set default filter

@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-orm v1.6.0
 // - protoc             (unknown)
-// source: infrastructure/repository/crud/types/v1/link.proto
+// source: domain/link/v1/link.proto
 
 package filter
 
@@ -15,31 +15,31 @@ func (f *FilterLink) BuildMongoFilter() bson.M {
 		return nil
 	}
 	filter := bson.M{}
-	if f.Url != nil {
+	if f.URL != nil {
 		fieldFilter := bson.M{}
-		if f.Url.Eq != "" {
-			fieldFilter["$eq"] = f.Url.Eq
+		if f.URL.Eq != "" {
+			fieldFilter["$eq"] = f.URL.Eq
 		}
-		if f.Url.Ne != "" {
-			fieldFilter["$ne"] = f.Url.Ne
+		if f.URL.Ne != "" {
+			fieldFilter["$ne"] = f.URL.Ne
 		}
-		if f.Url.Lt != "" {
-			fieldFilter["$lt"] = f.Url.Lt
+		if f.URL.Lt != "" {
+			fieldFilter["$lt"] = f.URL.Lt
 		}
-		if f.Url.Le != "" {
-			fieldFilter["$lte"] = f.Url.Le
+		if f.URL.Le != "" {
+			fieldFilter["$lte"] = f.URL.Le
 		}
-		if f.Url.Gt != "" {
-			fieldFilter["$gt"] = f.Url.Gt
+		if f.URL.Gt != "" {
+			fieldFilter["$gt"] = f.URL.Gt
 		}
-		if f.Url.Ge != "" {
-			fieldFilter["$gte"] = f.Url.Ge
+		if f.URL.Ge != "" {
+			fieldFilter["$gte"] = f.URL.Ge
 		}
-		if len(f.Url.Contains) > 0 {
-			fieldFilter["$in"] = f.Url.Contains
+		if len(f.URL.Contains) > 0 {
+			fieldFilter["$in"] = f.URL.Contains
 		}
-		if len(f.Url.NotContains) > 0 {
-			fieldFilter["$nin"] = f.Url.NotContains
+		if len(f.URL.NotContains) > 0 {
+			fieldFilter["$nin"] = f.URL.NotContains
 		}
 		if len(fieldFilter) > 0 {
 			filter["url"] = fieldFilter

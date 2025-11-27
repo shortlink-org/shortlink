@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-orm v1.6.0
 // - protoc             (unknown)
-// source: infrastructure/repository/crud/types/v1/link.proto
+// source: domain/link/v1/link.proto
 
 package v1
 

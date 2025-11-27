@@ -9,6 +9,7 @@ package v1
 import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
+	timestamppb "google.golang.org/protobuf/types/known/timestamppb"
 	reflect "reflect"
 	sync "sync"
 	unsafe "unsafe"
@@ -97,11 +98,101 @@ func (LinkEvent) EnumDescriptor() ([]byte, []int) {
 	return file_domain_link_v1_link_proto_rawDescGZIP(), []int{0}
 }
 
+// LinkProto is the protobuf representation of a link for events
+type LinkProto struct {
+	state protoimpl.MessageState `protogen:"open.v1"`
+	// URL of the link
+	Url string `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
+	// Hash by URL + salt
+	Hash string `protobuf:"bytes,2,opt,name=hash,proto3" json:"hash,omitempty"`
+	// Describe of link
+	Describe string `protobuf:"bytes,3,opt,name=describe,proto3" json:"describe,omitempty"`
+	// Created at timestamp
+	CreatedAt *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
+	// Updated at timestamp
+	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	unknownFields protoimpl.UnknownFields
+	sizeCache     protoimpl.SizeCache
+}
+
+func (x *LinkProto) Reset() {
+	*x = LinkProto{}
+	mi := &file_domain_link_v1_link_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *LinkProto) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*LinkProto) ProtoMessage() {}
+
+func (x *LinkProto) ProtoReflect() protoreflect.Message {
+	mi := &file_domain_link_v1_link_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use LinkProto.ProtoReflect.Descriptor instead.
+func (*LinkProto) Descriptor() ([]byte, []int) {
+	return file_domain_link_v1_link_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *LinkProto) GetUrl() string {
+	if x != nil {
+		return x.Url
+	}
+	return ""
+}
+
+func (x *LinkProto) GetHash() string {
+	if x != nil {
+		return x.Hash
+	}
+	return ""
+}
+
+func (x *LinkProto) GetDescribe() string {
+	if x != nil {
+		return x.Describe
+	}
+	return ""
+}
+
+func (x *LinkProto) GetCreatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.CreatedAt
+	}
+	return nil
+}
+
+func (x *LinkProto) GetUpdatedAt() *timestamppb.Timestamp {
+	if x != nil {
+		return x.UpdatedAt
+	}
+	return nil
+}
+
 var File_domain_link_v1_link_proto protoreflect.FileDescriptor
 
 const file_domain_link_v1_link_proto_rawDesc = "" +
 	"\n" +
-	"\x19domain/link/v1/link.proto\x12\x0edomain.link.v1*\x92\x01\n" +
+	"\x19domain/link/v1/link.proto\x12\x0edomain.link.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xc3\x01\n" +
+	"\tLinkProto\x12\x10\n" +
+	"\x03url\x18\x01 \x01(\tR\x03url\x12\x12\n" +
+	"\x04hash\x18\x02 \x01(\tR\x04hash\x12\x1a\n" +
+	"\bdescribe\x18\x03 \x01(\tR\bdescribe\x129\n" +
+	"\n" +
+	"created_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
+	"\n" +
+	"updated_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt*\x92\x01\n" +
 	"\tLinkEvent\x12\x1a\n" +
 	"\x16LINK_EVENT_UNSPECIFIED\x10\x00\x12\x12\n" +
 	"\x0eLINK_EVENT_ADD\x10\x01\x12\x12\n" +
@@ -124,15 +215,20 @@ func file_domain_link_v1_link_proto_rawDescGZIP() []byte {
 }
 
 var file_domain_link_v1_link_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
+var file_domain_link_v1_link_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_domain_link_v1_link_proto_goTypes = []any{
-	(LinkEvent)(0), // 0: domain.link.v1.LinkEvent
+	(LinkEvent)(0),                // 0: domain.link.v1.LinkEvent
+	(*LinkProto)(nil),             // 1: domain.link.v1.LinkProto
+	(*timestamppb.Timestamp)(nil), // 2: google.protobuf.Timestamp
 }
 var file_domain_link_v1_link_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
-	0, // [0:0] is the sub-list for extension type_name
-	0, // [0:0] is the sub-list for extension extendee
-	0, // [0:0] is the sub-list for field type_name
+	2, // 0: domain.link.v1.LinkProto.created_at:type_name -> google.protobuf.Timestamp
+	2, // 1: domain.link.v1.LinkProto.updated_at:type_name -> google.protobuf.Timestamp
+	2, // [2:2] is the sub-list for method output_type
+	2, // [2:2] is the sub-list for method input_type
+	2, // [2:2] is the sub-list for extension type_name
+	2, // [2:2] is the sub-list for extension extendee
+	0, // [0:2] is the sub-list for field type_name
 }
 
 func init() { file_domain_link_v1_link_proto_init() }
@@ -146,13 +242,14 @@ func file_domain_link_v1_link_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_domain_link_v1_link_proto_rawDesc), len(file_domain_link_v1_link_proto_rawDesc)),
 			NumEnums:      1,
-			NumMessages:   0,
+			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_domain_link_v1_link_proto_goTypes,
 		DependencyIndexes: file_domain_link_v1_link_proto_depIdxs,
 		EnumInfos:         file_domain_link_v1_link_proto_enumTypes,
+		MessageInfos:      file_domain_link_v1_link_proto_msgTypes,
 	}.Build()
 	File_domain_link_v1_link_proto = out.File
 	file_domain_link_v1_link_proto_goTypes = nil

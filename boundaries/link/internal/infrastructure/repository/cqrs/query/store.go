@@ -12,9 +12,9 @@ import (
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/spf13/viper"
 
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	v12 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link_cqrs/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/cqrs/query/postgres"
-	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 // New return implementation of db
@@ -50,7 +50,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 	return s.store.Get(ctx, id)
 }
 
-func (s *Store) List(ctx context.Context, filter *types.FilterLink) (*v12.LinksView, error) {
+func (s *Store) List(ctx context.Context, filter *v1.FilterLink) (*v12.LinksView, error) {
 	return s.store.List(ctx, filter)
 }
 

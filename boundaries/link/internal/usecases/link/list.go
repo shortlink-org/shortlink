@@ -12,7 +12,6 @@ import (
 	"go.opentelemetry.io/otel/trace"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
-	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 // List - get a list of links
@@ -20,7 +19,7 @@ import (
 // Saga:
 // 1. Check permission
 // 2. Get a list of links from store
-func (uc *UC) List(ctx context.Context, filter *types.FilterLink, cursor string, limit uint32) (*domain.Links, *string, error) {
+func (uc *UC) List(ctx context.Context, filter *domain.FilterLink, cursor string, limit uint32) (*domain.Links, *string, error) {
 	const (
 		SAGA_NAME                     = "LIST_LINK"
 		SAGA_STEP_LOOKUP              = "SAGA_STEP_LOOKUP"
@@ -41,11 +40,11 @@ func (uc *UC) List(ctx context.Context, filter *types.FilterLink, cursor string,
 	nextToken := ""
 
 	if filter == nil {
-		filter = &types.FilterLink{}
+		filter = &domain.FilterLink{}
 	}
 
 	if filter.Hash == nil {
-		filter.Hash = &types.StringFilterInput{}
+		filter.Hash = &domain.StringFilterInput{}
 	}
 
 	// create a new saga for a get list of a link

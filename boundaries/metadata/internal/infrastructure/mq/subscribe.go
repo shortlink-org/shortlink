@@ -74,12 +74,16 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 
 			unmarshalErr := marshaler.Unmarshal(msg, event)
 			if unmarshalErr != nil {
+				// Nack() to allow Watermill DLQ to track retries and move to DLQ after max retries
+				// Watermill will automatically move message to DLQ topic after WATERMILL_DLQ_MAX_RETRIES attempts
+				// Log all metadata to debug DLQ retry tracking
 				log.ErrorWithContext(msgCtx, "Failed to unmarshal event using marshaler - nacking for Kafka DLQ",
 					slog.String("error", unmarshalErr.Error()),
 					slog.String("topic", linkCreatedEvent),
 					slog.Int("payload_size", len(msg.Payload)),
 					slog.Int("metadata_count", len(msg.Metadata)),
 					slog.String("message_uuid", msg.UUID),
+					slog.Any("metadata", msg.Metadata), // Log all metadata to debug DLQ retry tracking
 				)
 
 				msg.Nack()
@@ -119,29 +123,15 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 }
 
 // handleLinkCreated processes LinkCreated events
-// Event is typed as *linkpb.LinkCreated - use proto reflection for field access
-// (buf.build generated code may not have direct getters)
+// Event is typed as *linkpb.LinkCreated
 func (e *Event) handleLinkCreated(ctx context.Context, event *linkpb.LinkCreated, log logger.Logger) error {
-	// Use proto reflection to access fields (buf.build may not generate getters)
-	eventReflect := event.ProtoReflect()
-	urlField := eventReflect.Descriptor().Fields().ByName("url")
-	hashField := eventReflect.Descriptor().Fields().ByName("hash")
-
-	if urlField == nil {
-		log.ErrorWithContext(ctx, "URL field not found in LinkCreated event")
-		return domainerrors.NewInvalidURLError("event.url", fmt.Errorf("missing url field: %w", errInvalidEvent))
-	}
-
-	linkURL := eventReflect.Get(urlField).String()
+	linkURL := event.GetUrl()
 	if linkURL == "" {
 		log.ErrorWithContext(ctx, "Link URL is empty in event")
 		return domainerrors.NewInvalidURLError("event.url", fmt.Errorf("empty url: %w", errInvalidEvent))
 	}
 
-	var linkHash string
-	if hashField != nil {
-		linkHash = eventReflect.Get(hashField).String()
-	}
+	linkHash := event.GetHash()
 
 	// Process metadata for the link URL
 	_, err := e.metadataUC.Add(ctx, linkURL)

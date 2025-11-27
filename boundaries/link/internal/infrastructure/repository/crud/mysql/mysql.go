@@ -16,7 +16,6 @@ import (
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mysql/schema/crud"
-	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 //go:embed migrations/*.sql
@@ -56,7 +55,7 @@ func (s Store) Get(ctx context.Context, hash string) (*domain.Link, error) {
 	return &payload, nil
 }
 
-func (s Store) List(ctx context.Context, _ *types.FilterLink) (*domain.Links, error) {
+func (s Store) List(ctx context.Context, _ *domain.FilterLink) (*domain.Links, error) {
 	links, err := s.client.GetLinks(ctx)
 	if err != nil {
 		return nil, err

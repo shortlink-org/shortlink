@@ -24,7 +24,6 @@ import (
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/ram"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/redis"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/sqlite"
-	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 // New return implementation of db
@@ -127,7 +126,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	return response, err
 }
 
-func (s *Store) List(ctx context.Context, filter *types.FilterLink) (*v1.Links, error) {
+func (s *Store) List(ctx context.Context, filter *v1.FilterLink) (*v1.Links, error) {
 	response, err := s.store.List(ctx, filter)
 	if err != nil {
 		return nil, err

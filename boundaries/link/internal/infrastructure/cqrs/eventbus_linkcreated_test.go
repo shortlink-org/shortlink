@@ -92,9 +92,10 @@ func TestEventBus_PublishLinkCreated(t *testing.T) {
 		// Verify event data
 		linkCreated, ok := unmarshaledEvent.(*linkpb.LinkCreated)
 		require.True(t, ok)
-		assert.Equal(t, event.Url, linkCreated.Url)
-		assert.Equal(t, event.Hash, linkCreated.Hash)
-		assert.Equal(t, event.Describe, linkCreated.Describe)
+		require.NotNil(t, linkCreated.GetLink(), "Link should not be nil")
+		assert.Equal(t, event.Link.GetUrl(), linkCreated.GetLink().GetUrl())
+		assert.Equal(t, event.Link.GetHash(), linkCreated.GetLink().GetHash())
+		assert.Equal(t, event.Link.GetDescribe(), linkCreated.GetLink().GetDescribe())
 
 	case <-time.After(10 * time.Second):
 		t.Fatal("Timeout waiting for message")

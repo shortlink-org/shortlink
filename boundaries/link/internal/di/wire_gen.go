@@ -302,7 +302,7 @@ var LinkSet = wire.NewSet(
 
 	DefaultSet, permission.New, wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"), wire.Bind(new(metric.MeterProvider), new(*metric2.MeterProvider)), db.New, wire.Bind(new(watermill.Backend), new(*kafka.Backend)), kafka.New, wire.Value([]watermill.Option{}), watermill.New, wire.FieldsOf(new(*watermill.Client), "Publisher", "Subscriber"), grpc.InitServer, NewRPCClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, CQRSSet,
 
-	NewLinkApplication, link_cqrs.New, NewSitemapService, crud.New, cqs.New, query.New, NewLinkService,
+	NewLinkApplication, link_cqrs.New, NewSitemapService, crud.New, cqs.New, query.New, wire.Bind(new(crud.Repository), new(*crud.Store)), wire.Bind(new(cqs.Repository), new(*cqs.Store)), wire.Bind(new(query.Repository), new(*query.Store)), NewLinkService,
 )
 
 func NewRPCClient(ctx2 context.Context,
@@ -325,7 +325,7 @@ func NewRPCClient(ctx2 context.Context,
 func NewLinkApplication(
 	log logger.Logger,
 	eventBus *bus.EventBus,
-	store *crud.Store,
+	store crud.Repository,
 	authPermission *authzed.Client,
 ) (*link.UC, error) {
 	linkService, err := link.New(log, nil, store, authPermission, eventBus)

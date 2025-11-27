@@ -21,7 +21,7 @@ import (
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mock"
 	filter2 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mongo/filter"
-	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
 func TestMain(m *testing.M) {

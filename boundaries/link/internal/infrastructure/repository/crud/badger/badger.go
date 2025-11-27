@@ -7,7 +7,7 @@ import (
 	"github.com/segmentio/encoding/json"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
 // Store implementation of db interface
@@ -63,7 +63,7 @@ func (b *Store) Get(_ context.Context, id string) (*domain.Link, error) {
 }
 
 // List - list
-func (b *Store) List(_ context.Context, _ *v1.FilterLink) (*domain.Links, error) {
+func (b *Store) List(_ context.Context, _ *domain.FilterLink) (*domain.Links, error) {
 	var list [][]byte
 
 	err := b.client.View(func(txn *badger.Txn) error {

@@ -31,7 +31,7 @@ type UC struct {
 func New(
 	log logger.Logger,
 	metadataService any,
-	store *crud.Store,
+	store crud.Repository,
 	permissionClient *authzed.Client,
 	eventBus *bus.EventBus,
 ) (*UC, error) {

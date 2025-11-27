@@ -17,8 +17,8 @@ type Service struct {
 	marshaler  *cqrsmessage.ProtoMarshaler
 
 	// Repository
-	cqsStore   *cqs.Store
-	queryStore *query.Store
+	cqsStore   cqs.Repository
+	queryStore query.Repository
 
 	log logger.Logger
 }
@@ -27,8 +27,8 @@ func New(
 	log logger.Logger,
 	subscriber message.Subscriber,
 	marshaler *cqrsmessage.ProtoMarshaler,
-	cqsStore *cqs.Store,
-	queryStore *query.Store,
+	cqsStore cqs.Repository,
+	queryStore query.Repository,
 ) (*Service, error) {
 	service := &Service{
 		subscriber: subscriber,

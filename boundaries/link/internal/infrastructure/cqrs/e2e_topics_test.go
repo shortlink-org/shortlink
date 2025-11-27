@@ -12,6 +12,7 @@ import (
 	"google.golang.org/protobuf/proto"
 	"google.golang.org/protobuf/types/known/timestamppb"
 
+	rpclinkpb "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/link/v1"
 	linkpb "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 

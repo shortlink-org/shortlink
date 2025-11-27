@@ -4,6 +4,22 @@ package domain.link.v1;
 
 option go_package = "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1";
 
+import "google/protobuf/timestamp.proto";
+
+// LinkProto is the protobuf representation of a link for events
+message LinkProto {
+  // URL of the link
+  string url = 1;
+  // Hash by URL + salt
+  string hash = 2;
+  // Describe of link
+  string describe = 3;
+  // Created at timestamp
+  google.protobuf.Timestamp created_at = 4;
+  // Updated at timestamp
+  google.protobuf.Timestamp updated_at = 5;
+}
+
 // DEPRECATED: LinkEvent enum is deprecated and will be removed after migration to go-sdk/cqrs.
 // Use individual event messages from link_events.proto instead:
 //   - LinkCreated (canonical: link.link.created.v1) replaces LINK_EVENT_ADD

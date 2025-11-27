@@ -7,11 +7,10 @@ import (
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/postgres/filter"
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 // List - return list links
-func (s *Store) List(ctx context.Context, params *v1.FilterLink) (*domain.Links, error) {
+func (s *Store) List(ctx context.Context, params *domain.FilterLink) (*domain.Links, error) {
 	request := psql.Select("url", "hash", "describe", "created_at", "updated_at").
 		From("link.links")
 

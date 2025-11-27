@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-orm v1.6.0
 // - protoc             (unknown)
-// source: infrastructure/repository/crud/types/v1/link.proto
+// source: domain/link/v1/link.proto
 
 package filter
 
@@ -10,7 +10,7 @@ import (
 	"reflect"
 	"strings"
 
-	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
+	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
 func (f *FilterLink) BuildRAMFilter(item any) bool {

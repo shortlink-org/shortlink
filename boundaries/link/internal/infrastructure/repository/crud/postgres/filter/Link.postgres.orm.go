@@ -2,7 +2,7 @@
 // versions:
 // - protoc-gen-go-orm v1.6.0
 // - protoc             (unknown)
-// source: infrastructure/repository/crud/types/v1/link.proto
+// source: domain/link/v1/link.proto
 
 package filter
 
@@ -12,35 +12,35 @@ import (
 )
 
 func (f *FilterLink) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBuilder {
-	if f.Url != nil {
-		if f.Url.Eq != "" {
-			query = query.Where("url = ?", f.Url.Eq)
+	if f.URL != nil {
+		if f.URL.Eq != "" {
+			query = query.Where("url = ?", f.URL.Eq)
 		}
-		if f.Url.Ne != "" {
-			query = query.Where("url <> ?", f.Url.Ne)
+		if f.URL.Ne != "" {
+			query = query.Where("url <> ?", f.URL.Ne)
 		}
-		if f.Url.Lt != "" {
-			query = query.Where("url < ?", f.Url.Lt)
+		if f.URL.Lt != "" {
+			query = query.Where("url < ?", f.URL.Lt)
 		}
-		if f.Url.Le != "" {
-			query = query.Where("url <= ?", f.Url.Le)
+		if f.URL.Le != "" {
+			query = query.Where("url <= ?", f.URL.Le)
 		}
-		if f.Url.Gt != "" {
-			query = query.Where("url > ?", f.Url.Gt)
+		if f.URL.Gt != "" {
+			query = query.Where("url > ?", f.URL.Gt)
 		}
-		if f.Url.Ge != "" {
-			query = query.Where("url >= ?", f.Url.Ge)
+		if f.URL.Ge != "" {
+			query = query.Where("url >= ?", f.URL.Ge)
 		}
-		if f.Url.StartsWith != "" {
-			query = query.Where("url LIKE '%' || ?", f.Url.StartsWith)
+		if f.URL.StartsWith != "" {
+			query = query.Where("url LIKE '%' || ?", f.URL.StartsWith)
 		}
-		if f.Url.EndsWith != "" {
-			query = query.Where("url LIKE ? || '%'", f.Url.EndsWith)
+		if f.URL.EndsWith != "" {
+			query = query.Where("url LIKE ? || '%'", f.URL.EndsWith)
 		}
-		if len(f.Url.Contains) > 0 {
+		if len(f.URL.Contains) > 0 {
 			containsQueries := []string{}
 			containsArgs := []interface{}{}
-			for _, v := range f.Url.Contains {
+			for _, v := range f.URL.Contains {
 				if v != "" {
 					containsQueries = append(containsQueries, "url LIKE ?")
 					containsArgs = append(containsArgs, "%"+v+"%")
@@ -50,10 +50,10 @@ func (f *FilterLink) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBu
 				query = query.Where("("+strings.Join(containsQueries, " OR ")+")", containsArgs...)
 			}
 		}
-		if len(f.Url.NotContains) > 0 {
+		if len(f.URL.NotContains) > 0 {
 			notContainsQueries := []string{}
 			notContainsArgs := []interface{}{}
-			for _, v := range f.Url.NotContains {
+			for _, v := range f.URL.NotContains {
 				if v != "" {
 					notContainsQueries = append(notContainsQueries, "url NOT LIKE ?")
 					notContainsArgs = append(notContainsArgs, "%"+v+"%")
@@ -63,10 +63,10 @@ func (f *FilterLink) BuildFilter(query squirrel.SelectBuilder) squirrel.SelectBu
 				query = query.Where("("+strings.Join(notContainsQueries, " OR ")+")", notContainsArgs...)
 			}
 		}
-		if f.Url.IsEmpty {
+		if f.URL.IsEmpty {
 			query = query.Where("url = '' OR url IS NULL")
 		}
-		if f.Url.IsNotEmpty {
+		if f.URL.IsNotEmpty {
 			query = query.Where("url <> '' AND url IS NOT NULL")
 		}
 	}

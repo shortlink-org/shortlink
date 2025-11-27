@@ -307,8 +307,8 @@ const file_infrastructure_rpc_cqrs_link_v1_link_proto_rawDesc = "" +
 	"\n" +
 	"updated_at\x18\b \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"L\n" +
 	"\tLinksView\x12?\n" +
-	"\x05links\x18\x01 \x03(\v2).infrastructure.rpc.cqrs.link.v1.LinkViewR\x05linksB\xa9\x02\n" +
-	"#com.infrastructure.rpc.cqrs.link.v1B\tLinkProtoP\x01ZVgithub.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/link/v1\xa2\x02\x04IRCL\xaa\x02\x1fInfrastructure.Rpc.Cqrs.Link.V1\xca\x02\x1fInfrastructure\\Rpc\\Cqrs\\Link\\V1\xe2\x02+Infrastructure\\Rpc\\Cqrs\\Link\\V1\\GPBMetadata\xea\x02#Infrastructure::Rpc::Cqrs::Link::V1b\x06proto3"
+	"\x05links\x18\x01 \x03(\v2).infrastructure.rpc.cqrs.link.v1.LinkViewR\x05linksB\xae\x02\n" +
+	"#com.infrastructure.rpc.cqrs.link.v1B\tLinkProtoP\x01Z[github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/cqrs/link/v1\xa2\x02\x04IRCL\xaa\x02\x1fInfrastructure.Rpc.Cqrs.Link.V1\xca\x02\x1fInfrastructure\\Rpc\\Cqrs\\Link\\V1\xe2\x02+Infrastructure\\Rpc\\Cqrs\\Link\\V1\\GPBMetadata\xea\x02#Infrastructure::Rpc::Cqrs::Link::V1b\x06proto3"
 
 var (
 	file_infrastructure_rpc_cqrs_link_v1_link_proto_rawDescOnce sync.Once

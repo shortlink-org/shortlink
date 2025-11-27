@@ -2,16 +2,16 @@ package postgres
 
 import (
 	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 
 	"github.com/jackc/pgx/v5/pgconn"
 	"github.com/shortlink-org/go-sdk/db/options"
-	"google.golang.org/protobuf/encoding/protojson"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/postgres/dto"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/postgres/schema/crud"
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 // mapPostgresError maps PostgreSQL errors to domain errors
@@ -63,16 +63,10 @@ func (s *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, err
 
 func (s *Store) singleWrite(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 	// Create DTO with protobuf timestamps for proper JSON serialization
-	dto := &v1.Link{
-		Url:       in.GetUrl().String(),
-		Hash:      in.GetHash(),
-		Describe:  in.GetDescribe(),
-		CreatedAt: in.GetCreatedAt().GetTimestamp(),
-		UpdatedAt: in.GetUpdatedAt().GetTimestamp(),
-	}
+	linkDTO := dto.FromDomain(in)
 
-	// Use protojson.Marshal for proper protobuf serialization (timestamps, etc.)
-	payload, err := protojson.Marshal(dto)
+	// Use json.Marshal for JSON serialization
+	payload, err := json.Marshal(linkDTO)
 	if err != nil {
 		return nil, domain.NewInternalErrorWithErr(err)
 	}
@@ -101,16 +95,10 @@ func (s *Store) batchWrite(ctx context.Context, in *domain.Links) (*domain.Links
 	// Create a new link
 	list := in.GetLinks()
 	for key := range list {
-		dto := &v1.Link{
-			Url:       list[key].GetUrl().String(),
-			Hash:      list[key].GetHash(),
-			Describe:  list[key].GetDescribe(),
-			CreatedAt: list[key].GetCreatedAt().GetTimestamp(),
-			UpdatedAt: list[key].GetUpdatedAt().GetTimestamp(),
-		}
+		linkDTO := dto.FromDomain(list[key])
 
 		// Marshal to JSONB as string (PostgreSQL JSONB requires string, not []byte)
-		dataJson, err := protojson.Marshal(dto)
+		dataJson, err := json.Marshal(linkDTO)
 		if err != nil {
 			return nil, domain.NewInternalErrorWithErr(err)
 		}

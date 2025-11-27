@@ -4,11 +4,12 @@ import (
 	"context"
 	"log/slog"
 
+	"errors"
+
 	"github.com/ThreeDotsLabs/watermill/message"
 	"google.golang.org/protobuf/proto"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
-	infraerrors "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/errors"
 )
 
 // EventHandlers subscribes to CQRS events using ProtoMarshaler for automatic deserialization
@@ -87,16 +88,31 @@ func subscribe[T proto.Message](
 			}
 
 			if err := handler(msgCtx, event); err != nil {
-				dto := infraerrors.FromDomainError("link.cqrs", err)
+				var linkErr *domain.LinkError
+				isRetryable := true
+				errorCode := "UNKNOWN"
+
+				if errors.As(err, &linkErr) {
+					errorCode = string(linkErr.Code())
+					// Non-retryable errors: invalid input, not found, permission denied
+					switch linkErr.Code() {
+					case domain.CodeInvalidInput,
+						domain.CodeNotFound,
+						domain.CodePermissionDenied:
+						isRetryable = false
+					default:
+						isRetryable = true
+					}
+				}
 
 				s.log.ErrorWithContext(msgCtx, "Failed to handle event",
-					slog.String("error_code", dto.Code),
-					slog.Bool("retryable", dto.Retryable),
-					slog.String("error", dto.Message),
+					slog.String("error_code", errorCode),
+					slog.Bool("retryable", isRetryable),
+					slog.String("error", err.Error()),
 					slog.String("topic", topic),
 				)
 
-				if dto.Retryable {
+				if isRetryable {
 					msg.Nack()
 				} else {
 					msg.Ack()

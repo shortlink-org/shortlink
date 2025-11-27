@@ -271,8 +271,8 @@ const file_infrastructure_rpc_cqrs_link_v1_link_command_proto_rawDesc = "" +
 	"\x12LinkCommandService\x12b\n" +
 	"\x03Add\x12+.infrastructure.rpc.cqrs.link.v1.AddRequest\x1a,.infrastructure.rpc.cqrs.link.v1.AddResponse\"\x00\x12k\n" +
 	"\x06Update\x12..infrastructure.rpc.cqrs.link.v1.UpdateRequest\x1a/.infrastructure.rpc.cqrs.link.v1.UpdateResponse\"\x00\x12R\n" +
-	"\x06Delete\x12..infrastructure.rpc.cqrs.link.v1.DeleteRequest\x1a\x16.google.protobuf.Empty\"\x00B\xb0\x02\n" +
-	"#com.infrastructure.rpc.cqrs.link.v1B\x10LinkCommandProtoP\x01ZVgithub.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/link/v1\xa2\x02\x04IRCL\xaa\x02\x1fInfrastructure.Rpc.Cqrs.Link.V1\xca\x02\x1fInfrastructure\\Rpc\\Cqrs\\Link\\V1\xe2\x02+Infrastructure\\Rpc\\Cqrs\\Link\\V1\\GPBMetadata\xea\x02#Infrastructure::Rpc::Cqrs::Link::V1b\x06proto3"
+	"\x06Delete\x12..infrastructure.rpc.cqrs.link.v1.DeleteRequest\x1a\x16.google.protobuf.Empty\"\x00B\xb5\x02\n" +
+	"#com.infrastructure.rpc.cqrs.link.v1B\x10LinkCommandProtoP\x01Z[github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/cqrs/link/v1\xa2\x02\x04IRCL\xaa\x02\x1fInfrastructure.Rpc.Cqrs.Link.V1\xca\x02\x1fInfrastructure\\Rpc\\Cqrs\\Link\\V1\xe2\x02+Infrastructure\\Rpc\\Cqrs\\Link\\V1\\GPBMetadata\xea\x02#Infrastructure::Rpc::Cqrs::Link::V1b\x06proto3"
 
 var (
 	file_infrastructure_rpc_cqrs_link_v1_link_command_proto_rawDescOnce sync.Once

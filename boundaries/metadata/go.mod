@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/boundaries/metadata
 go 1.25.4
 
 require (
-	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.10-20251125212249-1eb2f0f72b06.1
+	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.10-20251127164808-c73856f570c9.1
 	github.com/IBM/sarama v1.46.3
 	github.com/PuerkitoBio/goquery v1.11.0
 	github.com/ThreeDotsLabs/watermill v1.5.1

@@ -6,7 +6,7 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
+	linkdomain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
 func (l *LinkRPC) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
@@ -33,8 +33,8 @@ func (l *LinkRPC) Get(ctx context.Context, in *GetRequest) (*GetResponse, error)
 
 func (l *LinkRPC) List(ctx context.Context, in *ListRequest) (*ListResponse, error) {
 	// Parse args
-	filter := v1.FilterLink{
-		Url: &v1.StringFilterInput{Contains: []string{in.GetFilter()}},
+	filter := linkdomain.FilterLink{
+		URL: &linkdomain.StringFilterInput{Contains: []string{in.GetFilter()}},
 	}
 
 	resp, err := l.cqrs.List(ctx, &filter)

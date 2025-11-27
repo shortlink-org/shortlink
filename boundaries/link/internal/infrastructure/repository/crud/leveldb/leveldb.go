@@ -10,7 +10,6 @@ import (
 	"github.com/syndtr/goleveldb/leveldb"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
-	types "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 // Store implementation of db interface
@@ -75,7 +74,7 @@ func (l *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 }
 
 // List - list links
-func (l *Store) List(_ context.Context, _ *types.FilterLink) (*v1.Links, error) {
+func (l *Store) List(_ context.Context, _ *v1.FilterLink) (*v1.Links, error) {
 	links := v1.NewLinks()
 	iterator := l.client.NewIterator(nil, nil)
 

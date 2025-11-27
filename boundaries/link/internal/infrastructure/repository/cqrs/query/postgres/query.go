@@ -9,8 +9,8 @@ import (
 	"github.com/shortlink-org/go-sdk/db"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	v13 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 	v12 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link_cqrs/v1"
-	v13 "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1"
 )
 
 var psql = squirrel.StatementBuilder.PlaceholderFormat(squirrel.Dollar)
@@ -68,7 +68,7 @@ func (s *Store) Get(ctx context.Context, id string) (*v12.LinkView, error) {
 // List - list
 func (s *Store) List(ctx context.Context, filter *v13.FilterLink) (*v12.LinksView, error) {
 	links := psql.Select("hash, describe, ts_headline(meta_description, q, 'StartSel=<em>, StopSel=</em>') as meta_description, created_at, updated_at").
-		From(fmt.Sprintf(`link.link_view, to_tsquery('%s') AS q`, filter.Url.Contains)).
+		From(fmt.Sprintf(`link.link_view, to_tsquery('%s') AS q`, filter.URL.Contains)).
 		Where("make_tsvector_link_view(meta_keywords, meta_description) @@ q").
 		OrderBy("ts_rank(make_tsvector_link_view(meta_keywords, meta_description), q) DESC")
 
