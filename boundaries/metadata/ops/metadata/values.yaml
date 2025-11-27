@@ -51,6 +51,8 @@ deploy:
     WATERMILL_KAFKA_BROKERS: "shortlink-kafka-bootstrap.kafka:9092"
     WATERMILL_KAFKA_CLIENT_ID: "shortlink-metadata"
     WATERMILL_KAFKA_CONSUMER_GROUP: "shortlink-metadata"
+    WATERMILL_DLQ_ENABLED: true
+    WATERMILL_DLQ_MAX_RETRIES: 3
     TRACER_URI: grafana-tempo.grafana:4317
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
 

@@ -98,12 +98,12 @@ spec:
           max_parallel_workers: 8
           max_parallel_maintenance_workers: 4
           # Synchronous Replication
-          synchronous_commit: 'on'
+          synchronous_commit: "on"
           # Partitioning
-          enable_partition_pruning: 'on'
+          enable_partition_pruning: "on"
           # TODO: enabled pgrouting,timescaledb,postgis,pgmonitor_bgw
           shared_preload_libraries: pg_stat_statements,auto_explain,pgaudit,pg_prewarm,uuid-ossp,pg_partman_bgw
-          pgmonitor_bgw.dbname: postgres,link
+          pgmonitor_bgw.dbname: postgres,link,metadata
           pgmonitor_bgw.role: "postgres"
     syncPeriodSeconds: 60
     leaderLeaseDurationSeconds: 300
@@ -130,3 +130,7 @@ spec:
     - name: proxy
       databases:
         - proxy
+    - name: metadata
+      databases:
+        - metadata
+      options: "SUPERUSER"

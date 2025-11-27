@@ -7,7 +7,6 @@ import (
 	"log/slog"
 
 	linkpb "buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go/domain/link/v1"
-	"github.com/ThreeDotsLabs/watermill/message"
 	"github.com/shortlink-org/go-sdk/cqrs/bus"
 	cqrsmessage "github.com/shortlink-org/go-sdk/cqrs/message"
 	"github.com/shortlink-org/go-sdk/logger"
@@ -39,10 +38,30 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 	}
 
 	go func(ctx context.Context) {
+		defer func() {
+			if r := recover(); r != nil {
+				log.ErrorWithContext(ctx, "panic in LinkCreated subscriber",
+					slog.Any("recover", r),
+					slog.String("topic", linkCreatedEvent),
+				)
+			}
+		}()
+
 		for msg := range messages {
 			msgCtx := msg.Context() //nolint:contextcheck // inherit context from Watermill message
 			if msgCtx == nil {
 				msgCtx = ctx
+			}
+
+			// Validate payload before unmarshaling
+			if len(msg.Payload) == 0 {
+				log.ErrorWithContext(msgCtx, "Received empty payload for link created event - nacking for Kafka DLQ",
+					slog.String("topic", linkCreatedEvent),
+					slog.String("message_uuid", msg.UUID),
+				)
+
+				msg.Nack()
+				continue
 			}
 
 			// Create typed event instance directly - no reflect.New needed
@@ -50,19 +69,20 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 			event := &linkpb.LinkCreated{}
 
 			// Unmarshal using ProtoMarshaler (handles metadata extraction)
-			watermillMsg := message.NewMessage(msg.UUID, msg.Payload)
-			watermillMsg.Metadata = msg.Metadata
-			watermillMsg.SetContext(msgCtx) //nolint:contextcheck // watermill message already carries derived context
+			// msg is already *message.Message from Watermill, just update context if needed
+			msg.SetContext(msgCtx) //nolint:contextcheck // update context for unmarshaling
 
-			unmarshalErr := marshaler.Unmarshal(watermillMsg, event)
+			unmarshalErr := marshaler.Unmarshal(msg, event)
 			if unmarshalErr != nil {
-				log.ErrorWithContext(msgCtx, "Failed to unmarshal event using marshaler", //nolint:contextcheck // logging must use message context
+				log.ErrorWithContext(msgCtx, "Failed to unmarshal event using marshaler - nacking for Kafka DLQ",
 					slog.String("error", unmarshalErr.Error()),
 					slog.String("topic", linkCreatedEvent),
+					slog.Int("payload_size", len(msg.Payload)),
+					slog.Int("metadata_count", len(msg.Metadata)),
+					slog.String("message_uuid", msg.UUID),
 				)
-				e.archiveRawEvent(msgCtx, msg, linkCreatedEvent, fmt.Sprintf("unmarshal: %v", unmarshalErr))
-				msg.Nack()
 
+				msg.Nack()
 				continue
 			}
 
@@ -72,19 +92,18 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 				var domainErr *domainerrors.Error
 				if errors.As(handleErr, &domainErr) {
 					dto := infraerrors.FromDomainError("metadata.mq.link_created", domainErr)
-					log.ErrorWithContext(msgCtx, "Failed to handle link created event",
+					log.ErrorWithContext(msgCtx, "Failed to handle link created event - nacking for Kafka DLQ",
 						slog.String("error_code", dto.Code),
 						slog.String("topic", linkCreatedEvent),
 						slog.Bool("retryable", dto.Retryable),
 						slog.String("message", dto.Message),
 					)
-					e.archiveRawEvent(msgCtx, msg, linkCreatedEvent, fmt.Sprintf("domain: %s", dto.Message))
 				} else {
-					log.ErrorWithContext(msgCtx, "Failed to handle link created event",
+					log.ErrorWithContext(msgCtx, "Failed to handle link created event - nacking for Kafka DLQ",
 						slog.String("error", handleErr.Error()),
 						slog.String("topic", linkCreatedEvent),
+						slog.Bool("retryable", true),
 					)
-					e.archiveRawEvent(msgCtx, msg, linkCreatedEvent, fmt.Sprintf("handler: %v", handleErr))
 				}
 
 				msg.Nack()
@@ -145,15 +164,3 @@ func (e *Event) handleLinkCreated(ctx context.Context, event *linkpb.LinkCreated
 	return nil
 }
 
-func (e *Event) archiveRawEvent(ctx context.Context, msg *message.Message, topic, reason string) {
-	if e == nil || e.rawEvents == nil || msg == nil {
-		return
-	}
-
-	_ = e.rawEvents.Save(ctx, RawEventRecord{
-		Topic:    topic,
-		Payload:  cloneBytes(msg.Payload),
-		Metadata: cloneMetadata(msg.Metadata),
-		Error:    reason,
-	})
-}

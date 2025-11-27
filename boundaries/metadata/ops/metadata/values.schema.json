@@ -37,6 +37,12 @@
             },
             "WATERMILL_KAFKA_CONSUMER_GROUP": {
               "type": "string"
+            },
+            "WATERMILL_DLQ_ENABLED": {
+              "type": "boolean"
+            },
+            "WATERMILL_DLQ_MAX_RETRIES": {
+              "type": "integer"
             }
           },
           "type": "object"
