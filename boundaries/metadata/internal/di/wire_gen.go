@@ -180,7 +180,7 @@ func InitializeMetaDataService() (*MetaDataService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	event, err := InitMetadataMQ(context, loggerLogger, subscriber, metadataUC, typeRegistry, protoMarshaler)
+	event, err := InitMetadataMQ(context, loggerLogger, subscriber, metadataUC, typeRegistry, protoMarshaler, tracerProvider)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -283,8 +283,9 @@ func InitMetadataMQ(ctx2 context.Context,
 	metadataUC *metadata.UC,
 	registry *bus.TypeRegistry,
 	marshaler message.Marshaler,
+	tracer trace.TracerProvider,
 ) (*metadata_mq.Event, error) {
-	metadataMQ, err := metadata_mq.New(subscriber, metadataUC)
+	metadataMQ, err := metadata_mq.New(subscriber, metadataUC, tracer)
 	if err != nil {
 		return nil, err
 	}

@@ -139,8 +139,9 @@ func InitMetadataMQ(
 	metadataUC *metadata.UC,
 	registry *bus.TypeRegistry,
 	marshaler cqrsmessage.Marshaler,
+	tracer trace.TracerProvider,
 ) (*metadata_mq.Event, error) {
-	metadataMQ, err := metadata_mq.New(subscriber, metadataUC)
+	metadataMQ, err := metadata_mq.New(subscriber, metadataUC, tracer)
 	if err != nil {
 		return nil, err
 	}

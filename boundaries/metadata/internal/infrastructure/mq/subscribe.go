@@ -10,6 +10,10 @@ import (
 	"github.com/shortlink-org/go-sdk/cqrs/bus"
 	cqrsmessage "github.com/shortlink-org/go-sdk/cqrs/message"
 	"github.com/shortlink-org/go-sdk/logger"
+	"go.opentelemetry.io/otel"
+	"go.opentelemetry.io/otel/attribute"
+	otelcodes "go.opentelemetry.io/otel/codes"
+	"go.opentelemetry.io/otel/trace"
 
 	"github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain"
 	domainerrors "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/errors"
@@ -55,6 +59,21 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 
 			// Validate payload before unmarshaling
 			if len(msg.Payload) == 0 {
+				// Create span for empty payload error to track problematic messages in traces
+				_, span := otel.Tracer("metadata.mq").Start(msgCtx, "metadata.mq.empty_payload_error",
+					trace.WithSpanKind(trace.SpanKindConsumer),
+				)
+				span.SetStatus(otelcodes.Error, "Empty payload received")
+				span.SetAttributes(
+					attribute.String("messaging.system", "kafka"),
+					attribute.String("messaging.destination", linkCreatedEvent),
+					attribute.String("messaging.destination_kind", "topic"),
+					attribute.String("messaging.id", msg.UUID),
+					attribute.String("messaging.operation", "receive"),
+					attribute.String("error.type", "empty_payload"),
+				)
+				span.End()
+
 				log.ErrorWithContext(msgCtx, "Received empty payload for link created event - nacking for Kafka DLQ",
 					slog.String("topic", linkCreatedEvent),
 					slog.String("message_uuid", msg.UUID),
@@ -74,6 +93,24 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 
 			unmarshalErr := marshaler.Unmarshal(msg, event)
 			if unmarshalErr != nil {
+				// Create span for unmarshal error to track problematic messages in traces
+				_, span := otel.Tracer("metadata.mq").Start(msgCtx, "metadata.mq.unmarshal_error",
+					trace.WithSpanKind(trace.SpanKindConsumer),
+				)
+				span.RecordError(unmarshalErr)
+				span.SetStatus(otelcodes.Error, unmarshalErr.Error())
+				span.SetAttributes(
+					attribute.String("messaging.system", "kafka"),
+					attribute.String("messaging.destination", linkCreatedEvent),
+					attribute.String("messaging.destination_kind", "topic"),
+					attribute.String("messaging.id", msg.UUID),
+					attribute.String("messaging.operation", "receive"),
+					attribute.Int("messaging.message_payload_size_bytes", len(msg.Payload)),
+					attribute.Int("messaging.message_metadata_count", len(msg.Metadata)),
+					attribute.String("error.type", "unmarshal"),
+				)
+				span.End()
+
 				// Nack() to allow Watermill DLQ to track retries and move to DLQ after max retries
 				// Watermill will automatically move message to DLQ topic after WATERMILL_DLQ_MAX_RETRIES attempts
 				// Log all metadata to debug DLQ retry tracking
@@ -91,11 +128,34 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 			}
 
 			// Handle event - event is already typed as *linkpb.LinkCreated
-			handleErr := e.handleLinkCreated(msgCtx, event, log) //nolint:contextcheck // metadata handling depends on message context
+			// Create span for event processing
+			ctx, span := otel.Tracer("metadata.mq").Start(msgCtx, "metadata.mq.handle_link_created",
+				trace.WithSpanKind(trace.SpanKindConsumer),
+			)
+			defer span.End()
+
+			span.SetAttributes(
+				attribute.String("messaging.system", "kafka"),
+				attribute.String("messaging.destination", linkCreatedEvent),
+				attribute.String("messaging.destination_kind", "topic"),
+				attribute.String("messaging.message_id", msg.UUID),
+				attribute.String("messaging.operation", "receive"),
+				attribute.String("event.type", linkCreatedEvent),
+				attribute.String("link.hash", event.GetHash()),
+				attribute.String("link.url", event.GetUrl()),
+			)
+
+			handleErr := e.handleLinkCreated(ctx, event, log) //nolint:contextcheck // metadata handling depends on message context
 			if handleErr != nil {
+				span.RecordError(handleErr)
+				span.SetStatus(otelcodes.Error, handleErr.Error())
 				var domainErr *domainerrors.Error
 				if errors.As(handleErr, &domainErr) {
 					dto := infraerrors.FromDomainError("metadata.mq.link_created", domainErr)
+					span.SetAttributes(
+						attribute.String("error.code", dto.Code),
+						attribute.Bool("error.retryable", dto.Retryable),
+					)
 					log.ErrorWithContext(msgCtx, "Failed to handle link created event - nacking for Kafka DLQ",
 						slog.String("error_code", dto.Code),
 						slog.String("topic", linkCreatedEvent),
@@ -103,6 +163,9 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 						slog.String("message", dto.Message),
 					)
 				} else {
+					span.SetAttributes(
+						attribute.Bool("error.retryable", true),
+					)
 					log.ErrorWithContext(msgCtx, "Failed to handle link created event - nacking for Kafka DLQ",
 						slog.String("error", handleErr.Error()),
 						slog.String("topic", linkCreatedEvent),
@@ -115,6 +178,7 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 				continue
 			}
 
+			span.SetStatus(otelcodes.Ok, "Link created event processed successfully")
 			msg.Ack()
 		}
 	}(ctx)
@@ -133,9 +197,23 @@ func (e *Event) handleLinkCreated(ctx context.Context, event *linkpb.LinkCreated
 
 	linkHash := event.GetHash()
 
+	// Note: metadata.uc.Add already creates spans for saga steps internally
+	// This span wraps the entire metadata processing operation
+	ctx, span := otel.Tracer("metadata.uc").Start(ctx, "metadata.process",
+		trace.WithSpanKind(trace.SpanKindInternal),
+	)
+	defer span.End()
+
+	span.SetAttributes(
+		attribute.String("link.url", linkURL),
+		attribute.String("link.hash", linkHash),
+	)
+
 	// Process metadata for the link URL
 	_, err := e.metadataUC.Add(ctx, linkURL)
 	if err != nil {
+		span.RecordError(err)
+		span.SetStatus(otelcodes.Error, err.Error())
 		log.ErrorWithContext(ctx, "Error processing metadata for link",
 			slog.String("error", err.Error()),
 			slog.String("url", linkURL),
@@ -145,6 +223,7 @@ func (e *Event) handleLinkCreated(ctx context.Context, event *linkpb.LinkCreated
 		return err
 	}
 
+	span.SetStatus(otelcodes.Ok, "Metadata processed successfully")
 	log.InfoWithContext(ctx, "Successfully processed metadata for link",
 		slog.String("url", linkURL),
 		slog.String("hash", linkHash),
