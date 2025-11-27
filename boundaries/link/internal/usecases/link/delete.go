@@ -60,7 +60,7 @@ func (uc *UC) Delete(ctx context.Context, hash string) (*domain.Link, error) {
 
 			return nil
 		}).Reject(func(ctx context.Context, thenErr error) error {
-		return &domain.PermissionDeniedError{Err: thenErr}
+		return domain.ErrPermissionDenied(thenErr)
 	}).Build()
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
@@ -70,7 +70,9 @@ func (uc *UC) Delete(ctx context.Context, hash string) (*domain.Link, error) {
 		Needs(SAGE_STEP_CHECK_PERMISSION).
 		Then(func(ctx context.Context) error {
 			return uc.store.Delete(ctx, hash)
-		}).Build()
+		}).Reject(func(ctx context.Context, err error) error {
+		return err
+	}).Build()
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}

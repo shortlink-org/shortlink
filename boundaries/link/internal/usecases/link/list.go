@@ -96,7 +96,7 @@ func (uc *UC) List(ctx context.Context, filter *domain.FilterLink, cursor string
 				filter.Hash.Contains = append(filter.Hash.Contains, resp.GetResourceObjectId())
 			}
 		}).Reject(func(ctx context.Context, thenErr error) error {
-		return &domain.PermissionDeniedError{Err: thenErr}
+		return domain.ErrPermissionDenied(thenErr)
 	}).Build()
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, nil, err
@@ -113,7 +113,9 @@ func (uc *UC) List(ctx context.Context, filter *domain.FilterLink, cursor string
 			}
 
 			return nil
-		}).Build()
+		}).Reject(func(ctx context.Context, err error) error {
+		return err
+	}).Build()
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, nil, err
 	}

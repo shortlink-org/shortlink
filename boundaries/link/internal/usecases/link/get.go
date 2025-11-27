@@ -32,7 +32,7 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 		return nil, err
 	}
 
-	resp := &domain.Link{}
+	var resp *domain.Link
 
 	// create a new saga for a get link by hash
 	sagaGetLink, errs := saga.New(SAGA_NAME, saga.SetLogger(uc.log)).
@@ -50,14 +50,18 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 				Subject:    &permission.SubjectReference{Object: &permission.ObjectReference{ObjectType: "user", ObjectId: userID}},
 			}
 
-			_, err := uc.permission.PermissionsServiceClient.CheckPermission(ctx, relationship)
+			resp, err := uc.permission.PermissionsServiceClient.CheckPermission(ctx, relationship)
 			if err != nil {
 				return err
 			}
 
+			if resp.Permissionship != permission.CheckPermissionResponse_PERMISSIONSHIP_HAS_PERMISSION {
+				return domain.ErrPermissionDenied(nil)
+			}
+
 			return nil
 		}).Reject(func(ctx context.Context, thenErr error) error {
-		return &domain.PermissionDeniedError{Err: thenErr}
+		return domain.ErrPermissionDenied(thenErr)
 	}).Build()
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
@@ -74,8 +78,8 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 			}
 
 			return nil
-		}).Reject(func(ctx context.Context, thenErr error) error {
-		return &domain.PermissionDeniedError{Err: thenErr}
+		}).Reject(func(ctx context.Context, err error) error {
+		return err
 	}).Build()
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
