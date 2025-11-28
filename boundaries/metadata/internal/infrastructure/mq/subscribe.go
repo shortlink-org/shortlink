@@ -66,9 +66,9 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 				span.SetStatus(otelcodes.Error, "Empty payload received")
 				span.SetAttributes(
 					attribute.String("messaging.system", "kafka"),
-					attribute.String("messaging.destination", linkCreatedEvent),
-					attribute.String("messaging.destination_kind", "topic"),
-					attribute.String("messaging.id", msg.UUID),
+					attribute.String("messaging.destination.name", linkCreatedEvent),
+					attribute.String("messaging.destination.kind", "topic"),
+					attribute.String("messaging.message.id", msg.UUID),
 					attribute.String("messaging.operation", "receive"),
 					attribute.String("error.type", "empty_payload"),
 				)
@@ -101,12 +101,12 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 				span.SetStatus(otelcodes.Error, unmarshalErr.Error())
 				span.SetAttributes(
 					attribute.String("messaging.system", "kafka"),
-					attribute.String("messaging.destination", linkCreatedEvent),
-					attribute.String("messaging.destination_kind", "topic"),
-					attribute.String("messaging.id", msg.UUID),
+					attribute.String("messaging.destination.name", linkCreatedEvent),
+					attribute.String("messaging.destination.kind", "topic"),
+					attribute.String("messaging.message.id", msg.UUID),
 					attribute.String("messaging.operation", "receive"),
-					attribute.Int("messaging.message_payload_size_bytes", len(msg.Payload)),
-					attribute.Int("messaging.message_metadata_count", len(msg.Metadata)),
+					attribute.Int("messaging.message.payload_size_bytes", len(msg.Payload)),
+					attribute.Int("messaging.message.metadata_count", len(msg.Metadata)),
 					attribute.String("error.type", "unmarshal"),
 				)
 				span.End()
@@ -128,45 +128,59 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 			}
 
 			// Handle event - event is already typed as *linkpb.LinkCreated
-			// Create span for event processing
-			ctx, span := otel.Tracer("metadata.mq").Start(msgCtx, "metadata.mq.handle_link_created",
+			// Create consumer span for event processing from Kafka message
+			// This span will be child of the parent span from Kafka headers (extracted by msg.Context())
+			consumerCtx, consumerSpan := otel.Tracer("metadata.mq").Start(msgCtx, linkCreatedEvent+" receive",
 				trace.WithSpanKind(trace.SpanKindConsumer),
 			)
-			defer span.End()
+			defer consumerSpan.End()
 
-			span.SetAttributes(
+			consumerSpan.SetAttributes(
 				attribute.String("messaging.system", "kafka"),
-				attribute.String("messaging.destination", linkCreatedEvent),
-				attribute.String("messaging.destination_kind", "topic"),
-				attribute.String("messaging.message_id", msg.UUID),
+				attribute.String("messaging.destination.name", linkCreatedEvent),
+				attribute.String("messaging.destination.kind", "topic"),
+				attribute.String("messaging.message.id", msg.UUID),
 				attribute.String("messaging.operation", "receive"),
-				attribute.String("event.type", linkCreatedEvent),
 				attribute.String("link.hash", event.GetHash()),
 				attribute.String("link.url", event.GetUrl()),
 			)
 
-			handleErr := e.handleLinkCreated(ctx, event, log) //nolint:contextcheck // metadata handling depends on message context
+			// Create metadata.process span as child of consumer span
+			// This ensures proper trace hierarchy: consumer span -> metadata.process -> saga
+			processCtx, processSpan := otel.Tracer("metadata.uc").Start(consumerCtx, "metadata.process",
+				trace.WithSpanKind(trace.SpanKindInternal),
+			)
+			defer processSpan.End()
+
+			processSpan.SetAttributes(
+				attribute.String("link.url", event.GetUrl()),
+				attribute.String("link.hash", event.GetHash()),
+			)
+
+			// Pass processCtx (which contains both consumer and process spans) to handleLinkCreated
+			handleErr := e.handleLinkCreated(processCtx, event, log) //nolint:contextcheck // metadata handling depends on message context
 			if handleErr != nil {
-				span.RecordError(handleErr)
-				span.SetStatus(otelcodes.Error, handleErr.Error())
+				processSpan.RecordError(handleErr)
+				processSpan.SetStatus(otelcodes.Error, handleErr.Error())
+				// consumerSpan will automatically reflect error status from child span
 				var domainErr *domainerrors.Error
 				if errors.As(handleErr, &domainErr) {
 					dto := infraerrors.FromDomainError("metadata.mq.link_created", domainErr)
-					span.SetAttributes(
+					processSpan.SetAttributes(
 						attribute.String("error.code", dto.Code),
 						attribute.Bool("error.retryable", dto.Retryable),
 					)
-					log.ErrorWithContext(msgCtx, "Failed to handle link created event - nacking for Kafka DLQ",
+					log.ErrorWithContext(processCtx, "Failed to handle link created event - nacking for Kafka DLQ",
 						slog.String("error_code", dto.Code),
 						slog.String("topic", linkCreatedEvent),
 						slog.Bool("retryable", dto.Retryable),
 						slog.String("message", dto.Message),
 					)
 				} else {
-					span.SetAttributes(
+					processSpan.SetAttributes(
 						attribute.Bool("error.retryable", true),
 					)
-					log.ErrorWithContext(msgCtx, "Failed to handle link created event - nacking for Kafka DLQ",
+					log.ErrorWithContext(processCtx, "Failed to handle link created event - nacking for Kafka DLQ",
 						slog.String("error", handleErr.Error()),
 						slog.String("topic", linkCreatedEvent),
 						slog.Bool("retryable", true),
@@ -178,7 +192,8 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 				continue
 			}
 
-			span.SetStatus(otelcodes.Ok, "Link created event processed successfully")
+			processSpan.SetStatus(otelcodes.Ok, "Metadata processed successfully")
+			// consumerSpan status is automatically derived from child span
 			msg.Ack()
 		}
 	}(ctx)
@@ -188,6 +203,8 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 
 // handleLinkCreated processes LinkCreated events
 // Event is typed as *linkpb.LinkCreated
+// Note: metadata.process span is already created in SubscribeLinkCreated as child of consumer span
+// This function receives ctx that contains both consumer and metadata.process spans
 func (e *Event) handleLinkCreated(ctx context.Context, event *linkpb.LinkCreated, log logger.Logger) error {
 	linkURL := event.GetUrl()
 	if linkURL == "" {
@@ -197,23 +214,10 @@ func (e *Event) handleLinkCreated(ctx context.Context, event *linkpb.LinkCreated
 
 	linkHash := event.GetHash()
 
-	// Note: metadata.uc.Add already creates spans for saga steps internally
-	// This span wraps the entire metadata processing operation
-	ctx, span := otel.Tracer("metadata.uc").Start(ctx, "metadata.process",
-		trace.WithSpanKind(trace.SpanKindInternal),
-	)
-	defer span.End()
-
-	span.SetAttributes(
-		attribute.String("link.url", linkURL),
-		attribute.String("link.hash", linkHash),
-	)
-
 	// Process metadata for the link URL
+	// The context ctx already contains metadata.process span created in SubscribeLinkCreated
 	_, err := e.metadataUC.Add(ctx, linkURL)
 	if err != nil {
-		span.RecordError(err)
-		span.SetStatus(otelcodes.Error, err.Error())
 		log.ErrorWithContext(ctx, "Error processing metadata for link",
 			slog.String("error", err.Error()),
 			slog.String("url", linkURL),
@@ -223,7 +227,6 @@ func (e *Event) handleLinkCreated(ctx context.Context, event *linkpb.LinkCreated
 		return err
 	}
 
-	span.SetStatus(otelcodes.Ok, "Metadata processed successfully")
 	log.InfoWithContext(ctx, "Successfully processed metadata for link",
 		slog.String("url", linkURL),
 		slog.String("hash", linkHash),
