@@ -13,8 +13,15 @@ func MakeAddLinkRequest(in api.AddLink) *v1.Link {
 		describe = *in.Describe
 	}
 
-	return &v1.Link{
+	link := &v1.Link{
 		Url:      in.Url,
 		Describe: describe,
 	}
+
+	// Add allowed_emails if provided
+	if in.AllowedEmails != nil && len(*in.AllowedEmails) > 0 {
+		link.AllowedEmails = *in.AllowedEmails
+	}
+
+	return link
 }

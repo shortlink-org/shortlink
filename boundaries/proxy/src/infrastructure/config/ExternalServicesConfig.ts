@@ -25,6 +25,11 @@ export class ExternalServicesConfig {
    */
   readonly serviceUserId: string;
 
+  /**
+   * Ory Kratos public API URL for session validation
+   */
+  readonly kratosPublicUrl: string;
+
   constructor() {
     this.linkServiceGrpcUrl = ConfigReader.string(
       "LINK_SERVICE_GRPC_URL",
@@ -32,6 +37,13 @@ export class ExternalServicesConfig {
     );
     this.requestTimeout = ConfigReader.number("EXTERNAL_SERVICE_TIMEOUT", 5000);
     this.retryCount = ConfigReader.number("EXTERNAL_SERVICE_RETRY_COUNT", 3);
-    this.serviceUserId = ConfigReader.string("SERVICE_USER_ID", "proxy-service");
+    this.serviceUserId = ConfigReader.string(
+      "SERVICE_USER_ID",
+      "proxy-service"
+    );
+    this.kratosPublicUrl = ConfigReader.string(
+      "KRATOS_PUBLIC_URL",
+      "http://kratos:4433"
+    );
   }
 }

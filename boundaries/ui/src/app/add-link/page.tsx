@@ -20,13 +20,14 @@ import { CreateLinkCommand } from '@/domain/link/link.types'
 import withAuthSync from '@/components/Private'
 import Header from '@/components/Page/Header'
 import { ErrorAlert, SuccessAlert } from '@/components/common'
-import { validateUrl } from '@/utils/validation'
+import { validateUrl, validateEmail, validateEmailList, parseEmailList } from '@/utils/validation'
 
 function Page() {
   const router = useRouter()
   const [form, setForm] = useState<CreateLinkCommand>({
     url: '',
     describe: '',
+    allowed_emails: [],
   })
 
   const [error, setError] = useState<string | null>(null)
@@ -36,6 +37,8 @@ function Page() {
   const [host, setHost] = useState<string>('')
   const [urlError, setUrlError] = useState<string | null>(null)
   const [copied, setCopied] = useState(false)
+  const [allowedEmailsInput, setAllowedEmailsInput] = useState<string>('')
+  const [allowedEmailsError, setAllowedEmailsError] = useState<string | null>(null)
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -43,7 +46,7 @@ function Page() {
     }
   }, [])
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
     setForm({ ...form, [name]: value })
     setError(null)
@@ -54,6 +57,22 @@ function Page() {
       const validation = validateUrl(value, false)
       if (!validation.isValid) {
         setUrlError(validation.error || null)
+      }
+    }
+  }
+
+  const handleAllowedEmailsChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const value = e.target.value
+    setAllowedEmailsInput(value)
+    setAllowedEmailsError(null)
+
+    if (value.trim()) {
+      const emails = parseEmailList(value)
+      if (emails.length > 0) {
+        const validation = validateEmailList(emails)
+        if (!validation.isValid) {
+          setAllowedEmailsError(validation.error || null)
+        }
       }
     }
   }
@@ -73,15 +92,30 @@ function Page() {
       return
     }
 
+    // Parse and validate allowed emails
+    const emails = parseEmailList(allowedEmailsInput)
+    if (emails.length > 0) {
+      const emailValidation = validateEmailList(emails)
+      if (!emailValidation.isValid) {
+        setError(emailValidation.error || 'Invalid email addresses')
+        setAllowedEmailsError(emailValidation.error || null)
+        return
+      }
+    }
+
     setLoading(true)
     try {
-      const result = await createLinkUseCase.execute(form)
+      const result = await createLinkUseCase.execute({
+        ...form,
+        allowed_emails: emails.length > 0 ? emails : undefined,
+      })
 
       if (result.kind === 'success') {
         setCreatedHash(result.link.hash)
         setSuccess('Link created successfully!')
         // Clear form after successful creation
-        setForm({ url: '', describe: '' })
+        setForm({ url: '', describe: '', allowed_emails: [] })
+        setAllowedEmailsInput('')
       } else {
         const errorMessage = result.error.detail || 'Failed to create link'
         setError(errorMessage)
@@ -108,9 +142,11 @@ function Page() {
   const handleCreateAnother = () => {
     setCreatedHash(null)
     setSuccess(null)
-    setForm({ url: '', describe: '' })
+    setForm({ url: '', describe: '', allowed_emails: [] })
     setError(null)
     setUrlError(null)
+    setAllowedEmailsInput('')
+    setAllowedEmailsError(null)
   }
 
   const shortUrl = createdHash && host ? `${host}/s/${createdHash}` : ''
@@ -234,13 +270,31 @@ function Page() {
                   onChange={handleChange}
                   helperText={`${(form.describe ?? '').length}/${describeMaxLength} characters`}
                   inputProps={{ maxLength: describeMaxLength }}
+                  sx={{ mb: 2 }}
+                />
+
+                <TextField
+                  variant="outlined"
+                  label="Allowed Emails (optional)"
+                  name="allowed_emails"
+                  fullWidth
+                  multiline
+                  rows={3}
+                  value={allowedEmailsInput}
+                  onChange={handleAllowedEmailsChange}
+                  error={!!allowedEmailsError}
+                  helperText={
+                    allowedEmailsError ||
+                    'Enter email addresses separated by commas or newlines. Leave empty for a public link (anyone can access). Maximum 100 emails.'
+                  }
+                  placeholder="user@example.com, another@example.com"
                   sx={{ mb: 3 }}
                 />
 
                 <Button
                   variant="contained"
                   type="submit"
-                  disabled={loading || !!urlError}
+                  disabled={loading || !!urlError || !!allowedEmailsError}
                   fullWidth
                   size="large"
                   sx={{

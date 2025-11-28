@@ -7,6 +7,7 @@ export type ShortLink = {
 export type CreateLinkCommand = {
   url: string
   describe?: string
+  allowed_emails?: string[]
 }
 
 export type LinkErrorCode =

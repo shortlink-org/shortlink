@@ -115,7 +115,7 @@ func (uc *UC) List(ctx context.Context, filter *domain.FilterLink, cursor string
 			return nil
 		}).Reject(func(ctx context.Context, err error) error {
 		return err
-	}).Build()
+		}).Build()
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, nil, err
 	}

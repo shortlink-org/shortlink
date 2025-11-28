@@ -1,4 +1,5 @@
 import type { FastifyRequest } from "fastify";
+import { ConnectError, Code } from "@connectrpc/connect";
 import { DomainError } from "../../../../domain/exceptions/index.js";
 import { InvalidHashError } from "../../../../domain/exceptions/index.js";
 import { LinkNotFoundError } from "../../../../domain/exceptions/index.js";
@@ -38,6 +39,21 @@ export class ErrorMapper {
    * Maps error to HTTP response
    */
   mapToHttpResponse(error: unknown, request?: FastifyRequest): ErrorResponse {
+    // Handle Connect/gRPC errors
+    // According to ADR 42: PermissionDenied should return 404 Not Found
+    if (error instanceof ConnectError && error.code === Code.PermissionDenied) {
+      return {
+        statusCode: 404,
+        payload: {
+          error: {
+            code: "LINK_NOT_FOUND",
+            message: "Link not found",
+            timestamp: new Date().toISOString(),
+          },
+        },
+      };
+    }
+
     // Domain Errors
     if (error instanceof InvalidHashError) {
       return {

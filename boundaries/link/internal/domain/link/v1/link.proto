@@ -18,6 +18,9 @@ message LinkProto {
   google.protobuf.Timestamp created_at = 4;
   // Updated at timestamp
   google.protobuf.Timestamp updated_at = 5;
+  // Allowed emails for private link access
+  // Empty list means public link, non-empty means private link
+  repeated string allowed_emails = 6;
 }
 
 // DEPRECATED: LinkEvent enum is deprecated and will be removed after migration to go-sdk/cqrs.

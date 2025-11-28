@@ -33,12 +33,18 @@ func (c *Controller) AddLink(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	allowedEmails := result.GetLink().GetAllowedEmails()
+	if allowedEmails == nil {
+		allowedEmails = []string{}
+	}
+
 	response := &api.Link{
-		Url:       result.GetLink().GetUrl(),
-		Hash:      result.GetLink().GetHash(),
-		Describe:  result.GetLink().GetDescribe(),
-		CreatedAt: result.GetLink().GetCreatedAt().AsTime(),
-		UpdatedAt: result.GetLink().GetUpdatedAt().AsTime(),
+		Url:           result.GetLink().GetUrl(),
+		Hash:          result.GetLink().GetHash(),
+		Describe:      result.GetLink().GetDescribe(),
+		CreatedAt:     result.GetLink().GetCreatedAt().AsTime(),
+		UpdatedAt:     result.GetLink().GetUpdatedAt().AsTime(),
+		AllowedEmails: allowedEmails,
 	}
 
 	w.WriteHeader(http.StatusCreated)

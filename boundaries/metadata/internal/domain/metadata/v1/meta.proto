@@ -2,7 +2,7 @@ syntax = "proto3";
 
 package domain.metadata.v1;
 
-option go_package = "github.com/shortlink-org/shortlink/boundaries/metadata/domain/metadata/v1";
+option go_package = "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1";
 
 import "google/protobuf/field_mask.proto";
 

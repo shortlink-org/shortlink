@@ -4,6 +4,7 @@ import { LinkServiceACL } from "../infrastructure/anti-corruption/LinkServiceACL
 import { LinkServiceConnectAdapter } from "../infrastructure/adapters/index.js";
 import { AMQPEventPublisher } from "../infrastructure/messaging/AMQPEventPublisher.js";
 import { LinkServiceRepository } from "../infrastructure/repositories/LinkServiceRepository.js";
+import { KratosSessionExtractor } from "../infrastructure/auth/index.js";
 
 export const INFRA = {
   grpcMetrics: OpenTelemetryGrpcMetrics,
@@ -12,5 +13,5 @@ export const INFRA = {
   linkServiceAdapter: LinkServiceConnectAdapter,
   eventPublisher: AMQPEventPublisher,
   linkRepository: LinkServiceRepository,
+  kratosSessionExtractor: KratosSessionExtractor,
 };
-

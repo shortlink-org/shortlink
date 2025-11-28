@@ -72,7 +72,7 @@ func (uc *UC) Delete(ctx context.Context, hash string) (*domain.Link, error) {
 			return uc.store.Delete(ctx, hash)
 		}).Reject(func(ctx context.Context, err error) error {
 		return err
-	}).Build()
+		}).Build()
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}

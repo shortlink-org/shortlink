@@ -23,8 +23,8 @@ import {
 } from "./connect/interceptors/index.js";
 import { LinkService } from "@buf/shortlink-org_shortlink-link-link.bufbuild_es/infrastructure/rpc/link/v1/link_rpc_pb.js";
 
-const linkServiceDescriptor =
-  LinkService as unknown as DescService & typeof LinkService;
+const linkServiceDescriptor = LinkService as unknown as DescService &
+  typeof LinkService;
 /**
  * Connect adapter for retrieving links from Link Service
  * Uses official ConnectRPC client via createPromiseClient
@@ -68,7 +68,10 @@ export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
     ) as PromiseClient<typeof LinkService>;
   }
 
-  async getLinkByHash(hash: Hash): Promise<Link | null> {
+  async getLinkByHash(
+    hash: Hash,
+    userId?: string | null
+  ): Promise<Link | null> {
     const hashValue = hash.value;
 
     const signal = AbortSignal.timeout(
@@ -76,11 +79,26 @@ export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
     );
     const timeoutMs = this.externalServicesConfig.requestTimeout;
 
+    // Prepare call options
+    const callOptions: {
+      signal: AbortSignal;
+      timeoutMs: number;
+      header?: Record<string, string>;
+    } = {
+      signal,
+      timeoutMs,
+    };
+
+    // According to ADR 42: pass user_id via x-user-id header
+    // If userId is provided, use it; otherwise interceptor will use serviceUserId or "anonymous"
+    if (userId) {
+      callOptions.header = {
+        "x-user-id": userId === "anonymous" ? "anonymous" : userId,
+      };
+    }
+
     try {
-      const res = await this.client.get(
-        { hash: hashValue },
-        { signal, timeoutMs }
-      );
+      const res = await this.client.get({ hash: hashValue }, callOptions);
 
       if (!res || !res.link) {
         // Successful response with empty link (unexpected server behavior)
@@ -98,8 +116,14 @@ export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
       // Here we only handle business logic for error processing
 
       // Check for NOT_FOUND (gRPC status = NotFound)
-      // Interceptors don't transform or swallow NotFound - they only log/record metrics and propagate the error
       if (error instanceof ConnectError && error.code === Code.NotFound) {
+        return null;
+      }
+
+      // Check for PERMISSION_DENIED (gRPC status = PermissionDenied)
+      // According to ADR 42: PermissionDenied should return 404 Not Found
+      // We return null here, which will be converted to LinkNotFoundError and then 404
+      if (error instanceof ConnectError && error.code === Code.PermissionDenied) {
         return null;
       }
 

@@ -34,6 +34,7 @@ require (
 	github.com/shortlink-org/go-sdk/logger v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/observability v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/saga v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/specification v0.0.0-20251126174608-40adc27b4c9c
 	github.com/shortlink-org/go-sdk/watermill v0.0.0-20251125223100-c627280ca6e5
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1

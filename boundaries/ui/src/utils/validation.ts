@@ -152,3 +152,36 @@ export function validateMaxLength(
   return { isValid: true }
 }
 
+/**
+ * Validates a list of email addresses
+ */
+export function validateEmailList(emails: string[], maxEmails = 100): ValidationResult {
+  if (emails.length > maxEmails) {
+    return { isValid: false, error: `Maximum ${maxEmails} email addresses allowed` }
+  }
+
+  for (const email of emails) {
+    const validation = validateEmail(email, true)
+    if (!validation.isValid) {
+      return { isValid: false, error: `Invalid email: ${email}` }
+    }
+  }
+
+  return { isValid: true }
+}
+
+/**
+ * Parses a comma-separated or newline-separated list of emails
+ */
+export function parseEmailList(input: string): string[] {
+  if (!input || input.trim() === '') {
+    return []
+  }
+
+  // Split by comma or newline, trim, filter empty strings
+  return input
+    .split(/[,\n]/)
+    .map(email => email.trim())
+    .filter(email => email.length > 0)
+}
+
