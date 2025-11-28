@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/boundaries/metadata
 go 1.25.4
 
 require (
-	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.10-20251127164808-c73856f570c9.1
+	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.10-20251128130903-01e2641aede0.1
 	github.com/IBM/sarama v1.46.3
 	github.com/PuerkitoBio/goquery v1.11.0
 	github.com/ThreeDotsLabs/watermill v1.5.1
@@ -30,6 +30,7 @@ require (
 	github.com/stretchr/testify v1.11.1
 	github.com/testcontainers/testcontainers-go v0.40.0
 	github.com/testcontainers/testcontainers-go/modules/kafka v0.40.0
+	go.opentelemetry.io/otel v1.38.0
 	go.opentelemetry.io/otel/metric v1.38.0
 	go.opentelemetry.io/otel/sdk/metric v1.38.0
 	go.opentelemetry.io/otel/trace v1.38.0
@@ -192,7 +193,6 @@ require (
 	go.opentelemetry.io/auto/sdk v1.2.1 // indirect
 	go.opentelemetry.io/contrib/instrumentation/google.golang.org/grpc/otelgrpc v0.63.0 // indirect
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.63.0 // indirect
-	go.opentelemetry.io/otel v1.38.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace v1.38.0 // indirect
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracegrpc v1.38.0 // indirect
 	go.opentelemetry.io/otel/exporters/prometheus v0.60.0 // indirect
