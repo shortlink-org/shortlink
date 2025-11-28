@@ -32,6 +32,7 @@ import type { IGrpcMetrics } from "../infrastructure/metrics/index.js";
 import type { IGrpcTracing } from "../infrastructure/tracing/index.js";
 import type { ProxyController } from "../infrastructure/http/fastify/controllers/ProxyController.js";
 import type { MetricsController } from "../infrastructure/http/fastify/controllers/MetricsController.js";
+import type { KratosSessionExtractor } from "../infrastructure/auth/index.js";
 
 // Registries
 import { CONFIG, INFRA, DOMAIN, APP, CONTROLLERS } from "./index.js";
@@ -44,6 +45,7 @@ import { RedisLinkCache } from "../infrastructure/cache/RedisLinkCache.js";
 import { AMQPEventPublisher } from "../infrastructure/messaging/AMQPEventPublisher.js";
 import { KafkaEventPublisher } from "../infrastructure/messaging/KafkaEventPublisher.js";
 import { ConfigReader } from "../infrastructure/config/ConfigReader.js";
+import { KratosSessionExtractor } from "../infrastructure/auth/index.js";
 
 /**
  * Container dependencies interface
@@ -77,6 +79,7 @@ export interface ContainerDependencies {
   linkCache: ILinkCache;
   grpcMetrics: IGrpcMetrics;
   grpcTracing: IGrpcTracing;
+  kratosSessionExtractor: KratosSessionExtractor;
 
   // Controllers
   proxyController: ProxyController;
@@ -133,6 +136,7 @@ export function createDIContainer(): AwilixContainer<ContainerDependencies> {
         asClass(clazz as any)
           .inject(() => ({
             linkApplicationService: container.resolve("linkApplicationService"),
+            kratosSessionExtractor: container.resolve("kratosSessionExtractor"),
             logger: container.resolve("logger"),
           }))
           .singleton()
@@ -188,6 +192,21 @@ export function createDIContainer(): AwilixContainer<ContainerDependencies> {
       } else {
         return new AMQPEventPublisher(messageBus, logger);
       }
+    }).singleton()
+  );
+
+  // Kratos Session Extractor - depends on externalServicesConfig and logger
+  container.register(
+    "kratosSessionExtractor",
+    asFunction(() => {
+      const externalServicesConfig = container.resolve<ExternalServicesConfig>(
+        "externalServicesConfig"
+      );
+      const logger = container.resolve<ILogger>("logger");
+      return new KratosSessionExtractor(
+        externalServicesConfig.kratosPublicUrl,
+        logger
+      );
     }).singleton()
   );
 

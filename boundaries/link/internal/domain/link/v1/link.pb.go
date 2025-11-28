@@ -110,7 +110,10 @@ type LinkProto struct {
 	// Created at timestamp
 	CreatedAt *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	// Updated at timestamp
-	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	UpdatedAt *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	// Allowed emails for private link access
+	// Empty list means public link, non-empty means private link
+	AllowedEmails []string `protobuf:"bytes,6,rep,name=allowed_emails,json=allowedEmails,proto3" json:"allowed_emails,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -180,11 +183,18 @@ func (x *LinkProto) GetUpdatedAt() *timestamppb.Timestamp {
 	return nil
 }
 
+func (x *LinkProto) GetAllowedEmails() []string {
+	if x != nil {
+		return x.AllowedEmails
+	}
+	return nil
+}
+
 var File_domain_link_v1_link_proto protoreflect.FileDescriptor
 
 const file_domain_link_v1_link_proto_rawDesc = "" +
 	"\n" +
-	"\x19domain/link/v1/link.proto\x12\x0edomain.link.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xc3\x01\n" +
+	"\x19domain/link/v1/link.proto\x12\x0edomain.link.v1\x1a\x1fgoogle/protobuf/timestamp.proto\"\xea\x01\n" +
 	"\tLinkProto\x12\x10\n" +
 	"\x03url\x18\x01 \x01(\tR\x03url\x12\x12\n" +
 	"\x04hash\x18\x02 \x01(\tR\x04hash\x12\x1a\n" +
@@ -192,7 +202,8 @@ const file_domain_link_v1_link_proto_rawDesc = "" +
 	"\n" +
 	"created_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt*\x92\x01\n" +
+	"updated_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12%\n" +
+	"\x0eallowed_emails\x18\x06 \x03(\tR\rallowedEmails*\x92\x01\n" +
 	"\tLinkEvent\x12\x1a\n" +
 	"\x16LINK_EVENT_UNSPECIFIED\x10\x00\x12\x12\n" +
 	"\x0eLINK_EVENT_ADD\x10\x01\x12\x12\n" +

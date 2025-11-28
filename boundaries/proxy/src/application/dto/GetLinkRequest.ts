@@ -5,5 +5,5 @@
  */
 export interface GetLinkRequest {
   hash: string;
+  userId?: string | null;
 }
-

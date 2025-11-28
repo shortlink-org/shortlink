@@ -2,7 +2,7 @@
 // versions:
 // 	protoc-gen-go v1.36.10
 // 	protoc        (unknown)
-// source: internal/domain/metadata/v1/meta.proto
+// source: domain/metadata/v1/meta.proto
 
 package v1
 
@@ -41,7 +41,7 @@ type Meta struct {
 
 func (x *Meta) Reset() {
 	*x = Meta{}
-	mi := &file_internal_domain_metadata_v1_meta_proto_msgTypes[0]
+	mi := &file_domain_metadata_v1_meta_proto_msgTypes[0]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -53,7 +53,7 @@ func (x *Meta) String() string {
 func (*Meta) ProtoMessage() {}
 
 func (x *Meta) ProtoReflect() protoreflect.Message {
-	mi := &file_internal_domain_metadata_v1_meta_proto_msgTypes[0]
+	mi := &file_domain_metadata_v1_meta_proto_msgTypes[0]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -66,7 +66,7 @@ func (x *Meta) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Meta.ProtoReflect.Descriptor instead.
 func (*Meta) Descriptor() ([]byte, []int) {
-	return file_internal_domain_metadata_v1_meta_proto_rawDescGZIP(), []int{0}
+	return file_domain_metadata_v1_meta_proto_rawDescGZIP(), []int{0}
 }
 
 func (x *Meta) GetFieldMask() *fieldmaskpb.FieldMask {
@@ -104,11 +104,11 @@ func (x *Meta) GetKeywords() string {
 	return ""
 }
 
-var File_internal_domain_metadata_v1_meta_proto protoreflect.FileDescriptor
+var File_domain_metadata_v1_meta_proto protoreflect.FileDescriptor
 
-const file_internal_domain_metadata_v1_meta_proto_rawDesc = "" +
+const file_domain_metadata_v1_meta_proto_rawDesc = "" +
 	"\n" +
-	"&internal/domain/metadata/v1/meta.proto\x12\x12domain.metadata.v1\x1a google/protobuf/field_mask.proto\"\xac\x01\n" +
+	"\x1ddomain/metadata/v1/meta.proto\x12\x12domain.metadata.v1\x1a google/protobuf/field_mask.proto\"\xac\x01\n" +
 	"\x04Meta\x129\n" +
 	"\n" +
 	"field_mask\x18\x05 \x01(\v2\x1a.google.protobuf.FieldMaskR\tfieldMask\x12\x0e\n" +
@@ -119,23 +119,23 @@ const file_internal_domain_metadata_v1_meta_proto_rawDesc = "" +
 	"\x16com.domain.metadata.v1B\tMetaProtoP\x01ZIgithub.com/shortlink-org/shortlink/boundaries/metadata/domain/metadata/v1\xa2\x02\x03DMX\xaa\x02\x12Domain.Metadata.V1\xca\x02\x12Domain\\Metadata\\V1\xe2\x02\x1eDomain\\Metadata\\V1\\GPBMetadata\xea\x02\x14Domain::Metadata::V1b\x06proto3"
 
 var (
-	file_internal_domain_metadata_v1_meta_proto_rawDescOnce sync.Once
-	file_internal_domain_metadata_v1_meta_proto_rawDescData []byte
+	file_domain_metadata_v1_meta_proto_rawDescOnce sync.Once
+	file_domain_metadata_v1_meta_proto_rawDescData []byte
 )
 
-func file_internal_domain_metadata_v1_meta_proto_rawDescGZIP() []byte {
-	file_internal_domain_metadata_v1_meta_proto_rawDescOnce.Do(func() {
-		file_internal_domain_metadata_v1_meta_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_internal_domain_metadata_v1_meta_proto_rawDesc), len(file_internal_domain_metadata_v1_meta_proto_rawDesc)))
+func file_domain_metadata_v1_meta_proto_rawDescGZIP() []byte {
+	file_domain_metadata_v1_meta_proto_rawDescOnce.Do(func() {
+		file_domain_metadata_v1_meta_proto_rawDescData = protoimpl.X.CompressGZIP(unsafe.Slice(unsafe.StringData(file_domain_metadata_v1_meta_proto_rawDesc), len(file_domain_metadata_v1_meta_proto_rawDesc)))
 	})
-	return file_internal_domain_metadata_v1_meta_proto_rawDescData
+	return file_domain_metadata_v1_meta_proto_rawDescData
 }
 
-var file_internal_domain_metadata_v1_meta_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
-var file_internal_domain_metadata_v1_meta_proto_goTypes = []any{
+var file_domain_metadata_v1_meta_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
+var file_domain_metadata_v1_meta_proto_goTypes = []any{
 	(*Meta)(nil),                  // 0: domain.metadata.v1.Meta
 	(*fieldmaskpb.FieldMask)(nil), // 1: google.protobuf.FieldMask
 }
-var file_internal_domain_metadata_v1_meta_proto_depIdxs = []int32{
+var file_domain_metadata_v1_meta_proto_depIdxs = []int32{
 	1, // 0: domain.metadata.v1.Meta.field_mask:type_name -> google.protobuf.FieldMask
 	1, // [1:1] is the sub-list for method output_type
 	1, // [1:1] is the sub-list for method input_type
@@ -144,26 +144,26 @@ var file_internal_domain_metadata_v1_meta_proto_depIdxs = []int32{
 	0, // [0:1] is the sub-list for field type_name
 }
 
-func init() { file_internal_domain_metadata_v1_meta_proto_init() }
-func file_internal_domain_metadata_v1_meta_proto_init() {
-	if File_internal_domain_metadata_v1_meta_proto != nil {
+func init() { file_domain_metadata_v1_meta_proto_init() }
+func file_domain_metadata_v1_meta_proto_init() {
+	if File_domain_metadata_v1_meta_proto != nil {
 		return
 	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
-			RawDescriptor: unsafe.Slice(unsafe.StringData(file_internal_domain_metadata_v1_meta_proto_rawDesc), len(file_internal_domain_metadata_v1_meta_proto_rawDesc)),
+			RawDescriptor: unsafe.Slice(unsafe.StringData(file_domain_metadata_v1_meta_proto_rawDesc), len(file_domain_metadata_v1_meta_proto_rawDesc)),
 			NumEnums:      0,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
-		GoTypes:           file_internal_domain_metadata_v1_meta_proto_goTypes,
-		DependencyIndexes: file_internal_domain_metadata_v1_meta_proto_depIdxs,
-		MessageInfos:      file_internal_domain_metadata_v1_meta_proto_msgTypes,
+		GoTypes:           file_domain_metadata_v1_meta_proto_goTypes,
+		DependencyIndexes: file_domain_metadata_v1_meta_proto_depIdxs,
+		MessageInfos:      file_domain_metadata_v1_meta_proto_msgTypes,
 	}.Build()
-	File_internal_domain_metadata_v1_meta_proto = out.File
-	file_internal_domain_metadata_v1_meta_proto_goTypes = nil
-	file_internal_domain_metadata_v1_meta_proto_depIdxs = nil
+	File_domain_metadata_v1_meta_proto = out.File
+	file_domain_metadata_v1_meta_proto_goTypes = nil
+	file_domain_metadata_v1_meta_proto_depIdxs = nil
 }

@@ -32,8 +32,40 @@ export class LinkServiceRepository implements ILinkRepository {
     );
   }
 
-  async findByHash(hash: Hash): Promise<Link | null> {
-    // Проверяем кэш сначала
+  async findByHash(
+    hash: Hash,
+    userId?: string | null
+  ): Promise<Link | null> {
+    // Note: Cache doesn't consider userId, so private links might be cached incorrectly
+    // For now, we skip cache when userId is provided and not "anonymous" (private link access)
+    // TODO: Consider cache key that includes userId for private links
+
+    if (userId && userId !== "anonymous") {
+      // For private links, skip cache and go directly to adapter
+      this.logger.debug("Cache bypass - fetching private link from adapter", {
+        hash: hash.value,
+        hasUserId: !!userId,
+      });
+
+      try {
+        const link = await this.linkServiceAdapter.getLinkByHash(
+          hash,
+          userId
+        );
+        return link;
+      } catch (error) {
+        this.logger.error("Adapter error in findByHash (private link)", {
+          error: error instanceof Error ? error : new Error(String(error)),
+          hash: hash.value,
+        });
+        this.linkServiceErrorCounter.add(1, {
+          error_name: error instanceof Error ? error.name : "UnknownError",
+        });
+        throw error;
+      }
+    }
+
+    // For public links, use cache as before
     const cached = await this.linkCache.get(hash);
 
     // Если найден положительный результат в кэше

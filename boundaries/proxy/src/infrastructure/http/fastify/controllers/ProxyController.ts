@@ -2,6 +2,7 @@ import type { FastifyRequest, FastifyReply } from "fastify";
 import { LinkApplicationService } from "../../../../application/services/LinkApplicationService.js";
 import { Hash } from "../../../../domain/entities/Hash.js";
 import type { ILogger } from "../../../logging/ILogger.js";
+import { KratosSessionExtractor } from "../../../auth/index.js";
 
 /**
  * HTTP Controller for redirect handling.
@@ -11,6 +12,7 @@ import type { ILogger } from "../../../logging/ILogger.js";
 export class ProxyController {
   constructor(
     private readonly linkApplicationService: LinkApplicationService,
+    private readonly kratosSessionExtractor: KratosSessionExtractor,
     private readonly logger: ILogger
   ) {}
 
@@ -32,8 +34,18 @@ export class ProxyController {
       // Validation is already done in route preValidation hook
       const hash = new Hash(request.params.hash);
 
-      // Call application service
-      const result = await this.linkApplicationService.handleRedirect({ hash });
+      // Extract Kratos session to get user_id for private link access
+      // According to ADR 42: if no valid session, pass "anonymous"
+      const session = await this.kratosSessionExtractor.extractSession(request);
+      const userId = session.isAuthenticated && session.userId
+        ? session.userId
+        : "anonymous";
+
+      // Call application service with user_id
+      const result = await this.linkApplicationService.handleRedirect({
+        hash,
+        userId,
+      });
 
       if (result.isErr()) {
         // Error is handled by error handler middleware
@@ -51,4 +63,3 @@ export class ProxyController {
     }
   }
 }
-

@@ -10,10 +10,7 @@ import {
   PublishEventUseCase,
   PublishEventRequest,
 } from "../use-cases/PublishEventUseCase.js";
-import {
-  GetLinkRequest,
-  GetLinkResponse,
-} from "../dto/index.js";
+import { GetLinkRequest, GetLinkResponse } from "../dto/index.js";
 import { ILogger } from "../../infrastructure/logging/ILogger.js";
 import {
   UseCasePipeline,
@@ -27,6 +24,7 @@ import {
  */
 export interface HandleRedirectRequest {
   hash: Hash;
+  userId?: string | null;
 }
 
 /**
@@ -42,9 +40,7 @@ export interface HandleRedirectResponse {
  */
 export class LinkApplicationService {
   private readonly pipeline: UseCasePipeline;
-  private readonly interceptors: Array<
-    LoggingInterceptor | MetricsInterceptor
-  >;
+  private readonly interceptors: Array<LoggingInterceptor | MetricsInterceptor>;
   private readonly meter: Meter;
   private readonly redirectCounter: Counter;
   private readonly redirectLatency: Histogram;
@@ -77,8 +73,8 @@ export class LinkApplicationService {
    * Получает ссылку по хешу
    * Простой фасад для GetLinkByHashUseCase
    */
-  getByHash(hash: string): Promise<GetLinkResponse> {
-    return this.getLinkByHashUseCase.execute({ hash });
+  getByHash(hash: string, userId?: string | null): Promise<GetLinkResponse> {
+    return this.getLinkByHashUseCase.execute({ hash, userId });
   }
 
   /**
@@ -86,7 +82,7 @@ export class LinkApplicationService {
    * Оркестрирует несколько Use Cases:
    * 1. Получает ссылку по хешу
    * 2. Публикует событие редиректа
-   * 
+   *
    * Статистика собирается через eBPF, не требует записи в БД
    *
    * @param request - запрос на редирект
@@ -107,12 +103,18 @@ export class LinkApplicationService {
 
     try {
       // 1. Получаем ссылку по хешу
-      const linkResponse = await this.getByHash(request.hash.value);
+      const linkResponse = await this.getByHash(
+        request.hash.value,
+        request.userId
+      );
       const { link } = linkResponse;
       linkFound = true;
 
       // 2. Публикуем событие редиректа (асинхронно, не блокируем основной поток)
-      const event: LinkRedirectedEvent = LinkEvents.redirected(request.hash, link);
+      const event: LinkRedirectedEvent = LinkEvents.redirected(
+        request.hash,
+        link
+      );
       try {
         await this.pipeline.execute(
           this.publishEventUseCase,
@@ -153,4 +155,3 @@ export class LinkApplicationService {
     }
   }
 }
-

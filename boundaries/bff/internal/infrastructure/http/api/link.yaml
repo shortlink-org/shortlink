@@ -117,11 +117,19 @@ components:
         describe:
           type: string
           description: Description of the link.
+        allowed_emails:
+          type: array
+          items:
+            type: string
+            format: email
+          description: List of allowed email addresses for private link access. Empty array means public link.
+          maxItems: 100
       required:
         - url
       example:
         url: https://www.google.com
         describe: Search engine
+        allowed_emails: []
 
     Link:
       type: object
@@ -144,9 +152,16 @@ components:
           type: string
           format: date-time
           description: Timestamp when the link was last updated.
+        allowed_emails:
+          type: array
+          items:
+            type: string
+            format: email
+          description: List of allowed email addresses for private link access. Empty array means public link.
       required:
         - url
         - hash
         - describe
         - created_at
         - updated_at
+        - allowed_emails

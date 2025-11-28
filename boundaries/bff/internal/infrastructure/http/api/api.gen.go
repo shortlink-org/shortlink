@@ -15,6 +15,9 @@ import (
 
 // AddLink defines model for AddLink.
 type AddLink struct {
+	// AllowedEmails List of allowed email addresses for private link access. Empty array means public link.
+	AllowedEmails *[]string `json:"allowed_emails,omitempty"`
+
 	// Describe Description of the link.
 	Describe *string `json:"describe,omitempty"`
 
@@ -30,6 +33,9 @@ type ErrorResponse struct {
 
 // Link defines model for Link.
 type Link struct {
+	// AllowedEmails List of allowed email addresses for private link access. Empty array means public link.
+	AllowedEmails []string `json:"allowed_emails"`
+
 	// CreatedAt Timestamp when the link was created.
 	CreatedAt time.Time `json:"created_at"`
 

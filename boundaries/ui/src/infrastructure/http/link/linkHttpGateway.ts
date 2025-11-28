@@ -48,6 +48,9 @@ export class LinkHttpGateway implements LinkGateway {
         body: JSON.stringify({
           url: command.url,
           describe: command.describe,
+          ...(command.allowed_emails && command.allowed_emails.length > 0
+            ? { allowed_emails: command.allowed_emails }
+            : {}),
         }),
       })
 

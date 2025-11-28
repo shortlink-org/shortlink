@@ -9,9 +9,10 @@ export interface ILinkRepository {
   /**
    * Находит ссылку по хешу
    * @param hash - хеш ссылки
+   * @param userId - optional user_id from Kratos session, or "anonymous" if not authenticated
    * @returns Promise с доменной сущностью Link или null если не найдена
    */
-  findByHash(hash: Hash): Promise<Link | null>;
+  findByHash(hash: Hash, userId?: string | null): Promise<Link | null>;
 
   /**
    * Сохраняет ссылку
@@ -27,4 +28,3 @@ export interface ILinkRepository {
    */
   exists(hash: Hash): Promise<boolean>;
 }
-

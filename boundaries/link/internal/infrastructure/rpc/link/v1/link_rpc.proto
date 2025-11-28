@@ -11,7 +11,7 @@ import "google/protobuf/field_mask.proto";
 // Link is the link message.
 message Link {
   // Field mask
-  google.protobuf.FieldMask field_mask = 6;
+  google.protobuf.FieldMask field_mask = 7;
 
   // URL
   string url = 1;
@@ -24,6 +24,9 @@ message Link {
   google.protobuf.Timestamp created_at = 4;
   // Update at
   google.protobuf.Timestamp updated_at = 5;
+  // Allowed emails for private link access
+  // Empty list means public link, non-empty means private link
+  repeated string allowed_emails = 6;
 }
 
 // Link list

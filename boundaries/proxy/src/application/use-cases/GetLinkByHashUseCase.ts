@@ -8,13 +8,11 @@ import { GetLinkResponse } from "../dto/GetLinkResponse.js";
  * Use Case для получения ссылки по хешу
  */
 export class GetLinkByHashUseCase {
-  constructor(
-    private readonly linkRepository: ILinkRepository
-  ) {}
+  constructor(private readonly linkRepository: ILinkRepository) {}
 
   async execute(request: GetLinkRequest): Promise<GetLinkResponse> {
     const hash = new Hash(request.hash);
-    const link = await this.linkRepository.findByHash(hash);
+    const link = await this.linkRepository.findByHash(hash, request.userId);
 
     if (!link) {
       throw new LinkNotFoundError(hash);
@@ -23,4 +21,3 @@ export class GetLinkByHashUseCase {
     return { link };
   }
 }
-

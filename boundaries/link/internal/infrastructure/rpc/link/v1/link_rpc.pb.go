@@ -28,7 +28,7 @@ const (
 type Link struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
 	// Field mask
-	FieldMask *fieldmaskpb.FieldMask `protobuf:"bytes,6,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
+	FieldMask *fieldmaskpb.FieldMask `protobuf:"bytes,7,opt,name=field_mask,json=fieldMask,proto3" json:"field_mask,omitempty"`
 	// URL
 	Url string `protobuf:"bytes,1,opt,name=url,proto3" json:"url,omitempty"`
 	// Hash by URL + salt
@@ -38,7 +38,10 @@ type Link struct {
 	// Create at
 	CreatedAt *timestamppb.Timestamp `protobuf:"bytes,4,opt,name=created_at,json=createdAt,proto3" json:"created_at,omitempty"`
 	// Update at
-	UpdatedAt     *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	UpdatedAt *timestamppb.Timestamp `protobuf:"bytes,5,opt,name=updated_at,json=updatedAt,proto3" json:"updated_at,omitempty"`
+	// Allowed emails for private link access
+	// Empty list means public link, non-empty means private link
+	AllowedEmails []string `protobuf:"bytes,6,rep,name=allowed_emails,json=allowedEmails,proto3" json:"allowed_emails,omitempty"`
 	unknownFields protoimpl.UnknownFields
 	sizeCache     protoimpl.SizeCache
 }
@@ -111,6 +114,13 @@ func (x *Link) GetCreatedAt() *timestamppb.Timestamp {
 func (x *Link) GetUpdatedAt() *timestamppb.Timestamp {
 	if x != nil {
 		return x.UpdatedAt
+	}
+	return nil
+}
+
+func (x *Link) GetAllowedEmails() []string {
+	if x != nil {
+		return x.AllowedEmails
 	}
 	return nil
 }
@@ -606,17 +616,18 @@ var File_infrastructure_rpc_link_v1_link_rpc_proto protoreflect.FileDescriptor
 
 const file_infrastructure_rpc_link_v1_link_rpc_proto_rawDesc = "" +
 	"\n" +
-	")infrastructure/rpc/link/v1/link_rpc.proto\x12\x1ainfrastructure.rpc.link.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a google/protobuf/field_mask.proto\"\xf9\x01\n" +
+	")infrastructure/rpc/link/v1/link_rpc.proto\x12\x1ainfrastructure.rpc.link.v1\x1a\x1bgoogle/protobuf/empty.proto\x1a\x1fgoogle/protobuf/timestamp.proto\x1a google/protobuf/field_mask.proto\"\xa0\x02\n" +
 	"\x04Link\x129\n" +
 	"\n" +
-	"field_mask\x18\x06 \x01(\v2\x1a.google.protobuf.FieldMaskR\tfieldMask\x12\x10\n" +
+	"field_mask\x18\a \x01(\v2\x1a.google.protobuf.FieldMaskR\tfieldMask\x12\x10\n" +
 	"\x03url\x18\x01 \x01(\tR\x03url\x12\x12\n" +
 	"\x04hash\x18\x02 \x01(\tR\x04hash\x12\x1a\n" +
 	"\bdescribe\x18\x03 \x01(\tR\bdescribe\x129\n" +
 	"\n" +
 	"created_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
-	"updated_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\"=\n" +
+	"updated_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12%\n" +
+	"\x0eallowed_emails\x18\x06 \x03(\tR\rallowedEmails\"=\n" +
 	"\x05Links\x124\n" +
 	"\x04link\x18\x01 \x03(\v2 .infrastructure.rpc.link.v1.LinkR\x04link\" \n" +
 	"\n" +
