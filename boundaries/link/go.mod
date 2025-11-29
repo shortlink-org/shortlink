@@ -31,6 +31,7 @@ require (
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/http v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/kratos v0.0.0-20251129095529-93b67f50526c
 	github.com/shortlink-org/go-sdk/logger v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/observability v0.0.0-20251125204117-ffa44b328293
 	github.com/shortlink-org/go-sdk/saga v0.0.0-20251125204117-ffa44b328293

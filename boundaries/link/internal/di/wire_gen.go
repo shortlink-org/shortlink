@@ -20,6 +20,7 @@ import (
 	"github.com/shortlink-org/go-sdk/flags"
 	"github.com/shortlink-org/go-sdk/flight_trace"
 	"github.com/shortlink-org/go-sdk/grpc"
+	"github.com/shortlink-org/go-sdk/kratos"
 	"github.com/shortlink-org/go-sdk/logger"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/go-sdk/observability/profiling"
@@ -150,7 +151,15 @@ func InitializeLinkService() (*LinkService, func(), error) {
 		cleanup()
 		return nil, nil, err
 	}
-	uc, err := NewLinkApplication(loggerLogger, eventBus, store, client)
+	kratosClient, err := kratos.New(loggerLogger, configConfig)
+	if err != nil {
+		cleanup4()
+		cleanup3()
+		cleanup2()
+		cleanup()
+		return nil, nil, err
+	}
+	uc, err := NewLinkApplication(loggerLogger, eventBus, store, client, kratosClient)
 	if err != nil {
 		cleanup4()
 		cleanup3()
@@ -300,7 +309,7 @@ var CQRSSet = wire.NewSet(cqrs.NewEventRegistry, cqrs.NewShortlinkNamer, cqrs.Ne
 // LinkService =========================================================================================================
 var LinkSet = wire.NewSet(
 
-	DefaultSet, permission.New, wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"), wire.Bind(new(metric.MeterProvider), new(*metric2.MeterProvider)), db.New, wire.Bind(new(watermill.Backend), new(*kafka.Backend)), kafka.New, wire.Value([]watermill.Option{}), watermill.New, wire.FieldsOf(new(*watermill.Client), "Publisher", "Subscriber"), grpc.InitServer, NewRPCClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, CQRSSet,
+	DefaultSet, permission.New, wire.FieldsOf(new(*metrics.Monitoring), "Prometheus", "Metrics"), wire.Bind(new(metric.MeterProvider), new(*metric2.MeterProvider)), db.New, kratos.New, wire.Bind(new(watermill.Backend), new(*kafka.Backend)), kafka.New, wire.Value([]watermill.Option{}), watermill.New, wire.FieldsOf(new(*watermill.Client), "Publisher", "Subscriber"), grpc.InitServer, NewRPCClient, v1_2.New, v1.New, v1_3.New, NewRunRPCServer, v1_2.NewLinkServiceClient, CQRSSet,
 
 	NewLinkApplication, link_cqrs.New, NewSitemapService, crud.New, cqs.New, query.New, wire.Bind(new(crud.Repository), new(*crud.Store)), wire.Bind(new(cqs.Repository), new(*cqs.Store)), wire.Bind(new(query.Repository), new(*query.Store)), NewLinkService,
 )
@@ -327,8 +336,9 @@ func NewLinkApplication(
 	eventBus *bus.EventBus,
 	store crud.Repository,
 	authPermission *authzed.Client,
+	kratosClient *kratos.Client,
 ) (*link.UC, error) {
-	linkService, err := link.New(log, nil, store, authPermission, eventBus)
+	linkService, err := link.New(log, nil, store, authPermission, kratosClient, eventBus)
 	if err != nil {
 		return nil, err
 	}

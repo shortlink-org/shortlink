@@ -8,6 +8,7 @@ import (
 	"github.com/shortlink-org/go-sdk/cqrs/bus"
 	"github.com/shortlink-org/go-sdk/logger"
 
+	"github.com/shortlink-org/go-sdk/kratos"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud"
 )
 
@@ -17,6 +18,7 @@ type UC struct {
 
 	// Security
 	permission *authzed.Client
+	kratos     kratos.KratosClient
 
 	// Delivery
 	eventBus *bus.EventBus // CQRS EventBus for publishing events
@@ -33,6 +35,7 @@ func New(
 	metadataService any,
 	store crud.Repository,
 	permissionClient *authzed.Client,
+	kratosClient kratos.KratosClient,
 	eventBus *bus.EventBus,
 ) (*UC, error) {
 	service := &UC{
@@ -40,6 +43,7 @@ func New(
 
 		// Security
 		permission: permissionClient,
+		kratos:     kratosClient,
 
 		// Delivery
 		eventBus: eventBus,

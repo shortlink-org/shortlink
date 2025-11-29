@@ -41,6 +41,7 @@ import (
 	"github.com/shortlink-org/go-sdk/cache"
 	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db"
+	"github.com/shortlink-org/go-sdk/kratos"
 	rpc "github.com/shortlink-org/go-sdk/grpc"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/go-sdk/observability/profiling"
@@ -121,6 +122,9 @@ var LinkSet = wire.NewSet(
 	wire.Bind(new(metric.MeterProvider), new(*api.MeterProvider)),
 	db.New,
 
+	// Infrastructure
+	kratos.New,
+
 	// Delivery
 	wire.Bind(new(watermill.Backend), new(*watermill_kafka.Backend)),
 	watermill_kafka.New,
@@ -186,8 +190,9 @@ func NewLinkApplication(
 	eventBus *bus.EventBus,
 	store crud.Repository,
 	authPermission *authzed.Client,
+	kratosClient *kratos.Client,
 ) (*link.UC, error) {
-	linkService, err := link.New(log, nil, store, authPermission, eventBus)
+	linkService, err := link.New(log, nil, store, authPermission, kratosClient, eventBus)
 	if err != nil {
 		return nil, err
 	}

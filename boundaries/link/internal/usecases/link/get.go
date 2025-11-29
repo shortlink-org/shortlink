@@ -4,7 +4,6 @@ import (
 	"context"
 	"log/slog"
 
-	permission "github.com/authzed/authzed-go/proto/authzed/api/v1"
 	"github.com/shortlink-org/go-sdk/auth/session"
 	"github.com/shortlink-org/go-sdk/saga"
 
@@ -13,14 +12,19 @@ import (
 
 // Get - get a link by hash
 //
+// According to ADR-42: SpiceDB is not used in GET (redirect use case).
+// For public links: return immediately without permission check.
+// For private links: check allowlist via email from Kratos Admin API.
+//
 // Saga:
-// 1. Check permission
-// 2. Get a link from store
+// 1. Get a link from store
+// 2. If public - return immediately
+// 3. If private - check permission (via allowlist)
 func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 	const (
-		SAGA_NAME                  = "GET_LINK"
-		SAGA_STEP_CHECK_PERMISSION = "SAGA_STEP_CHECK_PERMISSION"
-		SAGA_STEP_GET_FROM_STORE   = "SAGA_STEP_GET_FROM_STORE"
+		SAGA_NAME                = "GET_LINK"
+		SAGA_STEP_GET_FROM_STORE = "SAGA_STEP_GET_FROM_STORE"
+		SAGA_STEP_CHECK_ACCESS   = "SAGA_STEP_CHECK_ACCESS"
 	)
 
 	userID, err := session.GetUserID(ctx)
@@ -42,33 +46,8 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 		return nil, err
 	}
 
-	_, errs = sagaGetLink.AddStep(SAGA_STEP_CHECK_PERMISSION).
-		Then(func(ctx context.Context) error {
-			relationship := &permission.CheckPermissionRequest{
-				Resource:   &permission.ObjectReference{ObjectType: "link", ObjectId: hash},
-				Permission: "view",
-				Subject:    &permission.SubjectReference{Object: &permission.ObjectReference{ObjectType: "user", ObjectId: userID}},
-			}
-
-			resp, err := uc.permission.PermissionsServiceClient.CheckPermission(ctx, relationship)
-			if err != nil {
-				return err
-			}
-
-			if resp.Permissionship != permission.CheckPermissionResponse_PERMISSIONSHIP_HAS_PERMISSION {
-				return domain.ErrPermissionDenied(nil)
-			}
-
-			return nil
-		}).Reject(func(ctx context.Context, thenErr error) error {
-		return domain.ErrPermissionDenied(thenErr)
-	}).Build()
-	if err := errorHelper(ctx, uc.log, errs); err != nil {
-		return nil, err
-	}
-
+	// Step 1: Get link from store first
 	_, errs = sagaGetLink.AddStep(SAGA_STEP_GET_FROM_STORE).
-		Needs(SAGA_STEP_CHECK_PERMISSION).
 		Then(func(ctx context.Context) error {
 			var err error
 
@@ -81,6 +60,57 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 		}).Reject(func(ctx context.Context, err error) error {
 		return err
 	}).Build()
+	if err := errorHelper(ctx, uc.log, errs); err != nil {
+		return nil, err
+	}
+
+		// Step 2: Check access (only for private links)
+		_, errs = sagaGetLink.AddStep(SAGA_STEP_CHECK_ACCESS).
+			Needs(SAGA_STEP_GET_FROM_STORE).
+			Then(func(ctx context.Context) error {
+				// If link is public, allow access without any checks
+				if resp != nil && resp.IsPublic() {
+					return nil
+				}
+
+				// For private links: check via allowlist
+				// According to ADR-42:
+				// - If user_id == "anonymous" → ErrPermissionDenied
+				// - Get email from Kratos Admin API
+				// - Check email against allowlist using link.CanBeViewedByEmail(email)
+				
+				if userID == "" || userID == "anonymous" {
+					return domain.ErrPermissionDenied(nil)
+				}
+
+				// Get email from Kratos Admin API
+				userEmail, err := uc.kratos.GetUserEmail(ctx, userID)
+				if err != nil {
+					// According to ADR-42: any error should result in permission denied
+					// to avoid revealing information about user existence
+					uc.log.ErrorWithContext(ctx, "failed to get user email from Kratos",
+						slog.String("user_id", userID),
+						slog.String("error", err.Error()),
+					)
+
+					return domain.ErrPermissionDenied(err)
+				}
+
+				// Check if email is in allowlist
+				if !resp.CanBeViewedByEmail(userEmail) {
+					uc.log.ErrorWithContext(ctx, "email not in allowlist for private link",
+						slog.String("user_id", userID),
+						slog.String("link_hash", resp.GetHash()),
+						// Don't log email for security reasons
+					)
+
+					return domain.ErrPermissionDenied(nil)
+				}
+
+				return nil
+			}).Reject(func(ctx context.Context, thenErr error) error {
+			return domain.ErrPermissionDenied(thenErr)
+		}).Build()
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}

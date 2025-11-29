@@ -41,7 +41,13 @@ export class ErrorMapper {
   mapToHttpResponse(error: unknown, request?: FastifyRequest): ErrorResponse {
     // Handle Connect/gRPC errors
     // According to ADR 42: PermissionDenied should return 404 Not Found
-    if (error instanceof ConnectError && error.code === Code.PermissionDenied) {
+    // Also handle InvalidArgument with "permission denied" message (legacy error mapping issue)
+    if (
+      error instanceof ConnectError &&
+      (error.code === Code.PermissionDenied ||
+        (error.code === Code.InvalidArgument &&
+          error.message.toLowerCase().includes("permission denied")))
+    ) {
       return {
         statusCode: 404,
         payload: {
