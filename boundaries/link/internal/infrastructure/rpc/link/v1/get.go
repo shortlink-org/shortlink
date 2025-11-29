@@ -3,9 +3,7 @@ package v1
 import (
 	"context"
 
-	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/metadata"
-	"google.golang.org/grpc/status"
 )
 
 func (l *LinkRPC) Get(ctx context.Context, in *GetRequest) (*GetResponse, error) {
@@ -26,7 +24,7 @@ func (l *LinkRPC) Get(ctx context.Context, in *GetRequest) (*GetResponse, error)
 
 	resp, err := l.service.Get(ctx, in.GetHash())
 	if err != nil {
-		return nil, status.Error(codes.InvalidArgument, err.Error())
+		return nil, mapDomainErrorToGRPC(err)
 	}
 
 	return &GetResponse{
