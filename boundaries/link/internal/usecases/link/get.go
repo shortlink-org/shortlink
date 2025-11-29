@@ -27,13 +27,13 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 		SAGA_STEP_CHECK_ACCESS   = "SAGA_STEP_CHECK_ACCESS"
 	)
 
+	// Get user ID from session metadata (may be empty for anonymous requests)
+	// If metadata is missing or empty, userID will be empty string (treated as anonymous)
 	userID, err := session.GetUserID(ctx)
 	if err != nil {
-		uc.log.ErrorWithContext(ctx, "failed to get user ID from session",
-			slog.String("error", err.Error()),
-		)
-
-		return nil, err
+		// If GetUserID returns error (metadata missing), treat as anonymous request
+		// This is normal for unauthenticated users accessing public links
+		userID = ""
 	}
 
 	var resp *domain.Link
@@ -75,11 +75,11 @@ func (uc *UC) Get(ctx context.Context, hash string) (*domain.Link, error) {
 
 				// For private links: check via allowlist
 				// According to ADR-42:
-				// - If user_id == "anonymous" → ErrPermissionDenied
+				// - If user_id is empty (anonymous request) → ErrPermissionDenied
 				// - Get email from Kratos Admin API
 				// - Check email against allowlist using link.CanBeViewedByEmail(email)
 				
-				if userID == "" || userID == "anonymous" {
+				if userID == "" {
 					return domain.ErrPermissionDenied(nil)
 				}
 

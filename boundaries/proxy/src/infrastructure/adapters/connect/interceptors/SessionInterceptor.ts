@@ -8,10 +8,11 @@ const USER_ID_HEADER = "user-id";
  * Link Service uses this to check private link access via Kratos Admin API.
  *
  * This interceptor sets a default value (serviceUserId) if user-id is not already set
- * in the request headers. The actual userId from Kratos session is set via callOptions.header
+ * in the request headers. This is a fallback for service-to-service calls.
+ * The actual userId from Kratos session (or empty string for anonymous) is set via callOptions.header
  * in LinkServiceConnectAdapter.getLinkByHash().
  *
- * @param serviceUserId - stable identifier for proxy service account (fallback).
+ * @param serviceUserId - stable identifier for proxy service account (fallback for service-to-service calls).
  */
 export function createSessionInterceptor(serviceUserId: string): Interceptor {
   if (!serviceUserId || !serviceUserId.trim()) {

@@ -70,10 +70,10 @@ func (l *Link) CanBeViewedByEmail(email string) bool {
 
 - Reads Kratos session
 - Extracts `user_id` from that session
-- **If Kratos responds 401 (no valid session) Proxy sends `user_id = "anonymous"` to LinkService**
-- Passes `user_id` via gRPC metadata `x-user-id: <kratos_user_id | anonymous>`
+- **If no valid session, Proxy sends empty string (`""`) for `user_id` to LinkService**
+- Passes `user_id` via gRPC metadata `x-user-id: <kratos_user_id | "">`
 
-This removes ambiguity: LinkService can distinguish “Kratos error / user missing” from “user is anonymous”.
+LinkService treats empty `user_id` as anonymous request (no need to distinguish different cases - empty means anonymous).
 
 Proxy never makes privacy decisions.
 
@@ -84,7 +84,7 @@ Proxy never makes privacy decisions.
 1. Fetch the link from DB
 2. If `allowed_emails != []`:
    - the link is private
-   - if `user_id == "anonymous"` → immediately return `ErrPermissionDenied` (skip Kratos)
+   - if `user_id == ""` (empty, anonymous request) → immediately return `ErrPermissionDenied` (skip Kratos)
    - otherwise call the **Kratos Admin API** (`GET /admin/identities/{user_id}`) to load the email
    - read `identity.traits.email`
    - check the allowlist
@@ -101,7 +101,7 @@ Proxy never makes privacy decisions.
 - JSON decoding failures
 - Missing `traits.email` in the identity
 - Email not on the allowlist
-- `user_id == "anonymous"`
+- `user_id == ""` (empty, anonymous request)
 
 Therefore external observers cannot distinguish between:
 
@@ -176,7 +176,7 @@ alt KratosPublic returns 200 (valid session)
     Proxy -> LS: GetLink(hash)\nmetadata: x-user-id=user_id
 else KratosPublic returns 401 (no session)
     KratosPublic --> Proxy: 401 Unauthorized
-    Proxy -> LS: GetLink(hash)\nmetadata: x-user-id=anonymous
+    Proxy -> LS: GetLink(hash)\nmetadata: x-user-id="" (empty, anonymous)
 end
 
 LS -> DB: SELECT * FROM links WHERE hash = ?

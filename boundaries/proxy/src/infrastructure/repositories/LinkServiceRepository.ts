@@ -35,10 +35,10 @@ export class LinkServiceRepository implements ILinkRepository {
 
   async findByHash(hash: Hash, userId?: string | null): Promise<Link> {
     // Note: Cache doesn't consider userId, so private links might be cached incorrectly
-    // For now, we skip cache when userId is provided and not "anonymous" (private link access)
+    // For now, we skip cache when userId is provided (private link access)
     // TODO: Consider cache key that includes userId for private links
 
-    if (userId && userId !== "anonymous") {
+    if (userId) {
       // For private links, skip cache and go directly to adapter
       this.logger.debug("Cache bypass - fetching private link from adapter", {
         hash: hash.value,

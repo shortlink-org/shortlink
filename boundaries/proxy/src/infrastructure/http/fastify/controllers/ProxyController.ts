@@ -35,11 +35,11 @@ export class ProxyController {
       const hash = new Hash(request.params.hash);
 
       // Extract Kratos session to get user_id for private link access
-      // According to ADR 42: if no valid session, pass "anonymous"
+      // If no valid session, userId will be undefined (empty string will be passed to LinkService, treated as anonymous)
       const session = await this.kratosSessionExtractor.extractSession(request);
       const userId = session.isAuthenticated && session.userId
         ? session.userId
-        : "anonymous";
+        : undefined;
 
       // Call application service with user_id
       const result = await this.linkApplicationService.handleRedirect({

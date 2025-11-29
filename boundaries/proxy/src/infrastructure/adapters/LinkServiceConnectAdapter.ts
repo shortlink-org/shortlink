@@ -114,10 +114,10 @@ export class LinkServiceConnectAdapter implements ILinkServiceAdapter {
       signal: AbortSignal.timeout(this.externalServicesConfig.requestTimeout),
     };
 
-    // Link Service expects "user-id" in metadata (session_interceptor checks for it)
-    // Always set header - if userId provided, use it; otherwise pass "anonymous"
-    // SessionInterceptor will use serviceUserId as fallback if header is missing
-    const userIdValue = userId && userId !== "anonymous" ? userId : "anonymous";
+    // Link Service expects "user-id" in metadata
+    // If userId is not provided (anonymous request), pass empty string (treated as anonymous by LinkService)
+    // If header is not set at all, SessionInterceptor would set serviceUserId fallback (which we don't want for anonymous requests)
+    const userIdValue = userId || "";
     options.header = {
       "user-id": userIdValue,
     };
