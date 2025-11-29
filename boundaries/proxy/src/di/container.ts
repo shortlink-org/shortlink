@@ -32,7 +32,6 @@ import type { IGrpcMetrics } from "../infrastructure/metrics/index.js";
 import type { IGrpcTracing } from "../infrastructure/tracing/index.js";
 import type { ProxyController } from "../infrastructure/http/fastify/controllers/ProxyController.js";
 import type { MetricsController } from "../infrastructure/http/fastify/controllers/MetricsController.js";
-import type { KratosSessionExtractor } from "../infrastructure/auth/index.js";
 
 // Registries
 import { CONFIG, INFRA, DOMAIN, APP, CONTROLLERS } from "./index.js";
@@ -79,7 +78,7 @@ export interface ContainerDependencies {
   linkCache: ILinkCache;
   grpcMetrics: IGrpcMetrics;
   grpcTracing: IGrpcTracing;
-  kratosSessionExtractor: KratosSessionExtractor;
+  kratosSessionExtractor: KratosSessionExtractor; // Note: imported as value, not type
 
   // Controllers
   proxyController: ProxyController;

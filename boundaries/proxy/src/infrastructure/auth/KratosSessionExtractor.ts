@@ -31,8 +31,19 @@ export class KratosSessionExtractor {
    * @returns User session information or unauthenticated session
    */
   async extractSession(request: FastifyRequest): Promise<UserSession> {
-    // Extract session cookie
-    const sessionCookie = request.cookies?.["ory_kratos_session"];
+    // Extract session cookie from Cookie header
+    // Note: @fastify/cookie plugin is not registered, so we parse manually
+    const cookieHeader = request.headers.cookie || "";
+    const cookies: Record<string, string> = {};
+    
+    cookieHeader.split(";").forEach((cookie) => {
+      const [name, value] = cookie.trim().split("=");
+      if (name && value) {
+        cookies[name] = decodeURIComponent(value);
+      }
+    });
+    
+    const sessionCookie = cookies["ory_kratos_session"];
 
     if (!sessionCookie) {
       return {
