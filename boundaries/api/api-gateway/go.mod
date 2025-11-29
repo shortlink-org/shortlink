@@ -10,15 +10,15 @@ require (
 	github.com/graph-gophers/graphql-go v1.8.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.27.3
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/config v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/db v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/notify v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251125204117-ffa44b328293
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/config v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/db v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/notify v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251129215632-4fad40209522
 	github.com/spf13/viper v1.21.0
 	github.com/uptrace/opentelemetry-go-extra/otelgraphql v0.3.2
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.63.0
@@ -80,7 +80,7 @@ require (
 	github.com/munnerz/goautoneg v0.0.0-20191010083416-a7dc8b61c822 // indirect
 	github.com/neo4j/neo4j-go-driver/v5 v5.28.4 // indirect
 	github.com/onsi/gomega v1.38.0 // indirect
-	github.com/ory/client-go v1.22.11 // indirect
+	github.com/ory/client-go v1.22.12 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/pkg/errors v0.9.1 // indirect
 	github.com/planetscale/vtprotobuf v0.6.1-0.20241121165744-79df5c4772f2 // indirect
@@ -95,7 +95,7 @@ require (
 	github.com/sagikazarmark/locafero v0.12.0 // indirect
 	github.com/samber/lo v1.52.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
-	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251125204117-ffa44b328293 // indirect
+	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251129215632-4fad40209522 // indirect
 	github.com/spf13/afero v1.15.0 // indirect
 	github.com/spf13/cast v1.10.0 // indirect
 	github.com/spf13/pflag v1.0.10 // indirect

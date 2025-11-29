@@ -10,22 +10,22 @@ require (
 	github.com/chromedp/chromedp v0.14.2
 	github.com/google/wire v0.7.0
 	github.com/minio/minio-go/v7 v7.0.97
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/cache v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/config v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/context v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/cqrs v0.0.0-20251126174608-40adc27b4c9c
-	github.com/shortlink-org/go-sdk/db v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/flags v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/s3 v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/saga v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/watermill v0.0.0-20251125223100-c627280ca6e5
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/cache v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/config v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/context v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/cqrs v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/db v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/flags v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/s3 v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/saga v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/watermill v0.0.0-20251129215632-4fad40209522
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	github.com/testcontainers/testcontainers-go v0.40.0
@@ -144,7 +144,7 @@ require (
 	github.com/onsi/gomega v1.38.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.1 // indirect
-	github.com/ory/client-go v1.22.11 // indirect
+	github.com/ory/client-go v1.22.12 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/philhofer/fwd v1.2.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.22 // indirect

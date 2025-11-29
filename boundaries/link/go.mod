@@ -19,24 +19,24 @@ require (
 	github.com/prometheus/client_golang v1.23.2
 	github.com/redis/rueidis v1.0.68
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/batch v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/cache v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/config v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/context v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/cqrs v0.0.0-20251126174608-40adc27b4c9c
-	github.com/shortlink-org/go-sdk/db v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/flags v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/kratos v0.0.0-20251129095529-93b67f50526c
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/saga v0.0.0-20251125204117-ffa44b328293
-	github.com/shortlink-org/go-sdk/specification v0.0.0-20251126174608-40adc27b4c9c
-	github.com/shortlink-org/go-sdk/watermill v0.0.0-20251125223100-c627280ca6e5
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/batch v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/cache v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/config v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/context v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/cqrs v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/db v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/flags v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/kratos v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/saga v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/specification v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/watermill v0.0.0-20251129215632-4fad40209522
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
@@ -154,7 +154,7 @@ require (
 	github.com/onsi/gomega v1.38.0 // indirect
 	github.com/opencontainers/go-digest v1.0.0 // indirect
 	github.com/opencontainers/image-spec v1.1.1 // indirect
-	github.com/ory/client-go v1.22.11 // indirect
+	github.com/ory/client-go v1.22.12 // indirect
 	github.com/pelletier/go-toml/v2 v2.2.4 // indirect
 	github.com/pganalyze/pg_query_go/v6 v6.1.0 // indirect
 	github.com/pierrec/lz4/v4 v4.1.22 // indirect

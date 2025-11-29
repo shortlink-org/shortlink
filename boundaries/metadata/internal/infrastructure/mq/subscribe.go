@@ -10,6 +10,7 @@ import (
 	"github.com/shortlink-org/go-sdk/cqrs/bus"
 	cqrsmessage "github.com/shortlink-org/go-sdk/cqrs/message"
 	"github.com/shortlink-org/go-sdk/logger"
+	shortwatermill "github.com/shortlink-org/go-sdk/watermill"
 	"go.opentelemetry.io/otel"
 	"go.opentelemetry.io/otel/attribute"
 	otelcodes "go.opentelemetry.io/otel/codes"
@@ -57,6 +58,10 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 				msgCtx = ctx
 			}
 
+			// Restore trace context from message metadata so downstream spans stay in the same trace.
+			msgCtx = shortwatermill.ExtractTrace(msgCtx, msg)
+			msg.SetContext(msgCtx) //nolint:contextcheck // ensure downstream unmarshaler sees enriched ctx
+
 			// Validate payload before unmarshaling
 			if len(msg.Payload) == 0 {
 				// Create span for empty payload error to track problematic messages in traces
@@ -86,10 +91,6 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 			// Create typed event instance directly - no reflect.New needed
 			// We know the type is *linkpb.LinkCreated from the subscription
 			event := &linkpb.LinkCreated{}
-
-			// Unmarshal using ProtoMarshaler (handles metadata extraction)
-			// msg is already *message.Message from Watermill, just update context if needed
-			msg.SetContext(msgCtx) //nolint:contextcheck // update context for unmarshaling
 
 			unmarshalErr := marshaler.Unmarshal(msg, event)
 			if unmarshalErr != nil {
@@ -219,4 +220,3 @@ func (e *Event) handleLinkCreated(ctx context.Context, event *linkpb.LinkCreated
 
 	return nil
 }
-
