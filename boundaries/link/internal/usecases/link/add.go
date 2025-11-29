@@ -174,21 +174,6 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_PUBLISH_EVENT_NEW_LINK).
 		Then(func(ctx context.Context) error {
-			ctx, span := otel.Tracer("link.uc.event").Start(ctx, domain.LinkCreatedTopic+" publish",
-				trace.WithSpanKind(trace.SpanKindProducer),
-			)
-			defer span.End()
-
-			span.SetAttributes(
-				attribute.String("saga.step", SAGA_STEP_PUBLISH_EVENT_NEW_LINK),
-				attribute.String("messaging.system", "kafka"),
-				attribute.String("messaging.destination.name", domain.LinkCreatedTopic),
-				attribute.String("messaging.destination.kind", "topic"),
-				attribute.String("messaging.operation", "publish"),
-				attribute.String("link.hash", in.GetHash()),
-				attribute.String("user.id", userID),
-			)
-
 			// Convert domain Link to LinkData (avoids import cycle)
 			linkData := &dto.LinkData{
 				URL:       in.GetUrl().String(),
@@ -201,28 +186,33 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 			// Convert LinkData to LinkCreated event using DTO
 			event := dto.ToLinkCreatedEvent(linkData)
 			if event == nil {
-				span.SetStatus(otelcodes.Error, "link creation event is nil")
+				uc.log.ErrorWithContext(ctx, "Link creation event is nil",
+					slog.String("saga.step", SAGA_STEP_PUBLISH_EVENT_NEW_LINK),
+					slog.String("link_hash", in.GetHash()),
+				)
 				return domain.NewInternalError("link creation event is nil")
 			}
 
 			// Publish event using EventBus
+			// Producer span will be created automatically by instrumentation (otelsarama/watermill)
 			err := uc.eventBus.Publish(ctx, event)
 			if err != nil {
-				span.RecordError(err)
-				span.SetStatus(otelcodes.Error, err.Error())
 				uc.log.ErrorWithContext(ctx, "Failed to publish link creation event",
 					slog.String("error", err.Error()),
+					slog.String("saga.step", SAGA_STEP_PUBLISH_EVENT_NEW_LINK),
 					slog.String("event_type", domain.LinkCreatedTopic),
 					slog.String("link_hash", in.GetHash()),
+					slog.String("user.id", userID),
 				)
 
 				return err
 			}
 
-			span.SetStatus(otelcodes.Ok, "Link creation event published successfully")
 			uc.log.InfoWithContext(ctx, "Link creation event published successfully",
+				slog.String("saga.step", SAGA_STEP_PUBLISH_EVENT_NEW_LINK),
 				slog.String("event_type", domain.LinkCreatedTopic),
 				slog.String("link_hash", in.GetHash()),
+				slog.String("user.id", userID),
 			)
 
 			return nil
