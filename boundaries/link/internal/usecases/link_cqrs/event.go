@@ -7,6 +7,7 @@ import (
 	"errors"
 
 	"github.com/ThreeDotsLabs/watermill/message"
+	shortwatermill "github.com/shortlink-org/go-sdk/watermill"
 	"google.golang.org/protobuf/proto"
 
 	domain "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
@@ -70,6 +71,10 @@ func subscribe[T proto.Message](
 			if msgCtx == nil {
 				msgCtx = ctx
 			}
+
+			// Вытягиваем traceparent из Kafka-метаданных, чтобы весь обработчик жил в одном трейсе.
+			msgCtx = shortwatermill.ExtractTrace(msgCtx, msg)
+			msg.SetContext(msgCtx) //nolint:contextcheck // гарантируем общий контекст для downstream
 
 			event := newEvent()
 
