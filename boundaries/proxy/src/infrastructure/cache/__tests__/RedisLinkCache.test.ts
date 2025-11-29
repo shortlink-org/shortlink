@@ -1,78 +1,102 @@
-import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
+import {
+  describe,
+  it,
+  expect,
+  beforeAll,
+  afterAll,
+  beforeEach,
+  afterEach,
+} from "vitest";
 import { RedisLinkCache } from "../RedisLinkCache.js";
 import { Hash } from "../../../domain/entities/Hash.js";
 import { Link } from "../../../domain/entities/Link.js";
 import { ILogger } from "../../logging/ILogger.js";
 import { CacheConfig } from "../../config/CacheConfig.js";
 import Redis from "ioredis";
+import {
+  RedisContainer,
+  type StartedRedisContainer,
+} from "@testcontainers/redis";
 
-// Mock ioredis
-vi.mock("ioredis", () => {
-  return {
-    default: vi.fn().mockImplementation(() => ({
-      get: vi.fn(),
-      setex: vi.fn(),
-      del: vi.fn(),
-      quit: vi.fn(),
-      connect: vi.fn().mockResolvedValue(undefined),
-      on: vi.fn(),
-      status: "ready",
-    })),
-  };
-});
-
+/**
+ * Unit tests for RedisLinkCache using Testcontainers
+ * Uses real Redis through Testcontainers instead of mocks
+ * This provides more realistic testing
+ */
 describe("RedisLinkCache", () => {
   let cache: RedisLinkCache;
-  let mockLogger: ILogger;
-  let mockConfig: CacheConfig;
-  let mockRedis: any;
+  let logger: ILogger;
+  let config: CacheConfig;
+  let testRedis: Redis;
+  let redisContainer: StartedRedisContainer | null = null;
 
-  beforeEach(async () => {
-    // Mock logger
-    mockLogger = {
-      info: vi.fn(),
-      warn: vi.fn(),
-      error: vi.fn(),
-      debug: vi.fn(),
-      http: vi.fn(),
-      event: vi.fn(),
+  beforeAll(async () => {
+    // Setup logger
+    logger = {
+      info: () => {},
+      warn: () => {},
+      error: () => {},
+      debug: () => {},
+      http: () => {},
+      event: () => {},
     };
 
-    // Mock config
-    mockConfig = {
+    // Start Redis container (or use REDIS_URL if provided)
+    const redisUrl = process.env.REDIS_URL
+      ? process.env.REDIS_URL
+      : await (async () => {
+          redisContainer = await new RedisContainer("redis:7.4-alpine").start();
+          return redisContainer.getConnectionUrl();
+        })();
+
+    // Setup config
+    config = {
       enabled: true,
-      redisUrl: "redis://localhost:6379",
+      redisUrl,
       ttlPositive: 3600,
       ttlNegative: 300,
-      keyPrefix: "shortlink:proxy",
+      keyPrefix: "test:shortlink:proxy",
     } as CacheConfig;
 
-    // Create Redis mock instance with proper status
-    mockRedis = {
-      get: vi.fn(),
-      setex: vi.fn(),
-      del: vi.fn(),
-      quit: vi.fn(),
-      connect: vi.fn().mockResolvedValue(undefined),
-      on: vi.fn(),
-      status: "ready",
-    };
+    // Create test Redis client for cleanup
+    testRedis = new Redis(config.redisUrl);
+    await testRedis.ping();
+  }, 30000);
 
-    // Mock Redis constructor to return our mock instance
-    vi.mocked(Redis).mockImplementation(() => mockRedis);
+  afterAll(async () => {
+    if (testRedis) {
+      await testRedis.quit();
+    }
+    if (cache) {
+      await cache.disconnect();
+    }
+    if (redisContainer) {
+      await redisContainer.stop();
+    }
+  }, 30000);
 
-    cache = new RedisLinkCache(mockLogger, mockConfig);
-    
-    // Ensure Redis is available after initialization
-    // Wait a bit for connect() to complete
-    await new Promise(resolve => setTimeout(resolve, 10));
-    
-    // Ensure status is set to "ready" after initialization
-    mockRedis.status = "ready";
+  beforeEach(async () => {
+    // Cleanup all test keys before each test
+    const keys = await testRedis.keys(`${config.keyPrefix}:*`);
+    if (keys.length > 0) {
+      await testRedis.del(...keys);
+    }
+
+    // Create fresh cache instance for each test
+    cache = new RedisLinkCache(logger, config);
+
+    // Wait a bit for cache to connect
+    await new Promise((resolve) => setTimeout(resolve, 100));
   });
 
-  afterEach(() => {
-    vi.clearAllMocks();
+  afterEach(async () => {
+    if (cache) {
+      // Cleanup all test keys after each test
+      const keys = await testRedis.keys(`${config.keyPrefix}:*`);
+      if (keys.length > 0) {
+        await testRedis.del(...keys);
+      }
+    }
   });
 
   describe("get", () => {
@@ -85,14 +109,8 @@ describe("RedisLinkCache", () => {
         new Date("2024-01-01"),
         new Date("2024-01-02")
       );
-      const cachedData = JSON.stringify({
-        hash: { value: hash.value },
-        url: link.url,
-        createdAt: link.createdAt.toISOString(),
-        updatedAt: link.updatedAt.toISOString(),
-      });
 
-      mockRedis.get.mockResolvedValue(cachedData);
+      await cache.setPositive(hash, link);
 
       // Act
       const result = await cache.get(hash);
@@ -102,82 +120,98 @@ describe("RedisLinkCache", () => {
       expect(result).not.toBeUndefined();
       expect(result?.hash.value).toBe(hash.value);
       expect(result?.url).toBe(link.url);
-      expect(mockRedis.get).toHaveBeenCalledWith(
-        "shortlink:proxy:hash:abc123"
-      );
     });
 
     it("should return null for negative cache", async () => {
       // Arrange
       const hash = new Hash("nonexistent");
-      mockRedis.get.mockResolvedValue("NEGATIVE");
+      await cache.setNegative(hash);
 
       // Act
       const result = await cache.get(hash);
 
       // Assert
       expect(result).toBeNull();
-      expect(mockRedis.get).toHaveBeenCalledWith(
-        "shortlink:proxy:hash:nonexistent"
-      );
     });
 
     it("should return undefined for cache miss", async () => {
       // Arrange
       const hash = new Hash("miss");
-      mockRedis.get.mockResolvedValue(null);
 
       // Act
       const result = await cache.get(hash);
 
       // Assert
       expect(result).toBeUndefined();
-      expect(mockRedis.get).toHaveBeenCalledWith(
-        "shortlink:proxy:hash:miss"
-      );
     });
 
     it("should return undefined when Redis is not available", async () => {
-      // Arrange
+      // Arrange - create cache with invalid Redis URL
+      const invalidConfig = {
+        enabled: true,
+        redisUrl: "redis://localhost:9999", // Invalid port
+        ttlPositive: 3600,
+        ttlNegative: 300,
+        keyPrefix: "test:shortlink:proxy",
+      } as CacheConfig;
+
+      const cacheWithInvalidRedis = new RedisLinkCache(logger, invalidConfig);
       const hash = new Hash("test");
-      mockRedis.status = "end";
+
+      // Wait a bit for connection attempt
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
       // Act
-      const result = await cache.get(hash);
+      const result = await cacheWithInvalidRedis.get(hash);
 
       // Assert
       expect(result).toBeUndefined();
-      expect(mockRedis.get).not.toHaveBeenCalled();
+
+      // Cleanup
+      await cacheWithInvalidRedis.disconnect();
     });
 
     it("should handle Redis errors gracefully", async () => {
-      // Arrange
-      const hash = new Hash("error");
-      mockRedis.get.mockRejectedValue(new Error("Redis error"));
+      // Arrange - use invalid Redis URL to simulate connection error
+      const invalidConfig = {
+        enabled: true,
+        redisUrl: "redis://localhost:9999", // Invalid port
+        ttlPositive: 3600,
+        ttlNegative: 300,
+        keyPrefix: "test:shortlink:proxy",
+      } as CacheConfig;
 
-      // Act
-      const result = await cache.get(hash);
+      const cacheWithInvalidRedis = new RedisLinkCache(logger, invalidConfig);
+      const hash = new Hash("error");
+
+      // Wait a bit for connection attempt
+      await new Promise((resolve) => setTimeout(resolve, 500));
+
+      // Act - should not throw, should return undefined gracefully
+      const result = await cacheWithInvalidRedis.get(hash);
 
       // Assert
       expect(result).toBeUndefined();
-      expect(mockLogger.error).toHaveBeenCalled();
+
+      // Cleanup
+      await cacheWithInvalidRedis.disconnect();
     });
 
     it("should clear corrupted cache entry", async () => {
-      // Arrange
+      // Arrange - manually set corrupted JSON
       const hash = new Hash("corrupted");
-      mockRedis.get.mockResolvedValue("invalid json");
-      mockRedis.del.mockResolvedValue(1);
+      const key = `${config.keyPrefix}:hash:${hash.value}`;
+      await testRedis.set(key, "invalid json");
 
       // Act
       const result = await cache.get(hash);
 
       // Assert
       expect(result).toBeUndefined();
-      expect(mockRedis.del).toHaveBeenCalledWith(
-        "shortlink:proxy:hash:corrupted"
-      );
-      expect(mockLogger.error).toHaveBeenCalled();
+
+      // Verify corrupted entry was cleared
+      const exists = await testRedis.exists(key);
+      expect(exists).toBe(0);
     });
   });
 
@@ -191,43 +225,43 @@ describe("RedisLinkCache", () => {
         new Date("2024-01-01"),
         new Date("2024-01-02")
       );
-      mockRedis.setex.mockResolvedValue("OK");
 
       // Act
       await cache.setPositive(hash, link);
 
-      // Assert
-      expect(mockRedis.setex).toHaveBeenCalledWith(
-        "shortlink:proxy:hash:abc123",
-        3600,
-        expect.stringContaining('"url":"https://example.com"')
-      );
+      // Assert - verify it was saved by reading it back
+      const result = await cache.get(hash);
+      expect(result).not.toBeNull();
+      expect(result?.hash.value).toBe(hash.value);
+      expect(result?.url).toBe(link.url);
     });
 
     it("should skip when Redis is not available", async () => {
-      // Arrange
+      // Arrange - create cache with invalid Redis URL
+      const invalidConfig = {
+        enabled: true,
+        redisUrl: "redis://localhost:9999",
+        ttlPositive: 3600,
+        ttlNegative: 300,
+        keyPrefix: "test:shortlink:proxy",
+      } as CacheConfig;
+
+      const cacheWithInvalidRedis = new RedisLinkCache(logger, invalidConfig);
       const hash = new Hash("test");
       const link = new Link(hash, "https://example.com");
-      mockRedis.status = "end";
 
-      // Act
-      await cache.setPositive(hash, link);
+      // Wait a bit for connection attempt
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
-      // Assert
-      expect(mockRedis.setex).not.toHaveBeenCalled();
-    });
+      // Act - should not throw
+      await cacheWithInvalidRedis.setPositive(hash, link);
 
-    it("should handle Redis errors gracefully", async () => {
-      // Arrange
-      const hash = new Hash("error");
-      const link = new Link(hash, "https://example.com");
-      mockRedis.setex.mockRejectedValue(new Error("Redis error"));
+      // Assert - should not have saved
+      const result = await cacheWithInvalidRedis.get(hash);
+      expect(result).toBeUndefined();
 
-      // Act
-      await cache.setPositive(hash, link);
-
-      // Assert
-      expect(mockLogger.error).toHaveBeenCalled();
+      // Cleanup
+      await cacheWithInvalidRedis.disconnect();
     });
   });
 
@@ -235,41 +269,40 @@ describe("RedisLinkCache", () => {
     it("should save negative cache", async () => {
       // Arrange
       const hash = new Hash("nonexistent");
-      mockRedis.setex.mockResolvedValue("OK");
 
       // Act
       await cache.setNegative(hash);
 
-      // Assert
-      expect(mockRedis.setex).toHaveBeenCalledWith(
-        "shortlink:proxy:hash:nonexistent",
-        300,
-        "NEGATIVE"
-      );
+      // Assert - verify it was saved by reading it back
+      const result = await cache.get(hash);
+      expect(result).toBeNull();
     });
 
     it("should skip when Redis is not available", async () => {
-      // Arrange
+      // Arrange - create cache with invalid Redis URL
+      const invalidConfig = {
+        enabled: true,
+        redisUrl: "redis://localhost:9999",
+        ttlPositive: 3600,
+        ttlNegative: 300,
+        keyPrefix: "test:shortlink:proxy",
+      } as CacheConfig;
+
+      const cacheWithInvalidRedis = new RedisLinkCache(logger, invalidConfig);
       const hash = new Hash("test");
-      mockRedis.status = "end";
 
-      // Act
-      await cache.setNegative(hash);
+      // Wait a bit for connection attempt
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
-      // Assert
-      expect(mockRedis.setex).not.toHaveBeenCalled();
-    });
+      // Act - should not throw
+      await cacheWithInvalidRedis.setNegative(hash);
 
-    it("should handle Redis errors gracefully", async () => {
-      // Arrange
-      const hash = new Hash("error");
-      mockRedis.setex.mockRejectedValue(new Error("Redis error"));
+      // Assert - should not have saved
+      const result = await cacheWithInvalidRedis.get(hash);
+      expect(result).toBeUndefined();
 
-      // Act
-      await cache.setNegative(hash);
-
-      // Assert
-      expect(mockLogger.error).toHaveBeenCalled();
+      // Cleanup
+      await cacheWithInvalidRedis.disconnect();
     });
   });
 
@@ -277,74 +310,86 @@ describe("RedisLinkCache", () => {
     it("should delete cache entry", async () => {
       // Arrange
       const hash = new Hash("abc123");
-      mockRedis.del.mockResolvedValue(1);
+      const link = new Link(hash, "https://example.com");
+      await cache.setPositive(hash, link);
+      expect(await cache.get(hash)).not.toBeUndefined();
 
       // Act
       await cache.clear(hash);
 
       // Assert
-      expect(mockRedis.del).toHaveBeenCalledWith(
-        "shortlink:proxy:hash:abc123"
-      );
+      const result = await cache.get(hash);
+      expect(result).toBeUndefined();
     });
 
     it("should skip when Redis is not available", async () => {
-      // Arrange
+      // Arrange - create cache with invalid Redis URL
+      const invalidConfig = {
+        enabled: true,
+        redisUrl: "redis://localhost:9999",
+        ttlPositive: 3600,
+        ttlNegative: 300,
+        keyPrefix: "test:shortlink:proxy",
+      } as CacheConfig;
+
+      const cacheWithInvalidRedis = new RedisLinkCache(logger, invalidConfig);
       const hash = new Hash("test");
-      mockRedis.status = "end";
 
-      // Act
-      await cache.clear(hash);
+      // Wait a bit for connection attempt
+      await new Promise((resolve) => setTimeout(resolve, 500));
 
-      // Assert
-      expect(mockRedis.del).not.toHaveBeenCalled();
-    });
+      // Act - should not throw
+      await cacheWithInvalidRedis.clear(hash);
 
-    it("should handle Redis errors gracefully", async () => {
-      // Arrange
-      const hash = new Hash("error");
-      mockRedis.del.mockRejectedValue(new Error("Redis error"));
-
-      // Act
-      await cache.clear(hash);
-
-      // Assert
-      expect(mockLogger.error).toHaveBeenCalled();
+      // Cleanup
+      await cacheWithInvalidRedis.disconnect();
     });
   });
 
   describe("when cache is disabled", () => {
-    beforeEach(() => {
-      const disabledConfig = {
-        ...mockConfig,
-        enabled: false,
-      } as CacheConfig;
-      cache = new RedisLinkCache(mockLogger, disabledConfig);
-    });
-
     it("should return undefined for get", async () => {
       // Arrange
+      const disabledConfig = {
+        ...config,
+        enabled: false,
+      } as CacheConfig;
+      const disabledCache = new RedisLinkCache(logger, disabledConfig);
       const hash = new Hash("test");
 
       // Act
-      const result = await cache.get(hash);
+      const result = await disabledCache.get(hash);
 
       // Assert
       expect(result).toBeUndefined();
-      expect(mockRedis.get).not.toHaveBeenCalled();
+
+      // Cleanup
+      await disabledCache.disconnect();
     });
 
     it("should skip setPositive", async () => {
       // Arrange
+      const disabledConfig = {
+        ...config,
+        enabled: false,
+      } as CacheConfig;
+      const disabledCache = new RedisLinkCache(logger, disabledConfig);
       const hash = new Hash("test");
       const link = new Link(hash, "https://example.com");
 
       // Act
-      await cache.setPositive(hash, link);
+      await disabledCache.setPositive(hash, link);
 
-      // Assert
-      expect(mockRedis.setex).not.toHaveBeenCalled();
+      // Assert - verify nothing was saved
+      const result = await disabledCache.get(hash);
+      expect(result).toBeUndefined();
+
+      // Also verify directly in Redis
+      const key = `${disabledConfig.keyPrefix}:hash:${hash.value}`;
+      const exists = await testRedis.exists(key);
+      expect(exists).toBe(0);
+
+      // Cleanup
+      await disabledCache.disconnect();
     });
   });
 });
-

@@ -2,6 +2,7 @@ import { metrics } from "@opentelemetry/api";
 import type { Counter, Meter } from "@opentelemetry/api";
 import { Link } from "../../domain/entities/Link.js";
 import { Hash } from "../../domain/entities/Hash.js";
+import { LinkNotFoundError } from "../../domain/exceptions/index.js";
 import { ILinkRepository } from "../../domain/repositories/ILinkRepository.js";
 import { ILinkServiceAdapter } from "../adapters/ILinkServiceAdapter.js";
 import { ILinkCache } from "../cache/RedisLinkCache.js";
@@ -32,10 +33,7 @@ export class LinkServiceRepository implements ILinkRepository {
     );
   }
 
-  async findByHash(
-    hash: Hash,
-    userId?: string | null
-  ): Promise<Link | null> {
+  async findByHash(hash: Hash, userId?: string | null): Promise<Link> {
     // Note: Cache doesn't consider userId, so private links might be cached incorrectly
     // For now, we skip cache when userId is provided and not "anonymous" (private link access)
     // TODO: Consider cache key that includes userId for private links
@@ -48,11 +46,7 @@ export class LinkServiceRepository implements ILinkRepository {
       });
 
       try {
-        const link = await this.linkServiceAdapter.getLinkByHash(
-          hash,
-          userId
-        );
-        return link;
+        return await this.linkServiceAdapter.getLinkByHash(hash, userId);
       } catch (error) {
         this.logger.error("Adapter error in findByHash (private link)", {
           error: error instanceof Error ? error : new Error(String(error)),
@@ -65,7 +59,7 @@ export class LinkServiceRepository implements ILinkRepository {
       }
     }
 
-    // For public links, use cache as before
+    // For public links, use cache
     const cached = await this.linkCache.get(hash);
 
     // Если найден положительный результат в кэше
@@ -76,12 +70,12 @@ export class LinkServiceRepository implements ILinkRepository {
       return cached;
     }
 
-    // Если отрицательный кэш - возвращаем null без обращения к адаптеру
+    // Если отрицательный кэш - бросаем LinkNotFoundError
     if (cached === null) {
-      this.logger.debug("Cache hit - negative, returning null", {
+      this.logger.debug("Cache hit - negative, throwing LinkNotFoundError", {
         hash: hash.value,
       });
-      return null;
+      throw new LinkNotFoundError(hash);
     }
 
     // Кэш miss - обращаемся к адаптеру
@@ -93,15 +87,16 @@ export class LinkServiceRepository implements ILinkRepository {
       const link = await this.linkServiceAdapter.getLinkByHash(hash);
 
       // Сохраняем результат в кэш
-      if (link !== null) {
-        await this.linkCache.setPositive(hash, link);
-      } else {
-        await this.linkCache.setNegative(hash);
-      }
+      await this.linkCache.setPositive(hash, link);
 
       return link;
     } catch (error) {
-      // При ошибке адаптера не сохраняем в кэш, но логируем
+      // Если LinkNotFoundError - сохраняем отрицательный кэш
+      if (error instanceof LinkNotFoundError) {
+        await this.linkCache.setNegative(hash);
+      }
+
+      // Логируем и пробрасываем ошибку
       this.logger.error("Adapter error in findByHash", {
         error: error instanceof Error ? error : new Error(String(error)),
         hash: hash.value,
@@ -122,7 +117,15 @@ export class LinkServiceRepository implements ILinkRepository {
   }
 
   async exists(hash: Hash): Promise<boolean> {
-    const link = await this.findByHash(hash);
-    return link !== null;
+    try {
+      await this.findByHash(hash);
+      return true;
+    } catch (error) {
+      if (error instanceof LinkNotFoundError) {
+        return false;
+      }
+      // Re-throw other errors
+      throw error;
+    }
   }
 }

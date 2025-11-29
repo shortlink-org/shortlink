@@ -7,6 +7,7 @@ import { PublishEventUseCase } from "../../../application/use-cases/PublishEvent
 import { LinkServiceRepository } from "../../../infrastructure/repositories/LinkServiceRepository.js";
 import { Hash } from "../../../domain/entities/Hash.js";
 import { Link } from "../../../domain/entities/Link.js";
+import { LinkNotFoundError } from "../../../domain/exceptions/index.js";
 import type { ILogger } from "../../../infrastructure/logging/ILogger.js";
 import {
   UseCasePipeline,
@@ -24,16 +25,34 @@ import type { DomainEvent } from "../../../domain/events/index.js";
  */
 describe("Redirect Flow E2E Integration Tests", () => {
   let app: FastifyInstance;
-  let publishMock: ReturnType<typeof vi.fn<(event: DomainEvent) => Promise<void>>>;
-  let getLinkByHashMock: ReturnType<typeof vi.fn<(hash: Hash) => Promise<Link | null>>>;
-  let cacheGetMock: ReturnType<typeof vi.fn<(hash: Hash) => Promise<Link | null | undefined>>>;
-  let cacheSetPositiveMock: ReturnType<typeof vi.fn<(hash: Hash, link: Link) => Promise<void>>>;
-  let cacheSetNegativeMock: ReturnType<typeof vi.fn<(hash: Hash) => Promise<void>>>;
+  let publishMock: ReturnType<
+    typeof vi.fn<(event: DomainEvent) => Promise<void>>
+  >;
+  let getLinkByHashMock: ReturnType<
+    typeof vi.fn<(hash: Hash) => Promise<Link>>
+  >;
+  let cacheGetMock: ReturnType<
+    typeof vi.fn<(hash: Hash) => Promise<Link | null | undefined>>
+  >;
+  let cacheSetPositiveMock: ReturnType<
+    typeof vi.fn<(hash: Hash, link: Link) => Promise<void>>
+  >;
+  let cacheSetNegativeMock: ReturnType<
+    typeof vi.fn<(hash: Hash) => Promise<void>>
+  >;
   let cacheClearMock: ReturnType<typeof vi.fn<(hash: Hash) => Promise<void>>>;
-  let loggerInfoMock: ReturnType<typeof vi.fn<(message: string, meta?: any) => void>>;
-  let loggerWarnMock: ReturnType<typeof vi.fn<(message: string, meta?: any) => void>>;
-  let loggerErrorMock: ReturnType<typeof vi.fn<(message: string, error?: any, meta?: any) => void>>;
-  let loggerDebugMock: ReturnType<typeof vi.fn<(message: string, meta?: any) => void>>;
+  let loggerInfoMock: ReturnType<
+    typeof vi.fn<(message: string, meta?: any) => void>
+  >;
+  let loggerWarnMock: ReturnType<
+    typeof vi.fn<(message: string, meta?: any) => void>
+  >;
+  let loggerErrorMock: ReturnType<
+    typeof vi.fn<(message: string, error?: any, meta?: any) => void>
+  >;
+  let loggerDebugMock: ReturnType<
+    typeof vi.fn<(message: string, meta?: any) => void>
+  >;
   let loggerHttpMock: ReturnType<typeof vi.fn<(message: string) => void>>;
   let mockEventPublisher: IEventPublisher;
   let mockLinkServiceAdapter: ILinkServiceAdapter;
@@ -42,21 +61,31 @@ describe("Redirect Flow E2E Integration Tests", () => {
 
   beforeEach(async () => {
     // Mock Event Publisher
-    publishMock = vi.fn<(event: DomainEvent) => Promise<void>>().mockResolvedValue(undefined);
+    publishMock = vi
+      .fn<(event: DomainEvent) => Promise<void>>()
+      .mockResolvedValue(undefined);
     mockEventPublisher = {
       publish: publishMock,
     };
 
     // Mock Adapter
-    getLinkByHashMock = vi.fn<(hash: Hash) => Promise<Link | null>>();
+    getLinkByHashMock = vi.fn<(hash: Hash) => Promise<Link>>();
     mockLinkServiceAdapter = {
       getLinkByHash: getLinkByHashMock,
     } as any;
 
-    cacheGetMock = vi.fn<(hash: Hash) => Promise<Link | null | undefined>>().mockResolvedValue(undefined);
-    cacheSetPositiveMock = vi.fn<(hash: Hash, link: Link) => Promise<void>>().mockResolvedValue(undefined);
-    cacheSetNegativeMock = vi.fn<(hash: Hash) => Promise<void>>().mockResolvedValue(undefined);
-    cacheClearMock = vi.fn<(hash: Hash) => Promise<void>>().mockResolvedValue(undefined);
+    cacheGetMock = vi
+      .fn<(hash: Hash) => Promise<Link | null | undefined>>()
+      .mockResolvedValue(undefined);
+    cacheSetPositiveMock = vi
+      .fn<(hash: Hash, link: Link) => Promise<void>>()
+      .mockResolvedValue(undefined);
+    cacheSetNegativeMock = vi
+      .fn<(hash: Hash) => Promise<void>>()
+      .mockResolvedValue(undefined);
+    cacheClearMock = vi
+      .fn<(hash: Hash) => Promise<void>>()
+      .mockResolvedValue(undefined);
     mockLinkCache = {
       get: cacheGetMock,
       setPositive: cacheSetPositiveMock,
@@ -67,7 +96,8 @@ describe("Redirect Flow E2E Integration Tests", () => {
     // Mock Logger
     loggerInfoMock = vi.fn<(message: string, meta?: any) => void>();
     loggerWarnMock = vi.fn<(message: string, meta?: any) => void>();
-    loggerErrorMock = vi.fn<(message: string, error?: any, meta?: any) => void>();
+    loggerErrorMock =
+      vi.fn<(message: string, error?: any, meta?: any) => void>();
     loggerDebugMock = vi.fn<(message: string, meta?: any) => void>();
     loggerHttpMock = vi.fn<(message: string) => void>();
     mockLogger = {
@@ -130,7 +160,8 @@ describe("Redirect Flow E2E Integration Tests", () => {
     it("should handle link not found in full flow", async () => {
       // Arrange
       // LinkServiceRepository использует LinkServiceAdapter
-      getLinkByHashMock.mockResolvedValue(null);
+      const hash = new Hash("nonexistent");
+      getLinkByHashMock.mockRejectedValue(new LinkNotFoundError(hash));
 
       // Act
       const response = await app.inject({

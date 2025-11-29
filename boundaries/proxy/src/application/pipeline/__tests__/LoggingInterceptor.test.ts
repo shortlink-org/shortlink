@@ -48,8 +48,9 @@ describe("LoggingInterceptor", () => {
       // Assert
       expect(result).toEqual(context.request);
       expect(mockLogger.debug).toHaveBeenCalledWith(
-        "[UseCase] Starting: TestUseCase",
+        "UseCase started: TestUseCase",
         expect.objectContaining({
+          event: "usecase.start",
           useCase: "TestUseCase",
           request: { hash: "test-hash" },
         })
@@ -96,10 +97,11 @@ describe("LoggingInterceptor", () => {
 
       // Assert
       expect(mockLogger.info).toHaveBeenCalledWith(
-        "[UseCase] Completed: TestUseCase",
+        "UseCase completed: TestUseCase",
         expect.objectContaining({
+          event: "usecase.success",
           useCase: "TestUseCase",
-          duration: "150ms",
+          durationMs: 150,
           success: true,
         })
       );
@@ -116,9 +118,11 @@ describe("LoggingInterceptor", () => {
 
       // Assert
       expect(mockLogger.info).toHaveBeenCalledWith(
-        expect.any(String),
+        "UseCase completed: TestUseCase",
         expect.objectContaining({
-          duration: "0ms",
+          event: "usecase.success",
+          durationMs: 0,
+          success: true,
         })
       );
     });
@@ -138,12 +142,13 @@ describe("LoggingInterceptor", () => {
 
       // Assert
       expect(mockLogger.error).toHaveBeenCalledWith(
-        "[UseCase] Failed: TestUseCase",
-        error,
+        "UseCase failed: TestUseCase",
         expect.objectContaining({
+          event: "usecase.error",
           useCase: "TestUseCase",
-          duration: "50ms",
+          durationMs: 50,
           success: false,
+          error: error,
         })
       );
     });
@@ -159,4 +164,3 @@ describe("LoggingInterceptor", () => {
     });
   });
 });
-

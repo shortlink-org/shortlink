@@ -12,11 +12,8 @@ export class GetLinkByHashUseCase {
 
   async execute(request: GetLinkRequest): Promise<GetLinkResponse> {
     const hash = new Hash(request.hash);
+    // Repository throws LinkNotFoundError if link not found
     const link = await this.linkRepository.findByHash(hash, request.userId);
-
-    if (!link) {
-      throw new LinkNotFoundError(hash);
-    }
 
     return { link };
   }

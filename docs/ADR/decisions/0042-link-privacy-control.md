@@ -8,40 +8,40 @@ Accepted
 
 ## Context
 
-Изначально все ссылки в системе были публичными: любой пользователь (включая анонимного) мог открыть URL вида:
+Initially every link in the system was public: any user (even anonymous) could open URLs such as:
 
 ```text
 https://shortlink.best/<hash>
 ```
 
-Пользователи запросили возможность ограничивать доступ к ссылкам, предоставляя их только определённым людям.
+Users asked for a way to restrict individual links so they can share them only with specific people.
 
-### Требования
+### Requirements
 
-- Поддержать публичные ссылки (текущая модель, backward-compatible)
-- Добавить приватные ссылки, доступные по email-allowlist
-- Proxy должен:
-  - доставать user_id из Kratos session
-  - передавать user_id в LinkService
-  - не выполнять авторизацию самостоятельно
-- LinkService должен:
-  - проверять приватность внутри себя
-- Приватные ссылки должны вести себя как Google Docs private links:
-  - могут быть открыты только пользователями из allowlist
-  - для остальных должен возвращаться 404 Not Found (скрытие существования)
+- Keep supporting public links (backward compatible)
+- Introduce private links controlled by an email allowlist
+- Proxy must:
+  - read `user_id` from the Kratos session
+  - forward that `user_id` to LinkService
+  - avoid doing authorization locally
+- LinkService must:
+  - enforce the privacy model internally
+- Private links should behave like Google Docs private links:
+  - only allowlisted users may open them
+  - everyone else must get a 404 Not Found (hide resource existence)
 
 ## Decision
 
 ### 2.1. Privacy Model
 
-Приватность определяется только по allowlist:
+Privacy is defined solely by the allowlist:
 
-- **Публичная ссылка** → `allowed_emails = []`
-- **Приватная ссылка** → `allowed_emails != []`
+- **Public link** → `allowed_emails = []`
+- **Private link** → `allowed_emails != []`
 
 ### 2.2. Domain Rules
 
-В домене добавляется policy-слой:
+The domain aggregate exposes the policy helpers:
 
 ```go
 func (l *Link) IsPublic() bool {
@@ -68,82 +68,82 @@ func (l *Link) CanBeViewedByEmail(email string) bool {
 
 **Proxy**:
 
-- Извлекает Kratos session
-- Получает `user_id` из сессии
-- **При отсутствии валидной Kratos session (401) Proxy передаёт в LinkService `user_id = "anonymous"`**
-- Передаёт `user_id` в LinkService через metadata: `x-user-id: <kratos_user_id | anonymous>`
+- Reads Kratos session
+- Extracts `user_id` from that session
+- **If Kratos responds 401 (no valid session) Proxy sends `user_id = "anonymous"` to LinkService**
+- Passes `user_id` via gRPC metadata `x-user-id: <kratos_user_id | anonymous>`
 
-Это снимает двусмысленность: LinkService понимает разницу между "пользователь не найден" (ошибка Kratos) и "неизвестный пользователь" (anonymous).
+This removes ambiguity: LinkService can distinguish “Kratos error / user missing” from “user is anonymous”.
 
-Proxy не проверяет приватность сам.
+Proxy never makes privacy decisions.
 
 ### 2.4. LinkService GET (redirect)
 
 `Get(hash, userID)`:
 
-1. Получаем ссылку из БД
-2. Если `allowed_emails != []`:
-   - приватная ссылка
-   - если `user_id == "anonymous"` → сразу `ErrPermissionDenied` (не вызываем Kratos)
-   - иначе достаём email по `user_id` через **Kratos Admin API** (`GET /admin/identities/{user_id}`)
-   - извлекаем email из `identity.traits.email`
-   - проверяем allowlist
-   - если email не найден → `ErrPermissionDenied`
-3. Если `allowed_emails == []`:
-   - публичная ссылка
-   - возвращаем без вызова SpiceDB и Kratos
+1. Fetch the link from DB
+2. If `allowed_emails != []`:
+   - the link is private
+   - if `user_id == "anonymous"` → immediately return `ErrPermissionDenied` (skip Kratos)
+   - otherwise call the **Kratos Admin API** (`GET /admin/identities/{user_id}`) to load the email
+   - read `identity.traits.email`
+   - check the allowlist
+   - if the email is missing from allowlist → `ErrPermissionDenied`
+3. If `allowed_emails == []`:
+   - the link is public
+   - return the link without calling either Kratos or SpiceDB
 
-**Security Guarantee - Uniform Error Response**:
+**Security Guarantee – Uniform Error Response**
 
-**Любая ошибка на пути получения email приводит к `ErrPermissionDenied`**, включая:
+**Every error while resolving the email results in `ErrPermissionDenied`,** including:
 
-- Сетевую ошибку Kratos (timeout, connection refused, 500)
-- Ошибку десериализации ответа Kratos
-- Отсутствие `traits.email` в identity
-- Email не найден в allowlist
+- Kratos network issues (timeout, connection refused, 500)
+- JSON decoding failures
+- Missing `traits.email` in the identity
+- Email not on the allowlist
 - `user_id == "anonymous"`
 
-Это исключает раскрытие различий между причинами отказа в доступе:
+Therefore external observers cannot distinguish between:
 
-- "email не в списке"
-- "у пользователя нет email"
-- "Kratos сломался"
+- “email not allowlisted”
+- “identity has no email”
+- “Kratos is down”
 
-Все эти случаи → одинаковый ответ → `ErrPermissionDenied` → Proxy → HTTP 404 Not Found.
+All cases map to `ErrPermissionDenied` → Proxy returns HTTP 404 Not Found.
 
-Так делают Google Docs, Dropbox, Notion, GitHub для приватных ресурсов.
+This mirrors the behavior of Google Docs, Dropbox, Notion, GitHub for private resources.
 
-**Kratos Admin API Integration**:
+**Kratos Admin API Integration**
 
-LinkService использует `github.com/ory/client-go` для обращения к Kratos Admin API:
+LinkService uses `github.com/ory/client-go` to talk to Kratos Admin API:
 
 ```go
 identity, err := kratosAdminClient.IdentityApi.GetIdentity(ctx, userID).Execute()
 if err != nil {
-    // Любая ошибка → ErrPermissionDenied (не раскрываем причину)
+    // Any error -> ErrPermissionDenied (do not leak cause)
     return nil, domain.ErrPermissionDenied(err)
 }
 
 email, ok := identity.Traits["email"].(string)
 if !ok || email == "" {
-    // Отсутствие email → ErrPermissionDenied (не раскрываем причину)
+    // Missing email -> ErrPermissionDenied (do not leak cause)
     return nil, domain.ErrPermissionDenied(nil)
 }
 
-// Проверка allowlist
+// Check allowlist
 if !link.CanBeViewedByEmail(email) {
-    // Email не в списке → ErrPermissionDenied (не раскрываем причину)
+    // Not on allowlist -> ErrPermissionDenied (do not leak cause)
     return nil, domain.ErrPermissionDenied(nil)
 }
 ```
 
 ### 2.5. SpiceDB Usage
 
-SpiceDB не используется в GET (redirect use case).
+SpiceDB is **not** used in GET (redirect use case).
 
-Он применяется только в:
+It remains in use for:
 
-- List (фильтрация ссылок)
+- List (permission-filtered queries)
 - Create
 - Update
 - Delete
@@ -151,9 +151,9 @@ SpiceDB не используется в GET (redirect use case).
 
 ### 2.6. Proxy 404 Behavior
 
-Если LinkService возвращает `ErrPermissionDenied`, Proxy всегда возвращает HTTP 404 Not Found.
+Whenever LinkService returns `ErrPermissionDenied`, Proxy must respond with HTTP 404 Not Found.
 
-Это скрывает сам факт существования приватной ссылки.
+This hides the existence of private links entirely.
 
 ## Sequence Diagram (Proxy → LinkService)
 
@@ -203,7 +203,7 @@ end
 
 ## Database Schema
 
-Добавляется только одно поле:
+Only one field is added:
 
 ```sql
 allowed_emails TEXT[] NOT NULL DEFAULT '{}'
@@ -211,13 +211,13 @@ allowed_emails TEXT[] NOT NULL DEFAULT '{}'
 
 **Migration**:
 
-- существующие записи получают пустой массив → становятся публичными
+- existing records get an empty array → become public
 
 ## API Changes
 
 ### gRPC Add/Update
 
-Поле:
+Field:
 
 ```protobuf
 repeated string allowed_emails = 8;
@@ -227,50 +227,50 @@ repeated string allowed_emails = 8;
 
 ### Domain-level validation errors
 
-- **`ErrInvalidEmail`**: Email не соответствует формату RFC 5322 или пустой. Возникает при добавлении email в allowlist.
-- **`ErrAllowlistTooLarge`**: Превышен лимит количества email в allowlist (например, 100). Защищает от злоупотреблений и ограничивает размер данных.
-- **`ErrDuplicateEmail`**: Email уже присутствует в allowlist. Предотвращает дубликаты после нормализации (lowercase, trim).
+- **`ErrInvalidEmail`**: Email does not match RFC 5322 format or is empty. Occurs when adding email to allowlist.
+- **`ErrAllowlistTooLarge`**: Exceeded the limit of emails in allowlist (e.g., 100). Protects against abuse and limits data size.
+- **`ErrDuplicateEmail`**: Email already exists in allowlist. Prevents duplicates after normalization (lowercase, trim).
 
 ### Access errors
 
-- **`ErrPermissionDenied`**: Пользователь не имеет доступа к приватной ссылке (email не в allowlist или Kratos недоступен). Proxy конвертирует его в HTTP 404 Not Found для сокрытия существования ссылки.
+- **`ErrPermissionDenied`**: User does not have access to private link (email not in allowlist or Kratos unavailable). Proxy converts it to HTTP 404 Not Found to hide link existence.
 
 ## Consequences
 
 ### Benefits
 
-- Простая и чистая модель приватности
-- Redirect логика быстрая (нет SpiceDB в GET)
+- Simple and clean privacy model
+- Redirect logic is fast (no SpiceDB in GET)
 - Minimal attack surface
-- Строгое сокрытие приватных ссылок (404)
-- Proxy остаётся stateless по части авторизации
-- LinkService является единственным источником истины по доступу
+- Strict hiding of private links (404)
+- Proxy remains stateless regarding authorization
+- LinkService is the single source of truth for access
 
 ### Drawbacks
 
-- Требуется загрузка email пользователя через Kratos Admin API в каждом GET приватной ссылки
-- Нужен кэш identity для производительности (кэшировать email по user_id)
-- Дополнительная зависимость от Kratos Admin API (должен быть доступен)
+- Requires loading user email via Kratos Admin API on every GET of a private link
+- Identity cache needed for performance (cache email by user_id)
+- Additional dependency on Kratos Admin API (must be available)
 
 ### Identity Cache Strategy
 
-Для оптимизации производительности LinkService кэширует email пользователей, полученных из Kratos Admin API:
+To optimize performance, LinkService caches user emails retrieved from Kratos Admin API:
 
-- **TTL кэша**: 5–10 минут
-- **Invalidation**: не требуется, т.к. email меняется редко
-- **Ключ кэша**: `user_id → email`
-- **Scope**: только для приватных ссылок (публичные не требуют email)
+- **Cache TTL**: 5–10 minutes
+- **Invalidation**: not required, as email changes rarely
+- **Cache key**: `user_id → email`
+- **Scope**: only for private links (public links don't require email)
 
-Кэш снижает нагрузку на Kratos Admin API и ускоряет проверку доступа к приватным ссылкам.
+Cache reduces load on Kratos Admin API and speeds up access checks for private links.
 
 ### Risks & Mitigations
 
-| Risk                                    | Mitigation                                    |
-| --------------------------------------- | --------------------------------------------- |
-| Kratos Admin API недоступен → нет email | cache + graceful degradation (возвращать 404) |
-| allowlist содержит дубли                | нормализация + валидация                      |
-| большое количество email                | лимит в домене (например 100)                 |
-| Высокая нагрузка на Kratos Admin API    | кэш identity с TTL (например 5 минут)         |
+| Risk                                    | Mitigation                                |
+| --------------------------------------- | ----------------------------------------- |
+| Kratos Admin API unavailable → no email | cache + graceful degradation (return 404) |
+| allowlist contains duplicates           | normalization + validation                |
+| large number of emails                  | domain limit (e.g., 100)                  |
+| High load on Kratos Admin API           | identity cache with TTL (e.g., 5 minutes) |
 
 ## Future Enhancements
 

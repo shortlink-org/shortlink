@@ -1,5 +1,7 @@
 import type { Interceptor } from "@connectrpc/connect";
+import { ConnectError } from "@connectrpc/connect";
 import { ILogger } from "../../../logging/ILogger.js";
+import { isRetryableError } from "../utils/errorUtils.js";
 
 /**
  * Конфигурация для retry interceptor
@@ -43,29 +45,25 @@ const DEFAULT_RETRY_CONFIG: RetryConfig = {
 /**
  * Проверяет, является ли ошибка временной и требует ли повторной попытки
  */
-function isRetryableError(error: any, retryableStatusCodes: number[]): boolean {
+function isRetryableErrorLocal(
+  error: any,
+  retryableStatusCodes: number[]
+): boolean {
   // Проверяем HTTP статус код
   if (error?.status && retryableStatusCodes.includes(error.status)) {
     return true;
   }
 
-  // Проверяем Connect код ошибки
-  // Connect использует gRPC коды: UNAVAILABLE (14), DEADLINE_EXCEEDED (4), RESOURCE_EXHAUSTED (8)
-  if (error?.code === 14 || error?.code === 4 || error?.code === 8) {
+  // Проверяем Connect/gRPC ошибки используя утилиту из errorUtils
+  if (error instanceof ConnectError && isRetryableError(error)) {
     return true;
   }
 
-  // Проверяем строковые коды Connect
+  // Проверяем сетевые ошибки (fallback для ошибок, которые еще не ConnectError)
   if (
-    error?.code === "UNAVAILABLE" ||
-    error?.code === "DEADLINE_EXCEEDED" ||
-    error?.code === "RESOURCE_EXHAUSTED"
+    error?.name === "NetworkError" ||
+    error?.message?.includes("ECONNREFUSED")
   ) {
-    return true;
-  }
-
-  // Проверяем сетевые ошибки
-  if (error?.name === "NetworkError" || error?.message?.includes("ECONNREFUSED")) {
     return true;
   }
 
@@ -76,7 +74,8 @@ function isRetryableError(error: any, retryableStatusCodes: number[]): boolean {
  * Вычисляет задержку для exponential backoff
  */
 function calculateDelay(attempt: number, config: RetryConfig): number {
-  const delay = config.initialDelayMs * Math.pow(config.backoffMultiplier, attempt - 1);
+  const delay =
+    config.initialDelayMs * Math.pow(config.backoffMultiplier, attempt - 1);
   return Math.min(delay, config.maxDelayMs);
 }
 
@@ -113,7 +112,7 @@ export function createRetryInterceptor(
         // Если это последняя попытка или ошибка не требует повторной попытки - пробрасываем ошибку
         if (
           attempt >= retryConfig.maxAttempts ||
-          !isRetryableError(error, retryConfig.retryableStatusCodes!)
+          !isRetryableErrorLocal(error, retryConfig.retryableStatusCodes!)
         ) {
           if (attempt > 1) {
             logger.warn("Connect request failed after retries", {
@@ -147,4 +146,3 @@ export function createRetryInterceptor(
     throw lastError || new Error("Connect request failed after all retries");
   };
 }
-

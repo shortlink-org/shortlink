@@ -10,6 +10,10 @@ import {
   ExternalServiceError,
 } from "../../../../application/exceptions/index.js";
 import type { ILogger } from "../../../logging/ILogger.js";
+import {
+  isInfrastructureError,
+  getUserFriendlyMessage,
+} from "../../../adapters/connect/utils/errorUtils.js";
 
 /**
  * Error response structure
@@ -54,6 +58,33 @@ export class ErrorMapper {
           error: {
             code: "LINK_NOT_FOUND",
             message: "Link not found",
+            timestamp: new Date().toISOString(),
+          },
+        },
+      };
+    }
+
+    // Handle infrastructure/transport Connect errors that weren't wrapped
+    // This is a fallback in case errors slip through adapter error handling
+    if (isInfrastructureError(error)) {
+      this.logger.error("http.error.connect_infrastructure", {
+        event: "http.error.connect_infrastructure",
+        code: error.code,
+        message: error.message,
+        path: request?.url,
+        method: request?.method,
+        error: error,
+      });
+
+      const userMessage = getUserFriendlyMessage(error);
+
+      return {
+        statusCode: 503,
+        payload: {
+          error: {
+            code: "SERVICE_UNAVAILABLE",
+            message: userMessage,
+            service: "link-service",
             timestamp: new Date().toISOString(),
           },
         },

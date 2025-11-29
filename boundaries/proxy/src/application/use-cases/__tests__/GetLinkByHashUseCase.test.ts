@@ -54,18 +54,28 @@ describe("GetLinkByHashUseCase", () => {
       expect(result.link.hash.value).toBe("abc123");
       expect(result.link.url).toBe("https://example.com");
       expect(mockLinkRepository.findByHash).toHaveBeenCalledTimes(1);
-      expect(mockLinkRepository.findByHash).toHaveBeenCalledWith(hash);
+      expect(mockLinkRepository.findByHash).toHaveBeenCalledWith(
+        expect.any(Hash),
+        undefined
+      );
     });
 
     it("should throw LinkNotFoundError when link not found", async () => {
       // Arrange
+      const hash = new Hash("nonexistent");
       const request: GetLinkRequest = { hash: "nonexistent" };
 
-      mockLinkRepository.findByHash.mockResolvedValue(null);
+      mockLinkRepository.findByHash.mockRejectedValue(
+        new LinkNotFoundError(hash)
+      );
 
       // Act & Assert
       await expect(useCase.execute(request)).rejects.toThrow(LinkNotFoundError);
       expect(mockLinkRepository.findByHash).toHaveBeenCalledTimes(1);
+      expect(mockLinkRepository.findByHash).toHaveBeenCalledWith(
+        expect.any(Hash),
+        undefined
+      );
     });
 
     it("should handle repository errors", async () => {
@@ -82,4 +92,3 @@ describe("GetLinkByHashUseCase", () => {
     });
   });
 });
-

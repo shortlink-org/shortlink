@@ -18,6 +18,7 @@ import { PublishEventUseCase } from "../../../application/use-cases/PublishEvent
 import { LinkServiceRepository } from "../../../infrastructure/repositories/LinkServiceRepository.js";
 import { Hash } from "../../../domain/entities/Hash.js";
 import { Link } from "../../../domain/entities/Link.js";
+import { LinkNotFoundError } from "../../../domain/exceptions/index.js";
 import { LinkEventTopics } from "../../../domain/event.js";
 import type { ILogger } from "../../../infrastructure/logging/ILogger.js";
 import { IMessageBus } from "../../../domain/interfaces/IMessageBus.js";
@@ -48,7 +49,7 @@ describe("Redirect Flow E2E with RabbitMQ (Testcontainers)", () => {
   let rabbitMQContainer: RabbitMQTestContainer;
   let rabbitMQConsumer: RabbitMQTestConsumer;
   let getLinkByHashMock: ReturnType<
-    typeof vi.fn<(hash: Hash) => Promise<Link | null>>
+    typeof vi.fn<(hash: Hash) => Promise<Link>>
   >;
   let cacheGetMock: ReturnType<
     typeof vi.fn<(hash: Hash) => Promise<Link | null | undefined>>
@@ -87,7 +88,7 @@ describe("Redirect Flow E2E with RabbitMQ (Testcontainers)", () => {
 
   beforeEach(async () => {
     // Мокаем LinkServiceAdapter
-    getLinkByHashMock = vi.fn<(hash: Hash) => Promise<Link | null>>();
+    getLinkByHashMock = vi.fn<(hash: Hash) => Promise<Link>>();
     mockLinkServiceAdapter = {
       getLinkByHash: getLinkByHashMock,
     } as any;
@@ -202,7 +203,8 @@ describe("Redirect Flow E2E with RabbitMQ (Testcontainers)", () => {
 
     it("should not publish event when link is not found", async () => {
       // Arrange
-      getLinkByHashMock.mockResolvedValue(null);
+      const hash = new Hash("nonexistent");
+      getLinkByHashMock.mockRejectedValue(new LinkNotFoundError(hash));
       rabbitMQConsumer.clearMessages();
 
       // Act

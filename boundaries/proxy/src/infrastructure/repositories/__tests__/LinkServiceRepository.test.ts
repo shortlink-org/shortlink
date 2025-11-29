@@ -5,6 +5,7 @@ import { ILinkCache } from "../../cache/RedisLinkCache.js";
 import { ILogger } from "../../logging/ILogger.js";
 import { Hash } from "../../../domain/entities/Hash.js";
 import { Link } from "../../../domain/entities/Link.js";
+import { LinkNotFoundError } from "../../../domain/exceptions/index.js";
 
 describe("LinkServiceRepository", () => {
   let repository: LinkServiceRepository;
@@ -75,16 +76,15 @@ describe("LinkServiceRepository", () => {
       expect(mockAdapter.getLinkByHash).not.toHaveBeenCalled();
     });
 
-    it("should return null when negative cache hit", async () => {
+    it("should throw LinkNotFoundError when negative cache hit", async () => {
       // Arrange
       const hash = new Hash("nonexistent");
       mockCache.get.mockResolvedValue(null); // negative cache
 
-      // Act
-      const result = await repository.findByHash(hash);
-
-      // Assert
-      expect(result).toBeNull();
+      // Act & Assert
+      await expect(repository.findByHash(hash)).rejects.toThrow(
+        LinkNotFoundError
+      );
       expect(mockCache.get).toHaveBeenCalledWith(hash);
       expect(mockAdapter.getLinkByHash).not.toHaveBeenCalled();
     });
@@ -117,13 +117,12 @@ describe("LinkServiceRepository", () => {
       // Arrange
       const hash = new Hash("nonexistent");
       mockCache.get.mockResolvedValue(undefined); // cache miss
-      mockAdapter.getLinkByHash.mockResolvedValue(null);
+      mockAdapter.getLinkByHash.mockRejectedValue(new LinkNotFoundError(hash));
 
-      // Act
-      const result = await repository.findByHash(hash);
-
-      // Assert
-      expect(result).toBeNull();
+      // Act & Assert
+      await expect(repository.findByHash(hash)).rejects.toThrow(
+        LinkNotFoundError
+      );
       expect(mockCache.get).toHaveBeenCalledWith(hash);
       expect(mockAdapter.getLinkByHash).toHaveBeenCalledWith(hash);
       expect(mockCache.setNegative).toHaveBeenCalledWith(hash);
@@ -152,17 +151,16 @@ describe("LinkServiceRepository", () => {
       expect(mockAdapter.getLinkByHash).toHaveBeenCalledTimes(1);
     });
 
-    it("should return null when link not found", async () => {
+    it("should throw LinkNotFoundError when link not found", async () => {
       // Arrange
       const hash = new Hash("nonexistent");
       mockCache.get.mockResolvedValue(undefined); // cache miss
-      mockAdapter.getLinkByHash.mockResolvedValue(null);
+      mockAdapter.getLinkByHash.mockRejectedValue(new LinkNotFoundError(hash));
 
-      // Act
-      const result = await repository.findByHash(hash);
-
-      // Assert
-      expect(result).toBeNull();
+      // Act & Assert
+      await expect(repository.findByHash(hash)).rejects.toThrow(
+        LinkNotFoundError
+      );
       expect(mockAdapter.getLinkByHash).toHaveBeenCalledWith(hash);
     });
 
@@ -197,6 +195,7 @@ describe("LinkServiceRepository", () => {
       // Arrange
       const hash = new Hash("exists");
       const link = new Link(hash, "https://example.com");
+      mockCache.get.mockResolvedValue(undefined); // cache miss
       mockAdapter.getLinkByHash.mockResolvedValue(link);
 
       // Act
@@ -210,7 +209,8 @@ describe("LinkServiceRepository", () => {
     it("should return false when link does not exist", async () => {
       // Arrange
       const hash = new Hash("notexists");
-      mockAdapter.getLinkByHash.mockResolvedValue(null);
+      mockCache.get.mockResolvedValue(undefined); // cache miss
+      mockAdapter.getLinkByHash.mockRejectedValue(new LinkNotFoundError(hash));
 
       // Act
       const result = await repository.exists(hash);
