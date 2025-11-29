@@ -59,14 +59,13 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 	_, errs = sagaAddLink.
 		AddStep(SAGA_STEP_SAVE_TO_STORE).
 		Then(func(ctx context.Context) error {
-			ctx, span := otel.Tracer("link.uc.store").Start(ctx, "saga: SAGA_STEP_SAVE_TO_STORE",
+			ctx, span := otel.Tracer("link.uc.store").Start(ctx, "link.store.add",
 				trace.WithSpanKind(trace.SpanKindInternal),
 			)
 			defer span.End()
 
 			span.SetAttributes(
-				attribute.String("step", SAGA_STEP_SAVE_TO_STORE),
-				attribute.String("status", "run"),
+				attribute.String("saga.step", SAGA_STEP_SAVE_TO_STORE),
 				attribute.String("link.hash", in.GetHash()),
 				attribute.String("user.id", userID),
 			)
@@ -175,14 +174,17 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 
 	_, errs = sagaAddLink.AddStep(SAGA_STEP_PUBLISH_EVENT_NEW_LINK).
 		Then(func(ctx context.Context) error {
-			ctx, span := otel.Tracer("link.uc.event").Start(ctx, "saga: SAGA_STEP_PUBLISH_EVENT_NEW_LINK",
-				trace.WithSpanKind(trace.SpanKindInternal),
+			ctx, span := otel.Tracer("link.uc.event").Start(ctx, domain.LinkCreatedTopic+" publish",
+				trace.WithSpanKind(trace.SpanKindProducer),
 			)
 			defer span.End()
 
 			span.SetAttributes(
-				attribute.String("step", SAGA_STEP_PUBLISH_EVENT_NEW_LINK),
-				attribute.String("status", "run"),
+				attribute.String("saga.step", SAGA_STEP_PUBLISH_EVENT_NEW_LINK),
+				attribute.String("messaging.system", "kafka"),
+				attribute.String("messaging.destination.name", domain.LinkCreatedTopic),
+				attribute.String("messaging.destination.kind", "topic"),
+				attribute.String("messaging.operation", "publish"),
 				attribute.String("link.hash", in.GetHash()),
 				attribute.String("user.id", userID),
 			)
@@ -217,9 +219,6 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 				return err
 			}
 
-			span.SetAttributes(
-				attribute.String("event_type", domain.LinkCreatedTopic),
-			)
 			span.SetStatus(otelcodes.Ok, "Link creation event published successfully")
 			uc.log.InfoWithContext(ctx, "Link creation event published successfully",
 				slog.String("event_type", domain.LinkCreatedTopic),
