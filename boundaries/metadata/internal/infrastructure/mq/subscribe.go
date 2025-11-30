@@ -58,9 +58,8 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 				msgCtx = ctx
 			}
 
-			// Restore trace context from message metadata so downstream spans stay in the same trace.
-			msgCtx = shortwatermill.ExtractTrace(msgCtx, msg)
-			msg.SetContext(msgCtx) //nolint:contextcheck // ensure downstream unmarshaler sees enriched ctx
+			remoteCtx := shortwatermill.ExtractTrace(context.Background(), msg)
+			remoteSpan := trace.SpanContextFromContext(remoteCtx)
 
 			// Validate payload before unmarshaling
 			if len(msg.Payload) == 0 {
@@ -131,11 +130,12 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 			// Handle event - event is already typed as *linkpb.LinkCreated
 			// msgCtx already contains the consumer span created automatically by otelsarama
 			// Create metadata.process span as child of the automatic consumer span
-			// This ensures proper trace hierarchy: automatic consumer span -> metadata.process -> saga
-			processCtx, processSpan := otel.Tracer("metadata.uc").Start(msgCtx, "metadata.process",
-				trace.WithSpanKind(trace.SpanKindInternal),
-			)
-			defer processSpan.End()
+			// Link it with producer trace via remote span context
+			spanOpts := []trace.SpanStartOption{trace.WithSpanKind(trace.SpanKindInternal)}
+			if remoteSpan.IsValid() {
+				spanOpts = append(spanOpts, trace.WithLinks(trace.Link{SpanContext: remoteSpan}))
+			}
+			processCtx, processSpan := otel.Tracer("metadata.uc").Start(msgCtx, "metadata.process", spanOpts...)
 
 			processSpan.SetAttributes(
 				attribute.String("link.url", event.GetUrl()),
@@ -173,6 +173,7 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 				}
 
 				msg.Nack()
+				processSpan.End()
 
 				continue
 			}
@@ -180,6 +181,7 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 			processSpan.SetStatus(otelcodes.Ok, "Metadata processed successfully")
 			// Automatic consumer span status is automatically derived from child span
 			msg.Ack()
+			processSpan.End()
 		}
 	}(ctx)
 
