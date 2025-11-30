@@ -136,6 +136,7 @@ func (e *Event) SubscribeLinkCreated(ctx context.Context, log logger.Logger, reg
 				spanOpts = append(spanOpts, trace.WithLinks(trace.Link{SpanContext: remoteSpan}))
 			}
 			processCtx, processSpan := otel.Tracer("metadata.uc").Start(msgCtx, "metadata.process", spanOpts...)
+			msg.SetContext(processCtx) //nolint:contextcheck // propagate process context for downstream usage
 
 			processSpan.SetAttributes(
 				attribute.String("link.url", event.GetUrl()),
