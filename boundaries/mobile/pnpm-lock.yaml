@@ -45,11 +45,11 @@ importers:
         specifier: ^4.18.0
         version: 4.18.0(react-native@0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0))(react@19.2.0)
       react-native-svg:
-        specifier: ^15.15.0
-        version: 15.15.0(react-native@0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0))(react@19.2.0)
+        specifier: ^15.15.1
+        version: 15.15.1(react-native@0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0))(react@19.2.0)
       react-native-svg-transformer:
         specifier: ^1.5.2
-        version: 1.5.2(react-native-svg@15.15.0(react-native@0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0))(react@19.2.0))(react-native@0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0))(typescript@5.9.3)
+        version: 1.5.2(react-native-svg@15.15.1(react-native@0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0))(react@19.2.0))(react-native@0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0))(typescript@5.9.3)
       react-native-web:
         specifier: ~0.21.2
         version: 0.21.2(encoding@0.1.13)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -7377,8 +7377,8 @@ packages:
       react-native: '>=0.59.0'
       react-native-svg: '>=12.0.0'
 
-  react-native-svg@15.15.0:
-    resolution: {integrity: sha512-/Wx6F/IZ88B/GcF88bK8K7ZseJDYt+7WGaiggyzLvTowChQ8BM5idmcd4pK+6QJP6a6DmzL2sfOMukFUn/NArg==}
+  react-native-svg@15.15.1:
+    resolution: {integrity: sha512-ZUD1xwc3Hwo4cOmOLumjJVoc7lEf9oQFlHnLmgccLC19fNm6LVEdtB+Cnip6gEi0PG3wfvVzskViEtrySQP8Fw==}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -18643,19 +18643,19 @@ snapshots:
       react-native: 0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0)
       warn-once: 0.1.1
 
-  react-native-svg-transformer@1.5.2(react-native-svg@15.15.0(react-native@0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0))(react@19.2.0))(react-native@0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0))(typescript@5.9.3):
+  react-native-svg-transformer@1.5.2(react-native-svg@15.15.1(react-native@0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0))(react@19.2.0))(react-native@0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0))(typescript@5.9.3):
     dependencies:
       '@svgr/core': 8.1.0(typescript@5.9.3)
       '@svgr/plugin-jsx': 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))
       '@svgr/plugin-svgo': 8.1.0(@svgr/core@8.1.0(typescript@5.9.3))(typescript@5.9.3)
       path-dirname: 1.0.2
       react-native: 0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0)
-      react-native-svg: 15.15.0(react-native@0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0))(react@19.2.0)
+      react-native-svg: 15.15.1(react-native@0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0))(react@19.2.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
 
-  react-native-svg@15.15.0(react-native@0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0))(react@19.2.0):
+  react-native-svg@15.15.1(react-native@0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.0))(react@19.2.0):
     dependencies:
       css-select: 5.2.2
       css-tree: 1.1.3
