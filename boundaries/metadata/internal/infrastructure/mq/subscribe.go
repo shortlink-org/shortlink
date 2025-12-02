@@ -30,97 +30,90 @@ const linkCreatedEvent = domain.LinkCreatedTopic // Canonical event name (ADR-00
 // Eliminates manual reflect.New - directly creates typed event instance
 // Note: registry parameter kept for backward compatibility but not used (type is known from subscription)
 func (e *Event) SubscribeLinkCreated(
-    ctx context.Context,
-    log logger.Logger,
-    registry *bus.TypeRegistry,
-    marshaler cqrsmessage.Marshaler,
+	ctx context.Context,
+	log logger.Logger,
+	registry *bus.TypeRegistry,
+	marshaler cqrsmessage.Marshaler,
 ) error {
 
-    messages, err := e.subscriber.Subscribe(ctx, linkCreatedEvent)
-    if err != nil {
-        log.ErrorWithContext(ctx, "failed to subscribe to link created events",
-            slog.String("error", err.Error()),
-            slog.String("event", linkCreatedEvent),
-        )
-        return fmt.Errorf("subscribe to %s: %w", linkCreatedEvent, err)
-    }
+	messages, err := e.subscriber.Subscribe(ctx, linkCreatedEvent)
+	if err != nil {
+		log.ErrorWithContext(ctx, "failed to subscribe to link created events",
+			slog.String("error", err.Error()),
+			slog.String("event", linkCreatedEvent),
+		)
+		return fmt.Errorf("subscribe to %s: %w", linkCreatedEvent, err)
+	}
 
-    go func() {
-        for msg := range messages {
-            // 1) Extract consumer context created by otelsarama
-            msgCtx := msg.Context()
-            if msgCtx == nil {
-                msgCtx = ctx
-            }
+	go func() {
+		for msg := range messages {
+			// 1) Extract consumer context created by otelsarama
+			msgCtx := msg.Context()
+			if msgCtx == nil {
+				msgCtx = ctx
+			}
 
-            // 2) Extract producer span from Kafka metadata only once
-            producerCtx := shortwatermill.ExtractTrace(context.Background(), msg)
-            producerSpan := trace.SpanContextFromContext(producerCtx)
+			// 2) Extract producer span context from Kafka metadata and attach to message context
+			msgCtx = shortwatermill.ExtractTrace(msgCtx, msg)
+			msg.SetContext(msgCtx)
 
-            // 3) Validate payload
-            if len(msg.Payload) == 0 {
-                _, span := otel.Tracer("metadata.mq").Start(
-                    msgCtx,
-                    "metadata.empty_payload",
-                    trace.WithSpanKind(trace.SpanKindInternal),
-                )
-                span.SetStatus(otelcodes.Error, "empty payload")
-                span.End()
+			// 3) Validate payload
+			if len(msg.Payload) == 0 {
+				_, span := otel.Tracer("metadata.mq").Start(
+					msgCtx,
+					"metadata.empty_payload",
+					trace.WithSpanKind(trace.SpanKindInternal),
+				)
+				span.SetStatus(otelcodes.Error, "empty payload")
+				span.End()
 
-                msg.Nack()
-                continue
-            }
+				msg.Nack()
+				continue
+			}
 
-            // 4) Parse event payload
-            event := &linkpb.LinkCreated{}
-            if err := marshaler.Unmarshal(msg, event); err != nil {
-                _, span := otel.Tracer("metadata.mq").Start(
-                    msgCtx,
-                    "metadata.unmarshal_error",
-                    trace.WithSpanKind(trace.SpanKindInternal),
-                )
-                span.RecordError(err)
-                span.SetStatus(otelcodes.Error, err.Error())
-                span.End()
+			// 4) Parse event payload
+			event := &linkpb.LinkCreated{}
+			if err := marshaler.Unmarshal(msg, event); err != nil {
+				_, span := otel.Tracer("metadata.mq").Start(
+					msgCtx,
+					"metadata.unmarshal_error",
+					trace.WithSpanKind(trace.SpanKindInternal),
+				)
+				span.RecordError(err)
+				span.SetStatus(otelcodes.Error, err.Error())
+				span.End()
 
-                msg.Nack()
-                continue
-            }
+				msg.Nack()
+				continue
+			}
 
-            // 5) Start processing span as a child of the otelsarama consumer span
-            opts := []trace.SpanStartOption{
-                trace.WithSpanKind(trace.SpanKindConsumer),
-            }
-            if producerSpan.IsValid() {
-                opts = append(opts, trace.WithLinks(trace.Link{SpanContext: producerSpan}))
-            }
+			// 5) Start processing span as a child of the otelsarama consumer span
+			processCtx, processSpan := otel.Tracer("metadata.process").Start(
+				msgCtx,
+				"metadata.process",
+				trace.WithSpanKind(trace.SpanKindConsumer),
+			)
 
-            processCtx, processSpan := otel.Tracer("metadata.process").Start(
-                msgCtx,
-                "metadata.process",
-                opts...,
-            )
+			// 6) Execute metadata use case (fix: Add returns (value, error))
+			_, err = e.metadataUC.Add(processCtx, event.GetUrl())
+			if err != nil {
+				processSpan.RecordError(err)
+				processSpan.SetStatus(otelcodes.Error, err.Error())
+				processSpan.End()
 
-            // 6) Execute metadata use case (fix: Add returns (value, error))
-            _, err = e.metadataUC.Add(processCtx, event.GetUrl())
-            if err != nil {
-                processSpan.RecordError(err)
-                processSpan.SetStatus(otelcodes.Error, err.Error())
-                processSpan.End()
+				msg.Nack()
+				continue
+			}
 
-                msg.Nack()
-                continue
-            }
+			// 7) Success
+			processSpan.SetStatus(otelcodes.Ok, "")
+			processSpan.End()
 
-            // 7) Success
-            processSpan.SetStatus(otelcodes.Ok, "")
-            processSpan.End()
+			msg.Ack()
+		}
+	}()
 
-            msg.Ack()
-        }
-    }()
-
-    return nil
+	return nil
 }
 
 // handleLinkCreated processes LinkCreated events
