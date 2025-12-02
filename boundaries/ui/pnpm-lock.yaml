@@ -169,8 +169,8 @@ importers:
         specifier: ^5.0.7
         version: 5.0.7
       allure-playwright:
-        specifier: ^3.4.2
-        version: 3.4.2(@playwright/test@1.57.0)
+        specifier: ^3.4.3
+        version: 3.4.3(@playwright/test@1.57.0)
       autoprefixer:
         specifier: ^10.4.22
         version: 10.4.22(postcss@8.5.6)
@@ -3777,16 +3777,16 @@ packages:
   alien-signals@0.4.14:
     resolution: {integrity: sha512-itUAVzhczTmP2U5yX67xVpsbbOiquusbWVyA9N+sy6+r6YVbFkahXvNCeEPWEOMhwDYwbVbGHFkVL03N9I5g+Q==}
 
-  allure-js-commons@3.4.2:
-    resolution: {integrity: sha512-bWzqduvU/LzSTI4wJKzWbHWe64xluF30pDxFfSP+jlloQx9F1Vytdqrit5oAgNj+czzdA+Nocv3Dh6d4COCTvA==}
+  allure-js-commons@3.4.3:
+    resolution: {integrity: sha512-2n2uUFVmI7OaKXfkUPq2AcD1ksPR/WXZ9IhmQlMylb8bNpPChn1QPA/W97+RDYawFgvfhnadzIrH9ZWTWKjiNg==}
     peerDependencies:
-      allure-playwright: 3.4.2
+      allure-playwright: 3.4.3
     peerDependenciesMeta:
       allure-playwright:
         optional: true
 
-  allure-playwright@3.4.2:
-    resolution: {integrity: sha512-M2addk0XCD5mJW9GyuJ37lddxhQw9oqff+Z3hN8D4u73pJqKYOEkL4JwYbc9CPRq0l1OrakmMoJ+CtVF4ifaTg==}
+  allure-playwright@3.4.3:
+    resolution: {integrity: sha512-yrRwxloT5eSDXm6PDo1UCWpdPF7WRifhXwdBsZX1r8eXpQLhwHOZSzAvXP3Q3LcLdQpgn0cUjDIteBvuY2+75Q==}
     peerDependencies:
       '@playwright/test': '>=1.53.0'
 
@@ -11201,16 +11201,16 @@ snapshots:
 
   alien-signals@0.4.14: {}
 
-  allure-js-commons@3.4.2(allure-playwright@3.4.2(@playwright/test@1.57.0)):
+  allure-js-commons@3.4.3(allure-playwright@3.4.3(@playwright/test@1.57.0)):
     dependencies:
       md5: 2.3.0
     optionalDependencies:
-      allure-playwright: 3.4.2(@playwright/test@1.57.0)
+      allure-playwright: 3.4.3(@playwright/test@1.57.0)
 
-  allure-playwright@3.4.2(@playwright/test@1.57.0):
+  allure-playwright@3.4.3(@playwright/test@1.57.0):
     dependencies:
       '@playwright/test': 1.57.0
-      allure-js-commons: 3.4.2(allure-playwright@3.4.2(@playwright/test@1.57.0))
+      allure-js-commons: 3.4.3(allure-playwright@3.4.3(@playwright/test@1.57.0))
 
   ansi-colors@4.1.3: {}
 
