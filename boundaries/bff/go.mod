@@ -3,7 +3,7 @@ module github.com/shortlink-org/shortlink/boundaries/link/bff
 go 1.25.5
 
 require (
-	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.5.1-20251128130903-01e2641aede0.2
+	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.6.0-20251128130903-01e2641aede0.1
 	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.10-20251128130903-01e2641aede0.1
 	github.com/go-chi/chi/v5 v5.2.3
 	github.com/go-chi/cors v1.2.2
