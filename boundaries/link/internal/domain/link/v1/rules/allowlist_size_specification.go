@@ -1,8 +1,6 @@
 package rules
 
 import (
-	"fmt"
-
 	"github.com/shortlink-org/go-sdk/specification"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1/vo/email"
 )
@@ -18,13 +16,12 @@ func NewAllowlistSizeSpecification() specification.Specification[[]string] {
 // IsSatisfiedBy checks if the allowlist size is within limits.
 func (s *AllowlistSizeSpecification) IsSatisfiedBy(item *[]string) error {
 	if item == nil {
-		return fmt.Errorf("allowlist too large: 0 emails (max: %d)", email.MaxAllowlistSize)
+		return email.ErrAllowlistTooLarge(0, email.MaxAllowlistSize)
 	}
 
 	if len(*item) > email.MaxAllowlistSize {
-		return fmt.Errorf("allowlist too large: %d emails (max: %d)", len(*item), email.MaxAllowlistSize)
+		return email.ErrAllowlistTooLarge(len(*item), email.MaxAllowlistSize)
 	}
 
 	return nil
 }
-

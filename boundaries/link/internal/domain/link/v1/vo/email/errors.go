@@ -1,37 +1,64 @@
 package email
 
-import (
-	"fmt"
-
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
-)
+import "fmt"
 
 // MaxAllowlistSize is the maximum number of emails allowed in the allowlist.
 const MaxAllowlistSize = 100
 
-// ErrInvalidEmail indicates that an email address is invalid.
-func ErrInvalidEmail(email string) *v1.LinkError {
-	message := "invalid email"
-	if email != "" {
-		message = fmt.Sprintf("invalid email: %s", email)
+// InvalidEmailError indicates that an email address is invalid.
+type InvalidEmailError struct {
+	Email string
+}
+
+func (e *InvalidEmailError) Error() string {
+	if e == nil || e.Email == "" {
+		return "invalid email"
 	}
 
-	return v1.NewLinkError(v1.CodeInvalidInput, message, nil)
+	return fmt.Sprintf("invalid email: %s", e.Email)
 }
 
-// ErrAllowlistTooLarge indicates that the allowlist exceeds the maximum size.
-func ErrAllowlistTooLarge(currentSize, maxSize int) *v1.LinkError {
-	message := fmt.Sprintf("allowlist too large: %d emails (max: %d)", currentSize, maxSize)
-	return v1.NewLinkError(v1.CodeInvalidInput, message, nil)
+// ErrInvalidEmail creates InvalidEmailError without depending on link domain.
+func ErrInvalidEmail(email string) error {
+	return &InvalidEmailError{Email: email}
 }
 
-// ErrDuplicateEmail indicates that an email already exists in the allowlist.
-func ErrDuplicateEmail(email string) *v1.LinkError {
-	message := "duplicate email in allowlist"
-	if email != "" {
-		message = fmt.Sprintf("duplicate email in allowlist: %s", email)
+// AllowlistTooLargeError indicates that the allowlist exceeds the maximum size.
+type AllowlistTooLargeError struct {
+	CurrentSize int
+	MaxSize     int
+}
+
+func (e *AllowlistTooLargeError) Error() string {
+	if e == nil {
+		return "allowlist too large"
 	}
 
-	return v1.NewLinkError(v1.CodeConflict, message, nil)
+	return fmt.Sprintf("allowlist too large: %d emails (max: %d)", e.CurrentSize, e.MaxSize)
 }
 
+// ErrAllowlistTooLarge creates AllowlistTooLargeError with context.
+func ErrAllowlistTooLarge(currentSize, maxSize int) error {
+	return &AllowlistTooLargeError{
+		CurrentSize: currentSize,
+		MaxSize:     maxSize,
+	}
+}
+
+// DuplicateEmailError indicates that an email already exists in the allowlist.
+type DuplicateEmailError struct {
+	Email string
+}
+
+func (e *DuplicateEmailError) Error() string {
+	if e == nil || e.Email == "" {
+		return "duplicate email in allowlist"
+	}
+
+	return fmt.Sprintf("duplicate email in allowlist: %s", e.Email)
+}
+
+// ErrDuplicateEmail creates DuplicateEmailError for the provided address.
+func ErrDuplicateEmail(email string) error {
+	return &DuplicateEmailError{Email: email}
+}

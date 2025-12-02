@@ -74,7 +74,7 @@ func (m *Link) IsPublic() bool {
 // CanBeViewedByEmail checks if the link can be viewed by the given email.
 // For public links, always returns true.
 // For private links, checks if the email is in the allowlist (after normalization).
-func (m *Link) CanBeViewedByEmail(email string) bool {
+func (m *Link) CanBeViewedByEmail(addr string) bool {
 	if m == nil {
 		return false
 	}
@@ -85,7 +85,7 @@ func (m *Link) CanBeViewedByEmail(email string) bool {
 	}
 
 	// Normalize email for comparison using Email VO
-	viewerEmail, err := email.NewEmail(email)
+	viewerEmail, err := email.NewEmail(addr)
 	if err != nil || viewerEmail.IsEmpty() {
 		return false
 	}
@@ -104,4 +104,3 @@ func (m *Link) CanBeViewedByEmail(email string) bool {
 
 	return false
 }
-

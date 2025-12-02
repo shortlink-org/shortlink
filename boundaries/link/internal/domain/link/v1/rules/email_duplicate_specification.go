@@ -1,9 +1,8 @@
 package rules
 
 import (
-	"fmt"
-
 	"github.com/shortlink-org/go-sdk/specification"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1/vo/email"
 )
 
 // EmailDuplicateSpecification validates that an email is not a duplicate in the allowlist.
@@ -19,12 +18,12 @@ func NewEmailDuplicateSpecification(email string) specification.Specification[Em
 // IsSatisfiedBy checks if the email is not a duplicate.
 func (s *EmailDuplicateSpecification) IsSatisfiedBy(item *EmailValidationData) error {
 	if item == nil {
-		return fmt.Errorf("invalid email: %s", s.email)
+		return email.ErrInvalidEmail(s.email)
 	}
 
 	normalized := NormalizeEmail(s.email)
 	if normalized == "" {
-		return fmt.Errorf("invalid email: %s", s.email)
+		return email.ErrInvalidEmail(s.email)
 	}
 
 	if item.SeenEmails == nil {
@@ -32,9 +31,8 @@ func (s *EmailDuplicateSpecification) IsSatisfiedBy(item *EmailValidationData) e
 	}
 
 	if item.SeenEmails[normalized] {
-		return fmt.Errorf("duplicate email in allowlist: %s", s.email)
+		return email.ErrDuplicateEmail(s.email)
 	}
 
 	return nil
 }
-

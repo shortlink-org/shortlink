@@ -1,9 +1,8 @@
 package rules
 
 import (
-	"fmt"
-
 	"github.com/shortlink-org/go-sdk/specification"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1/vo/email"
 )
 
 // EmailNonEmptySpecification validates that an email is not empty after normalization.
@@ -19,14 +18,13 @@ func NewEmailNonEmptySpecification(email string) specification.Specification[Ema
 // IsSatisfiedBy checks if the email is not empty after normalization.
 func (s *EmailNonEmptySpecification) IsSatisfiedBy(item *EmailValidationData) error {
 	if item == nil {
-		return fmt.Errorf("invalid email: %s", s.email)
+		return email.ErrInvalidEmail(s.email)
 	}
 
 	normalized := NormalizeEmail(item.Email)
 	if normalized == "" {
-		return fmt.Errorf("invalid email: %s", s.email)
+		return email.ErrInvalidEmail(s.email)
 	}
 
 	return nil
 }
-

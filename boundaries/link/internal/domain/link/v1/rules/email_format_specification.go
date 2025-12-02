@@ -1,10 +1,10 @@
 package rules
 
 import (
-	"fmt"
 	"net/mail"
 
 	"github.com/shortlink-org/go-sdk/specification"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1/vo/email"
 )
 
 // EmailFormatSpecification validates that an email address has valid RFC 5322 format.
@@ -20,19 +20,18 @@ func NewEmailFormatSpecification(email string) specification.Specification[Email
 // IsSatisfiedBy checks if the email has valid format.
 func (s *EmailFormatSpecification) IsSatisfiedBy(item *EmailValidationData) error {
 	if item == nil {
-		return fmt.Errorf("invalid email: %s", s.email)
+		return email.ErrInvalidEmail(s.email)
 	}
 
 	normalized := NormalizeEmail(item.Email)
 	if normalized == "" {
-		return fmt.Errorf("invalid email: %s", s.email)
+		return email.ErrInvalidEmail(s.email)
 	}
 
 	_, err := mail.ParseAddress(normalized)
 	if err != nil {
-		return fmt.Errorf("invalid email: %s", s.email)
+		return email.ErrInvalidEmail(s.email)
 	}
 
 	return nil
 }
-

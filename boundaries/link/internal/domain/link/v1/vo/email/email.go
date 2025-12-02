@@ -1,10 +1,6 @@
 package email
 
-import (
-	"strings"
-
-	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
-)
+import "strings"
 
 // Email is a Value Object representing a normalized email address.
 // It ensures that email addresses are always stored and compared in a normalized form.
@@ -43,4 +39,3 @@ func (e Email) Equals(other Email) bool {
 func (e Email) IsEmpty() bool {
 	return e == ""
 }
-

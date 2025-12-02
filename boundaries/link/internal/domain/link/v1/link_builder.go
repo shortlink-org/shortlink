@@ -2,8 +2,6 @@ package v1
 
 import (
 	"errors"
-	"fmt"
-	"strings"
 	"time"
 
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1/rules"
@@ -79,27 +77,20 @@ func (b *LinkBuilder) SetUpdatedAt(updatedAt time.Time) *LinkBuilder {
 func (b *LinkBuilder) SetAllowedEmails(emails []string) *LinkBuilder {
 	normalizedEmails, err := rules.ValidateEmailAllowlist(emails)
 	if err != nil {
-		// Convert standard errors from rules package to LinkError
-		errStr := err.Error()
 		var linkErr *LinkError
+		var allowlistErr *email.AllowlistTooLargeError
+		var duplicateErr *email.DuplicateEmailError
+		var invalidErr *email.InvalidEmailError
 
-		// Check for specific error patterns and convert to appropriate LinkError
-		if strings.Contains(errStr, "allowlist too large") {
-			// Parse size from error message: "allowlist too large: X emails (max: Y)"
-			var currentSize, maxSize int
-			fmt.Sscanf(errStr, "allowlist too large: %d emails (max: %d)", &currentSize, &maxSize)
-			linkErr = email.ErrAllowlistTooLarge(currentSize, maxSize)
-		} else if strings.Contains(errStr, "duplicate email") {
-			// Extract email from error message: "duplicate email in allowlist: email@example.com"
-			emailStr := strings.TrimPrefix(errStr, "duplicate email in allowlist: ")
-			linkErr = email.ErrDuplicateEmail(emailStr)
-		} else if strings.Contains(errStr, "invalid email") {
-			// Extract email from error message: "invalid email: email@example.com"
-			emailStr := strings.TrimPrefix(errStr, "invalid email: ")
-			linkErr = email.ErrInvalidEmail(emailStr)
-		} else {
-			// Generic error
-			linkErr = ErrInvalidInput(errStr)
+		switch {
+		case errors.As(err, &allowlistErr):
+			linkErr = NewLinkError(CodeInvalidInput, allowlistErr.Error(), nil)
+		case errors.As(err, &duplicateErr):
+			linkErr = NewLinkError(CodeConflict, duplicateErr.Error(), nil)
+		case errors.As(err, &invalidErr):
+			linkErr = NewLinkError(CodeInvalidInput, invalidErr.Error(), nil)
+		default:
+			linkErr = ErrInvalidInput(err.Error())
 		}
 
 		b.build = errors.Join(b.build, linkErr)
