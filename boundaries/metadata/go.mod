@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/metadata
 
-go 1.25.4
+go 1.25.5
 
 require (
 	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.10-20251128130903-01e2641aede0.1
