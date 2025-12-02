@@ -2,6 +2,8 @@ package rules
 
 import (
 	"testing"
+
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1/vo/email"
 )
 
 func TestValidateEmailAllowlist(t *testing.T) {
@@ -52,7 +54,7 @@ func TestValidateEmailAllowlist(t *testing.T) {
 		},
 		{
 			name:      "allowlist exceeds limit",
-			emails:    make([]string, MaxAllowlistSize+1),
+			emails:    make([]string, email.MaxAllowlistSize+1),
 			wantError: true,
 		},
 		{

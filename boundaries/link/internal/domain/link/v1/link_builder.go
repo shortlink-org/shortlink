@@ -7,6 +7,9 @@ import (
 	"time"
 
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1/rules"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1/vo/email"
+	vo_time "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1/vo/time"
+	vo_url "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1/vo/url"
 )
 
 var (
@@ -28,14 +31,14 @@ func NewLinkBuilder() *LinkBuilder {
 
 // SetURL sets the URL of the link and calculates the hash
 func (b *LinkBuilder) SetURL(newURL string) *LinkBuilder {
-	link, err := newUrl(newURL)
+	link, err := vo_url.NewURL(newURL)
 	if err != nil {
 		b.build = errors.Join(b.build, errInvalidURL)
 		return b
 	}
 
 	b.link.url = link
-	b.link.hash = newHash(link.GetUrl())
+	b.link.hash = newHash(link.GetURL())
 
 	return b
 }
@@ -54,7 +57,7 @@ func (b *LinkBuilder) SetCreatedAt(createdAt time.Time) *LinkBuilder {
 		return b
 	}
 
-	b.link.createdAt = Time(createdAt)
+	b.link.createdAt = vo_time.NewTime(createdAt)
 
 	return b
 }
@@ -66,7 +69,7 @@ func (b *LinkBuilder) SetUpdatedAt(updatedAt time.Time) *LinkBuilder {
 		return b
 	}
 
-	b.link.updatedAt = Time(updatedAt)
+	b.link.updatedAt = vo_time.NewTime(updatedAt)
 
 	return b
 }
@@ -85,15 +88,15 @@ func (b *LinkBuilder) SetAllowedEmails(emails []string) *LinkBuilder {
 			// Parse size from error message: "allowlist too large: X emails (max: Y)"
 			var currentSize, maxSize int
 			fmt.Sscanf(errStr, "allowlist too large: %d emails (max: %d)", &currentSize, &maxSize)
-			linkErr = ErrAllowlistTooLarge(currentSize, maxSize)
+			linkErr = email.ErrAllowlistTooLarge(currentSize, maxSize)
 		} else if strings.Contains(errStr, "duplicate email") {
 			// Extract email from error message: "duplicate email in allowlist: email@example.com"
-			email := strings.TrimPrefix(errStr, "duplicate email in allowlist: ")
-			linkErr = ErrDuplicateEmail(email)
+			emailStr := strings.TrimPrefix(errStr, "duplicate email in allowlist: ")
+			linkErr = email.ErrDuplicateEmail(emailStr)
 		} else if strings.Contains(errStr, "invalid email") {
 			// Extract email from error message: "invalid email: email@example.com"
-			email := strings.TrimPrefix(errStr, "invalid email: ")
-			linkErr = ErrInvalidEmail(email)
+			emailStr := strings.TrimPrefix(errStr, "invalid email: ")
+			linkErr = email.ErrInvalidEmail(emailStr)
 		} else {
 			// Generic error
 			linkErr = ErrInvalidInput(errStr)
@@ -115,11 +118,11 @@ func (b *LinkBuilder) Build() (*Link, error) {
 	}
 
 	if b.link.createdAt.GetTime().IsZero() {
-		b.link.createdAt = Time(time.Now())
+		b.link.createdAt = vo_time.NewTime(time.Now())
 	}
 
 	if b.link.updatedAt.GetTime().IsZero() {
-		b.link.updatedAt = Time(time.Now())
+		b.link.updatedAt = vo_time.NewTime(time.Now())
 	}
 
 	return b.link, nil

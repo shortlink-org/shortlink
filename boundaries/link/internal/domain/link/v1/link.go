@@ -1,18 +1,24 @@
 package v1
 
+import (
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1/vo/email"
+	vo_time "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1/vo/time"
+	vo_url "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1/vo/url"
+)
+
 // Link is a domain model.
 type Link struct {
 	// URL
-	url Url
+	url vo_url.URL
 	// Hash by URL + salt
 	hash string
 	// Describe of a link
 	describe string
 
 	// Create at
-	createdAt Time
+	createdAt vo_time.Time
 	// Update at
-	updatedAt Time
+	updatedAt vo_time.Time
 
 	// Allowed emails for private link access
 	// Empty slice means public link, non-empty means private link
@@ -20,7 +26,7 @@ type Link struct {
 }
 
 // GetUrl returns the value of the url field.
-func (m *Link) GetUrl() *Url {
+func (m *Link) GetUrl() *vo_url.URL {
 	return &m.url
 }
 
@@ -35,12 +41,12 @@ func (m *Link) GetDescribe() string {
 }
 
 // GetCreatedAt returns the value of the createdAt field.
-func (m *Link) GetCreatedAt() Time {
+func (m *Link) GetCreatedAt() vo_time.Time {
 	return m.createdAt
 }
 
 // GetUpdatedAt returns the value of the updatedAt field.
-func (m *Link) GetUpdatedAt() Time {
+func (m *Link) GetUpdatedAt() vo_time.Time {
 	return m.updatedAt
 }
 
@@ -79,19 +85,19 @@ func (m *Link) CanBeViewedByEmail(email string) bool {
 	}
 
 	// Normalize email for comparison using Email VO
-	viewerEmail, err := NewEmail(email)
+	viewerEmail, err := email.NewEmail(email)
 	if err != nil || viewerEmail.IsEmpty() {
 		return false
 	}
 
 	// Check if email is in allowlist
 	for _, allowedEmailStr := range m.allowedEmails {
-		allowedEmail, err := NewEmail(allowedEmailStr)
+		allowedEmail, err := email.NewEmail(allowedEmailStr)
 		if err != nil {
 			continue // Skip invalid emails in allowlist
 		}
 
-		if viewerEmail == allowedEmail {
+		if viewerEmail.Equals(allowedEmail) {
 			return true
 		}
 	}

@@ -12,21 +12,23 @@ const (
 	CodeInternal         Code = "LINK_INTERNAL"
 )
 
-// MaxAllowlistSize is the maximum number of emails allowed in the allowlist.
-const MaxAllowlistSize = 100
-
 type LinkError struct {
 	code    Code
 	message string
 	cause   error
 }
 
-func newLinkError(code Code, message string, cause error) *LinkError {
+// NewLinkError creates a new LinkError with the given code, message, and cause.
+func NewLinkError(code Code, message string, cause error) *LinkError {
 	return &LinkError{
 		code:    code,
 		message: message,
 		cause:   cause,
 	}
+}
+
+func newLinkError(code Code, message string, cause error) *LinkError {
+	return NewLinkError(code, message, cause)
 }
 
 func (e *LinkError) Error() string {
@@ -229,28 +231,3 @@ func NewPermissionDeniedError(err error) *PermissionDeniedError {
 	return &PermissionDeniedError{Err: err}
 }
 
-// ErrInvalidEmail indicates that an email address is invalid.
-func ErrInvalidEmail(email string) *LinkError {
-	message := "invalid email"
-	if email != "" {
-		message = fmt.Sprintf("invalid email: %s", email)
-	}
-
-	return newLinkError(CodeInvalidInput, message, nil)
-}
-
-// ErrAllowlistTooLarge indicates that the allowlist exceeds the maximum size.
-func ErrAllowlistTooLarge(currentSize, maxSize int) *LinkError {
-	message := fmt.Sprintf("allowlist too large: %d emails (max: %d)", currentSize, maxSize)
-	return newLinkError(CodeInvalidInput, message, nil)
-}
-
-// ErrDuplicateEmail indicates that an email already exists in the allowlist.
-func ErrDuplicateEmail(email string) *LinkError {
-	message := "duplicate email in allowlist"
-	if email != "" {
-		message = fmt.Sprintf("duplicate email in allowlist: %s", email)
-	}
-
-	return newLinkError(CodeConflict, message, nil)
-}

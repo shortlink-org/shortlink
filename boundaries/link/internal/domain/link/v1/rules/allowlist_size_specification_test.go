@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1/errors"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1/vo/email"
 )
 
 // helper to generate deterministic but varied emails
@@ -34,17 +34,17 @@ func TestAllowlistSizeSpecification(t *testing.T) {
 		},
 		{
 			name:      "allowlist at limit",
-			emails:    genEmails(errors.MaxAllowlistSize),
+			emails:    genEmails(email.MaxAllowlistSize),
 			wantError: false,
 		},
 		{
 			name:      "allowlist exceeds limit",
-			emails:    genEmails(errors.MaxAllowlistSize + 1),
+			emails:    genEmails(email.MaxAllowlistSize + 1),
 			wantError: true,
 		},
 		{
 			name:      "allowlist exceeds limit by 10",
-			emails:    genEmails(errors.MaxAllowlistSize + 10),
+			emails:    genEmails(email.MaxAllowlistSize + 10),
 			wantError: true,
 		},
 	}

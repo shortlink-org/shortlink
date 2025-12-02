@@ -1,7 +1,9 @@
-package v1
+package email
 
 import (
 	"strings"
+
+	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
 )
 
 // Email is a Value Object representing a normalized email address.

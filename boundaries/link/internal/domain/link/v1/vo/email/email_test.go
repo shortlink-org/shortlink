@@ -1,6 +1,6 @@
 //go:build unit
 
-package v1
+package email
 
 import (
 	"testing"
@@ -99,9 +99,9 @@ func TestEmail_Value(t *testing.T) {
 
 func TestEmail_Equals(t *testing.T) {
 	tests := []struct {
-		name     string
-		email1   string
-		email2   string
+		name      string
+		email1    string
+		email2    string
 		wantEqual bool
 	}{
 		{
@@ -168,7 +168,6 @@ func TestEmail_IsEmpty(t *testing.T) {
 		assert.False(t, email.IsEmpty())
 	})
 }
-
 
 func TestEmail_Normalization(t *testing.T) {
 	t.Run("normalization is consistent", func(t *testing.T) {
