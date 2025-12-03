@@ -109,8 +109,7 @@ func (e *Event) SubscribeLinkCreated(
 				continue
 			}
 
-			// 7) Success
-			processSpan.SetStatus(otelcodes.Ok, "")
+			// 7) Success - span status remains Unset (OK by default)
 			processSpan.End()
 
 			msg.Ack()

@@ -19,24 +19,24 @@ require (
 	github.com/prometheus/client_golang v1.23.2
 	github.com/redis/rueidis v1.0.68
 	github.com/segmentio/encoding v0.5.3
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/batch v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/cache v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/config v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/context v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/cqrs v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/db v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/flags v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/http v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/kratos v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/logger v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/observability v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/saga v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/specification v0.0.0-20251129215632-4fad40209522
-	github.com/shortlink-org/go-sdk/watermill v0.0.0-20251129215632-4fad40209522
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/batch v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/cache v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/config v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/context v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/cqrs v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/db v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/flags v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/http v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/kratos v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/logger v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/observability v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/saga v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/specification v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/go-sdk/watermill v0.0.0-20251203170842-4c6548ea718b
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
@@ -171,7 +171,7 @@ require (
 	github.com/prometheus/otlptranslator v1.0.0 // indirect
 	github.com/prometheus/procfs v0.19.2 // indirect
 	github.com/rcrowley/go-metrics v0.0.0-20250401214520-65e299d6c5c9 // indirect
-	github.com/redis/go-redis/v9 v9.17.0 // indirect
+	github.com/redis/go-redis/v9 v9.17.2 // indirect
 	github.com/redis/rueidis/rueidiscompat v1.0.68 // indirect
 	github.com/redis/rueidis/rueidisotel v1.0.68 // indirect
 	github.com/remyoudompheng/bigfft v0.0.0-20230129092748-24d4a6f8daec // indirect
