@@ -29,7 +29,7 @@ jobs:
       - name: Set up Python 3.
         uses: actions/setup-python@v6
         with:
-          python-version: '3.14.0'
+          python-version: '3.14.1'
 
       - name: Install Ansible.
         run: pip3 install ansible-core
