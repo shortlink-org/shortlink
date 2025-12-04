@@ -7,8 +7,7 @@ import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import Link from 'next/link'
 import { TransitionLink } from '@/components/Navigation'
-// @ts-ignore
-import { ToggleDarkMode } from '@shortlink-org/ui-kit'
+import { ThemeToggle } from '@/components/ThemeToggle'
 import MenuIcon from '@mui/icons-material/Menu'
 import Notification from './notification'
 import Profile from './profile'
@@ -28,7 +27,7 @@ export default function Header({ hasSession, setOpen }: HeaderProps) {
   }, [])
 
   return (
-    <nav className="bg-gradient-to-r from-indigo-600 via-purple-600 to-indigo-700 dark:from-indigo-800 dark:via-purple-800 dark:to-indigo-900 text-white shadow-lg border-b border-indigo-500/20 dark:border-purple-500/30 backdrop-blur-sm z-50">
+    <nav className="bg-gradient-to-r from-pink-600 via-purple-700 to-indigo-800 dark:from-indigo-800 dark:via-purple-800 dark:to-indigo-900 text-white shadow-lg border-b border-indigo-500/20 dark:border-purple-500/30 backdrop-blur-sm z-50">
       <div className="max-w-7xl mx-auto px-3 sm:px-4 lg:px-8">
         <div className="flex items-center justify-between h-14 sm:h-16">
           {/* Left: Menu + Brand */}
@@ -70,19 +69,15 @@ export default function Header({ hasSession, setOpen }: HeaderProps) {
           </div>
 
           {/* Center: Spacer (or could add nav links) */}
-          <div className="hidden md:flex items-center space-x-8">
-            {/* Add navigation links here if needed */}
-          </div>
+          <div className="hidden md:flex items-center space-x-8">{/* Add navigation links here if needed */}</div>
 
           {/* Right: Controls */}
           <div className="flex items-center gap-1.5 sm:gap-3">
             <div className="hidden sm:block relative">
-              <ToggleDarkMode id="ToggleDarkMode" />
+              <ThemeToggle />
             </div>
 
-            <div className="hidden sm:block">
-              {secondMenu()}
-            </div>
+            <div className="hidden sm:block">{secondMenu()}</div>
 
             <div className="hidden md:block">
               <SearchForm />

@@ -133,7 +133,7 @@ export default function Notification(): React.JSX.Element {
             </a>
           </div>
           
-          <a className="block py-3 font-semibold text-center text-white bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 transition-all duration-200 cursor-pointer">
+          <a className="block py-3 font-semibold text-center text-white bg-purple-700 dark:bg-indigo-500 hover:bg-purple-800 dark:hover:bg-indigo-600 transition-all duration-200 cursor-pointer">
             See all notifications
           </a>
         </div>

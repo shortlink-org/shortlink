@@ -31,15 +31,14 @@ export default function Header() {
               <div className="mt-5 sm:mt-8 flex flex-col sm:flex-row gap-3 sm:gap-4 sm:justify-center lg:justify-start">
                 <a
                   href="#"
-                  className="group relative w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 overflow-hidden font-semibold text-white bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-500 dark:to-purple-500 rounded-xl shadow-lg hover:shadow-2xl transform hover:-translate-y-0.5 transition-all duration-200 sm:px-8 md:py-4 md:text-lg lg:px-10"
+                  className="group w-full sm:w-auto inline-flex items-center justify-center px-6 py-3.5 font-semibold text-white bg-purple-700 dark:bg-indigo-500 rounded-xl shadow-lg hover:shadow-xl hover:bg-purple-800 dark:hover:bg-indigo-600 transform hover:-translate-y-0.5 transition-all duration-200 sm:px-8 md:py-4 md:text-lg lg:px-10"
                 >
-                  <span className="relative z-10 flex items-center gap-2">
+                  <span className="flex items-center gap-2">
                     Get started
                     <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                     </svg>
                   </span>
-                  <div className="absolute inset-0 bg-gradient-to-r from-indigo-700 to-purple-700 dark:from-indigo-600 dark:to-purple-600 opacity-0 group-hover:opacity-100 transition-opacity rounded-xl" />
                 </a>
                 <a
                   href="#"

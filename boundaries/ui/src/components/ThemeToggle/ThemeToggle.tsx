@@ -1,13 +1,12 @@
 'use client'
 
 import { useTheme } from 'next-themes'
-import { IconButton } from '@mui/material'
-import LightModeIcon from '@mui/icons-material/LightMode'
-import DarkModeIcon from '@mui/icons-material/DarkMode'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useCallback } from 'react'
+// @ts-ignore
+import { ToggleDarkMode } from '@shortlink-org/ui-kit'
 
 export function ThemeToggle() {
-  const { theme, resolvedTheme, setTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
   // Avoid hydration mismatch
@@ -15,34 +14,45 @@ export function ThemeToggle() {
     setMounted(true)
   }, [])
 
-  if (!mounted) {
-    return (
-      <IconButton disabled sx={{ color: 'white' }}>
-        <LightModeIcon />
-      </IconButton>
-    )
-  }
-
   const isDark = resolvedTheme === 'dark'
 
-  const handleToggle = () => {
+  const handleToggle = useCallback(() => {
     const newTheme = isDark ? 'light' : 'dark'
     setTheme(newTheme)
+  }, [isDark, setTheme])
+
+  const handleWrapperClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation()
+      handleToggle()
+    },
+    [handleToggle],
+  )
+
+  if (!mounted) {
+    return null
   }
 
+  // Use stable ID
+  const toggleId = 'ThemeToggle'
+
   return (
-    <IconButton
-      onClick={handleToggle}
-      aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-      sx={{
-        color: 'white',
-        '&:hover': {
-          backgroundColor: 'rgba(255,255,255,0.1)',
-        },
+    <div
+      style={{
+        position: 'relative',
+        display: 'inline-block',
+        zIndex: 10,
+        cursor: 'pointer',
       }}
+      onClick={handleWrapperClick}
     >
-      {isDark ? <LightModeIcon /> : <DarkModeIcon />}
-    </IconButton>
+      <ToggleDarkMode
+        key={`${toggleId}-${resolvedTheme}`} // Force re-render when theme changes
+        id={toggleId}
+        checked={isDark}
+        onClick={handleToggle}
+        ariaLabel={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+      />
+    </div>
   )
 }
-

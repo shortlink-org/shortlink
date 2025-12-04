@@ -6,33 +6,68 @@ export default function Feature() {
     <>
       {/* Main Features Section */}
       <section className="container mx-auto px-4 sm:px-6 py-16 lg:py-24">
-        <h2 className="text-4xl lg:text-5xl font-bold text-center bg-gradient-to-r from-indigo-600 to-purple-600 dark:from-indigo-400 dark:to-purple-400 bg-clip-text text-transparent pb-4 mb-16">
-          Features
-        </h2>
+        <div className="text-center mb-20">
+          <span className="inline-block px-4 py-2 mb-4 text-sm font-semibold text-purple-700 dark:text-purple-400 bg-purple-100 dark:bg-purple-900/30 rounded-full">
+            Features
+          </span>
+          <h2 className="text-4xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-4">
+            Powerful Link Management
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            Everything you need to create, manage, and track your short links
+          </p>
+        </div>
 
         {/* Feature 1 - URL Shortener */}
-        <div className="flex items-center flex-wrap mb-16 lg:mb-24 group">
-          <div className="w-full lg:w-1/2 lg:pr-12 mb-8 lg:mb-0">
-            <div className="bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950 dark:to-purple-950 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-indigo-100 dark:border-indigo-800">
-              <div className="inline-block p-3 bg-indigo-600 dark:bg-indigo-500 rounded-xl mb-4 shadow-lg">
-                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
-                </svg>
+        <div className="flex items-center flex-wrap mb-20 lg:mb-32 group">
+          <div className="w-full lg:w-1/2 lg:pr-16 mb-12 lg:mb-0">
+            <div className="relative p-8 lg:p-10 bg-white dark:bg-gray-800 rounded-3xl shadow-sm hover:shadow-md transition-all duration-500 border border-gray-200 dark:border-gray-700 overflow-hidden group-hover:-translate-y-1">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-700" />
+              <div className="relative">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl mb-6 shadow-sm group-hover:scale-105 group-hover:rotate-3 transition-all duration-500">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                  </svg>
+                </div>
+                <h4 className="text-3xl lg:text-4xl text-gray-900 dark:text-white font-bold mb-4">URL Shortener</h4>
+                <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+                  Free custom URL Shortener with many features that gives you better quality for links shortening. We do not display ads during direct redirecting to the original url.
+                </p>
+                <div className="flex items-center text-indigo-600 dark:text-indigo-400 font-semibold group-hover:translate-x-2 transition-transform duration-300">
+                  <span>Learn more</span>
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
               </div>
-              <h4 className="text-3xl lg:text-4xl text-gray-900 dark:text-white font-bold mb-4">URL Shortener</h4>
-              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
-                Free custom URL Shortener with many features that gives you better quality for links shortening. We do not display ads during direct redirecting to the original url.
-              </p>
             </div>
           </div>
           <div className="w-full lg:w-1/2 flex justify-center">
-            <div className="relative group-hover:scale-105 transition-transform duration-300">
-              <div className="absolute inset-0 bg-gradient-to-r from-indigo-400 to-purple-400 rounded-2xl blur-2xl opacity-30 group-hover:opacity-50 transition-opacity" />
-              <img 
-                src="https://www.dropbox.com/s/mimcvn6zxtoruis/health.svg?raw=1" 
-                alt="Monitoring" 
-                className="relative rounded-2xl shadow-xl"
-              />
+            <div className="relative group-hover:scale-102 transition-transform duration-500">
+              <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl blur-3xl opacity-10 group-hover:opacity-20 transition-opacity duration-500" />
+              <div className="relative bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30 rounded-3xl p-8 shadow-sm">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="w-8 h-8 bg-indigo-500 rounded-lg mb-2" />
+                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2" />
+                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-1/2" />
+                  </div>
+                  <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="w-8 h-8 bg-purple-500 rounded-lg mb-2" />
+                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2" />
+                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-1/2" />
+                  </div>
+                  <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow col-span-2">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full" />
+                      <div className="flex-1">
+                        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-2/3 mb-1" />
+                        <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-1/3" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
