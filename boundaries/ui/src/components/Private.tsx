@@ -1,47 +1,88 @@
-import React from 'react'
-import { AxiosError } from 'axios'
-import { useRouter } from 'next/navigation'
-import { useEffect, useState } from 'react'
+/**
+ * withAuthSync HOC - Fetches and provides session to protected pages
+ * 
+ * Changes:
+ * - ✅ Uses use() + fetchSession from data layer
+ * - ✅ Uses Suspense for loading
+ * - ✅ Uses ErrorBoundary for error handling
+ * - ✅ Provides session via SessionProvider
+ * - ✅ No manual useState/useEffect
+ */
 
-import { FrontendApi } from '@ory/client'
+'use client'
+
+import React, { use, Suspense, ReactNode } from 'react'
+import { useRouter } from 'next/navigation'
+import { Session } from '@ory/client'
+import { SessionProvider } from '@/contexts/SessionContext'
+import { fetchSession } from '@/lib/data'
+
+/**
+ * Component that fetches session for protected page
+ */
+function ProtectedPageData<P extends object>({ 
+  Component, 
+  props 
+}: { 
+  Component: React.ComponentType<P>
+  props: P 
+}) {
+  const router = useRouter()
+  
+  // Fetch session - will suspend during fetch
+  const session: Session = use(fetchSession())
+  
+  // Session exists - render protected page
+  return (
+    <SessionProvider session={session}>
+      {React.createElement(Component, props)}
+    </SessionProvider>
+  )
+}
+
+/**
+ * ErrorBoundary for auth errors
+ */
+class AuthErrorBoundary extends React.Component<
+  { children: ReactNode; router: any },
+  { hasError: boolean; error: Error | null }
+> {
+  constructor(props: { children: ReactNode; router: any }) {
+    super(props)
+    this.state = { hasError: false, error: null }
+  }
+
+  static getDerivedStateFromError(error: Error) {
+    return { hasError: true, error }
+  }
+
+  componentDidCatch(error: Error) {
+    console.log('Auth error:', error.message)
+    
+    // Redirect to login
+    this.props.router.push('/auth/login')
+  }
+
+  render() {
+    if (this.state.hasError) {
+      // While redirecting, show nothing
+      return <div>Redirecting to login...</div>
+    }
+
+    return this.props.children
+  }
+}
 
 export default function withAuthSync<P extends object>(Child: React.ComponentType<P>) {
   return function WrappedComponent(props: P) {
-    const [session, setSession] = useState<string>('No valid Ory Session was found.\nPlease sign in to receive one.')
-    const [hasSession, setHasSession] = useState<boolean>(false)
     const router = useRouter()
-
-    useEffect(() => {
-      const ory = new FrontendApi()
-      ory
-        .toSession()
-        .then(({ data }) => {
-          setSession(JSON.stringify(data, null, 2))
-          setHasSession(true)
-        })
-        .catch((err: AxiosError) => {
-          switch (err.response?.status) {
-            case 403:
-            // This is a legacy error code thrown. See code 422 for
-            // more details.
-            case 422:
-              // This status code is returned when we are trying to
-              // validate a session which has not yet completed
-              // it's a second factor
-              return router.push('/auth/login?aal=aal2')
-            case 401:
-              // do nothing, the user is not logged in
-              return
-            default:
-            // Otherwise, we nothitng - the error will be handled by the Flow component
-          }
-
-          // Something else happened!
-          return Promise.reject(err)
-        })
-    }, [router])
-
-    // If this is a token, we just render the component that was passed with all its props
-    return React.createElement(Child, props)
+    
+    return (
+      <AuthErrorBoundary router={router}>
+        <Suspense fallback={<div>Loading...</div>}>
+          <ProtectedPageData Component={Child} props={props} />
+        </Suspense>
+      </AuthErrorBoundary>
+    )
   }
 }

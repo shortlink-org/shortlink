@@ -1,26 +1,39 @@
 'use client'
 
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { LoadingSpinner, ErrorAlert } from '@/components/common'
+/**
+ * Links List Page - Migrated to React 19
+ * 
+ * Changes:
+ * - ✅ Replaced Redux + useEffect with use() + Suspense
+ * - ✅ Added ErrorBoundary for error handling
+ * - ✅ Added skeleton loader instead of spinner
+ * - ✅ Data cached automatically (1 minute TTL)
+ * - ✅ No manual loading state management
+ * 
+ * Old version backed up in git history
+ */
+
+import { use, Suspense } from 'react'
 
 import Statistic from '@/components/Dashboard/stats'
 import withAuthSync from '@/components/Private'
-import { fetchLinkList } from '@/store'
 import Header from '@/components/Page/Header'
 import UserLinksTable from '@/components/Page/user/linksTable'
-import { LinkState } from '@/store/reducers/link'
+import { LinksTableSkeleton } from '@/components/Skeleton'
+import { LinksErrorBoundary } from '@/components/error'
+import { fetchLinksList, useInvalidateCache } from '@/lib/data'
 
-function LinkTable() {
-  const state = useSelector((rootState: { link: LinkState }) => rootState.link)
-  const dispatch = useDispatch()
+/**
+ * Component that reads links data using use()
+ * Automatically suspends while data is loading
+ */
+function LinksData() {
+  // use() reads the promise and suspends the component
+  const links = use(fetchLinksList())
+  const { invalidate } = useInvalidateCache()
 
-  useEffect(() => {
-    dispatch(fetchLinkList())
-  }, [dispatch])
-
-  // Преобразуем данные для таблицы (конвертируем TimestamppbTimestamp в строки)
-  const tableData = state.list.map((link) => ({
+  // Transform data for table
+  const tableData = links.map((link: any) => ({
     url: link.url || '',
     hash: link.hash || '',
     describe: link.describe,
@@ -32,23 +45,35 @@ function LinkTable() {
       : '',
   }))
 
+  const handleRefresh = () => {
+    // Invalidate cache to force refetch
+    invalidate('links:list:all')
+    // Optionally could also use router.refresh() or invalidatePattern
+  }
+
   return (
     <>
-      {/*<NextSeo title="Links" description="Links page for your account." />*/}
+      <Statistic count={links.length} />
+      <UserLinksTable data={tableData} onRefresh={handleRefresh} />
+    </>
+  )
+}
 
+/**
+ * Main component with declarative async management
+ */
+function LinkTable() {
+  return (
+    <>
       <Header title="Links" />
 
-      {state.loading && <LoadingSpinner minHeight="200px" />}
-
-      <ErrorAlert error={state.error} />
-
-      {!state.loading && (
-        <>
-          <Statistic count={state.list.length} />
-
-          <UserLinksTable data={tableData} onRefresh={() => dispatch(fetchLinkList())} />
-        </>
-      )}
+      {/* ErrorBoundary catches errors */}
+      <LinksErrorBoundary>
+        {/* Suspense shows skeleton while data loads */}
+        <Suspense fallback={<LinksTableSkeleton />}>
+          <LinksData />
+        </Suspense>
+      </LinksErrorBoundary>
     </>
   )
 }
