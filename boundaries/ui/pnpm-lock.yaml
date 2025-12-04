@@ -51,8 +51,8 @@ importers:
         specifier: 0.20250809.193608
         version: 0.20250809.193608
       '@shortlink-org/ui-kit':
-        specifier: ^0.20251123.10220
-        version: 0.20251123.10220(@babel/core@7.28.5)(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@mui/system@7.3.6(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(@types/node@24.10.1)(babel-plugin-react-compiler@1.0.0)(postcss@8.5.6)(rollup@4.53.3)(typescript@5.9.3)(vite@5.4.11(@types/node@24.10.1)(lightningcss@1.30.2)(terser@5.44.1))
+        specifier: ^0.20251203.214903
+        version: 0.20251203.214903(@babel/core@7.28.5)(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@mui/system@7.3.6(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(@types/node@24.10.1)(babel-plugin-react-compiler@1.0.0)(postcss@8.5.6)(rollup@4.53.3)(typescript@5.9.3)(vite@5.4.11(@types/node@24.10.1)(lightningcss@1.30.2)(terser@5.44.1))
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
         version: 0.4.2(tailwindcss@4.1.17)
@@ -2917,8 +2917,8 @@ packages:
   '@shortlink-org/eslint-plugin-shortlink@0.20250809.193608':
     resolution: {integrity: sha1-hxHIO9kCgRqWKlZ3gGMtM2PRYhc=, tarball: https://gitlab.com/api/v4/projects/72693539/packages/npm/@shortlink-org/eslint-plugin-shortlink/-/@shortlink-org/eslint-plugin-shortlink-0.20250809.193608.tgz}
 
-  '@shortlink-org/ui-kit@0.20251123.10220':
-    resolution: {integrity: sha1-Za65TRyLC8RwqPCu6Bm2vRx7Jzk=, tarball: https://gitlab.com/api/v4/projects/72466551/packages/npm/@shortlink-org/ui-kit/-/@shortlink-org/ui-kit-0.20251123.10220.tgz}
+  '@shortlink-org/ui-kit@0.20251203.214903':
+    resolution: {integrity: sha1-eUhHAIy0wwWF6KtiGKzUTgBcxxc=, tarball: https://gitlab.com/api/v4/projects/72466551/packages/npm/@shortlink-org/ui-kit/-/@shortlink-org/ui-kit-0.20251203.214903.tgz}
 
   '@standard-schema/spec@1.0.0':
     resolution: {integrity: sha512-m2bOd0f2RT9k8QJx1JN85cZYyH1RqFBdlwtkSlf4tBDYLCiiZnv1fIIwacK6cqwXavOydf0NPToMQgpKq+dVlA==}
@@ -4860,6 +4860,10 @@ packages:
     resolution: {integrity: sha512-vuNwKSaKiqm7g0THUBu2x7ckSs3XJLXE+2ssL7/MfTGPLLcrJQ/4Uq1CjPTtO5cCIiRxqvN6Twy1qOwhL0Xjcw==}
     engines: {node: 20 || >=22}
     hasBin: true
+
+  glob@13.0.0:
+    resolution: {integrity: sha512-tvZgpqk6fz4BaNZ66ZsRaZnbHvP/jG3uKJvAZOwEVUL4RTA5nJeeLYfyN9/VA8NX/V3IBG+hkeuGpKjvELkVhA==}
+    engines: {node: 20 || >=22}
 
   global-dirs@3.0.1:
     resolution: {integrity: sha512-NBcGGFbBA9s1VzD41QXDG+3++t9Mn5t1FpLdhESY6oKY4gYTFpX4wO3sqGUa0Srjtbfj3szX0RnemmrVRUdULA==}
@@ -10095,7 +10099,7 @@ snapshots:
 
   '@shortlink-org/eslint-plugin-shortlink@0.20250809.193608': {}
 
-  '@shortlink-org/ui-kit@0.20251123.10220(@babel/core@7.28.5)(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@mui/system@7.3.6(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(@types/node@24.10.1)(babel-plugin-react-compiler@1.0.0)(postcss@8.5.6)(rollup@4.53.3)(typescript@5.9.3)(vite@5.4.11(@types/node@24.10.1)(lightningcss@1.30.2)(terser@5.44.1))':
+  '@shortlink-org/ui-kit@0.20251203.214903(@babel/core@7.28.5)(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@mui/system@7.3.6(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(@types/node@24.10.1)(babel-plugin-react-compiler@1.0.0)(postcss@8.5.6)(rollup@4.53.3)(typescript@5.9.3)(vite@5.4.11(@types/node@24.10.1)(lightningcss@1.30.2)(terser@5.44.1))':
     dependencies:
       '@fontsource/caveat': 5.2.8
       '@fontsource/material-icons': 5.2.7
@@ -10103,7 +10107,7 @@ snapshots:
       '@heroicons/react': 2.2.0(react@19.2.0)
       '@mui/icons-material': 7.3.6(@mui/material@7.3.6(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@types/react@19.2.7)(react@19.2.0)
       '@mui/material': 7.3.6(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
-      '@mui/types': 7.4.8(@types/react@19.2.7)
+      '@mui/types': 7.4.9(@types/react@19.2.7)
       '@mui/x-date-pickers': 8.19.0(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@mui/material@7.3.6(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react-dom@19.2.0(react@19.2.0))(react@19.2.0))(@mui/system@7.3.6(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(react@19.2.0))(@types/react@19.2.7)(date-fns@4.1.0)(dayjs@1.11.19)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       '@tailwindcss/postcss': 4.1.17
       '@tailwindcss/typography': 0.5.19(tailwindcss@4.1.17)
@@ -10114,7 +10118,7 @@ snapshots:
       date-fns: 4.1.0
       dayjs: 1.11.19
       export-to-csv: 1.4.0
-      glob: 11.1.0
+      glob: 13.0.0
       material-react-table: 3.2.1(62fb7e9b2e29d4b6496ef418f5120efe)
       next: 16.0.7(@babel/core@7.28.5)(@opentelemetry/api@1.9.0)(@playwright/test@1.57.0)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
       next-themes: 0.4.6(react-dom@19.2.0(react@19.2.0))(react@19.2.0)
@@ -12436,6 +12440,12 @@ snapshots:
       minimatch: 10.1.1
       minipass: 7.1.2
       package-json-from-dist: 1.0.1
+      path-scurry: 2.0.1
+
+  glob@13.0.0:
+    dependencies:
+      minimatch: 10.1.1
+      minipass: 7.1.2
       path-scurry: 2.0.1
 
   global-dirs@3.0.1:
