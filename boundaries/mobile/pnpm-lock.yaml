@@ -2408,8 +2408,8 @@ packages:
       '@types/react':
         optional: true
 
-  '@react-navigation/core@7.13.3':
-    resolution: {integrity: sha512-jW0YKzHA3aFx0e6G2kzz42PWFhTes0hEJNWKaC5cyii9s+QFostplwdVna+/D8e1vCCdMDx9SfFfmx0mj9R86Q==}
+  '@react-navigation/core@7.13.5':
+    resolution: {integrity: sha512-4aTSHPWa3oQPLoanFYnzR2tyQmVRD6qsWsPigW8qAdSDA0ngl/h9dl2h9XvDPcOb7PKeVVVhbukRyytkXKf50w==}
     peerDependencies:
       react: '>= 18.2.0'
 
@@ -7561,13 +7561,12 @@ packages:
     resolution: {integrity: sha512-jCvmsr+1IUSMUyzOkRcvnVbX3ZYC6g9TDrDbFuFmRDq7PD4yaGbLKNQL6k2jnArV8hjYxh7hVhAZB6s9HDGpZA==}
     engines: {node: '>=0.10.0'}
 
-  react-server-dom-webpack@19.0.0:
-    resolution: {integrity: sha512-hLug9KEXLc8vnU9lDNe2b2rKKDaqrp5gNiES4uyu2Up3FZfZJZmdwLFXlWzdA9gTB/6/cWduSB2K1Lfag2pSvw==}
+  react-server-dom-webpack@19.0.1:
+    resolution: {integrity: sha512-RdiENR3uo87Te0jZbFcCLX1chzpwFGLqN35h7n5pgGNiXqWnz43ly94uyCiy4X8zx3swjYYULHmJvwK1P5HBig==}
     engines: {node: '>=0.10.0'}
-    deprecated: Critical Security Vulnerability in React Server Components
     peerDependencies:
-      react: ^19.0.0
-      react-dom: ^19.0.0
+      react: ^19.0.1
+      react-dom: ^19.0.1
       webpack: ^5.59.0
 
   react-test-renderer@19.1.0:
@@ -12660,7 +12659,7 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.2.7
 
-  '@react-navigation/core@7.13.3(react@19.2.1)':
+  '@react-navigation/core@7.13.5(react@19.2.1)':
     dependencies:
       '@react-navigation/routers': 7.5.2
       escape-string-regexp: 4.0.0
@@ -12668,7 +12667,7 @@ snapshots:
       nanoid: 3.3.11
       query-string: 7.1.3
       react: 19.2.1
-      react-is: 19.2.0
+      react-is: 19.2.1
       use-latest-callback: 0.2.6(react@19.2.1)
       use-sync-external-store: 1.6.0(react@19.2.1)
 
@@ -12698,7 +12697,7 @@ snapshots:
 
   '@react-navigation/native@7.1.17(react-native@0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.1))(react@19.2.1)':
     dependencies:
-      '@react-navigation/core': 7.13.3(react@19.2.1)
+      '@react-navigation/core': 7.13.5(react@19.2.1)
       escape-string-regexp: 4.0.0
       fast-deep-equal: 3.1.3
       nanoid: 3.3.11
@@ -16770,7 +16769,7 @@ snapshots:
       json5: 2.2.3
       lodash: 4.17.21
       react-native: 0.82.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.7)(react@19.2.1)
-      react-server-dom-webpack: 19.0.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(webpack@5.101.3)
+      react-server-dom-webpack: 19.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(webpack@5.101.3)
       react-test-renderer: 19.1.0(react@19.2.1)
       server-only: 0.0.1
       stacktrace-js: 2.0.2
@@ -17757,7 +17756,7 @@ snapshots:
   metro-source-map@0.83.3:
     dependencies:
       '@babel/traverse': 7.28.0
-      '@babel/traverse--for-generate-function-map': '@babel/traverse@7.28.5'
+      '@babel/traverse--for-generate-function-map': '@babel/traverse@7.28.0'
       '@babel/types': 7.28.2
       flow-enums-runtime: 0.0.6
       invariant: 2.2.4
@@ -19022,7 +19021,7 @@ snapshots:
 
   react-refresh@0.14.2: {}
 
-  react-server-dom-webpack@19.0.0(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(webpack@5.101.3):
+  react-server-dom-webpack@19.0.1(react-dom@19.2.1(react@19.2.1))(react@19.2.1)(webpack@5.101.3):
     dependencies:
       acorn-loose: 8.5.2
       neo-async: 2.6.2
