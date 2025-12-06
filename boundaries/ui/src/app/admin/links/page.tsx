@@ -1,26 +1,39 @@
 'use client'
 
-import React, { useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { LoadingSpinner, ErrorAlert } from '@/components/common'
+/**
+ * Admin Links Page - Migrated to React 19
+ * 
+ * Changes:
+ * - ✅ Replaced Redux + useEffect with use() + Suspense
+ * - ✅ Added ErrorBoundary for error handling
+ * - ✅ Added skeleton loader instead of spinner
+ * - ✅ Data cached automatically (1 minute TTL)
+ * - ✅ No manual loading state management
+ * 
+ * Old version backed up in git history
+ */
+
+import { use, Suspense } from 'react'
 
 import Statistic from '@/components/Dashboard/stats'
 import withAuthSync from '@/components/Private'
-import { fetchLinkList } from '@/store'
-import AdminUserLinksTable from '@/components/Page/admin/user/linksTable'
 import Header from '@/components/Page/Header'
-import { LinkState } from '@/store/reducers/link'
+import AdminUserLinksTable from '@/components/Page/admin/user/linksTable'
+import { LinksTableSkeleton } from '@/components/Skeleton'
+import { LinksErrorBoundary } from '@/components/error'
+import { fetchLinksList, useInvalidateCache } from '@/lib/data'
 
-function LinkTable() {
-  const state = useSelector((rootState: { link: LinkState }) => rootState.link)
-  const dispatch = useDispatch()
+/**
+ * Component that reads links data using use()
+ * Automatically suspends while data is loading
+ */
+function AdminLinksData() {
+  // use() reads the promise and suspends the component
+  const links = use(fetchLinksList())
+  const { invalidate } = useInvalidateCache()
 
-  useEffect(() => {
-    dispatch(fetchLinkList())
-  }, [dispatch])
-
-  // Преобразуем данные для таблицы (конвертируем TimestamppbTimestamp в строки)
-  const tableData = state.list.map((link) => ({
+  // Transform data for table
+  const tableData = links.map((link: any) => ({
     url: link.url || '',
     hash: link.hash || '',
     describe: link.describe,
@@ -34,23 +47,29 @@ function LinkTable() {
 
   return (
     <>
-      {/*<NextSeo title="Links" description="Admin links page" />*/}
-
-      <Header title="Admin links" />
-
-      {state.loading && <LoadingSpinner minHeight="200px" />}
-
-      <ErrorAlert error={state.error} />
-
-      {!state.loading && (
-        <>
-          <Statistic count={state.list.length} />
-
-          <AdminUserLinksTable data={tableData} />
-        </>
-      )}
+      <Statistic count={links.length} />
+      <AdminUserLinksTable data={tableData} />
     </>
   )
 }
 
-export default withAuthSync(LinkTable)
+/**
+ * Main component with declarative async management
+ */
+function AdminLinkTable() {
+  return (
+    <>
+      <Header title="Admin Links" />
+
+      {/* ErrorBoundary catches errors */}
+      <LinksErrorBoundary>
+        {/* Suspense shows skeleton while data loads */}
+        <Suspense fallback={<LinksTableSkeleton />}>
+          <AdminLinksData />
+        </Suspense>
+      </LinksErrorBoundary>
+    </>
+  )
+}
+
+export default withAuthSync(AdminLinkTable)

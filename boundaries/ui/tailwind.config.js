@@ -5,10 +5,8 @@ import containerQueries from '@tailwindcss/container-queries'
 
 /** @type {import('tailwindcss').Config} */
 export default {
-  // Use 'class' or a custom selector:
-  // darkMode: 'class',
-  // or, if you toggle data-theme:
-  darkMode: ['class', '[data-theme="dark"]'],
+  // Enable dark mode via class strategy (next-themes uses class="dark" on <html>)
+  darkMode: 'class',
 
   corePlugins: {
     preflight: false, // keep if you intentionally disabled base resets
@@ -34,13 +32,34 @@ export default {
 
     extend: {
       fontFamily: {
-        // set global defaults you'll actually use
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
+      },
+
+      // Modern CSS Variables - override default colors
+      colors: {
+        gray: {
+          50: 'rgb(var(--color-gray-50) / <alpha-value>)',
+          100: 'rgb(var(--color-gray-100) / <alpha-value>)',
+          200: 'rgb(var(--color-gray-200) / <alpha-value>)',
+          400: 'rgb(var(--color-text-secondary) / <alpha-value>)',
+          500: 'rgb(var(--color-text-secondary) / <alpha-value>)',
+          800: 'rgb(var(--color-gray-800) / <alpha-value>)',
+          900: 'rgb(var(--color-gray-900) / <alpha-value>)',
+        },
+        indigo: {
+          100: 'rgb(var(--color-indigo-100) / <alpha-value>)',
+          200: 'rgb(var(--color-indigo-200) / <alpha-value>)',
+          300: 'rgb(var(--color-indigo-300) / <alpha-value>)',
+          500: 'rgb(var(--color-indigo-500) / <alpha-value>)',
+          600: 'rgb(var(--color-indigo-600) / <alpha-value>)',
+          700: 'rgb(var(--color-indigo-700) / <alpha-value>)',
+        },
+        white: 'rgb(255 255 255 / <alpha-value>)',
+        black: 'rgb(0 0 0 / <alpha-value>)',
       },
 
       // Tailwind Typography customization
       typography: (theme) => ({
-        // dark mode styles via `prose-invert`
         invert: {
           css: {
             color: theme('colors.slate.200'),

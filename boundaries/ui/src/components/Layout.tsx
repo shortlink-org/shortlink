@@ -1,35 +1,40 @@
+/**
+ * Layout - Updated with NavigationProvider and SessionContext
+ * 
+ * Changes:
+ * - ✅ Added NavigationProvider for global progress bar
+ * - ✅ Content fades slightly during navigation
+ * - ✅ Progress bar shows at top during page transitions
+ * - ✅ Removed duplicate session check (uses SessionContext)
+ */
+
 import CssBaseline from '@mui/material/CssBaseline'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 // @ts-ignore
 import { ScrollToTopButton, Sidebar } from '@shortlink-org/ui-kit'
 
 // import PushNotificationLayout from '@/components/PushNotificationLayout'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
-import ory from '../pkg/sdk'
-import { AxiosError } from 'axios'
+import { NavigationProvider } from '@/components/Navigation'
 
 // @ts-ignore
 export function Layout({ children }: { children: React.ReactNode }) {
-  const [session, setSession] = useState<string>('No valid Ory Session was found.\nPlease sign in to receive one.')
-  const [hasSession, setHasSession] = useState<boolean>(false)
   const [open, setOpen] = useState(false)
   
-  useEffect(() => {
-    ory
-      .toSession()
-      .then(({ data }) => {
-        setSession(JSON.stringify(data, null, 2))
-        setHasSession(true)
-      })
-      .catch((err: AxiosError) =>
-        // Something else happened!
-        Promise.reject(err),
-      )
-  }, [])
+  // Try to get session from context (may be null for public pages)
+  let hasSession = false
+  try {
+    const { useSession } = require('@/contexts/SessionContext')
+    const session = useSession()
+    hasSession = session?.hasSession || false
+  } catch {
+    // Context not available - public page
+    hasSession = false
+  }
 
   return (
-    <>
+    <NavigationProvider>
       <CssBaseline />
 
       <div className="grid grid-rows-[auto_1fr] h-screen overflow-hidden">
@@ -47,6 +52,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
           </div>
         </main>
       </div>
-    </>
+    </NavigationProvider>
   )
 }
