@@ -17,7 +17,7 @@ require (
 	github.com/lib/pq v1.10.9
 	github.com/mattn/go-sqlite3 v1.14.32
 	github.com/prometheus/client_golang v1.23.2
-	github.com/redis/rueidis v1.0.68
+	github.com/redis/rueidis v1.0.69
 	github.com/segmentio/encoding v0.5.3
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20251203170842-4c6548ea718b
 	github.com/shortlink-org/go-sdk/batch v0.0.0-20251203170842-4c6548ea718b
