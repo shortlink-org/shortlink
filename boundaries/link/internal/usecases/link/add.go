@@ -77,7 +77,6 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 				return err
 			}
 
-			span.SetStatus(otelcodes.Ok, "Link saved to store successfully")
 			return nil
 		}).Build()
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
@@ -132,13 +131,10 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 					case codes.AlreadyExists:
 						span.SetAttributes(attribute.Bool("permission.already_exists", true))
 						span.AddEvent("permission relationship already existed")
-						span.SetStatus(otelcodes.Ok, "relationship already exists")
 
 						return nil
 					default:
 						if int32(st.Code()) == int32(permission.ErrorReason_ERROR_REASON_TOO_MANY_PRECONDITIONS_IN_REQUEST) {
-							span.SetStatus(otelcodes.Ok, "skipped: too many preconditions")
-
 							return nil
 						}
 					}
@@ -157,7 +153,6 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 				attribute.Bool("permission.already_exists", false),
 				attribute.String("grpc.code", codes.OK.String()),
 			)
-			span.SetStatus(otelcodes.Ok, "relationship created")
 
 			return nil
 		}).Reject(func(ctx context.Context, thenErr error) error {

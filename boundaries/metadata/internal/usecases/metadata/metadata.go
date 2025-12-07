@@ -72,11 +72,10 @@ func errorHelper(ctx context.Context, log logger.Logger, errs []error) error {
 // Add adds a metadata
 func (uc *UC) Add(ctx context.Context, linkURL string) (*v1.Meta, error) { //nolint:maintidx,funlen // saga orchestration is inherently complex
 	const (
-		SAGA_NAME                    = "METADATA_ADD"
-		SAGA_STEP_ADD_META           = "SAGA_STEP_ADD_META"
-		SAGA_STEP_ADD_SCREENSHOT     = "SAGA_STEP_ADD_SCREENSHOT"
-		SAGA_STEP_GET_SCREENSHOT_URL = "SAGA_STEP_GET_SCREENSHOT_URL"
-		SAGA_STEP_UPDATE_META        = "SAGA_STEP_UPDATE_META"
+		SAGA_NAME                = "METADATA_ADD"
+		SAGA_STEP_ADD_META       = "SAGA_STEP_ADD_META"
+		SAGA_STEP_ADD_SCREENSHOT = "SAGA_STEP_ADD_SCREENSHOT"
+		SAGA_STEP_UPDATE_META    = "SAGA_STEP_UPDATE_META"
 	)
 
 	meta := &v1.Meta{}
@@ -113,7 +112,6 @@ func (uc *UC) Add(ctx context.Context, linkURL string) (*v1.Meta, error) { //nol
 			span.SetAttributes(
 				attribute.String("meta.id", m.GetId()),
 			)
-			span.SetStatus(otelcodes.Ok, "Metadata parsed successfully")
 
 			return nil
 		}).Build()
@@ -134,32 +132,27 @@ func (uc *UC) Add(ctx context.Context, linkURL string) (*v1.Meta, error) { //nol
 				attribute.String("link.url", linkURL),
 			)
 
+			// Step 1: Set screenshot (initiate screenshot capture)
 			stepErr := uc.screenshotUC.Set(ctx, linkURL)
 			if stepErr != nil {
 				// Check if error is screenshot unavailable (non-critical for saga, but still an error)
 				var domainErr *domainerrors.Error
 				if errors.As(stepErr, &domainErr) && domainErr.Code() == domainerrors.CodeScreenshotUnavailable {
-					// Screenshot unavailable is recorded as ERROR in span, but saga continues
-					// Extract underlying error cause for better diagnostics
-					causeErr := domainErr.Unwrap()
-					causeMsg := ""
-					if causeErr != nil {
-						causeMsg = causeErr.Error()
-					}
-
-					// Record error in span (ERROR status)
+					// Screenshot unavailable is recorded as ERROR in parent span with proper error code
 					span.RecordError(stepErr)
 					span.SetAttributes(
 						attribute.Bool("screenshot.available", false),
-						attribute.String("screenshot.error", stepErr.Error()),
-						attribute.String("screenshot.error.cause", causeMsg),
-						attribute.String("screenshot.error.code", string(domainErr.Code())),
-						attribute.Bool("saga.continue_on_error", true), // Indicate saga continues despite error
+						attribute.String("error.code", string(domainErr.Code())), // METADATA_SCREENSHOT_UNAVAILABLE
+						attribute.Bool("saga.continue_on_error", true),
 					)
-					span.SetStatus(otelcodes.Error, stepErr.Error())
+					span.AddEvent("screenshot_unavailable", trace.WithAttributes(
+						attribute.String("reason", stepErr.Error()),
+					))
+					// Use error code in status message for better visibility
+					span.SetStatus(otelcodes.Error, string(domainErr.Code())+": "+stepErr.Error())
+					
 					uc.log.WarnWithContext(ctx, "Screenshot unavailable, continuing without screenshot",
 						slog.String("error", stepErr.Error()),
-						slog.String("error_cause", causeMsg),
 						slog.String("error_code", string(domainErr.Code())),
 						slog.String("url", linkURL),
 					)
@@ -172,58 +165,50 @@ func (uc *UC) Add(ctx context.Context, linkURL string) (*v1.Meta, error) { //nol
 				return domainerrors.Normalize(OpScreenshotSet, stepErr)
 			}
 
-			span.SetStatus(otelcodes.Ok, "Screenshot processing started successfully")
+			// Step 2: Get screenshot URL (as child span)
+			getCtx, getSpan := otel.Tracer("metadata.uc.screenshot").Start(ctx, "metadata.screenshot.get",
+				trace.WithSpanKind(trace.SpanKindInternal),
+			)
+			defer getSpan.End()
+
+			getSpan.SetAttributes(
+				attribute.String("link.url", linkURL),
+			)
+
+			url, getErr := uc.screenshotUC.Get(getCtx, linkURL)
+			if getErr != nil {
+				// Screenshot URL not available yet, but Set succeeded - not an error, just info
+				getSpan.AddEvent("screenshot_url_not_ready", trace.WithAttributes(
+					attribute.String("reason", getErr.Error()),
+				))
+				getSpan.SetAttributes(attribute.Bool("screenshot.url_available", false))
+				
+				uc.log.WarnWithContext(getCtx, "Screenshot URL not available yet, will retry later",
+					slog.String("url", linkURL),
+				)
+				return nil // Continue - URL will be available later
+			}
+
+			// Success - screenshot URL retrieved
+			meta.ImageUrl = url.String()
+			getSpan.SetAttributes(
+				attribute.String("screenshot.url", url.String()),
+				attribute.Bool("screenshot.url_available", true),
+			)
+
 			return nil
 		}).Build()
 
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}
-
-	_, errs = sagaSetMetadata.AddStep(SAGA_STEP_GET_SCREENSHOT_URL).
-		Needs(SAGA_STEP_ADD_SCREENSHOT, SAGA_STEP_ADD_META).
-		Then(func(ctx context.Context) error {
-			ctx, span := otel.Tracer("metadata.uc.screenshot").Start(ctx, "metadata.screenshot.get",
-				trace.WithSpanKind(trace.SpanKindInternal),
-			)
-			defer span.End()
-
-			span.SetAttributes(
-				attribute.String("saga.step", SAGA_STEP_GET_SCREENSHOT_URL),
-				attribute.String("link.url", linkURL),
-			)
-
-			// Try to get screenshot URL, but don't fail if screenshot is not available yet
-			url, stepErr := uc.screenshotUC.Get(ctx, linkURL)
-			if stepErr != nil {
-				// Log warning but continue without screenshot URL
-				span.AddEvent("Screenshot URL not available yet, continuing without it")
-				span.SetAttributes(attribute.Bool("screenshot.available", false))
-				uc.log.WarnWithContext(ctx, "Failed to get screenshot URL, continuing without it",
-					slog.String("error", stepErr.Error()),
-					slog.String("url", linkURL),
-				)
-
-				span.SetStatus(otelcodes.Ok, "Continuing without screenshot URL")
-				return nil // Continue saga execution even if screenshot URL is not available
-			}
-
-			meta.ImageUrl = url.String()
-			span.SetAttributes(
-				attribute.String("screenshot.url", url.String()),
-				attribute.Bool("screenshot.available", true),
-			)
-			span.SetStatus(otelcodes.Ok, "Screenshot URL retrieved successfully")
-
-			return nil
-		}).Build()
 
 	if err := errorHelper(ctx, uc.log, errs); err != nil {
 		return nil, err
 	}
 
 	_, errs = sagaSetMetadata.AddStep(SAGA_STEP_UPDATE_META).
-		Needs(SAGA_STEP_GET_SCREENSHOT_URL).
+		Needs(SAGA_STEP_ADD_SCREENSHOT, SAGA_STEP_ADD_META).
 		Then(func(ctx context.Context) error {
 			ctx, span := otel.Tracer("metadata.uc.store").Start(ctx, OpStoreUpdate,
 				trace.WithSpanKind(trace.SpanKindInternal),
@@ -253,7 +238,6 @@ func (uc *UC) Add(ctx context.Context, linkURL string) (*v1.Meta, error) { //nol
 			span.SetAttributes(
 				attribute.String("meta.image_url", meta.GetImageUrl()),
 			)
-			span.SetStatus(otelcodes.Ok, "Meta updated in store successfully")
 			uc.log.InfoWithContext(ctx, "Meta updated in store",
 				slog.String("url", linkURL),
 				slog.String("image_url", meta.GetImageUrl()),
@@ -305,7 +289,6 @@ func (uc *UC) Add(ctx context.Context, linkURL string) (*v1.Meta, error) { //nol
 		)
 		// Don't fail the operation if event publishing fails
 	} else {
-		span.SetStatus(otelcodes.Ok, "Metadata extracted event published successfully")
 		uc.log.InfoWithContext(ctx, "Metadata extracted event published successfully",
 			slog.String("event_type", domain.MetadataExtractedTopic),
 			slog.String("url", linkURL),

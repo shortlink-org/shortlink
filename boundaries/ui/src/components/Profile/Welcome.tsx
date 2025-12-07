@@ -4,7 +4,7 @@ interface WelcomeProps {
 
 export default function Welcome({ nickname }: WelcomeProps) {
   return (
-    <div className="md:w-auto flex items-center content-center my-6 flex-auto bg-indigo-600 text-white rounded shadow-xl px-5 w-full">
+    <div className="md:w-auto flex items-center content-center my-6 flex-auto bg-purple-700 dark:bg-indigo-500 text-white rounded shadow-xl px-5 w-full">
       <div className="flex flex-wrap content-center items-center">
         <div className="w-1/4 px-3 text-center hidden md:block">
           <div className="p-5 xl:px-8 md:py-5">

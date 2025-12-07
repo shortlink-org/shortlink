@@ -22,31 +22,3 @@ message LinkProto {
   // Empty list means public link, non-empty means private link
   repeated string allowed_emails = 6;
 }
-
-// DEPRECATED: LinkEvent enum is deprecated and will be removed after migration to go-sdk/cqrs.
-// Use individual event messages from link_events.proto instead:
-//   - LinkCreated (canonical: link.link.created.v1) replaces LINK_EVENT_ADD
-//   - LinkUpdated (canonical: link.link.updated.v1) replaces LINK_EVENT_UPDATE
-//   - LinkDeleted (canonical: link.link.deleted.v1) replaces LINK_EVENT_DELETE
-//
-// See: internal/domain/link/v1/link_events.proto
-//
-// Link event
-enum LinkEvent {
-  // Unspecified
-  LINK_EVENT_UNSPECIFIED = 0;
-
-  // Add link
-  // Deprecated: Use LinkCreated event from link_events.proto
-  LINK_EVENT_ADD = 1;
-  // Get link
-  LINK_EVENT_GET = 2;
-  // List link
-  LINK_EVENT_LIST = 3;
-  // Update link
-  // Deprecated: Use LinkUpdated event from link_events.proto
-  LINK_EVENT_UPDATE = 4;
-  // Delete link
-  // Deprecated: Use LinkDeleted event from link_events.proto
-  LINK_EVENT_DELETE = 5;
-}

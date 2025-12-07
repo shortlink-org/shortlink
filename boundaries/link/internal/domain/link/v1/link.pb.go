@@ -22,82 +22,6 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-// DEPRECATED: LinkEvent enum is deprecated and will be removed after migration to go-sdk/cqrs.
-// Use individual event messages from link_events.proto instead:
-//   - LinkCreated (canonical: link.link.created.v1) replaces LINK_EVENT_ADD
-//   - LinkUpdated (canonical: link.link.updated.v1) replaces LINK_EVENT_UPDATE
-//   - LinkDeleted (canonical: link.link.deleted.v1) replaces LINK_EVENT_DELETE
-//
-// See: internal/domain/link/v1/link_events.proto
-//
-// Link event
-type LinkEvent int32
-
-const (
-	// Unspecified
-	LinkEvent_LINK_EVENT_UNSPECIFIED LinkEvent = 0
-	// Add link
-	// Deprecated: Use LinkCreated event from link_events.proto
-	LinkEvent_LINK_EVENT_ADD LinkEvent = 1
-	// Get link
-	LinkEvent_LINK_EVENT_GET LinkEvent = 2
-	// List link
-	LinkEvent_LINK_EVENT_LIST LinkEvent = 3
-	// Update link
-	// Deprecated: Use LinkUpdated event from link_events.proto
-	LinkEvent_LINK_EVENT_UPDATE LinkEvent = 4
-	// Delete link
-	// Deprecated: Use LinkDeleted event from link_events.proto
-	LinkEvent_LINK_EVENT_DELETE LinkEvent = 5
-)
-
-// Enum value maps for LinkEvent.
-var (
-	LinkEvent_name = map[int32]string{
-		0: "LINK_EVENT_UNSPECIFIED",
-		1: "LINK_EVENT_ADD",
-		2: "LINK_EVENT_GET",
-		3: "LINK_EVENT_LIST",
-		4: "LINK_EVENT_UPDATE",
-		5: "LINK_EVENT_DELETE",
-	}
-	LinkEvent_value = map[string]int32{
-		"LINK_EVENT_UNSPECIFIED": 0,
-		"LINK_EVENT_ADD":         1,
-		"LINK_EVENT_GET":         2,
-		"LINK_EVENT_LIST":        3,
-		"LINK_EVENT_UPDATE":      4,
-		"LINK_EVENT_DELETE":      5,
-	}
-)
-
-func (x LinkEvent) Enum() *LinkEvent {
-	p := new(LinkEvent)
-	*p = x
-	return p
-}
-
-func (x LinkEvent) String() string {
-	return protoimpl.X.EnumStringOf(x.Descriptor(), protoreflect.EnumNumber(x))
-}
-
-func (LinkEvent) Descriptor() protoreflect.EnumDescriptor {
-	return file_domain_link_v1_link_proto_enumTypes[0].Descriptor()
-}
-
-func (LinkEvent) Type() protoreflect.EnumType {
-	return &file_domain_link_v1_link_proto_enumTypes[0]
-}
-
-func (x LinkEvent) Number() protoreflect.EnumNumber {
-	return protoreflect.EnumNumber(x)
-}
-
-// Deprecated: Use LinkEvent.Descriptor instead.
-func (LinkEvent) EnumDescriptor() ([]byte, []int) {
-	return file_domain_link_v1_link_proto_rawDescGZIP(), []int{0}
-}
-
 // LinkProto is the protobuf representation of a link for events
 type LinkProto struct {
 	state protoimpl.MessageState `protogen:"open.v1"`
@@ -203,14 +127,7 @@ const file_domain_link_v1_link_proto_rawDesc = "" +
 	"created_at\x18\x04 \x01(\v2\x1a.google.protobuf.TimestampR\tcreatedAt\x129\n" +
 	"\n" +
 	"updated_at\x18\x05 \x01(\v2\x1a.google.protobuf.TimestampR\tupdatedAt\x12%\n" +
-	"\x0eallowed_emails\x18\x06 \x03(\tR\rallowedEmails*\x92\x01\n" +
-	"\tLinkEvent\x12\x1a\n" +
-	"\x16LINK_EVENT_UNSPECIFIED\x10\x00\x12\x12\n" +
-	"\x0eLINK_EVENT_ADD\x10\x01\x12\x12\n" +
-	"\x0eLINK_EVENT_GET\x10\x02\x12\x13\n" +
-	"\x0fLINK_EVENT_LIST\x10\x03\x12\x15\n" +
-	"\x11LINK_EVENT_UPDATE\x10\x04\x12\x15\n" +
-	"\x11LINK_EVENT_DELETE\x10\x05B\xc5\x01\n" +
+	"\x0eallowed_emails\x18\x06 \x03(\tR\rallowedEmailsB\xc5\x01\n" +
 	"\x12com.domain.link.v1B\tLinkProtoP\x01ZJgithub.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1\xa2\x02\x03DLX\xaa\x02\x0eDomain.Link.V1\xca\x02\x0eDomain\\Link\\V1\xe2\x02\x1aDomain\\Link\\V1\\GPBMetadata\xea\x02\x10Domain::Link::V1b\x06proto3"
 
 var (
@@ -225,16 +142,14 @@ func file_domain_link_v1_link_proto_rawDescGZIP() []byte {
 	return file_domain_link_v1_link_proto_rawDescData
 }
 
-var file_domain_link_v1_link_proto_enumTypes = make([]protoimpl.EnumInfo, 1)
 var file_domain_link_v1_link_proto_msgTypes = make([]protoimpl.MessageInfo, 1)
 var file_domain_link_v1_link_proto_goTypes = []any{
-	(LinkEvent)(0),                // 0: domain.link.v1.LinkEvent
-	(*LinkProto)(nil),             // 1: domain.link.v1.LinkProto
-	(*timestamppb.Timestamp)(nil), // 2: google.protobuf.Timestamp
+	(*LinkProto)(nil),             // 0: domain.link.v1.LinkProto
+	(*timestamppb.Timestamp)(nil), // 1: google.protobuf.Timestamp
 }
 var file_domain_link_v1_link_proto_depIdxs = []int32{
-	2, // 0: domain.link.v1.LinkProto.created_at:type_name -> google.protobuf.Timestamp
-	2, // 1: domain.link.v1.LinkProto.updated_at:type_name -> google.protobuf.Timestamp
+	1, // 0: domain.link.v1.LinkProto.created_at:type_name -> google.protobuf.Timestamp
+	1, // 1: domain.link.v1.LinkProto.updated_at:type_name -> google.protobuf.Timestamp
 	2, // [2:2] is the sub-list for method output_type
 	2, // [2:2] is the sub-list for method input_type
 	2, // [2:2] is the sub-list for extension type_name
@@ -252,14 +167,13 @@ func file_domain_link_v1_link_proto_init() {
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: unsafe.Slice(unsafe.StringData(file_domain_link_v1_link_proto_rawDesc), len(file_domain_link_v1_link_proto_rawDesc)),
-			NumEnums:      1,
+			NumEnums:      0,
 			NumMessages:   1,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
 		GoTypes:           file_domain_link_v1_link_proto_goTypes,
 		DependencyIndexes: file_domain_link_v1_link_proto_depIdxs,
-		EnumInfos:         file_domain_link_v1_link_proto_enumTypes,
 		MessageInfos:      file_domain_link_v1_link_proto_msgTypes,
 	}.Build()
 	File_domain_link_v1_link_proto = out.File

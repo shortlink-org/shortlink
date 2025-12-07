@@ -1,6 +1,6 @@
 export default function Subscribe() {
   return (
-    <header className="bg-white dark:bg-gray-800 rounded border-t-4 border-indigo-500">
+    <header className="bg-gray-50 dark:bg-gray-800 rounded border-t-4 border-indigo-500">
       <div className="container px-6 py-16 mx-auto rounded">
         <div className="items-center lg:flex">
           <div className="w-full lg:w-1/2">
@@ -36,7 +36,7 @@ export default function Subscribe() {
                   <input
                     id="email"
                     type="email"
-                    className="px-4 py-2 text-gray-700 bg-white dark:bg-gray-800 border border-gray-300 w-64 h-10 flex items-center pl-12 rounded-lg dark:text-gray-300 dark:border-gray-600 focus:border-blue-500 dark:focus:border-blue-500 focus:outline-none focus:ring"
+                    className="px-4 py-2 text-gray-700 bg-white dark:bg-gray-900 border-2 border-gray-300 w-64 h-10 flex items-center pl-12 rounded-lg dark:text-gray-200 dark:border-gray-600 focus:border-indigo-500 dark:focus:border-indigo-500 focus:outline-none focus:ring-2 focus:ring-indigo-200 dark:focus:ring-indigo-800 transition-all duration-200"
                     placeholder="Enter your email"
                     required
                   />
@@ -44,7 +44,7 @@ export default function Subscribe() {
 
                 <button
                   type="button"
-                  className="w-full px-4 py-2 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-200 transform bg-indigo-500 rounded-lg lg:w-auto lg:mx-4 hover:bg-indigo-400 focus:outline-none focus:bg-indigo-400"
+                  className="w-full px-6 py-2.5 text-sm font-semibold tracking-wide text-white capitalize transition-all duration-200 transform bg-purple-700 dark:bg-indigo-500 rounded-lg lg:w-auto lg:mx-4 hover:bg-purple-800 dark:hover:bg-indigo-600 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 shadow-md hover:shadow-lg active:scale-95"
                 >
                   Subscribe
                 </button>

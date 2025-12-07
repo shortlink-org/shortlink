@@ -4,178 +4,253 @@ import Balancer from 'react-wrap-balancer'
 export default function Feature() {
   return (
     <>
-      <section className="container mx-auto px-6 p-10 dark:bg-gray-900">
-        <h2 className="text-4xl font-bold text-center text-gray-800 dark:text-white p-10">Features</h2>
-        <div className="flex items-center flex-wrap mb-20">
-          <div className="w-full md:w-1/2">
-            <h4 className="text-3xl text-gray-800 font-bold mb-3">URL Shortener</h4>
-            <p className="text-gray-600 mb-8">
-              Free custom URL Shortener with many features that gives you better quality for links shortening. We do not display ads during
-              direct redirecting to the original url.
-            </p>
+      {/* Main Features Section */}
+      <section className="container mx-auto px-4 sm:px-6 py-16 lg:py-24">
+        <div className="text-center mb-20">
+          <span className="inline-block px-4 py-2 mb-4 text-sm font-semibold text-purple-700 dark:text-purple-400 bg-purple-100 dark:bg-purple-900/30 rounded-full">
+            Features
+          </span>
+          <h2 className="text-4xl lg:text-6xl font-extrabold text-gray-900 dark:text-white mb-4">
+            Powerful Link Management
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+            Everything you need to create, manage, and track your short links
+          </p>
+        </div>
+
+        {/* Feature 1 - URL Shortener */}
+        <div className="flex items-center flex-wrap mb-20 lg:mb-32 group">
+          <div className="w-full lg:w-1/2 lg:pr-16 mb-12 lg:mb-0">
+            <div className="relative p-8 lg:p-10 bg-white dark:bg-gray-800 rounded-3xl shadow-sm hover:shadow-md transition-all duration-500 border border-gray-200 dark:border-gray-700 overflow-hidden group-hover:-translate-y-1">
+              <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-indigo-500/5 to-purple-500/5 rounded-full -mr-20 -mt-20 group-hover:scale-150 transition-transform duration-700" />
+              <div className="relative">
+                <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl mb-6 shadow-sm group-hover:scale-105 group-hover:rotate-3 transition-all duration-500">
+                  <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
+                  </svg>
+                </div>
+                <h4 className="text-3xl lg:text-4xl text-gray-900 dark:text-white font-bold mb-4">URL Shortener</h4>
+                <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed mb-6">
+                  Free custom URL Shortener with many features that gives you better quality for links shortening. We do not display ads during direct redirecting to the original url.
+                </p>
+                <div className="flex items-center text-indigo-600 dark:text-indigo-400 font-semibold group-hover:translate-x-2 transition-transform duration-300">
+                  <span>Learn more</span>
+                  <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </div>
+              </div>
+            </div>
           </div>
-          <div className="w-full md:w-1/2">
-            <img src="https://www.dropbox.com/s/mimcvn6zxtoruis/health.svg?raw=1" alt="Monitoring" />
+          <div className="w-full lg:w-1/2 flex justify-center">
+            <div className="relative group-hover:scale-102 transition-transform duration-500">
+              <div className="absolute -inset-4 bg-gradient-to-r from-indigo-500 to-purple-600 rounded-3xl blur-3xl opacity-10 group-hover:opacity-20 transition-opacity duration-500" />
+              <div className="relative bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950/30 dark:to-purple-950/30 rounded-3xl p-8 shadow-sm">
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="w-8 h-8 bg-indigo-500 rounded-lg mb-2" />
+                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2" />
+                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-1/2" />
+                  </div>
+                  <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow">
+                    <div className="w-8 h-8 bg-purple-500 rounded-lg mb-2" />
+                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-3/4 mb-2" />
+                    <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-1/2" />
+                  </div>
+                  <div className="bg-white dark:bg-gray-800 rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow col-span-2">
+                    <div className="flex items-center gap-2 mb-3">
+                      <div className="w-10 h-10 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-full" />
+                      <div className="flex-1">
+                        <div className="h-3 bg-gray-200 dark:bg-gray-700 rounded w-2/3 mb-1" />
+                        <div className="h-2 bg-gray-200 dark:bg-gray-700 rounded w-1/3" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-        <div className="flex items-center flex-wrap mb-20">
-          <div className="w-full md:w-1/2">
-            <img src="https://www.dropbox.com/s/hllo2ueo8zgi2tt/report.svg?raw=1" alt="Reporting" />
+
+        {/* Feature 2 - Reporting */}
+        <div className="flex items-center flex-wrap mb-16 lg:mb-24 flex-col-reverse lg:flex-row group">
+          <div className="w-full lg:w-1/2 flex justify-center mb-8 lg:mb-0">
+            <div className="relative group-hover:scale-105 transition-transform duration-300">
+              <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 rounded-2xl blur-2xl opacity-30 group-hover:opacity-50 transition-opacity" />
+              <img 
+                src="https://www.dropbox.com/s/hllo2ueo8zgi2tt/report.svg?raw=1" 
+                alt="Reporting"
+                className="relative rounded-2xl shadow-xl"
+              />
+            </div>
           </div>
-          <div className="w-full md:w-1/2 pl-10">
-            <h4 className="text-3xl text-gray-800 font-bold mb-3">Reporting</h4>
-            <p className="text-gray-600 mb-8">
-              Our shortlink service can generate a comprehensive report on your vitals depending on your settings either daily, weekly,
-              monthly, quarterly or yearly.
-            </p>
+          <div className="w-full lg:w-1/2 lg:pl-12">
+            <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-950 dark:to-pink-950 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-purple-100 dark:border-purple-800">
+              <div className="inline-block p-3 bg-purple-600 dark:bg-purple-500 rounded-xl mb-4 shadow-lg">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                </svg>
+              </div>
+              <h4 className="text-3xl lg:text-4xl text-gray-900 dark:text-white font-bold mb-4">Reporting</h4>
+              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                Our shortlink service can generate a comprehensive report on your vitals depending on your settings either daily, weekly, monthly, quarterly or yearly.
+              </p>
+            </div>
           </div>
         </div>
-        <div className="flex items-center flex-wrap mb-20">
-          <div className="w-full md:w-1/2">
-            <h4 className="text-3xl text-gray-800 font-bold mb-3">Syncing</h4>
-            <p className="text-gray-600 mb-8">
-              Our shortlink service allows you to sync data across all your mobile devices whether iOS, Android or Windows OS and also to
-              your laptop whether MacOS, GNU/LInux or Windows OS. This allows you to access your data from anywhere at any time.
-            </p>
+
+        {/* Feature 3 - Syncing */}
+        <div className="flex items-center flex-wrap group">
+          <div className="w-full lg:w-1/2 lg:pr-12 mb-8 lg:mb-0">
+            <div className="bg-gradient-to-br from-pink-50 to-rose-50 dark:from-pink-950 dark:to-rose-950 p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-pink-100 dark:border-pink-800">
+              <div className="inline-block p-3 bg-pink-600 dark:bg-pink-500 rounded-xl mb-4 shadow-lg">
+                <svg className="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                </svg>
+              </div>
+              <h4 className="text-3xl lg:text-4xl text-gray-900 dark:text-white font-bold mb-4">Syncing</h4>
+              <p className="text-lg text-gray-700 dark:text-gray-300 leading-relaxed">
+                Our shortlink service allows you to sync data across all your mobile devices whether iOS, Android or Windows OS and also to your laptop whether MacOS, GNU/Linux or Windows OS. This allows you to access your data from anywhere at any time.
+              </p>
+            </div>
           </div>
-          <div className="w-full md:w-1/2">
-            <img src="https://www.dropbox.com/s/v0x0ywlvgmw04z6/sync.svg?raw=1" alt="Syncing" />
+          <div className="w-full lg:w-1/2 flex justify-center">
+            <div className="relative group-hover:scale-105 transition-transform duration-300">
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-400 to-rose-400 rounded-2xl blur-2xl opacity-30 group-hover:opacity-50 transition-opacity" />
+              <img 
+                src="https://www.dropbox.com/s/v0x0ywlvgmw04z6/sync.svg?raw=1" 
+                alt="Syncing"
+                className="relative rounded-2xl shadow-xl"
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      <div className="py-12 bg-white dark:bg-gray-800 rounded my-3">
-        <section className="mx-auto container bg-white dark:bg-gray-800 pt-16">
-          <div className="px-4 lg:px-0">
-            <div role="contentinfo" className="flex items-center flex-col px-4">
-              <p className="focus:outline-none uppercase text-sm text-center text-gray-500 dark:text-gray-300 leading-none">
-                in few easy steps
-              </p>
-              <h1 className="focus:outline-none text-4xl lg:text-4xl pt-4 font-extrabold text-center leading-tight text-gray-800 dark:text-white lg:w-7/12 md:w-9/12 xl:w-5/12">
-                <Balancer>Create Beautiful Short Links &amp; Use a Powerful Link Management</Balancer>
-              </h1>
+      {/* Why Choose Us Section */}
+      <div className="py-16 lg:py-24 bg-gradient-to-br from-slate-50 via-white to-indigo-50 dark:from-gray-900 dark:via-gray-800 dark:to-indigo-950">
+        <section className="mx-auto container px-4 sm:px-6">
+          <div className="text-center mb-16">
+            <p className="uppercase text-sm font-semibold text-indigo-600 dark:text-indigo-400 tracking-wide mb-3">
+              in few easy steps
+            </p>
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold bg-gradient-to-r from-gray-900 to-gray-700 dark:from-white dark:to-gray-300 bg-clip-text text-transparent leading-tight max-w-4xl mx-auto">
+              <Balancer>Create Beautiful Short Links &amp; Use a Powerful Link Management</Balancer>
+            </h1>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
+            {/* Card 1 */}
+            <div className="group flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:-translate-y-2">
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-indigo-200 dark:bg-indigo-800 rounded-2xl rotate-6 group-hover:rotate-12 transition-transform" />
+                <div className="relative bg-gradient-to-br from-indigo-600 to-indigo-700 dark:from-indigo-500 dark:to-indigo-600 rounded-2xl w-20 h-20 flex items-center justify-center shadow-xl">
+                  <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/compact_heading_with_icon-SVG1.svg" alt="drawer" className="w-10 h-10" />
+                </div>
+              </div>
+              <h4 className="text-lg font-bold text-center text-gray-900 dark:text-white leading-snug">
+                We're a friendly, open source project that respects your privacy
+              </h4>
+            </div>
+
+            {/* Card 2 */}
+            <div className="group flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:-translate-y-2">
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-purple-200 dark:bg-purple-800 rounded-2xl rotate-6 group-hover:rotate-12 transition-transform" />
+                <div className="relative bg-gradient-to-br from-purple-600 to-purple-700 dark:from-purple-500 dark:to-purple-600 rounded-2xl w-20 h-20 flex items-center justify-center shadow-xl">
+                  <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/compact_heading_with_icon-SVG2.svg" alt="check" className="w-10 h-10" />
+                </div>
+              </div>
+              <h4 className="text-lg font-bold text-center text-gray-900 dark:text-white leading-snug">
+                Coded by Developers for Developers
+              </h4>
+            </div>
+
+            {/* Card 3 */}
+            <div className="group flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:-translate-y-2">
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-pink-200 dark:bg-pink-800 rounded-2xl rotate-6 group-hover:rotate-12 transition-transform" />
+                <div className="relative bg-gradient-to-br from-pink-600 to-pink-700 dark:from-pink-500 dark:to-pink-600 rounded-2xl w-20 h-20 flex items-center justify-center shadow-xl">
+                  <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/compact_heading_with_icon-SVG4.svg" alt="monitor" className="w-10 h-10" />
+                </div>
+              </div>
+              <h4 className="text-lg font-bold text-center text-gray-900 dark:text-white leading-snug">
+                We use cutting edge technologies to provide you with the best possible experience
+              </h4>
+            </div>
+
+            {/* Card 4 */}
+            <div className="group flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:-translate-y-2">
+              <div className="relative mb-6">
+                <div className="absolute inset-0 bg-rose-200 dark:bg-rose-800 rounded-2xl rotate-6 group-hover:rotate-12 transition-transform" />
+                <div className="relative bg-gradient-to-br from-rose-600 to-rose-700 dark:from-rose-500 dark:to-rose-600 rounded-2xl w-20 h-20 flex items-center justify-center shadow-xl">
+                  <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/compact_heading_with_icon-SVG3.svg" alt="html tag" className="w-10 h-10" />
+                </div>
+              </div>
+              <h4 className="text-lg font-bold text-center text-gray-900 dark:text-white leading-snug">
+                High Quality UI you can rely on us
+              </h4>
             </div>
           </div>
         </section>
-
-        <div className="pt-16">
-          <div className="max-w-8xl mx-auto container">
-            <div aria-label="group of cards" className="focus:outline-none flex flex-wrap items-center justify-center sm:justify-between">
-              <div aria-label="card 1" className="focus:outline-none flex flex-col items-center py-6 md:py-0 px-6 w-full sm:w-1/2 md:w-1/4">
-                <div className="w-20 h-20 relative ml-6">
-                  <div className="absolute top-0 right-0 bg-indigo-100 rounded w-16 h-16 mt-2 mr-1" />
-                  <div className="text-white absolute bottom-0 left-0 bg-indigo-700 rounded w-16 h-16 flex items-center justify-center mt-2 mr-3">
-                    <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/compact_heading_with_icon-SVG1.svg" alt="drawer" />
-                  </div>
-                </div>
-                <h4 className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5">
-                  We're a friendly, open source project that respects your privacy
-                </h4>
-              </div>
-              <div aria-label="card 2" className="focus:outline-none flex flex-col items-center py-6 md:py-0 px-6 w-full sm:w-1/2 md:w-1/4">
-                <div className="w-20 h-20 relative ml-6">
-                  <div className="absolute top-0 right-0 bg-indigo-100 rounded w-16 h-16 mt-2 mr-1" />
-                  <div className="text-white absolute bottom-0 left-0 bg-indigo-700 rounded w-16 h-16 flex items-center justify-center mt-2 mr-3">
-                    <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/compact_heading_with_icon-SVG2.svg" alt="check" />
-                  </div>
-                </div>
-                <h4 className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5">
-                  Coded by Developers
-                  <br />
-                  for Developers
-                </h4>
-              </div>
-              <div aria-label="card 4" className="focus:outline-none flex flex-col items-center py-6 md:py-0 px-6 w-full sm:w-1/2 md:w-1/4">
-                <div className="w-20 h-20 relative ml-6">
-                  <div className="absolute top-0 right-0 bg-indigo-100 rounded w-16 h-16 mt-2 mr-1" />
-                  <div className="text-white absolute bottom-0 left-0 bg-indigo-700 rounded w-16 h-16 flex items-center justify-center mt-2 mr-3">
-                    <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/compact_heading_with_icon-SVG4.svg" alt="monitor" />
-                  </div>
-                </div>
-                <h4 className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5">
-                  We use cutting edge technologies to provide you with the best possible experience
-                </h4>
-              </div>
-              <div aria-label="card 3" className="focus:outline-none flex flex-col items-center py-6 md:py-0 px-6 w-full sm:w-1/2 md:w-1/4">
-                <div className="w-20 h-20 relative ml-6">
-                  <div className="absolute top-0 right-0 bg-indigo-100 rounded w-16 h-16 mt-2 mr-1" />
-                  <div className="text-white absolute bottom-0 left-0 bg-indigo-700 rounded w-16 h-16 flex items-center justify-center mt-2 mr-3">
-                    <img src="https://tuk-cdn.s3.amazonaws.com/can-uploader/compact_heading_with_icon-SVG3.svg" alt="html tag" />
-                  </div>
-                </div>
-                <h4 className="focus:outline-none text-lg font-medium leading-6 text-gray-800 text-center pt-5">
-                  Hight Quality UI
-                  <br />
-                  you can rely on us
-                </h4>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
-      <div className="sm:flex flex-wrap justify-center items-center text-center gap-8">
-        <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 px-4 py-4 bg-white dark:bg-gray-800 mt-6  shadow-lg rounded-lg">
-          <div className="flex-shrink-0">
-            <div className="flex items-center mx-auto justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-              <svg
-                width="20"
-                height="20"
-                fill="currentColor"
-                className="h-6 w-6"
-                viewBox="0 0 1792 1792"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z" />
-              </svg>
+      {/* Services Section */}
+      <div className="container mx-auto px-4 sm:px-6 py-16 lg:py-24">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {/* Service 1 - Website Design */}
+          <div className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 hover:-translate-y-2">
+            <div className="p-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-600 rounded-2xl shadow-lg mb-6 group-hover:scale-110 transition-transform">
+                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-indigo-600 dark:group-hover:text-indigo-400 transition-colors">
+                Website Design
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Encompassing today's website design technology to integrated and build solutions relevant to your business.
+              </p>
             </div>
+            <div className="h-2 bg-gradient-to-r from-indigo-500 to-purple-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
           </div>
-          <h3 className="text-2xl sm:text-xl text-gray-700 font-semibold dark:text-white py-4">Website Design</h3>
-          <p className="text-md  text-gray-500 dark:text-gray-300 py-4">
-            Encompassing today’s website design technology to integrated and build solutions relevant to your business.
-          </p>
-        </div>
 
-        <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 px-4 py-4 mt-6 sm:mt-16 md:mt-20 lg:mt-24 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
-          <div className="flex-shrink-0">
-            <div className="flex items-center mx-auto justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-              <svg
-                width="20"
-                height="20"
-                fill="currentColor"
-                className="h-6 w-6"
-                viewBox="0 0 1792 1792"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z" />
-              </svg>
+          {/* Service 2 - Branding */}
+          <div className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 hover:-translate-y-2">
+            <div className="p-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl shadow-lg mb-6 group-hover:scale-110 transition-transform">
+                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20 6h-2.18c.11-.31.18-.65.18-1a2.996 2.996 0 00-5.5-1.65l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-purple-600 dark:group-hover:text-purple-400 transition-colors">
+                Branding
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Share relevant, engaging, and inspirational brand messages to create a connection with your audience.
+              </p>
             </div>
+            <div className="h-2 bg-gradient-to-r from-purple-500 to-pink-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
           </div>
-          <h3 className="text-2xl sm:text-xl text-gray-700 font-semibold dark:text-white py-4">Branding</h3>
-          <p className="text-md text-gray-500 dark:text-gray-300 py-4">
-            Share relevant, engaging, and inspirational brand messages to create a connection with your audience.
-          </p>
-        </div>
 
-        <div className="w-full sm:w-1/2 md:w-1/2 lg:w-1/4 mt-6  px-4 py-4 bg-white dark:bg-gray-800 shadow-lg rounded-lg">
-          <div className="flex-shrink-0">
-            <div className="flex items-center mx-auto justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
-              <svg
-                width="20"
-                height="20"
-                fill="currentColor"
-                className="h-6 w-6"
-                viewBox="0 0 1792 1792"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M491 1536l91-91-235-235-91 91v107h128v128h107zm523-928q0-22-22-22-10 0-17 7l-542 542q-7 7-7 17 0 22 22 22 10 0 17-7l542-542q7-7 7-17zm-54-192l416 416-832 832h-416v-416zm683 96q0 53-37 90l-166 166-416-416 166-165q36-38 90-38 53 0 91 38l235 234q37 39 37 91z" />
-              </svg>
+          {/* Service 3 - SEO Marketing */}
+          <div className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 hover:-translate-y-2">
+            <div className="p-8">
+              <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-pink-500 to-rose-600 rounded-2xl shadow-lg mb-6 group-hover:scale-110 transition-transform">
+                <svg className="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z" />
+                </svg>
+              </div>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-4 group-hover:text-pink-600 dark:group-hover:text-pink-400 transition-colors">
+                SEO Marketing
+              </h3>
+              <p className="text-gray-600 dark:text-gray-300 leading-relaxed">
+                Let us help you level up your search engine game, explore our solutions for digital marketing for your business.
+              </p>
             </div>
+            <div className="h-2 bg-gradient-to-r from-pink-500 to-rose-600 transform scale-x-0 group-hover:scale-x-100 transition-transform origin-left" />
           </div>
-          <h3 className="text-2xl sm:text-xl text-gray-700 font-semibold dark:text-white py-4">SEO Marketing</h3>
-          <p className="text-md  text-gray-500 dark:text-gray-300 py-4">
-            Let us help you level up your search engine game, explore our solutions for digital marketing for your business.
-          </p>
         </div>
       </div>
     </>

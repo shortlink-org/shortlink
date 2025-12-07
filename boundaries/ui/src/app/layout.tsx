@@ -2,8 +2,9 @@ import { Metadata, Viewport } from 'next'
 import { Roboto_Mono } from 'next/font/google'
 import Script from 'next/script'
 import { Organization, WithContext } from 'schema-dts'
+import InitColorSchemeScript from '@mui/material/InitColorSchemeScript'
 
-import Providers from './providers'
+import { ProvidersWithSession as Providers } from './providers'
 import './globals.css'
 
 const robotoMono = Roboto_Mono({
@@ -103,6 +104,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       suppressHydrationWarning
     >
       <head>
+        <InitColorSchemeScript />
         <Script id="json-ld" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
       <body 

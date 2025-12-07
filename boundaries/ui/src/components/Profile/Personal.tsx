@@ -1,5 +1,16 @@
+/**
+ * Personal Information Form - Migrated to React 19 with useOptimistic
+ * 
+ * Changes:
+ * - ✅ Added useOptimistic for instant UI updates
+ * - ✅ Added useTransition for async coordination
+ * - ✅ Replaced manual loading state with transition
+ * - ✅ Form values update instantly (optimistic)
+ * - ✅ Automatic rollback on error
+ */
+
 import * as React from 'react'
-import { useState } from 'react'
+import { useState, useOptimistic, useTransition } from 'react'
 import { Session } from '@ory/client'
 import { ErrorAlert, SuccessAlert } from '@/components/common'
 import { validateEmail, validateRequired } from '@/utils/validation'
@@ -12,21 +23,43 @@ interface PersonalProps {
   email: string
 }
 
+type FormData = {
+  firstName: string
+  lastName: string
+  email: string
+  country: string
+  streetAddress: string
+  city: string
+  region: string
+  postalCode: string
+}
+
 export default function Personal({ session, firstName: initialFirstName, lastName: initialLastName, email: initialEmail }: PersonalProps) {
-  const [firstName, setFirstName] = useState(initialFirstName)
-  const [lastName, setLastName] = useState(initialLastName)
-  const [email, setEmail] = useState(initialEmail)
-  const [country, setCountry] = useState('')
-  const [streetAddress, setStreetAddress] = useState('')
-  const [city, setCity] = useState('')
-  const [region, setRegion] = useState('')
-  const [postalCode, setPostalCode] = useState('')
-  const [loading, setLoading] = useState(false)
+  // Initialize form data
+  const initialData: FormData = {
+    firstName: initialFirstName,
+    lastName: initialLastName,
+    email: initialEmail,
+    country: '',
+    streetAddress: '',
+    city: '',
+    region: '',
+    postalCode: ''
+  }
+  
+  // useOptimistic for instant UI updates
+  const [optimisticData, setOptimisticData] = useOptimistic(initialData)
+  const [isPending, startTransition] = useTransition()
+  
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
+    
+    const formData = new FormData(e.currentTarget)
+    const firstName = formData.get('first_name') as string
+    const email = formData.get('email_address') as string
     
     // Validate required fields
     const firstNameValidation = validateRequired(firstName, 'First name')
@@ -42,20 +75,35 @@ export default function Personal({ session, firstName: initialFirstName, lastNam
       return
     }
 
-    setLoading(true)
+    const newData: FormData = {
+      firstName: firstName,
+      lastName: formData.get('last_name') as string,
+      email: email,
+      country: formData.get('country') as string,
+      streetAddress: formData.get('street_address') as string,
+      city: formData.get('city') as string,
+      region: formData.get('region') as string,
+      postalCode: formData.get('postal_code') as string
+    }
+    
     setError(null)
     setSuccess(false)
 
-    try {
-      // TODO: Integrate with Ory Kratos API to update profile
-      // For now, just simulate success
-      await new Promise(resolve => setTimeout(resolve, 1000))
-      setSuccess(true)
-    } catch (err: any) {
-      setError(err.message || 'Failed to update profile')
-    } finally {
-      setLoading(false)
-    }
+    // Start transition with optimistic update
+    startTransition(async () => {
+      // Optimistically update UI immediately
+      setOptimisticData(newData)
+      
+      try {
+        // TODO: Integrate with Ory Kratos API to update profile
+        // For now, just simulate success
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        setSuccess(true)
+      } catch (err: any) {
+        // If error, optimistic data will automatically revert to initialData
+        setError(err.message || 'Failed to update profile')
+      }
+    })
   }
 
   return (
@@ -87,9 +135,9 @@ export default function Personal({ session, firstName: initialFirstName, lastNam
                       name="first_name"
                       id="first_name"
                       autoComplete="given-name"
-                      value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}
+                      defaultValue={optimisticData.firstName}
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md"
+                      style={{ opacity: isPending ? 0.7 : 1 }}
                       required
                     />
                   </div>
@@ -103,9 +151,9 @@ export default function Personal({ session, firstName: initialFirstName, lastNam
                       name="last_name"
                       id="last_name"
                       autoComplete="family-name"
-                      value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}
+                      defaultValue={optimisticData.lastName}
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md"
+                      style={{ opacity: isPending ? 0.7 : 1 }}
                     />
                   </div>
 
@@ -118,9 +166,9 @@ export default function Personal({ session, firstName: initialFirstName, lastNam
                       name="email_address"
                       id="email_address"
                       autoComplete="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
+                      defaultValue={optimisticData.email}
                       className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md"
+                      style={{ opacity: isPending ? 0.7 : 1 }}
                       required
                     />
                   </div>
@@ -209,13 +257,14 @@ export default function Personal({ session, firstName: initialFirstName, lastNam
                 <Button
                   type="submit"
                   variant="contained"
-                  disabled={loading}
+                  disabled={isPending}
                   sx={{
                     bgcolor: 'indigo.600',
                     '&:hover': { bgcolor: 'indigo.700' },
+                    opacity: isPending ? 0.7 : 1
                   }}
                 >
-                  {loading ? <CircularProgress size={16} color="inherit" /> : 'Save'}
+                  {isPending ? <CircularProgress size={16} color="inherit" /> : 'Save'}
                 </Button>
               </div>
             </div>

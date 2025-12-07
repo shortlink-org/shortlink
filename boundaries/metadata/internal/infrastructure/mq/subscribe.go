@@ -47,13 +47,17 @@ func (e *Event) SubscribeLinkCreated(
 
 	go func() {
 		for msg := range messages {
-			// 1) Extract consumer context created by otelsarama
+			// 1) Get message context (contains consumer span created by otelsarama)
+			// otelsarama automatically extracts traceparent from Kafka RecordHeaders
+			// and creates a consumer span linked to the producer span
 			msgCtx := msg.Context()
 			if msgCtx == nil {
 				msgCtx = ctx
 			}
 
-			// 2) Extract producer span context from Kafka metadata and attach to message context
+			// 2) Extract trace context from message metadata
+			// This ensures proper parent-child relationship between producer and consumer spans
+			// shortwatermill.ExtractTrace handles the complete trace propagation
 			msgCtx = shortwatermill.ExtractTrace(msgCtx, msg)
 			msg.SetContext(msgCtx)
 
@@ -105,8 +109,7 @@ func (e *Event) SubscribeLinkCreated(
 				continue
 			}
 
-			// 7) Success
-			processSpan.SetStatus(otelcodes.Ok, "")
+			// 7) Success - span status remains Unset (OK by default)
 			processSpan.End()
 
 			msg.Ack()
