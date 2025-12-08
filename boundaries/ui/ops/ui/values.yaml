@@ -8,6 +8,27 @@ serviceAccount:
   create: true
 
 # ==============================================================================
+# HTTPRoute configuration (Gateway API)
+# When enabled, HTTPRoute will be used instead of Ingress
+httpRoute:
+  enabled: false
+  annotations: {}
+  parentRefs:
+    - name: external-gateway
+      namespace: shortlink-common
+  hostnames:
+    - shortlink.best
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /next
+      backendRefs:
+        - name: shortlink-link-ui
+          port: 8080
+
+# ==============================================================================
+# Ingress configuration (Legacy - kept for backward compatibility)
 ingress:
   enabled: true
   ingressClassName: nginx
