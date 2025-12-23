@@ -25,6 +25,27 @@ secret:
     -----END CERTIFICATE-----
 
 # ==============================================================================
+# HTTPRoute configuration (Gateway API)
+# When enabled, HTTPRoute will be used instead of Ingress
+httpRoute:
+  enabled: false
+  annotations: {}
+  parentRefs:
+    - name: external-gateway
+      namespace: shortlink-common
+  hostnames:
+    - shortlink.best
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /s
+      backendRefs:
+        - name: shortlink-link-proxy
+          port: 3020
+
+# ==============================================================================
+# Ingress configuration (Legacy - kept for backward compatibility)
 ingress:
   enabled: true
   ingressClassName: nginx
