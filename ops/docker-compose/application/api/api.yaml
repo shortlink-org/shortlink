@@ -54,7 +54,7 @@ services:
 
   prometheus:
     <<: *network
-    image: prom/prometheus:v3.8.0
+    image: prom/prometheus:v3.8.1
     profiles:
       - prometheus
     volumes:
