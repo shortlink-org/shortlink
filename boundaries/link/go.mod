@@ -7,7 +7,7 @@ require (
 	github.com/Masterminds/squirrel v1.5.5-0.20240227163215-1ded5784535d
 	github.com/ThreeDotsLabs/watermill v1.5.1
 	github.com/authzed/authzed-go v1.7.0
-	github.com/dgraph-io/badger/v4 v4.8.0
+	github.com/dgraph-io/badger/v4 v4.9.0
 	github.com/dgraph-io/dgo/v2 v2.2.0
 	github.com/go-redis/cache/v9 v9.0.0
 	github.com/golang-migrate/migrate/v4 v4.19.1
