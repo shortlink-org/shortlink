@@ -90,8 +90,8 @@ importers:
         specifier: ^3.0.5
         version: 3.0.5
       jspdf-autotable:
-        specifier: ^5.0.2
-        version: 5.0.2(jspdf@2.5.2)
+        specifier: ^5.0.7
+        version: 5.0.7(jspdf@2.5.2)
       localforage:
         specifier: 1.10.0
         version: 1.10.0
@@ -5363,10 +5363,10 @@ packages:
   jsonify@0.0.1:
     resolution: {integrity: sha512-2/Ki0GcmuqSrgFyelQq9M05y7PS0mEwuIzrf3f1fPqkVDVRvZrPZtVSMHxdgo8Aq0sxAOb/cr2aqqA3LeWHVPg==}
 
-  jspdf-autotable@5.0.2:
-    resolution: {integrity: sha512-YNKeB7qmx3pxOLcNeoqAv3qTS7KuvVwkFe5AduCawpop3NOkBUtqDToxNc225MlNecxT4kP2Zy3z/y/yvGdXUQ==}
+  jspdf-autotable@5.0.7:
+    resolution: {integrity: sha512-2wr7H6liNDBYNwt25hMQwXkEWFOEopgKIvR1Eukuw6Zmprm/ZcnmLTQEjW7Xx3FCbD3v7pflLcnMAv/h1jFDQw==}
     peerDependencies:
-      jspdf: ^2 || ^3
+      jspdf: ^2 || ^3 || ^4
 
   jspdf@2.5.2:
     resolution: {integrity: sha512-myeX9c+p7znDWPk0eTrujCzNjT+CXdXyk7YmJq5nD5V7uLLKmSXnlQ/Jn/kuo3X09Op70Apm0rQSnFWyGK8uEQ==}
@@ -13211,7 +13211,7 @@ snapshots:
 
   jsonify@0.0.1: {}
 
-  jspdf-autotable@5.0.2(jspdf@2.5.2):
+  jspdf-autotable@5.0.7(jspdf@2.5.2):
     dependencies:
       jspdf: 2.5.2
 
