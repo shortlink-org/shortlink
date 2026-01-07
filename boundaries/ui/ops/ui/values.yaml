@@ -19,8 +19,8 @@ httpRoute:
   rules:
     - matches:
         - path:
-            type: RegularExpression
-            value: /next(/|$)(.*)
+            type: PathPrefix
+            value: /next
       backendRefs:
         - name: shortlink-link-ui
           port: 8080

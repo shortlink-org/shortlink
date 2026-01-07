@@ -36,8 +36,8 @@ httpRoute:
   rules:
     - matches:
         - path:
-            type: RegularExpression
-            value: /s(/|$)(.*)
+            type: PathPrefix
+            value: /s
       backendRefs:
         - name: shortlink-link-proxy
           port: 3020
@@ -46,7 +46,7 @@ httpRoute:
           urlRewrite:
             path:
               type: ReplacePrefixMatch
-              replacePrefixMatch: /s/
+              replacePrefixMatch: /s
 
 # ==============================================================================
 deploy:
