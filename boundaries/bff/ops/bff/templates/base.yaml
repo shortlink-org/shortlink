@@ -6,4 +6,6 @@
 
 {{ include "shortlink-common.Service" . }}
 
+{{ include "shortlink-common.http_route" . }}
+
 {{ include "shortlink-common.NetworkPolicy" . }}
