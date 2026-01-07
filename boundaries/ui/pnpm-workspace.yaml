@@ -4,8 +4,13 @@ ignoredBuiltDependencies:
   - sharp
 
 onlyBuiltDependencies:
+  - '@firebase/util'
   - '@sentry/cli'
   - '@tailwindcss/oxide'
+  - core-js
   - cypress
+  - esbuild
+  - protobufjs
   - rollup
   - sharp
+  - tldjs

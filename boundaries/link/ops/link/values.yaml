@@ -25,18 +25,24 @@ secret:
     -----END CERTIFICATE-----
 
 # ==============================================================================
-# TODO: Setting route
-ingress:
+# GRPCRoute configuration
+grpcRoute:
   enabled: true
-  # type ingress-controller: istio, cilium, nginx
-  ingressClassName: istio
-  istio:
-    match:
-      - uri:
-          prefix: /infrastructure.rpc.link.v1.LinkService/
-    route:
-      destination:
-        port: 50051
+  parentRefs:
+    - name: internal-gateway
+  rules:
+    - matches:
+        - method:
+            service: infrastructure.rpc.link.v1.LinkService
+      backendRefs:
+        - name: shortlink-link
+          port: 50051
+    - matches:
+        - method:
+            service: grpc.reflection.v1.ServerReflection
+      backendRefs:
+        - name: shortlink-link
+          port: 50051
 
 # ==============================================================================
 deploy:
