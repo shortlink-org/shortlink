@@ -25,22 +25,28 @@ secret:
     -----END CERTIFICATE-----
 
 # ==============================================================================
-ingress:
+httpRoute:
   enabled: true
-  ingressClassName: nginx
-  annotations:
-    cert-manager.io/cluster-issuer: cert-manager-production
-    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-    nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
-    nginx.ingress.kubernetes.io/rewrite-target: /s/$2
-    nginx.ingress.kubernetes.io/use-regex: "true"
-
-  hostname: shortlink.best
-  paths:
-    - path: /s(/|$)(.*)
-      service:
-        name: shortlink-link-proxy
-        port: 3020
+  parentRefs:
+    - name: external-gateway
+      namespace: istio-ingress
+      sectionName: https
+  hostnames:
+    - shortlink.best
+  rules:
+    - matches:
+        - path:
+            type: RegularExpression
+            value: /s(/|$)(.*)
+      backendRefs:
+        - name: shortlink-link-proxy
+          port: 3020
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /s/
 
 # ==============================================================================
 deploy:

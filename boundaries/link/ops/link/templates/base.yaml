@@ -4,7 +4,7 @@
 
 {{ include "shortlink-common.Deployment" . }}
 
-{{ include "shortlink-common.GRPCRoute" . }}
+{{ include "shortlink-common.grpc_route" . }}
 
 {{ include "shortlink-common.Service" . }}
 

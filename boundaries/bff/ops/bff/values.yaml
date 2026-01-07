@@ -8,22 +8,28 @@ serviceAccount:
   create: true
 
 # ==============================================================================
-ingress:
+httpRoute:
   enabled: true
-  # type ingress-controller: nginx, istio, cilium
-  ingressClassName: nginx
-
-  annotations:
-    cert-manager.io/cluster-issuer: cert-manager-production
-    nginx.ingress.kubernetes.io/enable-owasp-core-rules: "true"
-    nginx.ingress.kubernetes.io/enable-opentelemetry: "true"
-
-  hostname: shortlink.best
-  paths:
-    - path: /api(/|$)(.*)
-      service:
-        name: shortlink-link-bff
-        port: 7070
+  parentRefs:
+    - name: external-gateway
+      namespace: istio-ingress
+      sectionName: https
+  hostnames:
+    - shortlink.best
+  rules:
+    - matches:
+        - path:
+            type: RegularExpression
+            value: /api(/|$)(.*)
+      backendRefs:
+        - name: shortlink-link-bff
+          port: 7070
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
 
 # ==============================================================================
 deploy:
@@ -142,7 +148,7 @@ networkPolicy:
     - from:
         - namespaceSelector:
             matchLabels:
-              kubernetes.io/metadata.name: shortlink  # Allow ingress from 'shortlink' namespace
+              kubernetes.io/metadata.name: shortlink # Allow ingress from 'shortlink' namespace
         - namespaceSelector:
             matchLabels:
               kubernetes.io/metadata.name: istio-system

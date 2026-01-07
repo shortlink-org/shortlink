@@ -8,27 +8,28 @@ serviceAccount:
   create: true
 
 # ==============================================================================
-ingress:
+httpRoute:
   enabled: true
-  ingressClassName: nginx
-  annotations:
-    cert-manager.io/cluster-issuer: cert-manager-production
-    nginx.ingress.kubernetes.io/enable-owasp-core-rules: 'true'
-    nginx.ingress.kubernetes.io/enable-opentelemetry: 'true'
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
-    nginx.ingress.kubernetes.io/use-regex: 'true'
-
-  hostname: shortlink.best
-  paths:
-    - path: /next(/|$)(.*)
-      service:
-        name: shortlink-link-ui
-        port: 8080
-
-  tls:
-    - secretName: landing-tls
-      hosts:
-        - shortlink.best
+  parentRefs:
+    - name: external-gateway
+      namespace: istio-ingress
+      sectionName: https
+  hostnames:
+    - shortlink.best
+  rules:
+    - matches:
+        - path:
+            type: RegularExpression
+            value: /next(/|$)(.*)
+      backendRefs:
+        - name: shortlink-link-ui
+          port: 8080
+      filters:
+        - type: URLRewrite
+          urlRewrite:
+            path:
+              type: ReplacePrefixMatch
+              replacePrefixMatch: /
 
 deploy:
   replicaCount: 1

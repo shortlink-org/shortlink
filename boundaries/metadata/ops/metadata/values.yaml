@@ -25,19 +25,18 @@ secret:
     -----END CERTIFICATE-----
 
 # ==============================================================================
-ingress:
+grpcRoute:
   enabled: true
-  # type ingress-controller: istio
-  ingressClassName: istio
-
-  istio:
-    match:
-      - uri:
-          prefix: /infrastructure.rpc.metadata.v1.MetadataService/
-
-    route:
-      destination:
-        port: 50051
+  parentRefs:
+    - name: external-gateway
+      namespace: istio-ingress
+  rules:
+    - matches:
+        - method:
+            service: infrastructure.rpc.metadata.v1.MetadataService
+      backendRefs:
+        - name: shortlink-link-metadata
+          port: 50051
 
 # ==============================================================================
 deploy:
