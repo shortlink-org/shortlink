@@ -23,6 +23,6 @@ jobs:
           egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
 
       - uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
-      - uses: fossas/fossa-action@47e40022a8733be19f15bb8467c828ee8991f83e # main # Use a specific version if locking is preferred
+      - uses: fossas/fossa-action@ba7c3dfb1bf67d00ed62e6f182274062c80e3c04 # main # Use a specific version if locking is preferred
         with:
           api-key: ${{secrets.FOSSA_API_KEY}}
