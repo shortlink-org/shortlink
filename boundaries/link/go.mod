@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/boundaries/link
 
-go 1.25.5
+go 1.25.6
 
 require (
 	github.com/IBM/sarama v1.46.3
