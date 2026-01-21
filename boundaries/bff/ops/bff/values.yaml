@@ -24,12 +24,6 @@ httpRoute:
       backendRefs:
         - name: shortlink-link-bff
           port: 7070
-      filters:
-        - type: URLRewrite
-          urlRewrite:
-            path:
-              type: ReplacePrefixMatch
-              replacePrefixMatch: /
 
 # ==============================================================================
 deploy:
