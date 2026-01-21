@@ -30,6 +30,7 @@ grpcRoute:
   enabled: true
   parentRefs:
     - name: internal-gateway
+      namespace: istio-ingress
   rules:
     - matches:
         - method:
