@@ -5,7 +5,7 @@ go 1.25.6
 require (
 	buf.build/gen/go/shortlink-org/shortlink-link-link/grpc/go v1.6.0-20251128130903-01e2641aede0.1
 	buf.build/gen/go/shortlink-org/shortlink-link-link/protocolbuffers/go v1.36.11-20251128130903-01e2641aede0.1
-	github.com/go-chi/chi/v5 v5.2.3
+	github.com/go-chi/chi/v5 v5.2.4
 	github.com/go-chi/cors v1.2.2
 	github.com/go-chi/render v1.0.3
 	github.com/google/wire v0.7.0
