@@ -31,8 +31,12 @@ deploy:
 
   env:
     TRACER_URI: grafana-tempo.grafana:4317
+
     GRPC_CLIENT_HOST: internal-gateway-istio.istio-ingress.svc.cluster.local
     GRPC_CLIENT_TIMEOUT: 15s
+    GRPC_CLIENT_TLS_ENABLED: "true"
+    GRPC_CLIENT_CERT_PATH: /etc/grpc/ca/ca.crt
+
     AUTH_URI: https://shortlink.best/api/auth
     SPICE_DB_API: shortlink.spicedb-operator:50051
     SPICE_DB_TIMEOUT: 5s
