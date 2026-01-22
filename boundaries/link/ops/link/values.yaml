@@ -83,8 +83,10 @@ deploy:
 
     TRACER_URI: grafana-tempo.grafana:4317
 
-    GRPC_CLIENT_HOST: internal-gateway.istio-ingress.svc.cluster.local
+    GRPC_CLIENT_HOST: internal-gateway-istio.istio-ingress.svc.cluster.local
     GRPC_CLIENT_TIMEOUT: 15s
+    GRPC_CLIENT_TLS_ENABLED: "true"
+    GRPC_CLIENT_CERT_PATH: /etc/grpc/ca/ca.crt
 
     SPICE_DB_TIMEOUT: 5s
 
@@ -111,6 +113,16 @@ deploy:
     httpGet:
       path: /ready
       port: 9090
+
+  volumes:
+    - name: grpc-ca
+      type: configMap
+      configMapName: root-ca-bundle
+      mountPath: /etc/grpc/ca
+      readOnly: true
+      items:
+        - key: ca.crt
+          path: ca.crt
 
 service:
   type: ClusterIP
