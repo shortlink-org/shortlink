@@ -113,6 +113,16 @@ deploy:
       drop:
         - ALL
 
+  volumes:
+    - name: grpc-ca
+      type: configMap
+      configMapName: root-ca-bundle
+      mountPath: /etc/grpc/ca
+      readOnly: true
+      items:
+        - key: ca.crt
+          path: ca.crt
+
 service:
   type: ClusterIP
   ports:
