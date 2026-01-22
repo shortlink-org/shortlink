@@ -43,6 +43,15 @@
             "WATERMILL_KAFKA_CLIENT_ID": {
               "type": "string"
             },
+            "WATERMILL_KAFKA_SARAMA_VERSION": {
+              "type": "string"
+            },
+            "WATERMILL_KAFKA_PRODUCER_COMPRESSION": {
+              "type": "string"
+            },
+            "WATERMILL_KAFKA_PRODUCER_IDEMPOTENT": {
+              "type": "boolean"
+            },
             "WATERMILL_DLQ_ENABLED": {
               "type": "boolean"
             },
