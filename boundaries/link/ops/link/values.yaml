@@ -86,7 +86,7 @@ deploy:
     GRPC_CLIENT_HOST: istio-ingress.istio-ingress
     GRPC_CLIENT_TIMEOUT: 15s
 
-    SPICE_DB_API: shortlink.spicedb-operator:50051
+    SPICE_DB_API: shortlink.spicedb-operator.svc.cluster.local:50051
     SPICE_DB_TIMEOUT: 5s
 
     # -- Default store config
