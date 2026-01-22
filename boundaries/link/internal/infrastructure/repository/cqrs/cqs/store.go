@@ -57,9 +57,9 @@ func (s *Store) LinkDelete(ctx context.Context, id string) error {
 	return s.store.LinkDelete(ctx, id)
 }
 
-// Func (s *Store) MetadataUpdate(ctx context.Context, data *metadata.Meta) (*metadata.Meta, error) {
-// 	return s.store.MetadataUpdate(ctx, data)
-// }
+func (s *Store) MetadataUpdate(ctx context.Context, url, imageURL, description, keywords string) error {
+	return s.store.MetadataUpdate(ctx, url, imageURL, description, keywords)
+}
 
 // setConfig - set configuration
 func (s *Store) setConfig() {

@@ -13,8 +13,7 @@ type Repository interface {
 	LinkAdd(ctx context.Context, data *v1.Link) (*v1.Link, error)
 	LinkUpdate(ctx context.Context, data *v1.Link) (*v1.Link, error)
 	LinkDelete(ctx context.Context, id string) error
-
-	// MetadataUpdate(ctx context.Context, data *v12.Meta) (*v12.Meta, error)
+	MetadataUpdate(ctx context.Context, url, imageURL, description, keywords string) error
 }
 
 // Store abstract type

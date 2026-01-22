@@ -103,6 +103,11 @@ deploy:
       cpu: 10m
       memory: 32Mi
 
+  volumes:
+    - name: tmp
+      mountPath: /tmp
+      type: emptyDir
+
   podSecurityContext:
     # -- fsGroup is the group ID associated with the container
     fsGroup: 1000

@@ -27,6 +27,10 @@ func (s *Service) EventHandlers(ctx context.Context) error {
 		return err
 	}
 
+	if err := s.subscribeToMetadataExtracted(ctx); err != nil {
+		return err
+	}
+
 	return nil
 }
 

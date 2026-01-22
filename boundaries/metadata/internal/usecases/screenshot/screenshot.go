@@ -36,13 +36,21 @@ func (s *UC) Get(ctx context.Context, linkURL string) (*url.URL, error) {
 }
 
 func (s *UC) Set(ctx context.Context, linkURL string) error {
-	chromedp.UserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4585.0 Safari/537.36")
-
 	// Add timeout for screenshot operation (30 seconds)
 	screenshotCtx, cancel := context.WithTimeout(ctx, 30*time.Second)
 	defer cancel()
 
-	newCtx, cancelChrome := chromedp.NewContext(screenshotCtx)
+	allocatorOpts := append(chromedp.DefaultExecAllocatorOptions[:],
+		chromedp.Flag("disable-gpu", true),
+		chromedp.Flag("disable-dev-shm-usage", true),
+		chromedp.Flag("no-sandbox", true),
+		chromedp.Flag("user-data-dir", "/tmp/chromedp"),
+	)
+
+	allocCtx, cancelAlloc := chromedp.NewExecAllocator(screenshotCtx, allocatorOpts...)
+	defer cancelAlloc()
+
+	newCtx, cancelChrome := chromedp.NewContext(allocCtx)
 	defer cancelChrome()
 
 	// capture screenshot of an element
@@ -63,6 +71,7 @@ func (s *UC) Set(ctx context.Context, linkURL string) error {
 // elementScreenshot takes a screenshot of a specific element.
 func elementScreenshot(urlstr string, res *[]byte) chromedp.Tasks {
 	return chromedp.Tasks{
+		chromedp.UserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4585.0 Safari/537.36"),
 		chromedp.EmulateViewport(defaultWidth, defaultHeight),
 		chromedp.Navigate(urlstr),
 		chromedp.WaitVisible("body", chromedp.ByQuery), // Wait for page to load

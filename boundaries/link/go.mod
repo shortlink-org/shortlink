@@ -37,6 +37,7 @@ require (
 	github.com/shortlink-org/go-sdk/saga v0.0.0-20251203170842-4c6548ea718b
 	github.com/shortlink-org/go-sdk/specification v0.0.0-20251203170842-4c6548ea718b
 	github.com/shortlink-org/go-sdk/watermill v0.0.0-20251203170842-4c6548ea718b
+	github.com/shortlink-org/shortlink/boundaries/metadata v0.0.0
 	github.com/spf13/viper v1.21.0
 	github.com/stretchr/testify v1.11.1
 	github.com/syndtr/goleveldb v1.0.1-0.20220721030215-126854af5e6d
@@ -129,7 +130,7 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/johejo/golang-migrate-extra v0.0.0-20211005021153-c17dd75f8b4a // indirect
 	github.com/jzelinskie/stringz v0.0.3 // indirect
-	github.com/klauspost/compress v1.18.1 // indirect
+	github.com/klauspost/compress v1.18.2 // indirect
 	github.com/lann/builder v0.0.0-20180802200727-47ae307949d0 // indirect
 	github.com/lann/ps v0.0.0-20150810152359-62de8c46ede0 // indirect
 	github.com/lithammer/shortuuid/v3 v3.0.7 // indirect
@@ -236,6 +237,8 @@ require (
 	modernc.org/memory v1.11.0 // indirect
 	modernc.org/sqlite v1.38.2 // indirect
 )
+
+replace github.com/shortlink-org/shortlink/boundaries/metadata => ../metadata
 
 tool (
 	github.com/google/wire/cmd/wire

@@ -102,7 +102,7 @@ func (api *Server) run(config Config) error {
 			LinkQueryServiceClient:   config.Link_query,
 		},
 		SitemapController: sitemap.SitemapController{
-			// SitemapServiceClient: config.Sitemap_rpc,
+			SitemapServiceClient: config.Sitemap_rpc,
 		},
 	}
 

@@ -70,7 +70,15 @@ EXPOSE 50051 9090
 # Install dependencies
 RUN \
   apk update && \
-  apk add --no-cache curl tini
+  apk add --no-cache \
+    ca-certificates \
+    curl \
+    chromium \
+    freetype \
+    harfbuzz \
+    nss \
+    tini \
+    ttf-freefont
 
 RUN addgroup -S golang && adduser -S -g golang golang
 
