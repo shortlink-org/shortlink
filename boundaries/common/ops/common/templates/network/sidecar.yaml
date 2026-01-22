@@ -11,4 +11,5 @@ spec:
       - "istio-ingress/*"  # istio-ingress services
       - "grafana/*"        # grafana services
       - "kafka/*"          # kafka services (Strimzi)
+      - "spicedb-operator/*" # authz services
 {{ end -}}
