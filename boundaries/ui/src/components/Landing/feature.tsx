@@ -139,7 +139,7 @@ export default function Feature() {
             </h1>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 px-4">
+          <div className="cq-steps grid gap-8 px-4">
             {/* Card 1 */}
             <div className="group flex flex-col items-center p-6 bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 border border-gray-100 dark:border-gray-700 hover:-translate-y-2">
               <div className="relative mb-6">
@@ -197,7 +197,7 @@ export default function Feature() {
 
       {/* Services Section */}
       <div className="container mx-auto px-4 sm:px-6 py-16 lg:py-24">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="cq-services grid gap-8">
           {/* Service 1 - Website Design */}
           <div className="group bg-white dark:bg-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 dark:border-gray-700 hover:-translate-y-2">
             <div className="p-8">

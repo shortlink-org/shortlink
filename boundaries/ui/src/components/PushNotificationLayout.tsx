@@ -3,7 +3,7 @@
 import { getMessaging, onMessage } from 'firebase/messaging'
 import React, { useEffect } from 'react'
 import 'firebase/compat/messaging'
-import { ToastContainer, toast } from 'react-toastify'
+import { toast } from 'sonner'
 import { useRouter } from 'next/navigation'
 
 import { firebaseCloudMessaging } from '../config/firebase.config'
@@ -54,22 +54,23 @@ function PushNotificationLayout({ children }: { children: React.ReactNode }) {
     const messaging = getMessaging()
 
     onMessage(messaging, (payload) => {
-      toast(
-        /* @ts-ignore */
-        <div onClick={() => handleClickPushNotification(payload?.data?.url)}>
-          <h5>{payload?.notification?.title}</h5>
-          <h6>{payload?.notification?.body}</h6>
-        </div>,
-        {
-          closeOnClick: false,
-        },
-      )
+      const title = payload?.notification?.title ?? 'New notification'
+      const description = payload?.notification?.body
+      const url = payload?.data?.url
+
+      toast(title, {
+        description,
+        action: url ? (
+          <button type="button" onClick={() => handleClickPushNotification(url)}>
+            Open
+          </button>
+        ) : undefined,
+      })
     })
   }
 
   return (
     <>
-      <ToastContainer key="ToastContainer" stacked draggable />
       {children}
     </>
   )

@@ -134,3 +134,225 @@ textarea,
 select {
   text-wrap: pretty;
 }
+
+@layer components {
+  .cq-hero {
+    container: hero / inline-size;
+  }
+
+  .cq-hero__grid {
+    display: grid;
+    gap: clamp(1.5rem, 4cqi, 3.5rem);
+    align-items: center;
+  }
+
+  .cq-hero__content {
+    padding-block: clamp(1.5rem, 6cqi, 4.5rem);
+  }
+
+  .cq-hero__body {
+    text-align: center;
+    max-width: 42rem;
+    margin-inline: auto;
+  }
+
+  .cq-hero__title {
+    font-size: clamp(2rem, 1.1rem + 4.6cqi, 4.2rem);
+    line-height: 1.05;
+  }
+
+  .cq-hero__lead {
+    font-size: clamp(0.95rem, 0.55rem + 1.9cqi, 1.25rem);
+  }
+
+  .cq-hero__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: clamp(0.75rem, 2.2cqi, 1.25rem);
+  }
+
+  .cq-hero__actions > a {
+    width: 100%;
+  }
+
+  .cq-hero__media {
+    border-radius: 1.5rem;
+    overflow: hidden;
+    box-shadow: 0 25px 70px -40px rgb(15 23 42 / 0.4);
+  }
+
+  .cq-hero__image {
+    width: 100%;
+    height: 100%;
+    min-height: clamp(12rem, 28cqi, 22rem);
+    object-fit: cover;
+  }
+
+  .cq-hero__divider {
+    display: none;
+  }
+
+  @container hero (min-width: 52rem) {
+    .cq-hero__grid {
+      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+    }
+
+    .cq-hero__body {
+      text-align: left;
+      margin-inline: 0;
+    }
+
+    .cq-hero__actions {
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .cq-hero__actions > a {
+      width: auto;
+    }
+
+    .cq-hero__divider {
+      display: block;
+    }
+  }
+
+  .cq-mobile {
+    container: mobile / inline-size;
+  }
+
+  .cq-mobile__grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: clamp(1.5rem, 5cqi, 3rem);
+  }
+
+  .cq-mobile__content {
+    text-align: center;
+    max-width: 36rem;
+  }
+
+  .cq-mobile__title {
+    font-size: clamp(1.5rem, 1.2rem + 1.8cqi, 2.25rem);
+  }
+
+  .cq-mobile__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    justify-content: center;
+  }
+
+  @container mobile (min-width: 46rem) {
+    .cq-mobile__grid {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .cq-mobile__content {
+      text-align: left;
+    }
+
+    .cq-mobile__actions {
+      justify-content: flex-end;
+    }
+  }
+
+  .cq-subscribe {
+    container: subscribe / inline-size;
+  }
+
+  .cq-subscribe__grid {
+    display: grid;
+    gap: clamp(1.5rem, 6cqi, 3.5rem);
+    align-items: center;
+  }
+
+  .cq-subscribe__content {
+    text-align: center;
+  }
+
+  .cq-subscribe__title {
+    font-size: clamp(1.5rem, 1.1rem + 2.4cqi, 2.4rem);
+    line-height: 1.2;
+  }
+
+  .cq-subscribe__form {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    align-items: stretch;
+  }
+
+  .cq-subscribe__input {
+    width: 100%;
+    max-width: clamp(16rem, 55cqi, 22rem);
+  }
+
+  .cq-subscribe__button {
+    width: 100%;
+  }
+
+  .cq-subscribe__media {
+    display: flex;
+    justify-content: center;
+  }
+
+  @container subscribe (min-width: 32rem) {
+    .cq-subscribe__form {
+      flex-direction: row;
+      align-items: center;
+    }
+
+    .cq-subscribe__button {
+      width: auto;
+    }
+  }
+
+  @container subscribe (min-width: 52rem) {
+    .cq-subscribe__grid {
+      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+    }
+
+    .cq-subscribe__content {
+      text-align: left;
+    }
+  }
+
+  .cq-steps {
+    container: steps / inline-size;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @container steps (min-width: 36rem) {
+    .cq-steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @container steps (min-width: 64rem) {
+    .cq-steps {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .cq-services {
+    container: services / inline-size;
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  @container services (min-width: 40rem) {
+    .cq-services {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @container services (min-width: 64rem) {
+    .cq-services {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+}

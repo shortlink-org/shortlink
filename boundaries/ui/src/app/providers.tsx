@@ -10,7 +10,7 @@ import { Provider as BalancerProvider } from 'react-wrap-balancer'
 import { Provider } from 'react-redux'
 import { ThemeProvider as NextThemeProvider, useTheme } from 'next-themes'
 
-import 'react-toastify/dist/ReactToastify.css'
+import { Toaster } from 'sonner'
 
 import { Layout } from '@/components'
 import { SessionWrapper } from '@/components/SessionWrapper'
@@ -107,7 +107,10 @@ export function Providers({ children, ..._props }: { children: React.ReactNode; 
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Layout>
               <BalancerProvider>
-                <Provider store={store}>{children}</Provider>
+                <Provider store={store}>
+                  {children}
+                  <Toaster />
+                </Provider>
               </BalancerProvider>
             </Layout>
           </LocalizationProvider>

@@ -1,14 +1,14 @@
 export default function MobileApps() {
   return (
-    <section className="text-gray-600 dark:text-gray-300 body-font">
-      <div className="container px-5 py-24 mx-auto flex items-center md:flex-row flex-col">
-        <div className="flex flex-col md:pr-10 md:mb-0 mb-6 pr-0 w-full md:w-auto md:text-left text-center">
+    <section className="text-gray-600 dark:text-gray-300 body-font cq-mobile">
+      <div className="container px-5 py-24 mx-auto cq-mobile__grid">
+        <div className="cq-mobile__content">
           <h2 className="text-xs text-indigo-500 dark:text-indigo-300 tracking-widest font-medium title-font mb-1">Mobile version</h2>
-          <h1 className="md:text-3xl text-2xl font-medium title-font text-gray-900 dark:text-gray-100">
+          <h1 className="cq-mobile__title font-medium title-font text-gray-900 dark:text-gray-100">
             Shortlink service for mobile devices
           </h1>
         </div>
-        <div className="flex md:ml-auto md:mr-0 mx-auto items-center flex-shrink-0 space-x-4">
+        <div className="cq-mobile__actions">
           <button
             type="button"
             className="group bg-white dark:bg-gray-800 border-2 border-gray-300 dark:border-gray-600 hover:border-indigo-500 dark:hover:border-indigo-400 inline-flex py-3 px-5 rounded-xl items-center shadow-md hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"

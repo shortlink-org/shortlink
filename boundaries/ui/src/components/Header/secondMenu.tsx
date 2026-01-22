@@ -46,8 +46,8 @@ export default function Example() {
               as="div"
               // ...
             >
-              <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-sm -translate-x-1/2 transform px-4 sm:px-0 lg:max-w-3xl">
-                <div className="overflow-hidden rounded-lg shadow-lg ring-1 ring-black ring-opacity-5">
+              <Popover.Panel className="absolute left-1/2 z-10 mt-3 w-screen max-w-sm -translate-x-1/2 transform overflow-hidden rounded-lg bg-white/95 shadow-lg ring-1 ring-black ring-opacity-5 backdrop-blur dark:bg-gray-800/95 px-4 sm:px-0 lg:max-w-3xl">
+                <div>
                   <div className="relative grid gap-8 bg-white dark:bg-gray-800 p-7 lg:grid-cols-2">
                     {solutions.map((item) => (
                       <Link key={item.href} href={item.href}>
