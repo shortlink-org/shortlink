@@ -10,4 +10,5 @@ spec:
       - "istio-system/*"   # istio-system services
       - "istio-ingress/*"  # istio-ingress services
       - "grafana/*"        # grafana services
+      - "kafka/*"          # kafka services (Strimzi)
 {{ end -}}
