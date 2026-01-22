@@ -18,11 +18,11 @@ CREATE EXTENSION IF NOT EXISTS pg_partman SCHEMA partman;
 
 -- Create parent table with pg_partman using 'native' partitioning
 SELECT partman.create_parent(
-    p_parent_table => 'link.links_partitioned_by_created_at',
-    p_control => 'created_at'::text,
-    p_type => 'native', -- 'native' or 'range'
-    p_interval => '1 day',
-    p_template_table => 'link.links_partitioned_by_created_at'
+  p_control         => 'created_at',
+  p_type            => 'range',
+  p_interval        => '1 day',
+  p_premake         => 7
+  p_parent_table    => 'link.links_partitioned_by_created_at',
 );
 
 -- Update retention policy
