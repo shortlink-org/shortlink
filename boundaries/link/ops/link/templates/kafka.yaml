@@ -2,7 +2,7 @@
 ---
 # LinkCreated event topic - canonical name: link.link.created.v1
 # Follows ADR-0002 canonical event naming standard
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaTopic
 metadata:
   name: link.link.created.v1
@@ -18,7 +18,7 @@ spec:
 ---
 # LinkUpdated event topic - canonical name: link.link.updated.v1
 # Follows ADR-0002 canonical event naming standard
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaTopic
 metadata:
   name: link.link.updated.v1
@@ -34,7 +34,7 @@ spec:
 ---
 # LinkDeleted event topic - canonical name: link.link.deleted.v1
 # Follows ADR-0002 canonical event naming standard
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaTopic
 metadata:
   name: link.link.deleted.v1

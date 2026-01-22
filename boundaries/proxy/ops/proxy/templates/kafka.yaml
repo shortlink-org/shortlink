@@ -1,7 +1,7 @@
 {{- if and .Values.deploy.env.MQ_ENABLED (eq .Values.deploy.env.MQ_TYPE "kafka") }}
 # Kafka topic for LinkRedirected event
 # Canonical name: link.link.redirected.v1 (see LinkEventTopics.REDIRECTED in domain/event.ts)
-apiVersion: kafka.strimzi.io/v1beta2
+apiVersion: kafka.strimzi.io/v1
 kind: KafkaTopic
 metadata:
   name: link.link.redirected.v1
