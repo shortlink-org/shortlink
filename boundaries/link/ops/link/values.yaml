@@ -83,10 +83,9 @@ deploy:
 
     TRACER_URI: grafana-tempo.grafana:4317
 
-    GRPC_CLIENT_HOST: istio-ingress.istio-ingress
+    GRPC_CLIENT_HOST: internal-gateway.istio-ingress.svc.cluster.local
     GRPC_CLIENT_TIMEOUT: 15s
 
-    SPICE_DB_API: istio-ingress.istio-ingress:50051
     SPICE_DB_TIMEOUT: 5s
 
     # -- Default store config
