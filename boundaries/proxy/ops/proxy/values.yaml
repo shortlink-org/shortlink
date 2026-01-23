@@ -47,6 +47,11 @@ httpRoute:
             path:
               type: ReplacePrefixMatch
               replacePrefixMatch: /s
+        - type: ResponseHeaderModifier
+          responseHeaderModifier:
+            add:
+              - name: No-Vary-Search
+                value: 'key-order, params=("utm_source" "utm_medium" "utm_campaign" "utm_term" "utm_content" "gclid" "fbclid" "msclkid" "srsltid")'
 
 # ==============================================================================
 deploy:
