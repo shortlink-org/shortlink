@@ -1,0 +1,41 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: shortlink-metadata-watermill-alerts
+  namespace: shortlink-link
+  labels:
+    release: prometheus-operator
+    app.kubernetes.io/name: shortlink-metadata
+    app.kubernetes.io/part-of: shortlink
+spec:
+  groups:
+    - name: shortlink.metadata.watermill
+      rules:
+        - alert: MetadataWatermillPublishLatencyHighP95
+          expr: |
+            histogram_quantile(
+              0.95,
+              sum by (le) (
+                rate(watermill_publish_latency_seconds_bucket{topic=~"metadata\\.metadata\\.extracted\\.v1|.*"}[5m])
+              )
+            ) > 0.2
+          for: 10m
+          labels:
+            severity: warning
+            service: shortlink-metadata
+          annotations:
+            summary: "Watermill publish P95 latency > 200ms (10m)"
+            description: "Publish operations are slow. Check broker health, network, acks, partitions, and producer config."
+            runbook_url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/link/metadata/docs/runbooks/watermill.md"
+
+        - alert: MetadataWatermillPublishingStopped
+          expr: |
+            sum(rate(watermill_messages_published_total{topic="metadata.metadata.extracted.v1"}[10m])) == 0
+          for: 30m
+          labels:
+            severity: warning
+            service: shortlink-metadata
+          annotations:
+            summary: "No Watermill publishes to metadata.metadata.extracted.v1 for 30m"
+            description: "Publishing stopped or traffic is zero. Correlate with gRPC/HTTP traffic and queue/backlogs."
+            runbook_url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/link/metadata/docs/runbooks/watermill.md"

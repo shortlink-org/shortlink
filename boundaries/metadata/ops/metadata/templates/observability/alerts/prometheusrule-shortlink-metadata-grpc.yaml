@@ -1,0 +1,79 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: shortlink-metadata-grpc-alerts
+  namespace: shortlink-link
+  labels:
+    release: prometheus-operator
+    app.kubernetes.io/name: shortlink-metadata
+    app.kubernetes.io/part-of: shortlink
+spec:
+  groups:
+    - name: shortlink.metadata.grpc
+      rules:
+        - alert: MetadataGrpcHighErrorRate
+          expr: |
+            (
+              sum(rate(grpc_server_handled_total{grpc_service="infrastructure.rpc.metadata.v1.MetadataService",grpc_code!="OK"}[5m]))
+              /
+              clamp_min(sum(rate(grpc_server_handled_total{grpc_service="infrastructure.rpc.metadata.v1.MetadataService"}[5m])), 1e-9)
+            ) > 0.05
+            and
+            sum(rate(grpc_server_handled_total{grpc_service="infrastructure.rpc.metadata.v1.MetadataService"}[5m])) > 0.2
+          for: 10m
+          labels:
+            severity: warning
+            service: shortlink-metadata
+          annotations:
+            summary: "Metadata gRPC error rate > 5% (10m)"
+            description: "Non-OK gRPC responses exceed 5% while traffic > 0.2 rps."
+            runbook_url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/link/metadata/docs/runbooks/grpc.md"
+
+        - alert: MetadataGrpcSustainedUnavailableOrDeadlineExceeded
+          expr: |
+            (
+              sum(rate(grpc_server_handled_total{grpc_service="infrastructure.rpc.metadata.v1.MetadataService",grpc_code=~"Unavailable|DeadlineExceeded"}[5m]))
+              /
+              clamp_min(sum(rate(grpc_server_handled_total{grpc_service="infrastructure.rpc.metadata.v1.MetadataService"}[5m])), 1e-9)
+            ) > 0.01
+            and
+            sum(rate(grpc_server_handled_total{grpc_service="infrastructure.rpc.metadata.v1.MetadataService"}[5m])) > 0.2
+          for: 10m
+          labels:
+            severity: critical
+            service: shortlink-metadata
+          annotations:
+            summary: "Metadata gRPC Unavailable/DeadlineExceeded > 1% (10m)"
+            description: "Likely upstream/network/TLS/load-shedding issues. Check gateways, endpoints, mTLS, and dependencies."
+            runbook_url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/link/metadata/docs/runbooks/grpc.md"
+
+        - alert: MetadataGrpcHighP95Latency
+          expr: |
+            histogram_quantile(
+              0.95,
+              sum by (le) (
+                rate(grpc_server_handling_seconds_bucket{grpc_service="infrastructure.rpc.metadata.v1.MetadataService"}[5m])
+              )
+            ) > 0.5
+            and
+            sum(rate(grpc_server_handled_total{grpc_service="infrastructure.rpc.metadata.v1.MetadataService"}[5m])) > 0.2
+          for: 10m
+          labels:
+            severity: warning
+            service: shortlink-metadata
+          annotations:
+            summary: "Metadata gRPC P95 latency > 500ms (10m)"
+            description: "P95 server handling latency is above 0.5s while traffic is present."
+            runbook_url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/link/metadata/docs/runbooks/perf.md"
+
+        - alert: MetadataGrpcRecoveredPanics
+          expr: |
+            sum(rate(grpc_req_panics_recovered_total[5m])) > 0
+          for: 2m
+          labels:
+            severity: critical
+            service: shortlink-metadata
+          annotations:
+            summary: "Metadata recovered from internal panic (gRPC)"
+            description: "grpc_req_panics_recovered_total increased. Investigate stack traces/logs, recent deployments, and inputs."
+            runbook_url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/link/metadata/docs/runbooks/panic.md"

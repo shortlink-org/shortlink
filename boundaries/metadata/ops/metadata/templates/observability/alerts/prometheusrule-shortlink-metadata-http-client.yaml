@@ -1,0 +1,41 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: shortlink-metadata-http-client-alerts
+  namespace: shortlink-link
+  labels:
+    release: prometheus-operator
+    app.kubernetes.io/name: shortlink-metadata
+    app.kubernetes.io/part-of: shortlink
+spec:
+  groups:
+    - name: shortlink.metadata.http_client
+      rules:
+        - alert: MetadataHttpClientHighP95Latency
+          expr: |
+            histogram_quantile(
+              0.95,
+              sum by (le) (
+                rate(http_client_request_duration_seconds_bucket[5m])
+              )
+            ) > 1
+          for: 10m
+          labels:
+            severity: warning
+            service: shortlink-metadata
+          annotations:
+            summary: "HTTP client P95 latency > 1s (10m)"
+            description: "Outbound HTTP calls are slow. Check DNS, egress, upstream health, timeouts, and retries."
+            runbook_url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/link/metadata/docs/runbooks/http-client.md"
+
+        - alert: MetadataHttpClient5xxRate
+          expr: |
+            sum(rate(http_client_request_duration_seconds_count{http_response_status_code=~"5.."}[5m])) > 0.1
+          for: 10m
+          labels:
+            severity: warning
+            service: shortlink-metadata
+          annotations:
+            summary: "HTTP client 5xx responses detected"
+            description: "Outbound requests are receiving 5xx. Identify the upstream via labels (server_address, url_scheme, etc.)."
+            runbook_url: "https://raw.githubusercontent.com/shortlink-org/shortlink/main/boundaries/link/metadata/docs/runbooks/http-client.md"
