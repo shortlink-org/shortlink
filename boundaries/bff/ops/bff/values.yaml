@@ -8,6 +8,8 @@ serviceAccount:
   create: true
 
 # ==============================================================================
+# HTTPRoute: Istio Gateway → Oathkeeper → BFF
+# ADR: https://github.com/shortlink-org/auth/blob/main/docs/ADR/decisions/0001-zero-trust-authentication-flow-browser-istio-oathkeeper-bff.md
 httpRoute:
   enabled: true
   parentRefs:
@@ -17,13 +19,15 @@ httpRoute:
   hostnames:
     - shortlink.best
   rules:
+    # Protected API routes → Oathkeeper (auth + JWT mutation) → BFF
     - matches:
         - path:
             type: PathPrefix
             value: /api
       backendRefs:
-        - name: shortlink-link-bff
-          port: 7070
+        - name: oathkeeper-proxy
+          namespace: auth
+          port: 4455
 
 # ==============================================================================
 deploy:
