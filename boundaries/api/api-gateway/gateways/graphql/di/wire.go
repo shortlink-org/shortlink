@@ -70,7 +70,7 @@ func NewRPCClient(
 ) (*grpc.ClientConn, func(), error) {
 	// Initialize gRPC Client's interceptor.
 	opts := []rpc.Option{
-		rpc.WithSession(),
+		rpc.WithAuthForward(),
 		rpc.WithMetrics(metrics),
 		rpc.WithTracer(tracer, metrics),
 		rpc.WithTimeout(),

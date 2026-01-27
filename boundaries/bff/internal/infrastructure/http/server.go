@@ -6,9 +6,9 @@ import (
 	cors2 "github.com/go-chi/cors"
 	"github.com/go-chi/render"
 	"github.com/shortlink-org/go-sdk/http/handler"
+	authforward_middleware "github.com/shortlink-org/go-sdk/http/middleware/authforward"
 	csrf_middleware "github.com/shortlink-org/go-sdk/http/middleware/csrf"
 	flight_trace_middleware "github.com/shortlink-org/go-sdk/http/middleware/flight_trace"
-	jwt_middleware "github.com/shortlink-org/go-sdk/http/middleware/jwt"
 	logger_middleware "github.com/shortlink-org/go-sdk/http/middleware/logger"
 	metrics_middleware "github.com/shortlink-org/go-sdk/http/middleware/metrics"
 	pprof_labels_middleware "github.com/shortlink-org/go-sdk/http/middleware/pprof_labels"
@@ -76,7 +76,7 @@ func (api *Server) run(config Config) error {
 	// Additional middleware
 	r.Use(logger_middleware.Logger(config.Log))
 	r.Use(middleware.Recoverer)
-	r.Use(jwt_middleware.JWT(config.Config))
+	r.Use(authforward_middleware.Middleware())
 	r.Use(pprof_labels_middleware.Labels)
 	r.Use(flight_trace_middleware.DebugTraceMiddleware(config.FlightTrace, config.Log, config.Config))
 	r.Use(otelhttp.NewMiddleware(config.Config.GetString("SERVICE_NAME")))

@@ -190,7 +190,7 @@ func NewRPCClient(ctx2 context.Context,
 	tracer trace.TracerProvider,
 ) (*grpc2.ClientConn, func(), error) {
 
-	opts := []grpc.Option{grpc.WithSession(), grpc.WithMetrics(metrics2.Prometheus), grpc.WithTracer(tracer, metrics2.Prometheus, metrics2.Metrics), grpc.WithTimeout(), grpc.WithLogger(log)}
+	opts := []grpc.Option{grpc.WithAuthForward(), grpc.WithMetrics(metrics2.Prometheus), grpc.WithTracer(tracer, metrics2.Prometheus, metrics2.Metrics), grpc.WithTimeout(), grpc.WithLogger(log)}
 
 	runRPCClient, cleanup, err := grpc.InitClient(ctx2, log, cfg, opts...)
 	if err != nil {

@@ -98,7 +98,7 @@ func NewRPCClient(
 ) (*grpc.ClientConn, func(), error) {
 	// Initialize gRPC Client's interceptor.
 	opts := []rpc.Option{
-		rpc.WithSession(),
+		rpc.WithAuthForward(),
 		rpc.WithMetrics(metrics.Prometheus),
 		rpc.WithTracer(tracer, metrics.Prometheus, metrics.Metrics),
 		rpc.WithTimeout(),
@@ -164,7 +164,7 @@ func NewAPIApplication(
 		Tracer:        tracer,
 		Metrics:       metrics,
 		PprofEndpoint: pprofEndpoint,
-		FlightTrace:  flightTrace,
+		FlightTrace:   flightTrace,
 
 		// Delivery
 		RpcServer: rpcServer,

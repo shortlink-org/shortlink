@@ -43,7 +43,7 @@ authorizationPolicy:
 grpcRoute:
   enabled: true
   parentRefs:
-    - name: external-gateway
+    - name: internal-gateway
       namespace: istio-ingress
   rules:
     - matches:

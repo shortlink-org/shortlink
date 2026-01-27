@@ -41,8 +41,8 @@ import (
 	"github.com/shortlink-org/go-sdk/cache"
 	"github.com/shortlink-org/go-sdk/config"
 	"github.com/shortlink-org/go-sdk/db"
-	"github.com/shortlink-org/go-sdk/kratos"
 	rpc "github.com/shortlink-org/go-sdk/grpc"
+	"github.com/shortlink-org/go-sdk/kratos"
 	"github.com/shortlink-org/go-sdk/observability/metrics"
 	"github.com/shortlink-org/go-sdk/observability/profiling"
 	"github.com/shortlink-org/go-sdk/watermill"
@@ -170,7 +170,7 @@ func NewRPCClient(
 ) (*grpc.ClientConn, func(), error) {
 	// Initialize gRPC Client's interceptor.
 	opts := []rpc.Option{
-		rpc.WithSession(),
+		rpc.WithAuthForward(),
 		rpc.WithMetrics(metrics.Prometheus),
 		rpc.WithTracer(tracer, metrics.Prometheus, metrics.Metrics),
 		rpc.WithTimeout(),
