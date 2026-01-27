@@ -8,6 +8,21 @@ serviceAccount:
   create: true
 
 # ==============================================================================
+# Istio RequestAuthentication for JWT validation
+# ref: https://istio.io/latest/docs/reference/config/security/request_authentication/
+requestAuthentication:
+  enabled: true
+  issuer: "https://shortlink.best"
+  jwksUri: "http://oathkeeper-api.auth.svc.cluster.local:4456/.well-known/jwks.json"
+  forwardOriginalToken: true
+
+# ==============================================================================
+# Istio AuthorizationPolicy to require valid JWT
+# ref: https://istio.io/latest/docs/reference/config/security/authorization-policy/
+authorizationPolicy:
+  enabled: true
+
+# ==============================================================================
 # HTTPRoute: Istio Gateway → Oathkeeper → BFF
 # ADR: https://github.com/shortlink-org/auth/blob/main/docs/ADR/decisions/0001-zero-trust-authentication-flow-browser-istio-oathkeeper-bff.md
 httpRoute:

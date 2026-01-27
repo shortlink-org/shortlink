@@ -1,0 +1,22 @@
+{{- if .Values.requestAuthentication.enabled }}
+apiVersion: security.istio.io/v1beta1
+kind: RequestAuthentication
+metadata:
+  name: {{ include "shortlink-common.fullname" . }}-jwt
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "shortlink-common.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "shortlink-common.selectorLabels" . | nindent 6 }}
+  jwtRules:
+    - issuer: {{ .Values.requestAuthentication.issuer | quote }}
+      jwksUri: {{ .Values.requestAuthentication.jwksUri | quote }}
+      forwardOriginalToken: {{ .Values.requestAuthentication.forwardOriginalToken | default true }}
+      outputClaimToHeaders:
+        - header: "x-user-id"
+          claim: "sub"
+        - header: "x-user-email"
+          claim: "email"
+{{- end }}
