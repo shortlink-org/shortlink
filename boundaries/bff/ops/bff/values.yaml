@@ -151,6 +151,18 @@ istio:
     enabled: false
 
 # ==============================================================================
+# EnvoyFilter for local rate limiting
+# ref: https://istio.io/latest/docs/reference/config/networking/envoy-filter/
+envoyFilter:
+  localRateLimit:
+    enabled: true
+    port: 7070
+    # Token bucket configuration
+    fillInterval: "1s"
+    maxTokens: 200
+    tokensPerFill: 200
+
+# ==============================================================================
 # NetworkPolicy
 networkPolicy:
   enabled: false

@@ -1,0 +1,68 @@
+{{- if .Values.envoyFilter.localRateLimit.enabled }}
+apiVersion: networking.istio.io/v1alpha3
+kind: EnvoyFilter
+metadata:
+  name: {{ include "shortlink-common.fullname" . }}-local-ratelimit
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "shortlink-common.labels" . | nindent 4 }}
+spec:
+  workloadSelector:
+    labels:
+      {{- include "shortlink-common.selectorLabels" . | nindent 6 }}
+  configPatches:
+    # Insert local_ratelimit before router
+    - applyTo: HTTP_FILTER
+      match:
+        context: SIDECAR_INBOUND
+        listener:
+          filterChain:
+            filter:
+              name: envoy.filters.network.http_connection_manager
+              subFilter:
+                name: envoy.filters.http.router
+      patch:
+        operation: INSERT_BEFORE
+        value:
+          name: envoy.filters.http.local_ratelimit
+          typed_config:
+            "@type": type.googleapis.com/envoy.extensions.filters.http.local_ratelimit.v3.LocalRateLimit
+            stat_prefix: {{ include "shortlink-common.fullname" . }}_local_rl
+            token_bucket:
+              fill_interval: {{ .Values.envoyFilter.localRateLimit.fillInterval | default "1s" }}
+              max_tokens: {{ .Values.envoyFilter.localRateLimit.maxTokens | default 200 }}
+              tokens_per_fill: {{ .Values.envoyFilter.localRateLimit.tokensPerFill | default 200 }}
+            filter_enabled:
+              runtime_key: {{ include "shortlink-common.fullname" . }}_local_rl_enabled
+              default_value:
+                numerator: 100
+                denominator: HUNDRED
+            filter_enforced:
+              runtime_key: {{ include "shortlink-common.fullname" . }}_local_rl_enforced
+              default_value:
+                numerator: 100
+                denominator: HUNDRED
+            response_headers_to_add:
+              - append: false
+                header:
+                  key: x-rate-limited
+                  value: "true"
+
+    # Apply per-route config to inbound listener on API port
+    - applyTo: HTTP_ROUTE
+      match:
+        context: SIDECAR_INBOUND
+        routeConfiguration:
+          name: inbound|{{ .Values.envoyFilter.localRateLimit.port | default 7070 }}||
+      patch:
+        operation: MERGE
+        value:
+          typed_per_filter_config:
+            envoy.filters.http.local_ratelimit:
+              "@type": type.googleapis.com/envoy.extensions.filters.http.local_ratelimit.v3.LocalRateLimit
+              stat_prefix: {{ include "shortlink-common.fullname" . }}_local_rl
+              token_bucket:
+                fill_interval: {{ .Values.envoyFilter.localRateLimit.fillInterval | default "1s" }}
+                max_tokens: {{ .Values.envoyFilter.localRateLimit.maxTokens | default 200 }}
+                tokens_per_fill: {{ .Values.envoyFilter.localRateLimit.tokensPerFill | default 200 }}
+{{- end }}
