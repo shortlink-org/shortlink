@@ -25,6 +25,15 @@ secret:
     -----END CERTIFICATE-----
 
 # ==============================================================================
+# Istio RequestAuthentication for JWT validation
+# ref: https://istio.io/latest/docs/reference/config/security/request_authentication/
+requestAuthentication:
+  enabled: true
+  issuer: "https://shortlink.best"
+  jwksUri: "http://oathkeeper-api.auth.svc.cluster.local:4456/.well-known/jwks.json"
+  forwardOriginalToken: true
+
+# ==============================================================================
 grpcRoute:
   enabled: true
   parentRefs:
