@@ -34,6 +34,12 @@ requestAuthentication:
   forwardOriginalToken: true
 
 # ==============================================================================
+# Istio AuthorizationPolicy to require valid JWT
+# ref: https://istio.io/latest/docs/reference/config/security/authorization-policy/
+authorizationPolicy:
+  enabled: true
+
+# ==============================================================================
 grpcRoute:
   enabled: true
   parentRefs:

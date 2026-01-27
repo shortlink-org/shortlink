@@ -1,0 +1,18 @@
+{{- if .Values.authorizationPolicy.enabled }}
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: {{ include "shortlink-common.fullname" . }}-require-jwt
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "shortlink-common.labels" . | nindent 4 }}
+spec:
+  selector:
+    matchLabels:
+      {{- include "shortlink-common.selectorLabels" . | nindent 6 }}
+  action: ALLOW
+  rules:
+    - from:
+        - source:
+            requestPrincipals: ["*"]
+{{- end }}
