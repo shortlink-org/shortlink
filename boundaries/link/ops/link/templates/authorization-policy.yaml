@@ -12,6 +12,15 @@ spec:
       {{- include "shortlink-common.selectorLabels" . | nindent 6 }}
   action: ALLOW
   rules:
+    # Allow health checks (kubelet) and metrics (Prometheus) without JWT
+    - to:
+        - operation:
+            paths: ["/live", "/ready", "/healthz", "/metrics"]
+    # Allow gRPC health checks
+    - to:
+        - operation:
+            paths: ["/grpc.health.v1.Health/*"]
+    # Require valid JWT for all other requests
     - from:
         - source:
             requestPrincipals: ["*"]
