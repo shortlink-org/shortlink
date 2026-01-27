@@ -128,7 +128,7 @@ require (
 	github.com/sagikazarmark/locafero v0.12.0 // indirect
 	github.com/samber/lo v1.52.0 // indirect
 	github.com/segmentio/asm v1.2.0 // indirect
-	github.com/shortlink-org/go-sdk/db v0.0.0-20260127145748-e8f48094a968 // indirect
+	github.com/shortlink-org/go-sdk/db v0.0.0-20260127155416-b2559fb0922b // indirect
 	github.com/sigurn/crc16 v0.0.0-20240131213347-83fcde1e29d1 // indirect
 	github.com/spf13/afero v1.15.0 // indirect
 	github.com/spf13/cast v1.10.0 // indirect

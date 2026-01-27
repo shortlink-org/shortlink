@@ -1,6 +1,5 @@
 import React from 'react'
-// @ts-ignore
-import { Table } from '@shortlink-org/ui-kit'
+import { DataTable, createDataTableColumnHelper } from '@shortlink-org/ui-kit'
 import { formatRelative } from 'date-fns'
 import { ContentCopy } from '@mui/icons-material'
 
@@ -17,84 +16,85 @@ type AppProps = {
   onRefresh?: () => void
 }
 
-type CellProps = {
-  cell: {
-    getValue: () => string
-  }
-}
+const columnHelper = createDataTableColumnHelper<LinkTableItem>()
 
 const columns = [
-  {
-    accessorKey: 'url',
+  columnHelper.accessor('url', {
     header: 'URL',
-    size: 150,
-    enableClickToCopy: true,
-    muiCopyButtonProps: {
-      fullWidth: true,
-      startIcon: <ContentCopy />,
-      sx: { justifyContent: 'flex-start' },
+    size: 220,
+    enableColumnFilter: true,
+    cell: (info) => {
+      const value = info.getValue()
+      const text = typeof value === 'string' ? value : String(value ?? '')
+      return (
+        <div className="flex items-center gap-2">
+          <span className="truncate">{text}</span>
+          <button
+            type="button"
+            className="inline-flex items-center text-gray-500 hover:text-gray-700"
+            aria-label="Copy URL"
+            onClick={(event) => {
+              event.stopPropagation()
+              if (typeof navigator !== 'undefined' && navigator.clipboard) {
+                void navigator.clipboard.writeText(text)
+              }
+            }}
+          >
+            <ContentCopy fontSize="inherit" />
+          </button>
+        </div>
+      )
     },
-    filterVariant: 'autocomplete',
-    enableEditing: false,
-  },
-  {
-    accessorKey: 'hash',
+  }),
+  columnHelper.accessor('hash', {
     header: 'Hash',
     size: 150,
-    filterVariant: 'autocomplete',
-    enableEditing: false,
-  },
-  {
-    accessorKey: 'describe',
+    enableColumnFilter: true,
+  }),
+  columnHelper.accessor('describe', {
     header: 'Describe',
-    size: 150,
-  },
-  {
-    accessorKey: 'created_at',
+    size: 200,
+  }),
+  columnHelper.accessor('created_at', {
     header: 'Created at',
-    size: 150,
-    filterVariant: 'date',
-    filterFn: 'lessThan',
+    size: 180,
+    enableColumnFilter: true,
     sortingFn: 'datetime',
-    Cell: ({ cell }: CellProps) => {
-      const dateValue = cell.getValue()
+    cell: (info) => {
+      const dateValue = info.getValue()
       if (!dateValue) return ''
       try {
-        return formatRelative(new Date(dateValue), new Date())
+        return formatRelative(new Date(String(dateValue)), new Date())
       } catch {
-        return dateValue
+        return String(dateValue)
       }
     },
-    muiFilterTextFieldProps: {
-      sx: {
-        minWidth: '250px',
-      },
-    },
-  },
-  {
-    accessorKey: 'updated_at',
+  }),
+  columnHelper.accessor('updated_at', {
     header: 'Updated at',
-    size: 150,
-    filterVariant: 'date',
-    filterFn: 'lessThan',
+    size: 180,
+    enableColumnFilter: true,
     sortingFn: 'datetime',
-    Cell: ({ cell }: CellProps) => {
-      const dateValue = cell.getValue()
+    cell: (info) => {
+      const dateValue = info.getValue()
       if (!dateValue) return ''
       try {
-        return formatRelative(new Date(dateValue), new Date())
+        return formatRelative(new Date(String(dateValue)), new Date())
       } catch {
-        return dateValue
+        return String(dateValue)
       }
     },
-    muiFilterTextFieldProps: {
-      sx: {
-        minWidth: '250px',
-      },
-    },
-  },
+  }),
 ]
 
-export const UserLinksTable = ({ data, onRefresh }: AppProps) => <Table data={data} columns={columns} onRefresh={onRefresh} />
+export const UserLinksTable = ({ data, onRefresh }: AppProps) => (
+  <DataTable
+    data={data}
+    columns={columns}
+    filters={true}
+    enableRefresh={Boolean(onRefresh)}
+    onRefresh={onRefresh}
+  />
+)
 
 export default UserLinksTable
