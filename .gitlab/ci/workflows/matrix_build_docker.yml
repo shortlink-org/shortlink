@@ -28,8 +28,8 @@
         DOCKERFILE_PATH: ops/Dockerfile
       - APPLICATION: link
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
-        WORKDIR: boundaries/$APPLICATION
-        DOCKERFILE_PATH: ops/Dockerfile
+        WORKDIR: boundaries
+        DOCKERFILE_PATH: link/ops/Dockerfile
       - APPLICATION: metadata
         REGISTRY_IMAGE: $CI_REGISTRY_IMAGE/$APPLICATION
         WORKDIR: boundaries/$APPLICATION

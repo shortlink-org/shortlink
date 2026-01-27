@@ -19,16 +19,24 @@ ENV GOCACHE=/root/.cache/go-build
 ENV GOEXPERIMENT=rangefunc,newinliner,arenas,cgocheck2,greenteagc,jsonv2
 ENV PGO_PATH=auto
 
+WORKDIR /go/github.com/shortlink-org/shortlink/boundaries
+
+# Copy metadata module (required by replace directive in link/go.mod)
+COPY metadata/go.mod metadata/go.sum ./metadata/
+
 WORKDIR /go/github.com/shortlink-org/shortlink/boundaries/link
 
 # Load dependencies
-COPY go.mod go.sum ./
+COPY link/go.mod link/go.sum ./
 
 # will cache go packages while downloading packages
 RUN --mount=type=cache,target=/go/pkg/mod go mod download
 
 # COPY the source code AS the last step
-COPY . .
+COPY link/ .
+
+# Copy metadata source code (required by replace directive)
+COPY metadata/ ../metadata/
 
 # Field Alignment
 RUN go run golang.org/x/tools/go/analysis/passes/fieldalignment/cmd/fieldalignment -fix ./internal/...; exit 0
@@ -56,12 +64,13 @@ LABEL org.opencontainers.image.vendor="Login Viktor @batazor"
 LABEL org.opencontainers.image.licenses="MIT"
 LABEL org.opencontainers.image.url="http://shortlink.best/"
 LABEL org.opencontainers.image.source="https://github.com/shortlink-org/shortlink"
-LABEL org.opencontainers.image.revision=$CI_COMMIT_SHA
+ARG CI_COMMIT_SHA=""
+LABEL org.opencontainers.image.revision=${CI_COMMIT_SHA}
 
 # Define GOTRACEBACK to mark this container AS using the Go language runtime
 # for `skaffold debug` (https://skaffold.dev/docs/workflows/debug/).
 ENV GOTRACEBACK=all
-ENV USER golang
+ENV USER=golang
 
 # 50051: gRPC
 # 9090: metrics
