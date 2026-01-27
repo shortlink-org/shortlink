@@ -1,4 +1,5 @@
 {{- if .Values.authorizationPolicy.enabled }}
+{{- $proxySA := .Values.authorizationPolicy.proxyServiceAccount | default "" }}
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
@@ -20,6 +21,13 @@ spec:
     - to:
         - operation:
             paths: ["/grpc.health.v1.Health/*"]
+    {{- if $proxySA }}
+    # Allow proxy service account (mTLS) without JWT
+    - from:
+        - source:
+            principals:
+              - "cluster.local/ns/{{ .Release.Namespace }}/sa/{{ $proxySA }}"
+    {{- end }}
     # Require valid JWT for all other requests
     - from:
         - source:

@@ -38,6 +38,8 @@ requestAuthentication:
 # ref: https://istio.io/latest/docs/reference/config/security/authorization-policy/
 authorizationPolicy:
   enabled: true
+  # Allow proxy service (mTLS principal) without JWT
+  proxyServiceAccount: shortlink-link-proxy
 
 # ==============================================================================
 # GRPCRoute configuration
