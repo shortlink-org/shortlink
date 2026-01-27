@@ -29,8 +29,8 @@ require (
 	github.com/shortlink-org/go-sdk/flags v0.0.0-20251203170842-4c6548ea718b
 	github.com/shortlink-org/go-sdk/flight_trace v0.0.0-20260107222411-453281b10921
 	github.com/shortlink-org/go-sdk/graceful_shutdown v0.0.0-20251203170842-4c6548ea718b
-	github.com/shortlink-org/go-sdk/grpc v0.0.0-20260127011951-3d529075355d
-	github.com/shortlink-org/go-sdk/http v0.0.0-20260127011951-3d529075355d
+	github.com/shortlink-org/go-sdk/grpc v0.0.0-20260127131202-197b04f9e42e
+	github.com/shortlink-org/go-sdk/http v0.0.0-20260127131202-197b04f9e42e
 	github.com/shortlink-org/go-sdk/kratos v0.0.0-20251203170842-4c6548ea718b
 	github.com/shortlink-org/go-sdk/logger v0.0.0-20260107222411-453281b10921
 	github.com/shortlink-org/go-sdk/observability v0.0.0-20260121215533-0995bc8d4d88
