@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, Fragment } from 'react'
 
-import { FrontendApi } from '@ory/client'
+import ory from '@/pkg/sdk'
 
 // @ts-ignore
 function classNames(...classes) {
@@ -16,7 +16,6 @@ export default function Profile() {
   const router = useRouter()
 
   useEffect(() => {
-    const ory = new FrontendApi()
     ory
       .createBrowserLogoutFlow()
       .then(({ data }) => {
@@ -47,7 +46,6 @@ export default function Profile() {
       link: `#`,
       icon: '🚪',
       onClick: () => {
-        const ory = new FrontendApi()
         ory
           .updateLogoutFlow({ token: logoutToken })
           .then(() => router.push('/auth/login'))
@@ -69,10 +67,10 @@ export default function Profile() {
                 src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
                 alt="User profile"
               />
-              <svg 
-                className={`w-4 h-4 text-white/70 transition-transform duration-200 ${open ? 'rotate-180' : ''}`} 
-                fill="none" 
-                stroke="currentColor" 
+              <svg
+                className={`w-4 h-4 text-white/70 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
+                fill="none"
+                stroke="currentColor"
                 viewBox="0 0 24 24"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -101,7 +99,7 @@ export default function Profile() {
                       <div
                         className={classNames(
                           active ? 'bg-gray-50 dark:bg-gray-700' : '',
-                          'flex items-center gap-3 px-3 py-2.5 rounded-lg mx-1 cursor-pointer transition-all duration-150'
+                          'flex items-center gap-3 px-3 py-2.5 rounded-lg mx-1 cursor-pointer transition-all duration-150',
                         )}
                         onClick={item.onClick}
                       >

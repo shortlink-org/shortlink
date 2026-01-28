@@ -2,14 +2,14 @@
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
-  name: {{ include "shortlink-common.fullname" . }}-require-jwt
+  name: {{ include "helpers.fullname" . }}-require-jwt
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "shortlink-common.labels" . | nindent 4 }}
+    {{- include "helpers.labels" . | nindent 4 }}
 spec:
   selector:
     matchLabels:
-      {{- include "shortlink-common.selectorLabels" . | nindent 6 }}
+      {{- include "shortlink-common.matchLabels" . | nindent 6 }}
   action: ALLOW
   rules:
     # Allow health checks (kubelet) and metrics (Prometheus) without JWT

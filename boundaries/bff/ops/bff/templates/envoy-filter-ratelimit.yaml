@@ -2,14 +2,14 @@
 apiVersion: networking.istio.io/v1alpha3
 kind: EnvoyFilter
 metadata:
-  name: {{ include "shortlink-common.fullname" . }}-local-ratelimit
+  name: {{ include "helpers.fullname" . }}-local-ratelimit
   namespace: {{ .Release.Namespace }}
   labels:
-    {{- include "shortlink-common.labels" . | nindent 4 }}
+    {{- include "helpers.labels" . | nindent 4 }}
 spec:
   workloadSelector:
     labels:
-      {{- include "shortlink-common.selectorLabels" . | nindent 6 }}
+      {{- include "shortlink-common.matchLabels" . | nindent 6 }}
   configPatches:
     # Insert local_ratelimit before router
     - applyTo: HTTP_FILTER
@@ -27,18 +27,18 @@ spec:
           name: envoy.filters.http.local_ratelimit
           typed_config:
             "@type": type.googleapis.com/envoy.extensions.filters.http.local_ratelimit.v3.LocalRateLimit
-            stat_prefix: {{ include "shortlink-common.fullname" . }}_local_rl
+            stat_prefix: {{ include "helpers.fullname" . }}_local_rl
             token_bucket:
               fill_interval: {{ .Values.envoyFilter.localRateLimit.fillInterval | default "1s" }}
               max_tokens: {{ .Values.envoyFilter.localRateLimit.maxTokens | default 200 }}
               tokens_per_fill: {{ .Values.envoyFilter.localRateLimit.tokensPerFill | default 200 }}
             filter_enabled:
-              runtime_key: {{ include "shortlink-common.fullname" . }}_local_rl_enabled
+              runtime_key: {{ include "helpers.fullname" . }}_local_rl_enabled
               default_value:
                 numerator: 100
                 denominator: HUNDRED
             filter_enforced:
-              runtime_key: {{ include "shortlink-common.fullname" . }}_local_rl_enforced
+              runtime_key: {{ include "helpers.fullname" . }}_local_rl_enforced
               default_value:
                 numerator: 100
                 denominator: HUNDRED
@@ -60,7 +60,7 @@ spec:
           typed_per_filter_config:
             envoy.filters.http.local_ratelimit:
               "@type": type.googleapis.com/envoy.extensions.filters.http.local_ratelimit.v3.LocalRateLimit
-              stat_prefix: {{ include "shortlink-common.fullname" . }}_local_rl
+              stat_prefix: {{ include "helpers.fullname" . }}_local_rl
               token_bucket:
                 fill_interval: {{ .Values.envoyFilter.localRateLimit.fillInterval | default "1s" }}
                 max_tokens: {{ .Values.envoyFilter.localRateLimit.maxTokens | default 200 }}
