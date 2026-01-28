@@ -9,6 +9,7 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import { Provider as BalancerProvider } from 'react-wrap-balancer'
 import { Provider } from 'react-redux'
 import { ThemeProvider as NextThemeProvider, useTheme } from 'next-themes'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 import { Toaster } from 'sonner'
 
@@ -99,6 +100,17 @@ function MuiThemeProvider({ children }: { children: React.ReactNode }) {
 
 export function Providers({ children, ..._props }: { children: React.ReactNode; [key: string]: any }) {
   const store = useMemo(() => makeStore(), [])
+  const [queryClient] = useState(
+    () =>
+      new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: 1,
+            refetchOnWindowFocus: false,
+          },
+        },
+      }),
+  )
 
   return (
     <AppRouterCacheProvider options={{ enableCssLayer: true }}>
@@ -108,8 +120,10 @@ export function Providers({ children, ..._props }: { children: React.ReactNode; 
             <Layout>
               <BalancerProvider>
                 <Provider store={store}>
-                  {children}
-                  <Toaster />
+                  <QueryClientProvider client={queryClient}>
+                    {children}
+                    <Toaster />
+                  </QueryClientProvider>
                 </Provider>
               </BalancerProvider>
             </Layout>

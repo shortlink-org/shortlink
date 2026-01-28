@@ -37,6 +37,7 @@
   "include": [
     "svgr.d.ts",
     "next-env.d.ts",
+    "**/*.d.ts",
     "**/*.ts",
     "**/*.tsx",
     "**/*.jsx",
@@ -44,6 +45,8 @@
     ".next/dev/types/**/*.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/cypress",
+    "src/cypress/**"
   ]
 }

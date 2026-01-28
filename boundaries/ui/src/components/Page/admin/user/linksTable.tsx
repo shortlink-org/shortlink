@@ -15,7 +15,7 @@ const columns = [
     header: 'URL',
     size: 220,
     enableColumnFilter: true,
-    cell: (info) => {
+    cell: (info: { getValue: () => unknown }) => {
       const value = info.getValue()
       const text = typeof value === 'string' ? value : String(value ?? '')
       return (
@@ -52,7 +52,7 @@ const columns = [
     size: 180,
     enableColumnFilter: true,
     sortingFn: 'datetime',
-    cell: (info) => {
+    cell: (info: { getValue: () => unknown }) => {
       const dateValue = info.getValue()
       if (!dateValue) return ''
       try {
@@ -67,7 +67,7 @@ const columns = [
     size: 180,
     enableColumnFilter: true,
     sortingFn: 'datetime',
-    cell: (info) => {
+    cell: (info: { getValue: () => unknown }) => {
       const dateValue = info.getValue()
       if (!dateValue) return ''
       try {

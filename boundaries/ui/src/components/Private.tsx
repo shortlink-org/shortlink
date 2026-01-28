@@ -2,8 +2,8 @@
  * withAuthSync HOC - Fetches and provides session to protected pages
  * 
  * Changes:
- * - ✅ Uses use() + fetchSession from data layer
- * - ✅ Uses Suspense for loading
+ * - ✅ Uses TanStack Query + fetchSession from data layer
+ * - ✅ Uses explicit loading state
  * - ✅ Uses ErrorBoundary for error handling
  * - ✅ Provides session via SessionProvider
  * - ✅ No manual useState/useEffect
@@ -11,11 +11,10 @@
 
 'use client'
 
-import React, { use, Suspense, ReactNode } from 'react'
+import React, { ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
-import { Session } from '@ory/client'
 import { SessionProvider } from '@/contexts/SessionContext'
-import { fetchSession } from '@/lib/data'
+import { useSessionQuery } from '@/lib/datalayer'
 
 /**
  * Component that fetches session for protected page
@@ -27,10 +26,19 @@ function ProtectedPageData<P extends object>({
   Component: React.ComponentType<P>
   props: P 
 }) {
-  const router = useRouter()
-  
-  // Fetch session - will suspend during fetch
-  const session: Session = use(fetchSession())
+  const { data: session, isLoading, error } = useSessionQuery()
+
+  if (error) {
+    throw error
+  }
+
+  if (isLoading) {
+    return <div>Loading...</div>
+  }
+
+  if (!session) {
+    return null
+  }
   
   // Session exists - render protected page
   return (
@@ -79,9 +87,7 @@ export default function withAuthSync<P extends object>(Child: React.ComponentTyp
     
     return (
       <AuthErrorBoundary router={router}>
-        <Suspense fallback={<div>Loading...</div>}>
-          <ProtectedPageData Component={Child} props={props} />
-        </Suspense>
+        <ProtectedPageData Component={Child} props={props} />
       </AuthErrorBoundary>
     )
   }

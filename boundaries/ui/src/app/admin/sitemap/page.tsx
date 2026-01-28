@@ -175,7 +175,7 @@ function Page() {
               Введите URL sitemap. Сервис обработает ссылки и запустит сохранение в фоне.
             </Typography>
 
-            <ErrorAlert message={error} onClose={() => setError(null)} />
+            <ErrorAlert error={error} onClose={() => setError(null)} />
             <SuccessAlert message={success} onClose={() => setSuccess(null)} />
 
             <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>

@@ -1,10 +1,10 @@
 'use client'
 
-import { useState, useDeferredValue, Suspense, use, ReactNode } from 'react'
+import { useState, useDeferredValue, ReactNode } from 'react'
 import { TextField, Box, CircularProgress } from '@mui/material'
 import type { TextFieldProps } from '@mui/material/TextField'
 
-interface DeferredSearchProps extends Omit<TextFieldProps, 'value' | 'onChange'> {
+interface DeferredSearchProps extends Omit<TextFieldProps, 'value' | 'onChange' | 'children'> {
   /** Initial search query */
   initialQuery?: string
   /** Render function that receives deferred query */
@@ -37,6 +37,7 @@ export function DeferredSearch({
   const [query, setQuery] = useState(initialQuery)
   const deferredQuery = useDeferredValue(query)
   const isStale = query !== deferredQuery
+  const inputSlot = textFieldProps.slotProps?.input
 
   return (
     <Box>
@@ -45,8 +46,15 @@ export function DeferredSearch({
         value={query}
         onChange={(e) => setQuery(e.target.value)}
         slotProps={{
-          input: {
-            endAdornment: isStale ? loadingFallback : textFieldProps.slotProps?.input?.endAdornment
+          ...textFieldProps.slotProps,
+          input: (ownerState) => {
+            const resolved =
+              typeof inputSlot === 'function' ? inputSlot(ownerState) : (inputSlot ?? {})
+
+            return {
+              ...resolved,
+              endAdornment: isStale ? loadingFallback : resolved.endAdornment
+            }
           }
         }}
       />
@@ -58,13 +66,10 @@ export function DeferredSearch({
           transition: 'opacity 0.2s'
         }}
       >
-        <Suspense fallback={loadingFallback}>
-          {children(deferredQuery)}
-        </Suspense>
+        {children(deferredQuery)}
       </Box>
     </Box>
   )
 }
 
 export default DeferredSearch
-

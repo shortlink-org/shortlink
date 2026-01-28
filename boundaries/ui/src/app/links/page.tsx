@@ -4,7 +4,7 @@
  * Links List Page - Migrated to React 19
  * 
  * Changes:
- * - ✅ Replaced Redux + useEffect with use() + Suspense
+ * - ✅ Replaced Redux + useEffect with TanStack Query
  * - ✅ Added ErrorBoundary for error handling
  * - ✅ Added skeleton loader instead of spinner
  * - ✅ Data cached automatically (1 minute TTL)
@@ -13,7 +13,7 @@
  * Old version backed up in git history
  */
 
-import { use, Suspense } from 'react'
+import { useQueryClient } from '@tanstack/react-query'
 
 import Statistic from '@/components/Dashboard/stats'
 import withAuthSync from '@/components/Private'
@@ -21,16 +21,24 @@ import Header from '@/components/Page/Header'
 import UserLinksTable from '@/components/Page/user/linksTable'
 import { LinksTableSkeleton } from '@/components/Skeleton'
 import { LinksErrorBoundary } from '@/components/error'
-import { fetchLinksList, useInvalidateCache } from '@/lib/data'
+import { queryKeys, useLinksListQuery } from '@/lib/datalayer'
 
 /**
- * Component that reads links data using use()
- * Automatically suspends while data is loading
+ * Component that reads links data via TanStack Query
+ * Loading state handled locally
  */
 function LinksData() {
-  // use() reads the promise and suspends the component
-  const links = use(fetchLinksList())
-  const { invalidate } = useInvalidateCache()
+  const queryClient = useQueryClient()
+  const { data, isLoading, error } = useLinksListQuery()
+  const links = (data ?? []) as any[]
+
+  if (error) {
+    throw error
+  }
+
+  if (isLoading) {
+    return <LinksTableSkeleton />
+  }
 
   // Transform data for table
   const tableData = links.map((link: any) => ({
@@ -46,9 +54,7 @@ function LinksData() {
   }))
 
   const handleRefresh = () => {
-    // Invalidate cache to force refetch
-    invalidate('links:list:all')
-    // Optionally could also use router.refresh() or invalidatePattern
+    void queryClient.invalidateQueries({ queryKey: queryKeys.linksList() })
   }
 
   return (
@@ -69,10 +75,7 @@ function LinkTable() {
 
       {/* ErrorBoundary catches errors */}
       <LinksErrorBoundary>
-        {/* Suspense shows skeleton while data loads */}
-        <Suspense fallback={<LinksTableSkeleton />}>
-          <LinksData />
-        </Suspense>
+        <LinksData />
       </LinksErrorBoundary>
     </>
   )

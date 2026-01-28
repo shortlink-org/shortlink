@@ -50,6 +50,11 @@ export default function Personal({ session, firstName: initialFirstName, lastNam
   // useOptimistic for instant UI updates
   const [optimisticData, setOptimisticData] = useOptimistic(initialData)
   const [isPending, startTransition] = useTransition()
+  const [country, setCountry] = useState(initialData.country)
+  const [streetAddress, setStreetAddress] = useState(initialData.streetAddress)
+  const [city, setCity] = useState(initialData.city)
+  const [region, setRegion] = useState(initialData.region)
+  const [postalCode, setPostalCode] = useState(initialData.postalCode)
   
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)

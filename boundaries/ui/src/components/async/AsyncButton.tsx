@@ -4,7 +4,7 @@ import { useTransition, ReactNode } from 'react'
 import { Button, CircularProgress } from '@mui/material'
 import type { ButtonProps } from '@mui/material/Button'
 
-interface AsyncButtonProps extends Omit<ButtonProps, 'onClick'> {
+interface AsyncButtonProps extends Omit<ButtonProps, 'onClick' | 'action'> {
   children: ReactNode
   /** Async action to execute */
   action?: () => Promise<void>
@@ -75,4 +75,3 @@ export function AsyncButton({
 }
 
 export default AsyncButton
-

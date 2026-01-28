@@ -6,25 +6,27 @@
  * Features:
  * - ✅ Responsive search input
  * - ✅ Deferred results update
- * - ✅ Suspense for loading
+ * - ✅ Loading state handled locally
  * - ✅ ErrorBoundary for errors
  * - ✅ Old results stay visible while loading new ones
  */
 
-import { use, Suspense } from 'react'
 import { Box, Typography, Card, CardContent, Skeleton, Alert } from '@mui/material'
 import Link from 'next/link'
 
 import { DeferredSearch } from '@/components/async'
 import { LinksErrorBoundary } from '@/components/error'
-import { searchLinks } from '@/lib/data'
+import { useSearchLinksQuery } from '@/lib/datalayer'
 import withAuthSync from '@/components/Private'
 import PageHeader from '@/components/Page/Header'
 
 /**
- * Component that reads search results using use()
+ * Component that reads search results via TanStack Query
  */
 function SearchResults({ query }: { query: string }) {
+  const { data, isLoading, error } = useSearchLinksQuery(query)
+  const links = (data ?? []) as any[]
+
   if (!query.trim()) {
     return (
       <Box sx={{ py: 8, textAlign: 'center' }}>
@@ -38,9 +40,14 @@ function SearchResults({ query }: { query: string }) {
     )
   }
   
-  // use() reads the promise and suspends the component
-  const links = use(searchLinks(query))
-  
+  if (error) {
+    throw error
+  }
+
+  if (isLoading) {
+    return <SearchSkeleton />
+  }
+
   if (links.length === 0) {
     return (
       <Alert severity="info" sx={{ mt: 2 }}>
@@ -142,11 +149,7 @@ function LinksSearchPage() {
             variant="outlined"
             loadingFallback={<Typography variant="caption">Searching...</Typography>}
           >
-            {(query) => (
-              <Suspense fallback={<SearchSkeleton />}>
-                <SearchResults query={query} />
-              </Suspense>
-            )}
+            {(query) => <SearchResults query={query} />}
           </DeferredSearch>
         </LinksErrorBoundary>
       </Box>
@@ -155,4 +158,3 @@ function LinksSearchPage() {
 }
 
 export default withAuthSync(LinksSearchPage)
-
