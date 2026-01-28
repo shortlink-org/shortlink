@@ -4,7 +4,7 @@ import (
 	"context"
 	"log/slog"
 
-	metadatapb "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1"
+	metadatapb "github.com/shortlink-org/shortlink/boundaries/link/gen/domain/metadata/v1"
 )
 
 const metadataExtractedTopic = "metadata.metadata.extracted.v1"
