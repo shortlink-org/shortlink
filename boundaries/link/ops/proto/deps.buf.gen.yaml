@@ -1,0 +1,9 @@
+version: v2
+managed:
+  enabled: true
+plugins:
+  - remote: buf.build/protocolbuffers/go
+    out: gen
+    opt: paths=source_relative
+inputs:
+  - module: buf.build/shortlink-org/metadata
