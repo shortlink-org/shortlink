@@ -45,6 +45,7 @@ func (s *UC) Set(ctx context.Context, linkURL string) error {
 		chromedp.Flag("disable-dev-shm-usage", true),
 		chromedp.Flag("no-sandbox", true),
 		chromedp.Flag("user-data-dir", "/tmp/chromedp"),
+		chromedp.UserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4585.0 Safari/537.36"),
 	)
 
 	allocCtx, cancelAlloc := chromedp.NewExecAllocator(screenshotCtx, allocatorOpts...)
@@ -71,7 +72,6 @@ func (s *UC) Set(ctx context.Context, linkURL string) error {
 // elementScreenshot takes a screenshot of a specific element.
 func elementScreenshot(urlstr string, res *[]byte) chromedp.Tasks {
 	return chromedp.Tasks{
-		chromedp.UserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4585.0 Safari/537.36"),
 		chromedp.EmulateViewport(defaultWidth, defaultHeight),
 		chromedp.Navigate(urlstr),
 		chromedp.WaitVisible("body", chromedp.ByQuery), // Wait for page to load
