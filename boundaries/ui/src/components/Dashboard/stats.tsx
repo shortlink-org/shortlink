@@ -1,37 +1,52 @@
+'use client'
+
+function LinkIcon({ className }: { className?: string }) {
+  return (
+    <svg className={className} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+      />
+    </svg>
+  )
+}
+
 interface StatisticProps {
   count: number
 }
 
 export default function Statistic({ count }: StatisticProps) {
+  const getMessage = () => {
+    if (count === 0) {
+      return 'You don\'t have any saved links yet. Create your first link using the "Add URL" button in the menu.'
+    }
+    if (count === 1) {
+      return 'You have one saved link. You can manage it through the table: view, edit, or delete it.'
+    }
+    return `You have ${count} saved links. Use the table to manage your links: filter, sort, edit, and delete them.`
+  }
+
   return (
-    <div className="px-4 py-4 my-3 rounded mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-14 lg:px-8 lg:py-10 bg-white dark:bg-gray-800">
-      <div className="flex flex-col lg:items-center lg:flex-row">
-        <div className="flex items-center mb-6 lg:w-1/2 lg:mb-0">
-          <div className="flex items-center justify-center w-16 h-16 mr-5 rounded-full bg-indigo-50 dark:bg-indigo-900 sm:w-24 sm:h-24 xl:mr-10 xl:w-28 xl:h-28">
-            <svg
-              className="w-12 h-12 text-deep-purple-accent-400 dark:text-deep-purple-accent-200 sm:w-16 sm:h-16 xl:w-20 xl:h-20"
-              stroke="currentColor"
-              viewBox="0 0 52 52"
-            >
-              <polygon
-                strokeWidth="3"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                fill="none"
-                points="29 13 14 29 25 29 23 39 38 23 27 23"
-              />
-            </svg>
+    <div className="my-6 px-4">
+      <div className="rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 p-6 shadow-lg">
+        <div className="flex flex-col lg:flex-row lg:items-center gap-6">
+          {/* Icon and Count */}
+          <div className="flex items-center gap-4">
+            <div className="flex items-center justify-center w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-sm">
+              <LinkIcon className="w-8 h-8 text-white" />
+            </div>
+            <div>
+              <p className="text-5xl lg:text-6xl font-bold text-white">{count}</p>
+              <p className="text-sm text-indigo-200 font-medium">{count === 1 ? 'Link' : 'Links'}</p>
+            </div>
           </div>
-          <h3 className="text-4xl font-extrabold text-gray-800 dark:text-white sm:text-5xl xl:text-6xl">{count}</h3>
-        </div>
-        <div className="lg:w-1/2">
-          <p className="text-gray-800 dark:text-gray-300">
-            {count === 0
-              ? 'You don\'t have any saved links yet. Create your first link using the "Add URL" button in the menu.'
-              : count === 1
-                ? 'You have one saved link. You can manage it through the table: view, edit, or delete it.'
-                : `You have ${count} saved ${count === 1 ? 'link' : 'links'}. Use the table to manage your links: filter, sort, edit, and delete them.`}
-          </p>
+
+          {/* Message */}
+          <div className="lg:flex-1 lg:border-l lg:border-white/20 lg:pl-6">
+            <p className="text-white/90 leading-relaxed">{getMessage()}</p>
+          </div>
         </div>
       </div>
     </div>

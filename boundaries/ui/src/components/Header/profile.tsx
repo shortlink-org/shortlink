@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useState, useEffect, Fragment } from 'react'
 
+import { useSession } from '@/contexts/SessionContext'
 import ory from '@/pkg/sdk'
 
 // @ts-ignore
@@ -14,6 +15,15 @@ function classNames(...classes) {
 export default function Profile() {
   const [logoutToken, setLogoutToken] = useState<string>('')
   const router = useRouter()
+  const { session } = useSession()
+
+  const traits: any = session?.identity?.traits ?? {}
+  const firstName = traits?.name?.first ?? ''
+  const lastName = traits?.name?.last ?? ''
+  const email = traits?.email ?? ''
+  const displayName = `${firstName} ${lastName}`.trim() || email || 'User'
+  const initials =
+    (firstName?.[0] ?? '') + (lastName?.[0] ?? '') || (email?.[0] ?? '').toUpperCase() || 'U'
 
   useEffect(() => {
     ory
@@ -62,11 +72,12 @@ export default function Profile() {
           <div>
             <Menu.Button className="group relative flex items-center gap-2 bg-white/10 hover:bg-white/20 rounded-full p-1.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-indigo-600">
               <span className="sr-only">Open user menu</span>
-              <img
-                className="h-8 w-8 rounded-full ring-2 ring-white/20 group-hover:ring-white/40 transition-all duration-200"
-                src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"
-                alt="User profile"
-              />
+              <div
+                className="h-8 w-8 rounded-full ring-2 ring-white/20 group-hover:ring-white/40 transition-all duration-200 bg-white/20 text-white flex items-center justify-center text-xs font-semibold"
+                aria-hidden="true"
+              >
+                {initials}
+              </div>
               <svg
                 className={`w-4 h-4 text-white/70 transition-transform duration-200 ${open ? 'rotate-180' : ''}`}
                 fill="none"
@@ -92,6 +103,10 @@ export default function Profile() {
               static
               className="absolute right-0 mt-3 w-56 origin-top-right rounded-xl bg-white dark:bg-gray-800 shadow-xl ring-1 ring-black/5 dark:ring-white/10 focus:outline-none overflow-hidden"
             >
+              <div className="px-4 py-3 border-b border-gray-100 dark:border-gray-700">
+                <div className="text-sm font-semibold text-gray-900 dark:text-gray-100 truncate">{displayName}</div>
+                {email && <div className="text-xs text-gray-500 dark:text-gray-400 truncate">{email}</div>}
+              </div>
               <div className="px-1 py-2">
                 {profile.map((item) => (
                   <Menu.Item key={item.name}>

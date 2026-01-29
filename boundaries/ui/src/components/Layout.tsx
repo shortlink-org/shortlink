@@ -24,10 +24,12 @@ import { ScrollToTopButton, Sidebar } from '@shortlink-org/ui-kit'
 import Footer from '@/components/Footer'
 import Header from '@/components/Header'
 import { NavigationProvider } from '@/components/Navigation'
+import { useSession } from '@/contexts/SessionContext'
 
 // @ts-ignore
 export function Layout({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false)
+  const { hasSession, isLoading: isSessionLoading } = useSession()
 
   const sidebarSections = [
     {
@@ -79,23 +81,13 @@ export function Layout({ children }: { children: React.ReactNode }) {
     },
   ]
   
-  // Try to get session from context (may be null for public pages)
-  let hasSession = false
-  try {
-    const { useSession } = require('@/contexts/SessionContext')
-    const session = useSession()
-    hasSession = session?.hasSession || false
-  } catch {
-    // Context not available - public page
-    hasSession = false
-  }
 
   return (
     <NavigationProvider>
       <CssBaseline />
 
       <div className="grid grid-rows-[auto_1fr] h-screen overflow-hidden">
-        <Header hasSession={hasSession} setOpen={() => setOpen(!open)} />
+        <Header hasSession={hasSession} isSessionLoading={isSessionLoading} setOpen={() => setOpen(!open)} />
 
         <main className={'grid grid-cols-[auto_1fr] min-h-0'}>
           <div className={'h-full overflow-auto'}>

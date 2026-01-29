@@ -16,10 +16,11 @@ import { useEffect, useState } from 'react'
 
 interface HeaderProps {
   hasSession: boolean
+  isSessionLoading?: boolean
   setOpen: () => void
 }
 
-export default function Header({ hasSession, setOpen }: HeaderProps) {
+export default function Header({ hasSession, isSessionLoading = false, setOpen }: HeaderProps) {
   const [origin, setOrigin] = useState('')
 
   useEffect(() => {
@@ -92,7 +93,7 @@ export default function Header({ hasSession, setOpen }: HeaderProps) {
                   <Profile />
                 </div>
               </div>
-            ) : (
+            ) : isSessionLoading ? null : (
               <Button
                 component={Link}
                 href={`${origin}/auth/login`}

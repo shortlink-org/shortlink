@@ -21,6 +21,21 @@ export function useSessionQuery(): UseQueryResult<Session> {
   }) as UseQueryResult<Session>
 }
 
+export function useOptionalSessionQuery(): UseQueryResult<Session | null> {
+  return useQuery<Session | null>({
+    queryKey: queryKeys.session,
+    queryFn: async () => {
+      try {
+        return await fetchSession()
+      } catch {
+        return null
+      }
+    },
+    staleTime: 5 * 60 * 1000,
+    retry: false,
+  }) as UseQueryResult<Session | null>
+}
+
 export function useProfileQuery(userId: string, enabled: boolean = true): UseQueryResult<any> {
   return useQuery<any>({
     queryKey: queryKeys.profile(userId),

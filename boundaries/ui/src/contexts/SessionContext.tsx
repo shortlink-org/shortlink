@@ -16,6 +16,7 @@ import { Session } from '@ory/client'
 interface SessionContextValue {
   session: Session | null
   hasSession: boolean
+  isLoading: boolean
 }
 
 const SessionContext = createContext<SessionContextValue | undefined>(undefined)
@@ -31,6 +32,7 @@ export function useSession() {
 interface SessionProviderProps {
   children: ReactNode
   session: Session | null
+  isLoading?: boolean
 }
 
 /**
@@ -43,10 +45,11 @@ interface SessionProviderProps {
  * </SessionProvider>
  * ```
  */
-export function SessionProvider({ children, session }: SessionProviderProps) {
+export function SessionProvider({ children, session, isLoading = false }: SessionProviderProps) {
   const value: SessionContextValue = {
     session,
     hasSession: !!session,
+    isLoading,
   }
 
   return (
@@ -57,4 +60,3 @@ export function SessionProvider({ children, session }: SessionProviderProps) {
 }
 
 export default SessionContext
-

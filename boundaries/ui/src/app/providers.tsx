@@ -14,6 +14,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { Toaster } from 'sonner'
 
 import { Layout } from '@/components'
+import { CursorDot } from '@/components/Cursor'
 import { SessionWrapper } from '@/components/SessionWrapper'
 import { makeStore, AppStore } from '@/store/store'
 
@@ -122,6 +123,7 @@ export function Providers({ children, ..._props }: { children: React.ReactNode; 
                 <Provider store={store}>
                   <QueryClientProvider client={queryClient}>
                     {children}
+                    <CursorDot />
                     <Toaster />
                   </QueryClientProvider>
                 </Provider>
