@@ -13,6 +13,7 @@ export {
 export {
   queryKeys,
   useSessionQuery,
+  useOptionalSessionQuery,
   useProfileQuery,
   useLinksQuery,
   useLinksListQuery,
