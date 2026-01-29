@@ -118,17 +118,17 @@ export function Providers({ children, ..._props }: { children: React.ReactNode; 
       <NextThemeProvider enableSystem attribute="class" defaultTheme="light">
         <MuiThemeProvider>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <Layout>
-              <BalancerProvider>
-                <Provider store={store}>
-                  <QueryClientProvider client={queryClient}>
-                    {children}
-                    <CursorDot />
-                    <Toaster />
-                  </QueryClientProvider>
-                </Provider>
-              </BalancerProvider>
-            </Layout>
+            <BalancerProvider>
+              <Provider store={store}>
+                <QueryClientProvider client={queryClient}>
+                  <SessionWrapper>
+                    <Layout>{children}</Layout>
+                  </SessionWrapper>
+                  <CursorDot />
+                  <Toaster />
+                </QueryClientProvider>
+              </Provider>
+            </BalancerProvider>
           </LocalizationProvider>
         </MuiThemeProvider>
       </NextThemeProvider>
@@ -137,16 +137,11 @@ export function Providers({ children, ..._props }: { children: React.ReactNode; 
 }
 
 /**
- * ProvidersWithSession - Wraps Providers with SessionWrapper
- *
- * This ensures session is available to all components
+ * ProvidersWithSession - Now just an alias to Providers
+ * SessionWrapper is already inside Providers
  */
 export function ProvidersWithSession({ children, ...props }: { children: React.ReactNode; [key: string]: any }) {
-  return (
-    <SessionWrapper>
-      <Providers {...props}>{children}</Providers>
-    </SessionWrapper>
-  )
+  return <Providers {...props}>{children}</Providers>
 }
 
 export default Providers

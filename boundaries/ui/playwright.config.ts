@@ -6,37 +6,49 @@ export default defineConfig({
   expect: {
     timeout: 5_000,
   },
-  fullyParallel: true,
+  // Optimization: single worker = single browser instance
+  fullyParallel: false,
+  workers: 1,
+
   forbidOnly: !!process.env.CI,
-  retries: process.env.CI ? 2 : 0,
-  workers: process.env.CI ? 2 : undefined,
+  retries: process.env.CI ? 1 : 0,
+
   reporter: [
     ['list'],
-    ['allure-playwright', { detail: true, outputFolder: 'playwright-report/allure-results', suiteTitle: false }],
     ['html', { open: 'never' }],
+    ...(process.env.CI
+      ? [['allure-playwright', { detail: true, outputFolder: 'playwright-report/allure-results', suiteTitle: false }] as const]
+      : []),
   ],
+
   use: {
     baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3000',
-    trace: 'on-first-retry',
+    trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
-    video: 'retain-on-failure',
+    video: 'off',
+    contextOptions: {
+      reducedMotion: 'reduce', // Faster animations
+    },
   },
 
   projects: [
     {
       name: 'chromium',
-      use: { ...devices['Desktop Chrome'] },
+      use: {
+        ...devices['Desktop Chrome'],
+        launchOptions: {
+          args: ['--disable-gpu', '--no-sandbox'],
+        },
+      },
     },
   ],
 
   webServer: process.env.PLAYWRIGHT_WEB_SERVER
     ? undefined
     : {
-        command: 'pnpm next dev --port 3000',
+        command: 'npx serve out -l 3000',
         port: 3000,
-        reuseExistingServer: !process.env.CI,
-        env: {
-          NODE_ENV: 'test',
-        },
+        reuseExistingServer: true,
+        timeout: 60_000,
       },
 })
