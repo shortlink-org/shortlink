@@ -10,7 +10,7 @@ require (
 	github.com/chromedp/chromedp v0.14.2
 	github.com/google/wire v0.7.0
 	github.com/minio/minio-go/v7 v7.0.98
-	github.com/shortlink-org/go-sdk/auth v0.0.0-20260127145748-e8f48094a968
+	github.com/shortlink-org/go-sdk/auth v0.0.0-20260129194324-8d77225a9cf0
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20260127145748-e8f48094a968
 	github.com/shortlink-org/go-sdk/config v0.0.0-20260127145748-e8f48094a968
 	github.com/shortlink-org/go-sdk/context v0.0.0-20260127145748-e8f48094a968
