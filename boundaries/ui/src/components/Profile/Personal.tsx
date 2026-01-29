@@ -1,18 +1,20 @@
 /**
  * Personal Information Form - Migrated to React 19 with useOptimistic
- * 
+ *
  * Changes:
- * - ✅ Added useOptimistic for instant UI updates
- * - ✅ Added useTransition for async coordination
- * - ✅ Replaced manual loading state with transition
- * - ✅ Form values update instantly (optimistic)
- * - ✅ Automatic rollback on error
+ * - Added useOptimistic for instant UI updates
+ * - Added useTransition for async coordination
+ * - Replaced manual loading state with transition
+ * - Form values update instantly (optimistic)
+ * - Automatic rollback on error
+ * - Toast notifications for feedback
+ * - Accessibility improvements
  */
 
 import * as React from 'react'
 import { useState, useOptimistic, useTransition } from 'react'
 import { Session } from '@ory/client'
-import { ErrorAlert, SuccessAlert } from '@/components/common'
+import { toast } from 'sonner'
 import { validateEmail, validateRequired } from '@/utils/validation'
 import { Button, CircularProgress } from '@mui/material'
 
@@ -44,9 +46,9 @@ export default function Personal({ session, firstName: initialFirstName, lastNam
     streetAddress: '',
     city: '',
     region: '',
-    postalCode: ''
+    postalCode: '',
   }
-  
+
   // useOptimistic for instant UI updates
   const [optimisticData, setOptimisticData] = useOptimistic(initialData)
   const [isPending, startTransition] = useTransition()
@@ -55,28 +57,29 @@ export default function Personal({ session, firstName: initialFirstName, lastNam
   const [city, setCity] = useState(initialData.city)
   const [region, setRegion] = useState(initialData.region)
   const [postalCode, setPostalCode] = useState(initialData.postalCode)
-  
-  const [error, setError] = useState<string | null>(null)
-  const [success, setSuccess] = useState(false)
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    
+
     const formData = new FormData(e.currentTarget)
     const firstName = formData.get('first_name') as string
     const email = formData.get('email_address') as string
-    
+
     // Validate required fields
     const firstNameValidation = validateRequired(firstName, 'First name')
     const emailValidation = validateEmail(email, true)
-    
+
     if (!firstNameValidation.isValid) {
-      setError(firstNameValidation.error || 'Validation failed')
+      toast.error('Validation error', {
+        description: firstNameValidation.error || 'First name is required',
+      })
       return
     }
-    
+
     if (!emailValidation.isValid) {
-      setError(emailValidation.error || 'Validation failed')
+      toast.error('Validation error', {
+        description: emailValidation.error || 'Valid email is required',
+      })
       return
     }
 
@@ -88,52 +91,58 @@ export default function Personal({ session, firstName: initialFirstName, lastNam
       streetAddress: formData.get('street_address') as string,
       city: formData.get('city') as string,
       region: formData.get('region') as string,
-      postalCode: formData.get('postal_code') as string
+      postalCode: formData.get('postal_code') as string,
     }
-    
-    setError(null)
-    setSuccess(false)
 
     // Start transition with optimistic update
     startTransition(async () => {
       // Optimistically update UI immediately
       setOptimisticData(newData)
-      
+
       try {
         // TODO: Integrate with Ory Kratos API to update profile
         // For now, just simulate success
-        await new Promise(resolve => setTimeout(resolve, 1000))
-        setSuccess(true)
+        await new Promise((resolve) => setTimeout(resolve, 1000))
+        toast.success('Personal information updated', {
+          description: 'Your changes have been saved successfully.',
+        })
       } catch (err: any) {
         // If error, optimistic data will automatically revert to initialData
-        setError(err.message || 'Failed to update profile')
+        toast.error('Failed to update', {
+          description: err.message || 'Please try again later.',
+        })
       }
     })
   }
 
+  const inputClassName =
+    'block w-full rounded-xl border-0 ring-1 ring-gray-300 dark:ring-gray-600 bg-white dark:bg-gray-700/50 dark:text-white py-3 px-4 text-sm placeholder:text-gray-400 focus:ring-2 focus:ring-indigo-500 transition-all'
+
   return (
-    <div className="mt-10 sm:mt-0">
-      <div className="md:grid md:grid-cols-3 md:gap-6">
+    <section className="mt-12" aria-labelledby="personal-heading">
+      <div className="md:grid md:grid-cols-3 md:gap-8">
         <div className="md:col-span-1">
-          <div className="px-4 sm:px-0">
-            <h3 className="text-lg font-medium leading-6 text-gray-900 dark:text-gray-200">Personal Information</h3>
-            <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
+          <div className="sticky top-6">
+            <h2 id="personal-heading" className="text-xl font-semibold text-gray-900 dark:text-white">
+              Personal Information
+            </h2>
+            <p className="mt-2 text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
               Update your personal information and contact details.
             </p>
           </div>
         </div>
 
-        <div className="mt-5 md:mt-0 md:col-span-2">
-          <form onSubmit={handleSubmit}>
-            <div className="shadow overflow-hidden sm:rounded-md">
-              <div className="px-4 py-5 bg-white dark:bg-gray-800 sm:p-6">
-                <ErrorAlert error={error} onClose={() => setError(null)} />
-                <SuccessAlert message={success ? 'Profile updated successfully!' : null} onClose={() => setSuccess(false)} />
-                
-                <div className="grid grid-cols-6 gap-6">
-                  <div className="col-span-6 sm:col-span-3">
-                    <label htmlFor="first_name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                      First name
+        <div className="mt-6 md:mt-0 md:col-span-2">
+          <form onSubmit={handleSubmit} aria-label="Personal information form">
+            <div className="overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm transition-shadow hover:shadow-md">
+              <div className="px-6 py-8" style={{ opacity: isPending ? 0.7 : 1, transition: 'opacity 0.2s' }}>
+                <div className="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                  <div>
+                    <label htmlFor="first_name" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                      First name{' '}
+                      <span className="text-red-500" aria-label="required">
+                        *
+                      </span>
                     </label>
                     <input
                       type="text"
@@ -141,14 +150,14 @@ export default function Personal({ session, firstName: initialFirstName, lastNam
                       id="first_name"
                       autoComplete="given-name"
                       defaultValue={optimisticData.firstName}
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md"
-                      style={{ opacity: isPending ? 0.7 : 1 }}
+                      className={inputClassName}
                       required
+                      aria-required="true"
                     />
                   </div>
 
-                  <div className="col-span-6 sm:col-span-3">
-                    <label htmlFor="last_name" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <div>
+                    <label htmlFor="last_name" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
                       Last name
                     </label>
                     <input
@@ -157,29 +166,43 @@ export default function Personal({ session, firstName: initialFirstName, lastNam
                       id="last_name"
                       autoComplete="family-name"
                       defaultValue={optimisticData.lastName}
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md"
-                      style={{ opacity: isPending ? 0.7 : 1 }}
+                      className={inputClassName}
                     />
                   </div>
 
-                  <div className="col-span-6 sm:col-span-4">
-                    <label htmlFor="email_address" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                      Email address
+                  <div className="sm:col-span-2">
+                    <label htmlFor="email_address" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                      Email address{' '}
+                      <span className="text-red-500" aria-label="required">
+                        *
+                      </span>
                     </label>
-                    <input
-                      type="email"
-                      name="email_address"
-                      id="email_address"
-                      autoComplete="email"
-                      defaultValue={optimisticData.email}
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md"
-                      style={{ opacity: isPending ? 0.7 : 1 }}
-                      required
-                    />
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none" aria-hidden="true">
+                        <svg className="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={1.5}
+                            d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                          />
+                        </svg>
+                      </div>
+                      <input
+                        type="email"
+                        name="email_address"
+                        id="email_address"
+                        autoComplete="email"
+                        defaultValue={optimisticData.email}
+                        className={`${inputClassName} pl-12`}
+                        required
+                        aria-required="true"
+                      />
+                    </div>
                   </div>
 
-                  <div className="col-span-6 sm:col-span-3">
-                    <label htmlFor="country" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <div className="sm:col-span-2">
+                    <label htmlFor="country" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
                       Country / Region
                     </label>
                     <select
@@ -188,17 +211,21 @@ export default function Personal({ session, firstName: initialFirstName, lastNam
                       autoComplete="country"
                       value={country}
                       onChange={(e) => setCountry(e.target.value)}
-                      className="mt-1 block w-full py-2 px-3 border border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-700 dark:text-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                      className={inputClassName}
                     >
                       <option value="">Select a country</option>
                       <option value="US">United States</option>
                       <option value="CA">Canada</option>
                       <option value="MX">Mexico</option>
+                      <option value="GB">United Kingdom</option>
+                      <option value="DE">Germany</option>
+                      <option value="FR">France</option>
+                      <option value="RU">Russia</option>
                     </select>
                   </div>
 
-                  <div className="col-span-6">
-                    <label htmlFor="street_address" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <div className="sm:col-span-2">
+                    <label htmlFor="street_address" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
                       Street address
                     </label>
                     <input
@@ -208,12 +235,12 @@ export default function Personal({ session, firstName: initialFirstName, lastNam
                       autoComplete="street-address"
                       value={streetAddress}
                       onChange={(e) => setStreetAddress(e.target.value)}
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md"
+                      className={inputClassName}
                     />
                   </div>
 
-                  <div className="col-span-6 sm:col-span-6 lg:col-span-2">
-                    <label htmlFor="city" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <div>
+                    <label htmlFor="city" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
                       City
                     </label>
                     <input
@@ -223,12 +250,12 @@ export default function Personal({ session, firstName: initialFirstName, lastNam
                       autoComplete="address-level2"
                       value={city}
                       onChange={(e) => setCity(e.target.value)}
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md"
+                      className={inputClassName}
                     />
                   </div>
 
-                  <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label htmlFor="state" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
+                  <div>
+                    <label htmlFor="region" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
                       State / Province
                     </label>
                     <input
@@ -238,13 +265,13 @@ export default function Personal({ session, firstName: initialFirstName, lastNam
                       autoComplete="address-level1"
                       value={region}
                       onChange={(e) => setRegion(e.target.value)}
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md"
+                      className={inputClassName}
                     />
                   </div>
 
-                  <div className="col-span-6 sm:col-span-3 lg:col-span-2">
-                    <label htmlFor="postal_code" className="block text-sm font-medium text-gray-700 dark:text-gray-300">
-                      ZIP / Postal
+                  <div>
+                    <label htmlFor="postal_code" className="block text-sm font-semibold text-gray-900 dark:text-white mb-2">
+                      ZIP / Postal code
                     </label>
                     <input
                       type="text"
@@ -253,29 +280,41 @@ export default function Personal({ session, firstName: initialFirstName, lastNam
                       autoComplete="postal-code"
                       value={postalCode}
                       onChange={(e) => setPostalCode(e.target.value)}
-                      className="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 dark:border-gray-600 dark:bg-gray-700 dark:text-white rounded-md"
+                      className={inputClassName}
                     />
                   </div>
                 </div>
               </div>
-              <div className="px-4 py-3 bg-gray-50 dark:bg-gray-700 text-right sm:px-6">
+              <div className="border-t border-gray-100 dark:border-gray-700 bg-gray-50/50 dark:bg-gray-800/50 px-6 py-4 flex justify-end">
                 <Button
                   type="submit"
                   variant="contained"
                   disabled={isPending}
+                  aria-busy={isPending}
                   sx={{
-                    bgcolor: 'indigo.600',
-                    '&:hover': { bgcolor: 'indigo.700' },
-                    opacity: isPending ? 0.7 : 1
+                    bgcolor: '#4f46e5',
+                    borderRadius: '12px',
+                    textTransform: 'none',
+                    fontWeight: 600,
+                    px: 4,
+                    py: 1.25,
+                    boxShadow: '0 4px 14px 0 rgba(79, 70, 229, 0.39)',
+                    '&:hover': {
+                      bgcolor: '#4338ca',
+                      boxShadow: '0 6px 20px 0 rgba(79, 70, 229, 0.5)',
+                    },
+                    '&:disabled': {
+                      bgcolor: '#a5b4fc',
+                    },
                   }}
                 >
-                  {isPending ? <CircularProgress size={16} color="inherit" /> : 'Save'}
+                  {isPending ? <CircularProgress size={18} color="inherit" aria-label="Saving..." /> : 'Save changes'}
                 </Button>
               </div>
             </div>
           </form>
         </div>
       </div>
-    </div>
+    </section>
   )
 }

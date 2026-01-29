@@ -25,6 +25,12 @@ const mapCode = (code?: string): LinkErrorCode => {
       return 'USER_NOT_IDENTIFIED'
     case 'SESSION_METADATA_MISSING':
       return 'SESSION_METADATA_MISSING'
+    case 'PERMISSION_DENIED':
+      return 'PERMISSION_DENIED'
+    case 'INVALID_TOKEN':
+      return 'INVALID_TOKEN'
+    case 'SERVICE_UNAVAILABLE':
+      return 'SERVICE_UNAVAILABLE'
     case 'UNKNOWN':
     default:
       return 'UNKNOWN'

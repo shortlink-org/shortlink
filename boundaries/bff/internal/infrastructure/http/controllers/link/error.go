@@ -100,11 +100,34 @@ func mapStatusToResponse(st *status.Status) *domainerrors.Error {
 				return domainerrors.NewUserNotIdentified()
 			case domainerrors.CodeSessionMetadataMissing:
 				return domainerrors.NewSessionMetadataMissing()
+			case domainerrors.CodePermissionDenied:
+				return domainerrors.NewPermissionDenied()
+			case domainerrors.CodeInvalidToken:
+				return domainerrors.NewInvalidToken()
+			case domainerrors.CodeServiceUnavailable:
+				return domainerrors.NewServiceUnavailable()
 			}
 		}
 	}
 
 	message := st.Message()
+	messageLower := strings.ToLower(message)
+
+	// Map by gRPC status code first
+	switch st.Code() {
+	case codes.Unauthenticated:
+		return domainerrors.NewInvalidToken()
+	case codes.PermissionDenied:
+		// Check for specific permission denied reasons
+		if strings.Contains(messageLower, "invalid token") ||
+			strings.Contains(messageLower, "invalid preshared key") ||
+			strings.Contains(messageLower, "token") {
+			return domainerrors.NewInvalidToken()
+		}
+		return domainerrors.NewPermissionDenied()
+	case codes.Unavailable:
+		return domainerrors.NewServiceUnavailable()
+	}
 
 	// Fallback to string-based inference (for backward compatibility)
 	switch {
@@ -114,6 +137,19 @@ func mapStatusToResponse(st *status.Status) *domainerrors.Error {
 		return domainerrors.NewUserNotIdentified()
 	case strings.Contains(message, session.ErrMetadataNotFound.Error()):
 		return domainerrors.NewSessionMetadataMissing()
+	case strings.Contains(messageLower, "invalid token"),
+		strings.Contains(messageLower, "invalid preshared key"),
+		strings.Contains(messageLower, "unauthorized"),
+		strings.Contains(messageLower, "authentication"):
+		return domainerrors.NewInvalidToken()
+	case strings.Contains(messageLower, "permission denied"),
+		strings.Contains(messageLower, "access denied"),
+		strings.Contains(messageLower, "forbidden"):
+		return domainerrors.NewPermissionDenied()
+	case strings.Contains(messageLower, "unavailable"),
+		strings.Contains(messageLower, "connection refused"),
+		strings.Contains(messageLower, "connection reset"):
+		return domainerrors.NewServiceUnavailable()
 	default:
 		return domainerrors.NewUnknown(message)
 	}

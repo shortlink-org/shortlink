@@ -1,4 +1,4 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
   /* Override Tailwind v4 colors with readable values */
@@ -9,7 +9,7 @@
   --color-gray-500: #6b7280;
   --color-gray-800: #1f2937;
   --color-gray-900: #111827;
-  
+
   --color-indigo-100: #e0e7ff;
   --color-indigo-200: #c7d2fe;
   --color-indigo-300: #a5b4fc;
@@ -26,11 +26,11 @@
   --color-gray-200: 229 231 235;
   --color-gray-800: 31 41 55;
   --color-gray-900: 17 24 39;
-  
+
   /* Light mode - text (контрастные цвета) */
   --color-text-primary: 17 24 39;
   --color-text-secondary: 75 85 99;
-  
+
   /* Light mode - accent */
   --color-indigo-500: 99 102 241;
   --color-indigo-600: 79 70 229;
@@ -49,11 +49,11 @@
   --color-gray-500: #f3f4f6;
   --color-gray-800: #0f172a;
   --color-gray-900: #ffffff;
-  
+
   /* Dark mode - максимальный контраст */
   --color-text-primary: #ffffff;
   --color-text-secondary: #f3f4f6;
-  
+
   /* Dark mode - яркие акценты */
   --color-indigo-100: #312e81;
   --color-indigo-200: #4338ca;
@@ -77,11 +77,30 @@ body,
   body {
     background-color: rgb(var(--color-bg-primary));
     color: rgb(var(--color-text-primary));
-    @apply min-h-screen;
+    @apply min-h-screen antialiased;
   }
 
+  /* Text selection - modern 2026 style */
   ::selection {
-    @apply text-white bg-indigo-500;
+    background-color: #4f46e5;
+    color: #ffffff;
+    -webkit-text-fill-color: #ffffff;
+  }
+
+  ::-moz-selection {
+    background-color: #4f46e5;
+    color: #ffffff;
+  }
+
+  .dark ::selection {
+    background-color: #818cf8;
+    color: #0f172a;
+    -webkit-text-fill-color: #0f172a;
+  }
+
+  .dark ::-moz-selection {
+    background-color: #818cf8;
+    color: #0f172a;
   }
 
   .btn {

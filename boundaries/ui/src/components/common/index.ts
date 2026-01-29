@@ -1,4 +1,6 @@
 export { default as ErrorAlert } from './ErrorAlert'
 export { default as SuccessAlert } from './SuccessAlert'
 export { default as LoadingSpinner } from './LoadingSpinner'
+export { PasswordInput } from './PasswordInput'
+export type { PasswordInputProps } from './PasswordInput'
 

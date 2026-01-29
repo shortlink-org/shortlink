@@ -13,6 +13,9 @@ const (
 	CodeSessionNotFound        = "SESSION_NOT_FOUND"
 	CodeUserNotIdentified      = "USER_NOT_IDENTIFIED"
 	CodeSessionMetadataMissing = "SESSION_METADATA_MISSING"
+	CodePermissionDenied       = "PERMISSION_DENIED"
+	CodeInvalidToken           = "INVALID_TOKEN"
+	CodeServiceUnavailable     = "SERVICE_UNAVAILABLE"
 	CodeUnknown                = "UNKNOWN"
 )
 
@@ -53,12 +56,33 @@ var (
 		Detail: "Request is missing authentication metadata.",
 		Action: "LOGIN",
 	}
+	// ErrPermissionDenied is a sentinel error for access denied.
+	ErrPermissionDenied = &Error{
+		Code:   CodePermissionDenied,
+		Title:  "Access denied",
+		Detail: "You don't have permission to perform this action.",
+		Action: "NONE",
+	}
+	// ErrInvalidToken is a sentinel error for invalid authentication tokens.
+	ErrInvalidToken = &Error{
+		Code:   CodeInvalidToken,
+		Title:  "Authentication failed",
+		Detail: "Your session has expired or is invalid. Please sign in again.",
+		Action: "LOGIN",
+	}
+	// ErrServiceUnavailable is a sentinel error for service connectivity issues.
+	ErrServiceUnavailable = &Error{
+		Code:   CodeServiceUnavailable,
+		Title:  "Service temporarily unavailable",
+		Detail: "We're experiencing technical difficulties. Please try again later.",
+		Action: "RETRY",
+	}
 	// ErrUnknown is a sentinel error for unexpected states.
 	ErrUnknown = &Error{
 		Code:   CodeUnknown,
 		Title:  "Unexpected error",
-		Detail: "Unexpected error occurred.",
-		Action: "NONE",
+		Detail: "Something went wrong. Please try again later.",
+		Action: "RETRY",
 	}
 )
 
@@ -93,12 +117,39 @@ func NewSessionMetadataMissing() *Error {
 	}
 }
 
+func NewPermissionDenied() *Error {
+	return &Error{
+		Code:   CodePermissionDenied,
+		Title:  "Access denied",
+		Detail: "You don't have permission to perform this action.",
+		Action: "NONE",
+	}
+}
+
+func NewInvalidToken() *Error {
+	return &Error{
+		Code:   CodeInvalidToken,
+		Title:  "Authentication failed",
+		Detail: "Your session has expired or is invalid. Please sign in again.",
+		Action: "LOGIN",
+	}
+}
+
+func NewServiceUnavailable() *Error {
+	return &Error{
+		Code:   CodeServiceUnavailable,
+		Title:  "Service temporarily unavailable",
+		Detail: "We're experiencing technical difficulties. Please try again later.",
+		Action: "RETRY",
+	}
+}
+
 func NewUnknown(detail string) *Error {
 	return &Error{
 		Code:   CodeUnknown,
-		Title:  "Unexpected error",
-		Detail: detail,
-		Action: "NONE",
+		Title:  "Something went wrong",
+		Detail: "An unexpected error occurred. Please try again later.",
+		Action: "RETRY",
 	}
 }
 
