@@ -23,28 +23,31 @@ describe('Subscribe', () => {
   it('shows success message after submission', async () => {
     const user = userEvent.setup()
     render(<Subscribe />)
-    
+
     const input = screen.getByPlaceholderText(/enter your email/i)
     const button = screen.getByRole('button', { name: /subscribe/i })
-    
+
     await user.type(input, 'test@example.com')
     await user.click(button)
-    
-    await waitFor(() => {
-      expect(screen.getByText(/you're subscribed/i)).toBeInTheDocument()
-    }, { timeout: 3000 })
+
+    await waitFor(
+      () => {
+        expect(screen.getByText(/you're subscribed/i)).toBeInTheDocument()
+      },
+      { timeout: 3000 },
+    )
   })
 
   it('disables button while loading', async () => {
     const user = userEvent.setup()
     render(<Subscribe />)
-    
+
     const input = screen.getByPlaceholderText(/enter your email/i)
     const button = screen.getByRole('button', { name: /subscribe/i })
-    
+
     await user.type(input, 'test@example.com')
     await user.click(button)
-    
+
     // Button should show loading state
     expect(screen.getByRole('button')).toBeDisabled()
   })
