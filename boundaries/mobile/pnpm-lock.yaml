@@ -118,8 +118,8 @@ importers:
         specifier: ^20.46.3
         version: 20.46.3(@jest/environment@30.2.0)(@jest/types@30.2.0)(@types/bunyan@1.8.11)(expect@30.2.0)(jest-environment-jsdom@30.2.0)(jest-environment-node@30.2.0)(jest@30.2.0(@types/node@24.10.9)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.10.9)(typescript@5.9.3)))
       eas-cli:
-        specifier: ^16.28.0
-        version: 16.28.0(@types/node@24.10.9)(encoding@0.1.13)(typescript@5.9.3)
+        specifier: ^16.32.0
+        version: 16.32.0(@types/node@24.10.9)(encoding@0.1.13)(typescript@5.9.3)
       eslint:
         specifier: ^10.0.2
         version: 10.0.2
@@ -1323,8 +1323,8 @@ packages:
     resolution: {integrity: sha512-bIZEUzOI1jkhviX2cp5vNyXQc6olzb2ohewQubuYlMXZ2Q/XjBO0x0XhGPvc9fjSIiUN0vw+0hq53BJ4eQSJKQ==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  '@expo/apple-utils@2.1.12':
-    resolution: {integrity: sha512-ugpL2URxNFxIRw943AIpX3dcvL5rhNCumpL8XTosYqZPyQQ7JRLVNd1m8FNyPg3pmFrz8M4tSucY2pt2ATuKOA==}
+  '@expo/apple-utils@2.1.13':
+    resolution: {integrity: sha512-nt3efiJhAWTHl9ikKYrHEuv3dhqCdicsHFRE9LmvtcVsPhXl9bAsm0gbACoLPr7ClP8664H/S6SdVJOD/tw0jg==}
     hasBin: true
 
   '@expo/bunyan@4.0.1':
@@ -1395,8 +1395,8 @@ packages:
   '@expo/eas-build-job@1.0.243':
     resolution: {integrity: sha512-wLU9q0pzIKibr4jLMV/U6BYszk5T85p/WmRYUIqH7nhmy2dDUJHz0WlP/i/ZWAsnrHplwidbCZvZGoxwgJsISA==}
 
-  '@expo/eas-json@16.25.0':
-    resolution: {integrity: sha512-f81xHXW/MYY2Y00uASb81Jhnw3629tDzxlnzyHTyc7zTGdWJ2gVg4HkSw2iVonP66Ddazlt4175iUE4cZd3jPA==}
+  '@expo/eas-json@16.30.0':
+    resolution: {integrity: sha512-GeWdhJTPcOh7xhox+ymsUYqsrPTB+dTyjaKdvdhZNHoNYwZADEEq2DyDHUJJPiUbPvld03qbg/mrSaVMYhxP9w==}
     engines: {node: '>=18.0.0'}
 
   '@expo/env@1.0.7':
@@ -1467,8 +1467,8 @@ packages:
   '@expo/package-manager@1.10.3':
     resolution: {integrity: sha512-ZuXiK/9fCrIuLjPSe1VYmfp0Sa85kCMwd8QQpgyi5ufppYKRtLBg14QOgUqj8ZMbJTxE0xqzd0XR7kOs3vAK9A==}
 
-  '@expo/package-manager@1.7.0':
-    resolution: {integrity: sha512-yWn5TIjd42wLHZjNtdZkvCkcxqUGxlI4YHb+bQmgm3tWZ8aBHnLhPb0rgU8+hVHCofmRvVUXfVZv8Uh+kkLXgw==}
+  '@expo/package-manager@1.9.10':
+    resolution: {integrity: sha512-axJm+NOj3jVxep49va/+L3KkF3YW/dkV+RwzqUJedZrv4LeTqOG4rhrCaCPXHTvLqCTDKu6j0Xyd28N7mnxsGA==}
 
   '@expo/pkcs12@0.1.3':
     resolution: {integrity: sha512-96MePEGppKi08vawrTPw8kMCRdsbrDbV900MlI8rrP9F57DfDl/y1P52bwIDBYCEHE3XtPMo7s1xkG0BKOLCVg==}
@@ -3520,9 +3520,6 @@ packages:
     peerDependencies:
       ajv: ^8.8.2
 
-  ajv@6.12.6:
-    resolution: {integrity: sha512-j3fVLgvTo527anyYyJOGTYJbG+vnnQYvE0m5mmkc1TK+nxAppkCLMIL0aZ4dblVCNoGShhm+kzE4ZUykBoMg4g==}
-
   ajv@6.14.0:
     resolution: {integrity: sha512-IWrosm/yrn43eiKqkfkHis7QioDleaXQHdDVPKg0FSwwd/DuvyX79TZnFOnYpB7dcsFAMmtFztZuXPDvSePkFw==}
 
@@ -4575,8 +4572,8 @@ packages:
   duplexer@0.1.2:
     resolution: {integrity: sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==}
 
-  eas-cli@16.28.0:
-    resolution: {integrity: sha512-KwdeZ4/riRvzzHEGJ7OyFA5xD1NirydRjxqIQJRYvxFRG0SWsuklHb+OUiy9Pl8DnIV+OHLNu4Z7nAatnQZPrA==}
+  eas-cli@16.32.0:
+    resolution: {integrity: sha512-4S40wdwi5+jAyn2c+sqvIIvT/IRwXfSbx2OvZrutYAfxeOiz9n2Hg/evJvArG60/iYT7Mvn5ZVzRJx/dEWksCw==}
     engines: {node: '>=18.0.0'}
     hasBin: true
 
@@ -8085,9 +8082,6 @@ packages:
     resolution: {integrity: sha512-43ZssAJaMusuKWL8sKUBQXHWOpq8d6CfN/u1p4gUzfJkM05C8rxTmYrkIPTXapZpORA6LkkzcUulJ8FqA7Uudw==}
     engines: {node: '>=6'}
 
-  split@1.0.1:
-    resolution: {integrity: sha512-mTyOoPbrivtXnwnIxZRFYRrPNtEFKlpB2fvjSnCQUiAA6qAZzqwna5envK4uk6OIeP17CsdF3rSBGYVBsU0Tkg==}
-
   sprintf-js@1.0.3:
     resolution: {integrity: sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==}
 
@@ -8268,10 +8262,6 @@ packages:
     resolution: {integrity: sha512-8EbVDiu9iN/nESwxeSxDKe0dunta1GOlHufmSSXxMD2z2/tMZpDMpvXQGsc+ajGo8y2uYUmixaSRUc/QPoQ0GA==}
     engines: {node: '>=16 || 14 >=14.17'}
     hasBin: true
-
-  sudo-prompt@9.1.1:
-    resolution: {integrity: sha512-es33J1g2HjMpyAhz8lOR+ICmXXAqTuKbuXuUWLhOLew20oN9oUCgCJx615U/v7aioZg7IX5lIh9x34vwneu4pA==}
-    deprecated: Package no longer supported. Contact Support at https://www.npmjs.com/support for more info.
 
   supports-color@5.5.0:
     resolution: {integrity: sha512-QjVjwdXIt408MIiAqCX4oUKsgU2EqAGzs2Ppkm4aQYbjm+ZEWEcW4SfFNTr4uMNZma0ey4f5lgLrkB0aX0QMow==}
@@ -10305,7 +10295,7 @@ snapshots:
       '@eslint/core': 1.1.0
       levn: 0.4.1
 
-  '@expo/apple-utils@2.1.12': {}
+  '@expo/apple-utils@2.1.13': {}
 
   '@expo/bunyan@4.0.1':
     dependencies:
@@ -10505,7 +10495,7 @@ snapshots:
       semver: 7.7.3
       zod: 4.1.12
 
-  '@expo/eas-json@16.25.0':
+  '@expo/eas-json@16.30.0':
     dependencies:
       '@babel/code-frame': 7.23.5
       '@expo/eas-build-job': 1.0.231
@@ -10692,20 +10682,14 @@ snapshots:
       ora: 3.4.0
       resolve-workspace-root: 2.0.0
 
-  '@expo/package-manager@1.7.0':
+  '@expo/package-manager@1.9.10':
     dependencies:
-      '@expo/json-file': 9.1.5
+      '@expo/json-file': 10.0.12
       '@expo/spawn-async': 1.7.2
-      ansi-regex: 5.0.1
       chalk: 4.1.2
-      find-up: 5.0.0
-      js-yaml: 3.14.2
-      micromatch: 4.0.8
       npm-package-arg: 11.0.3
       ora: 3.4.0
       resolve-workspace-root: 2.0.0
-      split: 1.0.1
-      sudo-prompt: 9.1.1
 
   '@expo/pkcs12@0.1.3':
     dependencies:
@@ -13594,21 +13578,14 @@ snapshots:
     optionalDependencies:
       ajv: 8.17.1
 
-  ajv-keywords@3.5.2(ajv@6.12.6):
+  ajv-keywords@3.5.2(ajv@6.14.0):
     dependencies:
-      ajv: 6.12.6
+      ajv: 6.14.0
 
   ajv-keywords@5.1.0(ajv@8.17.1):
     dependencies:
       ajv: 8.17.1
       fast-deep-equal: 3.1.3
-
-  ajv@6.12.6:
-    dependencies:
-      fast-deep-equal: 3.1.3
-      fast-json-stable-stringify: 2.1.0
-      json-schema-traverse: 0.4.1
-      uri-js: 4.4.1
 
   ajv@6.14.0:
     dependencies:
@@ -14824,20 +14801,20 @@ snapshots:
 
   duplexer@0.1.2: {}
 
-  eas-cli@16.28.0(@types/node@24.10.9)(encoding@0.1.13)(typescript@5.9.3):
+  eas-cli@16.32.0(@types/node@24.10.9)(encoding@0.1.13)(typescript@5.9.3):
     dependencies:
-      '@expo/apple-utils': 2.1.12
+      '@expo/apple-utils': 2.1.13
       '@expo/code-signing-certificates': 0.0.5
       '@expo/config': 10.0.6
       '@expo/config-plugins': 9.0.12
       '@expo/eas-build-job': 1.0.243
-      '@expo/eas-json': 16.25.0
+      '@expo/eas-json': 16.30.0
       '@expo/env': 1.0.7
       '@expo/json-file': 8.3.3
       '@expo/logger': 1.0.221
       '@expo/multipart-body-parser': 2.0.0
       '@expo/osascript': 2.1.4
-      '@expo/package-manager': 1.7.0
+      '@expo/package-manager': 1.9.10
       '@expo/pkcs12': 0.1.3
       '@expo/plist': 0.2.0
       '@expo/plugin-help': 5.1.23(@types/node@24.10.9)(typescript@5.9.3)
@@ -14876,6 +14853,7 @@ snapshots:
       https-proxy-agent: 5.0.1
       ignore: 5.3.0
       indent-string: 4.0.0
+      invariant: 2.2.4
       jks-js: 1.1.0
       joi: 17.11.0
       jsonwebtoken: 9.0.0
@@ -19137,8 +19115,8 @@ snapshots:
   schema-utils@3.3.0:
     dependencies:
       '@types/json-schema': 7.0.15
-      ajv: 6.12.6
-      ajv-keywords: 3.5.2(ajv@6.12.6)
+      ajv: 6.14.0
+      ajv-keywords: 3.5.2(ajv@6.14.0)
 
   schema-utils@4.3.2:
     dependencies:
@@ -19352,10 +19330,6 @@ snapshots:
 
   split-on-first@1.1.0: {}
 
-  split@1.0.1:
-    dependencies:
-      through: 2.3.8
-
   sprintf-js@1.0.3: {}
 
   stable@0.1.8: {}
@@ -19567,8 +19541,6 @@ snapshots:
       mz: 2.7.0
       pirates: 4.0.7
       ts-interface-checker: 0.1.13
-
-  sudo-prompt@9.1.1: {}
 
   supports-color@5.5.0:
     dependencies:
