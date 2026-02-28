@@ -5,17 +5,18 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "wxt",
-    "dev:firefox": "wxt -b firefox",
-    "build": "wxt build",
-    "build:firefox": "wxt build -b firefox",
-    "zip": "wxt zip",
-    "zip:firefox": "wxt zip -b firefox",
+    "dev": "NODE_OPTIONS='--no-webstorage' wxt",
+    "dev:firefox": "NODE_OPTIONS='--no-webstorage' wxt -b firefox",
+    "build": "NODE_OPTIONS='--no-webstorage' wxt build",
+    "build:firefox": "NODE_OPTIONS='--no-webstorage' wxt build -b firefox",
+    "zip": "NODE_OPTIONS='--no-webstorage' wxt zip",
+    "zip:firefox": "NODE_OPTIONS='--no-webstorage' wxt zip -b firefox",
     "compile": "tsc --noEmit",
-    "postinstall": "wxt prepare"
+    "postinstall": "NODE_OPTIONS='--no-webstorage' wxt prepare"
   },
   "dependencies": {
     "@tailwindcss/cli": "^4.1.18",
+    "@tailwindcss/postcss": "^4.2.1",
     "react": "^19.2.4",
     "react-dom": "^19.2.4"
   },
