@@ -5,7 +5,7 @@ go 1.25.6
 require (
 	github.com/cloudevents/sdk-go/observability/opencensus/v2 v2.16.2
 	github.com/cloudevents/sdk-go/v2 v2.16.2
-	github.com/elastic/go-elasticsearch/v9 v9.2.1
+	github.com/elastic/go-elasticsearch/v9 v9.3.1
 )
 
 require (
