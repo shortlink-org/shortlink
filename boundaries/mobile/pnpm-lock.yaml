@@ -36,8 +36,8 @@ importers:
         specifier: ^0.83.1
         version: 0.83.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.14)(react@19.2.4)
       react-native-paper:
-        specifier: ^5.14.5
-        version: 5.14.5(react-native-safe-area-context@5.6.2(react-native@0.83.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.14)(react@19.2.4))(react@19.2.4))(react-native@0.83.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
+        specifier: ^5.15.0
+        version: 5.15.0(react-native-safe-area-context@5.6.2(react-native@0.83.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.14)(react@19.2.4))(react@19.2.4))(react-native@0.83.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
       react-native-safe-area-context:
         specifier: ^5.6.2
         version: 5.6.2(react-native@0.83.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
@@ -7478,8 +7478,8 @@ packages:
       react: '*'
       react-native: '*'
 
-  react-native-paper@5.14.5:
-    resolution: {integrity: sha512-eaIH5bUQjJ/mYm4AkI6caaiyc7BcHDwX6CqNDi6RIxfxfWxROsHpll1oBuwn/cFvknvA8uEAkqLk/vzVihI3AQ==}
+  react-native-paper@5.15.0:
+    resolution: {integrity: sha512-I/1CQLfW9VM0Oo5I5dQI/hjgf1I6q2S1wwgzAdsv6whAQ3zO97GWHwtgNh9se9j8zBOJ86afPTQKxxUL0IJd9A==}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -8724,11 +8724,6 @@ packages:
 
   url-parse@1.5.10:
     resolution: {integrity: sha512-WypcfiRhfeUP9vvF0j6rw0J3hrWrw6iZv3+22h6iRMJ/8z1Tj6XfLP4DsUix5MhMPnXpiHDoKyoZ/bdCkwBCiQ==}
-
-  use-latest-callback@0.2.4:
-    resolution: {integrity: sha512-LS2s2n1usUUnDq4oVh1ca6JFX9uSqUncTfAm44WMg0v6TxL7POUTk1B044NH8TeLkFbNajIsgDHcgNpNzZucdg==}
-    peerDependencies:
-      react: '>=16.8'
 
   use-latest-callback@0.2.6:
     resolution: {integrity: sha512-FvRG9i1HSo0wagmX63Vrm8SnlUU3LMM3WyZkQ76RnslpBrX694AdG4A0zQBx2B3ZifFA0yv/BaEHGBnEax5rZg==}
@@ -18624,14 +18619,14 @@ snapshots:
       react: 19.2.4
       react-native: 0.83.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.14)(react@19.2.4)
 
-  react-native-paper@5.14.5(react-native-safe-area-context@5.6.2(react-native@0.83.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.14)(react@19.2.4))(react@19.2.4))(react-native@0.83.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.14)(react@19.2.4))(react@19.2.4):
+  react-native-paper@5.15.0(react-native-safe-area-context@5.6.2(react-native@0.83.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.14)(react@19.2.4))(react@19.2.4))(react-native@0.83.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.14)(react@19.2.4))(react@19.2.4):
     dependencies:
       '@callstack/react-theme-provider': 3.0.9(react@19.2.4)
       color: 3.2.1
       react: 19.2.4
       react-native: 0.83.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.14)(react@19.2.4)
       react-native-safe-area-context: 5.6.2(react-native@0.83.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.14)(react@19.2.4))(react@19.2.4)
-      use-latest-callback: 0.2.4(react@19.2.4)
+      use-latest-callback: 0.2.6(react@19.2.4)
 
   react-native-safe-area-context@5.6.2(react-native@0.83.1(@babel/core@7.28.0)(@react-native/metro-config@0.81.0(@babel/core@7.28.0))(@types/react@19.2.14)(react@19.2.4))(react@19.2.4):
     dependencies:
@@ -20050,10 +20045,6 @@ snapshots:
     dependencies:
       querystringify: 2.2.0
       requires-port: 1.0.0
-
-  use-latest-callback@0.2.4(react@19.2.4):
-    dependencies:
-      react: 19.2.4
 
   use-latest-callback@0.2.6(react@19.2.4):
     dependencies:
