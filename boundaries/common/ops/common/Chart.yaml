@@ -21,7 +21,7 @@ dependencies:
     version: 0.12.1
     repository: oci://ghcr.io/shortlink-org/charts
   - name: redis
-    version: 24.1.2
+    version: 24.1.8
     repository: oci://registry-1.docker.io/bitnamicharts
     condition: redis.enabled
     tags:
