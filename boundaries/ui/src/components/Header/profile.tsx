@@ -1,7 +1,6 @@
 import { Menu, Transition } from '@headlessui/react'
 import { AxiosError } from 'axios'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 import { useState, useEffect, Fragment } from 'react'
 
 import { useSession } from '@/contexts/SessionContext'
@@ -14,7 +13,6 @@ function classNames(...classes) {
 
 export default function Profile() {
   const [logoutToken, setLogoutToken] = useState<string>('')
-  const router = useRouter()
   const { session } = useSession()
 
   const traits: any = session?.identity?.traits ?? {}
@@ -58,8 +56,7 @@ export default function Profile() {
       onClick: () => {
         ory
           .updateLogoutFlow({ token: logoutToken })
-          .then(() => router.push('/auth/login'))
-          .then(() => window.location.reload())
+          .then(() => window.location.assign('/auth/login'))
       },
     },
   ]
