@@ -1,144 +1,146 @@
 # AGENTS.md
 
-Operational guide for coding agents working in this repository.
+DDD-first operating guide for coding agents in this repository.
 
-## 1) Start Here
+## 1) Core Principle
 
-- This repository is a **multi-boundary monorepo** for the ShortLink project.
-- Prefer **small, boundary-scoped changes** over broad cross-repo edits.
-- Before changing code:
-  1. Read this file.
-  2. Read the closest boundary README and ADR docs.
-  3. Read local Cursor rules (listed below) when working in that area.
+Model behavior around the domain first. Protect domain language, business invariants, and bounded-context boundaries before optimizing frameworks, transport, or storage.
 
-## 2) Instruction Sources (Most Specific Wins)
+## 2) Bounded Contexts (Monorepo Map)
 
-When instructions differ, follow the most specific scope:
+The `boundaries/` directory represents bounded contexts and related interfaces:
 
-1. Files in the exact boundary/service you are editing.
-2. Boundary-local Cursor rules:
+- `link` (Go) - core short-link lifecycle domain
+- `metadata` (Go) - enrichment and screenshot/metadata domain
+- `bff` (Go) - client-facing application/API composition for web
+- `api/api-gateway` (Go) - deprecated API boundary context
+- `proxy` (TypeScript) - redirect/runtime edge service
+- `ui` (Next.js/TypeScript) - web client
+- `mobile` (Expo + Nx) - mobile client
+- `chrome-extension` (WXT + React/TS) - browser client
+
+Read first:
+
+- `boundaries/README.md`
+- boundary-local `README.md`
+- `docs/ADR/README.md`
+
+## 3) Rule Precedence (Most Specific Wins)
+
+If instructions conflict, follow:
+
+1. Files in the exact service/context being edited
+2. Boundary-local rules:
    - `boundaries/proxy/.cursor/rules/architecture.md`
    - `boundaries/ui/.cursor/rules/front-end-cursor-rules.mdc`
-3. Repo-wide Cursor rules:
+3. Repo-wide rules:
    - `.cursor/.cursorrules`
    - `.cursor/rules/go-microservices.mdc`
-4. This `AGENTS.md`.
+4. This document
 
-## 3) Repository Map
+## 4) DDD Architecture Rules
 
-Top-level boundaries in `boundaries/`:
+### 4.1 Layer Responsibilities
 
-- `link` (Go)
-- `metadata` (Go)
-- `bff` (Go)
-- `api/api-gateway` (Go, deprecated API boundary context)
-- `proxy` (TypeScript, Node.js, pnpm)
-- `ui` (Next.js/TypeScript, pnpm)
-- `mobile` (Expo + Nx, pnpm)
-- `chrome-extension` (WXT + React/TS, pnpm)
+- **Domain layer**
+  - Entities, Value Objects, Aggregates, Domain Services, Domain Events
+  - No infrastructure dependencies
+  - Business invariants enforced here
+- **Application layer**
+  - Use cases/application services
+  - Orchestrates domain behavior and transactions
+  - DTOs for boundary contracts
+- **Infrastructure layer**
+  - DB, MQ, HTTP clients, file systems, third-party SDKs
+  - Implements repository/gateway interfaces
+- **Interface/transport layer**
+  - HTTP/gRPC handlers, CLI, messaging consumers
+  - Map external contracts to application DTOs
 
-Useful docs:
+Dependency direction must always point inward (toward domain).
 
-- Root contributing guide: `CONTRIBUTING.md`
-- Architecture decisions: `docs/ADR/README.md`
-- Boundary overview: `boundaries/README.md`
+### 4.2 Tactical DDD Guidance
 
-## 4) Standard Agent Workflow
+- Keep aggregate roots small and consistency-focused.
+- Modify aggregate state only through aggregate behavior.
+- Prefer immutable Value Objects.
+- Repositories should load/save aggregate roots, not random tables.
+- Domain events should express business facts in ubiquitous language.
+- Cross-context integration should use explicit contracts (events, APIs, ACL/adapters), never hidden coupling.
 
-1. Identify the smallest affected boundary.
-2. Read `README.md` and docs in that boundary first.
-3. Implement only what is required for the request.
-4. Run the **narrowest relevant checks** for touched code.
-5. Summarize what changed and which checks were executed.
+### 4.3 Ubiquitous Language
 
-## 5) Command Reference
+- Use terms from boundary glossary/README/ADR in names.
+- If domain meaning changes, update docs and naming in the same PR.
+- Avoid generic names like `manager`, `data`, `util` for domain logic.
 
-### Root-level
+## 5) Agent Workflow (DDD-Oriented)
 
-- Show available tasks: `make help`
-- Proto tooling and generation:
-  - `make dep` (installs shared generators/tools)
-  - `make proto-lint`
-  - `make proto-generate`
-- Full local stack (heavy):
-  - `make up`
-  - `make down`
+1. Identify the target bounded context.
+2. Identify affected aggregate/use case.
+3. Write change at domain/application level first; adapt infra second.
+4. Keep changes local to one context unless integration is required.
+5. Validate with the narrowest relevant tests/checks.
+6. Summarize domain impact (invariant, event, contract, behavior).
 
-### Go services (link, metadata, bff, api-gateway)
+## 6) Commands (Validated in this repo)
 
-Run commands from the service directory whenever possible:
+### Root
+
+- `make help`
+- `make dep`
+- `make proto-lint`
+- `make proto-generate`
+- `make up` / `make down` (heavy full stack)
+
+### Go contexts
+
+Run from context directory:
 
 - `go test ./...`
-- `go test -run <Name> ./...` for targeted tests
-- `make help` for service-specific targets (where available)
+- `go test -run <Name> ./...`
+- `make help`
 
-Service-specific notes:
+Useful local targets:
 
 - `boundaries/link`: `make dev`, `make proto-lint`, `make proto-generate`, `make docs`, `make e2e`
-- `boundaries/metadata`: proto/docs targets via `make help`
+- `boundaries/metadata`: proto/docs via `make help`
 - `boundaries/bff`: `make dep`, `make generate`, `make docs`
 
-### Proxy service (`boundaries/proxy`)
+### TypeScript/Frontend contexts
 
-- Use pnpm only.
-- Typical commands:
-  - `pnpm install`
-  - `pnpm build`
-  - `pnpm lint`
-  - `pnpm test`
-  - `pnpm test:cov`
+- `boundaries/proxy`: `pnpm install && pnpm build && pnpm lint && pnpm test`
+- `boundaries/ui`: `pnpm install && pnpm type-check && pnpm lint && pnpm test:run`
+- `boundaries/mobile`: `pnpm install && pnpm nx serve shortlink` (or `pnpm nx build shortlink`)
+- `boundaries/chrome-extension`: `pnpm install && pnpm build && pnpm compile`
 
-### UI service (`boundaries/ui`)
+## 7) Generation and Contracts
 
-- Use pnpm only.
-- Typical commands:
-  - `pnpm install`
-  - `pnpm type-check`
-  - `pnpm lint`
-  - `pnpm test:run`
+- If `.proto` contracts change, run corresponding `proto-lint` and `proto-generate`.
+- Regenerate derived artifacts in the same change when contracts/interfaces change.
+- Do not hand-edit generated files unless unavoidable; document reason when doing so.
 
-### Mobile service (`boundaries/mobile`)
+## 8) Anti-Patterns (Avoid)
 
-- Use pnpm only.
-- Typical commands:
-  - `pnpm install`
-  - `pnpm nx serve shortlink`
-  - `pnpm nx build shortlink`
+- Business logic inside handlers/controllers/repositories.
+- Infrastructure types leaking into domain entities/value objects.
+- Cross-context direct DB coupling.
+- “God” services that bypass aggregate invariants.
+- Renaming domain concepts without updating ubiquitous language docs.
 
-### Chrome extension (`boundaries/chrome-extension`)
+## 9) Git Hygiene
 
-- Use pnpm only.
-- Typical commands:
-  - `pnpm install`
-  - `pnpm dev`
-  - `pnpm build`
-  - `pnpm compile`
+- Check current tree before editing: `git status`.
+- Keep commits small and domain-focused.
+- Use clear English commit messages.
+- Never revert unrelated user changes.
 
-## 6) Coding Rules to Preserve
+## 10) Definition of Done (DDD Checklist)
 
-- Go code should follow clean architecture and interface-driven boundaries (`.cursor/rules/go-microservices.mdc`).
-- Proxy application layer contracts must follow the DTO/use-case rules in `boundaries/proxy/.cursor/rules/architecture.md`.
-- UI changes should follow front-end rules in `boundaries/ui/.cursor/rules/front-end-cursor-rules.mdc`.
-- Do not edit vendored dependencies manually.
+Before finalizing:
 
-## 7) Generation and Derived Artifacts
-
-- If `.proto` files change, run the relevant `proto-lint` and `proto-generate` targets.
-- If API/docs generators are used, regenerate outputs in the same change.
-- Avoid manual edits to generated files unless the generation pipeline requires post-processing (document why if so).
-
-## 8) Git and Change Hygiene
-
-- Check current changes before editing (`git status`).
-- Keep commits focused and message text in English.
-- Prefer one logical change per commit.
-- Do not rewrite unrelated local edits.
-
-## 9) Definition of Done for Agents
-
-Before finalizing, ensure:
-
-- The change is scoped to the requested task.
-- Relevant tests/lint/type-checks for touched areas were run (or explain why not).
-- Docs/comments were updated when behavior or interfaces changed.
-- Any follow-up risks or assumptions are clearly called out.
+- Bounded context and aggregate boundaries were respected.
+- Domain invariants are preserved and tested.
+- External contracts/events are updated and validated if changed.
+- Relevant tests/lint/type-check were run (or explicitly justified).
+- ADR/README/glossary updates are included when domain language changed.
