@@ -2,6 +2,7 @@ package parsers
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -17,7 +18,8 @@ func (r *UC) Set(ctx context.Context, url string) (*v1.Meta, error) {
 		Id: url,
 	}
 
-	newCtx, cancel := context.WithTimeout(ctx, time.Minute*1)
+	newCtx, cancel := context.WithTimeoutCause(ctx, time.Minute*1,
+		fmt.Errorf("metadata set for %s: 1m timeout exceeded", url))
 	defer cancel()
 
 	// Request the HTML page.

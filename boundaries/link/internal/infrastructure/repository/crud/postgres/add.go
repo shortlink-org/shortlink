@@ -47,7 +47,7 @@ func (s *Store) Add(ctx context.Context, source *domain.Link) (*domain.Link, err
 
 			return res, nil
 		case <-ctx.Done():
-			return nil, domain.NewInternalErrorWithErr(ctx.Err())
+			return nil, domain.NewInternalErrorWithErr(context.Cause(ctx))
 		}
 	case options.MODE_SINGLE_WRITE:
 		data, err := s.singleWrite(ctx, source)

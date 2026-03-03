@@ -4,6 +4,7 @@ import (
 	"context"
 	"embed"
 	"errors"
+	"fmt"
 	"time"
 
 	_ "github.com/golang-migrate/migrate/v4/database/mongodb"
@@ -98,7 +99,7 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 
 			return res, nil
 		case <-ctx.Done():
-			return nil, ctx.Err()
+			return nil, context.Cause(ctx)
 		}
 	case options.MODE_SINGLE_WRITE:
 		data, err := s.singleWrite(ctx, source)
@@ -112,7 +113,8 @@ func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 	collection := s.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
+	ctx, cancel := context.WithTimeoutCause(ctx, 20*time.Second,
+		fmt.Errorf("mongo get link %s: 20s timeout exceeded", id))
 	defer cancel()
 
 	val := collection.FindOne(ctx, bson.D{bson.E{Key: "hash", Value: id}})
@@ -139,7 +141,8 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 func (s *Store) List(ctx context.Context, params *v1.FilterLink) (*v1.Links, error) {
 	collection := s.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
+	ctx, cancel := context.WithTimeoutCause(ctx, 20*time.Second,
+		fmt.Errorf("mongo list links: 20s timeout exceeded"))
 	defer cancel()
 
 	// Build filter
@@ -189,7 +192,8 @@ func (s *Store) Update(_ context.Context, _ *v1.Link) (*v1.Link, error) {
 func (s *Store) Delete(ctx context.Context, id string) error {
 	collection := s.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
+	ctx, cancel := context.WithTimeoutCause(ctx, 20*time.Second,
+		fmt.Errorf("mongo delete link %s: 20s timeout exceeded", id))
 	defer cancel()
 
 	_, err := collection.DeleteOne(ctx, bson.D{bson.E{Key: "hash", Value: id}})
@@ -203,7 +207,8 @@ func (s *Store) Delete(ctx context.Context, id string) error {
 func (s *Store) singleWrite(ctx context.Context, source *v1.Link) (*v1.Link, error) {
 	collection := s.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
+	ctx, cancel := context.WithTimeoutCause(ctx, 20*time.Second,
+		fmt.Errorf("mongo single write link %s: 20s timeout exceeded", source.GetHash()))
 	defer cancel()
 
 	// convert to DTO
@@ -241,7 +246,8 @@ func (s *Store) batchWrite(ctx context.Context, sources []*v1.Link) (*v1.Links, 
 
 	collection := s.client.Database("shortlink").Collection("links")
 
-	ctx, cancel := context.WithTimeout(ctx, 20*time.Second)
+	ctx, cancel := context.WithTimeoutCause(ctx, 20*time.Second,
+		fmt.Errorf("mongo batch write: 20s timeout exceeded"))
 	defer cancel()
 
 	_, err := collection.InsertMany(ctx, docs)

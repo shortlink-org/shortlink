@@ -3,6 +3,7 @@ package link
 import (
 	"context"
 	"errors"
+	"fmt"
 	"log/slog"
 	"time"
 
@@ -105,7 +106,8 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 				}},
 			}
 
-			permissionCtx, cancel := context.WithTimeout(ctx, permissionWriteTimeout)
+			permissionCtx, cancel := context.WithTimeoutCause(ctx, permissionWriteTimeout,
+				fmt.Errorf("add link %s: permission write timeout (%s) exceeded", in.GetHash(), permissionWriteTimeout))
 			defer cancel()
 
 			permissionCtx, span := otel.Tracer("link.uc.permission").Start(permissionCtx, "authzed.api.v1.PermissionsService/WriteRelationships",
@@ -123,6 +125,12 @@ func (uc *UC) Add(ctx context.Context, in *domain.Link) (*domain.Link, error) {
 
 			_, err := uc.permission.PermissionsServiceClient.WriteRelationships(permissionCtx, relationship)
 			if err != nil {
+				// Use context cause when available for clearer diagnostics (e.g. timeout)
+				if permissionCtx.Err() != nil {
+					if cause := context.Cause(permissionCtx); cause != nil {
+						err = cause
+					}
+				}
 				st, ok := status.FromError(err)
 				if ok {
 					span.SetAttributes(attribute.String("grpc.code", st.Code().String()))

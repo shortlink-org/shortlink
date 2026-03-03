@@ -6,6 +6,7 @@ package screenshot
 
 import (
 	"context"
+	"fmt"
 	"net/url"
 	"time"
 
@@ -36,8 +37,9 @@ func (s *UC) Get(ctx context.Context, linkURL string) (*url.URL, error) {
 }
 
 func (s *UC) Set(ctx context.Context, linkURL string) error {
-	// Add timeout for screenshot operation (30 seconds)
-	screenshotCtx, cancel := context.WithTimeout(ctx, 30*time.Second)
+	// Add timeout for screenshot operation (30 seconds); attach cause for diagnostics
+	screenshotCtx, cancel := context.WithTimeoutCause(ctx, 30*time.Second,
+		fmt.Errorf("screenshot for %s: 30s timeout exceeded", linkURL))
 	defer cancel()
 
 	allocatorOpts := append(chromedp.DefaultExecAllocatorOptions[:],
@@ -58,7 +60,12 @@ func (s *UC) Set(ctx context.Context, linkURL string) error {
 	var screenshot []byte
 
 	if err := chromedp.Run(newCtx, elementScreenshot(linkURL, &screenshot)); err != nil {
-		// Wrap error with more context about what failed
+		// Prefer context cause when our timeout context was canceled for clearer diagnostics
+		if screenshotCtx.Err() != nil {
+			if cause := context.Cause(screenshotCtx); cause != nil {
+				err = cause
+			}
+		}
 		return domainerrors.NewScreenshotUnavailableError(linkURL, err)
 	}
 
