@@ -25,7 +25,7 @@ func TestMain(m *testing.M) {
 }
 
 func TestSQLite(t *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
+	ctx, cancel := context.WithCancelCause(context.Background())
 
 	st := &db.Store{}
 
@@ -67,6 +67,6 @@ func TestSQLite(t *testing.T) {
 	})
 
 	t.Cleanup(func() {
-		cancel()
+		cancel(nil)
 	})
 }

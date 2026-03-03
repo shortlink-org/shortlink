@@ -14,8 +14,8 @@ import (
 )
 
 func BenchmarkPostgresSerial(b *testing.B) {
-	ctx, cancel := context.WithCancel(context.Background())
-	b.Cleanup(cancel)
+	ctx, cancel := context.WithCancelCause(context.Background())
+	b.Cleanup(func() { cancel(nil) })
 
 	st := &db.Store{}
 
@@ -63,8 +63,8 @@ func BenchmarkPostgresSerial(b *testing.B) {
 }
 
 func BenchmarkPostgresParallel(b *testing.B) {
-	ctx, cancel := context.WithCancel(context.Background())
-	b.Cleanup(cancel)
+	ctx, cancel := context.WithCancelCause(context.Background())
+	b.Cleanup(func() { cancel(nil) })
 
 	st := &db.Store{}
 

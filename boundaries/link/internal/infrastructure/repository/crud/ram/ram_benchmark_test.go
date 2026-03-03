@@ -18,8 +18,8 @@ import (
 var linkUniqId atomic.Int64
 
 func BenchmarkRAMSerial(b *testing.B) {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	ctx, cancel := context.WithCancelCause(context.Background())
+	defer cancel(nil)
 
 	b.Run("Create [single]", func(b *testing.B) {
 		b.ReportAllocs()

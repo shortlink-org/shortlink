@@ -24,7 +24,7 @@ func TestMain(m *testing.M) {
 }
 
 func TestLevelDB(t *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
+	ctx, cancel := context.WithCancelCause(context.Background())
 
 	st := db.Store{}
 
@@ -60,6 +60,6 @@ func TestLevelDB(t *testing.T) {
 	})
 
 	t.Cleanup(func() {
-		cancel()
+		cancel(nil)
 	})
 }

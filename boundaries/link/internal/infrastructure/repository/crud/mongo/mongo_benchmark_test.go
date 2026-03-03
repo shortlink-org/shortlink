@@ -14,8 +14,8 @@ import (
 )
 
 func BenchmarkMongoSerial(b *testing.B) {
-	ctx, cancel := context.WithCancel(context.Background())
-	b.Cleanup(cancel)
+	ctx, cancel := context.WithCancelCause(context.Background())
+	b.Cleanup(func() { cancel(nil) })
 
 	st := &db.Store{}
 
@@ -42,8 +42,8 @@ func BenchmarkMongoSerial(b *testing.B) {
 
 		b.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 
-		newCtx, cancelBatch := context.WithCancel(ctx)
-		defer cancelBatch()
+		newCtx, cancelBatch := context.WithCancelCause(ctx)
+		defer cancelBatch(nil)
 
 		storeBatchMode, err := New(newCtx, st)
 		require.NoError(b, err, "Could not create store in batch mode")

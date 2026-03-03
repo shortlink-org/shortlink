@@ -25,8 +25,8 @@ func TestMain(m *testing.M) {
 }
 
 func TestRAM(t *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
-	defer cancel()
+	ctx, cancel := context.WithCancelCause(context.Background())
+	defer cancel(nil)
 
 	store, err := New(ctx)
 	require.NoError(t, err)
@@ -102,6 +102,6 @@ func TestRAM(t *testing.T) {
 	})
 
 	t.Cleanup(func() {
-		cancel()
+		cancel(nil)
 	})
 }

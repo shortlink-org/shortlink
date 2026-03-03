@@ -38,8 +38,8 @@ const (
 )
 
 func TestPostgres(t *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
-	t.Cleanup(cancel)
+	ctx, cancel := context.WithCancelCause(context.Background())
+	t.Cleanup(func() { cancel(nil) })
 
 	st := &db.Store{}
 
@@ -71,7 +71,7 @@ func TestPostgres(t *testing.T) {
 		// Set config
 		t.Setenv("STORE_MODE_WRITE", strconv.Itoa(options.MODE_BATCH_WRITE))
 
-		newCtx, cancelBatchMode := context.WithCancel(ctx)
+		newCtx, cancelBatchMode := context.WithCancelCause(ctx)
 
 		// new store
 		storeBatchMode, err := New(newCtx, st)
@@ -108,7 +108,7 @@ func TestPostgres(t *testing.T) {
 		assert.Equal(t, source.GetDescribe(), mockLink.GetDescribe())
 
 		t.Cleanup(func() {
-			cancelBatchMode()
+			cancelBatchMode(nil)
 		})
 	})
 

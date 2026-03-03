@@ -32,8 +32,8 @@ func TestMain(m *testing.M) {
 var linkUniqId atomic.Int64
 
 func TestMongo(t *testing.T) {
-	ctx, cancel := context.WithCancel(context.Background())
-	t.Cleanup(cancel)
+	ctx, cancel := context.WithCancelCause(context.Background())
+	t.Cleanup(func() { cancel(nil) })
 
 	st := &db.Store{}
 
