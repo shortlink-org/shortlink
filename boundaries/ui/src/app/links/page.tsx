@@ -22,6 +22,7 @@ import UserLinksTable from '@/components/Page/user/linksTable'
 import { LinksTableSkeleton } from '@/components/Skeleton'
 import { LinksErrorBoundary } from '@/components/error'
 import { queryKeys, useLinksListQuery } from '@/lib/datalayer'
+import { protoTimestampToIsoString } from '@/lib/time'
 
 /**
  * Component that reads links data via TanStack Query
@@ -45,12 +46,8 @@ function LinksData() {
     url: link.url || '',
     hash: link.hash || '',
     describe: link.describe,
-    created_at: link.created_at
-      ? new Date((link.created_at.seconds || 0) * 1000 + (link.created_at.nanos || 0) / 1000000).toISOString()
-      : '',
-    updated_at: link.updated_at
-      ? new Date((link.updated_at.seconds || 0) * 1000 + (link.updated_at.nanos || 0) / 1000000).toISOString()
-      : '',
+    created_at: protoTimestampToIsoString(link.created_at),
+    updated_at: protoTimestampToIsoString(link.updated_at),
   }))
 
   const handleRefresh = () => {
