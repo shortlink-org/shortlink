@@ -1,4 +1,5 @@
 // @ts-nocheck
+import NextLink from 'next/link'
 import Link from '@mui/material/Link'
 import Table from '@mui/material/Table'
 import TableBody from '@mui/material/TableBody'
@@ -21,10 +22,6 @@ const rows = [
   createData(3, '16 Mar, 2019', 'Michael Jackson', 'Gary, IN', 'AMEX ⠀•••• 2000', 654.39),
   createData(4, '15 Mar, 2019', 'Bruce Springsteen', 'Long Branch, NJ', 'VISA ⠀•••• 5919', 212.79),
 ]
-
-function preventDefault(event) {
-  event.preventDefault()
-}
 
 export default function Orders() {
   return (
@@ -52,7 +49,7 @@ export default function Orders() {
           ))}
         </TableBody>
       </Table>
-      <Link color="primary" href="#" onClick={preventDefault} sx={{ mt: 3 }}>
+      <Link component={NextLink} color="primary" href="/reports" sx={{ mt: 3 }}>
         See more orders
       </Link>
     </>

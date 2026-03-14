@@ -19,6 +19,7 @@ import { LinksErrorBoundary } from '@/components/error'
 import { useSearchLinksQuery } from '@/lib/datalayer'
 import withAuthSync from '@/components/Private'
 import PageHeader from '@/components/Page/Header'
+import PageSection from '@/components/Page/Section'
 
 /**
  * Component that reads search results via TanStack Query
@@ -129,17 +130,9 @@ function SearchSkeleton() {
 function LinksSearchPage() {
   return (
     <>
-      <PageHeader title="Search Links" />
-      
-      <Box sx={{ p: 3, maxWidth: 1200, mx: 'auto' }}>
-        <Typography variant="h4" gutterBottom>
-          Search Links
-        </Typography>
-        
-        <Typography variant="body1" color="text.secondary" sx={{ mb: 3 }}>
-          Search through your shortened links by URL, title, or description
-        </Typography>
-        
+      <PageHeader title="Search Links" description="Search through your shortened links by URL, title, or description." />
+
+      <PageSection size="wide" className="pb-10">
         {/* DeferredSearch wraps the search input and results */}
         <LinksErrorBoundary>
           <DeferredSearch
@@ -152,7 +145,7 @@ function LinksSearchPage() {
             {(query) => <SearchResults query={query} />}
           </DeferredSearch>
         </LinksErrorBoundary>
-      </Box>
+      </PageSection>
     </>
   )
 }

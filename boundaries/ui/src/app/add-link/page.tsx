@@ -35,6 +35,7 @@ import { CreateLinkCommand, LinkDomainError } from '@/domain/link/link.types'
 import withAuthSync from '@/components/Private'
 import { FormErrorBoundary } from '@/components/error'
 import Header from '@/components/Page/Header'
+import PageSection from '@/components/Page/Section'
 import { validateUrl, validateEmailList, parseEmailList } from '@/utils/validation'
 
 // Types for consolidated state
@@ -283,8 +284,8 @@ function Page() {
   return (
     <>
       {/*<NextSeo title="Add link" description="Add a new link" />*/}
-      <div className="container mx-auto w-5/6 sm:w-2/3 h-full" role="main">
-        <Header title="Add link" />
+      <PageSection as="main" size="narrow" className="h-full pb-12">
+        <Header title="Add link" description="Create a branded short URL, control access and share it instantly." />
 
         <FormErrorBoundary>
           {submitState.createdHash ? (
@@ -455,7 +456,7 @@ function Page() {
             </Card>
           )}
         </FormErrorBoundary>
-      </div>
+      </PageSection>
     </>
   )
 }

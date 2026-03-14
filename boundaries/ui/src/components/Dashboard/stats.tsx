@@ -29,7 +29,7 @@ export default function Statistic({ count }: StatisticProps) {
   }
 
   return (
-    <div className="my-6 px-4">
+    <div className="my-6">
       <div className="rounded-2xl bg-gradient-to-br from-indigo-500 to-purple-600 dark:from-indigo-600 dark:to-purple-700 p-6 shadow-lg">
         <div className="flex flex-col lg:flex-row lg:items-center gap-6">
           {/* Icon and Count */}

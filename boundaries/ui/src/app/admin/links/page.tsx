@@ -17,6 +17,7 @@
 import Statistic from '@/components/Dashboard/stats'
 import withAuthSync from '@/components/Private'
 import Header from '@/components/Page/Header'
+import PageSection from '@/components/Page/Section'
 import AdminUserLinksTable from '@/components/Page/admin/user/linksTable'
 import { LinksTableSkeleton } from '@/components/Skeleton'
 import { LinksErrorBoundary } from '@/components/error'
@@ -66,7 +67,9 @@ function AdminLinkTable() {
 
       {/* ErrorBoundary catches errors */}
       <LinksErrorBoundary>
-        <AdminLinksData />
+        <PageSection className="pb-10">
+          <AdminLinksData />
+        </PageSection>
       </LinksErrorBoundary>
     </>
   )

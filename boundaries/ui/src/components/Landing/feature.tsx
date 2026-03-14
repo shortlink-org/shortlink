@@ -5,7 +5,7 @@ export default function Feature() {
   return (
     <>
       {/* Main Features Section */}
-      <section className="container mx-auto px-4 sm:px-6 py-16 lg:py-24">
+      <section id="features" className="container mx-auto px-4 sm:px-6 py-16 lg:py-24">
         <div className="text-center mb-20">
           <span className="inline-block px-4 py-2 mb-4 text-sm font-semibold text-purple-700 dark:text-purple-400 bg-purple-100 dark:bg-purple-900/30 rounded-full">
             Features

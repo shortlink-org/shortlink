@@ -11,6 +11,7 @@
 
 import React from 'react'
 import Header from '@/components/Page/Header'
+import PageSection from '@/components/Page/Section'
 
 import { Layout } from '@/components'
 import withAuthSync from '@/components/Private'
@@ -33,9 +34,11 @@ function SecurityContent() {
 
   return (
     <Layout>
-      <Header title="Security" />
+      <Header title="Security" description="Review your authentication settings and keep your account protected." />
 
-      <Security />
+      <PageSection className="pb-10">
+        <Security />
+      </PageSection>
     </Layout>
   )
 }

@@ -18,6 +18,7 @@ import { useQueryClient } from '@tanstack/react-query'
 import Statistic from '@/components/Dashboard/stats'
 import withAuthSync from '@/components/Private'
 import Header from '@/components/Page/Header'
+import PageSection from '@/components/Page/Section'
 import UserLinksTable from '@/components/Page/user/linksTable'
 import { LinksTableSkeleton } from '@/components/Skeleton'
 import { LinksErrorBoundary } from '@/components/error'
@@ -72,7 +73,9 @@ function LinkTable() {
 
       {/* ErrorBoundary catches errors */}
       <LinksErrorBoundary>
-        <LinksData />
+        <PageSection className="pb-10">
+          <LinksData />
+        </PageSection>
       </LinksErrorBoundary>
     </>
   )

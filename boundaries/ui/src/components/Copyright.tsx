@@ -2,22 +2,18 @@
 
 import MuiLink from '@mui/material/Link'
 import Typography from '@mui/material/Typography'
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 export default function Copyright() {
-  const [currentYear, setCurrentYear] = useState<number | null>(null)
-
-  useEffect(() => {
-    setCurrentYear(new Date().getFullYear())
-  }, [])
+  const currentYear = new Date().getFullYear()
 
   return (
     <Typography variant="body2" color="text.secondary" align="center">
       {'Copyright © '}
-      <MuiLink color="inherit" href="/next" underline="hover">
+      <MuiLink color="inherit" href="/" underline="hover">
         Shortlink
       </MuiLink>{' '}
-      {currentYear ?? '...'}.
+      {currentYear}.
     </Typography>
   )
 }

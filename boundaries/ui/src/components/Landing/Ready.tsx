@@ -1,4 +1,5 @@
 import * as React from 'react'
+import Link from 'next/link'
 
 export default function Ready() {
   return (
@@ -10,20 +11,20 @@ export default function Ready() {
         </h2>
         <div className="mt-8 flex lg:mt-0 lg:flex-shrink-0">
           <div className="inline-flex rounded-md shadow">
-            <a
-              href="#"
+            <Link
+              href="/auth/login"
               className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-700 dark:bg-indigo-500 hover:bg-purple-800 dark:hover:bg-indigo-600"
             >
               Get started
-            </a>
+            </Link>
           </div>
           <div className="ml-3 inline-flex rounded-md shadow">
-            <a
-              href="#"
+            <Link
+              href="/pricing"
               className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-600 bg-white dark:bg-gray-800 dark:text-gray-300 hover:bg-indigo-50 dark:hover:bg-gray-700"
             >
               Learn more
-            </a>
+            </Link>
           </div>
         </div>
       </div>

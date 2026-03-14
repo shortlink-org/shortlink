@@ -5,8 +5,10 @@ declare module '@shortlink-org/ui-kit' {
   export const DataTable: React.ComponentType<any>
   export const DataTableWithSuspense: React.ComponentType<any>
   export const DataTableWithErrorBoundary: React.ComponentType<any>
+  export const ErrorBoundary: React.ComponentType<any>
   export const createDataTableColumnHelper: <TData extends object>() => ColumnHelper<TData>
   export const Footer: React.ComponentType<any>
+  export const Header: React.ComponentType<any>
   export const SearchForm: React.ComponentType<any>
   export const ScrollToTopButton: React.ComponentType<any>
   export const Sidebar: React.ComponentType<any>

@@ -39,7 +39,7 @@ const Home: NextPage = () => (
   <>
     <Header />
 
-    <div className="container mx-auto w-2/3">
+    <div className="mx-auto flex w-full max-w-7xl flex-col gap-16 px-4 py-12 sm:px-6 lg:px-8 lg:gap-20 lg:py-16">
       <Mobile />
       <Feature />
       <Testimonials />

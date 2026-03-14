@@ -19,6 +19,7 @@ import { ProfileErrorBoundary } from '@/components/error'
 import { ProfileSkeleton } from '@/components/Skeleton'
 import withAuthSync from '@/components/Private'
 import Header from '@/components/Page/Header'
+import PageSection from '@/components/Page/Section'
 import Notifications from '@/components/Profile/Notifications'
 import Personal from '@/components/Profile/Personal'
 import Profile from '@/components/Profile/Profile'
@@ -49,30 +50,27 @@ function ProfileData() {
 
   return (
     <>
-      <Welcome nickname={firstName} />
-      
-      <Profile />
-      
-      <div className="hidden sm:block" aria-hidden="true">
-        <div className="py-5">
-          <div className="border-t border-gray-200 dark:border-gray-700" />
+      <PageSection className="space-y-6 pb-10">
+        <Welcome nickname={firstName} />
+
+        <Profile />
+
+        <div className="hidden sm:block" aria-hidden="true">
+          <div className="py-5">
+            <div className="border-t border-gray-200 dark:border-gray-700" />
+          </div>
         </div>
-      </div>
-      
-      <Personal 
-        session={session}
-        firstName={firstName}
-        lastName={lastName}
-        email={email}
-      />
-      
-      <div className="hidden sm:block" aria-hidden="true">
-        <div className="py-5">
-          <div className="border-t border-gray-200 dark:border-gray-700" />
+
+        <Personal session={session} firstName={firstName} lastName={lastName} email={email} />
+
+        <div className="hidden sm:block" aria-hidden="true">
+          <div className="py-5">
+            <div className="border-t border-gray-200 dark:border-gray-700" />
+          </div>
         </div>
-      </div>
-      
-      <Notifications />
+
+        <Notifications />
+      </PageSection>
     </>
   )
 }
@@ -83,7 +81,7 @@ function ProfileData() {
 function ProfileContent() {
   return (
     <>
-      <Header title="Profile" />
+      <Header title="Profile" description="Manage your account details, preferences and notification settings." />
       
       {/* ErrorBoundary catches errors with retry support */}
       <ProfileErrorBoundary>

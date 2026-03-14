@@ -19,6 +19,7 @@ import Typography from '@mui/material/Typography'
 
 import withAuthSync from '@/components/Private'
 import Header from '@/components/Page/Header'
+import PageSection from '@/components/Page/Section'
 import { ErrorAlert, SuccessAlert } from '@/components/common'
 import { validateUrl } from '@/utils/validation'
 
@@ -54,7 +55,7 @@ const steps = [
 ]
 
 const formatTime = (date: Date) =>
-  date.toLocaleTimeString('ru-RU', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
+  date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit', second: '2-digit' })
 
 function Page() {
   const [url, setUrl] = useState('')
@@ -162,17 +163,20 @@ function Page() {
   }
 
   return (
-    <Box className="container mx-auto px-6 pb-10">
-      <Header title="Sitemap Parser" />
+    <PageSection as="main" size="narrow" className="pb-10">
+      <Header
+        title="Sitemap Parser"
+        description="Submit a sitemap URL to parse links and continue processing asynchronously in the background."
+      />
 
       <Stack spacing={3}>
         <Card variant="outlined">
           <CardContent>
             <Typography variant="h6" gutterBottom>
-              Запуск парсинга sitemap
+              Start sitemap parsing
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-              Введите URL sitemap. Сервис обработает ссылки и запустит сохранение в фоне.
+              Enter a sitemap URL. The service will process links and continue saving results in the background.
             </Typography>
 
             <ErrorAlert error={error} onClose={() => setError(null)} />
@@ -190,10 +194,10 @@ function Page() {
               />
               <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1} sx={{ width: { xs: '100%', sm: 'auto' } }}>
                 <Button type="submit" variant="contained" disabled={isSubmitting}>
-                  {isSubmitting ? 'Запуск...' : 'Запустить парсинг'}
+                  {isSubmitting ? 'Starting...' : 'Start parsing'}
                 </Button>
                 <Button type="button" variant="outlined" onClick={resetProcess} disabled={isSubmitting}>
-                  Сбросить
+                  Reset
                 </Button>
               </Stack>
             </Box>
@@ -203,7 +207,7 @@ function Page() {
         <Card variant="outlined">
           <CardContent>
             <Typography variant="h6" gutterBottom>
-              Прогресс обработки
+              Processing progress
             </Typography>
             <Stepper activeStep={activeStep} orientation="vertical">
               {steps.map((step, index) => {
@@ -219,9 +223,9 @@ function Page() {
                         {step.description}
                       </Typography>
                       {status === 'active' && <LinearProgress sx={{ mb: 1 }} />}
-                      {status === 'done' && <Chip label="Готово" size="small" color="success" />}
-                      {status === 'error' && <Chip label="Ошибка" size="small" color="error" />}
-                      {status === 'pending' && <Chip label="Ожидание" size="small" variant="outlined" />}
+                      {status === 'done' && <Chip label="Done" size="small" color="success" />}
+                      {status === 'error' && <Chip label="Error" size="small" color="error" />}
+                      {status === 'pending' && <Chip label="Pending" size="small" variant="outlined" />}
                     </StepContent>
                   </Step>
                 )
@@ -231,11 +235,11 @@ function Page() {
             <Divider sx={{ my: 3 }} />
 
             <Typography variant="subtitle1" gutterBottom>
-              Логи запуска
+              Run log
             </Typography>
             {logs.length === 0 ? (
               <Typography variant="body2" color="text.secondary">
-                Здесь появится история действий после запуска.
+                Activity will appear here after the sitemap job starts.
               </Typography>
             ) : (
               <Stack spacing={1}>
@@ -264,16 +268,16 @@ function Page() {
 
             <Box sx={{ mt: 3 }}>
               <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
-                После запуска обработка продолжается в фоне. Проверьте список ссылок, чтобы увидеть результат.
+                Background processing continues after the request is accepted. Check the links list to review imported results.
               </Typography>
               <Button component={Link} href="/admin/links" variant="text">
-                Перейти к списку ссылок
+                Go to links list
               </Button>
             </Box>
           </CardContent>
         </Card>
       </Stack>
-    </Box>
+    </PageSection>
   )
 }
 
