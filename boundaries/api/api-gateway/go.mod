@@ -9,7 +9,7 @@ require (
 	github.com/google/wire v0.7.0
 	github.com/graph-gophers/graphql-go v1.9.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.28.0
-	github.com/segmentio/encoding v0.5.3
+	github.com/segmentio/encoding v0.5.4
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20251129215632-4fad40209522
 	github.com/shortlink-org/go-sdk/config v0.0.0-20251129215632-4fad40209522
 	github.com/shortlink-org/go-sdk/db v0.0.0-20251129215632-4fad40209522
