@@ -18,7 +18,7 @@ require (
 	github.com/mattn/go-sqlite3 v1.14.34
 	github.com/prometheus/client_golang v1.23.2
 	github.com/redis/rueidis v1.0.73
-	github.com/segmentio/encoding v0.5.3
+	github.com/segmentio/encoding v0.5.4
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20260129194324-8d77225a9cf0
 	github.com/shortlink-org/go-sdk/batch v0.0.0-20260127145748-e8f48094a968
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20260127145748-e8f48094a968

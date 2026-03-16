@@ -10,7 +10,7 @@ require (
 	github.com/go-chi/render v1.0.3
 	github.com/google/wire v0.7.0
 	github.com/oapi-codegen/runtime v1.2.0
-	github.com/segmentio/encoding v0.5.3
+	github.com/segmentio/encoding v0.5.4
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20260129194324-8d77225a9cf0
 	github.com/shortlink-org/go-sdk/cache v0.0.0-20260127145748-e8f48094a968
 	github.com/shortlink-org/go-sdk/config v0.0.0-20260127145748-e8f48094a968
