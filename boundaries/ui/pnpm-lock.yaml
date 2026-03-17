@@ -3927,10 +3927,6 @@ packages:
     peerDependencies:
       '@testing-library/dom': '>=7.21.4'
 
-  '@trysound/sax@0.2.0':
-    resolution: {integrity: sha512-L7z9BgrNEcYyUYtF+HaEfiS5ebkh9jXqbszz7pC0hRBPaatV0XjSD3+eHrpqFemQfgwiFF0QPIarnIihIDn7OA==}
-    engines: {node: '>=10.13.0'}
-
   '@tsconfig/node10@1.0.12':
     resolution: {integrity: sha512-UCYBaeFvM11aU2y3YPZ//O5Rhj+xKyzy7mvcIoAjASbigy8mHMryP5cK7dgjlz2hWxh1g5pLw084E0a/wlUSFQ==}
 
@@ -5165,8 +5161,8 @@ packages:
     resolution: {integrity: sha512-f7ccFPK3SXFHpx15UIGyRJ/FJQctuKZ0zVuN3frBo4HnK3cay9VEW0R6yPYFHC0AgqhukPzKjq22t5DmAyqGyw==}
     engines: {node: '>=16'}
 
-  flatted@3.3.3:
-    resolution: {integrity: sha512-GX+ysw4PBCz0PzosHDepZGANEuFCMLrnRTiEy9McGjmkCQYwRq4A/X786G/fjM/+OjsWSU1ZrY5qyARZmO/uwg==}
+  flatted@3.4.2:
+    resolution: {integrity: sha512-PjDse7RzhcPkIJwy5t7KPWQSZ9cAbzQXcafsetQoD7sOJRQlGikNbx7yZp2OotDnJyrDcbyRq3Ttb18iYOqkxA==}
 
   follow-redirects@1.15.11:
     resolution: {integrity: sha512-deG2P0JfjrTxl50XGCDyfI97ZGVCxIpfKYmfyrQ54n5FO/0gfIES8C/Psl6kWVDolizcaaxZJnTS0QSMxvnsBQ==}
@@ -5396,8 +5392,8 @@ packages:
   immer@11.1.4:
     resolution: {integrity: sha512-XREFCPo6ksxVzP4E0ekD5aMdf8WMwmdNaz6vuvxgI40UaEiu6q3p8X52aU6GdyvLY3XXX/8R7JOTXStz/nBbRw==}
 
-  immutable@4.3.7:
-    resolution: {integrity: sha512-1hqclzwYwjRDFLjcFxOM5AYkkG0rpFPpr1RLPMEuGczoS7YA8gLhy8SWXYRAA/XwfEHpfo3cw5JGioS32fnMRw==}
+  immutable@4.3.8:
+    resolution: {integrity: sha512-d/Ld9aLbKpNwyl0KiM2CT1WYvkitQ1TSvmRtkcV8FKStiDoA7Slzgjmb/1G2yhKM1p0XeNOieaTbFZmU1d3Xuw==}
 
   import-fresh@3.3.1:
     resolution: {integrity: sha512-TR3KfrTZTYLPB6jUjfx6MF9WcWrHL9su5TObK4ZkYgBdWKPOFoSoQIdEuTuR82pmtxH2spWG9h6etwfr1pLBqQ==}
@@ -6764,6 +6760,10 @@ packages:
       sass-embedded:
         optional: true
 
+  sax@1.6.0:
+    resolution: {integrity: sha512-6R3J5M4AcbtLUdZmRv2SygeVaM7IhrLXu9BmnOGmmACak8fiUtOsYNWUS4uK7upbmHIBbLBeFeI//477BKLBzA==}
+    engines: {node: '>=11.0.0'}
+
   saxes@6.0.0:
     resolution: {integrity: sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==}
     engines: {node: '>=v12.22.7'}
@@ -7042,8 +7042,8 @@ packages:
     resolution: {integrity: sha512-qsjeeq5YjBZ5eMdFuUa4ZosMLxgr5RZ+F+Y1OrDhuOCEInRMA3x74XdBtggJcj9kOeInz0WE+LgCPDkZFlBYJw==}
     engines: {node: '>=12.0.0'}
 
-  svgo@3.3.2:
-    resolution: {integrity: sha512-OoohrmuUlBs8B8o6MB2Aevn+pRIH9zDALSR+6hhqVfa6fRwG/Qw9VUMSMW9VNg2CFc/MTIfabtdOVl9ODIJjpw==}
+  svgo@3.3.3:
+    resolution: {integrity: sha512-+wn7I4p7YgJhHs38k2TNjy1vCfPIfLIJWR5MnCStsN8WuuTcBnRKcMHQLMM2ijxGZmDoZwNv8ipl5aTTen62ng==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -10356,7 +10356,7 @@ snapshots:
   '@redux-devtools/extension@3.3.0(redux@5.0.1)':
     dependencies:
       '@babel/runtime': 7.28.6
-      immutable: 4.3.7
+      immutable: 4.3.8
       redux: 5.0.1
 
   '@redux-saga/core@1.4.2':
@@ -11159,7 +11159,7 @@ snapshots:
       '@svgr/core': 8.1.0(typescript@5.9.3)
       cosmiconfig: 8.3.6(typescript@5.9.3)
       deepmerge: 4.3.1
-      svgo: 3.3.2
+      svgo: 3.3.3
     transitivePeerDependencies:
       - typescript
 
@@ -11509,8 +11509,6 @@ snapshots:
   '@testing-library/user-event@14.6.1(@testing-library/dom@10.4.0)':
     dependencies:
       '@testing-library/dom': 10.4.0
-
-  '@trysound/sax@0.2.0': {}
 
   '@tsconfig/node10@1.0.12': {}
 
@@ -12938,10 +12936,10 @@ snapshots:
 
   flat-cache@4.0.1:
     dependencies:
-      flatted: 3.3.3
+      flatted: 3.4.2
       keyv: 4.5.4
 
-  flatted@3.3.3: {}
+  flatted@3.4.2: {}
 
   follow-redirects@1.15.11: {}
 
@@ -13199,7 +13197,7 @@ snapshots:
 
   immer@11.1.4: {}
 
-  immutable@4.3.7: {}
+  immutable@4.3.8: {}
 
   import-fresh@3.3.1:
     dependencies:
@@ -14794,6 +14792,8 @@ snapshots:
       neo-async: 2.6.2
       webpack: 5.97.1(esbuild@0.24.2)
 
+  sax@1.6.0: {}
+
   saxes@6.0.0:
     dependencies:
       xmlchars: 2.2.0
@@ -15203,15 +15203,15 @@ snapshots:
   svg-pathdata@6.0.3:
     optional: true
 
-  svgo@3.3.2:
+  svgo@3.3.3:
     dependencies:
-      '@trysound/sax': 0.2.0
       commander: 7.2.0
       css-select: 5.2.2
       css-tree: 2.3.1
       css-what: 6.2.2
       csso: 5.0.5
       picocolors: 1.1.1
+      sax: 1.6.0
 
   symbol-tree@3.2.4: {}
 
