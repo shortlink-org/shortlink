@@ -196,8 +196,8 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1(babel-plugin-react-compiler@1.0.0)(vite@7.3.1(@types/node@24.11.0)(jiti@2.6.1)(lightningcss@1.31.1)(terser@5.46.1)(yaml@2.8.2))
       allure-playwright:
-        specifier: ^3.5.0
-        version: 3.5.0(@playwright/test@1.58.2)
+        specifier: ^3.6.0
+        version: 3.6.0(@playwright/test@1.58.2)
       autoprefixer:
         specifier: ^10.4.27
         version: 10.4.27(postcss@8.5.8)
@@ -4235,16 +4235,16 @@ packages:
   alien-signals@0.4.14:
     resolution: {integrity: sha512-itUAVzhczTmP2U5yX67xVpsbbOiquusbWVyA9N+sy6+r6YVbFkahXvNCeEPWEOMhwDYwbVbGHFkVL03N9I5g+Q==}
 
-  allure-js-commons@3.5.0:
-    resolution: {integrity: sha512-iBVFNQkX5i48QGlb5U3iWm+NiNOl/ucxv6dvEJBNeJTPMI8t0Dn0CuXMQEiv4forSSAppD7FB9uGal2JwunH/A==}
+  allure-js-commons@3.6.0:
+    resolution: {integrity: sha512-RquIzMlh2l+ZLtq+Uxt+ZpOptxLzyPvLfPGbwU7dtgXo0QfUvhLFFkCljIR7Gjxo7jZ+WVqoto1yOPpXqU/i4g==}
     peerDependencies:
-      allure-playwright: 3.5.0
+      allure-playwright: 3.6.0
     peerDependenciesMeta:
       allure-playwright:
         optional: true
 
-  allure-playwright@3.5.0:
-    resolution: {integrity: sha512-nB6Wj1z7oGz44r4qxN2lJ6lgDQ+FcpL2dyhUsH/syyNPY8x1JLandedc3FA+nqtxoer6qUagsWZfDZnsDO0RXA==}
+  allure-playwright@3.6.0:
+    resolution: {integrity: sha512-p/m41kdrgkKeJP0dgn/7yEQggxRBQEYdwRKUSfg2VEIfCP1va/6ph7dZNsYWKq+Hyj4Nd5DLs33DTS9VwEHe8w==}
     peerDependencies:
       '@playwright/test': '>=1.53.0'
 
@@ -11758,16 +11758,16 @@ snapshots:
 
   alien-signals@0.4.14: {}
 
-  allure-js-commons@3.5.0(allure-playwright@3.5.0(@playwright/test@1.58.2)):
+  allure-js-commons@3.6.0(allure-playwright@3.6.0(@playwright/test@1.58.2)):
     dependencies:
       md5: 2.3.0
     optionalDependencies:
-      allure-playwright: 3.5.0(@playwright/test@1.58.2)
+      allure-playwright: 3.6.0(@playwright/test@1.58.2)
 
-  allure-playwright@3.5.0(@playwright/test@1.58.2):
+  allure-playwright@3.6.0(@playwright/test@1.58.2):
     dependencies:
       '@playwright/test': 1.58.2
-      allure-js-commons: 3.5.0(allure-playwright@3.5.0(@playwright/test@1.58.2))
+      allure-js-commons: 3.6.0(allure-playwright@3.6.0(@playwright/test@1.58.2))
 
   ansi-regex@5.0.1: {}
 
