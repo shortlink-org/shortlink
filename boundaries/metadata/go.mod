@@ -7,7 +7,7 @@ require (
 	github.com/IBM/sarama v1.47.0
 	github.com/PuerkitoBio/goquery v1.12.0
 	github.com/ThreeDotsLabs/watermill v1.5.1
-	github.com/chromedp/chromedp v0.14.2
+	github.com/chromedp/chromedp v0.15.1
 	github.com/google/wire v0.7.0
 	github.com/minio/minio-go/v7 v7.0.100
 	github.com/shortlink-org/go-sdk/auth v0.0.0-20260129194324-8d77225a9cf0
@@ -53,7 +53,7 @@ require (
 	github.com/cenkalti/backoff/v4 v4.3.0 // indirect
 	github.com/cenkalti/backoff/v5 v5.0.3 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
-	github.com/chromedp/cdproto v0.0.0-20250724212937-08a3db8b4327 // indirect
+	github.com/chromedp/cdproto v0.0.0-20260321001828-e3e3800016bc // indirect
 	github.com/chromedp/sysutil v1.1.0 // indirect
 	github.com/containerd/errdefs v1.0.0 // indirect
 	github.com/containerd/errdefs/pkg v0.3.0 // indirect
@@ -80,7 +80,7 @@ require (
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/fsnotify/fsnotify v1.9.0 // indirect
 	github.com/go-ini/ini v1.67.0 // indirect
-	github.com/go-json-experiment/json v0.0.0-20250725192818-e39067aee2d2 // indirect
+	github.com/go-json-experiment/json v0.0.0-20260214004413-d219187c3433 // indirect
 	github.com/go-logr/logr v1.4.3 // indirect
 	github.com/go-logr/stdr v1.2.2 // indirect
 	github.com/go-ole/go-ole v1.2.6 // indirect
