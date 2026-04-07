@@ -1,62 +1,85 @@
+'use client'
+
+import { Button } from '@shortlink-org/ui-kit'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import Balancer from 'react-wrap-balancer'
 
+import { resolveNavTransitionTypes } from '@/lib/nav-link-transition'
+
+import styles from './header.module.css'
+
 export default function Header() {
+  const pathname = usePathname()
+
   return (
     <section
       aria-labelledby="landing-hero-title"
-      className="relative overflow-hidden bg-gradient-to-br from-slate-50 to-gray-100 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 rounded-[1.75rem] cq-hero"
+      className={`${styles.root} relative w-full min-w-0 overflow-hidden rounded-[1.75rem] border border-[var(--color-border)]/90 bg-gradient-to-br from-white via-zinc-50/90 to-violet-50/40 shadow-[0_20px_50px_-38px_rgb(15_23_42/0.28)] dark:border-white/[0.09] dark:from-zinc-900/95 dark:via-zinc-950 dark:to-indigo-950/50 dark:shadow-[0_24px_60px_-40px_rgb(0_0_0/0.65)]`}
     >
-      <div className="cq-hero__grid mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="cq-hero__content relative z-10">
-          <svg
-            className="cq-hero__divider absolute right-0 inset-y-0 h-full w-48 text-gray-50 dark:text-gray-900 transform translate-x-1/2"
-            fill="currentColor"
-            viewBox="0 0 100 100"
-            preserveAspectRatio="none"
-            aria-hidden="true"
-          >
-            <polygon points="50,0 100,0 50,100 0,100" />
-          </svg>
-
-          <div className="cq-hero__body">
-            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-indigo-600 dark:text-indigo-300">Link intelligence</p>
-            <h1 id="landing-hero-title" className="cq-hero__title tracking-tight font-extrabold text-gray-900 dark:text-gray-100">
+      <div className={`${styles.grid} w-full min-w-0`}>
+        <div className={`${styles.content} relative z-10`}>
+          <div className={styles.body}>
+            <p className="text-sm font-semibold uppercase tracking-[0.22em] text-indigo-600 dark:text-indigo-300">
+              Link intelligence
+            </p>
+            <h1
+              id="landing-hero-title"
+              className={`${styles.title} mt-4 tracking-tight font-extrabold sm:mt-5`}
+            >
               <Balancer>
-                <span className="block xl:inline">Shorten your links</span>{' '}
+                <span className="block text-gray-900 xl:inline dark:text-zinc-50">Shorten your links</span>{' '}
                 <span className="block text-indigo-600 xl:inline dark:text-indigo-300">in one click</span>
               </Balancer>
             </h1>
-            <p className="cq-hero__lead mt-4 text-gray-700 dark:text-gray-300">
+            <p className={`${styles.lead} mt-4 text-gray-600 sm:mt-5 dark:text-zinc-300`}>
               Get full control over your links in one place. <br />
               Easily create, manage, and track your links. <br />
               Get started today!
             </p>
-            <div className="mt-6 cq-hero__actions">
-              <Link
-                href="/auth/login"
-                className="group inline-flex items-center justify-center px-6 py-3.5 font-semibold text-white bg-purple-700 dark:bg-indigo-500 rounded-xl shadow-lg hover:shadow-xl hover:bg-purple-800 dark:hover:bg-indigo-600 transform hover:-translate-y-0.5 transition-all duration-200 sm:px-8 md:py-4 md:text-lg lg:px-10"
+            <div className={`mt-6 ${styles.actions} sm:mt-7`}>
+              <Button
+                as={Link}
+                asProps={{
+                  href: '/auth/login',
+                  transitionTypes: resolveNavTransitionTypes(pathname, '/auth/login'),
+                }}
+                size="lg"
+                className="group relative justify-center shadow-lg ring-1 ring-violet-500/25 sm:min-w-[12.5rem] sm:px-8 md:py-4 md:text-lg lg:min-w-[14rem] lg:px-10 dark:ring-indigo-400/20"
               >
                 <span className="flex items-center gap-2">
                   Get started
                   <svg
-                    className="w-5 h-5 group-hover:translate-x-1 transition-transform"
+                    className="h-5 w-5 transition-transform motion-reduce:transform-none group-hover:translate-x-0.5 group-hover:sm:translate-x-1"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
+                    aria-hidden
                   >
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                   </svg>
                 </span>
-              </Link>
-              <Link
-                href="#features"
-                className="group inline-flex items-center justify-center px-6 py-3.5 font-semibold text-indigo-700 dark:text-indigo-300 bg-white dark:bg-gray-800 border-2 border-indigo-600 dark:border-indigo-400 rounded-xl shadow-md hover:shadow-lg hover:bg-indigo-50 dark:hover:bg-gray-700 transform hover:-translate-y-0.5 transition-all duration-200 sm:px-8 md:py-4 md:text-lg lg:px-10"
+              </Button>
+              <Button
+                as={Link}
+                asProps={{
+                  href: '#features',
+                  transitionTypes: resolveNavTransitionTypes(pathname, '#features'),
+                }}
+                variant="secondary"
+                size="lg"
+                className="group justify-center max-md:min-h-[2.75rem] max-md:py-2.5 max-md:text-sm sm:px-8 md:py-3.5 md:text-base lg:px-10"
               >
-                <span className="flex items-center gap-2">
+                <span className="flex items-center gap-2 font-medium text-[var(--color-muted-foreground)] group-hover:text-[var(--color-foreground)]">
                   Explore features
-                  <svg className="w-5 h-5 group-hover:scale-110 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <svg
+                    className="h-4 w-4 shrink-0 transition-transform motion-reduce:transform-none sm:h-5 sm:w-5"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden
+                  >
                     <path
                       strokeLinecap="round"
                       strokeLinejoin="round"
@@ -65,19 +88,22 @@ export default function Header() {
                     />
                   </svg>
                 </span>
-              </Link>
+              </Button>
             </div>
           </div>
         </div>
-        <div className="cq-hero__media">
-          <Image
-            className="cq-hero__image"
-            src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80"
-            alt="Dashboard preview showing short link analytics and campaign management"
-            width={1425}
-            height={950}
-            priority
-          />
+        <div className={styles.media}>
+          <div className={styles.mediaCrop}>
+            <Image
+              className={styles.image}
+              src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2850&q=80"
+              alt="Team collaborating with laptops in a bright office"
+              width={1425}
+              height={950}
+              priority
+              sizes="(min-width: 1024px) 42vw, 100vw"
+            />
+          </div>
         </div>
       </div>
     </section>

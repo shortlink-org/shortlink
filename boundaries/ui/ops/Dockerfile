@@ -1,123 +1,87 @@
-# syntax=docker/dockerfile:1.21
+# syntax=docker/dockerfile:1.7
 
-###############################################################################
-# Global BuildKit options (optional SBOM attestation―leave if you need them)
-# Link: https://github.com/moby/buildkit/blob/master/docs/attestations/sbom.md
-###############################################################################
-ARG BUILDKIT_SBOM_SCAN_STAGE=true
-ARG BUILDKIT_SBOM_SCAN_CONTEXT=true
-
-
-###############################################################################
-# Build-stage arguments
-###############################################################################
 ARG NODE_VERSION=24.14.0-alpine
 
-########################
-# 1️⃣  Builder stage
-########################
+# ---------------------------------------------------------------------------
+# Build
+# ---------------------------------------------------------------------------
 FROM --platform=$BUILDPLATFORM node:${NODE_VERSION} AS builder
 
-# CI metadata (build-time only)
 ARG CI_COMMIT_SHA
 ARG CI_COMMIT_TAG
-ARG CI_PIPELINE_URL
 ARG BUILD_DATE
 
-# production build args
 ARG NEXT_PUBLIC_CLOUDFLARE_SITE_KEY
 ENV NEXT_PUBLIC_CLOUDFLARE_SITE_KEY=${NEXT_PUBLIC_CLOUDFLARE_SITE_KEY}
 
 ARG NEXT_PUBLIC_GOOGLE_ANALYTICS_ID
 ENV NEXT_PUBLIC_GOOGLE_ANALYTICS_ID=${NEXT_PUBLIC_GOOGLE_ANALYTICS_ID}
 
-# pnpm only needed here
-ENV PNPM_HOME="/pnpm"
-ENV PATH="${PNPM_HOME}:${PATH}"
-# Disable npm warnings about unknown env configs
-ENV NPM_CONFIG_PROGRESS=false
-ENV NPM_CONFIG_AUDIT=false
-ENV NPM_CONFIG_FUND=false
+ENV PNPM_HOME=/pnpm \
+    PATH="/pnpm:$PATH" \
+    NPM_CONFIG_PROGRESS=false \
+    NPM_CONFIG_AUDIT=false \
+    NPM_CONFIG_FUND=false \
+    NEXT_TELEMETRY_DISABLED=1
 
-RUN corepack enable && corepack prepare pnpm@latest --activate
+RUN corepack enable && corepack prepare pnpm@10.30.3 --activate
 
 WORKDIR /app
 
-COPY . .
-
-# Set development environment for build (stage can be overridden at runtime)
-ENV NODE_ENV=development
-
-# Create npmrc with proper configuration
 RUN echo '@shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/' > .npmrc \
  && echo 'registry=https://registry.npmjs.org/' >> .npmrc \
  && echo 'auto-install-peers=true' >> .npmrc \
  && echo 'strict-peer-dependencies=false' >> .npmrc \
  && echo 'prefer-offline=true' >> .npmrc
 
-# Install & build with cache for pnpm store
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
+
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
-    npm install -g patch-package \
- && rm -rf node_modules package-lock.json \
- && pnpm install --config.frozen-lockfile=true --include=dev \
- && pnpm run build
+    pnpm install --frozen-lockfile --include=dev
 
-########################
-# 2️⃣  Runtime stage
-########################
-FROM ghcr.io/nginx/nginx-unprivileged:1.29-alpine-otel AS runtime
+COPY . .
 
-###############################################################################
-# Build-time args (re-declared so we can inject them into labels)
-###############################################################################
+RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
+    pnpm run build
+
+# ---------------------------------------------------------------------------
+# Runtime — Next.js standalone
+# ---------------------------------------------------------------------------
+FROM node:${NODE_VERSION} AS runtime
+
 ARG CI_COMMIT_SHA
 ARG CI_COMMIT_TAG
 ARG BUILD_DATE
 
-# Set production environment
-ENV NODE_ENV=production
+ENV NODE_ENV=production \
+    PORT=8080 \
+    HOSTNAME=0.0.0.0 \
+    NEXT_TELEMETRY_DISABLED=1
 
-###############################################################################
-# OCI labels (single instruction = single layer)
-###############################################################################
-LABEL \
-  org.opencontainers.image.title="link-ui" \
-  org.opencontainers.image.description="Shortlink UI" \
-  org.opencontainers.image.url="https://shortlink.best/next" \
-  org.opencontainers.image.source="https://github.com/shortlink-org/shortlink" \
-  org.opencontainers.image.licenses="MIT" \
-  org.opencontainers.image.vendor="Shortlink" \
-  org.opencontainers.image.authors="Viktor Login <batazor111@gmail.com>" \
-  org.opencontainers.image.version="${CI_COMMIT_TAG:-${CI_COMMIT_SHA}}" \
-  org.opencontainers.image.revision="${CI_COMMIT_SHA}" \
-  org.opencontainers.image.created="${BUILD_DATE}"
+LABEL org.opencontainers.image.title="link-ui" \
+      org.opencontainers.image.description="Shortlink UI (Next.js standalone)" \
+      org.opencontainers.image.url="https://shortlink.best/next" \
+      org.opencontainers.image.source="https://github.com/shortlink-org/shortlink" \
+      org.opencontainers.image.licenses="MIT" \
+      org.opencontainers.image.vendor="Shortlink" \
+      org.opencontainers.image.authors="Viktor Login <batazor111@gmail.com>" \
+      org.opencontainers.image.version="${CI_COMMIT_TAG:-${CI_COMMIT_SHA}}" \
+      org.opencontainers.image.revision="${CI_COMMIT_SHA}" \
+      org.opencontainers.image.created="${BUILD_DATE}"
 
-###############################################################################
-# Layer that needs root (package install + removing default config)
-###############################################################################
-USER root
-RUN apk add --no-cache curl \
- && rm /etc/nginx/conf.d/default.conf
+WORKDIR /app
 
-###############################################################################
-# NGINX configuration & static assets
-###############################################################################
-COPY ./ops/conf/ui.local   /etc/nginx/conf.d/default.conf
-COPY ./ops/conf/nginx.conf /etc/nginx/nginx.conf
+RUN apk add --no-cache curl
 
-# Next.js export build from the builder stage
-COPY --from=builder /app/out /usr/share/nginx/html
+COPY --from=builder --chown=node:node /app/public ./public
+COPY --from=builder --chown=node:node /app/.next/standalone ./
+COPY --from=builder --chown=node:node /app/.next/static ./.next/static
 
-# Ensure correct permissions for the runtime user
-RUN chown -R 101:0 /etc/nginx /usr/share/nginx/html
+USER node
 
-###############################################################################
-# Health-check, port & runtime user
-###############################################################################
-# Use the image's built-in non-root user (UID 101)
-USER 101
-
-HEALTHCHECK --interval=5s --timeout=5s --retries=3 \
-  CMD curl -f http://localhost:8080/ || exit 1
+HEALTHCHECK --interval=10s --timeout=5s --retries=3 \
+  CMD curl -fsS http://127.0.0.1:8080/next >/dev/null || exit 1
 
 EXPOSE 8080
+
+CMD ["node", "server.js"]

@@ -5,7 +5,7 @@
  *
  * Provides session context for public pages
  * Uses optional session query to avoid hard auth requirements
- * Supports static export (deferred client-side rendering)
+ * Defers React Query until client mount (avoids SSR fetch mismatch for optional session).
  */
 
 import React, { ReactNode, useState, useEffect } from 'react'
@@ -44,7 +44,7 @@ export function SessionWrapper({ children }: { children: ReactNode }) {
     setMounted(true)
   }, [])
 
-  // During SSR/static export, render children without session
+  // Before mount, provide loading session (matches SSR snapshot).
   if (!mounted) {
     return (
       <SessionProvider session={null} isLoading={true}>

@@ -49,7 +49,8 @@ if (isEnableSentry) {
 /** @type {import('next').NextConfig} */
 const NEXT_CONFIG = {
   basePath: '/next',
-  output: 'export',
+  /** Node server deploy (Docker/K8s). Produces `.next/standalone` for minimal runtime image. */
+  output: 'standalone',
   compress: isProd,
   productionBrowserSourceMaps: isProd,
   reactStrictMode: true,
@@ -82,7 +83,6 @@ const NEXT_CONFIG = {
     emotion: true,
   },
   images: {
-    loader: 'custom',
     formats: ['image/avif', 'image/webp'],
     remotePatterns: [
       {
@@ -101,6 +101,8 @@ const NEXT_CONFIG = {
     fetches: {
       fullUrl: true,
     },
+    // Formerly experimental.browserDebugInfoInTerminal (Next 16+)
+    browserToTerminal: true,
   },
   bundlePagesRouterDependencies: true,
 
@@ -110,50 +112,47 @@ const NEXT_CONFIG = {
   experimental: {
     webVitalsAttribution: ['CLS', 'FCP', 'FID', 'INP', 'LCP', 'TTFB'],
 
-    // Forward browser logs to the terminal for easier debugging
-    browserDebugInfoInTerminal: true,
-
     // Enable support for `global-not-found`
     globalNotFound: true,
 
     // Enable FS cache for Turbopack
     turbopackFileSystemCacheForDev: true,
+
+    /** next/link `transitionTypes` + React View Transitions integration */
+    viewTransition: true,
   },
 }
 
-if (!isProd) {
-  NEXT_CONFIG.rewrites = async () => ({
-    beforeFiles: [
-      // we need to define a no-op rewrite to trigger checking
-      // all pages/static files before we attempt proxying
-      {
-        source: `/api/auth/:uri*`,
-        destination: `${AUTH_URI}/:uri*`,
-        basePath: false,
-      },
-      {
-        source: `/api/links`,
-        destination: `${API_URI}/api/links`,
-        basePath: false,
-      },
-      {
-        source: `/api/links/:uri*`,
-        destination: `${API_URI}/api/links/:uri*`,
-        basePath: false,
-      },
-      {
-        source: `/s`,
-        destination: `${API_URI}/s`,
-        basePath: false,
-      },
-      {
-        source: `/s/:uri`,
-        destination: `${API_URI}/s/:uri`,
-        basePath: false,
-      },
-    ],
-  })
-}
+/** Dev + production `next start`: proxy API and short links to backend services. */
+NEXT_CONFIG.rewrites = async () => ({
+  beforeFiles: [
+    {
+      source: `/api/auth/:uri*`,
+      destination: `${AUTH_URI}/:uri*`,
+      basePath: false,
+    },
+    {
+      source: `/api/links`,
+      destination: `${API_URI}/api/links`,
+      basePath: false,
+    },
+    {
+      source: `/api/links/:uri*`,
+      destination: `${API_URI}/api/links/:uri*`,
+      basePath: false,
+    },
+    {
+      source: `/s`,
+      destination: `${API_URI}/s`,
+      basePath: false,
+    },
+    {
+      source: `/s/:uri`,
+      destination: `${API_URI}/s/:uri`,
+      basePath: false,
+    },
+  ],
+})
 
 module.exports = NEXT_CONFIG
 

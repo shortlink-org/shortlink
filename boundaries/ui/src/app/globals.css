@@ -1,6 +1,21 @@
 @import 'tailwindcss';
 
+/* next-themes: class="dark" on <html> — без этого Tailwind v4 не применяет префикс dark: */
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* Scan ui-kit dist so Tailwind v4 emits utilities used by @shortlink-org/ui-kit (Newsletter, Footer, …) */
+@source '../../node_modules/@shortlink-org/ui-kit/dist/**/*.js';
+
 @theme {
+  /* App fonts (Next injects --font-app-sans / --font-app-mono on <html>) */
+  --font-sans: var(--font-app-sans), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+  --font-mono: var(--font-app-mono), ui-monospace, 'Cascadia Code', 'Source Code Pro', Menlo, monospace;
+
+  --radius-app-sm: 0.75rem;
+  --radius-app-md: 1rem;
+  --radius-app-lg: 1.25rem;
+  --radius-app-xl: 1.5rem;
+
   /* Override Tailwind v4 colors with readable values */
   --color-gray-50: #f9fafb;
   --color-gray-100: #f3f4f6;
@@ -18,8 +33,10 @@
   --color-indigo-700: #4338ca;
 }
 
-/* Modern Dark Mode with CSS Variables */
+/* Semantic palette + ui-kit alignment (2026: calmer neutrals, violet accent, soft elevation) */
 :root {
+  color-scheme: light;
+
   /* Light mode - backgrounds */
   --color-gray-50: 249 250 251;
   --color-gray-100: 243 244 246;
@@ -38,10 +55,24 @@
   --color-indigo-100: 224 231 255;
   --color-indigo-200: 199 210 254;
   --color-indigo-300: 165 180 252;
+
+  /* @shortlink-org/ui-kit semantic tokens */
+  --color-background: #f4f4f5;
+  --color-foreground: #0c0c0f;
+  --color-muted-foreground: #64748b;
+  --color-border: #e4e4e7;
+  --color-surface: #ffffff;
+  --color-muted: #f4f4f5;
+  --color-accent: #5b21b6;
+  --color-accent-foreground: #fafafa;
+  --color-ring: #6366f1;
+  --app-scroll-margin: 5.5rem;
 }
 
 :root.dark {
-  /* Dark mode - яркие насыщенные цвета */
+  color-scheme: dark;
+
+  /* Dark mode */
   --color-gray-50: #374151;
   --color-gray-100: #4b5563;
   --color-gray-200: #9ca3af;
@@ -50,17 +81,27 @@
   --color-gray-800: #0f172a;
   --color-gray-900: #ffffff;
 
-  /* Dark mode - максимальный контраст */
   --color-text-primary: #ffffff;
   --color-text-secondary: #f3f4f6;
 
-  /* Dark mode - яркие акценты */
   --color-indigo-100: #312e81;
   --color-indigo-200: #4338ca;
-  --color-indigo-300: #818cf8;
-  --color-indigo-500: #a78bfa;
-  --color-indigo-600: #c4b5fd;
-  --color-indigo-700: #ddd6fe;
+  --color-indigo-300: #a5b4fc;
+  --color-indigo-500: #818cf8;
+  --color-indigo-600: #a5b4fc;
+  --color-indigo-700: #c7d2fe;
+
+  /* Slightly lifted from pure black — reads softer with grain + vignette */
+  --color-background: #0c0c0e;
+  --color-foreground: #fafafa;
+  --color-muted-foreground: #a1a1aa;
+  --color-border: #27272a;
+  --color-surface: #18181b;
+  --color-muted: #27272a;
+  --color-accent: #8b5cf6;
+  --color-accent-foreground: #fafafa;
+  --color-ring: #818cf8;
+  --app-scroll-margin: 5.25rem;
 }
 
 html,
@@ -69,50 +110,82 @@ body,
   flex: 1;
   display: flex;
   flex-direction: column;
-  height: 100dvh;
-  justify-content: center;
+  min-height: 100dvh;
+  justify-content: flex-start;
 }
 
 @layer base {
-  body {
-    background-color: rgb(var(--color-bg-primary));
-    color: rgb(var(--color-text-primary));
-    @apply min-h-screen antialiased;
+  /* Focus ring for chrome links / controls (pairs with per-component radius) */
+  .app-focus-ring:focus-visible {
+    outline: none;
+    box-shadow:
+      0 0 0 2px var(--color-background),
+      0 0 0 4px var(--color-ring);
   }
 
-  /* Text selection - modern 2026 style */
+  body {
+    position: relative;
+    isolation: isolate;
+    color: var(--color-foreground);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    @apply min-h-screen antialiased;
+    /* Base + mesh + fine grain + edge vignette (no pure #000) */
+    background-color: var(--color-background);
+    background-image:
+      radial-gradient(1200px 800px at 10% -10%, rgb(99 102 241 / 0.09), transparent 55%),
+      radial-gradient(900px 600px at 90% 0%, rgb(139 92 246 / 0.07), transparent 50%),
+      radial-gradient(700px 500px at 50% 100%, rgb(59 130 246 / 0.05), transparent 45%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)' opacity='0.028'/%3E%3C/svg%3E"),
+      radial-gradient(130% 90% at 50% 100%, transparent 55%, rgb(15 23 42 / 0.045));
+    background-attachment: fixed;
+  }
+
+  .dark body {
+    background-image:
+      radial-gradient(1000px 700px at 15% -5%, rgb(99 102 241 / 0.12), transparent 55%),
+      radial-gradient(800px 500px at 85% 5%, rgb(139 92 246 / 0.08), transparent 48%),
+      radial-gradient(600px 400px at 50% 100%, rgb(59 130 246 / 0.05), transparent 50%),
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='a'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23a)' opacity='0.06'/%3E%3C/svg%3E"),
+      radial-gradient(130% 120% at 50% 0%, transparent 40%, rgb(0 0 0 / 0.42));
+  }
+
   ::selection {
-    background-color: #4f46e5;
-    color: #ffffff;
-    -webkit-text-fill-color: #ffffff;
+    background-color: color-mix(in oklab, var(--color-ring) 35%, transparent);
+    color: var(--color-foreground);
+    -webkit-text-fill-color: var(--color-foreground);
   }
 
   ::-moz-selection {
-    background-color: #4f46e5;
-    color: #ffffff;
-  }
-
-  .dark ::selection {
-    background-color: #818cf8;
-    color: #0f172a;
-    -webkit-text-fill-color: #0f172a;
-  }
-
-  .dark ::-moz-selection {
-    background-color: #818cf8;
-    color: #0f172a;
+    background-color: color-mix(in oklab, var(--color-ring) 35%, transparent);
+    color: var(--color-foreground);
   }
 
   .btn {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold text-white bg-purple-700 dark:bg-indigo-500 hover:bg-purple-800 dark:hover:bg-indigo-600 shadow-md hover:shadow-lg transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 whitespace-nowrap;
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-2xl font-semibold whitespace-nowrap transition-[transform,box-shadow,background-color] duration-200 ease-out;
+    @apply text-white shadow-sm hover:shadow-md active:scale-[0.99];
+    @apply bg-gradient-to-b from-violet-600 to-violet-700 hover:from-violet-500 hover:to-violet-600;
+    @apply dark:from-indigo-500 dark:to-indigo-600 dark:hover:from-indigo-400 dark:hover:to-indigo-500;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)];
   }
 
   .btn-secondary {
-    @apply inline-flex items-center justify-center px-6 py-3 rounded-xl font-semibold text-indigo-700 dark:text-indigo-300 bg-white dark:bg-gray-800 border-2 border-indigo-600 dark:border-indigo-400 shadow-md hover:shadow-lg hover:bg-indigo-50 dark:hover:bg-gray-700 transform hover:-translate-y-0.5 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 whitespace-nowrap;
+    @apply inline-flex items-center justify-center px-6 py-3 rounded-2xl font-semibold whitespace-nowrap transition-[transform,box-shadow,background-color,border-color] duration-200 ease-out;
+    @apply border border-[var(--color-border)] bg-[var(--color-surface)] text-violet-700 shadow-sm hover:shadow-md active:scale-[0.99];
+    @apply hover:bg-zinc-100 dark:hover:bg-zinc-800;
+    @apply dark:border-zinc-600 dark:bg-zinc-900/80 dark:text-indigo-200;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-ring)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-background)];
+  }
+
+  /* @shortlink-org/ui-kit Button: variant="secondary" sets data-variant only */
+  .btn[data-variant='secondary'] {
+    @apply border border-[var(--color-border)] bg-[var(--color-surface)] bg-none text-violet-700 shadow-sm hover:shadow-md;
+    @apply hover:bg-zinc-100 hover:text-violet-800;
+    @apply dark:border-zinc-600 dark:bg-zinc-900/90 dark:text-indigo-200 dark:hover:bg-zinc-800 dark:hover:text-white;
   }
 
   a:not([class]) {
-    @apply text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 underline-offset-4 hover:underline transition-colors;
+    @apply text-violet-600 underline-offset-4 transition-colors hover:text-violet-700 hover:underline dark:text-indigo-400 dark:hover:text-indigo-300;
   }
 }
 
@@ -122,14 +195,15 @@ body,
   }
 }
 
-/* switch dark mode */
-.toggleWrapper {
-  overflow: hidden;
-  min-width: 6em;
-  transition: transform 0.3s ease-in-out;
-  position: inherit !important;
-  top: auto !important;
-  left: auto !important;
+/* experimental.viewTransition: default root transition for next/link navigations */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (view-transition-name: none) {
+    ::view-transition-old(root),
+    ::view-transition-new(root) {
+      animation-duration: 220ms;
+      animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    }
+  }
 }
 
 /* TYPOGRAPHY */
@@ -152,226 +226,4 @@ input,
 textarea,
 select {
   text-wrap: pretty;
-}
-
-@layer components {
-  .cq-hero {
-    container: hero / inline-size;
-  }
-
-  .cq-hero__grid {
-    display: grid;
-    gap: clamp(1.5rem, 4cqi, 3.5rem);
-    align-items: center;
-  }
-
-  .cq-hero__content {
-    padding-block: clamp(1.5rem, 6cqi, 4.5rem);
-  }
-
-  .cq-hero__body {
-    text-align: center;
-    max-width: 42rem;
-    margin-inline: auto;
-  }
-
-  .cq-hero__title {
-    font-size: clamp(2rem, 1.1rem + 4.6cqi, 4.2rem);
-    line-height: 1.05;
-  }
-
-  .cq-hero__lead {
-    font-size: clamp(0.95rem, 0.55rem + 1.9cqi, 1.25rem);
-  }
-
-  .cq-hero__actions {
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-    gap: clamp(0.75rem, 2.2cqi, 1.25rem);
-  }
-
-  .cq-hero__actions > a {
-    width: 100%;
-  }
-
-  .cq-hero__media {
-    border-radius: 1.5rem;
-    overflow: hidden;
-    box-shadow: 0 25px 70px -40px rgb(15 23 42 / 0.4);
-  }
-
-  .cq-hero__image {
-    width: 100%;
-    height: 100%;
-    min-height: clamp(12rem, 28cqi, 22rem);
-    object-fit: cover;
-  }
-
-  .cq-hero__divider {
-    display: none;
-  }
-
-  @container hero (min-width: 52rem) {
-    .cq-hero__grid {
-      grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
-    }
-
-    .cq-hero__body {
-      text-align: left;
-      margin-inline: 0;
-    }
-
-    .cq-hero__actions {
-      flex-direction: row;
-      align-items: center;
-      justify-content: flex-start;
-    }
-
-    .cq-hero__actions > a {
-      width: auto;
-    }
-
-    .cq-hero__divider {
-      display: block;
-    }
-  }
-
-  .cq-mobile {
-    container: mobile / inline-size;
-  }
-
-  .cq-mobile__grid {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: clamp(1.5rem, 5cqi, 3rem);
-  }
-
-  .cq-mobile__content {
-    text-align: center;
-    max-width: 36rem;
-  }
-
-  .cq-mobile__title {
-    font-size: clamp(1.5rem, 1.2rem + 1.8cqi, 2.25rem);
-  }
-
-  .cq-mobile__actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    justify-content: center;
-  }
-
-  @container mobile (min-width: 46rem) {
-    .cq-mobile__grid {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .cq-mobile__content {
-      text-align: left;
-    }
-
-    .cq-mobile__actions {
-      justify-content: flex-end;
-    }
-  }
-
-  .cq-subscribe {
-    container: subscribe / inline-size;
-  }
-
-  .cq-subscribe__grid {
-    display: grid;
-    gap: clamp(1.5rem, 6cqi, 3.5rem);
-    align-items: center;
-  }
-
-  .cq-subscribe__content {
-    text-align: center;
-  }
-
-  .cq-subscribe__title {
-    font-size: clamp(1.5rem, 1.1rem + 2.4cqi, 2.4rem);
-    line-height: 1.2;
-  }
-
-  .cq-subscribe__form {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
-    align-items: stretch;
-  }
-
-  .cq-subscribe__input {
-    width: 100%;
-    max-width: clamp(16rem, 55cqi, 22rem);
-  }
-
-  .cq-subscribe__button {
-    width: 100%;
-  }
-
-  .cq-subscribe__media {
-    display: flex;
-    justify-content: center;
-  }
-
-  @container subscribe (min-width: 32rem) {
-    .cq-subscribe__form {
-      flex-direction: row;
-      align-items: center;
-    }
-
-    .cq-subscribe__button {
-      width: auto;
-    }
-  }
-
-  @container subscribe (min-width: 52rem) {
-    .cq-subscribe__grid {
-      grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
-    }
-
-    .cq-subscribe__content {
-      text-align: left;
-    }
-  }
-
-  .cq-steps {
-    container: steps / inline-size;
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  @container steps (min-width: 36rem) {
-    .cq-steps {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @container steps (min-width: 64rem) {
-    .cq-steps {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-  }
-
-  .cq-services {
-    container: services / inline-size;
-    grid-template-columns: minmax(0, 1fr);
-  }
-
-  @container services (min-width: 40rem) {
-    .cq-services {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-  }
-
-  @container services (min-width: 64rem) {
-    .cq-services {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-  }
 }

@@ -51,7 +51,11 @@ function ProfileData() {
   return (
     <>
       <PageSection className="space-y-6 pb-10">
-        <Welcome nickname={firstName} />
+        <Welcome
+          nickname={firstName}
+          displayName={[firstName, lastName].filter(Boolean).join(' ').trim()}
+          email={email}
+        />
 
         <Profile />
 

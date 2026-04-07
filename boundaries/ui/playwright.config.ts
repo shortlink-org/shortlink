@@ -22,7 +22,8 @@ export default defineConfig({
   ],
 
   use: {
-    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3000',
+    /** App uses `basePath: /next` */
+    baseURL: process.env.PLAYWRIGHT_BASE_URL ?? 'http://localhost:3000/next',
     trace: 'retain-on-failure',
     screenshot: 'only-on-failure',
     video: 'off',
@@ -46,9 +47,9 @@ export default defineConfig({
   webServer: process.env.PLAYWRIGHT_WEB_SERVER
     ? undefined
     : {
-        command: 'npx serve out -l 3000',
+        command: 'pnpm exec next start -p 3000',
         port: 3000,
         reuseExistingServer: true,
-        timeout: 60_000,
+        timeout: 120_000,
       },
 })

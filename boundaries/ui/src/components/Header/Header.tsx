@@ -1,17 +1,23 @@
 'use client'
 
-// @ts-ignore
-import { AppHeader } from '@shortlink-org/ui-kit'
-import { AxiosError } from 'axios'
+import { Bars3Icon, MagnifyingGlassIcon } from '@heroicons/react/24/outline'
+import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { Suspense, useEffect, useState } from 'react'
+
 import { ThemeToggle } from '@/components/ThemeToggle'
-import TravelExploreIcon from '@mui/icons-material/TravelExplore'
-import MailOutlineIcon from '@mui/icons-material/MailOutline'
-import BarChartIcon from '@mui/icons-material/BarChart'
-import { useSession } from '@/contexts/SessionContext'
-import ory from '@/pkg/sdk'
+import { navItemIsActive } from '@/lib/app-base-path'
+
+import { resolveNavTransitionTypes } from '@/lib/nav-link-transition'
+
+import { LogoSquare } from './LogoSquare'
+import { desktopNavItems, mobileNavItems } from './nav-items'
+import NavbarMobileMenu from './NavbarMobileMenu'
+import NavbarSearch, { NavbarSearchSkeleton } from './NavbarSearch'
+import ProfileMenu from './ProfileMenu'
+
+const SITE_LABEL = 'ShortLink'
 
 interface HeaderProps {
   hasSession: boolean
@@ -19,151 +25,139 @@ interface HeaderProps {
   setOpen: () => void
 }
 
-const secondMenuItems = [
-  {
-    name: 'Pricing',
-    description: 'Measure actions your users take',
-    href: '/pricing',
-    icon: TravelExploreIcon,
-  },
-  {
-    name: 'Contacts',
-    description: 'Send us an email',
-    href: '/contact',
-    icon: MailOutlineIcon,
-  },
-  {
-    name: 'Reports',
-    description: 'Keep track of your growth',
-    href: '/user/reports',
-    icon: BarChartIcon,
-  },
-]
+function SidebarToggle({ onClick }: { onClick: () => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label="Expand navigation"
+      className="app-focus-ring flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-black transition-colors dark:border-neutral-700 dark:text-white"
+    >
+      <Bars3Icon className="h-5 w-5" />
+    </button>
+  )
+}
 
-export default function Header({ hasSession, isSessionLoading = false, setOpen }: HeaderProps) {
-  const pathname = usePathname()
-  const [logoutToken, setLogoutToken] = useState('')
-  const { session } = useSession()
-
+function useMainScrollFolded() {
+  const [scrolled, setScrolled] = useState(false)
   useEffect(() => {
-    if (!hasSession) return
-
-    ory
-      .createBrowserLogoutFlow()
-      .then(({ data }) => {
-        setLogoutToken(data.logout_token)
-      })
-      .catch((err: AxiosError) => {
-        if (err.response?.status === 401) return
-        return Promise.reject(err)
-      })
-  }, [hasSession])
-
-  const traits = (session?.identity?.traits as Record<string, any> | undefined) ?? {}
-  const firstName = traits?.name?.first ?? ''
-  const lastName = traits?.name?.last ?? ''
-  const email = traits?.email ?? ''
-  const displayName = `${firstName} ${lastName}`.trim() || email || 'User'
-  const avatar = traits?.avatar_url
-
-  const notifications = useMemo(
-    () => ({
-      count: 4,
-      items: [
-        {
-          id: 'sara-reply',
-          title: 'Sara Salah',
-          message: 'Replied on the Upload Image article.',
-          time: '2m',
-          avatar:
-            'https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80',
-        },
-        {
-          id: 'slick-follow',
-          title: 'Slick Net',
-          message: 'Started following you.',
-          time: '45m',
-          avatar:
-            'https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
-        },
-        {
-          id: 'jane-like',
-          title: 'Jane Doe',
-          message: 'Liked your reply on Test with TDD.',
-          time: '1h',
-          avatar:
-            'https://images.unsplash.com/photo-1450297350677-623de575f31c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80',
-        },
-        {
-          id: 'abigail-follow',
-          title: 'Abigail Bennett',
-          message: 'Started following you.',
-          time: '3h',
-          avatar:
-            'https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=398&q=80',
-        },
-      ],
-    }),
-    [],
-  )
-
-  const handleLogout = useCallback(async () => {
-    try {
-      const token = logoutToken || (await ory.createBrowserLogoutFlow()).data.logout_token
-      await ory.updateLogoutFlow({ token })
-      window.location.assign('/auth/login')
-    } catch (err) {
-      console.error('Logout failed', err)
+    const region = document.querySelector<HTMLElement>('[data-app-scroll-region]')
+    const read = () => {
+      const y = region ? region.scrollTop : window.scrollY
+      setScrolled(y > 10)
     }
-  }, [logoutToken])
+    read()
+    const target = region ?? window
+    target.addEventListener('scroll', read, { passive: true })
+    return () => target.removeEventListener('scroll', read)
+  }, [])
+  return scrolled
+}
 
-  const profile = useMemo(
-    () => ({
-      avatar,
-      name: displayName,
-      email,
-      menuItems: [
-        {
-          name: 'Your Profile',
-          href: '/profile',
-        },
-        {
-          name: 'Sign out',
-          onClick: handleLogout,
-          confirmDialog: {
-            title: 'Sign out?',
-            description: 'You will be redirected to the login page.',
-            confirmText: 'Sign out',
-            variant: 'danger',
-          },
-        },
-      ],
-    }),
-    [avatar, displayName, email, handleLogout],
-  )
+export default function Header({ hasSession, setOpen }: HeaderProps) {
+  const pathname = usePathname()
+  const scrolled = useMainScrollFolded()
+  const desktop = desktopNavItems(hasSession)
+  const mobile = mobileNavItems(hasSession)
 
   return (
-    <AppHeader
-      currentPath={pathname}
-      LinkComponent={Link}
-      showMenuButton={true}
-      onMenuClick={setOpen}
-      menuButtonDisabled={!hasSession}
-      showThemeToggle={true}
-      themeToggleComponent={<ThemeToggle />}
-      showSecondMenu={true}
-      secondMenuLabel="Solutions"
-      secondMenuItems={secondMenuItems}
-      showSearch={true}
-      showNotifications={hasSession}
-      notifications={notifications}
-      showProfile={hasSession}
-      profile={profile}
-      showLogin={!hasSession && !isSessionLoading}
-      loginButton={{
-        href: '/auth/login',
-        label: 'Log in',
-      }}
-    />
+    <header
+      className={clsx(
+        'sticky top-0 z-40 border-b border-[var(--color-border)] bg-[var(--color-surface)]/95 backdrop-blur-md transition-[box-shadow,background-color] duration-200',
+        scrolled &&
+          'shadow-[0_10px_36px_-14px_rgb(15_23_42/0.22)] dark:shadow-[0_12px_40px_-16px_rgb(0_0_0/0.55)]',
+      )}
+    >
+      <nav
+        className={clsx(
+          'relative mx-auto flex max-w-[1600px] items-center justify-between px-4 transition-[padding] duration-200 ease-out lg:px-6',
+          scrolled ? 'py-2.5' : 'py-4',
+        )}
+      >
+        <div className="block flex-none md:hidden">
+          {hasSession ? (
+            <SidebarToggle onClick={setOpen} />
+          ) : (
+            <Suspense
+              fallback={
+                <div
+                  className="app-focus-ring flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 opacity-50 dark:border-neutral-700"
+                  aria-hidden
+                />
+              }
+            >
+              <NavbarMobileMenu menu={mobile} showSearch={false} />
+            </Suspense>
+          )}
+        </div>
+
+        <div className="flex w-full min-w-0 items-center">
+          <div className="flex w-full min-w-0 items-center md:w-1/3">
+            {hasSession ? (
+              <div className="mr-2 hidden shrink-0 md:block">
+                <SidebarToggle onClick={setOpen} />
+              </div>
+            ) : null}
+            <Link
+              href="/"
+              prefetch
+              transitionTypes={resolveNavTransitionTypes(pathname, '/')}
+              className="app-focus-ring mr-2 flex w-full min-w-0 items-center justify-center gap-2 rounded-md md:w-auto md:flex-none lg:mr-6"
+            >
+              <LogoSquare />
+              <div className="ml-2 flex-none text-sm font-medium uppercase text-neutral-900 md:hidden lg:block dark:text-white">
+                {SITE_LABEL}
+              </div>
+            </Link>
+            {desktop.length > 0 ? (
+              <ul className="hidden gap-6 text-sm md:flex md:items-center">
+                {desktop.map((item) => (
+                  <li key={item.path}>
+                    <Link
+                      href={item.path}
+                      prefetch
+                      transitionTypes={resolveNavTransitionTypes(pathname, item.path)}
+                      aria-current={navItemIsActive(pathname, item.path) ? 'page' : undefined}
+                      className={clsx(
+                        'app-focus-ring rounded-md px-1.5 py-1 text-sm underline-offset-4 transition-colors',
+                        navItemIsActive(pathname, item.path)
+                          ? 'font-semibold text-[var(--color-foreground)] dark:text-zinc-50'
+                          : 'text-neutral-500 hover:text-neutral-900 hover:underline dark:text-neutral-400 dark:hover:text-zinc-200',
+                      )}
+                    >
+                      {item.title}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </div>
+
+          <div className="hidden min-w-0 justify-center md:flex md:w-1/3">
+            {hasSession ? (
+              <Suspense fallback={<NavbarSearchSkeleton />}>
+                <NavbarSearch />
+              </Suspense>
+            ) : null}
+          </div>
+
+          <div className="flex w-auto min-w-0 flex-1 items-center justify-end gap-2 md:w-1/3 md:gap-4">
+            {hasSession ? (
+              <Link
+                href="/links/search"
+                prefetch
+                transitionTypes={resolveNavTransitionTypes(pathname, '/links/search')}
+                aria-label="Search links"
+                className="app-focus-ring flex h-11 w-11 items-center justify-center rounded-md border border-neutral-200 text-neutral-700 transition-colors hover:bg-neutral-50 md:hidden dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-neutral-800"
+              >
+                <MagnifyingGlassIcon className="h-5 w-5" />
+              </Link>
+            ) : null}
+            <ThemeToggle />
+            <ProfileMenu />
+          </div>
+        </div>
+      </nav>
+    </header>
   )
 }

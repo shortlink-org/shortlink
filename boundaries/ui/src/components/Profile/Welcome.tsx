@@ -1,8 +1,14 @@
+import { ProfileIdentity } from '@shortlink-org/ui-kit'
+
 interface WelcomeProps {
   nickname: string
+  displayName?: string
+  email?: string
 }
 
-export default function Welcome({ nickname }: WelcomeProps) {
+export default function Welcome({ nickname, displayName, email }: WelcomeProps) {
+  const nameForIdentity = displayName?.trim() || nickname
+
   return (
     <div className="md:w-auto flex items-center content-center my-6 flex-auto bg-purple-700 dark:bg-indigo-500 text-white rounded shadow-xl px-5 w-full">
       <div className="flex flex-wrap content-center items-center">
@@ -17,6 +23,17 @@ export default function Welcome({ nickname }: WelcomeProps) {
         </div>
         <div className="w-full sm:w-1/2 md:w-3/4 px-3 text-left">
           <div className="p-5 xl:px-8 md:py-5">
+            <div className="mb-4 rounded-2xl border border-white/20 bg-white/10 p-3 backdrop-blur-sm dark:border-white/15 dark:bg-black/10">
+              <ProfileIdentity
+                name={nameForIdentity}
+                email={email ?? ''}
+                label="Signed in"
+                size="md"
+                className="text-white [&_p]:text-white [&_p.text-xs]:text-indigo-100"
+                nameClassName="text-white"
+                emailClassName="text-indigo-100"
+              />
+            </div>
             <h3 className="text-2xl font-bold">Welcome, {nickname}!</h3>
             <p className="text-sm text-indigo-200 mt-2">
               Manage your profile settings, update your personal information, and customize your notification preferences.

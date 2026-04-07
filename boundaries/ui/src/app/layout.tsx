@@ -1,16 +1,23 @@
+import '@/lib/polyfills/install-temporal'
+
 import { Metadata, Viewport } from 'next'
-import { Roboto_Mono } from 'next/font/google'
+import { Plus_Jakarta_Sans, Roboto_Mono } from 'next/font/google'
 import Script from 'next/script'
 import { Organization, WithContext } from 'schema-dts'
-import InitColorSchemeScript from '@mui/material/InitColorSchemeScript'
 
 import { ProvidersWithSession as Providers } from './providers'
 import './globals.css'
 
-const robotoMono = Roboto_Mono({
+const fontSans = Plus_Jakarta_Sans({
   subsets: ['latin'],
   display: 'swap',
-  variable: '--font-inter',
+  variable: '--font-app-sans',
+})
+
+const fontMono = Roboto_Mono({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-app-mono',
 })
 
 export const viewport: Viewport = {
@@ -18,10 +25,10 @@ export const viewport: Viewport = {
   initialScale: 1,
   maximumScale: 1,
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: 'cyan' },
-    { media: '(prefers-color-scheme: dark)', color: 'black' },
+    { media: '(prefers-color-scheme: light)', color: '#f4f4f5' },
+    { media: '(prefers-color-scheme: dark)', color: '#09090b' },
   ],
-  colorScheme: 'light',
+  colorScheme: 'light dark',
 }
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -98,19 +105,15 @@ const jsonLd: WithContext<Organization> = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html 
-      lang="en" 
-      className={`${robotoMono.className} font-sans`} 
+    <html
+      lang="en"
+      className={`${fontSans.variable} ${fontMono.variable} font-sans antialiased`}
       suppressHydrationWarning
     >
       <head>
-        <InitColorSchemeScript />
         <Script id="json-ld" type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       </head>
-      <body 
-        className="bg-white text-black dark:bg-black dark:text-white h-screen w-screen"
-        suppressHydrationWarning
-      >
+      <body className="h-screen w-screen" suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>
     </html>

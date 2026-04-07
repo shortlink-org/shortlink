@@ -2,12 +2,12 @@
 
 ## Overview
 
-This document describes the routing architecture for the ShortLink UI service, which is a static Next.js application served through Kubernetes Nginx Ingress and containerized Nginx.
+This document describes the routing architecture for the ShortLink UI service: a **Next.js standalone** app (Node) fronted by Kubernetes Ingress.
 
 ## Architecture Components
 
 ```
-Browser → Nginx Ingress Controller → Nginx Pod → Static Files
+Browser → Ingress → link-ui Pod (Next.js on :8080)
 ```
 
 ## Routing Flow
@@ -19,13 +19,10 @@ Browser: https://shortlink.best/next/add-link
     • Receives: /next/add-link  
     • Regex match: /next(/|$)(.*)
     • Rewrite: /$2 → /add-link
-    • Proxy to: shortlink-link-ui:8080/add-link
-    • Intercepts redirects with port and removes it
+    • Proxy to: shortlink-link-ui:8080/next/add-link (strip prefix per ingress rules)
     ↓
-[Nginx in Pod (ui.local)]
-    • Receives: /add-link
-    • Tries files: /usr/share/nginx/html/add-link.html
-    • Returns: HTML page
+[Next.js server in Pod]
+    • Serves App Router routes under basePath `/next`
     ↓
 Browser receives page ✅
 ```

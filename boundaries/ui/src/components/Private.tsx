@@ -7,7 +7,7 @@
  * - ✅ Uses ErrorBoundary for error handling
  * - ✅ Provides session via SessionProvider
  * - ✅ No manual useState/useEffect
- * - ✅ Supports static export (deferred client-side rendering)
+ * - ✅ Defers protected content until client mount when session is required.
  */
 
 'use client'
@@ -19,7 +19,7 @@ import { useSessionQuery } from '@/lib/datalayer'
 
 /**
  * Component that fetches session for protected page
- * Defers rendering until client-side to support static export
+ * Defers rendering until client-side so session fetch runs only in the browser.
  */
 function ProtectedPageData<P extends object>({ Component, props }: { Component: React.ComponentType<P>; props: P }) {
   const [mounted, setMounted] = useState(false)
@@ -28,7 +28,7 @@ function ProtectedPageData<P extends object>({ Component, props }: { Component: 
     setMounted(true)
   }, [])
 
-  // Don't render anything during SSR/static export
+  // Don't render protected content during SSR without session
   if (!mounted) {
     return <div className="flex items-center justify-center min-h-[200px]">Loading...</div>
   }

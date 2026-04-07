@@ -6,6 +6,7 @@ import { LinkTableItem } from '@/components/Page/user/linksTable'
 
 type AppProps = {
   data: LinkTableItem[]
+  onRefresh?: () => void
 }
 
 const columnHelper = createDataTableColumnHelper<LinkTableItem>()
@@ -79,13 +80,13 @@ const columns = [
   }),
 ]
 
-export const AdminUserLinksTable = ({ data }: AppProps) => (
+export const AdminUserLinksTable = ({ data, onRefresh }: AppProps) => (
   <DataTable
     data={data}
     columns={columns}
     filters={true}
-    enableRefresh={true}
-    onRefresh={() => {}}
+    enableRefresh={Boolean(onRefresh)}
+    onRefresh={onRefresh}
   />
 )
 

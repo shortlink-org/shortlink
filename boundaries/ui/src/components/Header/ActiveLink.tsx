@@ -1,4 +1,8 @@
+'use client'
+
 import Link, { LinkProps } from 'next/link'
+
+import { resolveNavTransitionTypes } from '@/lib/nav-link-transition'
 import { usePathname } from 'next/navigation'
 // @ts-ignore
 import React, { useState, useEffect, ReactElement, Children, isValidElement } from 'react'
@@ -37,7 +41,10 @@ function ActiveLink({ children, activeClassName, ...props }: ActiveLinkProps) {
   }, [currentPath, props.as, props.href, childClassName, activeClassName, setClassName, className])
 
   return (
-    <Link {...props}>
+    <Link
+      {...props}
+      transitionTypes={props.transitionTypes ?? resolveNavTransitionTypes(currentPath, props.href)}
+    >
       {React.cloneElement(child, {
         className: className || null,
       } as React.HTMLAttributes<HTMLElement>) as any}

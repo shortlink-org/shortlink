@@ -1,0 +1,132 @@
+.root {
+  container: hero / inline-size;
+}
+
+.grid {
+  display: grid;
+  gap: clamp(1.75rem, 5cqi, 4rem);
+  align-items: stretch;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: clamp(2.25rem, 6.5cqi, 4.5rem);
+  padding-bottom: clamp(1.5rem, 4cqi, 2.75rem);
+  padding-inline: clamp(1.25rem, 4cqi, 2rem);
+}
+
+.body {
+  text-align: center;
+  max-width: min(42rem, 100%);
+  margin-inline: auto;
+}
+
+.title {
+  font-size: clamp(2rem, 1.1rem + 4.6cqi, 4.2rem);
+  line-height: 1.05;
+}
+
+.lead {
+  font-size: clamp(0.95rem, 0.55rem + 1.9cqi, 1.25rem);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: clamp(0.875rem, 2.5cqi, 1.5rem);
+}
+
+.actions > a {
+  width: 100%;
+}
+
+.media {
+  border-radius: 1.5rem;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 25px 70px -40px rgb(15 23 42 / 0.35);
+  display: flex;
+  flex-direction: column;
+  min-height: clamp(14rem, 40cqi, 20rem);
+}
+
+.dark .media {
+  box-shadow: 0 28px 80px -38px rgb(0 0 0 / 0.72);
+}
+
+.mediaCrop {
+  flex: 1;
+  height: 100%;
+  width: 100%;
+  min-height: clamp(14rem, 40cqi, 20rem);
+}
+
+.image {
+  display: block;
+  height: 100%;
+  width: 100%;
+  min-height: clamp(14rem, 40cqi, 20rem);
+  object-fit: cover;
+  transform: scale(1.022);
+  transform-origin: center;
+  backface-visibility: hidden;
+}
+
+@container hero (min-width: 52rem) {
+  .grid {
+    grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr);
+  }
+
+  .content {
+    padding-top: clamp(2.5rem, 6.5cqi, 4.25rem);
+    padding-bottom: clamp(1.75rem, 4cqi, 2.5rem);
+    padding-inline: clamp(1.5rem, 4cqi, 2.5rem) clamp(1rem, 3cqi, 1.5rem);
+  }
+
+  .body {
+    text-align: left;
+    margin-inline: 0;
+  }
+
+  .actions {
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+  }
+
+  .actions > a {
+    width: auto;
+  }
+
+  .media {
+    min-height: 100%;
+    height: 100%;
+    align-self: stretch;
+    border-radius: 0 1.25rem 1.25rem 0;
+    clip-path: polygon(50% 0%, 100% 0%, 100% 100%, 0% 100%);
+  }
+
+  .mediaCrop {
+    flex: 1;
+    min-height: 100%;
+    height: 100%;
+  }
+
+  .image {
+    min-height: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .image {
+    transform: none !important;
+  }
+
+  .actions :global(svg) {
+    transition: none !important;
+    transform: none !important;
+  }
+}

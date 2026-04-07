@@ -6,10 +6,10 @@
   "private": true,
   "scripts": {
     "build": "NODE_ENV=production pnpm next build --turbopack",
-    "start": "NODE_OPTIONS='--max-http-header-size=131072' pnpm next dev",
-    "start:dev": "cp .env.dev .env.local && pnpm start",
-    "start:k8s": "cp .env.k8s .env.local && pnpm start",
-    "start:prod": "cp .env.prod .env.local && pnpm start",
+    "dev": "NODE_OPTIONS='--max-http-header-size=131072' pnpm next dev",
+    "dev:dev": "cp .env.dev .env.local && pnpm dev",
+    "dev:k8s": "cp .env.k8s .env.local && pnpm dev",
+    "dev:prod": "cp .env.prod .env.local && pnpm dev",
     "type-check": "tsc",
     "next-lint": "pnpm dlx next lint",
     "prettier": "pnpm dlx prettier -w -c .",
@@ -25,7 +25,7 @@
     "e2e": "pnpm build && playwright test",
     "e2e:dev": "playwright test",
     "e2e:headed": "playwright test --headed",
-    "playwright:codegen": "playwright codegen http://localhost:3000/add-link",
+    "playwright:codegen": "playwright codegen http://localhost:3000/next/add-link",
     "playwright:report": "allure serve playwright-report/allure-results",
     "preinstall": "npx only-allow pnpm"
   },
@@ -86,6 +86,7 @@
     "redux": "^5.0.1",
     "redux-saga": "^1.4.2",
     "schema-dts": "^2.0.0",
+    "sharp": "^0.34.5",
     "shortlink-ui-kit": "^1.4.5",
     "sonner": "^2.0.7",
     "uuid": "^13.0.0"
@@ -108,19 +109,18 @@
     "@vitejs/plugin-react": "^6.0.1",
     "allure-playwright": "^3.6.0",
     "autoprefixer": "^10.4.27",
-    "eslint": "^10.1.0",
+    "eslint": "^10.2.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
-    "jsdom": "^29.0.1",
+    "jsdom": "^29.0.2",
     "next-sitemap": "^4.2.3",
     "patch-package": "^8.0.1",
     "postcss": "^8.5.8",
     "prettier": "^3.8.1",
-    "sharp": "^0.34.5",
     "tailwindcss": "^4.2.2",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.2",
-    "vitest": "^4.1.2"
+    "vitest": "^4.1.3"
   },
   "packageManager": "pnpm@10.30.3+sha512.c961d1e0a2d8e354ecaa5166b822516668b7f44cb5bd95122d590dd81922f606f5473b6d23ec4a5be05e7fcd18e8488d47d978bbe981872f1145d06e9a740017"
 }

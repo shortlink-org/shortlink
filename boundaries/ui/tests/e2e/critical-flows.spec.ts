@@ -17,8 +17,7 @@ test.describe('Critical User Flows', () => {
   })
 
   test('FAQ page loads directly', async ({ page, baseURL }) => {
-    // Direct navigation to FAQ (tests static export)
-    await page.goto(`${baseURL}/faq.html`)
+    await page.goto(`${baseURL}/faq`)
 
     await expect(page.getByRole('heading', { name: /frequently asked/i })).toBeVisible({ timeout: 10000 })
   })

@@ -1,0 +1,13 @@
+@media (prefers-reduced-motion: reduce) {
+  .grid > * {
+    transition:
+      border-color 0.2s ease,
+      background-color 0.2s ease,
+      box-shadow 0.2s ease !important;
+    transform: none !important;
+  }
+
+  .grid > *:hover {
+    transform: none !important;
+  }
+}

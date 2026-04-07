@@ -38,12 +38,7 @@ export function ThemeToggle() {
 
   return (
     <div
-      style={{
-        position: 'relative',
-        display: 'inline-block',
-        zIndex: 10,
-        cursor: 'pointer',
-      }}
+      className="app-focus-ring relative z-10 inline-block cursor-pointer rounded-full [&_input]:sr-only"
       onClick={handleWrapperClick}
     >
       <ToggleDarkMode

@@ -1,5 +1,7 @@
 'use client'
 
+import '@/lib/polyfills/install-temporal'
+
 import React, { useEffect, useState, useMemo } from 'react'
 import CssBaseline from '@mui/material/CssBaseline'
 import { AppRouterCacheProvider } from '@mui/material-nextjs/v15-appRouter'
@@ -76,12 +78,15 @@ function MuiThemeProvider({ children }: { children: React.ReactNode }) {
 
     return createTheme({
       cssVariables: true,
+      typography: {
+        fontFamily: 'var(--font-app-sans), ui-sans-serif, system-ui, sans-serif',
+      },
       palette: {
         mode,
         ...(mode === 'dark' && {
           background: {
-            default: '#0a0a0a',
-            paper: '#1a1a1a',
+            default: '#0c0c0e',
+            paper: '#18181b',
           },
         }),
       },

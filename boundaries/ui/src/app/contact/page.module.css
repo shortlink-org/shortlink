@@ -1,0 +1,53 @@
+/* Centered column + full-bleed bands via subgrid (David Bushell-style layout) */
+
+.contactMain {
+  --contact-gutter: 1rem;
+  display: grid;
+  grid-template-columns:
+    [inline-start]
+    minmax(0, 1fr)
+    [margin-start]
+    var(--contact-gutter)
+    [main-start]
+    min(80rem, calc(100% - 2 * var(--contact-gutter)))
+    [main-end]
+    var(--contact-gutter)
+    [margin-end]
+    minmax(0, 1fr)
+    [inline-end];
+  row-gap: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .contactMain {
+    --contact-gutter: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .contactMain {
+    --contact-gutter: 2rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .contactMain {
+    row-gap: 2rem;
+  }
+}
+
+.contactMain > * {
+  grid-column: main;
+  min-width: 0;
+}
+
+.contactFullBleed {
+  grid-column: inline;
+  display: grid;
+  grid-template-columns: subgrid;
+}
+
+.contactFullBleed > * {
+  grid-column: main;
+  min-width: 0;
+}

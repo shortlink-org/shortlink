@@ -94,7 +94,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
             {hasSession && <Sidebar mode={open ? 'full' : 'mini'} sections={sidebarSections} />}
           </div>
 
-          <div className="overflow-auto h-full">
+          <div className="h-full overflow-auto" data-app-scroll-region>
             {children}
 
             <Footer />

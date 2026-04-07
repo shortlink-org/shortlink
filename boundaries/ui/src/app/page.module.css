@@ -1,0 +1,6 @@
+/* Section separators inside landing content stack */
+.mainStack > * + * {
+  border-top: 1px solid color-mix(in oklab, var(--color-border) 72%, transparent);
+  padding-top: 3rem;
+  margin-top: 0;
+}

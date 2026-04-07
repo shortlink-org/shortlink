@@ -1,0 +1,32 @@
+# Dependencies & artifacts
+node_modules
+.next
+out
+dist
+coverage
+
+# Local env (inject via CI / runtime)
+.env
+.env.*
+!.env.example
+
+# Git & editor
+.git
+.github
+.cursor
+.idea
+.vscode
+
+# Tests & reports
+tests
+playwright-report
+test-results
+allure-results
+**/*.spec.ts
+
+# Misc
+*.md
+!README.md
+.DS_Store
+*.log
+docs
