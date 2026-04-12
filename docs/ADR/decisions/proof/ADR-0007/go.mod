@@ -1,6 +1,6 @@
 module github.com/shortlink-org/shortlink/docs/ADR/decisions/proof/ADR-0007
 
-go 1.26.1
+go 1.26.2
 
 require (
 	github.com/google/uuid v1.6.0
