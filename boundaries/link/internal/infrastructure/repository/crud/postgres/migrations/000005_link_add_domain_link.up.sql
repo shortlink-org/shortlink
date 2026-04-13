@@ -1,6 +1,12 @@
 CREATE DOMAIN link AS jsonb CHECK (
-    jsonb_typeof(value->'uri') = 'string' AND
-    length(value->>'uri') > 0
+    (
+        jsonb_typeof(VALUE->'url') = 'string'
+        AND length(VALUE->>'url') > 0
+    )
+    OR (
+        jsonb_typeof(VALUE->'uri') = 'string'
+        AND length(VALUE->>'uri') > 0
+    )
 );
 
-AlTER TABLE link.links ALTER column json TYPE link USING json::link;
+ALTER TABLE link.links ALTER COLUMN json TYPE link USING json::link;

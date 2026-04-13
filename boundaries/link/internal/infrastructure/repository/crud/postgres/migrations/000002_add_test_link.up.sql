@@ -1,6 +1,5 @@
 -- TRANSACTION ---------------------------------------------------------------------------------------------------------
-BEGIN
-    ISOLATION LEVEL READ COMMITTED;
+BEGIN ISOLATION LEVEL READ COMMITTED;
 
 SAVEPOINT tx_create_default_links;
 
