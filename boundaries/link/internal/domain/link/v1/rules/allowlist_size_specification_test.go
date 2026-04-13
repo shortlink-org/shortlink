@@ -10,7 +10,7 @@ import (
 // helper to generate deterministic but varied emails
 func genEmails(n int) []string {
 	out := make([]string, n)
-	for i := 0; i < n; i++ {
+	for i := range n {
 		out[i] = fmt.Sprintf("user%d@example.com", i)
 	}
 	return out
