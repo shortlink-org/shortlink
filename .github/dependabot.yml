@@ -272,3 +272,98 @@ updates:
     directory: /pkg/eslint/eslint-plugin-shortlink
     schedule:
       interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/bff
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /boundaries/bff/ops
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/chrome-extension
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/common/script/kube-secret-fetcher
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/link
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /boundaries/link/ops
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/metadata
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /boundaries/metadata/ops
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/mobile/apps/shortlink
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/mobile/libs/ui
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/mobile
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /boundaries/proxy/ops
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/proxy
+    schedule:
+      interval: daily
+
+  - package-ecosystem: gomod
+    directory: /boundaries/supplies/knative/kafka-to-elasticsearch
+    schedule:
+      interval: daily
+
+  - package-ecosystem: docker
+    directory: /boundaries/ui/ops
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui/src/components/Footer
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui/src/components/Header
+    schedule:
+      interval: daily
+
+  - package-ecosystem: npm
+    directory: /boundaries/ui/src/components/Testimonials
+    schedule:
+      interval: daily
