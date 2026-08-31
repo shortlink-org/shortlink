@@ -89,9 +89,10 @@ Dependency direction must always point inward (toward domain).
 
 - `make help`
 - `make dep`
-- `make proto-lint`
-- `make proto-generate`
 - `make up` / `make down` (heavy full stack)
+
+There are no proto targets at the root: every `.proto` lives inside a boundary that owns its own
+buf module. Run them from the boundary, e.g. `make -C boundaries/link proto-check`.
 
 ### Go contexts
 
@@ -103,9 +104,19 @@ Run from context directory:
 
 Useful local targets:
 
-- `boundaries/link`: `make dev`, `make proto-lint`, `make proto-generate`, `make docs`, `make e2e`
-- `boundaries/metadata`: proto/docs via `make help`
+- `boundaries/link`: `make dev`, `make docs`, `make e2e`, plus the proto targets below
+- `boundaries/metadata`: proto targets below, docs via `make help`
 - `boundaries/bff`: `make dep`, `make generate`, `make docs`
+
+Proto targets, identical in `boundaries/link` and `boundaries/metadata` (require the buf CLI —
+`brew install bufbuild/buf/buf`):
+
+- `make proto-check` — lint + format + breaking, the same three checks CI runs
+- `make proto-lint`, `make proto-format` (`proto-format-fix` to rewrite)
+- `make proto-breaking` — compares the module against its state on `main`
+- `make proto-generate` — regenerate `.pb.go`
+- `make proto-push` — publish the module to the BSR; **manual, never done by CI**
+- `make proto-dep-update` — refresh `buf.lock`
 
 ### TypeScript/Frontend contexts
 
@@ -116,7 +127,13 @@ Useful local targets:
 
 ## 7) Generation and Contracts
 
-- If `.proto` contracts change, run corresponding `proto-lint` and `proto-generate`.
+- Contracts are distributed through the BSR. A boundary publishes its own module; consumers depend
+  on the generated SDK (`buf.build/gen/go/...` in `go.mod`, `@buf/...` in `package.json`). Never
+  copy someone else's `.proto` into your boundary and never generate their contract locally.
+- When a `.proto` changes, the order is: `make proto-check` → `make proto-generate` → commit →
+  **manually** `make -C <boundary> proto-push` → consumers pull the new SDK via `go get` /
+  `pnpm update`.
+- Regenerated code is committed in the same change as the contract it comes from.
 - Regenerate derived artifacts in the same change when contracts/interfaces change.
 - Do not hand-edit generated files unless unavoidable; document reason when doing so.
 

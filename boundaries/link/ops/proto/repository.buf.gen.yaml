@@ -1,3 +1,7 @@
+# NOTE: protoc-gen-go-orm is a local plugin whose source no longer lives in this repository.
+# The *.orm.go files it produced are committed and frozen at protoc-gen-go-orm v1.6.0; the
+# proto-generate invocation is commented out in ops/Makefile/proto.mk. Relocating the plugin
+# and unfreezing this template is tracked separately.
 version: v2
 managed:
   enabled: true

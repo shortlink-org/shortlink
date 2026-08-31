@@ -78,12 +78,18 @@ Run protobuf code generation:
 
 ```bash
 cd boundaries/{service}
-make proto
-# or
-buf generate
+make proto-check
+make proto-generate
 ```
 
-Verify that `.pb.go` files are generated in the same directory.
+Verify that `.pb.go` files are generated in the same directory, and commit them together with the
+`.proto` change.
+
+Once merged, publish the module so consumers can pick the contract up from the registry:
+
+```bash
+make -C boundaries/{service} proto-push
+```
 
 #### Step 3: Register in CQRS Registry
 
