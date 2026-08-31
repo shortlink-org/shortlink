@@ -7,25 +7,14 @@ remote: origin
 target-branch: main
 
 # Chart directories separated by a space
+# Charts live at boundaries/<name>/ops/<name>
 chart-dirs:
-  # Addons
-  # TODO: add addons
-  # ShortLink common charts
-  - ops/Helm/shortlink-template
-  - ops/Helm/shortlink-workflows
-  # ShortLink boundaries
-  - ops/Helm/boundaries/auth
-  - ops/Helm/boundaries/billing
-  - ops/Helm/boundaries/chat
-  - ops/Helm/boundaries/delivery
-  - ops/Helm/boundaries/ds
-  - ops/Helm/boundaries/link
-  - ops/Helm/boundaries/marketing
-  - ops/Helm/boundaries/notification
-  - ops/Helm/boundaries/platform
-  - ops/Helm/boundaries/search
-  - ops/Helm/boundaries/shop
-  - ops/Helm/boundaries/shortdb
+  - boundaries/bff/ops
+  - boundaries/common/ops
+  - boundaries/link/ops
+  - boundaries/metadata/ops
+  - boundaries/proxy/ops
+  - boundaries/ui/ops
 
 chart-repos:
   - incubator=https://charts.helm.sh/incubator

@@ -21,8 +21,25 @@ jobs:
     timeout-minutes: 30
 
     strategy:
+      fail-fast: false
       matrix:
-        service: ['link', 'metadata', 'logger', 'csi']
+        include:
+          - service: bff
+            context: boundaries/bff
+            dockerfile: boundaries/bff/ops/Dockerfile
+          # link's build context is the boundaries/ root: its go.mod replaces metadata
+          - service: link
+            context: boundaries
+            dockerfile: boundaries/link/ops/Dockerfile
+          - service: metadata
+            context: boundaries/metadata
+            dockerfile: boundaries/metadata/ops/Dockerfile
+          - service: proxy
+            context: boundaries/proxy
+            dockerfile: boundaries/proxy/ops/Dockerfile
+          - service: ui
+            context: boundaries/ui
+            dockerfile: boundaries/ui/ops/Dockerfile
 
     steps:
       - name: Harden Runner
@@ -56,11 +73,9 @@ jobs:
         id: build
         uses: docker/build-push-action@53b7df96c91f9c12dcc8a07bcb9ccacbed38856a # v7.3.0
         with:
-          context: .
-          file: ops/dockerfile/go.Dockerfile
+          context: ${{ matrix.context }}
+          file: ${{ matrix.dockerfile }}
           platforms: linux/amd64,linux/arm64
-          build-args: |
-            CMD_PATH=${{ format('./boundaries/{0}/cmd', matrix.service) }}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           provenance: true

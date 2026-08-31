@@ -31,6 +31,13 @@ jobs:
     name: lint
     runs-on: ubuntu-latest
     timeout-minutes: 10
+
+    # One job per Go module. boundaries/api/api-gateway is deprecated and left broken on purpose.
+    strategy:
+      fail-fast: false
+      matrix:
+        module: [bff, link, metadata]
+
     steps:
       - name: Harden Runner
         uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
@@ -42,6 +49,7 @@ jobs:
         with:
           go-version: '1.27.0'
           cache: true
+          cache-dependency-path: boundaries/${{ matrix.module }}/go.sum
       - name: golangci-lint
         uses: golangci/golangci-lint-action@ba0d7d2ec06a0ea1cb5fa41b2e4a3ab91d21278a # v9.3.0
         with:
@@ -49,7 +57,7 @@ jobs:
           version: latest
 
           # Optional: working directory, useful for monorepos
-          working-directory: internal
+          working-directory: boundaries/${{ matrix.module }}
 
           # Optional: golangci-lint command line arguments.
           # args: --issues-exit-code=0
