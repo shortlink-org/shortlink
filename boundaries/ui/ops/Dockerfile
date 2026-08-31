@@ -1,6 +1,6 @@
 # syntax=docker/dockerfile:1.23
 
-ARG NODE_VERSION=24.15.0-alpine
+ARG NODE_VERSION=24.20.0-alpine
 
 # ---------------------------------------------------------------------------
 # Build
