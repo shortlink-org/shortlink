@@ -1,0 +1,80 @@
+name: Protobuf
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - '**/*.proto'
+      - '**/buf.yaml'
+      - '**/buf.lock'
+      - '**/*buf.gen.yaml'
+      - '**/ops/Makefile/proto.mk'
+      - '.github/workflows/buf.yaml'
+  pull_request:
+    branches:
+      - main
+    paths:
+      - '**/*.proto'
+      - '**/buf.yaml'
+      - '**/buf.lock'
+      - '**/*buf.gen.yaml'
+      - '**/ops/Makefile/proto.mk'
+      - '.github/workflows/buf.yaml'
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: buf (${{ matrix.module }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    strategy:
+      fail-fast: false
+      matrix:
+        # Every boundary that owns a buf module. Publishing to the BSR stays
+        # manual (`make -C <module> proto-push`) and is deliberately not here.
+        module:
+          - boundaries/link
+          - boundaries/metadata
+
+    steps:
+      - name: Harden Runner
+        uses: step-security/harden-runner@e14015d583714f6e62063499dc959a02595150a1 # v2.21.1
+        with:
+          egress-policy: audit # TODO: change to 'egress-policy: block' after couple of runs
+
+      - name: Checkout
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6.1.0
+        with:
+          # `buf breaking` reads the previous state of the module out of git history.
+          fetch-depth: 0
+
+      - name: Ensure local main ref
+        # checkout leaves refs/remotes/origin/main but no local refs/heads/main, so
+        # `branch=main` would not resolve. Fetching it keeps one --against string
+        # correct both here and on a developer machine.
+        run: git fetch --no-tags --prune origin +refs/heads/main:refs/heads/main
+
+      - name: Setup buf
+        uses: bufbuild/buf-action@8c6a16e16f12ba20b6470afa9c2ba9b5ba8c97c3 # v1.5.0
+        with:
+          version: 1.60.0
+          setup_only: true
+
+      - name: Lint
+        run: make -C ${{ matrix.module }} proto-lint
+
+      - name: Format
+        run: make -C ${{ matrix.module }} proto-format
+
+      - name: Breaking changes
+        # On a push to main this would compare main against itself.
+        if: github.event_name == 'pull_request'
+        run: make -C ${{ matrix.module }} proto-breaking
