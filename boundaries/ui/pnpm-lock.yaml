@@ -49,13 +49,13 @@ importers:
         version: 2.11.2(react-redux@9.2.0(@types/react@19.2.14)(react@19.2.5)(redux@5.0.1))(react@19.2.5)
       '@sentry/nextjs':
         specifier: ^10.47.0
-        version: 10.47.0(@opentelemetry/context-async-hooks@2.6.1(@opentelemetry/api@1.9.1))(@opentelemetry/core@2.6.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.6.1(@opentelemetry/api@1.9.1))(next@16.2.11(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23))
+        version: 10.47.0(@opentelemetry/context-async-hooks@2.6.1(@opentelemetry/api@1.9.1))(@opentelemetry/core@2.6.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.6.1(@opentelemetry/api@1.9.1))(next@16.2.11(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26))
       '@shortlink-org/eslint-plugin-shortlink':
         specifier: 0.20250809.193608
         version: 0.20250809.193608
       '@shortlink-org/ui-kit':
         specifier: ^0.20260407.113159
-        version: 0.20260407.113159(@babel/core@7.29.0)(@emotion/is-prop-valid@1.4.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(@types/node@25.6.0)(babel-plugin-react-compiler@1.0.0)(date-fns@4.1.0)(postcss@8.5.23)(rollup@4.60.1)(typescript@6.0.3)
+        version: 0.20260407.113159(@babel/core@7.29.0)(@emotion/is-prop-valid@1.4.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(@types/node@25.6.0)(babel-plugin-react-compiler@1.0.0)(date-fns@4.1.0)(postcss@8.5.26)(rollup@4.60.1)(typescript@6.0.3)
       '@tailwindcss/aspect-ratio':
         specifier: ^0.4.2
         version: 0.4.2(tailwindcss@4.2.2)
@@ -145,7 +145,7 @@ importers:
         version: 0.34.5
       shortlink-ui-kit:
         specifier: ^1.4.5
-        version: 1.4.5(@babel/core@7.29.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(@storybook/addon-actions@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/addons@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/client-api@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/test@8.5.0-alpha.17(storybook@8.5.0-alpha.21(prettier@3.8.3)))(@types/node@25.6.0)(babel-plugin-react-compiler@1.0.0)(postcss@8.5.23)(rollup@4.60.1)(storybook@8.5.0-alpha.21(prettier@3.8.3))(typescript@6.0.3)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23))
+        version: 1.4.5(@babel/core@7.29.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(@storybook/addon-actions@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/addons@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/client-api@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/test@8.5.0-alpha.17(storybook@8.5.0-alpha.21(prettier@3.8.3)))(@types/node@25.6.0)(babel-plugin-react-compiler@1.0.0)(postcss@8.5.26)(rollup@4.60.1)(storybook@8.5.0-alpha.21(prettier@3.8.3))(typescript@6.0.3)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26))
       sonner:
         specifier: ^2.0.8
         version: 2.0.8(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
@@ -155,7 +155,7 @@ importers:
     devDependencies:
       '@mdx-js/loader':
         specifier: 3.1.1
-        version: 3.1.1(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23))
+        version: 3.1.1(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26))
       '@playwright/test':
         specifier: ^1.59.1
         version: 1.59.1
@@ -203,7 +203,7 @@ importers:
         version: 3.7.1(@playwright/test@1.59.1)
       autoprefixer:
         specifier: ^10.5.4
-        version: 10.5.4(postcss@8.5.23)
+        version: 10.5.4(postcss@8.5.26)
       eslint:
         specifier: ^10.2.1
         version: 10.2.1(jiti@2.6.1)
@@ -223,8 +223,8 @@ importers:
         specifier: ^8.0.1
         version: 8.0.1
       postcss:
-        specifier: ^8.5.10
-        version: 8.5.23
+        specifier: ^8.5.26
+        version: 8.5.26
       prettier:
         specifier: ^3.8.3
         version: 3.8.3
@@ -6201,8 +6201,8 @@ packages:
     resolution: {integrity: sha512-PS08Iboia9mts/2ygV3eLpY5ghnUcfLV/EXTOW1E2qYxJKGGBUtNjN76FYHnMs36RmARn41bC0AZmn+rR0OVpQ==}
     engines: {node: ^10 || ^12 || >=14}
 
-  postcss@8.5.23:
-    resolution: {integrity: sha512-g50586zr4bZmwFiTlflMu8E0bDTb5I5gertgwAKmsdUlTQIhZtunzUlD1WSzwcVWPoAVpsrA6vlfCD7oXvRwgg==}
+  postcss@8.5.26:
+    resolution: {integrity: sha512-u82N74LFzG8ca+dD8puPnplTXoGH4fTPpVGuIbt36G3qvNlkvfD0lEAZSxaly3KX8TS/L1A1gsCEmvKmBcVbkQ==}
     engines: {node: ^10 || ^12 || >=14}
 
   postgres-array@2.0.0:
@@ -9214,12 +9214,12 @@ snapshots:
     dependencies:
       jsbi: 4.3.2
 
-  '@mdx-js/loader@3.1.1(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23))':
+  '@mdx-js/loader@3.1.1(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26))':
     dependencies:
       '@mdx-js/mdx': 3.1.1
       source-map: 0.7.6
     optionalDependencies:
-      webpack: 5.97.1(esbuild@0.24.2)(postcss@8.5.23)
+      webpack: 5.97.1(esbuild@0.24.2)(postcss@8.5.26)
     transitivePeerDependencies:
       - supports-color
 
@@ -10532,7 +10532,7 @@ snapshots:
 
   '@sentry/core@10.47.0': {}
 
-  '@sentry/nextjs@10.47.0(@opentelemetry/context-async-hooks@2.6.1(@opentelemetry/api@1.9.1))(@opentelemetry/core@2.6.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.6.1(@opentelemetry/api@1.9.1))(next@16.2.11(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23))':
+  '@sentry/nextjs@10.47.0(@opentelemetry/context-async-hooks@2.6.1(@opentelemetry/api@1.9.1))(@opentelemetry/core@2.6.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.6.1(@opentelemetry/api@1.9.1))(next@16.2.11(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(react@19.2.5)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26))':
     dependencies:
       '@opentelemetry/api': 1.9.1
       '@opentelemetry/semantic-conventions': 1.40.0
@@ -10544,7 +10544,7 @@ snapshots:
       '@sentry/opentelemetry': 10.47.0(@opentelemetry/api@1.9.1)(@opentelemetry/context-async-hooks@2.6.1(@opentelemetry/api@1.9.1))(@opentelemetry/core@2.6.1(@opentelemetry/api@1.9.1))(@opentelemetry/sdk-trace-base@2.6.1(@opentelemetry/api@1.9.1))(@opentelemetry/semantic-conventions@1.40.0)
       '@sentry/react': 10.47.0(react@19.2.5)
       '@sentry/vercel-edge': 10.47.0
-      '@sentry/webpack-plugin': 5.1.1(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23))
+      '@sentry/webpack-plugin': 5.1.1(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26))
       next: 16.2.11(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       rollup: 4.60.1
       stacktrace-parser: 0.1.11
@@ -10634,18 +10634,18 @@ snapshots:
       '@opentelemetry/resources': 2.6.1(@opentelemetry/api@1.9.1)
       '@sentry/core': 10.47.0
 
-  '@sentry/webpack-plugin@5.1.1(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23))':
+  '@sentry/webpack-plugin@5.1.1(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26))':
     dependencies:
       '@sentry/bundler-plugin-core': 5.1.1
       uuid: 9.0.1
-      webpack: 5.97.1(esbuild@0.24.2)(postcss@8.5.23)
+      webpack: 5.97.1(esbuild@0.24.2)(postcss@8.5.26)
     transitivePeerDependencies:
       - encoding
       - supports-color
 
   '@shortlink-org/eslint-plugin-shortlink@0.20250809.193608': {}
 
-  '@shortlink-org/ui-kit@0.20260407.113159(@babel/core@7.29.0)(@emotion/is-prop-valid@1.4.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(@types/node@25.6.0)(babel-plugin-react-compiler@1.0.0)(date-fns@4.1.0)(postcss@8.5.23)(rollup@4.60.1)(typescript@6.0.3)':
+  '@shortlink-org/ui-kit@0.20260407.113159(@babel/core@7.29.0)(@emotion/is-prop-valid@1.4.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(@types/node@25.6.0)(babel-plugin-react-compiler@1.0.0)(date-fns@4.1.0)(postcss@8.5.26)(rollup@4.60.1)(typescript@6.0.3)':
     dependencies:
       '@fontsource/caveat': 5.2.8
       '@fontsource/material-icons': 5.2.7
@@ -10661,7 +10661,7 @@ snapshots:
       '@tanstack/react-table': 8.21.3(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@tanstack/react-virtual': 3.13.23(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       '@types/react': 19.2.14
-      autoprefixer: 10.5.4(postcss@8.5.23)
+      autoprefixer: 10.5.4(postcss@8.5.26)
       clsx: 2.1.1
       dayjs: 1.11.20
       export-to-csv: 1.4.0
@@ -11235,7 +11235,7 @@ snapshots:
       '@tailwindcss/node': 4.0.0-beta.5
       '@tailwindcss/oxide': 4.0.0-beta.5
       lightningcss: 1.32.0
-      postcss: 8.5.23
+      postcss: 8.5.26
       tailwindcss: 4.0.0-beta.5
 
   '@tailwindcss/postcss@4.2.2':
@@ -11243,7 +11243,7 @@ snapshots:
       '@alloc/quick-lru': 5.2.0
       '@tailwindcss/node': 4.2.2
       '@tailwindcss/oxide': 4.2.2
-      postcss: 8.5.23
+      postcss: 8.5.26
       tailwindcss: 4.2.2
 
   '@tailwindcss/typography@0.5.20(tailwindcss@4.0.0-beta.5)':
@@ -11907,13 +11907,13 @@ snapshots:
 
   atob@2.1.2: {}
 
-  autoprefixer@10.5.4(postcss@8.5.23):
+  autoprefixer@10.5.4(postcss@8.5.26):
     dependencies:
       browserslist: 4.28.8
       caniuse-lite: 1.0.30001810
       fraction.js: 5.3.4
       picocolors: 1.1.1
-      postcss: 8.5.23
+      postcss: 8.5.26
       postcss-value-parser: 4.2.0
 
   available-typed-arrays@1.0.7:
@@ -14144,13 +14144,13 @@ snapshots:
 
   possible-typed-array-names@1.1.0: {}
 
-  postcss-loader@7.3.4(postcss@8.5.23)(typescript@6.0.3)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23)):
+  postcss-loader@7.3.4(postcss@8.5.26)(typescript@6.0.3)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26)):
     dependencies:
       cosmiconfig: 8.3.6(typescript@6.0.3)
       jiti: 1.21.7
-      postcss: 8.5.23
+      postcss: 8.5.26
       semver: 7.7.4
-      webpack: 5.97.1(esbuild@0.24.2)(postcss@8.5.23)
+      webpack: 5.97.1(esbuild@0.24.2)(postcss@8.5.26)
     transitivePeerDependencies:
       - typescript
 
@@ -14167,7 +14167,7 @@ snapshots:
       picocolors: 1.1.1
       source-map-js: 1.2.1
 
-  postcss@8.5.23:
+  postcss@8.5.26:
     dependencies:
       nanoid: 3.3.18
       picocolors: 1.1.1
@@ -14535,7 +14535,7 @@ snapshots:
       adjust-sourcemap-loader: 4.0.0
       convert-source-map: 1.9.0
       loader-utils: 2.0.4
-      postcss: 8.5.23
+      postcss: 8.5.26
       source-map: 0.6.1
 
   resolve@1.22.11:
@@ -14604,10 +14604,10 @@ snapshots:
 
   safer-buffer@2.1.2: {}
 
-  sass-loader@13.3.3(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23)):
+  sass-loader@13.3.3(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26)):
     dependencies:
       neo-async: 2.6.2
-      webpack: 5.97.1(esbuild@0.24.2)(postcss@8.5.23)
+      webpack: 5.97.1(esbuild@0.24.2)(postcss@8.5.26)
 
   sax@1.6.0: {}
 
@@ -14756,7 +14756,7 @@ snapshots:
 
   shebang-regex@3.0.0: {}
 
-  shortlink-ui-kit@1.4.5(@babel/core@7.29.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(@storybook/addon-actions@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/addons@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/client-api@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/test@8.5.0-alpha.17(storybook@8.5.0-alpha.21(prettier@3.8.3)))(@types/node@25.6.0)(babel-plugin-react-compiler@1.0.0)(postcss@8.5.23)(rollup@4.60.1)(storybook@8.5.0-alpha.21(prettier@3.8.3))(typescript@6.0.3)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23)):
+  shortlink-ui-kit@1.4.5(@babel/core@7.29.0)(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5))(@types/react@19.2.14)(react@19.2.5))(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(@storybook/addon-actions@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/addons@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/client-api@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/test@8.5.0-alpha.17(storybook@8.5.0-alpha.21(prettier@3.8.3)))(@types/node@25.6.0)(babel-plugin-react-compiler@1.0.0)(postcss@8.5.26)(rollup@4.60.1)(storybook@8.5.0-alpha.21(prettier@3.8.3))(typescript@6.0.3)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26)):
     dependencies:
       '@fontsource/caveat': 5.2.8
       '@fontsource/material-icons': 5.2.7
@@ -14772,7 +14772,7 @@ snapshots:
       '@tailwindcss/typography': 0.5.20(tailwindcss@4.0.0-beta.5)
       '@types/react': 18.3.28
       algoliasearch: 5.50.1
-      autoprefixer: 10.5.4(postcss@8.5.23)
+      autoprefixer: 10.5.4(postcss@8.5.26)
       date-fns: 4.1.0
       dayjs: 1.11.20
       export-to-csv: 1.4.0
@@ -14784,7 +14784,7 @@ snapshots:
       react-dom: 19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614)
       react-instantsearch: 7.29.0(algoliasearch@5.50.1)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
       react-wrap-balancer: 1.1.1(react@19.0.0-rc-fb9a90fa48-20240614)
-      storybook-addon-next: 1.8.0(@storybook/addon-actions@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/addons@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(next@15.5.24(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(postcss@8.5.23)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(typescript@6.0.3)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23))
+      storybook-addon-next: 1.8.0(@storybook/addon-actions@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/addons@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(next@15.5.24(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(postcss@8.5.26)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(typescript@6.0.3)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26))
       storybook-addon-next-router: 4.0.2(@storybook/addon-actions@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/addons@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/client-api@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(next@15.5.24(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
       styled-jsx: 5.1.7(@babel/core@7.29.0)(react@19.0.0-rc-fb9a90fa48-20240614)
       styles: link:@mui/material/styles
@@ -14933,18 +14933,18 @@ snapshots:
       react-dom: 19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614)
       tslib: 2.4.0
 
-  storybook-addon-next@1.8.0(@storybook/addon-actions@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/addons@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(next@15.5.24(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(postcss@8.5.23)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(typescript@6.0.3)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23)):
+  storybook-addon-next@1.8.0(@storybook/addon-actions@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@storybook/addons@6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(next@15.5.24(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614))(postcss@8.5.26)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)(typescript@6.0.3)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26)):
     dependencies:
       '@storybook/addon-actions': 6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@storybook/addons': 6.5.16(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       image-size: 1.2.1
       loader-utils: 3.3.1
       next: 15.5.24(@babel/core@7.29.0)(@opentelemetry/api@1.9.1)(@playwright/test@1.59.1)(babel-plugin-react-compiler@1.0.0)(react-dom@19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614))(react@19.0.0-rc-fb9a90fa48-20240614)
-      postcss-loader: 7.3.4(postcss@8.5.23)(typescript@6.0.3)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23))
+      postcss-loader: 7.3.4(postcss@8.5.26)(typescript@6.0.3)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26))
       react: 19.0.0-rc-fb9a90fa48-20240614
       react-dom: 19.0.0-rc-fb9a90fa48-20240614(react@19.0.0-rc-fb9a90fa48-20240614)
       resolve-url-loader: 5.0.0
-      sass-loader: 13.3.3(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23))
+      sass-loader: 13.3.3(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26))
       semver: 7.7.4
       tsconfig-paths: 4.2.0
       tsconfig-paths-webpack-plugin: 4.2.0
@@ -15091,16 +15091,16 @@ snapshots:
       lodash: 4.18.1
       memoizerific: 1.11.3
 
-  terser-webpack-plugin@5.6.1(esbuild@0.24.2)(postcss@8.5.23)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23)):
+  terser-webpack-plugin@5.6.1(esbuild@0.24.2)(postcss@8.5.26)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
       schema-utils: 4.3.3
       terser: 5.51.0
-      webpack: 5.97.1(esbuild@0.24.2)(postcss@8.5.23)
+      webpack: 5.97.1(esbuild@0.24.2)(postcss@8.5.26)
     optionalDependencies:
       esbuild: 0.24.2
-      postcss: 8.5.23
+      postcss: 8.5.26
 
   terser@5.51.0:
     dependencies:
@@ -15481,7 +15481,7 @@ snapshots:
 
   webpack-virtual-modules@0.6.2: {}
 
-  webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23):
+  webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.9
@@ -15503,7 +15503,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.3.3
-      terser-webpack-plugin: 5.6.1(esbuild@0.24.2)(postcss@8.5.23)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.23))
+      terser-webpack-plugin: 5.6.1(esbuild@0.24.2)(postcss@8.5.26)(webpack@5.97.1(esbuild@0.24.2)(postcss@8.5.26))
       watchpack: 2.5.2
       webpack-sources: 3.5.1
     transitivePeerDependencies:
