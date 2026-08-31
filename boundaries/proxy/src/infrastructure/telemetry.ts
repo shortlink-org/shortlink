@@ -22,6 +22,7 @@ import {
 import { WinstonInstrumentation } from "@opentelemetry/instrumentation-winston";
 import { RuntimeNodeInstrumentation } from "@opentelemetry/instrumentation-runtime-node";
 import { KafkaJsInstrumentation } from "@opentelemetry/instrumentation-kafkajs";
+import { FastifyOtelInstrumentation } from "@fastify/otel";
 import type { SpanExporter } from "@opentelemetry/sdk-trace-base";
 import type { FastifyInstance, FastifyReply, FastifyRequest } from "fastify";
 
@@ -208,11 +209,18 @@ export function initializeTelemetry(): PrometheusExporter | null {
     // producerHook: (span, info) => { ... },
   });
 
+  // Fastify is no longer part of auto-instrumentations, and the OTel-maintained
+  // @opentelemetry/instrumentation-fastify is deprecated in favour of @fastify/otel.
+  // registerOnInitialization hooks every Fastify instance created after this point.
+  const fastifyInstrumentation = new FastifyOtelInstrumentation({
+    enabled: true,
+    registerOnInitialization: true,
+  });
+
   const instrumentations = [
     getNodeAutoInstrumentations({
       // Can tune specific auto-instrumentations if desired
       "@opentelemetry/instrumentation-http": { enabled: true },
-      "@opentelemetry/instrumentation-fastify": { enabled: true },
       "@opentelemetry/instrumentation-winston": {
         enabled: true,
         disableLogCorrelation: false,
@@ -222,6 +230,7 @@ export function initializeTelemetry(): PrometheusExporter | null {
     winstonInstrumentation,
     runtimeInstrumentation,
     kafkaInstrumentation,
+    fastifyInstrumentation,
   ];
 
   // --- SDK init ---

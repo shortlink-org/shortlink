@@ -17,6 +17,7 @@
 
     /* Emit */
     "sourceMap": true,
+    "rootDir": "./src",
     "outDir": "./dist",
 
     /* No emit errors from external libs */
@@ -28,11 +29,11 @@
     "noImplicitAny": true,
 
     /* ----------- Paths for CA/DDD ----------- */
-    "baseUrl": "./src",
+    /* Resolved relative to this tsconfig (baseUrl is deprecated in TS 6) */
     "paths": {
-      "@/domain/*": ["proxy/domain/*"],
-      "@/application/*": ["proxy/application/*"],
-      "@/infrastructure/*": ["proxy/infrastructure/*"]
+      "@/domain/*": ["./src/domain/*"],
+      "@/application/*": ["./src/application/*"],
+      "@/infrastructure/*": ["./src/infrastructure/*"]
     },
 
     /* ----------- Types ----------- */

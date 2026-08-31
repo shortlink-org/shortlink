@@ -15,20 +15,20 @@
     "postinstall": "NODE_OPTIONS='--no-webstorage' wxt prepare"
   },
   "dependencies": {
-    "@tailwindcss/cli": "^4.2.2",
-    "@tailwindcss/postcss": "^4.2.2",
-    "react": "^19.2.5",
-    "react-dom": "^19.2.5"
+    "@tailwindcss/cli": "^4.3.3",
+    "@tailwindcss/postcss": "^4.3.3",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
   },
   "devDependencies": {
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "@vitejs/plugin-react": "^6.0.1",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.5",
+    "@vitejs/plugin-react": "^6.1.1",
     "autoprefixer": "^10.5.4",
     "postcss": "^8.5.26",
     "tailwindcss": "4.2.2",
     "typescript": "^6.0.3",
-    "wxt": "^0.20.24"
+    "wxt": "^0.20.27"
   },
   "packageManager": "pnpm@10.33.0"
 }
