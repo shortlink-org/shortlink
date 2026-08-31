@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package domain.metadata.v1;
 
-option go_package = "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1";
-
 import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/shortlink-org/shortlink/boundaries/metadata/internal/domain/metadata/v1";
 
 // MetadataExtracted event - canonical name: metadata.metadata.extracted.v1
 // Published when metadata is successfully extracted from a URL
@@ -20,4 +20,3 @@ message MetadataExtracted {
   // OccurredAt is the timestamp when the event occurred
   google.protobuf.Timestamp occurred_at = 5;
 }
-

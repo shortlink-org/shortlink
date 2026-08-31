@@ -2,10 +2,10 @@ syntax = "proto3";
 
 package infrastructure.repository.crud.types.v1;
 
-option go_package = "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1";
-
-import "google/protobuf/timestamp.proto";
 import "google/protobuf/field_mask.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/types/v1";
 
 // Link
 message Link {

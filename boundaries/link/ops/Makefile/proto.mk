@@ -1,25 +1,49 @@
 # PROTO TASKS ==========================================================================================================
 
-proto-lint: ## Check lint
-	@buf ls-files
-	@buf lint
-	@buf breaking --against ops/proto/proto-lock.json
+BUF  ?= buf
+HASH := \#
 
-proto-lock: ## Lock proto dependencies
-	@buf build -o ops/proto/proto-lock.json
+# Compare this module against its state on main. The `#` must go through a variable:
+# GNU Make strips everything after a literal `#`, even inside an assignment.
+#
+# Override it when main has no comparable state yet, e.g.:
+#   make proto-breaking BREAKING_AGAINST='../../.git$(HASH)ref=HEAD~1,subdir=boundaries/link'
+BREAKING_AGAINST ?= ../../.git$(HASH)branch=main,subdir=boundaries/link
+
+.PHONY: proto-lint proto-format proto-format-fix proto-breaking proto-check proto-generate proto-dep-update
+
+proto-lint: ## Check lint
+	@$(BUF) lint
+
+proto-format: ## Check that .proto files are in canonical buf format
+	@$(BUF) format --diff --exit-code
+
+proto-format-fix: ## Rewrite .proto files in canonical buf format
+	@$(BUF) format --write
+
+proto-breaking: ## Detect breaking changes against main
+	@$(BUF) breaking --against '$(BREAKING_AGAINST)'
+
+proto-check: proto-lint proto-format proto-breaking ## Run every read-only proto check
 
 proto-generate: ## Generate proto-files
+	set -e
+
 	# domain --------------------------------------------------------------------------------------
-	@buf generate \
+	@$(BUF) generate \
 		--path=internal/domain \
 		--template=ops/proto/domain.buf.gen.yaml
 
-    # rpc -----------------------------------------------------------------------------------------
-	@buf generate \
+	# rpc -----------------------------------------------------------------------------------------
+	@$(BUF) generate \
 		--path=internal/infrastructure \
 		--template=ops/proto/rpc.buf.gen.yaml
 
 	# repository ----------------------------------------------------------------------------------
-	# @buf generate \
+	# Disabled: protoc-gen-go-orm no longer lives in this repository. See repository.buf.gen.yaml.
+	# @$(BUF) generate \
 	#	--path=internal/infrastructure \
 	#	--template=ops/proto/repository.buf.gen.yaml
+
+proto-dep-update: ## Refresh buf.lock from the deps declared in buf.yaml
+	@$(BUF) dep update

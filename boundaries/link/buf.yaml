@@ -2,9 +2,6 @@ version: v2
 modules:
   - path: internal
     name: buf.build/shortlink-org/shortlink-link-link
-deps:
-  - buf.build/googleapis/googleapis
-  - buf.build/grpc-ecosystem/grpc-gateway
 lint:
   use:
     - COMMENTS

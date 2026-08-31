@@ -2,19 +2,19 @@ syntax = "proto3";
 
 package infrastructure.rpc.cqrs.link.v1;
 
-option go_package = "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/cqrs/link/v1";
-
 import "google/protobuf/empty.proto";
 import "infrastructure/rpc/cqrs/link/v1/link.proto";
+
+option go_package = "github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/rpc/cqrs/link/v1";
 
 // LinkCommandService is the command service for the link aggregate
 service LinkCommandService {
   // Add adds a new link
-  rpc Add(AddRequest) returns(AddResponse) {}
+  rpc Add(AddRequest) returns (AddResponse) {}
   // Update updates an existing link
-  rpc Update(UpdateRequest) returns(UpdateResponse) {}
+  rpc Update(UpdateRequest) returns (UpdateResponse) {}
   // Delete deletes an existing link
-  rpc Delete(DeleteRequest) returns(google.protobuf.Empty) {}
+  rpc Delete(DeleteRequest) returns (google.protobuf.Empty) {}
 }
 
 // AddRequest is the request for adding a new link
@@ -46,5 +46,3 @@ message DeleteRequest {
   // Hash is the hash of the link to delete
   string hash = 1;
 }
-
-

@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package domain.link.v1;
 
-option go_package = "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1";
-
 import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1";
 
 // LinkCreated event - canonical name: link.link.created.v1
 // Published when a new link is created
@@ -48,4 +48,3 @@ message LinkDeleted {
   // OccurredAt is the timestamp when the event occurred
   google.protobuf.Timestamp occurred_at = 2;
 }
-

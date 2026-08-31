@@ -2,16 +2,16 @@ syntax = "proto3";
 
 package infrastructure.rpc.metadata.v1;
 
-option go_package = "github.com/shortlink-org/shortlink/internal/metadata/infrastructure/rpc/metadata/v1";
-
 import "domain/metadata/v1/meta.proto";
+
+option go_package = "github.com/shortlink-org/shortlink/internal/metadata/infrastructure/rpc/metadata/v1";
 
 // MetadataService is the service that provides metadata operations.
 service MetadataService {
   // Get returns the metadata for the given URL.
-  rpc Get(MetadataServiceGetRequest) returns(MetadataServiceGetResponse) {}
+  rpc Get(MetadataServiceGetRequest) returns (MetadataServiceGetResponse) {}
   // Set sets the metadata for the given URL.
-  rpc Set(MetadataServiceSetRequest) returns(MetadataServiceSetResponse) {}
+  rpc Set(MetadataServiceSetRequest) returns (MetadataServiceSetResponse) {}
 }
 
 // MetadataServiceGetRequest is the request message for the Get method.

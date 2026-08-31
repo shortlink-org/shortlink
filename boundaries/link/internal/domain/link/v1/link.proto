@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package domain.link.v1;
 
-option go_package = "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1";
-
 import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1";
 
 // LinkProto is the protobuf representation of a link for events
 message LinkProto {

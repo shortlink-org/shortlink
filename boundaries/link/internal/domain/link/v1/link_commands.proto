@@ -2,9 +2,9 @@ syntax = "proto3";
 
 package domain.link.v1;
 
-option go_package = "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1";
-
 import "google/protobuf/timestamp.proto";
+
+option go_package = "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1";
 
 // CreateLink command - canonical name: link.create_link.v1
 // Command to create a new link
@@ -42,4 +42,3 @@ message DeleteLink {
   // Hash is the hash of the link to delete
   string hash = 1;
 }
-
