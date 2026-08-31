@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.23
+# syntax=docker/dockerfile:1.26
 
 ARG NODE_VERSION=24.15.0-alpine
 
