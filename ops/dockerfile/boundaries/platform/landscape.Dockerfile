@@ -1,4 +1,4 @@
-# syntax=docker/dockerfile:1.23
+# syntax=docker/dockerfile:1.26
 
 # Link: https://github.com/moby/buildkit/blob/master/docs/attestations/sbom.md
 # enable scanning for the intermediate build stage
@@ -26,7 +26,7 @@ RUN landscape2 build \
           --output-dir build
 
 # Production image, copy all the files and run next
-FROM ghcr.io/nginx/nginx-unprivileged:1.29-alpine-otel
+FROM ghcr.io/nginx/nginx-unprivileged:1.31-alpine-otel
 
 LABEL maintainer=batazor111@gmail.com
 LABEL org.opencontainers.image.title="shortlink-landscape"
