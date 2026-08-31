@@ -8,12 +8,14 @@ import (
 	"testing"
 	"time"
 
-	"github.com/redis/rueidis"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 	rediscontainer "github.com/testcontainers/testcontainers-go/modules/redis"
+	"go.opentelemetry.io/otel/sdk/metric"
+	"go.opentelemetry.io/otel/trace/noop"
 	"go.uber.org/goleak"
 
+	"github.com/shortlink-org/go-sdk/config"
 	db "github.com/shortlink-org/go-sdk/db/drivers/redis"
 	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/mock"
 )
@@ -28,37 +30,39 @@ func TestRedis(t *testing.T) {
 	ctx, cancel := context.WithCancel(context.Background())
 	t.Cleanup(cancel)
 
-	st := db.Store{}
-
 	t.Setenv("STORE_REDIS_URI", startRedisContainer(t))
+
+	cfg, err := config.New()
+	require.NoError(t, err)
+
+	st := db.New(noop.NewTracerProvider(), metric.NewMeterProvider(), cfg)
 	require.NoError(t, st.Init(ctx))
 
-	store := Store{
-		client: st.GetConn().(rueidis.Client),
-	}
+	store, err := New(ctx, st, cfg)
+	require.NoError(t, err)
 
 	t.Run("Create", func(t *testing.T) {
 		link, err := store.Add(ctx, mock.AddLink)
 		require.NoError(t, err)
-		assert.Equal(t, link.Hash, mock.GetLink.Hash)
-		assert.Equal(t, link.Describe, mock.GetLink.Describe)
+		assert.Equal(t, mock.GetLink.GetHash(), link.GetHash())
+		assert.Equal(t, mock.GetLink.GetDescribe(), link.GetDescribe())
 	})
 
 	t.Run("Get", func(t *testing.T) {
-		link, err := store.Get(ctx, mock.GetLink.Hash)
+		link, err := store.Get(ctx, mock.GetLink.GetHash())
 		require.NoError(t, err)
-		assert.Equal(t, link.Hash, mock.GetLink.Hash)
-		assert.Equal(t, link.Describe, mock.GetLink.Describe)
+		assert.Equal(t, mock.GetLink.GetHash(), link.GetHash())
+		assert.Equal(t, mock.GetLink.GetDescribe(), link.GetDescribe())
 	})
 
 	t.Run("Get list", func(t *testing.T) {
 		links, err := store.List(ctx, nil)
 		require.NoError(t, err)
-		assert.Equal(t, len(links.Link), 1)
+		assert.Equal(t, 1, links.Count())
 	})
 
 	t.Run("Delete", func(t *testing.T) {
-		require.NoError(t, store.Delete(ctx, mock.GetLink.Hash))
+		require.NoError(t, store.Delete(ctx, mock.GetLink.GetHash()))
 	})
 }
 

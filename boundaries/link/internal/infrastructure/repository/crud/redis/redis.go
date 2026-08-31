@@ -9,6 +9,7 @@ import (
 	"github.com/shortlink-org/go-sdk/db"
 
 	v1 "github.com/shortlink-org/shortlink/boundaries/link/internal/domain/link/v1"
+	"github.com/shortlink-org/shortlink/boundaries/link/internal/infrastructure/repository/crud/redis/dto"
 )
 
 // Store implementation of db interface
@@ -44,12 +45,17 @@ func (s *Store) Get(ctx context.Context, id string) (*v1.Link, error) {
 		return nil, &v1.NotFoundError{Hash: id}
 	}
 
-	var response v1.Link
-	if err = json.Unmarshal([]byte(val), &response); err != nil {
+	var payload dto.Link
+	if err = json.Unmarshal([]byte(val), &payload); err != nil {
 		return nil, &v1.NotFoundError{Hash: id}
 	}
 
-	return &response, nil
+	response, err := payload.ToDomain()
+	if err != nil {
+		return nil, &v1.NotFoundError{Hash: id}
+	}
+
+	return response, nil
 }
 
 // List - list
@@ -67,19 +73,24 @@ func (s *Store) List(ctx context.Context, _ *v1.FilterLink) (*v1.Links, error) {
 	links := v1.NewLinks()
 
 	for _, item := range values {
-		var response v1.Link
+		var payload dto.Link
 
 		value, errAsBytes := item.AsBytes()
 		if errAsBytes != nil {
 			return nil, &v1.NotFoundError{Hash: ""}
 		}
 
-		err = json.Unmarshal(value, &response)
+		err = json.Unmarshal(value, &payload)
 		if err != nil {
 			return nil, &v1.NotFoundError{Hash: ""}
 		}
 
-		links.Push(&response)
+		response, errToDomain := payload.ToDomain()
+		if errToDomain != nil {
+			return nil, &v1.NotFoundError{Hash: ""}
+		}
+
+		links.Push(response)
 	}
 
 	return links, nil
@@ -87,7 +98,7 @@ func (s *Store) List(ctx context.Context, _ *v1.FilterLink) (*v1.Links, error) {
 
 // Add - add a new link
 func (s *Store) Add(ctx context.Context, source *v1.Link) (*v1.Link, error) {
-	val, err := json.Marshal(source)
+	val, err := json.Marshal(dto.FromDomain(source))
 	if err != nil {
 		return nil, &v1.NotFoundError{Hash: source.GetHash()}
 	}
