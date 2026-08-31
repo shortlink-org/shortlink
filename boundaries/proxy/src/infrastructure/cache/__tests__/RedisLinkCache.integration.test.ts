@@ -44,7 +44,7 @@ describe("RedisLinkCache Integration", () => {
           return process.env.REDIS_URL;
         }
 
-        redisContainer = await new RedisContainer("redis:7.4-alpine").start();
+        redisContainer = await new RedisContainer("redis:8.10-alpine").start();
         return redisContainer.getConnectionUrl();
       })();
 

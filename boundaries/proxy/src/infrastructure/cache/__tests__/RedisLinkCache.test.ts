@@ -45,7 +45,7 @@ describe("RedisLinkCache", () => {
     const redisUrl = process.env.REDIS_URL
       ? process.env.REDIS_URL
       : await (async () => {
-          redisContainer = await new RedisContainer("redis:7.4-alpine").start();
+          redisContainer = await new RedisContainer("redis:8.10-alpine").start();
           return redisContainer.getConnectionUrl();
         })();
 

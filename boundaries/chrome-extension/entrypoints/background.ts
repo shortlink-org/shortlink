@@ -7,11 +7,11 @@ export default defineBackground(() => {
       // Execute the content script in the current tab
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         const tab = tabs[0];
-        if (tab) {
+        if (tab?.id !== undefined) {
           chrome.scripting.executeScript(
             {
               target: { tabId: tab.id },
-              function: grabURL,
+              func: grabURL,
             },
             (results) => {
               // Check for errors
@@ -19,7 +19,7 @@ export default defineBackground(() => {
                 sendResponse({ error: chrome.runtime.lastError.message });
               } else {
                 // Send the links back to the popup
-                sendResponse({ links: results[0].result });
+                sendResponse({ links: results?.[0]?.result });
               }
             }
           );

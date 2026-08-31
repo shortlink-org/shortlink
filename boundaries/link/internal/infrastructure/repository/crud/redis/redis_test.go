@@ -67,7 +67,7 @@ func startRedisContainer(tb testing.TB) string {
 
 	ctx := context.Background()
 
-	container, err := rediscontainer.Run(ctx, "redis:7-alpine")
+	container, err := rediscontainer.Run(ctx, "redis:8-alpine")
 	require.NoError(tb, err)
 
 	tb.Cleanup(func() {

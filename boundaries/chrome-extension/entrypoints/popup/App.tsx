@@ -1,16 +1,21 @@
 import { useState } from 'react';
 import './App.css';
 
+type LinkItem = {
+  href: string;
+  text: string | null;
+};
+
 function App() {
-  const [links, setLinks] = useState([]);
-  const [error, setError] = useState(null);
+  const [links, setLinks] = useState<LinkItem[]>([]);
+  const [error, setError] = useState<string | null>(null);
 
   const addURLToContainer = () => {
     // Send a message to the background script to execute the content script
     chrome.runtime.sendMessage({ type: 'GET_LINKS' }, (response) => {
       // Check for errors
       if (chrome.runtime.lastError) {
-        setError(chrome.runtime.lastError.message);
+        setError(chrome.runtime.lastError.message ?? 'Unknown error');
       } else {
         // Update the state with the received links
         setLinks(response.links);
@@ -18,7 +23,7 @@ function App() {
     });
   };
 
-  const saveLink = (link) => {
+  const saveLink = (link: LinkItem) => {
     // Implement your save logic here
     console.log(`Saving link: ${link.href}`);
   };

@@ -377,9 +377,11 @@ function Page() {
                     error={!!optimisticForm.urlError}
                     helperText={optimisticForm.urlError || 'Enter the full URL you want to shorten (e.g., https://example.com)'}
                     placeholder="https://example.com"
-                    inputProps={{
-                      'aria-describedby': 'url-helper-text',
-                      'aria-invalid': !!optimisticForm.urlError,
+                    slotProps={{
+                      htmlInput: {
+                        'aria-describedby': 'url-helper-text',
+                        'aria-invalid': !!optimisticForm.urlError,
+                      },
                     }}
                     sx={{
                       mb: 2,
@@ -399,9 +401,11 @@ function Page() {
                     value={optimisticForm.describe ?? ''}
                     onChange={handleChange}
                     helperText={`${(optimisticForm.describe ?? '').length}/${describeMaxLength} characters`}
-                    inputProps={{
-                      maxLength: describeMaxLength,
-                      'aria-describedby': 'describe-helper-text',
+                    slotProps={{
+                      htmlInput: {
+                        maxLength: describeMaxLength,
+                        'aria-describedby': 'describe-helper-text',
+                      },
                     }}
                     sx={{
                       mb: 2,
@@ -425,9 +429,11 @@ function Page() {
                       'Enter email addresses separated by commas or newlines. Leave empty for a public link (anyone can access). Maximum 100 emails.'
                     }
                     placeholder="user@example.com, another@example.com"
-                    inputProps={{
-                      'aria-describedby': 'emails-helper-text',
-                      'aria-invalid': !!optimisticForm.allowedEmailsError,
+                    slotProps={{
+                      htmlInput: {
+                        'aria-describedby': 'emails-helper-text',
+                        'aria-invalid': !!optimisticForm.allowedEmailsError,
+                      },
                     }}
                     sx={{
                       mb: 3,

@@ -27,10 +27,12 @@ export default function LoadingSpinner({
 
   return (
     <Box
-      display="flex"
-      justifyContent="center"
-      alignItems="center"
-      sx={containerStyle}
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        ...containerStyle,
+      }}
     >
       <CircularProgress size={size} />
     </Box>
