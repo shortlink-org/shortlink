@@ -33,12 +33,3 @@ yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# Generated proto files (old format with google-protobuf)
-# Эти файлы будут перегенерированы через buf generate
-src/proto/**/*.js
-src/proto/**/*.d.ts
-src/proto/**/*_grpc_pb.js
-
-# Оставляем только .ts файлы, сгенерированные через protoc-gen-es
-# src/proto/**/*.ts - НЕ игнорируем, они нужны
-
