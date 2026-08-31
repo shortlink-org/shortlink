@@ -26,7 +26,7 @@ require (
 	github.com/stretchr/testify v1.11.1
 	go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp v0.68.0
 	go.opentelemetry.io/otel/trace v1.43.0
-	golang.org/x/sync v0.20.0
+	golang.org/x/sync v0.22.0
 	golang.org/x/text v0.36.0
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20260414002931-afd174a4e478
 	google.golang.org/grpc v1.82.1
