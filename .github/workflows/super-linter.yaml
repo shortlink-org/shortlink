@@ -72,4 +72,6 @@ jobs:
           ANSIBLE_DIRECTORY: ops/ansible
           VALIDATE_KUBERNETES_KUBECONFORM: false
           VALIDATE_JSCPD: false
+          # .proto is linted and formatted by buf (see .github/workflows/buf.yaml)
+          VALIDATE_PROTOBUF: false
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
