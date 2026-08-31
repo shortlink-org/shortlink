@@ -30,7 +30,6 @@ ENV PATH="$PNPM_HOME:$PATH"
 # 📦 install dependencies
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends curl tini python3 make g++ && \
-    npm install -g pnpm && \
     rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /home/node/.npm/_cacache
@@ -38,7 +37,10 @@ RUN mkdir -p /home/node/.npm/_cacache
 WORKDIR /app
 
 # ⚡ Copy only package manifests first to improve caching
-COPY package.json pnpm-lock.yaml ./
+COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
+
+# Pin pnpm to the version declared in package.json#packageManager
+RUN npm install -g "pnpm@$(node -p "require('./package.json').packageManager.split('@')[1].split('+')[0]")"
 
 # version for npm: npm ci --cache .npm --prefer-offline --force
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
@@ -59,7 +61,6 @@ FROM node:25.9.0-bookworm-slim AS runtime
 # Minimal system deps
 RUN apt-get update -y && \
     apt-get install -y --no-install-recommends tini curl && \
-    npm install -g pnpm@9 && \
     useradd -m -u 1001 nodeuser && \
     rm -rf /var/lib/apt/lists/*
 

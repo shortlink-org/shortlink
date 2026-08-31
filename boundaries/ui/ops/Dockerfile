@@ -24,7 +24,7 @@ ENV PNPM_HOME=/pnpm \
     NPM_CONFIG_FUND=false \
     NEXT_TELEMETRY_DISABLED=1
 
-RUN corepack enable && corepack prepare pnpm@10.30.3 --activate
+RUN corepack enable
 
 WORKDIR /app
 
@@ -37,9 +37,13 @@ RUN echo '@shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/' > .np
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
-    pnpm install --frozen-lockfile --include=dev
+    pnpm install --frozen-lockfile
 
 COPY . .
+
+# `public/` is not tracked in the repo and is only materialised by the PWA plugin
+# when it is enabled; the runtime stage copies it unconditionally, so guarantee it exists.
+RUN mkdir -p public
 
 RUN --mount=type=cache,id=pnpm-store,target=/pnpm/store \
     pnpm run build
