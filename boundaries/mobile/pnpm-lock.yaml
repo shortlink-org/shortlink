@@ -13,7 +13,7 @@ importers:
         version: 55.0.27(expo@55.0.30)(typescript@6.0.3)
       '@react-navigation/native-stack':
         specifier: ^7.14.11
-        version: 7.14.11(@react-navigation/native@7.1.17(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native-safe-area-context@5.7.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native-screens@4.24.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
+        version: 7.14.11(@react-navigation/native@7.1.17(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native-safe-area-context@5.9.1(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native-screens@4.24.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
       expo:
         specifier: ^55.0.30
         version: 55.0.30(@babel/core@7.29.7)(@expo/dom-webview@55.0.3)(react-dom@19.2.5(react@19.2.5))(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)(typescript@6.0.3)
@@ -37,10 +37,10 @@ importers:
         version: 0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5)
       react-native-paper:
         specifier: ^5.15.3
-        version: 5.15.3(react-native-safe-area-context@5.7.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
+        version: 5.15.3(react-native-safe-area-context@5.9.1(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
       react-native-safe-area-context:
-        specifier: ^5.7.0
-        version: 5.7.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
+        specifier: ^5.9.1
+        version: 5.9.1(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
       react-native-screens:
         specifier: ^4.24.0
         version: 4.24.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
@@ -1425,7 +1425,7 @@ packages:
 
   '@expo/bunyan@4.0.1':
     resolution: {integrity: sha512-+Lla7nYSiHZirgK+U/uYzsLv/X+HaJienbD5AKX1UQZHYfWaP+9uuQluRB4GrEVWF0GZ7vEVp/jzaOT9k/SQlg==}
-    engines: {node: '>=0.10.0'}
+    engines: {'0': node >=0.10.0}
 
   '@expo/cli@55.0.36':
     resolution: {integrity: sha512-jVMEXmxeUKXAzJdRWQer7fyogjPMYiTbrGOrlioJlwMuFqKfao3FeFInmATMNGLhNN01aBs/s6pnJKqiAdlUQg==}
@@ -8121,8 +8121,8 @@ packages:
       react-native: '*'
       react-native-safe-area-context: '*'
 
-  react-native-safe-area-context@5.7.0:
-    resolution: {integrity: sha512-/9/MtQz8ODphjsLdZ+GZAIcC/RtoqW9EeShf7Uvnfgm/pzYrJ75y3PV/J1wuAV1T5Dye5ygq4EAW20RoBq0ABQ==}
+  react-native-safe-area-context@5.9.1:
+    resolution: {integrity: sha512-Zpx9Iwg6VhgNarWFpcIM61xK2lUbSfSXemQUmcvOVRpux49lJsUompY1S3E5jKUJbLq233qEpj28DgmXVsgZMQ==}
     peerDependencies:
       react: '*'
       react-native: '*'
@@ -14723,24 +14723,24 @@ snapshots:
       use-latest-callback: 0.2.6(react@19.2.5)
       use-sync-external-store: 1.6.0(react@19.2.5)
 
-  '@react-navigation/elements@2.9.14(@react-navigation/native@7.1.17(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native-safe-area-context@5.7.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)':
+  '@react-navigation/elements@2.9.14(@react-navigation/native@7.1.17(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native-safe-area-context@5.9.1(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)':
     dependencies:
       '@react-navigation/native': 7.1.17(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
       color: 4.2.3
       react: 19.2.5
       react-native: 0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5)
-      react-native-safe-area-context: 5.7.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
+      react-native-safe-area-context: 5.9.1(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
       use-latest-callback: 0.2.6(react@19.2.5)
       use-sync-external-store: 1.6.0(react@19.2.5)
 
-  '@react-navigation/native-stack@7.14.11(@react-navigation/native@7.1.17(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native-safe-area-context@5.7.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native-screens@4.24.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)':
+  '@react-navigation/native-stack@7.14.11(@react-navigation/native@7.1.17(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native-safe-area-context@5.9.1(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native-screens@4.24.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)':
     dependencies:
-      '@react-navigation/elements': 2.9.14(@react-navigation/native@7.1.17(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native-safe-area-context@5.7.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
+      '@react-navigation/elements': 2.9.14(@react-navigation/native@7.1.17(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native-safe-area-context@5.9.1(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
       '@react-navigation/native': 7.1.17(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
       color: 4.2.3
       react: 19.2.5
       react-native: 0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5)
-      react-native-safe-area-context: 5.7.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
+      react-native-safe-area-context: 5.9.1(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
       react-native-screens: 4.24.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
       sf-symbols-typescript: 2.2.0
       warn-once: 0.1.1
@@ -21432,16 +21432,16 @@ snapshots:
       react: 19.2.5
       react-native: 0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5)
 
-  react-native-paper@5.15.3(react-native-safe-area-context@5.7.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5):
+  react-native-paper@5.15.3(react-native-safe-area-context@5.9.1(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5))(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5):
     dependencies:
       '@callstack/react-theme-provider': 3.0.9(react@19.2.5)
       color: 3.2.1
       react: 19.2.5
       react-native: 0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5)
-      react-native-safe-area-context: 5.7.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
+      react-native-safe-area-context: 5.9.1(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5)
       use-latest-callback: 0.2.6(react@19.2.5)
 
-  react-native-safe-area-context@5.7.0(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5):
+  react-native-safe-area-context@5.9.1(react-native@0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5))(react@19.2.5):
     dependencies:
       react: 19.2.5
       react-native: 0.83.2(@babel/core@7.29.7)(@react-native/metro-config@0.81.0(@babel/core@7.29.7))(@types/react@19.2.14)(react@19.2.5)
