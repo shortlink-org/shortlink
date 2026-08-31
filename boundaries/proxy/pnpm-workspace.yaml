@@ -1,11 +1,13 @@
-packages:
-  - src/*
+allowBuilds:
+  '@datadog/pprof': true
+  '@prisma/client': true
+  '@prisma/engines': true
+  cpu-features: true
+  esbuild: true
+  prisma: true
+  protobufjs: true
+  ssh2: true
+  unrs-resolver: true
 
-onlyBuiltDependencies:
-  - '@datadog/pprof'
-  - '@prisma/client'
-  - '@prisma/engines'
-  - esbuild
-  - prisma
-  - protobufjs
-  - unrs-resolver
+provenance: true
+saveExact: true

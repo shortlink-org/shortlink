@@ -1,16 +1,15 @@
-ignoredBuiltDependencies:
-  - cypress
-  - rollup
-  - sharp
+allowBuilds:
+  '@firebase/util': true
+  '@sentry/cli': true
+  '@tailwindcss/oxide': true
+  core-js: true
+  cypress: false
+  esbuild: true
+  protobufjs: true
+  rollup: false
+  sharp: false
+  tldjs: true
 
-onlyBuiltDependencies:
-  - '@firebase/util'
-  - '@sentry/cli'
-  - '@tailwindcss/oxide'
-  - core-js
-  - cypress
-  - esbuild
-  - protobufjs
-  - rollup
-  - sharp
-  - tldjs
+autoInstallPeers: true
+strictPeerDependencies: false
+preferOffline: true

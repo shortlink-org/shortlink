@@ -1,0 +1,20 @@
+# Dependencies & artifacts
+node_modules
+dist
+coverage
+.pnpm-store
+
+# Local env (inject via CI / runtime)
+.env
+.env.*
+!.env.example
+
+# Git & editor
+.git
+.github
+.idea
+.vscode
+
+# Tests & reports
+__tests__
+*.log

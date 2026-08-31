@@ -29,10 +29,7 @@ RUN corepack enable
 WORKDIR /app
 
 RUN echo '@shortlink-org:registry=https://gitlab.com/api/v4/packages/npm/' > .npmrc \
- && echo 'registry=https://registry.npmjs.org/' >> .npmrc \
- && echo 'auto-install-peers=true' >> .npmrc \
- && echo 'strict-peer-dependencies=false' >> .npmrc \
- && echo 'prefer-offline=true' >> .npmrc
+ && echo 'registry=https://registry.npmjs.org/' >> .npmrc
 
 COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 
