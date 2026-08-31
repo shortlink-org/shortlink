@@ -10,7 +10,7 @@ HASH := \#
 #   make proto-breaking BREAKING_AGAINST='../../.git$(HASH)ref=HEAD~1,subdir=boundaries/link'
 BREAKING_AGAINST ?= ../../.git$(HASH)branch=main,subdir=boundaries/link
 
-.PHONY: proto-lint proto-format proto-format-fix proto-breaking proto-check proto-generate proto-dep-update
+.PHONY: proto-lint proto-format proto-format-fix proto-breaking proto-check proto-generate proto-dep-update proto-push
 
 proto-lint: ## Check lint
 	@$(BUF) lint
@@ -47,3 +47,6 @@ proto-generate: ## Generate proto-files
 
 proto-dep-update: ## Refresh buf.lock from the deps declared in buf.yaml
 	@$(BUF) dep update
+
+proto-push: ## Publish this module to the BSR (run manually during development)
+	@$(BUF) push
