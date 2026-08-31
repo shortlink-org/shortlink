@@ -71,7 +71,7 @@ importers:
         version: 22.1.3(@babel/traverse@7.29.8)(@typescript-eslint/parser@8.56.1(eslint@10.2.1(jiti@2.4.2))(typescript@6.0.3))(eslint-config-prettier@10.1.8(eslint@10.2.1(jiti@2.4.2)))(eslint@10.2.1(jiti@2.4.2))(nx@22.7.7)(typescript@6.0.3)
       '@nx/expo':
         specifier: ^22.5.3
-        version: 22.5.3(@babel/core@7.29.7)(@babel/traverse@7.29.8)(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@types/node@24.12.2)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(detox@20.47.0(@jest/environment@30.2.0)(@jest/types@30.2.0)(@types/bunyan@1.8.11)(expect@30.2.0)(jest-environment-jsdom@30.2.0)(jest-environment-node@30.2.0)(jest@30.2.0(@types/node@24.12.2)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))))(eslint@10.2.1(jiti@2.4.2))(metro-config@0.83.8)(metro-resolver@0.83.4)(nx@22.7.7)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)(vite@6.3.5(@types/node@24.12.2)(jiti@2.4.2)(less@4.4.0)(lightningcss@1.32.0)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.46.1)(yaml@2.9.0))(vitest@3.2.4(@types/node@24.12.2)(jiti@2.4.2)(jsdom@26.1.0)(less@4.4.0)(lightningcss@1.32.0)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.46.1)(yaml@2.9.0))
+        version: 22.5.3(@babel/core@7.29.7)(@babel/traverse@7.29.8)(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@types/node@24.12.2)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(detox@20.47.0(@jest/environment@30.2.0)(@jest/types@30.2.0)(@types/bunyan@1.8.11)(expect@30.2.0)(jest-environment-jsdom@30.2.0)(jest-environment-node@30.2.0)(jest@30.2.0(@types/node@24.12.2)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))))(eslint@10.2.1(jiti@2.4.2))(metro-config@0.83.8)(metro-resolver@0.87.0)(nx@22.7.7)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)(vite@6.3.5(@types/node@24.12.2)(jiti@2.4.2)(less@4.4.0)(lightningcss@1.32.0)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.46.1)(yaml@2.9.0))(vitest@3.2.4(@types/node@24.12.2)(jiti@2.4.2)(jsdom@26.1.0)(less@4.4.0)(lightningcss@1.32.0)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.46.1)(yaml@2.9.0))
       '@nx/jest':
         specifier: 22.1.3
         version: 22.1.3(@babel/traverse@7.29.8)(@types/node@24.12.2)(babel-plugin-macros@3.1.0)(nx@22.7.7)(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)
@@ -154,8 +154,8 @@ importers:
         specifier: 0.83.3
         version: 0.83.3
       metro-resolver:
-        specifier: ^0.83.4
-        version: 0.83.4
+        specifier: ^0.87.0
+        version: 0.87.0
       nx:
         specifier: 22.7.7
         version: 22.7.7
@@ -7334,6 +7334,10 @@ packages:
     resolution: {integrity: sha512-piU0NVTI9i37YztDVF5rtn9uxP3NebVT0xZM9NKJ9z0jbigrctUQksi3NoYIeJMvL6Wn2dgAehpcmmnfn+gUwA==}
     engines: {node: '>=20.19.4'}
 
+  metro-resolver@0.87.0:
+    resolution: {integrity: sha512-Xl3M9R3KToaHJvXlI2lSOxtYHitzxite+195DSi00HL9PcS7Xik5+3xlRjfkKb3FA86SZxYPj+WJwlcfgaZoxg==}
+    engines: {node: ^22.13.0 || ^24.3.0 || >= 26.0.0}
+
   metro-runtime@0.83.3:
     resolution: {integrity: sha512-JHCJb9ebr9rfJ+LcssFYA2x1qPYuSD/bbePupIGhpMrsla7RCwC/VL3yJ9cSU+nUhU4c9Ixxy8tBta+JbDeZWw==}
     engines: {node: '>=20.19.4'}
@@ -13994,7 +13998,7 @@ snapshots:
       - supports-color
       - verdaccio
 
-  '@nx/expo@22.5.3(@babel/core@7.29.7)(@babel/traverse@7.29.8)(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@types/node@24.12.2)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(detox@20.47.0(@jest/environment@30.2.0)(@jest/types@30.2.0)(@types/bunyan@1.8.11)(expect@30.2.0)(jest-environment-jsdom@30.2.0)(jest-environment-node@30.2.0)(jest@30.2.0(@types/node@24.12.2)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))))(eslint@10.2.1(jiti@2.4.2))(metro-config@0.83.8)(metro-resolver@0.83.4)(nx@22.7.7)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)(vite@6.3.5(@types/node@24.12.2)(jiti@2.4.2)(less@4.4.0)(lightningcss@1.32.0)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.46.1)(yaml@2.9.0))(vitest@3.2.4(@types/node@24.12.2)(jiti@2.4.2)(jsdom@26.1.0)(less@4.4.0)(lightningcss@1.32.0)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.46.1)(yaml@2.9.0))':
+  '@nx/expo@22.5.3(@babel/core@7.29.7)(@babel/traverse@7.29.8)(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@types/node@24.12.2)(@zkochan/js-yaml@0.0.7)(babel-plugin-macros@3.1.0)(detox@20.47.0(@jest/environment@30.2.0)(@jest/types@30.2.0)(@types/bunyan@1.8.11)(expect@30.2.0)(jest-environment-jsdom@30.2.0)(jest-environment-node@30.2.0)(jest@30.2.0(@types/node@24.12.2)(babel-plugin-macros@3.1.0)(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))))(eslint@10.2.1(jiti@2.4.2))(metro-config@0.83.8)(metro-resolver@0.87.0)(nx@22.7.7)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(ts-node@10.9.2(@types/node@24.12.2)(typescript@6.0.3))(typescript@6.0.3)(vite@6.3.5(@types/node@24.12.2)(jiti@2.4.2)(less@4.4.0)(lightningcss@1.32.0)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.46.1)(yaml@2.9.0))(vitest@3.2.4(@types/node@24.12.2)(jiti@2.4.2)(jsdom@26.1.0)(less@4.4.0)(lightningcss@1.32.0)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.46.1)(yaml@2.9.0))':
     dependencies:
       '@nx/devkit': 22.5.3(nx@22.7.7)
       '@nx/eslint': 22.5.3(@babel/traverse@7.29.8)(@zkochan/js-yaml@0.0.7)(eslint@10.2.1(jiti@2.4.2))(nx@22.7.7)
@@ -14002,7 +14006,7 @@ snapshots:
       '@nx/react': 22.5.3(@babel/core@7.29.7)(@babel/traverse@7.29.8)(@swc/helpers@0.5.17)(@types/babel__core@7.20.5)(@zkochan/js-yaml@0.0.7)(eslint@10.2.1(jiti@2.4.2))(nx@22.7.7)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)(typescript@6.0.3)(vite@6.3.5(@types/node@24.12.2)(jiti@2.4.2)(less@4.4.0)(lightningcss@1.32.0)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.46.1)(yaml@2.9.0))(vitest@3.2.4(@types/node@24.12.2)(jiti@2.4.2)(jsdom@26.1.0)(less@4.4.0)(lightningcss@1.32.0)(sass-embedded@1.90.0)(sass@1.90.0)(terser@5.46.1)(yaml@2.9.0))
       enhanced-resolve: 5.20.0
       metro-config: 0.83.8
-      metro-resolver: 0.83.4
+      metro-resolver: 0.87.0
       picocolors: 1.1.1
       semver: 7.7.4
       tsconfig-paths: 4.2.0
@@ -20706,6 +20710,10 @@ snapshots:
       flow-enums-runtime: 0.0.6
 
   metro-resolver@0.83.8:
+    dependencies:
+      flow-enums-runtime: 0.0.6
+
+  metro-resolver@0.87.0:
     dependencies:
       flow-enums-runtime: 0.0.6
 
