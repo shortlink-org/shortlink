@@ -30,8 +30,8 @@ importers:
         specifier: 0.20.1
         version: 0.20.1(@opentelemetry/api@1.9.1)(supports-color@7.2.0)
       '@fastify/swagger':
-        specifier: ^9.8.1
-        version: 9.8.1(supports-color@7.2.0)
+        specifier: ^9.9.1
+        version: 9.9.1(supports-color@7.2.0)
       '@fastify/swagger-ui':
         specifier: ^5.2.6
         version: 5.2.6
@@ -544,8 +544,8 @@ packages:
   '@fastify/swagger-ui@5.2.6':
     resolution: {integrity: sha512-OMnms0O5s9wb6wis/K5nlrAMLsgUbr1GA8uphM41IasWe3AFdgxz6r/3bA9HTxlDNUYc2FGGKeqMp3ntxmSiNA==}
 
-  '@fastify/swagger@9.8.1':
-    resolution: {integrity: sha512-VpHMnqZTY8iBZYJE8WWkbKPrXIYWy2rDfIf5qLr6DzZSpQYZ+KxQVcJFiq/AMlvNwI4gCBd66++iUlxXXGT0IQ==}
+  '@fastify/swagger@9.9.1':
+    resolution: {integrity: sha512-RlpdOjU6NC29799y5v0beSlmEu8spEbx7cYNzVaCCihEM0xh9hIdxSQDzom2U9W9ar0KuMA6JnXuFCrcuz9B5A==}
 
   '@godaddy/terminus@4.12.1':
     resolution: {integrity: sha512-Tm+wVu1/V37uZXcT7xOhzdpFoovQReErff8x3y82k6YyWa1gzxWBjTyrx4G2enjEqoXPnUUmJ3MOmwH+TiP6Sw==}
@@ -4738,7 +4738,7 @@ snapshots:
       rfdc: 1.4.1
       yaml: 2.9.0
 
-  '@fastify/swagger@9.8.1(supports-color@7.2.0)':
+  '@fastify/swagger@9.9.1(supports-color@7.2.0)':
     dependencies:
       fastify-plugin: 6.0.0
       json-schema-resolver: 3.0.0(supports-color@7.2.0)
