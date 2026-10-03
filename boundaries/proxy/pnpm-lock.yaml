@@ -99,8 +99,8 @@ importers:
         specifier: 26.2.0
         version: 26.2.0(debug@4.4.3(supports-color@7.2.0))(supports-color@7.2.0)
       '@pyroscope/nodejs':
-        specifier: 0.6.3
-        version: 0.6.3(fastify@5.12.1)(supports-color@7.2.0)
+        specifier: 0.6.4
+        version: 0.6.4(fastify@5.12.1)(supports-color@7.2.0)
       amqplib:
         specifier: ^1.2.0
         version: 1.2.0
@@ -1321,8 +1321,8 @@ packages:
   '@protobufjs/utf8@1.1.2':
     resolution: {integrity: sha512-b1UQwcEZ4yCnMCD8DAL1VlbvBJE9/IX4FTIp7BG1xYpf29SLazLSrqUkj4w7Y5y7cCVP6E5tcqqcI0xemPkHug==}
 
-  '@pyroscope/nodejs@0.6.3':
-    resolution: {integrity: sha512-9ja1M//hF3iraODW5JKPbBVv/1iPrwThzCsLUB4rkyAgKrrtF8opop5mJBd18NWIkA1bTB/697qIbghMctnxxw==}
+  '@pyroscope/nodejs@0.6.4':
+    resolution: {integrity: sha512-pSRR7QOtToxhYuKJJRxFHR74pElI2jSFV20b/j+zN3BMEoOOUCA/RxgEK3gjGB66/c85RGeRy5emOIf6+OAghw==}
     engines: {node: '>=20.20.2'}
     peerDependencies:
       express: ^4.0.0 || ^5.0.0
@@ -5811,7 +5811,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.2': {}
 
-  '@pyroscope/nodejs@0.6.3(fastify@5.12.1)(supports-color@7.2.0)':
+  '@pyroscope/nodejs@0.6.4(fastify@5.12.1)(supports-color@7.2.0)':
     dependencies:
       '@datadog/pprof': 5.14.4
       debug: 4.4.3(supports-color@7.2.0)
