@@ -36,8 +36,8 @@ importers:
         specifier: ^9.12.0
         version: 9.12.0(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5)(supports-color@8.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5)(supports-color@8.1.1))(@types/react@19.2.14)(react@19.2.5)(supports-color@8.1.1))(@mui/material@9.4.0(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5)(supports-color@8.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5)(supports-color@8.1.1))(@types/react@19.2.14)(react@19.2.5)(supports-color@8.1.1))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/react@19.2.14)(date-fns@4.4.0)(dayjs@1.11.23)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@next/env':
-        specifier: ^16.3.3
-        version: 16.3.3
+        specifier: ^16.3.8
+        version: 16.3.8
       '@ory/client':
         specifier: ^1.22.66
         version: 1.22.66(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
@@ -2335,6 +2335,9 @@ packages:
 
   '@next/env@16.3.3':
     resolution: {integrity: sha512-U2eYQRwXj+dsqxV79zFqExDdatnNY/ZWc2nsJU1p/OgT7fd3dXwlF6OjYaFQCfMoeTA19PWq+wVmYgimVA+V+g==}
+
+  '@next/env@16.3.8':
+    resolution: {integrity: sha512-Al9zqHVV7TJv0eFuOU4U7Lvv74PTih4Ch63sk2xCIpSTkE3udFnaOcnzP2lQVymiL7yS9Cj2iClUXlR3EQ5sEw==}
 
   '@next/swc-darwin-arm64@15.5.24':
     resolution: {integrity: sha512-AGdNLvxZNY6eR2iSnV+6wUa8CiHTMr4F7g3uHH7fT4ICIJBE00R9u4tzN/Vuwsw0cOi8MTD2HJcTCb6siMH88Q==}
@@ -9615,6 +9618,8 @@ snapshots:
   '@next/env@15.5.24': {}
 
   '@next/env@16.3.3': {}
+
+  '@next/env@16.3.8': {}
 
   '@next/swc-darwin-arm64@15.5.24':
     optional: true
