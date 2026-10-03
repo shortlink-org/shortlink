@@ -10,16 +10,16 @@ importers:
     dependencies:
       '@buf/shortlink-org_shortlink-link-link.bufbuild_es':
         specifier: 2.11.0-20251128130903-01e2641aede0.1
-        version: 2.11.0-20251128130903-01e2641aede0.1(@bufbuild/protobuf@2.14.0)
+        version: 2.11.0-20251128130903-01e2641aede0.1(@bufbuild/protobuf@2.16.0)
       '@bufbuild/protobuf':
-        specifier: 2.14.0
-        version: 2.14.0
+        specifier: 2.16.0
+        version: 2.16.0
       '@connectrpc/connect':
         specifier: 2.1.2
-        version: 2.1.2(@bufbuild/protobuf@2.14.0)
+        version: 2.1.2(@bufbuild/protobuf@2.16.0)
       '@connectrpc/connect-node':
         specifier: 2.1.2
-        version: 2.1.2(@bufbuild/protobuf@2.14.0)(@connectrpc/connect@2.1.2(@bufbuild/protobuf@2.14.0))
+        version: 2.1.2(@bufbuild/protobuf@2.16.0)(@connectrpc/connect@2.1.2(@bufbuild/protobuf@2.16.0))
       '@fastify/formbody':
         specifier: ^8.0.2
         version: 8.0.2
@@ -259,8 +259,8 @@ packages:
     peerDependencies:
       '@bufbuild/protobuf': ^2.11.0
 
-  '@bufbuild/protobuf@2.14.0':
-    resolution: {integrity: sha512-C3UGsiCwSprE2NKIIFA3hCDlpXTMCAXRZuEVp88L1GY36Y41+rYL5fryE+nOFhp4p4JPQvdV8PQ4DWgHgeTE+w==}
+  '@bufbuild/protobuf@2.16.0':
+    resolution: {integrity: sha512-FWa0sPlqYGJgpTs6OxBRcL/AW4JT0OIO+W1ajerluoTVh8CV0B7XM1qsNCRgnkSCkRCgOICKHRQlY17jrsm0+Q==}
 
   '@colors/colors@1.6.0':
     resolution: {integrity: sha512-Ir+AOibqzrIsL6ajt3Rz3LskB7OiMVHqltZmspbW/TJuTVuyOMirVqAkjfY6JISiLHgyNqicAC8AyHHGzNd/dA==}
@@ -4501,22 +4501,22 @@ snapshots:
       - eslint-import-resolver-webpack
       - supports-color
 
-  '@buf/shortlink-org_shortlink-link-link.bufbuild_es@2.11.0-20251128130903-01e2641aede0.1(@bufbuild/protobuf@2.14.0)':
+  '@buf/shortlink-org_shortlink-link-link.bufbuild_es@2.11.0-20251128130903-01e2641aede0.1(@bufbuild/protobuf@2.16.0)':
     dependencies:
-      '@bufbuild/protobuf': 2.14.0
+      '@bufbuild/protobuf': 2.16.0
 
-  '@bufbuild/protobuf@2.14.0': {}
+  '@bufbuild/protobuf@2.16.0': {}
 
   '@colors/colors@1.6.0': {}
 
-  '@connectrpc/connect-node@2.1.2(@bufbuild/protobuf@2.14.0)(@connectrpc/connect@2.1.2(@bufbuild/protobuf@2.14.0))':
+  '@connectrpc/connect-node@2.1.2(@bufbuild/protobuf@2.16.0)(@connectrpc/connect@2.1.2(@bufbuild/protobuf@2.16.0))':
     dependencies:
-      '@bufbuild/protobuf': 2.14.0
-      '@connectrpc/connect': 2.1.2(@bufbuild/protobuf@2.14.0)
+      '@bufbuild/protobuf': 2.16.0
+      '@connectrpc/connect': 2.1.2(@bufbuild/protobuf@2.16.0)
 
-  '@connectrpc/connect@2.1.2(@bufbuild/protobuf@2.14.0)':
+  '@connectrpc/connect@2.1.2(@bufbuild/protobuf@2.16.0)':
     dependencies:
-      '@bufbuild/protobuf': 2.14.0
+      '@bufbuild/protobuf': 2.16.0
 
   '@dabh/diagnostics@2.0.8':
     dependencies:
