@@ -100,7 +100,7 @@ importers:
         version: 26.2.0(debug@4.4.3(supports-color@7.2.0))(supports-color@7.2.0)
       '@pyroscope/nodejs':
         specifier: 0.6.3
-        version: 0.6.3(fastify@5.12.1)(supports-color@7.2.0)
+        version: 0.6.3(fastify@5.12.5)(supports-color@7.2.0)
       amqplib:
         specifier: ^1.2.0
         version: 1.2.0
@@ -115,7 +115,7 @@ importers:
         version: 17.4.2
       fastify:
         specifier: ^5.12.1
-        version: 5.12.1
+        version: 5.12.5
       ioredis:
         specifier: ^5.11.1
         version: 5.11.1(supports-color@7.2.0)
@@ -2770,8 +2770,8 @@ packages:
   fastify-plugin@6.0.0:
     resolution: {integrity: sha512-fZOty7z3O7vOliF6d8bHE3wiEh1KcNnKEQensSgTk9C1DvN6nRLS++XVd86v33Hw/8u9Un8A1zDrQ8ujcQDHEg==}
 
-  fastify@5.12.1:
-    resolution: {integrity: sha512-FWi+tQvwxR/PeRX7Z2mhfEF5ozJ3jn9asiiclzKXNSzJRHAYcU924aIOKAdHFJ+YIKieh3cqr1IwCOvTr41B3Q==}
+  fastify@5.12.5:
+    resolution: {integrity: sha512-OB2k1dlxs5/NAABqeKV2FUHkSD2BbENsCak8yULVcymn3fHIPDVa9TI3SDnJSWYSllZmSYuZXy2gTnsT+Sut1A==}
 
   fastq@1.20.3:
     resolution: {integrity: sha512-XKv5nnLs6nLF71NgiKJLIZFLkPyIEuOselLG7ujZnGrRfQK8HpvY+WqKhAJUAdLomwVHErVS4LfxFlPq0/FTAw==}
@@ -5811,7 +5811,7 @@ snapshots:
 
   '@protobufjs/utf8@1.1.2': {}
 
-  '@pyroscope/nodejs@0.6.3(fastify@5.12.1)(supports-color@7.2.0)':
+  '@pyroscope/nodejs@0.6.3(fastify@5.12.5)(supports-color@7.2.0)':
     dependencies:
       '@datadog/pprof': 5.14.4
       debug: 4.4.3(supports-color@7.2.0)
@@ -5820,7 +5820,7 @@ snapshots:
       regenerator-runtime: 0.14.1
       source-map: 0.7.6
     optionalDependencies:
-      fastify: 5.12.1
+      fastify: 5.12.5
     transitivePeerDependencies:
       - supports-color
 
@@ -7409,7 +7409,7 @@ snapshots:
 
   fastify-plugin@6.0.0: {}
 
-  fastify@5.12.1:
+  fastify@5.12.5:
     dependencies:
       '@fastify/ajv-compiler': 4.0.6
       '@fastify/error': 4.2.0
