@@ -199,8 +199,8 @@ importers:
         specifier: ^6.1.1
         version: 6.1.1(babel-plugin-react-compiler@1.0.0)
       allure-playwright:
-        specifier: ^3.11.0
-        version: 3.11.0(@playwright/test@1.62.1)
+        specifier: ^3.14.0
+        version: 3.14.0(@playwright/test@1.62.1)
       autoprefixer:
         specifier: ^10.5.4
         version: 10.5.4(postcss@8.5.26)
@@ -2484,6 +2484,7 @@ packages:
   '@opentelemetry/sdk-trace-base@2.10.0':
     resolution: {integrity: sha512-GuYQQT7QD2EeO8lcZLRQzcbOyhqAzL+6WWTKTU9mSUBYBazkEDl+VrQcXQhbB08OWM9anD1aHleVadzulpOaUQ==}
     engines: {node: ^18.19.0 || >=20.6.0}
+    deprecated: Use @opentelemetry/sdk-trace package
     peerDependencies:
       '@opentelemetry/api': '>=1.3.0 <1.10.0'
 
@@ -4150,18 +4151,18 @@ packages:
   alien-signals@0.4.14:
     resolution: {integrity: sha512-itUAVzhczTmP2U5yX67xVpsbbOiquusbWVyA9N+sy6+r6YVbFkahXvNCeEPWEOMhwDYwbVbGHFkVL03N9I5g+Q==}
 
-  allure-js-commons@3.11.0:
-    resolution: {integrity: sha512-dYThkDhru7u7sgwhxRoE9uaxffFXcwnL2+zE0CnmgGebvFmCP8yAZieCHc44MRathtXt44xym9UuVaKSaaJfzw==}
+  allure-js-commons@3.14.0:
+    resolution: {integrity: sha512-Qr/F/tvc+PJv7Q5mniFF2DUJIOvVXmfaFqDZMgSpM2dfzPmSO/D//zGiO8w6kidJMB0VHuPdHPLx5ncLcxj3Gg==}
     peerDependencies:
-      allure-playwright: 3.11.0
+      allure-playwright: 3.14.0
     peerDependenciesMeta:
       allure-playwright:
         optional: true
 
-  allure-playwright@3.11.0:
-    resolution: {integrity: sha512-o+yWq1gJo7TNuMV6eun7SOuJh6nHG3YXmu+ZVhKf6vJQCbczf3jAik0ob8rBO8JOqU+C/oJZfIiQVdp5j/Dosg==}
+  allure-playwright@3.14.0:
+    resolution: {integrity: sha512-TrC1iONL3dEEzCb6y+R4KUladUjcmY5WoM9D/a4pe3YAFw53wvtElUQzlID+beTALocMxThtRyxUaLGx0YRNmw==}
     peerDependencies:
-      '@playwright/test': '>=1.53.0'
+      '@playwright/test': '>=1.62.0'
 
   ansi-regex@5.0.1:
     resolution: {integrity: sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==}
@@ -11571,16 +11572,16 @@ snapshots:
 
   alien-signals@0.4.14: {}
 
-  allure-js-commons@3.11.0(allure-playwright@3.11.0(@playwright/test@1.62.1)):
+  allure-js-commons@3.14.0(allure-playwright@3.14.0(@playwright/test@1.62.1)):
     dependencies:
       md5: 2.3.0
     optionalDependencies:
-      allure-playwright: 3.11.0(@playwright/test@1.62.1)
+      allure-playwright: 3.14.0(@playwright/test@1.62.1)
 
-  allure-playwright@3.11.0(@playwright/test@1.62.1):
+  allure-playwright@3.14.0(@playwright/test@1.62.1):
     dependencies:
       '@playwright/test': 1.62.1
-      allure-js-commons: 3.11.0(allure-playwright@3.11.0(@playwright/test@1.62.1))
+      allure-js-commons: 3.14.0(allure-playwright@3.14.0(@playwright/test@1.62.1))
 
   ansi-regex@5.0.1: {}
 
