@@ -36,8 +36,8 @@ importers:
         specifier: ^9.12.0
         version: 9.12.0(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5)(supports-color@8.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5)(supports-color@8.1.1))(@types/react@19.2.14)(react@19.2.5)(supports-color@8.1.1))(@mui/material@9.4.0(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5)(supports-color@8.1.1))(@emotion/styled@11.14.1(@emotion/react@11.14.0(@types/react@19.2.14)(react@19.2.5)(supports-color@8.1.1))(@types/react@19.2.14)(react@19.2.5)(supports-color@8.1.1))(@types/react@19.2.14)(react-dom@19.2.5(react@19.2.5))(react@19.2.5))(@types/react@19.2.14)(date-fns@4.4.0)(dayjs@1.11.23)(react-dom@19.2.5(react@19.2.5))(react@19.2.5)
       '@next/env':
-        specifier: ^16.4.3
-        version: 16.4.3
+        specifier: ^16.4.5
+        version: 16.4.5
       '@ory/client':
         specifier: ^1.22.66
         version: 1.22.66(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
@@ -2339,8 +2339,8 @@ packages:
   '@next/env@16.3.6':
     resolution: {integrity: sha512-x9Vblze1EbtltQYnNH38xCPWU3TVfBd1eXqA3+w9+BTpedkkdNpAaltXlGQ/nsc1+E0mVTNrtcbX3GoO09zeLQ==}
 
-  '@next/env@16.4.3':
-    resolution: {integrity: sha512-a7tz1QCcWWkwC/rPJcPMJk/UNRu9CFhDd3OHYE5hddbJrs8BqRTalxI6GlKCWEGzRLHN+S/B7a4PAHCtm25aBQ==}
+  '@next/env@16.4.5':
+    resolution: {integrity: sha512-JwSPwpdkZL5VMl2jA/q+JI8MZdweAL3xmw5/tb9y/TLtmS0YXZnmYDzSihwk8xTj1OL+WM53gTqaj96yuLp6Xw==}
 
   '@next/swc-darwin-arm64@15.5.24':
     resolution: {integrity: sha512-AGdNLvxZNY6eR2iSnV+6wUa8CiHTMr4F7g3uHH7fT4ICIJBE00R9u4tzN/Vuwsw0cOi8MTD2HJcTCb6siMH88Q==}
@@ -5162,6 +5162,7 @@ packages:
   image-size@2.0.2:
     resolution: {integrity: sha512-IRqXKlaXwgSMAMtpNzZa1ZAe8m+Sa1770Dhk8VkSsP9LS+iHD62Zd8FQKs8fbPiagBE7BzoFX23cxFnwshpV6w==}
     engines: {node: '>=16.x'}
+    deprecated: Use latest 2.x please
     hasBin: true
 
   immediate@3.0.6:
@@ -9634,7 +9635,7 @@ snapshots:
 
   '@next/env@16.3.6': {}
 
-  '@next/env@16.4.3': {}
+  '@next/env@16.4.5': {}
 
   '@next/swc-darwin-arm64@15.5.24':
     optional: true
@@ -11958,7 +11959,7 @@ snapshots:
   css-tree@2.2.1:
     dependencies:
       mdn-data: 2.0.28
-      source-map-js: 1.2.1
+      source-map-js: 1.2.2
 
   css-tree@2.3.1:
     dependencies:
